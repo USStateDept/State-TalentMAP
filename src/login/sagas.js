@@ -1,6 +1,6 @@
 import { isObject, merge } from 'lodash';
 import { take, call, put, cancelled, race } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import api from '../api';
 import { unsetNotificationsCount } from '../actions/notifications';
 import { userProfileFetchData, unsetUserProfile, trackLogin, updateSavedSearches } from '../actions/userProfile';
@@ -68,8 +68,8 @@ export const auth = {
 /**
  * API Requests
  */
- // This creates short chainable axios object similar to Observables.map()
- // Mainly so we can do some data pre-processing first for sake of reusability
+// This creates short chainable axios object similar to Observables.map()
+// Mainly so we can do some data pre-processing first for sake of reusability
 export const requests = {
   saml: (token) => {
     if (!token) {

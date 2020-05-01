@@ -19,7 +19,7 @@ class SavedSearchesMap extends Component {
     };
   }
 
-  componentWillReceiveProps({ fetchFilters, ...rest }) {
+  UNSAFE_componentWillReceiveProps({ fetchFilters, ...rest }) {
     // To resolve eslint error no-unused-prop-types for `fetchFilters`
     const props = merge({ fetchFilters }, rest);
     this.setupValues(props);

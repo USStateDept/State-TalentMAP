@@ -9,6 +9,7 @@ exports[`CDOAutoSuggest matches snapshot 1`] = `
     filterDebounce={150}
     id="picky"
     includeFilter={true}
+    includeSelectAll={true}
     keepOpen={true}
     labelKey="name"
     multiple={true}

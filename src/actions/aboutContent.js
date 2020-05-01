@@ -1,3 +1,4 @@
+import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
@@ -50,13 +51,17 @@ export function aboutContentFetchData() {
     api().get('/aboutpage/')
       .then((response) => {
         const text = get(response, 'data.content', '');
-        dispatch(aboutContentHasErrored(false));
-        dispatch(aboutContentIsLoading(false));
-        dispatch(aboutContentFetchDataSuccess(text));
+        batch(() => {
+          dispatch(aboutContentHasErrored(false));
+          dispatch(aboutContentIsLoading(false));
+          dispatch(aboutContentFetchDataSuccess(text));
+        });
       })
       .catch(() => {
-        dispatch(aboutContentHasErrored(true));
-        dispatch(aboutContentIsLoading(false));
+        batch(() => {
+          dispatch(aboutContentHasErrored(true));
+          dispatch(aboutContentIsLoading(false));
+        });
       });
   };
 }
@@ -66,17 +71,21 @@ export function aboutContentPatchData(data) {
     dispatch(aboutContentPatchIsLoading(false));
     api().patch('/aboutpage/', { content: data || 'No content' })
       .then(() => {
-        dispatch(aboutContentPatchHasErrored(false));
-        dispatch(aboutContentPatchIsLoading(false));
-        dispatch(aboutContentPatchSuccess(true));
-        dispatch(aboutContentFetchDataSuccess(data));
-        dispatch(toastSuccess('You may now press the cancel button or leave this page.', 'Update successful'));
+        batch(() => {
+          dispatch(aboutContentPatchHasErrored(false));
+          dispatch(aboutContentPatchIsLoading(false));
+          dispatch(aboutContentPatchSuccess(true));
+          dispatch(aboutContentFetchDataSuccess(data));
+          dispatch(toastSuccess('You may now press the cancel button or leave this page.', 'Update successful'));
+        });
       })
       .catch(() => {
-        dispatch(aboutContentPatchHasErrored(true));
-        dispatch(aboutContentPatchIsLoading(false));
-        dispatch(aboutContentPatchSuccess(false));
-        dispatch(toastError('Update unsuccessful. Please try again.', 'Error updating'));
+        batch(() => {
+          dispatch(aboutContentPatchHasErrored(true));
+          dispatch(aboutContentPatchIsLoading(false));
+          dispatch(aboutContentPatchSuccess(false));
+          dispatch(toastError('Update unsuccessful. Please try again.', 'Error updating'));
+        });
       });
   };
 }

@@ -35,19 +35,19 @@ export function postSearchFetchData(query) {
         cancel = c;
       }),
     })
-    .then(({ data }) => {
-      dispatch(postSearchIsLoading(false));
-      let filteredResults = [];
-      if (data.results) {
+      .then(({ data }) => {
+        dispatch(postSearchIsLoading(false));
+        let filteredResults = [];
+        if (data.results) {
         // results should have a location
-        filteredResults = data.results.filter(post => post.location.city !== null);
-      }
-      return filteredResults;
-    })
-    .then(results => dispatch(postSearchSuccess(results)))
-    .catch(() => {
-      dispatch(postSearchHasErrored(true));
-      dispatch(postSearchIsLoading(false));
-    });
+          filteredResults = data.results.filter(post => post.location.city !== null);
+        }
+        return filteredResults;
+      })
+      .then(results => dispatch(postSearchSuccess(results)))
+      .catch(() => {
+        dispatch(postSearchHasErrored(true));
+        dispatch(postSearchIsLoading(false));
+      });
   };
 }

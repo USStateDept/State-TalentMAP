@@ -20,6 +20,7 @@ exports[`BooleanFilterContainerComponent matches snapshot 1`] = `
         },
       }
     }
+    key="1"
     onBooleanFilterClick={[Function]}
   />
 </FieldSet>

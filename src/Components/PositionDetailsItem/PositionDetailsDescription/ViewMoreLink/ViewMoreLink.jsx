@@ -6,19 +6,18 @@ import InteractiveElement from '../../../InteractiveElement';
 class ViewMoreLink extends Component {
   constructor(props) {
     super(props);
-    this.toggleValue = this.toggleValue.bind(this);
     this.state = {
       shouldDisplayViewMore: props.defaultValue,
     };
   }
 
-  toggleValue() {
+  toggleValue = () => {
     const { onChange } = this.props;
     const { shouldDisplayViewMore } = this.state;
     const newValue = !shouldDisplayViewMore;
     this.setState({ shouldDisplayViewMore: newValue });
     onChange(newValue);
-  }
+  };
 
   render() {
     const { shouldDisplayViewMore } = this.state;

@@ -2,7 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import BetaHeader from './BetaHeader';
+import { testDispatchFunctions } from '../../../testUtilities/testUtilities';
+import BetaHeader, { mapDispatchToProps } from './BetaHeader';
 
 describe('BetaHeader', () => {
   it('is defined', () => {
@@ -59,5 +60,13 @@ describe('BetaHeader', () => {
       <BetaHeader.WrappedComponent />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  describe('mapDispatchToProps', () => {
+    const config = {
+      fetchData: [],
+      patchData: [{}],
+    };
+    testDispatchFunctions(mapDispatchToProps, config);
   });
 });

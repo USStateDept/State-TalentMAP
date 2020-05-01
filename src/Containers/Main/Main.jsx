@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import { ScrollContext } from 'react-router-scroll-4';
 import { FlagsProvider } from 'flag';
 import { StickyContainer } from 'react-sticky';

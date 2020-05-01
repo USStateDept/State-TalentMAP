@@ -22,6 +22,13 @@
   padding: 0;
 }
 
+// IE11 fix for input text not displaying
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .user-dashboard > .bidder-portfolio-stat-card-list {
+    max-width: calc(100vw - 260px);
+  }
+}
+
 .bidder-portfolio-stat-card-container:last-child {
   flex-grow: 100;
 }
@@ -106,6 +113,12 @@
       }
     }
 
+    @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+      > div:nth-child(3) {
+        flex: 8 0 50%;
+      }
+    }
+
     // Disable to override the >div:nth-child() styles
     // scss-lint:disable MergeableSelector
     // scss-lint:disable QualifyingElement
@@ -148,6 +161,7 @@
 
     .client-badge-container {
       margin-right: 1em;
+      min-width: 30px; //Fixes ie11 issues
     }
   }
 
@@ -253,7 +267,7 @@
 
       .updates {
         font-weight: bold;
-        margin-bottom: 5px;
+        margin-bottom: 15px;
       }
     }
 
@@ -293,7 +307,6 @@
 .client-badge-list {
   display: flex;
   margin: 0;
-
 }
 
 .client-badge-container {
@@ -303,7 +316,7 @@
   .client-badge {
     min-width: 1em;
 
-    span {
+    svg {
       align-items: center;
       background-color: $bg-gray-medium-1;
       color: $bg-gray-dark-0;
@@ -316,12 +329,12 @@
     }
   }
 
-  &.client-badge-container--success > .client-badge > span {
+  &.client-badge-container--success > .client-badge > div > svg {
     background-color: $color-green-dark;
     color: $color-white;
   }
 
-  &.client-badge-container--warning > .client-badge > span {
+  &.client-badge-container--warning > .client-badge > svg {
     background-color: $color-gold-lighter;
     color: $color-black;
   }
@@ -355,6 +368,23 @@ $cdo-search-container-padding: 10px;
   .bid-cycle-picker-container {
     > div {
       font-size: .8em;
+    }
+
+    li {
+      margin-bottom: 1px;
+      margin-top: 1px;
+    }
+
+    li:first-child {
+      margin-top: 3px;
+    }
+
+    li:last-child {
+      margin-bottom: 3px;
+    }
+
+    .picky--sublabel {
+      margin-left: 2em;
     }
   }
 
@@ -434,6 +464,38 @@ $cdo-search-container-padding: 10px;
     align-items: center;
     display: flex;
     float: right;
+  }
+
+    @media screen and (max-width: 1525px) {
+    .small-screen-stack {
+      flex-wrap: wrap;
+      float: none;
+    }
+    .small-screen-stack > div {
+      flex-basis: 45%;
+      margin: 0 10px;
+    }
+    .small-screen-stack > div > label,.label {
+      min-width: 100px;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .small-screen-stack {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .small-screen-stack > div {
+      align-items: center;
+      display: flex;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .small-screen-stack > div {
+      min-width: 300px;
+    }
   }
 
   .results-search-bar {

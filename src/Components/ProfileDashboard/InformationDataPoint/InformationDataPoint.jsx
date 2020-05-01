@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const InformationDataPoint = ({ title, content, className, titleOnBottom, sideBySide }) => {
   const titleBody = (
-  !!title.length &&
+    !!title.length &&
     <div className="data-point-title">
       {title}
     </div>

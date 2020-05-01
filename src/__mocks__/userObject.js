@@ -1,20 +1,21 @@
 export const bidderUserObject = {
+  emp_id: '1',
+  employee_info: {
+    skills: [
+      {
+        code: '6218',
+        description: 'CONSTRUCTION ENGINEERING',
+      },
+      {
+        code: '6211',
+        description: 'COMPUTER SCIENCE',
+      },
+    ],
+    grade: '00',
+  },
   id: 1,
   grade: '03',
-  skills: [
-    {
-      id: 63,
-      cone: null,
-      code: '6218',
-      description: 'CONSTRUCTION ENGINEERING',
-    },
-    {
-      id: 40,
-      cone: null,
-      code: '6211',
-      description: 'COMPUTER SCIENCE',
-    },
-  ],
+  skills: [63, 40],
   user: {
     initials: 'JD',
     first_name: 'John',

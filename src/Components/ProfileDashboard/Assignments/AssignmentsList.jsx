@@ -29,7 +29,7 @@ const AssignmentList = ({ assignments }) => {
             <div className="usa-grid-full section-padded-inner-container">
               No assignments associated with this user.
             </div>
-          :
+            :
             <BorderedList contentArray={positionArray} />
         }
       </div>

@@ -237,7 +237,6 @@ export function saveSearch(data, id) {
       url: id ? `/searches/${id}/` : '/searches/',
       data,
     };
-
     dispatch(newSavedSearchIsSaving(true));
     dispatch(newSavedSearchSuccess(false));
     dispatch(newSavedSearchHasErrored(false));
@@ -249,10 +248,10 @@ export function saveSearch(data, id) {
         dispatch(newSavedSearchSuccess(
           // if an ID was passed, we know to use the UPDATED message
           id ?
-          { title: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS_TITLE,
-            message: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) } :
-          { title: SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
-            message: SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name) },
+            { title: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS_TITLE,
+              message: SystemMessages.UPDATED_SAVED_SEARCH_SUCCESS(response.data.name) } :
+            { title: SystemMessages.NEW_SAVED_SEARCH_SUCCESS_TITLE,
+              message: SystemMessages.NEW_SAVED_SEARCH_SUCCESS(response.data.name) },
         ));
         // eslint-disable-next-line
         const success = id => id ?
@@ -269,10 +268,10 @@ export function saveSearch(data, id) {
       })
       .catch((err) => {
         dispatch(newSavedSearchHasErrored(
-          { title: 'Error', message: propOrDefault(err, 'response.data', 'An error occurred trying to save this search.') },
+          { title: 'Error', message: propOrDefault(err, 'response.data', SystemMessages.GENERAL_SAVED_SEARCH_ERROR) },
         ));
         dispatch(toastError(
-          'An error occurred trying to save this search.',
+          SystemMessages.GENERAL_SAVED_SEARCH_ERROR,
           'Error',
         ));
         dispatch(newSavedSearchIsSaving(false));

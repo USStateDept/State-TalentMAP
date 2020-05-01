@@ -1,281 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is false 1`] = `
-<div
-  className="usa-grid-full profile-menu"
->
-  <div
-    className="menu-title"
-  >
-    <div
-      className="menu-title-text"
-    >
-      Menu
-    </div>
-    <button
-      className="unstyled-button"
-      onClick={[Function]}
-      title="Collapse menu"
-    >
-      <FontAwesome
-        name="exchange"
-      />
-    </button>
-  </div>
-  <NavLinksContainer>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={false}
-      iconName="user"
-      search=""
-      title="Profile"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="tachometer"
-        link="/profile/dashboard"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="globe"
-        link="/profile/notifications"
-        search=""
-        title="Notifications"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="star"
-        link="/profile/favorites/"
-        search=""
-        title="Favorites"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="clock-o"
-        link="/profile/searches/"
-        search=""
-        title="Saved Searches"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="clipboard"
-        link="/profile/bidtracker/"
-        search=""
-        title="Bid Tracker"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        link="/profile/cycles/"
-        search=""
-        title="Bid Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Client Profiles"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="sitemap"
-      search=""
-      title="Administrator"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        link="/profile/administrator/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="sitemap"
-        link="/profile/administrator/logs/"
-        search=""
-        title="Logs"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="bar-chart"
-        link="/profile/administrator/stats/"
-        search=""
-        title="Statistics"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        link="/profile/administrator/userroles/"
-        search=""
-        title="User Roles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="book"
-        link="/profile/glossaryeditor/"
-        search=""
-        title="Glossary Editor"
-      />
-    </withRouter(NavLink)>
-  </NavLinksContainer>
-</div>
-`;
-
-exports[`ProfileMenuExpandedComponent matches snapshot when isCDO is true 1`] = `
-<div
-  className="usa-grid-full profile-menu"
->
-  <div
-    className="menu-title"
-  >
-    <div
-      className="menu-title-text"
-    >
-      Menu
-    </div>
-    <button
-      className="unstyled-button"
-      onClick={[Function]}
-      title="Collapse menu"
-    >
-      <FontAwesome
-        name="exchange"
-      />
-    </button>
-  </div>
-  <NavLinksContainer>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={false}
-      iconName="user"
-      search=""
-      title="Profile"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="tachometer"
-        link="/profile/dashboard"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="globe"
-        link="/profile/notifications"
-        search=""
-        title="Notifications"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="star"
-        link="/profile/favorites/"
-        search=""
-        title="Favorites"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="clock-o"
-        link="/profile/searches/"
-        search=""
-        title="Saved Searches"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="clipboard"
-        link="/profile/bidtracker/"
-        search=""
-        title="Bid Tracker"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        link="/profile/cycles/"
-        search=""
-        title="Bid Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="users"
-        link="/profile/bidderportfolio"
-        search="?type=all"
-        title="Client Profiles"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="sitemap"
-      search=""
-      title="Administrator"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        link="/profile/administrator/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="sitemap"
-        link="/profile/administrator/logs/"
-        search=""
-        title="Logs"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="bar-chart"
-        link="/profile/administrator/stats/"
-        search=""
-        title="Statistics"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        link="/profile/administrator/userroles/"
-        search=""
-        title="User Roles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="book"
-        link="/profile/glossaryeditor/"
-        search=""
-        title="Glossary Editor"
-      />
-    </withRouter(NavLink)>
-  </NavLinksContainer>
-</div>
-`;
-
 exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is false 1`] = `
 <div
   className="usa-grid-full profile-menu"
@@ -308,6 +32,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       }
       hidden={false}
       iconName="user"
+      key="Profile"
       search=""
       title="Profile"
       toggleMenuSection={[Function]}
@@ -315,6 +40,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={false}
         iconName="tachometer"
+        key="Dashboard"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
@@ -322,6 +48,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={false}
         iconName="globe"
+        key="Notifications"
         link="/profile/notifications"
         search=""
         title="Notifications"
@@ -329,6 +56,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={false}
         iconName="star"
+        key="Favorites"
         link="/profile/favorites/"
         search=""
         title="Favorites"
@@ -336,6 +64,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={false}
         iconName="clock-o"
+        key="Saved Searches"
         link="/profile/searches/"
         search=""
         title="Saved Searches"
@@ -343,19 +72,22 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="clipboard"
+        key="Bid Tracker"
         link="/profile/bidtracker/"
         search=""
         title="Bid Tracker"
       />
       <withRouter(NavLink)
         hidden={true}
+        key="Bid Cycles"
         link="/profile/cycles/"
         search=""
         title="Bid Cycles"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="users"
+        key="Client Profiles"
         link="/profile/bidderportfolio"
         search="?type=all"
         title="Client Profiles"
@@ -370,6 +102,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       }
       hidden={true}
       iconName="sitemap"
+      key="Administrator"
       search=""
       title="Administrator"
       toggleMenuSection={[Function]}
@@ -377,6 +110,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="tachometer"
+        key="Dashboard"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
@@ -384,6 +118,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="sitemap"
+        key="Logs"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
@@ -391,6 +126,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="bar-chart"
+        key="Statistics"
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
@@ -398,6 +134,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="users"
+        key="User Roles"
         link="/profile/administrator/userroles/"
         search=""
         title="User Roles"
@@ -405,6 +142,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="book"
+        key="Glossary Editor"
         link="/profile/glossaryeditor/"
         search=""
         title="Glossary Editor"
@@ -446,6 +184,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       }
       hidden={false}
       iconName="user"
+      key="Profile"
       search=""
       title="Profile"
       toggleMenuSection={[Function]}
@@ -453,6 +192,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={false}
         iconName="tachometer"
+        key="Dashboard"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
@@ -460,6 +200,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={false}
         iconName="globe"
+        key="Notifications"
         link="/profile/notifications"
         search=""
         title="Notifications"
@@ -467,6 +208,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={false}
         iconName="star"
+        key="Favorites"
         link="/profile/favorites/"
         search=""
         title="Favorites"
@@ -474,6 +216,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={false}
         iconName="clock-o"
+        key="Saved Searches"
         link="/profile/searches/"
         search=""
         title="Saved Searches"
@@ -481,19 +224,22 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="clipboard"
+        key="Bid Tracker"
         link="/profile/bidtracker/"
         search=""
         title="Bid Tracker"
       />
       <withRouter(NavLink)
         hidden={false}
+        key="Bid Cycles"
         link="/profile/cycles/"
         search=""
         title="Bid Cycles"
       />
       <withRouter(NavLink)
-        hidden={false}
+        hidden={true}
         iconName="users"
+        key="Client Profiles"
         link="/profile/bidderportfolio"
         search="?type=all"
         title="Client Profiles"
@@ -508,6 +254,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       }
       hidden={true}
       iconName="sitemap"
+      key="Administrator"
       search=""
       title="Administrator"
       toggleMenuSection={[Function]}
@@ -515,6 +262,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="tachometer"
+        key="Dashboard"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
@@ -522,6 +270,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="sitemap"
+        key="Logs"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
@@ -529,6 +278,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="bar-chart"
+        key="Statistics"
         link="/profile/administrator/stats/"
         search=""
         title="Statistics"
@@ -536,6 +286,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="users"
+        key="User Roles"
         link="/profile/administrator/userroles/"
         search=""
         title="User Roles"
@@ -543,6 +294,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="book"
+        key="Glossary Editor"
         link="/profile/glossaryeditor/"
         search=""
         title="Glossary Editor"

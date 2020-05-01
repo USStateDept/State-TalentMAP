@@ -13,9 +13,9 @@ const getUseDarkMode = () => checkFlag('flags.personalization');
 
 const browserHandler = () => {
   switch (getBrowserName()) {
-    // Dark mode breaks in IE11.
-    // Attempt to disable dark mode if for some reason it is set to true.
-    // Also set in src/Containers/DarkMode/DarkMode.jsx
+  // Dark mode breaks in IE11.
+  // Attempt to disable dark mode if for some reason it is set to true.
+  // Also set in src/Containers/DarkMode/DarkMode.jsx
     case 'Chrome':
     case 'Firefox':
     case 'Safari': {
@@ -28,27 +28,19 @@ const browserHandler = () => {
 };
 
 export class AccountDropdown extends Component {
-
-  constructor(props) {
-    super(props);
-    this.hideDropdown = this.hideDropdown.bind(this);
-    this.showDropdown = this.showDropdown.bind(this);
-    this.logout = this.logout.bind(this);
-  }
-
-  logout() {
+  logout = () => {
     this.props.logoutRequest();
-  }
+  };
 
-  hideDropdown() {
+  hideDropdown = () => {
     // Explicitly hide the dropdown using the built-in hide() function from react-simple-dropdown
     this.dropdown.hide();
-  }
+  };
 
-  showDropdown() {
+  showDropdown = () => {
     // Explicitly show the dropdown using the built-in hide() function from react-simple-dropdown
     this.dropdown.show();
-  }
+  };
 
   render() {
     const { shouldDisplayName, userProfile } = this.props;

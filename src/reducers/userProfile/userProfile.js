@@ -19,7 +19,7 @@ export function userProfileIsLoading(state = false, action) {
 export function userProfile(state = DEFAULT_USER_PROFILE, action) {
   switch (action.type) {
     case 'USER_PROFILE_FETCH_DATA_SUCCESS':
-      return action.userProfile;
+      return { ...state, ...action.userProfile };
     default:
       return state;
   }

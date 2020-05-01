@@ -88,7 +88,7 @@ describe('PostFilterComponent', () => {
       />,
     );
     const spy = sinon.spy(wrapper.instance(), 'setSelectedStates');
-    wrapper.instance().componentWillReceiveProps(
+    wrapper.instance().UNSAFE_componentWillReceiveProps(
       { domesticIsSelected: true, overseasIsSelected: false },
     );
     sinon.assert.calledOnce(spy);

@@ -2,18 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { get } from 'lodash';
 import ProfileDashboard from 'Components/ProfileDashboard';
+import Alert from 'Components/Alert';
 import { fetchClassifications } from 'actions/classifications';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
-import { USER_PROFILE, EMPTY_FUNCTION, CLASSIFICATIONS } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
-import Alert from '../../Components/Alert';
+import { USER_PROFILE, EMPTY_FUNCTION, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
+import { registerHandshake } from 'actions/bidList';
 
 class ProfilePublic extends Component {
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     this.props.fetchData(id);
     this.props.fetchClassifications();
@@ -27,6 +27,7 @@ class ProfilePublic extends Component {
       classifications,
       classificationsIsLoading,
       classificationsHasErrored,
+      registerHandshakePosition,
     } = this.props;
     const { bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
@@ -35,13 +36,14 @@ class ProfilePublic extends Component {
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />
-      :
+        :
         <ProfileDashboard
           userProfile={userProfile}
           isLoading={combinedLoading}
           bidList={bidList}
           classifications={classifications}
           clientClassifications={clientClassifications}
+          registerHandshake={registerHandshakePosition}
           isPublic
         />
     );
@@ -57,6 +59,7 @@ ProfilePublic.propTypes = {
   classificationsHasErrored: PropTypes.bool,
   hasErrored: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  registerHandshakePosition: PropTypes.func,
 };
 
 ProfilePublic.defaultProps = {
@@ -68,6 +71,7 @@ ProfilePublic.defaultProps = {
   classificationsIsLoading: true,
   classificationsHasErrored: false,
   classifications: [],
+  registerHandshakePosition: EMPTY_FUNCTION,
 };
 
 ProfilePublic.contextTypes = {
@@ -84,10 +88,15 @@ const mapStateToProps = (state, ownProps) => ({
   classifications: state.classifications,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  fetchData: id => dispatch(userProfilePublicFetchData(id)),
-  onNavigateTo: dest => dispatch(push(dest)),
-  fetchClassifications: () => dispatch(fetchClassifications()),
-});
+export const mapDispatchToProps = (dispatch, ownProps) => {
+  const id$ = get(ownProps, 'match.params.id');
+  const config = {
+    fetchData: id => dispatch(userProfilePublicFetchData(id)),
+    onNavigateTo: dest => dispatch(push(dest)),
+    fetchClassifications: () => dispatch(fetchClassifications()),
+    registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
+  };
+  return config;
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfilePublic));

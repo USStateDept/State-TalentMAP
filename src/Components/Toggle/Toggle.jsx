@@ -6,14 +6,12 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 class Toggle extends Component {
   constructor(props) {
     super(props);
-    this.isSelected = this.isSelected.bind(this);
-    this.onSelect = this.onSelect.bind(this);
     this.state = {
       val: props.items[props.initialIndex].value,
     };
   }
 
-  onSelect(e) {
+  onSelect = e => {
     const { onChange } = this.props;
     const val = get(e, 'target.value');
     if (val) {
@@ -21,17 +19,17 @@ class Toggle extends Component {
         onChange(this.state.val);
       });
     }
-  }
+  };
 
   // used by consumer components as ref
   updateVal(val) {
     this.setState({ val });
   }
 
-  isSelected(v) {
+  isSelected = v => {
     const { val } = this.state;
     return v === val;
-  }
+  };
 
   render() {
     const { items } = this.props;

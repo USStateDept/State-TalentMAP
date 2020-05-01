@@ -6,27 +6,20 @@ import { EMPTY_FUNCTION, GLOSSARY_LIST, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_
 import GlossaryEditor from '../../Components/GlossaryEditor';
 
 class GlossaryEditorContainer extends Component {
-
-  constructor(props) {
-    super(props);
-    this.submitGlossaryTerm = this.submitGlossaryTerm.bind(this);
-    this.submitNewGlossaryTerm = this.submitNewGlossaryTerm.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchGlossary } = this.props;
     fetchGlossary();
   }
 
-  submitGlossaryTerm(term, onSuccess = EMPTY_FUNCTION) {
+  submitGlossaryTerm = (term, onSuccess = EMPTY_FUNCTION) => {
     const { submitGlossaryTerm } = this.props;
     submitGlossaryTerm(term, onSuccess);
-  }
+  };
 
-  submitNewGlossaryTerm(term, onSuccess = EMPTY_FUNCTION) {
+  submitNewGlossaryTerm = (term, onSuccess = EMPTY_FUNCTION) => {
     const { submitNewGlossaryTerm } = this.props;
     submitNewGlossaryTerm(term, onSuccess);
-  }
+  };
 
   render() {
     const {

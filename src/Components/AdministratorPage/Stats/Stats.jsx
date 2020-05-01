@@ -18,7 +18,7 @@ class Stats extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { getStats } = this.props;
     getStats();
   }

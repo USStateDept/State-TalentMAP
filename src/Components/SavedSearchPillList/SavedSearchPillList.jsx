@@ -22,7 +22,7 @@ const SavedSearchPillList = ({ pills, isProjectedVacancy, highlightedString }) =
           >
             {shortenString(p, 21)}
           </div>
-          ),
+        ),
         )
       }
     </div>

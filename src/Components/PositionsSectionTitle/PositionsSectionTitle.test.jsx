@@ -14,17 +14,6 @@ describe('PositionsSectionTitleComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const title = 'title';
-    const wrapper = shallow(
-      <PositionsSectionTitle
-        title={title}
-        viewMoreLink="link"
-      />,
-    );
-    expect(wrapper.instance().props.title).toBe(title);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <PositionsSectionTitle

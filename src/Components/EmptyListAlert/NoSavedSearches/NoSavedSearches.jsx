@@ -8,10 +8,10 @@ const NoSavedSearches = () => {
     <EmptyListAlert
       textLineOne="You haven't saved any searches."
       textLineTwo={
-      (
-        <span>{textLineTwo}</span>
-      )
-    }
+        (
+          <span>{textLineTwo}</span>
+        )
+      }
     />
   );
 };

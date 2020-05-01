@@ -10,8 +10,6 @@ import Icon from './Icon';
 class CompareCheck extends Component {
   constructor(props) {
     super(props);
-    this.toggleSaved = this.toggleSaved.bind(this);
-    this.eventListener = this.eventListener.bind(this);
     this.state = {
       saved: false,
       localStorageKey: null,
@@ -19,7 +17,7 @@ class CompareCheck extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const localStorageKey = this.props.type;
     this.setState({ localStorageKey });
 
@@ -56,23 +54,23 @@ class CompareCheck extends Component {
     return this.exceedsLimit() && !this.state.saved;
   }
 
-  toggleSaved() {
+  toggleSaved = () => {
     if (!this.isDisabled()) {
       localStorageToggleValue(this.state.localStorageKey, this.props.refKey);
       this.setState({ saved: !this.state.saved });
       this.onToggle();
     }
-  }
+  };
 
-  eventListener() {
+  eventListener = () => {
     this.getSaved();
-  }
+  };
 
   // eslint-disable-next-line class-methods-use-this
   joinClassNames(className) {
     return className
-    .join(' ')
-    .trim();
+      .join(' ')
+      .trim();
   }
 
   render() {
@@ -108,9 +106,9 @@ class CompareCheck extends Component {
         :
         <InteractiveElement {...options}>
           {
-          !this.isDisabled() &&
+            !this.isDisabled() &&
             icon
-        } {text}
+          } {text}
         </InteractiveElement>
     );
   }

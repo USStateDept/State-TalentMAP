@@ -7,37 +7,32 @@ import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import FeedbackForm from '../../Components/FeedbackForm';
 
 class FeedbackContainer extends Component {
-
   constructor(props) {
     super(props);
-    this.toggleVisibility = this.toggleVisibility.bind(this);
-    this.submitFeedback = this.submitFeedback.bind(this);
-    this.changeFeedbackText = this.changeFeedbackText.bind(this);
-    this.changeAdditionalFeedbackCheck = this.changeAdditionalFeedbackCheck.bind(this);
     this.state = {
       feedbackText: '',
       additionalFeedbackCheck: false,
     };
   }
 
-  changeFeedbackText(e) {
+  changeFeedbackText = e => {
     this.setState({ feedbackText: e });
-  }
+  };
 
-  changeAdditionalFeedbackCheck(e) {
+  changeAdditionalFeedbackCheck = e => {
     this.setState({ additionalFeedbackCheck: e });
-  }
+  };
 
-  submitFeedback(e) {
+  submitFeedback = e => {
     if (e.preventDefault) { e.preventDefault(); }
     const { feedbackText, additionalFeedbackCheck } = this.state;
     this.props.submitFeedback(feedbackText, additionalFeedbackCheck);
-  }
+  };
 
-  toggleVisibility() {
+  toggleVisibility = () => {
     const { shouldShowFeedback, toggleFeedbackVisibility } = this.props;
     toggleFeedbackVisibility(!shouldShowFeedback);
-  }
+  };
 
   render() {
     const { shouldShowFeedback, feedbackIsSending,

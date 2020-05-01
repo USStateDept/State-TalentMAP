@@ -19,32 +19,38 @@ const ResultsCondensedCard = (
     isRecentlyAvailable,
     useShortFavButton,
     showCompareButton,
+    sortType,
+    limit,
+    page,
   }) => (
-    <BoxShadow className="usa-grid-full condensed-card-inner">
-      <ResultsCondensedCardTop
-        favorites={favorites}
-        position={position}
-        type={type}
-        isProjectedVacancy={isProjectedVacancy}
-        isRecentlyAvailable={isRecentlyAvailable}
-      />
-      <ResultsCondensedCardBottom
-        position={position}
-        favorites={favorites}
-        favoritesPV={favoritesPV}
-        bidList={bidList}
-        refreshFavorites={refreshFavorites}
-        showBidListButton={showBidListButton && !isProjectedVacancy}
-        showBidCount={!isProjectedVacancy}
-        useShortFavButton={useShortFavButton}
-        showCompareButton={showCompareButton}
-        isProjectedVacancy={isProjectedVacancy}
-      />
-      <ResultsCondensedCardFooter
-        position={position}
-        isProjectedVacancy={isProjectedVacancy}
-      />
-    </BoxShadow>
+  <BoxShadow className="usa-grid-full condensed-card-inner">
+    <ResultsCondensedCardTop
+      favorites={favorites}
+      position={position}
+      type={type}
+      isProjectedVacancy={isProjectedVacancy}
+      isRecentlyAvailable={isRecentlyAvailable}
+    />
+    <ResultsCondensedCardBottom
+      position={position}
+      favorites={favorites}
+      favoritesPV={favoritesPV}
+      bidList={bidList}
+      refreshFavorites={refreshFavorites}
+      showBidListButton={showBidListButton && !isProjectedVacancy}
+      showBidCount={!isProjectedVacancy}
+      useShortFavButton={useShortFavButton}
+      showCompareButton={showCompareButton}
+      isProjectedVacancy={isProjectedVacancy}
+      sortType={sortType}
+      limit={limit}
+      page={page}
+    />
+    <ResultsCondensedCardFooter
+      position={position}
+      isProjectedVacancy={isProjectedVacancy}
+    />
+  </BoxShadow>
 );
 
 ResultsCondensedCard.propTypes = {
@@ -61,6 +67,9 @@ ResultsCondensedCard.propTypes = {
   isRecentlyAvailable: PropTypes.bool,
   useShortFavButton: PropTypes.bool,
   showCompareButton: PropTypes.bool,
+  sortType: PropTypes.string,
+  limit: PropTypes.number,
+  page: PropTypes.number,
 };
 
 ResultsCondensedCard.defaultProps = {
@@ -72,6 +81,9 @@ ResultsCondensedCard.defaultProps = {
   isRecentlyAvailable: false,
   useShortFavButton: false,
   showCompareButton: false,
+  sortType: null,
+  limit: 15,
+  page: 1,
 };
 
 export default ResultsCondensedCard;

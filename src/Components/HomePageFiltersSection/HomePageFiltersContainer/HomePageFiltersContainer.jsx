@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import HomePageFilters from './HomePageFilters';
@@ -10,22 +10,20 @@ import { ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 class HomePageFiltersContainer extends Component {
   constructor(props) {
     super(props);
-    this.onSkillSelect = this.onSkillSelect.bind(this);
-    this.submitSearch = this.submitSearch.bind(this);
     this.state = {
       filterValues: {},
     };
   }
 
   // Set all available filter arrays on mount
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { filterValues } = this.state;
     filterValues[ENDPOINT_PARAMS.skill] = [];
   }
 
   // When a skill is selected, pull all the "codes" from the skill array and
   // set them to a new array and store in state.
-  onSkillSelect(values) {
+  onSkillSelect = values => {
     const { filterValues } = this.state;
     const filterArray = [];
     values.forEach((value) => {
@@ -33,12 +31,12 @@ class HomePageFiltersContainer extends Component {
     });
     filterValues[ENDPOINT_PARAMS.skill] = filterArray;
     this.setState({ filterValues });
-  }
+  };
 
   // Submit the search by taking all the different filters' arrays and converting them strings,
   // then passing the parent object to queryString to stringify it.
   // Then pass that new string to a /results search.
-  submitSearch(e) {
+  submitSearch = e => {
     // preventDefault() to prevent form submission side effects
     e.preventDefault();
     const { filterValues } = this.state;
@@ -51,7 +49,7 @@ class HomePageFiltersContainer extends Component {
     });
     const qString = queryString.stringify(stringifiedFilterValues);
     this.props.onNavigateTo(`/results?${qString}`);
-  }
+  };
 
   render() {
     const { filters, isLoading, userSkills } = this.props;

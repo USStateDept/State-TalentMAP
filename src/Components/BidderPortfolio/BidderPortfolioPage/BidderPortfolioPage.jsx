@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import StaticDevContent from 'Components/StaticDevContent';
 import TotalResults from 'Components/TotalResults/TotalResults';
+import ErrorBoundary from 'Components/ErrorBoundary';
 import Spinner from '../../Spinner';
 import BidderPortfolioContainer from '../BidderPortfolioContainer';
 import TopNav from '../TopNav';
@@ -19,28 +20,29 @@ const getUseClientCounts = () => checkFlag('flags.client_counts');
 class BidderPortfolioPage extends Component {
   constructor(props) {
     super(props);
-    this.changeViewType = this.changeViewType.bind(this);
-    this.changeEditType = this.changeEditType.bind(this);
     this.state = {
       viewType: { value: 'card' },
       editType: { show: false },
     };
   }
-  changeViewType(value) {
+
+  changeViewType = value => {
     const { viewType } = this.state;
     viewType.value = value;
     this.setState({ viewType });
-  }
-  changeEditType(value) {
+  };
+
+  changeEditType = value => {
     this.setState({ editType: value });
-  }
+  };
+
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
-    bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-    bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
-    classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
+      bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
+      bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
+      classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // Here we just want to check that the 'all_clients' prop exists,
     // because we want the nav section to appear
     // even when we reload the counts.
@@ -89,6 +91,7 @@ class BidderPortfolioPage extends Component {
                 queryParamUpdate={queryParamUpdate}
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
+                pageSize={pageSize}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
               />
@@ -111,18 +114,20 @@ class BidderPortfolioPage extends Component {
             }
             {
               !isLoading &&
-                <BidderPortfolioContainer
-                  bidderPortfolio={bidderPortfolio}
-                  pageSize={pageSize}
-                  queryParamUpdate={queryParamUpdate}
-                  pageNumber={pageNumber}
-                  showListView={isListView}
-                  showEdit={showEdit}
-                  classifications={classifications}
-                  isLoading={bidderPortfolioIsLoading}
-                  cdosLength={cdosLength}
-                  hideControls={hideControls}
-                />
+                <ErrorBoundary>
+                  <BidderPortfolioContainer
+                    bidderPortfolio={bidderPortfolio}
+                    pageSize={pageSize}
+                    queryParamUpdate={queryParamUpdate}
+                    pageNumber={pageNumber}
+                    showListView={isListView}
+                    showEdit={showEdit}
+                    classifications={classifications}
+                    isLoading={bidderPortfolioIsLoading}
+                    cdosLength={cdosLength}
+                    hideControls={hideControls}
+                  />
+                </ErrorBoundary>
             }
           </div>
         </div>

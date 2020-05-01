@@ -12,7 +12,7 @@ import FA from 'react-fontawesome';
 import { addHours, format, parse, subHours } from 'date-fns';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { DateUtils } from 'react-day-picker';
-import TimeInput from 'time-input';
+import TimeInput from 'react-keyboard-time-input';
 import InteractiveElement from '../../../InteractiveElement';
 import Form from '../../../Form';
 import FieldSet from '../../../FieldSet';
@@ -52,16 +52,6 @@ const getScheduledJob = (jobs = [], prop = 'next_synchronization', ordering = 'd
 class DataSync extends Component {
   constructor(props) {
     super(props);
-    this.setJob = this.setJob.bind(this);
-    this.showForm = this.showForm.bind(this);
-    this.closeForm = this.closeForm.bind(this);
-    this.updateTime = this.updateTime.bind(this);
-    this.updateDate = this.updateDate.bind(this);
-    this.dateIsValid = this.dateIsValid.bind(this);
-    this.formIsValid = this.formIsValid.bind(this);
-    this.updateBool = this.updateBool.bind(this);
-    this.updateVal = this.updateVal.bind(this);
-    this.submitSync = this.submitSync.bind(this);
     this.state = {
       showForm: false,
       formValues: {
@@ -77,7 +67,7 @@ class DataSync extends Component {
     };
   }
 
-  setJob(job) {
+  setJob = job => {
     const job$ = {
       ...job,
       last_synchronization: parseDate(new Date(job.last_synchronization)),
@@ -91,9 +81,9 @@ class DataSync extends Component {
       use_last_date_updated: job.use_last_date_updated ? 'true' : 'false',
     };
     this.setState({ formValues: job$ }, () => this.showForm());
-  }
+  };
 
-  submitSync() {
+  submitSync = () => {
     const { patchSyncJob } = this.props;
     const { formValues: f } = this.state;
 
@@ -128,55 +118,53 @@ class DataSync extends Component {
     };
 
     patchSyncJob(formValues$);
-  }
+  };
 
-  showForm() {
+  showForm = () => {
     this.setState({ showForm: true });
     focusById('form-header', 1);
-  }
+  };
 
-  closeForm() {
+  closeForm = () => {
     this.setState({ showForm: false });
     focusById('new-sync-button', 1);
-  }
+  };
 
-  updateTime(value, field = 'next_synchronization_time') {
+  updateTime = (value, field = 'next_synchronization_time') => {
     const { formValues } = this.state;
     formValues[field] = value;
     this.setState({ formValues });
-  }
+  };
 
-  updateBool(value = false, field) {
+  updateBool = (value = false, field) => {
     const { formValues } = this.state;
     if (field) {
       formValues[field] = toString(value);
       this.setState({ formValues });
     }
-  }
+  };
 
-  updateVal(value = null, field) {
+  updateVal = (value = null, field) => {
     const v$ = get(value, 'target.value');
     const { formValues } = this.state;
     if (!isNull(v$)) {
       formValues[field] = v$;
       this.setState({ formValues });
     }
-  }
+  };
 
-  updateDate(value, field = 'next_synchronization') {
+  updateDate = (value, field = 'next_synchronization') => {
     const { formValues } = this.state;
     formValues[field] = value;
     this.setState({ formValues });
-  }
+  };
 
-  dateIsValid(field = 'next_synchronization') {
+  dateIsValid = (field = 'next_synchronization') => {
     const { formValues: { [field]: field$ } } = this.state;
     return !!field$;
-  }
+  };
 
-  formIsValid() {
-    return this.dateIsValid('next_synchronization') && this.dateIsValid('last_synchronization');
-  }
+  formIsValid = () => this.dateIsValid('next_synchronization') && this.dateIsValid('last_synchronization');
 
   render() {
     const { showForm, formValues } = this.state;
@@ -264,7 +252,7 @@ class DataSync extends Component {
                       </FieldSet>
 
                       {
-                       /* eslint-disable */
+                        /* eslint-disable */
                        /* TODO - server-side
                       <FieldSet legend="Next Synchronization">
                         <div className="date-time-forms">

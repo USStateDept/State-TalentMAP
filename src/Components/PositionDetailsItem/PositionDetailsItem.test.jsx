@@ -1,6 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import toJSON from 'enzyme-to-json';
+import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 import PositionDetailsItem, { renderHandshake } from './PositionDetailsItem';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -15,15 +16,24 @@ describe('PositionDetailsItem', () => {
     editWebsiteContent: () => {},
   };
 
-  it('can receive props', () => {
+  it('renders handshake', () => {
+    expect(renderHandshake({ has_handshake_offered: true })).toBeDefined();
+  });
+
+  it('is defined', () => {
     const wrapper = shallow(
       <PositionDetailsItem {...props} />,
     );
-    expect(wrapper.instance().props.details.id).toBe(1);
+    expect(wrapper).toBeDefined();
   });
 
-  it('renders handshake', () => {
-    expect(renderHandshake({ has_handshake_offered: true })).toBeDefined();
+  it('is defined when posted date is null', () => {
+    const details$ = { ...props.details };
+    details$.position[COMMON_PROPERTIES.posted] = null;
+    const wrapper = shallow(
+      <PositionDetailsItem {...props} />,
+    );
+    expect(wrapper).toBeDefined();
   });
 
   it('handles different props and different position objects', () => {
@@ -32,7 +42,7 @@ describe('PositionDetailsItem', () => {
     const wrapper = shallow(
       <PositionDetailsItem {...props} details={details} />,
     );
-    expect(wrapper.instance().props.details.languages.length).toBe(0);
+    expect(wrapper).toBeDefined();
   });
 
   it('handles different types of position objects', () => {
@@ -42,7 +52,7 @@ describe('PositionDetailsItem', () => {
     const wrapper = shallow(
       <PositionDetailsItem {...props} details={details} />,
     );
-    expect(wrapper.instance().props.details.languages.length).toBe(0);
+    expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {

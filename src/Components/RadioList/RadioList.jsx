@@ -7,19 +7,18 @@ class RadioList extends Component {
   constructor(props) {
     super(props);
     const value = get(props, 'options[0].value') || get(props, 'options[0].id');
-    this.updateValue = this.updateValue.bind(this);
     this.state = {
       value: props.value || value || '',
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.value !== this.props.value) {
       this.setState({ value: nextProps.value });
     }
   }
 
-  updateValue(e) {
+  updateValue = e => {
     const { onChange } = this.props;
     const value = get(e, 'target.value', null);
     if (value) {
@@ -27,7 +26,7 @@ class RadioList extends Component {
         onChange(value);
       });
     }
-  }
+  };
 
   render() {
     const { value: selectedValue } = this.state;

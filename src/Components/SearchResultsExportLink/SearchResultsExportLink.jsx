@@ -8,21 +8,20 @@ import ExportButton from '../ExportButton';
 class SearchResultsExportLink extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
     this.state = {
       isLoading: false,
       query: { value: window.location.search.replace('?', '') || '' },
     };
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     const query = window.location.search.replace('?', '') || '';
     if (this.state.query.value !== query) {
       this.setState({ query: { value: query } });
     }
   }
 
-  onClick() {
+  onClick = () => {
     const { isLoading } = this.state;
     const { isProjectedVacancy } = this.context;
     if (!isLoading) {
@@ -34,21 +33,23 @@ class SearchResultsExportLink extends Component {
           page: 1,
         };
         downloadPositionData(queryString.stringify(query), isProjectedVacancy)
-        .then(() => {
-          this.setState({ isLoading: false });
-        })
-        .catch(() => {
-          this.setState({ isLoading: false });
-        });
+          .then(() => {
+            this.setState({ isLoading: false });
+          })
+          .catch(() => {
+            this.setState({ isLoading: false });
+          });
       });
     }
-  }
+  };
 
   render() {
     const { isLoading } = this.state;
+    const { count } = this.props;
+    const disabled = !count;
     return (
       <div className="export-button-container">
-        <ExportButton onClick={this.onClick} isLoading={isLoading} />
+        <ExportButton onClick={this.onClick} isLoading={isLoading} disabled={disabled} />
       </div>
     );
   }

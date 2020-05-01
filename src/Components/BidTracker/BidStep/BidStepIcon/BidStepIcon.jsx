@@ -22,19 +22,19 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
 };
 
 const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
-hasRescheduledTooltip }) => (
+  hasRescheduledTooltip }) => (
   <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
-        ?
-          <div className="icon-container">
-            <span
-              className={assignClasses(isComplete, needsAction, isCurrent)}
-            >
-              {number > 0 ? number : null}
-            </span>
-            { hasRescheduledTooltip && <RescheduledIcon />}
-          </div> :
-          <FontAwesome name="check" /> }
+      ?
+      <div className="icon-container">
+        <span
+          className={assignClasses(isComplete, needsAction, isCurrent)}
+        >
+          {number > 0 ? number : null}
+        </span>
+        { hasRescheduledTooltip && <RescheduledIcon />}
+      </div> :
+      <FontAwesome name="check" /> }
   </span>
 );
 

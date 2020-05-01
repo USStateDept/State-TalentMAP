@@ -6,6 +6,7 @@ exports[`Toggle matches snapshot 1`] = `
 >
   <button
     className="toggle-button toggle-button--selected"
+    key="1"
     onClick={[Function]}
     value={1}
   >
@@ -13,6 +14,7 @@ exports[`Toggle matches snapshot 1`] = `
   </button>
   <button
     className="toggle-button "
+    key="2"
     onClick={[Function]}
     value={2}
   >
@@ -20,6 +22,7 @@ exports[`Toggle matches snapshot 1`] = `
   </button>
   <button
     className="toggle-button "
+    key="3"
     onClick={[Function]}
     value={3}
   >

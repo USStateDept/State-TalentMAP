@@ -7,25 +7,27 @@ import { formatIdSpacing } from '../../../utilities';
 class AccordionItem extends Component {
   constructor(props) {
     super(props);
-    this.setExpanded = this.setExpanded.bind(this);
     this.state = {
       expanded: props.expanded,
     };
   }
 
   // Update the value of expanded, only if the prop value changed and the new value is not undefined
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isUndefined(nextProps.expanded) && !(isEqual(nextProps.expanded, this.props.expanded))) {
       this.setState({ expanded: nextProps.expanded });
     }
   }
 
   // Update local state and emit to the parent
-  setExpanded() {
-    this.setState({ expanded: !this.state.expanded }, () => {
-      this.props.setAccordion(this.props.id, this.state.expanded);
-    });
-  }
+  setExpanded = () => {
+    const { disabled } = this.props;
+    if (!disabled) {
+      this.setState({ expanded: !this.state.expanded }, () => {
+        this.props.setAccordion(this.props.id, this.state.expanded);
+      });
+    }
+  };
 
   // helper function for parents to use via ref, to set the expanded state to a desired value
   setExpandedFromRef(expanded) {
@@ -38,24 +40,29 @@ class AccordionItem extends Component {
   }
 
   render() {
-    const { expanded } = this.state;
-    const { id, title, children, className, useIdClass,
-      buttonClass, childClass, preContent } = this.props;
+    const { expanded: expandedState } = this.state;
+    const { id, title, children, className, controlled, expanded: expandedProp, useIdClass,
+      buttonClass, childClass, preContent, disabled } = this.props;
     const formattedId = formatIdSpacing(id);
     const idClass = useIdClass ? `accordion-${(formattedId || 'accordion').toLowerCase()}` : '';
+    let expanded$ = expandedProp;
+    if (controlled) {
+      expanded$ = !disabled && expandedState;
+    }
     return (
       <li className={className}>
         {preContent}
         <button
           id={`${id}-button`}
           className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''}`}
-          aria-expanded={expanded}
+          aria-expanded={expanded$}
           aria-controls={formattedId}
           onClick={this.setExpanded}
+          tabIndex={disabled ? '-1' : undefined}
         >
           <div className="accordion-item-title">{title}</div>
         </button>
-        <div id={formattedId} className={`usa-accordion-content ${childClass} ${idClass}`} aria-hidden={!expanded}>
+        <div id={formattedId} className={`usa-accordion-content ${childClass} ${idClass}`} aria-hidden={!expanded$}>
           {children}
         </div>
       </li>
@@ -74,6 +81,8 @@ AccordionItem.propTypes = {
   buttonClass: PropTypes.string,
   childClass: PropTypes.string,
   preContent: PropTypes.node,
+  disabled: PropTypes.bool,
+  controlled: PropTypes.bool,
 };
 
 AccordionItem.defaultProps = {
@@ -86,6 +95,8 @@ AccordionItem.defaultProps = {
   buttonClass: '',
   childClass: '',
   preContent: undefined,
+  disabled: false,
+  controlled: false,
 };
 
 export default AccordionItem;

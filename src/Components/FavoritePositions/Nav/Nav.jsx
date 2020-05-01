@@ -7,20 +7,21 @@ import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 class Nav extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
     this.state = {
       selected: props.selected || get(props, 'options[0].title'),
     };
   }
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.selected !== this.state.selected) {
       this.setState({ selected: nextProps.selected });
     }
   }
-  onClick(selected) {
+
+  onClick = selected => {
     const { onClick } = this.props;
     this.setState({ selected }, () => onClick(selected));
-  }
+  };
+
   render() {
     const { denominator, options } = this.props;
     return (
@@ -51,14 +52,14 @@ Nav.propTypes = {
       numerator: PropTypes.number.isRequired,
     }),
   ),
-  denominator: PropTypes.number.isRequired,
+  denominator: PropTypes.number,
   selected: PropTypes.string,
   onClick: PropTypes.func,
 };
 
 Nav.defaultProps = {
   options: [],
-  denominator: 1,
+  denominator: null,
   selected: '',
   onClick: EMPTY_FUNCTION,
 };

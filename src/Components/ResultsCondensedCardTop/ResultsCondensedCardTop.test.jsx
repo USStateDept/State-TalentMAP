@@ -46,18 +46,6 @@ describe('ResultsCondensedCardTopComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can receive props', () => {
-    const wrapper = shallow(
-      <ResultsCondensedCardTop
-        position={resultsObject.results[0]}
-        type={type}
-        favorites={favorites}
-        bidList={bidListObject.results}
-      />,
-    );
-    expect(wrapper.instance().props.type).toBe(type);
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(
       <ResultsCondensedCardTop
@@ -80,19 +68,5 @@ describe('ResultsCondensedCardTopComponent', () => {
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
-  });
-
-  it('can receive alternate props', () => {
-    const position = resultsObject.results[0];
-    position.update_date = null;
-    const wrapper = shallow(
-      <ResultsCondensedCardTop
-        position={position}
-        type={'default'}
-        favorites={favorites}
-        bidList={bidListObject.results}
-      />,
-    );
-    expect(wrapper.instance().props.type).toBe('default');
   });
 });

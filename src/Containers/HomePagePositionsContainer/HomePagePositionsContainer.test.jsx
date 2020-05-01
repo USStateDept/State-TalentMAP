@@ -15,7 +15,16 @@ const mockStore = configureStore(middlewares);
 
 describe('Home', () => {
   const props = {
-    userProfile: { id: 1, skills: [], grade: '01' },
+    userProfile: {
+      id: 4,
+      employee_info: {
+        grade: '03',
+        skills: [{
+          code: '0030',
+          description: 'Computer Science',
+        }],
+      },
+    },
     bidList: [],
     homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
   };
@@ -72,7 +81,7 @@ describe('Home', () => {
         userProfile={{}}
         homePagePositionsIsLoading
       />);
-    wrapper.instance().componentWillReceiveProps({
+    wrapper.instance().UNSAFE_componentWillReceiveProps({
       ...props,
       homePagePositionsIsLoading: false,
     });

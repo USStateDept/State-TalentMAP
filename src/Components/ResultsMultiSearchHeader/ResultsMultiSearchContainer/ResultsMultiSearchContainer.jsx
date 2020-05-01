@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import PropTypes from 'prop-types';
 import { setSelectedSearchbarFilters } from '../../../actions/selectedSearchbarFilters';
-import { FILTERS_PARENT, USER_PROFILE, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { FILTERS_PARENT, USER_PROFILE, EMPTY_FUNCTION, HISTORY_OBJECT } from '../../../Constants/PropTypes';
 import { filtersFetchData } from '../../../actions/filters/filters';
 import ResultsMultiSearchHeader from '../ResultsMultiSearchHeader';
 import bypassRoutes from '../bypassRoutes';
@@ -14,8 +14,6 @@ import { isCurrentPathIn } from '../../ProfileMenu/navigation';
 class ResultsMultiSearchHeaderContainer extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.onFilterChange = this.onFilterChange.bind(this);
     this.state = {
       query: {
         position_q: '',
@@ -23,7 +21,7 @@ class ResultsMultiSearchHeaderContainer extends Component {
     };
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { fetchFilters, filters, history } = this.props;
 
     // We have a nested Saved Search container that fetches all of the data that this one needs.
@@ -43,12 +41,12 @@ class ResultsMultiSearchHeaderContainer extends Component {
     }
   }
 
-  onFilterChange(q) {
+  onFilterChange = q => {
     const { searchbarFilters, setSearchFilters } = this.props;
     setSearchFilters({ ...searchbarFilters, ...q });
-  }
+  };
 
-  onSubmit(q) {
+  onSubmit = q => {
     const query = q;
     const stringifiedFilterValues = {};
     // Form query object by iterating through keys.
@@ -72,7 +70,7 @@ class ResultsMultiSearchHeaderContainer extends Component {
     const qString = queryString.stringify(stringifiedFilterValues);
     // Navigate to results with the formed query.
     this.props.onNavigateTo(`/results?${qString}`);
-  }
+  };
 
   render() {
     const { filters, userProfile, filtersIsLoading,
@@ -98,7 +96,7 @@ ResultsMultiSearchHeaderContainer.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   setSearchFilters: PropTypes.func.isRequired,
   searchbarFilters: PropTypes.shape({}),
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
 };
 
 ResultsMultiSearchHeaderContainer.defaultProps = {

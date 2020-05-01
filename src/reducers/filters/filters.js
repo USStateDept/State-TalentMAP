@@ -1,5 +1,5 @@
 import { has } from 'lodash';
-import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
+import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 
 const filterAPFilters = (data) => {
   const filters$ = data.filters.map((m) => {
@@ -113,11 +113,6 @@ const items =
         // Allow users to include languages with no code. This option is not supplied from
         // the endpoint, so we define it here.
         initialData: [
-          {
-            code: COMMON_PROPERTIES.NULL_LANGUAGE,
-            short_description: 'No language requirement',
-            custom_description: 'No language requirement',
-          },
         ],
         initialDataAP: [
         ],
@@ -139,11 +134,6 @@ const items =
         // Allow users to include languages with no code. This option is not supplied from
         // the endpoint, so we define it here.
         initialData: [
-          {
-            code: COMMON_PROPERTIES.NULL_LANGUAGE,
-            short_description: 'No language requirement',
-            custom_description: 'No language requirement',
-          },
         ],
       },
       {
@@ -156,8 +146,8 @@ const items =
           description: 'languageGroup',
         },
         data: [
-          // useAll means that we don't need to explicitly list the languages here.
-          { id: 1, name: 'Languages', isSelected: false, useAll: true },
+          { id: 1, code: 'languages', name: 'Languages', isSelected: false },
+          { id: 2, code: 'no-language', name: 'No Language', isSelected: false },
         ],
       },
       {
@@ -349,7 +339,6 @@ const items =
           { code: 'true', short_description: 'Featured' },
         ],
       },
-
       {
         item: {
           title: 'Post',
@@ -367,6 +356,21 @@ const items =
         },
         data: [
         ],
+      },
+      {
+        item: {
+          title: 'Handshake',
+          sort: 1200,
+          description: 'handshake',
+          selectionRef: ENDPOINT_PARAMS.handshake,
+          text: 'Include positions with handshakes',
+          onlyAvailablePositions: true,
+        },
+        data: [
+          { code: 'HS', description: 'Has Handshake' },
+          { code: 'OP', description: 'No Handshake' },
+        ],
+        dataAP: [],
       },
     ],
   };

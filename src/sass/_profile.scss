@@ -44,8 +44,9 @@
 
   // fix container width in IE11
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    .condensed-card-highlighted > .usa-grid-full {
-      max-width: 1200px;
+    .condensed-card-highlighted > .usa-grid-full,
+    .user-dashboard-main {
+      max-width: calc(100vw - 250px);
     }
   }
 
@@ -129,7 +130,7 @@
     .favorites-top-section {
       margin-bottom: 1.2em;
 
-      &.favorites-top-section--controls {
+      .favorites-top-section--controls {
         display: flex;
         justify-content: flex-end;
       }

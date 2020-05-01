@@ -18,8 +18,6 @@ const browser = bowser.getParser(window.navigator.userAgent);
 const isIE = browser.satisfies({ 'internet explorer': '<=11' });
 const THROTTLE_MS = isIE ? 1000 : 0;
 
-export const getDisplayProperty = o => `${o.first_name} ${o.last_name}`;
-
 export function renderList({ items, selected, ...rest }) {
   const getIsSelected = item => !!selected.find(f => f.id === item.id);
   return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIsSelected} />);
@@ -38,7 +36,7 @@ class CDOAutoSuggest extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.cdos, nextProps.cdos)) {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
@@ -66,6 +64,7 @@ class CDOAutoSuggest extends Component {
             renderList={renderList}
             valueKey="id"
             labelKey="name"
+            includeSelectAll
 
             // TODO - Once React 16 is integrated, upgrade to react-picky >=5.2.0 to use this prop
             // filterTermProcessor={trim} // import trim from lodash

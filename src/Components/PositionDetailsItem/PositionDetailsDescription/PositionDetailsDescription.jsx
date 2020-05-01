@@ -11,9 +11,6 @@ import { shortenString, propOrDefault } from '../../../utilities';
 class PositionDetailsDescription extends Component {
   constructor(props) {
     super(props);
-    this.toggleDescriptionEditor = this.toggleDescriptionEditor.bind(this);
-    this.submitDescriptionEdit = this.submitDescriptionEdit.bind(this);
-    this.onDescriptionLengthToggle = this.onDescriptionLengthToggle.bind(this);
     this.state = {
       shouldShowDescriptionEditor: { value: false },
       newDescriptionContent: { value: null },
@@ -21,9 +18,9 @@ class PositionDetailsDescription extends Component {
     };
   }
 
-  onDescriptionLengthToggle(value) {
+  onDescriptionLengthToggle = value => {
     this.setState({ shouldDisplayFullDescription: !value });
-  }
+  };
 
   // We need to set three variables:
   // 1. To check if it exists (not null)
@@ -43,21 +40,21 @@ class PositionDetailsDescription extends Component {
     return { plainTextDescription, formattedDescription };
   }
 
-  toggleDescriptionEditor() {
+  toggleDescriptionEditor = () => {
     // reset any alert messages
     this.props.resetDescriptionEditMessages();
     const { shouldShowDescriptionEditor } = this.state;
     shouldShowDescriptionEditor.value = !shouldShowDescriptionEditor.value;
     this.setState({ shouldShowDescriptionEditor });
-  }
+  };
 
-  submitDescriptionEdit(content) {
+  submitDescriptionEdit = content => {
     const { newDescriptionContent } = this.state;
     newDescriptionContent.value = content;
     this.setState({ newDescriptionContent });
     this.props.editDescriptionContent(content);
     this.toggleDescriptionEditor();
-  }
+  };
 
   render() {
     const { details } = this.props;

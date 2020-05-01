@@ -167,185 +167,6 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
       }
       favorites={Array []}
       hasErrored={false}
-      icon="bolt"
-      isLoading={false}
-      maxLength="3"
-      positions={
-        Array [
-          Object {
-            "position": Object {
-              "grade": "03",
-              "id": 2,
-            },
-          },
-        ]
-      }
-      title="Featured Positions"
-      type="serviceNeed"
-      useSpinner={false}
-      viewMoreLink="/results?is_highlighted=true"
-      wrapInLink={true}
-    />
-    <HomePagePositionsSection
-      bidList={
-        Array [
-          Object {
-            "approved_date": "2017-12-20",
-            "bidcycle": Object {
-              "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-            },
-            "closed_date": "2017-12-20",
-            "create_date": "2017-12-20",
-            "declined_date": "2017-12-20",
-            "draft_date": "2017-12-20",
-            "handshake_accepted_date": "2017-12-20",
-            "handshake_declined_date": "2017-12-20",
-            "handshake_offered_date": "2017-12-20",
-            "id": 3,
-            "in_panel_date": "2017-12-20",
-            "is_priority": false,
-            "position": Object {
-              "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-              "create_date": "2015-08-05",
-              "grade": "03",
-              "id": 11,
-              "position_number": "10035561",
-              "post": Object {
-                "id": 199,
-                "location": Object {
-                  "city": "Freetown",
-                  "code": "00A",
-                  "country": "Sierra Leone",
-                  "id": 103,
-                  "state": "",
-                },
-              },
-              "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-              "title": "POLITICAL/ECONOMIC OFFICER",
-              "update_date": "2017-06-08",
-            },
-            "reviewer": Object {
-              "email": "woodwardw@state.gov",
-              "first_name": "Wendy",
-              "is_cdo": false,
-              "last_name": "Woodward",
-              "phone_number": "555-555-5555",
-              "username": "woodwardw",
-            },
-            "scheduled_panel_date": "2017-12-20",
-            "status": "approved",
-            "submitted_date": "2017-12-20",
-            "update_date": "2017-12-20",
-            "user": "rehmant",
-          },
-          Object {
-            "approved_date": "2017-12-20",
-            "bidcycle": Object {
-              "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-            },
-            "closed_date": "2017-12-20",
-            "create_date": "2017-12-20",
-            "declined_date": "2017-12-20",
-            "draft_date": "2017-12-20",
-            "handshake_accepted_date": "2017-12-20",
-            "handshake_declined_date": "2017-12-20",
-            "handshake_offered_date": "2017-12-20",
-            "id": 1,
-            "in_panel_date": "2017-12-20",
-            "is_priority": true,
-            "position": Object {
-              "id": 1,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2006-09-20",
-                "grade": "05",
-                "id": 1,
-                "position_number": "00003026",
-                "post": Object {
-                  "id": 235,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
-                  },
-                },
-                "skill": "OFFICE MANAGEMENT (9017)",
-                "title": "OMS (COM)",
-                "update_date": "2017-06-08",
-              },
-            },
-            "reviewer": Object {
-              "email": "woodwardw@state.gov",
-              "first_name": "Wendy",
-              "is_cdo": false,
-              "last_name": "Woodward",
-              "phone_number": "555-555-5555",
-              "username": "woodwardw",
-            },
-            "scheduled_panel_date": "2017-12-20",
-            "status": "closed",
-            "submitted_date": "2017-12-20",
-            "update_date": "2017-12-20",
-            "user": "rehmant",
-          },
-          Object {
-            "approved_date": "2017-12-20",
-            "bidcycle": Object {
-              "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-            },
-            "closed_date": "2017-12-20",
-            "create_date": "2017-12-20",
-            "declined_date": "2017-12-20",
-            "draft_date": "2017-12-20",
-            "handshake_accepted_date": "2017-12-20",
-            "handshake_declined_date": "2017-12-20",
-            "handshake_offered_date": "2017-12-20",
-            "id": 2,
-            "in_panel_date": "2017-12-20",
-            "is_priority": false,
-            "position": Object {
-              "id": 79,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2006-09-20",
-                "grade": "04",
-                "id": 84,
-                "position_number": "56001600",
-                "post": Object {
-                  "id": 195,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
-                  },
-                },
-                "skill": "SECURITY (2501)",
-                "title": "SPECIAL AGENT",
-                "update_date": "2017-06-08",
-              },
-            },
-            "reviewer": Object {
-              "email": "woodwardw@state.gov",
-              "first_name": "Wendy",
-              "is_cdo": false,
-              "last_name": "Woodward",
-              "phone_number": "555-555-5555",
-              "username": "woodwardw",
-            },
-            "scheduled_panel_date": "2017-12-20",
-            "status": "closed",
-            "submitted_date": "2017-12-20",
-            "update_date": "2017-12-20",
-            "user": "rehmant",
-          },
-        ]
-      }
-      favorites={Array []}
-      hasErrored={false}
       icon="briefcase"
       isLoading={false}
       maxLength="3"
@@ -359,10 +180,10 @@ exports[`HomePageComponent matches snapshot when position arrays are filled 1`] 
           },
         ]
       }
-      title="Positions in skill 1"
+      title="Positions That Match Your Grade And Skill(s)"
       type="default"
       useSpinner={false}
-      viewMoreLink="/results?position__skill__code__in=,"
+      viewMoreLink="/results?position__skill__code__in=3001,2881&position__grade__code__in=03"
       wrapInLink={true}
     />
   </div>
@@ -536,14 +357,14 @@ exports[`HomePageComponent matches snapshot when the positions arrays are empty 
       }
       favorites={Array []}
       hasErrored={false}
-      icon="briefcase"
+      icon="star"
       isLoading={false}
       maxLength="3"
       positions={Array []}
-      title="Positions in Skills"
+      title="Favorited Positions"
       type="default"
       useSpinner={false}
-      viewMoreLink="/results"
+      viewMoreLink="/profile/favorites/"
       wrapInLink={true}
     />
   </div>

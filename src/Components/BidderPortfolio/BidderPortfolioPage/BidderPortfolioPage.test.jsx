@@ -25,6 +25,11 @@ describe('BidderPortfolioPageComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when navDataIsLoading === true', () => {
+    const wrapper = shallow(<BidderPortfolioPage {...props} navDataIsLoading />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('sets state when changeEditType() is called', () => {
     const wrapper = shallow(<BidderPortfolioPage {...props} />);
     const setTo = 3;

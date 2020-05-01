@@ -8,39 +8,35 @@ import TextInput from '../TextInput';
 class SaveNewSearchDialog extends Component {
   constructor(props) {
     super(props);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.changeNewSearchName = this.changeNewSearchName.bind(this);
-    this.updateSavedSearch = this.updateSavedSearch.bind(this);
-    this.submitSavedSearch = this.submitSavedSearch.bind(this);
     this.state = {
       newSearchName: { value: this.props.currentSavedSearch.name || '' },
     };
   }
 
-  onSubmit(e) {
+  onSubmit = e => {
     if (this.isExisting) {
       this.submitSavedSearch(e, this.props.currentSavedSearch.id);
     } else {
       this.submitSavedSearch(e);
     }
-  }
+  };
 
   get isExisting() {
     const id = this.props.currentSavedSearch.id || 0;
     return (id > 0);
   }
 
-  changeNewSearchName(e) {
+  changeNewSearchName = e => {
     const { newSearchName } = this.state;
     newSearchName.value = e;
     this.setState({ newSearchName });
-  }
+  };
 
-  updateSavedSearch(e) {
+  updateSavedSearch = e => {
     this.submitSavedSearch(e, this.props.currentSavedSearch.id);
-  }
+  };
 
-  submitSavedSearch(e, id) {
+  submitSavedSearch = (e, id) => {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
@@ -48,7 +44,7 @@ class SaveNewSearchDialog extends Component {
     if (this.state.newSearchName.value) {
       this.props.onCancel(e);
     }
-  }
+  };
 
   render() {
     const { onCancel, newSavedSearchHasErrored, newSavedSearchSuccess } = this.props;

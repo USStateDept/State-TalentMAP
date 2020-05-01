@@ -56,7 +56,7 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'bidCycle':
       return name;
     case 'language':
-      // language code NONE gets displayed differently
+    // language code NONE gets displayed differently
       return getLanguageNameByIfNull(filterItemObject);
     case 'grade':
       return getCustomGradeDescription(code);
@@ -65,6 +65,23 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     default:
       return false;
   }
+}
+
+// create custom attributes based on the filter type
+// eslint-disable-next-line complexity
+export function getFilterCustomAttributes(filterItem, filterItemObject) {
+  const { item: { description: descriptionPrimary } } = filterItem;
+  const { code } = filterItemObject;
+  switch (descriptionPrimary) {
+    case 'language':
+      if (code === 'NLR') {
+        return { group: 'no-language' };
+      }
+      return { group: 'languages' };
+    default:
+      break;
+  }
+  return null;
 }
 
 const getDefaultPillText = filterItemObject => (

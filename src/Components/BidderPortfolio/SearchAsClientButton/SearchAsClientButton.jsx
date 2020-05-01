@@ -10,6 +10,7 @@ import { lookupAndSetCDO } from 'actions/bidderPortfolio';
 import { setClient } from 'actions/clientView';
 import { fetchClientSuggestions } from 'actions/clientSuggestions';
 import { scrollTo } from 'utilities';
+import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { CONTAINER_ID as ID } from '../../ClientHeader';
 
 export const genSearchParams = (user) => {
@@ -35,13 +36,12 @@ export const genSearchParams = (user) => {
 export class SearchAsClientButton extends Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
     this.state = {
       clicked: false,
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { clicked } = this.state;
     const { client, isLoading, hasErrored, history,
       user, useRecommended } = nextProps;
@@ -63,7 +63,7 @@ export class SearchAsClientButton extends Component {
     }
   }
 
-  onClick() {
+  onClick = () => {
     const { fetchSuggestions, set, user, isLoading, recIsLoading, useRecommended } = this.props;
     const { perdet_seq_number: id } = user;
     if (!isLoading && !useRecommended) {
@@ -78,7 +78,7 @@ export class SearchAsClientButton extends Component {
         fetchSuggestions(id);
       });
     }
-  }
+  };
 
   genSearchParamsAndNavigate(user, history) {
     const query = genSearchParams(user);
@@ -118,14 +118,18 @@ export class SearchAsClientButton extends Component {
 }
 
 SearchAsClientButton.propTypes = {
-  user: PropTypes.shape({}).isRequired,
+  user: PropTypes.shape({
+    perdet_seq_number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }).isRequired,
   buttonProps: PropTypes.shape({}),
   className: PropTypes.string,
-  client: PropTypes.shape({}),
+  client: PropTypes.shape({
+    perdet_seq_number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  }),
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   set: PropTypes.func.isRequired,
-  history: PropTypes.shape({}).isRequired,
+  history: HISTORY_OBJECT.isRequired,
   fetchSuggestions: PropTypes.func.isRequired,
   recId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   suggestions: PropTypes.shape({}),

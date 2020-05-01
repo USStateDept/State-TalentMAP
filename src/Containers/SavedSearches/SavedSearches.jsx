@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from '../../actions/savedSearch';
 import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
@@ -13,13 +13,7 @@ import { formQueryString } from '../../utilities';
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
 // that use this container.
 class SavedSearchesContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.goToSavedSearch = this.goToSavedSearch.bind(this);
-    this.getSortedSearches = this.getSortedSearches.bind(this);
-  }
-
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.getSavedSearches();
   }
 
@@ -27,14 +21,14 @@ class SavedSearchesContainer extends Component {
     this.props.savedSearchesFetchData();
   }
 
-  getSortedSearches(type) {
+  getSortedSearches = type => {
     if (type.target && type.target.value) {
       this.props.savedSearchesFetchData(type.target.value);
       this.setState({ defaultSort: type.target.value });
     }
-  }
+  };
 
-  goToSavedSearch(savedSearchObject) {
+  goToSavedSearch = savedSearchObject => {
     const q = { ...savedSearchObject.filters };
     if (savedSearchObject.endpoint === '/api/v1/fsbid/projected_vacancies/') {
       q.projectedVacancy = 'projected';
@@ -42,7 +36,7 @@ class SavedSearchesContainer extends Component {
     const stringifiedQuery = formQueryString(q);
     this.props.setCurrentSavedSearch(savedSearchObject);
     this.props.onNavigateTo(`/results?${stringifiedQuery}`);
-  }
+  };
 
   render() {
     const { savedSearches, deleteSearch, ChildElement, savedSearchesIsLoading } = this.props;

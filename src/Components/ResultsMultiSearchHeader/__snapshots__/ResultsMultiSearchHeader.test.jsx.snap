@@ -71,10 +71,10 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 userSkills={
                   Array [
                     Object {
-                      "code": "6218",
+                      "code": 63,
                     },
                     Object {
-                      "code": "6211",
+                      "code": 40,
                     },
                   ]
                 }

@@ -8,25 +8,23 @@ import { focusById } from '../../utilities';
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.changeText = this.changeText.bind(this);
-    this.clearSearch = this.clearSearch.bind(this);
     this.state = {
       searchText: { value: this.props.defaultValue || '' },
     };
   }
 
-  changeText(e) {
+  changeText = e => {
     const { searchText } = this.state;
     searchText.value = e.target.value;
     this.setState({ searchText }, this.props.onChangeText(e));
-  }
+  };
 
-  clearSearch() {
+  clearSearch = () => {
     const { id } = this.props;
     this.changeText({ target: { value: '' } });
     this.props.onClear();
     focusById(id, 1);
-  }
+  };
 
   render() {
     const hidden = {
@@ -84,7 +82,7 @@ class SearchBar extends Component {
                 ) : <FA name="search" />
               }
             </span>
-          :
+            :
             input
         }
         <div id={`enabled-search-${id}`}>

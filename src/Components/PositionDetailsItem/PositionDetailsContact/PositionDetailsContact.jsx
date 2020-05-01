@@ -10,11 +10,6 @@ import { COMING_SOON } from '../../../Constants/SystemMessages';
 class PositionDetailsContact extends Component {
   constructor(props) {
     super(props);
-    this.toggleWebsiteEditor = this.toggleWebsiteEditor.bind(this);
-    this.togglePocEditor = this.togglePocEditor.bind(this);
-    this.submitWebsiteEdit = this.submitWebsiteEdit.bind(this);
-    this.submitPocEdit = this.submitPocEdit.bind(this);
-    this.renderBidCount = this.renderBidCount.bind(this);
     this.state = {
       shouldShowWebsiteEditor: { value: false },
       shouldShowPocEditor: { value: false },
@@ -35,7 +30,7 @@ class PositionDetailsContact extends Component {
     const plainTextPostWebsite = postWebsite ? newWebsiteContent.value || postWebsite : newWebsiteContent.value || '';
     const formattedPostWebsite = postWebsite || newWebsiteContent.value ?
       <a href={plainTextPostWebsite}>{plainTextPostWebsite}</a> :
-    COMING_SOON;
+      COMING_SOON;
 
     return { plainTextPostWebsite, formattedPostWebsite };
   }
@@ -50,45 +45,45 @@ class PositionDetailsContact extends Component {
     return { plainTextPointOfContact, formattedPointOfContact };
   }
 
-  toggleWebsiteEditor() {
+  toggleWebsiteEditor = () => {
     // reset any alert messages
     this.props.resetDescriptionEditMessages();
     const { shouldShowWebsiteEditor } = this.state;
     shouldShowWebsiteEditor.value = !shouldShowWebsiteEditor.value;
     this.setState({ shouldShowWebsiteEditor });
-  }
+  };
 
-  togglePocEditor() {
+  togglePocEditor = () => {
     // reset any alert messages
     this.props.resetDescriptionEditMessages();
     const { shouldShowPocEditor } = this.state;
     shouldShowPocEditor.value = !shouldShowPocEditor.value;
     this.setState({ shouldShowPocEditor });
-  }
+  };
 
-  submitWebsiteEdit(content) {
+  submitWebsiteEdit = content => {
     const { newWebsiteContent } = this.state;
     newWebsiteContent.value = content;
     this.setState({ newWebsiteContent });
     this.props.editWebsiteContent(content);
     this.toggleWebsiteEditor();
-  }
+  };
 
-  submitPocEdit(content) {
+  submitPocEdit = content => {
     const { newPocContent } = this.state;
     newPocContent.value = content;
     this.setState({ newPocContent });
     this.props.editPocContent(content);
     this.togglePocEditor();
-  }
+  };
 
-  renderBidCount() {
+  renderBidCount = () => {
     const { details } = this.props;
     const stats = getBidStatisticsObject(details.bidStatistics);
     return (
       <BidCount bidStatistics={stats} hideLabel altStyle isCondensed />
     );
-  }
+  };
 
   render() {
     const { details, isProjectedVacancy } = this.props;

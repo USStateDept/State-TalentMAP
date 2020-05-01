@@ -49,23 +49,12 @@ describe('SearchFiltersContainerComponent', () => {
     missionSearchResults: [],
     fetchPostAutocomplete: () => {},
     postSearchResults: [],
-    isCDO: false,
   };
 
   it('is defined', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
         {...props}
-      />,
-    );
-    expect(wrapper.instance()).toBeDefined();
-  });
-
-  it('is defined when isCDO is true', () => {
-    const wrapper = shallow(
-      <SearchFiltersContainer
-        {...props}
-        isCDO
       />,
     );
     expect(wrapper.instance()).toBeDefined();

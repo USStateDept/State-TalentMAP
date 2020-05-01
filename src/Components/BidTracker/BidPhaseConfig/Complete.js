@@ -7,6 +7,7 @@ import {
   HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_OFFERED_PROP,
   HAND_SHAKE_DECLINED_PROP,
+  HAND_SHAKE_NEEDS_REGISTER_PROP,
   PRE_PANEL_PROP,
   IN_PANEL_PROP,
   SUBMITTED_PROP,
@@ -65,8 +66,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
 
   // Perform a switch to check the status.
   switch (bid.status) {
-
-    // Draft stage
+  // Draft stage
     case DRAFT_PROP:
       bidClassObject.stages[DRAFT_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT, date: DRAFT_DATE, title: DRAFT_TITLE };
@@ -141,7 +141,42 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         title: APPROVAL_TITLE,
         number: APPROVED_NUMBER };
       return bidClassObject;
-
+    case HAND_SHAKE_NEEDS_REGISTER_PROP:
+      bidClassObject.stages[DRAFT_PROP] = Object.assign(
+        {},
+        DEFAULT_COMPLETE_OBJECT,
+        { number: DRAFT_NUMBER, date: DRAFT_DATE, title: DRAFT_TITLE },
+      );
+      bidClassObject.stages[SUBMITTED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: SUBMITTED_DATE,
+        title: SUBMIT_BID_COMPLETE_TITLE,
+        number: SUBMITTED_NUMBER };
+      bidClassObject.stages[HAND_SHAKE_OFFERED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: HAND_SHAKE_OFFERED_DATE,
+        title: HAND_SHAKE_OFFERED_TITLE,
+        number: SUBMITTED_NUMBER };
+      bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: HAND_SHAKE_ACCEPTED_DATE,
+        title: HAND_SHAKE_ACCEPTED_TITLE,
+        needsAction: false,
+        isPendingLine: true,
+        hasBidPreparingTooltip: false,
+        number: HAND_SHAKE_ACCEPTED_NUMBER };
+      bidClassObject.stages[IN_PANEL_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: IN_PANEL_DATE,
+        title: 'Panel Pending',
+        hasRescheduledTooltip: !!bid.panel_reschedule_count,
+        number: IN_PANEL_NUMBER };
+      bidClassObject.stages[APPROVED_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: APPROVED_DATE,
+        title: APPROVAL_TITLE,
+        number: APPROVED_NUMBER };
+      return bidClassObject;
     // When the handshake is accepted, we display an overlay alert, so it can look the same
     // as the Pre-panel phase.
     case HAND_SHAKE_ACCEPTED_PROP:

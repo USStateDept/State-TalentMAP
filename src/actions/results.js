@@ -1,7 +1,12 @@
+import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
 import { get } from 'lodash';
+import numeral from 'numeral';
+import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
+import { store } from '../store';
+import { toastSuccess, toastError, toastInfo } from './toast';
 import api from '../api';
 
 let cancel;
@@ -58,28 +63,45 @@ export function resultsFetchSimilarPositions(id) {
     })
       .then(response => response.data)
       .then((results) => {
-        dispatch(resultsSimilarPositionsFetchDataSuccess(results));
-        dispatch(resultsSimilarPositionsHasErrored(false));
-        dispatch(resultsSimilarPositionsIsLoading(false));
+        batch(() => {
+          dispatch(resultsSimilarPositionsFetchDataSuccess(results));
+          dispatch(resultsSimilarPositionsHasErrored(false));
+          dispatch(resultsSimilarPositionsIsLoading(false));
+        });
       })
       .catch(() => {
-        dispatch(resultsSimilarPositionsFetchDataSuccess({}));
-        dispatch(resultsSimilarPositionsHasErrored(true));
-        dispatch(resultsSimilarPositionsIsLoading(false));
+        batch(() => {
+          dispatch(resultsSimilarPositionsFetchDataSuccess({}));
+          dispatch(resultsSimilarPositionsHasErrored(true));
+          dispatch(resultsSimilarPositionsIsLoading(false));
+        });
       });
   };
 }
 
 export function downloadPositionData(query, isPV) {
   const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
+  // generate a unique ID to track the notification
+  const id = shortid.generate();
+  store.dispatch(toastInfo('Please wait while we process your position export.', 'Loading...', id));
   return api()
-  .get(`${prefix}?${query}`, {
-    cancelToken: new CancelToken((c) => { cancel = c; }),
-    responseType: 'stream',
-  })
-  .then((response) => {
-    downloadFromResponse(response, 'TalentMap_search_export');
-  });
+    .get(`${prefix}?${query}`, {
+      cancelToken: new CancelToken((c) => { cancel = c; }),
+      responseType: 'stream',
+    })
+    .then((response) => {
+      downloadFromResponse(response, 'TalentMap_search_export');
+      // display the position limit, if any, to the user
+      let limit = response.headers['position-limit'];
+      // format the number to include commas
+      if (limit) { limit = numeral(limit).format('0,0'); }
+      const text = `Your position export is complete.${limit ? ` Results have been limited to the first ${limit}.` : ''}`;
+      store.dispatch(toastSuccess(text, 'Success', id, true));
+    })
+    .catch(() => {
+      const text = 'Sorry, an error has occurred while processing your position export. Please try again.';
+      store.dispatch(toastError(text, 'Error', id, true));
+    });
 }
 
 export function fetchResultData(query) {
@@ -95,18 +117,18 @@ export function fetchResultData(query) {
   const query$ = queryString.stringify(parsed);
 
   return api()
-  .get(`${prefix}/?${query$}`, {
-    cancelToken: new CancelToken((c) => { cancel = c; }),
-  })
-  .then((response) => {
-    if (isPV) {
-      return {
-        ...response.data,
-        isProjectedVacancy: true,
-      };
-    }
-    return response.data;
-  });
+    .get(`${prefix}/?${query$}`, {
+      cancelToken: new CancelToken((c) => { cancel = c; }),
+    })
+    .then((response) => {
+      if (isPV) {
+        return {
+          ...response.data,
+          isProjectedVacancy: true,
+        };
+      }
+      return response.data;
+    });
 }
 
 export function resultsFetchData(query) {
@@ -116,18 +138,24 @@ export function resultsFetchData(query) {
     dispatch(resultsHasErrored(false));
     fetchResultData(query)
       .then((results) => {
-        dispatch(resultsFetchDataSuccess(results));
-        dispatch(resultsHasErrored(false));
-        dispatch(resultsIsLoading(false));
+        batch(() => {
+          dispatch(resultsFetchDataSuccess(results));
+          dispatch(resultsHasErrored(false));
+          dispatch(resultsIsLoading(false));
+        });
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
-          dispatch(resultsHasErrored(false));
-          dispatch(resultsIsLoading(true));
+          batch(() => {
+            dispatch(resultsHasErrored(false));
+            dispatch(resultsIsLoading(true));
+          });
         } else {
-          dispatch(resultsFetchDataSuccess({ results: [] }));
-          dispatch(resultsHasErrored(true));
-          dispatch(resultsIsLoading(false));
+          batch(() => {
+            dispatch(resultsFetchDataSuccess({ results: [] }));
+            dispatch(resultsHasErrored(true));
+            dispatch(resultsIsLoading(false));
+          });
         }
       });
   };

@@ -20,7 +20,7 @@ import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 
 import { formatDate, propOrDefault, getPostName, shortenString,
-getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
+  getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
 
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
@@ -80,18 +80,12 @@ export const renderBidCountMobile = stats => (
 );
 
 class ResultsCard extends Component {
-  constructor(props) {
-    super(props);
-    this.getOffsetPx = this.getOffsetPx.bind(this);
-    this.getInnerId = this.getInnerId.bind(this);
-  }
-
-  getInnerId() {
+  getInnerId = () => {
     const { id } = this.props;
     return `${id}-inner`;
-  }
+  };
 
-  getOffsetPx() {
+  getOffsetPx = () => {
     const { id } = this.props;
     const innerId = this.getInnerId();
     const maxHeightOffset = document.getElementById(innerId).offsetTop;
@@ -100,7 +94,7 @@ class ResultsCard extends Component {
     const offset = cardHeight - maxHeightOffset;
 
     return `${offset}px`;
-  }
+  };
 
   render() {
     const options = {};
@@ -130,7 +124,7 @@ class ResultsCard extends Component {
 
     const innerId = this.getInnerId();
 
-  // TODO - update this to a real property once API is updateds
+    // TODO - update this to a real property once API is updateds
     const recentlyAvailable = pos.recently_available;
 
     const bidTypeTitle = isProjectedVacancy ? 'Bid season' : 'Bid cycle';
@@ -284,7 +278,7 @@ class ResultsCard extends Component {
               />
             </div>
           </BoxShadow>
-      )}
+        )}
       </MediaQueryWrapper>
     );
   }
