@@ -3,6 +3,7 @@ import axios from 'axios';
 import { get, indexOf, omit } from 'lodash';
 import Q from 'q';
 import imagediff from 'imagediff';
+import Bowser from 'bowser';
 import { loadImg } from 'utilities';
 import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
@@ -244,7 +245,8 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
 // The use of this endpoint has no implications on the user experience of the site,
 // so we don't use our typical dispatch/loading/error/success state management paradigm.
 export function trackLogin() {
-  api().post('/stats/login/');
+  const details = Bowser.parse(get(window, 'navigator.userAgent')) || {};
+  api().post('/stats/login/', { details });
 }
 
 export function updateSavedSearches() {
