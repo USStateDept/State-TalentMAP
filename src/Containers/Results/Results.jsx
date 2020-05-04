@@ -248,6 +248,7 @@ class Results extends Component {
     const filters$ = { ...filters };
     const showClear = this.getQueryExists();
     const isClient = client && !!client.id && !clientIsLoading && !clientHasErrored;
+    console.log(JSON.parse(JSON.stringify(filters$.filters)));
     return (
       <div>
         <ResultsPage
