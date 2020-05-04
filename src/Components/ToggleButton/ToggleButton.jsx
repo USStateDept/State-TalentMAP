@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import Switch from 'react-switch';
 
 const ToggleButton = props => {
-  const { labelText, labelToLeft, labelSameLine, checked, onChange, height, width } = props;
+  const { labelText, labelToLeft, labelSameLine, checked,
+    onChange, height, width, onColor } = props;
 
   const style = {
     display: 'flex',
@@ -18,12 +19,8 @@ const ToggleButton = props => {
   let labelLeft = <label style={labelStyle} className={labelSameLine ? 'toggle-button-label-inline' : ''} htmlFor={'toggleSwitch'}>{labelText}</label>;
   let labelRight = <label style={labelStyle} className={labelSameLine ? 'toggle-button-label-inline' : ''} htmlFor={'toggleSwitch'}>{labelText}</label>;
 
-  if (labelToLeft) {
-    labelRight = '';
-  } else {
-    labelLeft = '';
-  }
-
+  if (labelToLeft) labelRight = '';
+  else labelLeft = '';
 
   return (
     <div style={style}>
@@ -36,7 +33,7 @@ const ToggleButton = props => {
         width={width}
         checked={checked}
         onChange={onChange}
-        onColor={'#1ad142'}
+        onColor={onColor}
       />
       {labelRight}
     </div>
@@ -51,6 +48,7 @@ ToggleButton.propTypes = {
   onChange: PropTypes.func.isRequired,
   height: PropTypes.number,
   width: PropTypes.number,
+  onColor: PropTypes.string,
 };
 
 ToggleButton.defaultProps = {
@@ -60,6 +58,7 @@ ToggleButton.defaultProps = {
   checked: true,
   height: 20,
   width: 40,
+  onColor: '#1ad142',
 };
 
 export default ToggleButton;
