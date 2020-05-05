@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToggleButtonComponent matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+>
+  <label
+    className="toggle-button-label-inline"
+    htmlFor="toggleSwitch"
+    style={
+      Object {
+        "fontSize": 16,
+        "margin": "0 10px 0 10px",
+      }
+    }
+  >
+    button label
+  </label>
+  <ReactSwitch
+    activeBoxShadow="0 0 2px 3px #3bf"
+    boxShadow={null}
+    checked={true}
+    checkedIcon={false}
+    disabled={false}
+    height={20}
+    id="toggleSwitch"
+    offColor="#888"
+    offHandleColor="#fff"
+    onChange={[Function]}
+    onColor="#1ad142"
+    onHandleColor="#fff"
+    uncheckedIcon={false}
+    width={40}
+  />
+</div>
+`;
