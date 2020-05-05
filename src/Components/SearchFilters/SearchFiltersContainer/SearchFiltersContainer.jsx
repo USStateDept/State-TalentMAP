@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, indexOf, sortBy } from 'lodash';
+import ToggleButton from 'Components/ToggleButton';
 import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
@@ -23,7 +24,6 @@ class SearchFiltersContainer extends Component {
     super(props);
     this.state = {
       showTandem2: false,
-      isTandem: false,
     };
   }
 
@@ -64,13 +64,31 @@ class SearchFiltersContainer extends Component {
   };
 
   onTandemSearchClick = value => {
-    this.setState({ showTandem2: value === '2' });
+    let config = {};
+    if (!value) {
+      config = {
+        ...config,
+        tandem: null,
+      };
+    } else {
+      config = {
+        ...config,
+        tandem: 'tandem',
+      };
+    }
+    this.props.queryParamUpdate(config);
+  }
+
+  onTandemSelectionClick = value => {
+    if (value !== this.state.showTandem2) {
+      this.setState({ showTandem2: value === '2' });
+    }
   }
 
   render() {
     const { isProjectedVacancy } = this.context;
     const { fetchPostAutocomplete, postSearchResults, filters } = this.props;
-    const { showTandem2, isTandem$ } = this.state;
+    const { showTandem2 } = this.state;
 
     const filters$ = filters
       .filter((f) => {
@@ -125,7 +143,7 @@ class SearchFiltersContainer extends Component {
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedToggleNames = ['projectedVacancy'];
+    const sortedToggleNames = ['projectedVacancy', 'tandem-toggle'];
 
     // store filters in Map
     const toggleFiltersMap = new Map();
@@ -146,6 +164,9 @@ class SearchFiltersContainer extends Component {
     });
     const projectedVacancyFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
+    const tandemFilter = sortedToggleNames.length ?
+      get(toggleFiltersMap.get('tandem-toggle'), 'data') : null;
+    const tandemIsSelected = tandemFilter.find(f => f.code === 'tandem').isSelected;
 
     // post should come before TOD
     multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
@@ -344,7 +365,7 @@ class SearchFiltersContainer extends Component {
     return (
       <div className={apContainerClass}>
         {
-          isTandem$ &&
+          tandemIsSelected &&
           <div className="tandem-filter-header tandem-filter-header--first">Tandem Filters</div>
         }
         {
@@ -356,27 +377,27 @@ class SearchFiltersContainer extends Component {
         }
         {
           <MultiSelectFilterContainer
-            multiSelectFilterList={isTandem$ ? sortedFiltersTandemCommon : sortedFilters}
+            multiSelectFilterList={tandemIsSelected ? sortedFiltersTandemCommon : sortedFilters}
             queryParamToggle={this.props.queryParamToggle}
           />
         }
         <div>
           {
-            isTandem$ &&
+            tandemIsSelected &&
             <div className="tandem-filter-header">Individual Filters</div>
           }
           {
-            isTandem$ && <TandemSelectionFilter onChange={this.onTandemSearchClick} />
+            tandemIsSelected && <TandemSelectionFilter onChange={this.onTandemSelectionClick} />
           }
           {
-            isTandem$ && !showTandem2 &&
+            tandemIsSelected && !showTandem2 &&
             <MultiSelectFilterContainer
               multiSelectFilterList={sortedFiltersTandem1}
               queryParamToggle={this.props.queryParamToggle}
             />
           }
           {
-            isTandem$ && showTandem2 &&
+            tandemIsSelected && showTandem2 &&
             <MultiSelectFilterContainer
               multiSelectFilterList={sortedFiltersTandem2}
               queryParamToggle={this.props.queryParamToggle}
@@ -394,9 +415,7 @@ class SearchFiltersContainer extends Component {
             }
           />
         </div>
-        {
-          <button className="usa-button" onClick={() => this.setState({ isTandem$: !isTandem$ })}>Tandem Search</button>
-        }
+        <ToggleButton labelText="Tandem Search" labelToLeft={false} checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
       </div>
     );
   }

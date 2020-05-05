@@ -46,14 +46,14 @@ const items =
           sort: 5000,
           isToggle: true,
           description: 'tandem-toggle',
-          selectionRef: ENDPOINT_PARAMS.projectedVacancy,
+          selectionRef: ENDPOINT_PARAMS.tandem,
           text: 'Toggle between available and projected vacancy positions',
           choices: [
           ],
         },
         data: [
-          { code: 'false', short_description: 'Single' },
-          { code: 'true', short_description: 'Tandem' },
+          { code: 'individual', short_description: 'Individual' },
+          { code: 'tandem', short_description: 'Tandem' },
         ],
       },
       {

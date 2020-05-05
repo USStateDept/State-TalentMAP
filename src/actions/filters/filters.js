@@ -1,5 +1,5 @@
 import { batch } from 'react-redux';
-import { get, isArray, keys, orderBy, union, uniqBy } from 'lodash';
+import { cloneDeep, get, isArray, keys, orderBy, union, uniqBy } from 'lodash';
 import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
@@ -287,7 +287,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
             endpointResponses[property].state = r.state;
           });
           const mappedDyanmicFilters = dynamicFilters.map(item => {
-            const response = endpointResponses[item.item.endpoint];
+            const response = ({ ...endpointResponses[item.item.endpoint] });
             const itemFilter = Object.assign({}, item);
             itemFilter.state = response.state;
             const data$ = item.initialDataAP;
@@ -345,7 +345,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
               skillObject.data = [...skills];
             }
 
-            return itemFilter;
+            return cloneDeep(itemFilter);
           });
           return mappedDyanmicFilters;
         })
