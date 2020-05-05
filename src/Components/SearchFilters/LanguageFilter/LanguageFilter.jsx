@@ -87,7 +87,6 @@ class LanguageFilter extends Component {
       return m$;
     });
     languageGroups$ = orderBy(languageGroups$, 'code', 'desc');
-    console.log(isTandem, item.data);
     return (
       <div className="usa-grid-full tm-nested-accordions">
         <Accordion>
