@@ -9455,7 +9455,6 @@ react-sticky@^6.0.3:
 react-switch@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-5.0.1.tgz#449277f4c3aed5286fffd0f50d5cbc2a23330406"
-  integrity sha512-Pa5kvqRfX85QUCK1Jv0rxyeElbC3aNpCP5hV0LoJpU/Y6kydf0t4kRriQ6ZYA4kxWwAYk/cH51T4/sPzV9mCgQ==
   dependencies:
     prop-types "^15.6.2"
 
@@ -9488,13 +9487,6 @@ react-toastify@^5.4.0:
     classnames "^2.2.6"
     prop-types "^15.7.2"
     react-transition-group "^2.6.1"
-
-react-toggle@^4.1.1:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/react-toggle/-/react-toggle-4.1.1.tgz#2317f67bf918ea3508a96b09dd383efd9da572af"
-  integrity sha512-+wXlMcSpg8SmnIXauMaZiKpR+r2wp2gMUteroejp2UTSqGTVvZLN+m9EhMzFARBKEw7KpQOwzCyfzeHeAndQGw==
-  dependencies:
-    classnames "^2.2.5"
 
 react-transition-group@^2.6.1:
   version "2.9.0"
