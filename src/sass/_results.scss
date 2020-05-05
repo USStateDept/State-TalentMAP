@@ -764,6 +764,27 @@ $results-container-width: 100% - $filter-container-width;
   .accordion-checkbox-post {
     min-height: inherit;
   }
+
+  .tandem-common-filters {
+    .toggle-button.toggle-button--selected,
+    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
+      background-color: $color-blue-chill;
+    }
+  }
+
+  .tandem-1-filters {
+    .toggle-button.toggle-button--selected,
+    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
+      // add any styles here related to tandem user 1
+    }
+  }
+
+  .tandem-2-filters {
+    .toggle-button.toggle-button--selected,
+    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
+      background-color: $color-blue-mariner;
+    }
+  }
 }
 
 .language-view-all {
