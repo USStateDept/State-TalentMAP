@@ -166,7 +166,7 @@ class SearchFiltersContainer extends Component {
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
     const tandemFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('tandem-toggle'), 'data') : null;
-    const tandemIsSelected = tandemFilter.find(f => f.code === 'tandem').isSelected;
+    const tandemIsSelected = tandemFilter ? tandemFilter.find(f => f.code === 'tandem').isSelected : false;
 
     // post should come before TOD
     multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
