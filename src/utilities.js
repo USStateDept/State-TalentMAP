@@ -2,7 +2,7 @@ import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isFunction,
   isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, split,
-  startCase, take, toLower, toString, transform } from 'lodash';
+  startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -110,16 +110,6 @@ export function fetchJWT() {
   }
   return null;
 }
-
-export const pillSort = (a, b) => {
-  const A = lowerCase(toString((get(a, 'description') || get(a, 'code'))));
-  const B = lowerCase(toString((get(b, 'description') || get(b, 'code'))));
-  if (A < B) { // sort string ascending
-    return -1;
-  }
-  if (A > B) { return 1; }
-  return 0; // default return value (no sorting)
-};
 
 export const sortTods = (data) => {
   const sortingArray = ['T', 'C', 'H', 'O', 'V', '1', '2', 'U', 'A', 'B', 'E', 'N', 'S', 'G', 'D', 'F', 'R', 'Q', 'J', 'I', 'P', 'W', 'L', 'K', 'M', 'Y', 'Z', 'X'];
@@ -298,8 +288,8 @@ export const ifEnter = (e) => {
 export const formQueryString = queryObject => queryString.stringify(queryObject);
 
 // remove duplicates from an array by object property
-export const removeDuplicates = (myArr, prop) => (
-  myArr.filter((obj, pos, arr) => arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos)
+export const removeDuplicates = (myArr, props = ['']) => (
+  uniqBy(myArr, elem => props.map(m => elem[m]).join())
 );
 
 // Format date for notifications.

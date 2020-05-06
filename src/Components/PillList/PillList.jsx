@@ -1,25 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { orderBy } from 'lodash';
 import { PILL_ITEM_ARRAY } from '../../Constants/PropTypes';
 import Pill from '../Pill/Pill';
-import { pillSort } from '../../utilities';
 
-const PillList = ({ items, onPillClick }) => (
-  <div className="pill-list-container">
-    {
-      (items.slice().sort(pillSort))
-        .map(item =>
-          (<Pill
-            key={`${item.codeRef}-${item.description}`}
+const PillList = ({ items, onPillClick }, { isTandemSearch }) => {
+  const ordering = ['description', 'code'];
+  if (isTandemSearch) ordering.splice(0, 0, 'isCommon', 'isTandem');
+  return (
+    <div className="pill-list-container">
+      {
+        // order items in their correct context
+        (orderBy(items.slice(), ordering))
+          // do not display toggles as pills
+          .filter(f => !f.isToggle)
+          // display pills in their correct context
+          .filter(f => !isTandemSearch ? !f.isTandem : true)
+          // map items
+          .map(item => (<Pill
+            key={`${item.codeRef}-${item.description}-${item.isTandem}`}
             description={item.description}
             codeRef={item.codeRef}
             selectionRef={item.selectionRef}
             onPillClick={onPillClick}
-          />),
-        )
-    }
-  </div>
-);
+            isTandem2={isTandemSearch && item.isTandem}
+            isCommon={isTandemSearch && item.isCommon}
+          />))
+      }
+    </div>
+  );
+};
+
+PillList.contextTypes = {
+  isTandemSearch: PropTypes.bool,
+};
 
 PillList.propTypes = {
   items: PILL_ITEM_ARRAY,

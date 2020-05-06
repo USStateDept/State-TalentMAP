@@ -31,6 +31,7 @@ const items =
           isToggle: true,
           description: 'projectedVacancy',
           selectionRef: ENDPOINT_PARAMS.projectedVacancy,
+          isCommon: true,
           text: 'Toggle between available and projected vacancy positions',
           choices: [
           ],
@@ -47,6 +48,7 @@ const items =
           isToggle: true,
           description: 'tandem-toggle',
           selectionRef: ENDPOINT_PARAMS.tandem,
+          isCommon: true,
           text: 'Toggle between available and projected vacancy positions',
           choices: [
           ],
@@ -473,7 +475,7 @@ const items =
           description: 'COLA',
           selectionRef: ENDPOINT_PARAMS.cola,
           text: 'Include only positions with COLA',
-          isTandemCommon: true,
+          isCommon: true,
           choices: [
           ],
         },
@@ -490,7 +492,7 @@ const items =
           selectionRef: ENDPOINT_PARAMS.postDiff,
           text: 'Include only positions with a post differential',
           tryCache: true,
-          isTandemCommon: true,
+          isCommon: true,
           choices: [
           ],
         },
@@ -515,7 +517,7 @@ const items =
           selectionRef: ENDPOINT_PARAMS.danger,
           text: 'Include only positions with danger pay',
           tryCache: true,
-          isTandemCommon: true,
+          isCommon: true,
           choices: [
           ],
         },
@@ -535,6 +537,7 @@ const items =
           description: 'domestic',
           selectionRef: ENDPOINT_PARAMS.domestic,
           text: 'Include only domestic positions',
+          isCommon: true,
           choices: [
           ],
         },
@@ -573,7 +576,7 @@ const items =
           selectionRef: ENDPOINT_PARAMS.post,
           selectionRefAP: ENDPOINT_PARAMS.postAP,
           tryCache: true,
-          isTandemCommon: true,
+          isCommon: true,
           choices: [
           ],
         },
