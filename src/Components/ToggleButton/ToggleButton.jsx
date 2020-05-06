@@ -55,7 +55,7 @@ ToggleButton.defaultProps = {
   labelText: '',
   labelToLeft: true,
   labelSameLine: true,
-  checked: true,
+  checked: false,
   height: 20,
   width: 40,
   onColor: '#1ad142',

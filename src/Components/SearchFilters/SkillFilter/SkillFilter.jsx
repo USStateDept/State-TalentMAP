@@ -103,13 +103,13 @@ class BureauFilter extends Component {
               <AccordionItem
                 key={cone.id}
                 className="accordion-content-small"
-                id={`skill-cone-accordion-${cone.id}`}
+                id={`skill-cone-accordion-${cone.id}${item.item.isTandem ? '-tandem' : ''}`}
                 title={cone.name}
                 buttonClass="tm-nested-accordion-button"
                 preContent={(
                   <CheckBox
                     cone={cone /* pass cone to reference in onClick handler */}
-                    id={`select-all-cone-${cone.id}`}
+                    id={`select-all-cone-${cone.id}${item.item.isTandem ? '-tandem' : ''}`}
                     onCheckBoxClick={this.onConeCheckBoxClick}
                     className="tm-checkbox-transparent"
                     value={this.state[cone.id] || false}
@@ -128,7 +128,7 @@ class BureauFilter extends Component {
                         return (
                           <CheckBox
                             _id={itemData.id} /* when we need the original id */
-                            id={`checkbox${itemLabelNoSpaces}-skill-${cone.id}`}
+                            id={`checkbox${itemLabelNoSpaces}-skill-${cone.id}${item.item.isTandem ? '-tandem' : ''}`}
                             key={`checkbox${itemLabel}-skill-${cone.id}`}
                             label={itemLabel}
                             title={itemLabel}

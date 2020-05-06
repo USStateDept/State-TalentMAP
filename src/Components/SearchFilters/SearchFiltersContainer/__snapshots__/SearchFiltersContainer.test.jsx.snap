@@ -34,7 +34,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
               }
             }
           />,
-          "id": "accordion-skill",
+          "id": "accordion-skill-",
+          "isTandem": undefined,
           "title": "skill",
         },
         Object {
@@ -62,7 +63,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
               queryProperty="code"
             />
           </div>,
-          "id": "accordion-grade",
+          "id": "accordion-grade-",
+          "isTandem": undefined,
           "title": "grade",
         },
         Object {
@@ -73,6 +75,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                 "data": Array [],
               }
             }
+            isTandem={false}
             item={
               Object {
                 "data": Array [
@@ -92,7 +95,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             queryParamToggle={[Function]}
             queryProperty="code"
           />,
-          "id": "accordion-region",
+          "id": "accordion-region-",
+          "isTandem": undefined,
           "title": "region",
         },
         Object {
@@ -133,7 +137,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             queryParamUpdate={[Function]}
             queryProperty="_id"
           />,
-          "id": "accordion-post",
+          "id": "accordion-post-",
+          "isTandem": undefined,
           "title": "post",
         },
         Object {
@@ -161,12 +166,14 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
               queryProperty="code"
             />
           </div>,
-          "id": "accordion-tod",
+          "id": "accordion-tod-",
+          "isTandem": undefined,
           "title": "tod",
         },
         Object {
           "altTitle": undefined,
           "content": <LanguageFilter
+            isTandem={false}
             item={
               Object {
                 "data": Array [
@@ -191,13 +198,15 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             queryParamUpdate={[Function]}
             queryProperty="code"
           />,
-          "id": "accordion-skill",
+          "id": "accordion-skill-",
+          "isTandem": undefined,
           "title": "skill",
         },
       ]
     }
     queryParamToggle={[Function]}
   />
+  <div />
   <div
     className="boolean-filter-container"
   >
@@ -207,5 +216,15 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
       onBooleanFilterClick={[Function]}
     />
   </div>
+  <ToggleButton
+    checked={false}
+    height={20}
+    labelSameLine={true}
+    labelText="Tandem Search"
+    labelToLeft={false}
+    onChange={[Function]}
+    onColor="#1ad142"
+    width={40}
+  />
 </div>
 `;

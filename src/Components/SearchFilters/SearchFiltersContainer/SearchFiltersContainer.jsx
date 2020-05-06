@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, indexOf, sortBy } from 'lodash';
+import ToggleButton from 'Components/ToggleButton';
 import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
@@ -11,6 +12,7 @@ import PostFilter from '../PostFilter';
 import SkillFilter from '../SkillFilter';
 import LanguageFilter from '../LanguageFilter';
 import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
+import TandemSelectionFilter from '../TandemSelectionFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault, sortTods } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
@@ -18,6 +20,13 @@ import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointP
 const useBidding = () => checkFlag('flags.bidding');
 
 class SearchFiltersContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showTandem2: false,
+    };
+  }
+
   onMissionSuggestionSelected = value => {
     this.props.queryParamToggle(ENDPOINT_PARAMS.mission, value);
   };
@@ -54,9 +63,32 @@ class SearchFiltersContainer extends Component {
     this.props.queryParamUpdate(config);
   };
 
+  onTandemSearchClick = value => {
+    let config = {};
+    if (!value) {
+      config = {
+        ...config,
+        tandem: null,
+      };
+    } else {
+      config = {
+        ...config,
+        tandem: 'tandem',
+      };
+    }
+    this.props.queryParamUpdate(config);
+  }
+
+  onTandemSelectionClick = value => {
+    if (value !== this.state.showTandem2) {
+      this.setState({ showTandem2: value === '2' });
+    }
+  }
+
   render() {
     const { isProjectedVacancy } = this.context;
     const { fetchPostAutocomplete, postSearchResults, filters } = this.props;
+    const { showTandem2 } = this.state;
 
     const filters$ = filters
       .filter((f) => {
@@ -98,13 +130,20 @@ class SearchFiltersContainer extends Component {
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
       'postDiff', 'dangerPay', 'handshake'];
+
+
+    const multiSelectFilterNamesTandemCommon = ['post', 'postDiff', 'dangerPay'];
+    const multiSelectFilterNamesTandem1 = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language', 'handshake'];
+    const multiSelectFilterNamesTandem2 = ['bidSeason-tandem', 'bidCycle-tandem', 'skill-tandem', 'grade-tandem',
+      'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem'];
+
     const blackList = []; // don't create accordions for these
 
     // START TOGGLE FILTERS
     // Get our boolean filter names.
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
-    const sortedToggleNames = ['projectedVacancy'];
+    const sortedToggleNames = ['projectedVacancy', 'tandem-toggle'];
 
     // store filters in Map
     const toggleFiltersMap = new Map();
@@ -125,6 +164,9 @@ class SearchFiltersContainer extends Component {
     });
     const projectedVacancyFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
+    const tandemFilter = sortedToggleNames.length ?
+      get(toggleFiltersMap.get('tandem-toggle'), 'data') : null;
+    const tandemIsSelected = tandemFilter ? tandemFilter.find(f => f.code === 'tandem').isSelected : false;
 
     // post should come before TOD
     multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
@@ -132,30 +174,43 @@ class SearchFiltersContainer extends Component {
 
     // create map
     const multiSelectFilterMap = new Map();
+    const multiSelectFilterMapTandemCommon = new Map();
+    const multiSelectFilterMapTandem1 = new Map();
+    const multiSelectFilterMapTandem2 = new Map();
 
     // pull filters from props and add to Map
     filters$.slice().forEach((f) => {
-      if (multiSelectFilterNames.indexOf(f.item.description) > -1) {
-        // extra handling for skill
-        if (f.item.description === 'skill' && f.data) {
-          get(f, 'data', []).sort(propSort('description'));
-        } else if (f.item.description === 'grade' && f.data) {
-          get(f, 'data', []).sort(sortGrades);
-        } else if (f.item.description === 'language' && f.data) {
-          // Push the "NONE" code choice to the bottom. We're already sorting
-          // data, and this is readable, so the next line is eslint-disabled.
-          // eslint-disable-next-line
-          f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? -1 : 0);
-        } else if (f.item.description === 'tod' && f.data) {
-          // eslint-disable-next-line no-param-reassign
-          f.data = sortTods(f.data);
-        }
-        // add to Map
-        multiSelectFilterMap.set(f.item.description, f);
-      }
+      [
+        [multiSelectFilterNames, multiSelectFilterMap],
+        [multiSelectFilterNamesTandemCommon, multiSelectFilterMapTandemCommon],
+        [multiSelectFilterNamesTandem1, multiSelectFilterMapTandem1],
+        [multiSelectFilterNamesTandem2, multiSelectFilterMapTandem2, '-tandem'],
+      ]
+        .forEach(arr => {
+          const suffix = arr[2] || '';
+          if (arr[0].indexOf(f.item.description) > -1) {
+            // extra handling for skill
+            if (f.item.description === `skill${suffix}` && f.data) {
+              get(f, 'data', []).sort(propSort('description'));
+            } else if (f.item.description === `grade${suffix}` && f.data) {
+              get(f, 'data', []).sort(sortGrades);
+            } else if (f.item.description === `language${suffix}` && f.data) {
+              // Push the "NONE" code choice to the bottom. We're already sorting
+              // data, and this is readable, so the next line is eslint-disabled.
+              // eslint-disable-next-line
+              f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? -1 : 0);
+            } else if (f.item.description === `tod${suffix}` && f.data) {
+              // eslint-disable-next-line no-param-reassign
+              f.data = sortTods(f.data);
+            }
+            // add to Map
+            arr[1].set(f.item.description, f);
+          }
+        });
     });
     // special handling for functional bureau
     const functionalBureaus = filters$.slice().find(f => f.item.description === 'functionalRegion');
+    const functionalBureausTandem = filters$.slice().find(f => f.item.description === 'functionalRegion-tandem');
 
     // special handling for is_domestic filter
     const domesticFilter = (filters$ || []).find(f => f.item.description === 'domestic');
@@ -172,8 +227,13 @@ class SearchFiltersContainer extends Component {
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
-    multiSelectFilterNames.forEach((n) => {
-      const item = multiSelectFilterMap.get(n);
+    const sortedFiltersTandemCommon = [];
+    const sortedFiltersTandem1 = [];
+    const sortedFiltersTandem2 = [];
+
+    [...multiSelectFilterNames, ...multiSelectFilterNamesTandem2].forEach((n) => {
+      let item = multiSelectFilterMap.get(n);
+      if (multiSelectFilterMapTandem2.get(n)) item = multiSelectFilterMapTandem2.get(n);
       // let some variables that will change based on whether n is a post or mission
       let getSuggestions;
       let suggestions;
@@ -194,11 +254,14 @@ class SearchFiltersContainer extends Component {
 
       const getFilter = (type) => {
         switch (type) {
+          case 'region-tandem':
           case 'region':
             return (
               <BureauFilter
                 item={item}
-                functionalBureaus={functionalBureaus}
+                isTandem={type === 'region-tandem'}
+                functionalBureaus={type === 'region-tandem' ?
+                  functionalBureausTandem : functionalBureaus}
                 queryParamToggle={this.props.queryParamToggle}
               />
             );
@@ -226,6 +289,7 @@ class SearchFiltersContainer extends Component {
               />
             );
           case 'skill':
+          case 'skill-tandem':
             return (
               <SkillFilter
                 item={item}
@@ -235,9 +299,11 @@ class SearchFiltersContainer extends Component {
               />
             );
           case 'language':
+          case 'language-tandem':
             return (
               <LanguageFilter
                 item={item}
+                isTandem={type === 'language-tandem'}
                 queryParamToggle={this.props.queryParamToggle}
                 queryParamUpdate={this.props.queryParamUpdate}
                 languageGroups={languageGroups}
@@ -247,7 +313,8 @@ class SearchFiltersContainer extends Component {
             return null;
           default: {
             const getQueryProperty = () => {
-              if (type === 'post' || type === 'bidCycle' || type === 'bidSeason') {
+              if (type === 'post' || type === 'bidCycle' || type === 'bidSeason' ||
+              type === 'bidCycle-tandem' || type === 'bidSeason-tandem') {
                 return '_id';
               }
               return 'code';
@@ -260,7 +327,7 @@ class SearchFiltersContainer extends Component {
                   item={item}
                   queryParamToggle={this.props.queryParamToggle}
                   queryProperty={queryProperty}
-                  groupAlpha={type === 'skill'}
+                  groupAlpha={type === 'skill' || type === 'skill-tandem'}
                 />
               </div>
             );
@@ -268,13 +335,28 @@ class SearchFiltersContainer extends Component {
         }
       };
       if (item && !includes(blackList, n)) {
-        sortedFilters.push(
-          { content: getFilter(n),
-            title: get(item, 'item.title'),
-            altTitle: get(item, 'item.altTitle'),
-            id: `accordion-${get(item, 'item.title', '')}`,
-          },
-        );
+        const isTandem1 = includes(multiSelectFilterNamesTandem1, n);
+        const isTandem2 = includes(multiSelectFilterNamesTandem2, n);
+        const isTandemCommon$ = includes(multiSelectFilterNamesTandemCommon, n);
+        const isPrimary = includes(multiSelectFilterNames, n);
+        const obj = { content: getFilter(n),
+          title: get(item, 'item.title'),
+          altTitle: get(item, 'item.altTitle'),
+          id: `accordion-${get(item, 'item.title', '')}-${isTandem2 ? '-tandem' : ''}`,
+          isTandem: get(item, 'item.isTandem'),
+        };
+        if (isTandem1) {
+          sortedFiltersTandem1.push(obj);
+        }
+        if (isTandem2) {
+          sortedFiltersTandem2.push(obj);
+        }
+        if (isTandemCommon$) {
+          sortedFiltersTandemCommon.push(obj);
+        }
+        if (isPrimary) {
+          sortedFilters.push(obj);
+        }
       }
     });
 
@@ -283,16 +365,45 @@ class SearchFiltersContainer extends Component {
     return (
       <div className={apContainerClass}>
         {
+          tandemIsSelected &&
+          <div className="tandem-filter-header tandem-filter-header--first">Tandem Filters</div>
+        }
+        {
           projectedVacancyFilter &&
           <ProjectedVacancyFilter
             items={projectedVacancyFilter}
             onChange={this.onProjectedVacancyFilterClick}
           />
         }
-        <MultiSelectFilterContainer
-          multiSelectFilterList={sortedFilters}
-          queryParamToggle={this.props.queryParamToggle}
-        />
+        {
+          <MultiSelectFilterContainer
+            multiSelectFilterList={tandemIsSelected ? sortedFiltersTandemCommon : sortedFilters}
+            queryParamToggle={this.props.queryParamToggle}
+          />
+        }
+        <div>
+          {
+            tandemIsSelected &&
+            <div className="tandem-filter-header">Individual Filters</div>
+          }
+          {
+            tandemIsSelected && <TandemSelectionFilter onChange={this.onTandemSelectionClick} />
+          }
+          {
+            tandemIsSelected && !showTandem2 &&
+            <MultiSelectFilterContainer
+              multiSelectFilterList={sortedFiltersTandem1}
+              queryParamToggle={this.props.queryParamToggle}
+            />
+          }
+          {
+            tandemIsSelected && showTandem2 &&
+            <MultiSelectFilterContainer
+              multiSelectFilterList={sortedFiltersTandem2}
+              queryParamToggle={this.props.queryParamToggle}
+            />
+          }
+        </div>
         <div className="boolean-filter-container">
           <BooleanFilterContainer
             legendTitle="Select filters"
@@ -304,6 +415,7 @@ class SearchFiltersContainer extends Component {
             }
           />
         </div>
+        <ToggleButton labelText="Tandem Search" labelToLeft={false} checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
       </div>
     );
   }
@@ -311,6 +423,7 @@ class SearchFiltersContainer extends Component {
 
 SearchFiltersContainer.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
+  isTandem: PropTypes.bool,
 };
 
 SearchFiltersContainer.propTypes = {
