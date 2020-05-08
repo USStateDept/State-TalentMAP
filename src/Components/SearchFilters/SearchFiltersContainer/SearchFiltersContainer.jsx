@@ -75,6 +75,7 @@ class SearchFiltersContainer extends Component {
         ...config,
         tandem: 'tandem',
       };
+      this.setState({ showTandem2: false }); // reset showTandem2 to false
     }
     this.props.queryParamUpdate(config);
   }
