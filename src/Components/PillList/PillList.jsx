@@ -6,12 +6,16 @@ import Pill from '../Pill/Pill';
 
 const PillList = ({ items, onPillClick }, { isTandemSearch }) => {
   const ordering = ['description', 'code'];
-  if (isTandemSearch) ordering.splice(0, 0, 'isCommon', 'isTandem');
+  const orders = [];
+  if (isTandemSearch) {
+    ordering.splice(0, 0, 'isCommon', 'isTandem');
+    orders.splice(0, 0, 'asc', 'desc');
+  }
   return (
     <div className="pill-list-container">
       {
         // order items in their correct context
-        (orderBy(items.slice(), ordering))
+        (orderBy(items.slice(), ordering, orders))
           // do not display toggles as pills
           .filter(f => !f.isToggle)
           // display pills in their correct context
