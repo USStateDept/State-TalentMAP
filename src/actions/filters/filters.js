@@ -143,7 +143,7 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           // Remove duplicates by this new property
           responses$.mappedParams = removeDuplicates(
             responses$.mappedParams,
-            'descCode',
+            ['descCode', 'isTandem'],
           );
           // Determine which objects duplicates by description,
           // and give them with a new prop to identify them
@@ -209,13 +209,22 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       if (queryParamObject) {
         responses.filters.forEach((response) => {
           const filterRef = response.item.selectionRef;
+          const isTandem = response.item.isTandem;
+          const isCommon = response.item.isCommon;
+          const isToggle = response.item.isToggle;
           Object.keys(queryParamObject).forEach((key) => {
             if (key === filterRef) {
               // convert the string to an array
               const paramArray = queryParamObject[key].split(',');
               paramArray.forEach((paramArrayItem) => {
                 // create a base config object
-                const mappedObject = { selectionRef: filterRef, codeRef: paramArrayItem };
+                const mappedObject = {
+                  selectionRef: filterRef,
+                  codeRef: paramArrayItem,
+                  isTandem,
+                  isCommon,
+                  isToggle,
+                };
                 responses.filters.forEach((filterItem, i) => {
                   filterItem.data.forEach((filterItemObject, j) => {
                     // Check if code or ID matches, since we use both.
