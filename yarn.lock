@@ -9496,9 +9496,9 @@ react-tippy@^1.3.1:
   dependencies:
     popper.js "^1.11.1"
 
-react-toastify@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.0.tgz#743b729dcc681e36e29cf923462d01f1129deede"
+react-toastify@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.1.tgz#c6d7ca3fae5ef264e814fd9a83ae7be298d57c0c"
   dependencies:
     classnames "^2.2.6"
     prop-types "^15.7.2"
