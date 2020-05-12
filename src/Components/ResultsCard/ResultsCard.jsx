@@ -103,8 +103,6 @@ class ResultsCard extends Component {
       result,
       favorites,
       favoritesPV,
-      isTandem1,
-      isTandem2,
     } = this.props;
     const { isProjectedVacancy, isClient } = this.context;
 
@@ -128,6 +126,9 @@ class ResultsCard extends Component {
     const innerId = this.getInnerId();
 
     const bidTypeTitle = isProjectedVacancy ? 'Bid season' : 'Bid cycle';
+
+    const isTandem1 = result.tandem_nbr === 1;
+    const isTandem2 = result.tandem_nbr === 2;
 
     const sections = [
     /* eslint-disable quote-props */
@@ -325,15 +326,11 @@ ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
-  isTandem1: PropTypes.bool,
-  isTandem2: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
   favorites: [],
   favoritesPV: [],
-  isTandem1: false,
-  isTandem2: false,
 };
 
 export default ResultsCard;
