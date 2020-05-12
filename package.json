@@ -33,6 +33,8 @@
     "history": "^4.7.2",
     "imagediff": "^1.0.8",
     "immutable": "^3.8.2",
+    "jsoneditor": "^8.6.7",
+    "jsoneditor-react": "^3.0.0",
     "localforage": "^1.7.3",
     "lodash": "^4.17.13",
     "lodash-webpack-plugin": "^0.11.5",

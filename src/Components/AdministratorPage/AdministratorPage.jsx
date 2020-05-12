@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import Logs from './Logs';
 import Stats from './Stats';
 import UserRoles from './UserRoles';
+import FeatureFlags from './FeatureFlags';
 
 const AdministratorPage = (props) => {
   const {
@@ -61,6 +62,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
+        <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags />} />
       </Switch>
     </div>
   );
