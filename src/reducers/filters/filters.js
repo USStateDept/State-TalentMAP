@@ -532,6 +532,22 @@ const items =
       },
       {
         item: {
+          title: 'Post Indicators',
+          sort: 750,
+          description: 'postIndicators',
+          endpoint: 'fsbid/reference/postindicators/',
+          selectionRef: 'position__post_indicator__in',
+          text: 'Include positions with selected post indicators',
+          tryCache: true,
+          isCommon: true,
+          choices: [
+          ],
+        },
+        data: [],
+        dataAP: [],
+      },
+      {
+        item: {
           title: 'Domestic',
           sort: 900,
           description: 'domestic',
