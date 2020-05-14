@@ -548,6 +548,22 @@ const items =
       },
       {
         item: {
+          title: 'Unaccompanied Status',
+          sort: 780,
+          description: 'unaccompaniedStatus',
+          endpoint: 'fsbid/reference/unaccompaniedstatuses/',
+          selectionRef: 'position__us_codes__in',
+          text: 'Include positions with selected unaccompanied status',
+          tryCache: true,
+          isCommon: true,
+          choices: [
+          ],
+        },
+        data: [],
+        dataAP: [],
+      },
+      {
+        item: {
           title: 'Domestic',
           sort: 900,
           description: 'domestic',
