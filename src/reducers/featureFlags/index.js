@@ -1,3 +1,5 @@
-import { statsIsLoading, statsHasErrored, stats } from './featureFlags';
+import { fetchFeatureFlagsDataSuccess } from './featureFlags';
 
-export default { statsIsLoading, statsHasErrored, stats };
+export default {
+  fetchFeatureFlagsDataSuccess,
+};

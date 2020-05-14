@@ -5,8 +5,8 @@ import numeral from 'numeral';
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
-import { getLoginStats } from '../../../actions/featureFlags';
+// import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+// import { getLoginStats } from '../../../actions/featureFlags';
 
 export const formatNum = n => numeral(n).format('0,0');
 
@@ -18,16 +18,13 @@ class FeatureFlags extends Component {
     };
   }
 
-  UNSAFE_componentWillMount() {
-    const { getStats } = this.props;
-    getStats();
-  }
   handleChange = data => {
     // eslint-disable-next-line no-console
     console.log('current: data:', data);
   };
   render() {
     const {
+      featureFlags,
       // eslint-disable-next-line no-unused-vars
       stats,
       statsIsLoading,
@@ -61,6 +58,9 @@ class FeatureFlags extends Component {
         <div className="usa-grid-full">
           <ProfileSectionTitle title="Feature Flags" icon="flag" />
         </div>
+        :)
+        {featureFlags.toString()}
+        :)
         <Editor
           value={tempjson}
           onChange={this.handleChange}
@@ -71,17 +71,19 @@ class FeatureFlags extends Component {
 }
 
 FeatureFlags.propTypes = {
+  featureFlags: PropTypes.string,
   stats: PropTypes.arrayOf(PropTypes.shape({})),
   statsIsLoading: PropTypes.bool,
   statsHasErrored: PropTypes.bool,
-  getStats: PropTypes.func,
+  // getStats: PropTypes.func,
 };
 
 FeatureFlags.defaultProps = {
+  featureFlags: '',
   stats: [],
   statsIsLoading: false,
   statsHasErrored: false,
-  getStats: EMPTY_FUNCTION,
+  // getStats: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -90,8 +92,4 @@ const mapStateToProps = state => ({
   statsHasErrored: state.statsHasErrored,
 });
 
-export const mapDispatchToProps = dispatch => ({
-  getStats: () => dispatch(getLoginStats()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(FeatureFlags);
+export default connect(mapStateToProps)(FeatureFlags);
