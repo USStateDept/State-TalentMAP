@@ -38,6 +38,7 @@ class ResultsContainer extends Component {
       defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
       defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
     } = this.props;
+    const { isTandemSearch } = this.context;
     return (
       <div className="results-container">
         <MediaQuery breakpoint="screenSmMax" widthType="max">
@@ -45,9 +46,12 @@ class ResultsContainer extends Component {
             matches => (matches &&
               (
                 <div className="usa-width-one-whole mobile-controls">
-                  <Trigger isPrimary>
-                    <button className="usa-button-secondary">Save Search</button>
-                  </Trigger>
+                  {
+                    !isTandemSearch &&
+                    <Trigger isPrimary>
+                      <button className="usa-button-secondary">Save Search</button>
+                    </Trigger>
+                  }
                   <InteractiveElement onClick={toggle} className="filter-button">Filter</InteractiveElement>
                   <div className="results-dropdown results-dropdown-sort">
                     <SelectForm
@@ -130,6 +134,10 @@ class ResultsContainer extends Component {
     );
   }
 }
+
+ResultsContainer.contextTypes = {
+  isTandemSearch: PropTypes.bool,
+};
 
 ResultsContainer.propTypes = {
   hasErrored: PropTypes.bool,

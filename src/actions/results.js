@@ -105,19 +105,25 @@ export function downloadPositionData(query, isPV) {
 }
 
 export function fetchResultData(query) {
-  let prefix = '/fsbid/available_positions';
+  let url = '/fsbid/available_positions';
   const parsed = queryString.parse(query);
   const isPV = parsed.projectedVacancy;
+  const isTandem = parsed.tandem;
 
   if (isPV) {
-    prefix = '/fsbid/projected_vacancies';
+    url = '/fsbid/projected_vacancies';
     delete parsed.projectedVacancy;
+  }
+
+  if (isTandem) {
+    url = `${url}/tandem`;
+    delete parsed.tandem;
   }
 
   const query$ = queryString.stringify(parsed);
 
   return api()
-    .get(`${prefix}/?${query$}`, {
+    .get(`${url}/?${query$}`, {
       cancelToken: new CancelToken((c) => { cancel = c; }),
     })
     .then((response) => {

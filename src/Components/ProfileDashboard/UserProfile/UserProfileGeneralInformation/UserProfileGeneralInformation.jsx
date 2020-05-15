@@ -35,6 +35,12 @@ const UserProfileGeneralInformation = ({ userProfile, showEditLink, useGroup,
         { showEditLink && <StaticDevContent><EditProfile /></StaticDevContent> }
         <div className="name-group">
           <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
+          {
+            get(userProfile, 'employee_profile_url') &&
+              <InformationDataPoint
+                content={<a href={userProfile.employee_profile_url}>Employee Profile</a>}
+              />
+          }
           <InformationDataPoint
             content={`Grade: ${userGrade}`}
             className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
