@@ -80,7 +80,7 @@ class LanguageFilter extends Component {
   }
 
   render() {
-    const { item, languageGroups } = this.props;
+    const { item, languageGroups, isTandem } = this.props;
     let languageGroups$ = (languageGroups.data || []).map((m) => {
       const m$ = { ...m };
       m$.languages = item.data.map(n => n.long_description);
@@ -97,7 +97,7 @@ class LanguageFilter extends Component {
                 <AccordionItem
                   key={group.id}
                   className={`accordion-content-small ${isGroupHidden ? 'accordion-unclickable' : ''}`}
-                  id={`language-group-accordion-${group.id}`}
+                  id={`language-group-accordion-${group.id}${isTandem ? '-tandem' : ''}`}
                   title={group.name}
                   buttonClass="tm-nested-accordion-button"
                   disabled={isGroupHidden}
@@ -105,7 +105,7 @@ class LanguageFilter extends Component {
                   preContent={(
                     <CheckBox
                       cone={group /* pass group to reference in onClick handler */}
-                      id={`select-all-group-${group.id}`}
+                      id={`select-all-group-${group.id}${isTandem ? '-tandem' : ''}`}
                       onCheckBoxClick={this.onGroupCheckBoxClick}
                       className="tm-checkbox-transparent"
                       value={this.state[group.id] || false}
@@ -125,7 +125,7 @@ class LanguageFilter extends Component {
                           return (
                             <CheckBox
                               _id={itemData.id} /* when we need the original id */
-                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}`}
+                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}${isTandem ? '-tandem' : ''}`}
                               key={`checkbox${itemLabel}-language-${group.id}`}
                               label={itemLabel}
                               title={itemLabel}
@@ -157,11 +157,13 @@ LanguageFilter.propTypes = {
   queryParamUpdate: PropTypes.func.isRequired,
   queryProperty: PropTypes.string,
   languageGroups: FILTER_ITEM,
+  isTandem: PropTypes.bool,
 };
 
 LanguageFilter.defaultProps = {
   queryProperty: 'code',
   languageGroups: { data: [] },
+  isTandem: false,
 };
 
 export default LanguageFilter;

@@ -47,6 +47,14 @@ class Results extends Component {
     this.debounced = debounce(() => {});
   }
 
+  getChildContext() {
+    const { tandem } = queryString.parse(get(this.state, 'query.value', ''));
+    const isTandemSearch = tandem === 'tandem';
+    return {
+      isTandemSearch,
+    };
+  }
+
   UNSAFE_componentWillMount() {
     const { isAuthorized, onNavigateTo } = this.props;
     // store default search
@@ -293,6 +301,10 @@ class Results extends Component {
 
 Results.contextTypes = {
   router: PropTypes.object,
+};
+
+Results.childContextTypes = {
+  isTandemSearch: PropTypes.bool,
 };
 
 Results.propTypes = {

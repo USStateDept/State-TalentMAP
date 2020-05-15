@@ -17,6 +17,9 @@
     "confetti": true,
     "bidding_tips": true,
     "bid_stats": false,
-    "client_profiles": true
+    "client_profiles": true,
+    "tandem": true,
+    "indicators": true,
+    "us_codes": true
   }
 }
