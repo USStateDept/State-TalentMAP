@@ -28,6 +28,7 @@ const AdministratorPage = (props) => {
     patchSyncIsLoading,
     totalUsers,
     featureFlags,
+    updateFeatureFlags,
   } = props;
 
   const dashboardProps = {
@@ -58,6 +59,7 @@ const AdministratorPage = (props) => {
 
   const featureFlagsProps = {
     featureFlags,
+    updateFeatureFlags,
   };
 
   return (
@@ -92,6 +94,7 @@ AdministratorPage.propTypes = {
   patchSyncJob: PropTypes.func,
   totalUsers: PropTypes.number,
   featureFlags: PropTypes.string,
+  updateFeatureFlags: PropTypes.func,
 };
 
 AdministratorPage.defaultProps = {
@@ -113,6 +116,7 @@ AdministratorPage.defaultProps = {
   patchSyncJob: EMPTY_FUNCTION,
   totalUsers: 0,
   featureFlags: '',
+  updateFeatureFlags: EMPTY_FUNCTION,
 };
 
 export default AdministratorPage;

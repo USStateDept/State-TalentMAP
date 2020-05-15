@@ -50,34 +50,20 @@ export function fetchFeatureFlagsData() {
   // eslint-disable-next-line no-console
   console.log('current: in getFeatureFlagsData');
   return (dispatch) => {
-    dispatch(fetchFeatureFlagsDataSuccess('hey look at me!'));
-  };
-
-
-  /*  return (dispatch) => {
-      dispatch(aboutContentIsLoading(true));
-      api().get('/aboutpage/')
-        .then((response) => {
-          const text = get(response, 'data.content', '');
-          batch(() => {
-            dispatch(aboutContentHasErrored(false));
-            dispatch(aboutContentIsLoading(false));
-            dispatch(aboutContentFetchDataSuccess(text));
-          });
-        })
-        .catch(() => {
-          batch(() => {
-            dispatch(aboutContentHasErrored(true));
-            dispatch(aboutContentIsLoading(false));
-          });
+    api().get('/featureflags/')
+      .then((response) => {
+        // eslint-disable-next-line no-unused-vars
+        const text = get(response, 'data.content', '');
+        batch(() => {
+          dispatch(fetchFeatureFlagsDataSuccess('hey look at me!'));
         });
-    }; */
+      });
+  };
 }
 
-export function aboutContentPatchData(data) {
+export function patchFeatureFlagsData(data) {
   return (dispatch) => {
-    dispatch(aboutContentPatchIsLoading(false));
-    api().patch('/aboutpage/', { content: data || 'No content' })
+    api().patch('/featureflags/', { content: data || 'No content' })
       .then(() => {
         batch(() => {
           dispatch(aboutContentPatchHasErrored(false));
