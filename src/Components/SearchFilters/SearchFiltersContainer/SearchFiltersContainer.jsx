@@ -20,6 +20,7 @@ import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointP
 const useBidding = () => checkFlag('flags.bidding');
 const usePostIndicators = () => checkFlag('flags.indicators');
 const useTandem = () => checkFlag('flags.tandem');
+const useUS = () => checkFlag('flags.us_codes');
 
 class SearchFiltersContainer extends Component {
   constructor(props) {
@@ -143,6 +144,11 @@ class SearchFiltersContainer extends Component {
     if (!usePostIndicators()) {
       remove(multiSelectFilterNames, f => f === 'postIndicators');
       remove(multiSelectFilterNamesTandemCommon, f => f === 'postIndicators');
+    }
+
+    if (!useUS()) {
+      remove(multiSelectFilterNames, f => f === 'unaccompaniedStatus');
+      remove(multiSelectFilterNamesTandemCommon, f => f === 'unaccompaniedStatus');
     }
 
     const blackList = []; // don't create accordions for these
