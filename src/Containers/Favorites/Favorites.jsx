@@ -21,7 +21,9 @@ const FavoritePositionsContainer = props => {
   const prevPage = usePrevious(page);
 
   const { favoritePositions, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList } = props;
+    favoritePositionsHasErrored, bidList, userProfileFavoritePositionIsLoading } = props;
+
+  const prevUserProfileFavoritePositionIsLoading = usePrevious(userProfileFavoritePositionIsLoading);
 
   function getFavorites(nav = navType) {
     props.fetchData(sortType, PAGE_SIZE, page, nav);
@@ -47,6 +49,15 @@ const FavoritePositionsContainer = props => {
     if ((page === 1) && prevPage) { getFavorites(); }
     setPage(1);
   }, [sortType]);
+
+  useEffect(() => {
+    if (get(prevUserProfileFavoritePositionIsLoading, 'size', 0)
+      // eslint-disable-next-line react/prop-types
+      && !get(userProfileFavoritePositionIsLoading, 'size', 0)) {
+      setPage(1);
+      getFavorites();
+    }
+  }, [userProfileFavoritePositionIsLoading]);
 
   function onToggleFavorite({ id, remove }) {
     props.toggleFavorite(id, remove);
@@ -120,6 +131,7 @@ const mapStateToProps = state => ({
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
   bidList: state.bidListFetchDataSuccess,
+  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -128,7 +140,7 @@ export const mapDispatchToProps = dispatch => ({
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleFavorite: (id, remove) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
-    dispatch(userProfileToggleFavoritePosition(id, remove, true));
+    dispatch(userProfileToggleFavoritePosition(id, remove, false));
   },
 });
 
