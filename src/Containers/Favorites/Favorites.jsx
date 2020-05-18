@@ -7,7 +7,7 @@ import { usePrevious } from 'hooks';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
-import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION, SetType } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import FavoritePositions from 'Components/FavoritePositions';
 import CompareDrawer from 'Components/CompareDrawer';
@@ -23,7 +23,8 @@ const FavoritePositionsContainer = props => {
   const { favoritePositions, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList, userProfileFavoritePositionIsLoading } = props;
 
-  const prevUserProfileFavoritePositionIsLoading = usePrevious(userProfileFavoritePositionIsLoading);
+  const prevUserProfileFavoritePositionIsLoading =
+    usePrevious(userProfileFavoritePositionIsLoading);
 
   function getFavorites(nav = navType) {
     props.fetchData(sortType, PAGE_SIZE, page, nav);
@@ -110,6 +111,7 @@ FavoritePositionsContainer.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool,
   favoritePositionsIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
+  userProfileFavoritePositionIsLoading: SetType,
 };
 
 FavoritePositionsContainer.defaultProps = {
@@ -120,6 +122,7 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositionsHasErrored: false,
   favoritePositionsIsLoading: false,
   bidList: { results: [] },
+  userProfileFavoritePositionIsLoading: new Set(),
 };
 
 FavoritePositionsContainer.contextTypes = {
