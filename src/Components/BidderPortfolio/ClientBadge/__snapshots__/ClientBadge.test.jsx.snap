@@ -39,11 +39,13 @@ exports[`ClientBadge matches snapshot 1`] = `
       stickyDuration={200}
       style={Object {}}
       tabIndex="0"
+      tag="div"
       theme="dark"
       title="3rd Tour"
       touchHold={false}
       trigger="mouseenter focus"
       unmountHTMLWhenHide={false}
+      zIndex={9999}
     >
       <FontAwesomeIcon
         aria-label="type of \\"3\\" with status of \\"undefined\\""
