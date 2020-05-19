@@ -112,6 +112,7 @@ describe('SearchFiltersContainerComponent', () => {
     // check when value !== 'open'
     wrapper.instance().onProjectedVacancyFilterClick('pv');
     expect(toggleValue.value).toEqual({
+      cps_codes: null,
       is_available_in_bidcycle: null,
       is_available_in_current_bidcycle: null,
       ordering: 'ted',
