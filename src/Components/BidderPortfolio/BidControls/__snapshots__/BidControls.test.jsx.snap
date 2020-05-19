@@ -54,8 +54,8 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
               "value": 50,
             },
             Object {
-              "text": "All",
-              "value": "all",
+              "text": "250",
+              "value": 250,
             },
           ]
         }
@@ -201,8 +201,8 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
               "value": 50,
             },
             Object {
-              "text": "All",
-              "value": "all",
+              "text": "250",
+              "value": 250,
             },
           ]
         }
