@@ -7,7 +7,7 @@ import { usePrevious } from 'hooks';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
-import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION, SetType } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import FavoritePositions from 'Components/FavoritePositions';
 import CompareDrawer from 'Components/CompareDrawer';
@@ -21,7 +21,10 @@ const FavoritePositionsContainer = props => {
   const prevPage = usePrevious(page);
 
   const { favoritePositions, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList } = props;
+    favoritePositionsHasErrored, bidList, userProfileFavoritePositionIsLoading } = props;
+
+  const prevUserProfileFavoritePositionIsLoading =
+    usePrevious(userProfileFavoritePositionIsLoading);
 
   function getFavorites(nav = navType) {
     props.fetchData(sortType, PAGE_SIZE, page, nav);
@@ -47,6 +50,15 @@ const FavoritePositionsContainer = props => {
     if ((page === 1) && prevPage) { getFavorites(); }
     setPage(1);
   }, [sortType]);
+
+  useEffect(() => {
+    if (get(prevUserProfileFavoritePositionIsLoading, 'size', 0)
+      // eslint-disable-next-line react/prop-types
+      && !get(userProfileFavoritePositionIsLoading, 'size', 0)) {
+      setPage(1);
+      getFavorites();
+    }
+  }, [userProfileFavoritePositionIsLoading]);
 
   function onToggleFavorite({ id, remove }) {
     props.toggleFavorite(id, remove);
@@ -99,6 +111,7 @@ FavoritePositionsContainer.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool,
   favoritePositionsIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
+  userProfileFavoritePositionIsLoading: SetType,
 };
 
 FavoritePositionsContainer.defaultProps = {
@@ -109,6 +122,7 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositionsHasErrored: false,
   favoritePositionsIsLoading: false,
   bidList: { results: [] },
+  userProfileFavoritePositionIsLoading: new Set(),
 };
 
 FavoritePositionsContainer.contextTypes = {
@@ -120,6 +134,7 @@ const mapStateToProps = state => ({
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
   bidList: state.bidListFetchDataSuccess,
+  userProfileFavoritePositionIsLoading: state.userProfileFavoritePositionIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -128,7 +143,7 @@ export const mapDispatchToProps = dispatch => ({
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleFavorite: (id, remove) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
-    dispatch(userProfileToggleFavoritePosition(id, remove, true));
+    dispatch(userProfileToggleFavoritePosition(id, remove, false));
   },
 });
 

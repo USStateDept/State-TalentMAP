@@ -61,6 +61,7 @@ class SearchFiltersContainer extends Component {
         is_available_in_current_bidcycle: null,
         projectedVacancy: value,
         ordering: 'ted',
+        cps_codes: null,
       };
     }
     this.props.queryParamUpdate(config);
