@@ -68,12 +68,9 @@ class ResultsControls extends Component {
                         </PreferenceWrapper>
                       </div>
                     }
-                    {
-                      !isTandemSearch &&
                     <div className="results-download">
                       <SearchResultsExportLink count={results.count} />
                     </div>
-                    }
                     {
                       !isClient && !isTandemSearch &&
                       <Trigger isPrimary>
