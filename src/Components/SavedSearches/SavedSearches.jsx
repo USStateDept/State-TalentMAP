@@ -27,17 +27,20 @@ const SavedSearches = props => {
   const getSearches = useType => {
     const cycle = '/api/v1/cycleposition/';
     const pos = '/api/v1/position/';
+    const ap = '/api/v1/fsbid/available_positions/';
     const pv = '/api/v1/fsbid/projected_vacancies/';
 
     const checkBy = useType || selected;
     switch (checkBy) {
       case 'open':
-        return savedSearches.results.filter(f => f.endpoint === cycle || f.endpoint === pos);
+        return savedSearches.results.filter(f => f.endpoint === cycle ||
+          f.endpoint === pos || f.endpoint === ap);
       case 'pv':
         return savedSearches.results.filter(f => f.endpoint === pv);
       default:
         return savedSearches.results
-          .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === pv);
+          .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === ap ||
+            f.endpoint === pv);
     }
   };
 
