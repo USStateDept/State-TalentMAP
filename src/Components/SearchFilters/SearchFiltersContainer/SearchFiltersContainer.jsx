@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, includes, indexOf, sortBy } from 'lodash';
+import { get, includes, indexOf, remove, sortBy } from 'lodash';
 import ToggleButton from 'Components/ToggleButton';
 import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
@@ -18,6 +18,9 @@ import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault, sortTo
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
 
 const useBidding = () => checkFlag('flags.bidding');
+const usePostIndicators = () => checkFlag('flags.indicators');
+const useTandem = () => checkFlag('flags.tandem');
+const useUS = () => checkFlag('flags.us_codes');
 
 class SearchFiltersContainer extends Component {
   constructor(props) {
@@ -58,6 +61,7 @@ class SearchFiltersContainer extends Component {
         is_available_in_current_bidcycle: null,
         projectedVacancy: value,
         ordering: 'ted',
+        cps_codes: null,
       };
     }
     this.props.queryParamUpdate(config);
@@ -130,13 +134,23 @@ class SearchFiltersContainer extends Component {
 
     // get our normal multi-select filters
     const multiSelectFilterNames = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language',
-      'postDiff', 'dangerPay', 'handshake'];
+      'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus', 'handshake'];
 
 
-    const multiSelectFilterNamesTandemCommon = ['post', 'postDiff', 'dangerPay'];
+    const multiSelectFilterNamesTandemCommon = ['post', 'postDiff', 'dangerPay', 'postIndicators', 'unaccompaniedStatus'];
     const multiSelectFilterNamesTandem1 = ['bidSeason', 'bidCycle', 'skill', 'grade', 'region', 'tod', 'language', 'handshake'];
     const multiSelectFilterNamesTandem2 = ['bidSeason-tandem', 'bidCycle-tandem', 'skill-tandem', 'grade-tandem',
       'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem'];
+
+    if (!usePostIndicators()) {
+      remove(multiSelectFilterNames, f => f === 'postIndicators');
+      remove(multiSelectFilterNamesTandemCommon, f => f === 'postIndicators');
+    }
+
+    if (!useUS()) {
+      remove(multiSelectFilterNames, f => f === 'unaccompaniedStatus');
+      remove(multiSelectFilterNamesTandemCommon, f => f === 'unaccompaniedStatus');
+    }
 
     const blackList = []; // don't create accordions for these
 
@@ -431,7 +445,10 @@ class SearchFiltersContainer extends Component {
             }
           />
         </div>
-        <ToggleButton labelText="Tandem Search" labelToLeft={false} checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
+        {
+          useTandem() &&
+          <ToggleButton labelText="Tandem Search" labelToLeft={false} checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
+        }
       </div>
     );
   }
