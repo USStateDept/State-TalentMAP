@@ -234,9 +234,9 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         let message = '';
         if (remove) {
           message = SystemMessages.DELETE_FAVORITE_ERROR();
-        } else if (response.status === 507 && isPV) {
+        } else if (response.status === 507 && isPV && limit) {
           message = SystemMessages.ADD_FAVORITE_LIMIT_ERROR_PV(limit);
-        } else if (response.status === 507) {
+        } else if (response.status === 507 && limit) {
           message = SystemMessages.ADD_FAVORITE_LIMIT_ERROR_AP(limit);
         } else {
           message = SystemMessages.ADD_FAVORITE_ERROR();
