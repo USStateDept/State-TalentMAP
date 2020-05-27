@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import LinkButton from '../../../LinkButton';
 
-const HandshakeDeclinedAlert = ({ userName, bureau, id }, { condensedView }) => (
+const HandshakeDeclinedAlert = ({ userName, bureau, bidIdUrl }, { condensedView }) => (
   <div
     className="bid-tracker-alert-container bid-tracker-alert-container--handshake-declined"
   >
@@ -17,7 +17,7 @@ const HandshakeDeclinedAlert = ({ userName, bureau, id }, { condensedView }) => 
     {
       condensedView &&
       <div className="usa-grid-full">
-        <LinkButton toLink={`/profile/bidtracker/${id || ''}`} className="tm-button-transparent">
+        <LinkButton toLink={bidIdUrl} className="tm-button-transparent">
           Go to Bid Tracker
         </LinkButton>
       </div>
@@ -28,11 +28,11 @@ const HandshakeDeclinedAlert = ({ userName, bureau, id }, { condensedView }) => 
 HandshakeDeclinedAlert.propTypes = {
   userName: PropTypes.string.isRequired,
   bureau: PropTypes.string.isRequired,
-  id: PropTypes.number,
+  bidIdUrl: PropTypes.string,
 };
 
 HandshakeDeclinedAlert.defaultProps = {
-  id: 0,
+  bidIdUrl: '',
 };
 
 HandshakeDeclinedAlert.contextTypes = {

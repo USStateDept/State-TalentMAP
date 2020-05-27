@@ -8,6 +8,18 @@ $results-container-width: 100% - $filter-container-width;
     font-size: .9em;
   }
 
+  .tandem-filter-header {
+    border-bottom: 1px solid $color-black;
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-bottom: 1em;
+    padding: 2.5em 0 .5em;
+  }
+
+  .tandem-filter-header--first {
+    padding-top: 1em;
+  }
+
   .results-dropdown-page-size {
     float: left;
     margin-left: 20px;
@@ -53,6 +65,23 @@ $results-container-width: 100% - $filter-container-width;
     dd {
       vertical-align: top;
     }
+  }
+
+  &.results-card--tandem-two {
+    background-color: $primary-alt-lighter;
+
+    .compare-not-checked {
+      background-color: $color-white;
+    }
+  }
+
+  .tandem-identifier {
+    font-size: 1.5rem;
+    font-weight: 500;
+  }
+
+  .tandem-details-link {
+    padding-left: .5rem;
   }
 
   .available-alert {
@@ -421,7 +450,8 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
-  .projected-vacancy-filter-container {
+  .projected-vacancy-filter-container,
+  .tandem-filter-container {
     margin-bottom: .8em;
     margin-top: .2em;
 
@@ -698,7 +728,9 @@ $results-container-width: 100% - $filter-container-width;
 
   .accordion-checkbox-post,
   .accordion-checkbox-skill,
-  .accordion-checkbox-language {
+  .accordion-checkbox-skill-tandem,
+  .accordion-checkbox-language,
+  .accordion-checkbox-language-tandem {
     .usa-accordion-button {
       float: left;
       padding-left: 0;
@@ -718,9 +750,13 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .accordion-checkbox-skill,
+  .accordion-checkbox-skill-tandem,
   .accordion-checkbox-language,
+  .accordion-checkbox-language-tandem,
   .accordion-checkbox-post,
-  .accordion-checkbox-bureau {
+  .accordion-checkbox-post-tandem,
+  .accordion-checkbox-bureau,
+  .accordion-checkbox-bureau-tandem {
     padding: 0;
 
     .tm-nested-accordions {
@@ -733,7 +769,8 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
-  .accordion-checkbox-grade {
+  .accordion-checkbox-grade,
+  .accordion-checkbox-grade-tandem {
     .tm-checkbox {
       float: left;
     }
@@ -743,6 +780,27 @@ $results-container-width: 100% - $filter-container-width;
 .ap-container {
   .accordion-checkbox-post {
     min-height: inherit;
+  }
+
+  .tandem-common-filters {
+    .toggle-button.toggle-button--selected,
+    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
+      background-color: $color-blue-chill;
+    }
+  }
+
+  .tandem-1-filters {
+    .toggle-button.toggle-button--selected,
+    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
+      // add any styles here related to tandem user 1
+    }
+  }
+
+  .tandem-2-filters {
+    .toggle-button.toggle-button--selected,
+    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
+      background-color: $color-blue-mariner;
+    }
   }
 }
 

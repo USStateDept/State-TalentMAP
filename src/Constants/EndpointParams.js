@@ -19,6 +19,14 @@ export const ENDPOINT_PARAMS = {
   bidSeason: 'is_available_in_bidseason',
   highlighted: 'position__is_highlighted',
   projectedVacancy: 'projectedVacancy', // this isn't a real query param, but we'll use it to transform the request
+  tandem: 'tandem',
+  handshake: 'cps_codes',
+};
+
+export const ENDPOINT_PARAMS_TANDEM = {
+  ...Object.assign({}, ...Object.keys(ENDPOINT_PARAMS).map(m => ({ [m]: `${ENDPOINT_PARAMS[m]}-tandem` }))),
+  projectedVacancy: ENDPOINT_PARAMS.projectedVacancy,
+  tandem: ENDPOINT_PARAMS.tandem,
 };
 
 // any properties that we want to abstract to a common name

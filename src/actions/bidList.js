@@ -7,12 +7,14 @@ import { toastSuccess, toastError } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
 import * as SystemMessages from '../Constants/SystemMessages';
 
-export function downloadBidlistData() {
-  return api().get('/fsbid/bidlist/export/', {
+export function downloadBidlistData(useClient = false, clientId = '') {
+  const url = useClient && clientId ? `/fsbid/cdo/client/${clientId}/export/` : '/fsbid/bidlist/export/';
+  const clientId$ = useClient ? clientId : '';
+  return api().get(url, {
     responseType: 'stream',
   })
     .then((response) => {
-      downloadFromResponse(response, 'TalentMap_BidList_export');
+      downloadFromResponse(response, `TalentMap_BidList_export${clientId ? `_${clientId$}` : ''}`);
     })
     .catch(() => {
       // eslint-disable-next-line global-require
@@ -146,22 +148,68 @@ export function declineBidSuccess(response) {
   };
 }
 
+export function registerHandshakeHasErrored(bool) {
+  return {
+    type: 'REGISTER_HANDSHAKE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function registerHandshakeIsLoading(bool) {
+  return {
+    type: 'REGISTER_HANDSHAKE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function registerHandshakeSuccess(response) {
+  return {
+    type: 'REGISTER_HANDSHAKE_SUCCESS',
+    response,
+  };
+}
+
+export function unregisterHandshakeHasErrored(bool) {
+  return {
+    type: 'UNREGISTER_HANDSHAKE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function unregisterHandshakeIsLoading(bool) {
+  return {
+    type: 'UNREGISTER_HANDSHAKE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function unregisterHandshakeSuccess(response) {
+  return {
+    type: 'UNREGISTER_HANDSHAKE_SUCCESS',
+    response,
+  };
+}
+
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
     batch(() => {
       dispatch(bidListToggleSuccess(false));
       dispatch(bidListToggleHasErrored(false));
-      dispatch(bidListToggleSuccess(false));
+      dispatch(bidListToggleIsLoading(false));
       dispatch(submitBidSuccess(false));
       dispatch(submitBidHasErrored(false));
-      dispatch(submitBidSuccess(false));
+      dispatch(submitBidIsLoading(false));
       dispatch(acceptBidSuccess(false));
       dispatch(acceptBidHasErrored(false));
-      dispatch(acceptBidSuccess(false));
+      dispatch(acceptBidIsLoading(false));
       dispatch(declineBidSuccess(false));
       dispatch(declineBidHasErrored(false));
-      dispatch(declineBidSuccess(false));
+      dispatch(declineBidIsLoading(false));
+      dispatch(registerHandshakeSuccess(false));
+      dispatch(registerHandshakeHasErrored(false));
+      dispatch(registerHandshakeIsLoading(false));
     });
   };
 }
@@ -343,6 +391,77 @@ export function declineBid(id, clientId) {
         batch(() => {
           dispatch(declineBidHasErrored(SystemMessages.DECLINE_BID_ERROR));
           dispatch(declineBidIsLoading(false));
+        });
+      });
+  };
+}
+
+export function unregisterHandshake(id, clientId) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    batch(() => {
+      dispatch(routeChangeResetState());
+      dispatch(unregisterHandshakeIsLoading(true));
+      dispatch(unregisterHandshakeHasErrored(false));
+    });
+
+    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
+
+    api().delete(url)
+      .then(response => response.data)
+      .then(() => {
+        const message = SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS;
+        batch(() => {
+          dispatch(toastSuccess(message));
+          dispatch(unregisterHandshakeHasErrored(false));
+          dispatch(unregisterHandshakeIsLoading(false));
+          dispatch(unregisterHandshakeSuccess(message));
+        });
+        dispatch(userProfilePublicFetchData(clientId));
+      })
+      .catch(() => {
+        const message = SystemMessages.UNREGISTER_HANDSHAKE_ERROR;
+        batch(() => {
+          dispatch(toastError(message));
+          dispatch(unregisterHandshakeHasErrored(message));
+          dispatch(unregisterHandshakeIsLoading(false));
+        });
+      });
+  };
+}
+
+export function registerHandshake(id, clientId) {
+  return (dispatch) => {
+    const idString = id.toString();
+    // reset the states to ensure only one message can be shown
+    batch(() => {
+      dispatch(routeChangeResetState());
+      dispatch(registerHandshakeIsLoading(true));
+      dispatch(registerHandshakeHasErrored(false));
+    });
+
+    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
+
+    api().put(url)
+      .then(response => response.data)
+      .then(() => {
+        const undo = () => dispatch(unregisterHandshake(id, clientId));
+        const message = SystemMessages.REGISTER_HANDSHAKE_SUCCESS(undo);
+        batch(() => {
+          dispatch(toastSuccess(message));
+          dispatch(registerHandshakeHasErrored(false));
+          dispatch(registerHandshakeIsLoading(false));
+          dispatch(registerHandshakeSuccess(message));
+        });
+        dispatch(userProfilePublicFetchData(clientId));
+      })
+      .catch(() => {
+        const message = SystemMessages.REGISTER_HANDSHAKE_ERROR;
+        batch(() => {
+          dispatch(toastError(message));
+          dispatch(registerHandshakeHasErrored(message));
+          dispatch(registerHandshakeIsLoading(false));
         });
       });
   };

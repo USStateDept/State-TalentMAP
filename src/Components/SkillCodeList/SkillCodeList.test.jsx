@@ -6,10 +6,8 @@ import { NO_USER_SKILL_CODE } from '../../Constants/SystemMessages';
 import { bidderUserObject } from '../../__mocks__/userObject';
 
 describe('SkillCodeList', () => {
-  const skillCodes = bidderUserObject.skills;
+  const skillCodes = bidderUserObject.employee_info.skills;
   const extendedSkills = [...skillCodes, {
-    id: 100,
-    cone: null,
     code: '5111',
     description: 'Test Description',
   }];
@@ -52,6 +50,15 @@ describe('SkillCodeList', () => {
 
   it('renders content correctly with an array of one item', () => {
     const wrapper = shallow(<SkillCodeList skillCodes={[skillCodes[0]]} />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('renders content correctly with an array of one item with no skill description', () => {
+    const localSkillCodes = [{
+      code: '5111',
+      description: null,
+    }];
+    const wrapper = shallow(<SkillCodeList skillCodes={[localSkillCodes[0]]} />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 

@@ -23,7 +23,6 @@ const ProfilePage = ({ user, isLoading }) => (
   <div className="profile-page">
     <ProfileMenu
       roles={user.permission_groups}
-      isCDO={user.is_cdo}
       isGlossaryEditor={userHasPermissions([GLOSSARY_EDITOR_PERM], user.permission_groups)}
     />
     <div className="usa-grid-full profile-content-container">
@@ -37,10 +36,10 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/favorites" component={FavoritePositionsContainer} />
           <Route path="/profile/searches" component={SavedSearchesWrapper} />
           <Route
-            path="/profile/bidtracker/public/:id"
+            path="/profile/bidtracker/public/:id/:bid?"
             render={props => <BidTracker {...props} isPublic />}
           />
-          <Route path="/profile/bidtracker/:id?" component={BidTracker} />
+          <Route path="/profile/bidtracker/:bid?" component={BidTracker} />
           <Route path="/profile/statistics" component={BidStatistics} />
           <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
           <Route path="/profile/public/:id" component={ProfilePublic} />

@@ -9,6 +9,7 @@ exports[`MultiSelectFilterContainerComponent matches snapshot 1`] = `
     buttonClass=""
     childClass=""
     className=""
+    controlled={false}
     disabled={false}
     expanded={false}
     id="checkbox-title"

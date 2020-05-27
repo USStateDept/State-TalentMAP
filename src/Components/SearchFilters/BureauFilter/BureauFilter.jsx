@@ -17,7 +17,7 @@ class BureauFilter extends Component {
   };
 
   render() {
-    const { item, functionalBureaus } = this.props;
+    const { item, functionalBureaus, isTandem } = this.props;
     const regionalBureaus = item.data.slice().filter(b => b.is_regional);
     const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
     // sort the regional bureaus by their calculated label
@@ -25,14 +25,14 @@ class BureauFilter extends Component {
     return (
       <div className="usa-grid-full tm-nested-accordions">
         <Accordion>
-          <AccordionItem className="accordion-content-small" id="regional-bureau-sub-accordion" title="Regional Bureaus" buttonClass="tm-nested-accordion-button">
+          <AccordionItem className="accordion-content-small" id={`regional-bureau-sub-accordion${isTandem ? '-tandem' : ''}`} title="Regional Bureaus" buttonClass="tm-nested-accordion-button">
             <div className="usa-grid-full">
               {
                 sortedRegionalBureuas.map((itemData) => {
                   const itemLabel = getItemLabel(itemData);
                   return (<CheckBox
                     _id={itemData.id} /* when we need the original id */
-                    id={`checkbox${itemLabel}-region-${item.item.description}`}
+                    id={`checkbox${itemLabel}-region-${item.item.description}${isTandem ? '-tandem' : ''}`}
                     key={`checkbox${itemLabel}-region-${item.item.description}`}
                     label={itemLabel}
                     title={itemLabel}
@@ -47,14 +47,14 @@ class BureauFilter extends Component {
               }
             </div>
           </AccordionItem>
-          <AccordionItem className="accordion-content-small" id="functional-bureau-sub-accordion" title="Functional Bureaus" buttonClass="tm-nested-accordion-button">
+          <AccordionItem className="accordion-content-small" id={`functional-bureau-sub-accordion${isTandem ? '-tandem' : ''}`} title="Functional Bureaus" buttonClass="tm-nested-accordion-button">
             {
               functionalBureaus$.map((itemData) => {
                 const itemLabel = getItemLabel(itemData);
                 return (
                   <CheckBox
                     _id={itemData.id} /* when we need the original id */
-                    id={`checkbox-functional-bureau-${itemData.id}`}
+                    id={`checkbox-functional-bureau-${itemData.id}${isTandem ? '-tandem' : ''}`}
                     key={`checkbox-functional-bureau-${itemData.id}`}
                     label={itemLabel}
                     title={itemLabel}
@@ -79,11 +79,13 @@ BureauFilter.propTypes = {
   queryParamToggle: PropTypes.func.isRequired,
   queryProperty: PropTypes.string,
   functionalBureaus: FILTER_ITEM,
+  isTandem: PropTypes.bool,
 };
 
 BureauFilter.defaultProps = {
   queryProperty: 'code',
   functionalBureaus: { data: [] },
+  isTandem: false,
 };
 
 export default BureauFilter;

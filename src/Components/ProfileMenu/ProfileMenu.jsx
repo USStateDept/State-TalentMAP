@@ -21,7 +21,6 @@ class ProfileMenu extends Component {
       profileMenuExpanded,
       profileMenuSectionExpanded,
       roles,
-      isCDO,
       isGlossaryEditor,
       onSetProfileMenuExpanded,
       onSetProfileMenuSectionExpanded,
@@ -29,7 +28,6 @@ class ProfileMenu extends Component {
 
     const options = {
       roles,
-      isCDO,
       isGlossaryEditor,
     };
 
@@ -56,7 +54,6 @@ ProfileMenu.propTypes = {
   onSetProfileMenuExpanded: PropTypes.func.isRequired,
   onSetProfileMenuSectionExpanded: PropTypes.func.isRequired,
   roles: PropTypes.arrayOf(PropTypes.string),
-  isCDO: PropTypes.bool,
   isGlossaryEditor: PropTypes.bool,
 };
 
@@ -66,7 +63,6 @@ ProfileMenu.defaultProps = {
   onSetProfileMenuExpanded: EMPTY_FUNCTION,
   onSetProfileMenuSectionExpanded: EMPTY_FUNCTION,
   roles: [],
-  isCDO: false,
   isGlossaryEditor: false,
 };
 

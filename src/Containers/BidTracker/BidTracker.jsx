@@ -4,12 +4,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import { bidListFetchData, toggleBidPosition, routeChangeResetState,
-  submitBid, acceptBid, declineBid } from '../../actions/bidList';
+  submitBid, acceptBid, declineBid, registerHandshake,
+  unregisterHandshake } from '../../actions/bidList';
 import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
 import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
   SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
-  DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS } from '../../Constants/PropTypes';
+  DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS,
+  REGISTER_HANDSHAKE_HAS_ERRORED, REGISTER_HANDSHAKE_SUCCESS, UNREGISTER_HANDSHAKE_HAS_ERRORED,
+  UNREGISTER_HANDSHAKE_SUCCESS,
+} from '../../Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import BidTracker from '../../Components/BidTracker';
 
@@ -31,8 +35,8 @@ class BidTrackerContainer extends Component {
 
   componentDidUpdate() {
     const { match: { params } } = this.props;
-    if (params.id) {
-      this.scrollToId(params.id);
+    if (params.bid) {
+      this.scrollToId(params.bid);
     }
   }
 
@@ -66,7 +70,11 @@ class BidTrackerContainer extends Component {
       declineBidSuccess, notifications, notificationsIsLoading,
       markNotificationHasErrored, markNotificationIsLoading, markNotificationSuccess,
       markBidTrackerNotification, userProfile, userProfileIsLoading,
-      userProfilePublic, userProfilePublicIsLoading, userProfilePublicHasErrored } = this.props;
+      userProfilePublic, userProfilePublicIsLoading, userProfilePublicHasErrored,
+      registerHandshakePosition, registerHandshakeHasErrored,
+      registerHandshakeIsLoading, registerHandshakeSuccess,
+      unregisterHandshakeHasErrored, unregisterHandshakeSuccess,
+      unregisterHandshakePosition, unregisterHandshakeIsLoading } = this.props;
 
     const bidList$ = isPublic ? { results: userProfilePublic.bidList } : bidList;
     const bidListHasErrored$ = isPublic ? userProfilePublicHasErrored : bidListHasErrored;
@@ -84,6 +92,14 @@ class BidTrackerContainer extends Component {
         bidListToggleHasErrored={bidListToggleHasErrored}
         bidListToggleSuccess={bidListToggleSuccess}
         deleteBid={deleteBid}
+        registerHandshake={registerHandshakePosition}
+        registerHandshakeHasErrored={registerHandshakeHasErrored}
+        registerHandshakeIsLoading={registerHandshakeIsLoading}
+        registerHandshakeSuccess={registerHandshakeSuccess}
+        unregisterHandshake={unregisterHandshakePosition}
+        unregisterHandshakeHasErrored={unregisterHandshakeHasErrored}
+        unregisterHandshakeIsloading={unregisterHandshakeIsLoading}
+        unregisterHandshakeSuccess={unregisterHandshakeSuccess}
         submitBid={submitBidPosition}
         submitBidHasErrored={submitBidHasErrored}
         submitBidIsLoading={submitBidIsLoading}
@@ -134,6 +150,14 @@ BidTrackerContainer.propTypes = {
   declineBidHasErrored: DECLINE_BID_HAS_ERRORED.isRequired,
   declineBidIsLoading: PropTypes.bool.isRequired,
   declineBidSuccess: DECLINE_BID_SUCCESS.isRequired,
+  registerHandshakePosition: PropTypes.func.isRequired,
+  registerHandshakeHasErrored: REGISTER_HANDSHAKE_HAS_ERRORED.isRequired,
+  registerHandshakeSuccess: REGISTER_HANDSHAKE_SUCCESS.isRequired,
+  registerHandshakeIsLoading: PropTypes.bool.isRequired,
+  unregisterHandshakePosition: PropTypes.func.isRequired,
+  unregisterHandshakeHasErrored: UNREGISTER_HANDSHAKE_HAS_ERRORED.isRequired,
+  unregisterHandshakeSuccess: UNREGISTER_HANDSHAKE_SUCCESS.isRequired,
+  unregisterHandshakeIsLoading: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
@@ -144,7 +168,10 @@ BidTrackerContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
   match: PropTypes.shape({
-    params: PropTypes.shape({ id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]) }),
+    params: PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      bid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    }),
   }),
   userProfilePublic: USER_PROFILE,
   userProfilePublicIsLoading: PropTypes.bool,
@@ -156,6 +183,14 @@ BidTrackerContainer.defaultProps = {
   isPublic: false,
   fetchUserData: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  registerHandshakePosition: EMPTY_FUNCTION,
+  registerHandshakeHasErrored: false,
+  registerHandshakeSuccess: false,
+  registerHandshakeIsLoading: false,
+  unregisterHandshakeHasErrored: false,
+  unregisterHandshakeSuccess: false,
+  unregisterHandshakeIsLoading: false,
+  unregisterHandshakePosition: EMPTY_FUNCTION,
   bidList: { results: [] },
   bidListHasErrored: false,
   bidListIsLoading: false,
@@ -207,6 +242,12 @@ const mapStateToProps = state => ({
   declineBidHasErrored: state.declineBidHasErrored,
   declineBidIsLoading: state.declineBidIsLoading,
   declineBidSuccess: state.declineBidSuccess,
+  registerHandshakeHasErrored: state.registerHandshakeHasErrored,
+  registerHandshakeIsLoading: state.registerHandshakeIsLoading,
+  registerHandshakeSuccess: state.registerHandshakeSuccess,
+  unregisterHandshakeHasErrored: state.unregisterHandshakeHasErrored,
+  unregisterHandshakeIsLoading: state.unregisterHandshakeIsLoading,
+  unregisterHandshakeSuccess: state.unregisterHandshakeSuccess,
   notifications: state.notifications,
   notificationsIsLoading: state.notificationsIsLoading,
   markNotificationHasErrored: state.markNotificationHasErrored,
@@ -247,6 +288,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
       submitBidPosition: id => dispatch(submitBid(id, id$)),
       acceptBidPosition: id => dispatch(acceptBid(id, id$)),
       declineBidPosition: id => dispatch(declineBid(id, id$)),
+      registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
+      unregisterHanadshakePosition: id => dispatch(unregisterHandshake(id, id$)),
       deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
     };
   }

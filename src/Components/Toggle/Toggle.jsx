@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
+import { Tooltip } from 'react-tippy';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class Toggle extends Component {
@@ -37,16 +38,36 @@ class Toggle extends Component {
       <div className="toggle-container">
         {items.map((m) => {
           const isSelected = this.isSelected(m.value);
-          return (
-            <button
+          const addTooltip = !isNil(m.tooltip);
+          let renderedContent;
+          if (!addTooltip) {
+            renderedContent = (<button
               key={m.value}
               value={m.value}
               onClick={this.onSelect}
               className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
             >
               {m.label}
-            </button>
-          );
+            </button>);
+          } else {
+            renderedContent = (
+              <Tooltip
+                title={m.tooltip}
+                arrow
+                offset={-50}
+                tabIndex="0"
+              >
+                <button
+                  key={m.value}
+                  value={m.value}
+                  onClick={this.onSelect}
+                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+                >{m.label}
+                </button>
+              </Tooltip>);
+          }
+
+          return renderedContent;
         })}
       </div>
     );

@@ -46,6 +46,20 @@ exports[`UserProfileComponent matches snapshot 1`] = `
           "start_date": "10-10-2016",
         },
         "display_name": "John",
+        "emp_id": "1",
+        "employee_info": Object {
+          "grade": "00",
+          "skills": Array [
+            Object {
+              "code": "6218",
+              "description": "CONSTRUCTION ENGINEERING",
+            },
+            Object {
+              "code": "6211",
+              "description": "COMPUTER SCIENCE",
+            },
+          ],
+        },
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -69,18 +83,8 @@ exports[`UserProfileComponent matches snapshot 1`] = `
         "initials": "JD",
         "is_cdo": false,
         "skills": Array [
-          Object {
-            "code": "6218",
-            "cone": null,
-            "description": "CONSTRUCTION ENGINEERING",
-            "id": 63,
-          },
-          Object {
-            "code": "6211",
-            "cone": null,
-            "description": "COMPUTER SCIENCE",
-            "id": 40,
-          },
+          63,
+          40,
         ],
         "user": Object {
           "email": "doej@state.gov",
@@ -161,6 +165,20 @@ exports[`UserProfileComponent matches snapshot 1`] = `
             "start_date": "10-10-2016",
           },
           "display_name": "John",
+          "emp_id": "1",
+          "employee_info": Object {
+            "grade": "00",
+            "skills": Array [
+              Object {
+                "code": "6218",
+                "description": "CONSTRUCTION ENGINEERING",
+              },
+              Object {
+                "code": "6211",
+                "description": "COMPUTER SCIENCE",
+              },
+            ],
+          },
           "favorite_positions": Array [
             Object {
               "id": 1,
@@ -184,18 +202,8 @@ exports[`UserProfileComponent matches snapshot 1`] = `
           "initials": "JD",
           "is_cdo": false,
           "skills": Array [
-            Object {
-              "code": "6218",
-              "cone": null,
-              "description": "CONSTRUCTION ENGINEERING",
-              "id": 63,
-            },
-            Object {
-              "code": "6211",
-              "cone": null,
-              "description": "COMPUTER SCIENCE",
-              "id": 40,
-            },
+            63,
+            40,
           ],
           "user": Object {
             "email": "doej@state.gov",

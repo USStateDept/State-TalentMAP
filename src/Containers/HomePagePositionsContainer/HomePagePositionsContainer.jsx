@@ -19,20 +19,19 @@ class HomePagePositionsContainer extends Component {
   componentDidMount() {
     // Don't try to pull positions until we've received the user's profile.
     if (this.props.userProfile.id) {
-      this.props.homePagePositionsFetchData(this.props.userProfile.skills,
-        this.props.userProfile.grade);
+      this.props.homePagePositionsFetchData(this.props.userProfile.employee_info.skills,
+        this.props.userProfile.employee_info.grade);
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     // Once we have a valid user profile, fetch the positions, but only
     // once. We'll set hasFetched to true to keep track.
-    if (nextProps.userProfile.id && !this.state.hasFetched && !this.props.homePagePositionsIsLoading
-      && !nextProps.homePagePositionsIsLoading) {
-      this.props.homePagePositionsFetchData(nextProps.userProfile.skills,
-        nextProps.userProfile.grade);
+    if (nextProps.userProfile.id && !this.state.hasFetched
+        && !this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
+      this.props.homePagePositionsFetchData(nextProps.userProfile.employee_info.skills,
+        nextProps.userProfile.employee_info.grade);
     }
-
     if (this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
       setTimeout(() => {
         this.setState({ hasFetched: true });
@@ -58,7 +57,6 @@ class HomePagePositionsContainer extends Component {
               homePagePositions={homePagePositions}
               homePagePositionsIsLoading={homePagePositionsIsLoading}
               userProfile={userProfile}
-
               bidList={bidList}
             />
         }

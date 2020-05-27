@@ -36,11 +36,13 @@ exports[`BidCountNumberComponent matches snapshot where type = atGradeBids 1`] =
     stickyDuration={200}
     style={Object {}}
     tabIndex="0"
+    tag="div"
     theme="dark"
     title="Number of bidders who are at-Grade."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
+    zIndex={9999}
   >
     <span
       className="bid-count-number"
@@ -87,11 +89,13 @@ exports[`BidCountNumberComponent matches snapshot where type = atGradeInSkillBid
     stickyDuration={200}
     style={Object {}}
     tabIndex="0"
+    tag="div"
     theme="dark"
     title="Number of bidders at-Grade and in-Skill."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
+    zIndex={9999}
   >
     <span
       className="bid-count-number"
@@ -138,11 +142,13 @@ exports[`BidCountNumberComponent matches snapshot where type = inSkillBids 1`] =
     stickyDuration={200}
     style={Object {}}
     tabIndex="0"
+    tag="div"
     theme="dark"
     title="Number of bidders in-Skill."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
+    zIndex={9999}
   >
     <span
       className="bid-count-number"
@@ -189,11 +195,13 @@ exports[`BidCountNumberComponent matches snapshot where type = totalBids 1`] = `
     stickyDuration={200}
     style={Object {}}
     tabIndex="0"
+    tag="div"
     theme="dark"
     title="Total number of bids on this position."
     touchHold={false}
     trigger="mouseenter focus"
     unmountHTMLWhenHide={false}
+    zIndex={9999}
   >
     <span
       className="bid-count-number"

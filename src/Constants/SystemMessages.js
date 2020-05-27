@@ -1,8 +1,9 @@
-import FavoriteSuccess from '../Components/FavoriteMessages/Success';
-import RemoveSuccess from '../Components/FavoriteMessages/RemoveSuccess';
-import BidAddSuccess from '../Components/BidListMessages/Success';
-import BidRemoveSuccess from '../Components/BidListMessages/RemoveSuccess';
-import SavedSearchSuccess from '../Components/SavedSearchMessages/Success';
+import RegisterHandshakeSuccess from 'Components/BidListMessages/RegisterSuccess';
+import FavoriteSuccess from 'Components/FavoriteMessages/Success';
+import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
+import BidAddSuccess from 'Components/BidListMessages/Success';
+import BidRemoveSuccess from 'Components/BidListMessages/RemoveSuccess';
+import SavedSearchSuccess from 'Components/SavedSearchMessages/Success';
 
 export const DEFAULT_TEXT = 'None listed';
 
@@ -60,6 +61,11 @@ export const DECLINE_BID_SUCCESS = 'Bid successfully declined.';
 export const DECLINE_BID_ERROR = 'Error trying to decline this bid.';
 export const SUBMIT_BID_SUCCESS = 'Bid successfully submitted.';
 export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
+
+export const REGISTER_HANDSHAKE_SUCCESS = undo => RegisterHandshakeSuccess({ undo });
+export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
+export const UNREGISTER_HANDSHAKE_SUCCESS = 'Handshake successfully unregistered.';
+export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
 
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';

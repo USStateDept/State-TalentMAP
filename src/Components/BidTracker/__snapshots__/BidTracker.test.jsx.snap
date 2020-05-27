@@ -302,6 +302,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         }
         declineBid={[Function]}
         deleteBid={[Function]}
+        registerHandshake={[Function]}
         submitBid={[Function]}
         useCDOView={false}
         userProfile={
@@ -320,6 +321,20 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
               "username": "shadtrachl",
             },
             "display_name": "John",
+            "emp_id": "1",
+            "employee_info": Object {
+              "grade": "00",
+              "skills": Array [
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
+              ],
+            },
             "favorite_positions": Array [
               Object {
                 "id": 1,
@@ -343,18 +358,8 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
             "initials": "JD",
             "is_cdo": false,
             "skills": Array [
-              Object {
-                "code": "6218",
-                "cone": null,
-                "description": "CONSTRUCTION ENGINEERING",
-                "id": 63,
-              },
-              Object {
-                "code": "6211",
-                "cone": null,
-                "description": "COMPUTER SCIENCE",
-                "id": 40,
-              },
+              63,
+              40,
             ],
             "user": Object {
               "email": "doej@state.gov",

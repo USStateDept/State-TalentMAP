@@ -173,6 +173,9 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         bidListToggleIsLoading={false}
         details={
           Object {
+            "bidStatistics": Array [
+              Object {},
+            ],
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
@@ -529,6 +532,9 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         bidListToggleIsLoading={false}
         details={
           Object {
+            "bidStatistics": Array [
+              Object {},
+            ],
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,
@@ -887,6 +893,9 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         bidListToggleIsLoading={false}
         details={
           Object {
+            "bidStatistics": Array [
+              Object {},
+            ],
             "bid_statistics": Array [
               Object {
                 "at_skill": 0,

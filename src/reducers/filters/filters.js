@@ -1,5 +1,5 @@
 import { has } from 'lodash';
-import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
+import { ENDPOINT_PARAMS, ENDPOINT_PARAMS_TANDEM } from '../../Constants/EndpointParams';
 
 const filterAPFilters = (data) => {
   const filters$ = data.filters.map((m) => {
@@ -31,6 +31,7 @@ const items =
           isToggle: true,
           description: 'projectedVacancy',
           selectionRef: ENDPOINT_PARAMS.projectedVacancy,
+          isCommon: true,
           text: 'Toggle between available and projected vacancy positions',
           choices: [
           ],
@@ -42,12 +43,44 @@ const items =
       },
       {
         item: {
+          title: 'Tandem',
+          sort: 5000,
+          isToggle: true,
+          description: 'tandem-toggle',
+          selectionRef: ENDPOINT_PARAMS.tandem,
+          isCommon: true,
+          text: 'Toggle between available and projected vacancy positions',
+          choices: [
+          ],
+        },
+        data: [
+          { code: 'individual', short_description: 'Individual' },
+          { code: 'tandem', short_description: 'Tandem' },
+        ],
+      },
+      {
+        item: {
           title: 'Bid Cycle',
           sort: 100,
           description: 'bidCycle',
           endpoint: 'bidcycle/?active=true&ordering=name',
           endpointAP: 'fsbid/reference/cycles/?active=true&ordering=name',
           selectionRef: ENDPOINT_PARAMS.bidCycle,
+          onlyAvailablePositions: true,
+          text: 'Choose Bid Cycles',
+          tryCache: true,
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Bid Cycle',
+          sort: 100,
+          description: 'bidCycle-tandem',
+          isTandem: true,
+          endpointAP: 'fsbid/reference/cycles/?active=true&ordering=name',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.bidCycle,
           onlyAvailablePositions: true,
           text: 'Choose Bid Cycles',
           tryCache: true,
@@ -71,12 +104,42 @@ const items =
       },
       {
         item: {
+          title: 'Bid Season',
+          sort: 150,
+          description: 'bidSeason-tandem',
+          isTandem: true,
+          endpoint: 'fsbid/bid_seasons/',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.bidSeason,
+          text: 'Choose Bid Seasons',
+          onlyProjectedVacancy: true,
+          tryCache: true,
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
           title: 'Skill',
           sort: 200,
           description: 'skill',
           endpoint: 'skill/',
           endpointAP: null, // because we check for 'has' in filterAPFilters()
           selectionRef: ENDPOINT_PARAMS.skill,
+          text: 'Choose Skills',
+          tryCache: true,
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Skill',
+          sort: 200,
+          description: 'skill-tandem',
+          endpoint: 'skill/',
+          isTandem: true,
+          endpointAP: null, // because we check for 'has' in filterAPFilters()
+          selectionRef: ENDPOINT_PARAMS_TANDEM.skill,
           text: 'Choose Skills',
           tryCache: true,
         },
@@ -91,6 +154,20 @@ const items =
           description: 'skillCone',
           endpoint: 'skill/cone/',
           endpointAP: 'fsbid/reference/cones/',
+          tryCache: true,
+        },
+        data: [
+        ],
+      },
+      {
+        // we won't query position directly on cone, but instead
+        // use the individual Skill codes
+        item: {
+          title: 'Skill Cone',
+          description: 'skillCone-tandem',
+          endpoint: 'skill/cone/',
+          endpointAP: 'fsbid/reference/cones/',
+          isTandem: true,
           tryCache: true,
         },
         data: [
@@ -121,11 +198,53 @@ const items =
         item: {
           title: 'Language',
           sort: 500,
+          description: 'language-tandem',
+          endpoint: 'language/?is_available=true',
+          endpointAP: 'fsbid/reference/languages/?is_available=true',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.language,
+          text: 'Choose languages',
+          isTandem: true,
+          onlyAvailablePositions: true,
+          tryCache: true,
+        },
+        data: [
+        ],
+        // Allow users to include languages with no code. This option is not supplied from
+        // the endpoint, so we define it here.
+        initialData: [
+        ],
+        initialDataAP: [
+        ],
+      },
+      {
+        item: {
+          title: 'Language',
+          sort: 500,
           description: 'language',
           endpoint: 'language/',
           endpointAP: 'fsbid/reference/languages/',
           selectionRef: ENDPOINT_PARAMS.language,
           text: 'Choose languages',
+          onlyProjectedVacancy: true,
+          tryCache: true,
+        },
+        data: [
+        ],
+        // Allow users to include languages with no code. This option is not supplied from
+        // the endpoint, so we define it here.
+        initialData: [
+        ],
+      },
+      {
+        item: {
+          title: 'Language',
+          sort: 500,
+          description: 'language-tandem',
+          endpoint: 'language/',
+          endpointAP: 'fsbid/reference/languages/',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.language,
+          text: 'Choose languages',
+          isTandem: true,
           onlyProjectedVacancy: true,
           tryCache: true,
         },
@@ -169,11 +288,43 @@ const items =
         item: {
           title: 'Grade',
           sort: 300,
+          description: 'grade-tandem',
+          endpoint: 'grade/?is_available=true',
+          endpointAP: 'fsbid/reference/grades/?is_available=true',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.grade,
+          text: 'Choose grades',
+          isTandem: true,
+          onlyAvailablePositions: true,
+          tryCache: true,
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Grade',
+          sort: 300,
           description: 'grade',
           endpoint: 'grade/',
           endpointAP: 'fsbid/reference/grades/',
           selectionRef: ENDPOINT_PARAMS.grade,
           text: 'Choose grades',
+          onlyProjectedVacancy: true,
+          tryCache: true,
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Grade',
+          sort: 300,
+          description: 'grade-tandem',
+          endpoint: 'grade/',
+          endpointAP: 'fsbid/reference/grades/',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.grade,
+          text: 'Choose grades',
+          isTandem: true,
           onlyProjectedVacancy: true,
           tryCache: true,
         },
@@ -201,11 +352,47 @@ const items =
         item: {
           title: 'Tour of Duty',
           sort: 400,
+          description: 'tod-tandem',
+          endpoint: 'tour_of_duty/?is_available=true&ordering=months',
+          endpointAP: 'fsbid/reference/tourofduties/?is_available=true&ordering=months',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.tod,
+          text: 'Choose Tour of Duty length',
+          onlyAvailablePositions: true,
+          isTandem: true,
+          tryCache: true,
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Tour of Duty',
+          sort: 400,
           description: 'tod',
           endpoint: 'tour_of_duty/?ordering=months',
           endpointAP: 'fsbid/reference/tourofduties/?ordering=months',
           selectionRef: ENDPOINT_PARAMS.tod,
           text: 'Choose Tour of Duty length',
+          tryCache: true,
+          onlyProjectedVacancy: true,
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
+          title: 'Tour of Duty',
+          sort: 400,
+          description: 'tod-tandem',
+          endpoint: 'tour_of_duty/?ordering=months',
+          endpointAP: 'fsbid/reference/tourofduties/?ordering=months',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.tod,
+          text: 'Choose Tour of Duty length',
+          isTandem: true,
           tryCache: true,
           onlyProjectedVacancy: true,
           choices: [
@@ -232,6 +419,23 @@ const items =
       },
       {
         item: {
+          title: 'Bureau',
+          sort: 100,
+          description: 'region-tandem',
+          endpoint: 'organization/?is_bureau=true&is_regional=true',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=true',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.org,
+          tryCache: true,
+          isTandem: true,
+          text: 'Choose bureau',
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
+      {
+        item: {
           title: 'Functional Bureaus',
           sort: 105,
           description: 'functionalRegion',
@@ -248,12 +452,30 @@ const items =
       },
       {
         item: {
+          title: 'Functional Bureaus',
+          sort: 105,
+          description: 'functionalRegion-tandem',
+          endpoint: 'organization/group/',
+          endpointAP: 'fsbid/reference/bureaus/?is_regional=false',
+          selectionRef: ENDPOINT_PARAMS.functionalOrg,
+          selectionRefAP: ENDPOINT_PARAMS_TANDEM.org,
+          tryCache: true,
+          isTandem: true,
+          text: 'Choose functional bureau',
+          choices: [
+          ],
+        },
+        data: [],
+      },
+      {
+        item: {
           title: 'COLA',
           sort: 800,
           bool: true, // use bool: true to share a common HTML template
           description: 'COLA',
           selectionRef: ENDPOINT_PARAMS.cola,
           text: 'Include only positions with COLA',
+          isCommon: true,
           choices: [
           ],
         },
@@ -270,6 +492,7 @@ const items =
           selectionRef: ENDPOINT_PARAMS.postDiff,
           text: 'Include only positions with a post differential',
           tryCache: true,
+          isCommon: true,
           choices: [
           ],
         },
@@ -294,6 +517,7 @@ const items =
           selectionRef: ENDPOINT_PARAMS.danger,
           text: 'Include only positions with danger pay',
           tryCache: true,
+          isCommon: true,
           choices: [
           ],
         },
@@ -308,11 +532,44 @@ const items =
       },
       {
         item: {
+          title: 'Post Indicators',
+          sort: 750,
+          description: 'postIndicators',
+          endpoint: 'fsbid/reference/postindicators/',
+          selectionRef: 'position__post_indicator__in',
+          text: 'Include positions with selected post indicators',
+          tryCache: true,
+          isCommon: true,
+          choices: [
+          ],
+        },
+        data: [],
+        dataAP: [],
+      },
+      {
+        item: {
+          title: 'Unaccompanied Status',
+          sort: 780,
+          description: 'unaccompaniedStatus',
+          endpoint: 'fsbid/reference/unaccompaniedstatuses/',
+          selectionRef: 'position__us_codes__in',
+          text: 'Include positions with selected unaccompanied status',
+          tryCache: true,
+          isCommon: true,
+          choices: [
+          ],
+        },
+        data: [],
+        dataAP: [],
+      },
+      {
+        item: {
           title: 'Domestic',
           sort: 900,
           description: 'domestic',
           selectionRef: ENDPOINT_PARAMS.domestic,
           text: 'Include only domestic positions',
+          isCommon: true,
           choices: [
           ],
         },
@@ -339,7 +596,6 @@ const items =
           { code: 'true', short_description: 'Featured' },
         ],
       },
-
       {
         item: {
           title: 'Post',
@@ -352,11 +608,43 @@ const items =
           selectionRef: ENDPOINT_PARAMS.post,
           selectionRefAP: ENDPOINT_PARAMS.postAP,
           tryCache: true,
+          isCommon: true,
           choices: [
           ],
         },
         data: [
         ],
+      },
+      {
+        item: {
+          title: 'Handshake',
+          sort: 1200,
+          description: 'handshake',
+          selectionRef: ENDPOINT_PARAMS.handshake,
+          text: 'Include positions with handshakes',
+          onlyAvailablePositions: true,
+        },
+        data: [
+          { code: 'HS', description: 'Has Handshake' },
+          { code: 'OP', description: 'No Handshake' },
+        ],
+        dataAP: [],
+      },
+      {
+        item: {
+          title: 'Handshake',
+          sort: 1200,
+          description: 'handshake-tandem',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.handshake,
+          text: 'Include positions with handshakes',
+          isTandem: true,
+          onlyAvailablePositions: true,
+        },
+        data: [
+          { code: 'HS', description: 'Has Handshake' },
+          { code: 'OP', description: 'No Handshake' },
+        ],
+        dataAP: [],
       },
     ],
   };
@@ -380,7 +668,7 @@ export function filtersIsLoading(state = true, action) {
   }
 }
 
-export function filters(state = filterAPFilters(items), action) {
+export function filters(state = staticFilters, action) {
   switch (action.type) {
     case 'FILTERS_FETCH_DATA_SUCCESS':
       return action.filters;

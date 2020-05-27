@@ -8,7 +8,7 @@ import BidListHeader from './BidListHeader';
 import StaticDevContent from '../../StaticDevContent';
 import Spinner from '../../Spinner';
 
-const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
+const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoading, isPublic,
   userId }) => {
   // Push the priority bid to the top. There should only be one priority bid.
   // eslint rules seem to step over themselves here between using "return" and a ternary
@@ -24,9 +24,11 @@ const BidList = ({ bids, submitBidPosition, deleteBid, isLoading, isPublic,
       condensedView
       showBidCount
       submitBid={submitBidPosition}
+      registerHandshake={registerHandshake}
       deleteBid={deleteBid}
       priorityExists={doesPriorityExist}
       readOnly={isPublic}
+      userId={userId}
     />
   ));
   return (
@@ -65,6 +67,7 @@ BidList.propTypes = {
   bids: BID_RESULTS.isRequired,
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
+  registerHandshake: PropTypes.func,
   isLoading: PropTypes.bool,
   isPublic: PropTypes.bool,
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -74,6 +77,7 @@ BidList.defaultProps = {
   bids: [],
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  registerHandshake: EMPTY_FUNCTION,
   isLoading: false,
   isPublic: false,
   userId: '',

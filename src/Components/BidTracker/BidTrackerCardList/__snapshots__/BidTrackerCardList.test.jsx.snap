@@ -65,6 +65,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     isPriority={false}
     key="1"
     priorityExists={true}
+    registerHandshake={[Function]}
     submitBid={[Function]}
     useCDOView={false}
     userProfile={
@@ -83,6 +84,20 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           "username": "shadtrachl",
         },
         "display_name": "John",
+        "emp_id": "1",
+        "employee_info": Object {
+          "grade": "00",
+          "skills": Array [
+            Object {
+              "code": "6218",
+              "description": "CONSTRUCTION ENGINEERING",
+            },
+            Object {
+              "code": "6211",
+              "description": "COMPUTER SCIENCE",
+            },
+          ],
+        },
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -106,18 +121,8 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
         "initials": "JD",
         "is_cdo": false,
         "skills": Array [
-          Object {
-            "code": "6218",
-            "cone": null,
-            "description": "CONSTRUCTION ENGINEERING",
-            "id": 63,
-          },
-          Object {
-            "code": "6211",
-            "cone": null,
-            "description": "COMPUTER SCIENCE",
-            "id": 40,
-          },
+          63,
+          40,
         ],
         "user": Object {
           "email": "doej@state.gov",
@@ -187,6 +192,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     isPriority={false}
     key="3"
     priorityExists={true}
+    registerHandshake={[Function]}
     submitBid={[Function]}
     useCDOView={false}
     userProfile={
@@ -205,6 +211,20 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           "username": "shadtrachl",
         },
         "display_name": "John",
+        "emp_id": "1",
+        "employee_info": Object {
+          "grade": "00",
+          "skills": Array [
+            Object {
+              "code": "6218",
+              "description": "CONSTRUCTION ENGINEERING",
+            },
+            Object {
+              "code": "6211",
+              "description": "COMPUTER SCIENCE",
+            },
+          ],
+        },
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -228,18 +248,8 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
         "initials": "JD",
         "is_cdo": false,
         "skills": Array [
-          Object {
-            "code": "6218",
-            "cone": null,
-            "description": "CONSTRUCTION ENGINEERING",
-            "id": 63,
-          },
-          Object {
-            "code": "6211",
-            "cone": null,
-            "description": "COMPUTER SCIENCE",
-            "id": 40,
-          },
+          63,
+          40,
         ],
         "user": Object {
           "email": "doej@state.gov",
@@ -312,6 +322,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     isPriority={false}
     key="2"
     priorityExists={true}
+    registerHandshake={[Function]}
     submitBid={[Function]}
     useCDOView={false}
     userProfile={
@@ -330,6 +341,20 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
           "username": "shadtrachl",
         },
         "display_name": "John",
+        "emp_id": "1",
+        "employee_info": Object {
+          "grade": "00",
+          "skills": Array [
+            Object {
+              "code": "6218",
+              "description": "CONSTRUCTION ENGINEERING",
+            },
+            Object {
+              "code": "6211",
+              "description": "COMPUTER SCIENCE",
+            },
+          ],
+        },
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -353,18 +378,8 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
         "initials": "JD",
         "is_cdo": false,
         "skills": Array [
-          Object {
-            "code": "6218",
-            "cone": null,
-            "description": "CONSTRUCTION ENGINEERING",
-            "id": 63,
-          },
-          Object {
-            "code": "6211",
-            "cone": null,
-            "description": "COMPUTER SCIENCE",
-            "id": 40,
-          },
+          63,
+          40,
         ],
         "user": Object {
           "email": "doej@state.gov",

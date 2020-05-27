@@ -49,23 +49,12 @@ describe('SearchFiltersContainerComponent', () => {
     missionSearchResults: [],
     fetchPostAutocomplete: () => {},
     postSearchResults: [],
-    isCDO: false,
   };
 
   it('is defined', () => {
     const wrapper = shallow(
       <SearchFiltersContainer
         {...props}
-      />,
-    );
-    expect(wrapper.instance()).toBeDefined();
-  });
-
-  it('is defined when isCDO is true', () => {
-    const wrapper = shallow(
-      <SearchFiltersContainer
-        {...props}
-        isCDO
       />,
     );
     expect(wrapper.instance()).toBeDefined();
@@ -123,6 +112,7 @@ describe('SearchFiltersContainerComponent', () => {
     // check when value !== 'open'
     wrapper.instance().onProjectedVacancyFilterClick('pv');
     expect(toggleValue.value).toEqual({
+      cps_codes: null,
       is_available_in_bidcycle: null,
       is_available_in_current_bidcycle: null,
       ordering: 'ted',

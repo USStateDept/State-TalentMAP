@@ -95,16 +95,15 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
   results: POST_DETAILS_ARRAY,
 });
 
-export const USER_SKILL_CODE_POSITIONS = 'userSkillCodePositions';
-export const USER_GRADE_RECENT_POSITIONS = 'userGradeRecentPositions';
-export const SERVICE_NEED_POSITIONS = 'serviceNeedPositions';
-export const RECENTLY_POSTED_POSITIONS = 'recentlyPostedPositions';
+export const USER_SKILL_AND_GRADE_POSITIONS = 'userSkillAndGradePositions';
+export const USER_GRADE_POSITIONS = 'userGradePositions';
 export const FAVORITED_POSITIONS = 'favoritedPositions';
+export const HIGHLIGHTED_POSITIONS = 'highlightedPositions';
 export const HOME_PAGE_POSITIONS = PropTypes.shape({
-  [USER_SKILL_CODE_POSITIONS]: POSITION_DETAILS_ARRAY,
-  [USER_GRADE_RECENT_POSITIONS]: POSITION_DETAILS_ARRAY,
-  [SERVICE_NEED_POSITIONS]: POSITION_DETAILS_ARRAY,
-  [RECENTLY_POSTED_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [USER_SKILL_AND_GRADE_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [USER_GRADE_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [FAVORITED_POSITIONS]: POSITION_DETAILS_ARRAY,
+  [HIGHLIGHTED_POSITIONS]: POSITION_DETAILS_ARRAY,
 });
 
 export const FILTER = PropTypes.shape({
@@ -187,8 +186,6 @@ export const FAVORITE_POSITIONS = PropTypes.shape({
 });
 
 export const USER_SKILL_CODE = PropTypes.shape({
-  id: PropTypes.number,
-  cone: PropTypes.string,
   code: PropTypes.string,
   description: PropTypes.string,
 });
@@ -203,6 +200,11 @@ export const USER_NESTED_OBJECT = PropTypes.shape({
 });
 
 export const USER_PROFILE = PropTypes.shape({
+  emp_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  employee_info: PropTypes.shape({
+    grade: PropTypes.string,
+    skills: USER_SKILL_CODE_ARRAY,
+  }),
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
   initials: PropTypes.string,
@@ -399,6 +401,14 @@ export const ACCEPT_BID_SUCCESS = STRING_OR_BOOL;
 export const DECLINE_BID_HAS_ERRORED = STRING_OR_BOOL;
 
 export const DECLINE_BID_SUCCESS = STRING_OR_BOOL;
+
+export const REGISTER_HANDSHAKE_HAS_ERRORED = STRING_OR_BOOL;
+
+export const REGISTER_HANDSHAKE_SUCCESS = STRING_OR_BOOL;
+
+export const UNREGISTER_HANDSHAKE_HAS_ERRORED = STRING_OR_BOOL;
+
+export const UNREGISTER_HANDSHAKE_SUCCESS = STRING_OR_BOOL;
 
 export const MARK_NOTIFICATION_SUCCESS = STRING_OR_BOOL;
 

@@ -79,8 +79,9 @@ export function resultsFetchSimilarPositions(id) {
   };
 }
 
-export function downloadPositionData(query, isPV) {
-  const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
+export function downloadPositionData(query, isPV, isTandem) {
+  const tandem = isTandem ? '/tandem' : '';
+  const prefix = `/fsbid${isPV ? `/projected_vacancies${tandem}` : `/available_positions${tandem}`}/export/`;
   // generate a unique ID to track the notification
   const id = shortid.generate();
   store.dispatch(toastInfo('Please wait while we process your position export.', 'Loading...', id));
@@ -105,19 +106,25 @@ export function downloadPositionData(query, isPV) {
 }
 
 export function fetchResultData(query) {
-  let prefix = '/fsbid/available_positions';
+  let url = '/fsbid/available_positions';
   const parsed = queryString.parse(query);
   const isPV = parsed.projectedVacancy;
+  const isTandem = parsed.tandem;
 
   if (isPV) {
-    prefix = '/fsbid/projected_vacancies';
+    url = '/fsbid/projected_vacancies';
     delete parsed.projectedVacancy;
+  }
+
+  if (isTandem) {
+    url = `${url}/tandem`;
+    delete parsed.tandem;
   }
 
   const query$ = queryString.stringify(parsed);
 
   return api()
-    .get(`${prefix}/?${query$}`, {
+    .get(`${url}/?${query$}`, {
       cancelToken: new CancelToken((c) => { cancel = c; }),
     })
     .then((response) => {

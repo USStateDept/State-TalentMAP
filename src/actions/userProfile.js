@@ -3,6 +3,7 @@ import axios from 'axios';
 import { get, indexOf, omit } from 'lodash';
 import Q from 'q';
 import imagediff from 'imagediff';
+import Bowser from 'bowser';
 import { loadImg } from 'utilities';
 import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
@@ -65,6 +66,7 @@ export function userProfileFetchData(bypass, cb) {
     /**
      * create functions to fetch user's profile and permissions
      */
+    // TODO: update to use Person endpoint. Grab the perdet, user grade, and user skills, if any.
     // profile
     const getUserAccount = () => api().get('/profile/');
     // permissions
@@ -179,7 +181,7 @@ export function userProfileFetchData(bypass, cb) {
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false,
-  isPV = false, sortType, limit, page) {
+  isPV = false, sortType) {
   const idString = id.toString();
   return (dispatch) => {
     const APUrl = `/available_position/${idString}/favorite/`;
@@ -224,7 +226,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         });
         dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
-          dispatch(favoritePositionsFetchData(sortType, limit, page));
+          dispatch(favoritePositionsFetchData(sortType, undefined, undefined, isPV ? 'pv' : 'open'));
         }
       }))
       .catch(({ response }) => {
@@ -252,7 +254,8 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
 // The use of this endpoint has no implications on the user experience of the site,
 // so we don't use our typical dispatch/loading/error/success state management paradigm.
 export function trackLogin() {
-  api().post('/stats/login/');
+  const details = Bowser.parse(get(window, 'navigator.userAgent')) || {};
+  api().post('/stats/login/', { details });
 }
 
 export function updateSavedSearches() {

@@ -95,9 +95,11 @@ exports[`BidListComponent matches snapshot 1`] = `
         key="1"
         priorityExists={true}
         readOnly={false}
+        registerHandshake={[Function]}
         showBidCount={true}
         submitBid={[Function]}
         useCDOView={false}
+        userId=""
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -158,9 +160,11 @@ exports[`BidListComponent matches snapshot 1`] = `
         key="3"
         priorityExists={true}
         readOnly={false}
+        registerHandshake={[Function]}
         showBidCount={true}
         submitBid={[Function]}
         useCDOView={false}
+        userId=""
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -224,9 +228,11 @@ exports[`BidListComponent matches snapshot 1`] = `
         key="2"
         priorityExists={true}
         readOnly={false}
+        registerHandshake={[Function]}
         showBidCount={true}
         submitBid={[Function]}
         useCDOView={false}
+        userId=""
       />
     </div>
     <div

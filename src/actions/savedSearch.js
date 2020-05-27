@@ -237,7 +237,6 @@ export function saveSearch(data, id) {
       url: id ? `/searches/${id}/` : '/searches/',
       data,
     };
-
     dispatch(newSavedSearchIsSaving(true));
     dispatch(newSavedSearchSuccess(false));
     dispatch(newSavedSearchHasErrored(false));
@@ -269,10 +268,10 @@ export function saveSearch(data, id) {
       })
       .catch((err) => {
         dispatch(newSavedSearchHasErrored(
-          { title: 'Error', message: propOrDefault(err, 'response.data', 'An error occurred trying to save this search.') },
+          { title: 'Error', message: propOrDefault(err, 'response.data', SystemMessages.GENERAL_SAVED_SEARCH_ERROR) },
         ));
         dispatch(toastError(
-          'An error occurred trying to save this search.',
+          SystemMessages.GENERAL_SAVED_SEARCH_ERROR,
           'Error',
         ));
         dispatch(newSavedSearchIsSaving(false));
