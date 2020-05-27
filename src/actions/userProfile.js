@@ -230,7 +230,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         }
       }))
       .catch(({ response }) => {
-        const limit = response.data.limit;
+        const limit = get(response, 'data.limit', false);
         let message = '';
         if (remove) {
           message = SystemMessages.DELETE_FAVORITE_ERROR();
