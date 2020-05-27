@@ -79,8 +79,9 @@ export function resultsFetchSimilarPositions(id) {
   };
 }
 
-export function downloadPositionData(query, isPV) {
-  const prefix = `/fsbid${isPV ? '/projected_vacancies' : '/available_positions'}/export/`;
+export function downloadPositionData(query, isPV, isTandem) {
+  const tandem = isTandem ? '/tandem' : '';
+  const prefix = `/fsbid${isPV ? `/projected_vacancies${tandem}` : `/available_positions${tandem}`}/export/`;
   // generate a unique ID to track the notification
   const id = shortid.generate();
   store.dispatch(toastInfo('Please wait while we process your position export.', 'Loading...', id));
