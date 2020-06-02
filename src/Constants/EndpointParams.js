@@ -21,6 +21,8 @@ export const ENDPOINT_PARAMS = {
   projectedVacancy: 'projectedVacancy', // this isn't a real query param, but we'll use it to transform the request
   tandem: 'tandem',
   handshake: 'cps_codes',
+  postIndicators: 'position__post_indicator__in',
+  usCodes: 'position__us_codes__in',
 };
 
 export const ENDPOINT_PARAMS_TANDEM = {
