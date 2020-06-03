@@ -617,6 +617,21 @@ const items =
       },
       {
         item: {
+          title: 'Commuter Posts',
+          sort: 1150,
+          description: 'commuterPosts',
+          endpoint: 'fsbid/reference/commuterposts/',
+          selectionRef: ENDPOINT_PARAMS.commuterPosts,
+          text: 'Include positions with selected Commuter Posts',
+          tryCache: true,
+          isCommon: true,
+          choices: [
+          ],
+        },
+        data: [],
+      },
+      {
+        item: {
           title: 'Handshake',
           sort: 1200,
           description: 'handshake',

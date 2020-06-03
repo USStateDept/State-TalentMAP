@@ -120,6 +120,12 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   "suggestions": Array [],
                 }
               }
+              commuterPosts={
+                Object {
+                  "data": Array [],
+                  "item": Object {},
+                }
+              }
               domesticIsSelected={false}
               item={
                 Object {
