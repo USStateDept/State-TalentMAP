@@ -98,6 +98,7 @@ class PostFilter extends Component {
   render() {
     const { item, autoSuggestProps, commuterPosts } = this.props;
     const { allOverseasSelected, allDomesticSelected } = this.state;
+    const { isTandemSearch } = this.context;
 
     let domesticPosts = this.getAllDomesticCodes();
     domesticPosts = mapDuplicates(domesticPosts);
@@ -218,46 +219,49 @@ class PostFilter extends Component {
                 }
               </div>
             </AccordionItem>
-            <AccordionItem
-              className="accordion-content-small"
-              id="commuter-post-sub-accordion"
-              title="Commuter Posts"
-              buttonClass="tm-nested-accordion-button"
-              preContent={(
-                <CheckBox
-                  id="select-all-commuter"
-                  onCheckBoxClick={this.onSelectAllCommuterPosts}
-                  className="tm-checkbox-transparent"
-                  value={allCommuterPostsSelected}
-                  label="Toggle filter by commuter post positions"
-                  labelSrOnly
-                />
-              )}
-            >
-              <div className="usa-grid-full">
-                {
-                  commuterPosts$.map((itemData) => {
-                    const itemLabel = getItemLabel(itemData);
-                    const itemLabelNoSpaces = formatIdSpacing(itemLabel);
-                    return (
-                      <CheckBox
-                        _id={itemData.id} /* when we need the original id */
-                        id={`checkbox${itemLabelNoSpaces}-commuter-post-${item.item.description}`}
-                        key={`checkbox${itemLabel}-commuter-post-${item.item.description}`}
-                        label={itemLabel}
-                        title={itemLabel}
-                        name={itemLabel}
-                        value={itemData.isSelected || false}
-                        code={itemData.code}
-                        selectionRef={commuterPosts.item.selectionRef}
-                        onCheckBoxClick={this.onCheckBoxClick}
-                        className="tm-checkbox-transparent"
-                      />
-                    );
-                  })
-                }
-              </div>
-            </AccordionItem>
+            {
+              !!commuterPosts$.length && isTandemSearch &&
+              <AccordionItem
+                className="accordion-content-small"
+                id="commuter-post-sub-accordion"
+                title="Commuter Posts"
+                buttonClass="tm-nested-accordion-button"
+                preContent={(
+                  <CheckBox
+                    id="select-all-commuter"
+                    onCheckBoxClick={this.onSelectAllCommuterPosts}
+                    className="tm-checkbox-transparent"
+                    value={allCommuterPostsSelected}
+                    label="Toggle filter by commuter post positions"
+                    labelSrOnly
+                  />
+                )}
+              >
+                <div className="usa-grid-full">
+                  {
+                    commuterPosts$.map((itemData) => {
+                      const itemLabel = getItemLabel(itemData);
+                      const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                      return (
+                        <CheckBox
+                          _id={itemData.id} /* when we need the original id */
+                          id={`checkbox${itemLabelNoSpaces}-commuter-post-${item.item.description}`}
+                          key={`checkbox${itemLabel}-commuter-post-${item.item.description}`}
+                          label={itemLabel}
+                          title={itemLabel}
+                          name={itemLabel}
+                          value={itemData.isSelected || false}
+                          code={itemData.code}
+                          selectionRef={commuterPosts.item.selectionRef}
+                          onCheckBoxClick={this.onCheckBoxClick}
+                          className="tm-checkbox-transparent"
+                        />
+                      );
+                    })
+                  }
+                </div>
+              </AccordionItem>
+            }
           </Accordion>
         </div>
       </div>
@@ -266,7 +270,7 @@ class PostFilter extends Component {
 }
 
 PostFilter.contextTypes = {
-  isTandem: PropTypes.bool,
+  isTandemSearch: PropTypes.bool,
 };
 
 PostFilter.propTypes = {

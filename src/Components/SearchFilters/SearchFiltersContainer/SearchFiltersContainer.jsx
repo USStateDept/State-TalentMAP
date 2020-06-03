@@ -460,7 +460,7 @@ class SearchFiltersContainer extends Component {
 
 SearchFiltersContainer.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
-  isTandem: PropTypes.bool,
+  isTandemSearch: PropTypes.bool,
 };
 
 SearchFiltersContainer.propTypes = {

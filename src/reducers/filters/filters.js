@@ -623,6 +623,7 @@ const items =
           endpoint: 'fsbid/reference/commuterposts/',
           selectionRef: ENDPOINT_PARAMS.commuterPosts,
           text: 'Include positions with selected Commuter Posts',
+          isTandem: true,
           tryCache: true,
           isCommon: true,
           choices: [

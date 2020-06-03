@@ -109,38 +109,6 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           />
         </div>
       </AccordionItem>
-      <AccordionItem
-        buttonClass="tm-nested-accordion-button"
-        childClass=""
-        className="accordion-content-small"
-        controlled={false}
-        disabled={false}
-        expanded={false}
-        id="commuter-post-sub-accordion"
-        preContent={
-          <CheckBox
-            checkboxProps={Object {}}
-            className="tm-checkbox-transparent"
-            disabled={false}
-            id="select-all-commuter"
-            label="Toggle filter by commuter post positions"
-            labelSrOnly={true}
-            name=""
-            onCheckBoxClick={[Function]}
-            overrideLifecycle={false}
-            small={false}
-            title=""
-            value={true}
-          />
-        }
-        setAccordion={[Function]}
-        title="Commuter Posts"
-        useIdClass={true}
-      >
-        <div
-          className="usa-grid-full"
-        />
-      </AccordionItem>
     </Accordion>
   </div>
 </div>
