@@ -13,3 +13,17 @@ exports[`PillComponent matches snapshot 1`] = `
   />
 </button>
 `;
+
+exports[`PillComponent matches snapshot with options 1`] = `
+<button
+  className="pill pill--common"
+  onClick={[Function]}
+  title="Remove test filter"
+>
+  test
+   
+  <FontAwesome
+    name="times"
+  />
+</button>
+`;

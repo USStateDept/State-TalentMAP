@@ -1,5 +1,6 @@
 import {
   getCustomGradeDescription,
+  getFilterCustomAttributes,
   getFilterCustomDescription,
   getPillDescription,
   getPostOrMissionDescription,
@@ -17,10 +18,21 @@ describe('filter helpers', () => {
     expect(getCustomGradeDescription('06')).toBe('06');
   });
 
+  it('returns correct values for getFilterCustomAttributes function', () => {
+    expect(getFilterCustomAttributes({ item: { description: 'language' } }, { code: 'NLR' }))
+      .toEqual({ group: 'no-language' });
+
+    expect(getFilterCustomAttributes({ item: { description: 'language' } }, { code: '2' }))
+      .toEqual({ group: 'languages' });
+  });
+
   it('returns correct values for the getFilterCustomDescription function', () => {
     // templated strings are returned based on the description value
     expect(getFilterCustomDescription(
       { item: { description: 'region' } }, { short_description: 't', long_description: 'test' }),
+    ).toBe('(t) test');
+    expect(getFilterCustomDescription(
+      { item: { description: 'functionalRegion' } }, { short_description: 't', long_description: 'test' }),
     ).toBe('(t) test');
     expect(getFilterCustomDescription(
       { item: { description: 'skill' } }, { description: 'test', code: 't' }),
@@ -34,6 +46,9 @@ describe('filter helpers', () => {
     expect(getFilterCustomDescription(
       { item: { description: 'language' } }, { formal_description: 'test', code: '1' }),
     ).toBe('test (1)');
+    expect(getFilterCustomDescription(
+      { item: { description: 'grade' } }, { formal_description: 'test', code: '1' }),
+    ).toBe('1');
     ['postDiff', 'dangerPay', 'bidSeason'].forEach((f) => {
       expect(getFilterCustomDescription(
         { item: { description: f } }, { description: 'test' }),

@@ -2,7 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import CDOAutoSuggest from './CDOAutoSuggest';
+import CDOAutoSuggest, { renderList } from './CDOAutoSuggest';
+
+describe('renderList', () => {
+  it('render', () => {
+    const wrapper = renderList({ items: [{ id: 1 }, { id: 2 }], selected: [{ id: 1 }] });
+    expect(wrapper).toBeDefined();
+  });
+});
 
 describe('CDOAutoSuggest', () => {
   const props = {
@@ -21,11 +28,18 @@ describe('CDOAutoSuggest', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined after new props', () => {
+    const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} />);
+    wrapper.setProps(props);
+    expect(wrapper).toBeDefined();
+  });
+
   it('calls the prop on onSuggestionSelected()', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} setCDOsToSearchBy={spy} />);
     wrapper.instance().selectMultipleOption([props.cdos[0]]);
     sinon.assert.calledOnce(spy);
+    spy.reset();
   });
 
   it('matches snapshot', () => {
