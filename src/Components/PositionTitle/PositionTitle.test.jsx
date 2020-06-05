@@ -33,7 +33,7 @@ describe('PositionTitleComponent', () => {
 
   it('displays the OBC link if post_overview_url exists', () => {
     const newDetailsObject = { ...detailsObject };
-    newDetailsObject.post.post_overview_url = 'url';
+    newDetailsObject.post.post_overview_url = { internal: 'url', external: 'url2' };
     const wrapper = shallow(
       <PositionTitle
         {...props}
