@@ -1,88 +1,102 @@
 import { batch } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
 import { get } from 'lodash';
-// import { toastSuccess, toastError } from './toast';
 import api from '../api';
 
-/* export function aboutContentHasErrored(bool) {
+export function featureFlagsHasErrored(bool) {
+  // eslint-disable-next-line no-console
+  console.log('current: in featureFlagsHasErrored', bool);
   return {
-    type: 'ABOUT_CONTENT_HAS_ERRORED',
+    type: 'FEATURE_FLAGS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function aboutContentIsLoading(bool) {
+export function featureFlagsIsLoading(bool) {
+  // eslint-disable-next-line no-console
+  console.log('current: in featureFlagsIsLoading', bool);
   return {
-    type: 'ABOUT_CONTENT_IS_LOADING',
+    type: 'FEATURE_FLAGS_IS_LOADING',
     isLoading: bool,
   };
-} */
+}
 
 export function fetchFeatureFlagsDataSuccess(data) {
+  // eslint-disable-next-line no-console
+  console.log('current: in fetchFeatureFlagsDataSuccess', data);
   return {
     type: 'FEATURE_FLAGS_DATA_SUCCESS',
     data,
   };
 }
-/*
 
-export function aboutContentPatchHasErrored(bool) {
+export function featureFlagsPostHasErrored(bool) {
+  // eslint-disable-next-line no-console
+  console.log('current: in featureFlagsPostHasErrored', bool);
   return {
-    type: 'ABOUT_CONTENT_PATCH_HAS_ERRORED',
+    type: 'FEATURE_FLAGS_POST_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function aboutContentPatchIsLoading(bool) {
+export function featureFlagsPostIsLoading(bool) {
+  // eslint-disable-next-line no-console
+  console.log('current: in featureFlagsPostIsLoading', bool);
   return {
-    type: 'ABOUT_CONTENT_PATCH_IS_LOADING',
+    type: 'FEATURE_FLAGS_POST_IS_LOADING',
     isLoading: bool,
   };
 }
 
-export function aboutContentPatchSuccess(success) {
+export function featureFlagsPostSuccess(success) {
+  // eslint-disable-next-line no-console
+  console.log('current: in featureFlagsPostSuccess', success);
   return {
-    type: 'ABOUT_CONTENT_PATCH_SUCCESS',
+    type: 'FEATURE_FLAGS_POST_SUCCESS',
     success,
   };
 }
-*/
 
 export function fetchFeatureFlagsData() {
   // eslint-disable-next-line no-console
   console.log('current: in getFeatureFlagsData');
   return (dispatch) => {
+    dispatch(featureFlagsIsLoading(true));
     api().get('/featureflags/')
       .then((response) => {
-        // eslint-disable-next-line no-unused-vars
-        const text = get(response, 'data.content', '');
+        const featureFlagsData = JSON.parse(get(response, 'data', ''));
         batch(() => {
-          dispatch(fetchFeatureFlagsDataSuccess('Hey im a patch!'));
+          dispatch(featureFlagsHasErrored(false));
+          dispatch(featureFlagsIsLoading(false));
+          dispatch(fetchFeatureFlagsDataSuccess(featureFlagsData));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(featureFlagsHasErrored(true));
+          dispatch(featureFlagsIsLoading(false));
         });
       });
   };
 }
 
-export function patchFeatureFlagsData(data) {
+export function postFeatureFlagsData(data) {
   return (dispatch) => {
-    api().patch('/featureflags/', { content: data || 'No content' })
+    dispatch(featureFlagsPostIsLoading(true));
+    api().post('/featureflags/', data)
       .then(() => {
         batch(() => {
-          // dispatch(aboutContentPatchHasErrored(false));
-          // dispatch(aboutContentPatchIsLoading(false));
-          // dispatch(aboutContentPatchSuccess(true));
-          dispatch(fetchFeatureFlagsDataSuccess('Hey im a patch!'));
-          // eslint-disable-next-line max-len
-          // dispatch(toastSuccess('You may now press the cancel button or leave this page.', 'Update successful'));
+          dispatch(featureFlagsPostIsLoading(false));
+          dispatch(featureFlagsPostHasErrored(false));
+          dispatch(featureFlagsPostSuccess(true));
         });
       })
       .catch(() => {
         batch(() => {
-          // dispatch(aboutContentPatchHasErrored(true));
-          // dispatch(aboutContentPatchIsLoading(false));
-          // dispatch(aboutContentPatchSuccess(false));
-          // dispatch(toastError('Update unsuccessful. Please try again.', 'Error updating'));
+          dispatch(featureFlagsPostIsLoading(false));
+          dispatch(featureFlagsPostHasErrored(true));
+          dispatch(featureFlagsPostSuccess(false));
         });
       });
   };
 }
+

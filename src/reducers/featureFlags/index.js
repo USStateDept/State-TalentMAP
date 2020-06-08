@@ -1,5 +1,17 @@
-import { fetchFeatureFlagsDataSuccess } from './featureFlags';
+import {
+  featureFlagsHasErrored,
+  featureFlagsIsLoading,
+  featureFlags,
+  featureFlagsPostHasErrored,
+  featureFlagsPostIsLoading,
+  featureFlagsPostSuccess,
+} from './featureFlags';
 
 export default {
-  fetchFeatureFlagsDataSuccess,
+  featureFlagsHasErrored,
+  featureFlagsIsLoading,
+  featureFlags,
+  featureFlagsPostHasErrored,
+  featureFlagsPostIsLoading,
+  featureFlagsPostSuccess,
 };

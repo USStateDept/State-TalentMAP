@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
 import { getLogs, getLogsList, getLog, getLogToDownload } from '../../actions/logs';
 import { getUsers, getTableStats } from '../../actions/userRoles';
-import { fetchFeatureFlagsData, patchFeatureFlagsData } from '../../actions/featureFlags';
+import { fetchFeatureFlagsData } from '../../actions/featureFlags';
 import { syncsFetchData, putAllSyncs, patchSync } from '../../actions/synchronizations';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
@@ -68,10 +68,6 @@ class AdministratorContainer extends Component {
     this.props.getLog(id);
   };
 
-  patchFeatureFlagsData = data => {
-    this.props.patchFeatureFlagsData(data);
-  };
-
   runAllJobs = () => {
     const { putAllSyncJobs, putAllSyncsIsLoading } = this.props;
     if (!putAllSyncsIsLoading) {
@@ -107,7 +103,6 @@ class AdministratorContainer extends Component {
       patchSyncIsLoading,
       totalUsers: totalUsers.count,
       featureFlags,
-      updateFeatureFlags: this.patchFeatureFlagsData,
     };
     return (
       <AdministratorPage {...props} />
@@ -146,7 +141,6 @@ AdministratorContainer.propTypes = {
   totalUsers: PropTypes.shape({ count: PropTypes.number }),
   fetchFeatureFlagsData: PropTypes.func,
   featureFlags: PropTypes.string,
-  patchFeatureFlagsData: PropTypes.func,
 };
 
 AdministratorContainer.defaultProps = {
@@ -180,7 +174,6 @@ AdministratorContainer.defaultProps = {
   totalUsers: {},
   fetchFeatureFlagsData: EMPTY_FUNCTION,
   featureFlags: '',
-  patchFeatureFlagsData: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -202,7 +195,7 @@ const mapStateToProps = state => ({
   patchSyncIsLoading: state.patchSyncIsLoading,
   patchSyncHasErrored: state.patchSyncHasErrored,
   totalUsers: state.usersSuccess,
-  featureFlags: state.fetchFeatureFlagsDataSuccess,
+  featureFlags: state.featureFlags,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -216,7 +209,6 @@ export const mapDispatchToProps = dispatch => ({
   getUsers: () => dispatch(getUsers()),
   getTableStats: () => dispatch(getTableStats()),
   fetchFeatureFlagsData: () => dispatch(fetchFeatureFlagsData()),
-  patchFeatureFlagsData: data => dispatch(patchFeatureFlagsData(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((AdministratorContainer));

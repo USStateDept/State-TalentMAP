@@ -7,6 +7,7 @@ import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { userHasPermissions } from 'utilities';
+import { postFeatureFlagsData } from 'actions/featureFlags';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 
@@ -23,61 +24,53 @@ class FeatureFlags extends Component {
   handleChange = data => {
     // eslint-disable-next-line no-console
     console.log('current: data:', data);
-    this.props.updateFeatureFlags(data);
+    this.props.postData(data);
   };
   render() {
     const {
+      userProfile,
+      featureFlagsHasErrored,
+      featureFlagsIsLoading,
       // eslint-disable-next-line no-unused-vars
       featureFlags,
-      userProfile,
-      // eslint-disable-next-line no-unused-vars
-      stats,
-      statsIsLoading,
-      statsHasErrored,
+      featureFlagsPostHasErrored,
+      featureFlagsPostIsLoading,
+      featureFlagsPostSuccess,
     } = this.props;
 
     // eslint-disable-next-line no-unused-vars
-    const statsSuccess = !statsIsLoading && !statsHasErrored;
-    const configFile = {
-      bidding: true,
-      static_content: true,
-      notifications: true,
-      data_sync_admin: true,
-      bid_count: true,
-      personalization: true,
-      persona_auth: true,
-      client_counts: false,
-      cdo_season_filter: true,
-      cdo_bidding: true,
-      confetti: true,
-      bidding_tips: true,
-      bid_stats: false,
-      client_profiles: true,
-    };
+    const featureFlagsSuccess = !featureFlagsIsLoading && !featureFlagsHasErrored;
+    // eslint-disable-next-line no-unused-vars
+    const postFeatureFlagsSuccess = !featureFlagsPostIsLoading &&
+        featureFlagsPostSuccess && featureFlagsPostHasErrored;
+
+    // eslint-disable-next-line no-unused-vars
     const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
     return (
       <div
         className={`usa-grid-full profile-content-inner-container administrator-page
-        ${(statsIsLoading) ? 'results-loading' : ''}`}
+        ${(featureFlagsIsLoading) ? 'results-loading' : ''}`}
       >
         {
-          statsIsLoading &&
+          featureFlagsIsLoading && !featureFlagsHasErrored &&
             <Spinner type="homepage-position-results" size="big" />
         }
         <div className="usa-grid-full">
           <ProfileSectionTitle title="Feature Flags" icon="flag" />
         </div>
-        { !statsIsLoading && isSuperUser ?
+
+        { featureFlagsSuccess && isSuperUser ?
           <PermissionsWrapper permissions="superuser">
             <Editor
-              value={configFile}
+              value={featureFlags}
               onChange={this.handleChange}
             />
           </PermissionsWrapper>
           :
           <div>
             {
-              Object.keys(configFile).map(k => <div key={k}>{k}: {configFile[k].toString()}</div>)
+              Object.keys(featureFlags).map(k =>
+                (<div key={k}>{k}:{featureFlags[k].toString()}</div>))
             }
           </div>
         }
@@ -87,33 +80,38 @@ class FeatureFlags extends Component {
 }
 
 FeatureFlags.propTypes = {
-  featureFlags: PropTypes.string,
-  updateFeatureFlags: PropTypes.func,
   userProfile: USER_PROFILE,
-
-
-  stats: PropTypes.arrayOf(PropTypes.shape({})),
-  statsIsLoading: PropTypes.bool,
-  statsHasErrored: PropTypes.bool,
+  featureFlagsHasErrored: PropTypes.bool,
+  featureFlagsIsLoading: PropTypes.bool,
+  featureFlags: PropTypes.string,
+  featureFlagsPostHasErrored: PropTypes.bool,
+  featureFlagsPostIsLoading: PropTypes.bool,
+  featureFlagsPostSuccess: PropTypes.bool,
+  postData: EMPTY_FUNCTION,
 };
 
 FeatureFlags.defaultProps = {
-  featureFlags: '',
-  updateFeatureFlags: EMPTY_FUNCTION,
   userProfile: DEFAULT_USER_PROFILE,
-
-
-  stats: [],
-  statsIsLoading: false,
-  statsHasErrored: false,
+  featureFlagsHasErrored: false,
+  featureFlagsIsLoading: false,
+  featureFlags: '',
+  featureFlagsPostHasErrored: false,
+  featureFlagsPostIsLoading: false,
+  featureFlagsPostSuccess: false,
+  postData: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
   userProfile: state.userProfile,
-
-  stats: state.stats,
-  statsIsLoading: state.statsIsLoading,
-  statsHasErrored: state.statsHasErrored,
+  featureFlagsHasErrored: state.featureFlagsHasErrored,
+  featureFlagsIsLoading: state.featureFlagsIsLoading,
+  featureFlagsPostHasErrored: state.featureFlagsPostHasErrored,
+  featureFlagsPostIsLoading: state.featureFlagsPostIsLoading,
+  featureFlagsPostSuccess: state.featureFlagsPostSuccess,
 });
 
-export default connect(mapStateToProps)(FeatureFlags);
+export const mapDispatchToProps = dispatch => ({
+  postData: data => dispatch(postFeatureFlagsData(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureFlags);
