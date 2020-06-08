@@ -33,7 +33,7 @@
     "history": "^4.7.2",
     "imagediff": "^1.0.8",
     "immutable": "^3.8.2",
-    "localforage": "^1.7.3",
+    "localforage": "^1.7.4",
     "lodash": "^4.17.13",
     "lodash-webpack-plugin": "^0.11.5",
     "memoize-one": "^5.0.5",
