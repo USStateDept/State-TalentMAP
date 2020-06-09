@@ -23,7 +23,7 @@ export const ENDPOINT_PARAMS = {
   handshake: 'cps_codes',
   postIndicators: 'position__post_indicator__in',
   usCodes: 'position__us_codes__in',
-  commuterPosts: 'positions__cpn_codes_in',
+  commuterPosts: 'position__cpn_codes__in',
 };
 
 export const ENDPOINT_PARAMS_TANDEM = {
