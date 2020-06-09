@@ -9,5 +9,21 @@ exports[`DefinitionList matches snapshot 1`] = `
   <span>
     N/A
   </span>
+  <span
+    style={
+      Object {
+        "paddingLeft": 5,
+        "position": "absolute",
+      }
+    }
+  >
+    <OBCUrl
+      altStyle={false}
+      isButton={false}
+      label="OBC Details"
+      type="post-data"
+      url={Object {}}
+    />
+  </span>
 </div>
 `;
