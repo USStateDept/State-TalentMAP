@@ -25,7 +25,7 @@ const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
   text = label || `${text} details`;
 
   if (includes(get(window, 'location.host'), 'msappproxy')) {
-    url$ = url.external;
+    url$ = get(url, 'external');
   }
 
   const el = isButton ?
