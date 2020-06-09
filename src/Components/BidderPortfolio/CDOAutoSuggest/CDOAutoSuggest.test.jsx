@@ -39,7 +39,6 @@ describe('CDOAutoSuggest', () => {
     const wrapper = shallow(<CDOAutoSuggest.WrappedComponent {...props} setCDOsToSearchBy={spy} />);
     wrapper.instance().selectMultipleOption([props.cdos[0]]);
     sinon.assert.calledOnce(spy);
-    spy.reset();
   });
 
   it('matches snapshot', () => {
