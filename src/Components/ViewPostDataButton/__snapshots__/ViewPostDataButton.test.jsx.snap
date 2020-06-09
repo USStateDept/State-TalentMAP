@@ -13,6 +13,11 @@ exports[`ViewPostDataButtonComponent matches snapshot 1`] = `
     </span>
   }
   type="post"
-  url="https://google.com/1"
+  url={
+    Object {
+      "external": "https://google-proxy.com/1",
+      "internal": "https://google.com/1",
+    }
+  }
 />
 `;
