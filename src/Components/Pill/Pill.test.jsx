@@ -5,22 +5,48 @@ import sinon from 'sinon';
 import Pill from './Pill';
 
 describe('PillComponent', () => {
+  const props = {
+    description: 'test',
+    codeRef: 'code',
+    selectionRef: 'selection',
+    onPillClick: () => {},
+  };
+
   it('is defined', () => {
     const wrapper = shallow(<Pill
-      description="description"
-      codeRef="ref"
-      selectionRef="selRef"
-      onPillClick={() => {}}
+      {...props}
     />);
     expect(wrapper).toBeDefined();
   });
 
-  it('can click the button', () => {
+  it('renders class', () => {
+    const wrapper = shallow(<Pill
+      {...props}
+    />);
+
+    ['.pill']
+      .map(m => expect(wrapper.find(m).exists()).toBe(true));
+  });
+
+  it('renders classes based on props and context', () => {
+    const wrapper = shallow(<Pill
+      {...props}
+      isTandem2
+      isCommon
+    />, { context: { isProjectedVacancy: true, isTandemSearch: true } });
+
+    ['.pill', '.pill--common']
+      .map(m => expect(wrapper.find(m).exists()).toBe(true));
+
+    // overridden by .pill--common
+    ['.pill--projected-vacancy', '.pill--tandem-search', '.pill--tandem2']
+      .map(m => expect(wrapper.find(m).exists()).toBe(false));
+  });
+
+  it('clicks the button', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<Pill
-      description="test"
-      codeRef="code"
-      selectionRef="selection"
+      {...props}
       onPillClick={spy}
     />);
     wrapper.find('button').simulate('click');
@@ -29,11 +55,17 @@ describe('PillComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(<Pill
-      description="test"
-      codeRef="code"
-      selectionRef="selection"
-      onPillClick={() => {}}
+      {...props}
     />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('matches snapshot with options', () => {
+    const wrapper = shallow(<Pill
+      {...props}
+      isTandem2
+      isCommon
+    />, { context: { isProjectedVacancy: true, isTandemSearch: true } });
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

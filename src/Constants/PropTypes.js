@@ -595,3 +595,8 @@ export const HISTORY_OBJECT = PropTypes.shape({
   push: PropTypes.func,
   listen: PropTypes.func,
 });
+
+export const OBC_URLS = PropTypes.shape({
+  internal: PropTypes.string,
+  external: PropTypes.string,
+});
