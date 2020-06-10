@@ -15,9 +15,7 @@ import {
   GET_DRAFT_TITLE,
   GET_SUBMIT_BID_ACTION_TITLE,
   GET_SUBMIT_BID_COMPLETE_TITLE,
-  // GET_HAND_SHAKE_EVALUATE_TITLE,
   GET_HAND_SHAKE_EVALUATING_TITLE,
-  // GET_HAND_SHAKE_OFFERED_TITLE,
   GET_HAND_SHAKE_ACCEPTED_TITLE,
   GET_BID_REVIEW_COMPLETE_TITLE,
   GET_PANEL_TITLE,
@@ -51,10 +49,8 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   const DRAFT_TITLE = GET_DRAFT_TITLE();
   const SUBMIT_BID_ACTION_TITLE = GET_SUBMIT_BID_ACTION_TITLE();
   const SUBMIT_BID_COMPLETE_TITLE = GET_SUBMIT_BID_COMPLETE_TITLE();
-  // const HAND_SHAKE_EVALUATE_TITLE = GET_HAND_SHAKE_EVALUATE_TITLE();
   const HAND_SHAKE_EVALUATING_TITLE = GET_HAND_SHAKE_EVALUATING_TITLE();
   const BID_REVIEW_COMPLETE_TITLE = GET_BID_REVIEW_COMPLETE_TITLE();
-  // const HAND_SHAKE_OFFERED_TITLE = GET_HAND_SHAKE_OFFERED_TITLE();
   const HAND_SHAKE_ACCEPTED_TITLE = GET_HAND_SHAKE_ACCEPTED_TITLE();
   const PANEL_TITLE = GET_PANEL_TITLE();
   const APPROVAL_TITLE = GET_APPROVAL_TITLE();
@@ -108,6 +104,39 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
     // or when they've declined it.
     case SUBMITTED_PROP:
     case HAND_SHAKE_OFFERED_PROP:
+      bidClassObject.stages[DRAFT_PROP] = Object.assign(
+        {},
+        DEFAULT_COMPLETE_OBJECT,
+        { number: DRAFT_NUMBER, date: DRAFT_DATE, title: DRAFT_TITLE },
+      );
+      bidClassObject.stages[SUBMITTED_PROP] = {
+        ...DEFAULT_COMPLETE_OBJECT,
+        date: SUBMITTED_DATE,
+        title: SUBMIT_BID_COMPLETE_TITLE,
+        number: SUBMITTED_NUMBER };
+      bidClassObject.stages[HAND_SHAKE_OFFERED_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: HAND_SHAKE_OFFERED_DATE,
+        title: HAND_SHAKE_EVALUATING_TITLE,
+        needsAction: false,
+        isCurrent: true,
+        number: HAND_SHAKE_OFFERED_NUMBER };
+      bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: HAND_SHAKE_ACCEPTED_DATE,
+        title: HAND_SHAKE_ACCEPTED_TITLE,
+        number: HAND_SHAKE_ACCEPTED_NUMBER };
+      bidClassObject.stages[IN_PANEL_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: IN_PANEL_DATE,
+        title: PANEL_TITLE,
+        number: IN_PANEL_NUMBER };
+      bidClassObject.stages[APPROVED_PROP] = {
+        ...DEFAULT_INCOMPLETE_OBJECT,
+        date: APPROVED_DATE,
+        title: APPROVAL_TITLE,
+        number: APPROVED_NUMBER };
+      return bidClassObject;
     case HAND_SHAKE_DECLINED_PROP:
     case CLOSED_PROP:
       bidClassObject.stages[DRAFT_PROP] = Object.assign(
