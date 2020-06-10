@@ -55,7 +55,7 @@ class PostFilter extends Component {
     const { queryParamUpdate, commuterPosts } = this.props;
     this.setState({ allCommuterPostsSelected: !value },
       queryParamUpdate({
-        [commuterPosts.item.selectionRef]: value ? commuterPosts.data.map(m => m.id).join(',') : '',
+        [commuterPosts.item.selectionRef]: value ? commuterPosts.data.map(m => m.code).join(',') : '',
       }),
     );
   };
@@ -239,12 +239,12 @@ class PostFilter extends Component {
               >
                 <div className="usa-grid-full">
                   {
-                    commuterPosts$.map((itemData) => {
+                    orderBy(commuterPosts$, 'description').map((itemData) => {
                       const itemLabel = getItemLabel(itemData);
                       const itemLabelNoSpaces = formatIdSpacing(itemLabel);
                       return (
                         <CheckBox
-                          _id={itemData.id} /* when we need the original id */
+                          _id={itemData.code} /* when we need the original id */
                           id={`checkbox${itemLabelNoSpaces}-commuter-post-${item.item.description}`}
                           key={`checkbox${itemLabel}-commuter-post-${item.item.description}`}
                           label={itemLabel}

@@ -39,7 +39,7 @@ function getSkillCustomDescription(description, code) {
 }
 
 function getCommuterPostDescription(filterItemObject = {}) {
-  return `${filterItemObject.description} (${filterItemObject.cpn_freq_desc})`;
+  return `${filterItemObject.description}`;
 }
 
 // create a custom description based on the filter type
