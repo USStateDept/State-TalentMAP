@@ -234,6 +234,9 @@ class SearchFiltersContainer extends Component {
     const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
     const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
+    // commuter posts
+    const commuterPosts = (filters$ || []).find(f => f.item.description === 'commuterPosts');
+
     // get skill cones
     const skillCones = (filters$ || []).find(f => f.item.description === 'skillCone');
 
@@ -288,6 +291,7 @@ class SearchFiltersContainer extends Component {
                 queryParamUpdate={this.props.queryParamUpdate}
                 overseasIsSelected={overseasIsSelected}
                 domesticIsSelected={domesticIsSelected}
+                commuterPosts={commuterPosts}
                 autoSuggestProps={{
                   getSuggestions,
                   suggestions,
@@ -456,7 +460,7 @@ class SearchFiltersContainer extends Component {
 
 SearchFiltersContainer.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
-  isTandem: PropTypes.bool,
+  isTandemSearch: PropTypes.bool,
 };
 
 SearchFiltersContainer.propTypes = {
