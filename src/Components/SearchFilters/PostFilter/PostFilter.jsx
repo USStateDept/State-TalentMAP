@@ -5,6 +5,7 @@ import { getItemLabel, formatIdSpacing, mapDuplicates } from 'utilities';
 import { FILTER_ITEM } from 'Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
+import bannerImg from '../../../assets/svg/filter-flag.svg';
 
 /* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
@@ -224,7 +225,12 @@ class PostFilter extends Component {
               <AccordionItem
                 className="accordion-content-small"
                 id="commuter-post-sub-accordion"
-                title="Commuter Posts"
+                title={
+                  <span>
+                    <img src={bannerImg} alt="banner" className="commuter-post-filter-ribbon" />
+                    Commuter Posts
+                  </span>
+                }
                 buttonClass="tm-nested-accordion-button"
                 preContent={(
                   <CheckBox
