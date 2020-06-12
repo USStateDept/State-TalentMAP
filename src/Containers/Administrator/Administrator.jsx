@@ -140,7 +140,7 @@ AdministratorContainer.propTypes = {
   getTableStats: PropTypes.func,
   totalUsers: PropTypes.shape({ count: PropTypes.number }),
   fetchFeatureFlagsData: PropTypes.func,
-  featureFlags: PropTypes.string,
+  featureFlags: PropTypes.shape({}),
 };
 
 AdministratorContainer.defaultProps = {
@@ -173,7 +173,7 @@ AdministratorContainer.defaultProps = {
   getTableStats: EMPTY_FUNCTION,
   totalUsers: {},
   fetchFeatureFlagsData: EMPTY_FUNCTION,
-  featureFlags: '',
+  featureFlags: {},
 };
 
 const mapStateToProps = state => ({

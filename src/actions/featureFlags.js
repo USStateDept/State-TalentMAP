@@ -57,8 +57,6 @@ export function featureFlagsPostSuccess(success) {
 }
 
 export function fetchFeatureFlagsData() {
-  // eslint-disable-next-line no-console
-  console.log('current: in getFeatureFlagsData');
   return (dispatch) => {
     dispatch(featureFlagsIsLoading(true));
     api().get('/featureflags/')

@@ -17,15 +17,18 @@ class FeatureFlags extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: '',
+      feature_flags: {},
     };
   }
 
-  handleChange = data => {
-    // eslint-disable-next-line no-console
-    console.log('current: data:', data);
-    this.props.postData(data);
+  handleChange = d => {
+    this.setState({ feature_flags: d });
   };
+
+  submitData = () => {
+    this.props.postData(this.state.feature_flags);
+  };
+
   render() {
     const {
       userProfile,
@@ -65,6 +68,7 @@ class FeatureFlags extends Component {
               value={featureFlags}
               onChange={this.handleChange}
             />
+            <button name="Submit" className="usa-button" onClick={this.submitData}>Submit</button>
           </PermissionsWrapper>
           :
           <div>
