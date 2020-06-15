@@ -3,8 +3,6 @@ import { get } from 'lodash';
 import api from '../api';
 
 export function featureFlagsHasErrored(bool) {
-  // eslint-disable-next-line no-console
-  console.log('current: in featureFlagsHasErrored', bool);
   return {
     type: 'FEATURE_FLAGS_HAS_ERRORED',
     hasErrored: bool,
@@ -12,8 +10,6 @@ export function featureFlagsHasErrored(bool) {
 }
 
 export function featureFlagsIsLoading(bool) {
-  // eslint-disable-next-line no-console
-  console.log('current: in featureFlagsIsLoading', bool);
   return {
     type: 'FEATURE_FLAGS_IS_LOADING',
     isLoading: bool,
@@ -21,8 +17,6 @@ export function featureFlagsIsLoading(bool) {
 }
 
 export function fetchFeatureFlagsDataSuccess(data) {
-  // eslint-disable-next-line no-console
-  console.log('current: in fetchFeatureFlagsDataSuccess', data);
   return {
     type: 'FEATURE_FLAGS_DATA_SUCCESS',
     data,
@@ -30,8 +24,6 @@ export function fetchFeatureFlagsDataSuccess(data) {
 }
 
 export function featureFlagsPostHasErrored(bool) {
-  // eslint-disable-next-line no-console
-  console.log('current: in featureFlagsPostHasErrored', bool);
   return {
     type: 'FEATURE_FLAGS_POST_HAS_ERRORED',
     hasErrored: bool,
@@ -39,8 +31,6 @@ export function featureFlagsPostHasErrored(bool) {
 }
 
 export function featureFlagsPostIsLoading(bool) {
-  // eslint-disable-next-line no-console
-  console.log('current: in featureFlagsPostIsLoading', bool);
   return {
     type: 'FEATURE_FLAGS_POST_IS_LOADING',
     isLoading: bool,
@@ -48,8 +38,6 @@ export function featureFlagsPostIsLoading(bool) {
 }
 
 export function featureFlagsPostSuccess(success) {
-  // eslint-disable-next-line no-console
-  console.log('current: in featureFlagsPostSuccess', success);
   return {
     type: 'FEATURE_FLAGS_POST_SUCCESS',
     success,
@@ -61,7 +49,7 @@ export function fetchFeatureFlagsData() {
     dispatch(featureFlagsIsLoading(true));
     api().get('/featureflags/')
       .then((response) => {
-        const featureFlagsData = JSON.parse(get(response, 'data', ''));
+        const featureFlagsData = get(response, 'data', {});
         batch(() => {
           dispatch(featureFlagsHasErrored(false));
           dispatch(featureFlagsIsLoading(false));
