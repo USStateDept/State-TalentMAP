@@ -190,7 +190,6 @@ class ResultsCard extends Component {
     if (isProjectedVacancy) cardClassArray.push('results-card--secondary');
     if (isTandem) cardClassArray.push('results-card--tandem');
     if (isTandem2) cardClassArray.push('results-card--tandem-two');
-    if (commuterPost) cardClassArray.push('results-card--commuterpost');
     const cardClass = cardClassArray.join(' ');
 
     const headingTop =
