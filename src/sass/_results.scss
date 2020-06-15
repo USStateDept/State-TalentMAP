@@ -58,12 +58,29 @@ $results-container-width: 100% - $filter-container-width;
   border: 1px solid $results-card-border;
   border-left: 8px solid $results-card-accent;
   margin-bottom: 2rem;
-  padding: 1.1rem 1.1rem 3.3rem;
+  padding: 1.1rem 1.1rem 3.3rem 1.9rem;
 
   dl {
     dt,
     dd {
       vertical-align: top;
+    }
+  }
+
+  .commuter-banner {
+    height: 35px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+  }
+
+  .commuter-header {
+    margin: 0;
+    width: 100%;
+
+    .commute-frequency {
+      font-size: .8em;
     }
   }
 
@@ -603,6 +620,13 @@ $results-container-width: 100% - $filter-container-width;
     display: inline;
   }
 
+  .pill-ribbon-icon {
+    padding-left: 6px;
+    padding-right: 6px;
+    position: relative;
+    top: 2px;
+  }
+
   .selections-container {
     margin-right: .7em;
   }
@@ -961,4 +985,10 @@ $results-container-width: 100% - $filter-container-width;
     font-size: .8em;
     padding: 7px;
   }
+}
+
+.commuter-post-filter-ribbon {
+  padding-right: 4px;
+  position: relative;
+  top: 1px;
 }
