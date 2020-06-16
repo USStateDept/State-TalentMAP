@@ -77,7 +77,7 @@ AccordionItem.contextTypes = {
 
 AccordionItem.propTypes = {
   id: PropTypes.string.isRequired,
-  title: PropTypes.string,
+  title: PropTypes.node,
   expanded: PropTypes.bool,
   setAccordion: PropTypes.func,
   children: PropTypes.node,
