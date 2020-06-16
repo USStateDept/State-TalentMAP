@@ -33,6 +33,7 @@ class Toggle extends Component {
   };
 
   render() {
+    const { isProjectedVacancy } = this.context;
     const { items } = this.props;
     return (
       <div className="toggle-container">
@@ -45,7 +46,7 @@ class Toggle extends Component {
               key={m.value}
               value={m.value}
               onClick={this.onSelect}
-              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}${isProjectedVacancy ? ' toggle-pv' : ' toggle-ap'}`}
             >
               {m.label}
             </button>);
@@ -73,6 +74,10 @@ class Toggle extends Component {
     );
   }
 }
+
+Toggle.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 Toggle.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({

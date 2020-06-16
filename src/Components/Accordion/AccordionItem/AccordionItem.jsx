@@ -41,6 +41,7 @@ class AccordionItem extends Component {
 
   render() {
     const { expanded: expandedState } = this.state;
+    const { isProjectedVacancy } = this.context;
     const { id, title, children, className, controlled, expanded: expandedProp, useIdClass,
       buttonClass, childClass, preContent, disabled } = this.props;
     const formattedId = formatIdSpacing(id);
@@ -54,7 +55,7 @@ class AccordionItem extends Component {
         {preContent}
         <button
           id={`${id}-button`}
-          className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''}`}
+          className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''} ${isProjectedVacancy ? ' accordion-pv' : 'accordion-ap'}`}
           aria-expanded={expanded$}
           aria-controls={formattedId}
           onClick={this.setExpanded}
@@ -69,6 +70,10 @@ class AccordionItem extends Component {
     );
   }
 }
+
+AccordionItem.contextTypes = {
+  isProjectedVacancy: PropTypes.bool,
+};
 
 AccordionItem.propTypes = {
   id: PropTypes.string.isRequired,

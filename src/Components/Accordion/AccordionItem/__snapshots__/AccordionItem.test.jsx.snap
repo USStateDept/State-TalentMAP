@@ -7,7 +7,7 @@ exports[`AccordionItemComponent matches snapshot 1`] = `
   <button
     aria-controls="id"
     aria-expanded={true}
-    className="usa-accordion-button  "
+    className="usa-accordion-button   accordion-ap"
     id="id-button"
     onClick={[Function]}
   >

@@ -35,11 +35,10 @@ describe('PillComponent', () => {
       isCommon
     />, { context: { isProjectedVacancy: true, isTandemSearch: true } });
 
-    ['.pill', '.pill--common']
+    ['.pill', '.pill--projected-vacancy']
       .map(m => expect(wrapper.find(m).exists()).toBe(true));
 
-    // overridden by .pill--common
-    ['.pill--projected-vacancy', '.pill--tandem-search', '.pill--tandem2']
+    ['.pill--tandem-search', '.pill--tandem2']
       .map(m => expect(wrapper.find(m).exists()).toBe(false));
   });
 

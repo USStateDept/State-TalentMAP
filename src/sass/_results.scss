@@ -68,7 +68,7 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   &.results-card--tandem-two {
-    background-color: $primary-alt-lighter;
+    background-color: $color-purple-light;
 
     .compare-not-checked {
       background-color: $color-white;
@@ -711,10 +711,16 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .usa-accordion-button {
-    background-color: $bg-blue-dark-1;
+    //background-color: $blue-primary;
     color: $color-white;
     font-weight: normal;
     padding: .7em;
+  }
+  .accordion-ap {
+    background-color: $blue-primary;
+  }
+  .accordion-pv {
+    background-color: $bg-blue-dark-1;
   }
 
   .usa-accordion-content {
@@ -782,24 +788,17 @@ $results-container-width: 100% - $filter-container-width;
     min-height: inherit;
   }
 
-  .tandem-common-filters {
+  .tandem-1-filters {
     .toggle-button.toggle-button--selected,
     .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
       background-color: $color-blue-chill;
     }
   }
 
-  .tandem-1-filters {
-    .toggle-button.toggle-button--selected,
-    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      // add any styles here related to tandem user 1
-    }
-  }
-
   .tandem-2-filters {
     .toggle-button.toggle-button--selected,
     .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      background-color: $color-blue-mariner;
+      background-color: $color-purple;
     }
   }
 }
