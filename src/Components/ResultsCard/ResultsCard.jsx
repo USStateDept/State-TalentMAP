@@ -18,6 +18,7 @@ import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
+import bannerImg from '../../assets/svg/card-flag.svg';
 
 import { formatDate, propOrDefault, getPostName, shortenString,
   getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
@@ -130,6 +131,9 @@ class ResultsCard extends Component {
     const isTandem1 = result.tandem_nbr === 1;
     const isTandem2 = result.tandem_nbr === 2;
 
+    const commuterPost = get(pos, 'commuterPost.description');
+    const commuterPostFreq = get(pos, 'commuterPost.frequency');
+
     const sections = [
     /* eslint-disable quote-props */
       {
@@ -195,9 +199,12 @@ class ResultsCard extends Component {
           {detailsLink}
         </>)
         :
-        (<h3>
-          Post: {postShort}
-        </h3>);
+        (
+          <Row className="usa-grid-full commuter-header">
+            <Column columns={commuterPostFreq ? 7 : 12}><h3>Post: {postShort}</h3></Column>
+            {!!commuterPostFreq && <Column className="commute-frequency" columns={5}>Commute Frequency: {commuterPostFreq}</Column>}
+          </Row>
+        );
 
     const headingBottom = !isTandem ?
       <><dt>Location:</dt><dd>{post}</dd></>
@@ -218,6 +225,14 @@ class ResultsCard extends Component {
               onMouseOver={() => this.hover.toggleCardHovered(true)}
               onMouseLeave={() => this.hover.toggleCardHovered(false)}
             >
+              {
+                !!commuterPost &&
+                <img
+                  src={bannerImg}
+                  alt="banner"
+                  className="commuter-banner"
+                />
+              }
               {
                 matches ?
                   <Row className="header" fluid>
