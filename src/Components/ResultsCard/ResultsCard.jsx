@@ -172,7 +172,7 @@ class ResultsCard extends Component {
       refKey: result.id,
     };
 
-    const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}`}>View position</Link>;
+    const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}${isTandem2 ? '?tandem=true' : ''}`}>View position</Link>;
 
     const availability = get(result, 'availability.availability');
     const availableToBid = isNull(availability) || !!availability;
