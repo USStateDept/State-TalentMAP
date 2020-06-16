@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
@@ -31,6 +32,13 @@ import {
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
+  getChildContext() {
+    const { tandem } = queryString.parse(this.props.location.search);
+    const isTandemTwo = tandem === 'true';
+    return {
+      isTandemTwo,
+    };
+  }
   UNSAFE_componentWillMount() {
     const { isArchived, isProjectedVacancy } = this.props;
     if (!this.props.isAuthorized()) {
@@ -129,12 +137,19 @@ Position.contextTypes = {
   router: PropTypes.object,
 };
 
+Position.childContextTypes = {
+  isTandemTwo: PropTypes.bool,
+};
+
 Position.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       id: PropTypes.string,
     }),
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string,
   }).isRequired,
   fetchData: PropTypes.func,
   fetchPVData: PropTypes.func,
