@@ -29,6 +29,7 @@ import {
   EMPTY_FUNCTION,
   HIGHLIGHT_POSITION,
   BIDDER_OBJECT,
+  ROUTER_LOCATION_OBJECT,
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
@@ -148,9 +149,7 @@ Position.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string,
-  }).isRequired,
+  location: ROUTER_LOCATION_OBJECT,
   fetchData: PropTypes.func,
   fetchPVData: PropTypes.func,
   fetchUPData: PropTypes.func,
@@ -210,6 +209,12 @@ Position.defaultProps = {
   client: {},
   clientIsLoading: false,
   clientHasErrored: false,
+  location: {
+    pathname: '',
+    search: '',
+    hash: '',
+    key: '',
+  },
 };
 
 const mapStateToProps = (state, ownProps) => ({
