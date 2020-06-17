@@ -8,7 +8,7 @@ describe('OBCUrlComponent', () => {
     process.env.PUBLIC_URL = '/talentmap/';
   });
 
-  const url = 'https://google.com/1';
+  const url = { internal: 'https://google.com/1', external: 'https://google-proxy.com/1' };
 
   it('is defined', () => {
     const wrapper = shallow(<OBCUrl
@@ -21,7 +21,7 @@ describe('OBCUrlComponent', () => {
     const wrapper = shallow(<OBCUrl
       url={url}
     />);
-    expect(wrapper.find('a').props().href).toBe(url);
+    expect(wrapper.find('a').props().href).toBe(url.internal);
   });
 
   it('is defined when id is a string', () => {

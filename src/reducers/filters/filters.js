@@ -536,7 +536,7 @@ const items =
           sort: 750,
           description: 'postIndicators',
           endpoint: 'fsbid/reference/postindicators/',
-          selectionRef: 'position__post_indicator__in',
+          selectionRef: ENDPOINT_PARAMS.postIndicators,
           text: 'Include positions with selected post indicators',
           tryCache: true,
           isCommon: true,
@@ -552,7 +552,7 @@ const items =
           sort: 780,
           description: 'unaccompaniedStatus',
           endpoint: 'fsbid/reference/unaccompaniedstatuses/',
-          selectionRef: 'position__us_codes__in',
+          selectionRef: ENDPOINT_PARAMS.usCodes,
           text: 'Include positions with selected unaccompanied status',
           tryCache: true,
           isCommon: true,
@@ -614,6 +614,22 @@ const items =
         },
         data: [
         ],
+      },
+      {
+        item: {
+          title: 'Commuter Posts',
+          sort: 1150,
+          description: 'commuterPosts',
+          endpoint: 'fsbid/reference/commuterposts/',
+          selectionRef: ENDPOINT_PARAMS.commuterPosts,
+          text: 'Include positions with selected Commuter Posts',
+          isTandem: true,
+          tryCache: true,
+          isCommon: true,
+          choices: [
+          ],
+        },
+        data: [],
       },
       {
         item: {

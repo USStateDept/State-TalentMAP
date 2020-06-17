@@ -38,6 +38,10 @@ function getSkillCustomDescription(description, code) {
   return `${description} (${code})`;
 }
 
+function getCommuterPostDescription(filterItemObject = {}) {
+  return `${filterItemObject.description}`;
+}
+
 // create a custom description based on the filter type
 // eslint-disable-next-line complexity
 export function getFilterCustomDescription(filterItem, filterItemObject) {
@@ -66,6 +70,8 @@ export function getFilterCustomDescription(filterItem, filterItemObject) {
     case 'grade':
     case 'grade-tandem':
       return getCustomGradeDescription(code);
+    case 'commuterPosts':
+      return getCommuterPostDescription(filterItemObject);
     case 'postDiff': case 'dangerPay': case 'bidSeason':
       return description;
     default:

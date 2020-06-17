@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { OBC_URLS } from 'Constants/PropTypes';
 import OBCUrl from '../OBCUrl';
 
 const ViewPostDataButton = ({ url, type, altStyle }) => (
@@ -14,12 +15,13 @@ const ViewPostDataButton = ({ url, type, altStyle }) => (
 );
 
 ViewPostDataButton.propTypes = {
-  url: PropTypes.string.isRequired,
+  url: OBC_URLS,
   type: PropTypes.oneOf(['post', 'country']),
   altStyle: PropTypes.bool,
 };
 
 ViewPostDataButton.defaultProps = {
+  url: {},
   type: 'post',
   altStyle: false,
 };
