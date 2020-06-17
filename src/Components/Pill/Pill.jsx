@@ -12,18 +12,15 @@ const Pill = ({ description, codeRef, selectionRef, onPillClick,
   if (isProjectedVacancy) {
     classes.push('pill--projected-vacancy');
   }
-  if (isTandemSearch) {
+  if (isTandemSearch && !isCommon) {
     classes[lastIndex] = 'pill--tandem-search';
     titleSuffix = ' from Tandem 1';
   }
-  if (isTandem2) {
+  if (isTandem2 && !isCommon) {
     classes[lastIndex] = 'pill--tandem2';
     titleSuffix = ' from Tandem 2';
   }
-  if (isCommon) {
-    classes[lastIndex] = 'pill--common';
-    titleSuffix = '';
-  }
+
   const classes$ = classes.join(' ');
   const showFlag = selectionRef === ENDPOINT_PARAMS.commuterPosts;
   return (

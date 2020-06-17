@@ -363,6 +363,8 @@ class SearchFiltersContainer extends Component {
           altTitle: get(item, 'item.altTitle'),
           id: `accordion-${get(item, 'item.title', '')}-${isTandem2 ? '-tandem' : ''}`,
           isTandem: get(item, 'item.isTandem'),
+          isTandem1,
+          isTandemCommon: isTandemCommon$,
         };
         if (isTandem1) {
           sortedFiltersTandem1.push(obj);
@@ -383,7 +385,7 @@ class SearchFiltersContainer extends Component {
     const commonContainerClass = tandemIsSelected ? 'tandem-common-filters' : '';
     const tandem1Class = 'tandem-1-filters';
     const tandem2Class = 'tandem-2-filters';
-    const tandemUserClass = showTandem2 ? 'tandem-2-filters' : '';
+    const tandemUserClass = showTandem2 ? 'tandem-2-filters' : 'tandem-1-filters';
 
     return (
       <div className={apContainerClass}>

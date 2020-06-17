@@ -23,4 +23,18 @@
     color: $color-white;
     z-index: $toggle-button-z;
   }
+
+  .toggle-button--selected.toggle-ap {
+    background-color: $bg-blue-dark-1;
+    //background-color: $primary-blue;
+  }
+  .toggle-button--selected.toggle-pv {
+    background-color: $bg-blue-dark-1;
+  }
+  .toggle-button--selected.toggle-tandem-1 {
+    background-color: $color-blue-chill;
+  }
+  .toggle-button--selected.toggle-tandem-2 {
+    background-color: $color-purple;
+  }
 }

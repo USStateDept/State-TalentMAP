@@ -39,13 +39,27 @@ class Toggle extends Component {
         {items.map((m) => {
           const isSelected = this.isSelected(m.value);
           const addTooltip = !isNil(m.tooltip);
+          let apPV;
+          switch (m.value) {
+            case '1':
+              apPV = ' toggle-tandem-1';
+              break;
+            case '2':
+              apPV = ' toggle-tandem-2';
+              break;
+            case 'projected':
+              apPV = ' toggle-pv';
+              break;
+            default:
+              apPV = ' toggle-ap';
+          }
           let renderedContent;
           if (!addTooltip) {
             renderedContent = (<button
               key={m.value}
               value={m.value}
               onClick={this.onSelect}
-              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}${apPV}`}
             >
               {m.label}
             </button>);
@@ -61,7 +75,7 @@ class Toggle extends Component {
                   key={m.value}
                   value={m.value}
                   onClick={this.onSelect}
-                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}${apPV}`}
                 >{m.label}
                 </button>
               </Tooltip>);

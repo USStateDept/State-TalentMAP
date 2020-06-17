@@ -16,7 +16,7 @@ exports[`PillComponent matches snapshot 1`] = `
 
 exports[`PillComponent matches snapshot with options 1`] = `
 <button
-  className="pill pill--common"
+  className="pill pill--projected-vacancy"
   onClick={[Function]}
   title="Remove test filter"
 >
