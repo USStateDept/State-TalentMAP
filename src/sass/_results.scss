@@ -735,7 +735,6 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .usa-accordion-button {
-    //background-color: $blue-primary;
     color: $color-white;
     font-weight: normal;
     padding: .7em;
@@ -745,6 +744,12 @@ $results-container-width: 100% - $filter-container-width;
   }
   .accordion-pv {
     background-color: $bg-blue-dark-1;
+  }
+  .accordion-tandem-1 {
+    background-color: $color-blue-chill;
+  }
+  .accordion-tandem-2 {
+    background-color: $color-purple;
   }
 
   .usa-accordion-content {
@@ -810,20 +815,6 @@ $results-container-width: 100% - $filter-container-width;
 .ap-container {
   .accordion-checkbox-post {
     min-height: inherit;
-  }
-
-  .tandem-1-filters {
-    .toggle-button.toggle-button--selected,
-    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      background-color: $color-blue-chill;
-    }
-  }
-
-  .tandem-2-filters {
-    .toggle-button.toggle-button--selected,
-    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      background-color: $color-purple;
-    }
   }
 }
 

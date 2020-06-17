@@ -41,21 +41,25 @@ class AccordionItem extends Component {
 
   render() {
     const { expanded: expandedState } = this.state;
-    const { isProjectedVacancy } = this.context;
+    const { isProjectedVacancy, isTandemSearch } = this.context;
     const { id, title, children, className, controlled, expanded: expandedProp, useIdClass,
-      buttonClass, childClass, preContent, disabled } = this.props;
+      buttonClass, childClass, preContent, disabled, isTandem1, isTandemCommon } = this.props;
     const formattedId = formatIdSpacing(id);
     const idClass = useIdClass ? `accordion-${(formattedId || 'accordion').toLowerCase()}` : '';
     let expanded$ = expandedProp;
     if (controlled) {
       expanded$ = !disabled && expandedState;
     }
+    let accordionClass = isProjectedVacancy ? ' accordion-pv' : 'accordion-ap';
+    if (isTandemSearch && !isTandemCommon) {
+      accordionClass = isTandem1 ? ' accordion-tandem-1' : ' accordion-tandem-2';
+    }
     return (
       <li className={className}>
         {preContent}
         <button
           id={`${id}-button`}
-          className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''} ${isProjectedVacancy ? ' accordion-pv' : 'accordion-ap'}`}
+          className={`usa-accordion-button ${buttonClass} ${preContent ? 'has-pre-content' : ''} ${accordionClass}`}
           aria-expanded={expanded$}
           aria-controls={formattedId}
           onClick={this.setExpanded}
@@ -73,6 +77,7 @@ class AccordionItem extends Component {
 
 AccordionItem.contextTypes = {
   isProjectedVacancy: PropTypes.bool,
+  isTandemSearch: PropTypes.bool,
 };
 
 AccordionItem.propTypes = {
@@ -88,6 +93,8 @@ AccordionItem.propTypes = {
   preContent: PropTypes.node,
   disabled: PropTypes.bool,
   controlled: PropTypes.bool,
+  isTandem1: PropTypes.bool,
+  isTandemCommon: PropTypes.bool,
 };
 
 AccordionItem.defaultProps = {
@@ -102,6 +109,8 @@ AccordionItem.defaultProps = {
   preContent: undefined,
   disabled: false,
   controlled: false,
+  isTandem1: false,
+  isTandemCommon: false,
 };
 
 export default AccordionItem;

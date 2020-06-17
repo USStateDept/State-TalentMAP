@@ -33,20 +33,33 @@ class Toggle extends Component {
   };
 
   render() {
-    const { isProjectedVacancy } = this.context;
     const { items } = this.props;
     return (
       <div className="toggle-container">
         {items.map((m) => {
           const isSelected = this.isSelected(m.value);
           const addTooltip = !isNil(m.tooltip);
+          let apPV;
+          switch (m.value) {
+            case '1':
+              apPV = ' toggle-tandem-1';
+              break;
+            case '2':
+              apPV = ' toggle-tandem-2';
+              break;
+            case 'projected':
+              apPV = ' toggle-pv';
+              break;
+            default:
+              apPV = ' toggle-ap';
+          }
           let renderedContent;
           if (!addTooltip) {
             renderedContent = (<button
               key={m.value}
               value={m.value}
               onClick={this.onSelect}
-              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}${isProjectedVacancy ? ' toggle-pv' : ' toggle-ap'}`}
+              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}${apPV}`}
             >
               {m.label}
             </button>);
@@ -62,7 +75,7 @@ class Toggle extends Component {
                   key={m.value}
                   value={m.value}
                   onClick={this.onSelect}
-                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}${apPV}`}
                 >{m.label}
                 </button>
               </Tooltip>);
@@ -74,10 +87,6 @@ class Toggle extends Component {
     );
   }
 }
-
-Toggle.contextTypes = {
-  isProjectedVacancy: PropTypes.bool,
-};
 
 Toggle.propTypes = {
   items: PropTypes.arrayOf(PropTypes.shape({

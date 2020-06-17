@@ -363,6 +363,8 @@ class SearchFiltersContainer extends Component {
           altTitle: get(item, 'item.altTitle'),
           id: `accordion-${get(item, 'item.title', '')}-${isTandem2 ? '-tandem' : ''}`,
           isTandem: get(item, 'item.isTandem'),
+          isTandem1,
+          isTandemCommon: isTandemCommon$,
         };
         if (isTandem1) {
           sortedFiltersTandem1.push(obj);
