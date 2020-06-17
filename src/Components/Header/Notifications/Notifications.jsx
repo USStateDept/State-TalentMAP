@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
+import { get } from 'lodash';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
@@ -26,7 +27,9 @@ class Notifications extends Component {
     });
   }
   UNSAFE_componentWillReceiveProps(nextProps) {
-    if (nextProps.notificationsCount !== this.props.notificationsCount) {
+    // don't fetch notifications if already on the Notifications page
+    const path = get(nextProps, 'history.location.pathname');
+    if (nextProps.notificationsCount !== this.props.notificationsCount && path !== '/profile/notifications') {
       // only fetch notifications if the count has changed
       this.props.fetchNotifications();
     }
