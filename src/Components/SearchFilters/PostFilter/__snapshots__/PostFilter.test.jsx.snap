@@ -19,6 +19,8 @@ exports[`PostFilterComponent matches snapshot 1`] = `
         disabled={false}
         expanded={false}
         id="domestic-post-sub-accordion"
+        isTandem1={false}
+        isTandemCommon={false}
         preContent={
           <CheckBox
             checkboxProps={Object {}}
@@ -68,6 +70,8 @@ exports[`PostFilterComponent matches snapshot 1`] = `
         disabled={false}
         expanded={false}
         id="overseas-post-sub-accordion"
+        isTandem1={false}
+        isTandemCommon={false}
         preContent={
           <CheckBox
             checkboxProps={Object {}}
