@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { orderBy } from 'lodash';
+import { get, orderBy } from 'lodash';
 import { getItemLabel, formatIdSpacing, mapDuplicates } from 'utilities';
-import { FILTER_ITEM } from '../../../Constants/PropTypes';
+import { FILTER_ITEM } from 'Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
+import bannerImg from '../../../assets/svg/filter-flag.svg';
 
 /* eslint-disable react/no-unused-prop-types */
 class PostFilter extends Component {
@@ -13,6 +14,7 @@ class PostFilter extends Component {
     this.state = {
       allDomesticSelected: false,
       allOverseasSelected: false,
+      allCommuterPostsSelected: false,
     };
   }
 
@@ -50,10 +52,20 @@ class PostFilter extends Component {
     );
   };
 
+  onSelectAllCommuterPosts = value => {
+    const { queryParamUpdate, commuterPosts } = this.props;
+    this.setState({ allCommuterPostsSelected: !value },
+      queryParamUpdate({
+        [commuterPosts.item.selectionRef]: value ? commuterPosts.data.map(m => m.code).join(',') : '',
+      }),
+    );
+  };
+
   setSelectedStates(props = this.props) {
     this.setState({
       allDomesticSelected: props.domesticIsSelected,
       allOverseasSelected: props.overseasIsSelected,
+      allCommuterPostsSelected: this.isAllCommuterPostsSelected(props),
     });
   }
 
@@ -66,15 +78,28 @@ class PostFilter extends Component {
 
   getAllOverseasCodes(props = this.props) {
     return props.item.data.slice().filter(b => (
-      b.location &&
-      b.location.country !== 'United States' &&
-      b.location.country !== 'USA'
+      get(b, 'location') &&
+      get(b, 'location.country') !== 'United States' &&
+      get(b, 'location.country') !== 'USA'
     ));
   }
 
+  isAllCommuterPostsSelected(props = this.props) {
+    let allGroupChildrenSelected = true;
+    get(props, 'commuterPosts.data', []).some((itemData) => {
+      if (!itemData.isSelected) {
+        allGroupChildrenSelected = false;
+        return true;
+      }
+      return false;
+    });
+    return allGroupChildrenSelected;
+  }
+
   render() {
-    const { item, autoSuggestProps } = this.props;
+    const { item, autoSuggestProps, commuterPosts } = this.props;
     const { allOverseasSelected, allDomesticSelected } = this.state;
+    const { isTandemSearch } = this.context;
 
     let domesticPosts = this.getAllDomesticCodes();
     domesticPosts = mapDuplicates(domesticPosts);
@@ -87,6 +112,10 @@ class PostFilter extends Component {
     const postSelectionDisabled = allDomesticSelected || allOverseasSelected;
 
     if (postSelectionDisabled) { autoSuggestProps.placeholder = 'Remove regional filters'; }
+
+    const commuterPosts$ = get(commuterPosts, 'data', []);
+
+    const allCommuterPostsSelected = this.isAllCommuterPostsSelected();
 
     return (
       <div className="usa-grid-full">
@@ -191,6 +220,54 @@ class PostFilter extends Component {
                 }
               </div>
             </AccordionItem>
+            {
+              !!commuterPosts$.length && isTandemSearch &&
+              <AccordionItem
+                className="accordion-content-small"
+                id="commuter-post-sub-accordion"
+                title={
+                  <span>
+                    <img src={bannerImg} alt="banner" className="commuter-post-filter-ribbon" />
+                    Commuter Posts
+                  </span>
+                }
+                buttonClass="tm-nested-accordion-button"
+                preContent={(
+                  <CheckBox
+                    id="select-all-commuter"
+                    onCheckBoxClick={this.onSelectAllCommuterPosts}
+                    className="tm-checkbox-transparent"
+                    value={allCommuterPostsSelected}
+                    label="Toggle filter by commuter post positions"
+                    labelSrOnly
+                  />
+                )}
+              >
+                <div className="usa-grid-full">
+                  {
+                    orderBy(commuterPosts$, 'description').map((itemData) => {
+                      const itemLabel = getItemLabel(itemData);
+                      const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                      return (
+                        <CheckBox
+                          _id={itemData.code} /* when we need the original id */
+                          id={`checkbox${itemLabelNoSpaces}-commuter-post-${item.item.description}`}
+                          key={`checkbox${itemLabel}-commuter-post-${item.item.description}`}
+                          label={itemLabel}
+                          title={itemLabel}
+                          name={itemLabel}
+                          value={itemData.isSelected || false}
+                          code={itemData.code}
+                          selectionRef={commuterPosts.item.selectionRef}
+                          onCheckBoxClick={this.onCheckBoxClick}
+                          className="tm-checkbox-transparent"
+                        />
+                      );
+                    })
+                  }
+                </div>
+              </AccordionItem>
+            }
           </Accordion>
         </div>
       </div>
@@ -198,12 +275,17 @@ class PostFilter extends Component {
   }
 }
 
+PostFilter.contextTypes = {
+  isTandemSearch: PropTypes.bool,
+};
+
 PostFilter.propTypes = {
   item: FILTER_ITEM.isRequired,
   queryParamToggle: PropTypes.func.isRequired,
   queryProperty: PropTypes.string,
   autoSuggestProps: PropTypes.shape({ placeholder: PropTypes.string }).isRequired,
   queryParamUpdate: PropTypes.func.isRequired,
+  commuterPosts: FILTER_ITEM,
   // these props are used by function param, so ignore lines:
   overseasIsSelected: PropTypes.bool, // eslint-disable-line
   domesticIsSelected: PropTypes.bool, // eslint-disable-line
@@ -211,6 +293,7 @@ PostFilter.propTypes = {
 
 PostFilter.defaultProps = {
   queryProperty: '_id',
+  commuterPosts: { data: [], item: {} },
   overseasIsSelected: false,
   domesticIsSelected: false,
 };

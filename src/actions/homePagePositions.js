@@ -78,7 +78,7 @@ export function homePagePositionsFetchData(skills = [], grade) {
         let shouldSkip = false;
         results.forEach((result, i) => {
           // if our query returned no results, we will want to fall to the next arrangement
-          if (!result.data.results.length) {
+          if (!result.data.results.length && queryTypes[i].name !== 'favoritedPositions') {
             shouldSkip = true;
             if (queryTypes[i].name === 'userSkillAndGradePositions') {
               dispatch(homePagePositionsFetchData([], grade));

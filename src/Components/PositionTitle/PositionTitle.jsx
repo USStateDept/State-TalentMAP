@@ -42,7 +42,7 @@ class PositionTitle extends Component {
 
   render() {
     const { details, isProjectedVacancy, isArchived, userProfile } = this.props;
-    const { isClient } = this.context;
+    const { isClient, isTandemTwo } = this.context;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
@@ -114,7 +114,7 @@ class PositionTitle extends Component {
             />
           }
           {
-            !isProjectedVacancy && !isArchived &&
+            !isProjectedVacancy && !isArchived && !isTandemTwo &&
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -128,6 +128,7 @@ class PositionTitle extends Component {
 
 PositionTitle.contextTypes = {
   isClient: PropTypes.bool,
+  isTandemTwo: PropTypes.bool,
 };
 
 PositionTitle.propTypes = {

@@ -39,6 +39,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-skill-",
             "isTandem": undefined,
+            "isTandem1": true,
+            "isTandemCommon": false,
             "title": "skill",
           },
           Object {
@@ -68,6 +70,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             </div>,
             "id": "accordion-grade-",
             "isTandem": undefined,
+            "isTandem1": true,
+            "isTandemCommon": false,
             "title": "grade",
           },
           Object {
@@ -100,6 +104,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-region-",
             "isTandem": undefined,
+            "isTandem1": true,
+            "isTandemCommon": false,
             "title": "region",
           },
           Object {
@@ -118,6 +124,12 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   "queryProperty": "id",
                   "suggestionTemplate": [Function],
                   "suggestions": Array [],
+                }
+              }
+              commuterPosts={
+                Object {
+                  "data": Array [],
+                  "item": Object {},
                 }
               }
               domesticIsSelected={false}
@@ -142,6 +154,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-post-",
             "isTandem": undefined,
+            "isTandem1": false,
+            "isTandemCommon": true,
             "title": "post",
           },
           Object {
@@ -171,6 +185,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             </div>,
             "id": "accordion-tod-",
             "isTandem": undefined,
+            "isTandem1": true,
+            "isTandemCommon": false,
             "title": "tod",
           },
           Object {
@@ -203,6 +219,8 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-skill-",
             "isTandem": undefined,
+            "isTandem1": true,
+            "isTandemCommon": false,
             "title": "skill",
           },
         ]

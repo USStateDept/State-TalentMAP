@@ -972,20 +972,17 @@ $padding-no-border: $total-padding - $border;
   margin: 0 .7em .5em 0;
   padding: 2px .7em 0;
 }
-
-.pill--projected-vacancy,
-.pill--tandem-search {
+.pill--projected-vacancy {
   background-color: $primary-blue-darkest;
+}
+
+.pill--tandem-search {
+  background-color: $color-blue-chill;
 }
 
 // This will override previous color declarations
 .pill--tandem2 {
-  background-color: $color-blue-mariner;
-}
-
-// This will override previous color declarations
-.pill--common {
-  background-color: $color-blue-chill;
+  background-color: $color-purple;
 }
 
 .pill--highlight {

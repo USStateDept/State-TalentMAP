@@ -58,7 +58,7 @@ $results-container-width: 100% - $filter-container-width;
   border: 1px solid $results-card-border;
   border-left: 8px solid $results-card-accent;
   margin-bottom: 2rem;
-  padding: 1.1rem 1.1rem 3.3rem;
+  padding: 1.1rem 1.1rem 3.3rem 1.9rem;
 
   dl {
     dt,
@@ -67,8 +67,25 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
+  .commuter-banner {
+    height: 35px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    z-index: 9999;
+  }
+
+  .commuter-header {
+    margin: 0;
+    width: 100%;
+
+    .commute-frequency {
+      font-size: .8em;
+    }
+  }
+
   &.results-card--tandem-two {
-    background-color: $primary-alt-lighter;
+    background-color: $color-purple-light;
 
     .compare-not-checked {
       background-color: $color-white;
@@ -603,6 +620,13 @@ $results-container-width: 100% - $filter-container-width;
     display: inline;
   }
 
+  .pill-ribbon-icon {
+    padding-left: 6px;
+    padding-right: 6px;
+    position: relative;
+    top: 2px;
+  }
+
   .selections-container {
     margin-right: .7em;
   }
@@ -711,10 +735,22 @@ $results-container-width: 100% - $filter-container-width;
   }
 
   .usa-accordion-button {
-    background-color: $bg-blue-dark-1;
     color: $color-white;
     font-weight: normal;
     padding: .7em;
+  }
+  .accordion-ap {
+    //background-color: $blue-primary;
+    background-color: $bg-blue-dark-1;
+  }
+  .accordion-pv {
+    background-color: $bg-blue-dark-1;
+  }
+  .accordion-tandem-1 {
+    background-color: $color-blue-chill;
+  }
+  .accordion-tandem-2 {
+    background-color: $color-purple;
   }
 
   .usa-accordion-content {
@@ -780,27 +816,6 @@ $results-container-width: 100% - $filter-container-width;
 .ap-container {
   .accordion-checkbox-post {
     min-height: inherit;
-  }
-
-  .tandem-common-filters {
-    .toggle-button.toggle-button--selected,
-    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      background-color: $color-blue-chill;
-    }
-  }
-
-  .tandem-1-filters {
-    .toggle-button.toggle-button--selected,
-    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      // add any styles here related to tandem user 1
-    }
-  }
-
-  .tandem-2-filters {
-    .toggle-button.toggle-button--selected,
-    .usa-accordion > li > .usa-accordion-button:not(.tm-nested-accordion-button) {
-      background-color: $color-blue-mariner;
-    }
   }
 }
 
@@ -961,4 +976,10 @@ $results-container-width: 100% - $filter-container-width;
     font-size: .8em;
     padding: 7px;
   }
+}
+
+.commuter-post-filter-ribbon {
+  padding-right: 4px;
+  position: relative;
+  top: 1px;
 }
