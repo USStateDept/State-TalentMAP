@@ -16,7 +16,14 @@ class ProjectedVacancyFilter extends Component {
   }
   render() {
     const { items, onChange } = this.props;
-    const items$ = items.map(m => ({ ...m, label: m.short_description, value: m.code }));
+    const items$ = items.map(m => {
+      if (m.code === 'projected') {
+        return { ...m, label: m.short_description, value: m.code, toggleClass: 'toggle-pv' };
+      } else if (m.code === 'open') {
+        return { ...m, label: m.short_description, value: m.code, toggleClass: 'toggle-ap' };
+      }
+      return { ...m, label: m.short_description, value: m.code, toggleClass: '' };
+    });
     return (
       <div className="projected-vacancy-filter-container">
         <Toggle ref={(x) => { this.toggleRef = x; }} items={items$} onChange={onChange} />
