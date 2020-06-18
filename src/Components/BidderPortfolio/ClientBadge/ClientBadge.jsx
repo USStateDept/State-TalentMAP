@@ -113,7 +113,7 @@ const ClientBadge = ({ type, status }) => {
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   const icon = get(icons, type, 'None');
   return (
-    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
+    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type] && icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       <div className="client-badge">
         <Tooltip
           title={get(icon, 'text', 'None')}
