@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tippy';
 import { get } from 'lodash';
 
 import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
-  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix } from '@fortawesome/free-solid-svg-icons';
+  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix, faSpa } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
   3: {
@@ -97,6 +97,12 @@ const icons = {
     name: faUserFriends,
     text: 'Tandem',
     shortCode: 'TAN',
+  },
+  8: {
+    isIcon: true,
+    name: faSpa,
+    text: '8 Rule',
+    shortCode: '8 Rule',
   },
 };
 
