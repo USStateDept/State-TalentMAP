@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tippy';
 import { get } from 'lodash';
 
 import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
-  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix } from '@fortawesome/free-solid-svg-icons';
+  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix, faSpa } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
   3: {
@@ -98,6 +98,12 @@ const icons = {
     text: 'Tandem',
     shortCode: 'TAN',
   },
+  8: {
+    isIcon: true,
+    name: faSpa,
+    text: '8 Rule',
+    shortCode: '8 Rule',
+  },
 };
 
 const status$ = ['none', 'success'];
@@ -107,7 +113,7 @@ const ClientBadge = ({ type, status }) => {
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   const icon = get(icons, type, 'None');
   return (
-    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
+    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type] && icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       <div className="client-badge">
         <Tooltip
           title={get(icon, 'text', 'None')}
