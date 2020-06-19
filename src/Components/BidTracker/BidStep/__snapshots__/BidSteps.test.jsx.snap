@@ -101,7 +101,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-main-text"
         >
-          Pending Review
+          Bid Reviewed
         </div>
         <div
           className="step-title-sub-text"
@@ -165,7 +165,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         <div
           className="step-title-main-text"
         >
-          Panel
+          Panel Scheduled
         </div>
         <div
           className="step-title-sub-text"

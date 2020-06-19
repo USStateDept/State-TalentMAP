@@ -26,7 +26,16 @@ const SavedSearchPillList = ({ pills, isProjectedVacancy, highlightedString }) =
         )
       }
     </div>
-    : null
+    :
+    <div>
+      {
+        <div
+          className={`saved-search-pill ${isProjectedVacancy ? 'pill--projected-vacancy' : ''} ${isProjectedVacancy ? 'pill--highlight' : ''}`}
+        >
+          {isProjectedVacancy ? 'Projected Vacancy' : 'Available Position'}
+        </div>
+      }
+    </div>
 );
 
 SavedSearchPillList.propTypes = {

@@ -19,7 +19,7 @@ describe('BidderPortfolio', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can call the onQueryParamUpdate function', () => {
+  it('calls the onQueryParamUpdate function', () => {
     const wrapper = shallow(
       <BidderPortfolio.WrappedComponent
         fetchBidderPortfolioCounts={() => {}}
@@ -30,7 +30,28 @@ describe('BidderPortfolio', () => {
     expect(wrapper.instance().state.query.value).toBe('page=2&q=test');
   });
 
-  it('can call the mapToType function', () => {
+  it('is defined after mount when cdos.length > 0', () => {
+    const wrapper = shallow(
+      <BidderPortfolio.WrappedComponent
+        fetchBidderPortfolioCounts={() => {}}
+        cdos={[{}]}
+      />,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('is defined after new props', () => {
+    const wrapper = shallow(
+      <BidderPortfolio.WrappedComponent
+        fetchBidderPortfolioCounts={() => {}}
+        cdos={[{}]}
+      />,
+    );
+    wrapper.setProps({ fetchBidderPortfolioCounts: () => {}, cdos: [{}, {}] });
+    expect(wrapper).toBeDefined();
+  });
+
+  it('calls the mapToType function', () => {
     const wrapper = shallow(
       <BidderPortfolio.WrappedComponent
         fetchBidderPortfolioCounts={() => {}}

@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { ENDPOINT_PARAMS } from 'Constants/EndpointParams';
+import bannerImg from '../../assets/svg/pill-flag.svg';
 
 const Pill = ({ description, codeRef, selectionRef, onPillClick,
   isTandem2, isCommon }, { isProjectedVacancy, isTandemSearch }) => {
@@ -10,26 +12,24 @@ const Pill = ({ description, codeRef, selectionRef, onPillClick,
   if (isProjectedVacancy) {
     classes.push('pill--projected-vacancy');
   }
-  if (isTandemSearch) {
+  if (isTandemSearch && !isCommon) {
     classes[lastIndex] = 'pill--tandem-search';
     titleSuffix = ' from Tandem 1';
   }
-  if (isTandem2) {
+  if (isTandem2 && !isCommon) {
     classes[lastIndex] = 'pill--tandem2';
     titleSuffix = ' from Tandem 2';
   }
-  if (isCommon) {
-    classes[lastIndex] = 'pill--common';
-    titleSuffix = '';
-  }
+
   const classes$ = classes.join(' ');
+  const showFlag = selectionRef === ENDPOINT_PARAMS.commuterPosts;
   return (
     <button
       className={classes$}
       title={`Remove ${description} filter${titleSuffix}`}
       onClick={() => onPillClick(selectionRef, codeRef, true)}
     >
-      {description} <FontAwesome name="times" />
+      {!!showFlag && <img src={bannerImg} alt="banner" className="pill-ribbon-icon" />}{description} <FontAwesome name="times" />
     </button>
   );
 };

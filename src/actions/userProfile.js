@@ -230,9 +230,18 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
           dispatch(favoritePositionsFetchData(sortType, undefined, undefined, isPV ? 'pv' : 'open'));
         }
       }))
-      .catch(() => {
-        const message = remove ?
-          SystemMessages.DELETE_FAVORITE_ERROR() : SystemMessages.ADD_FAVORITE_ERROR();
+      .catch(({ response }) => {
+        const limit = get(response, 'data.limit', false);
+        let message = '';
+        if (remove) {
+          message = SystemMessages.DELETE_FAVORITE_ERROR();
+        } else if (response.status === 507 && isPV && limit) {
+          message = SystemMessages.ADD_FAVORITE_LIMIT_ERROR_PV(limit);
+        } else if (response.status === 507 && limit) {
+          message = SystemMessages.ADD_FAVORITE_LIMIT_ERROR_AP(limit);
+        } else {
+          message = SystemMessages.ADD_FAVORITE_ERROR();
+        }
         const title = SystemMessages.ERROR_FAVORITE_TITLE;
         batch(() => {
           dispatch(userProfileFavoritePositionIsLoading(false, id));

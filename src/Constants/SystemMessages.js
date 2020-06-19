@@ -52,6 +52,8 @@ export const DELETE_FAVORITE_SUCCESS = (pos, onToggle) => RemoveSuccess({ pos, o
 export const DELETE_FAVORITE_ERROR = () => "We're experiencing an error attempting to remove this position from your Favorites. Please try again.";
 export const ADD_FAVORITE_SUCCESS = pos => FavoriteSuccess({ pos });
 export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attempting to add this position to your Favorites. Please try again.";
+export const ADD_FAVORITE_LIMIT_ERROR_AP = limit => `You have reached the limit of ${limit} for Open Position favorites. Please remove a favorite and try again.`;
+export const ADD_FAVORITE_LIMIT_ERROR_PV = limit => `You have reached the limit of ${limit} for Projected Vacancy favorites. Please remove a favorite and try again.`;
 
 export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
