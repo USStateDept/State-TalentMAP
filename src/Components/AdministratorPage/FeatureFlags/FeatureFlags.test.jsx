@@ -1,46 +1,31 @@
+// jest.mock('./jsoneditor-react')
+
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
-import thunk from 'redux-thunk';
-import Stats, { formatNum } from './Stats';
+import toJSON from 'enzyme-to-json';
+import sinon from 'sinon';
+import FeatureFlags from './FeatureFlags';
 
-const middlewares = [thunk];
-const mockStore = configureStore(middlewares);
+// jest.mock('./jsoneditor')
+// jest.mock('./FeatureFlags')
+// sinon.jest.mock('./jsoneditor-react')
+// jest.mock('./jsoneditor-react')
 
-describe('formatNum', () => {
-  it('formats a number correctly', () => {
-    expect(formatNum(1000)).toBe('1,000');
-  });
-});
-
-describe('Stats', () => {
-  const props = {
-    stats: [
-      { type: 'total', title: 'total', count: 1000 },
-      { type: 'unique', title: 'unique', count: 1000 },
-    ],
-    statsIsLoading: false,
-    statsHasErrored: false,
-    statsSuccess: true,
-    getStats: () => [],
-  };
-
-  it('mounts', () => {
-    const wrapper = TestUtils.renderIntoDocument(
-      <Provider store={mockStore({})}>
-        <MemoryRouter>
-          <Stats {...props} />
-        </MemoryRouter>
-      </Provider>,
-    );
-    expect(wrapper).toBeDefined();
-  });
-
+describe('FeatureFlags', () => {
   it('is defined', () => {
-    const wrapper = shallow(<Stats.WrappedComponent {...props} />);
+    const wrapper = shallow(<FeatureFlags />);
     expect(wrapper).toBeDefined();
+  });
+
+  it('calls postData on this.submitData()', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<FeatureFlags postData={spy} />);
+    wrapper.instance().submitData();
+    sinon.assert.calledOnce(spy);
+  });
+
+  it('matches snapshot', () => {
+    const wrapper = shallow(<FeatureFlags />);
+    expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });

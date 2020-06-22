@@ -17,7 +17,7 @@ class FeatureFlags extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      feature_flags: {},
+      feature_flags: props.featureFlags,
     };
   }
 
@@ -26,7 +26,10 @@ class FeatureFlags extends Component {
   };
 
   submitData = () => {
-    this.props.postData(this.state.feature_flags);
+    // eslint-disable-next-line max-len
+    if (Object.keys(this.state.feature_flags).length !== 0 && this.state.feature_flags.constructor === Object) {
+      this.props.postData(this.state.feature_flags);
+    }
   };
 
   render() {
@@ -34,20 +37,11 @@ class FeatureFlags extends Component {
       userProfile,
       featureFlagsHasErrored,
       featureFlagsIsLoading,
-      // eslint-disable-next-line no-unused-vars
       featureFlags,
-      featureFlagsPostHasErrored,
-      featureFlagsPostIsLoading,
-      featureFlagsPostSuccess,
     } = this.props;
 
-    // eslint-disable-next-line no-unused-vars
     const featureFlagsSuccess = !featureFlagsIsLoading && !featureFlagsHasErrored;
-    // eslint-disable-next-line no-unused-vars
-    const postFeatureFlagsSuccess = !featureFlagsPostIsLoading &&
-        featureFlagsPostSuccess && featureFlagsPostHasErrored;
 
-    // eslint-disable-next-line no-unused-vars
     const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
     return (
       <div
@@ -87,10 +81,7 @@ FeatureFlags.propTypes = {
   userProfile: USER_PROFILE,
   featureFlagsHasErrored: PropTypes.bool,
   featureFlagsIsLoading: PropTypes.bool,
-  featureFlags: PropTypes.string,
-  featureFlagsPostHasErrored: PropTypes.bool,
-  featureFlagsPostIsLoading: PropTypes.bool,
-  featureFlagsPostSuccess: PropTypes.bool,
+  featureFlags: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
   postData: EMPTY_FUNCTION,
 };
 
@@ -98,10 +89,7 @@ FeatureFlags.defaultProps = {
   userProfile: DEFAULT_USER_PROFILE,
   featureFlagsHasErrored: false,
   featureFlagsIsLoading: false,
-  featureFlags: '',
-  featureFlagsPostHasErrored: false,
-  featureFlagsPostIsLoading: false,
-  featureFlagsPostSuccess: false,
+  featureFlags: {},
   postData: EMPTY_FUNCTION,
 };
 
@@ -109,9 +97,6 @@ const mapStateToProps = state => ({
   userProfile: state.userProfile,
   featureFlagsHasErrored: state.featureFlagsHasErrored,
   featureFlagsIsLoading: state.featureFlagsIsLoading,
-  featureFlagsPostHasErrored: state.featureFlagsPostHasErrored,
-  featureFlagsPostIsLoading: state.featureFlagsPostIsLoading,
-  featureFlagsPostSuccess: state.featureFlagsPostSuccess,
 });
 
 export const mapDispatchToProps = dispatch => ({
