@@ -16,7 +16,7 @@ import {
   GET_SUBMIT_BID_ACTION_TITLE,
   GET_SUBMIT_BID_COMPLETE_TITLE,
   GET_HAND_SHAKE_EVALUATING_TITLE,
-  GET_HAND_SHAKE_ACCEPTED_TITLE,
+  GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE,
   GET_BID_REVIEW_COMPLETE_TITLE,
   GET_PANEL_TITLE,
   GET_APPROVAL_TITLE,
@@ -51,7 +51,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
   const SUBMIT_BID_COMPLETE_TITLE = GET_SUBMIT_BID_COMPLETE_TITLE();
   const HAND_SHAKE_EVALUATING_TITLE = GET_HAND_SHAKE_EVALUATING_TITLE();
   const BID_REVIEW_COMPLETE_TITLE = GET_BID_REVIEW_COMPLETE_TITLE();
-  const HAND_SHAKE_ACCEPTED_TITLE = GET_HAND_SHAKE_ACCEPTED_TITLE();
+  const HAND_SHAKE_COMPLETE_REGISTER_TITLE = GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE();
   const PANEL_TITLE = GET_PANEL_TITLE();
   const APPROVAL_TITLE = GET_APPROVAL_TITLE();
 
@@ -84,7 +84,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         number: HAND_SHAKE_ACCEPTED_NUMBER };
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
@@ -124,7 +124,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         number: HAND_SHAKE_ACCEPTED_NUMBER };
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
@@ -159,7 +159,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         number: HAND_SHAKE_ACCEPTED_NUMBER };
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
@@ -191,7 +191,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         needsAction: false,
         isPendingLine: true,
         hasBidPreparingTooltip: false,
@@ -230,7 +230,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         needsAction: false,
         isPendingLine: true,
         hasBidPreparingTooltip: true,
@@ -269,7 +269,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         number: HAND_SHAKE_ACCEPTED_NUMBER };
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_INCOMPLETE_OBJECT,
@@ -309,7 +309,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
       bidClassObject.stages[HAND_SHAKE_ACCEPTED_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT,
         date: HAND_SHAKE_ACCEPTED_DATE,
-        title: HAND_SHAKE_ACCEPTED_TITLE,
+        title: HAND_SHAKE_COMPLETE_REGISTER_TITLE,
         number: HAND_SHAKE_ACCEPTED_NUMBER };
       bidClassObject.stages[IN_PANEL_PROP] = {
         ...DEFAULT_COMPLETE_OBJECT,
