@@ -6,7 +6,11 @@ import Toggle from './Toggle';
 
 describe('Toggle', () => {
   const props = {
-    items: [{ label: 'a', value: 1 }, { label: 'b', value: 2 }, { label: 'c', value: 3 }],
+    items: [{ label: 'a', value: 1, toggleClass: 'toggle-tandem-1' },
+      { label: 'b', value: 2, toggleClass: 'toggle-tandem-2' },
+      { label: 'Projected Vacancies', value: 'projected', toggleClass: 'toggle-pv' },
+      { label: 'Open Positions', value: 'open', toggleClass: 'toggle-ap' },
+      { label: 'c', value: 3, toggleClass: '' }],
   };
   const class$ = 'toggle-button--selected';
 
@@ -60,6 +64,17 @@ describe('Toggle', () => {
     // expect callback with correct value
     sinon.assert.calledOnce(spy);
     expect(spy.getCall(0).args[0]).toEqual(props.items[2].value);
+  });
+
+  it('renders classes based on props', () => {
+    const wrapper = shallow(
+      <Toggle {...props} />,
+    );
+    expect(wrapper.find('button').at(0).hasClass('toggle-tandem-1')).toBe(true);
+    expect(wrapper.find('button').at(1).hasClass('toggle-tandem-2')).toBe(true);
+    expect(wrapper.find('button').at(2).hasClass('toggle-pv')).toBe(true);
+    expect(wrapper.find('button').at(3).hasClass('toggle-ap')).toBe(true);
+    expect(wrapper.find('button').at(4).hasClass('toggle-ap')).toBe(false);
   });
 
   it('matches snapshot', () => {

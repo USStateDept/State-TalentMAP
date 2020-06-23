@@ -12,6 +12,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
         Array [
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <BureauFilter
               item={
                 Object {
@@ -39,12 +40,11 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-skill-",
             "isTandem": undefined,
-            "isTandem1": true,
-            "isTandemCommon": false,
             "title": "skill",
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <div
               className="usa-grid-full"
             >
@@ -70,12 +70,11 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             </div>,
             "id": "accordion-grade-",
             "isTandem": undefined,
-            "isTandem1": true,
-            "isTandemCommon": false,
             "title": "grade",
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <BureauFilter
               functionalBureaus={
                 Object {
@@ -104,12 +103,11 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-region-",
             "isTandem": undefined,
-            "isTandem1": true,
-            "isTandemCommon": false,
             "title": "region",
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <PostFilter
               autoSuggestProps={
                 Object {
@@ -154,12 +152,11 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-post-",
             "isTandem": undefined,
-            "isTandem1": false,
-            "isTandemCommon": true,
             "title": "post",
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <div
               className="usa-grid-full"
             >
@@ -185,12 +182,11 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             </div>,
             "id": "accordion-tod-",
             "isTandem": undefined,
-            "isTandem1": true,
-            "isTandemCommon": false,
             "title": "tod",
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <LanguageFilter
               isTandem={false}
               item={
@@ -219,8 +215,6 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
             />,
             "id": "accordion-skill-",
             "isTandem": undefined,
-            "isTandem1": true,
-            "isTandemCommon": false,
             "title": "skill",
           },
         ]

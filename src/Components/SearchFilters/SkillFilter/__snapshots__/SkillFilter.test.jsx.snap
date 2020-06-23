@@ -16,8 +16,6 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
       disabled={false}
       expanded={false}
       id="skill-cone-accordion-1"
-      isTandem1={false}
-      isTandemCommon={false}
       key="1"
       preContent={
         <CheckBox
@@ -75,8 +73,6 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
       disabled={false}
       expanded={false}
       id="skill-cone-accordion-2"
-      isTandem1={false}
-      isTandemCommon={false}
       key="2"
       preContent={
         <CheckBox
