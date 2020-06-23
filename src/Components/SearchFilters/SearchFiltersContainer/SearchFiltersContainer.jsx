@@ -91,7 +91,7 @@ class SearchFiltersContainer extends Component {
   }
 
   render() {
-    const { isProjectedVacancy } = this.context;
+    const { isProjectedVacancy, isTandemSearch } = this.context;
     const { fetchPostAutocomplete, postSearchResults, filters } = this.props;
     const { showTandem2 } = this.state;
 
@@ -358,13 +358,16 @@ class SearchFiltersContainer extends Component {
         const isTandem2 = includes(multiSelectFilterNamesTandem2, n);
         const isTandemCommon$ = includes(multiSelectFilterNamesTandemCommon, n);
         const isPrimary = includes(multiSelectFilterNames, n);
+        let accordionClass = isProjectedVacancy ? ' accordion-pv' : 'accordion-ap';
+        if (isTandemSearch && !isTandemCommon$) {
+          accordionClass = isTandem1 ? ' accordion-tandem-1' : ' accordion-tandem-2';
+        }
         const obj = { content: getFilter(n),
           title: get(item, 'item.title'),
           altTitle: get(item, 'item.altTitle'),
           id: `accordion-${get(item, 'item.title', '')}-${isTandem2 ? '-tandem' : ''}`,
           isTandem: get(item, 'item.isTandem'),
-          isTandem1,
-          isTandemCommon: isTandemCommon$,
+          buttonClass: accordionClass,
         };
         if (isTandem1) {
           sortedFiltersTandem1.push(obj);
@@ -383,8 +386,6 @@ class SearchFiltersContainer extends Component {
 
     const apContainerClass = 'ap-container';
     const commonContainerClass = tandemIsSelected ? 'tandem-common-filters' : '';
-    const tandem1Class = 'tandem-1-filters';
-    const tandem2Class = 'tandem-2-filters';
     const tandemUserClass = showTandem2 ? 'tandem-2-filters' : 'tandem-1-filters';
 
     return (
@@ -423,21 +424,17 @@ class SearchFiltersContainer extends Component {
           }
           {
             tandemIsSelected && !showTandem2 &&
-            <div className={tandem1Class}>
               <MultiSelectFilterContainer
                 multiSelectFilterList={sortedFiltersTandem1}
                 queryParamToggle={this.props.queryParamToggle}
               />
-            </div>
           }
           {
             tandemIsSelected && showTandem2 &&
-            <div className={tandem2Class}>
               <MultiSelectFilterContainer
                 multiSelectFilterList={sortedFiltersTandem2}
                 queryParamToggle={this.props.queryParamToggle}
               />
-            </div>
           }
         </div>
         <div className="boolean-filter-container">
