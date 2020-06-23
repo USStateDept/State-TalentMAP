@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import numeral from 'numeral';
 import { JsonEditor as Editor } from 'jsoneditor-react';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
@@ -10,8 +9,6 @@ import { userHasPermissions } from 'utilities';
 import { postFeatureFlagsData } from 'actions/featureFlags';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
-
-export const formatNum = n => numeral(n).format('0,0');
 
 class FeatureFlags extends Component {
   constructor(props) {
