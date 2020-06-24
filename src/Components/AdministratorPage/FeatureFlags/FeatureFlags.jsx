@@ -24,7 +24,6 @@ class FeatureFlags extends Component {
   };
 
   submitData = () => {
-    // eslint-disable-next-line max-len
     if (keys(get(this.state, 'editableFeatureFlags', {})).length !== 0) {
       this.props.postData(this.state.editableFeatureFlags);
     }
