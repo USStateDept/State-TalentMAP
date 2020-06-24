@@ -87,7 +87,6 @@ export function userProfileFetchData(bypass, cb) {
     // into one object
     Q.allSettled(promises)
       .then((results) => {
-        // console.log('results')
         // form the userProfile object
         const permissions = get(results, '[0].value.data', {});
         const apFavorites = get(results, '[1].value.data', []).map(id => ({ id }));

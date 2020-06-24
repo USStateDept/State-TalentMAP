@@ -91,7 +91,7 @@ AdministratorPage.propTypes = {
   patchSyncIsLoading: PropTypes.bool,
   patchSyncJob: PropTypes.func,
   totalUsers: PropTypes.number,
-  featureFlags: PropTypes.string,
+  featureFlags: PropTypes.shape({}),
 };
 
 AdministratorPage.defaultProps = {
@@ -112,7 +112,7 @@ AdministratorPage.defaultProps = {
   patchSyncIsLoading: false,
   patchSyncJob: EMPTY_FUNCTION,
   totalUsers: 0,
-  featureFlags: '',
+  featureFlags: {},
 };
 
 export default AdministratorPage;

@@ -61,7 +61,7 @@ export function fetchFeatureFlagsData() {
         axios
           .get('/config/config.json')
           .then((response) => {
-            const featureFlagsDataLocal = get(response, 'data.flags', {});
+            const featureFlagsDataLocal = get(response, 'data', {});
             batch(() => {
               dispatch(featureFlagsHasErrored(false));
               dispatch(featureFlagsIsLoading(false));

@@ -141,7 +141,7 @@ AdministratorContainer.propTypes = {
   totalUsers: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape({})),
     PropTypes.shape({ count: PropTypes.number })]),
   fetchFeatureFlagsData: PropTypes.func,
-  featureFlags: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
+  featureFlags: PropTypes.shape({}),
 };
 
 AdministratorContainer.defaultProps = {

@@ -7,6 +7,7 @@ import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { userHasPermissions } from 'utilities';
 import { postFeatureFlagsData } from 'actions/featureFlags';
+import { keys, get } from 'lodash';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 
@@ -14,18 +15,18 @@ class FeatureFlags extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      feature_flags: props.featureFlags,
+      editableFeatureFlags: props.featureFlags,
     };
   }
 
   handleChange = d => {
-    this.setState({ feature_flags: d });
+    this.setState({ editableFeatureFlags: d });
   };
 
   submitData = () => {
     // eslint-disable-next-line max-len
-    if (Object.keys(this.state.feature_flags).length !== 0 && this.state.feature_flags.constructor === Object) {
-      this.props.postData(this.state.feature_flags);
+    if (keys(get(this.state, 'editableFeatureFlags', {})).length !== 0) {
+      this.props.postData(this.state.editableFeatureFlags);
     }
   };
 
@@ -64,7 +65,7 @@ class FeatureFlags extends Component {
           :
           <div>
             {
-              Object.keys(featureFlags).map(k =>
+              keys(featureFlags).map(k =>
                 (<div key={k}>{k}:{featureFlags[k].toString()}</div>))
             }
           </div>
@@ -78,7 +79,7 @@ FeatureFlags.propTypes = {
   userProfile: USER_PROFILE,
   featureFlagsHasErrored: PropTypes.bool,
   featureFlagsIsLoading: PropTypes.bool,
-  featureFlags: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({})]),
+  featureFlags: PropTypes.shape({}),
   postData: EMPTY_FUNCTION,
 };
 

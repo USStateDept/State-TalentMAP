@@ -14,7 +14,7 @@ export function featureFlagsIsLoading(state = false, action) {
       return state;
   }
 }
-export function featureFlags(state = '', action) {
+export function featureFlags(state = {}, action) {
   switch (action.type) {
     case 'FEATURE_FLAGS_DATA_SUCCESS':
       return action.data;
