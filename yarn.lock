@@ -2464,9 +2464,9 @@ bundlesize@^0.17.1:
     prettycli "^1.4.3"
     read-pkg-up "^3.0.0"
 
-bunyan@^1.8.12:
-  version "1.8.12"
-  resolved "https://registry.yarnpkg.com/bunyan/-/bunyan-1.8.12.tgz#f150f0f6748abdd72aeae84f04403be2ef113797"
+bunyan@^1.8.13:
+  version "1.8.13"
+  resolved "https://registry.yarnpkg.com/bunyan/-/bunyan-1.8.13.tgz#dde6bacd9ebccaedb110f1319f88db3f415ccfeb"
   optionalDependencies:
     dtrace-provider "~0.8"
     moment "^2.10.6"
