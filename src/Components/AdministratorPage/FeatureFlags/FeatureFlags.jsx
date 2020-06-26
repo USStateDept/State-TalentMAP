@@ -64,8 +64,7 @@ class FeatureFlags extends Component {
           :
           <div>
             {
-              keys(featureFlags).map(k =>
-                (<div key={k}>{k}:{featureFlags[k].toString()}</div>))
+              JSON.stringify(featureFlags, undefined, 2)
             }
           </div>
         }

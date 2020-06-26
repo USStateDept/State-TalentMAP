@@ -1,7 +1,9 @@
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import axios from 'axios';
+import { toastSuccess, toastError } from './toast';
 import api from '../api';
+import * as SystemMessages from '../Constants/SystemMessages';
 
 export function featureFlagsHasErrored(bool) {
   return {
@@ -87,6 +89,9 @@ export function postFeatureFlagsData(data) {
           dispatch(featureFlagsPostIsLoading(false));
           dispatch(featureFlagsPostHasErrored(false));
           dispatch(featureFlagsPostSuccess(true));
+          dispatch(toastSuccess(
+            SystemMessages.POST_FEATURE_FLAGS_SUCCESS,
+          ));
         });
       })
       .catch(() => {
@@ -94,6 +99,9 @@ export function postFeatureFlagsData(data) {
           dispatch(featureFlagsPostIsLoading(false));
           dispatch(featureFlagsPostHasErrored(true));
           dispatch(featureFlagsPostSuccess(false));
+          dispatch(toastError(
+            SystemMessages.POST_FEATURE_FLAGS_ERROR,
+          ));
         });
       });
   };
