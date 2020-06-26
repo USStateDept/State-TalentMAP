@@ -63,11 +63,13 @@ class FeatureFlags extends Component {
           </PermissionsWrapper>
           :
           <div>
-            <pre>
-              {
-                JSON.stringify(featureFlags, undefined, 2)
-              }
-            </pre>
+            <div>
+              <pre>
+                {
+                  JSON.stringify(featureFlags, undefined, 2)
+                }
+              </pre>
+            </div>
           </div>
         }
       </div>
