@@ -42,16 +42,14 @@ class ResultsControls extends Component {
                 <div className="usa-width-four-fifths drop-downs">
                   <div className="dropdowns-container">
                     <div className="results-dropdown results-dropdown-sort">
-                      { !isTandemSearch &&
-                        <SelectForm
-                          id="sort"
-                          label="Sort by:"
-                          onSelectOption={this.onSelectOrdering}
-                          options={sortBy.options}
-                          defaultSort={defaultSort}
-                          className="select-blue select-offset select-small"
-                        />
-                      }
+                      <SelectForm
+                        id="sort"
+                        label="Sort by:"
+                        onSelectOption={this.onSelectOrdering}
+                        options={sortBy.options}
+                        defaultSort={defaultSort}
+                        className="select-blue select-offset select-small"
+                      />
                     </div>
                     <div className="results-dropdown results-dropdown-page-size">
                       <PreferenceWrapper
