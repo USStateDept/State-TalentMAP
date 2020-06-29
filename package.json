@@ -115,7 +115,7 @@
     "eslint-config-react-app": "^5.2.1",
     "eslint-loader": "4.0.2",
     "eslint-plugin-flowtype": "2.41.0",
-    "eslint-plugin-import": "2.21.2",
+    "eslint-plugin-import": "2.22.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "^7.20.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
