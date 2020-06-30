@@ -18,6 +18,8 @@ export function downloadPositionData(excludeAP = false, excludePV = false) {
     });
 }
 
+// TO DO: EXPORT TANDEM POSITIONS
+
 export function favoritePositionsHasErrored(bool) {
   return {
     type: 'FAVORITE_POSITIONS_HAS_ERRORED',
@@ -69,6 +71,15 @@ export function favoritePositionsFetchData(sortType, limit = 15,
       queryProms.push(fetchFavorites());
     }
 
+    if (openPV === 'openTandem' || openPV === 'all') {
+      const urlTandem = createUrl(`/available_position/tandem/favorites/?limit=${limit}&page=${page}`);
+      const fetchTandemFavorites = () =>
+        api().get(urlTandem)
+          .then(({ data }) => data)
+          .catch(error => error);
+      queryProms.push(fetchTandemFavorites());
+    }
+
     if (openPV === 'pv' || openPV === 'all') {
       const urlPV = createUrl(`/projected_vacancy/favorites/?limit=${limit}&page=${page}`);
       const fetchPVFavorites = () =>
@@ -76,6 +87,15 @@ export function favoritePositionsFetchData(sortType, limit = 15,
           .then(({ data }) => data)
           .catch(error => error);
       queryProms.push(fetchPVFavorites());
+    }
+
+    if (openPV === 'pvTandem' || openPV === 'all') {
+      const urlPVTandem = createUrl(`/projected_vacancy/tandem/favorites/?limit=${limit}&page=${page}`);
+      const fetchTandemPVFavorites = () =>
+        api().get(urlPVTandem)
+          .then(({ data }) => data)
+          .catch(error => error);
+      queryProms.push(fetchTandemPVFavorites());
     }
 
     Promise.all(queryProms)
@@ -96,24 +116,36 @@ export function favoritePositionsFetchData(sortType, limit = 15,
           if (openPV === 'open') {
             data$.favorites = get(results, '[0].results', []);
             data$.counts.favorites = get(results, '[0].count', 0);
+          } else if (openPV === 'openTandem') {
+            data$.favoritesTandem = get(results, '[0].results', []).map(m => ({ ...m, isTandem: true }));
+            data$.counts.favoritesTandem = get(results, '[0].count', 0);
           } else if (openPV === 'pv') {
             data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
             data$.counts.favoritesPV = get(results, '[0].count', 0);
+          } else if (openPV === 'pvTandem') {
+            data$.favoritesPVTandem = get(results, '[0].results', []).map(m => ({ ...m, isPV: true, isTandem: true }));
+            data$.counts.favoritesPVTandem = get(results, '[0].count', 0);
           } else {
             data$ = {
               favorites: [],
               favoritesPV: [],
+              favoritesTandem: [],
+              favoritesPVTandem: [],
               counts: {},
             };
-            // object 0 is favorites if both calls made
+            // MUST TO DO: Check object index
             data$.counts.favorites = get(results, '[0].count', 0);
-            data$.counts.favoritesPV = get(results, '[1].count', 0);
+            data$.counts.favoritesTandem = get(results, '[1].count', 0);
+            data$.counts.favoritesPV = get(results, '[2].count', 0);
+            data$.counts.favoritesPVTandem = get(results, '[3].count', 0);
             data$.favorites = get(results, '[0].results', []);
-            // object 1 is PV favorites if both calls made
-            data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
+            data$.favoritesTandem = get(results, '[1].results', []).map(m => ({ ...m, isTandem: true }));
+            data$.favoritesPV = get(results, '[2].results', []).map(m => ({ ...m, isPV: true }));
+            data$.favoritesPVTandem = get(results, '[3].results', []).map(m => ({ ...m, isPV: true, isTandem: true }));
             data$.results = get(results, '[0].results', []); // TODO: outdated? consider removing
           }
-          data$.counts.all = data$.counts.favorites + data$.counts.favoritesPV;
+          data$.counts.all = data$.counts.favorites + data$.counts.favoritesTandem +
+            data$.counts.favoritesPV + data$.counts.favoritesPVTandem;
           batch(() => {
             dispatch(favoritePositionsFetchDataSuccess(data$));
             dispatch(favoritePositionsHasErrored(false));
