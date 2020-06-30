@@ -86,6 +86,8 @@ const FavoritePositionsContainer = props => {
       <FavoritePositions
         favorites={favoritePositions.favorites}
         favoritesPV={favoritePositions.favoritesPV}
+        favoritesTandem={favoritePositions.favoritesTandem}
+        favoritesPVTandem={favoritePositions.favoritesPVTandem}
         favoritePositionsIsLoading={favoritePositionsIsLoading}
         favoritePositionsHasErrored={favoritePositionsHasErrored}
         toggleFavorite={onToggleFavorite}
