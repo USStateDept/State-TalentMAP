@@ -9,34 +9,52 @@ const withPV = (pills, isProjectedVacancy) => {
   return pills;
 };
 
-const SavedSearchPillList = ({ pills, isProjectedVacancy, highlightedString }) => (
-  pills.length ?
-    <div>
-      {
+const SavedSearchPillList = (props, context) => {
+  const { pills, isProjectedVacancy, highlightedString } = props;
+  const { isTandemSearch } = context;
+  let isolatedPills;
+  if (isProjectedVacancy) {
+    isolatedPills = (<div className="saved-search-pill pill--projected-vacancy pill--highlight">
+      Projected Vacancy</div>);
+    if (isTandemSearch) {
+      isolatedPills += (<div className="saved-search-pill pill--tandem-search">
+        Tandem</div>);
+    }
+  } else {
+    isolatedPills = (<div className="saved-search-pill">
+      Available Position</div>);
+    if (isTandemSearch) {
+      isolatedPills += (<div className="saved-search-pill pill--tandem-search">
+        Tandem</div>);
+    }
+  }
+  return (
+    pills.length ?
+      <div>
+        {
         // sort highlighted string to beginning
         // eslint-disable-next-line
         withPV(pills, isProjectedVacancy).sort((x, y) => x === highlightedString ? -1 : y === highlightedString ? 1 : 0).map(p => (
-          <div
-            className={`saved-search-pill ${isProjectedVacancy ? 'pill--projected-vacancy' : ''} ${p === highlightedString ? 'pill--highlight' : ''}`}
-            key={p}
-          >
-            {shortenString(p, 21)}
-          </div>
-        ),
-        )
-      }
-    </div>
-    :
-    <div>
-      {
-        <div
-          className={`saved-search-pill ${isProjectedVacancy ? 'pill--projected-vacancy' : ''} ${isProjectedVacancy ? 'pill--highlight' : ''}`}
-        >
-          {isProjectedVacancy ? 'Projected Vacancy' : 'Available Position'}
-        </div>
-      }
-    </div>
-);
+            <div
+              className={`saved-search-pill ${isProjectedVacancy ? 'pill--projected-vacancy' : ''} ${p === highlightedString ? 'pill--highlight' : ''}`}
+              key={p}
+            >
+              {shortenString(p, 21)}
+            </div>
+          ),
+          )
+        }
+      </div>
+      :
+      <div>
+        {isolatedPills}
+      </div>
+  );
+};
+
+SavedSearchPillList.contextTypes = {
+  isTandemSearch: PropTypes.bool,
+};
 
 SavedSearchPillList.propTypes = {
   pills: PropTypes.arrayOf(PropTypes.string),

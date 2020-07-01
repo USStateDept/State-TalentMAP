@@ -79,7 +79,7 @@ class SavedSearchesList extends Component {
           mappedParams={mappedParams}
           /* pass a parentClassName that we can use from the BorderedList component */
           parentClassName="parent-list-container list-transparent"
-          isProjectedVacancy={savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/'}
+          isProjectedVacancy={savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
         />,
       )
     ));

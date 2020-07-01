@@ -22,6 +22,7 @@ class ResultsControls extends Component {
     const { results, hasLoaded, defaultSort, pageSizes,
       defaultPageSize, defaultPageNumber, sortBy } = this.props;
     const { isClient, isTandemSearch } = this.context;
+    const showTandemSaveSearch = isTandemSearch && results.count > 0;
     return (
       <div className="usa-grid-full results-controls">
         <div className="usa-width-one-fifth total-results">
@@ -75,6 +76,12 @@ class ResultsControls extends Component {
                       !isClient && !isTandemSearch &&
                       <Trigger isPrimary>
                         <button className="usa-button">Save Search</button>
+                      </Trigger>
+                    }
+                    {
+                      !isClient && showTandemSaveSearch &&
+                      <Trigger isPrimary>
+                        <button className="usa-button">Save Tandem Search</button>
                       </Trigger>
                     }
                   </div>

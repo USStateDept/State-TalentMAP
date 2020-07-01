@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
-import { VALID_PARAMS } from 'Constants/EndpointParams';
+import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
 import { NO_BID_CYCLE } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
@@ -271,6 +271,16 @@ export const cleanQueryParams = (q) => {
   const object = Object.assign({}, q);
   Object.keys(object).forEach((key) => {
     if (VALID_PARAMS.indexOf(key) <= -1) {
+      delete object[key];
+    }
+  });
+  return object;
+};
+
+export const cleanTandemQueryParams = (q) => {
+  const object = Object.assign({}, q);
+  Object.keys(object).forEach((key) => {
+    if (VALID_TANDEM_PARAMS.indexOf(key) <= -1 && VALID_PARAMS.indexOf(key) <= -1) {
       delete object[key];
     }
   });
