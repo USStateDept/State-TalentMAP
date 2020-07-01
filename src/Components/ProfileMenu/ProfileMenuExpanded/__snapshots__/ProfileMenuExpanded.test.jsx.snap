@@ -141,6 +141,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="flag"
+        key="Feature Flags"
+        link="/profile/administrator/featureflags/"
+        search=""
+        title="Feature Flags"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="book"
         key="Glossary Editor"
         link="/profile/glossaryeditor/"
@@ -290,6 +298,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/userroles/"
         search=""
         title="User Roles"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="flag"
+        key="Feature Flags"
+        link="/profile/administrator/featureflags/"
+        search=""
+        title="Feature Flags"
       />
       <withRouter(NavLink)
         hidden={true}

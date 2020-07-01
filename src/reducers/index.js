@@ -47,6 +47,7 @@ import stats from './stats';
 import clientSuggestions from './clientSuggestions';
 import userRoles from './userRoles';
 import classifications from './classifications';
+import featureFlags from './featureFlags';
 
 export default (history) => combineReducers({
   ...results,
@@ -92,6 +93,7 @@ export default (history) => combineReducers({
   ...clientSuggestions,
   ...userRoles,
   ...classifications,
+  ...featureFlags,
   router: connectRouter(history),
   client,
   login,
