@@ -7,7 +7,7 @@ import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { userHasPermissions } from 'utilities';
 import { postFeatureFlagsData } from 'actions/featureFlags';
-import { keys, get } from 'lodash';
+import { keys, get, isObject } from 'lodash';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 
@@ -66,7 +66,7 @@ class FeatureFlags extends Component {
             <div>
               <pre>
                 {
-                  JSON.stringify(featureFlags, undefined, 2)
+                  isObject(featureFlags) && JSON.stringify(featureFlags, undefined, 2)
                 }
               </pre>
             </div>
