@@ -82,3 +82,6 @@ beforeEach(() => {
 
   global.window.navigator.msSaveOrOpenBlob = () => {};
 });
+
+// Mock jsoneditor-react
+jest.mock('jsoneditor-react', () => ({ JsonEditor: jest.fn() }))
