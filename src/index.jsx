@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { get } from 'lodash';
-import api from './api';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
