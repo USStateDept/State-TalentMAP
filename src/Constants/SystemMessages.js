@@ -90,4 +90,8 @@ export const GET_CLIENT_SUCCESS_MESSAGE = user => `You are now searching as ${us
 export const UNSET_CLIENT_SUCCESS = SET_CLIENT_SUCCESS;
 export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';
 
+export const POST_FEATURE_FLAGS_SUCCESS = 'Config File successfully updated.';
+export const POST_FEATURE_FLAGS_ERROR = 'Error updating Config File. Please try again.';
+
 export const COMING_SOON = 'Coming Soon';
+
