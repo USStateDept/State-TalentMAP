@@ -84,6 +84,10 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
+  &.results-card--group-end {
+    margin-bottom: 3em;
+  }
+
   &.results-card--tandem-two {
     background-color: $color-purple-light;
 
