@@ -2867,14 +2867,6 @@ cliui@^6.0.0:
     strip-ansi "^6.0.0"
     wrap-ansi "^6.2.0"
 
-clone-deep@^4.0.1:
-  version "4.0.1"
-  resolved "https://registry.yarnpkg.com/clone-deep/-/clone-deep-4.0.1.tgz#c19fd9bdbbf85942b4fd979c84dcf7d5f07c2387"
-  dependencies:
-    is-plain-object "^2.0.4"
-    kind-of "^6.0.2"
-    shallow-clone "^3.0.0"
-
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.yarnpkg.com/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -6940,10 +6932,10 @@ jsoneditor-react@^3.0.0:
   dependencies:
     prop-types "^15.7.2"
 
-jsoneditor@^9.0.2:
-  version "9.0.2"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.0.2.tgz#87dbe659f1b7e7593396f89b6534405be6743098"
-  integrity sha512-RDG/dqtmHqrcZm1YT6HgEh6Hi6903BhEbSdgTtLdKXGAr2iIQLXmMQZzK+o8R2mrmxkL4bsVBGSdSif62J+DIg==
+jsoneditor@^9.0.3:
+  version "9.0.3"
+  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.0.3.tgz#8e476ef327043e2f8fdc5dca67950f19accb0518"
+  integrity sha512-4uwT7nmNBAlC2KUUpsHaX2GZ+KoOohjtE/HzGToufYASGjnMzkf6EcLS+pAwwVHLv7VUnXmAuMY4NaQ9cS25lA==
   dependencies:
     ace-builds "^1.4.11"
     ajv "^6.12.2"
@@ -7046,6 +7038,11 @@ klaw@^1.0.0:
 kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
+
+klona@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/klona/-/klona-1.1.1.tgz#8b1e93808ef602a0cc4fb438ba72eb00594e9802"
+  integrity sha512-o/QDZouW8bt6cejtMQhw3qyqi4aTlrB7sbqzQ8+PdI/qJ3WMbmSOA//4ClIevCQp0DPUU9l1pxGRcGMkkxb8TA==
 
 known-css-properties@^0.3.0:
   version "0.3.0"
@@ -9532,9 +9529,10 @@ react-tippy@^1.4.0:
   dependencies:
     popper.js "^1.11.1"
 
-react-toastify@^6.0.6:
-  version "6.0.6"
-  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.6.tgz#7409ef8e89d12492308a8e561317031b5d90615e"
+react-toastify@^6.0.8:
+  version "6.0.8"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-6.0.8.tgz#84625d81d0fd01902a7f4c6f317eb074cb3bba67"
+  integrity sha512-NSqCNwv+C4IfR+c92PFZiNyeBwOJvigrP2bcRi2f6Hg3WqcHhEHOknbSQOs9QDFuqUjmK3SOrdvScQ3z63ifXg==
   dependencies:
     classnames "^2.2.6"
     prop-types "^15.7.2"
@@ -10292,12 +10290,12 @@ sass-lint@^1.13.1:
     path-is-absolute "^1.0.0"
     util "^0.10.3"
 
-sass-loader@^9.0.0:
-  version "9.0.0"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-9.0.0.tgz#06f2624c8d9efc2d989997d351aaad2d46ee1b44"
-  integrity sha512-GRHB5AT35QXVKbdqKMSU29x0tVDIFSUZeTzK7SGlHu4sm2dhRqGfMx5HnIdiMyRvLJJHaWmmabR1h0gNSHipPw==
+sass-loader@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-9.0.1.tgz#8ae96ebb0e9debc3748064d32e43596719814c40"
+  integrity sha512-wXFo2VAAzAUsUApOXr5PkGXDa1ad20RYhdJTubopY04i+Suk8b8g3Vtobu3kfMk48S0n5rQyAQeGBdg8WzL8gA==
   dependencies:
-    clone-deep "^4.0.1"
+    klona "^1.1.1"
     loader-utils "^2.0.0"
     neo-async "^2.6.1"
     schema-utils "^2.7.0"
@@ -10481,12 +10479,6 @@ sha.js@^2.4.0, sha.js@^2.4.8, sha.js@~2.4.4:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
-
-shallow-clone@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/shallow-clone/-/shallow-clone-3.0.1.tgz#8f2981ad92531f55035b01fb230769a40e02efa3"
-  dependencies:
-    kind-of "^6.0.2"
 
 shallow-equal@^1.0.0, shallow-equal@^1.1.0:
   version "1.2.0"
