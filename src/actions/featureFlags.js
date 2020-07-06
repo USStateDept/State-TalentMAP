@@ -1,6 +1,7 @@
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import axios from 'axios';
+import { getAssetPath } from 'utilities';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
 import * as SystemMessages from '../Constants/SystemMessages';
@@ -61,7 +62,7 @@ export function fetchFeatureFlagsData() {
       })
       .catch(() => {
         axios
-          .get('/config/config.json')
+          .get(getAssetPath('/config/config.json'))
           .then((response) => {
             const featureFlagsDataLocal = get(response, 'data', {});
             batch(() => {
