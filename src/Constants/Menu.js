@@ -146,13 +146,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       {
         text: 'User Roles',
         route: '/profile/administrator/userroles/',
-        // icon: 'user-friends',
-        // icon: 'user-shield',
-        // icon: 'user-lock',
-        // icon: 'user-cog',
         icon: 'users',
-        // icon: 'user-check',
-        // icon: 'users-cog',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Feature Flags',
+        route: '/profile/administrator/featureflags/',
+        icon: 'flag',
         roles: [
           'superuser',
         ],

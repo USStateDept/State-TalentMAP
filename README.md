@@ -1,11 +1,14 @@
 # United States Department of State TalentMAP
 
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=MetaPhase-Consulting/State-TalentMAP)](https://dependabot.com)
+
 <a href="https://circleci.com/gh/MetaPhase-Consulting/State-TalentMAP/" alt="Build Status">
         <img src="https://circleci.com/gh/MetaPhase-Consulting/State-TalentMAP.svg?style=shield" /></a>
 <a href="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/coverage" alt="Test Coverage">
         <img src="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/coverage.svg" /></a>
 <a href="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP" alt="Code Climate">
         <img src="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/gpa.svg" /></a>
+
 
 A comprehensive research, bidding, and matching system to match Foreign Service employees with the right skills to available posts and positions.
 
