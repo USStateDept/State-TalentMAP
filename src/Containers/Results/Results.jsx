@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { debounce, get, keys, isString, omit, pickBy, merge } from 'lodash';
+import { debounce, get, keys, isString, omit, pickBy, has } from 'lodash';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, cleanTandemQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -237,24 +237,15 @@ class Results extends Component {
 
   // Store the last search for use in creating a new saved search
   storeSearch() {
-    const { isTandemSearch } = this.context;
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
-    // eslint-disable-next-line no-console
-    console.log('current: parsedQuery:', parsedQuery);
+    // does parsedQuery have tandem filter
+    const tandemSearch = has(parsedQuery, 'tandem');
     // remove any invalid filters
-    const cleanedQuery = isTandemSearch ? cleanQueryParams(parsedQuery)
-      : cleanTandemQueryParams(parsedQuery);
-    // eslint-disable-next-line no-console
-    console.log('current: cleanedQuery:', cleanedQuery);
-
-    let cleanedQuery$;
-    if (isTandemSearch) {
-      const cleanedTandemQuery = cleanTandemQueryParams(parsedQuery);
-      cleanedQuery$ = merge(cleanedQuery, cleanedTandemQuery);
-    } else cleanedQuery$ = cleanedQuery;
+    const cleanedQuery = tandemSearch ? cleanTandemQueryParams(parsedQuery)
+      : cleanQueryParams(parsedQuery);
     // store formed object in redux
-    this.props.storeSearch(cleanedQuery$);
+    this.props.storeSearch(cleanedQuery);
   }
 
   render() {

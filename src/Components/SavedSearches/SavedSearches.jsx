@@ -25,8 +25,6 @@ const SavedSearches = props => {
   } = props;
 
   const getSearches = useType => {
-    // eslint-disable-next-line no-console
-    console.log('current: savedSearches:', savedSearches);
     const cycle = '/api/v1/cycleposition/';
     const pos = '/api/v1/position/';
     const pv = '/api/v1/fsbid/projected_vacancies/';
@@ -39,8 +37,10 @@ const SavedSearches = props => {
         return savedSearches.results.filter(f => f.endpoint === cycle || f.endpoint === pos);
       case 'pv':
         return savedSearches.results.filter(f => f.endpoint === pv);
-      case 'ts':
-        return savedSearches.results.filter(f => f.endpoint === apts || f.endpoint === pvts);
+      case 'open-ts':
+        return savedSearches.results.filter(f => f.endpoint === apts);
+      case 'pv-ts':
+        return savedSearches.results.filter(f => f.endpoint === pvts);
       default:
         return savedSearches.results
           .filter(f => f.endpoint === cycle || f.endpoint === pos ||
@@ -54,7 +54,8 @@ const SavedSearches = props => {
     { title: 'All Saved Searches', value: 'all', numerator: getSearches('all').length },
     { title: 'Open Positions', value: 'open', numerator: getSearches('open').length },
     { title: 'Projected Vacancies', value: 'pv', numerator: getSearches('pv').length },
-    { title: 'Tandem Searches', value: 'ts', numerator: getSearches('ts').length },
+    { title: 'Tandem Open Positions', value: 'open-ts', numerator: getSearches('open-ts').length },
+    { title: 'Tandem Projected Vacancies', value: 'pv-ts', numerator: getSearches('pv-ts').length },
   ];
 
   const searches = { results: getSearches() };

@@ -74,8 +74,6 @@ export function currentSavedSearch(searchObject) {
 }
 
 export function savedSearchesSuccess(savedSearches) {
-  // eslint-disable-next-line no-console
-  console.log('current: savedSearches:', savedSearches);
   return {
     type: 'SAVED_SEARCHES_SUCCESS',
     savedSearches,
@@ -142,8 +140,6 @@ export function routeChangeUnsetCurrentSearch() {
 }
 
 export function savedSearchesFetchData(sortType) {
-  // eslint-disable-next-line no-console
-  console.log('current: in savedSearchesFetchData sortType:', sortType);
   return (dispatch) => {
     dispatch(savedSearchesIsLoading(true));
     dispatch(savedSearchesHasErrored(false));
@@ -233,8 +229,6 @@ export const setCurrentSavedSearch = searchObject =>
 
 // save a new search OR pass an ID to patch an existing search
 export function saveSearch(data, id) {
-  // eslint-disable-next-line no-console
-  console.log('2. current: in saveSearch data:', data);
   return (dispatch) => {
     // here we handle based on the "id" param to decide whether
     // to post or patch to the correct endpoint
@@ -243,8 +237,6 @@ export function saveSearch(data, id) {
       url: id ? `/searches/${id}/` : '/searches/',
       data,
     };
-    // eslint-disable-next-line no-console
-    console.log('3. current: in saveSearch config:', config);
     dispatch(newSavedSearchIsSaving(true));
     dispatch(newSavedSearchSuccess(false));
     dispatch(newSavedSearchHasErrored(false));

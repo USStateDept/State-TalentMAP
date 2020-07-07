@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isFunction,
-  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, split,
+  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, pick, split,
   startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
@@ -516,11 +516,10 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
     clonedSearchObject[s].forEach((c) => {
       const foundParam = mappedParams.find(m => m.selectionRef === s && m.codeRef === c);
       if (foundParam && foundParam.description) {
-        arrayToReturn.push(foundParam.description);
+        arrayToReturn.push(pick(foundParam, ['description', 'isTandem', 'isCommon', 'isToggle']));
       }
     });
   });
-
   return arrayToReturn;
 };
 

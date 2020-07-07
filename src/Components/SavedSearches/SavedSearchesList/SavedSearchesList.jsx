@@ -80,6 +80,7 @@ class SavedSearchesList extends Component {
           /* pass a parentClassName that we can use from the BorderedList component */
           parentClassName="parent-list-container list-transparent"
           isProjectedVacancy={savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
+          isTandemSearch={savedSearch.endpoint === '/api/v1/fsbid/available_positions/tandem/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
         />,
       )
     ));

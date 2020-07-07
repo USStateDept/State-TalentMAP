@@ -32,8 +32,6 @@ export class SaveNewSearchDialog extends Component {
   onSubmit = e => {
     if (e && e.preventDefault) { e.preventDefault(); }
     const { currentSearch } = this.props;
-    // eslint-disable-next-line no-console
-    console.log('1. current: currentSearch:', currentSearch);
     const hasPV = get(currentSearch, 'projectedVacancy') === 'projected';
     const hasTandem = get(currentSearch, 'tandem') === 'tandem';
     let endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/' : '/api/v1/cycleposition/';
