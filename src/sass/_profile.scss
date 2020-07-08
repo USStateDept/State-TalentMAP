@@ -102,8 +102,9 @@
 
     .client-checkbox-list > :first-child {
       border: 0;
-      border-top: 1px solid $bg-gray-dark-2;
       border-bottom: 1px solid $bg-gray-dark-2;
+      border-top: 1px solid $bg-gray-dark-2;
+      margin-bottom: 1em;
     }
 
     .tm-checkbox {
