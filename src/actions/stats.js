@@ -46,6 +46,9 @@ export function getLoginStats(today) {
     const past3days = subDays(today$, 3).toJSON();
     const pastWeek = subDays(today$, 7).toJSON();
     const past30days = subDays(today$, 30).toJSON();
+    const past90days = subDays(today$, 90).toJSON();
+    const past180days = subDays(today$, 180).toJSON();
+    const allTime = subDays(today$, 36500).toJSON();
     const today$$ = today$.toJSON();
 
     const promTypes = [
@@ -53,11 +56,17 @@ export function getLoginStats(today) {
       { title: getTitle('3 days'), type: 'total', route: 'logins', options: { date_of_login__gt: past3days, date_of_login__lte: today$$ } },
       { title: getTitle('7 days'), type: 'total', route: 'logins', options: { date_of_login__gt: pastWeek, date_of_login__lte: today$$ } },
       { title: getTitle('30 days'), type: 'total', route: 'logins', options: { date_of_login__gt: past30days, date_of_login__lte: today$$ } },
+      { title: getTitle('90 days'), type: 'total', route: 'logins', options: { date_of_login__gt: past90days, date_of_login__lte: today$$ } },
+      { title: getTitle('180 days'), type: 'total', route: 'logins', options: { date_of_login__gt: past180days, date_of_login__lte: today$$ } },
+      { title: getTitle('∞'), type: 'total', route: 'logins', options: { date_of_login__gt: allTime, date_of_login__lte: today$$ } },
 
       { title: getTitle('24 hours', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: past24hrs, date_of_login__lte: today$$ } },
       { title: getTitle('3 days', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: past3days, date_of_login__lte: today$$ } },
       { title: getTitle('7 days', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: pastWeek, date_of_login__lte: today$$ } },
       { title: getTitle('30 days', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: past30days, date_of_login__lte: today$$ } },
+      { title: getTitle('90 days', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: past90days, date_of_login__lte: today$$ } },
+      { title: getTitle('180 days', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: past180days, date_of_login__lte: today$$ } },
+      { title: getTitle('∞', true), type: 'unique', route: 'distinctlogins', options: { date_of_login__gt: allTime, date_of_login__lte: today$$ } },
     ];
 
     const proms = promTypes.map(m => fetchStats({ route: m.route, options: m.options }));
