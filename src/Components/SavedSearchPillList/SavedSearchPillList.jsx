@@ -4,6 +4,7 @@ import { forEach as forEach$ } from 'lodash';
 import { shortenString } from '../../utilities';
 
 const addColorClass = (pills, isProjectedVacancy, isTandemSearch) => {
+  console.log('tests: pills:', pills);
   const pills$ = [];
   forEach$(pills, (value) => {
     // add colors for Tandem pills
