@@ -24,12 +24,19 @@ exports[`SavedSearchesListResultsCardComponent matches snapshot 1`] = `
       <SavedSearchPillList
         highlightedString="Projected Vacancy"
         isProjectedVacancy={false}
+        isTandemSearch={false}
         pills={
           Array [
             "german",
-            "two",
-            "ADMINISTRATIVE SUPPORT",
-            "United States",
+            Object {
+              "description": "two",
+            },
+            Object {
+              "description": "ADMINISTRATIVE SUPPORT",
+            },
+            Object {
+              "description": "United States",
+            },
           ]
         }
       />

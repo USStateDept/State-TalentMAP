@@ -502,14 +502,19 @@ export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
 export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) => {
   const clonedSearchObject = cloneDeep(savedSearchObject);
   const searchKeys = Object.keys(clonedSearchObject);
-
   searchKeys.forEach((s) => { clonedSearchObject[s] = clonedSearchObject[s].split(','); });
 
   const arrayToReturn = [];
 
   // Push the keyword search, since it won't match up with a real filter
   if (savedSearchObject.q) {
-    arrayToReturn.push(savedSearchObject.q);
+    arrayToReturn.push(
+      {
+        description: savedSearchObject.q,
+        isTandem: undefined,
+        isCommon: true,
+        isToggle: undefined,
+      });
   }
 
   searchKeys.forEach((s) => {

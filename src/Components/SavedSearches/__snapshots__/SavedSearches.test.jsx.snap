@@ -70,6 +70,16 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
           "title": "Projected Vacancies",
           "value": "pv",
         },
+        Object {
+          "numerator": 0,
+          "title": "Tandem Open Positions",
+          "value": "open-ts",
+        },
+        Object {
+          "numerator": 0,
+          "title": "Tandem Projected Vacancies",
+          "value": "pv-ts",
+        },
       ]
     }
     selected="all"
