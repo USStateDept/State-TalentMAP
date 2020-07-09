@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { forEach as forEach$ } from 'lodash';
+import { forEach } from 'lodash';
 import { shortenString } from '../../utilities';
 
 const addColorClass = (pills, isProjectedVacancy, isTandemSearch) => {
-  console.log('tests: pills:', pills);
   const pills$ = [];
-  forEach$(pills, (value) => {
+  forEach(pills, (value) => {
     // add colors for Tandem pills
     if (isTandemSearch) {
       if (value.isTandem) {
