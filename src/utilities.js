@@ -246,6 +246,7 @@ export const existsInArray = (ref, array, isTandem = false, isTandemTwo = false)
       // Two possible types of arrays for tandem check
       // Search Results compares an array of objects {id: #, tandem: t/f}
       // Favorite List View compares an array of pos objects { id: #,...,tandem_nbr: 1/2}
+      // Last condition in following 'if' statment is to account for the two comparison arrays
       const nbr = isTandemTwo ? 2 : 1;
       if (get(i, 'id') && ref && `${i.id}` === `${ref}` &&
       (get(i, 'tandem') === isTandemTwo || get(i, 'tandem_nbr') === nbr)) {
