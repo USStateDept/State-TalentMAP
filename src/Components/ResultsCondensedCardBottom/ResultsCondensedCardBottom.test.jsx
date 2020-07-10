@@ -10,6 +10,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
   const type = 'default';
   const favorites = bidderUserObject.favorite_positions;
   const favoritesPV = bidderUserObject.favorite_positions_pv;
+  const favoritesTandem = bidderUserObject.favorite_tandem_positions;
+  const favoritesPVTandem = bidderUserObject.favorite_tandem_positions_pv;
   it('is defined', () => {
     const wrapper = shallow(
       <ResultsCondensedCardBottom
@@ -17,6 +19,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
       />,
     );
     expect(wrapper).toBeDefined();
@@ -29,6 +33,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
       />,
     );
     expect(wrapper.instance().props.type).toBe(type);
@@ -41,6 +47,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
         showBidCount={false}
       />,
     );
@@ -54,6 +62,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
         showBidCount
       />,
     );
@@ -67,6 +77,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
         showBidListButton
       />,
     );
@@ -80,6 +92,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
       />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -92,6 +106,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
       />, { context: { isClient: true } },
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -104,6 +120,8 @@ describe('ResultsCondensedCardBottomComponent', () => {
         bidList={bidListObject.results}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
         showBidListButton
       />,
     );

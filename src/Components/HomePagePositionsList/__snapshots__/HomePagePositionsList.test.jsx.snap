@@ -9,7 +9,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
   >
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.6754215576744489"
     >
       <ResultsCondensedCard
         bidList={
@@ -171,6 +171,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}
@@ -271,7 +273,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.15181971564445762"
     >
       <ResultsCondensedCard
         bidList={
@@ -433,6 +435,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}
@@ -533,7 +537,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.9106541141320621"
     >
       <ResultsCondensedCard
         bidList={
@@ -695,6 +699,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}
@@ -795,7 +801,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.8962485988411364"
     >
       <ResultsCondensedCard
         bidList={
@@ -957,6 +963,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}
@@ -1057,7 +1065,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.15997459210520604"
     >
       <ResultsCondensedCard
         bidList={
@@ -1219,6 +1227,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}
@@ -1319,7 +1329,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.4818013565739514"
     >
       <ResultsCondensedCard
         bidList={
@@ -1481,6 +1491,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}
@@ -1581,7 +1593,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined"
+      key="title-row-1-undefined-0.7223530911419773"
     >
       <ResultsCondensedCard
         bidList={
@@ -1743,6 +1755,8 @@ exports[`HomePagePositionsList displays two rows 1`] = `
         }
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isProjectedVacancy={false}
         isRecentlyAvailable={false}
         limit={15}

@@ -107,7 +107,7 @@ class ResultsCondensedCardBottom extends Component {
               render={this.renderBidListButton}
             />
             {
-              showCompareButton && !isProjectedVacancy && !isTandemTwo &&
+              showCompareButton && !isProjectedVacancy &&
               <CompareCheck as="div" refKey={position.cpId} />
             }
           </div>
