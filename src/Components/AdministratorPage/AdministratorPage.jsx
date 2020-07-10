@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import Logs from './Logs';
 import Stats from './Stats';
 import UserRoles from './UserRoles';
+import FeatureFlags from './FeatureFlags';
 
 const AdministratorPage = (props) => {
   const {
@@ -26,6 +27,7 @@ const AdministratorPage = (props) => {
     patchSyncJob,
     patchSyncIsLoading,
     totalUsers,
+    featureFlags,
   } = props;
 
   const dashboardProps = {
@@ -54,6 +56,10 @@ const AdministratorPage = (props) => {
     totalUsers,
   };
 
+  const featureFlagsProps = {
+    featureFlags,
+  };
+
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
@@ -61,6 +67,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
+        <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags {...featureFlagsProps} />} />
       </Switch>
     </div>
   );
@@ -84,6 +91,7 @@ AdministratorPage.propTypes = {
   patchSyncIsLoading: PropTypes.bool,
   patchSyncJob: PropTypes.func,
   totalUsers: PropTypes.number,
+  featureFlags: PropTypes.shape({}),
 };
 
 AdministratorPage.defaultProps = {
@@ -104,6 +112,7 @@ AdministratorPage.defaultProps = {
   patchSyncIsLoading: false,
   patchSyncJob: EMPTY_FUNCTION,
   totalUsers: 0,
+  featureFlags: {},
 };
 
 export default AdministratorPage;

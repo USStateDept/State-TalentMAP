@@ -106,6 +106,7 @@ class ResultsCard extends Component {
       favoritesPV,
       favoritesTandem,
       favoritesPVTandem,
+      isGroupEnd,
     } = this.props;
     const { isProjectedVacancy, isClient } = this.context;
 
@@ -204,6 +205,7 @@ class ResultsCard extends Component {
     if (isProjectedVacancy) cardClassArray.push('results-card--secondary');
     if (isTandem) cardClassArray.push('results-card--tandem');
     if (isTandem2) cardClassArray.push('results-card--tandem-two');
+    if (isGroupEnd) cardClassArray.push('results-card--group-end');
     const cardClass = cardClassArray.join(' ');
 
     const headingTop =
@@ -357,6 +359,7 @@ ResultsCard.propTypes = {
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
   favoritesTandem: FAVORITE_POSITIONS_ARRAY,
   favoritesPVTandem: FAVORITE_POSITIONS_ARRAY,
+  isGroupEnd: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
@@ -364,6 +367,7 @@ ResultsCard.defaultProps = {
   favoritesPV: [],
   favoritesTandem: [],
   favoritesPVTandem: [],
+  isGroupEnd: false,
 };
 
 export default ResultsCard;

@@ -53,18 +53,16 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       ]
     }
   />
-  <Connect(StaticDevContent)>
-    <div
-      className="section-padded-inner-container small-link-container view-more-link-centered"
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/notifications"
     >
-      <Link
-        replace={false}
-        to="/profile/notifications"
-      >
-        See all
-      </Link>
-    </div>
-  </Connect(StaticDevContent)>
+      See all
+    </Link>
+  </div>
 </div>
 `;
 
@@ -104,17 +102,15 @@ exports[`NotificationsComponent matches snapshot when there are zero notificatio
   >
     You have no notifications at this time
   </div>
-  <Connect(StaticDevContent)>
-    <div
-      className="section-padded-inner-container small-link-container view-more-link-centered"
+  <div
+    className="section-padded-inner-container small-link-container view-more-link-centered"
+  >
+    <Link
+      replace={false}
+      to="/profile/notifications"
     >
-      <Link
-        replace={false}
-        to="/profile/notifications"
-      >
-        See all
-      </Link>
-    </div>
-  </Connect(StaticDevContent)>
+      See all
+    </Link>
+  </div>
 </div>
 `;

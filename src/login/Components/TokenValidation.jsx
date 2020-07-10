@@ -68,8 +68,8 @@ TokenValidation.propTypes = {
   login: PropTypes.shape({
     requesting: PropTypes.bool,
     successful: PropTypes.bool,
-    messages: PropTypes.array,
-    errors: PropTypes.array,
+    messages: PropTypes.arrayOf(PropTypes.shape({})),
+    errors: PropTypes.arrayOf(PropTypes.shape({})),
   }).isRequired,
 };
 

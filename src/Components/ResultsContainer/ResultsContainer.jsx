@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import ErrorBoundary from 'Components/ErrorBoundary';
+import ResultsList from 'Components/ResultsList/ResultsList';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
   SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
   BID_RESULTS } from '../../Constants/PropTypes';
