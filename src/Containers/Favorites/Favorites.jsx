@@ -143,9 +143,9 @@ export const mapDispatchToProps = dispatch => ({
   fetchData: (sortType, PAGE_SIZE, page, navType, favoritePositions) =>
     dispatch(favoritePositionsFetchData(sortType, PAGE_SIZE, page, navType, favoritePositions)),
   bidListFetchData: () => dispatch(bidListFetchData()),
-  toggleFavorite: (id, remove) => {
+  toggleFavorite: (id, remove, isTandem, isTandemTwo) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
-    dispatch(userProfileToggleFavoritePosition(id, remove, false));
+    dispatch(userProfileToggleFavoritePosition(id, remove, false, isTandem, isTandemTwo));
   },
 });
 

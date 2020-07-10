@@ -111,6 +111,8 @@ class ResultsContainer extends Component {
                 isLoading={!hasLoaded}
                 favorites={userProfile.favorite_positions}
                 favoritesPV={userProfile.favorite_positions_pv}
+                favoritesTandem={userProfile.favorite_tandem_positions}
+                favoritesPVTandem={userProfile.favorite_tandem_positions_pv}
                 bidList={bidList}
               />
             </ErrorBoundary>

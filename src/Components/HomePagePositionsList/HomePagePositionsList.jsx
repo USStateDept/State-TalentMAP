@@ -7,6 +7,8 @@ const propTypes = {
   positions: POSITION_DETAILS_ARRAY,
   favorites: FAVORITE_POSITIONS_ARRAY,
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
+  favoritesTandem: FAVORITE_POSITIONS_ARRAY,
+  favoritesPVTandem: FAVORITE_POSITIONS_ARRAY,
   isLoading: PropTypes.bool,
   bidList: BID_RESULTS.isRequired,
   type: HOME_PAGE_CARD_TYPE,
@@ -24,6 +26,8 @@ const defaultProps = {
   positions: [],
   favorites: [],
   favoritesPV: [],
+  favoritesTandem: [],
+  favoritesPVTandem: [],
   isLoading: false,
   type: 'default',
   refreshFavorites: false,
@@ -35,18 +39,20 @@ const defaultProps = {
   page: 1,
 };
 
-const HomePagePositionsList = ({ positions, favorites, favoritesPV, isLoading, bidList, type,
-  refreshFavorites, title, showBidListButton, useShortFavButton, showCompareButton,
-  sortType, limit, page }) => (
+const HomePagePositionsList = ({ positions, favorites, favoritesTandem, favoritesPV,
+  favoritesPVTandem, isLoading, bidList, type, refreshFavorites, title, showBidListButton,
+  useShortFavButton, showCompareButton, sortType, limit, page }) => (
   <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full condensed-card-grid">
       {positions.map((p) => {
         const position = p.position || p;
         return (
-          <div key={`${title}-row-${p.id}-${position.isPV}`} className="usa-width-one-third condensed-card">
+          <div key={`${title}-row-${p.id}-${position.isPV}-${Math.random()}`} className="usa-width-one-third condensed-card">
             <ResultsCondensedCard
               favorites={favorites}
               favoritesPV={favoritesPV}
+              favoritesTandem={favoritesTandem}
+              favoritesPVTandem={favoritesPVTandem}
               position={{ ...p, cpId: p.id }}
               bidList={bidList}
               type={type}

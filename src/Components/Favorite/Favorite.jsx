@@ -135,7 +135,7 @@ class Favorite extends Component {
   }
 
   toggleSaved = () => {
-    const { onToggle, refKey, refresh } = this.props;
+    const { onToggle, refKey, refresh, isTandem, isTandemTwo } = this.props;
     this.setState({
       loading: true,
       alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
@@ -143,7 +143,7 @@ class Favorite extends Component {
     });
 
     // pass the key and the "remove" param
-    onToggle(refKey, this.getSavedState(), refresh);
+    onToggle(refKey, this.getSavedState(), refresh, isTandem, isTandemTwo);
   };
 
   render() {
@@ -202,6 +202,8 @@ Favorite.propTypes = {
   useSpinnerWhite: PropTypes.bool,
   refresh: PropTypes.bool.isRequired,
   hasErrored: PropTypes.bool,
+  isTandem: PropTypes.bool,
+  isTandemTwo: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -217,6 +219,8 @@ Favorite.defaultProps = {
   useSpinnerWhite: false,
   refresh: false,
   hasErrored: false,
+  isTandem: false,
+  isTandemTwo: false,
 };
 
 export default Favorite;

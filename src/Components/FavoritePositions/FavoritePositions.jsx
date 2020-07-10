@@ -16,12 +16,15 @@ import Nav from './Nav';
 
 const TYPE_PV = 'pv';
 const TYPE_OPEN = 'open';
+const TYPE_PV_TANDEM = 'pvTandem';
+const TYPE_OPEN_TANDEM = 'openTandem';
 
 const FavoritePositions = props => {
   const [selected, setSelected] = useState(TYPE_OPEN);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { favorites, favoritesPV, favoritePositionsIsLoading,
+  const { favorites, favoritesTandem, favoritesPV,
+    favoritesPVTandem, favoritePositionsIsLoading,
     favoritePositionsHasErrored, bidList, onSortChange, sortType,
     page, pageSize, counts, onPageChange } = props;
 
@@ -31,6 +34,10 @@ const FavoritePositions = props => {
         return favorites;
       case TYPE_PV:
         return favoritesPV;
+      case TYPE_OPEN_TANDEM:
+        return favoritesTandem;
+      case TYPE_PV_TANDEM:
+        return favoritesPVTandem;
       default:
         return favorites;
     }
@@ -64,10 +71,12 @@ const FavoritePositions = props => {
   const options = [
     { title: 'Open Positions ', value: TYPE_OPEN, numerator: counts.favorites },
     { title: 'Projected Vacancies ', value: TYPE_PV, numerator: counts.favoritesPV },
+    { title: 'Tandem Open Positions ', value: TYPE_OPEN_TANDEM, numerator: counts.favoritesTandem },
+    { title: 'Tandem Projected Vacancies ', value: TYPE_PV_TANDEM, numerator: counts.favoritesPVTandem },
   ];
 
   let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
-  if (selected === TYPE_PV) {
+  if (selected === TYPE_PV || selected === TYPE_PV_TANDEM) {
     selectOptions$ = filterPVSorts(selectOptions$);
   }
   selectOptions$ = selectOptions$.options;
@@ -75,6 +84,8 @@ const FavoritePositions = props => {
   const paginationTotal = {
     open: counts.favorites,
     pv: counts.favoritesPV,
+    openTandem: counts.favoritesTandem,
+    openPV: counts.favoritesPVTandem,
   };
 
   return (
@@ -120,12 +131,15 @@ const FavoritePositions = props => {
       }
       {
         !favoritePositionsIsLoading && !favorites.length && !favoritesPV.length &&
+        !favoritesPVTandem.length && !favoritesTandem.length &&
             <NoFavorites />
       }
       <HomePagePositionsList
         positions={positions}
         favorites={favorites}
         favoritesPV={favoritesPV}
+        favoritesTandem={favoritesTandem}
+        favoritesPVTandem={favoritesPVTandem}
         bidList={bidList}
         title="favorites"
         maxLength={300}
@@ -151,7 +165,9 @@ const FavoritePositions = props => {
 
 FavoritePositions.propTypes = {
   favorites: FAVORITE_POSITIONS_ARRAY,
+  favoritesTandem: FAVORITE_POSITIONS_ARRAY,
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
+  favoritesPVTandem: FAVORITE_POSITIONS_ARRAY,
   favoritePositionsIsLoading: PropTypes.bool,
   favoritePositionsHasErrored: PropTypes.bool,
   bidList: BID_RESULTS.isRequired,
@@ -166,7 +182,9 @@ FavoritePositions.propTypes = {
 
 FavoritePositions.defaultProps = {
   favorites: [],
+  favoritesTandem: [],
   favoritesPV: [],
+  favoritesPVTandem: [],
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
   sortType: null,

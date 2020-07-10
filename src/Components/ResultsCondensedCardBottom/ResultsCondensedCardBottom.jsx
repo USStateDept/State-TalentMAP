@@ -15,11 +15,15 @@ class ResultsCondensedCardBottom extends Component {
   renderStats = () => {
     const { showBidCount, position } = this.props;
     const pos = position.position || position;
+    const isTandemTwo = get(position, 'tandem_nbr') === 2;
     const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
     return showBidCount ?
       <Flag
         name="flags.bid_count"
-        render={() => <ResultsCondensedCardStats bidStatisticsArray={[stats]} />}
+        render={() => (<ResultsCondensedCardStats
+          bidStatisticsArray={[stats]}
+          isTandemTwo={isTandemTwo}
+        />)}
       />
       :
       null;
@@ -27,9 +31,10 @@ class ResultsCondensedCardBottom extends Component {
 
   renderBidListButton = () => {
     const { showBidListButton, position } = this.props;
+    const isTandemTwo = get(position, 'tandem_nbr') === 2;
     const availability = get(position, 'availability.availability');
     const availableToBid = isNull(availability) || !!availability;
-    return showBidListButton ?
+    return showBidListButton && !isTandemTwo ?
       <PermissionsWrapper permissions="bidder">
         <BidListButton
           id={position.id}
@@ -43,7 +48,9 @@ class ResultsCondensedCardBottom extends Component {
   render() {
     const { position,
       favorites,
+      favoritesTandem,
       favoritesPV,
+      favoritesPVTandem,
       refreshFavorites,
       useShortFavButton,
       showCompareButton,
@@ -53,9 +60,21 @@ class ResultsCondensedCardBottom extends Component {
       page,
     } = this.props;
     const { isClient } = this.context;
+    const isTandem = get(position, 'tandem_nbr', false) !== false;
+    const isTandemTwo = get(position, 'tandem_nbr') === 2;
     const pos = position.position || position;
+    const $compareArray = () => {
+      if (pos.isPV && isTandem) {
+        return favoritesPVTandem;
+      } else if (pos.isPV) {
+        return favoritesPV;
+      } else if (isTandem) {
+        return favoritesTandem;
+      }
+      return favorites;
+    };
     return (
-      <div className="condensed-card-bottom-container">
+      <div className={`condensed-card-bottom-container ${isTandemTwo ? 'condensed-card-bottom-container--tandem-two' : ''}`}>
         <div className="usa-grid-full condensed-card-bottom">
           <Flag
             name="flags.bid_count"
@@ -71,7 +90,9 @@ class ResultsCondensedCardBottom extends Component {
                 hasBorder
                 refKey={position.id}
                 isPV={pos.isPV || position.isPV}
-                compareArray={pos.isPV || position.isPV ? favoritesPV : favorites}
+                isTandem={isTandem}
+                isTandemTwo={isTandemTwo}
+                compareArray={$compareArray()}
                 useButtonClass={!useShortFavButton}
                 useButtonClassSecondary={useShortFavButton}
                 refresh={refreshFavorites}
@@ -85,7 +106,7 @@ class ResultsCondensedCardBottom extends Component {
               render={this.renderBidListButton}
             />
             {
-              showCompareButton && !isProjectedVacancy &&
+              showCompareButton && !isProjectedVacancy && !isTandemTwo &&
               <CompareCheck as="div" refKey={position.cpId} />
             }
           </div>
@@ -106,6 +127,8 @@ ResultsCondensedCardBottom.propTypes = {
   ]).isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY.isRequired,
   favoritesPV: FAVORITE_POSITIONS_ARRAY.isRequired,
+  favoritesTandem: FAVORITE_POSITIONS_ARRAY.isRequired,
+  favoritesPVTandem: FAVORITE_POSITIONS_ARRAY.isRequired,
   refreshFavorites: PropTypes.bool,
   showBidListButton: PropTypes.bool,
   showBidCount: PropTypes.bool,

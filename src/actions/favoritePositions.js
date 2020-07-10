@@ -117,13 +117,13 @@ export function favoritePositionsFetchData(sortType, limit = 15,
             data$.favorites = get(results, '[0].results', []);
             data$.counts.favorites = get(results, '[0].count', 0);
           } else if (openPV === 'openTandem') {
-            data$.favoritesTandem = get(results, '[0].results', []).map(m => ({ ...m, isTandem: true }));
+            data$.favoritesTandem = get(results, '[0].results', []).map(m => ({ ...m }));
             data$.counts.favoritesTandem = get(results, '[0].count', 0);
           } else if (openPV === 'pv') {
             data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
             data$.counts.favoritesPV = get(results, '[0].count', 0);
           } else if (openPV === 'pvTandem') {
-            data$.favoritesPVTandem = get(results, '[0].results', []).map(m => ({ ...m, isPV: true, isTandem: true }));
+            data$.favoritesPVTandem = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
             data$.counts.favoritesPVTandem = get(results, '[0].count', 0);
           } else {
             data$ = {
