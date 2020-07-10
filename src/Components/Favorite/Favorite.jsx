@@ -62,10 +62,13 @@ class Favorite extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     let isUpdate = true;
-
+    const { isTandem, isTandemTwo } = this.props;
     const { compareArray, refKey } = nextProps;
     const oldState = this.getSavedState();
-    const newState = existsInArray(refKey, compareArray);
+    const newState = isTandem ?
+      existsInArray(refKey, compareArray, isTandem, isTandemTwo)
+      :
+      existsInArray(refKey, compareArray);
 
     isUpdate = (oldState !== newState) ||
     (this.state.loading !== nextState.isLoading) ||
@@ -76,8 +79,11 @@ class Favorite extends Component {
 
   getSavedState() {
     // Is the refKey in the array? If so, return true
-    const { compareArray, refKey } = this.props;
-    return existsInArray(refKey, compareArray);
+    const { compareArray, refKey, isTandem, isTandemTwo } = this.props;
+    return isTandem ?
+      existsInArray(refKey, compareArray, isTandem, isTandemTwo)
+      :
+      existsInArray(refKey, compareArray);
   }
 
   getText(enforceShort = false) {

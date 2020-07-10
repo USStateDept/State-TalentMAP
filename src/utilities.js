@@ -239,10 +239,14 @@ export const shortenString = (string, shortenTo = 250, suffix = '...') => {
 };
 
 // for checking if a favorite_position exists in the user's profile
-export const existsInArray = (ref, array) => {
+export const existsInArray = (ref, array, isTandem = false, isTandemTwo = false) => {
   let found = false;
   array.forEach((i) => {
-    if (get(i, 'id') && ref && `${i.id}` === `${ref}`) {
+    if (isTandem) {
+      if (get(i, 'id') && ref && `${i.id}` === `${ref}` && get(i, 'tandem') === isTandemTwo) {
+        found = true;
+      }
+    } else if (get(i, 'id') && ref && `${i.id}` === `${ref}`) {
       found = true;
     }
   });
