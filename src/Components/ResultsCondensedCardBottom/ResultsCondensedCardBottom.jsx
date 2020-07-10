@@ -60,19 +60,20 @@ class ResultsCondensedCardBottom extends Component {
       page,
     } = this.props;
     const { isClient } = this.context;
-    const isTandem = get(position, 'tandem_nbr', false) !== false;
+    const isTandem = !!get(position, 'tandem_nbr', false);
     const isTandemTwo = get(position, 'tandem_nbr') === 2;
     const pos = position.position || position;
-    const $compareArray = () => {
-      if (pos.isPV && isTandem) {
-        return favoritesPVTandem;
-      } else if (pos.isPV) {
-        return favoritesPV;
-      } else if (isTandem) {
-        return favoritesTandem;
-      }
-      return favorites;
-    };
+    let $compareArray = [];
+    if (position.isPV && isTandem) {
+      $compareArray = favoritesPVTandem;
+    } else if (position.isPV) {
+      $compareArray = favoritesPV;
+    } else if (isTandem) {
+      $compareArray = favoritesTandem;
+    } else {
+      $compareArray = favorites;
+    }
+
     return (
       <div className={`condensed-card-bottom-container ${isTandemTwo ? 'condensed-card-bottom-container--tandem-two' : ''}`}>
         <div className="usa-grid-full condensed-card-bottom">
@@ -92,7 +93,7 @@ class ResultsCondensedCardBottom extends Component {
                 isPV={pos.isPV || position.isPV}
                 isTandem={isTandem}
                 isTandemTwo={isTandemTwo}
-                compareArray={$compareArray()}
+                compareArray={$compareArray}
                 useButtonClass={!useShortFavButton}
                 useButtonClassSecondary={useShortFavButton}
                 refresh={refreshFavorites}

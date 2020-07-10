@@ -62,8 +62,7 @@ class Favorite extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     let isUpdate = true;
-    const { isTandem, isTandemTwo } = this.props;
-    const { compareArray, refKey } = nextProps;
+    const { compareArray, refKey, isTandem, isTandemTwo } = nextProps;
     const oldState = this.getSavedState();
     const newState = isTandem ?
       existsInArray(refKey, compareArray, isTandem, isTandemTwo)
