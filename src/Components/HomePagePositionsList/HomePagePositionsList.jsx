@@ -47,7 +47,7 @@ const HomePagePositionsList = ({ positions, favorites, favoritesTandem, favorite
       {positions.map((p) => {
         const position = p.position || p;
         return (
-          <div key={`${title}-row-${p.id}-${position.isPV}-${Math.random()}`} className="usa-width-one-third condensed-card">
+          <div key={`${title}-row-${p.id}-${position.isPV}-${position.tandem_nbr}`} className="usa-width-one-third condensed-card">
             <ResultsCondensedCard
               favorites={favorites}
               favoritesPV={favoritesPV}

@@ -1,6 +1,7 @@
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
+import Q from 'q';
 import { toastError } from './toast';
 import api from '../api';
 
@@ -98,7 +99,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
       queryProms.push(fetchTandemPVFavorites());
     }
 
-    Promise.all(queryProms)
+    Q.allSettled(queryProms)
       .then((results) => {
       // if any promise returned with errors, return the error
         let err;
@@ -114,17 +115,17 @@ export function favoritePositionsFetchData(sortType, limit = 15,
           });
         } else {
           if (openPV === 'open') {
-            data$.favorites = get(results, '[0].results', []);
-            data$.counts.favorites = get(results, '[0].count', 0);
+            data$.favorites = get(results, '[0].value.results', []);
+            data$.counts.favorites = get(results, '[0].value.count', 0);
           } else if (openPV === 'openTandem') {
-            data$.favoritesTandem = get(results, '[0].results', []).map(m => ({ ...m }));
-            data$.counts.favoritesTandem = get(results, '[0].count', 0);
+            data$.favoritesTandem = get(results, '[0].value.results', []).map(m => ({ ...m }));
+            data$.counts.favoritesTandem = get(results, '[0].value.count', 0);
           } else if (openPV === 'pv') {
-            data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
-            data$.counts.favoritesPV = get(results, '[0].count', 0);
+            data$.favoritesPV = get(results, '[0].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.counts.favoritesPV = get(results, '[0].value.count', 0);
           } else if (openPV === 'pvTandem') {
-            data$.favoritesPVTandem = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
-            data$.counts.favoritesPVTandem = get(results, '[0].count', 0);
+            data$.favoritesPVTandem = get(results, '[0].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.counts.favoritesPVTandem = get(results, '[0].value.count', 0);
           } else {
             data$ = {
               favorites: [],
@@ -134,15 +135,15 @@ export function favoritePositionsFetchData(sortType, limit = 15,
               counts: {},
             };
             // MUST TO DO: Check object index
-            data$.counts.favorites = get(results, '[0].count', 0);
-            data$.counts.favoritesTandem = get(results, '[1].count', 0);
-            data$.counts.favoritesPV = get(results, '[2].count', 0);
-            data$.counts.favoritesPVTandem = get(results, '[3].count', 0);
-            data$.favorites = get(results, '[0].results', []);
-            data$.favoritesTandem = get(results, '[1].results', []).map(m => ({ ...m, isTandem: true }));
-            data$.favoritesPV = get(results, '[2].results', []).map(m => ({ ...m, isPV: true }));
-            data$.favoritesPVTandem = get(results, '[3].results', []).map(m => ({ ...m, isPV: true, isTandem: true }));
-            data$.results = get(results, '[0].results', []); // TODO: outdated? consider removing
+            data$.counts.favorites = get(results, '[0].value.count', 0);
+            data$.counts.favoritesTandem = get(results, '[1].value.count', 0);
+            data$.counts.favoritesPV = get(results, '[2].value.count', 0);
+            data$.counts.favoritesPVTandem = get(results, '[3].value.count', 0);
+            data$.favorites = get(results, '[0].value.results', []);
+            data$.favoritesTandem = get(results, '[1].value.results', []).map(m => ({ ...m, isTandem: true }));
+            data$.favoritesPV = get(results, '[2].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.favoritesPVTandem = get(results, '[3].value.results', []).map(m => ({ ...m, isPV: true, isTandem: true }));
+            data$.results = get(results, '[0].value.results', []); // TODO: outdated? consider removing
           }
           data$.counts.all = data$.counts.favorites + data$.counts.favoritesTandem +
             data$.counts.favoritesPV + data$.counts.favoritesPVTandem;
