@@ -130,9 +130,18 @@ const FavoritePositions = props => {
             <Spinner type="homepage-position-results" size="big" />
       }
       {
-        !favoritePositionsIsLoading && !favorites.length && !favoritesPV.length &&
-        !favoritesPVTandem.length && !favoritesTandem.length &&
-            <NoFavorites />
+        (
+          (!favorites.length && selected === TYPE_OPEN) ||
+          (!favoritesPV.length && selected === TYPE_PV)
+        ) && !favoritePositionsIsLoading &&
+        <NoFavorites isTandem={false} />
+      }
+      {
+        (
+          (!favoritesTandem.length && selected === TYPE_OPEN_TANDEM) ||
+          (!favoritesPVTandem.length && selected === TYPE_PV_TANDEM)
+        ) && !favoritePositionsIsLoading &&
+        <NoFavorites isTandem />
       }
       <HomePagePositionsList
         positions={positions}
