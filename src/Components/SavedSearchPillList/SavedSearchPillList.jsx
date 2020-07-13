@@ -5,28 +5,25 @@ import { shortenString } from '../../utilities';
 
 const addColorClass = (pills, isProjectedVacancy, isTandemSearch) => {
   const pills$ = [];
+  const projectedOp = {
+    true: { colorClass: 'pill--projected-vacancy' },
+    false: { colorClass: '' },
+  };
   forEach(pills, (value) => {
     // add colors for Tandem pills
     if (isTandemSearch) {
       if (value.isTandem) {
-        // if isTandem: pill--tandem2
+        // isTandem tells us tandem2
         pills$.push({ ...value, colorClass: 'pill--tandem2' });
-      } else if (!value.isTandem && !value.isCommon) {
-        // if !isTandem and !isCommon: pill--tandem-search
+      } else if (!value.isCommon) {
+        // !isTandem and !isCommon tells us tandem1
         pills$.push({ ...value, colorClass: 'pill--tandem-search' });
-      } else if (value.isCommon) {
-        if (isProjectedVacancy) {
-          // if isCommon && isProjectedVacancy: pill--projected-vacancy
-          pills$.push({ ...value, colorClass: 'pill--projected-vacancy' });
-        } else {
-          pills$.push({ ...value, colorClass: '' });
-        }
+      } else {
+        // isCommon
+        pills$.push({ ...value, ...projectedOp[isProjectedVacancy] });
       }
-    } else if (isProjectedVacancy && !isTandemSearch) {
-      // if isCommon && isProjectedVacancy: pill--projected-vacancy
-      pills$.push({ ...value, colorClass: 'pill--projected-vacancy' });
     } else {
-      pills$.push({ ...value, colorClass: '' });
+      pills$.push({ ...value, ...projectedOp[isProjectedVacancy] });
     }
   });
   return pills$;
