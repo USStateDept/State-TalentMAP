@@ -34,7 +34,6 @@ function MenuConfig(config) {
     if (item$.children) {
       item$.children = MenuConfig(item$.children);
     }
-    console.log('current: item$:', item$);
     return item$;
   });
 }
