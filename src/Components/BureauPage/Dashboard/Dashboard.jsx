@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { includes } from 'lodash';
-// import Picky from 'react-picky';
+import { PieChart, Pie, Cell } from 'recharts';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import SelectForm from '../../SelectForm';
@@ -13,6 +13,30 @@ const BureauPage = (props) => {
   const {
     placeholderText,
   } = props;
+  const data = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+  ];
+
+  const COLORS = ['#102f51', '#cc3334', '#c49208', '#2970bc'];
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    // eslint-disable-next-line react/prop-types
+    cx, cy, midAngle, innerRadius, outerRadius, percent,
+  }) => {
+    const radius = (innerRadius + (outerRadius - innerRadius)) * 0.5;
+    const x = cx + (radius * Math.cos(-midAngle * RADIAN));
+    const y = cy + (radius * Math.sin(-midAngle * RADIAN));
+
+    return (
+      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
   const bidCycles = [
     { value: null, text: 'Select Cycle' },
@@ -55,20 +79,25 @@ const BureauPage = (props) => {
               />
             </div>
             <div className="usa-width-one-whole">
-              <div className="usa-width-one-fourth">
-                <div className="pieContainer">
-                  <div className="pieBackground" />
-                  <div id="pieSlice1" className="hold">
-                    <div className="pie" />
-                  </div>
-                  <div id="pieSlice2" className="hold">
-                    <div className="pie" />
-                  </div>
-                  <div id="pieSlice3" className="hold">
-                    <div className="pie" />
-                  </div>
-                </div>
-                <div className="textCenter">All: 130/150</div>
+              <div className="usa-width-one-fourth align-middle">
+                <PieChart width={400} height={400}>
+                  <Pie
+                    data={data}
+                    cx={200}
+                    cy={200}
+                    labelLine={false}
+                    label={renderCustomizedLabel}
+                    outerRadius={180}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {
+                      // eslint-disable-next-line react/no-array-index-key
+                      data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                    }
+                  </Pie>
+                </PieChart>
+                <div>All: 130/150</div>
               </div>
               <div className="usa-width-three-fourths">
                 <div className="mainSelector">
@@ -87,8 +116,6 @@ const BureauPage = (props) => {
               </div>
             </div>
           </div>
-
-
           <div className="usa-width-one-whole section">
             <h3>Notifications</h3>
           </div>

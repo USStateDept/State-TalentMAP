@@ -34,7 +34,7 @@ function MenuConfig(config) {
     if (item$.children) {
       item$.children = MenuConfig(item$.children);
     }
-
+    console.log('current: item$:', item$);
     return item$;
   });
 }
@@ -171,46 +171,54 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Bureau',
-    route: '/profile/bureau/',
+    route: '/profile/bureau/positionlists/',
     icon: 'building',
     toggleMenuSection: true,
     expandedSection: true,
     roles: [
       'superuser',
+      'bureau_user',
     ],
     children: [
-      {
-        text: 'Dashboard',
-        route: '/profile/bureau/dashboard/',
-        icon: 'tachometer',
-        roles: [
-          'superuser',
-        ],
-      },
-      {
-        text: 'Statistics',
-        route: '/profile/bureau/stats/',
-        icon: 'bar-chart',
-        roles: [
-          'superuser',
-        ],
-      },
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Dashboard',
+          route: '/profile/bureau/dashboard/',
+          icon: 'tachometer',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Statistics',
+          route: '/profile/bureau/stats/',
+          icon: 'bar-chart',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
       {
         text: 'Position Lists',
         route: '/profile/bureau/positionlists',
         icon: 'list-ol',
         roles: [
           'superuser',
+          'bureau_user',
         ],
       },
-      {
-        text: 'Position Manager',
-        route: '/profile/bureau/positionmanager',
-        icon: 'map',
-        roles: [
-          'superuser',
-        ],
-      },
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Position Manager',
+          route: '/profile/bureau/positionmanager',
+          icon: 'map',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
     ],
   },
 ].filter(x => x));

@@ -17,71 +17,14 @@
   .no-padding {
     padding: 0;
   }
-  .textCenter {
-    text-align: center;
+  .align-middle {
+    margin: auto;
+    text-align: center
   }
+
   .all-inline {
     display: flex;
     margin-bottom: 20px;
-  }
-
-  //cred: https://stackoverflow.com/questions/10028182/how-to-make-a-pie-chart-in-css/51679606
-  .pieContainer {
-    height: 300px;
-    position: relative;
-    margin-left: 25%;
-  }
-
-  .pieBackground {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 100%;
-    box-shadow: 0px 0px 8px rgba(0,0,0,0.5);
-  }
-
-  .pie {
-    transition: all 1s;
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 100%;
-    clip: rect(0px, 150px, 300px, 0px);
-  }
-
-  .hold {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 100%;
-    clip: rect(0px, 300px, 300px, 150px);
-  }
-
-  #pieSlice1 .pie {
-    background-color: #1b458b;
-    transform:rotate(200deg);
-  }
-
-  #pieSlice1 {
-    transform: rotate(215deg);
-  }
-
-  #pieSlice2 {
-    transform: rotate(30deg);
-  }
-
-  #pieSlice2 .pie {
-    background-color: #0a0;
-    transform: rotate(60deg);
-  }
-
-  #pieSlice3 {
-    transform: rotate(70deg);
-  }
-
-  #pieSlice3 .pie {
-    background-color: #f80;
-    transform: rotate(200deg);
   }
 
   .mainSelector {

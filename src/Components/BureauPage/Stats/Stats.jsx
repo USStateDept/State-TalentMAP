@@ -17,7 +17,7 @@ const Stats = (props) => {
           <Spinner type="homepage-position-results" size="big" />
       }
       <div className="usa-grid-full">
-        <ProfileSectionTitle title="Positions Lists" icon="list-ol" />
+        <ProfileSectionTitle title="Bureau Statistics" icon="bar-chart" />
       </div>
       <div className="usa-grid-full bureau-page">
         {placeholderText}
