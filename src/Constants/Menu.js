@@ -169,6 +169,50 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   },
+  {
+    text: 'Bureau',
+    route: '/profile/bureau/',
+    icon: 'building',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+    ],
+    children: [
+      {
+        text: 'Dashboard',
+        route: '/profile/bureau/dashboard/',
+        icon: 'tachometer',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Statistics',
+        route: '/profile/bureau/stats/',
+        icon: 'bar-chart',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Position Lists',
+        route: '/profile/bureau/positionlists',
+        icon: 'list-ol',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Position Manager',
+        route: '/profile/bureau/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+        ],
+      },
+    ],
+  },
 ].filter(x => x));
 
 export default GET_PROFILE_MENU;
