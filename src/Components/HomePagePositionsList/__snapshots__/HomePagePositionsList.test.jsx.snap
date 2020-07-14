@@ -9,7 +9,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
   >
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.09199488336711381"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -273,7 +273,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.6220941432152507"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -537,7 +537,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.03829020308389319"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -801,7 +801,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.9108085034642486"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -1065,7 +1065,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.69455508196905"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -1329,7 +1329,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.8038547733697439"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={
@@ -1593,7 +1593,7 @@ exports[`HomePagePositionsList displays two rows 1`] = `
     </div>
     <div
       className="usa-width-one-third condensed-card"
-      key="title-row-1-undefined-0.44753826343879854"
+      key="title-row-1-undefined-undefined"
     >
       <ResultsCondensedCard
         bidList={

@@ -266,7 +266,9 @@ exports[`FavoritesListComponent matches snapshot when there are no bids 1`] = `
     <div
       className="usa-grid-full section-padded-inner-container"
     >
-      <NoFavorites />
+      <NoFavorites
+        isTandem={false}
+      />
     </div>
   </div>
   <div
