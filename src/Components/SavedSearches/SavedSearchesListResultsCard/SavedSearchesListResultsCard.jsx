@@ -16,6 +16,7 @@ const SavedSearchListResultsCard = (props) => {
     mappedParams,
     deleteSearch,
     isProjectedVacancy,
+    isTandemSearch,
     availableCount,
     addedCount,
   } = props;
@@ -56,7 +57,11 @@ const SavedSearchListResultsCard = (props) => {
               <Column columns={columns[1]}>
                 <DefinitionList>
                   <Definition term="Your Selections">
-                    <SavedSearchPillList pills={pills} isProjectedVacancy={isProjectedVacancy} />
+                    <SavedSearchPillList
+                      pills={pills}
+                      isProjectedVacancy={isProjectedVacancy}
+                      isTandemSearch={isTandemSearch}
+                    />
                   </Definition>
                 </DefinitionList>
               </Column>
@@ -82,12 +87,14 @@ SavedSearchListResultsCard.propTypes = {
   mappedParams: MAPPED_PARAM_ARRAY.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isTandemSearch: PropTypes.bool,
   availableCount: PropTypes.number,
   addedCount: PropTypes.number,
 };
 
 SavedSearchListResultsCard.defaultProps = {
   isProjectedVacancy: false,
+  isTandemSearch: false,
   availableCount: 0,
   addedCount: 0,
 };
