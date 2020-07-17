@@ -4,7 +4,7 @@ import EmptyListAlert from '../EmptyListAlert';
 
 const NoFavorites = () => (
   <EmptyListAlert
-    textLineOne={"You haven't added any favorites."}
+    textLineOne="You haven't added any favorites."
     textLineTwo={
       (
         <span>
