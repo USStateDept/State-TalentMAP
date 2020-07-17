@@ -83,17 +83,13 @@ const PositionManager = (props) => {
 
   const pageSizes = POSITION_MANAGER_PAGE_SIZES.options;
   function submitSearch() {
-    console.log('submit search');
   }
 
   function onChangeQueryText(newText) {
     setTextValue(newText);
-    console.log('onChangeQueryText');
-    console.log('textValue', textValue);
   }
 
   function onClear() {
-    console.log('onClear');
   }
 
   return (
@@ -161,14 +157,12 @@ const PositionManager = (props) => {
                 />
               </div>
             </div>
-
-
           </div>
         </div>
       </div>
       <div className="usa-width-one-whole position-manager-filters results-dropdown">
         <SelectForm
-          id="porfolio-sort"
+          id="position-manager-num-results"
           options={pageSizes}
           label="Results:"
           defaultSort={':)'}
