@@ -132,16 +132,11 @@ const FavoritePositions = props => {
       {
         (
           (!favorites.length && selected === TYPE_OPEN) ||
-          (!favoritesPV.length && selected === TYPE_PV)
-        ) && !favoritePositionsIsLoading &&
-        <NoFavorites isTandem={false} />
-      }
-      {
-        (
+          (!favoritesPV.length && selected === TYPE_PV) ||
           (!favoritesTandem.length && selected === TYPE_OPEN_TANDEM) ||
           (!favoritesPVTandem.length && selected === TYPE_PV_TANDEM)
         ) && !favoritePositionsIsLoading &&
-        <NoFavorites isTandem />
+        <NoFavorites />
       }
       <HomePagePositionsList
         positions={positions}
