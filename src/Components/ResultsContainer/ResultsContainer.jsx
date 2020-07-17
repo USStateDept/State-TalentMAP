@@ -47,6 +47,12 @@ class ResultsContainer extends Component {
               (
                 <div className="usa-width-one-whole mobile-controls">
                   {
+                    isTandemSearch &&
+                    <Trigger isPrimary>
+                      <button className="usa-button-secondary">Save Tandem Search</button>
+                    </Trigger>
+                  }
+                  {
                     !isTandemSearch &&
                     <Trigger isPrimary>
                       <button className="usa-button-secondary">Save Search</button>

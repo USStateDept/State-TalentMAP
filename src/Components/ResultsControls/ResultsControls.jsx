@@ -75,6 +75,12 @@ class ResultsControls extends Component {
                         <button className="usa-button">Save Search</button>
                       </Trigger>
                     }
+                    {
+                      !isClient && isTandemSearch &&
+                      <Trigger isPrimary>
+                        <button className="usa-button">Save Tandem Search</button>
+                      </Trigger>
+                    }
                   </div>
                 </div>
               )

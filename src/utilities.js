@@ -1,14 +1,14 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, intersection, isArray, isEmpty, isEqual, isFunction,
-  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, split,
+  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, pick, split,
   startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
-import { VALID_PARAMS } from 'Constants/EndpointParams';
+import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
 import { NO_BID_CYCLE } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
 import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
@@ -277,6 +277,16 @@ export const cleanQueryParams = (q) => {
   return object;
 };
 
+export const cleanTandemQueryParams = (q) => {
+  const object = Object.assign({}, q);
+  Object.keys(object).forEach((key) => {
+    if (VALID_TANDEM_PARAMS.indexOf(key) <= -1 && VALID_PARAMS.indexOf(key) <= -1) {
+      delete object[key];
+    }
+  });
+  return object;
+};
+
 export const ifEnter = (e) => {
   if (e.keyCode === 13) {
     return true;
@@ -492,25 +502,29 @@ export const mapSavedSearchesToSingleQuery = (savedSearchesObject) => {
 export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) => {
   const clonedSearchObject = cloneDeep(savedSearchObject);
   const searchKeys = Object.keys(clonedSearchObject);
-
   searchKeys.forEach((s) => { clonedSearchObject[s] = clonedSearchObject[s].split(','); });
 
   const arrayToReturn = [];
 
   // Push the keyword search, since it won't match up with a real filter
   if (savedSearchObject.q) {
-    arrayToReturn.push(savedSearchObject.q);
+    arrayToReturn.push(
+      {
+        description: savedSearchObject.q,
+        isTandem: undefined,
+        isCommon: true,
+        isToggle: undefined,
+      });
   }
 
   searchKeys.forEach((s) => {
     clonedSearchObject[s].forEach((c) => {
       const foundParam = mappedParams.find(m => m.selectionRef === s && m.codeRef === c);
       if (foundParam && foundParam.description) {
-        arrayToReturn.push(foundParam.description);
+        arrayToReturn.push(pick(foundParam, ['description', 'isTandem', 'isCommon', 'isToggle']));
       }
     });
   });
-
   return arrayToReturn;
 };
 

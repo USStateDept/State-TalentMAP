@@ -30,7 +30,7 @@ class SavedSearchesContainer extends Component {
 
   goToSavedSearch = savedSearchObject => {
     const q = { ...savedSearchObject.filters };
-    if (savedSearchObject.endpoint === '/api/v1/fsbid/projected_vacancies/') {
+    if (savedSearchObject.endpoint === '/api/v1/fsbid/projected_vacancies/' || savedSearchObject.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/') {
       q.projectedVacancy = 'projected';
     }
     const stringifiedQuery = formQueryString(q);
