@@ -239,20 +239,10 @@ export const shortenString = (string, shortenTo = 250, suffix = '...') => {
 };
 
 // for checking if a favorite_position exists in the user's profile
-export const existsInArray = (ref, array, isTandem = false, isTandemTwo = false) => {
+export const existsInArray = (ref, array) => {
   let found = false;
   array.forEach((i) => {
-    if (isTandem) {
-      // Two possible types of arrays for tandem check
-      // Search Results compares an array of objects {id: #, tandem: t/f}
-      // Favorite List View compares an array of pos objects { id: #,...,tandem_nbr: 1/2}
-      // Last condition in following 'if' statment is to account for the two comparison arrays
-      const nbr = isTandemTwo ? 2 : 1;
-      if (get(i, 'id') && ref && `${i.id}` === `${ref}` &&
-      (get(i, 'tandem') === isTandemTwo || get(i, 'tandem_nbr') === nbr)) {
-        found = true;
-      }
-    } else if (get(i, 'id') && ref && `${i.id}` === `${ref}`) {
+    if (get(i, 'id') && ref && `${i.id}` === `${ref}`) {
       found = true;
     }
   });

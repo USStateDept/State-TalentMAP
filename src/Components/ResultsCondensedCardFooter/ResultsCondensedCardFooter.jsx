@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_UPDATE_DATE } from '../../Constants/SystemMessages';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { formatDate } from '../../utilities';
 
-const ResultsCondensedCardFooter = ({ position, isProjectedVacancy }) => {
+const ResultsCondensedCardFooter = ({ position, isProjectedVacancy, isTandem }) => {
   const pos = position.position || position;
-  const isTandemTwo = get(position, 'tandem_nbr') === 2;
   const date = position[COMMON_PROPERTIES.posted] ?
     formatDate(position[COMMON_PROPERTIES.posted]) : NO_UPDATE_DATE;
   return (
     <div className="condensed-card-footer-wrapper">
-      <div className={`condensed-card-footer ${isTandemTwo ? 'condensed-card-footer-tandem' : ''}`}>
+      <div className={`condensed-card-footer ${isTandem ? 'condensed-card-footer-tandem' : ''}`}>
         <div className="usa-grid-full condensed-card-footer-container">
           <div className="condensed-card-footer-left">
             <strong>Position number: </strong>
@@ -36,10 +34,12 @@ ResultsCondensedCardFooter.propTypes = {
     position: POSITION_DETAILS.isRequired,
   }).isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isTandem: PropTypes.bool,
 };
 
 ResultsCondensedCardFooter.defaultProps = {
   isProjectedVacancy: false,
+  isTandem: false,
 };
 
 export default ResultsCondensedCardFooter;

@@ -24,6 +24,7 @@ const ResultsCondensedCard = (
     sortType,
     limit,
     page,
+    isTandem,
   }) => (
   <BoxShadow className="usa-grid-full condensed-card-inner">
     <ResultsCondensedCardTop
@@ -48,10 +49,12 @@ const ResultsCondensedCard = (
       sortType={sortType}
       limit={limit}
       page={page}
+      isTandem={isTandem}
     />
     <ResultsCondensedCardFooter
       position={position}
       isProjectedVacancy={isProjectedVacancy}
+      isTandem={isTandem}
     />
   </BoxShadow>
 );
@@ -75,6 +78,7 @@ ResultsCondensedCard.propTypes = {
   sortType: PropTypes.string,
   limit: PropTypes.number,
   page: PropTypes.number,
+  isTandem: PropTypes.bool,
 };
 
 ResultsCondensedCard.defaultProps = {
@@ -91,6 +95,7 @@ ResultsCondensedCard.defaultProps = {
   sortType: null,
   limit: 15,
   page: 1,
+  isTandem: false,
 };
 
 export default ResultsCondensedCard;

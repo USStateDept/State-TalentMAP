@@ -62,12 +62,9 @@ class Favorite extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     let isUpdate = true;
-    const { compareArray, refKey, isTandem, isTandemTwo } = nextProps;
+    const { compareArray, refKey } = nextProps;
     const oldState = this.getSavedState();
-    const newState = isTandem ?
-      existsInArray(refKey, compareArray, isTandem, isTandemTwo)
-      :
-      existsInArray(refKey, compareArray);
+    const newState = existsInArray(refKey, compareArray);
 
     isUpdate = (oldState !== newState) ||
     (this.state.loading !== nextState.isLoading) ||
@@ -78,11 +75,8 @@ class Favorite extends Component {
 
   getSavedState() {
     // Is the refKey in the array? If so, return true
-    const { compareArray, refKey, isTandem, isTandemTwo } = this.props;
-    return isTandem ?
-      existsInArray(refKey, compareArray, isTandem, isTandemTwo)
-      :
-      existsInArray(refKey, compareArray);
+    const { compareArray, refKey } = this.props;
+    return existsInArray(refKey, compareArray);
   }
 
   getText(enforceShort = false) {
@@ -140,7 +134,7 @@ class Favorite extends Component {
   }
 
   toggleSaved = () => {
-    const { onToggle, refKey, refresh, isTandem, isTandemTwo } = this.props;
+    const { onToggle, refKey, refresh, isTandem } = this.props;
     this.setState({
       loading: true,
       alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
@@ -148,7 +142,7 @@ class Favorite extends Component {
     });
 
     // pass the key and the "remove" param
-    onToggle(refKey, this.getSavedState(), refresh, isTandem, isTandemTwo);
+    onToggle(refKey, this.getSavedState(), refresh, isTandem);
   };
 
   render() {
@@ -208,7 +202,6 @@ Favorite.propTypes = {
   refresh: PropTypes.bool.isRequired,
   hasErrored: PropTypes.bool,
   isTandem: PropTypes.bool,
-  isTandemTwo: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -225,7 +218,6 @@ Favorite.defaultProps = {
   refresh: false,
   hasErrored: false,
   isTandem: false,
-  isTandemTwo: false,
 };
 
 export default Favorite;

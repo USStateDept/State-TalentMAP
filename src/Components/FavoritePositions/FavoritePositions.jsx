@@ -154,6 +154,7 @@ const FavoritePositions = props => {
         sortType={sortType}
         limit={pageSize}
         page={page}
+        isTandem={selected === TYPE_OPEN_TANDEM || selected === TYPE_PV_TANDEM}
       />
       <div className="usa-grid-full react-paginate">
         <PaginationWrapper

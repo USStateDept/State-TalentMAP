@@ -118,7 +118,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
             data$.favorites = get(results, '[0].value.results', []);
             data$.counts.favorites = get(results, '[0].value.count', 0);
           } else if (openPV === 'openTandem') {
-            data$.favoritesTandem = get(results, '[0].value.count', 0);
+            data$.favoritesTandem = get(results, '[0].value.results', 0);
             data$.counts.favoritesTandem = get(results, '[0].value.count', 0);
           } else if (openPV === 'pv') {
             data$.favoritesPV = get(results, '[0].value.results', []).map(m => ({ ...m, isPV: true }));

@@ -31,7 +31,6 @@ FavoriteContainer.propTypes = {
   refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
   isPV: PropTypes.bool,
   isTandem: PropTypes.bool,
-  isTandemTwo: PropTypes.bool,
   sortType: PropTypes.string,
   limit: PropTypes.number,
   page: PropTypes.number,
@@ -41,7 +40,6 @@ FavoriteContainer.defaultProps = {
   isLoading: new Set(),
   isPV: false,
   isTandem: false,
-  isTandemTwo: false,
   sortType: null,
   limit: 15,
   page: 1,
@@ -53,8 +51,8 @@ export const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => ({
-  onToggle: (id, remove, refresh = false, isTandem = false, isTandemTwo = false) => {
-    dispatch(userProfileToggleFavoritePosition(id, remove, refresh, get(ownProps, 'isPV'), get(ownProps, 'sortType'), isTandem, isTandemTwo));
+  onToggle: (id, remove, refresh = false, isTandem = false) => {
+    dispatch(userProfileToggleFavoritePosition(id, remove, refresh, get(ownProps, 'isPV'), get(ownProps, 'sortType'), isTandem));
   },
 });
 

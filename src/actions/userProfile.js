@@ -220,7 +220,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         // except declare the second argument (remove) to the opposite of what was
         // originally provided.
         const undo = () => dispatch(userProfileToggleFavoritePosition(
-          id, !remove, refreshFavorites, isPV, isTandem
+          id, !remove, refreshFavorites, isPV, isTandem,
         ));
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :
@@ -234,15 +234,15 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         });
         dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
-          let openPV = ''
+          let openPV = '';
           if (isPV && isTandem) {
-            openPV = 'pvTandem'
+            openPV = 'pvTandem';
           } else if (isPV) {
-            openPV = 'pv'
+            openPV = 'pv';
           } else if (isTandem) {
-            openPV = 'openTandem'
+            openPV = 'openTandem';
           } else {
-            openPV = 'open'
+            openPV = 'open';
           }
           dispatch(favoritePositionsFetchData(sortType, undefined, undefined, openPV));
         }

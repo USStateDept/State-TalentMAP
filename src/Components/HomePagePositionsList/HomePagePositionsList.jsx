@@ -20,6 +20,7 @@ const propTypes = {
   sortType: PropTypes.string,
   limit: PropTypes.number,
   page: PropTypes.number,
+  isTandem: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -37,17 +38,18 @@ const defaultProps = {
   sortType: null,
   limit: 15,
   page: 1,
+  isTandem: false,
 };
 
 const HomePagePositionsList = ({ positions, favorites, favoritesTandem, favoritesPV,
   favoritesPVTandem, isLoading, bidList, type, refreshFavorites, title, showBidListButton,
-  useShortFavButton, showCompareButton, sortType, limit, page }) => (
+  useShortFavButton, showCompareButton, sortType, limit, page, isTandem }) => (
   <div className={`condensed-card-highlighted ${isLoading ? 'results-loading' : ''}`}>
     <div className="usa-grid-full condensed-card-grid">
       {positions.map((p) => {
         const position = p.position || p;
         return (
-          <div key={`${title}-row-${p.id}-${position.isPV}-${position.tandem_nbr}`} className="usa-width-one-third condensed-card">
+          <div key={`${title}-row-${p.id}-${position.isPV}`} className="usa-width-one-third condensed-card">
             <ResultsCondensedCard
               favorites={favorites}
               favoritesPV={favoritesPV}
@@ -61,6 +63,7 @@ const HomePagePositionsList = ({ positions, favorites, favoritesTandem, favorite
               useShortFavButton={useShortFavButton}
               showCompareButton={showCompareButton}
               isProjectedVacancy={position.isPV || p.isPV}
+              isTandem={isTandem}
               sortType={sortType}
               limit={limit}
               page={page}

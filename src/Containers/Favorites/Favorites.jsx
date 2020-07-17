@@ -81,6 +81,7 @@ const FavoritePositionsContainer = props => {
     }
   }
 
+  console.log(favoritePositions);
   return (
     <div>
       <FavoritePositions
@@ -143,9 +144,9 @@ export const mapDispatchToProps = dispatch => ({
   fetchData: (sortType, PAGE_SIZE, page, navType, favoritePositions) =>
     dispatch(favoritePositionsFetchData(sortType, PAGE_SIZE, page, navType, favoritePositions)),
   bidListFetchData: () => dispatch(bidListFetchData()),
-  toggleFavorite: (id, remove, isTandem, isTandemTwo) => {
+  toggleFavorite: (id, remove, isTandem) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
-    dispatch(userProfileToggleFavoritePosition(id, remove, false, isTandem, isTandemTwo));
+    dispatch(userProfileToggleFavoritePosition(id, remove, false, isTandem));
   },
 });
 
