@@ -1,27 +1,180 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import FontAwesome from 'react-fontawesome';
+import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
+import SearchBar from '../../SearchBar/SearchBar';
+import SelectForm from '../../SelectForm';
+
 
 const PositionManager = (props) => {
+  const [textValue, setTextValue] = useState('temp text');
   const {
     placeholderText,
   } = props;
 
+  const tempGrade = [
+    { value: 'OM', text: 'Office Manager (OM)' },
+    { value: '01', text: '01' },
+    { value: '02', text: '02' },
+    { value: '03', text: '03' },
+    { value: '04', text: '04' },
+    { value: '05', text: '05' },
+    { value: '06', text: '06' },
+    { value: '07', text: '07' },
+    { value: '08', text: '08' },
+    { value: '00', text: '00' },
+    { value: 'MC', text: 'MC Minister-Counselor (FE-MC)' },
+    { value: 'OC', text: 'OC Counselor (FE-OC)' },
+  ];
+  const tempSkill = [
+    { value: 'Contruction Engineers', text: 'Contruction Engineers' },
+    { value: 'Consular', text: 'Consular' },
+    { value: 'DCM-PO', text: 'DCM-PO' },
+    { value: 'Diplomatic Courier', text: 'Diplomatic Courier' },
+    { value: 'Facilities Manager', text: 'Facilities Manager' },
+    { value: 'Economic', text: 'Economic' },
+    { value: 'Financial Management', text: 'Financial Management' },
+    { value: 'General Services', text: 'General Services' },
+    { value: 'Info Mgt Specialist', text: 'Info Mgt Specialist' },
+    { value: 'Info Mgt Tech Spec', text: 'Info Mgt Tech Spec' },
+    { value: 'Refugee Affairs', text: 'Refugee Affairs' },
+    { value: 'Interfunctional', text: 'Interfunctional' },
+  ];
+  const tempPost = [{ value: 'Barronett, Kentucky', text: 'Barronett, Kentucky' },
+    { value: 'Cecilia, Ohio', text: 'Cecilia, Ohio' },
+    { value: 'Courtland, Maryland', text: 'Courtland, Maryland' },
+    { value: 'Crown, Illinois', text: 'Crown, Illinois' },
+    { value: 'Edgewater, Missouri', text: 'Edgewater, Missouri' },
+    { value: 'Elrama, Alabama', text: 'Elrama, Alabama' },
+    { value: 'Enetai, Guam', text: 'Enetai, Guam' },
+    { value: 'Foxworth, Tennessee', text: 'Foxworth, Tennessee' },
+    { value: 'Gorham, Marshall Islands', text: 'Gorham, Marshall Islands' },
+    { value: 'Kenvil, Connecticut', text: 'Kenvil, Connecticut' },
+    { value: 'Lowgap, District Of Columbia', text: 'District Of Columbia' },
+    { value: 'Lynn, Massachusetts', text: 'Lynn, Massachusetts' },
+    { value: 'Saranap, Maine', text: 'Saranap, Maine' },
+    { value: 'Sehili, Idaho', text: 'Sehili, Idaho' },
+    { value: 'Tyhee, Georgia', text: 'Tyhee, Georgia' },
+    { value: 'Winesburg, Virginia', text: 'Winesburg, Virginia' },
+  ];
+  const tempTED = [{ value: '10 MOS', text: '10 MOS' },
+    { value: '1 YEAR', text: '1 YEAR' },
+    { value: '1 YR (1 R &amp; R)', text: '1 YR (1 R &amp; R)' },
+    { value: '1 YR (2 R &amp; R)', text: '1 YR (2 R &amp; R)' },
+    { value: '1 YR(3R&amp;R)/HL/1 YR(3R&', text: '1 YR(3R&amp;R)/HL/1 YR(3R&' },
+    { value: '14MOS/HL/2 YEAR (R&amp;R)', text: '14MOS/HL/2 YEAR (R&amp;R)' },
+    { value: '18 MOS', text: '18 MOS' },
+    { value: '18 MOS/HL/18 MOS', text: '18 MOS/HL/18 MOS' },
+    { value: '2 YRS/TRANSFER', text: '2 YRS/TRANSFER' },
+    { value: '2 YRS/HLRT/2 YRS', text: '2 YRS/HLRT/2 YRS' },
+    { value: '2 YRS (1 R &amp; R)', text: '2 YRS (1 R &amp; R)' },
+    { value: '2 YRS (2 R &amp; R)', text: '2 YRS (2 R &amp; R)' },
+    { value: '2 YRS (3 R &amp; R)', text: '2 YRS (3 R &amp; R)' },
+    { value: '2 YRS (4 R &amp; R)', text: '2 YRS (4 R &amp; R)' },
+    { value: '3 YRS/TRANSFER', text: '3 YRS/TRANSFER' },
+    { value: '3 YRS (2 R &amp; R)', text: '3 YRS (2 R &amp; R)' },
+    { value: '3 YRS (3 R &amp; R)', text: '3 YRS (3 R &amp; R)' },
+    { value: '4 YRS/TRANSFER', text: '4 YRS/TRANSFER' },
+    { value: 'INDEFINITE', text: 'INDEFINITE' },
+    { value: 'NOT APPLICABLE', text: 'NOT APPLICABLE' },
+    { value: 'OTHER', text: 'OTHER' }];
+
+  const pageSizes = POSITION_MANAGER_PAGE_SIZES.options;
+  function submitSearch() {
+    console.log('submit search');
+  }
+
+  function onChangeQueryText(newText) {
+    setTextValue(newText);
+    console.log('onChangeQueryText');
+    console.log('textValue', textValue);
+  }
+
+  function onClear() {
+    console.log('onClear');
+  }
+
   return (
-    <div
-      className={'usa-grid-full profile-content-inner-container bureau-page'}
-    >
-      {
-        !placeholderText &&
+    <div className="bureau-page">
+      <div className="usa-grid-full position-manager-upper-section">
+        {
+          !placeholderText &&
           <Spinner type="homepage-position-results" size="big" />
-      }
-      <div className="usa-grid-full">
-        <ProfileSectionTitle title="Positions Manager" icon="map" />
+        }
+        <div className="results-search-bar padded-main-content results-single-search homepage-offset">
+          <div className="usa-grid-full results-search-bar-container">
+            <ProfileSectionTitle title="Position Manager" icon="map" />
+            <form className="usa-grid-full" onSubmit={submitSearch} >
+              <fieldset className="usa-width-five-sixths">
+                <div className="usa-width-one-whole search-results-inputs search-keyword">
+                  <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
+                  <SearchBar
+                    id="search-keyword-field"
+                    label="Keywords"
+                    type="medium"
+                    submitText="Search"
+                    labelSrOnly
+                    noForm
+                    noButton
+                    placeholder="Type keywords here"
+                    onChangeText={onChangeQueryText}
+                    showClear
+                    onClear={onClear}
+                  />
+                </div>
+              </fieldset>
+              <div className="usa-width-one-sixth search-submit-button">
+                <button className="usa-button" type="submit" disabled={false}>
+                  <FontAwesome name="search" className="label-icon" />
+                Search
+                </button>
+              </div>
+            </form>
+            <div className="filterby-label">Filter by:</div>
+            <div className="usa-width-one-whole position-manager-filters results-dropdown">
+              <div className="small-screen-stack position-manager-filters-inner">
+                <SelectForm
+                  id="ted-filter"
+                  label="TED:"
+                  options={tempTED}
+                  onSelectOption={onChangeQueryText}
+                />
+                <SelectForm
+                  id="post-filter"
+                  options={tempPost}
+                  label="Post:"
+                  defaultSort={':)'}
+                />
+                <SelectForm
+                  id="skill-filter"
+                  options={tempSkill}
+                  label="Skill:"
+                  defaultSort={':)'}
+                />
+                <SelectForm
+                  id="grade-filter"
+                  options={tempGrade}
+                  label="Grade:"
+                  defaultSort={':)'}
+                />
+              </div>
+            </div>
+
+
+          </div>
+        </div>
       </div>
-      <div className="usa-grid-full bureau-page">
-        {placeholderText}
+      <div className="usa-width-one-whole position-manager-filters results-dropdown">
+        <SelectForm
+          id="porfolio-sort"
+          options={pageSizes}
+          label="Results:"
+          defaultSort={':)'}
+        />
       </div>
+      {placeholderText}
     </div>
   );
 };
