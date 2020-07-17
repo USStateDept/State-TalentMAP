@@ -118,7 +118,7 @@ export function favoritePositionsFetchData(sortType, limit = 15,
             data$.favorites = get(results, '[0].value.results', []);
             data$.counts.favorites = get(results, '[0].value.count', 0);
           } else if (openPV === 'openTandem') {
-            data$.favoritesTandem = get(results, '[0].value.results', []).map(m => ({ ...m }));
+            data$.favoritesTandem = get(results, '[0].value.count', 0);
             data$.counts.favoritesTandem = get(results, '[0].value.count', 0);
           } else if (openPV === 'pv') {
             data$.favoritesPV = get(results, '[0].value.results', []).map(m => ({ ...m, isPV: true }));
@@ -140,9 +140,9 @@ export function favoritePositionsFetchData(sortType, limit = 15,
             data$.counts.favoritesPV = get(results, '[2].value.count', 0);
             data$.counts.favoritesPVTandem = get(results, '[3].value.count', 0);
             data$.favorites = get(results, '[0].value.results', []);
-            data$.favoritesTandem = get(results, '[1].value.results', []).map(m => ({ ...m, isTandem: true }));
+            data$.favoritesTandem = get(results, '[1].value.results', []);
             data$.favoritesPV = get(results, '[2].value.results', []).map(m => ({ ...m, isPV: true }));
-            data$.favoritesPVTandem = get(results, '[3].value.results', []).map(m => ({ ...m, isPV: true, isTandem: true }));
+            data$.favoritesPVTandem = get(results, '[3].value.results', []).map(m => ({ ...m, isPV: true }));
             data$.results = get(results, '[0].value.results', []); // TODO: outdated? consider removing
           }
           data$.counts.all = data$.counts.favorites + data$.counts.favoritesTandem +

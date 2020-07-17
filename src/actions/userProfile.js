@@ -94,8 +94,8 @@ export function userProfileFetchData(bypass, cb) {
         const permissions = get(results, '[0].value.data', {});
         const apFavorites = get(results, '[1].value.data', []).map(id => ({ id }));
         const pvFavorites = get(results, '[2].value.data', []).map(id => ({ id }));
-        const apTandemFavorites = get(results, '[3].value.data', []).map(f => ({ id: f.cp_id, tandem: f.tandem }));
-        const pvTandemFavorites = get(results, '[4].value.data', []).map(f => ({ id: f.fv_seq_num, tandem: f.tandem }));
+        const apTandemFavorites = get(results, '[3].value.data', []).map(id => ({ id }));
+        const pvTandemFavorites = get(results, '[4].value.data', []).map(id => ({ id }));
         const account = get(results, '[5].value.data', {});
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
@@ -188,11 +188,11 @@ export function userProfileFetchData(bypass, cb) {
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false,
-  isPV = false, sortType, isTandem = false, isTandemTwo = false) {
+  isPV = false, sortType, isTandem = false) {
   const idString = id.toString();
   return (dispatch) => {
     const apiURL =
-    `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/${isTandemTwo ? '?is_tandem_one=false' : ''}`;
+    `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
       url: apiURL,
@@ -220,7 +220,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         // except declare the second argument (remove) to the opposite of what was
         // originally provided.
         const undo = () => dispatch(userProfileToggleFavoritePosition(
-          id, !remove, refreshFavorites, isPV, isTandem, isTandemTwo,
+          id, !remove, refreshFavorites, isPV, isTandem
         ));
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :
@@ -234,7 +234,17 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         });
         dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
-          dispatch(favoritePositionsFetchData(sortType, undefined, undefined, isPV ? 'pv' : 'open'));
+          let openPV = ''
+          if (isPV && isTandem) {
+            openPV = 'pvTandem'
+          } else if (isPV) {
+            openPV = 'pv'
+          } else if (isTandem) {
+            openPV = 'openTandem'
+          } else {
+            openPV = 'open'
+          }
+          dispatch(favoritePositionsFetchData(sortType, undefined, undefined, openPV));
         }
       }))
       .catch(({ response }) => {
