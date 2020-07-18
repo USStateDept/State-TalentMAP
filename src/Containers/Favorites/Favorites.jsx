@@ -81,7 +81,6 @@ const FavoritePositionsContainer = props => {
     }
   }
 
-  console.log(favoritePositions);
   return (
     <div>
       <FavoritePositions

@@ -265,6 +265,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     favoritesPVTandem={Array []}
     favoritesTandem={Array []}
     isProjectedVacancy={false}
+    isTandem={false}
     limit={15}
     page={1}
     position={
@@ -362,6 +363,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
   />
   <ResultsCondensedCardFooter
     isProjectedVacancy={false}
+    isTandem={false}
     position={
       Object {
         "bidcycle": Object {

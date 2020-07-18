@@ -169,8 +169,7 @@ class ResultsCard extends Component {
       useButtonClass: true,
       useLongText: true,
       isPV: isProjectedVacancy,
-      isTandem,
-      isTandemTwo: isTandem2,
+      isTandem: isTandem2,
     };
 
     options.compare = {
@@ -178,11 +177,11 @@ class ResultsCard extends Component {
       refKey: result.id,
     };
 
-    if (isProjectedVacancy && isTandem) {
+    if (isProjectedVacancy && isTandem2) {
       options.favorite.compareArray = favoritesPVTandem;
     } else if (isProjectedVacancy) {
       options.favorite.compareArray = favoritesPV;
-    } else if (isTandem) {
+    } else if (isTandem2) {
       options.favorite.compareArray = favoritesTandem;
     } else {
       options.favorite.compareArray = favorites;

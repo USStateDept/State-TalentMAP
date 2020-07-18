@@ -854,6 +854,7 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
     }
     favoritesTandem={Array []}
     isLoading={false}
+    isTandem={false}
     limit={12}
     maxLength={300}
     page={1}
