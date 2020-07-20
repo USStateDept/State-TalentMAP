@@ -43,6 +43,33 @@
   border-left: 8px solid $blue-primary;
   padding: 1em;
 
+  .bureau-definition {
+    display: flex;
+  }
+
+  .bureau-card--footer,
+  .bureau-card--description {
+    margin-top: 1em;
+  }
+
+  .toggle-more-container {
+    position: relative;
+  }
+
+  .toggle-more {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+
+    > span:first-child {
+      white-space: nowrap;
+    }
+  }
+
+  .bureau-card--section {
+    display: flex;
+  }
+
   .bid-count-list {
     font-size: .8em;
   }
@@ -82,23 +109,24 @@
 
       > div {
         display: flex;
-        flex: 10;
+        flex: 10 10 auto;
         flex-direction: column;
         padding-left: 1em;
       }
 
       > div:first-child {
-        flex: 7;
+        flex: 7 7 auto;
         padding-left: 0;
       }
 
       > div:nth-child(2),
       > div:nth-child(3) {
-        flex: 5;
+        flex: 5 5 auto;
       }
 
       dt,
       dd {
+        display: inline-flex;
         margin: 0;
         padding: 0;
       }

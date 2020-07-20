@@ -24,8 +24,8 @@ const Stats = (props) => {
         {placeholderText}
       </div>
       <div className="usa-grid-full">
-        {[1, 2, 3, 4, 5].map(() => (
-          <BureauResultsCard />
+        {[1, 2, 3, 4, 5].map((m) => (
+          <BureauResultsCard key={m} />
         ))}
       </div>
     </div>

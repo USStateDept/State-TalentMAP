@@ -20,7 +20,6 @@ class BureauResultsCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      a: 1,
       showMore: false,
     };
   }
@@ -72,19 +71,19 @@ class BureauResultsCard extends Component {
     return (
       <Row fluid className="bureau-results-card">
         <Row fluid>
-          <Row fluid style={{ display: 'flex' }} className="bureau-card--header">
+          <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
             <div>{postShort}</div>
             {renderBidCountMobile(stats)}
           </Row>
-          <Row fluid style={{ display: 'flex' }} className="bureau-card--content">
-            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} style={{ display: 'flex' }} className="bureau-definition" />
+          <Row fluid className="bureau-card--section bureau-card--content">
+            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} className="bureau-definition" />
           </Row>
-          <Row fluid style={{ display: 'flex' }} className="bureau-card--footer">
-            <DefinitionList items={sections[1]} style={{ display: 'flex' }} />
-            <div className="usa-grid-full" style={{ position: 'relative' }}>
-              <InteractiveElement onClick={() => this.setState({ showMore: !showMore })} style={{ bottom: 0, position: 'absolute', right: 0 }}>
-                <span style={{ whiteSpace: 'nowrap' }}>View {showMore ? 'less' : 'more'} </span>
+          <Row fluid className="bureau-card--section bureau-card--footer">
+            <DefinitionList items={sections[1]} className="bureau-definition" />
+            <div className="usa-grid-full toggle-more-container">
+              <InteractiveElement className="toggle-more" onClick={() => this.setState({ showMore: !showMore })}>
+                <span>View {showMore ? 'less' : 'more'} </span>
                 <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
               </InteractiveElement>
             </div>
@@ -92,7 +91,7 @@ class BureauResultsCard extends Component {
         </Row>
         {
           showMore &&
-          <Row fluid style={{ marginTop: '1em' }}>
+          <Row fluid className="bureau-card--description">
             <Linkify properties={{ target: '_blank' }}>
               {description}
             </Linkify>
