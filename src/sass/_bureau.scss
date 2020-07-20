@@ -36,3 +36,106 @@
     margin-bottom: 10px;
   }
 }
+
+.bureau-results-card {
+  background-color: $color-white;
+  border: 1px solid $bg-gray-dark-2;
+  border-left: 8px solid $blue-primary;
+  padding: 1em;
+
+  .bureau-definition {
+    display: flex;
+  }
+
+  .bureau-card--footer,
+  .bureau-card--description {
+    margin-top: 1em;
+  }
+
+  .toggle-more-container {
+    position: relative;
+  }
+
+  .toggle-more {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+
+    > span:first-child {
+      white-space: nowrap;
+    }
+  }
+
+  .bureau-card--section {
+    display: flex;
+  }
+
+  .bid-count-list {
+    font-size: .8em;
+  }
+
+  .bid-count-container {
+    margin: 0 0 0 auto;
+  }
+
+  .bureau-card--header {
+    margin-bottom: .6em;
+
+    > div {
+      &:not(:last-child) {
+        margin-right: .5em;
+      }
+
+      &:not(:first-child) {
+        margin-top: 2px;
+      }
+    }
+  }
+
+  &:not(:first-child) {
+    border-top: 0;
+  }
+
+  h3 {
+    font-family: 'Roboto';
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .bureau-card--content {
+    dl {
+      display: flex;
+
+      > div {
+        display: flex;
+        flex: 10 10 auto;
+        flex-direction: column;
+        padding-left: 1em;
+      }
+
+      > div:first-child {
+        flex: 7 7 auto;
+        padding-left: 0;
+      }
+
+      > div:nth-child(2),
+      > div:nth-child(3) {
+        flex: 5 5 auto;
+      }
+
+      dt,
+      dd {
+        display: inline-flex;
+        margin: 0;
+        padding: 0;
+      }
+
+      dt {
+        color: $primary-gray-dark;
+        font-size: .85em;
+        margin-bottom: .5em;
+      }
+    }
+  }
+}

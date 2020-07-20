@@ -6,14 +6,17 @@ const defaults = {
   term: '',
   definition: '',
   truncate: true,
+  excludeColon: false,
   children: '',
 };
 
 const Definition = (props) => {
   const options = omit(props, keys(defaults));
   let { term, definition } = props;
+  const { excludeColon } = props;
 
-  term = (term || '').length && `${term}:`;
+  term = (term || '').length && `${term}`;
+  if (!excludeColon) term = `${term}:`;
   definition = definition || '';
 
   if (props.children) {
@@ -34,6 +37,7 @@ Definition.propTypes = {
   term: PropTypes.string,
   definition: PropTypes.node,
   truncate: PropTypes.bool,
+  excludeColon: PropTypes.bool,
   /** Takes precedence over `definition` if both props are used. */
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(Node),

@@ -29,11 +29,11 @@ import {
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
-const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+export const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
 
-const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
+export const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
 
-const getDifferentials = (result) => {
+export const getDifferentials = (result) => {
   const dangerPay = get(result, 'post.danger_pay');
   const postDifferential = get(result, 'post.differential_rate');
   const obcUrl = get(result, 'post.post_bidding_considerations_url');
@@ -41,7 +41,7 @@ const getDifferentials = (result) => {
   return <Differentials {...props} />;
 };
 
-const getResult = (result, path, defaultValue, isRate = false) => {
+export const getResult = (result, path, defaultValue, isRate = false) => {
   let value = get(result, path, defaultValue);
 
   if ((/_date|date_|ted/i).test(path) && value !== defaultValue) {
