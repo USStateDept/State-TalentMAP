@@ -71,9 +71,15 @@ const FavoritePositions = props => {
   const options = [
     { title: 'Open Positions ', value: TYPE_OPEN, numerator: counts.favorites },
     { title: 'Projected Vacancies ', value: TYPE_PV, numerator: counts.favoritesPV },
-    { title: 'Tandem Open Positions ', value: TYPE_OPEN_TANDEM, numerator: counts.favoritesTandem },
-    { title: 'Tandem Projected Vacancies ', value: TYPE_PV_TANDEM, numerator: counts.favoritesPVTandem },
   ];
+
+  // Only show options if the user has favorites for tandem
+  if (counts.favoritesTandem || counts.favoritesPVTandem) {
+    options.push(
+      { title: 'Tandem Open Positions ', value: TYPE_OPEN_TANDEM, numerator: counts.favoritesTandem },
+      { title: 'Tandem Projected Vacancies ', value: TYPE_PV_TANDEM, numerator: counts.favoritesPVTandem },
+    );
+  }
 
   let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
   if (selected === TYPE_PV || selected === TYPE_PV_TANDEM) {
