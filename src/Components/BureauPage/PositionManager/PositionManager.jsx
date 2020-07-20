@@ -1,8 +1,8 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { usePrevious } from 'hooks';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import SearchBar from '../../SearchBar/SearchBar';
@@ -14,6 +14,7 @@ const PositionManager = (props) => {
   const {
     placeholderText,
   } = props;
+
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -90,6 +91,15 @@ const PositionManager = (props) => {
     setTextValue(newText);
   }
 
+  const prevtextValue = usePrevious(textValue);
+
+  useEffect(() => {
+    const shouldUpdate = (textValue || prevtextValue) && textValue !== prevtextValue;
+    if (shouldUpdate) {
+      // props.changeText(textValue);
+    }
+  }, [textValue]);
+
   function onClear() {
   }
 
@@ -123,7 +133,7 @@ const PositionManager = (props) => {
                 </div>
               </fieldset>
               <div className="usa-width-one-sixth search-submit-button">
-                <button className="usa-button" type="submit" disabled={false}>
+                <button className="usa-button" type="submit" disabled>
                   <FontAwesome name="search" className="label-icon" />
                 Search
                 </button>
@@ -161,15 +171,17 @@ const PositionManager = (props) => {
           </div>
         </div>
       </div>
-      <div className="usa-width-one-whole position-manager-filters results-dropdown">
+      <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
         <SelectForm
           id="position-manager-num-results"
           options={pageSizes}
           label="Results:"
           defaultSort={':)'}
         />
+        <div className="position-manager-lower-inner-section">
+          {placeholderText}
+        </div>
       </div>
-      {placeholderText}
     </div>
   );
 };

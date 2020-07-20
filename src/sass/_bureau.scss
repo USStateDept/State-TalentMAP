@@ -37,7 +37,7 @@
   }
 
   .position-manager-upper-section {
-    box-shadow: 20px 20px 50px 10px $tm-gray;
+    box-shadow: 20px 20px 50px 10px $bg-gray-medium-2;
     padding: 20px 35px;
     background-color: $bg-blue-dark-1;
   }
@@ -97,3 +97,11 @@
     }
   }
 }
+
+.position-manager-lower-section {
+  padding: 20px 35px;
+  .position-manager-lower-inner-section {
+    margin-top: 20px;
+  }
+}
+

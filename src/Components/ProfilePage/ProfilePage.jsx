@@ -46,7 +46,6 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/public/:id" component={ProfilePublic} />
           <Route path="/profile/notifications" component={Notifications} />
           <Route path="/profile/administrator" component={Administrator} />
-          <Route path="/profile/administrator" component={Administrator} />
           <Route path="/profile/bureau" component={Bureau} />
           <Flag
             name="flags.bidding"
