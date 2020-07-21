@@ -38,12 +38,16 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full favorites-top-section"
   >
-    <TotalResults
-      pageNumber={1}
-      pageSize={12}
-      suffix="Results"
-      total={2}
-    />
+    <div
+      className="total-results-container"
+    >
+      <TotalResults
+        pageNumber={1}
+        pageSize={12}
+        suffix="Results"
+        total={2}
+      />
+    </div>
     <div
       className="favorites-top-section--controls"
     >
