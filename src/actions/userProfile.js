@@ -220,7 +220,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         // except declare the second argument (remove) to the opposite of what was
         // originally provided.
         const undo = () => dispatch(userProfileToggleFavoritePosition(
-          id, !remove, refreshFavorites, isPV, isTandem,
+          id, !remove, refreshFavorites, isPV, sortType, isTandem,
         ));
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :
