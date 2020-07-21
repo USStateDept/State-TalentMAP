@@ -22,13 +22,13 @@ export const getIsGroupEnd = (results, i) => {
 };
 
 const ResultsList = ({ results, isLoading, favorites, favoritesPV,
-  favoritesTandem, favoritesPVTandem, bidList }) => {
+  favoritesTandem, favoritesPVTandem, bidList }, { isTandemSearch }) => {
   const mapResults = results.results || [];
   return (
     <div className={isLoading ? 'results-loading' : null}>
       { mapResults.map((result, i) => {
         const key = shortid.generate();
-        const isGroupEnd = getIsGroupEnd(mapResults, i);
+        const useGroupEnd = getIsGroupEnd(mapResults, i) && isTandemSearch;
         return (
           <ResultsCard
             id={key}
@@ -39,12 +39,16 @@ const ResultsList = ({ results, isLoading, favorites, favoritesPV,
             key={key}
             result={result}
             bidList={bidList}
-            isGroupEnd={isGroupEnd}
+            isGroupEnd={useGroupEnd}
           />
         );
       })}
     </div>
   );
+};
+
+ResultsList.contextTypes = {
+  isTandemSearch: PropTypes.bool,
 };
 
 ResultsList.propTypes = {

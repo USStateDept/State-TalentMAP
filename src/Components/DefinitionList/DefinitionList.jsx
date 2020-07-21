@@ -8,9 +8,10 @@ const defaults = {
   items: [],
   children: [],
   truncate: true,
+  itemProps: {},
 };
 
-const DefinitionList = ({ truncate = true, ...props }) => {
+const DefinitionList = ({ truncate = true, itemProps, ...props }) => {
   const options = omit(props, keys(defaults));
   const children = !isArray(props.children) ? [props.children] : props.children;
   let items = props.items;
@@ -21,6 +22,7 @@ const DefinitionList = ({ truncate = true, ...props }) => {
       term: key,
       definition: item,
       truncate,
+      ...itemProps,
     }));
   }
 
@@ -57,6 +59,8 @@ DefinitionList.propTypes = {
       }),
     ),
   ]),
+
+  itemProps: PropTypes.shape({}),
 
   /** Takes precedence over `items` if both props are used. */
   children: PropTypes.oneOfType([
