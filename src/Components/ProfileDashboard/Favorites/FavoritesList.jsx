@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
-import { BID_RESULTS, FAVORITE_POSITIONS } from 'Constants/PropTypes';
+import { get } from 'lodash';
+import { FAVORITE_POSITIONS } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
@@ -12,7 +13,20 @@ import SectionHeader from '../SectionHeader';
 import StaticDevContent from '../../StaticDevContent';
 
 
-const FavoriteList = ({ favorites, favoritePositions }) => {
+const FavoriteList = ({ favoritePositions }) => {
+  let favorites = [];
+  let isTandem = false;
+  if (get(favoritePositions, 'favorites', []).length > 0) {
+    favorites = favoritePositions.favorites;
+  } else if (get(favoritePositions, 'favoritesPV', []).length > 0) {
+    favorites = favoritePositions.favoritesPV;
+  } else if (get(favoritePositions, 'favoritesTandem', []).length > 0) {
+    favorites = favoritePositions.favoritesTandem;
+    isTandem = true;
+  } else if (get(favoritePositions, 'favoritesPVTandem', []).length > 0) {
+    favorites = favoritePositions.favoritesPVTandem;
+    isTandem = true;
+  }
   const positionArray = [];
   favorites.slice(0, 2).forEach((pos) => {
     const position = pos.position || pos;
@@ -24,6 +38,7 @@ const FavoriteList = ({ favorites, favoritePositions }) => {
           condensedView
           /* pass a parentClassName that we can use from the BorderedList component */
           parentClassName="parent-list-container"
+          isTandem={isTandem}
         />,
       )
     );
@@ -56,12 +71,10 @@ const FavoriteList = ({ favorites, favoritePositions }) => {
 };
 
 FavoriteList.propTypes = {
-  favorites: BID_RESULTS.isRequired,
   favoritePositions: FAVORITE_POSITIONS,
 };
 
 FavoriteList.defaultProps = {
-  favorites: [],
   favoritePositions: DEFAULT_FAVORITES,
 };
 
