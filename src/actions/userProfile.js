@@ -103,7 +103,7 @@ export function userProfileFetchData(bypass, cb) {
           permissions: permissions.permissions,
           favorite_positions_pv: pvFavorites,
           favorite_positions: apFavorites,
-          favorite_tandem_pv_positions: pvTandemFavorites,
+          favorite_tandem_positions_pv: pvTandemFavorites,
           favorite_tandem_positions: apTandemFavorites,
           cdo: account.cdo_info, // don't use deprecated CDO API model
         };
