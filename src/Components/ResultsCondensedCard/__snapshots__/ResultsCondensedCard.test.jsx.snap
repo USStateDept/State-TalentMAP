@@ -15,6 +15,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
   <ResultsCondensedCardTop
     isProjectedVacancy={false}
     isRecentlyAvailable={false}
+    isTandem={false}
     position={
       Object {
         "bidcycle": Object {
