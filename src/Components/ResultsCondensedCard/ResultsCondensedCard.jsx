@@ -32,6 +32,7 @@ const ResultsCondensedCard = (
       type={type}
       isProjectedVacancy={isProjectedVacancy}
       isRecentlyAvailable={isRecentlyAvailable}
+      isTandem={isTandem}
     />
     <ResultsCondensedCardBottom
       position={position}
