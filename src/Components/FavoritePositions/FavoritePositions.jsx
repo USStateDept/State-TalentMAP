@@ -109,14 +109,16 @@ const FavoritePositions = props => {
         denominator={null}
       />
       <div className="usa-grid-full favorites-top-section">
-        {
-          !favoritePositionsIsLoading &&
-          <TotalResults
-            total={paginationTotal[selected]}
-            pageNumber={page}
-            pageSize={pageSize}
-          />
-        }
+        <div className="total-results-container">
+          {
+            !favoritePositionsIsLoading &&
+            <TotalResults
+              total={paginationTotal[selected]}
+              pageNumber={page}
+              pageSize={pageSize}
+            />
+          }
+        </div>
         <div className="favorites-top-section--controls">
           <div className="results-dropdown results-dropdown-sort">
             <SelectForm
