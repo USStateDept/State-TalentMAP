@@ -53,8 +53,9 @@ const FavoritePositions = props => {
 
   function exportPositionData() {
     const args = [
-      !!(selected === TYPE_PV),
-      !!(selected === TYPE_OPEN),
+      !!(selected === TYPE_PV) || !!(selected === TYPE_PV_TANDEM),
+      !!(selected === TYPE_OPEN) || !!(selected === TYPE_OPEN_TANDEM),
+      !!(selected === TYPE_PV_TANDEM) || !!(selected === TYPE_OPEN_TANDEM),
     ];
 
     setIsLoading(true);

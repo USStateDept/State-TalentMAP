@@ -5,8 +5,8 @@ import Q from 'q';
 import { toastError } from './toast';
 import api from '../api';
 
-export function downloadPositionData(excludeAP = false, excludePV = false) {
-  const url = `/available_position/favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
+export function downloadPositionData(excludeAP = false, excludePV = false, isTandem = false) {
+  const url = `/available_position${isTandem ? '/tandem/' : '/'}favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
   return api().get(url, {
     responseType: 'stream',
   })
