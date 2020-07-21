@@ -37,12 +37,12 @@
   }
 
   .position-manager-upper-section {
-    box-shadow: 20px 20px 50px 10px $bg-gray-medium-2;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
     padding: 20px 35px;
     background-color: $bg-blue-dark-1;
   }
 
-  @media screen and (max-width: 1525px) {
+  @media screen and (max-width: 1500px) {
     .small-screen-stack {
       flex-wrap: wrap;
       float: none;
@@ -89,10 +89,15 @@
 
 .position-manager-filters-inner {
   display: flex;
-  .usa-form {
+  .filter-div {
+    align-items: center;
     display: flex;
     margin-right: 10px;
-    select {
+    .label {
+      margin-right: 10px;
+    }
+    .picky {
+      color: $color-black;
       width: 200px;
     }
   }

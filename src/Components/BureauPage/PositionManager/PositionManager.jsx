@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
+import Picky from 'react-picky';
+// import { trim } from 'lodash';
+import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import SearchBar from '../../SearchBar/SearchBar';
@@ -14,7 +17,6 @@ const PositionManager = (props) => {
   const {
     placeholderText,
   } = props;
-
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -83,6 +85,11 @@ const PositionManager = (props) => {
     { value: 'NOT APPLICABLE', text: 'NOT APPLICABLE' },
     { value: 'OTHER', text: 'OTHER' }];
 
+  const [selectedGrades, setSelectedGrades] = useState([]);
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [selectedPosts, setSelectedPosts] = useState([]);
+  const [selectedTEDs, setSelectedTEDs] = useState([]);
+
   const pageSizes = POSITION_MANAGER_PAGE_SIZES.options;
   function submitSearch() {
   }
@@ -100,7 +107,16 @@ const PositionManager = (props) => {
     }
   }, [textValue]);
 
+  useEffect(() => {
+    // if we want to do anything with our selected values once they update
+  }, [selectedGrades]);
+
   function onClear() {
+  }
+
+  function renderList({ items, selected, ...rest }) {
+    const getIsSelected = item => !!selected.find(f => f.value === item.value);
+    return items.map(item => <ListItem key={item.value} item={item} {...rest} queryProp="text" getIsSelected={getIsSelected} />);
   }
 
   return (
@@ -142,30 +158,74 @@ const PositionManager = (props) => {
             <div className="filterby-label">Filter by:</div>
             <div className="usa-width-one-whole position-manager-filters results-dropdown">
               <div className="small-screen-stack position-manager-filters-inner">
-                <SelectForm
-                  id="ted-filter"
-                  label="TED:"
-                  options={tempTED}
-                  onSelectOption={onChangeQueryText}
-                />
-                <SelectForm
-                  id="post-filter"
-                  options={tempPost}
-                  label="Post:"
-                  defaultSort={':)'}
-                />
-                <SelectForm
-                  id="skill-filter"
-                  options={tempSkill}
-                  label="Skill:"
-                  defaultSort={':)'}
-                />
-                <SelectForm
-                  id="grade-filter"
-                  options={tempGrade}
-                  label="Grade:"
-                  defaultSort={':)'}
-                />
+                <div className="filter-div">
+                  <div className="label">TED:</div>
+                  <Picky
+                    placeholder="Select TED(s)"
+                    value={selectedTEDs}
+                    options={tempTED}
+                    onChange={values => setSelectedTEDs(values)}
+                    numberDisplayed={2}
+                    multiple
+                    includeFilter
+                    dropdownHeight={255}
+                    renderList={renderList}
+                    valueKey="value"
+                    labelKey="text"
+                    includeSelectAll
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Post:</div>
+                  <Picky
+                    placeholder="Select Post(s)"
+                    value={selectedPosts}
+                    options={tempPost}
+                    onChange={values => setSelectedPosts(values)}
+                    numberDisplayed={2}
+                    multiple
+                    includeFilter
+                    dropdownHeight={255}
+                    renderList={renderList}
+                    valueKey="value"
+                    labelKey="text"
+                    includeSelectAll
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Skill:</div>
+                  <Picky
+                    placeholder="Select Skill(s)"
+                    value={selectedSkills}
+                    options={tempSkill}
+                    onChange={values => setSelectedSkills(values)}
+                    numberDisplayed={2}
+                    multiple
+                    includeFilter
+                    dropdownHeight={255}
+                    renderList={renderList}
+                    valueKey="value"
+                    labelKey="text"
+                    includeSelectAll
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Grade:</div>
+                  <Picky
+                    placeholder="Select Grade(s)"
+                    value={selectedGrades}
+                    options={tempGrade}
+                    onChange={values => setSelectedGrades(values)}
+                    numberDisplayed={2}
+                    multiple
+                    includeFilter
+                    dropdownHeight={255}
+                    renderList={renderList}
+                    valueKey="value"
+                    labelKey="text"
+                    includeSelectAll
+                  />
+                </div>
               </div>
             </div>
           </div>
