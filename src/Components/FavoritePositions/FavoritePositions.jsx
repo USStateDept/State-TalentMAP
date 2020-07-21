@@ -91,7 +91,7 @@ const FavoritePositions = props => {
     open: counts.favorites,
     pv: counts.favoritesPV,
     openTandem: counts.favoritesTandem,
-    openPV: counts.favoritesPVTandem,
+    pvTandem: counts.favoritesPVTandem,
   };
 
   return (
