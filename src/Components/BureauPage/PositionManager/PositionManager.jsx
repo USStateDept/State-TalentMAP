@@ -4,7 +4,6 @@ import FontAwesome from 'react-fontawesome';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
-// import { trim } from 'lodash';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
