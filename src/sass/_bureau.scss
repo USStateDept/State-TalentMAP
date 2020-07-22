@@ -35,6 +35,79 @@
   .usa-width-one-sixth {
     margin-bottom: 10px;
   }
+
+  .position-manager-upper-section {
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    padding: 20px 35px;
+    background-color: $bg-blue-dark-1;
+  }
+
+  @media screen and (max-width: 1500px) {
+    .small-screen-stack {
+      flex-wrap: wrap;
+      float: none;
+    }
+    .small-screen-stack > div {
+      flex-basis: 45%;
+      margin: 0 10px;
+    }
+    .small-screen-stack > div > label,.label {
+      min-width: 50px;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    .small-screen-stack {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .small-screen-stack > div {
+      align-items: center;
+      display: flex;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .small-screen-stack > div {
+      min-width: 300px;
+    }
+  }
+}
+
+.filterby-label {
+  font-size: 20px;
+  margin: 20px 0 10px 0;
+}
+
+.position-manager-filters {
+  float: left;
+  display: block;
+  margin-right: 2.35765%;
+  width: 100%;
+}
+
+.position-manager-filters-inner {
+  display: flex;
+  .filter-div {
+    align-items: center;
+    display: flex;
+    margin-right: 10px;
+    .label {
+      margin-right: 10px;
+    }
+    .picky {
+      color: $color-black;
+      width: 200px;
+    }
+  }
+}
+
+.position-manager-lower-section {
+  padding: 20px 35px;
+  .position-manager-lower-inner-section {
+    margin-top: 20px;
+  }
 }
 
 .bureau-results-card {
