@@ -34,12 +34,16 @@ export const POSITION_RESULTS_OBJECT = {
 export const DEFAULT_FAVORITES_COUNTS = {
   favorites: 0,
   favoritesPV: 0,
+  favoritesTandem: 0,
+  favoritesPVTandem: 0,
   all: 0,
 };
 
 export const DEFAULT_FAVORITES = {
   favorites: [],
   favoritesPV: [],
+  favoritesTandem: [],
+  favoritesPVTandem: [],
   counts: DEFAULT_FAVORITES_COUNTS,
 };
 
