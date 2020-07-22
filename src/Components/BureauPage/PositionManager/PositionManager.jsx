@@ -4,6 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
+import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
@@ -237,8 +238,10 @@ const PositionManager = (props) => {
           label="Results:"
           defaultSort={':)'}
         />
-        <div className="position-manager-lower-inner-section">
-          {placeholderText}
+        <div className="usa-grid-full position-list">
+          {[...Array(10).keys()].map((m) => (
+            <BureauResultsCard key={m} />
+          ))}
         </div>
       </div>
     </div>

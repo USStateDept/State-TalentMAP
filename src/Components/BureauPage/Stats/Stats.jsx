@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
-import BureauResultsCard from '../BureauResultsCard';
 
 const Stats = (props) => {
   const {
@@ -22,11 +21,6 @@ const Stats = (props) => {
       </div>
       <div className="usa-grid-full bureau-page">
         {placeholderText}
-      </div>
-      <div className="usa-grid-full">
-        {[1, 2, 3, 4, 5].map((m) => (
-          <BureauResultsCard key={m} />
-        ))}
       </div>
     </div>
   );
