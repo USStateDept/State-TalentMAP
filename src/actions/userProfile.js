@@ -73,11 +73,14 @@ export function userProfileFetchData(bypass, cb) {
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
     const getAPFavorites = () => api().get('/available_position/favorites/ids/');
+    const getAPTandemFavorites = () => api().get('/available_position/tandem/favorites/ids/');
 
     // PV favorites
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/ids/');
+    const getPVTandemFavorites = () => api().get('/projected_vacancy/tandem/favorites/ids/');
 
-    const promises = [getUserPermissions(), getAPFavorites(), getPVFavorites()];
+    const promises = [getUserPermissions(), getAPFavorites(), getPVFavorites(),
+      getAPTandemFavorites(), getPVTandemFavorites()];
 
     if (!bypass) {
       promises.push(getUserAccount());
@@ -91,13 +94,17 @@ export function userProfileFetchData(bypass, cb) {
         const permissions = get(results, '[0].value.data', {});
         const apFavorites = get(results, '[1].value.data', []).map(id => ({ id }));
         const pvFavorites = get(results, '[2].value.data', []).map(id => ({ id }));
-        const account = get(results, '[3].value.data', {});
+        const apTandemFavorites = get(results, '[3].value.data', []).map(id => ({ id }));
+        const pvTandemFavorites = get(results, '[4].value.data', []).map(id => ({ id }));
+        const account = get(results, '[5].value.data', {});
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
           permissions: permissions.permissions,
           favorite_positions_pv: pvFavorites,
           favorite_positions: apFavorites,
+          favorite_tandem_positions_pv: pvTandemFavorites,
+          favorite_tandem_positions: apTandemFavorites,
           cdo: account.cdo_info, // don't use deprecated CDO API model
         };
 
@@ -181,13 +188,14 @@ export function userProfileFetchData(bypass, cb) {
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false,
-  isPV = false, sortType) {
+  isPV = false, sortType, isTandem = false) {
   const idString = id.toString();
   return (dispatch) => {
-    const APUrl = `/available_position/${idString}/favorite/`;
+    const apiURL =
+    `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
-      url: isPV ? `/projected_vacancy/${idString}/favorite/` : APUrl,
+      url: apiURL,
     };
 
     /**
@@ -197,8 +205,8 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     const getAction = () => api()(config);
 
     // position
-    const posURL = `/fsbid/available_positions/${id}/`;
-    const getPosition = () => api().get(isPV ? `/fsbid/projected_vacancies/${id}/` : posURL);
+    const posURL = `/fsbid/${isPV ? 'projected_vacancies' : 'available_positions'}/${id}/`;
+    const getPosition = () => api().get(posURL);
 
     batch(() => {
       dispatch(userProfileFavoritePositionIsLoading(true, id));
@@ -212,7 +220,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         // except declare the second argument (remove) to the opposite of what was
         // originally provided.
         const undo = () => dispatch(userProfileToggleFavoritePosition(
-          id, !remove, refreshFavorites, isPV,
+          id, !remove, refreshFavorites, isPV, sortType, isTandem,
         ));
         const message = remove ?
           SystemMessages.DELETE_FAVORITE_SUCCESS(pos.position, undo) :
@@ -226,7 +234,17 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
         });
         dispatch(toastSuccess(message, title));
         if (refreshFavorites) {
-          dispatch(favoritePositionsFetchData(sortType, undefined, undefined, isPV ? 'pv' : 'open'));
+          let openPV = '';
+          if (isPV && isTandem) {
+            openPV = 'pvTandem';
+          } else if (isPV) {
+            openPV = 'pv';
+          } else if (isTandem) {
+            openPV = 'openTandem';
+          } else {
+            openPV = 'open';
+          }
+          dispatch(favoritePositionsFetchData(sortType, undefined, undefined, openPV));
         }
       }))
       .catch(({ response }) => {

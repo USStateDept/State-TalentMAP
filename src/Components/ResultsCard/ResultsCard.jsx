@@ -104,6 +104,8 @@ class ResultsCard extends Component {
       result,
       favorites,
       favoritesPV,
+      favoritesTandem,
+      favoritesPVTandem,
       isGroupEnd,
     } = this.props;
     const { isProjectedVacancy, isClient } = this.context;
@@ -131,6 +133,7 @@ class ResultsCard extends Component {
 
     const isTandem1 = result.tandem_nbr === 1;
     const isTandem2 = result.tandem_nbr === 2;
+    const isTandem = isTandem1 || isTandem2;
 
     const commuterPost = get(pos, 'commuterPost.description');
     const commuterPostFreq = get(pos, 'commuterPost.frequency');
@@ -160,18 +163,29 @@ class ResultsCard extends Component {
     if (isProjectedVacancy) { delete sections[2].Posted; }
 
     options.favorite = {
-      compareArray: isProjectedVacancy ? favoritesPV : favorites,
+      compareArray: [],
       refKey: result.id,
       hasBorder: true,
       useButtonClass: true,
       useLongText: true,
       isPV: isProjectedVacancy,
+      isTandem: isTandem2,
     };
 
     options.compare = {
       as: 'div',
       refKey: result.id,
     };
+
+    if (isProjectedVacancy && isTandem2) {
+      options.favorite.compareArray = favoritesPVTandem;
+    } else if (isProjectedVacancy) {
+      options.favorite.compareArray = favoritesPV;
+    } else if (isTandem2) {
+      options.favorite.compareArray = favoritesTandem;
+    } else {
+      options.favorite.compareArray = favorites;
+    }
 
     const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}${isTandem2 ? '?tandem=true' : ''}`}>View position</Link>;
 
@@ -185,7 +199,6 @@ class ResultsCard extends Component {
       />
     );
 
-    const isTandem = isTandem1 || isTandem2;
 
     const cardClassArray = ['results-card'];
     if (isProjectedVacancy) cardClassArray.push('results-card--secondary');
@@ -343,12 +356,16 @@ ResultsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   favorites: FAVORITE_POSITIONS_ARRAY,
   favoritesPV: FAVORITE_POSITIONS_ARRAY,
+  favoritesTandem: FAVORITE_POSITIONS_ARRAY,
+  favoritesPVTandem: FAVORITE_POSITIONS_ARRAY,
   isGroupEnd: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
   favorites: [],
   favoritesPV: [],
+  favoritesTandem: [],
+  favoritesPVTandem: [],
   isGroupEnd: false,
 };
 
