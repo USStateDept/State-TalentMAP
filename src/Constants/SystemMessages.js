@@ -54,6 +54,7 @@ export const ADD_FAVORITE_SUCCESS = pos => FavoriteSuccess({ pos });
 export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attempting to add this position to your Favorites. Please try again.";
 export const ADD_FAVORITE_LIMIT_ERROR_AP = limit => `You have reached the limit of ${limit} for Open Position favorites. Please remove a favorite and try again.`;
 export const ADD_FAVORITE_LIMIT_ERROR_PV = limit => `You have reached the limit of ${limit} for Projected Vacancy favorites. Please remove a favorite and try again.`;
+export const TANDEM_FAVORITE_MISSING = () => 'Please add at least 1 favorite for both user and tandem within tandem search.';
 
 export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
@@ -90,4 +91,8 @@ export const GET_CLIENT_SUCCESS_MESSAGE = user => `You are now searching as ${us
 export const UNSET_CLIENT_SUCCESS = SET_CLIENT_SUCCESS;
 export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';
 
+export const POST_FEATURE_FLAGS_SUCCESS = 'Config File successfully updated.';
+export const POST_FEATURE_FLAGS_ERROR = 'Error updating Config File. Please try again.';
+
 export const COMING_SOON = 'Coming Soon';
+

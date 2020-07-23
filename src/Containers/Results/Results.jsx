@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { debounce, get, keys, isString, omit, pickBy } from 'lodash';
+import { debounce, get, keys, isString, omit, pickBy, has } from 'lodash';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams, getAssetPath } from '../../utilities';
+import { scrollToTop, cleanQueryParams, cleanTandemQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
@@ -239,8 +239,11 @@ class Results extends Component {
   storeSearch() {
     // parse the string to an object
     const parsedQuery = queryString.parse(this.state.query.value);
+    // does parsedQuery have tandem filter
+    const tandemSearch = has(parsedQuery, 'tandem');
     // remove any invalid filters
-    const cleanedQuery = cleanQueryParams(parsedQuery);
+    const cleanedQuery = tandemSearch ? cleanTandemQueryParams(parsedQuery)
+      : cleanQueryParams(parsedQuery);
     // store formed object in redux
     this.props.storeSearch(cleanedQuery);
   }

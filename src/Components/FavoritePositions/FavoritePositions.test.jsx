@@ -12,6 +12,8 @@ describe('FavoritePositionsComponent', () => {
   const props = {
     favorites: favoritesObject.favorites,
     favoritesPV: favoritesObject.favoritesPV,
+    favoritesTandem: favoritesObject.favoritesTandem,
+    favoritesPVTandem: favoritesObject.favoritesPVTandem,
     favoritePositionsIsLoading: false,
     favoritePositionsHasErrored: false,
     bidList: bidListObject.results,
@@ -55,6 +57,24 @@ describe('FavoritePositionsComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  xit('is defined when selected === pvTandem', () => {
+    // const spy = sinon.spy();
+    const wrapper = shallow(
+      <FavoritePositions {...props} />,
+    );
+    wrapper.setState({ selected: 'pvTandem' });
+    expect(wrapper).toBeDefined();
+  });
+
+  xit('is defined when selected === openTandem', () => {
+    // const spy = sinon.spy();
+    const wrapper = shallow(
+      <FavoritePositions {...props} />,
+    );
+    wrapper.setState({ selected: 'openTandem' });
+    expect(wrapper).toBeDefined();
+  });
+
   xit('can receive props', () => {
     const wrapper = shallow(
       <FavoritePositions {...props} />,
@@ -68,6 +88,8 @@ describe('FavoritePositionsComponent', () => {
         {...props}
         favorites={[]}
         favoritesPV={[]}
+        favoritesTandem={[]}
+        favoritesPVTandem={[]}
         favoritePositionsIsLoading={false}
       />,
     );

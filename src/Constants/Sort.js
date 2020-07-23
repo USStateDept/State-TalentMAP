@@ -118,3 +118,12 @@ export default Object.assign(
     { [p[1]]: { key: p[1], defaultSort: p[0].defaultSort, options: p[0].options } }
   )),
 );
+
+export const POSITION_MANAGER_PAGE_SIZES = {
+  options: [
+    { value: 10, text: '10' },
+    { value: 25, text: '25' },
+    { value: 50, text: '50' },
+    { value: 100, text: '100' },
+  ],
+};

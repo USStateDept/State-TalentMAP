@@ -2,7 +2,7 @@
 
 exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
 <div
-  className="condensed-card-bottom-container"
+  className="condensed-card-bottom-container "
 >
   <div
     className="usa-grid-full condensed-card-bottom"
@@ -116,6 +116,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         }
         hasBorder={true}
         hideText={false}
+        isTandem={false}
         limit={15}
         page={1}
         refKey={1}
@@ -136,7 +137,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
 
 exports[`ResultsCondensedCardBottomComponent matches snapshot when context.isClient === true 1`] = `
 <div
-  className="condensed-card-bottom-container"
+  className="condensed-card-bottom-container "
 >
   <div
     className="usa-grid-full condensed-card-bottom"
@@ -246,7 +247,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot when context.isCli
 
 exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist button 1`] = `
 <div
-  className="condensed-card-bottom-container"
+  className="condensed-card-bottom-container "
 >
   <div
     className="usa-grid-full condensed-card-bottom"
@@ -360,6 +361,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
         }
         hasBorder={true}
         hideText={false}
+        isTandem={false}
         limit={15}
         page={1}
         refKey={1}
