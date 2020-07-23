@@ -13,6 +13,7 @@ import SavedSearchesWrapper from '../../Components/SavedSearches/SavedSearchesWr
 import ProfilePublic from '../../Containers/ProfilePublic';
 import Notifications from './Notifications';
 import Administrator from '../../Containers/Administrator';
+import Bureau from '../../Containers/Bureau';
 import GLOSSARY_EDITOR_PERM from '../../Constants/Permissions';
 import { USER_PROFILE } from '../../Constants/PropTypes';
 import { userHasPermissions } from '../../utilities';
@@ -45,6 +46,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/public/:id" component={ProfilePublic} />
           <Route path="/profile/notifications" component={Notifications} />
           <Route path="/profile/administrator" component={Administrator} />
+          <Route path="/profile/bureau" component={Bureau} />
           <Flag
             name="flags.bidding"
             render={() => (

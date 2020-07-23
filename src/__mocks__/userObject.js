@@ -57,6 +57,24 @@ export const bidderUserObject = {
       id: 20,
     },
   ],
+  favorite_tandem_positions: [
+    {
+      id: 1,
+      representation: '[00003026] OMS (COM) (Freetown, Sierra Leone)',
+    },
+    {
+      id: 4,
+      representation: '[00180000] OMS (DCM) (Addis Ababa, Ethiopia)',
+    },
+  ],
+  favorite_tandem_positions_pv: [
+    {
+      id: 10,
+    },
+    {
+      id: 20,
+    },
+  ],
 };
 
 export const cdoUserObject = Object.assign({}, bidderUserObject, { cdo: null, is_cdo: true });

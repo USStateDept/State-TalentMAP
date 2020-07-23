@@ -31,6 +31,16 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
           "title": "Projected Vacancies ",
           "value": "pv",
         },
+        Object {
+          "numerator": 2,
+          "title": "Tandem Open Positions ",
+          "value": "openTandem",
+        },
+        Object {
+          "numerator": 2,
+          "title": "Tandem Projected Vacancies ",
+          "value": "pvTandem",
+        },
       ]
     }
     selected="open"
@@ -38,12 +48,16 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full favorites-top-section"
   >
-    <TotalResults
-      pageNumber={1}
-      pageSize={12}
-      suffix="Results"
-      total={2}
-    />
+    <div
+      className="total-results-container"
+    >
+      <TotalResults
+        pageNumber={1}
+        pageSize={12}
+        suffix="Results"
+        total={2}
+      />
+    </div>
     <div
       className="favorites-top-section--controls"
     >
@@ -678,7 +692,173 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
         },
       ]
     }
+    favoritesPVTandem={
+      Array [
+        Object {
+          "bidcycle": Object {
+            "active": true,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 12,
+            "name": "Summer 2020",
+          },
+          "id": 5284,
+          "isPV": true,
+          "position": Object {
+            "availability": Object {
+              "availability": true,
+              "reason": null,
+            },
+            "bid_cycle_statuses": Array [
+              Object {
+                "bidcycle": "Summer 2020",
+                "id": 5284,
+                "position": "POLITICAL OFFICER",
+                "status": null,
+                "status_code": null,
+              },
+            ],
+            "bureau": "(DRL) OFF OF THE ASST SEC BUR OF DEMO, H R,  AND LABOR",
+            "current_assignment": Object {
+              "estimated_end_date": "2012-10-22T05:00:00Z",
+              "user": null,
+            },
+            "description": Object {
+              "content": "Internal Reporting Officer in a political section comprised of seven officers, one OMS, and three FSN political specialists.  Reports to the Political Counselor through the Deputy Counselor; supervises one FSN.  Monitors, analyzes, and reports on Saudi internal politics, including domestic policies and institutions, the Royal Family, Shura and Municipal Councils, tribes, and elections and political participation.  POC: John Godfrey &#40;godfreyjt&#64;state.gov&#41; and Abram Paley &#40;PaleyAW&#64;state.gov&#41;. This year NEA is once again collecting lobbying documents through its 360 Lobbying Center. Please submit your lobbying information at: http://appcenter.state.sbu/CLC. Also please send all inquiries and correspondence about this position to post at: saudibidders&#64;state.gov.",
+              "date_updated": "2020-03-17T09:13:25.710000Z",
+            },
+            "grade": "03",
+            "languages": Array [
+              Object {
+                "language": "Chinese-Mandar",
+                "reading_proficiency": "1",
+                "representation": "Chinese-Mandar (CM) 1/1",
+                "spoken_proficiency": "1",
+              },
+              Object {
+                "language": "Arabic Egyptian",
+                "reading_proficiency": "1",
+                "representation": "Arabic Egyptian (AE) 1/1",
+                "spoken_proficiency": "1",
+              },
+            ],
+            "latest_bidcycle": Object {
+              "active": true,
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 12,
+              "name": "Summer 2020",
+            },
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "10059003",
+            "post": Object {
+              "danger_pay": 25,
+              "differential_rate": 15,
+              "location": Object {
+                "city": "Coral",
+                "code": "UP3000000",
+                "country": "Russian Federation",
+                "state": "",
+              },
+              "obc_id": null,
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "tour_of_duty": "1 YR (1 R & R)",
+            },
+            "skill": "ECON RESOURCES & COMMODITIES (5050)",
+            "title": "POLITICAL OFFICER",
+            "tour_of_duty": "1 YR (1 R & R)",
+          },
+          "tandem_nbr": 1,
+          "ted": "2012-10-22T05:00:00Z",
+        },
+        Object {
+          "bidcycle": Object {
+            "active": true,
+            "cycle_deadline_date": null,
+            "cycle_end_date": null,
+            "cycle_start_date": null,
+            "id": 12,
+            "name": "Summer 2020",
+          },
+          "id": 5294,
+          "isPV": true,
+          "position": Object {
+            "availability": Object {
+              "availability": true,
+              "reason": null,
+            },
+            "bid_cycle_statuses": Array [
+              Object {
+                "bidcycle": "Summer 2020",
+                "id": 5294,
+                "position": "INFORMATION PROGRAMS OFFICER",
+                "status": null,
+                "status_code": null,
+              },
+            ],
+            "bureau": "(BP) BUREAU OF BUDGET AND PLANNING",
+            "current_assignment": Object {
+              "estimated_end_date": "2012-02-02T05:00:00Z",
+              "user": null,
+            },
+            "description": Object {
+              "content": "The IPO is one of three Information Management Specialists &#40;IMS&#41; at Post. The incumbent is in charge of the Information Program Center &#40;IPC&#41; providing oversight, management, and security for all classified computer system, radio and telephone operations at Embassy Harare. The employee supervises one USDH, one Information Management Assistant and eight locally employed staff &#40;LES&#41;. The IPO reports to the Information Management Officer &#40;IMO&#41;. POC IPO John Miller via unclassified e-mail or telephone number 263-4-250-593 ext. 4900, IVG 778-0000 or IMO Mark Myelle.  Please submit lobbying documents to the AF 360 CLC- http://appcenter.state.sbu/CLC. ",
+              "date_updated": "2020-03-17T09:13:25.710000Z",
+            },
+            "grade": "08",
+            "languages": Array [
+              Object {
+                "language": "Hindi",
+                "reading_proficiency": "1",
+                "representation": "Hindi (HJ) 1/1",
+                "spoken_proficiency": "1",
+              },
+              Object {
+                "language": "Arabic Modern",
+                "reading_proficiency": "1",
+                "representation": "Arabic Modern (AD) 1/1",
+                "spoken_proficiency": "1",
+              },
+            ],
+            "latest_bidcycle": Object {
+              "active": true,
+              "cycle_deadline_date": null,
+              "cycle_end_date": null,
+              "cycle_start_date": null,
+              "id": 12,
+              "name": "Summer 2020",
+            },
+            "organization": "(A) ASSISTANT SECRETARY FOR ADMINISTRATION",
+            "position_number": "55007010",
+            "post": Object {
+              "danger_pay": 20,
+              "differential_rate": 10,
+              "location": Object {
+                "city": "Saranap",
+                "code": "RS8900000",
+                "country": "USA",
+                "state": "Maine",
+              },
+              "obc_id": null,
+              "post_bidding_considerations_url": null,
+              "post_overview_url": null,
+              "tour_of_duty": "1 YEAR(2R&R)/HL/1 YEAR(2R&R)",
+            },
+            "skill": "DIPLOMATIC COURIER (2580)",
+            "title": "INFORMATION PROGRAMS OFFICER",
+            "tour_of_duty": "1 YEAR(2R&R)/HL/1 YEAR(2R&R)",
+          },
+          "tandem_nbr": 2,
+          "ted": "2012-02-02T05:00:00Z",
+        },
+      ]
+    }
+    favoritesTandem={Array []}
     isLoading={false}
+    isTandem={false}
     limit={12}
     maxLength={300}
     page={1}

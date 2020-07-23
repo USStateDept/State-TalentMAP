@@ -33,7 +33,11 @@ export class SaveNewSearchDialog extends Component {
     if (e && e.preventDefault) { e.preventDefault(); }
     const { currentSearch } = this.props;
     const hasPV = get(currentSearch, 'projectedVacancy') === 'projected';
-    const endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/' : '/api/v1/cycleposition/';
+    const hasTandem = get(currentSearch, 'tandem') === 'tandem';
+    let endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/' : '/api/v1/cycleposition/';
+    if (hasTandem) {
+      endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/tandem/' : '/api/v1/fsbid/available_positions/tandem/';
+    }
     let filters = omit(currentSearch, ['projectedVacancy']);
 
     // any filters we want to omit for PV. currently none.

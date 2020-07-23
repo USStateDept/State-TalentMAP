@@ -1,11 +1,12 @@
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
+import Q from 'q';
 import { toastError } from './toast';
 import api from '../api';
 
-export function downloadPositionData(excludeAP = false, excludePV = false) {
-  const url = `/available_position/favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
+export function downloadPositionData(excludeAP = false, excludePV = false, isTandem = false) {
+  const url = `/available_position${isTandem ? '/tandem/' : '/'}favorites/export/?exclude_available=${excludeAP}&exclude_projected=${excludePV}`;
   return api().get(url, {
     responseType: 'stream',
   })
@@ -17,6 +18,8 @@ export function downloadPositionData(excludeAP = false, excludePV = false) {
       require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
     });
 }
+
+// TO DO: EXPORT TANDEM POSITIONS
 
 export function favoritePositionsHasErrored(bool) {
   return {
@@ -69,6 +72,15 @@ export function favoritePositionsFetchData(sortType, limit = 15,
       queryProms.push(fetchFavorites());
     }
 
+    if (openPV === 'openTandem' || openPV === 'all') {
+      const urlTandem = createUrl(`/available_position/tandem/favorites/?limit=${limit}&page=${page}`);
+      const fetchTandemFavorites = () =>
+        api().get(urlTandem)
+          .then(({ data }) => data)
+          .catch(error => error);
+      queryProms.push(fetchTandemFavorites());
+    }
+
     if (openPV === 'pv' || openPV === 'all') {
       const urlPV = createUrl(`/projected_vacancy/favorites/?limit=${limit}&page=${page}`);
       const fetchPVFavorites = () =>
@@ -78,7 +90,16 @@ export function favoritePositionsFetchData(sortType, limit = 15,
       queryProms.push(fetchPVFavorites());
     }
 
-    Promise.all(queryProms)
+    if (openPV === 'pvTandem' || openPV === 'all') {
+      const urlPVTandem = createUrl(`/projected_vacancy/tandem/favorites/?limit=${limit}&page=${page}`);
+      const fetchTandemPVFavorites = () =>
+        api().get(urlPVTandem)
+          .then(({ data }) => data)
+          .catch(error => error);
+      queryProms.push(fetchTandemPVFavorites());
+    }
+
+    Q.allSettled(queryProms)
       .then((results) => {
       // if any promise returned with errors, return the error
         let err;
@@ -94,26 +115,38 @@ export function favoritePositionsFetchData(sortType, limit = 15,
           });
         } else {
           if (openPV === 'open') {
-            data$.favorites = get(results, '[0].results', []);
-            data$.counts.favorites = get(results, '[0].count', 0);
+            data$.favorites = get(results, '[0].value.results', []);
+            data$.counts.favorites = get(results, '[0].value.count', 0);
+          } else if (openPV === 'openTandem') {
+            data$.favoritesTandem = get(results, '[0].value.results', 0);
+            data$.counts.favoritesTandem = get(results, '[0].value.count', 0);
           } else if (openPV === 'pv') {
-            data$.favoritesPV = get(results, '[0].results', []).map(m => ({ ...m, isPV: true }));
-            data$.counts.favoritesPV = get(results, '[0].count', 0);
+            data$.favoritesPV = get(results, '[0].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.counts.favoritesPV = get(results, '[0].value.count', 0);
+          } else if (openPV === 'pvTandem') {
+            data$.favoritesPVTandem = get(results, '[0].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.counts.favoritesPVTandem = get(results, '[0].value.count', 0);
           } else {
             data$ = {
               favorites: [],
               favoritesPV: [],
+              favoritesTandem: [],
+              favoritesPVTandem: [],
               counts: {},
             };
-            // object 0 is favorites if both calls made
-            data$.counts.favorites = get(results, '[0].count', 0);
-            data$.counts.favoritesPV = get(results, '[1].count', 0);
-            data$.favorites = get(results, '[0].results', []);
-            // object 1 is PV favorites if both calls made
-            data$.favoritesPV = get(results, '[1].results', []).map(m => ({ ...m, isPV: true }));
-            data$.results = get(results, '[0].results', []); // TODO: outdated? consider removing
+            // MUST TO DO: Check object index
+            data$.counts.favorites = get(results, '[0].value.count', 0);
+            data$.counts.favoritesTandem = get(results, '[1].value.count', 0);
+            data$.counts.favoritesPV = get(results, '[2].value.count', 0);
+            data$.counts.favoritesPVTandem = get(results, '[3].value.count', 0);
+            data$.favorites = get(results, '[0].value.results', []);
+            data$.favoritesTandem = get(results, '[1].value.results', []);
+            data$.favoritesPV = get(results, '[2].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.favoritesPVTandem = get(results, '[3].value.results', []).map(m => ({ ...m, isPV: true }));
+            data$.results = get(results, '[0].value.results', []); // TODO: outdated? consider removing
           }
-          data$.counts.all = data$.counts.favorites + data$.counts.favoritesPV;
+          data$.counts.all = data$.counts.favorites + data$.counts.favoritesTandem +
+            data$.counts.favoritesPV + data$.counts.favoritesPVTandem;
           batch(() => {
             dispatch(favoritePositionsFetchDataSuccess(data$));
             dispatch(favoritePositionsHasErrored(false));
