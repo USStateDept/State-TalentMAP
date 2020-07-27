@@ -4,6 +4,7 @@ import PositionDetailsItem from 'Components/PositionDetailsItem';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
 import OBCUrl from 'Components/OBCUrl';
+import PositionManagerBidders from '../PositionManagerBidders';
 
 class PositionManagerDetails extends Component {
   constructor(props) {
@@ -50,6 +51,9 @@ class PositionManagerDetails extends Component {
               hideHeader
               hideContact
             />
+            <div className="usa-grid-full">
+              <PositionManagerBidders />
+            </div>
           </div>
         </div>
       </div>
