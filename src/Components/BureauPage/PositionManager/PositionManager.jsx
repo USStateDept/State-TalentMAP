@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import Spinner from 'Components/Spinner';
+import SearchBar from 'Components/SearchBar/SearchBar';
 import BureauResultsCard from '../BureauResultsCard';
-import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
-import Spinner from '../../Spinner';
-import SearchBar from '../../SearchBar/SearchBar';
-import SelectForm from '../../SelectForm';
+import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
 const PositionManager = (props) => {
@@ -90,7 +90,9 @@ const PositionManager = (props) => {
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
 
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES.options;
+  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
+  const sortBy = BUREAU_POSITION_SORT;
+
   function submitSearch() {
   }
 
@@ -232,16 +234,22 @@ const PositionManager = (props) => {
         </div>
       </div>
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-        <SelectForm
-          id="position-manager-num-results"
-          options={pageSizes}
-          label="Results:"
-          defaultSort={':)'}
-        />
-        <div className="usa-grid-full position-list">
-          {[...Array(10).keys()].map((m) => (
-            <BureauResultsCard key={m} />
-          ))}
+        <div className="results-container">
+          <ResultsControls
+            results
+            hasLoaded
+            defaultSort
+            pageSizes={pageSizes}
+            defaultPageSize
+            sortBy={sortBy}
+            defaultPageNumber
+            queryParamUpdate
+          />
+          <div className="usa-grid-full position-list">
+            {[...Array(10).keys()].map((m) => (
+              <BureauResultsCard key={m} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
