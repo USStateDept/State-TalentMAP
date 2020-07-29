@@ -285,6 +285,20 @@
     font-size: .85em;
     margin-left: auto;
   }
+
+  .left-col {
+    display: flex;
+    float: left;
+  }
+
+  .right-col {
+    display: flex;
+    float: right;
+
+    .usa-button-secondary {
+      margin-right: 0;
+    }
+  }
 }
 
 .position-manager-bidders {

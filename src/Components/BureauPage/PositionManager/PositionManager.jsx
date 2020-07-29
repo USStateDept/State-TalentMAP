@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
+import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
 import SearchBar from '../../SearchBar/SearchBar';
 import SelectForm from '../../SelectForm';
 
 
-const PositionManager = () => {
+const PositionManager = props => {
   const [textValue, setTextValue] = useState('temp text');
 
   const tempGrade = [
@@ -103,6 +106,7 @@ const PositionManager = () => {
   }, [textValue]);
 
   useEffect(() => {
+    props.fetchBureauPositions();
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
 
@@ -239,4 +243,18 @@ const PositionManager = () => {
   );
 };
 
-export default PositionManager;
+PositionManager.propTypes = {
+  fetchBureauPositions: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  bureauPositions: state.bureauPositions,
+  bureauPositionsIsLoading: state.bureauPositionsIsLoading,
+  bureauPositionsHasErrored: state.bureauPositionsHasErrored,
+});
+
+export const mapDispatchToProps = dispatch => ({
+  fetchBureauPositions: () => dispatch(bureauPositionsFetchData()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);
