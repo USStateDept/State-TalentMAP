@@ -20,6 +20,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     defaultSort=""
     hasErrored={false}
     hasLoaded={true}
+    isBureau={false}
     isLoading={true}
     pageSizes={
       Object {

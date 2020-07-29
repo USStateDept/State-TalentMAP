@@ -234,14 +234,14 @@ const PositionManager = (props) => {
         </div>
       </div>
       <ResultsControls
-        results={[]}
+        results={{}}
         hasLoaded
-        defaultSort
+        defaultSort={''}
         pageSizes={pageSizes}
-        defaultPageSize
+        defaultPageSize={10}
         sortBy={sortBy}
-        defaultPageNumber
-        queryParamUpdate
+        defaultPageNumber={1}
+        queryParamUpdate={() => {}}
         isBureau
       />
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
