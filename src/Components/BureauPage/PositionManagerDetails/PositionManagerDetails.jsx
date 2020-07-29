@@ -34,7 +34,6 @@ class PositionManagerDetails extends Component {
     const isArchived = false;
     const OBCUrl$ = get(result, 'position.post.post_overview_url');
 
-
     return (
       <div className="usa-grid-full profile-content-container position-manager-details">
         <div className="usa-grid-full profile-content-inner-container">

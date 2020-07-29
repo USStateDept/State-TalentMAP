@@ -12,7 +12,7 @@ const addColorClass = (pills, isProjectedVacancy, isTandemSearch) => {
   forEach(pills, (value) => {
     // add colors for Tandem pills
     if (isTandemSearch) {
-      if (value.isTandem) {
+      if (value.isTandem && !value.isCommon) {
         // isTandem tells us tandem2
         pills$.push({ ...value, colorClass: 'pill--tandem2' });
       } else if (!value.isCommon) {

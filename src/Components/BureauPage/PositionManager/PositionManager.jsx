@@ -9,11 +9,13 @@ import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
+
 import SearchBar from '../../SearchBar/SearchBar';
 import SelectForm from '../../SelectForm';
 
 
 const PositionManager = props => {
+
   const [textValue, setTextValue] = useState('temp text');
 
   const tempGrade = [
