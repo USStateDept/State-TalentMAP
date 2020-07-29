@@ -233,23 +233,22 @@ const PositionManager = (props) => {
           </div>
         </div>
       </div>
+      <ResultsControls
+        results={[]}
+        hasLoaded
+        defaultSort
+        pageSizes={pageSizes}
+        defaultPageSize
+        sortBy={sortBy}
+        defaultPageNumber
+        queryParamUpdate
+        isBureau
+      />
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-        <div className="results-container">
-          <ResultsControls
-            results
-            hasLoaded
-            defaultSort
-            pageSizes={pageSizes}
-            defaultPageSize
-            sortBy={sortBy}
-            defaultPageNumber
-            queryParamUpdate
-          />
-          <div className="usa-grid-full position-list">
-            {[...Array(10).keys()].map((m) => (
-              <BureauResultsCard key={m} />
-            ))}
-          </div>
+        <div className="usa-grid-full position-list">
+          {[...Array(10).keys()].map((m) => (
+            <BureauResultsCard key={m} />
+          ))}
         </div>
       </div>
     </div>

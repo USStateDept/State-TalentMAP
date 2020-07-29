@@ -20,7 +20,7 @@ class ResultsControls extends Component {
 
   render() {
     const { results, hasLoaded, defaultSort, pageSizes,
-      defaultPageSize, defaultPageNumber, sortBy } = this.props;
+      defaultPageSize, defaultPageNumber, sortBy, isBureau } = this.props;
     const { isClient, isTandemSearch } = this.context;
     return (
       <div className="usa-grid-full results-controls">
@@ -40,7 +40,7 @@ class ResultsControls extends Component {
             matches => (matches &&
               (
                 <div className="usa-width-four-fifths drop-downs">
-                  <div className="dropdowns-container">
+                  <div className={!isBureau ? 'dropdowns-container' : 'dropdowns-container bureau-results-controls'}>
                     <div className="results-dropdown results-dropdown-sort">
                       <SelectForm
                         id="sort"
@@ -51,7 +51,7 @@ class ResultsControls extends Component {
                         className="select-blue select-offset select-small"
                       />
                     </div>
-                    <div className="results-dropdown results-dropdown-page-size">
+                    <div className={!isBureau ? 'results-dropdown results-dropdown-page-size' : 'results-dropdown results-dropdown-page-size bureau-page-size'}>
                       <PreferenceWrapper
                         onSelect={this.onSelectLimit}
                         keyRef={POSITION_PAGE_SIZES_TYPE}
@@ -70,13 +70,13 @@ class ResultsControls extends Component {
                       <SearchResultsExportLink count={results.count} />
                     </div>
                     {
-                      !isClient && !isTandemSearch &&
+                      !isClient && !isTandemSearch && !isBureau &&
                       <Trigger isPrimary>
                         <button className="usa-button">Save Search</button>
                       </Trigger>
                     }
                     {
-                      !isClient && isTandemSearch &&
+                      !isClient && isTandemSearch && !isBureau &&
                       <Trigger isPrimary>
                         <button className="usa-button">Save Tandem Search</button>
                       </Trigger>
@@ -107,6 +107,7 @@ ResultsControls.propTypes = {
   hasLoaded: PropTypes.bool,
   defaultPageNumber: PropTypes.number,
   queryParamUpdate: PropTypes.func.isRequired,
+  isBureau: PropTypes.bool,
 };
 
 ResultsControls.defaultProps = {
@@ -117,6 +118,7 @@ ResultsControls.defaultProps = {
   defaultPageSize: 10,
   defaultPageNumber: 0,
   hasLoaded: false,
+  isBureau: false,
 };
 
 export default ResultsControls;
