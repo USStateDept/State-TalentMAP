@@ -44,7 +44,7 @@ class BureauResultsCard extends Component {
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
 
-    const detailsLink = <Link to={`/${isProjectedVacancy ? 'vacancy' : 'details'}/${result.id}`}><h3>{title}</h3></Link>;
+    const detailsLink = <Link to={`/profile/bureau/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}><h3>{title}</h3></Link>;
 
     const sections = [
     /* eslint-disable quote-props */
