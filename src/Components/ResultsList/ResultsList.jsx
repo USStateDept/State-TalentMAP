@@ -22,6 +22,9 @@ export const getIsGroupEnd = (results, i) => {
     nextCity && currentCity !== nextCity) {
     isGroupEnd = true;
   }
+  if (!currentCommuterPost && !nextCommuterPost && currentCity !== nextCity) {
+    isGroupEnd = true;
+  }
   return isGroupEnd;
 };
 
