@@ -4,7 +4,7 @@ exports[`UserProfileComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full current-user"
 >
-  <UserProfileGeneralInformation
+  <Connect(UserProfileGeneralInformation)
     colorProp="firstName"
     isPublic={false}
     showEditLink={true}
