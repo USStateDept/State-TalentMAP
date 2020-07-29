@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
@@ -7,16 +6,12 @@ import Picky from 'react-picky';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
-import Spinner from '../../Spinner';
 import SearchBar from '../../SearchBar/SearchBar';
 import SelectForm from '../../SelectForm';
 
 
-const PositionManager = (props) => {
+const PositionManager = () => {
   const [textValue, setTextValue] = useState('temp text');
-  const {
-    placeholderText,
-  } = props;
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -122,10 +117,6 @@ const PositionManager = (props) => {
   return (
     <div className="bureau-page">
       <div className="usa-grid-full position-manager-upper-section">
-        {
-          !placeholderText &&
-          <Spinner type="homepage-position-results" size="big" />
-        }
         <div className="results-search-bar padded-main-content results-single-search homepage-offset">
           <div className="usa-grid-full results-search-bar-container">
             <ProfileSectionTitle title="Position Manager" icon="map" />
@@ -246,14 +237,6 @@ const PositionManager = (props) => {
       </div>
     </div>
   );
-};
-
-PositionManager.propTypes = {
-  placeholderText: PropTypes.string,
-};
-
-PositionManager.defaultProps = {
-  placeholderText: '',
 };
 
 export default PositionManager;
