@@ -15,8 +15,17 @@ import { registerHandshake } from 'actions/bidList';
 class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
-    this.props.fetchData(id);
-    this.props.fetchClassifications();
+    const isBureauView = this.isBureauView();
+    this.props.fetchData(id, !isBureauView);
+    if (!this.isBureauView()) {
+      this.props.fetchClassifications();
+    }
+  }
+
+  isBureauView = () => {
+    const viewType = get(this.props, 'match.params.viewType');
+    const isBureauView = viewType === 'bureau';
+    return isBureauView;
   }
 
   render() {
@@ -33,6 +42,17 @@ class ProfilePublic extends Component {
     const clientClassifications = userProfile.classifications;
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
+    const isBureauView = this.isBureauView();
+    let props = {};
+    if (isBureauView) {
+      props = {
+        ...props,
+        showBidTracker: false,
+        showAssignmentHistory: false,
+        showClassifications: false,
+        showSearchAsClient: false,
+      };
+    }
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />
@@ -45,6 +65,7 @@ class ProfilePublic extends Component {
           clientClassifications={clientClassifications}
           registerHandshake={registerHandshakePosition}
           isPublic
+          {...props}
         />
     );
   }
@@ -91,7 +112,7 @@ const mapStateToProps = (state, ownProps) => ({
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const id$ = get(ownProps, 'match.params.id');
   const config = {
-    fetchData: id => dispatch(userProfilePublicFetchData(id)),
+    fetchData: (id, includeBids) => dispatch(userProfilePublicFetchData(id, false, includeBids)),
     onNavigateTo: dest => dispatch(push(dest)),
     fetchClassifications: () => dispatch(fetchClassifications()),
     registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),

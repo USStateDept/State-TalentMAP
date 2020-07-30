@@ -43,7 +43,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/bidtracker/:bid?" component={BidTracker} />
           <Route path="/profile/statistics" component={BidStatistics} />
           <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
-          <Route path="/profile/public/:id" component={ProfilePublic} />
+          <Route path="/profile/public/:id/:viewType?" component={ProfilePublic} />
           <Route path="/profile/notifications" component={Notifications} />
           <Route path="/profile/administrator" component={Administrator} />
           <Route path="/profile/bureau" component={Bureau} />
