@@ -108,7 +108,7 @@
 }
 
 .position-manager-lower-section {
-  padding: 20px 35px;
+  padding: 0px 35px 20px 35px;
   .position-manager-lower-inner-section {
     margin-top: 20px;
   }
@@ -215,6 +215,18 @@
       }
     }
   }
+}
+
+.bureau-results-controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding: 0px 35px;
+}
+
+.bureau-page-size {
+  margin-left: 20px;
 }
 
 .position-manager-details {

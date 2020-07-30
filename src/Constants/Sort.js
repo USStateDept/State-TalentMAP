@@ -127,3 +127,18 @@ export const POSITION_MANAGER_PAGE_SIZES = {
     { value: 100, text: '100' },
   ],
 };
+
+export const BUREAU_POSITION_SORT = {
+  options: [
+    { value: '', text: 'Sort option', disabled: true },
+    { value: 'position__title', text: 'Position title: A-Z' },
+    { value: '-position__grade', text: 'Grade: Low to high' },
+    { value: '-position__bureau', text: 'Bureau: A-Z' },
+    { value: '-posted_date', text: 'Posted date: Most recent', availableOnly: true },
+    { value: 'posted_date', text: 'Posted date: Oldest', availableOnly: true },
+    { value: 'ted', text: 'TED: Soonest' },
+    { value: '-ted', text: 'TED: Latest' },
+    { value: 'position__position_number', text: 'Position number: Low to high' },
+    { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true },
+  ],
+};
