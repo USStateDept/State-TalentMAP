@@ -25,13 +25,13 @@ describe('MailToButtonComponent', () => {
     const wrapper = shallow(<MailToButton
       textBefore={'test text'}
     />);
-    expect(wrapper.find('a').text()).toBe('test text <FontAwesome /> ');
+    expect(wrapper.find('a').text()).toContain('test text');
   });
 
   it('text renders after icon', () => {
     const wrapper = shallow(<MailToButton
       {...props}
     />);
-    expect(wrapper.find('a').text()).toBe(' <FontAwesome /> test text');
+    expect(wrapper.find('a').text()).toContain('test text');
   });
 });
