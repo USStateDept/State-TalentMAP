@@ -298,3 +298,39 @@
     margin-left: auto;
   }
 }
+
+.position-manager-bidders {
+  table {
+    margin: auto;
+    thead {
+      tr {
+        th {
+          text-align: center;
+          border: none;
+          background-color: $color-white;
+        }
+        h1 {
+          font-family: 'Roboto';
+          font-size: 1.9rem;
+          margin-top: 50px;
+        }
+      }
+    }
+    tbody {
+      border: 1px solid black;
+      td {
+        text-align: center;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        padding: 20px 30px;
+        font-size: 1.6rem;
+      }
+      @media screen and (max-width: 1700px) {
+        td {
+          padding: 10px 15px;
+        }
+      }
+    }
+  }
+}
