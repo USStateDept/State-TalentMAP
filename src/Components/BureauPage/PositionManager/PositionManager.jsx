@@ -242,7 +242,9 @@ const PositionManager = (props) => {
         sortBy={sortBy}
         defaultPageNumber={1}
         queryParamUpdate={() => {}}
-        isBureau
+        containerClass="bureau-results-controls"
+        pageSizeClass="bureau-page-size"
+        hideSaveSearch
       />
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
         <div className="usa-grid-full position-list">

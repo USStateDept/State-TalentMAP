@@ -19,8 +19,8 @@ class ResultsControls extends Component {
   };
 
   render() {
-    const { results, hasLoaded, defaultSort, pageSizes,
-      defaultPageSize, defaultPageNumber, sortBy, isBureau } = this.props;
+    const { results, hasLoaded, defaultSort, pageSizes, defaultPageSize,
+      defaultPageNumber, sortBy, containerClass, pageSizeClass, hideSaveSearch } = this.props;
     const { isClient, isTandemSearch } = this.context;
     return (
       <div className="usa-grid-full results-controls">
@@ -40,7 +40,7 @@ class ResultsControls extends Component {
             matches => (matches &&
               (
                 <div className="usa-width-four-fifths drop-downs">
-                  <div className={!isBureau ? 'dropdowns-container' : 'dropdowns-container bureau-results-controls'}>
+                  <div className={`dropdowns-container ${containerClass}`}>
                     <div className="results-dropdown results-dropdown-sort">
                       <SelectForm
                         id="sort"
@@ -51,7 +51,7 @@ class ResultsControls extends Component {
                         className="select-blue select-offset select-small"
                       />
                     </div>
-                    <div className={!isBureau ? 'results-dropdown results-dropdown-page-size' : 'results-dropdown results-dropdown-page-size bureau-page-size'}>
+                    <div className={`results-dropdown results-dropdown-page-size ${pageSizeClass}`}>
                       <PreferenceWrapper
                         onSelect={this.onSelectLimit}
                         keyRef={POSITION_PAGE_SIZES_TYPE}
@@ -70,15 +70,9 @@ class ResultsControls extends Component {
                       <SearchResultsExportLink count={results.count} />
                     </div>
                     {
-                      !isClient && !isTandemSearch && !isBureau &&
+                      !isClient && !hideSaveSearch &&
                       <Trigger isPrimary>
-                        <button className="usa-button">Save Search</button>
-                      </Trigger>
-                    }
-                    {
-                      !isClient && isTandemSearch && !isBureau &&
-                      <Trigger isPrimary>
-                        <button className="usa-button">Save Tandem Search</button>
+                        <button className="usa-button">{`Save ${isTandemSearch ? 'Tandem ' : ''}Search`}</button>
                       </Trigger>
                     }
                   </div>
@@ -107,7 +101,9 @@ ResultsControls.propTypes = {
   hasLoaded: PropTypes.bool,
   defaultPageNumber: PropTypes.number,
   queryParamUpdate: PropTypes.func.isRequired,
-  isBureau: PropTypes.bool,
+  containerClass: PropTypes.string,
+  pageSizeClass: PropTypes.string,
+  hideSaveSearch: PropTypes.bool,
 };
 
 ResultsControls.defaultProps = {
@@ -118,7 +114,9 @@ ResultsControls.defaultProps = {
   defaultPageSize: 10,
   defaultPageNumber: 0,
   hasLoaded: false,
-  isBureau: false,
+  containerClass: '',
+  pageSizeClass: '',
+  hideSaveSearch: false,
 };
 
 export default ResultsControls;
