@@ -5,20 +5,15 @@ import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import SearchBar from 'Components/SearchBar/SearchBar';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
-
-import SearchBar from '../../SearchBar/SearchBar';
 import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
 const PositionManager = props => {
-
   const [textValue, setTextValue] = useState('temp text');
 
   const tempGrade = [
