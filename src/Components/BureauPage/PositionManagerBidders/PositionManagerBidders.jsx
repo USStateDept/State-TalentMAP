@@ -134,7 +134,7 @@ class PositionManagerBidders extends Component {
     const language = (<LanguageList languages={languages} propToUse="representation" />);
     const cdo = (<MailToButton email={get(bidder, 'cdo.email')} textAfter={get(bidder, 'cdo.name')} />);
     const sections = {
-      RetainedSpace: '',
+      // RetainedSpace: '',
       Name: name,
       Skill: skills,
       Grade: get(bidder, 'grade', NO_GRADE),
@@ -154,10 +154,10 @@ class PositionManagerBidders extends Component {
     );
     return (
       <div className="usa-width-one-whole position-manager-bidders">
-        <table>
+        <table className="position-manager-bidders-table">
           <thead>
             <tr>
-              <div className="table-title">Candidates</div>
+              <h1>Candidates</h1>
             </tr>
             <tr>
               {tableHeaders}

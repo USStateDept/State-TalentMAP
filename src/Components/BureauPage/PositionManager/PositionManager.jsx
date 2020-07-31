@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import SearchBar from 'Components/SearchBar/SearchBar';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
 
 import SearchBar from '../../SearchBar/SearchBar';
-import SelectForm from '../../SelectForm';
+import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
 const PositionManager = props => {
@@ -90,7 +93,9 @@ const PositionManager = props => {
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
 
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES.options;
+  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
+  const sortBy = BUREAU_POSITION_SORT;
+
   function submitSearch() {
   }
 
@@ -228,13 +233,20 @@ const PositionManager = props => {
           </div>
         </div>
       </div>
+      <ResultsControls
+        results={{}}
+        hasLoaded
+        defaultSort={''}
+        pageSizes={pageSizes}
+        defaultPageSize={10}
+        sortBy={sortBy}
+        defaultPageNumber={1}
+        queryParamUpdate={() => {}}
+        containerClass="bureau-results-controls"
+        pageSizeClass="bureau-page-size"
+        hideSaveSearch
+      />
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-        <SelectForm
-          id="position-manager-num-results"
-          options={pageSizes}
-          label="Results:"
-          defaultSort={':)'}
-        />
         <div className="usa-grid-full position-list">
           {[...Array(10).keys()].map((m) => (
             <BureauResultsCard key={m} />
