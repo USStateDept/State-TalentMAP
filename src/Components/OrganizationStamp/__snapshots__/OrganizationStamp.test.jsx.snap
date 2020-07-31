@@ -62,6 +62,8 @@ exports[`OrganizationStampComponent matches snapshot when showMail is true 1`] =
         </span>
         <MailToButton
           email=""
+          textAfter=""
+          textBefore=""
         />
       </div>
     </div>
