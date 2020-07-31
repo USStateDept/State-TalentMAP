@@ -31,10 +31,8 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
       <div
         className="general-information-container"
       >
-        <UserProfileGeneralInformation
-          colorProp="displayName"
+        <Connect(UserProfileGeneralInformation)
           showEditLink={false}
-          useColor={false}
           useGroup={true}
           userProfile={
             Object {
