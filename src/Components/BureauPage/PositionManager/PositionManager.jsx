@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import SearchBar from 'Components/SearchBar/SearchBar';
 import BureauResultsCard from '../BureauResultsCard';
-import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
-import Spinner from '../../Spinner';
-import SearchBar from '../../SearchBar/SearchBar';
-import SelectForm from '../../SelectForm';
+import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
-const PositionManager = (props) => {
+const PositionManager = () => {
   const [textValue, setTextValue] = useState('temp text');
-  const {
-    placeholderText,
-  } = props;
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -90,7 +85,9 @@ const PositionManager = (props) => {
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
 
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES.options;
+  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
+  const sortBy = BUREAU_POSITION_SORT;
+
   function submitSearch() {
   }
 
@@ -122,10 +119,6 @@ const PositionManager = (props) => {
   return (
     <div className="bureau-page">
       <div className="usa-grid-full position-manager-upper-section">
-        {
-          !placeholderText &&
-          <Spinner type="homepage-position-results" size="big" />
-        }
         <div className="results-search-bar padded-main-content results-single-search homepage-offset">
           <div className="usa-grid-full results-search-bar-container">
             <ProfileSectionTitle title="Position Manager" icon="map" />
@@ -231,13 +224,20 @@ const PositionManager = (props) => {
           </div>
         </div>
       </div>
+      <ResultsControls
+        results={{}}
+        hasLoaded
+        defaultSort={''}
+        pageSizes={pageSizes}
+        defaultPageSize={10}
+        sortBy={sortBy}
+        defaultPageNumber={1}
+        queryParamUpdate={() => {}}
+        containerClass="bureau-results-controls"
+        pageSizeClass="bureau-page-size"
+        hideSaveSearch
+      />
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-        <SelectForm
-          id="position-manager-num-results"
-          options={pageSizes}
-          label="Results:"
-          defaultSort={':)'}
-        />
         <div className="usa-grid-full position-list">
           {[...Array(10).keys()].map((m) => (
             <BureauResultsCard key={m} />
@@ -246,14 +246,6 @@ const PositionManager = (props) => {
       </div>
     </div>
   );
-};
-
-PositionManager.propTypes = {
-  placeholderText: PropTypes.string,
-};
-
-PositionManager.defaultProps = {
-  placeholderText: '',
 };
 
 export default PositionManager;
