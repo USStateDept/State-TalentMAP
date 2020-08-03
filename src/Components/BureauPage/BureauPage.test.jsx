@@ -19,7 +19,7 @@ describe('BureauPage', () => {
   });
 
   it('is defined', () => {
-    const wrapper = shallow(<BureauPage.WrappedComponent />);
+    const wrapper = shallow(<BureauPage />);
     expect(wrapper).toBeDefined();
   });
 });
