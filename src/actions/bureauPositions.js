@@ -5,7 +5,9 @@ import api from '../api';
 
 // eslint-disable-next-line import/prefer-default-export
 export function downloadBidderData() {
-  // exporting the 'bureau positions'. Just setting up the framework
+// export function downloadBidderData(id) {
+  // const url = createUrl(`/fsbid/bureau/positions/${id}/bidders/export/`);
+  // exporting the 'bureau positions'. Just setting up the framework, for now.
   const url = '/fsbid/bureau/positions/export/';
   return api().get(url, {
     responseType: 'stream',
@@ -41,20 +43,33 @@ export function bureauPositions(results) {
 }
 
 
-export function bureauPositionsFetchData() {
+export function bureauPositionsFetchData(sortType, limit = 25, page = 1) {
   return (dispatch) => {
-    dispatch(bureauPositionsIsLoading(true));
-    const url = '/fsbid/bureau/positions/';
+    batch(() => {
+      dispatch(bureauPositionsIsLoading(true));
+      dispatch(bureauPositionsHasErrored(false));
+    });
+
+    const createUrl = (url) => {
+      let url$ = url;
+      if (sortType) {
+        const append = `&ordering=${sortType}`;
+        url$ += append;
+      }
+      return url$;
+    };
+
+    const url = createUrl(`/fsbid/bureau/positions/?limit=${limit}&page=${page}`);
     api().get(url)
       .then(({ data }) => {
-        dispatch(bureauPositionsIsLoading(false));
         dispatch(bureauPositionsHasErrored(false));
         dispatch(bureauPositions(data));
+        dispatch(bureauPositionsIsLoading(false));
       })
       .catch(() => {
         batch(() => {
-          dispatch(bureauPositionsIsLoading(false));
           dispatch(bureauPositionsHasErrored(true));
+          dispatch(bureauPositionsIsLoading(false));
         });
       });
   };

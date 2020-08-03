@@ -15,6 +15,11 @@ import ResultsControls from '../../ResultsControls/ResultsControls';
 
 const PositionManager = props => {
   const [textValue, setTextValue] = useState('temp text');
+  // eslint-disable-next-line no-unused-vars
+  const [page, setPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
+  const [sortType, setSortType] = useState();
+  const limit = 15;
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -108,7 +113,7 @@ const PositionManager = props => {
   }, [textValue]);
 
   useEffect(() => {
-    props.fetchBureauPositions();
+    props.fetchBureauPositions(sortType, limit, page);
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
 
@@ -263,7 +268,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: () => dispatch(bureauPositionsFetchData()),
+  fetchBureauPositions: (sortType, limit, page) =>
+    dispatch(bureauPositionsFetchData(sortType, limit, page)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);
