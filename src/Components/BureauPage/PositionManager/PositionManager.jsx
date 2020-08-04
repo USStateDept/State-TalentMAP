@@ -18,7 +18,7 @@ const PositionManager = props => {
   // eslint-disable-next-line no-unused-vars
   const [sortType, setSortType] = useState();
   const limit = 15;
-  const [q, setQ] = useState('');
+  const [q, setQ] = useState({ value: '' });
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -98,20 +98,25 @@ const PositionManager = props => {
   function submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
     if (e && e.preventDefault) { e.preventDefault(); }
-    props.fetchBureauPositions(sortType, limit, page, q);
+    // eslint-disable-next-line no-console
+    console.log('current: q:', q);
+    props.fetchBureauPositions(sortType, limit, page, q.value);
+  }
+
+  function changeText(type, e) {
+    setQ({ value: e.target.value });
   }
 
   function onChangeQueryText(e) {
-    setQ(e.target.value);
+    changeText('q', e);
   }
-
   useEffect(() => {
-    props.fetchBureauPositions(sortType, limit, page, q);
+    props.fetchBureauPositions(sortType, limit, page, q.value);
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
 
   function onClear() {
-    setQ('');
+    setQ({ q: { value: '' } });
     props.fetchBureauPositions(sortType, limit, page, '');
   }
 
