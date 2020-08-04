@@ -98,8 +98,6 @@ const PositionManager = props => {
   function submitSearch(e) {
     // resolves “Form submission canceled because the form is not connected” warning
     if (e && e.preventDefault) { e.preventDefault(); }
-    // eslint-disable-next-line no-console
-    console.log('current: q:', q);
     props.fetchBureauPositions(sortType, limit, page, q.value);
   }
 
@@ -116,7 +114,7 @@ const PositionManager = props => {
   }, [selectedGrades]);
 
   function onClear() {
-    setQ({ q: { value: '' } });
+    setQ({ value: '' });
     props.fetchBureauPositions(sortType, limit, page, '');
   }
 
