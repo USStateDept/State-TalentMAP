@@ -36,12 +36,18 @@ exports[`SettingsComponent matches snapshot 1`] = `
           }
         }
       >
-        {"token":null,"jwt":null}
+        {
+  "token": null,
+  "jwt": null
+}
       </span>
     </pre>
     <CopyToClipboard
       onCopy={[Function]}
-      text="{\\"token\\":null,\\"jwt\\":null}"
+      text="{
+  \\"token\\": null,
+  \\"jwt\\": null
+}"
     >
       <button>
         Copy to clipboard
