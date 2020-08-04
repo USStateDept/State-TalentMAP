@@ -142,3 +142,20 @@ export const BUREAU_POSITION_SORT = {
     { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true },
   ],
 };
+
+export const BUREAU_BIDDER_SORT = {
+  options: [
+    { value: '', text: 'Sort option', disabled: true },
+    { value: '-bidder__grade', text: "Bidder's Grade" },
+    { value: '-bidder__handshake', text: "Bidder's Skill" },
+    { value: 'handshake', text: 'Handshake' },
+  ],
+};
+
+export const BUREAU_BIDDER_FILTERS = {
+  options: [
+    { value: '', text: 'All' },
+    { value: 'true', text: 'Handshake' },
+    { value: 'false', text: 'No Handshake' },
+  ],
+};
