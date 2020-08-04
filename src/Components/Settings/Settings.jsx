@@ -18,7 +18,7 @@ class RadioList extends Component {
     const json = {
       token, jwt,
     };
-    return JSON.stringify(json);
+    return JSON.stringify(json, undefined, 2);
   }
 
   render() {
