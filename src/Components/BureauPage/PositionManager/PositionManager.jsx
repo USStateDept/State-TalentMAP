@@ -3,7 +3,6 @@ import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
-import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import SearchBar from 'Components/SearchBar/SearchBar';
@@ -14,12 +13,12 @@ import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
 const PositionManager = props => {
-  const [textValue, setTextValue] = useState('temp text');
   // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1);
   // eslint-disable-next-line no-unused-vars
   const [sortType, setSortType] = useState();
   const limit = 15;
+  const [q, setQ] = useState('');
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -96,28 +95,24 @@ const PositionManager = props => {
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
   const sortBy = BUREAU_POSITION_SORT;
 
-  function submitSearch() {
+  function submitSearch(e) {
+    // resolves “Form submission canceled because the form is not connected” warning
+    if (e && e.preventDefault) { e.preventDefault(); }
+    props.fetchBureauPositions(sortType, limit, page, q);
   }
 
-  function onChangeQueryText(newText) {
-    setTextValue(newText);
+  function onChangeQueryText(e) {
+    setQ(e.target.value);
   }
 
-  const prevtextValue = usePrevious(textValue);
-
   useEffect(() => {
-    const shouldUpdate = (textValue || prevtextValue) && textValue !== prevtextValue;
-    if (shouldUpdate) {
-      // props.changeText(textValue);
-    }
-  }, [textValue]);
-
-  useEffect(() => {
-    props.fetchBureauPositions(sortType, limit, page);
+    props.fetchBureauPositions(sortType, limit, page, q);
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
 
   function onClear() {
+    setQ('');
+    props.fetchBureauPositions(sortType, limit, page, '');
   }
 
   function renderList({ items, selected, ...rest }) {
@@ -136,22 +131,23 @@ const PositionManager = props => {
                 <div className="usa-width-one-whole search-results-inputs search-keyword">
                   <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
                   <SearchBar
-                    id="search-keyword-field"
+                    id="bureau-search-keyword-field"
+                    defaultValue=""
                     label="Keywords"
-                    type="medium"
-                    submitText="Search"
                     labelSrOnly
-                    noForm
                     noButton
-                    placeholder="Type keywords here"
+                    noForm
                     onChangeText={onChangeQueryText}
-                    showClear
                     onClear={onClear}
+                    placeholder="Type keywords here"
+                    showClear
+                    submitText="Search"
+                    type="medium"
                   />
                 </div>
               </fieldset>
               <div className="usa-width-one-sixth search-submit-button">
-                <button className="usa-button" type="submit" disabled>
+                <button className="usa-button" type="submit">
                   <FontAwesome name="search" className="label-icon" />
                 Search
                 </button>
@@ -268,8 +264,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (sortType, limit, page) =>
-    dispatch(bureauPositionsFetchData(sortType, limit, page)),
+  fetchBureauPositions: (sortType, limit, page, q) =>
+    dispatch(bureauPositionsFetchData(sortType, limit, page, q)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);
