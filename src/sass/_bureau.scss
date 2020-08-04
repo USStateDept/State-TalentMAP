@@ -108,7 +108,7 @@
 }
 
 .position-manager-lower-section {
-  padding: 20px 35px;
+  padding: 0px 35px 20px 35px;
   .position-manager-lower-inner-section {
     margin-top: 20px;
   }
@@ -212,6 +212,124 @@
         color: $primary-gray-dark;
         font-size: .85em;
         margin-bottom: .5em;
+      }
+    }
+  }
+}
+
+.bureau-results-controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding: 0px 35px;
+}
+
+.bureau-page-size {
+  margin-left: 20px;
+}
+
+.position-manager-details {
+  background-color: initial;
+
+  h1 {
+    font-family: 'Roboto';
+    font-size: 1.9rem;
+    margin: 0;
+  }
+
+  .post-title {
+    font-size: 1.05em;
+  }
+
+  .header-title-container {
+    margin-bottom: 1em;
+  }
+
+  .position-manager-details--content {
+    background-color: $color-white;
+    border: 2px solid $bg-gray-dark-2;
+  }
+
+  .data-point-section {
+    .condensed-card-data-title {
+      font-weight: bold;
+      min-width: 225px;
+    }
+
+    .condensed-card-data-point {
+      margin-bottom: 2px;
+    }
+  }
+
+  .about-section-left {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-right: 0;
+
+    .position-details-header-body {
+      display: flex;
+      flex: 10;
+      flex-direction: column;
+      margin-right: 2em;
+      min-width: 300px;
+    }
+
+    .data-point-section {
+      flex: 9;
+      min-width: 500px;
+    }
+  }
+
+  .bid-count-label {
+    margin-right: 0;
+    min-width: 225px;
+  }
+
+  .bid-count-list {
+    float: left;
+    margin-bottom: 5px;
+  }
+
+  .capsule-updated-date {
+    color: $primary-gray-dark;
+    font-size: .85em;
+    margin-left: auto;
+  }
+}
+
+.position-manager-bidders {
+  table {
+    margin: auto;
+    thead {
+      tr {
+        th {
+          text-align: center;
+          border: none;
+          background-color: $color-white;
+        }
+        h1 {
+          font-family: 'Roboto';
+          font-size: 1.9rem;
+          margin-top: 50px;
+        }
+      }
+    }
+    tbody {
+      border: 1px solid black;
+      td {
+        text-align: center;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        padding: 20px 30px;
+        font-size: 1.6rem;
+      }
+      @media screen and (max-width: 1700px) {
+        td {
+          padding: 10px 15px;
+        }
       }
     }
   }

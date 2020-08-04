@@ -98,6 +98,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
         }
         editDescriptionContent={[Function]}
         resetDescriptionEditMessages={[Function]}
+        updatedDate={null}
       />
       <div
         className="usa-grid-full data-point-section"
@@ -457,6 +458,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
         }
         editDescriptionContent={[Function]}
         resetDescriptionEditMessages={[Function]}
+        updatedDate={null}
       />
       <div
         className="usa-grid-full data-point-section"
@@ -818,6 +820,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
         }
         editDescriptionContent={[Function]}
         resetDescriptionEditMessages={[Function]}
+        updatedDate={null}
       />
       <div
         className="usa-grid-full data-point-section"
