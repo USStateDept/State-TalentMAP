@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import FontAwesome from 'react-fontawesome';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
 import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import SearchBar from 'Components/SearchBar/SearchBar';
 import BureauResultsCard from '../BureauResultsCard';
+import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
 import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
-const PositionManager = () => {
+const PositionManager = props => {
   const [textValue, setTextValue] = useState('temp text');
+  // eslint-disable-next-line no-unused-vars
+  const [page, setPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
+  const [sortType, setSortType] = useState();
+  const limit = 15;
 
   const tempGrade = [
     { value: 'OM', text: 'Office Manager (OM)' },
@@ -105,6 +113,7 @@ const PositionManager = () => {
   }, [textValue]);
 
   useEffect(() => {
+    props.fetchBureauPositions(sortType, limit, page);
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
 
@@ -248,4 +257,19 @@ const PositionManager = () => {
   );
 };
 
-export default PositionManager;
+PositionManager.propTypes = {
+  fetchBureauPositions: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  bureauPositions: state.bureauPositions,
+  bureauPositionsIsLoading: state.bureauPositionsIsLoading,
+  bureauPositionsHasErrored: state.bureauPositionsHasErrored,
+});
+
+export const mapDispatchToProps = dispatch => ({
+  fetchBureauPositions: (sortType, limit, page) =>
+    dispatch(bureauPositionsFetchData(sortType, limit, page)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);

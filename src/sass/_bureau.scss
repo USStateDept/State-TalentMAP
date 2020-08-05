@@ -297,6 +297,73 @@
     font-size: .85em;
     margin-left: auto;
   }
+
+  .left-col {
+    display: flex;
+    float: left;
+  }
+
+  .right-col {
+    display: flex;
+    float: right;
+
+    .usa-button-secondary {
+      margin-right: 0;
+    }
+  }
+}
+
+.position-manager-bidders {
+  margin-top: 50px;
+  table {
+    margin: auto;
+    thead {
+      tr {
+        th {
+          text-align: center;
+          border: none;
+          background-color: $color-white;
+        }
+        .table-title {
+          font-size: 30px;
+          font-weight: bold;
+        }
+        @media screen and (max-width: 1600px) {
+          .table-title {
+            font-size: 25px;
+          }
+        }
+        @media screen and (max-width: 1400px) {
+          .table-title {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    tbody {
+      border: 1px solid black;
+      td {
+        text-align: center;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        padding: 20px 30px;
+        font-size: 20px;
+      }
+      @media screen and (max-width: 1700px) {
+        td {
+          padding: 10px 15px;
+          font-size: 15px;
+        }
+      }
+      @media screen and (max-width: 1400px) {
+        td {
+          padding: 5px 7px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
 }
 
 .position-manager-bidders {
