@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
-import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import SearchBar from 'Components/SearchBar/SearchBar';
+import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
@@ -14,7 +12,6 @@ import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
 const PositionManager = props => {
-  const [textValue, setTextValue] = useState('temp text');
   // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1);
   // eslint-disable-next-line no-unused-vars
@@ -96,29 +93,14 @@ const PositionManager = props => {
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
   const sortBy = BUREAU_POSITION_SORT;
 
-  function submitSearch() {
+  function submitSearch(q) {
+    props.fetchBureauPositions(sortType, limit, page, q);
   }
-
-  function onChangeQueryText(newText) {
-    setTextValue(newText);
-  }
-
-  const prevtextValue = usePrevious(textValue);
-
-  useEffect(() => {
-    const shouldUpdate = (textValue || prevtextValue) && textValue !== prevtextValue;
-    if (shouldUpdate) {
-      // props.changeText(textValue);
-    }
-  }, [textValue]);
 
   useEffect(() => {
     props.fetchBureauPositions(sortType, limit, page);
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
-
-  function onClear() {
-  }
 
   function renderList({ items, selected, ...rest }) {
     const getIsSelected = item => !!selected.find(f => f.value === item.value);
@@ -131,32 +113,7 @@ const PositionManager = props => {
         <div className="results-search-bar padded-main-content results-single-search homepage-offset">
           <div className="usa-grid-full results-search-bar-container">
             <ProfileSectionTitle title="Position Manager" icon="map" />
-            <form className="usa-grid-full" onSubmit={submitSearch} >
-              <fieldset className="usa-width-five-sixths">
-                <div className="usa-width-one-whole search-results-inputs search-keyword">
-                  <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
-                  <SearchBar
-                    id="search-keyword-field"
-                    label="Keywords"
-                    type="medium"
-                    submitText="Search"
-                    labelSrOnly
-                    noForm
-                    noButton
-                    placeholder="Type keywords here"
-                    onChangeText={onChangeQueryText}
-                    showClear
-                    onClear={onClear}
-                  />
-                </div>
-              </fieldset>
-              <div className="usa-width-one-sixth search-submit-button">
-                <button className="usa-button" type="submit" disabled>
-                  <FontAwesome name="search" className="label-icon" />
-                Search
-                </button>
-              </div>
-            </form>
+            <PositionManagerSearch submitSearch={submitSearch} />
             <div className="filterby-label">Filter by:</div>
             <div className="usa-width-one-whole position-manager-filters results-dropdown">
               <div className="small-screen-stack position-manager-filters-inner">
@@ -268,8 +225,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (sortType, limit, page) =>
-    dispatch(bureauPositionsFetchData(sortType, limit, page)),
+  fetchBureauPositions: (sortType, limit, page, q) =>
+    dispatch(bureauPositionsFetchData(sortType, limit, page, q)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);
