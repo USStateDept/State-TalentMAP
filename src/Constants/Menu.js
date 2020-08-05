@@ -78,6 +78,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       {
         text: 'Bid Cycles',
         route: '/profile/cycles/',
+        icon: 'hourglass-start',
         roles: [
           'bidcycle_admin',
         ],
@@ -94,6 +95,11 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             type: 'all',
           },
         } : null,
+      {
+        text: 'Settings',
+        route: '/profile/settings/',
+        icon: 'cogs',
+      },
     ],
   },
   checkFlag('flags.bid_stats') ?

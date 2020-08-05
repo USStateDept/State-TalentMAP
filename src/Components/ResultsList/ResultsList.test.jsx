@@ -37,9 +37,9 @@ describe('getIsGroupEnd', () => {
   ];
 
   const commuterPostResults = [
-    { position: { commuterPost: { description: 'EU Belfast/Dublin' } } },
-    { position: { commuterPost: { description: 'EU Belfast/Dublin' } } },
-    { position: { commuterPost: { description: 'EU Rome/Vatican City' } } },
+    { position: { commuterPost: { description: 'EU Belfast/Dublin' }, post: { location: { city: 'Belfast' } } } },
+    { position: { commuterPost: { description: 'EU Belfast/Dublin' }, post: { location: { city: 'Dublin' } } } },
+    { position: { commuterPost: { description: 'EU Rome/Vatican City' }, post: { location: { city: 'Rome' } } } },
   ];
 
   // using results
@@ -50,11 +50,6 @@ describe('getIsGroupEnd', () => {
 
   it('returns false when post location of next result matches current result', () => {
     const isGroupEnd = getIsGroupEnd(results, 0);
-    expect(isGroupEnd).toBe(false);
-  });
-
-  it('returns false when post location of next result is undefined', () => {
-    const isGroupEnd = getIsGroupEnd(results, 2);
     expect(isGroupEnd).toBe(false);
   });
 
