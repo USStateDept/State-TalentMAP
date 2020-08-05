@@ -9,7 +9,7 @@ describe('PositionManagerSearch', () => {
   };
 
   it('is defined', () => {
-    const wrapper = shallow(<PositionManagerSearch.WrappedComponent {...props} />);
+    const wrapper = shallow(<PositionManagerSearch {...props} />);
     expect(wrapper).toBeDefined();
   });
 });
