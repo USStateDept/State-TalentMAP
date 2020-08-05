@@ -98,6 +98,7 @@ const PositionManager = props => {
   }
 
   useEffect(() => {
+    props.fetchBureauPositions(sortType, limit, page);
     // if we want to do anything with our selected values once they update
   }, [selectedGrades]);
 

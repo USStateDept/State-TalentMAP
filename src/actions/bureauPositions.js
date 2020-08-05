@@ -60,6 +60,7 @@ export function bureauPositionsFetchData(sortType, limit = 25, page = 1, q = '')
     };
 
     const url = createUrl(`/fsbid/bureau/positions/?limit=${limit}&page=${page}&q=${q}`);
+
     api().get(url)
       .then(({ data }) => {
         dispatch(bureauPositionsHasErrored(false));
