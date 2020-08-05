@@ -43,7 +43,7 @@ export function bureauPositions(results) {
 }
 
 
-export function bureauPositionsFetchData(sortType, limit = 25, page = 1) {
+export function bureauPositionsFetchData(sortType, limit = 25, page = 1, q = '') {
   return (dispatch) => {
     batch(() => {
       dispatch(bureauPositionsIsLoading(true));
@@ -59,7 +59,8 @@ export function bureauPositionsFetchData(sortType, limit = 25, page = 1) {
       return url$;
     };
 
-    const url = createUrl(`/fsbid/bureau/positions/?limit=${limit}&page=${page}`);
+    const url = createUrl(`/fsbid/bureau/positions/?limit=${limit}&page=${page}&q=${q}`);
+
     api().get(url)
       .then(({ data }) => {
         dispatch(bureauPositionsHasErrored(false));

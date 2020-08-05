@@ -316,7 +316,8 @@
 .position-manager-bidders {
   margin-top: 50px;
   table {
-    margin: auto;
+    margin: 0;
+    width: 100%;
     thead {
       tr {
         th {
@@ -399,5 +400,14 @@
         }
       }
     }
+  }
+}
+
+.bidders-controls {
+  display: flex;
+  justify-content: flex-end;
+
+  div:first-child {
+    margin-right: 5px;
   }
 }
