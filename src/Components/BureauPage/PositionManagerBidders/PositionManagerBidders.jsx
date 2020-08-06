@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { get, keys } from 'lodash';
 import { NO_DATE, NO_GRADE } from 'Constants/SystemMessages';
+import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
 import LanguageList from 'Components/LanguageList';
+import SelectForm from 'Components/SelectForm';
 import { propOrDefault } from 'utilities';
 import SkillCodeList from '../../SkillCodeList';
 import MailToButton from '../../MailToButton';
@@ -154,6 +156,22 @@ class PositionManagerBidders extends Component {
     );
     return (
       <div className="usa-width-one-whole position-manager-bidders">
+        <div className="bidders-controls">
+          <SelectForm
+            id="sort"
+            label="Sort by:"
+            onSelectOption={() => {}}
+            options={BUREAU_BIDDER_SORT.options}
+            disabled={false}
+          />
+          <SelectForm
+            id="filter"
+            options={BUREAU_BIDDER_FILTERS.options}
+            label="Filter By:"
+            defaultSort={''}
+            disabled={false}
+          />
+        </div>
         <table className="position-manager-bidders-table">
           <thead>
             <tr>
