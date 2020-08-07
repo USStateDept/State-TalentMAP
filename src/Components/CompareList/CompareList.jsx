@@ -18,6 +18,7 @@ import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
+import { Handshake } from '../Ribbon';
 
 export const renderBidCounts = (compareArray, emptyArray) => (
   <tr>
@@ -300,6 +301,21 @@ class CompareList extends Component {
                       name="flags.static_content"
                       render={() => this.renderBidListButtons(compareArray, emptyArray)}
                     />
+                    <tr>
+                      <th scope="row" />
+                      {
+                        compareArray.map((c) => (
+                          <td key={shortId.generate()} className="compare-ribbon">
+                            {
+                              get(c, 'bid_statistics[0].has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                            }
+                          </td>
+                        ))
+                      }
+                      {
+                        emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
+                      }
+                    </tr>
                   </tbody>
                 </table>
               </div>

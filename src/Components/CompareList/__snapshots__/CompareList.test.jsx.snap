@@ -537,6 +537,31 @@ exports[`CompareListComponent matches snapshot 1`] = `
             name="flags.static_content"
             render={[Function]}
           />
+          <tr>
+            <th
+              scope="row"
+            />
+            <td
+              className="compare-ribbon"
+              key="61"
+            />
+            <td
+              className="compare-ribbon"
+              key="62"
+            />
+            <td
+              className="empty"
+              key="63"
+            />
+            <td
+              className="empty"
+              key="64"
+            />
+            <td
+              className="empty"
+              key="65"
+            />
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1106,6 +1131,31 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             name="flags.static_content"
             render={[Function]}
           />
+          <tr>
+            <th
+              scope="row"
+            />
+            <td
+              className="compare-ribbon"
+              key="61"
+            />
+            <td
+              className="compare-ribbon"
+              key="62"
+            />
+            <td
+              className="empty"
+              key="63"
+            />
+            <td
+              className="empty"
+              key="64"
+            />
+            <td
+              className="empty"
+              key="65"
+            />
+          </tr>
         </tbody>
       </table>
     </div>
