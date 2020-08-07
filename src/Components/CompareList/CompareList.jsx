@@ -307,7 +307,7 @@ class CompareList extends Component {
                         compareArray.map((c) => (
                           <td key={shortId.generate()} className="compare-ribbon">
                             {
-                              get(c, 'bid_statistics[0].has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                              get(c, 'bid_statistics[0].has_handshake_offered', false) && <Handshake isWide />
                             }
                           </td>
                         ))
