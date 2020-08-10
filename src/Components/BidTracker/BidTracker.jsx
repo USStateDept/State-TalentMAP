@@ -81,10 +81,13 @@ class BidTracker extends Component {
     const { exportIsLoading, sortValue } = this.state;
     const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
       notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
-      userProfileIsLoading, isPublic, useCDOView, registerHandshake } = this.props;
+      userProfileIsLoading, isPublic, useCDOView, registerHandshake,
+      unregisterHandshake } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
       `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
+
+    console.log(this.props);
 
     const emptyBidListText = isPublic ?
       'This user does not have any bids in their bid list.'
@@ -148,6 +151,7 @@ class BidTracker extends Component {
                   submitBid={submitBid}
                   deleteBid={deleteBid}
                   registerHandshake={registerHandshake}
+                  unregisterHandshake={unregisterHandshake}
                   userProfile={userProfile}
                   useCDOView={useCDOView}
                 />
@@ -171,6 +175,7 @@ BidTracker.propTypes = {
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
   registerHandshake: PropTypes.func.isRequired,
+  unregisterHandshake: PropTypes.func.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
   markBidTrackerNotification: PropTypes.func.isRequired,
