@@ -1,15 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import PositionManager from './PositionManager';
+import PositionManagerSearch from './PositionManagerSearch';
 
-describe('BureauPage', () => {
+describe('PositionManagerSearch', () => {
   const props = {
-    fetchBureauPositions: EMPTY_FUNCTION,
+    submitSearch: EMPTY_FUNCTION,
   };
 
   it('is defined', () => {
-    const wrapper = shallow(<PositionManager.WrappedComponent {...props} />);
+    const wrapper = shallow(<PositionManagerSearch {...props} />);
     expect(wrapper).toBeDefined();
   });
 });

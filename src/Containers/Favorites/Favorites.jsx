@@ -140,8 +140,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchData: (sortType, PAGE_SIZE, page, navType, favoritePositions) =>
-    dispatch(favoritePositionsFetchData(sortType, PAGE_SIZE, page, navType, favoritePositions)),
+  fetchData: (sortType, PAGE_SIZE, page, navType) =>
+    dispatch(favoritePositionsFetchData(sortType, PAGE_SIZE, page, navType)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   toggleFavorite: (id, remove, isTandem) => {
     // Since this page references the full Favorites route, pass true to explicitly refresh them
