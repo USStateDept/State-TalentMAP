@@ -87,8 +87,6 @@ class BidTracker extends Component {
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
       `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
 
-    console.log(this.props);
-
     const emptyBidListText = isPublic ?
       'This user does not have any bids in their bid list.'
       :
