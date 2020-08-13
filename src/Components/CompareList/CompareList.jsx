@@ -8,17 +8,18 @@ import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
 import COMPARE_LIMIT from 'Constants/Compare';
+import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from 'Constants/SystemMessages';
+import { propOrDefault, formatDate, getPostName, getAccessiblePositionNumber } from 'utilities';
 import BackButton from '../BackButton';
-import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from '../../Constants/SystemMessages';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
-import { propOrDefault, formatDate, getPostName, getAccessiblePositionNumber } from '../../utilities';
 import BidCount from '../BidCount';
 import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
 import { Handshake } from '../Ribbon';
+import MediaQuery from '../MediaQuery';
 
 export const renderBidCounts = (compareArray, emptyArray) => (
   <tr>
@@ -305,11 +306,17 @@ class CompareList extends Component {
                       <th scope="row" />
                       {
                         compareArray.map((c) => (
-                          <td key={shortId.generate()} className="compare-ribbon">
-                            {
-                              get(c, 'bid_statistics[0].has_handshake_offered', false) && <Handshake isWide />
-                            }
-                          </td>
+                          <MediaQuery breakpoint="screenLgMin" widthType="min">
+                            {matches => (
+                              <td key={shortId.generate()} className="compare-ribbon">
+                                {
+                                  get(c, 'bid_statistics[0].has_handshake_offered', false)
+                                  && <Handshake isWide={matches} showText={matches} />
+                                }
+                              </td>
+                            )}
+                          </MediaQuery>
+
                         ))
                       }
                       {
