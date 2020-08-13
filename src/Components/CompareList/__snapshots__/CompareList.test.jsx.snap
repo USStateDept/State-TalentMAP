@@ -541,25 +541,29 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             />
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
             <td
-              className="compare-ribbon"
+              className="empty"
               key="61"
             />
             <td
-              className="compare-ribbon"
+              className="empty"
               key="62"
             />
             <td
               className="empty"
               key="63"
-            />
-            <td
-              className="empty"
-              key="64"
-            />
-            <td
-              className="empty"
-              key="65"
             />
           </tr>
         </tbody>
@@ -1135,25 +1139,29 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             />
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
             <td
-              className="compare-ribbon"
+              className="empty"
               key="61"
             />
             <td
-              className="compare-ribbon"
+              className="empty"
               key="62"
             />
             <td
               className="empty"
               key="63"
-            />
-            <td
-              className="empty"
-              key="64"
-            />
-            <td
-              className="empty"
-              key="65"
             />
           </tr>
         </tbody>
