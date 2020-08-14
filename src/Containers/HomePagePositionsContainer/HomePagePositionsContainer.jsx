@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { homePageRecommendedPositionsFetchData, homePageFeaturedPositionsFetchData } from 'actions/homePagePositions';
 import { EMPTY_FUNCTION, USER_PROFILE, BID_RESULTS } from 'Constants/PropTypes';
 import { DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS, DEFAULT_HOME_PAGE_FEATURED_POSITIONS } from 'Constants/DefaultProps';
-// import { usePrevious } from 'hooks';
 import HomePagePositions from '../../Components/HomePagePositions/HomePagePositions';
 import Spinner from '../../Components/Spinner';
 
@@ -72,29 +71,30 @@ HomePagePositionsContainer.propTypes = {
 };
 
 HomePagePositionsContainer.defaultProps = {
+  userProfile: {},
   userProfileIsLoading: false,
-  homePageRecommendedPositionsFetchData: EMPTY_FUNCTION,
-  homePageRecommendedPositions: DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS,
-  homePageRecommendedPositionsIsLoading: false,
   homePageFeaturedPositionsFetchData: EMPTY_FUNCTION,
   homePageFeaturedPositions: DEFAULT_HOME_PAGE_FEATURED_POSITIONS,
   homePageFeaturedPositionsIsLoading: false,
+  homePageRecommendedPositionsFetchData: EMPTY_FUNCTION,
+  homePageRecommendedPositions: DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS,
+  homePageRecommendedPositionsIsLoading: false,
 };
 
 const mapStateToProps = state => ({
   userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
-  homePageRecommendedPositions: state.homePageRecommendedPositions,
-  homePageRecommendedPositionsIsLoading: state.homePageRecommendedPositionsIsLoading,
   homePageFeaturedPositions: state.homePageFeaturedPositions,
   homePageFeaturedPositionsIsLoading: state.homePageFeaturedPositionsIsLoading,
+  homePageRecommendedPositions: state.homePageRecommendedPositions,
+  homePageRecommendedPositionsIsLoading: state.homePageRecommendedPositionsIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
-  homePageRecommendedPositionsFetchData: (skills, grade) =>
-    dispatch(homePageRecommendedPositionsFetchData(skills, grade)),
   homePageFeaturedPositionsFetchData: (skills, grade) =>
     dispatch(homePageFeaturedPositionsFetchData(skills, grade)),
+  homePageRecommendedPositionsFetchData: (skills, grade) =>
+    dispatch(homePageRecommendedPositionsFetchData(skills, grade)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePagePositionsContainer);

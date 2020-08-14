@@ -1,48 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS, DEFAULT_HOME_PAGE_FEATURED_POSITIONS } from 'Constants/DefaultProps';
 import { SPECIAL_NEEDS } from 'Constants/EndpointParams';
-import { USER_PROFILE, BID_RESULTS } from 'Constants/PropTypes';
+import { USER_PROFILE, BID_RESULTS, HOME_PAGE_FEATURED_POSITIONS, HOME_PAGE_RECOMMENDED_POSITIONS } from 'Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
-const HomePagePositions = ({ homePageRecommendedPositions,
-  homePageRecommendedPositionsIsLoading,
-  homePageFeaturedPositions,
+const HomePagePositions = ({ homePageFeaturedPositions,
   homePageFeaturedPositionsIsLoading,
+  homePageRecommendedPositions,
+  homePageRecommendedPositionsIsLoading,
   userProfile, bidList }) => {
-  const recommendedPositions = homePageRecommendedPositions.positions;
   const featuredPositions = homePageFeaturedPositions.positions;
-  let recommendedTitle;
-  let recommendedLink;
-  let recommendedIcon;
+  const recommendedPositions = homePageRecommendedPositions.positions;
   let featuredTitle;
   let featuredLink;
   let featuredIcon;
+  let recommendedTitle;
+  let recommendedLink;
+  let recommendedIcon;
 
   const specialNeedsParams = SPECIAL_NEEDS.join(',');
 
-  // arrangement:
-  // 1: userSkillAndGradePositions
-  // 2: userGradePositions
-  // 3: favoritedPositions
   const ids = userProfile.employee_info.skills.map(s => s.code);
-  switch (homePageRecommendedPositions.name) {
-    case 'recommendedGradeAndSkillPositions':
-      recommendedTitle = 'Positions That Match Your Grade And Skill(s)';
-      recommendedLink = `/results?position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
-      recommendedIcon = 'briefcase';
-      break;
-    case 'recommendedGradePositions':
-      recommendedTitle = 'Positions That Match Your Grade';
-      recommendedLink = `/results?position__grade__code__in=${userProfile.employee_info.grade}`;
-      recommendedIcon = 'briefcase';
-      break;
-    default:
-      recommendedTitle = 'Favorited Positions';
-      recommendedLink = '/profile/favorites/';
-      recommendedIcon = 'star';
-      break;
-  }
 
   switch (homePageFeaturedPositions.name) {
     case 'featuredGradeAndSkillPositions':
@@ -62,6 +40,24 @@ const HomePagePositions = ({ homePageRecommendedPositions,
       break;
   }
 
+  switch (homePageRecommendedPositions.name) {
+    case 'recommendedGradeAndSkillPositions':
+      recommendedTitle = 'Positions That Match Your Grade And Skill(s)';
+      recommendedLink = `/results?position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
+      recommendedIcon = 'briefcase';
+      break;
+    case 'recommendedGradePositions':
+      recommendedTitle = 'Positions That Match Your Grade';
+      recommendedLink = `/results?position__grade__code__in=${userProfile.employee_info.grade}`;
+      recommendedIcon = 'briefcase';
+      break;
+    default:
+      recommendedTitle = 'Favorited Positions';
+      recommendedLink = '/profile/favorites/';
+      recommendedIcon = 'star';
+      break;
+  }
+
   return (
     <div className="homepage-positions-section-container">
       <div
@@ -74,7 +70,6 @@ const HomePagePositions = ({ homePageRecommendedPositions,
             maxLength="3"
             viewMoreLink={featuredLink}
             icon={featuredIcon}
-            favorites={userProfile.favorite_positions}
             positions={featuredPositions}
             isLoading={homePageFeaturedPositionsIsLoading}
             bidList={bidList}
@@ -98,10 +93,10 @@ const HomePagePositions = ({ homePageRecommendedPositions,
 };
 
 HomePagePositions.propTypes = {
-  homePageRecommendedPositions: DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS.isRequired,
-  homePageRecommendedPositionsIsLoading: PropTypes.bool,
-  homePageFeaturedPositions: DEFAULT_HOME_PAGE_FEATURED_POSITIONS.isRequired,
+  homePageFeaturedPositions: HOME_PAGE_FEATURED_POSITIONS.isRequired,
   homePageFeaturedPositionsIsLoading: PropTypes.bool,
+  homePageRecommendedPositions: HOME_PAGE_RECOMMENDED_POSITIONS.isRequired,
+  homePageRecommendedPositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
   bidList: BID_RESULTS.isRequired,
 };
@@ -109,8 +104,8 @@ HomePagePositions.propTypes = {
 HomePagePositions.defaultProps = {
   userProfile: {},
   filtersIsLoading: false,
-  homePageRecommendedPositionsIsLoading: false,
   homePageFeaturedPositionsIsLoading: false,
+  homePageRecommendedPositionsIsLoading: false,
 };
 
 export default HomePagePositions;

@@ -16,11 +16,11 @@ export const GET_RECOMMENDED_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_
 export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
 
 export const GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY = (skillCodes, grade) =>
-  `/fsbid/available_positions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featured_positions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_GRADE_POSITIONS_QUERY = (grade) =>
-  `/fsbid/available_positions/?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featured_positions/?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_POSITIONS_QUERY = () =>
-  `/fsbid/available_positions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
+  `/fsbid/available_positions/featured_positions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
 
 
 // export const HIGHLIGHTED_POSITIONS_QUERY = () => '/available_position/highlight/?limit=3';

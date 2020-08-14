@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import { DEFAULT_HOME_PAGE_FEATURED_POSITIONS, DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS } from 'Constants/DefaultProps';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import HomePagePositionsContainer, { mapDispatchToProps } from './HomePagePositionsContainer';
-import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -26,7 +26,8 @@ describe('Home', () => {
       },
     },
     bidList: [],
-    homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
+    homePageFeaturedPositions: DEFAULT_HOME_PAGE_FEATURED_POSITIONS,
+    homePageRecommendedPositions: DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS,
   };
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
@@ -42,7 +43,8 @@ describe('Home', () => {
     const wrapper = shallow(
       <HomePagePositionsContainer.WrappedComponent
         {...props}
-        homePagePositionsFetchData={spy}
+        homePageFeaturedPositionsFetchData={spy}
+        homePageRecommendedPositionsFetchData={spy}
       />);
     expect(wrapper).toBeDefined();
     wrapper.instance().componentDidMount();
