@@ -146,16 +146,16 @@ export const BUREAU_POSITION_SORT = {
 export const BUREAU_BIDDER_SORT = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
-    { value: '-bidder__grade', text: "Bidder's Grade" },
-    { value: '-bidder__handshake', text: "Bidder's Skill" },
-    { value: 'handshake', text: 'Handshake' },
+    { value: 'bidder_grade', text: "Bidder's Grade" },
+    { value: 'bidder_skill', text: "Bidder's Skill" },
+    { value: 'bidder_hs', text: 'Handshake' },
   ],
 };
 
 export const BUREAU_BIDDER_FILTERS = {
   options: [
     { value: '', text: 'All' },
-    { value: 'true', text: 'Handshake' },
-    { value: 'false', text: 'No Handshake' },
+    { value: 'HS', text: 'Handshake' },
+    { value: 'OP', text: 'No Handshake' },
   ],
 };
