@@ -1,5 +1,6 @@
 import { batch } from 'react-redux';
 import { SPECIAL_NEEDS } from 'Constants/EndpointParams';
+import { isEmpty } from 'lodash';
 import api from '../api';
 import { RECOMMENDED_GRADE_AND_SKILL_POSITIONS,
   RECOMMENDED_GRADE_POSITIONS,
@@ -16,11 +17,11 @@ export const GET_RECOMMENDED_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_
 export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
 
 export const GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY = (skillCodes, grade) =>
-  `/fsbid/available_positions/featured_positions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_GRADE_POSITIONS_QUERY = (grade) =>
-  `/fsbid/available_positions/featured_positions/?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_POSITIONS_QUERY = () =>
-  `/fsbid/available_positions/featured_positions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
 
 
 // export const HIGHLIGHTED_POSITIONS_QUERY = () => '/available_position/highlight/?limit=3';
@@ -102,7 +103,7 @@ export function homePageFeaturedPositionsFetchData(skills = [], grade) {
       .then((results) => {
         let shouldSkip = false;
         // if our query returned no results, we will want to fall to the next arrangement
-        if (results.count === 0 && queryType.name !== 'featuredPositions') {
+        if (isEmpty(results.data) && queryType.name !== 'featuredPositions') {
           shouldSkip = true;
           if (queryType.name === 'featuredGradeAndSkillPositions') {
             dispatch(homePageFeaturedPositionsFetchData([], grade));
@@ -157,7 +158,7 @@ export function homePageRecommendedPositionsFetchData(skills = [], grade) {
       .then((results) => {
         let shouldSkip = false;
         // if our query returned no results, we will want to fall to the next arrangement
-        if (results.count === 0 && queryType.name !== 'favoritedPositions') {
+        if (results.data.count === 0 && queryType.name !== 'favoritedPositions') {
           shouldSkip = true;
           if (queryType.name === 'recommendedGradeAndSkillPositions') {
             dispatch(homePageRecommendedPositionsFetchData([], grade));
