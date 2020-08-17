@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
   ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
   MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
-import { filterPVSorts } from '../../Constants/Sort';
+import { filterPVSorts, filterTandemSorts } from '../../Constants/Sort';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
@@ -45,9 +45,11 @@ class Results extends Component {
       postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
       bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter }
       = this.props;
+    const { isTandemSearch } = this.context;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
 
-    const sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
+    let sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
+    sortBy$ = isTandemSearch ? filterTandemSorts(sortBy$) : sortBy;
 
     const filterContainer = (
       <ResultsFilterContainer
@@ -175,6 +177,7 @@ Results.defaultProps = {
 
 Results.contextTypes = {
   router: PropTypes.object,
+  isTandemSearch: PropTypes.bool,
 };
 
 Results.childContextTypes = {
