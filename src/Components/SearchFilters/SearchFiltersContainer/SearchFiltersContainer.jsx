@@ -77,6 +77,7 @@ class SearchFiltersContainer extends Component {
     } else {
       config = {
         ...config,
+        ordering: 'ted',
         tandem: 'tandem',
       };
       this.setState({ showTandem2: false }); // reset showTandem2 to false
