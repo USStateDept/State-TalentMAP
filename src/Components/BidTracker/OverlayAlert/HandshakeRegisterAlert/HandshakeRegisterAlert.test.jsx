@@ -10,6 +10,7 @@ describe('HandshakeRegisterAlert', () => {
     id: 1,
     bid: bidListObject.results[0],
     registerHandshake: () => {},
+    unregisterHandshake: () => {},
   };
 
   it('is defined', () => {

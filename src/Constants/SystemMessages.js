@@ -1,4 +1,5 @@
 import RegisterHandshakeSuccess from 'Components/BidListMessages/RegisterSuccess';
+import UnregisterHandshakeSuccess from 'Components/BidListMessages/UnregisterSuccess';
 import FavoriteSuccess from 'Components/FavoriteMessages/Success';
 import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from 'Components/BidListMessages/Success';
@@ -65,7 +66,7 @@ export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 
 export const REGISTER_HANDSHAKE_SUCCESS = undo => RegisterHandshakeSuccess({ undo });
 export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
-export const UNREGISTER_HANDSHAKE_SUCCESS = 'Handshake successfully unregistered.';
+export const UNREGISTER_HANDSHAKE_SUCCESS = undo => UnregisterHandshakeSuccess({ undo });
 export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
 
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
@@ -95,4 +96,3 @@ export const POST_FEATURE_FLAGS_SUCCESS = 'Config File successfully updated.';
 export const POST_FEATURE_FLAGS_ERROR = 'Error updating Config File. Please try again.';
 
 export const COMING_SOON = 'Coming Soon';
-

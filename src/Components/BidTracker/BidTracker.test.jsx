@@ -15,6 +15,7 @@ describe('BidTrackerComponent', () => {
     submitBid: () => {},
     deleteBid: () => {},
     registerHandshake: () => {},
+    unregisterHandshake: () => {},
     notifications: notificationsObject,
     notificationsIsLoading: false,
     markBidTrackerNotification: () => {},

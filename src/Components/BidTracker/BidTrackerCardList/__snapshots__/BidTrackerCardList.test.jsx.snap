@@ -67,6 +67,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     priorityExists={true}
     registerHandshake={[Function]}
     submitBid={[Function]}
+    unregisterHandshake={[Function]}
     useCDOView={false}
     userProfile={
       Object {
@@ -212,6 +213,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     priorityExists={true}
     registerHandshake={[Function]}
     submitBid={[Function]}
+    unregisterHandshake={[Function]}
     useCDOView={false}
     userProfile={
       Object {
@@ -360,6 +362,7 @@ exports[`BidTrackerCardListComponent matches snapshot 1`] = `
     priorityExists={true}
     registerHandshake={[Function]}
     submitBid={[Function]}
+    unregisterHandshake={[Function]}
     useCDOView={false}
     userProfile={
       Object {
