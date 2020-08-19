@@ -11,8 +11,13 @@ class HandshakeRegisterAlert extends Component {
     registerHandshake(bid.position.id);
   };
 
+  onUnregisterHandshake = () => {
+    const { unregisterHandshake, bid } = this.props;
+    unregisterHandshake(bid.position.id);
+  };
+
   render() {
-    const { bid } = this.props;
+    const { bid, isUnregister, userName } = this.props;
     const { readOnly } = this.context;
     const { position } = bid;
     const positionTitle = position.title;
@@ -22,24 +27,40 @@ class HandshakeRegisterAlert extends Component {
     const ted = formatDate('2020-07-02T05:00:00Z');
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     // modify line 6: import NO_TOUR_END_DATE from SystemMessages
+    let mainText;
+    if (!isUnregister) {
+      if (!readOnly) {
+        mainText = 'Would you like to register this handshake?';
+      } else { mainText = 'This handshake needs to be registered'; }
+    } else {
+      mainText = `${userName || 'This user'}'s handshake has been registered`;
+    }
+
+    const buttonText = isUnregister ? 'Undo Register Handshake' : 'Register Handshake';
+
+    const classes = [
+      'bid-tracker-alert-container',
+      'bid-tracker-alert-container--register',
+      isUnregister ? 'bid-tracker-alert-container--unregister' : '',
+    ];
+
+    const classes$ = classes.join(' ');
+
+    const regFunction = isUnregister ? this.onUnregisterHandshake : this.onRegisterHandshake;
+
     return (
-      <div className="bid-tracker-alert-container bid-tracker-alert-container--register">
+      <div className={classes$}>
         <div className="usa-grid-full" style={{ display: 'flex' }}>
           <div className="register-submission-container" style={{ flex: 1 }}>
             <div className="sub-submission-text">
-              {
-                !readOnly ?
-                  'Would you like to register this handshake?'
-                  :
-                  'This handshake needs to be registered'
-              }
+              {mainText}
             </div>
             <div className="usa-grid-full register-submission-buttons-container">
               <button
                 className="tm-button-transparent tm-button-submit-bid"
-                onClick={this.onRegisterHandshake}
+                onClick={regFunction}
               >
-                  Register Handshake
+                {buttonText}
               </button>
             </div>
           </div>
@@ -79,6 +100,14 @@ HandshakeRegisterAlert.contextTypes = {
 HandshakeRegisterAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   registerHandshake: PropTypes.func.isRequired,
+  unregisterHandshake: PropTypes.func.isRequired,
+  isUnregister: PropTypes.bool,
+  userName: PropTypes.string,
+};
+
+HandshakeRegisterAlert.defaultProps = {
+  isUnregister: false,
+  userName: '',
 };
 
 export default HandshakeRegisterAlert;

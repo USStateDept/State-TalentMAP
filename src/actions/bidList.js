@@ -411,7 +411,9 @@ export function unregisterHandshake(id, clientId) {
     api().delete(url)
       .then(response => response.data)
       .then(() => {
-        const message = SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS;
+        // eslint-disable-next-line no-use-before-define
+        const undo = () => dispatch(registerHandshake(id, clientId));
+        const message = SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS(undo);
         batch(() => {
           dispatch(toastSuccess(message));
           dispatch(unregisterHandshakeHasErrored(false));
