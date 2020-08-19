@@ -15,6 +15,7 @@ describe('OverlayAlertComponent', () => {
     submitBid: () => {},
     deleteBid: () => {},
     registerHandshake: () => {},
+    unregisterHandshake: () => {},
   };
 
   // All possible props, plus  fake prop to test the default case of the switch

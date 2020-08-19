@@ -27,6 +27,7 @@ const ProfileDashboard = ({
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
+  unregisterHandshake,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -127,6 +128,7 @@ const ProfileDashboard = ({
                             bids={bidList}
                             isPublic={isPublic}
                             registerHandshake={registerHandshake}
+                            unregisterHandshake={unregisterHandshake}
                             userId={userProfile.perdet_seq_number}
                           />
                         </BoxShadow>
@@ -161,6 +163,7 @@ ProfileDashboard.propTypes = {
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
   registerHandshake: PropTypes.func,
+  unregisterHandshake: PropTypes.func,
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   showBidTracker: PropTypes.bool,
@@ -181,6 +184,7 @@ ProfileDashboard.defaultProps = {
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
   registerHandshake: EMPTY_FUNCTION,
+  unregisterHandshake: EMPTY_FUNCTION,
   classifications: [],
   clientClassifications: [],
   showBidTracker: true,

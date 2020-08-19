@@ -125,19 +125,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "draft" 1`] = `
 </div>
 `;
 
-exports[`OverlayAlertComponent matches snapshot when type is "fake prop" 1`] = `
-<div
-  className="bid-tracker-overlay-alert "
->
-  <div
-    className="bid-tracker-overlay-alert-content-container"
-  >
-    <div
-      className="bid-tracker-overlay-alert-content"
-    />
-  </div>
-</div>
-`;
+exports[`OverlayAlertComponent matches snapshot when type is "fake prop" 1`] = `""`;
 
 exports[`OverlayAlertComponent matches snapshot when type is "handshake_declined" 1`] = `
 <div
@@ -221,7 +209,10 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_needs_re
             "user": "rehmant",
           }
         }
+        isUnregister={false}
         registerHandshake={[Function]}
+        unregisterHandshake={[Function]}
+        userName=""
       />
     </div>
   </div>
