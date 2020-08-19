@@ -23,16 +23,6 @@ export const GET_FEATURED_GRADE_POSITIONS_QUERY = (grade) =>
 export const GET_FEATURED_POSITIONS_QUERY = () =>
   `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
 
-
-// export const HIGHLIGHTED_POSITIONS_QUERY = () => '/available_position/highlight/?limit=3';
-// export const GET_SKILL_CODE_POSITIONS_QUERY = skillCodes =>
-// `/fsbid/available_positions/?position__skill__in=${skillCodes}&limit=3`;
-// export const GET_GRADE_POSITIONS_QUERY = grade =>
-// `/fsbid/available_positions/?position__grade__code
-// __in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
-// export const RECENTLY_POSTED_POSITIONS_QUERY = () =>
-// `/fsbid/available_positions/?limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
-
 export function homePageRecommendedPositionsHasErrored(bool) {
   return {
     type: 'HOME_PAGE_RECOMMENDED_POSITIONS_HAS_ERRORED',

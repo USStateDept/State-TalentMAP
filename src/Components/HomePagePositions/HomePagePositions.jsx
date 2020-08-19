@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
 import { SPECIAL_NEEDS } from 'Constants/EndpointParams';
 import { USER_PROFILE, BID_RESULTS, HOME_PAGE_FEATURED_POSITIONS, HOME_PAGE_RECOMMENDED_POSITIONS } from 'Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
@@ -20,7 +21,7 @@ const HomePagePositions = ({ homePageFeaturedPositions,
 
   const specialNeedsParams = SPECIAL_NEEDS.join(',');
 
-  const ids = userProfile.employee_info.skills.map(s => s.code);
+  const ids = get(userProfile, 'employee_info.skills', []).map(s => s.code);
 
   switch (homePageFeaturedPositions.name) {
     case 'featuredGradeAndSkillPositions':
@@ -70,6 +71,7 @@ const HomePagePositions = ({ homePageFeaturedPositions,
             maxLength="3"
             viewMoreLink={featuredLink}
             icon={featuredIcon}
+            favorites={userProfile.favorite_positions}
             positions={featuredPositions}
             isLoading={homePageFeaturedPositionsIsLoading}
             bidList={bidList}
