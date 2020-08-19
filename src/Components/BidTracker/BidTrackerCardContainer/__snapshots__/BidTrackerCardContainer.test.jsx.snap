@@ -65,6 +65,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
     registerHandshake={[Function]}
     showBidCount={true}
     submitBid={[Function]}
+    unregisterHandshake={[Function]}
     useCDOView={false}
     userId=""
     userProfile={
@@ -283,6 +284,7 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
       registerHandshake={[Function]}
       showBidCount={false}
       submitBid={[Function]}
+      unregisterHandshake={[Function]}
       useCDOView={false}
       userId=""
       userProfile={

@@ -4,7 +4,7 @@ import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
 import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, FAVORITE_POSITION_COUNTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES_COUNTS } from 'Constants/DefaultProps';
-import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts } from 'Constants/Sort';
+import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts, filterTandemSorts } from 'Constants/Sort';
 import TotalResults from '../TotalResults';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
@@ -85,6 +85,9 @@ const FavoritePositions = props => {
   let selectOptions$ = POSITION_SEARCH_SORTS_DYNAMIC;
   if (selected === TYPE_PV || selected === TYPE_PV_TANDEM) {
     selectOptions$ = filterPVSorts(selectOptions$);
+  }
+  if (selected === TYPE_OPEN_TANDEM || selected === TYPE_PV_TANDEM) {
+    selectOptions$ = filterTandemSorts(selectOptions$);
   }
   selectOptions$ = selectOptions$.options;
 
