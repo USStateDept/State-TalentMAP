@@ -54,10 +54,18 @@ class GlossaryComponent extends Component {
     }
   }
 
+  toggleVisibility = () => {
+    // Add a timeout so that the reset is not visible during the transition animation
+    setTimeout(() => {
+      this.changeText('');
+    }, 500);
+    this.props.toggleVisibility();
+  }
+
   handleOutsideClick = e => {
-    const { toggleVisibility, visible } = this.props;
+    const { visible } = this.props;
     if (visible && !document.getElementById(ID).contains(e.target)) {
-      toggleVisibility();
+      this.toggleVisibility();
     }
   };
 
@@ -78,7 +86,7 @@ class GlossaryComponent extends Component {
   }
 
   render() {
-    const { visible, toggleVisibility, glossaryIsLoading } = this.props;
+    const { visible, glossaryIsLoading } = this.props;
     const { searchText } = this.state;
     const filteredGlossary = this.filteredGlossary();
     return (
@@ -96,7 +104,7 @@ class GlossaryComponent extends Component {
           <button
             title="Close glossary"
             className="glossary-close"
-            onClick={toggleVisibility}
+            onClick={this.toggleVisibility}
           >
             <FontAwesome name="times" />
             <span className="usa-sr-only">Close Glossary</span>
