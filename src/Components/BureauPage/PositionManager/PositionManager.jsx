@@ -52,9 +52,23 @@ const PositionManager = props => {
     // if we want to do anything with our selected values once they update
   }, []);
 
+  const formatPosts = (posts$) => (
+    posts$.map(post => {
+      if (post.is_domestic) {
+        // eslint-disable-next-line no-param-reassign
+        post.post_name = `${post.city}, ${post.state}`;
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        post.post_name = `${post.city}, ${post.country}`;
+      }
+      return { ...post };
+    })
+  );
+
   function renderPostList({ items, selected, ...rest }) {
+    formatPosts(items);
     const getIsSelected = item => !!selected.find(f => f.value === item.value);
-    return items.map(item => <ListItem key={item.value} item={item} {...rest} queryProp="long_description" getIsSelected={getIsSelected} />);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="post_name" getIsSelected={getIsSelected} />);
   }
 
   function renderTedList({ items, selected, ...rest }) {
@@ -72,18 +86,6 @@ const PositionManager = props => {
     return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getIsSelected} />);
   }
 
-  const formatPosts = (posts$) => (
-    posts$.map(post => {
-      if (post.is_domestic) {
-        // eslint-disable-next-line no-param-reassign
-        post.post_name = `${post.city}, ${post.state}`;
-      } else {
-        // eslint-disable-next-line no-param-reassign
-        post.post_name = `${post.city}, ${post.country}`;
-      }
-      return { ...post };
-    })
-  );
 
   return (
     <div className="bureau-page">
@@ -125,7 +127,7 @@ const PositionManager = props => {
                     dropdownHeight={255}
                     renderList={renderPostList}
                     valueKey="code"
-                    labelKey={formatPosts(posts)}
+                    labelKey={'post_name'}
                     includeSelectAll
                   />
                 </div>
