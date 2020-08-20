@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
+import { FILTERS_PARENT } from 'Constants/PropTypes';
 import Picky from 'react-picky';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
+import { filtersFetchData } from '../../../actions/filters/filters';
 import ResultsControls from '../../ResultsControls/ResultsControls';
 
 
@@ -18,77 +20,24 @@ const PositionManager = props => {
   const [sortType, setSortType] = useState();
   const limit = 15;
 
-  const tempGrade = [
-    { value: 'OM', text: 'Office Manager (OM)' },
-    { value: '01', text: '01' },
-    { value: '02', text: '02' },
-    { value: '03', text: '03' },
-    { value: '04', text: '04' },
-    { value: '05', text: '05' },
-    { value: '06', text: '06' },
-    { value: '07', text: '07' },
-    { value: '08', text: '08' },
-    { value: '00', text: '00' },
-    { value: 'MC', text: 'MC Minister-Counselor (FE-MC)' },
-    { value: 'OC', text: 'OC Counselor (FE-OC)' },
-  ];
-  const tempSkill = [
-    { value: 'Contruction Engineers', text: 'Contruction Engineers' },
-    { value: 'Consular', text: 'Consular' },
-    { value: 'DCM-PO', text: 'DCM-PO' },
-    { value: 'Diplomatic Courier', text: 'Diplomatic Courier' },
-    { value: 'Facilities Manager', text: 'Facilities Manager' },
-    { value: 'Economic', text: 'Economic' },
-    { value: 'Financial Management', text: 'Financial Management' },
-    { value: 'General Services', text: 'General Services' },
-    { value: 'Info Mgt Specialist', text: 'Info Mgt Specialist' },
-    { value: 'Info Mgt Tech Spec', text: 'Info Mgt Tech Spec' },
-    { value: 'Refugee Affairs', text: 'Refugee Affairs' },
-    { value: 'Interfunctional', text: 'Interfunctional' },
-  ];
-  const tempPost = [{ value: 'Barronett, Kentucky', text: 'Barronett, Kentucky' },
-    { value: 'Cecilia, Ohio', text: 'Cecilia, Ohio' },
-    { value: 'Courtland, Maryland', text: 'Courtland, Maryland' },
-    { value: 'Crown, Illinois', text: 'Crown, Illinois' },
-    { value: 'Edgewater, Missouri', text: 'Edgewater, Missouri' },
-    { value: 'Elrama, Alabama', text: 'Elrama, Alabama' },
-    { value: 'Enetai, Guam', text: 'Enetai, Guam' },
-    { value: 'Foxworth, Tennessee', text: 'Foxworth, Tennessee' },
-    { value: 'Gorham, Marshall Islands', text: 'Gorham, Marshall Islands' },
-    { value: 'Kenvil, Connecticut', text: 'Kenvil, Connecticut' },
-    { value: 'Lowgap, District Of Columbia', text: 'District Of Columbia' },
-    { value: 'Lynn, Massachusetts', text: 'Lynn, Massachusetts' },
-    { value: 'Saranap, Maine', text: 'Saranap, Maine' },
-    { value: 'Sehili, Idaho', text: 'Sehili, Idaho' },
-    { value: 'Tyhee, Georgia', text: 'Tyhee, Georgia' },
-    { value: 'Winesburg, Virginia', text: 'Winesburg, Virginia' },
-  ];
-  const tempTED = [{ value: '10 MOS', text: '10 MOS' },
-    { value: '1 YEAR', text: '1 YEAR' },
-    { value: '1 YR (1 R &amp; R)', text: '1 YR (1 R &amp; R)' },
-    { value: '1 YR (2 R &amp; R)', text: '1 YR (2 R &amp; R)' },
-    { value: '1 YR(3R&amp;R)/HL/1 YR(3R&', text: '1 YR(3R&amp;R)/HL/1 YR(3R&' },
-    { value: '14MOS/HL/2 YEAR (R&amp;R)', text: '14MOS/HL/2 YEAR (R&amp;R)' },
-    { value: '18 MOS', text: '18 MOS' },
-    { value: '18 MOS/HL/18 MOS', text: '18 MOS/HL/18 MOS' },
-    { value: '2 YRS/TRANSFER', text: '2 YRS/TRANSFER' },
-    { value: '2 YRS/HLRT/2 YRS', text: '2 YRS/HLRT/2 YRS' },
-    { value: '2 YRS (1 R &amp; R)', text: '2 YRS (1 R &amp; R)' },
-    { value: '2 YRS (2 R &amp; R)', text: '2 YRS (2 R &amp; R)' },
-    { value: '2 YRS (3 R &amp; R)', text: '2 YRS (3 R &amp; R)' },
-    { value: '2 YRS (4 R &amp; R)', text: '2 YRS (4 R &amp; R)' },
-    { value: '3 YRS/TRANSFER', text: '3 YRS/TRANSFER' },
-    { value: '3 YRS (2 R &amp; R)', text: '3 YRS (2 R &amp; R)' },
-    { value: '3 YRS (3 R &amp; R)', text: '3 YRS (3 R &amp; R)' },
-    { value: '4 YRS/TRANSFER', text: '4 YRS/TRANSFER' },
-    { value: 'INDEFINITE', text: 'INDEFINITE' },
-    { value: 'NOT APPLICABLE', text: 'NOT APPLICABLE' },
-    { value: 'OTHER', text: 'OTHER' }];
-
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
+
+
+  const { bureauFilters } = props;
+  const bureauFilters$ = bureauFilters.filters;
+  const teds = bureauFilters$.find(f => f.item.description === 'tod').data;
+  const grades = bureauFilters$.find(f => f.item.description === 'grade').data;
+  const skills = bureauFilters$.find(f => f.item.description === 'skillCone').data;
+  const posts = bureauFilters$.find(f => f.item.description === 'post').data;
+
+  console.log(bureauFilters);
+  console.log(teds);
+  console.log(grades);
+  console.log(skills);
+  console.log(posts);
 
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
   const sortBy = BUREAU_POSITION_SORT;
@@ -99,13 +48,42 @@ const PositionManager = props => {
 
   useEffect(() => {
     props.fetchBureauPositions(sortType, limit, page);
+    props.fetchFilters(bureauFilters, {});
     // if we want to do anything with our selected values once they update
-  }, [selectedGrades]);
+  }, []);
 
-  function renderList({ items, selected, ...rest }) {
+  function renderPostList({ items, selected, ...rest }) {
     const getIsSelected = item => !!selected.find(f => f.value === item.value);
-    return items.map(item => <ListItem key={item.value} item={item} {...rest} queryProp="text" getIsSelected={getIsSelected} />);
+    return items.map(item => <ListItem key={item.value} item={item} {...rest} queryProp="long_description" getIsSelected={getIsSelected} />);
   }
+
+  function renderTedList({ items, selected, ...rest }) {
+    const getIsSelected = item => !!selected.find(f => f.value === item.value);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="long_description" getIsSelected={getIsSelected} />);
+  }
+
+  function renderSkillList({ items, selected, ...rest }) {
+    const getIsSelected = item => !!selected.find(f => f.value === item.value);
+    return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIsSelected} />);
+  }
+
+  function renderGradeList({ items, selected, ...rest }) {
+    const getIsSelected = item => !!selected.find(f => f.value === item.value);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getIsSelected} />);
+  }
+
+  const formatPosts = (posts$) => (
+    posts$.map(post => {
+      if (post.is_domestic) {
+        // eslint-disable-next-line no-param-reassign
+        post.post_name = `${post.city}, ${post.state}`;
+      } else {
+        // eslint-disable-next-line no-param-reassign
+        post.post_name = `${post.city}, ${post.country}`;
+      }
+      return { ...post };
+    })
+  );
 
   return (
     <div className="bureau-page">
@@ -122,15 +100,15 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select TED(s)"
                     value={selectedTEDs}
-                    options={tempTED}
+                    options={teds}
                     onChange={values => setSelectedTEDs(values)}
                     numberDisplayed={2}
                     multiple
                     includeFilter
                     dropdownHeight={255}
-                    renderList={renderList}
-                    valueKey="value"
-                    labelKey="text"
+                    renderList={renderTedList}
+                    valueKey="code"
+                    labelKey="long_description"
                     includeSelectAll
                   />
                 </div>
@@ -139,15 +117,15 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select Post(s)"
                     value={selectedPosts}
-                    options={tempPost}
+                    options={posts}
                     onChange={values => setSelectedPosts(values)}
                     numberDisplayed={2}
                     multiple
                     includeFilter
                     dropdownHeight={255}
-                    renderList={renderList}
-                    valueKey="value"
-                    labelKey="text"
+                    renderList={renderPostList}
+                    valueKey="code"
+                    labelKey={formatPosts(posts)}
                     includeSelectAll
                   />
                 </div>
@@ -156,15 +134,15 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select Skill(s)"
                     value={selectedSkills}
-                    options={tempSkill}
+                    options={skills}
                     onChange={values => setSelectedSkills(values)}
                     numberDisplayed={2}
                     multiple
                     includeFilter
                     dropdownHeight={255}
-                    renderList={renderList}
-                    valueKey="value"
-                    labelKey="text"
+                    renderList={renderSkillList}
+                    valueKey="id"
+                    labelKey="name"
                     includeSelectAll
                   />
                 </div>
@@ -173,15 +151,15 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select Grade(s)"
                     value={selectedGrades}
-                    options={tempGrade}
+                    options={grades}
                     onChange={values => setSelectedGrades(values)}
                     numberDisplayed={2}
                     multiple
                     includeFilter
                     dropdownHeight={255}
-                    renderList={renderList}
-                    valueKey="value"
-                    labelKey="text"
+                    renderList={renderGradeList}
+                    valueKey="code"
+                    labelKey="custom_description"
                     includeSelectAll
                   />
                 </div>
@@ -216,17 +194,28 @@ const PositionManager = props => {
 
 PositionManager.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
+  fetchFilters: PropTypes.func.isRequired,
+  bureauFilters: FILTERS_PARENT,
+};
+
+PositionManager.defaultProps = {
+  bureauFilters: { filters: [] },
 };
 
 const mapStateToProps = state => ({
   bureauPositions: state.bureauPositions,
   bureauPositionsIsLoading: state.bureauPositionsIsLoading,
   bureauPositionsHasErrored: state.bureauPositionsHasErrored,
+  bureauFilters: state.filters,
+  bureauFiltersHasErrored: state.filtersHasErrored,
+  bureauFiltersIsLoading: state.filtersIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchBureauPositions: (sortType, limit, page, q) =>
     dispatch(bureauPositionsFetchData(sortType, limit, page, q)),
+  fetchFilters: (items, queryParams, savedFilters) =>
+    dispatch(filtersFetchData(items, queryParams, savedFilters)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);
