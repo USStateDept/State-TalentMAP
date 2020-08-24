@@ -6,21 +6,25 @@ exports[`DefinitionList matches snapshot 1`] = `
 >
   <Definition
     definition="Definition #1"
+    excludeColon={false}
     term="Term #1"
     truncate={true}
   />
   <Definition
     definition="Definition #2"
+    excludeColon={false}
     term="Term #2"
     truncate={true}
   />
   <Definition
     definition="Definition #3"
+    excludeColon={false}
     term="Term #3"
     truncate={true}
   />
   <Definition
     definition="Definition #4"
+    excludeColon={false}
     term="Term #4"
     truncate={true}
   />

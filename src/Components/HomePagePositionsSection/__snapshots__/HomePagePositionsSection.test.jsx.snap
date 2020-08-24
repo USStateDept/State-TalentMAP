@@ -183,7 +183,10 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
     }
     favorites={Array []}
     favoritesPV={Array []}
+    favoritesPVTandem={Array []}
+    favoritesTandem={Array []}
     isLoading={false}
+    isTandem={false}
     limit={15}
     page={1}
     positions={

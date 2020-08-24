@@ -115,6 +115,22 @@ describe('async actions', () => {
     f();
   });
 
+  it('can handle favoriting errors when favoriting fails because of storage limit', (done) => {
+    const store = mockStore({ profile: {} });
+
+    mockAdapter.onPut('/available_position/1/favorite/').reply(507,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.userProfileToggleFavoritePosition('1', false, true));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
   it('handles errors', (done) => {
     const store = mockStore({ profile: {} });
 

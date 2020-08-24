@@ -12,6 +12,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
         Array [
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <BureauFilter
               item={
                 Object {
@@ -43,6 +44,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <div
               className="usa-grid-full"
             >
@@ -72,6 +74,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <BureauFilter
               functionalBureaus={
                 Object {
@@ -104,6 +107,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <PostFilter
               autoSuggestProps={
                 Object {
@@ -118,6 +122,12 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
                   "queryProperty": "id",
                   "suggestionTemplate": [Function],
                   "suggestions": Array [],
+                }
+              }
+              commuterPosts={
+                Object {
+                  "data": Array [],
+                  "item": Object {},
                 }
               }
               domesticIsSelected={false}
@@ -146,6 +156,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <div
               className="usa-grid-full"
             >
@@ -175,6 +186,7 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
           },
           Object {
             "altTitle": undefined,
+            "buttonClass": "accordion-ap",
             "content": <LanguageFilter
               isTandem={false}
               item={

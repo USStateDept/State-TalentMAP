@@ -13,9 +13,9 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
   style={Object {}}
 >
   <ResultsCondensedCardTop
-    favorites={Array []}
     isProjectedVacancy={false}
     isRecentlyAvailable={false}
+    isTandem={false}
     position={
       Object {
         "bidcycle": Object {
@@ -263,7 +263,10 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
     }
     favorites={Array []}
     favoritesPV={Array []}
+    favoritesPVTandem={Array []}
+    favoritesTandem={Array []}
     isProjectedVacancy={false}
+    isTandem={false}
     limit={15}
     page={1}
     position={
@@ -361,6 +364,7 @@ exports[`ResultsCondensedCardComponent matches snapshot 1`] = `
   />
   <ResultsCondensedCardFooter
     isProjectedVacancy={false}
+    isTandem={false}
     position={
       Object {
         "bidcycle": Object {

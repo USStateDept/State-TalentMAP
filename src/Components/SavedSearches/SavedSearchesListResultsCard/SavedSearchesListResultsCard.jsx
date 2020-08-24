@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
+import { NO_UPDATE_DATE, GET_NOW_AVAILABLE, GET_POSITIONS_ADDED } from 'Constants/SystemMessages';
+import { mapSavedSearchToDescriptions, formatDate } from 'utilities';
 import { Row, Column } from '../../Layout';
 import MediaQueryWrapper from '../../MediaQuery';
 import DefinitionList, { Definition } from '../../DefinitionList';
 import SavedSearchPillList from '../../SavedSearchPillList';
-import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
-import { NO_UPDATE_DATE, GET_NOW_AVAILABLE, GET_POSITIONS_ADDED } from '../../../Constants/SystemMessages';
-import { mapSavedSearchToDescriptions, formatDate } from '../../../utilities';
 
 const SavedSearchListResultsCard = (props) => {
   const {
@@ -16,6 +16,7 @@ const SavedSearchListResultsCard = (props) => {
     mappedParams,
     deleteSearch,
     isProjectedVacancy,
+    isTandemSearch,
     availableCount,
     addedCount,
   } = props;
@@ -56,7 +57,11 @@ const SavedSearchListResultsCard = (props) => {
               <Column columns={columns[1]}>
                 <DefinitionList>
                   <Definition term="Your Selections">
-                    <SavedSearchPillList pills={pills} isProjectedVacancy={isProjectedVacancy} />
+                    <SavedSearchPillList
+                      pills={pills}
+                      isProjectedVacancy={isProjectedVacancy}
+                      isTandemSearch={isTandemSearch}
+                    />
                   </Definition>
                 </DefinitionList>
               </Column>
@@ -82,12 +87,14 @@ SavedSearchListResultsCard.propTypes = {
   mappedParams: MAPPED_PARAM_ARRAY.isRequired,
   deleteSearch: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
+  isTandemSearch: PropTypes.bool,
   availableCount: PropTypes.number,
   addedCount: PropTypes.number,
 };
 
 SavedSearchListResultsCard.defaultProps = {
   isProjectedVacancy: false,
+  isTandemSearch: false,
   availableCount: 0,
   addedCount: 0,
 };

@@ -203,6 +203,10 @@ $condensed-card-data-padding: 15px 20px 9px;
     position: relative;
   }
 
+  .condensed-card-bottom-container--tandem-two {
+    background-color: $color-purple-light;
+  }
+
   .condensed-card-inner {
     display: flex;
     flex-direction: column;
@@ -250,6 +254,7 @@ $condensed-card-data-padding: 15px 20px 9px;
       font-size: .8em;
       justify-content: center;
       margin-bottom: 8px;
+      background-color: $color-white;
 
       &.compare-checked {
         background-color: $blue-primary;
@@ -292,6 +297,13 @@ $condensed-card-data-padding: 15px 20px 9px;
     .bid-count-list {
       float: right;
       padding-left: 0;
+    }
+
+    .bid-count-list-tandem {
+      .bid-count-list-item {
+        background: $color-white;
+        color: $blue-primary;
+      }
     }
 
     .bid-count-label {
@@ -411,6 +423,10 @@ $condensed-card-data-padding: 15px 20px 9px;
   .condensed-card-footer-right {
     float: right;
   }
+}
+
+.condensed-card-footer-tandem {
+  background-color: $color-purple-light;
 }
 
 .condensed-card-data-point {

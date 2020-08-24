@@ -13,6 +13,7 @@ const MultiSelectFilterContainer = ({ multiSelectFilterList }) => (
           key={item.title || shortid.generate()}
           id={`checkbox-${formatIdSpacing(`${item.title}${item.isTandem ? '-tandem' : ''}`)}`}
           title={item.altTitle || item.title}
+          buttonClass={item.buttonClass}
         >
           {item.content}
         </AccordionItem>))

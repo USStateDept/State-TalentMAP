@@ -464,7 +464,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             >
               <DefinitionList
                 dangerPay={0}
-                obcUrl=""
+                obcUrl={Object {}}
                 postDifferential={30}
               />
             </td>
@@ -473,7 +473,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             >
               <DefinitionList
                 dangerPay={15}
-                obcUrl=""
+                obcUrl={Object {}}
                 postDifferential={20}
               />
             </td>
@@ -537,6 +537,35 @@ exports[`CompareListComponent matches snapshot 1`] = `
             name="flags.static_content"
             render={[Function]}
           />
+          <tr>
+            <th
+              scope="row"
+            />
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
+            <td
+              className="empty"
+              key="61"
+            />
+            <td
+              className="empty"
+              key="62"
+            />
+            <td
+              className="empty"
+              key="63"
+            />
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1033,7 +1062,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             >
               <DefinitionList
                 dangerPay={0}
-                obcUrl=""
+                obcUrl={Object {}}
                 postDifferential={30}
               />
             </td>
@@ -1042,7 +1071,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             >
               <DefinitionList
                 dangerPay={15}
-                obcUrl=""
+                obcUrl={Object {}}
                 postDifferential={20}
               />
             </td>
@@ -1106,6 +1135,35 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             name="flags.static_content"
             render={[Function]}
           />
+          <tr>
+            <th
+              scope="row"
+            />
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
+            <MediaQueryWrapper
+              breakpoint="screenLgMin"
+              widthType="min"
+            >
+              <Component />
+            </MediaQueryWrapper>
+            <td
+              className="empty"
+              key="61"
+            />
+            <td
+              className="empty"
+              key="62"
+            />
+            <td
+              className="empty"
+              key="63"
+            />
+          </tr>
         </tbody>
       </table>
     </div>

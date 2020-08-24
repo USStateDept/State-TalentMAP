@@ -40,6 +40,7 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
   const shouldShowAlert = !hasErrored && positions && !positions.length;
   const shouldShowErrorAlert = hasErrored && !isLoading;
   const shouldDisplaySpinner = useSpinner && isLoading;
+  const isFavorites = title === 'Favorited Positions';
 
   const wrappedInLink = wrapInLink ?
     (
@@ -78,7 +79,10 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
           />
       }
       {
-        shouldShowAlert && <Alert title="No results match this criteria" />
+        shouldShowAlert && isFavorites && <Alert title="No available positions added to Favorites" />
+      }
+      {
+        shouldShowAlert && !isFavorites && <Alert title="No results match this criteria" />
       }
       {
         shouldShowErrorAlert && <Alert title="An error occurred loading positions" type="error" />

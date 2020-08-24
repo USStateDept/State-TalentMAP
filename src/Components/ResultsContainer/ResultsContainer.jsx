@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import ErrorBoundary from 'Components/ErrorBoundary';
+import ResultsList from 'Components/ResultsList/ResultsList';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import ResultsList from '../ResultsList/ResultsList';
 import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
   SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
   BID_RESULTS } from '../../Constants/PropTypes';
@@ -46,6 +46,12 @@ class ResultsContainer extends Component {
             matches => (matches &&
               (
                 <div className="usa-width-one-whole mobile-controls">
+                  {
+                    isTandemSearch &&
+                    <Trigger isPrimary>
+                      <button className="usa-button-secondary">Save Tandem Search</button>
+                    </Trigger>
+                  }
                   {
                     !isTandemSearch &&
                     <Trigger isPrimary>
@@ -111,6 +117,8 @@ class ResultsContainer extends Component {
                 isLoading={!hasLoaded}
                 favorites={userProfile.favorite_positions}
                 favoritesPV={userProfile.favorite_positions_pv}
+                favoritesTandem={userProfile.favorite_tandem_positions}
+                favoritesPVTandem={userProfile.favorite_tandem_positions_pv}
                 bidList={bidList}
               />
             </ErrorBoundary>

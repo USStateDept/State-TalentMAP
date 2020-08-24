@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
@@ -28,9 +29,17 @@ import {
   EMPTY_FUNCTION,
   HIGHLIGHT_POSITION,
   BIDDER_OBJECT,
+  ROUTER_LOCATION_OBJECT,
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
+  getChildContext() {
+    const { tandem } = queryString.parse(this.props.location.search);
+    const isTandemTwo = tandem === 'true';
+    return {
+      isTandemTwo,
+    };
+  }
   UNSAFE_componentWillMount() {
     const { isArchived, isProjectedVacancy } = this.props;
     if (!this.props.isAuthorized()) {
@@ -129,6 +138,10 @@ Position.contextTypes = {
   router: PropTypes.object,
 };
 
+Position.childContextTypes = {
+  isTandemTwo: PropTypes.bool,
+};
+
 Position.propTypes = {
   onNavigateTo: PropTypes.func.isRequired,
   match: PropTypes.shape({
@@ -136,6 +149,7 @@ Position.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
+  location: ROUTER_LOCATION_OBJECT,
   fetchData: PropTypes.func,
   fetchPVData: PropTypes.func,
   fetchUPData: PropTypes.func,
@@ -195,6 +209,12 @@ Position.defaultProps = {
   client: {},
   clientIsLoading: false,
   clientHasErrored: false,
+  location: {
+    pathname: '',
+    search: '',
+    hash: '',
+    key: '',
+  },
 };
 
 const mapStateToProps = (state, ownProps) => ({

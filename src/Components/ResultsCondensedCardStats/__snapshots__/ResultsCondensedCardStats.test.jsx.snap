@@ -2,7 +2,7 @@
 
 exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
 <div
-  className="condensed-card-footer condensed-card-statistics"
+  className="condensed-card-footer condensed-card-statistics "
 >
   <div
     className="usa-grid-full condensed-card-statistics-inner"
@@ -16,6 +16,7 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
           "total_bids": 5,
         }
       }
+      isTandemTwo={false}
     />
   </div>
 </div>

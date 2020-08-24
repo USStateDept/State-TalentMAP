@@ -15,12 +15,15 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
     onPillClick={[Function]}
   />
   <ResultsControls
+    containerClass=""
     defaultPageNumber={0}
     defaultPageSize={10}
     defaultSort=""
     hasErrored={false}
     hasLoaded={true}
+    hideSaveSearch={false}
     isLoading={true}
+    pageSizeClass=""
     pageSizes={
       Object {
         "options": Array [
@@ -246,6 +249,8 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
         bidList={Array []}
         favorites={Array []}
         favoritesPV={Array []}
+        favoritesPVTandem={Array []}
+        favoritesTandem={Array []}
         isLoading={false}
         key="0"
         results={

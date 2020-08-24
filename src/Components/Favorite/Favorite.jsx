@@ -62,7 +62,6 @@ class Favorite extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     let isUpdate = true;
-
     const { compareArray, refKey } = nextProps;
     const oldState = this.getSavedState();
     const newState = existsInArray(refKey, compareArray);
@@ -135,7 +134,7 @@ class Favorite extends Component {
   }
 
   toggleSaved = () => {
-    const { onToggle, refKey, refresh } = this.props;
+    const { onToggle, refKey, refresh, isTandem } = this.props;
     this.setState({
       loading: true,
       alertMessage: `You have ${this.getSavedState() ? 'removed' : 'added'}
@@ -143,7 +142,7 @@ class Favorite extends Component {
     });
 
     // pass the key and the "remove" param
-    onToggle(refKey, this.getSavedState(), refresh);
+    onToggle(refKey, this.getSavedState(), refresh, isTandem);
   };
 
   render() {
@@ -202,6 +201,7 @@ Favorite.propTypes = {
   useSpinnerWhite: PropTypes.bool,
   refresh: PropTypes.bool.isRequired,
   hasErrored: PropTypes.bool,
+  isTandem: PropTypes.bool,
 };
 
 Favorite.defaultProps = {
@@ -217,6 +217,7 @@ Favorite.defaultProps = {
   useSpinnerWhite: false,
   refresh: false,
   hasErrored: false,
+  isTandem: false,
 };
 
 export default Favorite;

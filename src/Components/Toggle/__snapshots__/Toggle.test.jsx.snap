@@ -5,7 +5,7 @@ exports[`Toggle matches snapshot 1`] = `
   className="toggle-container"
 >
   <button
-    className="toggle-button toggle-button--selected"
+    className="toggle-button toggle-button--selected toggle-tandem-1"
     key="1"
     onClick={[Function]}
     value={1}
@@ -13,7 +13,7 @@ exports[`Toggle matches snapshot 1`] = `
     a
   </button>
   <button
-    className="toggle-button "
+    className="toggle-button  toggle-tandem-2"
     key="2"
     onClick={[Function]}
     value={2}
@@ -21,7 +21,23 @@ exports[`Toggle matches snapshot 1`] = `
     b
   </button>
   <button
-    className="toggle-button "
+    className="toggle-button  toggle-pv"
+    key="projected"
+    onClick={[Function]}
+    value="projected"
+  >
+    Projected Vacancies
+  </button>
+  <button
+    className="toggle-button  toggle-ap"
+    key="open"
+    onClick={[Function]}
+    value="open"
+  >
+    Open Positions
+  </button>
+  <button
+    className="toggle-button  "
     key="3"
     onClick={[Function]}
     value={3}

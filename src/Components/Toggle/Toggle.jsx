@@ -45,7 +45,7 @@ class Toggle extends Component {
               key={m.value}
               value={m.value}
               onClick={this.onSelect}
-              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+              className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''} ${m.toggleClass}`}
             >
               {m.label}
             </button>);
@@ -61,7 +61,7 @@ class Toggle extends Component {
                   key={m.value}
                   value={m.value}
                   onClick={this.onSelect}
-                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''}`}
+                  className={`toggle-button ${isSelected ? 'toggle-button--selected' : ''} ${m.toggleClass}`}
                 >{m.label}
                 </button>
               </Tooltip>);

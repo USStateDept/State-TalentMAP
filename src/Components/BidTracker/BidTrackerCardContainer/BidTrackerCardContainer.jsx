@@ -17,7 +17,7 @@ const STANDBY = 'standby';
 // If it is, we'll wrap the card in the IsPriority component, and if not, we'll pass the bid
 // object to the IsOnStandby component.
 const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, registerHandshake, priorityExists,
-  userProfile, submitBid, deleteBid, useCDOView }) => {
+  userProfile, submitBid, deleteBid, useCDOView, unregisterHandshake }) => {
   const getCard = ({ ...props }) => (
     <BidTrackerCard
       bid={bid}
@@ -29,6 +29,7 @@ const BidTrackerCardContainer = ({ bid, acceptBid, declineBid, registerHandshake
       showBidCount
       useCDOView={useCDOView}
       registerHandshake={registerHandshake}
+      unregisterHandshake={unregisterHandshake}
       {...props}
     />
   );
@@ -69,6 +70,7 @@ BidTrackerCardContainer.propTypes = {
   submitBid: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
   registerHandshake: PropTypes.func.isRequired,
+  unregisterHandshake: PropTypes.func.isRequired,
   priorityExists: PropTypes.bool,
   userProfile: USER_PROFILE.isRequired,
   useCDOView: PropTypes.bool,

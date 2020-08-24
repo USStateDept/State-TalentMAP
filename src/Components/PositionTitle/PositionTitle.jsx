@@ -42,11 +42,22 @@ class PositionTitle extends Component {
 
   render() {
     const { details, isProjectedVacancy, isArchived, userProfile } = this.props;
-    const { isClient } = this.context;
+    const { isClient, isTandemTwo } = this.context;
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
     const availableToBid = this.getIsAvailableToBid();
+    let $compareArray = [];
+    if (isProjectedVacancy && isTandemTwo) {
+      $compareArray = userProfile.favorite_tandem_positions_pv;
+    } else if (isProjectedVacancy) {
+      $compareArray = userProfile.favorite_positions_pv;
+    } else if (isTandemTwo) {
+      $compareArray = userProfile.favorite_tandem_positions;
+    } else {
+      $compareArray = userProfile.favorite_positions;
+    }
+
     return (
       <div className="position-details-header-container">
         <Helmet>
@@ -75,11 +86,12 @@ class PositionTitle extends Component {
                     !isClient && !isArchived &&
                     <Favorite
                       refKey={details.cpId}
-                      compareArray={userProfile[isProjectedVacancy ? 'favorite_positions_pv' : 'favorite_positions']}
+                      compareArray={$compareArray}
                       useLongText
                       useSpinnerWhite
                       useButtonClass
                       isPV={isProjectedVacancy}
+                      isTandem={isTandemTwo}
                     />
                   }
                 </div>
@@ -114,7 +126,7 @@ class PositionTitle extends Component {
             />
           }
           {
-            !isProjectedVacancy && !isArchived &&
+            !isProjectedVacancy && !isArchived && !isTandemTwo &&
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -128,6 +140,7 @@ class PositionTitle extends Component {
 
 PositionTitle.contextTypes = {
   isClient: PropTypes.bool,
+  isTandemTwo: PropTypes.bool,
 };
 
 PositionTitle.propTypes = {

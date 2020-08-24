@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
+import BidCount from 'Components/BidCount';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -50,6 +51,8 @@ const PositionDetailsItem = (props) => {
     onHighlight,
     isProjectedVacancy,
     isArchived,
+    hideHeader,
+    hideContact,
   } = props;
 
   const { position } = details;
@@ -67,7 +70,7 @@ const PositionDetailsItem = (props) => {
   const diffProps = { dangerPay, postDifferential, obcUrl };
   const differentials = <Differentials {...diffProps} />;
 
-  const incumbent = propOrDefault(position, 'current_assignment.user', NO_USER_LISTED);
+  const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
 
   const getPostedDate = () => {
     const posted = get(position, COMMON_PROPERTIES.posted);
@@ -78,7 +81,9 @@ const PositionDetailsItem = (props) => {
   };
   const postedDate = getPostedDate();
 
-  const stats = getBidStatisticsObject(get(details, 'bid_statistics'));
+  const stats = getBidStatisticsObject(get(details, 'bid_statistics', [{}]));
+
+  const formattedDate = formatDate(get(details, 'position.description.date_updated'));
 
   const isHighlighted = get(position, 'is_highlighted');
   return (
@@ -90,12 +95,13 @@ const PositionDetailsItem = (props) => {
         }
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
-        <div className="usa-width-two-thirds about-section-left">
-          <h2>About the Position</h2>
+        <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>
+          { !hideHeader && <h2>About the Position</h2> }
           <PositionDetailsDescription
             details={position}
             editDescriptionContent={editDescriptionContent}
             resetDescriptionEditMessages={resetDescriptionEditMessages}
+            updatedDate={hideContact ? formattedDate : null}
           />
           {
             isHighlighted &&
@@ -112,6 +118,7 @@ const PositionDetailsItem = (props) => {
             </div>
           }
           <div className="usa-grid-full data-point-section">
+            {hideContact && <BidCount bidStatistics={stats} altStyle isCondensed />}
             <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(position.position_number)} title="Position number" content={position.position_number} />
             <CondensedCardDataPoint title="Skill" content={position.skill || NO_SKILL} />
             <CondensedCardDataPoint title="Grade" content={position.grade || NO_GRADE} />
@@ -124,27 +131,30 @@ const PositionDetailsItem = (props) => {
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
           </div>
         </div>
-        <div className="usa-width-one-third position-details-contact-container">
-          <PositionDetailsContact
-            details={{
-              ...position,
-              bidStatistics: get(details, 'bid_statistics', [{}]),
-            }}
-            editWebsiteContent={editWebsiteContent}
-            editPocContent={editPocContent}
-            resetDescriptionEditMessages={resetDescriptionEditMessages}
-            isProjectedVacancy={isProjectedVacancy}
-          />
-          {
-            !isProjectedVacancy && !isArchived &&
-            <ServiceNeededToggle
-              userProfile={userProfile}
-              position={details}
-              loading={isHighlightLoading}
-              onChange={onHighlight}
+        {
+          !hideContact &&
+          <div className="usa-width-one-third position-details-contact-container">
+            <PositionDetailsContact
+              details={{
+                ...position,
+                bidStatistics: get(details, 'bid_statistics', [{}]),
+              }}
+              editWebsiteContent={editWebsiteContent}
+              editPocContent={editPocContent}
+              resetDescriptionEditMessages={resetDescriptionEditMessages}
+              isProjectedVacancy={isProjectedVacancy}
             />
-          }
-        </div>
+            {
+              !isProjectedVacancy && !isArchived &&
+              <ServiceNeededToggle
+                userProfile={userProfile}
+                position={details}
+                loading={isHighlightLoading}
+                onChange={onHighlight}
+              />
+            }
+          </div>
+        }
       </div>
     </div>
   );
@@ -161,6 +171,8 @@ PositionDetailsItem.propTypes = {
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
   isArchived: PropTypes.bool,
+  hideHeader: PropTypes.bool,
+  hideContact: PropTypes.bool,
 };
 
 PositionDetailsItem.defaultProps = {
@@ -170,6 +182,8 @@ PositionDetailsItem.defaultProps = {
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
   isArchived: false,
+  hideHeader: false,
+  hideContact: false,
 };
 
 export default PositionDetailsItem;

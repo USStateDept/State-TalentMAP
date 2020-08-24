@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
 import { getLogs, getLogsList, getLog, getLogToDownload } from '../../actions/logs';
 import { getUsers, getTableStats } from '../../actions/userRoles';
+import { fetchFeatureFlagsData } from '../../actions/featureFlags';
 import { syncsFetchData, putAllSyncs, patchSync } from '../../actions/synchronizations';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
@@ -34,6 +35,7 @@ class AdministratorContainer extends Component {
     this.props.getUsers();
     this.props.getTableStats();
     this.props.getSyncJobs();
+    this.props.fetchFeatureFlagsData();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -77,7 +79,7 @@ class AdministratorContainer extends Component {
     const {
       logs, logsIsLoading, logsHasErrored, patchSyncJob, patchSyncIsLoading,
       logsList, logsListIsLoading, logsListHasErrored,
-      log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers,
+      log, logIsLoading, logHasErrored, syncJobs, syncJobsIsLoading, totalUsers, featureFlags,
     } = this.props;
     const props = {
       logs,
@@ -100,6 +102,7 @@ class AdministratorContainer extends Component {
       patchSyncJob,
       patchSyncIsLoading,
       totalUsers: totalUsers.count,
+      featureFlags,
     };
     return (
       <AdministratorPage {...props} />
@@ -135,7 +138,10 @@ AdministratorContainer.propTypes = {
   patchSyncHasErrored: PropTypes.bool,
   getUsers: PropTypes.func,
   getTableStats: PropTypes.func,
-  totalUsers: PropTypes.shape({ count: PropTypes.number }),
+  totalUsers: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.shape({})),
+    PropTypes.shape({ count: PropTypes.number })]),
+  fetchFeatureFlagsData: PropTypes.func,
+  featureFlags: PropTypes.shape({}),
 };
 
 AdministratorContainer.defaultProps = {
@@ -167,6 +173,8 @@ AdministratorContainer.defaultProps = {
   getUsers: EMPTY_FUNCTION,
   getTableStats: EMPTY_FUNCTION,
   totalUsers: {},
+  fetchFeatureFlagsData: EMPTY_FUNCTION,
+  featureFlags: {},
 };
 
 const mapStateToProps = state => ({
@@ -188,6 +196,7 @@ const mapStateToProps = state => ({
   patchSyncIsLoading: state.patchSyncIsLoading,
   patchSyncHasErrored: state.patchSyncHasErrored,
   totalUsers: state.usersSuccess,
+  featureFlags: state.featureFlags,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -200,6 +209,7 @@ export const mapDispatchToProps = dispatch => ({
   patchSyncJob: data => dispatch(patchSync(data)),
   getUsers: () => dispatch(getUsers()),
   getTableStats: () => dispatch(getTableStats()),
+  fetchFeatureFlagsData: () => dispatch(fetchFeatureFlagsData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)((AdministratorContainer));

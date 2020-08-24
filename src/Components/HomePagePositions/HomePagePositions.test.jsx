@@ -3,16 +3,24 @@ import toJSON from 'enzyme-to-json';
 import React from 'react';
 import HomePagePositions from './HomePagePositions';
 import bidListObject from '../../__mocks__/bidListObject';
-import { USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIONS, HIGHLIGHTED_POSITIONS } from '../../Constants/PropTypes';
-import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 
 describe('HomePageComponent', () => {
   const props = {
-    homePagePositions: {
-      [USER_SKILL_AND_GRADE_POSITIONS]: [{ position: { id: 1, skill: 'skill 1' } }],
-      [USER_GRADE_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
-      [FAVORITED_POSITIONS]: [],
-      [HIGHLIGHTED_POSITIONS]: [],
+    homePageFeaturedPositions: {
+      positions: [{ position: { id: 1,
+        grade: '03',
+        skill: 'skill 5',
+        skill_code: '0020',
+      } }],
+      name: 'featuredGradeAndSkillPositions',
+    },
+    homePageRecommendedPositions: {
+      positions: [{ position: { id: 1,
+        grade: '00',
+        skill: 'skill 1',
+        skill_code: '0020',
+      } }],
+      name: 'recommendedGradeAndSkillPositions',
     },
     bidList: bidListObject.results,
     userProfile: {
@@ -43,56 +51,55 @@ describe('HomePageComponent', () => {
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('positions').length).toBeGreaterThan(0);
   });
 
-  it('displays proper title and icon when userSkillAndGradePositions displayed', () => {
+  it('displays proper title and icon when featuredGradeAndSkillPositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={{ ...props.homePagePositions }}
+      homePageFeaturedPositions={props.homePageFeaturedPositions}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Positions That Match Your Grade And Skill(s)');
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('icon')).toBe('briefcase');
-    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Featured Positions That Match Your Grade And Skill(s)');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('icon')).toBe('bolt');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
   });
 
-  it('displays proper title adn icon when userGradePositions displayed', () => {
+  it('displays proper title and icon when recommendedGradeAndSkillPositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={{ ...props.homePagePositions,
-        [USER_SKILL_AND_GRADE_POSITIONS]: [] }}
+      homePageRecommendedPositions={props.homePageRecommendedPositions}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Positions That Match Your Grade');
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('icon')).toBe('briefcase');
-    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Positions That Match Your Grade And Skill(s)');
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('icon')).toBe('briefcase');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
   });
 
-  it('displays proper title when favoritedPositions displayed', () => {
+  it('displays proper title and icon when featuredGradePositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={{ ...props.homePagePositions,
-        [USER_SKILL_AND_GRADE_POSITIONS]: [],
-        [USER_GRADE_POSITIONS]: [],
-        [FAVORITED_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
+      homePageFeaturedPositions={{ ...props.homePageFeaturedPositions,
+        name: 'featuredGradePositions',
       }}
     />);
-    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Favorited Positions');
-    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(1);
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Featured Positions That Match Your Grade');
+    expect(wrapper.find('HomePagePositionsSection').at(0).prop('icon')).toBe('bolt');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
   });
 
-  it('displays alert when favoritedPositions empty', () => {
+  it('displays proper title and icon when recommendedGradePositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      homePageRecommendedPositions={{ ...props.homePageRecommendedPositions,
+        name: 'recommendedGradePositions',
+      }}
     />);
-    expect(wrapper.find('Alert')).toBeDefined();
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Positions That Match Your Grade');
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('icon')).toBe('briefcase');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
   });
 
-  it('displays proper title and icon when highlighted positions displayed', () => {
+  it('displays proper title and icon when featuredPositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={{ ...props.homePagePositions,
-        [USER_SKILL_AND_GRADE_POSITIONS]: [],
-        [USER_GRADE_POSITIONS]: [],
-        [FAVORITED_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
-        [HIGHLIGHTED_POSITIONS]: [{ position: { id: 2, grade: '03' } }],
+      homePageFeaturedPositions={{ ...props.homePageFeaturedPositions,
+        name: 'featuredPositions',
       }}
     />);
     expect(wrapper.find('HomePagePositionsSection').at(0).prop('title')).toBe('Featured Positions');
@@ -100,15 +107,53 @@ describe('HomePageComponent', () => {
     expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
   });
 
-  it('matches snapshot when the positions arrays are empty', () => {
+  it('displays proper title and icon when favoritedPositions displayed', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
-      homePagePositions={DEFAULT_HOME_PAGE_POSITIONS}
+      homePageRecommendedPositions={{ ...props.homePageRecommendedPositions,
+        name: 'favoritedPositions',
+      }}
+    />);
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('title')).toBe('Favorited Positions');
+    expect(wrapper.find('HomePagePositionsSection').at(1).prop('icon')).toBe('star');
+    expect(wrapper.find('HomePagePositionsSection')).toHaveLength(2);
+  });
+
+  it('displays alert when featuredPositions empty', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePageFeaturedPositions={{
+        positions: [],
+        name: 'featuredGradePositions',
+      }}
+    />);
+    expect(wrapper.find('Alert')).toBeDefined();
+  });
+
+  it('displays alert when favoritedPositions empty', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePageRecommendedPositions={{ positions: [],
+        name: 'favoritedPositions',
+      }}
+    />);
+    expect(wrapper.find('Alert')).toBeDefined();
+  });
+
+  it('matches snapshot when featuredPositions and favoritedPositions empty', () => {
+    const wrapper = shallow(<HomePagePositions
+      {...props}
+      homePageFeaturedPositions={{ positions: [],
+        name: 'featuredPositions',
+      }}
+      homePageRecommendedPositions={{ positions: [],
+        name: 'favoritedPositions',
+      }}
     />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('matches snapshot when position arrays are filled', () => {
+  it('matches snapshot when featuredPositions and favoritedPositions are filled', () => {
     const wrapper = shallow(<HomePagePositions
       {...props}
     />);

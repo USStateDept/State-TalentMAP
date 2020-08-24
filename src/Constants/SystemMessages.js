@@ -1,4 +1,5 @@
 import RegisterHandshakeSuccess from 'Components/BidListMessages/RegisterSuccess';
+import UnregisterHandshakeSuccess from 'Components/BidListMessages/UnregisterSuccess';
 import FavoriteSuccess from 'Components/FavoriteMessages/Success';
 import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from 'Components/BidListMessages/Success';
@@ -52,6 +53,9 @@ export const DELETE_FAVORITE_SUCCESS = (pos, onToggle) => RemoveSuccess({ pos, o
 export const DELETE_FAVORITE_ERROR = () => "We're experiencing an error attempting to remove this position from your Favorites. Please try again.";
 export const ADD_FAVORITE_SUCCESS = pos => FavoriteSuccess({ pos });
 export const ADD_FAVORITE_ERROR = () => "We're experiencing an error attempting to add this position to your Favorites. Please try again.";
+export const ADD_FAVORITE_LIMIT_ERROR_AP = limit => `You have reached the limit of ${limit} for Open Position favorites. Please remove a favorite and try again.`;
+export const ADD_FAVORITE_LIMIT_ERROR_PV = limit => `You have reached the limit of ${limit} for Projected Vacancy favorites. Please remove a favorite and try again.`;
+export const TANDEM_FAVORITE_MISSING = () => 'Please add at least 1 favorite for both user and tandem within tandem search.';
 
 export const ACCEPT_BID_SUCCESS = 'Bid successfully accepted.';
 export const ACCEPT_BID_ERROR = 'Error trying to accept this bid.';
@@ -62,7 +66,7 @@ export const SUBMIT_BID_ERROR = 'Error trying to submit this bid.';
 
 export const REGISTER_HANDSHAKE_SUCCESS = undo => RegisterHandshakeSuccess({ undo });
 export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
-export const UNREGISTER_HANDSHAKE_SUCCESS = 'Handshake successfully unregistered.';
+export const UNREGISTER_HANDSHAKE_SUCCESS = undo => UnregisterHandshakeSuccess({ undo });
 export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
 
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
@@ -87,5 +91,8 @@ export const SET_CLIENT_ERROR = 'Error setting client';
 export const GET_CLIENT_SUCCESS_MESSAGE = user => `You are now searching as ${user.name}.`;
 export const UNSET_CLIENT_SUCCESS = SET_CLIENT_SUCCESS;
 export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';
+
+export const POST_FEATURE_FLAGS_SUCCESS = 'Config File successfully updated.';
+export const POST_FEATURE_FLAGS_ERROR = 'Error updating Config File. Please try again.';
 
 export const COMING_SOON = 'Coming Soon';

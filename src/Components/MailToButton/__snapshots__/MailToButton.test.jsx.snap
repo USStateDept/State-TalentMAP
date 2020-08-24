@@ -7,9 +7,11 @@ exports[`MailToButtonComponent matches snapshot 1`] = `
   <a
     href="mailto:"
   >
+     
     <FontAwesome
       name="envelope-o"
     />
+     
   </a>
 </span>
 `;

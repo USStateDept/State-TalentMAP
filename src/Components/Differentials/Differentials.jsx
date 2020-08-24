@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isNumeric } from 'utilities';
 import OBCUrl from 'Components/OBCUrl';
+import { OBC_URLS } from 'Constants/PropTypes';
 import { NO_DANGER_PAY, NO_POST_DIFFERENTIAL } from 'Constants/SystemMessages';
 
 const DefinitionList = ({ dangerPay, postDifferential, obcUrl }) => (
@@ -18,13 +19,13 @@ const DefinitionList = ({ dangerPay, postDifferential, obcUrl }) => (
 DefinitionList.propTypes = {
   dangerPay: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postDifferential: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  obcUrl: PropTypes.string,
+  obcUrl: OBC_URLS,
 };
 
 DefinitionList.defaultProps = {
   dangerPay: NO_DANGER_PAY,
   postDifferential: NO_POST_DIFFERENTIAL,
-  obcUrl: '',
+  obcUrl: {},
 };
 
 export default DefinitionList;

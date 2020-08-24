@@ -4,7 +4,25 @@ import toJSON from 'enzyme-to-json';
 import SavedSearchPillList from './SavedSearchPillList';
 
 describe('FavoriteContentComponent', () => {
-  const pills = ['1', '0A', 'Projected Vacancy', 'Los Angeles, CA United States of America'];
+  // const pills = ['1', '0A', 'Projected Vacancy', 'Los Angeles, CA United States of America'];
+  const pills = [
+    {
+      description: '1',
+      isCommon: true,
+    },
+    {
+      description: 'Tandem',
+      isCommon: true,
+      isToggle: true,
+    },
+    {
+      description: 'Los Angeles, CA United States of America',
+      isTandem: true,
+    },
+  ];
+  const props = {
+    isProjectedVacancy: true,
+  };
   it('is defined', () => {
     const wrapper = shallow(
       <SavedSearchPillList
@@ -23,10 +41,11 @@ describe('FavoriteContentComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('sorts "Projected Vacancy" to the top', () => {
+  it('shows just PV pill when length is 0 and isProjectedVacancy', () => {
     const wrapper = shallow(
       <SavedSearchPillList
-        pills={pills}
+        pills={[]}
+        {...props}
       />,
     );
     expect(wrapper).toBeDefined();

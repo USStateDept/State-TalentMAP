@@ -16,7 +16,7 @@ import getConfig, { isTypeComplete } from './BidPhaseConfig/config';
 // determine whether to show an alert on the bid tracker based on the status
 export function shouldShowAlert(bid, { condensedView = false }) {
   // TO-DO - Add APPROVED_PROP back in with meanginful information
-  const alertStatusArray = [DRAFT_PROP, CLOSED_PROP,
+  const alertStatusArray = [DRAFT_PROP, CLOSED_PROP, HAND_SHAKE_ACCEPTED_PROP,
     HAND_SHAKE_DECLINED_PROP, DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP];
 
   if (isTypeComplete()) {

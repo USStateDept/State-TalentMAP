@@ -21,6 +21,9 @@ export const ENDPOINT_PARAMS = {
   projectedVacancy: 'projectedVacancy', // this isn't a real query param, but we'll use it to transform the request
   tandem: 'tandem',
   handshake: 'cps_codes',
+  postIndicators: 'position__post_indicator__in',
+  usCodes: 'position__us_codes__in',
+  commuterPosts: 'position__cpn_codes__in',
 };
 
 export const ENDPOINT_PARAMS_TANDEM = {
@@ -49,9 +52,19 @@ export const VALID_PARAMS = [
   'q',
 ];
 
+export const VALID_TANDEM_PARAMS = [
+  ...Object.values(ENDPOINT_PARAMS_TANDEM),
+  'q',
+];
+
 // Params that need their data fetched on-the-fly in order to populate pill text
 export const ASYNC_PARAMS = [
   ENDPOINT_PARAMS.mission,
   ENDPOINT_PARAMS.post,
   ENDPOINT_PARAMS.postAP,
+];
+
+export const SPECIAL_NEEDS = [
+  'BT_MOST_DIFFICULT_TO_STAFF_FLG',
+  'BT_SERVICE_NEEDS_DIFF_FLG',
 ];

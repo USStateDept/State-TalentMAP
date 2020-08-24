@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ScrollArea from 'react-scrollbar/dist/no-css';
 import { merge } from 'lodash';
+import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
 import SavedSearchesListResultsCard from '../SavedSearchesListResultsCard';
-import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
 import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 
 class SavedSearchesList extends Component {
@@ -79,7 +79,8 @@ class SavedSearchesList extends Component {
           mappedParams={mappedParams}
           /* pass a parentClassName that we can use from the BorderedList component */
           parentClassName="parent-list-container list-transparent"
-          isProjectedVacancy={savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/'}
+          isProjectedVacancy={savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
+          isTandemSearch={savedSearch.endpoint === '/api/v1/fsbid/available_positions/tandem/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
         />,
       )
     ));
