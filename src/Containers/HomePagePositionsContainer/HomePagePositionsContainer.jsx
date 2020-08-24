@@ -1,96 +1,100 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { homePagePositionsFetchData } from '../../actions/homePagePositions';
+import { homePageRecommendedPositionsFetchData, homePageFeaturedPositionsFetchData } from 'actions/homePagePositions';
+import { EMPTY_FUNCTION, USER_PROFILE, BID_RESULTS } from 'Constants/PropTypes';
+import { DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS, DEFAULT_HOME_PAGE_FEATURED_POSITIONS } from 'Constants/DefaultProps';
 import HomePagePositions from '../../Components/HomePagePositions/HomePagePositions';
-import { EMPTY_FUNCTION, HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS } from '../../Constants/PropTypes';
-import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
 import Spinner from '../../Components/Spinner';
 
-class HomePagePositionsContainer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // Track whether we've received a valid user profile and attempted to fetch positions.
-      hasFetched: false,
-    };
-  }
-
-  componentDidMount() {
-    // Don't try to pull positions until we've received the user's profile.
-    if (this.props.userProfile.id) {
-      this.props.homePagePositionsFetchData(this.props.userProfile.employee_info.skills,
-        this.props.userProfile.employee_info.grade);
+const HomePagePositionsContainer = props => {
+  useEffect(() => {
+    if (props.userProfile.id) {
+      props.homePageRecommendedPositionsFetchData(props.userProfile.employee_info.skills,
+        props.userProfile.employee_info.grade);
+      props.homePageFeaturedPositionsFetchData(props.userProfile.employee_info.skills,
+        props.userProfile.employee_info.grade);
     }
-  }
+  }, []);
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    // Once we have a valid user profile, fetch the positions, but only
-    // once. We'll set hasFetched to true to keep track.
-    if (nextProps.userProfile.id && !this.state.hasFetched
-        && !this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
-      this.props.homePagePositionsFetchData(nextProps.userProfile.employee_info.skills,
-        nextProps.userProfile.employee_info.grade);
+  const isFirstRun = useRef(true);
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+      return;
     }
-    if (this.props.homePagePositionsIsLoading && !nextProps.homePagePositionsIsLoading) {
-      setTimeout(() => {
-        this.setState({ hasFetched: true });
-      }, 0); // account for delay
+    if (props.userProfile.id) {
+      props.homePageRecommendedPositionsFetchData(props.userProfile.employee_info.skills,
+        props.userProfile.employee_info.grade);
+      props.homePageFeaturedPositionsFetchData(props.userProfile.employee_info.skills,
+        props.userProfile.employee_info.grade);
     }
-  }
+  }, [props.userProfile.id]);
 
-  render() {
-    const { homePagePositions, userProfileIsLoading, homePagePositionsIsLoading,
-      userProfile, bidList } = this.props;
-    const { hasFetched } = this.state;
-    return (
-      <div className="content-container">
-        {
-          (userProfileIsLoading || homePagePositionsIsLoading || !hasFetched)
-            ?
-            <div className="usa-grid-full homepage-positions-section-container">
-              <Spinner type="homepage-position-results" size="big" />
-            </div>
-            :
-            <HomePagePositions
-              homePagePositions={homePagePositions}
-              homePagePositionsIsLoading={homePagePositionsIsLoading}
-              userProfile={userProfile}
-              bidList={bidList}
-            />
-        }
-      </div>
-    );
-  }
-}
+  const { homePageRecommendedPositions, homePageFeaturedPositions,
+    userProfileIsLoading, homePageRecommendedPositionsIsLoading,
+    homePageFeaturedPositionsIsLoading, bidList, userProfile } = props;
+
+  return (
+    <div className="content-container">
+      {
+        (userProfileIsLoading || homePageRecommendedPositionsIsLoading
+              || homePageFeaturedPositionsIsLoading)
+          ?
+          <div className="usa-grid-full homepage-positions-section-container">
+            <Spinner type="homepage-position-results" size="big" />
+          </div>
+          :
+          <HomePagePositions
+            homePageRecommendedPositions={homePageRecommendedPositions}
+            homePageRecommendedPositionsIsLoading={homePageRecommendedPositionsIsLoading}
+            homePageFeaturedPositions={homePageFeaturedPositions}
+            homePageFeaturedPositionsIsLoading={homePageFeaturedPositionsIsLoading}
+            userProfile={userProfile}
+            bidList={bidList}
+          />
+      }
+    </div>
+  );
+};
 
 HomePagePositionsContainer.propTypes = {
-  homePagePositionsFetchData: PropTypes.func,
-  homePagePositions: HOME_PAGE_POSITIONS,
-  homePagePositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE.isRequired,
   bidList: BID_RESULTS.isRequired,
   userProfileIsLoading: PropTypes.bool,
+  homePageRecommendedPositionsFetchData: PropTypes.func,
+  homePageRecommendedPositions: PropTypes.shape({}),
+  homePageRecommendedPositionsIsLoading: PropTypes.bool,
+  homePageFeaturedPositionsFetchData: PropTypes.func,
+  homePageFeaturedPositions: PropTypes.shape({}),
+  homePageFeaturedPositionsIsLoading: PropTypes.bool,
 };
 
 HomePagePositionsContainer.defaultProps = {
-  homePagePositionsFetchData: EMPTY_FUNCTION,
-  homePagePositions: DEFAULT_HOME_PAGE_POSITIONS,
-  homePagePositionsIsLoading: false,
   userProfile: {},
   userProfileIsLoading: false,
+  homePageFeaturedPositionsFetchData: EMPTY_FUNCTION,
+  homePageFeaturedPositions: DEFAULT_HOME_PAGE_FEATURED_POSITIONS,
+  homePageFeaturedPositionsIsLoading: false,
+  homePageRecommendedPositionsFetchData: EMPTY_FUNCTION,
+  homePageRecommendedPositions: DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS,
+  homePageRecommendedPositionsIsLoading: false,
 };
 
 const mapStateToProps = state => ({
   userProfile: state.userProfile,
-  homePagePositions: state.homePagePositions,
-  homePagePositionsIsLoading: state.homePagePositionsIsLoading,
   userProfileIsLoading: state.userProfileIsLoading,
+  homePageFeaturedPositions: state.homePageFeaturedPositions,
+  homePageFeaturedPositionsIsLoading: state.homePageFeaturedPositionsIsLoading,
+  homePageRecommendedPositions: state.homePageRecommendedPositions,
+  homePageRecommendedPositionsIsLoading: state.homePageRecommendedPositionsIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
-  homePagePositionsFetchData: (skills, grade) =>
-    dispatch(homePagePositionsFetchData(skills, grade)),
+  homePageFeaturedPositionsFetchData: (skills, grade) =>
+    dispatch(homePageFeaturedPositionsFetchData(skills, grade)),
+  homePageRecommendedPositionsFetchData: (skills, grade) =>
+    dispatch(homePageRecommendedPositionsFetchData(skills, grade)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePagePositionsContainer);
