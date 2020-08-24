@@ -1,3 +1,17 @@
-import { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading } from './homePagePositions';
+import {
+  homePageRecommendedPositions,
+  homePageRecommendedPositionsHasErrored,
+  homePageRecommendedPositionsIsLoading,
+  homePageFeaturedPositions,
+  homePageFeaturedPositionsHasErrored,
+  homePageFeaturedPositionsIsLoading,
+} from './homePagePositions';
 
-export default { homePagePositions, homePagePositionsHasErrored, homePagePositionsIsLoading };
+export default {
+  homePageRecommendedPositions,
+  homePageRecommendedPositionsHasErrored,
+  homePageRecommendedPositionsIsLoading,
+  homePageFeaturedPositions,
+  homePageFeaturedPositionsHasErrored,
+  homePageFeaturedPositionsIsLoading,
+};
