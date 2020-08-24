@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
+import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';
@@ -21,6 +21,8 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
         mappedParams={mappedParams}
         /* pass a parentClassName that we can use from the BorderedList component */
         parentClassName="parent-list-container list-transparent"
+        isProjectedVacancy={savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
+        isTandemSearch={savedSearch.endpoint === '/api/v1/fsbid/available_positions/tandem/' || savedSearch.endpoint === '/api/v1/fsbid/projected_vacancies/tandem/'}
       />,
     )
   ));

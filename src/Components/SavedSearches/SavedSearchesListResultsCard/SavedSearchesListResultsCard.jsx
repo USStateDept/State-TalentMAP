@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
+import { NO_UPDATE_DATE, GET_NOW_AVAILABLE, GET_POSITIONS_ADDED } from 'Constants/SystemMessages';
+import { mapSavedSearchToDescriptions, formatDate } from 'utilities';
 import { Row, Column } from '../../Layout';
 import MediaQueryWrapper from '../../MediaQuery';
 import DefinitionList, { Definition } from '../../DefinitionList';
 import SavedSearchPillList from '../../SavedSearchPillList';
-import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from '../../../Constants/PropTypes';
-import { NO_UPDATE_DATE, GET_NOW_AVAILABLE, GET_POSITIONS_ADDED } from '../../../Constants/SystemMessages';
-import { mapSavedSearchToDescriptions, formatDate } from '../../../utilities';
 
 const SavedSearchListResultsCard = (props) => {
   const {
