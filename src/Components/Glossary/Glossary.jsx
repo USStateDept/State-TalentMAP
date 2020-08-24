@@ -38,6 +38,7 @@ class GlossaryComponent extends Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     // The listener only needs to exist if the Glossary is visible.
     if (nextProps.visible) {
+      this.resetText();
       /* This needs to be in a timeout, otherwise the glossary will immediately
       close the first time it is opened, since the Glossary link is "outside"
       of the Glossary div, and that click event will have been registered. */
@@ -54,11 +55,11 @@ class GlossaryComponent extends Component {
     }
   }
 
+  resetText = () => {
+    this.changeText('');
+  }
+
   toggleVisibility = () => {
-    // Add a timeout so that the reset is not visible during the transition animation
-    setTimeout(() => {
-      this.changeText('');
-    }, 500);
     this.props.toggleVisibility();
   }
 
