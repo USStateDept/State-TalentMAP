@@ -14015,10 +14015,11 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-dashboard@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/webpack-dashboard/-/webpack-dashboard-3.2.0.tgz#b8fc6215c76ffad66774375448f162892dc81bad"
+webpack-dashboard@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/webpack-dashboard/-/webpack-dashboard-3.2.1.tgz#e6b8f4ec32423c01bcc9ebd81cb05d3c53393232"
   dependencies:
+    chalk "^2.0.0"
     commander "^2.15.1"
     cross-spawn "^6.0.5"
     filesize "^3.6.1"
