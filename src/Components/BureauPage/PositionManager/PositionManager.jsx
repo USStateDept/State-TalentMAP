@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
-import { FILTERS_PARENT } from 'Constants/PropTypes';
+import { FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
+// import { merge } from 'lodash';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
@@ -18,39 +19,41 @@ const PositionManager = props => {
   const [page, setPage] = useState(1);
   // eslint-disable-next-line no-unused-vars
   const [sortType, setSortType] = useState();
-  const limit = 15;
-
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
 
-
-  const { bureauFilters } = props;
+  const { bureauFilters, bureauPositions } = props;
   const bureauFilters$ = bureauFilters.filters;
-  const teds = bureauFilters$.find(f => f.item.description === 'tod').data;
-  const grades = bureauFilters$.find(f => f.item.description === 'grade').data;
-  const skills = bureauFilters$.find(f => f.item.description === 'skillCone').data;
-  const posts = bureauFilters$.find(f => f.item.description === 'post').data;
+  const teds = bureauFilters$.find(f => f.item.description === 'tod');
+  const grades = bureauFilters$.find(f => f.item.description === 'grade');
+  const skills = bureauFilters$.find(f => f.item.description === 'skillCone');
+  const posts = bureauFilters$.find(f => f.item.description === 'post');
 
-  console.log(bureauFilters);
-  console.log(teds);
-  console.log(grades);
-  console.log(skills);
-  console.log(posts);
-
+  const query = {
+    [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
+    // Need to figure out selectionRef or however else we do it for skill cones
+    // [skills.item.selectionRef]: selectedSkills,
+    [posts.item.selectionRef]: selectedPosts.map(postObject => (postObject.code)),
+    [teds.item.selectionRef]: selectedTEDs.map(tedObject => (tedObject.code)),
+  };
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
   const sortBy = BUREAU_POSITION_SORT;
 
-  function submitSearch(q) {
-    props.fetchBureauPositions(sortType, limit, page, q);
+  function submitSearch(text) {
+    props.fetchBureauPositions({ q: text });
   }
 
   useEffect(() => {
-    props.fetchBureauPositions(sortType, limit, page);
     props.fetchFilters(bureauFilters, {});
     // if we want to do anything with our selected values once they update
   }, []);
+
+  useEffect(() => {
+    props.fetchBureauPositions(query);
+    // if we want to do anything with our selected values once they update
+  }, [selectedGrades, selectedSkills, selectedPosts, selectedTEDs]);
 
   const formatPosts = (posts$) => (
     posts$.map(post => {
@@ -65,27 +68,27 @@ const PositionManager = props => {
     })
   );
 
+
   function renderPostList({ items, selected, ...rest }) {
     formatPosts(items);
-    const getIsSelected = item => !!selected.find(f => f.value === item.value);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="post_name" getIsSelected={getIsSelected} />);
+    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="post_name" getIsSelected={getCodeSelected} />);
   }
 
   function renderTedList({ items, selected, ...rest }) {
-    const getIsSelected = item => !!selected.find(f => f.value === item.value);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="long_description" getIsSelected={getIsSelected} />);
+    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="long_description" getIsSelected={getCodeSelected} />);
   }
 
   function renderSkillList({ items, selected, ...rest }) {
-    const getIsSelected = item => !!selected.find(f => f.value === item.value);
-    return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIsSelected} />);
+    const getIDSelected = item => !!selected.find(f => f.id === item.id);
+    return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIDSelected} />);
   }
 
   function renderGradeList({ items, selected, ...rest }) {
-    const getIsSelected = item => !!selected.find(f => f.value === item.value);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getIsSelected} />);
+    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getCodeSelected} />);
   }
-
 
   return (
     <div className="bureau-page">
@@ -102,7 +105,7 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select TED(s)"
                     value={selectedTEDs}
-                    options={teds}
+                    options={teds.data}
                     onChange={values => setSelectedTEDs(values)}
                     numberDisplayed={2}
                     multiple
@@ -119,7 +122,7 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select Post(s)"
                     value={selectedPosts}
-                    options={posts}
+                    options={posts.data}
                     onChange={values => setSelectedPosts(values)}
                     numberDisplayed={2}
                     multiple
@@ -136,7 +139,7 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select Skill(s)"
                     value={selectedSkills}
-                    options={skills}
+                    options={skills.data}
                     onChange={values => setSelectedSkills(values)}
                     numberDisplayed={2}
                     multiple
@@ -153,7 +156,7 @@ const PositionManager = props => {
                   <Picky
                     placeholder="Select Grade(s)"
                     value={selectedGrades}
-                    options={grades}
+                    options={grades.data}
                     onChange={values => setSelectedGrades(values)}
                     numberDisplayed={2}
                     multiple
@@ -171,7 +174,7 @@ const PositionManager = props => {
         </div>
       </div>
       <ResultsControls
-        results={{}}
+        results={bureauPositions.results}
         hasLoaded
         defaultSort={''}
         pageSizes={pageSizes}
@@ -183,13 +186,15 @@ const PositionManager = props => {
         pageSizeClass="bureau-page-size"
         hideSaveSearch
       />
+      { !!bureauPositions.results &&
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
         <div className="usa-grid-full position-list">
-          {[...Array(10).keys()].map((m) => (
-            <BureauResultsCard key={m} />
+          {bureauPositions.results.map((result) => (
+            <BureauResultsCard result={result} />
           ))}
         </div>
       </div>
+      }
     </div>
   );
 };
@@ -198,10 +203,12 @@ PositionManager.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
   bureauFilters: FILTERS_PARENT,
+  bureauPositions: POSITION_SEARCH_RESULTS,
 };
 
 PositionManager.defaultProps = {
   bureauFilters: { filters: [] },
+  bureauPositions: { results: [] },
 };
 
 const mapStateToProps = state => ({
@@ -214,8 +221,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (sortType, limit, page, q) =>
-    dispatch(bureauPositionsFetchData(sortType, limit, page, q)),
+  fetchBureauPositions: query => dispatch(bureauPositionsFetchData(query)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
 });

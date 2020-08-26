@@ -1,5 +1,5 @@
-import { batch } from 'react-redux';
 import { downloadFromResponse } from 'utilities';
+import querystring from 'query-string';
 import { toastError } from './toast';
 import api from '../api';
 
@@ -35,7 +35,7 @@ export function bureauPositionsIsLoading(bool) {
   };
 }
 
-export function bureauPositions(results) {
+export function bureauPositionsFetchDataSuccess(results) {
   return {
     type: 'BUREAU_POSITIONS_FETCH_DATA_SUCCESS',
     results,
@@ -43,35 +43,35 @@ export function bureauPositions(results) {
 }
 
 
-export function bureauPositionsFetchData(sortType, limit = 25, page = 1, q = '') {
+export function bureauPositionsFetchData(userQuery) {
+  const defaults = {
+    limit: 25,
+    page: 1,
+    ordering: '',
+  };
+  const query = { ...defaults, ...userQuery };
+  const q = querystring.stringify(query,
+    {
+      arrayFormat: 'comma',
+      skipNull: true,
+    },
+  );
+
+  const url = `/fsbid/bureau/positions/?${q}`;
+
   return (dispatch) => {
-    batch(() => {
-      dispatch(bureauPositionsIsLoading(true));
-      dispatch(bureauPositionsHasErrored(false));
-    });
-
-    const createUrl = (url) => {
-      let url$ = url;
-      if (sortType) {
-        const append = `&ordering=${sortType}`;
-        url$ += append;
-      }
-      return url$;
-    };
-
-    const url = createUrl(`/fsbid/bureau/positions/?limit=${limit}&page=${page}&q=${q}`);
+    dispatch(bureauPositionsIsLoading(true));
+    dispatch(bureauPositionsHasErrored(false));
 
     api().get(url)
       .then(({ data }) => {
+        dispatch(bureauPositionsFetchDataSuccess(data));
         dispatch(bureauPositionsHasErrored(false));
-        dispatch(bureauPositions(data));
         dispatch(bureauPositionsIsLoading(false));
       })
       .catch(() => {
-        batch(() => {
-          dispatch(bureauPositionsHasErrored(true));
-          dispatch(bureauPositionsIsLoading(false));
-        });
+        dispatch(bureauPositionsHasErrored(true));
+        dispatch(bureauPositionsIsLoading(false));
       });
   };
 }

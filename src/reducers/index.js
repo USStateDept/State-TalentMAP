@@ -49,6 +49,7 @@ import userRoles from './userRoles';
 import classifications from './classifications';
 import featureFlags from './featureFlags';
 import bureauPositionBids from './bureauPositionBids';
+import bureauPositionManager from './bureauPositionManager';
 
 export default (history) => combineReducers({
   ...results,
@@ -96,6 +97,7 @@ export default (history) => combineReducers({
   ...classifications,
   ...featureFlags,
   ...bureauPositionBids,
+  ...bureauPositionManager,
   router: connectRouter(history),
   client,
   login,
