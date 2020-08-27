@@ -15,6 +15,7 @@ import {
   NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER,
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
+import { POSITION_DETAILS } from 'Constants/PropTypes';
 
 class BureauResultsCard extends Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class BureauResultsCard extends Component {
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
       },
       {
-        'Last Updated': 'N/A',
+        'Last Updated': getResult(pos, 'update_date', NO_UPDATE_DATE),
       },
     /* eslint-enable quote-props */
     ];
@@ -104,6 +105,7 @@ class BureauResultsCard extends Component {
 
 BureauResultsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
+  result: POSITION_DETAILS.isRequired,
 };
 
 BureauResultsCard.defaultProps = {

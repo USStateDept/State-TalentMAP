@@ -190,7 +190,7 @@ const PositionManager = props => {
       <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
         <div className="usa-grid-full position-list">
           {bureauPositions.results.map((result) => (
-            <BureauResultsCard result={result} />
+            <BureauResultsCard result={result} key={result.id} />
           ))}
         </div>
       </div>
