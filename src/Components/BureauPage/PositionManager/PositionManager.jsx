@@ -1,35 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { POSITION_MANAGER_PAGE_SIZES, BUREAU_POSITION_SORT } from 'Constants/Sort';
+import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-// import { merge } from 'lodash';
+import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import TotalResults from 'Components/TotalResults';
+import PaginationWrapper from 'Components/PaginationWrapper';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
 import { filtersFetchData } from '../../../actions/filters/filters';
-import ResultsControls from '../../ResultsControls/ResultsControls';
+import SelectForm from '../../SelectForm';
 
 
 const PositionManager = props => {
   // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1);
-  // eslint-disable-next-line no-unused-vars
-  const [sortType, setSortType] = useState();
+  const [limit, setLimit] = useState(10);
+  const [ordering, setOrdering] = useState([]);
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
 
-  const { bureauFilters, bureauPositions } = props;
+  const {
+    bureauFilters,
+    bureauPositions,
+    bureauFiltersIsLoading,
+    bureauPositionsIsLoading } = props;
   const bureauFilters$ = bureauFilters.filters;
   const teds = bureauFilters$.find(f => f.item.description === 'tod');
   const grades = bureauFilters$.find(f => f.item.description === 'grade');
   const skills = bureauFilters$.find(f => f.item.description === 'skillCone');
   const posts = bureauFilters$.find(f => f.item.description === 'post');
+  const sortBy = BUREAU_POSITION_SORT;
 
   const query = {
     [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
@@ -37,9 +44,12 @@ const PositionManager = props => {
     // [skills.item.selectionRef]: selectedSkills,
     [posts.item.selectionRef]: selectedPosts.map(postObject => (postObject.code)),
     [teds.item.selectionRef]: selectedTEDs.map(tedObject => (tedObject.code)),
+    ordering,
+    page,
+    limit,
   };
+
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
-  const sortBy = BUREAU_POSITION_SORT;
 
   function submitSearch(text) {
     props.fetchBureauPositions({ q: text });
@@ -53,7 +63,7 @@ const PositionManager = props => {
   useEffect(() => {
     props.fetchBureauPositions(query);
     // if we want to do anything with our selected values once they update
-  }, [selectedGrades, selectedSkills, selectedPosts, selectedTEDs]);
+  }, [selectedGrades, selectedSkills, selectedPosts, selectedTEDs, ordering, page, limit]);
 
   const formatPosts = (posts$) => (
     posts$.map(post => {
@@ -67,7 +77,6 @@ const PositionManager = props => {
       return { ...post };
     })
   );
-
 
   function renderPostList({ items, selected, ...rest }) {
     formatPosts(items);
@@ -91,111 +100,135 @@ const PositionManager = props => {
   }
 
   return (
-    <div className="bureau-page">
-      <div className="usa-grid-full position-manager-upper-section">
-        <div className="results-search-bar padded-main-content results-single-search homepage-offset">
-          <div className="usa-grid-full results-search-bar-container">
-            <ProfileSectionTitle title="Position Manager" icon="map" />
-            <PositionManagerSearch submitSearch={submitSearch} />
-            <div className="filterby-label">Filter by:</div>
-            <div className="usa-width-one-whole position-manager-filters results-dropdown">
-              <div className="small-screen-stack position-manager-filters-inner">
-                <div className="filter-div">
-                  <div className="label">TED:</div>
-                  <Picky
-                    placeholder="Select TED(s)"
-                    value={selectedTEDs}
-                    options={teds.data}
-                    onChange={values => setSelectedTEDs(values)}
-                    numberDisplayed={2}
-                    multiple
-                    includeFilter
-                    dropdownHeight={255}
-                    renderList={renderTedList}
-                    valueKey="code"
-                    labelKey="long_description"
-                    includeSelectAll
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Post:</div>
-                  <Picky
-                    placeholder="Select Post(s)"
-                    value={selectedPosts}
-                    options={posts.data}
-                    onChange={values => setSelectedPosts(values)}
-                    numberDisplayed={2}
-                    multiple
-                    includeFilter
-                    dropdownHeight={255}
-                    renderList={renderPostList}
-                    valueKey="code"
-                    labelKey={'post_name'}
-                    includeSelectAll
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Skill:</div>
-                  <Picky
-                    placeholder="Select Skill(s)"
-                    value={selectedSkills}
-                    options={skills.data}
-                    onChange={values => setSelectedSkills(values)}
-                    numberDisplayed={2}
-                    multiple
-                    includeFilter
-                    dropdownHeight={255}
-                    renderList={renderSkillList}
-                    valueKey="id"
-                    labelKey="name"
-                    includeSelectAll
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Grade:</div>
-                  <Picky
-                    placeholder="Select Grade(s)"
-                    value={selectedGrades}
-                    options={grades.data}
-                    onChange={values => setSelectedGrades(values)}
-                    numberDisplayed={2}
-                    multiple
-                    includeFilter
-                    dropdownHeight={255}
-                    renderList={renderGradeList}
-                    valueKey="code"
-                    labelKey="custom_description"
-                    includeSelectAll
-                  />
+    bureauFiltersIsLoading || bureauPositionsIsLoading ?
+      <Spinner type="results-filter" size="big" /> :
+      <>
+        <div className="bureau-page">
+          <div className="usa-grid-full position-manager-upper-section">
+            <div className="results-search-bar padded-main-content results-single-search homepage-offset">
+              <div className="usa-grid-full results-search-bar-container">
+                <ProfileSectionTitle title="Position Manager" icon="map" />
+                <PositionManagerSearch submitSearch={submitSearch} />
+                <div className="filterby-label">Filter by:</div>
+                <div className="usa-width-one-whole position-manager-filters results-dropdown">
+                  <div className="small-screen-stack position-manager-filters-inner">
+                    <div className="filter-div">
+                      <div className="label">TED:</div>
+                      <Picky
+                        placeholder="Select TED(s)"
+                        value={selectedTEDs}
+                        options={teds.data}
+                        onChange={values => setSelectedTEDs(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderTedList}
+                        valueKey="code"
+                        labelKey="long_description"
+                        includeSelectAll
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label">Post:</div>
+                      <Picky
+                        placeholder="Select Post(s)"
+                        value={selectedPosts}
+                        options={posts.data}
+                        onChange={values => setSelectedPosts(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderPostList}
+                        valueKey="code"
+                        labelKey={'post_name'}
+                        includeSelectAll
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label">Skill:</div>
+                      <Picky
+                        placeholder="Select Skill(s)"
+                        value={selectedSkills}
+                        options={skills.data}
+                        onChange={values => setSelectedSkills(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderSkillList}
+                        valueKey="id"
+                        labelKey="name"
+                        includeSelectAll
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label">Grade:</div>
+                      <Picky
+                        placeholder="Select Grade(s)"
+                        value={selectedGrades}
+                        options={grades.data}
+                        onChange={values => setSelectedGrades(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderGradeList}
+                        valueKey="code"
+                        labelKey="custom_description"
+                        includeSelectAll
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+            <TotalResults
+              total={bureauPositions.count}
+              pageNumber={page}
+              pageSize={limit}
+              suffix="Results"
+            />
+            <div className="bureau-results-controls">
+              <SelectForm
+                id="position-manager-num-results"
+                options={sortBy.options}
+                label="Sort by:"
+                defaultSort={':)'}
+                onSelectOption={value => setOrdering(value.target.value)}
+              />
+              <SelectForm
+                id="position-manager-num-results"
+                options={pageSizes.options}
+                label="Results:"
+                defaultSort={':)'}
+                onSelectOption={value => setLimit(value.target.value)}
+              />
+            </div>
+          </div>
+          <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
+            { !!bureauPositions.results &&
+            <div className="usa-grid-full position-list">
+              {bureauPositions.results.map((result) => (
+                <BureauResultsCard result={result} key={result.id} />
+              ))}
+            </div>
+            }
+          </div>
+          <div className="usa-grid-full react-paginate bureau-pagination-controls">
+            <PaginationWrapper
+              pageSize={limit}
+              onPageChange={p => setPage(p.page)}
+              forcePage={page}
+              totalResults={bureauPositions.count}
+            />
+          </div>
         </div>
-      </div>
-      <ResultsControls
-        results={bureauPositions.results}
-        hasLoaded
-        defaultSort={''}
-        pageSizes={pageSizes}
-        defaultPageSize={10}
-        sortBy={sortBy}
-        defaultPageNumber={1}
-        queryParamUpdate={() => {}}
-        containerClass="bureau-results-controls"
-        pageSizeClass="bureau-page-size"
-        hideSaveSearch
-      />
-      { !!bureauPositions.results &&
-      <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-        <div className="usa-grid-full position-list">
-          {bureauPositions.results.map((result) => (
-            <BureauResultsCard result={result} key={result.id} />
-          ))}
-        </div>
-      </div>
-      }
-    </div>
+      </>
   );
 };
 
@@ -204,11 +237,15 @@ PositionManager.propTypes = {
   fetchFilters: PropTypes.func.isRequired,
   bureauFilters: FILTERS_PARENT,
   bureauPositions: POSITION_SEARCH_RESULTS,
+  bureauFiltersIsLoading: PropTypes.bool,
+  bureauPositionsIsLoading: PropTypes.bool,
 };
 
 PositionManager.defaultProps = {
   bureauFilters: { filters: [] },
   bureauPositions: { results: [] },
+  bureauFiltersIsLoading: false,
+  bureauPositionsIsLoading: false,
 };
 
 const mapStateToProps = state => ({

@@ -1,4 +1,5 @@
 import { downloadFromResponse } from 'utilities';
+import { batch } from 'react-redux';
 import querystring from 'query-string';
 import { toastError } from './toast';
 import api from '../api';
@@ -60,18 +61,24 @@ export function bureauPositionsFetchData(userQuery) {
   const url = `/fsbid/bureau/positions/?${q}`;
 
   return (dispatch) => {
-    dispatch(bureauPositionsIsLoading(true));
-    dispatch(bureauPositionsHasErrored(false));
+    batch(() => {
+      dispatch(bureauPositionsIsLoading(true));
+      dispatch(bureauPositionsHasErrored(false));
+    });
 
     api().get(url)
       .then(({ data }) => {
-        dispatch(bureauPositionsFetchDataSuccess(data));
-        dispatch(bureauPositionsHasErrored(false));
-        dispatch(bureauPositionsIsLoading(false));
+        batch(() => {
+          dispatch(bureauPositionsFetchDataSuccess(data));
+          dispatch(bureauPositionsHasErrored(false));
+          dispatch(bureauPositionsIsLoading(false));
+        });
       })
       .catch(() => {
-        dispatch(bureauPositionsHasErrored(true));
-        dispatch(bureauPositionsIsLoading(false));
+        batch(() => {
+          dispatch(bureauPositionsHasErrored(true));
+          dispatch(bureauPositionsIsLoading(false));
+        });
       });
   };
 }
