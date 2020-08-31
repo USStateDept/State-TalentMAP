@@ -1,7 +1,16 @@
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
-import { HIGHLIGHTED_POSITIONS_QUERY, GET_SKILL_CODE_POSITIONS_QUERY, FAVORITE_POSITIONS_QUERY,
-  GET_GRADE_POSITIONS_QUERY, RECENTLY_POSTED_POSITIONS_QUERY,
-  homePagePositionsFetchData, homePagePositionsIsLoading } from './homePagePositions';
+import {
+  GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY,
+  GET_RECOMMENDED_GRADE_POSITIONS_QUERY,
+  FAVORITE_POSITIONS_QUERY,
+  GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY,
+  GET_FEATURED_GRADE_POSITIONS_QUERY,
+  GET_FEATURED_POSITIONS_QUERY,
+  homePageRecommendedPositionsFetchData,
+  homePageRecommendedPositionsIsLoading,
+  homePageFeaturedPositionsFetchData,
+  homePageFeaturedPositionsIsLoading,
+} from './homePagePositions';
 import resultsObject from '../__mocks__/resultsObject';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
@@ -13,11 +22,12 @@ const TEST_GRADE_CODE = '03';
 
 // set queries to test against
 const queries = [
-  HIGHLIGHTED_POSITIONS_QUERY(),
-  GET_SKILL_CODE_POSITIONS_QUERY(TEST_SKILL_CODES_STRING),
-  FAVORITE_POSITIONS_QUERY(),
-  GET_GRADE_POSITIONS_QUERY('03'),
-  RECENTLY_POSTED_POSITIONS_QUERY(),
+  GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY(TEST_SKILL_CODES_STRING, TEST_GRADE_CODE),
+  GET_RECOMMENDED_GRADE_POSITIONS_QUERY(TEST_GRADE_CODE),
+  FAVORITE_POSITIONS_QUERY,
+  GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY(TEST_SKILL_CODES_STRING, TEST_GRADE_CODE),
+  GET_FEATURED_GRADE_POSITIONS_QUERY(TEST_GRADE_CODE),
+  GET_FEATURED_POSITIONS_QUERY,
 ];
 
 describe('async actions', () => {
@@ -36,8 +46,10 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(homePagePositionsFetchData());
-        store.dispatch(homePagePositionsIsLoading());
+        store.dispatch(homePageRecommendedPositionsFetchData());
+        store.dispatch(homePageRecommendedPositionsIsLoading());
+        store.dispatch(homePageFeaturedPositionsFetchData());
+        store.dispatch(homePageFeaturedPositionsIsLoading());
         done();
       }, 0);
     };
@@ -49,8 +61,10 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(homePagePositionsFetchData(TEST_SKILL_CODES, TEST_GRADE_CODE));
-        store.dispatch(homePagePositionsIsLoading());
+        store.dispatch(homePageRecommendedPositionsFetchData(TEST_SKILL_CODES, TEST_GRADE_CODE));
+        store.dispatch(homePageRecommendedPositionsIsLoading());
+        store.dispatch(homePageFeaturedPositionsFetchData(TEST_SKILL_CODES, TEST_GRADE_CODE));
+        store.dispatch(homePageFeaturedPositionsIsLoading());
         done();
       }, 0);
     };
@@ -70,8 +84,10 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(homePagePositionsFetchData());
-        store.dispatch(homePagePositionsIsLoading());
+        store.dispatch(homePageRecommendedPositionsFetchData());
+        store.dispatch(homePageRecommendedPositionsIsLoading());
+        store.dispatch(homePageFeaturedPositionsFetchData());
+        store.dispatch(homePageFeaturedPositionsIsLoading());
         done();
       }, 0);
     };
@@ -91,8 +107,10 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(homePagePositionsFetchData(TEST_SKILL_CODES, TEST_GRADE_CODE));
-        store.dispatch(homePagePositionsIsLoading());
+        store.dispatch(homePageRecommendedPositionsFetchData(TEST_SKILL_CODES, TEST_GRADE_CODE));
+        store.dispatch(homePageRecommendedPositionsIsLoading());
+        store.dispatch(homePageFeaturedPositionsFetchData(TEST_SKILL_CODES, TEST_GRADE_CODE));
+        store.dispatch(homePageFeaturedPositionsIsLoading());
         done();
       }, 0);
     };

@@ -1,20 +1,6 @@
-import {
-  USER_SKILL_AND_GRADE_POSITIONS,
-  USER_GRADE_POSITIONS,
-  FAVORITED_POSITIONS,
-  HIGHLIGHTED_POSITIONS,
-} from './PropTypes';
-
 export { initialState as DEFAULT_HIGHLIGHT_POSITION } from '../reducers/highlightPosition';
 
 export const ACCORDION_SELECTION = { main: '', sub: '' };
-
-export const DEFAULT_HOME_PAGE_POSITIONS = {
-  [USER_SKILL_AND_GRADE_POSITIONS]: [],
-  [USER_GRADE_POSITIONS]: [],
-  [FAVORITED_POSITIONS]: [],
-  [HIGHLIGHTED_POSITIONS]: [],
-};
 
 export const DEFAULT_USER_PROFILE = {
   user: {
@@ -53,3 +39,13 @@ export const PROFILE_MENU_SECTION_EXPANDED_OBJECT = {
 };
 
 export default ACCORDION_SELECTION;
+
+export const DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS = {
+  positions: [],
+  name: '',
+};
+
+export const DEFAULT_HOME_PAGE_FEATURED_POSITIONS = {
+  positions: [],
+  name: '',
+};
