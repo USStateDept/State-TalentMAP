@@ -38,6 +38,8 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
           Array [
             <SavedSearchListResultsCard
               goToSavedSearch={[Function]}
+              isProjectedVacancy={false}
+              isTandemSearch={false}
               mappedParams={
                 Array [
                   Object {
@@ -77,6 +79,8 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
             />,
             <SavedSearchListResultsCard
               goToSavedSearch={[Function]}
+              isProjectedVacancy={false}
+              isTandemSearch={false}
               mappedParams={
                 Array [
                   Object {
