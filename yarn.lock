@@ -5071,9 +5071,9 @@ enum@^2.5.0:
   dependencies:
     is-buffer "^1.1.0"
 
-enzyme-adapter-react-16@^1.15.3:
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.3.tgz#90154055be3318d70a51df61ac89cfa22e3d5f60"
+enzyme-adapter-react-16@^1.15.4:
+  version "1.15.4"
+  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.4.tgz#328a782365a363ecb424f99283c4833dd92c0f21"
   dependencies:
     enzyme-adapter-utils "^1.13.1"
     enzyme-shallow-equal "^1.0.4"
