@@ -235,67 +235,70 @@ const PositionManager = props => {
               </div>
             </div>
           </div>
-
-          <div className="usa-width-one-whole results-dropdown bureau-controls-container">
-            <TotalResults
-              total={bureauPositions.count}
-              pageNumber={page}
-              pageSize={limit}
-              suffix="Results"
-            />
-            <div className="bureau-controls-right">
-              <div className="bureau-results-controls">
-                <SelectForm
-                  id="position-manager-num-results"
-                  options={sortBy.options}
-                  label="Sort by:"
-                  defaultSort={ordering}
-                  onSelectOption={value => setOrdering(value.target.value)}
-                  disabled={bureauPositionsIsLoading}
-                />
-                <SelectForm
-                  id="position-manager-num-results"
-                  options={pageSizes.options}
-                  label="Results:"
-                  defaultSort={limit}
-                  onSelectOption={value => setLimit(value.target.value)}
-                  disabled={bureauPositionsIsLoading}
-                />
-              </div>
-              <div className="export-button-container">
-                <ExportButton
-                  onClick={exportPositions}
-                  isLoading={isLoading}
-                  disabled={noBureausSelected}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-            {bureauPositionsIsLoading ?
-            // Spinner for normal loading
-              <Spinner type="bureau-results" size="big" /> :
-              noBureausSelected ?
-              // Alert for no bureau selected
-                <Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} /> :
-                bureauPositions.results.length < 1 ?
-                // Alert for no results
-                  <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} /> :
-                  <div className="usa-grid-full position-list">
-                    {bureauPositions.results.map((result) => (
-                      <BureauResultsCard result={result} key={result.id} />
-                    ))}
+          {
+            noBureausSelected ?
+              <Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} /> :
+              <>
+                <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+                  <TotalResults
+                    total={bureauPositions.count}
+                    pageNumber={page}
+                    pageSize={limit}
+                    suffix="Results"
+                    isLoading={bureauPositionsIsLoading}
+                  />
+                  <div className="bureau-controls-right">
+                    <div className="bureau-results-controls">
+                      <SelectForm
+                        id="position-manager-num-results"
+                        options={sortBy.options}
+                        label="Sort by:"
+                        defaultSort={ordering}
+                        onSelectOption={value => setOrdering(value.target.value)}
+                        disabled={bureauPositionsIsLoading}
+                      />
+                      <SelectForm
+                        id="position-manager-num-results"
+                        options={pageSizes.options}
+                        label="Results:"
+                        defaultSort={limit}
+                        onSelectOption={value => setLimit(value.target.value)}
+                        disabled={bureauPositionsIsLoading}
+                      />
+                    </div>
+                    <div className="export-button-container">
+                      <ExportButton
+                        onClick={exportPositions}
+                        isLoading={isLoading}
+                        disabled={noBureausSelected}
+                      />
+                    </div>
                   </div>
-            }
-          </div>
-          <div className="usa-grid-full react-paginate bureau-pagination-controls">
-            <PaginationWrapper
-              pageSize={limit}
-              onPageChange={p => setPage(p.page)}
-              forcePage={page}
-              totalResults={bureauPositions.count}
-            />
-          </div>
+                </div>
+                <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
+                  {bureauPositionsIsLoading ?
+                  // Spinner for normal loading
+                    <Spinner type="bureau-results" size="big" /> :
+                    bureauPositions.results.length < 1 ?
+                    // Alert for no results
+                      <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} /> :
+                      <div className="usa-grid-full position-list">
+                        {bureauPositions.results.map((result) => (
+                          <BureauResultsCard result={result} key={result.id} />
+                        ))}
+                      </div>
+                  }
+                </div>
+                <div className="usa-grid-full react-paginate bureau-pagination-controls">
+                  <PaginationWrapper
+                    pageSize={limit}
+                    onPageChange={p => setPage(p.page)}
+                    forcePage={page}
+                    totalResults={bureauPositions.count}
+                  />
+                </div>
+              </>
+          }
         </div>
       </>
   );

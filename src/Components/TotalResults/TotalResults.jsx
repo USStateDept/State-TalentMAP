@@ -4,7 +4,7 @@ import numeral from 'numeral';
 
 const format = n => numeral(n).format('0,0');
 
-const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
+const TotalResults = ({ total, pageNumber, pageSize, suffix, isLoading }) => {
   let showTotal;
   let beginning;
   let through;
@@ -20,7 +20,7 @@ const TotalResults = ({ total, pageNumber, pageSize, suffix }) => {
   const total$ = format(total);
 
   return (
-    <span id="total-results">
+    <span id="total-results" className={isLoading ? 'hide-total-results' : ''}>
       {
         isAllResults &&
           <div>
@@ -42,10 +42,12 @@ TotalResults.propTypes = {
   pageNumber: PropTypes.number.isRequired, // current page number
   pageSize: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   suffix: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 
 TotalResults.defaultProps = {
   suffix: 'Results',
+  isLoading: false,
 };
 
 export default TotalResults;
