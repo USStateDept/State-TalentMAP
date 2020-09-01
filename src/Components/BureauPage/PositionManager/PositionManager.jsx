@@ -177,7 +177,6 @@ const PositionManager = props => {
                         renderList={renderPostList}
                         valueKey="code"
                         labelKey="post_name"
-                        includeSelectAll
                       />
                     </div>
                     <div className="filter-div">
