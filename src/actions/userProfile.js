@@ -79,8 +79,10 @@ export function userProfileFetchData(bypass, cb) {
     const getPVFavorites = () => api().get('/projected_vacancy/favorites/ids/');
     const getPVTandemFavorites = () => api().get('/projected_vacancy/tandem/favorites/ids/');
 
+    const getBureauPermissions = () => api().get('/fsbid/employee/bureau_permissions/');
+
     const promises = [getUserPermissions(), getAPFavorites(), getPVFavorites(),
-      getAPTandemFavorites(), getPVTandemFavorites()];
+      getAPTandemFavorites(), getPVTandemFavorites(), getBureauPermissions()];
 
     if (!bypass) {
       promises.push(getUserAccount());
@@ -96,7 +98,8 @@ export function userProfileFetchData(bypass, cb) {
         const pvFavorites = get(results, '[2].value.data', []).map(id => ({ id }));
         const apTandemFavorites = get(results, '[3].value.data', []).map(id => ({ id }));
         const pvTandemFavorites = get(results, '[4].value.data', []).map(id => ({ id }));
-        const account = get(results, '[5].value.data', {});
+        const bureauPermissions = get(results, '[5].value.data', []);
+        const account = get(results, '[6].value.data', {});
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
@@ -106,17 +109,8 @@ export function userProfileFetchData(bypass, cb) {
           favorite_tandem_positions_pv: pvTandemFavorites,
           favorite_tandem_positions: apTandemFavorites,
           cdo: account.cdo_info, // don't use deprecated CDO API model
+          bureau_permissions: bureauPermissions,
         };
-
-        if (indexOf(permissions.groups, 'bureau_user') > -1) {
-          api().get('/fsbid/employee/bureau_permissions/')
-            .then(({ data }) => {
-              newProfileObject.bureau_permissions = data;
-            })
-            .catch(() => {
-              newProfileObject.bureau_permissions = [];
-            });
-        }
 
         if (!bypass) {
           newProfileObject = {
