@@ -8249,9 +8249,9 @@ json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
-jsoneditor-react@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/jsoneditor-react/-/jsoneditor-react-3.0.0.tgz#67f14b85c0c0c7626be74009cdeabcee82a9594f"
+jsoneditor-react@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/jsoneditor-react/-/jsoneditor-react-3.0.1.tgz#b0497c15ad90984cc7b570eba264a18350dcad55"
   dependencies:
     prop-types "^15.7.2"
 
