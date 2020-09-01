@@ -245,7 +245,7 @@ const PositionManager = props => {
                     pageNumber={page}
                     pageSize={limit}
                     suffix="Results"
-                    isLoading={bureauPositionsIsLoading}
+                    isHidden={bureauPositionsIsLoading}
                   />
                   <div className="bureau-controls-right">
                     <div className="bureau-results-controls">
