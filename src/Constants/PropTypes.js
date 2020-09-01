@@ -600,3 +600,11 @@ export const OBC_URLS = PropTypes.shape({
   internal: PropTypes.string,
   external: PropTypes.string,
 });
+
+export const BUREAU_PERMISSIONS = PropTypes.arrayOf(
+  PropTypes.shape({
+    code: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+  }),
+);

@@ -108,6 +108,16 @@ export function userProfileFetchData(bypass, cb) {
           cdo: account.cdo_info, // don't use deprecated CDO API model
         };
 
+        if (indexOf(permissions.groups, 'bureau_user') > -1) {
+          api().get('/fsbid/employee/bureau_permissions/')
+            .then(({ data }) => {
+              newProfileObject.bureau_permissions = data;
+            })
+            .catch(() => {
+              newProfileObject.bureau_permissions = [];
+            });
+        }
+
         if (!bypass) {
           newProfileObject = {
             ...account,

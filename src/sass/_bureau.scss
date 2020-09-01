@@ -244,6 +244,13 @@
   }
 }
 
+.bureau-controls-right {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  padding-right: 35px;
+}
+
 .bureau-page-size {
   margin-left: 20px;
 }

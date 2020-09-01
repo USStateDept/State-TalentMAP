@@ -1,32 +1,39 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { FILTERS_PARENT, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
+import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
+import { bureauPositionsFetchData, downloadBureauPositionsData } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
+import ExportButton from 'Components/ExportButton';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
+import Alert from 'Components/Alert';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { bureauPositionsFetchData } from '../../../actions/bureauPositions';
 import { filtersFetchData } from '../../../actions/filters/filters';
 import SelectForm from '../../SelectForm';
 
 
 const PositionManager = props => {
-  // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [ordering, setOrdering] = useState([]);
+  const [ordering, setOrdering] = useState('');
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedPosts, setSelectedPosts] = useState([]);
   const [selectedTEDs, setSelectedTEDs] = useState([]);
+  const [selectedBureaus, setSelectedBureaus] = useState([props.bureauPermissions[0]]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const noBureausSelected = selectedBureaus.length < 1;
 
   const {
+    bureauPermissions,
     bureauFilters,
     bureauPositions,
     bureauFiltersIsLoading,
@@ -34,16 +41,17 @@ const PositionManager = props => {
   const bureauFilters$ = bureauFilters.filters;
   const teds = bureauFilters$.find(f => f.item.description === 'tod');
   const grades = bureauFilters$.find(f => f.item.description === 'grade');
-  const skills = bureauFilters$.find(f => f.item.description === 'skillCone');
+  const skills = bureauFilters$.find(f => f.item.description === 'skill');
   const posts = bureauFilters$.find(f => f.item.description === 'post');
+  const bureaus = bureauFilters$.find(f => f.item.description === 'region');
   const sortBy = BUREAU_POSITION_SORT;
 
   const query = {
     [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
-    // Need to figure out selectionRef or however else we do it for skill cones
-    // [skills.item.selectionRef]: selectedSkills,
+    [skills.item.selectionRef]: selectedSkills.map(skillObject => (skillObject.code)),
     [posts.item.selectionRef]: selectedPosts.map(postObject => (postObject.code)),
     [teds.item.selectionRef]: selectedTEDs.map(tedObject => (tedObject.code)),
+    [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (bureauObject.code)),
     ordering,
     page,
     limit,
@@ -57,13 +65,20 @@ const PositionManager = props => {
 
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    // if we want to do anything with our selected values once they update
   }, []);
 
   useEffect(() => {
     props.fetchBureauPositions(query);
-    // if we want to do anything with our selected values once they update
-  }, [selectedGrades, selectedSkills, selectedPosts, selectedTEDs, ordering, page, limit]);
+  }, [
+    selectedGrades,
+    selectedSkills,
+    selectedPosts,
+    selectedTEDs,
+    selectedBureaus,
+    ordering,
+    page,
+    limit,
+  ]);
 
   const formatPosts = (posts$) => (
     posts$.map(post => {
@@ -91,7 +106,7 @@ const PositionManager = props => {
 
   function renderSkillList({ items, selected, ...rest }) {
     const getIDSelected = item => !!selected.find(f => f.id === item.id);
-    return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="name" getIsSelected={getIDSelected} />);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getIDSelected} />);
   }
 
   function renderGradeList({ items, selected, ...rest }) {
@@ -99,9 +114,25 @@ const PositionManager = props => {
     return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getCodeSelected} />);
   }
 
+  function renderBureauList({ items, selected, ...rest }) {
+    const getBureauSelected = item => !!selected.find(f => f.code === item.code);
+    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="long_description" getIsSelected={getBureauSelected} />);
+  }
+
+  const exportPositions = () => {
+    setIsLoading(true);
+    downloadBureauPositionsData(query)
+      .then(() => {
+        setIsLoading(false);
+      })
+      .catch(() => {
+        setIsLoading(false);
+      });
+  };
+
   return (
-    bureauFiltersIsLoading || bureauPositionsIsLoading ?
-      <Spinner type="results-filter" size="big" /> :
+    bureauFiltersIsLoading ?
+      <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="bureau-page">
           <div className="usa-grid-full position-manager-upper-section">
@@ -142,7 +173,24 @@ const PositionManager = props => {
                         dropdownHeight={255}
                         renderList={renderPostList}
                         valueKey="code"
-                        labelKey={'post_name'}
+                        labelKey="post_name"
+                        includeSelectAll
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label">Bureau:</div>
+                      <Picky
+                        placeholder="Select Bureau(s)"
+                        value={selectedBureaus}
+                        options={bureauPermissions}
+                        onChange={values => setSelectedBureaus(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderBureauList}
+                        valueKey="code"
+                        labelKey="long_description"
                         includeSelectAll
                       />
                     </div>
@@ -158,8 +206,8 @@ const PositionManager = props => {
                         includeFilter
                         dropdownHeight={255}
                         renderList={renderSkillList}
-                        valueKey="id"
-                        labelKey="name"
+                        valueKey="code"
+                        labelKey="custom_description"
                         includeSelectAll
                       />
                     </div>
@@ -193,30 +241,49 @@ const PositionManager = props => {
               pageSize={limit}
               suffix="Results"
             />
-            <div className="bureau-results-controls">
-              <SelectForm
-                id="position-manager-num-results"
-                options={sortBy.options}
-                label="Sort by:"
-                defaultSort={':)'}
-                onSelectOption={value => setOrdering(value.target.value)}
-              />
-              <SelectForm
-                id="position-manager-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={':)'}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
+            <div className="bureau-controls-right">
+              <div className="bureau-results-controls">
+                <SelectForm
+                  id="position-manager-num-results"
+                  options={sortBy.options}
+                  label="Sort by:"
+                  defaultSort={':)'}
+                  onSelectOption={value => setOrdering(value.target.value)}
+                  disabled={bureauPositionsIsLoading}
+                />
+                <SelectForm
+                  id="position-manager-num-results"
+                  options={pageSizes.options}
+                  label="Results:"
+                  defaultSort={':)'}
+                  onSelectOption={value => setLimit(value.target.value)}
+                  disabled={bureauPositionsIsLoading}
+                />
+              </div>
+              <div className="export-button-container">
+                <ExportButton
+                  onClick={exportPositions}
+                  isLoading={isLoading}
+                  disabled={noBureausSelected}
+                />
+              </div>
             </div>
           </div>
           <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-            { !!bureauPositions.results &&
-            <div className="usa-grid-full position-list">
-              {bureauPositions.results.map((result) => (
-                <BureauResultsCard result={result} key={result.id} />
-              ))}
-            </div>
+            {bureauPositionsIsLoading ?
+            // Spinner for normal loading
+              <Spinner type="bureau-results" size="big" /> :
+              noBureausSelected ?
+              // Alert for no bureau selected
+                <Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} /> :
+                bureauPositions.results.length < 1 ?
+                // Alert for no results
+                  <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} /> :
+                  <div className="usa-grid-full position-list">
+                    {bureauPositions.results.map((result) => (
+                      <BureauResultsCard result={result} key={result.id} />
+                    ))}
+                  </div>
             }
           </div>
           <div className="usa-grid-full react-paginate bureau-pagination-controls">
@@ -239,6 +306,7 @@ PositionManager.propTypes = {
   bureauPositions: POSITION_SEARCH_RESULTS,
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
+  bureauPermissions: BUREAU_PERMISSIONS.isRequired,
 };
 
 PositionManager.defaultProps = {
@@ -255,6 +323,7 @@ const mapStateToProps = state => ({
   bureauFilters: state.filters,
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
+  bureauPermissions: state.userProfile.bureau_permissions,
 });
 
 export const mapDispatchToProps = dispatch => ({
