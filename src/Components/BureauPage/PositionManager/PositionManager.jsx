@@ -31,6 +31,7 @@ const PositionManager = props => {
   const [selectedBureaus, setSelectedBureaus] = useState([props.bureauPermissions[0]]);
   const [isLoading, setIsLoading] = useState(false);
   const [textSearch, setTextSearch] = useState();
+  const [textInput, setTextInput] = useState();
 
   const noBureausSelected = selectedBureaus.length < 1;
 
@@ -57,7 +58,7 @@ const PositionManager = props => {
     ordering,
     page,
     limit,
-    q: textSearch,
+    q: textInput || textSearch,
   };
 
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
@@ -143,7 +144,7 @@ const PositionManager = props => {
             <div className="results-search-bar padded-main-content results-single-search homepage-offset">
               <div className="usa-grid-full results-search-bar-container">
                 <ProfileSectionTitle title="Position Manager" icon="map" />
-                <PositionManagerSearch submitSearch={submitSearch} />
+                <PositionManagerSearch submitSearch={submitSearch} onChange={setTextInput} />
                 <div className="filterby-label">Filter by:</div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
