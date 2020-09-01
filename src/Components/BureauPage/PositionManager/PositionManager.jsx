@@ -22,7 +22,7 @@ import SelectForm from '../../SelectForm';
 const PositionManager = props => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [ordering, setOrdering] = useState('');
+  const [ordering, setOrdering] = useState(BUREAU_POSITION_SORT.options[0].value);
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [selectedPosts, setSelectedPosts] = useState([]);
@@ -249,7 +249,7 @@ const PositionManager = props => {
                   id="position-manager-num-results"
                   options={sortBy.options}
                   label="Sort by:"
-                  defaultSort={':)'}
+                  defaultSort={ordering}
                   onSelectOption={value => setOrdering(value.target.value)}
                   disabled={bureauPositionsIsLoading}
                 />
@@ -257,7 +257,7 @@ const PositionManager = props => {
                   id="position-manager-num-results"
                   options={pageSizes.options}
                   label="Results:"
-                  defaultSort={':)'}
+                  defaultSort={limit}
                   onSelectOption={value => setLimit(value.target.value)}
                   disabled={bureauPositionsIsLoading}
                 />
