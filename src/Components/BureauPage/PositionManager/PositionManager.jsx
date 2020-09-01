@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -135,6 +134,17 @@ const PositionManager = props => {
       });
   };
 
+  const getOverlay = () => {
+    if (bureauPositionsIsLoading) {
+      return (<Spinner type="bureau-results" size="big" />);
+    } else if (noBureausSelected) {
+      return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
+    } else if (!get(bureauPositions, 'results.length')) {
+      return (<Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />);
+    }
+    return false;
+  };
+
   return (
     bureauFiltersIsLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -238,8 +248,7 @@ const PositionManager = props => {
             </div>
           </div>
           {
-            noBureausSelected ?
-              <Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} /> :
+            getOverlay() ||
               <>
                 <div className="usa-width-one-whole results-dropdown bureau-controls-container">
                   <TotalResults
@@ -278,18 +287,11 @@ const PositionManager = props => {
                   </div>
                 </div>
                 <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-                  {bureauPositionsIsLoading ?
-                  // Spinner for normal loading
-                    <Spinner type="bureau-results" size="big" /> :
-                    !get(bureauPositions, 'results.length') ?
-                    // Alert for no results
-                      <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} /> :
-                      <div className="usa-grid-full position-list">
-                        {bureauPositions.results.map((result) => (
-                          <BureauResultsCard result={result} key={result.id} />
-                        ))}
-                      </div>
-                  }
+                  <div className="usa-grid-full position-list">
+                    {bureauPositions.results.map((result) => (
+                      <BureauResultsCard result={result} key={result.id} />
+                    ))}
+                  </div>
                 </div>
                 <div className="usa-grid-full react-paginate bureau-pagination-controls">
                   <PaginationWrapper
