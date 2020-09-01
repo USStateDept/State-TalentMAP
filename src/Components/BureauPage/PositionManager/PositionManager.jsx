@@ -29,6 +29,7 @@ const PositionManager = props => {
   const [selectedTEDs, setSelectedTEDs] = useState([]);
   const [selectedBureaus, setSelectedBureaus] = useState([props.bureauPermissions[0]]);
   const [isLoading, setIsLoading] = useState(false);
+  const [textSearch, setTextSearch] = useState();
 
   const noBureausSelected = selectedBureaus.length < 1;
 
@@ -55,12 +56,13 @@ const PositionManager = props => {
     ordering,
     page,
     limit,
+    q: textSearch,
   };
 
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
   function submitSearch(text) {
-    props.fetchBureauPositions({ q: text });
+    setTextSearch(text);
   }
 
   useEffect(() => {
@@ -78,6 +80,7 @@ const PositionManager = props => {
     ordering,
     page,
     limit,
+    textSearch,
   ]);
 
   const formatPosts = (posts$) => (
