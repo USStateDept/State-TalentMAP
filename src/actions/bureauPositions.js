@@ -2,8 +2,11 @@ import { downloadFromResponse } from 'utilities';
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import querystring from 'query-string';
+import { CancelToken } from 'axios';
 import { toastError } from './toast';
 import api from '../api';
+
+let cancel;
 
 // eslint-disable-next-line import/prefer-default-export
 export function downloadBidderData() {
@@ -44,6 +47,7 @@ export function downloadBureauPositionsData(userQuery) {
 
   const url = `/fsbid/bureau/positions/export/?${q}`;
   return api().get(url, {
+    cancelToken: new CancelToken((c) => { cancel = c; }),
     responseType: 'stream',
   })
     .then((response) => {
@@ -105,12 +109,15 @@ export function bureauPositionsFetchData(userQuery) {
   const url = `/fsbid/bureau/positions/?${q}`;
 
   return (dispatch) => {
+    if (cancel) { cancel('cancel'); dispatch(bureauPositionsIsLoading(true)); }
     batch(() => {
       dispatch(bureauPositionsIsLoading(true));
       dispatch(bureauPositionsHasErrored(false));
     });
 
-    api().get(url)
+    api().get(url, {
+      cancelToken: new CancelToken((c) => { cancel = c; }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(bureauPositionsFetchDataSuccess(data));
@@ -118,11 +125,19 @@ export function bureauPositionsFetchData(userQuery) {
           dispatch(bureauPositionsIsLoading(false));
         });
       })
-      .catch(() => {
-        batch(() => {
-          dispatch(bureauPositionsHasErrored(true));
-          dispatch(bureauPositionsIsLoading(false));
-        });
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(bureauPositionsHasErrored(false));
+            dispatch(bureauPositionsIsLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(bureauPositionsFetchDataSuccess({ results: [] }));
+            dispatch(bureauPositionsHasErrored(true));
+            dispatch(bureauPositionsIsLoading(false));
+          });
+        }
       });
   };
 }

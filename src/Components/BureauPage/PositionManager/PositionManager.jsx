@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
+import { get } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -279,7 +280,7 @@ const PositionManager = props => {
                   {bureauPositionsIsLoading ?
                   // Spinner for normal loading
                     <Spinner type="bureau-results" size="big" /> :
-                    bureauPositions.results.length < 1 ?
+                    !get(bureauPositions, 'results.length') ?
                     // Alert for no results
                       <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} /> :
                       <div className="usa-grid-full position-list">
