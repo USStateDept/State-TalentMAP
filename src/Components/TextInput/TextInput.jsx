@@ -19,6 +19,13 @@ const TextInput = props => {
     }
   }, [input]);
 
+  useEffect(() => {
+    const shouldUpdate = props.value !== input;
+    if (shouldUpdate) {
+      changeText({ target: { value: props.value } });
+    }
+  }, [props.value]);
+
   const { id, labelSrOnly, type, label, labelMessage, placeholder, inputProps } = props;
   let labelClass;
   // set the input class based on "type" prop

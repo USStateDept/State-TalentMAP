@@ -63,3 +63,8 @@ export const ASYNC_PARAMS = [
   ENDPOINT_PARAMS.post,
   ENDPOINT_PARAMS.postAP,
 ];
+
+export const SPECIAL_NEEDS = [
+  'BT_MOST_DIFFICULT_TO_STAFF_FLG',
+  'BT_SERVICE_NEEDS_DIFF_FLG',
+];
