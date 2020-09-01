@@ -107,7 +107,10 @@ export const HOME_PAGE_POSITIONS = PropTypes.shape({
 });
 
 export const FILTER = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   code: PropTypes.string,
   description: PropTypes.string,
   long_description: PropTypes.string,

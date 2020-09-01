@@ -306,7 +306,7 @@ PositionManager.propTypes = {
   bureauPositions: POSITION_SEARCH_RESULTS,
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
-  bureauPermissions: BUREAU_PERMISSIONS.isRequired,
+  bureauPermissions: BUREAU_PERMISSIONS,
 };
 
 PositionManager.defaultProps = {
@@ -314,6 +314,7 @@ PositionManager.defaultProps = {
   bureauPositions: { results: [] },
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
+  bureauPermissions: [],
 };
 
 const mapStateToProps = state => ({
