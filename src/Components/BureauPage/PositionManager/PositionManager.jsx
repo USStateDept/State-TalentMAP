@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get } from 'lodash';
+import { get, sortBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -12,7 +12,8 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
-import { scrollToTop } from 'utilities';
+import { scrollToTop, getPostName } from 'utilities';
+import { usePrevious } from 'hooks';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -47,7 +48,8 @@ const PositionManager = props => {
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
   const posts = bureauFilters$.find(f => f.item.description === 'post');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
-  const sortBy = BUREAU_POSITION_SORT;
+  const sorts = BUREAU_POSITION_SORT;
+  const prevPage = usePrevious(page);
 
   const query = {
     [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
@@ -69,10 +71,12 @@ const PositionManager = props => {
 
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
+    props.fetchBureauPositions(query);
   }, []);
 
   useEffect(() => {
-    props.fetchBureauPositions(query);
+    if ((page === 1) && prevPage) { props.fetchBureauPositions(query); }
+    setPage(1);
   }, [
     selectedGrades,
     selectedSkills,
@@ -80,30 +84,25 @@ const PositionManager = props => {
     selectedTEDs,
     selectedBureaus,
     ordering,
-    page,
     limit,
     textSearch,
   ]);
 
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
+    if (prevPage) {
+      props.fetchBureauPositions(query);
+    }
   }, [page]);
 
-  const formatPosts = (posts$) => (
-    posts$.map(post => {
-      if (post.is_domestic) {
-        // eslint-disable-next-line no-param-reassign
-        post.post_name = `${post.city}, ${post.state}`;
-      } else {
-        // eslint-disable-next-line no-param-reassign
-        post.post_name = `${post.city}, ${post.country}`;
-      }
+  const posts$ = sortBy(posts.data, [(p) => p.city])
+    .map(post => {
+      // eslint-disable-next-line no-param-reassign
+      post.post_name = getPostName(post);
       return { ...post };
-    })
-  );
+    });
 
   function renderPostList({ items, selected, ...rest }) {
-    formatPosts(items);
     const getCodeSelected = item => !!selected.find(f => f.code === item.code);
     return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="post_name" getIsSelected={getCodeSelected} />);
   }
@@ -115,7 +114,7 @@ const PositionManager = props => {
 
   function renderSkillList({ items, selected, ...rest }) {
     const getIDSelected = item => !!selected.find(f => f.id === item.id);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getIDSelected} />);
+    return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="custom_description" getIsSelected={getIDSelected} />);
   }
 
   function renderGradeList({ items, selected, ...rest }) {
@@ -143,7 +142,7 @@ const PositionManager = props => {
 
   const getOverlay = () => {
     if (bureauPositionsIsLoading) {
-      return (<Spinner type="bureau-results" size="big" />);
+      return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
     } else if (noBureausSelected) {
       return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
     } else if (!get(bureauPositions, 'results.length')) {
@@ -187,7 +186,7 @@ const PositionManager = props => {
                       <Picky
                         placeholder="Select Post(s)"
                         value={selectedPosts}
-                        options={posts.data}
+                        options={posts$}
                         onChange={values => setSelectedPosts(values)}
                         numberDisplayed={2}
                         multiple
@@ -269,7 +268,7 @@ const PositionManager = props => {
                     <div className="bureau-results-controls">
                       <SelectForm
                         id="position-manager-num-results"
-                        options={sortBy.options}
+                        options={sorts.options}
                         label="Sort by:"
                         defaultSort={ordering}
                         onSelectOption={value => setOrdering(value.target.value)}
