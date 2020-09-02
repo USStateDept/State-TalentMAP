@@ -33,8 +33,6 @@ const PositionManager = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [textSearch, setTextSearch] = useState();
   const [textInput, setTextInput] = useState();
-  // eslint-disable-next-line no-unused-vars
-  const [nothing, setnothing] = useState('lol');
 
   const noBureausSelected = selectedBureaus.length < 1;
 
