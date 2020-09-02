@@ -141,3 +141,15 @@ export function bureauPositionsFetchData(userQuery) {
       });
   };
 }
+
+export function bureauUserSelectionsSaveSuccess(result) {
+  return {
+    type: 'BUREAU_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveBureauUserSelections(queryObject) {
+  return (dispatch) => dispatch(bureauUserSelectionsSaveSuccess(queryObject));
+}
+

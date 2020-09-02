@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS } from 'Constants/PropTypes';
+import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
 import { get, sortBy } from 'lodash';
-import { bureauPositionsFetchData, downloadBureauPositionsData } from 'actions/bureauPositions';
+import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
@@ -322,6 +322,7 @@ PositionManager.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPermissions: BUREAU_PERMISSIONS,
+  bureauUserSelections: BUREAU_USER_SELECTIONS,
 };
 
 PositionManager.defaultProps = {
@@ -330,6 +331,7 @@ PositionManager.defaultProps = {
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
   bureauPermissions: [],
+  bureauUserSelections: {},
 };
 
 const mapStateToProps = state => ({
@@ -340,12 +342,14 @@ const mapStateToProps = state => ({
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
   bureauPermissions: state.userProfile.bureau_permissions,
+  bureauUserSelections: state.bureauUserSelections,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchBureauPositions: query => dispatch(bureauPositionsFetchData(query)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
+  saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PositionManager);
