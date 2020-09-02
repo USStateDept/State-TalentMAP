@@ -124,14 +124,16 @@ const PositionManager = props => {
   }
 
   const exportPositions = () => {
-    setIsLoading(true);
-    downloadBureauPositionsData(query)
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch(() => {
-        setIsLoading(false);
-      });
+    if (!isLoading) {
+      setIsLoading(true);
+      downloadBureauPositionsData(query)
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch(() => {
+          setIsLoading(false);
+        });
+    }
   };
 
   const getOverlay = () => {
