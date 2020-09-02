@@ -79,7 +79,7 @@ class PositionManagerDetails extends Component {
     const isProjectedVacancy = false;
     const isArchived = false;
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
-    const title = get(bureauPosition, 'psoition.title');
+    const title = get(bureauPosition, 'position.title');
 
     return (
       <div className="usa-grid-full profile-content-container position-manager-details">
