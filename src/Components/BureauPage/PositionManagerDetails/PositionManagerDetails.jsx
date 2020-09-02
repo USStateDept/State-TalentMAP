@@ -14,6 +14,7 @@ import { downloadBidderData } from 'actions/bureauPositions';
 import { bureauBidsFetchData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import PositionManagerBidders from '../PositionManagerBidders';
+import StaticDevContent from '../../StaticDevContent';
 
 class PositionManagerDetails extends Component {
   constructor(props) {
@@ -94,10 +95,14 @@ class PositionManagerDetails extends Component {
                       <button>Back to Positions</button>
                     </div>
                     <div className="right-col">
-                      <button>Print</button>
-                      <div className="export-button-container">
-                        <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
-                      </div>
+                      <StaticDevContent>
+                        <button>Print</button>
+                      </StaticDevContent>
+                      <StaticDevContent>
+                        <div className="export-button-container">
+                          <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
+                        </div>
+                      </StaticDevContent>
                     </div>
                   </div>
                 </div>

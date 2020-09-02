@@ -33,6 +33,8 @@ const PositionManager = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [textSearch, setTextSearch] = useState();
   const [textInput, setTextInput] = useState();
+  // eslint-disable-next-line no-unused-vars
+  const [nothing, setnothing] = useState('lol');
 
   const noBureausSelected = selectedBureaus.length < 1;
 
@@ -182,9 +184,9 @@ const PositionManager = props => {
                       />
                     </div>
                     <div className="filter-div">
-                      <div className="label">Post:</div>
+                      <div className="label">Location:</div>
                       <Picky
-                        placeholder="Select Post(s)"
+                        placeholder="Select Location(s)"
                         value={selectedPosts}
                         options={posts$}
                         onChange={values => setSelectedPosts(values)}
