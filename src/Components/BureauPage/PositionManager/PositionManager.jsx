@@ -12,6 +12,7 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
+import { scrollToTop } from 'utilities';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -83,6 +84,10 @@ const PositionManager = props => {
     limit,
     textSearch,
   ]);
+
+  useEffect(() => {
+    scrollToTop({ delay: 0, duration: 400 });
+  }, [page]);
 
   const formatPosts = (posts$) => (
     posts$.map(post => {
