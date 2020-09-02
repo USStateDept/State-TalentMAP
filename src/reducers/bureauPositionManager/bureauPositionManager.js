@@ -17,7 +17,7 @@ export function bureauPositionsIsLoading(state = false, action) {
 export function bureauPositions(state = {}, action) {
   switch (action.type) {
     case 'BUREAU_POSITIONS_FETCH_DATA_SUCCESS':
-      return action.bureauPositions;
+      return action.results;
     default:
       return state;
   }

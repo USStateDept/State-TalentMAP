@@ -103,7 +103,10 @@ export const FEATURED_GRADE_POSITIONS = 'featuredGradePositions';
 export const FEATURED_POSITIONS = 'featuredPositions';
 
 export const FILTER = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   code: PropTypes.string,
   description: PropTypes.string,
   long_description: PropTypes.string,
@@ -597,6 +600,13 @@ export const OBC_URLS = PropTypes.shape({
   external: PropTypes.string,
 });
 
+export const BUREAU_PERMISSIONS = PropTypes.arrayOf(
+  PropTypes.shape({
+    code: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+  }),
+);
 export const HOME_PAGE_FEATURED_POSITIONS = PropTypes.shape({
   positions: PropTypes.arrayOf(POSITION_DETAILS),
   name: PropTypes.string,

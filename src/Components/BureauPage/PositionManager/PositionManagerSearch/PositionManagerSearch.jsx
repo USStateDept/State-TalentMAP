@@ -9,6 +9,7 @@ const PositionManagerSearch = props => {
   const [q, setQ] = useState('');
 
   function changeText(e) {
+    props.onChange(e.target.value);
     setQ(e.target.value);
   }
   function onClear() {
@@ -55,10 +56,12 @@ const PositionManagerSearch = props => {
 
 PositionManagerSearch.propTypes = {
   submitSearch: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 PositionManagerSearch.defaultProps = {
   submitSearch: EMPTY_FUNCTION,
+  onChange: EMPTY_FUNCTION,
 };
 
 export default PositionManagerSearch;

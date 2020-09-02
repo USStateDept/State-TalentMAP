@@ -137,8 +137,8 @@ export const POSITION_MANAGER_PAGE_SIZES = {
 };
 
 export const BUREAU_POSITION_SORT = {
+  selectionRef: 'ordering',
   options: [
-    { value: '', text: 'Sort option', disabled: true },
     { value: 'position__title', text: 'Position title: A-Z' },
     { value: '-position__grade', text: 'Grade: Low to high' },
     { value: '-position__bureau', text: 'Bureau: A-Z' },
