@@ -99,9 +99,11 @@ const PositionManager = props => {
 
   // Rerender and action on user selections
   useEffect(() => {
-    if ((page === 1) && prevPage) { props.fetchBureauPositions(query); }
+    if (page === 1 && prevPage) {
+      props.fetchBureauPositions(query);
+      props.saveSelections(currentInputs);
+    }
     setPage(1);
-    props.saveSelections(currentInputs);
   }, [
     selectedGrades,
     selectedSkills,
@@ -119,6 +121,7 @@ const PositionManager = props => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
       props.fetchBureauPositions(query);
+      props.saveSelections(currentInputs);
     }
   }, [page]);
 
