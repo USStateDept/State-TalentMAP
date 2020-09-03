@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, sortBy } from 'lodash';
+import { get, sortBy, has } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -22,40 +22,60 @@ import SelectForm from '../../SelectForm';
 
 
 const PositionManager = props => {
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-  const [ordering, setOrdering] = useState(BUREAU_POSITION_SORT.options[0].value);
-  const [selectedGrades, setSelectedGrades] = useState([]);
-  const [selectedSkills, setSelectedSkills] = useState([]);
-  const [selectedPosts, setSelectedPosts] = useState([]);
-  const [selectedTEDs, setSelectedTEDs] = useState([]);
-  const [selectedBureaus, setSelectedBureaus] = useState([props.bureauPermissions[0]]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [textSearch, setTextSearch] = useState();
-  const [textInput, setTextInput] = useState();
-
-  const noBureausSelected = selectedBureaus.length < 1;
-
   const {
     bureauPermissions,
     bureauFilters,
     bureauPositions,
     bureauFiltersIsLoading,
-    bureauPositionsIsLoading } = props;
+    bureauPositionsIsLoading,
+    userSelections,
+  } = props;
+
+  const [page, setPage] = useState(userSelections.page || 1);
+  const [limit, setLimit] = useState(userSelections.limit || 10);
+  const [ordering, setOrdering] =
+    useState(userSelections.ordering || BUREAU_POSITION_SORT.options[0].value);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections.selectedGrades || []);
+  const [selectedSkills, setSelectedSkills] = useState(userSelections.selectedSkills || []);
+  const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
+  const [selectedTODs, setSelectedTODs] = useState(userSelections.selectedTODs || []);
+  const [selectedBureaus, setSelectedBureaus] =
+    useState(userSelections.selectedBureaus || [props.bureauPermissions[0]]);
+  const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
+  const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
+  const [textInput, setTextInput] = useState(userSelections.textInput || '');
+
+  const noBureausSelected = selectedBureaus.length < 1;
+
+
   const bureauFilters$ = bureauFilters.filters;
-  const teds = bureauFilters$.find(f => f.item.description === 'tod');
+  const tods = bureauFilters$.find(f => f.item.description === 'tod');
   const grades = bureauFilters$.find(f => f.item.description === 'grade');
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
   const posts = bureauFilters$.find(f => f.item.description === 'post');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
   const sorts = BUREAU_POSITION_SORT;
   const prevPage = usePrevious(page);
+  const currentInputs = {
+    page,
+    limit,
+    ordering,
+    selectedGrades,
+    selectedSkills,
+    selectedPosts,
+    selectedTODs,
+    selectedBureaus,
+    textSearch,
+    textInput,
+  };
 
+  // Query is passed to action which stringifies
+  // key and values into sensible request url
   const query = {
     [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
     [skills.item.selectionRef]: selectedSkills.map(skillObject => (skillObject.code)),
     [posts.item.selectionRef]: selectedPosts.map(postObject => (postObject.code)),
-    [teds.item.selectionRef]: selectedTEDs.map(tedObject => (tedObject.code)),
+    [tods.item.selectionRef]: selectedTODs.map(tedObject => (tedObject.code)),
     [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (bureauObject.code)),
     ordering,
     page,
@@ -72,16 +92,18 @@ const PositionManager = props => {
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
     props.fetchBureauPositions(query);
+    props.saveSelections(currentInputs);
   }, []);
 
   useEffect(() => {
     if ((page === 1) && prevPage) { props.fetchBureauPositions(query); }
     setPage(1);
+    props.saveSelections(currentInputs);
   }, [
     selectedGrades,
     selectedSkills,
     selectedPosts,
-    selectedTEDs,
+    selectedTODs,
     selectedBureaus,
     ordering,
     limit,
@@ -102,29 +124,18 @@ const PositionManager = props => {
       return { ...post };
     });
 
-  function renderPostList({ items, selected, ...rest }) {
-    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="post_name" getIsSelected={getCodeSelected} />);
-  }
-
-  function renderTedList({ items, selected, ...rest }) {
-    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="long_description" getIsSelected={getCodeSelected} />);
-  }
-
-  function renderSkillList({ items, selected, ...rest }) {
-    const getIDSelected = item => !!selected.find(f => f.id === item.id);
-    return items.map(item => <ListItem key={item.id} item={item} {...rest} queryProp="custom_description" getIsSelected={getIDSelected} />);
-  }
-
-  function renderGradeList({ items, selected, ...rest }) {
-    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="custom_description" getIsSelected={getCodeSelected} />);
-  }
-
-  function renderBureauList({ items, selected, ...rest }) {
-    const getBureauSelected = item => !!selected.find(f => f.code === item.code);
-    return items.map(item => <ListItem key={item.code} item={item} {...rest} queryProp="long_description" getIsSelected={getBureauSelected} />);
+  function renderSelectionList({ items, selected, rest }) {
+    const queryProp = has(items[0], 'long_description') ? 'long_description' : 'custom_description';
+    const getSelected = item => !!selected.find(f => f.code === item.code);
+    return items.map(item =>
+      (<ListItem
+        key={item.code}
+        item={item}
+        queryProp={queryProp}
+        getIsSelected={getSelected}
+        {...rest}
+      />),
+    );
   }
 
   const exportPositions = () => {
@@ -160,22 +171,26 @@ const PositionManager = props => {
             <div className="results-search-bar padded-main-content results-single-search homepage-offset">
               <div className="usa-grid-full results-search-bar-container">
                 <ProfileSectionTitle title="Position Manager" icon="map" />
-                <PositionManagerSearch submitSearch={submitSearch} onChange={setTextInput} />
+                <PositionManagerSearch
+                  submitSearch={submitSearch}
+                  onChange={setTextInput}
+                  defaultValue={textInput}
+                />
                 <div className="filterby-label">Filter by:</div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
                     <div className="filter-div">
-                      <div className="label">TED:</div>
+                      <div className="label">TOD:</div>
                       <Picky
-                        placeholder="Select TED(s)"
-                        value={selectedTEDs}
-                        options={teds.data}
-                        onChange={values => setSelectedTEDs(values)}
+                        placeholder="Select TOD(s)"
+                        value={selectedTODs}
+                        options={tods.data}
+                        onChange={values => setSelectedTODs(values)}
                         numberDisplayed={2}
                         multiple
                         includeFilter
                         dropdownHeight={255}
-                        renderList={renderTedList}
+                        renderList={renderSelectionList}
                         valueKey="code"
                         labelKey="long_description"
                         includeSelectAll
@@ -192,7 +207,7 @@ const PositionManager = props => {
                         multiple
                         includeFilter
                         dropdownHeight={255}
-                        renderList={renderPostList}
+                        renderList={renderSelectionList}
                         valueKey="code"
                         labelKey="post_name"
                       />
@@ -208,7 +223,7 @@ const PositionManager = props => {
                         multiple
                         includeFilter
                         dropdownHeight={255}
-                        renderList={renderBureauList}
+                        renderList={renderSelectionList}
                         valueKey="code"
                         labelKey="long_description"
                         includeSelectAll
@@ -225,7 +240,7 @@ const PositionManager = props => {
                         multiple
                         includeFilter
                         dropdownHeight={255}
-                        renderList={renderSkillList}
+                        renderList={renderSelectionList}
                         valueKey="code"
                         labelKey="custom_description"
                         includeSelectAll
@@ -242,7 +257,7 @@ const PositionManager = props => {
                         multiple
                         includeFilter
                         dropdownHeight={255}
-                        renderList={renderGradeList}
+                        renderList={renderSelectionList}
                         valueKey="code"
                         labelKey="custom_description"
                         includeSelectAll
@@ -317,12 +332,13 @@ const PositionManager = props => {
 PositionManager.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
+  saveSelections: PropTypes.func.isRequired,
   bureauFilters: FILTERS_PARENT,
   bureauPositions: POSITION_SEARCH_RESULTS,
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPermissions: BUREAU_PERMISSIONS,
-  bureauUserSelections: BUREAU_USER_SELECTIONS,
+  userSelections: BUREAU_USER_SELECTIONS,
 };
 
 PositionManager.defaultProps = {
@@ -331,7 +347,7 @@ PositionManager.defaultProps = {
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
   bureauPermissions: [],
-  bureauUserSelections: {},
+  userSelections: {},
 };
 
 const mapStateToProps = state => ({
@@ -342,7 +358,7 @@ const mapStateToProps = state => ({
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
   bureauPermissions: state.userProfile.bureau_permissions,
-  bureauUserSelections: state.bureauUserSelections,
+  userSelections: state.bureauUserSelections,
 });
 
 export const mapDispatchToProps = dispatch => ({
