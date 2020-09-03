@@ -30,7 +30,7 @@ const PositionManagerSearch = props => {
           <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
           <SearchBar
             id="bureau-search-keyword-field"
-            defaultValue=""
+            defaultValue={props.defaultValue}
             label="Keywords"
             labelSrOnly
             noButton
@@ -57,11 +57,13 @@ const PositionManagerSearch = props => {
 PositionManagerSearch.propTypes = {
   submitSearch: PropTypes.func,
   onChange: PropTypes.func,
+  defaultValue: PropTypes.string,
 };
 
 PositionManagerSearch.defaultProps = {
   submitSearch: EMPTY_FUNCTION,
   onChange: EMPTY_FUNCTION,
+  defaultValue: '',
 };
 
 export default PositionManagerSearch;

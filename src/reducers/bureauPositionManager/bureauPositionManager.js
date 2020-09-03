@@ -22,3 +22,12 @@ export function bureauPositions(state = {}, action) {
       return state;
   }
 }
+
+export function bureauUserSelections(state = {}, action) {
+  switch (action.type) {
+    case 'BUREAU_SELECTIONS_SAVE_SUCCESS':
+      return action.result;
+    default:
+      return state;
+  }
+}

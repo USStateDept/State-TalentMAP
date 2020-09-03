@@ -607,6 +607,23 @@ export const BUREAU_PERMISSIONS = PropTypes.arrayOf(
     short_description: PropTypes.string,
   }),
 );
+
+export const FILTER_SELECTION = PropTypes.arrayOf(PropTypes.string);
+
+export const BUREAU_USER_SELECTIONS = PropTypes.shape({
+  page: PropTypes.number,
+  limit: PropTypes.number,
+  ordering: PropTypes.string,
+  selectedGrades: FILTER_SELECTION,
+  selectedSkills: FILTER_SELECTION,
+  selectedPosts: FILTER_SELECTION,
+  selectedTEDs: FILTER_SELECTION,
+  selectedBureaus: FILTER_SELECTION,
+  isLoading: PropTypes.bool,
+  textSearch: PropTypes.string,
+  textInput: PropTypes.string,
+});
+
 export const HOME_PAGE_FEATURED_POSITIONS = PropTypes.shape({
   positions: PropTypes.arrayOf(POSITION_DETAILS),
   name: PropTypes.string,
