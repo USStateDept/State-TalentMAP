@@ -13,6 +13,8 @@ const POSITION_SEARCH_SORTS$ = {
     { value: '-ted', text: 'TED: Latest' },
     { value: 'position__position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
     { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true }, // sort by service needs first
+    { value: 'location', text: 'Location: A-Z', nonTandemOnly: true },
+    { value: '-location', text: 'Location: Z-A', nonTandemOnly: true },
   ],
 };
 
@@ -39,6 +41,12 @@ export const POSITION_SEARCH_SORTS_DYNAMIC = {
 export const filterPVSorts = (sorts) => {
   const v = { ...sorts };
   v.options = filter(v.options, f => !f.availableOnly);
+  return v;
+};
+
+export const filterTandemSorts = (sorts) => {
+  const v = { ...sorts };
+  v.options = filter(v.options, f => !f.nonTandemOnly);
   return v;
 };
 
@@ -91,7 +99,7 @@ export const SAVED_SEARCH_SORTS = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
     { value: 'name', text: 'Name: A-Z' },
-    { value: '-date_updated', text: 'Date created: Most recent' },
+    { value: '-date_created', text: 'Date created: Most recent' },
   ],
 };
 
@@ -125,5 +133,37 @@ export const POSITION_MANAGER_PAGE_SIZES = {
     { value: 25, text: '25' },
     { value: 50, text: '50' },
     { value: 100, text: '100' },
+  ],
+};
+
+export const BUREAU_POSITION_SORT = {
+  selectionRef: 'ordering',
+  options: [
+    { value: 'position__title', text: 'Position title: A-Z' },
+    { value: '-position__grade', text: 'Grade: Low to high' },
+    { value: '-position__bureau', text: 'Bureau: A-Z' },
+    { value: '-posted_date', text: 'Posted date: Most recent', availableOnly: true },
+    { value: 'posted_date', text: 'Posted date: Oldest', availableOnly: true },
+    { value: 'ted', text: 'TED: Soonest' },
+    { value: '-ted', text: 'TED: Latest' },
+    { value: 'position__position_number', text: 'Position number: Low to high' },
+    { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true },
+  ],
+};
+
+export const BUREAU_BIDDER_SORT = {
+  options: [
+    { value: '', text: 'Sort option', disabled: true },
+    { value: 'bidder_grade', text: "Bidder's Grade" },
+    { value: 'bidder_skill', text: "Bidder's Skill" },
+    { value: 'bidder_hs', text: 'Handshake' },
+  ],
+};
+
+export const BUREAU_BIDDER_FILTERS = {
+  options: [
+    { value: '', text: 'All' },
+    { value: 'HS', text: 'Handshake' },
+    { value: 'OP', text: 'No Handshake' },
   ],
 };

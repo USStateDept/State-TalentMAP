@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
+import Settings from 'Components/Settings';
 import Dashboard from '../../Containers/Dashboard/Dashboard';
 import BidderPortfolio from '../../Containers/BidderPortfolio';
 import BidCycles from '../../Containers/BidCycles';
@@ -36,6 +37,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/cycles" component={BidCycles} />
           <Route path="/profile/favorites" component={FavoritePositionsContainer} />
           <Route path="/profile/searches" component={SavedSearchesWrapper} />
+          <Route path="/profile/settings" component={Settings} />
           <Route
             path="/profile/bidtracker/public/:id/:bid?"
             render={props => <BidTracker {...props} isPublic />}
@@ -43,7 +45,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/bidtracker/:bid?" component={BidTracker} />
           <Route path="/profile/statistics" component={BidStatistics} />
           <Route path="/profile/glossaryeditor" component={GlossaryEditor} />
-          <Route path="/profile/public/:id" component={ProfilePublic} />
+          <Route path="/profile/public/:id/:viewType?" component={ProfilePublic} />
           <Route path="/profile/notifications" component={Notifications} />
           <Route path="/profile/administrator" component={Administrator} />
           <Route path="/profile/bureau" component={Bureau} />

@@ -13,9 +13,16 @@ export const getIsGroupEnd = (results, i) => {
   const currentCity = get(results, `[${i}].position.post.location.city`);
   const nextCity = get(nextResult, 'position.post.location.city');
   let isGroupEnd = false;
-  if (currentCommuterPost && nextCommuterPost && currentCommuterPost !== nextCommuterPost) {
+  const commuterPostsNonMatch = currentCommuterPost && nextCommuterPost &&
+    currentCommuterPost !== nextCommuterPost;
+  if (commuterPostsNonMatch) {
     isGroupEnd = true;
-  } else if (currentCity && nextCity && currentCity !== nextCity) {
+  }
+  if (commuterPostsNonMatch && currentCity &&
+    nextCity && currentCity !== nextCity) {
+    isGroupEnd = true;
+  }
+  if (!currentCommuterPost && !nextCommuterPost && currentCity !== nextCity) {
     isGroupEnd = true;
   }
   return isGroupEnd;

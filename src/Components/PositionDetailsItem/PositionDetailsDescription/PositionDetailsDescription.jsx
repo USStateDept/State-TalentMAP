@@ -57,7 +57,7 @@ class PositionDetailsDescription extends Component {
   };
 
   render() {
-    const { details } = this.props;
+    const { details, updatedDate } = this.props;
     const { shouldShowDescriptionEditor, shouldDisplayFullDescription } = this.state;
 
     const { plainTextDescription, formattedDescription } = this.description;
@@ -99,6 +99,12 @@ class PositionDetailsDescription extends Component {
             cancel={this.toggleDescriptionEditor}
           />
         }
+        {
+          !!updatedDate &&
+          <div className="capsule-updated-date">
+            <strong>Last Updated</strong>: {updatedDate}
+          </div>
+        }
       </div>
     );
   }
@@ -108,10 +114,12 @@ PositionDetailsDescription.propTypes = {
   details: POSITION_DETAILS,
   editDescriptionContent: PropTypes.func.isRequired,
   resetDescriptionEditMessages: PropTypes.func.isRequired,
+  updatedDate: PropTypes.string,
 };
 
 PositionDetailsDescription.defaultProps = {
   details: null,
+  updatedDate: '',
 };
 
 export default PositionDetailsDescription;

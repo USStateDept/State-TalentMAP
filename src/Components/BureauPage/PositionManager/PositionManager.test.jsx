@@ -1,10 +1,101 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import PositionManager from './PositionManager';
 
 describe('BureauPage', () => {
+  const props = {
+    fetchBureauPositions: EMPTY_FUNCTION,
+    fetchFilters: EMPTY_FUNCTION,
+    saveSelections: EMPTY_FUNCTION,
+    bureauPositions: {
+      count: 0,
+      results: [],
+    },
+    bureauFilters: {
+      filters: [
+        {
+          item: { description: 'tod' },
+          data: [
+            {
+              code: 'C',
+              id: 'C',
+              long_description: '1 YEAR',
+              short_description: '1 YEAR',
+            },
+          ],
+        },
+        {
+          item: { description: 'grade' },
+          data: [
+            {
+              code: '00',
+              custom_description: '00',
+              id: '00',
+            },
+          ],
+        },
+        {
+          item: { description: 'skill' },
+          data: [
+            {
+              code: '2880',
+              cone: 'Info Mgt Specialist',
+              custom_description: 'INFORMATION MANAGEMENT (2880)',
+              description: 'INFORMATION MANAGEMENT',
+              id: '16',
+            },
+          ],
+        },
+        {
+          item: { description: 'post' },
+          data: [
+            {
+              city: 'Ripley',
+              code: 'MX1150000',
+              country: 'USA',
+              custom_description: 'Ripley, Oklahoma',
+              id: 'MX1150000',
+              isSelected: false,
+              is_domestic: true,
+              location: { code: 'MX1150000', city: 'Ripley', state: 'Oklahoma', country: 'USA', is_domestic: true },
+              state: 'Oklahoma',
+            },
+          ],
+        },
+        {
+          item: { description: 'region' },
+          data: [
+            {
+              bureau_organization: null,
+              code: '200000',
+              custom_description: '(A) BUREAU OF ADMINISTRATION',
+              groups: [],
+              highlighted_positions: [],
+              id: '200000',
+              isSelected: false,
+              is_bureau: true,
+              is_regional: false,
+              location: null,
+              long_description: 'BUREAU OF ADMINISTRATION',
+              parent_organization: null,
+              short_description: 'A',
+            },
+          ],
+        },
+      ],
+    },
+    bureauPermissions: [
+      {
+        code: '120000',
+        long_description: 'BUR OF EUROPEAN AFF AND EURASIAN AFFAIRS',
+        short_description: 'EUR',
+      },
+    ],
+  };
+
   it('is defined', () => {
-    const wrapper = shallow(<PositionManager />);
+    const wrapper = shallow(<PositionManager.WrappedComponent {...props} />);
     expect(wrapper).toBeDefined();
   });
 });

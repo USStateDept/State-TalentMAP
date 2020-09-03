@@ -2,7 +2,7 @@
 
 exports[`HandshakeRegisterAlert matches snapshot 1`] = `
 <div
-  className="bid-tracker-alert-container bid-tracker-alert-container--register"
+  className="bid-tracker-alert-container bid-tracker-alert-container--register "
 >
   <div
     className="usa-grid-full"

@@ -1,102 +1,175 @@
+import { batch } from 'react-redux';
+import { SPECIAL_NEEDS } from 'Constants/EndpointParams';
+import { isEmpty } from 'lodash';
 import api from '../api';
-import { USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIONS, HIGHLIGHTED_POSITIONS } from '../Constants/PropTypes';
-import { COMMON_PROPERTIES } from '../Constants/EndpointParams';
+import { RECOMMENDED_GRADE_AND_SKILL_POSITIONS,
+  RECOMMENDED_GRADE_POSITIONS,
+  FAVORITED_POSITIONS,
+  FEATURED_GRADE_AND_SKILL_POSITIONS,
+  FEATURED_GRADE_POSITIONS,
+  FEATURED_POSITIONS } from '../Constants/PropTypes';
+
+const specialNeedsParams = SPECIAL_NEEDS.join(',');
 
 // Export our queries so that we can consistently test them.
-export const GET_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
-export const GET_GRADE_POSITIONS_QUERY_NEW = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3`;
+export const GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+export const GET_RECOMMENDED_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3`;
 export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
-export const HIGHLIGHTED_POSITIONS_QUERY = () => '/available_position/highlight/?limit=3';
 
-export const GET_SKILL_CODE_POSITIONS_QUERY = skillCodes => `/fsbid/available_positions/?position__skill__in=${skillCodes}&limit=3`;
-export const GET_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
-export const RECENTLY_POSTED_POSITIONS_QUERY = () => `/fsbid/available_positions/?limit=3&ordering=-${COMMON_PROPERTIES.posted}`;
+export const GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY = (skillCodes, grade) =>
+  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+export const GET_FEATURED_GRADE_POSITIONS_QUERY = (grade) =>
+  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
+export const GET_FEATURED_POSITIONS_QUERY = () =>
+  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
 
-export function homePagePositionsHasErrored(bool) {
+export function homePageRecommendedPositionsHasErrored(bool) {
   return {
-    type: 'HOME_PAGE_POSITIONS_HAS_ERRORED',
+    type: 'HOME_PAGE_RECOMMENDED_POSITIONS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function homePagePositionsIsLoading(bool) {
+export function homePageRecommendedPositionsIsLoading(bool) {
   return {
-    type: 'HOME_PAGE_POSITIONS_IS_LOADING',
+    type: 'HOME_PAGE_RECOMMENDED_POSITIONS_IS_LOADING',
     isLoading: bool,
   };
 }
 
-export function homePagePositionsFetchDataSuccess(results) {
+export function homePageRecommendedPositionsFetchDataSuccess(results) {
   return {
-    type: 'HOME_PAGE_POSITIONS_FETCH_DATA_SUCCESS',
+    type: 'HOME_PAGE_RECOMMENDED_POSITIONS_FETCH_DATA_SUCCESS',
     results,
   };
 }
 
-// general positions search results
-export function homePagePositionsFetchData(skills = [], grade) {
+export function homePageFeaturedPositionsHasErrored(bool) {
+  return {
+    type: 'HOME_PAGE_FEATURED_POSITIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function homePageFeaturedPositionsIsLoading(bool) {
+  return {
+    type: 'HOME_PAGE_FEATURED_POSITIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function homePageFeaturedPositionsFetchDataSuccess(results) {
+  return {
+    type: 'HOME_PAGE_FEATURED_POSITIONS_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
+
+export function homePageFeaturedPositionsFetchData(skills = [], grade) {
   return (dispatch) => {
-    dispatch(homePagePositionsIsLoading(true));
-    dispatch(homePagePositionsHasErrored(false));
+    batch(() => {
+      dispatch(homePageFeaturedPositionsIsLoading(true));
+      dispatch(homePageFeaturedPositionsHasErrored(false));
+    });
+    const queryType = {};
+    // Logic:
+    // 1: featuredGradeAndSkillPositions
+    // 2: featuredGradePositions
+    // 3: featuredPositions
+    const ids = skills.map(s => s.code);
+    const querySkillCodes = ids.join(',');
 
-    const resultsTypes = {
-      [USER_SKILL_AND_GRADE_POSITIONS]: [],
-      [USER_GRADE_POSITIONS]: [],
-      [FAVORITED_POSITIONS]: [],
-      [HIGHLIGHTED_POSITIONS]: [],
-    };
-    const queryTypes = [];
-    // arrangement:
-    // 1: userSkillAndGradePositions
-    // 2: userGradePositions
-    // 3: favoritedPositions
     if (grade && skills && skills.length) {
-      const ids = skills.map(s => s.code);
-      const querySkillCodes = ids.join(',');
-      queryTypes.push(
-        {
-          name: USER_SKILL_AND_GRADE_POSITIONS,
-          query: GET_GRADE_AND_SKILL_CODE_POSITIONS_QUERY(querySkillCodes, grade),
-        },
-      );
+      queryType.name = FEATURED_GRADE_AND_SKILL_POSITIONS;
+      queryType.query = GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY(querySkillCodes, grade);
     } else if (grade) {
-      queryTypes.push(
-        { name: USER_GRADE_POSITIONS, query: GET_GRADE_POSITIONS_QUERY_NEW(grade) },
-      );
-    } else queryTypes.push({ name: FAVORITED_POSITIONS, query: FAVORITE_POSITIONS_QUERY() });
-    // uncomment when being used in production
-    /*    queryTypes.push(
-      { name: HIGHLIGHTED_POSITIONS, query: HIGHLIGHTED_POSITIONS_QUERY() },
-    ); */
-
-    const queryProms = queryTypes.map(type => api().get(type.query));
-    Promise.all(queryProms)
-      // Promise.all returns a single array which matches the order of the originating array...
+      queryType.name = FEATURED_GRADE_POSITIONS;
+      queryType.query = GET_FEATURED_GRADE_POSITIONS_QUERY(grade);
+    } else {
+      queryType.name = FEATURED_POSITIONS;
+      queryType.query = GET_FEATURED_POSITIONS_QUERY();
+    }
+    api().get(queryType.query)
       .then((results) => {
-        // ...and because of that, we can be sure results[x] aligns with queryTypes[x]
-        // and set the relevant resultsType property accordingly
         let shouldSkip = false;
-        results.forEach((result, i) => {
-          // if our query returned no results, we will want to fall to the next arrangement
-          if (!result.data.results.length && queryTypes[i].name !== 'favoritedPositions') {
-            shouldSkip = true;
-            if (queryTypes[i].name === 'userSkillAndGradePositions') {
-              dispatch(homePagePositionsFetchData([], grade));
-            } else if (queryTypes[i].name === 'userGradePositions') {
-              dispatch(homePagePositionsFetchData([], null));
-            }
+        // if our query returned no results, we will want to fall to the next arrangement
+        if (isEmpty(results.data) && queryType.name !== 'featuredPositions') {
+          shouldSkip = true;
+          if (queryType.name === 'featuredGradeAndSkillPositions') {
+            dispatch(homePageFeaturedPositionsFetchData([], grade));
+          } else if (queryType.name === 'featuredGradePositions') {
+            dispatch(homePageFeaturedPositionsFetchData([], null));
           }
-          resultsTypes[queryTypes[i].name] = result.data.results;
-        });
+        }
         if (!shouldSkip) {
-          dispatch(homePagePositionsFetchDataSuccess(resultsTypes));
-          dispatch(homePagePositionsHasErrored(false));
-          dispatch(homePagePositionsIsLoading(false));
+          batch(() => {
+            dispatch(homePageFeaturedPositionsFetchDataSuccess(
+              { positions: results.data.results, name: queryType.name }));
+            dispatch(homePageFeaturedPositionsHasErrored(false));
+            dispatch(homePageFeaturedPositionsIsLoading(false));
+          });
         }
       })
       .catch(() => {
-        dispatch(homePagePositionsHasErrored(true));
-        dispatch(homePagePositionsIsLoading(false));
+        batch(() => {
+          dispatch(homePageFeaturedPositionsHasErrored(true));
+          dispatch(homePageFeaturedPositionsIsLoading(false));
+        });
+      });
+  };
+}
+
+export function homePageRecommendedPositionsFetchData(skills = [], grade) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(homePageRecommendedPositionsIsLoading(true));
+      dispatch(homePageRecommendedPositionsHasErrored(false));
+    });
+    const queryType = {};
+    // Logic:
+    // 1. recommendedGradeAndSkillPositions
+    // 2. recommendedGradePositions
+    // 3. favoritedPositions
+    if (grade && skills && skills.length) {
+      const ids = skills.map(s => s.code);
+      const querySkillCodes = ids.join(',');
+      queryType.name = RECOMMENDED_GRADE_AND_SKILL_POSITIONS;
+      queryType.query = GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY(
+        querySkillCodes, grade);
+    } else if (grade) {
+      queryType.name = RECOMMENDED_GRADE_POSITIONS;
+      queryType.query = GET_RECOMMENDED_GRADE_POSITIONS_QUERY(grade);
+    } else {
+      queryType.name = FAVORITED_POSITIONS;
+      queryType.query = FAVORITE_POSITIONS_QUERY();
+    }
+
+    api().get(queryType.query)
+      .then((results) => {
+        let shouldSkip = false;
+        // if our query returned no results, we will want to fall to the next arrangement
+        if (results.data.count === 0 && queryType.name !== 'favoritedPositions') {
+          shouldSkip = true;
+          if (queryType.name === 'recommendedGradeAndSkillPositions') {
+            dispatch(homePageRecommendedPositionsFetchData([], grade));
+          } else if (queryType.name === 'recommendedGradePositions') {
+            dispatch(homePageRecommendedPositionsFetchData([], null));
+          }
+        }
+        if (!shouldSkip) {
+          batch(() => {
+            dispatch(homePageRecommendedPositionsFetchDataSuccess(
+              { positions: results.data.results, name: queryType.name }));
+            dispatch(homePageRecommendedPositionsHasErrored(false));
+            dispatch(homePageRecommendedPositionsIsLoading(false));
+          });
+        }
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(homePageRecommendedPositionsHasErrored(true));
+          dispatch(homePageRecommendedPositionsIsLoading(false));
+        });
       });
   };
 }

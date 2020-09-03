@@ -95,19 +95,18 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
   results: POST_DETAILS_ARRAY,
 });
 
-export const USER_SKILL_AND_GRADE_POSITIONS = 'userSkillAndGradePositions';
-export const USER_GRADE_POSITIONS = 'userGradePositions';
+export const RECOMMENDED_GRADE_AND_SKILL_POSITIONS = 'recommendedGradeAndSkillPositions';
+export const RECOMMENDED_GRADE_POSITIONS = 'recommendedGradePositions';
 export const FAVORITED_POSITIONS = 'favoritedPositions';
-export const HIGHLIGHTED_POSITIONS = 'highlightedPositions';
-export const HOME_PAGE_POSITIONS = PropTypes.shape({
-  [USER_SKILL_AND_GRADE_POSITIONS]: POSITION_DETAILS_ARRAY,
-  [USER_GRADE_POSITIONS]: POSITION_DETAILS_ARRAY,
-  [FAVORITED_POSITIONS]: POSITION_DETAILS_ARRAY,
-  [HIGHLIGHTED_POSITIONS]: POSITION_DETAILS_ARRAY,
-});
+export const FEATURED_GRADE_AND_SKILL_POSITIONS = 'featuredGradeAndSkillPositions';
+export const FEATURED_GRADE_POSITIONS = 'featuredGradePositions';
+export const FEATURED_POSITIONS = 'featuredPositions';
 
 export const FILTER = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   code: PropTypes.string,
   description: PropTypes.string,
   long_description: PropTypes.string,
@@ -600,3 +599,38 @@ export const OBC_URLS = PropTypes.shape({
   internal: PropTypes.string,
   external: PropTypes.string,
 });
+
+export const BUREAU_PERMISSIONS = PropTypes.arrayOf(
+  PropTypes.shape({
+    code: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+  }),
+);
+
+export const FILTER_SELECTION = PropTypes.arrayOf(PropTypes.string);
+
+export const BUREAU_USER_SELECTIONS = PropTypes.shape({
+  page: PropTypes.number,
+  limit: PropTypes.number,
+  ordering: PropTypes.string,
+  selectedGrades: FILTER_SELECTION,
+  selectedSkills: FILTER_SELECTION,
+  selectedPosts: FILTER_SELECTION,
+  selectedTEDs: FILTER_SELECTION,
+  selectedBureaus: FILTER_SELECTION,
+  isLoading: PropTypes.bool,
+  textSearch: PropTypes.string,
+  textInput: PropTypes.string,
+});
+
+export const HOME_PAGE_FEATURED_POSITIONS = PropTypes.shape({
+  positions: PropTypes.arrayOf(POSITION_DETAILS),
+  name: PropTypes.string,
+});
+
+export const HOME_PAGE_RECOMMENDED_POSITIONS = PropTypes.shape({
+  positions: PropTypes.arrayOf(POSITION_DETAILS),
+  name: PropTypes.string,
+});
+

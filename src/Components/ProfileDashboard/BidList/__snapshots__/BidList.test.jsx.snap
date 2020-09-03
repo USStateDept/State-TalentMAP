@@ -98,6 +98,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         registerHandshake={[Function]}
         showBidCount={true}
         submitBid={[Function]}
+        unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
       />
@@ -163,6 +164,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         registerHandshake={[Function]}
         showBidCount={true}
         submitBid={[Function]}
+        unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
       />
@@ -231,6 +233,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         registerHandshake={[Function]}
         showBidCount={true}
         submitBid={[Function]}
+        unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
       />
