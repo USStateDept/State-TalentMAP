@@ -23,6 +23,7 @@ import SelectForm from '../../SelectForm';
 
 
 const PositionManager = props => {
+  // Props
   const {
     bureauPermissions,
     bureauFilters,
@@ -32,6 +33,7 @@ const PositionManager = props => {
     userSelections,
   } = props;
 
+  // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
   const [ordering, setOrdering] =
@@ -46,17 +48,21 @@ const PositionManager = props => {
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
 
-  const noBureausSelected = selectedBureaus.length < 1;
+  // Pagination
+  const prevPage = usePrevious(page);
+  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
-
+  // Relevant filter objects from mega filter state
   const bureauFilters$ = bureauFilters.filters;
   const tods = bureauFilters$.find(f => f.item.description === 'tod');
   const grades = bureauFilters$.find(f => f.item.description === 'grade');
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
-  const posts = bureauFilters$.find(f => f.item.description === 'post');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
+  const posts = bureauFilters$.find(f => f.item.description === 'post');
+  const posts$ = sortBy(posts.data, [(p) => p.city]);
   const sorts = BUREAU_POSITION_SORT;
-  const prevPage = usePrevious(page);
+
+  // Local state inputs to push to redux state
   const currentInputs = {
     page,
     limit,
@@ -84,18 +90,14 @@ const PositionManager = props => {
     q: textInput || textSearch,
   };
 
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
-
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
-
+  // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
     props.fetchBureauPositions(query);
     props.saveSelections(currentInputs);
   }, []);
 
+  // Rerender and action on user selections
   useEffect(() => {
     if ((page === 1) && prevPage) { props.fetchBureauPositions(query); }
     setPage(1);
@@ -111,6 +113,8 @@ const PositionManager = props => {
     textSearch,
   ]);
 
+  // Isolated effect watching only page value to differentiate
+  // between default page for new query and paginating in current query
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
@@ -118,7 +122,6 @@ const PositionManager = props => {
     }
   }, [page]);
 
-  const posts$ = sortBy(posts.data, [(p) => p.city]);
 
   function renderSelectionList({ items, selected, ...rest }) {
     const getCodeSelected = item => !!selected.find(f => f.code === item.code);
@@ -134,6 +137,10 @@ const PositionManager = props => {
     );
   }
 
+  function submitSearch(text) {
+    setTextSearch(text);
+  }
+
   const exportPositions = () => {
     if (!isLoading) {
       setIsLoading(true);
@@ -147,12 +154,15 @@ const PositionManager = props => {
     }
   };
 
+  // Overlay for error, info, and positionLoading state
+  const noBureausSelected = selectedBureaus.length < 1;
+  const noResults = !get(bureauPositions, 'results.length');
   const getOverlay = () => {
     if (bureauPositionsIsLoading) {
       return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
     } else if (noBureausSelected) {
       return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
-    } else if (!get(bureauPositions, 'results.length')) {
+    } else if (noResults) {
       return (<Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />);
     }
     return false;
