@@ -79,6 +79,18 @@ exports[`SelectForm matches snapshot 1`] = `
     >
       Featured positions
     </option>
+    <option
+      key="location"
+      value="location"
+    >
+      Location: A-Z
+    </option>
+    <option
+      key="-location"
+      value="-location"
+    >
+      Location: Z-A
+    </option>
   </select>
 </div>
 `;
@@ -161,6 +173,18 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       value="-position__post__has_service_needs_differential"
     >
       Featured positions
+    </option>
+    <option
+      key="location"
+      value="location"
+    >
+      Location: A-Z
+    </option>
+    <option
+      key="-location"
+      value="-location"
+    >
+      Location: Z-A
     </option>
   </select>
 </div>

@@ -1,45 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { HOME_PAGE_POSITIONS, USER_PROFILE, BID_RESULTS,
-  USER_SKILL_AND_GRADE_POSITIONS, USER_GRADE_POSITIONS, FAVORITED_POSITIONS, HIGHLIGHTED_POSITIONS } from '../../Constants/PropTypes';
+import { get } from 'lodash';
+import { SPECIAL_NEEDS } from 'Constants/EndpointParams';
+import { USER_PROFILE, BID_RESULTS, HOME_PAGE_FEATURED_POSITIONS, HOME_PAGE_RECOMMENDED_POSITIONS } from 'Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
-const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
+const HomePagePositions = ({ homePageFeaturedPositions,
+  homePageFeaturedPositionsIsLoading,
+  homePageRecommendedPositions,
+  homePageRecommendedPositionsIsLoading,
   userProfile, bidList }) => {
-  const userSkillAndGradePositions = homePagePositions[USER_SKILL_AND_GRADE_POSITIONS];
-  const userGradePositions = homePagePositions[USER_GRADE_POSITIONS];
-  const favoritedPositions = homePagePositions[FAVORITED_POSITIONS];
-  const serviceNeedPositions = homePagePositions[HIGHLIGHTED_POSITIONS];
-  let positions;
-  let title;
-  let link;
-  let icon;
+  const featuredPositions = homePageFeaturedPositions.positions;
+  const recommendedPositions = homePageRecommendedPositions.positions;
+  let featuredTitle;
+  let featuredLink;
+  let featuredIcon;
+  let recommendedTitle;
+  let recommendedLink;
+  let recommendedIcon;
 
-  // set View More link for service needs
-  const serviceNeedsLink = '/results?is_highlighted=true';
+  const specialNeedsParams = SPECIAL_NEEDS.join(',');
 
-  // arrangement:
-  // 1: userSkillAndGradePositions
-  // 2: userGradePositions
-  // 3: favoritedPositions
-  if (userSkillAndGradePositions && userSkillAndGradePositions.length) {
-    positions = userSkillAndGradePositions;
-    title = 'Positions That Match Your Grade And Skill(s)';
-    const ids = userProfile.employee_info.skills.map(s => s.code);
-    link = `/results?position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
-    icon = 'briefcase';
-  } else if (userGradePositions && userGradePositions.length) {
-    positions = userGradePositions;
-    title = 'Positions That Match Your Grade';
-    link = `/results?position__grade__code__in=${userProfile.employee_info.grade}`;
-    icon = 'briefcase';
-  } else {
-    positions = favoritedPositions;
-    title = 'Favorited Positions';
-    link = '/profile/favorites/';
-    icon = 'star';
+  const ids = get(userProfile, 'employee_info.skills', []).map(s => s.code);
+
+  switch (homePageFeaturedPositions.name) {
+    case 'featuredGradeAndSkillPositions':
+      featuredTitle = 'Featured Positions That Match Your Grade And Skill(s)';
+      featuredLink = `/results?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
+      featuredIcon = 'bolt';
+      break;
+    case 'featuredGradePositions':
+      featuredTitle = 'Featured Positions That Match Your Grade';
+      featuredLink = `/results?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${userProfile.employee_info.grade}`;
+      featuredIcon = 'bolt';
+      break;
+    default:
+      featuredTitle = 'Featured Positions';
+      featuredLink = `/results?position__post_indicator__in=${specialNeedsParams}`;
+      featuredIcon = 'bolt';
+      break;
   }
 
+  switch (homePageRecommendedPositions.name) {
+    case 'recommendedGradeAndSkillPositions':
+      recommendedTitle = 'Positions That Match Your Grade And Skill(s)';
+      recommendedLink = `/results?position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
+      recommendedIcon = 'briefcase';
+      break;
+    case 'recommendedGradePositions':
+      recommendedTitle = 'Positions That Match Your Grade';
+      recommendedLink = `/results?position__grade__code__in=${userProfile.employee_info.grade}`;
+      recommendedIcon = 'briefcase';
+      break;
+    default:
+      recommendedTitle = 'Favorited Positions';
+      recommendedLink = '/profile/favorites/';
+      recommendedIcon = 'star';
+      break;
+  }
 
   return (
     <div className="homepage-positions-section-container">
@@ -47,28 +65,27 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
         className="usa-grid-full homepage-positions-section-container-inner padded-main-content"
       >
         {
-          // don't display this section if there are none
-          serviceNeedPositions && !!serviceNeedPositions.length &&
+          featuredPositions &&
           <HomePagePositionsSection
-            title="Featured Positions"
+            title={featuredTitle}
             maxLength="3"
-            viewMoreLink={serviceNeedsLink}
-            icon="bolt"
+            viewMoreLink={featuredLink}
+            icon={featuredIcon}
             favorites={userProfile.favorite_positions}
-            positions={serviceNeedPositions}
-            isLoading={homePagePositionsIsLoading}
+            positions={featuredPositions}
+            isLoading={homePageFeaturedPositionsIsLoading}
             bidList={bidList}
-            type="serviceNeed"
+            type="default"
           />
         }
         <HomePagePositionsSection
-          title={title}
+          title={recommendedTitle}
           maxLength="3"
-          viewMoreLink={link}
-          icon={icon}
+          viewMoreLink={recommendedLink}
+          icon={recommendedIcon}
           favorites={userProfile.favorite_positions}
-          positions={positions}
-          isLoading={homePagePositionsIsLoading}
+          positions={recommendedPositions}
+          isLoading={homePageRecommendedPositionsIsLoading}
           bidList={bidList}
           type="default"
         />
@@ -78,8 +95,10 @@ const HomePagePositions = ({ homePagePositions, homePagePositionsIsLoading,
 };
 
 HomePagePositions.propTypes = {
-  homePagePositions: HOME_PAGE_POSITIONS.isRequired,
-  homePagePositionsIsLoading: PropTypes.bool,
+  homePageFeaturedPositions: HOME_PAGE_FEATURED_POSITIONS.isRequired,
+  homePageFeaturedPositionsIsLoading: PropTypes.bool,
+  homePageRecommendedPositions: HOME_PAGE_RECOMMENDED_POSITIONS.isRequired,
+  homePageRecommendedPositionsIsLoading: PropTypes.bool,
   userProfile: USER_PROFILE,
   bidList: BID_RESULTS.isRequired,
 };
@@ -87,7 +106,8 @@ HomePagePositions.propTypes = {
 HomePagePositions.defaultProps = {
   userProfile: {},
   filtersIsLoading: false,
-  homePagePositionsIsLoading: false,
+  homePageFeaturedPositionsIsLoading: false,
+  homePageRecommendedPositionsIsLoading: false,
 };
 
 export default HomePagePositions;

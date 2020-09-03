@@ -383,6 +383,10 @@ $cdo-search-container-padding: 10px;
       margin-bottom: 3px;
     }
 
+    .picky {
+      width: 200px;
+    }
+    
     .picky--sublabel {
       margin-left: 2em;
     }
@@ -466,7 +470,7 @@ $cdo-search-container-padding: 10px;
     float: right;
   }
 
-   @media screen and (max-width: 1525px) {
+  @media screen and (max-width: 1525px) {
     .small-screen-stack {
       flex-wrap: wrap;
       float: none;
@@ -479,7 +483,7 @@ $cdo-search-container-padding: 10px;
       min-width: 100px;
     }
   }
-  @media screen and (max-width: 1200px) {
+  @media screen and (max-width: 1241px) {
     .small-screen-stack {
       width: 100%;
       margin-bottom: 10px;
@@ -492,7 +496,7 @@ $cdo-search-container-padding: 10px;
       margin: 0 10px 0 0;
     }
   }
-  @media screen and (max-width: 700px) {
+  @media screen and (max-width: 890px) {
     .small-screen-stack > div {
       min-width: 300px;
     }

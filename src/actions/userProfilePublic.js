@@ -31,7 +31,7 @@ export function unsetUserProfilePublic() {
 }
 
 // include an optional bypass for when we want to silently update the profile
-export function userProfilePublicFetchData(id, bypass) {
+export function userProfilePublicFetchData(id, bypass, includeBids = true) {
   return (dispatch, getState) => {
     if (!bypass) {
       dispatch(userProfilePublicIsLoading(true));
@@ -47,9 +47,12 @@ export function userProfilePublicFetchData(id, bypass) {
     // bids
     const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`);
 
+    const proms = [getUserAccount()];
+    if (includeBids) proms.push(getUserBids());
+
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
-    axios.all([getUserAccount(), getUserBids()])
+    axios.all(proms)
       .then(axios.spread((acct, bids) => {
         // form the userProfile object
         const acct$ = get(acct, 'data', {});

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { get, includes } from 'lodash';
+import { get } from 'lodash';
+import { isOnProxy } from 'utilities';
 import LinkButton from '../LinkButton';
 
 const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
@@ -24,7 +25,7 @@ const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
 
   text = label || `${text} details`;
 
-  if (includes(get(window, 'location.host'), 'msappproxy')) {
+  if (isOnProxy()) {
     url$ = get(url, 'external');
   }
 

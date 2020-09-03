@@ -26,6 +26,8 @@ const ProfileDashboard = ({
   userProfile, isLoading, notifications, isPublic,
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
+  showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
+  unregisterHandshake,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -35,7 +37,8 @@ const ProfileDashboard = ({
         <div className="usa-grid-full">
           <div className="usa-grid-full dashboard-top-section">
             { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-            { isPublic && useCDOBidding() && <SearchAsClientButton user={userProfile} /> }
+            { isPublic && showSearchAsClient && useCDOBidding() &&
+              <SearchAsClientButton user={userProfile} /> }
           </div>
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
@@ -99,7 +102,7 @@ const ProfileDashboard = ({
                     </div>
                   }
                   {
-                    isPublic &&
+                    isPublic && showClassifications &&
                     <Column
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-2"
@@ -113,22 +116,29 @@ const ProfileDashboard = ({
                     </Column>
                   }
                   {
-                    isPublic &&
+                    isPublic && (showAssignmentHistory || showBidTracker) &&
                     <Column
                       columns={columns[2]}
                       className="user-dashboard-section-container user-dashboard-column-3"
                     >
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                        <BidList
-                          bids={bidList}
-                          isPublic={isPublic}
-                          registerHandshake={registerHandshake}
-                          userId={userProfile.perdet_seq_number}
-                        />
-                      </BoxShadow>
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={userProfile.assignments} />
-                      </BoxShadow>
+                      {
+                        showBidTracker &&
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                          <BidList
+                            bids={bidList}
+                            isPublic={isPublic}
+                            registerHandshake={registerHandshake}
+                            unregisterHandshake={unregisterHandshake}
+                            userId={userProfile.perdet_seq_number}
+                          />
+                        </BoxShadow>
+                      }
+                      {
+                        showAssignmentHistory &&
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                          <Assignments assignments={userProfile.assignments} />
+                        </BoxShadow>
+                      }
                     </Column>
                   }
                 </Row>
@@ -153,8 +163,13 @@ ProfileDashboard.propTypes = {
   submitBidPosition: PropTypes.func,
   deleteBid: PropTypes.func,
   registerHandshake: PropTypes.func,
+  unregisterHandshake: PropTypes.func,
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
+  showBidTracker: PropTypes.bool,
+  showClassifications: PropTypes.bool,
+  showAssignmentHistory: PropTypes.bool,
+  showSearchAsClient: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
@@ -169,8 +184,13 @@ ProfileDashboard.defaultProps = {
   submitBidPosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
   registerHandshake: EMPTY_FUNCTION,
+  unregisterHandshake: EMPTY_FUNCTION,
   classifications: [],
   clientClassifications: [],
+  showBidTracker: true,
+  showClassifications: true,
+  showAssignmentHistory: true,
+  showSearchAsClient: true,
 };
 
 export default ProfileDashboard;
