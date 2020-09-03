@@ -3,6 +3,7 @@ import { get, identity, pickBy } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import BackButton from 'Components/BackButton';
 import PositionDetailsItem from 'Components/PositionDetailsItem';
 import ExportButton from 'Components/ExportButton';
 import OBCUrl from 'Components/OBCUrl';
@@ -91,7 +92,7 @@ class PositionManagerDetails extends Component {
                 <div className="usa-grid-full">
                   <div className="usa-width-one-whole">
                     <div className="left-col">
-                      <button>Back to Positions</button>
+                      <BackButton />
                     </div>
                     <div className="right-col">
                       <button>Print</button>
