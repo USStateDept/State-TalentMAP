@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, sortBy, uniqBy } from 'lodash';
+import { get, sortBy, uniqBy, throttle } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -143,10 +143,19 @@ const PositionManager = props => {
     );
   }
 
+  // Free Text Search
   function submitSearch(text) {
     setTextSearch(text);
   }
 
+  const throttledTextInput = () =>
+    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
+
+  const setTextInputThrottled = (q) => {
+    throttledTextInput(q);
+  };
+
+  // Export
   const exportPositions = () => {
     if (!isLoading) {
       setIsLoading(true);
@@ -183,7 +192,10 @@ const PositionManager = props => {
             <div className="results-search-bar padded-main-content results-single-search homepage-offset">
               <div className="usa-grid-full results-search-bar-container">
                 <ProfileSectionTitle title="Position Manager" icon="map" />
-                <PositionManagerSearch submitSearch={submitSearch} onChange={setTextInput} />
+                <PositionManagerSearch
+                  submitSearch={submitSearch}
+                  onChange={setTextInputThrottled}
+                />
                 <div className="filterby-label">Filter by:</div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
