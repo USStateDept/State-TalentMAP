@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, sortBy } from 'lodash';
+import { get, sortBy, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -54,11 +54,15 @@ const PositionManager = props => {
   // Relevant filter objects from mega filter state
   const bureauFilters$ = bureauFilters.filters;
   const tods = bureauFilters$.find(f => f.item.description === 'tod');
+  const todOptions = uniqBy(tods.data, 'code');
   const grades = bureauFilters$.find(f => f.item.description === 'grade');
+  const gradeOptions = uniqBy(grades.data, 'code');
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
+  const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
+  const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
-  const posts$ = sortBy(posts.data, [(p) => p.city]);
+  const postOptions = uniqBy(sortBy(posts.data, [(p) => p.city]), 'code');
   const sorts = BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
@@ -184,11 +188,11 @@ const PositionManager = props => {
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
                     <div className="filter-div">
-                      <div className="label">TED:</div>
+                      <div className="label">TOD:</div>
                       <Picky
-                        placeholder="Select TED(s)"
+                        placeholder="Select TOD(s)"
                         value={selectedTODs}
-                        options={tods.data}
+                        options={todOptions}
                         onChange={values => setSelectedTODs(values)}
                         numberDisplayed={2}
                         multiple
@@ -205,7 +209,7 @@ const PositionManager = props => {
                       <Picky
                         placeholder="Select Post(s)"
                         value={selectedPosts}
-                        options={posts$}
+                        options={postOptions}
                         onChange={values => setSelectedPosts(values)}
                         numberDisplayed={2}
                         multiple
@@ -221,7 +225,7 @@ const PositionManager = props => {
                       <Picky
                         placeholder="Select Bureau(s)"
                         value={selectedBureaus}
-                        options={bureauPermissions}
+                        options={bureauOptions}
                         onChange={values => setSelectedBureaus(values)}
                         numberDisplayed={2}
                         multiple
@@ -238,7 +242,7 @@ const PositionManager = props => {
                       <Picky
                         placeholder="Select Skill(s)"
                         value={selectedSkills}
-                        options={skills.data}
+                        options={skillOptions}
                         onChange={values => setSelectedSkills(values)}
                         numberDisplayed={2}
                         multiple
@@ -255,7 +259,7 @@ const PositionManager = props => {
                       <Picky
                         placeholder="Select Grade(s)"
                         value={selectedGrades}
-                        options={grades.data}
+                        options={gradeOptions}
                         onChange={values => setSelectedGrades(values)}
                         numberDisplayed={2}
                         multiple
