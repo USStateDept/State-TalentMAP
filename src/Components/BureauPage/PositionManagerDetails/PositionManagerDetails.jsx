@@ -41,7 +41,7 @@ class PositionManagerDetails extends Component {
 
   onSort = sort => {
     this.setState({ ordering: sort }, () => {
-      this.getBids();
+      this.props.getBids();
     });
   }
 
@@ -50,7 +50,7 @@ class PositionManagerDetails extends Component {
     filters[f] = v;
     filters = pickBy(filters, identity);
     this.setState({ filters }, () => {
-      this.getBids();
+      this.props.getBids();
     });
   }
 
@@ -75,7 +75,7 @@ class PositionManagerDetails extends Component {
   };
 
   render() {
-    const { isLoading } = this.state;
+    const { isLoading, hasLoaded } = this.state;
     const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
@@ -86,7 +86,7 @@ class PositionManagerDetails extends Component {
       <div className="usa-grid-full profile-content-container position-manager-details">
         <div className="usa-grid-full profile-content-inner-container">
           {
-            (bidsIsLoading || bureauPositionIsLoading || isLoading) ?
+            (!hasLoaded || bureauPositionIsLoading || isLoading) ?
               <Spinner type="homepage-position-results" size="big" /> :
               <div>
                 <div className="usa-grid-full">
