@@ -29,6 +29,7 @@ const PositionManager = props => {
     bureauPositions,
     bureauFiltersIsLoading,
     bureauPositionsIsLoading,
+    bureauPositionsHasErrored,
     userSelections,
   } = props;
 
@@ -177,6 +178,8 @@ const PositionManager = props => {
       return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
     } else if (noBureausSelected) {
       return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
+    } else if (bureauPositionsHasErrored) {
+      return (<Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />);
     } else if (noResults) {
       return (<Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />);
     }
@@ -357,6 +360,7 @@ PositionManager.propTypes = {
   bureauPositions: POSITION_SEARCH_RESULTS,
   bureauFiltersIsLoading: PropTypes.bool,
   bureauPositionsIsLoading: PropTypes.bool,
+  bureauPositionsHasErrored: PropTypes.bool,
   bureauPermissions: BUREAU_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
 };
@@ -366,6 +370,7 @@ PositionManager.defaultProps = {
   bureauPositions: { results: [] },
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
+  bureauPositionsHasErrored: false,
   bureauPermissions: [],
   userSelections: {},
 };
