@@ -95,11 +95,12 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             type: 'all',
           },
         } : null,
-      {
-        text: 'Settings',
-        route: '/profile/settings/',
-        icon: 'cogs',
-      },
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Settings',
+          route: '/profile/settings/',
+          icon: 'cogs',
+        } : null,
     ],
   },
   checkFlag('flags.bid_stats') ?
@@ -176,7 +177,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Bureau',
-    route: '/profile/bureau/positionlists/',
+    route: '/profile/bureau/positionmanager/',
     icon: 'building',
     toggleMenuSection: true,
     expandedSection: true,
@@ -205,25 +206,25 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
-      {
-        text: 'Position Lists',
-        route: '/profile/bureau/positionlists',
-        icon: 'list-ol',
-        roles: [
-          'superuser',
-          'bureau_user',
-        ],
-      },
       checkFlag('flags.static_content') ?
         {
-          text: 'Position Manager',
-          route: '/profile/bureau/positionmanager',
-          icon: 'map',
+          text: 'Position Lists',
+          route: '/profile/bureau/positionlists',
+          icon: 'list-ol',
           roles: [
             'superuser',
             'bureau_user',
           ],
         } : null,
+      {
+        text: 'Position Manager',
+        route: '/profile/bureau/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+          'bureau_user',
+        ],
+      },
     ],
   },
 ].filter(x => x));

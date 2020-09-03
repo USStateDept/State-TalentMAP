@@ -220,9 +220,9 @@ const PositionManager = props => {
                       />
                     </div>
                     <div className="filter-div">
-                      <div className="label">Post:</div>
+                      <div className="label">Location:</div>
                       <Picky
-                        placeholder="Select Post(s)"
+                        placeholder="Select Location(s)"
                         value={selectedPosts}
                         options={postOptions}
                         onChange={values => setSelectedPosts(values)}
