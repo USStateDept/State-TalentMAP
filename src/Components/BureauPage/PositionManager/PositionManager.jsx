@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, sortBy, has } from 'lodash';
+import { get, sortBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -13,7 +13,7 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
-import { scrollToTop, getPostName } from 'utilities';
+import { scrollToTop } from 'utilities';
 import { usePrevious } from 'hooks';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
@@ -118,23 +118,18 @@ const PositionManager = props => {
     }
   }, [page]);
 
-  const posts$ = sortBy(posts.data, [(p) => p.city])
-    .map(post => {
-      // eslint-disable-next-line no-param-reassign
-      post.post_name = getPostName(post);
-      return { ...post };
-    });
+  const posts$ = sortBy(posts.data, [(p) => p.city]);
 
-  function renderSelectionList({ items, selected, rest }) {
-    const queryProp = has(items[0], 'long_description') ? 'long_description' : 'custom_description';
-    const getSelected = item => !!selected.find(f => f.code === item.code);
+  function renderSelectionList({ items, selected, ...rest }) {
+    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
+    const queryProp = get(items[0], 'custom_description', false) ? 'custom_description' : 'long_description';
     return items.map(item =>
       (<ListItem
         key={item.code}
         item={item}
         {...rest}
         queryProp={queryProp}
-        getIsSelected={getSelected}
+        getIsSelected={getCodeSelected}
       />),
     );
   }
@@ -172,18 +167,14 @@ const PositionManager = props => {
             <div className="results-search-bar padded-main-content results-single-search homepage-offset">
               <div className="usa-grid-full results-search-bar-container">
                 <ProfileSectionTitle title="Position Manager" icon="map" />
-                <PositionManagerSearch
-                  submitSearch={submitSearch}
-                  onChange={setTextInput}
-                  defaultValue={textInput}
-                />
+                <PositionManagerSearch submitSearch={submitSearch} onChange={setTextInput} />
                 <div className="filterby-label">Filter by:</div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
                     <div className="filter-div">
-                      <div className="label">TOD:</div>
+                      <div className="label">TED:</div>
                       <Picky
-                        placeholder="Select TOD(s)"
+                        placeholder="Select TED(s)"
                         value={selectedTODs}
                         options={tods.data}
                         onChange={values => setSelectedTODs(values)}
@@ -210,7 +201,7 @@ const PositionManager = props => {
                         dropdownHeight={255}
                         renderList={renderSelectionList}
                         valueKey="code"
-                        labelKey="post_name"
+                        labelKey="custom_description"
                       />
                     </div>
                     <div className="filter-div">
