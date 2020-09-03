@@ -329,6 +329,10 @@
   .left-col {
     display: flex;
     float: left;
+
+    .button-back-link {
+      margin-top: 7.5px;
+    }
   }
 
   .right-col {

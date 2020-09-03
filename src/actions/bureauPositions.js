@@ -91,15 +91,9 @@ export function bureauPositionsFetchData(userQuery) {
       });
     };
   }
-  // Default pagination - may be redundant with default state defined in hooks
-  const defaults = {
-    limit: 25,
-    page: 1,
-    ordering: '',
-  };
+
   // Combine defaults with given userQuery
-  const query = { ...defaults, ...userQuery };
-  const q = querystring.stringify(query,
+  const q = querystring.stringify(userQuery,
     {
       arrayFormat: 'comma',
       skipNull: true,
@@ -141,3 +135,15 @@ export function bureauPositionsFetchData(userQuery) {
       });
   };
 }
+
+export function bureauUserSelectionsSaveSuccess(result) {
+  return {
+    type: 'BUREAU_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveBureauUserSelections(queryObject) {
+  return (dispatch) => dispatch(bureauUserSelectionsSaveSuccess(queryObject));
+}
+

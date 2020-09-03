@@ -7,6 +7,7 @@ describe('BureauPage', () => {
   const props = {
     fetchBureauPositions: EMPTY_FUNCTION,
     fetchFilters: EMPTY_FUNCTION,
+    saveSelections: EMPTY_FUNCTION,
     bureauPositions: {
       count: 0,
       results: [],
