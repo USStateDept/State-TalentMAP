@@ -130,7 +130,7 @@ class PositionManagerDetails extends Component {
                       <h1>{title}</h1>
                     </div>
                     <div className="post-title">
-                          Location: {getPostName(get(bureauPosition, 'position.post'), NO_POST)}
+                      Location: {getPostName(get(bureauPosition, 'position.post'), NO_POST)}
                       { !!OBCUrl$ && <span> (<OBCUrl url={OBCUrl$} />)</span> }
                     </div>
                   </div>
