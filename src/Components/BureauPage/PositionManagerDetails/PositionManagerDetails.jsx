@@ -56,7 +56,12 @@ class PositionManagerDetails extends Component {
     filters[f] = v;
     filters = pickBy(filters, identity);
     this.setState({ filters }, () => {
-      this.props.getBids();
+      const { id, ordering } = this.state;
+      const query = {
+        ...filters,
+        ordering,
+      };
+      this.props.getBids(id, query);
     });
   }
 
