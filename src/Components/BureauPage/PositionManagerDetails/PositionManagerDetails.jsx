@@ -11,8 +11,7 @@ import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
-import { downloadBidderData } from 'actions/bureauPositions';
-import { bureauBidsFetchData } from 'actions/bureauPositionBids';
+import { bureauBidsFetchData, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import PositionManagerBidders from '../PositionManagerBidders';
 import StaticDevContent from '../../StaticDevContent';
@@ -65,8 +64,9 @@ class PositionManagerDetails extends Component {
   }
 
   exportBidders = () => {
+    const { id, ordering } = this.state;
     this.setState({ isLoading: true });
-    downloadBidderData()
+    downloadBidderData(id, ordering)
       .then(() => {
         this.setState({ isLoading: false });
       })
@@ -167,6 +167,7 @@ const mapStateToProps = (state) => ({
 export const mapDispatchToProps = dispatch => ({
   getBids: (id, query) => dispatch(bureauBidsFetchData(id, query)),
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
+  downloadBidderData: (id, sortType) => dispatch(downloadBidderData(id, sortType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));
