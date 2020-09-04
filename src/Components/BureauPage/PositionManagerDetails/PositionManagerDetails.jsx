@@ -74,16 +74,20 @@ class PositionManagerDetails extends Component {
     this.props.getBids(id, query);
   }
 
-  exportBidders = () => {
-    const { id, ordering } = this.state;
-    this.setState({ isExporting: true });
-    downloadBidderData(id, ordering)
-      .then(() => {
-        this.setState({ isExporting: false });
-      })
-      .catch(() => {
-        this.setState({ isExporting: false });
-      });
+exportBidders = () => {
+  const { id, ordering, filters } = this.state;
+  const query = {
+    ...filters,
+    ordering,
+  };
+  this.setState({ isExporting: true });
+  downloadBidderData(id, query)
+    .then(() => {
+      this.setState({ isExporting: false });
+    })
+    .catch(() => {
+      this.setState({ isExporting: false });
+    });
   };
 
   render() {
@@ -178,7 +182,7 @@ const mapStateToProps = (state) => ({
 export const mapDispatchToProps = dispatch => ({
   getBids: (id, query) => dispatch(bureauBidsFetchData(id, query)),
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
-  downloadBidderData: (id, sortType) => dispatch(downloadBidderData(id, sortType)),
+  downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));
