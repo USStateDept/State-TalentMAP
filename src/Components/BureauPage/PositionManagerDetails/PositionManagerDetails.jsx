@@ -74,86 +74,86 @@ class PositionManagerDetails extends Component {
     this.props.getBids(id, query);
   }
 
-exportBidders = () => {
-  const { id, ordering, filters } = this.state;
-  const query = {
-    ...filters,
-    ordering,
+  exportBidders = () => {
+    const { id, ordering, filters } = this.state;
+    const query = {
+      ...filters,
+      ordering,
+    };
+    this.setState({ isExporting: true });
+    downloadBidderData(id, query)
+      .then(() => {
+        this.setState({ isExporting: false });
+      })
+      .catch(() => {
+        this.setState({ isExporting: false });
+      });
   };
-  this.setState({ isExporting: true });
-  downloadBidderData(id, query)
-    .then(() => {
-      this.setState({ isExporting: false });
-    })
-    .catch(() => {
-      this.setState({ isExporting: false });
-    });
-};
 
-render() {
-  const { isLoading, hasLoaded, isExporting } = this.state;
-  const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition } = this.props;
-  const isProjectedVacancy = false;
-  const isArchived = false;
-  const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
-  const title = get(bureauPosition, 'position.title');
+  render() {
+    const { isLoading, hasLoaded, isExporting } = this.state;
+    const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition } = this.props;
+    const isProjectedVacancy = false;
+    const isArchived = false;
+    const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
+    const title = get(bureauPosition, 'position.title');
 
-  return (
-    <div className="usa-grid-full profile-content-container position-manager-details">
-      <div className="usa-grid-full profile-content-inner-container">
-        {
-          (!hasLoaded || bureauPositionIsLoading || isLoading) ?
-            <Spinner type="homepage-position-results" size="big" /> :
-            <div>
-              <div className="usa-grid-full">
-                <div className="usa-width-one-whole">
-                  <div className="left-col">
-                    <BackButton />
-                  </div>
-                  <div className="right-col">
-                    <StaticDevContent>
-                      <button>Print</button>
-                    </StaticDevContent>
-                    <StaticDevContent>
-                      <div className="export-button-container">
-                        <ExportButton onClick={this.exportBidders} isLoading={isExporting} />
-                      </div>
-                    </StaticDevContent>
-                  </div>
-                </div>
-              </div>
-              <div className="profile-content-inner-container position-manager-details--content">
-                <div className="usa-grid-full header-title-container padded-main-content">
-                  <div className="position-details-header-title">
-                    {isProjectedVacancy && <span>Projected Vacancy</span>}
-                    {isArchived && <span>Filled Position</span>}
-                    <h1>{title}</h1>
-                  </div>
-                  <div className="post-title">
-                      Location: {getPostName(get(bureauPosition, 'position.post'), NO_POST)}
-                    { !!OBCUrl$ && <span> (<OBCUrl url={OBCUrl$} />)</span> }
-                  </div>
-                </div>
-                <PositionDetailsItem
-                  details={bureauPosition}
-                  hideHeader
-                  hideContact
-                />
+    return (
+      <div className="usa-grid-full profile-content-container position-manager-details">
+        <div className="usa-grid-full profile-content-inner-container">
+          {
+            (!hasLoaded || bureauPositionIsLoading || isLoading) ?
+              <Spinner type="homepage-position-results" size="big" /> :
+              <div>
                 <div className="usa-grid-full">
-                  <PositionManagerBidders
-                    bids={bids}
-                    onSort={this.onSort}
-                    onFilter={this.onFilter}
-                    bidsIsLoading={bidsIsLoading}
+                  <div className="usa-width-one-whole">
+                    <div className="left-col">
+                      <BackButton />
+                    </div>
+                    <div className="right-col">
+                      <StaticDevContent>
+                        <button>Print</button>
+                      </StaticDevContent>
+                      <StaticDevContent>
+                        <div className="export-button-container">
+                          <ExportButton onClick={this.exportBidders} isLoading={isExporting} />
+                        </div>
+                      </StaticDevContent>
+                    </div>
+                  </div>
+                </div>
+                <div className="profile-content-inner-container position-manager-details--content">
+                  <div className="usa-grid-full header-title-container padded-main-content">
+                    <div className="position-details-header-title">
+                      {isProjectedVacancy && <span>Projected Vacancy</span>}
+                      {isArchived && <span>Filled Position</span>}
+                      <h1>{title}</h1>
+                    </div>
+                    <div className="post-title">
+                          Location: {getPostName(get(bureauPosition, 'position.post'), NO_POST)}
+                      { !!OBCUrl$ && <span> (<OBCUrl url={OBCUrl$} />)</span> }
+                    </div>
+                  </div>
+                  <PositionDetailsItem
+                    details={bureauPosition}
+                    hideHeader
+                    hideContact
                   />
+                  <div className="usa-grid-full">
+                    <PositionManagerBidders
+                      bids={bids}
+                      onSort={this.onSort}
+                      onFilter={this.onFilter}
+                      bidsIsLoading={bidsIsLoading}
+                    />
+                  </div>
                 </div>
               </div>
-            </div>
-        }
+          }
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 }
 
 PositionManagerDetails.propTypes = {
