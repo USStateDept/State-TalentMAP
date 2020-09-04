@@ -21,6 +21,7 @@ class PositionManagerDetails extends Component {
     super(props);
     this.state = {
       isLoading: false,
+      isExporting: false,
       hasLoaded: false,
       id: get(props, 'match.params.id'),
       ordering: 'bidder_grade',
@@ -65,18 +66,18 @@ class PositionManagerDetails extends Component {
 
   exportBidders = () => {
     const { id, ordering } = this.state;
-    this.setState({ isLoading: true });
+    this.setState({ isExporting: true });
     downloadBidderData(id, ordering)
       .then(() => {
-        this.setState({ isLoading: false });
+        this.setState({ isExporting: false });
       })
       .catch(() => {
-        this.setState({ isLoading: false });
+        this.setState({ isExporting: false });
       });
   };
 
   render() {
-    const { isLoading, hasLoaded } = this.state;
+    const { isLoading, hasLoaded, isExporting } = this.state;
     const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
@@ -101,7 +102,7 @@ class PositionManagerDetails extends Component {
                       </StaticDevContent>
                       <StaticDevContent>
                         <div className="export-button-container">
-                          <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
+                          <ExportButton onClick={this.exportBidders} isLoading={isExporting} />
                         </div>
                       </StaticDevContent>
                     </div>
