@@ -1,5 +1,7 @@
 import querystring from 'query-string';
+import { downloadFromResponse } from 'utilities';
 import api from '../api';
+import { toastError } from './toast';
 
 export function bureauPositionBidsHasErrored(bool) {
   return {
@@ -38,4 +40,19 @@ export function bureauBidsFetchData(id, query = {}) {
         dispatch(bureauPositionBidsIsLoading(false));
       });
   };
+}
+
+export function downloadBidderData(id, query = {}) {
+  const q = querystring.stringify(query);
+  const url = `/fsbid/bureau/positions/${id}/bids/export/?${q}`;
+  return api().get(url, {
+    responseType: 'stream',
+  })
+    .then((response) => {
+      downloadFromResponse(response, 'TalentMap_position_bids');
+    })
+    .catch(() => {
+      // eslint-disable-next-line global-require
+      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+    });
 }
