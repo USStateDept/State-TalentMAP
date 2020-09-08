@@ -109,11 +109,9 @@ class PositionManagerDetails extends Component {
                       <BackButton />
                     </div>
                     <div className="right-col">
-                      <button>Print</button>
                       <div className="export-button-container">
                         <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
                       </div>
-
                     </div>
                   </div>
                 </div>
