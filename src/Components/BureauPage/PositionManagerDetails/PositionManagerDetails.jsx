@@ -21,7 +21,6 @@ class PositionManagerDetails extends Component {
     super(props);
     this.state = {
       isLoading: false,
-      isExporting: false,
       hasLoaded: false,
       id: get(props, 'match.params.id'),
       ordering: 'bidder_grade',
@@ -80,18 +79,18 @@ class PositionManagerDetails extends Component {
       ...filters,
       ordering,
     };
-    this.setState({ isExporting: true });
+    this.setState({ isLoading: true });
     downloadBidderData(id, query)
       .then(() => {
-        this.setState({ isExporting: false });
+        this.setState({ isLoading: false });
       })
       .catch(() => {
-        this.setState({ isExporting: false });
+        this.setState({ isLoading: false });
       });
   };
 
   render() {
-    const { isLoading, hasLoaded, isExporting } = this.state;
+    const { isLoading, hasLoaded } = this.state;
     const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
@@ -102,7 +101,7 @@ class PositionManagerDetails extends Component {
       <div className="usa-grid-full profile-content-container position-manager-details">
         <div className="usa-grid-full profile-content-inner-container">
           {
-            (!hasLoaded || bureauPositionIsLoading || isLoading) ?
+            (!hasLoaded || bureauPositionIsLoading) ?
               <Spinner type="homepage-position-results" size="big" /> :
               <div>
                 <div className="usa-grid-full">
@@ -116,7 +115,7 @@ class PositionManagerDetails extends Component {
                       </StaticDevContent>
                       <StaticDevContent>
                         <div className="export-button-container">
-                          <ExportButton onClick={this.exportBidders} isLoading={isExporting} />
+                          <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
                         </div>
                       </StaticDevContent>
                     </div>
