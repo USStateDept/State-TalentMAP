@@ -44,7 +44,7 @@ export function bureauBidsFetchData(id, query = {}) {
 
 export function downloadBidderData(id, query = {}) {
   const q = querystring.stringify(query);
-  const url = `/fsbid/bureau/positions/${id}/bids/export?${q}`;
+  const url = `/fsbid/bureau/positions/${id}/bids/export/?${q}`;
   return api().get(url, {
     responseType: 'stream',
   })
