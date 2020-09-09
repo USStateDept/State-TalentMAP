@@ -2410,16 +2410,7 @@ ajv@^4.7.0:
     co "^4.6.0"
     json-stable-stringify "^1.0.1"
 
-ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.5.5:
-  version "6.12.3"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.3.tgz#18c5af38a111ddeb4f2697bd78d68abc1cabd706"
-  dependencies:
-    fast-deep-equal "^3.1.1"
-    fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.4.1"
-    uri-js "^4.2.2"
-
-ajv@^6.12.4:
+ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.5.5:
   version "6.12.4"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.12.4.tgz#0614facc4522127fa713445c6bfd3ebd376e2234"
   dependencies:
@@ -8290,12 +8281,13 @@ jsoneditor-react@^3.0.1:
   dependencies:
     prop-types "^15.7.2"
 
-jsoneditor@^9.0.4:
-  version "9.0.4"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.0.4.tgz#7842d7ac29664ad249fef2d77694275e4c2a4f8b"
+jsoneditor@^9.0.5:
+  version "9.0.5"
+  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.0.5.tgz#a3bc8b0c70161c42f827f175be9b353ca94f6780"
+  integrity sha512-sj+Q0CpaJtxfbi6e1v3/u9hcSZ8EdQ97dARc2AOCR1oEIfOVBeoNgRK6TzIgktWx2Mx6dMsCmDA6odp20AcnLA==
   dependencies:
     ace-builds "^1.4.12"
-    ajv "^6.12.3"
+    ajv "^6.12.4"
     javascript-natural-sort "^0.7.1"
     jmespath "^0.15.0"
     json-source-map "^0.6.1"
