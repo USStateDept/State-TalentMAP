@@ -4141,9 +4141,10 @@ copy-to-clipboard@^3:
   dependencies:
     toggle-selection "^1.0.6"
 
-copy-webpack-plugin@^6.0.3:
+copy-webpack-plugin@^6.1.0:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/copy-webpack-plugin/-/copy-webpack-plugin-6.1.0.tgz#5bde7f826d87e716d8d5e761ddd34bb675448458"
+  integrity sha512-aWjIuLt1OVQxaDVffnt3bnGmLA8zGgAJaFwPA+a+QYVPh1vhIKjVfh3SbOFLV0kRPvGBITbw17n5CsmiBS4LQQ==
   dependencies:
     cacache "^15.0.5"
     fast-glob "^3.2.4"
@@ -11191,10 +11192,10 @@ react-sticky@^6.0.3:
     prop-types "^15.5.8"
     raf "^3.3.0"
 
-react-styleguidist@^11.0.10:
-  version "11.0.10"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-11.0.10.tgz#e58261beeccd17ef1383f6715d891214a8637696"
-  integrity sha512-5xQojrv3NEddIwerFhB19J74AAD/CFkYxxMYq2jO31+xWMYmPKgonJyYI5Rd/VbVF+El/3nbp+NzHrttxHqWZg==
+react-styleguidist@^11.0.11:
+  version "11.0.11"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-11.0.11.tgz#0c297a3ef3892c29a6b213ee3d2f37327a5c8056"
+  integrity sha512-2hk/UcjMqnmiU2iwYW1YAD6Gf72X24hy3NawqP8ZVIOaFGXpHh61CC11k5jB0gEna91zntuftmxFVndDvU9khg==
   dependencies:
     "@tippyjs/react" "4.1.0"
     "@vxna/mini-html-webpack-template" "^1.0.0"
@@ -11206,7 +11207,7 @@ react-styleguidist@^11.0.10:
     clipboard-copy "^3.1.0"
     clsx "^1.0.4"
     common-dir "^3.0.0"
-    copy-webpack-plugin "^6.0.3"
+    copy-webpack-plugin "^6.1.0"
     core-js "^3.6.4"
     doctrine "^3.0.0"
     es6-object-assign "~1.1.0"
