@@ -11,11 +11,9 @@ import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
-import { downloadBidderData } from 'actions/bureauPositions';
-import { bureauBidsFetchData } from 'actions/bureauPositionBids';
+import { bureauBidsFetchData, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import PositionManagerBidders from '../PositionManagerBidders';
-import StaticDevContent from '../../StaticDevContent';
 
 class PositionManagerDetails extends Component {
   constructor(props) {
@@ -42,7 +40,12 @@ class PositionManagerDetails extends Component {
 
   onSort = sort => {
     this.setState({ ordering: sort }, () => {
-      this.props.getBids();
+      const { id, ordering, filters } = this.state;
+      const query = {
+        ...filters,
+        ordering,
+      };
+      this.props.getBids(id, query);
     });
   }
 
@@ -51,7 +54,12 @@ class PositionManagerDetails extends Component {
     filters[f] = v;
     filters = pickBy(filters, identity);
     this.setState({ filters }, () => {
-      this.props.getBids();
+      const { id, ordering } = this.state;
+      const query = {
+        ...filters,
+        ordering,
+      };
+      this.props.getBids(id, query);
     });
   }
 
@@ -65,8 +73,13 @@ class PositionManagerDetails extends Component {
   }
 
   exportBidders = () => {
+    const { id, ordering, filters } = this.state;
+    const query = {
+      ...filters,
+      ordering,
+    };
     this.setState({ isLoading: true });
-    downloadBidderData()
+    downloadBidderData(id, query)
       .then(() => {
         this.setState({ isLoading: false });
       })
@@ -87,7 +100,7 @@ class PositionManagerDetails extends Component {
       <div className="usa-grid-full profile-content-container position-manager-details">
         <div className="usa-grid-full profile-content-inner-container">
           {
-            (!hasLoaded || bureauPositionIsLoading || isLoading) ?
+            (!hasLoaded || bureauPositionIsLoading) ?
               <Spinner type="homepage-position-results" size="big" /> :
               <div>
                 <div className="usa-grid-full">
@@ -96,14 +109,9 @@ class PositionManagerDetails extends Component {
                       <BackButton />
                     </div>
                     <div className="right-col">
-                      <StaticDevContent>
-                        <button>Print</button>
-                      </StaticDevContent>
-                      <StaticDevContent>
-                        <div className="export-button-container">
-                          <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
-                        </div>
-                      </StaticDevContent>
+                      <div className="export-button-container">
+                        <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -167,6 +175,7 @@ const mapStateToProps = (state) => ({
 export const mapDispatchToProps = dispatch => ({
   getBids: (id, query) => dispatch(bureauBidsFetchData(id, query)),
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
+  downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));
