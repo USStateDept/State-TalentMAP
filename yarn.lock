@@ -11184,10 +11184,10 @@ react-sticky@^6.0.3:
     prop-types "^15.5.8"
     raf "^3.3.0"
 
-react-styleguidist@^11.0.11:
-  version "11.0.11"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-11.0.11.tgz#0c297a3ef3892c29a6b213ee3d2f37327a5c8056"
-  integrity sha512-2hk/UcjMqnmiU2iwYW1YAD6Gf72X24hy3NawqP8ZVIOaFGXpHh61CC11k5jB0gEna91zntuftmxFVndDvU9khg==
+react-styleguidist@^11.1.0:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-11.1.0.tgz#25a9f98a70c0d062b1646b244b5f338a089babec"
+  integrity sha512-YMFZknHKny+cqSsVOlumFlf1jVoKGBn3Fgxf1+Wt0PUsEdE54JCb2Vi8MqrYt6mgf5EEc5E4C1o9DfkrptIDwA==
   dependencies:
     "@tippyjs/react" "4.1.0"
     "@vxna/mini-html-webpack-template" "^1.0.0"
