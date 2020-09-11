@@ -5,7 +5,7 @@ exports[`NoFavoritesComponent matches snapshot 1`] = `
   textLineOne="You haven't added any favorites."
   textLineTwo={
     <span>
-      Collect your favorite job positions by clicking on the 
+      Collect your favorite job positions by clicking on the "
       <FontAwesome
         name="star-o"
       />
@@ -14,7 +14,7 @@ exports[`NoFavoritesComponent matches snapshot 1`] = `
       >
         star icon
       </span>
-       while you search.
+       Add to Favorites" button while you search.
     </span>
   }
 />
