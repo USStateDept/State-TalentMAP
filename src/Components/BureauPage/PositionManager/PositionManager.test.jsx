@@ -83,6 +83,37 @@ describe('BureauPage', () => {
             },
           ],
         },
+        {
+          item: { description: 'bidCycle' },
+          data: [
+            {
+              active: true,
+              custom_description: '2018 DCM/PO Cycle',
+              cycle_deadline_date: null,
+              cycle_end_date: null,
+              cycle_start_date: null,
+              id: 155,
+              isSelected: false,
+              name: '2018 DCM/PO Cycle',
+            },
+          ],
+        },
+        {
+          item: { description: 'language' },
+          data: [
+            {
+              code: 'AB',
+              custom_description: 'Albanian (AB)',
+              effective_date: null,
+              formal_description: 'Albanian',
+              group: 'languages',
+              id: 'AB',
+              isSelected: false,
+              long_description: 'Albanian',
+              short_description: 'Albanian',
+            },
+          ],
+        },
       ],
     },
     bureauPermissions: [
@@ -99,3 +130,4 @@ describe('BureauPage', () => {
     expect(wrapper).toBeDefined();
   });
 });
+
