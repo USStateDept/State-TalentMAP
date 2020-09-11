@@ -42,7 +42,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
             },
             Object {
               "text": "Date created: Most recent",
-              "value": "-date_updated",
+              "value": "-date_created",
             },
           ]
         }

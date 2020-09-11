@@ -23,6 +23,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       columns={12}
     >
       <TotalResults
+        isHidden={false}
         pageNumber={1}
         pageSize={10}
         suffix="notifications"
