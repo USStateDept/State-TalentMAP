@@ -8,8 +8,11 @@ import HomePagePositionsSection from '../../Components/HomePagePositionsSection'
 
 class Position extends Component {
   UNSAFE_componentWillMount() {
-    const { fetchSimilarPositions, id, positionDetailsIsLoading } = this.props;
-    if (!positionDetailsIsLoading) { fetchSimilarPositions(id); }
+    const { fetchSimilarPositions, id, userProfile, bidList,
+      positionDetailsIsLoading } = this.props;
+    if (!positionDetailsIsLoading) {
+      fetchSimilarPositions(id, userProfile.favorite_positions, bidList);
+    }
   }
 
   render() {
@@ -68,7 +71,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchSimilarPositions: id => dispatch(resultsFetchSimilarPositions(id)),
+  fetchSimilarPositions: (id, favorites, bidList) =>
+    dispatch(resultsFetchSimilarPositions(id, favorites, bidList)),
   fetchBidList: () => dispatch(bidListFetchData()),
 });
 

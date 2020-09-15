@@ -49,25 +49,55 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
     results,
   };
 }
-
-export function resultsFetchSimilarPositions(id) {
+// add favs/bid (id, favorites, bidlist) line 54
+// increase limit to 10? line 60
+export function resultsFetchSimilarPositions(id, favorites, bidList) {
   return (dispatch) => {
     if (cancelSimilar) { cancelSimilar(); }
     const prefix = '/fsbid/available_positions';
+    // Logic:
+    // 1: remove favorites and bidList
+    // 2: remove favorites
+    // 3: remove bidList
+
+    if (favorites && bidList) {
+      // both exist, remove both
+    }
+    if (favorites) {
+      // remove favorites
+    }
+    if (bidList) {
+      // remove bidList
+    }
 
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api().get(`${prefix}/${id}/similar/?limit=3`, {
+    api().get(`${prefix}/${id}/similar/?limit=50`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
       }),
     })
       .then(response => response.data)
       .then((results) => {
-        batch(() => {
-          dispatch(resultsSimilarPositionsFetchDataSuccess(results));
-          dispatch(resultsSimilarPositionsHasErrored(false));
-          dispatch(resultsSimilarPositionsIsLoading(false));
-        });
+        // payload master array favs/bidList of ids
+        // comparison check
+        // need to translate to results (map over)
+        // if results.id !== fav/bidList
+        // if returned results < 3 (length check)
+        // after the check fallback to current default (last/edge case)
+        console.log(favorites);//favorites.id
+        console.log(bidList);//bid.position.id
+        let shouldRemove = false;
+        if (favorites && bidList) {
+          // remove fav/bidlist
+          shouldRemove = true;
+        }
+        if (!shouldRemove) {
+          batch(() => {
+            dispatch(resultsSimilarPositionsFetchDataSuccess(results));
+            dispatch(resultsSimilarPositionsHasErrored(false));
+            dispatch(resultsSimilarPositionsIsLoading(false));
+          });
+        }
       })
       .catch(() => {
         batch(() => {
