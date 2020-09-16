@@ -42,6 +42,9 @@ const PositionManager = props => {
   const [selectedSkills, setSelectedSkills] = useState(userSelections.selectedSkills || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections.selectedPosts || []);
   const [selectedTODs, setSelectedTODs] = useState(userSelections.selectedTODs || []);
+  const [selectedCycles, setSelectedCycles] = useState(userSelections.selectedCycles || []);
+  const [selectedLanguages, setSelectedLanguages] =
+    useState(userSelections.selectedLanguages || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections.selectedBureaus || [props.bureauPermissions[0]]);
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
@@ -64,6 +67,10 @@ const PositionManager = props => {
   const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
   const postOptions = uniqBy(sortBy(posts.data, [(p) => p.city]), 'code');
+  const cycles = bureauFilters$.find(f => f.item.description === 'bidCycle');
+  const cycleOptions = uniqBy(sortBy(cycles.data, [(c) => c.custom_description]), 'custom_description');
+  const languages = bureauFilters$.find(f => f.item.description === 'language');
+  const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
   const sorts = BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
@@ -76,6 +83,8 @@ const PositionManager = props => {
     selectedPosts,
     selectedTODs,
     selectedBureaus,
+    selectedCycles,
+    selectedLanguages,
     textSearch,
     textInput,
   };
@@ -83,11 +92,13 @@ const PositionManager = props => {
   // Query is passed to action which stringifies
   // key and values into sensible request url
   const query = {
-    [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
-    [skills.item.selectionRef]: selectedSkills.map(skillObject => (skillObject.code)),
-    [posts.item.selectionRef]: selectedPosts.map(postObject => (postObject.code)),
-    [tods.item.selectionRef]: selectedTODs.map(tedObject => (tedObject.code)),
-    [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (bureauObject.code)),
+    [grades.item.selectionRef]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
+    [skills.item.selectionRef]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
+    [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
+    [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
+    [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     ordering,
     page,
     limit,
@@ -114,6 +125,8 @@ const PositionManager = props => {
     selectedPosts,
     selectedTODs,
     selectedBureaus,
+    selectedCycles,
+    selectedLanguages,
     ordering,
     limit,
     textSearch,
@@ -132,7 +145,7 @@ const PositionManager = props => {
 
   function renderSelectionList({ items, selected, ...rest }) {
     const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    const queryProp = get(items[0], 'custom_description', false) ? 'custom_description' : 'long_description';
+    const queryProp = get(items, '[0].custom_description', false) ? 'custom_description' : 'long_description';
     return items.map(item =>
       (<ListItem
         key={item.code}
@@ -140,6 +153,20 @@ const PositionManager = props => {
         {...rest}
         queryProp={queryProp}
         getIsSelected={getCodeSelected}
+      />),
+    );
+  }
+
+  function renderSelectionListById({ items, selected, ...rest }) {
+    const getIDSelected = item => !!selected.find(f => f.id === item.id);
+    const queryProp = get(items[0], 'custom_description', false) ? 'custom_description' : 'long_description';
+    return items.map(item =>
+      (<ListItem
+        key={item.id}
+        item={item}
+        {...rest}
+        queryProp={queryProp}
+        getIsSelected={getIDSelected}
       />),
     );
   }
@@ -202,6 +229,23 @@ const PositionManager = props => {
                 <div className="filterby-label">Filter by:</div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
+                    <div className="filter-div">
+                      <div className="label">Cycle:</div>
+                      <Picky
+                        placeholder="Select cycle(s)"
+                        value={selectedCycles}
+                        options={cycleOptions}
+                        onChange={values => setSelectedCycles(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderSelectionListById}
+                        valueKey="id"
+                        labelKey="custom_description"
+                        includeSelectAll
+                      />
+                    </div>
                     <div className="filter-div">
                       <div className="label">TOD:</div>
                       <Picky
@@ -276,6 +320,23 @@ const PositionManager = props => {
                         value={selectedGrades}
                         options={gradeOptions}
                         onChange={values => setSelectedGrades(values)}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderSelectionList}
+                        valueKey="code"
+                        labelKey="custom_description"
+                        includeSelectAll
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label">Language:</div>
+                      <Picky
+                        placeholder="Select Language(s)"
+                        value={selectedLanguages}
+                        options={languageOptions}
+                        onChange={values => setSelectedLanguages(values)}
                         numberDisplayed={2}
                         multiple
                         includeFilter

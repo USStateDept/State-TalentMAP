@@ -93,7 +93,8 @@
 .tm-spinner-bureau-results {
   left: 45%;
   position: absolute;
-  top: 350px;
+  top: 450px;
+  z-index: $bureau-spinner-z;
 }
 
 .tm-spinner-bureau-filters {
