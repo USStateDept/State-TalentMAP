@@ -12,6 +12,23 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
   <div
     className="contact-container"
   >
+    <Connect(PermissionsWrapper)
+      permissions="superuser"
+    >
+      <div
+        className="usa-grid-full contact-section website-section"
+      >
+        <PositionTitleSubDescription
+          formattedContent={<UNDEFINED />}
+          isAllowedToEdit={false}
+          onSubmitText={[Function]}
+          plainContent=""
+          shouldShowEditor={false}
+          title="Position views"
+          toggleEditor={[Function]}
+        />
+      </div>
+    </Connect(PermissionsWrapper)>
     <div
       className="usa-grid-full contact-section website-section"
     >
