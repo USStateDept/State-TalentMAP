@@ -213,10 +213,11 @@ $input-height: 40px;
 
       .search-submit-button {
         flex: 1;
+        max-width: 190px;
       }
 
       button {
-        width: 100%;
+        margin-left: 25px;
       }
     }
   }
