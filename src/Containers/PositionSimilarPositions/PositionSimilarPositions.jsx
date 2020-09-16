@@ -11,7 +11,7 @@ class Position extends Component {
     const { fetchSimilarPositions, id, userProfile, bidList,
       positionDetailsIsLoading } = this.props;
     if (!positionDetailsIsLoading) {
-      fetchSimilarPositions(id, userProfile.favorite_positions, bidList);
+      fetchSimilarPositions(id, userProfile.favorite_positions, bidList.results);
     }
   }
 

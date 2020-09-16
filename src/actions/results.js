@@ -1,7 +1,7 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
-import { get } from 'lodash';
+import { get, filter } from 'lodash';
 import numeral from 'numeral';
 import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
@@ -49,51 +49,62 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
     results,
   };
 }
-// add favs/bid (id, favorites, bidlist) line 54
-// increase limit to 10? line 60
 export function resultsFetchSimilarPositions(id, favorites, bidList) {
   return (dispatch) => {
     if (cancelSimilar) { cancelSimilar(); }
     const prefix = '/fsbid/available_positions';
     // Logic:
-    // 1: remove favorites and bidList
-    // 2: remove favorites
-    // 3: remove bidList
-
-    if (favorites && bidList) {
-      // both exist, remove both
-    }
-    if (favorites) {
-      // remove favorites
-    }
-    if (bidList) {
-      // remove bidList
-    }
+    // 1: remove favorites and bidList (filter)
+    // 2: fallback when filtered data === 0
 
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api().get(`${prefix}/${id}/similar/?limit=50`, {
+    api().get(`${prefix}/${id}/similar/?limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
       }),
     })
       .then(response => response.data)
       .then((results) => {
+        const filteredResults = results.results;
         // payload master array favs/bidList of ids
-        // comparison check
+        const favoritesBidListArray = [];
+        for (let f = 0; f < favorites.length; f += 1) {
+          favoritesBidListArray.push(Number(favorites[f].id));
+          // console.log(favorites[f].id);
+        }
+        for (let b = 0; b < bidList.length; b += 1) {
+          favoritesBidListArray.push(bidList[b].position.id);
+          // console.log(bidList[b].position.id);
+        }
+        console.log(favoritesBidListArray);
+        console.log(results);
+        // comparison check: filter/lodash
+        // filter(users, o => { !o.active;});
+        // const filteredUsers = filter(users, a => !a.active);
+        // const filteredUsers = filter(results.results, a => console.log(a.id));
+        // try teneray operator for comparison if possible
+        const filteredPositions = filter(filteredResults, (a) => {
+          if (!favoritesBidListArray.includes(a.id)) { return true; } return false;
+        });
+        // const filteredUsers = filter(results.results, a =>
+        // { if (!favoritesBidListArray.includes(a.id))return true;});
+        console.log(filteredPositions);
+        // filter(favoritesBidListArray,
+        //   function(o) { return results.results[o].id !== favoritesBidListArray});
         // need to translate to results (map over)
-        // if results.id !== fav/bidList
         // if returned results < 3 (length check)
         // after the check fallback to current default (last/edge case)
-        console.log(favorites);//favorites.id
-        console.log(bidList);//bid.position.id
-        let shouldRemove = false;
-        if (favorites && bidList) {
-          // remove fav/bidlist
-          shouldRemove = true;
-        }
-        if (!shouldRemove) {
+        if (filteredPositions.length === 0) {
           batch(() => {
             dispatch(resultsSimilarPositionsFetchDataSuccess(results));
+            dispatch(resultsSimilarPositionsHasErrored(false));
+            dispatch(resultsSimilarPositionsIsLoading(false));
+          });
+        } else { // fallback?
+          batch(() => {
+            // filteredPositions is not displaying
+            // slightly different object than results
+            dispatch(resultsSimilarPositionsFetchDataSuccess(filteredPositions));
             dispatch(resultsSimilarPositionsHasErrored(false));
             dispatch(resultsSimilarPositionsIsLoading(false));
           });
