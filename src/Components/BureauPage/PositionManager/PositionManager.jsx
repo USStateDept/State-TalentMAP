@@ -92,13 +92,13 @@ const PositionManager = props => {
   // Query is passed to action which stringifies
   // key and values into sensible request url
   const query = {
-    [grades.item.selectionRef]: selectedGrades.map(gradeObject => (gradeObject.code)),
-    [skills.item.selectionRef]: selectedSkills.map(skillObject => (skillObject.code)),
-    [posts.item.selectionRef]: selectedPosts.map(postObject => (postObject.code)),
-    [tods.item.selectionRef]: selectedTODs.map(tedObject => (tedObject.code)),
-    [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (bureauObject.code)),
-    [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (cycleObject.id)),
-    [languages.item.selectionRef]: selectedLanguages.map(langObject => (langObject.code)),
+    [grades.item.selectionRef]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
+    [skills.item.selectionRef]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
+    [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
+    [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
+    [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     ordering,
     page,
     limit,
@@ -145,7 +145,7 @@ const PositionManager = props => {
 
   function renderSelectionList({ items, selected, ...rest }) {
     const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    const queryProp = get(items[0], 'custom_description', false) ? 'custom_description' : 'long_description';
+    const queryProp = get(items, '[0].custom_description', false) ? 'custom_description' : 'long_description';
     return items.map(item =>
       (<ListItem
         key={item.code}
