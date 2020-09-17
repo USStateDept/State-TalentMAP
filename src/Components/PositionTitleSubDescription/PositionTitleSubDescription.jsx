@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import TextEditor from '../TextEditor';
 import EditContentButton from '../EditContentButton';
 
@@ -34,12 +35,21 @@ const PositionTitleSubDescription = ({ title, formattedContent, plainContent, sh
 
 PositionTitleSubDescription.propTypes = {
   title: PropTypes.string.isRequired,
-  formattedContent: PropTypes.node.isRequired,
-  plainContent: PropTypes.string.isRequired,
-  shouldShowEditor: PropTypes.bool.isRequired,
-  onSubmitText: PropTypes.func.isRequired,
-  toggleEditor: PropTypes.func.isRequired,
-  isAllowedToEdit: PropTypes.bool.isRequired,
+  formattedContent: PropTypes.node,
+  plainContent: PropTypes.string,
+  shouldShowEditor: PropTypes.bool,
+  onSubmitText: PropTypes.func,
+  toggleEditor: PropTypes.func,
+  isAllowedToEdit: PropTypes.bool,
+};
+
+PositionTitleSubDescription.defaultProps = {
+  formattedContent: '',
+  plainContent: '',
+  shouldShowEditor: false,
+  onSubmitText: EMPTY_FUNCTION,
+  toggleEditor: EMPTY_FUNCTION,
+  isAllowedToEdit: false,
 };
 
 export default PositionTitleSubDescription;

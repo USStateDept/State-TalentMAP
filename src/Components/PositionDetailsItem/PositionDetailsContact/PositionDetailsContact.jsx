@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { propOrDefault, formatDate, getBidStatisticsObject } from 'utilities';
 import BidCount from 'Components/BidCount';
+import PositionViews from 'Components/PositionViews';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import PositionTitleSubDescription from '../../PositionTitleSubDescription';
 import ViewPostDataButton from '../../ViewPostDataButton';
 import { POSITION_DETAILS } from '../../../Constants/PropTypes';
@@ -101,6 +103,15 @@ class PositionDetailsContact extends Component {
     return (
       <div className="position-details-contact" style={{ position: 'relative' }}>
         <div className="contact-container">
+          <PermissionsWrapper permissions="superuser">
+            <div className="usa-grid-full contact-section website-section">
+              <PositionTitleSubDescription
+                title="Position views"
+                formattedContent={<PositionViews />}
+                isAllowedToEdit={isAllowedToEdit}
+              />
+            </div>
+          </PermissionsWrapper>
           <div className="usa-grid-full contact-section website-section">
             <PositionTitleSubDescription
               title="Post website"
