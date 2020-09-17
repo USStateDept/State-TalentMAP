@@ -1,7 +1,7 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
-import { get, filter } from 'lodash';
+import { get, filter, isEmpty } from 'lodash';
 import numeral from 'numeral';
 import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
@@ -58,6 +58,7 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
     // 2: fallback when filtered data === 0
 
     dispatch(resultsSimilarPositionsIsLoading(true));
+    // change to 50
     api().get(`${prefix}/${id}/similar/?limit=3`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
@@ -65,50 +66,47 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
     })
       .then(response => response.data)
       .then((results) => {
-        const filteredResults = results.results;
+        console.log(favorites);
+        console.log(bidList);
+        const originalResults = results.results;
         // payload master array favs/bidList of ids
         const favoritesBidListArray = [];
-        for (let f = 0; f < favorites.length; f += 1) {
-          favoritesBidListArray.push(Number(favorites[f].id));
-          // console.log(favorites[f].id);
-        }
-        for (let b = 0; b < bidList.length; b += 1) {
-          favoritesBidListArray.push(bidList[b].position.id);
-          // console.log(bidList[b].position.id);
-        }
+        // for (let f = 0; f < favorites.length; f += 1) {
+        //   favoritesBidListArray.push(Number(favorites[f].id));
+        //   // console.log(favorites[f].id);
+        // }
+        favorites.forEach(favorite => favoritesBidListArray.push(Number(favorite.id)));
+        // for (let b = 0; b < bidList.length; b += 1) {
+        //   favoritesBidListArray.push(bidList[b].position.id);
+        //   // console.log(bidList[b].position.id);
+        // }
+        bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));
         console.log(favoritesBidListArray);
         console.log(results);
         // comparison check: filter/lodash
         // filter(users, o => { !o.active;});
         // const filteredUsers = filter(users, a => !a.active);
         // const filteredUsers = filter(results.results, a => console.log(a.id));
-        // try teneray operator for comparison if possible
-        const filteredPositions = filter(filteredResults, (a) => {
-          if (!favoritesBidListArray.includes(a.id)) { return true; } return false;
-        });
+        // try ternary operator for comparison if possible
+        // stop filtering once you get to 3 (for each instead of filter)
+        const filteredPositions = filter(originalResults, (a) =>
+          (!favoritesBidListArray.includes(a.id)));
         // const filteredUsers = filter(results.results, a =>
         // { if (!favoritesBidListArray.includes(a.id))return true;});
         console.log(filteredPositions);
+        // results.results = filteredPositions;
         // filter(favoritesBidListArray,
         //   function(o) { return results.results[o].id !== favoritesBidListArray});
         // need to translate to results (map over)
         // if returned results < 3 (length check)
         // after the check fallback to current default (last/edge case)
-        if (filteredPositions.length === 0) {
-          batch(() => {
-            dispatch(resultsSimilarPositionsFetchDataSuccess(results));
-            dispatch(resultsSimilarPositionsHasErrored(false));
-            dispatch(resultsSimilarPositionsIsLoading(false));
-          });
-        } else { // fallback?
-          batch(() => {
-            // filteredPositions is not displaying
-            // slightly different object than results
-            dispatch(resultsSimilarPositionsFetchDataSuccess(filteredPositions));
-            dispatch(resultsSimilarPositionsHasErrored(false));
-            dispatch(resultsSimilarPositionsIsLoading(false));
-          });
-        }
+        // cutdown return results to 3
+        const returnResults = isEmpty(filteredPositions) ? results : { results: filteredPositions };
+        batch(() => {
+          dispatch(resultsSimilarPositionsFetchDataSuccess(returnResults));
+          dispatch(resultsSimilarPositionsHasErrored(false));
+          dispatch(resultsSimilarPositionsIsLoading(false));
+        });
       })
       .catch(() => {
         batch(() => {
