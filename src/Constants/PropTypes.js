@@ -206,6 +206,10 @@ export const USER_PROFILE = PropTypes.shape({
     office_address: PropTypes.string,
     office_phone: PropTypes.string,
   }),
+  user_info: PropTypes.shape({
+    office_address: PropTypes.string,
+    office_phone: PropTypes.string,
+  }),
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
   initials: PropTypes.string,

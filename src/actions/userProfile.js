@@ -57,11 +57,15 @@ export function unsetUserProfile() {
 export function userProfileFetchData(bypass, cb) {
   return (dispatch) => {
     if (!bypass) {
+      // eslint-disable-next-line no-console
+      console.log('current: if!bypass: ');
       batch(() => {
         dispatch(userProfileIsLoading(true));
         dispatch(userProfileHasErrored(false));
       });
     }
+    // eslint-disable-next-line no-console
+    console.log('current: pass bypass: ');
 
     /**
      * create functions to fetch user's profile and permissions
@@ -99,6 +103,8 @@ export function userProfileFetchData(bypass, cb) {
         const pvTandemFavorites = get(results, '[4].value.data', []).map(id => ({ id }));
         const bureauPermissions = get(results, '[5].value.data', []);
         const account = get(results, '[6].value.data', {});
+        // eslint-disable-next-line no-console
+        console.log('current: account: ', account);
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,

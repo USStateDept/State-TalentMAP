@@ -11,13 +11,13 @@ const UserProfileContactInformation = ({ userProfile }) => (
     <div className="section-padded-inner-container">
       <SectionTitle small title="Contact Information" icon="list-alt" />
       <InformationDataPoint title="Email address" content={get(userProfile, 'user.email') || NO_EMAIL} />
-      <InformationDataPoint title="Office number" content={get(userProfile, 'user.office_phone') || NO_OFFICE_PHONE} />
+      <InformationDataPoint title="Office number" content={get(userProfile, 'user_info.office_phone') || NO_OFFICE_PHONE} />
       <StaticDevContent>
         <InformationDataPoint title="Personal contact number" content="+240-331-7189" />
       </StaticDevContent>
       <InformationDataPoint
         title="Post/Office address"
-        content={get(userProfile, 'user.office_address') || NO_OFFICE_ADDRESS}
+        content={get(userProfile, 'user_info.office_address') || NO_OFFICE_ADDRESS}
       />
     </div>
   </div>
