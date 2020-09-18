@@ -44,6 +44,7 @@ export function resultsSimilarPositionsIsLoading(bool) {
   };
 }
 export function resultsSimilarPositionsFetchDataSuccess(results) {
+  console.log(results);
   return {
     type: 'RESULTS_SIMILAR_POSITIONS_FETCH_DATA_SUCCESS',
     results,
@@ -66,8 +67,9 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
     })
       .then(response => response.data)
       .then((results) => {
-        console.log(favorites);
-        console.log(bidList);
+        console.log('results', results);
+        console.log('favorites', favorites);
+        console.log('bidList', bidList);
         const originalResults = results.results;
         // payload master array favs/bidList of ids
         const favoritesBidListArray = [];
@@ -75,53 +77,17 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
         bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));
         console.log(favoritesBidListArray);
         console.log(results);
-        // comparison check: filter/lodash
-        // const filteredUsers = filter(users, a => !a.active);
-        // const filteredUsers = filter(results.results, a => console.log(a.id));
-        // stop filtering once you get to 3 (for each instead of filter)
-        // const filteredPositions = filter(originalResults, (a) =>
-        //   (!favoritesBidListArray.includes(a.id)));
-        // if (filteredPositions.length > 3) {
-        //   for (let f = 4; f < originalResults.length; f += 1) {
-        //     filteredPositions.pop();
-        //   }
-        // }
         const filteredPositions = [];
         originalResults.forEach(position => {
-          if (filteredPositions.length < 3) {
+          if (filteredPositions.length < 3 && !favoritesBidListArray.includes(position.id)) {
             filteredPositions.push(position);
           }
         });
-        console.log(filteredPositions);
-        // let filteredPositions = [];
-        // for (let x = 0; x < originalResults.length; x += 1) {
-        //   if (filteredPositions.length === 3) {
-        //     break;
-        //   }
-        //   filteredPositions = filteredPositions.push(originalResults[x]);
-        // }
-        // const filteredPositions = [];
-        // for (let f = 0; f < originalResults.length; f += 1) {
-        //   if (filteredPositions.length === 3) {
-        //     break;
-        //   }
-        //   filteredPositions = (!favoritesBidListArray.includes(a.id));
-        // }
-        console.log(originalResults.length);
-        console.log(filteredPositions.length);
-        // const filteredUsers = filter(results.results, a =>
-        // { if (!favoritesBidListArray.includes(a.id))return true;});
-        console.log(filteredPositions);
-        // if returned results < 3 (length check)
-        // after the check fallback to current default (last/edge case)
-        // cutdown return results to 3
-        const returnResults = isEmpty(filteredPositions) ? results : { results: filteredPositions };
-        console.log(returnResults);
-        console.log(returnResults.results);
-        console.log(returnResults.results.length);
-        // if (returnResults.results.length > 3) {
-        //   // cutdown to three
-        // }
+        console.log('filtered positions', filteredPositions, filteredPositions.length);
+        console.log('origin positions', originalResults, originalResults.length);
+        const returnResults = isEmpty(filteredPositions) ?
+          { results: originalResults.slice(0, 3) } : { results: filteredPositions };
+        console.log('return results', returnResults);
         batch(() => {
           dispatch(resultsSimilarPositionsFetchDataSuccess(returnResults));
           dispatch(resultsSimilarPositionsHasErrored(false));
