@@ -1,7 +1,7 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
-import { get, filter, isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import numeral from 'numeral';
 import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
@@ -59,7 +59,7 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
 
     dispatch(resultsSimilarPositionsIsLoading(true));
     // change to 50
-    api().get(`${prefix}/${id}/similar/?limit=15`, {
+    api().get(`${prefix}/${id}/similar/?limit=50`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
       }),
@@ -79,13 +79,20 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
         // const filteredUsers = filter(users, a => !a.active);
         // const filteredUsers = filter(results.results, a => console.log(a.id));
         // stop filtering once you get to 3 (for each instead of filter)
-        const filteredPositions = filter(originalResults, (a) =>
-          (!favoritesBidListArray.includes(a.id)));
-        if (filteredPositions.length > 3) {
-          for (let f = 4; f < originalResults.length; f += 1) {
-            filteredPositions.pop();
+        // const filteredPositions = filter(originalResults, (a) =>
+        //   (!favoritesBidListArray.includes(a.id)));
+        // if (filteredPositions.length > 3) {
+        //   for (let f = 4; f < originalResults.length; f += 1) {
+        //     filteredPositions.pop();
+        //   }
+        // }
+        const filteredPositions = [];
+        originalResults.forEach(position => {
+          if (filteredPositions.length < 3) {
+            filteredPositions.push(position);
           }
-        }
+        });
+        console.log(filteredPositions);
         // let filteredPositions = [];
         // for (let x = 0; x < originalResults.length; x += 1) {
         //   if (filteredPositions.length === 3) {
