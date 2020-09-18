@@ -59,7 +59,7 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
 
     dispatch(resultsSimilarPositionsIsLoading(true));
     // change to 50
-    api().get(`${prefix}/${id}/similar/?limit=3`, {
+    api().get(`${prefix}/${id}/similar/?limit=15`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
       }),
@@ -71,37 +71,50 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
         const originalResults = results.results;
         // payload master array favs/bidList of ids
         const favoritesBidListArray = [];
-        // for (let f = 0; f < favorites.length; f += 1) {
-        //   favoritesBidListArray.push(Number(favorites[f].id));
-        //   // console.log(favorites[f].id);
-        // }
         favorites.forEach(favorite => favoritesBidListArray.push(Number(favorite.id)));
-        // for (let b = 0; b < bidList.length; b += 1) {
-        //   favoritesBidListArray.push(bidList[b].position.id);
-        //   // console.log(bidList[b].position.id);
-        // }
         bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));
         console.log(favoritesBidListArray);
         console.log(results);
         // comparison check: filter/lodash
-        // filter(users, o => { !o.active;});
         // const filteredUsers = filter(users, a => !a.active);
         // const filteredUsers = filter(results.results, a => console.log(a.id));
-        // try ternary operator for comparison if possible
         // stop filtering once you get to 3 (for each instead of filter)
         const filteredPositions = filter(originalResults, (a) =>
           (!favoritesBidListArray.includes(a.id)));
+        if (filteredPositions.length > 3) {
+          for (let f = 4; f < originalResults.length; f += 1) {
+            filteredPositions.pop();
+          }
+        }
+        // let filteredPositions = [];
+        // for (let x = 0; x < originalResults.length; x += 1) {
+        //   if (filteredPositions.length === 3) {
+        //     break;
+        //   }
+        //   filteredPositions = filteredPositions.push(originalResults[x]);
+        // }
+        // const filteredPositions = [];
+        // for (let f = 0; f < originalResults.length; f += 1) {
+        //   if (filteredPositions.length === 3) {
+        //     break;
+        //   }
+        //   filteredPositions = (!favoritesBidListArray.includes(a.id));
+        // }
+        console.log(originalResults.length);
+        console.log(filteredPositions.length);
         // const filteredUsers = filter(results.results, a =>
         // { if (!favoritesBidListArray.includes(a.id))return true;});
         console.log(filteredPositions);
-        // results.results = filteredPositions;
-        // filter(favoritesBidListArray,
-        //   function(o) { return results.results[o].id !== favoritesBidListArray});
-        // need to translate to results (map over)
         // if returned results < 3 (length check)
         // after the check fallback to current default (last/edge case)
         // cutdown return results to 3
         const returnResults = isEmpty(filteredPositions) ? results : { results: filteredPositions };
+        console.log(returnResults);
+        console.log(returnResults.results);
+        console.log(returnResults.results.length);
+        // if (returnResults.results.length > 3) {
+        //   // cutdown to three
+        // }
         batch(() => {
           dispatch(resultsSimilarPositionsFetchDataSuccess(returnResults));
           dispatch(resultsSimilarPositionsHasErrored(false));
