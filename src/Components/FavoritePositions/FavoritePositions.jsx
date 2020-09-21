@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
@@ -20,7 +20,7 @@ const TYPE_PV_TANDEM = 'pvTandem';
 const TYPE_OPEN_TANDEM = 'openTandem';
 
 const FavoritePositions = props => {
-  const [selected, setSelected] = useState(TYPE_OPEN);
+  const [selected, setSelected] = useState(props.navType || TYPE_OPEN);
   const [isLoading, setIsLoading] = useState(false);
 
   const { favorites, favoritesTandem, favoritesPV,
@@ -43,12 +43,9 @@ const FavoritePositions = props => {
     }
   }
 
-  useEffect(() => {
-    props.selectedNav(selected);
-  }, [selected]);
-
   function navSelected(s) {
     setSelected(s);
+    props.selectedNav(s);
   }
 
   function exportPositionData() {
@@ -195,6 +192,7 @@ FavoritePositions.propTypes = {
   counts: FAVORITE_POSITION_COUNTS,
   onPageChange: PropTypes.func,
   selectedNav: PropTypes.func,
+  navType: PropTypes.string,
 };
 
 FavoritePositions.defaultProps = {
@@ -210,6 +208,7 @@ FavoritePositions.defaultProps = {
   counts: DEFAULT_FAVORITES_COUNTS,
   onPageChange: EMPTY_FUNCTION,
   selectedNav: EMPTY_FUNCTION,
+  navType: TYPE_OPEN,
 };
 
 export default FavoritePositions;

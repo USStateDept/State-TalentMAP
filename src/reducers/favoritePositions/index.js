@@ -1,5 +1,6 @@
-import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading } from './favoritePositions';
+import { favoritePositions, favoritePositionsHasErrored, favoritePositionsIsLoading, favoritePositionsPreferences } from './favoritePositions';
 
 export default { favoritePositions,
   favoritePositionsHasErrored,
-  favoritePositionsIsLoading };
+  favoritePositionsIsLoading,
+  favoritePositionsPreferences };

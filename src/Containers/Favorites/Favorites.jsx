@@ -3,62 +3,40 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
-import { usePrevious } from 'hooks';
+import { withDefault, withQueryParams, NumberParam, StringParam } from 'use-query-params';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
-import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION, SetType } from 'Constants/PropTypes';
+import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import FavoritePositions from 'Components/FavoritePositions';
 import CompareDrawer from 'Components/CompareDrawer';
 import { scrollToTop } from 'utilities';
 
 const FavoritePositionsContainer = props => {
-  const [page, setPage] = useState(1);
-  const [sortType, setSortType] = useState();
-  const [navType, setNavType] = useState('open');
+  const { favoritePositions, favoritePositionsIsLoading, query, setQuery,
+    favoritePositionsHasErrored, bidList } = props;
+
+  const [called, setCalled] = useState(false);
+
+  const { page, sortType, navType } = query;
   const PAGE_SIZE = 15;
-  const prevPage = usePrevious(page);
-
-  const { favoritePositions, favoritePositionsIsLoading,
-    favoritePositionsHasErrored, bidList, userProfileFavoritePositionIsLoading } = props;
-
-  const prevUserProfileFavoritePositionIsLoading =
-    usePrevious(userProfileFavoritePositionIsLoading);
 
   function getFavorites(nav = navType) {
     props.fetchData(sortType, PAGE_SIZE, page, nav);
   }
 
-  useEffect(() => {
-    props.bidListFetchData();
-    getFavorites('all');
-  }, []);
+  const setPage$ = e => setQuery({ page: e });
+  const setSortType$ = e => setQuery({ sortType: e, page: 1 });
+  const setNavType$ = e => setQuery({ navType: e, page: 1 });
 
   useEffect(() => {
-    if (prevPage) {
-      getFavorites();
+    if (!called) {
+      setCalled(true);
+      props.bidListFetchData();
+      getFavorites('all');
     }
-  }, [page]);
-
-  useEffect(() => {
-    if ((page === 1) && prevPage) { getFavorites(); }
-    setPage(1);
-  }, [navType]);
-
-  useEffect(() => {
-    if ((page === 1) && prevPage) { getFavorites(); }
-    setPage(1);
-  }, [sortType]);
-
-  useEffect(() => {
-    if (get(prevUserProfileFavoritePositionIsLoading, 'size', 0)
-      // eslint-disable-next-line react/prop-types
-      && !get(userProfileFavoritePositionIsLoading, 'size', 0)) {
-      setPage(1);
-      getFavorites();
-    }
-  }, [userProfileFavoritePositionIsLoading]);
+  }, [called]);
 
   function onToggleFavorite({ id, remove }) {
     props.toggleFavorite(id, remove);
@@ -66,18 +44,18 @@ const FavoritePositionsContainer = props => {
 
   function onPageChange(e) {
     if (get(e, 'page', 1) !== page) {
-      setPage(e.page);
+      setPage$(e.page);
       scrollToTop({ delay: 0, duration: 400 });
     }
   }
 
   function selectedNav(navVal) {
-    setNavType(navVal);
+    setNavType$(navVal);
   }
 
   function getSortedFavorites(type) {
     if (type.target && type.target.value) {
-      setSortType(get(type, 'target.value'));
+      setSortType$(get(type, 'target.value'));
     }
   }
 
@@ -99,6 +77,7 @@ const FavoritePositionsContainer = props => {
         counts={favoritePositions.counts}
         onPageChange={onPageChange}
         selectedNav={selectedNav}
+        navType={navType}
       />
       <CompareDrawer />
     </div>
@@ -113,7 +92,12 @@ FavoritePositionsContainer.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool,
   favoritePositionsIsLoading: PropTypes.bool,
   bidList: BID_LIST.isRequired,
-  userProfileFavoritePositionIsLoading: SetType,
+  query: PropTypes.shape({
+    page: PropTypes.number,
+    sortType: PropTypes.string,
+    navType: PropTypes.string,
+  }),
+  setQuery: PropTypes.func,
 };
 
 FavoritePositionsContainer.defaultProps = {
@@ -125,6 +109,8 @@ FavoritePositionsContainer.defaultProps = {
   favoritePositionsIsLoading: false,
   bidList: { results: [] },
   userProfileFavoritePositionIsLoading: new Set(),
+  query: {},
+  setQuery: EMPTY_FUNCTION,
 };
 
 FavoritePositionsContainer.contextTypes = {
@@ -149,4 +135,12 @@ export const mapDispatchToProps = dispatch => ({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(FavoritePositionsContainer));
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withQueryParams({
+    page: withDefault(NumberParam, 1),
+    sortType: StringParam,
+    navType: withDefault(StringParam, 'open'),
+  }, withRouter(
+    FavoritePositionsContainer,
+  )),
+);
