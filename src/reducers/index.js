@@ -44,6 +44,7 @@ import synchronizations from './synchronizations';
 import positionCount from './positionCount';
 import showMobileFilter from './showMobileFilter';
 import stats from './stats';
+import positionViews from './positionViews';
 import clientSuggestions from './clientSuggestions';
 import userRoles from './userRoles';
 import classifications from './classifications';
@@ -93,6 +94,7 @@ export default (history) => combineReducers({
   ...positionCount,
   ...showMobileFilter,
   ...stats,
+  ...positionViews,
   ...clientSuggestions,
   ...userRoles,
   ...classifications,

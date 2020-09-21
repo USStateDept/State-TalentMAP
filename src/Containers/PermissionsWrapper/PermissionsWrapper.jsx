@@ -6,22 +6,31 @@ import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
 import { userHasPermissions, userHasSomePermissions } from '../../utilities';
 
 export class PermissionsWrapper extends Component {
+  componentWillMount() {
+    if (this.checkPermissions()) {
+      this.props.onMount();
+    }
+  }
+
   checkPermissions = () => {
     const { isLoading, minimum, permissions, userProfile } = this.props;
-    const isEmpty = !permissions.length;
-    const permissions$ = typeof permissions === 'string' ? [permissions] : permissions;
-    let doesUserHavePermissions = () =>
-      isEmpty || userHasPermissions(permissions$, userProfile.permission_groups || []) ||
-      userHasPermissions(permissions$, userProfile.permissions || []);
-    if (minimum) {
-      doesUserHavePermissions = () =>
-        isEmpty || userHasSomePermissions(permissions$, userProfile.permission_groups || []) ||
-      userHasSomePermissions(permissions$, userProfile.permissions || []);
-    }
     if (!isLoading) {
-      return doesUserHavePermissions();
+      const isEmpty = !permissions.length;
+      const permissions$ = typeof permissions === 'string' ? [permissions] : permissions;
+      let doesUserHavePermissions = () =>
+        isEmpty || userHasPermissions(permissions$, userProfile.permission_groups || []) ||
+        userHasPermissions(permissions$, userProfile.permissions || []);
+      if (minimum) {
+        doesUserHavePermissions = () =>
+          isEmpty || userHasSomePermissions(permissions$, userProfile.permission_groups || []) ||
+        userHasSomePermissions(permissions$, userProfile.permissions || []);
+      }
+      if (!isLoading) {
+        return doesUserHavePermissions();
+      }
+      return false;
     }
-    return false;
+    return setTimeout(() => this.checkPermissions(), 100);
   };
 
   render() {
@@ -42,6 +51,7 @@ PermissionsWrapper.propTypes = {
   children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.element]).isRequired,
   fallback: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.element]),
   minimum: PropTypes.bool,
+  onMount: PropTypes.func,
 };
 
 PermissionsWrapper.defaultProps = {
@@ -50,6 +60,7 @@ PermissionsWrapper.defaultProps = {
   permissions: [],
   fallback: null,
   minimum: false,
+  onMount: () => {},
 };
 
 const mapStateToProps = state => ({

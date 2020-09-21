@@ -8,23 +8,6 @@ import api from '../api';
 
 let cancel;
 
-// eslint-disable-next-line import/prefer-default-export
-export function downloadBidderData() {
-// export function downloadBidderData(id) {
-  // const url = createUrl(`/fsbid/bureau/positions/${id}/bidders/export/`);
-  // exporting the 'bureau positions'. Just setting up the framework, for now.
-  const url = '/fsbid/bureau/positions/export/';
-  return api().get(url, {
-    responseType: 'stream',
-  })
-    .then((response) => {
-      downloadFromResponse(response, 'TalentMap_bureau_positions_export');
-    })
-    .catch(() => {
-      // eslint-disable-next-line global-require
-      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
-    });
-}
 
 export function downloadBureauPositionsData(userQuery) {
   if (get(userQuery, 'position__bureau__code__in', []).length < 1) {

@@ -19,6 +19,7 @@
     "bid_stats": false,
     "client_profiles": true,
     "tandem": true,
+    "bureau": true,
     "indicators": true,
     "us_codes": true
   }
