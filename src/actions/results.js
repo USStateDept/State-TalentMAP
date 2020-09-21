@@ -44,7 +44,6 @@ export function resultsSimilarPositionsIsLoading(bool) {
   };
 }
 export function resultsSimilarPositionsFetchDataSuccess(results) {
-  console.log(results);
   return {
     type: 'RESULTS_SIMILAR_POSITIONS_FETCH_DATA_SUCCESS',
     results,
@@ -55,39 +54,31 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
     if (cancelSimilar) { cancelSimilar(); }
     const prefix = '/fsbid/available_positions';
     // Logic:
-    // 1: remove favorites and bidList (filter)
-    // 2: fallback when filtered data === 0
+    // 1: remove favorites and bidList
+    // 2: fallback to original results when filtered data === 0
 
     dispatch(resultsSimilarPositionsIsLoading(true));
-    // change to 50
-    api().get(`${prefix}/${id}/similar/?limit=50`, {
+    // limit is set to 50 in the BE
+    api().get(`${prefix}/${id}/similar/`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
       }),
     })
       .then(response => response.data)
       .then((results) => {
-        console.log('results', results);
-        console.log('favorites', favorites);
-        console.log('bidList', bidList);
         const originalResults = results.results;
+        const filteredPositions = [];
         // payload master array favs/bidList of ids
         const favoritesBidListArray = [];
         favorites.forEach(favorite => favoritesBidListArray.push(Number(favorite.id)));
         bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));
-        console.log(favoritesBidListArray);
-        console.log(results);
-        const filteredPositions = [];
         originalResults.forEach(position => {
           if (filteredPositions.length < 3 && !favoritesBidListArray.includes(position.id)) {
             filteredPositions.push(position);
           }
         });
-        console.log('filtered positions', filteredPositions, filteredPositions.length);
-        console.log('origin positions', originalResults, originalResults.length);
         const returnResults = isEmpty(filteredPositions) ?
           { results: originalResults.slice(0, 3) } : { results: filteredPositions };
-        console.log('return results', returnResults);
         batch(() => {
           dispatch(resultsSimilarPositionsFetchDataSuccess(returnResults));
           dispatch(resultsSimilarPositionsHasErrored(false));
