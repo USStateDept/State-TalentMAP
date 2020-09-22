@@ -32,6 +32,7 @@ const FavoritePositionsContainer = props => {
 
   useEffect(() => {
     if (!called) {
+      // Only fetch all if counts doesn't exist; otherwise fetch selected navType
       let type = 'all';
       if (keys(favoritePositions.counts).length) {
         type = navType;
