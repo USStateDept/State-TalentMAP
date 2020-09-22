@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { get } from 'lodash';
+import { get, keys } from 'lodash';
 import { withDefault, withQueryParams, NumberParam, StringParam } from 'use-query-params';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
@@ -32,9 +32,13 @@ const FavoritePositionsContainer = props => {
 
   useEffect(() => {
     if (!called) {
+      let type = 'all';
+      if (keys(favoritePositions.counts).length) {
+        type = navType;
+      }
       setCalled(true);
       props.bidListFetchData();
-      getFavorites('all');
+      getFavorites(type);
     }
   }, [called]);
 
