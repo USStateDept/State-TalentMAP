@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, padStart } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { toastSuccess, toastError } from './toast';
@@ -20,6 +20,17 @@ export function downloadBidlistData(useClient = false, clientId = '') {
       // eslint-disable-next-line global-require
       require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
     });
+}
+
+export function getBidListStats(bidList, status, padWithZero) {
+  let numBids = 0;
+  bidList.forEach(b => {
+    if (b.status === status) numBids += 1;
+  });
+  if (padWithZero) {
+    numBids = padStart((numBids).toString(), 2, '0');
+  }
+  return numBids;
 }
 
 export function bidListHasErrored(bool) {

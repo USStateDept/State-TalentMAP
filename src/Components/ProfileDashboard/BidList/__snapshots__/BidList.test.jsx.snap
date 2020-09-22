@@ -19,7 +19,7 @@ exports[`BidListComponent matches snapshot 1`] = `
       className="usa-grid-full section-padded-inner-container"
     >
       <div
-        className="usa-width-one-whole"
+        className="usa-width-one-whole bid-tracker-title--condensed"
       >
         <PositionInformation
           className=""
@@ -28,6 +28,26 @@ exports[`BidListComponent matches snapshot 1`] = `
           small={false}
           title="Bid List"
         />
+        <div
+          className="bid-status-stats--condensed"
+        >
+          Bids drafted:
+          <div
+            className="bid-stat"
+          >
+            (
+            00
+            )
+          </div>
+          Bids submitted:
+          <div
+            className="bid-stat"
+          >
+            (
+            00
+            )
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -271,7 +291,7 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
       className="usa-grid-full section-padded-inner-container"
     >
       <div
-        className="usa-width-one-whole"
+        className="usa-width-one-whole bid-tracker-title--condensed"
       >
         <PositionInformation
           className=""
@@ -280,6 +300,26 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
           small={false}
           title="Bid List"
         />
+        <div
+          className="bid-status-stats--condensed"
+        >
+          Bids drafted:
+          <div
+            className="bid-stat"
+          >
+            (
+            00
+            )
+          </div>
+          Bids submitted:
+          <div
+            className="bid-stat"
+          >
+            (
+            00
+            )
+          </div>
+        </div>
       </div>
     </div>
     <div

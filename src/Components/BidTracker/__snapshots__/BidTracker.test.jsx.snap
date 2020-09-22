@@ -136,6 +136,26 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
     </div>
   </div>
   <div
+    className="usa-grid-full bid-status-stats"
+  >
+    Bids drafted:
+    <div
+      className="bid-stat"
+    >
+      (
+      00
+      )
+    </div>
+    Bids submitted:
+    <div
+      className="bid-stat"
+    >
+      (
+      00
+      )
+    </div>
+  </div>
+  <div
     className="bid-tracker-content-container"
   >
     <div
@@ -528,6 +548,26 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
         primaryClass="usa-button-secondary"
         text="Export"
       />
+    </div>
+  </div>
+  <div
+    className="usa-grid-full bid-status-stats"
+  >
+    Bids drafted:
+    <div
+      className="bid-stat"
+    >
+      (
+      00
+      )
+    </div>
+    Bids submitted:
+    <div
+      className="bid-stat"
+    >
+      (
+      00
+      )
     </div>
   </div>
   <div

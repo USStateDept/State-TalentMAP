@@ -6,7 +6,7 @@ import ExportButton from 'Components/ExportButton';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import SelectForm from 'Components/SelectForm';
 import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
-import { downloadBidlistData } from 'actions/bidList';
+import { downloadBidlistData, getBidListStats } from 'actions/bidList';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -95,7 +95,8 @@ class BidTracker extends Component {
     const cdoEmail = get(userProfile, 'cdo.email');
 
     const sortedBids = this.getSortedBids();
-
+    const draftBids = getBidListStats(bidList.results, 'draft', true);
+    const submittedBids = getBidListStats(bidList.results, 'submitted', true);
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <BackButton />
@@ -136,6 +137,10 @@ class BidTracker extends Component {
           <div className="export-button-container">
             <ExportButton onClick={this.exportBidlistData} isLoading={exportIsLoading} />
           </div>
+        </div>
+        <div className="usa-grid-full bid-status-stats">
+          Bids drafted:<div className="bid-stat">({draftBids})</div>
+          Bids submitted:<div className="bid-stat">({submittedBids})</div>
         </div>
         <div className="bid-tracker-content-container">
           {
