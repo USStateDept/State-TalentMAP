@@ -238,6 +238,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'superuser',
     ],
     children: [
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Dashboard',
+          route: '/profile/ao/dashboard/',
+          icon: 'tachometer',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
       {
         text: 'Position Manager',
         route: '/profile/ao/positionmanager',

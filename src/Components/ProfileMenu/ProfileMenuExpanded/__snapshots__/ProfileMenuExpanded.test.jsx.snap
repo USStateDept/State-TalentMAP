@@ -228,6 +228,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/ao/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="map-o"
         key="Position Manager"
         link="/profile/ao/positionmanager"
@@ -465,6 +473,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       title="AO"
       toggleMenuSection={[Function]}
     >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/ao/dashboard/"
+        search=""
+        title="Dashboard"
+      />
       <withRouter(NavLink)
         hidden={true}
         iconName="map-o"
