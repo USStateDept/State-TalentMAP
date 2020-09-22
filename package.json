@@ -127,7 +127,7 @@
     "file-loader": "6.1.0",
     "fs-extra": "^8.1.0",
     "hard-source-webpack-plugin": "^0.13.1",
-    "html-webpack-plugin": "^4.4.1",
+    "html-webpack-plugin": "^4.5.0",
     "jest": "24.9.0",
     "jest-localstorage-mock": "^1.2.0",
     "jsdom": "11.12",
