@@ -141,8 +141,8 @@ class BidTracker extends Component {
           </div>
         </div>
         <div className="usa-grid-full bid-status-stats">
-          Bids drafted:<div className="bid-stat">({draftBids})</div>
-          Bids submitted:<div className="bid-stat">({submittedBids})</div>
+          Bids drafted: <div className="bid-stat">({draftBids})</div>
+          Bids submitted: <div className="bid-stat">({submittedBids})</div>
         </div>
         <div className="bid-tracker-content-container">
           {

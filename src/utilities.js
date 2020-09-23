@@ -816,7 +816,7 @@ export function getBidListStats(bidList, status, padWithZero) {
     if (b.status === status) numBids += 1;
   });
   if (padWithZero) {
-    numBids = padStart((numBids).toString(), 2, '0');
+    numBids = padStart(toString(numBids), 2, '0');
   }
   return numBids;
 }

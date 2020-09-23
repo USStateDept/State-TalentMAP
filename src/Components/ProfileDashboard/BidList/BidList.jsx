@@ -51,8 +51,8 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
           <div className="usa-width-one-whole bid-tracker-title--condensed">
             <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
             <div className="bid-status-stats--condensed">
-              Bids drafted:<div className="bid-stat">({draftBids})</div>
-              Bids submitted:<div className="bid-stat">({submittedBids})</div>
+              Bids drafted: <div className="bid-stat">({draftBids})</div>
+              Bids submitted: <div className="bid-stat">({submittedBids})</div>
             </div>
           </div>
         </div>
