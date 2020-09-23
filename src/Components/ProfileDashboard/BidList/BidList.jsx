@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { BID_RESULTS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
-import { getBidListStats } from 'actions/bidList';
+import { DRAFT_PROP, SUBMITTED_PROP } from 'Constants/BidData';
+import { getBidListStats } from 'utilities';
 import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
 import BidListHeader from './BidListHeader';
@@ -18,8 +19,8 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
   // eslint rules seem to step over themselves here between using "return" and a ternary
   // eslint-disable-next-line no-confusing-arrow
   const sortedBids = bids.slice().sort(x => x.is_priority ? -1 : 1);
-  const draftBids = getBidListStats(bids, 'draft', true);
-  const submittedBids = getBidListStats(bids, 'submitted', true);
+  const draftBids = getBidListStats(bids, DRAFT_PROP, true);
+  const submittedBids = getBidListStats(bids, SUBMITTED_PROP, true);
   // Then we check if the first object of the array is priority. We need this to define
   // whether or not to pass priorityExists.
   const doesPriorityExist = sortedBids.length && sortedBids[0] && sortedBids[0].is_priority;

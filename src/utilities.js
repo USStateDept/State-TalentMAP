@@ -1,7 +1,7 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, includes, intersection, isArray, isEmpty, isEqual, isFunction,
-  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, pick, split,
+  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, padStart, pick, split,
   startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
@@ -809,5 +809,16 @@ export const getAvatarColor = str => {
 
   return null;
 };
+
+export function getBidListStats(bidList, status, padWithZero) {
+  let numBids = 0;
+  bidList.forEach(b => {
+    if (b.status === status) numBids += 1;
+  });
+  if (padWithZero) {
+    numBids = padStart((numBids).toString(), 2, '0');
+  }
+  return numBids;
+}
 
 export const isOnProxy = () => !!includes(get(window, 'location.host'), 'msappproxy');
