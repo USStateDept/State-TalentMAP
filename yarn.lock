@@ -5385,9 +5385,10 @@ eslint-plugin-jsx-a11y@5.1.1:
     emoji-regex "^6.1.0"
     jsx-ast-utils "^1.4.0"
 
-eslint-plugin-react@^7.20.6:
-  version "7.20.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.20.6.tgz#4d7845311a93c463493ccfa0a19c9c5d0fd69f60"
+eslint-plugin-react@^7.21.0:
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.21.0.tgz#aa0699086f586d54a5005c99a703175bc5d21161"
+  integrity sha512-WaieZZ4cayAfPBmy5KkEqFfLQf/VkzoUsvM5DfD9G1lrz+3LtZ8X6nToEUQiFe1X5ApNIzkMd+7NUy+2OmSTQQ==
   dependencies:
     array-includes "^3.1.1"
     array.prototype.flatmap "^1.2.3"
@@ -8270,10 +8271,10 @@ jsoneditor-react@^3.0.1:
   dependencies:
     prop-types "^15.7.2"
 
-jsoneditor@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.0.tgz#e8d9004ba7fc1c9f6dd01ba12f4f0dc76f17bfb2"
-  integrity sha512-oqq5M75CPKqqLTFzbmGs4V3mJZvd5s3wE8l6yT+Jonr5Rf2gUyvgH3QSCLl4Eb2oYC+BRAa20YZXkJtRsRL59A==
+jsoneditor@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.1.tgz#3f5654e6f8cdd8f239018f941fe6518b8ec3e68e"
+  integrity sha512-dgKDY80QFnoNYqncfTcWewX3Ii1YV3ZEEquu8yJeKHsfs5sXHI2Hb7LfzYPj1X3IKevebsjy+P0MDA/j776Tig==
   dependencies:
     ace-builds "^1.4.12"
     ajv "^6.12.5"
