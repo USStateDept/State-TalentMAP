@@ -203,8 +203,6 @@ export const USER_PROFILE = PropTypes.shape({
   employee_info: PropTypes.shape({
     grade: PropTypes.string,
     skills: USER_SKILL_CODE_ARRAY,
-    office_address: PropTypes.string,
-    office_phone: PropTypes.string,
   }),
   user_info: PropTypes.shape({
     office_address: PropTypes.string,
