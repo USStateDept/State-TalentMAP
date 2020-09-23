@@ -22,11 +22,17 @@ const HomePagePositions = ({ homePageFeaturedPositions,
   const specialNeedsParams = SPECIAL_NEEDS.join(',');
 
   const ids = get(userProfile, 'employee_info.skills', []).map(s => s.code);
+  const coneIds = get(userProfile, 'employee_info.skills_additional', []);
 
   switch (homePageFeaturedPositions.name) {
     case 'featuredGradeAndSkillPositions':
       featuredTitle = 'Featured Positions That Match Your Grade And Skill(s)';
       featuredLink = `/results?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
+      featuredIcon = 'bolt';
+      break;
+    case 'featuredGradeAndSkillConePositions':
+      featuredTitle = 'Featured Positions That Match Your Grade And Skill Cone(s)';
+      featuredLink = `/results?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${coneIds.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
       featuredIcon = 'bolt';
       break;
     case 'featuredGradePositions':
@@ -45,6 +51,11 @@ const HomePagePositions = ({ homePageFeaturedPositions,
     case 'recommendedGradeAndSkillPositions':
       recommendedTitle = 'Positions That Match Your Grade And Skill(s)';
       recommendedLink = `/results?position__skill__code__in=${ids.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
+      recommendedIcon = 'briefcase';
+      break;
+    case 'recommendedGradeAndSkillConePositions':
+      recommendedTitle = 'Positions That Match Your Grade And Skill Cone(s)';
+      recommendedLink = `/results?position__skill__code__in=${coneIds.join(',')}&position__grade__code__in=${userProfile.employee_info.grade}`;
       recommendedIcon = 'briefcase';
       break;
     case 'recommendedGradePositions':
