@@ -52,7 +52,7 @@ jobs:
       - run: cd certs && ./certs.sh
       - run: cd ..
       - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-3-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn install --pure-lockfile
       - run:
           name: Install JUnit coverage reporter
