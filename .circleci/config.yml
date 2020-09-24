@@ -18,9 +18,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - dependency-cache-2-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          - dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
           # fallback to using the latest cache if no exact match is found
-          # - dependency-cache-
+          - dependency-cache-
       - run: yarn install --pure-lockfile
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
@@ -52,7 +52,7 @@ jobs:
       - run: cd certs && ./certs.sh
       - run: cd ..
       - restore_cache:
-          key: dependency-cache-3-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn install --pure-lockfile
       - run:
           name: Install JUnit coverage reporter
@@ -73,7 +73,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: yarn install --pure-lockfile
       - run:
           name: Rebuild node-sass
@@ -92,7 +92,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Build server
           command: mkdir server && cp package.json src/server.js src/saml2-config.js src/routes.js server/
