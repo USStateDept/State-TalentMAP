@@ -11,8 +11,6 @@ import FeatureFlags from './FeatureFlags';
 const AdministratorPage = (props) => {
   const {
     isLoading,
-    logsIsLoading,
-    onDownloadClick,
     logsList,
     logsListIsLoading,
     logsListHasErrored,
@@ -21,24 +19,12 @@ const AdministratorPage = (props) => {
     logHasErrored,
     getLog,
     onDownloadOne,
-    syncJobs,
-    syncJobsIsLoading,
-    runAllJobs,
-    patchSyncJob,
-    patchSyncIsLoading,
     totalUsers,
     featureFlags,
   } = props;
 
   const dashboardProps = {
     isLoading,
-    logsIsLoading,
-    onDownloadClick,
-    syncJobs,
-    syncJobsIsLoading,
-    runAllJobs,
-    patchSyncJob,
-    patchSyncIsLoading,
   };
 
   const logsProps = {
