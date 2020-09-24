@@ -15,14 +15,27 @@ exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
     />
     <InformationDataPoint
       className=""
-      content="doej@state.gov"
+      content={
+        <a
+          href="mailto:doej@state.gov"
+        >
+          doej@state.gov
+        </a>
+      }
       sideBySide={false}
       title="Email address"
       titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
-      content="None listed"
+      content={
+        <a
+          href="tel:undefined"
+          rel="nofollow"
+        >
+          None listed
+        </a>
+      }
       sideBySide={false}
       title="Office number"
       titleOnBottom={false}
@@ -30,7 +43,14 @@ exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
     <Connect(StaticDevContent)>
       <InformationDataPoint
         className=""
-        content="+240-331-7189"
+        content={
+          <a
+            href="tel:+240-331-7189"
+            rel="nofollow"
+          >
+            +240-331-7189
+          </a>
+        }
         sideBySide={false}
         title="Personal contact number"
         titleOnBottom={false}
