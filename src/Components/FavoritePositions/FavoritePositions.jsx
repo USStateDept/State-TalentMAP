@@ -127,6 +127,7 @@ const FavoritePositions = props => {
               onSelectOption={onSortChange}
               options={selectOptions$}
               disabled={favoritePositionsIsLoading}
+              defaultSort={sortType}
             />
           </div>
           <div className="export-button-container">
@@ -156,7 +157,7 @@ const FavoritePositions = props => {
         bidList={bidList}
         title="favorites"
         maxLength={300}
-        refreshFavorites
+        refreshFavorites={false}
         showBidListButton
         useShortFavButton
         showCompareButton

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { usePrevious } from 'hooks';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { get, keys } from 'lodash';
+import { get, isEqual, keys } from 'lodash';
 import { withDefault, withQueryParams, NumberParam, StringParam } from 'use-query-params';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
-import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION, SetType } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import FavoritePositions from 'Components/FavoritePositions';
 import CompareDrawer from 'Components/CompareDrawer';
@@ -15,12 +16,15 @@ import { scrollToTop } from 'utilities';
 
 const FavoritePositionsContainer = props => {
   const { favoritePositions, favoritePositionsIsLoading, query, setQuery,
-    favoritePositionsHasErrored, bidList } = props;
+    favoritePositionsHasErrored, bidList, userProfileFavoritePositionIsLoading } = props;
 
   const [called, setCalled] = useState(false);
 
   const { page, sortType, navType } = query;
   const PAGE_SIZE = 15;
+
+  const prevUserProfileFavoritePositionIsLoading =
+    usePrevious(userProfileFavoritePositionIsLoading);
 
   function getFavorites(nav = navType) {
     props.fetchData(sortType, PAGE_SIZE, page, nav);
@@ -31,7 +35,8 @@ const FavoritePositionsContainer = props => {
   const setNavType$ = e => setQuery({ navType: e, page: 1 });
 
   useEffect(() => {
-    if (!called) {
+    if (!called ||
+      !isEqual(userProfileFavoritePositionIsLoading, prevUserProfileFavoritePositionIsLoading)) {
       // Only fetch all if counts doesn't exist; otherwise fetch selected navType
       let type = 'all';
       if (keys(favoritePositions.counts).length) {
@@ -41,7 +46,7 @@ const FavoritePositionsContainer = props => {
       props.bidListFetchData();
       getFavorites(type);
     }
-  }, [called]);
+  });
 
   function onToggleFavorite({ id, remove }) {
     props.toggleFavorite(id, remove);
@@ -103,6 +108,7 @@ FavoritePositionsContainer.propTypes = {
     navType: PropTypes.string,
   }),
   setQuery: PropTypes.func,
+  userProfileFavoritePositionIsLoading: SetType,
 };
 
 FavoritePositionsContainer.defaultProps = {
