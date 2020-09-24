@@ -18,9 +18,9 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          - dependency-cache-2-{{ .Branch }}-{{ checksum "yarn.lock" }}
           # fallback to using the latest cache if no exact match is found
-          - dependency-cache-
+          # - dependency-cache-
       - run: yarn install --pure-lockfile
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
