@@ -42,13 +42,6 @@ export function favoritePositionsFetchDataSuccess(results) {
   };
 }
 
-export function favoritePositionsPreferences(preferences) {
-  return {
-    type: 'FAVORITE_POSITIONS_PREFERENCES',
-    preferences,
-  };
-}
-
 export function favoritePositionsFetchData(sortType, limit = 15,
   page = 1, openPV) {
   return (dispatch) => {

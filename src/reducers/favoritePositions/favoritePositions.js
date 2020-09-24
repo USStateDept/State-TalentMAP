@@ -33,15 +33,3 @@ export function favoritePositions(state = {
       return state;
   }
 }
-
-export function favoritePositionsPreferences(state = {}, action) {
-  switch (action.type) {
-    case 'FAVORITE_POSITIONS_PREFERENCES':
-      return {
-        ...state,
-        ...action.preferences,
-      };
-    default:
-      return state;
-  }
-}
