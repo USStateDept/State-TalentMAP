@@ -5085,9 +5085,10 @@ enum@^2.5.0:
   dependencies:
     is-buffer "^1.1.0"
 
-enzyme-adapter-react-16@^1.15.4:
-  version "1.15.4"
-  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.4.tgz#328a782365a363ecb424f99283c4833dd92c0f21"
+enzyme-adapter-react-16@^1.15.5:
+  version "1.15.5"
+  resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.5.tgz#7a6f0093d3edd2f7025b36e7fbf290695473ee04"
+  integrity sha512-33yUJGT1nHFQlbVI5qdo5Pfqvu/h4qPwi1o0a6ZZsjpiqq92a3HjynDhwd1IeED+Su60HDWV8mxJqkTnLYdGkw==
   dependencies:
     enzyme-adapter-utils "^1.13.1"
     enzyme-shallow-equal "^1.0.4"
@@ -5385,9 +5386,10 @@ eslint-plugin-jsx-a11y@5.1.1:
     emoji-regex "^6.1.0"
     jsx-ast-utils "^1.4.0"
 
-eslint-plugin-react@^7.20.6:
-  version "7.20.6"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.20.6.tgz#4d7845311a93c463493ccfa0a19c9c5d0fd69f60"
+eslint-plugin-react@^7.21.1:
+  version "7.21.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.21.1.tgz#3d9fe506eab78756f67c671bb2a9aa9c20990a39"
+  integrity sha512-TGtWzWrFjZtrD1giMz0O6a9ul++YR9vZSzIL/a7qlb5I/ra/O5RkMGMJK+KKYnJrzz884kyAkEyWiU4Hg2HTrg==
   dependencies:
     array-includes "^3.1.1"
     array.prototype.flatmap "^1.2.3"
@@ -6844,9 +6846,10 @@ html-to-react@^1.3.4:
     lodash.camelcase "^4.3.0"
     ramda "^0.26"
 
-html-webpack-plugin@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.4.1.tgz#61ab85aa1a84ba181443345ebaead51abbb84149"
+html-webpack-plugin@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.5.0.tgz#625097650886b97ea5dae331c320e3238f6c121c"
+  integrity sha512-MouoXEYSjTzCrjIxWwg8gxL5fE2X2WZJLmBYXlaJhQUH5K/b5OrqmV7T4dB7iu0xkmJ6JlUuV6fFVtnqbPopZw==
   dependencies:
     "@types/html-minifier-terser" "^5.0.0"
     "@types/tapable" "^1.0.5"
@@ -8269,10 +8272,10 @@ jsoneditor-react@^3.0.1:
   dependencies:
     prop-types "^15.7.2"
 
-jsoneditor@^9.1.0:
-  version "9.1.0"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.0.tgz#e8d9004ba7fc1c9f6dd01ba12f4f0dc76f17bfb2"
-  integrity sha512-oqq5M75CPKqqLTFzbmGs4V3mJZvd5s3wE8l6yT+Jonr5Rf2gUyvgH3QSCLl4Eb2oYC+BRAa20YZXkJtRsRL59A==
+jsoneditor@^9.1.1:
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.1.tgz#3f5654e6f8cdd8f239018f941fe6518b8ec3e68e"
+  integrity sha512-dgKDY80QFnoNYqncfTcWewX3Ii1YV3ZEEquu8yJeKHsfs5sXHI2Hb7LfzYPj1X3IKevebsjy+P0MDA/j776Tig==
   dependencies:
     ace-builds "^1.4.12"
     ajv "^6.12.5"
