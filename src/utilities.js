@@ -810,10 +810,10 @@ export const getAvatarColor = str => {
   return null;
 };
 
-export function getBidListStats(bidList, status, padWithZero) {
+export function getBidListStats(bidList, statuses, padWithZero) {
   let numBids = 0;
   bidList.forEach(b => {
-    if (b.status === status) numBids += 1;
+    if (includes(statuses, b.status)) numBids += 1;
   });
   if (padWithZero) {
     numBids = padStart(toString(numBids), 2, '0');

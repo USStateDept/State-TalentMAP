@@ -31,7 +31,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         <div
           className="bid-status-stats--condensed"
         >
-          Bids drafted:
+          Bids drafted: 
           <div
             className="bid-stat"
           >
@@ -39,12 +39,12 @@ exports[`BidListComponent matches snapshot 1`] = `
             00
             )
           </div>
-          Bids submitted:
+          Bids submitted: 
           <div
             className="bid-stat"
           >
             (
-            00
+            01
             )
           </div>
         </div>
@@ -303,7 +303,7 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
         <div
           className="bid-status-stats--condensed"
         >
-          Bids drafted:
+          Bids drafted: 
           <div
             className="bid-stat"
           >
@@ -311,7 +311,7 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
             00
             )
           </div>
-          Bids submitted:
+          Bids submitted: 
           <div
             className="bid-stat"
           >

@@ -138,7 +138,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full bid-status-stats"
   >
-    Bids drafted:
+    Bids drafted: 
     <div
       className="bid-stat"
     >
@@ -146,12 +146,12 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
       00
       )
     </div>
-    Bids submitted:
+    Bids submitted: 
     <div
       className="bid-stat"
     >
       (
-      00
+      01
       )
     </div>
   </div>
@@ -553,7 +553,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
   <div
     className="usa-grid-full bid-status-stats"
   >
-    Bids drafted:
+    Bids drafted: 
     <div
       className="bid-stat"
     >
@@ -561,12 +561,12 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
       00
       )
     </div>
-    Bids submitted:
+    Bids submitted: 
     <div
       className="bid-stat"
     >
       (
-      00
+      01
       )
     </div>
   </div>

@@ -6,7 +6,7 @@ import ExportButton from 'Components/ExportButton';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import SelectForm from 'Components/SelectForm';
 import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
-import { DRAFT_PROP, SUBMITTED_PROP } from 'Constants/BidData';
+import { DRAFT_PROP, BID_TRACKER_SUBMITTED_STATUSES } from 'Constants/BidData';
 import { downloadBidlistData } from 'actions/bidList';
 import { getBidListStats } from 'utilities';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
@@ -98,7 +98,7 @@ class BidTracker extends Component {
 
     const sortedBids = this.getSortedBids();
     const draftBids = getBidListStats(bidList.results, DRAFT_PROP, true);
-    const submittedBids = getBidListStats(bidList.results, SUBMITTED_PROP, true);
+    const submittedBids = getBidListStats(bidList.results, BID_TRACKER_SUBMITTED_STATUSES, true);
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <BackButton />
