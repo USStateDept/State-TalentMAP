@@ -44,11 +44,14 @@ import synchronizations from './synchronizations';
 import positionCount from './positionCount';
 import showMobileFilter from './showMobileFilter';
 import stats from './stats';
+import positionViews from './positionViews';
 import clientSuggestions from './clientSuggestions';
 import userRoles from './userRoles';
 import classifications from './classifications';
 import featureFlags from './featureFlags';
 import bureauPositionBids from './bureauPositionBids';
+import bureauPositionManager from './bureauPositionManager';
+import bureauPositionDetails from './bureauPositionDetails';
 
 export default (history) => combineReducers({
   ...results,
@@ -91,11 +94,14 @@ export default (history) => combineReducers({
   ...positionCount,
   ...showMobileFilter,
   ...stats,
+  ...positionViews,
   ...clientSuggestions,
   ...userRoles,
   ...classifications,
   ...featureFlags,
   ...bureauPositionBids,
+  ...bureauPositionManager,
+  ...bureauPositionDetails,
   router: connectRouter(history),
   client,
   login,

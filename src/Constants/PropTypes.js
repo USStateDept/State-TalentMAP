@@ -103,7 +103,10 @@ export const FEATURED_GRADE_POSITIONS = 'featuredGradePositions';
 export const FEATURED_POSITIONS = 'featuredPositions';
 
 export const FILTER = PropTypes.shape({
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   code: PropTypes.string,
   description: PropTypes.string,
   long_description: PropTypes.string,
@@ -595,6 +598,30 @@ export const HISTORY_OBJECT = PropTypes.shape({
 export const OBC_URLS = PropTypes.shape({
   internal: PropTypes.string,
   external: PropTypes.string,
+});
+
+export const BUREAU_PERMISSIONS = PropTypes.arrayOf(
+  PropTypes.shape({
+    code: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+  }),
+);
+
+export const FILTER_SELECTION = PropTypes.arrayOf(PropTypes.string);
+
+export const BUREAU_USER_SELECTIONS = PropTypes.shape({
+  page: PropTypes.number,
+  limit: PropTypes.number,
+  ordering: PropTypes.string,
+  selectedGrades: FILTER_SELECTION,
+  selectedSkills: FILTER_SELECTION,
+  selectedPosts: FILTER_SELECTION,
+  selectedTEDs: FILTER_SELECTION,
+  selectedBureaus: FILTER_SELECTION,
+  isLoading: PropTypes.bool,
+  textSearch: PropTypes.string,
+  textInput: PropTypes.string,
 });
 
 export const HOME_PAGE_FEATURED_POSITIONS = PropTypes.shape({

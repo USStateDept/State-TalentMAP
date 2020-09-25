@@ -1,15 +1,36 @@
-import { batch } from 'react-redux';
 import { downloadFromResponse } from 'utilities';
+import { batch } from 'react-redux';
+import { get } from 'lodash';
+import querystring from 'query-string';
+import { CancelToken } from 'axios';
 import { toastError } from './toast';
 import api from '../api';
 
-// eslint-disable-next-line import/prefer-default-export
-export function downloadBidderData() {
-// export function downloadBidderData(id) {
-  // const url = createUrl(`/fsbid/bureau/positions/${id}/bidders/export/`);
-  // exporting the 'bureau positions'. Just setting up the framework, for now.
-  const url = '/fsbid/bureau/positions/export/';
+let cancel;
+
+
+export function downloadBureauPositionsData(userQuery) {
+  if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
+    return () => {
+      // eslint-disable-next-line global-require
+      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+    };
+  }
+  const defaults = {
+    limit: 99999999,
+    page: 1,
+  };
+  const query = { ...userQuery, ...defaults };
+  const q = querystring.stringify(query,
+    {
+      arrayFormat: 'comma',
+      skipNull: true,
+    },
+  );
+
+  const url = `/fsbid/bureau/positions/export/?${q}`;
   return api().get(url, {
+    cancelToken: new CancelToken((c) => { cancel = c; }),
     responseType: 'stream',
   })
     .then((response) => {
@@ -35,7 +56,7 @@ export function bureauPositionsIsLoading(bool) {
   };
 }
 
-export function bureauPositions(results) {
+export function bureauPositionsFetchDataSuccess(results) {
   return {
     type: 'BUREAU_POSITIONS_FETCH_DATA_SUCCESS',
     results,
@@ -43,35 +64,69 @@ export function bureauPositions(results) {
 }
 
 
-export function bureauPositionsFetchData(sortType, limit = 25, page = 1, q = '') {
+export function bureauPositionsFetchData(userQuery) {
+  // Ensure the userQuery includes a bureau - otherwise we risk querying unauthorized positions
+  if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
+    return (dispatch) => {
+      batch(() => {
+        dispatch(bureauPositionsHasErrored(true));
+        dispatch(bureauPositionsIsLoading(false));
+      });
+    };
+  }
+
+  // Combine defaults with given userQuery
+  const q = querystring.stringify(userQuery,
+    {
+      arrayFormat: 'comma',
+      skipNull: true,
+    },
+  );
+
+  const url = `/fsbid/bureau/positions/?${q}`;
+
   return (dispatch) => {
+    if (cancel) { cancel('cancel'); dispatch(bureauPositionsIsLoading(true)); }
     batch(() => {
       dispatch(bureauPositionsIsLoading(true));
       dispatch(bureauPositionsHasErrored(false));
     });
 
-    const createUrl = (url) => {
-      let url$ = url;
-      if (sortType) {
-        const append = `&ordering=${sortType}`;
-        url$ += append;
-      }
-      return url$;
-    };
-
-    const url = createUrl(`/fsbid/bureau/positions/?limit=${limit}&page=${page}&q=${q}`);
-
-    api().get(url)
+    api().get(url, {
+      cancelToken: new CancelToken((c) => { cancel = c; }),
+    })
       .then(({ data }) => {
-        dispatch(bureauPositionsHasErrored(false));
-        dispatch(bureauPositions(data));
-        dispatch(bureauPositionsIsLoading(false));
-      })
-      .catch(() => {
         batch(() => {
-          dispatch(bureauPositionsHasErrored(true));
+          dispatch(bureauPositionsFetchDataSuccess(data));
+          dispatch(bureauPositionsHasErrored(false));
           dispatch(bureauPositionsIsLoading(false));
         });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(bureauPositionsHasErrored(false));
+            dispatch(bureauPositionsIsLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(bureauPositionsFetchDataSuccess({ results: [] }));
+            dispatch(bureauPositionsHasErrored(true));
+            dispatch(bureauPositionsIsLoading(false));
+          });
+        }
       });
   };
 }
+
+export function bureauUserSelectionsSaveSuccess(result) {
+  return {
+    type: 'BUREAU_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveBureauUserSelections(queryObject) {
+  return (dispatch) => dispatch(bureauUserSelectionsSaveSuccess(queryObject));
+}
+

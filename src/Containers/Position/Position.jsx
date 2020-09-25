@@ -5,17 +5,20 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
-import PositionDetails from '../../Components/PositionDetails/PositionDetails';
+import { POSITION_VIEW_TYPES } from 'Constants/PositionView';
+import PositionDetails from 'Components/PositionDetails/PositionDetails';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
 // Actions
-import { positionDetailsFetchData } from '../../actions/positionDetails';
-import { putHighlightedPosition, deleteHighlightPosition } from '../../actions/highlightPosition';
-import { bidListFetchData } from '../../actions/bidList';
+import { getViewStats, postPositionView } from 'actions/positionStats';
+import { positionDetailsFetchData } from 'actions/positionDetails';
+import { putHighlightedPosition, deleteHighlightPosition } from 'actions/highlightPosition';
+import { bidListFetchData } from 'actions/bidList';
 import {
   editDescriptionContent,
   editPocContent,
   editWebsiteContent,
   resetMessages,
-} from '../../actions/descriptionEdit';
+} from 'actions/descriptionEdit';
 
 import { LOGIN_REDIRECT } from '../../login/routes';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
@@ -33,6 +36,13 @@ import {
 } from '../../Constants/PropTypes';
 
 class Position extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: null,
+      type: null,
+    };
+  }
   getChildContext() {
     const { tandem } = queryString.parse(this.props.location.search);
     const isTandemTwo = tandem === 'true';
@@ -42,16 +52,25 @@ class Position extends Component {
   }
   UNSAFE_componentWillMount() {
     const { isArchived, isProjectedVacancy } = this.props;
+    const id = get(this.props, 'match.params.id');
+    let type;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
     } else if (isArchived) {
-      this.getUPDetails(this.props.match.params.id);
+      this.getUPDetails(id);
+      type = POSITION_VIEW_TYPES.FP.value;
     } else if (isProjectedVacancy) {
-      this.getPVDetails(this.props.match.params.id);
+      this.getPVDetails(id);
+      type = POSITION_VIEW_TYPES.PV.value;
     } else {
-      this.getDetails(this.props.match.params.id);
+      this.getDetails(id);
       this.props.fetchBidList();
+      type = POSITION_VIEW_TYPES.AP.value;
     }
+
+    this.setState({ id, type });
+
+    postPositionView(id, type);
   }
 
   getDetails(id) {
@@ -101,35 +120,43 @@ class Position extends Component {
       client,
       clientIsLoading,
       clientHasErrored,
+      getViews,
     } = this.props;
+    const { id, type } = this.state;
 
     const isClient = client && !!client.id && !clientIsLoading && !clientHasErrored;
 
+    const onMount = () => getViews(id, type);
+
     return (
-      <PositionDetails
-        details={positionDetails}
-        isLoading={isLoading}
-        hasErrored={hasErrored}
-        userProfile={userProfile}
-        userProfileIsLoading={userProfileIsLoading}
-        bidList={bidList}
-        bidListHasErrored={bidListHasErrored}
-        bidListIsLoading={bidListIsLoading}
-        bidListToggleHasErrored={bidListToggleHasErrored}
-        bidListToggleSuccess={bidListToggleSuccess}
-        editDescriptionContent={this.editDescriptionContent}
-        editPocContent={this.editPocContent}
-        editWebsiteContent={this.editWebsiteContent}
-        descriptionEditHasErrored={descriptionEditHasErrored}
-        descriptionEditIsLoading={descriptionEditIsLoading}
-        descriptionEditSuccess={descriptionEditSuccess}
-        resetDescriptionEditMessages={resetDescriptionEditMessages}
-        highlightPosition={highlightPosition}
-        onHighlight={onHighlight}
-        isProjectedVacancy={isProjectedVacancy}
-        isArchived={isArchived}
-        isClient={isClient}
-      />
+      <>
+        <PositionDetails
+          details={positionDetails}
+          isLoading={isLoading}
+          hasErrored={hasErrored}
+          userProfile={userProfile}
+          userProfileIsLoading={userProfileIsLoading}
+          bidList={bidList}
+          bidListHasErrored={bidListHasErrored}
+          bidListIsLoading={bidListIsLoading}
+          bidListToggleHasErrored={bidListToggleHasErrored}
+          bidListToggleSuccess={bidListToggleSuccess}
+          editDescriptionContent={this.editDescriptionContent}
+          editPocContent={this.editPocContent}
+          editWebsiteContent={this.editWebsiteContent}
+          descriptionEditHasErrored={descriptionEditHasErrored}
+          descriptionEditIsLoading={descriptionEditIsLoading}
+          descriptionEditSuccess={descriptionEditSuccess}
+          resetDescriptionEditMessages={resetDescriptionEditMessages}
+          highlightPosition={highlightPosition}
+          onHighlight={onHighlight}
+          isProjectedVacancy={isProjectedVacancy}
+          isArchived={isArchived}
+          isClient={isClient}
+        />
+        {/* Use a component to run our Permission check and then call a function to fetch stats */}
+        <PermissionsWrapper permissions="superuser" onMount={onMount}><></></PermissionsWrapper>
+      </>
     );
   }
 }
@@ -179,6 +206,7 @@ Position.propTypes = {
   client: BIDDER_OBJECT,
   clientIsLoading: PropTypes.bool,
   clientHasErrored: PropTypes.bool,
+  getViews: PropTypes.func,
 };
 
 Position.defaultProps = {
@@ -209,6 +237,7 @@ Position.defaultProps = {
   client: {},
   clientIsLoading: false,
   clientHasErrored: false,
+  getViews: EMPTY_FUNCTION,
   location: {
     pathname: '',
     search: '',
@@ -250,6 +279,7 @@ export const mapDispatchToProps = dispatch => ({
   resetDescriptionEditMessages: () => dispatch(resetMessages()),
   onHighlight: (id, checked) =>
     dispatch((checked ? putHighlightedPosition : deleteHighlightPosition)(id)),
+  getViews: (id, type) => dispatch(getViewStats(id, type)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Position));
