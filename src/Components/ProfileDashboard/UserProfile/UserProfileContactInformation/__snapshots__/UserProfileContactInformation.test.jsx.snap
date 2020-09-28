@@ -15,27 +15,14 @@ exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
     />
     <InformationDataPoint
       className=""
-      content={
-        <a
-          href="mailto:doej@state.gov"
-        >
-          doej@state.gov
-        </a>
-      }
+      content="None listed"
       sideBySide={false}
-      title="Email address"
+      title="Office number"
       titleOnBottom={false}
     />
     <InformationDataPoint
       className=""
-      content={
-        <a
-          href="tel:undefined"
-          rel="nofollow"
-        >
-          None listed
-        </a>
-      }
+      content="None listed"
       sideBySide={false}
       title="Office number"
       titleOnBottom={false}
