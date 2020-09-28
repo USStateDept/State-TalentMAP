@@ -90,6 +90,7 @@
     "shortid": "^2.2.15",
     "typeface-merriweather": "^0.0.72",
     "typeface-roboto": "^0.0.75",
+    "use-query-params": "^1.1.8",
     "uswds": "~1.6.12"
   },
   "devDependencies": {
