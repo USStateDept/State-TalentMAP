@@ -90,6 +90,7 @@
     "shortid": "^2.2.15",
     "typeface-merriweather": "^0.0.72",
     "typeface-roboto": "^0.0.75",
+    "use-query-params": "^1.1.8",
     "uswds": "~1.6.12"
   },
   "devDependencies": {
@@ -114,7 +115,7 @@
     "dotenv": "4.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
-    "enzyme-to-json": "^3.5.0",
+    "enzyme-to-json": "^3.6.1",
     "eslint": "^6",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-react-app": "^5.2.1",
