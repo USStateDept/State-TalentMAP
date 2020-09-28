@@ -17,7 +17,7 @@ exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
       className=""
       content="None listed"
       sideBySide={false}
-      title="Office number"
+      title="Email address"
       titleOnBottom={false}
     />
     <InformationDataPoint
