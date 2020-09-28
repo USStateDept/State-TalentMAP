@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
+import { QueryParamProvider } from 'use-query-params';
 import FavoritePositionsContainer, { mapDispatchToProps } from './Favorites';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import bidListObject from '../../__mocks__/bidListObject';
@@ -18,21 +19,21 @@ describe('FavoritesContainer', () => {
   };
 
   it('is defined', () => {
-    const favorites = shallow(
-      <FavoritePositionsContainer.WrappedComponent {...props} />,
+    const favorites = shallow(<QueryParamProvider>
+      <FavoritePositionsContainer.WrappedComponent {...props} /></QueryParamProvider>,
     );
     expect(favorites).toBeDefined();
   });
 
   xit('can call the onToggleFavorite function', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(
+    const wrapper = shallow(<QueryParamProvider>
       <FavoritePositionsContainer.WrappedComponent
         fetchData={() => {}}
         toggleFavorite={spy}
         bidList={bidListObject}
         bidListFetchData={() => {}}
-      />,
+      /></QueryParamProvider>,
     );
     wrapper.instance().onToggleFavorite();
     sinon.assert.calledOnce(spy);
@@ -40,13 +41,13 @@ describe('FavoritesContainer', () => {
 
   xit('can call the getSortedFavorites function', () => {
     const spy = sinon.spy();
-    const wrapper = shallow(
+    const wrapper = shallow(<QueryParamProvider>
       <FavoritePositionsContainer.WrappedComponent
         fetchData={spy}
         toggleFavorite={() => {}}
         bidList={bidListObject}
         bidListFetchData={() => {}}
-      />,
+      /></QueryParamProvider>,
     );
     wrapper.instance().getSortedFavorites({ target: { value: 'title' } });
     // fetchData is called once at mount,
