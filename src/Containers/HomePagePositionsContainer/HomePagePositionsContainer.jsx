@@ -11,9 +11,9 @@ const HomePagePositionsContainer = props => {
   useEffect(() => {
     if (props.userProfile.id) {
       props.homePageRecommendedPositionsFetchData(props.userProfile.employee_info.skills,
-        props.userProfile.employee_info.grade);
+        props.userProfile.employee_info.grade, props.userProfile.employee_info.skills_additional);
       props.homePageFeaturedPositionsFetchData(props.userProfile.employee_info.skills,
-        props.userProfile.employee_info.grade);
+        props.userProfile.employee_info.grade, props.userProfile.employee_info.skills_additional);
     }
   }, []);
 
@@ -25,9 +25,9 @@ const HomePagePositionsContainer = props => {
     }
     if (props.userProfile.id) {
       props.homePageRecommendedPositionsFetchData(props.userProfile.employee_info.skills,
-        props.userProfile.employee_info.grade);
+        props.userProfile.employee_info.grade, props.userProfile.employee_info.skills_additional);
       props.homePageFeaturedPositionsFetchData(props.userProfile.employee_info.skills,
-        props.userProfile.employee_info.grade);
+        props.userProfile.employee_info.grade, props.userProfile.employee_info.skills_additional);
     }
   }, [props.userProfile.id]);
 
@@ -91,10 +91,10 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  homePageFeaturedPositionsFetchData: (skills, grade) =>
-    dispatch(homePageFeaturedPositionsFetchData(skills, grade)),
-  homePageRecommendedPositionsFetchData: (skills, grade) =>
-    dispatch(homePageRecommendedPositionsFetchData(skills, grade)),
+  homePageFeaturedPositionsFetchData: (skills, grade, cones) =>
+    dispatch(homePageFeaturedPositionsFetchData(skills, grade, cones)),
+  homePageRecommendedPositionsFetchData: (skills, grade, cones) =>
+    dispatch(homePageRecommendedPositionsFetchData(skills, grade, cones)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePagePositionsContainer);

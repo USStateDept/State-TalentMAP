@@ -96,9 +96,11 @@ export const POST_SEARCH_RESULTS = PropTypes.shape({
 });
 
 export const RECOMMENDED_GRADE_AND_SKILL_POSITIONS = 'recommendedGradeAndSkillPositions';
+export const RECOMMENDED_GRADE_AND_SKILL_CONE_POSITIONS = 'recommendedGradeAndSkillConePositions';
 export const RECOMMENDED_GRADE_POSITIONS = 'recommendedGradePositions';
 export const FAVORITED_POSITIONS = 'favoritedPositions';
 export const FEATURED_GRADE_AND_SKILL_POSITIONS = 'featuredGradeAndSkillPositions';
+export const FEATURED_GRADE_AND_SKILL_CONE_POSITIONS = 'featuredGradeAndSkillConePositions';
 export const FEATURED_GRADE_POSITIONS = 'featuredGradePositions';
 export const FEATURED_POSITIONS = 'featuredPositions';
 
@@ -637,4 +639,3 @@ export const HOME_PAGE_RECOMMENDED_POSITIONS = PropTypes.shape({
   positions: PropTypes.arrayOf(POSITION_DETAILS),
   name: PropTypes.string,
 });
-
