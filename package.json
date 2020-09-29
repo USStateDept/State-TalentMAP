@@ -44,7 +44,7 @@
     "pem": "^1.14.3",
     "prop-types": "^15.6.0",
     "q": "^1.5.1",
-    "query-string": "^6.13.3",
+    "query-string": "^6.13.4",
     "rc-steps": "^3.4.1",
     "react": "^16.13.1",
     "react-autosuggest": "^9.4.3",
@@ -162,7 +162,7 @@
     "webpack-manifest-plugin": "^2.2.0",
     "whatwg-fetch": "2.0.3",
     "workbox-webpack-plugin": "^5.1.4",
-    "yarn": "^1.22.5"
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "node scripts/start.js",
