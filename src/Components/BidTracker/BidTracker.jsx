@@ -115,13 +115,13 @@ class BidTracker extends Component {
           </div>
           <div className="usa-width-one-half bid-tracker-cdo-email-container">
             <div className="bid-tracker-cdo-email">
-              <div className="bid-tracker-search-client">
-                {isPublic && <SearchAsClientButton user={userProfile} />}
-              </div>
               {
                 cdoEmail && !userProfileIsLoading &&
                 <ContactCDOButton email={cdoEmail} />
               }
+              <div className="bid-tracker-search-client">
+                {isPublic && <SearchAsClientButton user={userProfile} />}
+              </div>
             </div>
           </div>
         </div>
