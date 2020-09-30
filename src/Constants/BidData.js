@@ -69,4 +69,4 @@ export const GET_APPROVAL_TITLE = () => ['Assignment Approved'];
 
 // all the statuses considered 'submitted' on the bid tracker
 export const BID_TRACKER_SUBMITTED_STATUSES = [
-  SUBMITTED_PROP, HAND_SHAKE_ACCEPTED_PROP, APPROVED_PROP];
+  SUBMITTED_PROP, HAND_SHAKE_ACCEPTED_PROP, APPROVED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP];
