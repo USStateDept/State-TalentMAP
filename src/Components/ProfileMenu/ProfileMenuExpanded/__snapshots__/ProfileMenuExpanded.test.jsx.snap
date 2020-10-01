@@ -212,6 +212,37 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Position Manager"
       />
     </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building-o"
+      key="AO"
+      search=""
+      title="AO"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/ao/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="map-o"
+        key="Position Manager"
+        link="/profile/ao/positionmanager"
+        search=""
+        title="Position Manager"
+      />
+    </withRouter(NavLink)>
   </NavLinksContainer>
 </div>
 `;
@@ -424,6 +455,37 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         iconName="map"
         key="Position Manager"
         link="/profile/bureau/positionmanager"
+        search=""
+        title="Position Manager"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building-o"
+      key="AO"
+      search=""
+      title="AO"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/ao/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="map-o"
+        key="Position Manager"
+        link="/profile/ao/positionmanager"
         search=""
         title="Position Manager"
       />
