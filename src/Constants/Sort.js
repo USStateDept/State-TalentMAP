@@ -157,6 +157,10 @@ export const BUREAU_BIDDER_SORT = {
     { value: 'bidder_grade', text: "Bidder's Grade" },
     { value: 'bidder_skill', text: "Bidder's Skill" },
     { value: 'bidder_hs', text: 'Handshake' },
+    { value: 'bidder_ted', text: 'TED' },
+    { value: 'bidder_langauge', text: "Bidder's Langauge" },
+    { value: 'bidder_name', text: "Bidder's Name" },
+    // What order do we want these in?
   ],
 };
 

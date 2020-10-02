@@ -49,6 +49,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/notifications" component={Notifications} />
           <Route path="/profile/administrator" component={Administrator} />
           <Route path="/profile/bureau" component={Bureau} />
+          <Route path="/profile/ao" component={Bureau} />
           <Flag
             name="flags.bidding"
             render={() => (
