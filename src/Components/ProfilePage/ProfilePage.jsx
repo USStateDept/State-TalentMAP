@@ -34,6 +34,7 @@ const ProfilePage = ({ user, isLoading }) => (
         <Switch>
           <Route path="/profile/dashboard" component={Dashboard} />
           <Route path="/profile/bidderportfolio" component={BidderPortfolio} />
+          <Route path="/profile/availableBidders" component={<></>} />
           <Route path="/profile/cycles" component={BidCycles} />
           <Route path="/profile/favorites" component={FavoritePositionsContainer} />
           <Route path="/profile/searches" component={SavedSearchesWrapper} />
