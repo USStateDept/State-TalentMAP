@@ -21,6 +21,7 @@
     "tandem": true,
     "bureau": true,
     "indicators": true,
-    "us_codes": true
+    "us_codes": true,
+    "available_bidders": true
   }
 }
