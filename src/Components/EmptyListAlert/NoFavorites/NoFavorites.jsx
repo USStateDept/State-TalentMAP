@@ -8,8 +8,8 @@ const NoFavorites = () => (
     textLineTwo={
       (
         <span>
-          Collect your favorite job positions by clicking on the <FontAwesome name="star-o" />
-          <span className="sr-only">star icon</span> while you search.
+          Collect your favorite job positions by clicking on the &quot;<FontAwesome name="star-o" />
+          <span className="sr-only">star icon</span> Add to Favorites&quot; button while you search.
         </span>
       )
     }

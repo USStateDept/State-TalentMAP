@@ -46,7 +46,7 @@
     background-color: $bg-blue-dark-1;
   }
 
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 2150px) {
     .small-screen-stack {
       flex-wrap: wrap;
       float: none;
@@ -97,7 +97,6 @@
     align-items: center;
     display: flex;
     margin-right: 10px;
-    z-index: 200;
     .label {
       margin-right: 10px;
     }
