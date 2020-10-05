@@ -1,7 +1,7 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import queryString from 'query-string';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import numeral from 'numeral';
 import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
@@ -49,22 +49,38 @@ export function resultsSimilarPositionsFetchDataSuccess(results) {
     results,
   };
 }
-
-export function resultsFetchSimilarPositions(id) {
+export function resultsFetchSimilarPositions(id, favorites, bidList) {
   return (dispatch) => {
     if (cancelSimilar) { cancelSimilar(); }
     const prefix = '/fsbid/available_positions';
+    // Logic:
+    // 1: remove favorites and bidList
+    // 2: fallback to original results when filtered data === 0
 
     dispatch(resultsSimilarPositionsIsLoading(true));
-    api().get(`${prefix}/${id}/similar/?limit=3`, {
+    // limit is set to 50 in the BE
+    api().get(`${prefix}/${id}/similar/`, {
       cancelToken: new CancelToken((c) => {
         cancelSimilar = c;
       }),
     })
       .then(response => response.data)
       .then((results) => {
+        const originalResults = results.results;
+        const filteredPositions = [];
+        // payload master array favs/bidList of ids
+        const favoritesBidListArray = [];
+        favorites.forEach(favorite => favoritesBidListArray.push(Number(favorite.id)));
+        bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));
+        originalResults.forEach(position => {
+          if (filteredPositions.length < 3 && !favoritesBidListArray.includes(position.id)) {
+            filteredPositions.push(position);
+          }
+        });
+        const returnResults = isEmpty(filteredPositions) ?
+          { results: originalResults.slice(0, 3) } : { results: filteredPositions };
         batch(() => {
-          dispatch(resultsSimilarPositionsFetchDataSuccess(results));
+          dispatch(resultsSimilarPositionsFetchDataSuccess(returnResults));
           dispatch(resultsSimilarPositionsHasErrored(false));
           dispatch(resultsSimilarPositionsIsLoading(false));
         });

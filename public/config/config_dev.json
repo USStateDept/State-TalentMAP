@@ -1,6 +1,6 @@
 {
   "api_config": {
-    "baseURL": "https://dev.talentmap.api.metaphasedev.com/api/v1"
+    "baseURL": "https://dev.talentmap.api.metaphasedev.com:8043/api/v1"
   },
   "hrAuthUrl": "https://mockfsbid.metaphasedev.com/Authorize?sAppCircuitID=32",
   "flags": {
@@ -19,6 +19,7 @@
     "bid_stats": false,
     "client_profiles": true,
     "tandem": true,
+    "bureau": true,
     "indicators": true,
     "us_codes": true
   }
