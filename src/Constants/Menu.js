@@ -95,6 +95,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             type: 'all',
           },
         } : null,
+      checkFlag('flags.available_bidders') ?
+        {
+          text: 'Available Bidders',
+          route: '/profile/availableBidders',
+          icon: 'user-times',
+          roles: [
+            'cdo',
+          ],
+        } : null,
       checkFlag('flags.static_content') ?
         {
           text: 'Settings',
