@@ -178,6 +178,10 @@ updates:
     versions:
     - ">= 8.0.a"
     - "< 8.1"
+  - dependency-name: query-string
+    versions:
+    - ">= 5"
+    - "< 6"
   - dependency-name: rc-steps
     versions:
     - ">= 3.5.0.a"
