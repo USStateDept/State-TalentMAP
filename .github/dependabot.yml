@@ -11,6 +11,10 @@ updates:
     versions:
     - ">= 0.19.a"
     - "< 0.20"
+  - dependency-name: babel-jest
+    versions:
+    - ">= 25"
+    - "< 26"
   - dependency-name: bowser
     versions:
     - ">= 2.9.0.a"
