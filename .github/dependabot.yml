@@ -1,0 +1,352 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "10:00"
+  open-pull-requests-limit: 3
+  ignore:
+  - dependency-name: axios
+    versions:
+    - ">= 0.19.a"
+    - "< 0.20"
+  - dependency-name: babel-jest
+    versions:
+    - ">= 25"
+    - "< 26"
+  - dependency-name: bowser
+    versions:
+    - ">= 2.9.0.a"
+    - "< 2.9.1"
+  - dependency-name: case-sensitive-paths-webpack-plugin
+    versions:
+    - ">= 2.1.2.a"
+    - "< 2.1.3"
+  - dependency-name: case-sensitive-paths-webpack-plugin
+    versions:
+    - ">= 2.2.0.a"
+    - "< 2.2.1"
+  - dependency-name: chalk
+    versions:
+    - ">= 3.0.0.a"
+    - "< 3.0.1"
+  - dependency-name: chalk
+    versions:
+    - ">= 4.a"
+    - "< 5"
+  - dependency-name: "@cmsgov/design-system-core"
+    versions:
+    - ">= 2.a"
+    - "< 3"
+  - dependency-name: "@cmsgov/design-system-core"
+    versions:
+    - ">= 3.a"
+    - "< 4"
+  - dependency-name: core-js
+    versions:
+    - ">= 3.a"
+    - "< 4"
+  - dependency-name: css-loader
+    versions:
+    - ">= 0.28.11.a"
+    - "< 0.28.12"
+  - dependency-name: css-loader
+    versions:
+    - "> 0.28.8"
+    - "< 0.29"
+  - dependency-name: css-loader
+    versions:
+    - ">= 4.a"
+    - "< 5"
+  - dependency-name: darkreader
+    versions:
+    - ">= 4.9.1.a"
+    - "< 4.9.2"
+  - dependency-name: darkreader
+    versions:
+    - ">= 4.9.a"
+    - "< 4.10"
+  - dependency-name: date-fns
+    versions:
+    - ">= 2.a"
+    - "< 3"
+  - dependency-name: dotenv
+    versions:
+    - "> 4.0.0"
+  - dependency-name: draft-js-plugins-editor
+    versions:
+    - ">= 3.a"
+    - "< 4"
+  - dependency-name: enum
+    versions:
+    - ">= 3.0.3.a"
+    - "< 3.0.4"
+  - dependency-name: enum
+    versions:
+    - ">= 3.0.a"
+    - "< 3.1"
+  - dependency-name: enzyme-to-json
+    versions:
+    - ">= 2.0.a"
+    - "< 2.1"
+  - dependency-name: eslint-loader
+    versions:
+    - ">= 2.2.1.a"
+    - "< 2.2.2"
+  - dependency-name: eslint-plugin-flowtype
+    versions:
+    - "> 2.41.0"
+  - dependency-name: eslint-plugin-import
+    versions:
+    - ">= 2.19.0.a"
+    - "< 2.19.1"
+  - dependency-name: eslint-plugin-import
+    versions:
+    - ">= 2.19.1.a"
+    - "< 2.19.2"
+  - dependency-name: file-loader
+    versions:
+    - ">= 2.0.0.a"
+    - "< 2.0.1"
+  - dependency-name: file-loader
+    versions:
+    - ">= 6.0.0.a"
+    - "< 6.0.1"
+  - dependency-name: flag
+    versions:
+    - ">= 4.a"
+    - "< 5"
+  - dependency-name: flat
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: fs-extra
+    versions:
+    - ">= 7.0.1.a"
+    - "< 7.0.2"
+  - dependency-name: fs-extra
+    versions:
+    - ">= 9.a"
+    - "< 10"
+  - dependency-name: fuse.js
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: fuse.js
+    versions:
+    - ">= 6.0.0.a"
+    - "< 6.0.1"
+  - dependency-name: fuse.js
+    versions:
+    - ">= 6.0.a"
+    - "< 6.1"
+  - dependency-name: fuse.js
+    versions:
+    - ">= 6.a"
+    - "< 7"
+  - dependency-name: handlebars
+    versions:
+    - ">= 4.7.a"
+    - "< 4.8"
+  - dependency-name: jest-localstorage-mock
+    versions:
+    - "> 1.2.0"
+  - dependency-name: jsdom
+    versions:
+    - "> 11.12.0"
+  - dependency-name: node-sass
+    versions:
+    - ">= 4.13.1.a"
+    - "< 4.13.2"
+  - dependency-name: node-sass
+    versions:
+    - ">= 4.14.1.a"
+    - "< 4.14.2"
+  - dependency-name: pa11y-ci
+    versions:
+    - "> 1.3.1"
+  - dependency-name: pem
+    versions:
+    - "> 1.14.3"
+    - "< 1.15"
+  - dependency-name: promise
+    versions:
+    - ">= 8.0.2.a"
+    - "< 8.0.3"
+  - dependency-name: promise
+    versions:
+    - ">= 8.0.3.a"
+    - "< 8.0.4"
+  - dependency-name: promise
+    versions:
+    - ">= 8.0.a"
+    - "< 8.1"
+  - dependency-name: query-string
+    versions:
+    - ">= 5"
+    - "< 6"
+  - dependency-name: rc-steps
+    versions:
+    - ">= 3.5.0.a"
+    - "< 3.5.1"
+  - dependency-name: rc-steps
+    versions:
+    - ">= 3.6.0.a"
+    - "< 3.6.1"
+  - dependency-name: rc-steps
+    versions:
+    - ">= 4.0.a"
+    - "< 4.1"
+  - dependency-name: react-autosuggest
+    versions:
+    - "> 9.4.3"
+  - dependency-name: react-countup
+    versions:
+    - ">= 4.a"
+    - "< 5"
+  - dependency-name: react-day-picker
+    versions:
+    - ">= 7.4.6.a"
+    - "< 7.4.7"
+  - dependency-name: react-dev-utils
+    versions:
+    - "> 10.1.0"
+  - dependency-name: react-dev-utils
+    versions:
+    - ">= 9.a"
+    - "< 10"
+  - dependency-name: react-error-overlay
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: react-helmet
+    versions:
+    - ">= 6.1.0.a"
+    - "< 6.1.1"
+  - dependency-name: react-loading-skeleton
+    versions:
+    - "> 0.5.0"
+  - dependency-name: react-loading-skeleton
+    versions:
+    - ">= 0.6.a"
+    - "< 0.7"
+  - dependency-name: react-loading-skeleton
+    versions:
+    - ">= 1.a"
+    - "< 2"
+  - dependency-name: react-loading-skeleton
+    versions:
+    - ">= 2.0.1.a"
+    - "< 2.0.2"
+  - dependency-name: react-loading-skeleton
+    versions:
+    - ">= 2.0.a"
+    - "< 2.1"
+  - dependency-name: react-markdown
+    versions:
+    - ">= 4.0.9.a"
+    - "< 4.0.10"
+  - dependency-name: react-markdown
+    versions:
+    - ">= 4.1.0.a"
+    - "< 4.1.1"
+  - dependency-name: react-picky
+    versions:
+    - ">= 5.0.1.a"
+    - "< 5.0.2"
+  - dependency-name: react-picky
+    versions:
+    - ">= 5.0.2.a"
+    - "< 5.0.3"
+  - dependency-name: react-picky
+    versions:
+    - ">= 5.1.0.a"
+    - "< 5.1.1"
+  - dependency-name: react-picky
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: react-responsive
+    versions:
+    - ">= 6.a"
+    - "< 7"
+  - dependency-name: react-responsive
+    versions:
+    - ">= 7.a"
+    - "< 8"
+  - dependency-name: react-router
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: react-router-dom
+    versions:
+    - ">= 5.a"
+    - "< 6"
+  - dependency-name: react-select
+    versions:
+    - ">= 2.a"
+    - "< 3"
+  - dependency-name: react-select
+    versions:
+    - ">= 3.a"
+    - "< 4"
+  - dependency-name: react-spring
+    versions:
+    - "> 4.0.0"
+  - dependency-name: react-sticky-el
+    versions:
+    - "> 1.1.0"
+  - dependency-name: react-sticky-el
+    versions:
+    - ">= 1.1.1.a"
+    - "< 1.1.2"
+  - dependency-name: redux-form
+    versions:
+    - "> 7.2.3"
+  - dependency-name: redux-mock-store
+    versions:
+    - ">= 1.5.4.a"
+    - "< 1.5.5"
+  - dependency-name: redux-saga
+    versions:
+    - ">= 1.a"
+    - "< 2"
+  - dependency-name: sinon
+    versions:
+    - "> 2.4.1"
+  - dependency-name: url-loader
+    versions:
+    - ">= 2.a"
+    - "< 3"
+  - dependency-name: uswds
+    versions:
+    - ">= 1.6.13.a"
+    - "< 1.6.14"
+  - dependency-name: uswds
+    versions:
+    - ">= 2.a"
+    - "< 3"
+  - dependency-name: webpack-dev-server
+    versions:
+    - ">= 2.11.4.a"
+    - "< 2.11.5"
+  - dependency-name: webpack-dev-server
+    versions:
+    - ">= 2.11.5.a"
+    - "< 2.11.6"
+  - dependency-name: webpack-dev-server
+    versions:
+    - ">= 2.11.a"
+    - "< 2.12"
+  - dependency-name: webpack-manifest-plugin
+    versions:
+    - ">= 2.0.4.a"
+    - "< 2.0.5"
+  - dependency-name: webpack-manifest-plugin
+    versions:
+    - ">= 2.1.a"
+    - "< 2.2"
+  - dependency-name: whatwg-fetch
+    versions:
+    - "> 2.0.3"

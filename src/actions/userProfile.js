@@ -66,7 +66,6 @@ export function userProfileFetchData(bypass, cb) {
     /**
      * create functions to fetch user's profile and permissions
      */
-    // TODO: update to use Person endpoint. Grab the perdet, user grade, and user skills, if any.
     // profile
     const getUserAccount = () => api().get('/profile/');
     // permissions

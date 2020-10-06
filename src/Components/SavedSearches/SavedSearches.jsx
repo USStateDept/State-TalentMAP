@@ -27,6 +27,7 @@ const SavedSearches = props => {
   const getSearches = useType => {
     const cycle = '/api/v1/cycleposition/';
     const pos = '/api/v1/position/';
+    const ap = '/api/v1/fsbid/available_positions/';
     const pv = '/api/v1/fsbid/projected_vacancies/';
     const apts = '/api/v1/fsbid/available_positions/tandem/';
     const pvts = '/api/v1/fsbid/projected_vacancies/tandem/';
@@ -34,7 +35,8 @@ const SavedSearches = props => {
     const checkBy = useType || selected;
     switch (checkBy) {
       case 'open':
-        return savedSearches.results.filter(f => f.endpoint === cycle || f.endpoint === pos);
+        return savedSearches.results.filter(f => f.endpoint === cycle ||
+          f.endpoint === pos || f.endpoint === ap);
       case 'pv':
         return savedSearches.results.filter(f => f.endpoint === pv);
       case 'open-ts':
@@ -43,7 +45,7 @@ const SavedSearches = props => {
         return savedSearches.results.filter(f => f.endpoint === pvts);
       default:
         return savedSearches.results
-          .filter(f => f.endpoint === cycle || f.endpoint === pos ||
+          .filter(f => f.endpoint === cycle || f.endpoint === pos || f.endpoint === ap ||
               f.endpoint === pv || f.endpoint === apts || f.endpoint === pvts);
     }
   };

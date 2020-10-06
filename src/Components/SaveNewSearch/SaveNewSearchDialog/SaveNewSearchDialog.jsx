@@ -34,7 +34,7 @@ export class SaveNewSearchDialog extends Component {
     const { currentSearch } = this.props;
     const hasPV = get(currentSearch, 'projectedVacancy') === 'projected';
     const hasTandem = get(currentSearch, 'tandem') === 'tandem';
-    let endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/' : '/api/v1/cycleposition/';
+    let endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/' : '/api/v1/fsbid/available_positions/';
     if (hasTandem) {
       endpoint = hasPV ? '/api/v1/fsbid/projected_vacancies/tandem/' : '/api/v1/fsbid/available_positions/tandem/';
     }
