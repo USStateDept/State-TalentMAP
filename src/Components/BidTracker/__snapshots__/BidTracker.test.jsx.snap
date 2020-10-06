@@ -146,7 +146,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
       00
       )
     </div>
-    Bids submitted: 
+    Bids submitted and active: 
     <div
       className="bid-stat"
     >
@@ -561,7 +561,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
       00
       )
     </div>
-    Bids submitted: 
+    Bids submitted and active: 
     <div
       className="bid-stat"
     >
