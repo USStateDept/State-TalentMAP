@@ -98,7 +98,8 @@ class BidTracker extends Component {
 
     const sortedBids = this.getSortedBids();
     const draftBids = getBidListStats(bidList.results, DRAFT_PROP, true);
-    const submittedActiveBids = getBidListStats(bidList.results, BID_TRACKER_SUBMITTED_ACTIVE_STATUSES, true);
+    const submittedActiveBids = getBidListStats(
+      bidList.results, BID_TRACKER_SUBMITTED_ACTIVE_STATUSES, true);
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <BackButton />
