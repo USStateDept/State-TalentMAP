@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { BID_RESULTS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
-import { DRAFT_PROP, BID_TRACKER_SUBMITTED_STATUSES } from 'Constants/BidData';
+import { DRAFT_PROP, BID_TRACKER_SUBMITTED_ACTIVE_STATUSES } from 'Constants/BidData';
 import { getBidListStats } from 'utilities';
 import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
@@ -20,7 +20,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
   // eslint-disable-next-line no-confusing-arrow
   const sortedBids = bids.slice().sort(x => x.is_priority ? -1 : 1);
   const draftBids = getBidListStats(bids, DRAFT_PROP, true);
-  const submittedBids = getBidListStats(bids, BID_TRACKER_SUBMITTED_STATUSES, true);
+  const submittedActiveBids = getBidListStats(bids, BID_TRACKER_SUBMITTED_ACTIVE_STATUSES, true);
   // Then we check if the first object of the array is priority. We need this to define
   // whether or not to pass priorityExists.
   const doesPriorityExist = sortedBids.length && sortedBids[0] && sortedBids[0].is_priority;
@@ -52,7 +52,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
             <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
             <div className="bid-status-stats--condensed">
               Bids drafted: <div className="bid-stat">({draftBids})</div>
-              Bids submitted: <div className="bid-stat">({submittedBids})</div>
+              Bids submitted and active: <div className="bid-stat">({submittedActiveBids})</div>
             </div>
           </div>
         </div>
