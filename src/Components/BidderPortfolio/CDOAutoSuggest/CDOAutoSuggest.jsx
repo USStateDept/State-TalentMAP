@@ -40,15 +40,20 @@ class CDOAutoSuggest extends Component {
     if (!isEqual(this.props.cdos, nextProps.cdos)) {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
+    if (!isEqual(this.props.cdoPills, nextProps.cdoPills)) {
+      // eslint-disable-next-line no-console
+      console.log('this.props.selection', nextProps.selection, nextProps.cdoPills);
+    }
   }
 
   selectMultipleOption(value) {
+    this.props.updateCDOs(value);
     this.props.setCDOsToSearchBy(value);
   }
 
   render() {
     const { suggestions } = this.state;
-    const { isLoading, hasErrored, selection, cdoSelections } = this.props; // eslint-disable-line
+    const { isLoading, hasErrored, selection, cdoSelections, cdoPills } = this.props; // eslint-disable-line
     return (
       !isLoading && !hasErrored &&
         <div className="cdo-autosuggest">
@@ -76,10 +81,12 @@ class CDOAutoSuggest extends Component {
 
 CDOAutoSuggest.propTypes = {
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
+  updateCDOs: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setCDOsToSearchBy: PropTypes.func,
+  cdoPills: PropTypes.arrayOf(PropTypes.string),
 };
 
 CDOAutoSuggest.defaultProps = {
@@ -88,6 +95,7 @@ CDOAutoSuggest.defaultProps = {
   hasErrored: false,
   selection: [],
   setCDOsToSearchBy: EMPTY_FUNCTION,
+  cdoPills: [],
 };
 
 const mapStateToProps = state => ({

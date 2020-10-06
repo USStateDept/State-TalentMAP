@@ -74,7 +74,10 @@ class BidCyclePicker extends Component {
     this.props.setSeasons(seasons);
   }
   getSeasons() {
-    return this.bidSeasonsToIds();
+    const { arrayValue } = this.state;
+    const { seasons } = this.props;
+    const ids$ = isArray(seasons) ? [...seasons] : [];
+    return filter(ids$, f => indexOf(arrayValue, f.description) > -1);
   }
 
   bidSeasonsToIds = () => {
