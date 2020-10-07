@@ -119,9 +119,11 @@ class BidTracker extends Component {
                 cdoEmail && !userProfileIsLoading &&
                 <ContactCDOButton email={cdoEmail} />
               }
-              <div className="bid-tracker-search-client">
-                {isPublic && <SearchAsClientButton user={userProfile} />}
-              </div>
+              {isPublic &&
+                <div className="bid-tracker-search-client">
+                  <SearchAsClientButton user={userProfile} />
+                </div>
+              }
             </div>
           </div>
         </div>

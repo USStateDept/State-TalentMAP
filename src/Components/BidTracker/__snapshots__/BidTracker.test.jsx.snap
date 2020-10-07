@@ -84,9 +84,6 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         <ContactCDOButton
           email="shadtrachl@state.gov"
         />
-        <div
-          className="bid-tracker-search-client"
-        />
       </div>
     </div>
   </div>
@@ -481,9 +478,6 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
       >
         <ContactCDOButton
           email="shadtrachl@state.gov"
-        />
-        <div
-          className="bid-tracker-search-client"
         />
       </div>
     </div>
