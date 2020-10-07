@@ -69,94 +69,92 @@ class BidControls extends Component {
     this.generatePills();
   };
 
-  generatePills = (clearAll) => {
+  generatePills = () => {
     const pills = [];
-    if (!clearAll) {
-      this.state.pillFilters.proxyCdos.forEach(a => {
-        pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
+    this.state.pillFilters.proxyCdos.forEach(a => {
+      pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
+    });
+    if (indexOf(['', 5], get(this.state.pillFilters, 'displayClients.value', '')) === -1) {
+      pills.push({
+        description: this.state.pillFilters.displayClients.text,
+        selectionRef: 'displayClients',
+        codeRef: this.state.pillFilters.displayClients.value,
       });
-      if (indexOf(['', 5], get(this.state.pillFilters, 'displayClients.value', '')) === -1) {
-        pills.push({
-          description: this.state.pillFilters.displayClients.text,
-          selectionRef: 'displayClients' });
-      }
-      this.state.pillFilters.bidSeason.forEach(a => {
-        pills.push({ description: a.description, selectionRef: 'bidSeason', codeRef: a.id });
+    }
+    this.state.pillFilters.bidSeason.forEach(a => {
+      pills.push({ description: a.description, selectionRef: 'bidSeason', codeRef: a.id });
+    });
+    if (indexOf([''], get(this.state.pillFilters, 'filterBy.value', '')) === -1 && this.state.pillFilters.bidSeason.length) {
+      pills.push({
+        description: this.state.pillFilters.filterBy.text,
+        selectionRef: 'filterBy',
+        codeRef: this.state.pillFilters.filterBy.value,
       });
-      if (indexOf([''], get(this.state.pillFilters, 'filterBy.value', '')) === -1) {
-        pills.push({
-          description: this.state.pillFilters.filterBy.text,
-          selectionRef: 'filterBy',
-          codeRef: this.state.pillFilters.filterBy.value,
-        });
-      }
-      if (indexOf(['', 'client_last_name'], get(this.state.pillFilters, 'sortBy.value', '')) === -1) {
-        pills.push({
-          description: this.state.pillFilters.sortBy.text,
-          selectionRef: 'sortBy',
-          codeRef: this.state.pillFilters.sortBy.value,
-        });
-      }
+    }
+    if (indexOf(['', 'client_last_name'], get(this.state.pillFilters, 'sortBy.value', '')) === -1) {
+      pills.push({
+        description: this.state.pillFilters.sortBy.text,
+        selectionRef: 'sortBy',
+        codeRef: this.state.pillFilters.sortBy.value,
+      });
     }
 
     this.state.pills = pills;
-    // need a way to get the pills to regenerate.
+    // eslint-disable-next-line no-console
+    console.log('this.state.pillFilters:', this.state.pillFilters);
   };
 
   resetAllFilters = () => {
-    this.state.pillFilters = {
-      proxyCdos: [],
-      displayClients: '',
-      bidSeason: [],
-      filterBy: '',
-      sortBy: '',
-    };
-    this.generatePills(true);
+    this.state.pillFilters.proxyCdos = [];
+    this.updateQueryLimit({ target: { value: CLIENTS_PAGE_SIZES.options[0].text } });
+    this.state.pillFilters.bidSeason = [];
+    this.onFilterChange({ target: { value: BID_PORTFOLIO_FILTERS.options[0].value } });
+    this.onSortChange({ target: { value: BID_PORTFOLIO_SORTS.options[0].value } });
   };
 
   // eslint-disable-next-line no-unused-vars
-  pillClick = (filterID, pillID, c) => {
-    switch (filterID) {
+  pillClick = (dropdownID, pillID) => {
+    switch (dropdownID) {
       case 'proxyCdos':
+        // the idea here is that this will trigger cdoPills
+        // and setCDOsToSearchBy in CDOAutoSuggest which will then
+        // call cdosUpdated in here
         this.state.pillFilters.proxyCdos =
             filter(this.state.pillFilters.proxyCdos, (o) => o.id !== pillID);
         break;
       case 'displayClients':
-        this.state.pillFilters.displayClients = '5';
+        this.updateQueryLimit({ target: { value: CLIENTS_PAGE_SIZES.options[0].text } });
         break;
       case 'bidSeason':
-        // eslint-disable-next-line no-console
-        // console.log(filterID, pillID, c);
+        this.state.pillFilters.bidSeason =
+            filter(this.state.pillFilters.bidSeason, (o) => o.id !== pillID);
         break;
       case 'filterBy':
-        this.state.pillFilters.filterBy = this.props.defaultHandshake;
+        this.onFilterChange({ target: { value: BID_PORTFOLIO_FILTERS.options[0].value } });
         break;
       case 'sortBy':
-        this.state.pillFilters.sortBy = this.props.defaultOrdering;
+        this.onSortChange({ target: { value: BID_PORTFOLIO_SORTS.options[0].value } });
         break;
       default:
     }
-    this.generatePills();
   };
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
       defaultOrdering, pageSize } = this.props;
-    const { hasSeasons, pillFilters, pills } = this.state;
+    const { hasSeasons, pills, pillFilters } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
-
     const displayCDOSeasonFilter = useCDOSeasonFilter();
-    const showClear = !!pillFilters.proxyCdos.length;
+    const showClear = !!pills.length;
 
     return (
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <div className="portfolio-sort-container-contents bid-cycle-picker-container" style={{ float: 'left' }}>
             <div className="label">Proxy CDO View:</div>
-            {/* CDOAutoSuggest doesn't automatically update when cdoPills updates. */}
             <CDOAutoSuggest
               updateCDOs={this.cdosUpdated}
-              cdoPills={this.state.pillFilters.proxyCdos}
+              cdoPills={pillFilters.proxyCdos}
             />
           </div>
           {displayCDOSeasonFilter &&

@@ -42,7 +42,8 @@ class CDOAutoSuggest extends Component {
     }
     if (!isEqual(this.props.cdoPills, nextProps.cdoPills)) {
       // eslint-disable-next-line no-console
-      console.log('this.props.selection', nextProps.selection, nextProps.cdoPills);
+      console.log('cdoPills', this.props.cdoPills, nextProps.cdoPills);
+      this.selectMultipleOption(nextProps.cdoPills);
     }
   }
 
@@ -53,7 +54,7 @@ class CDOAutoSuggest extends Component {
 
   render() {
     const { suggestions } = this.state;
-    const { isLoading, hasErrored, selection, cdoSelections, cdoPills } = this.props; // eslint-disable-line
+    const { isLoading, hasErrored, selection, cdoSelections } = this.props; // eslint-disable-line
     return (
       !isLoading && !hasErrored &&
         <div className="cdo-autosuggest">
@@ -86,7 +87,7 @@ CDOAutoSuggest.propTypes = {
   hasErrored: PropTypes.bool,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setCDOsToSearchBy: PropTypes.func,
-  cdoPills: PropTypes.arrayOf(PropTypes.string),
+  cdoPills: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 CDOAutoSuggest.defaultProps = {

@@ -20,7 +20,10 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       >
         Proxy CDO View:
       </div>
-      <Connect(CDOAutoSuggest) />
+      <Connect(CDOAutoSuggest)
+        cdoPills={Array []}
+        updateCDOs={[Function]}
+      />
     </div>
     <div
       className="portfolio-sort-container-contents small-screen-stack"
@@ -144,6 +147,13 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       onClick={[Function]}
     />
   </div>
+  <ResultsPillContainer
+    items={Array []}
+    onPillClick={[Function]}
+  />
+  <div
+    className="filter-control-right"
+  />
 </div>
 `;
 
@@ -167,7 +177,10 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       >
         Proxy CDO View:
       </div>
-      <Connect(CDOAutoSuggest) />
+      <Connect(CDOAutoSuggest)
+        cdoPills={Array []}
+        updateCDOs={[Function]}
+      />
     </div>
     <div
       className="portfolio-sort-container-contents small-screen-stack"
@@ -291,5 +304,12 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       onClick={[Function]}
     />
   </div>
+  <ResultsPillContainer
+    items={Array []}
+    onPillClick={[Function]}
+  />
+  <div
+    className="filter-control-right"
+  />
 </div>
 `;
