@@ -79,7 +79,8 @@ class BidTracker extends Component {
 
   render() {
     const { exportIsLoading, sortValue } = this.state;
-    const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
+    const { bidList, bidListIsLoading, bidListHasErrored, acceptBid,
+      declineBid, submitBid, deleteBid,
       notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
       userProfileIsLoading, isPublic, useCDOView, registerHandshake,
       unregisterHandshake } = this.props;
@@ -143,8 +144,10 @@ class BidTracker extends Component {
         </div>
         <div className="bid-tracker-content-container">
           {
-            isLoading ?
-              <Spinner type="homepage-position-results" size="big" /> :
+            isLoading && <Spinner type="homepage-position-results" size="big" />
+          }
+          {
+            !isLoading && !bidListHasErrored &&
               <div className="usa-grid-full">
                 <BidTrackerCardList
                   bids={sortedBids}
@@ -160,8 +163,12 @@ class BidTracker extends Component {
               </div>
           }
           {
-            !isLoading && !get(bidList, 'results', []).length &&
+            !isLoading && !bidListHasErrored && !get(bidList, 'results', []).length &&
             <Alert type="info" title="Bid list empty" messages={[{ body: emptyBidListText }]} />
+          }
+          {
+            bidListHasErrored && !isLoading &&
+            <Alert type="error" title="An error has occurred" messages={[{ body: 'We were unable to load your bid list. Please try again later.' }]} />
           }
         </div>
       </div>
@@ -172,6 +179,7 @@ class BidTracker extends Component {
 BidTracker.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
+  bidListHasErrored: PropTypes.bool,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
@@ -188,6 +196,7 @@ BidTracker.propTypes = {
 };
 
 BidTracker.defaultProps = {
+  bidListHasErrored: false,
   isPublic: false,
   useCDOView: false,
 };
