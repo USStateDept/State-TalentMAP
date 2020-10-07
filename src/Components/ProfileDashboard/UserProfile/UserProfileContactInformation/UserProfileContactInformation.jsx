@@ -1,7 +1,7 @@
 import React from 'react';
 import { get } from 'lodash';
 import { USER_PROFILE } from 'Constants/PropTypes';
-import { NO_EMAIL } from 'Constants/SystemMessages';
+import { NO_EMAIL, NO_OFFICE_PHONE, NO_OFFICE_ADDRESS } from 'Constants/SystemMessages';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import StaticDevContent from '../../../StaticDevContent';
@@ -10,19 +10,15 @@ const UserProfileContactInformation = ({ userProfile }) => (
   <div className="current-user-section-container">
     <div className="section-padded-inner-container">
       <SectionTitle small title="Contact Information" icon="list-alt" />
-      <InformationDataPoint title="Email address" content={get(userProfile, 'user.email') || NO_EMAIL} />
+      <InformationDataPoint title="Email address" content={get(userProfile, 'user_info.email') ? <a href={`mailto:${get(userProfile, 'user_info.email')}`} rel="nofollow">{get(userProfile, 'user_info.email')}</a> : NO_EMAIL} />
+      <InformationDataPoint title="Office number" content={get(userProfile, 'user_info.office_phone') ? <a href={`tel:${get(userProfile, 'user_info.office_phone')}`} rel="nofollow">{get(userProfile, 'user_info.office_phone')}</a> : NO_OFFICE_PHONE} />
       <StaticDevContent>
-        <InformationDataPoint title="Office number" content="+301-779-0379 ext. 3" />
+        <InformationDataPoint title="Personal contact number" content={<a href="tel:+240-331-7189" rel="nofollow">+240-331-7189</a>} />
       </StaticDevContent>
-      <StaticDevContent>
-        <InformationDataPoint title="Personal contact number" content="+240-331-7189" />
-      </StaticDevContent>
-      <StaticDevContent>
-        <InformationDataPoint
-          title="Post/Office address"
-          content="1234 Washington St. NW, Washington, DC 20009"
-        />
-      </StaticDevContent>
+      <InformationDataPoint
+        title="Post/Office address"
+        content={get(userProfile, 'user_info.office_address') || NO_OFFICE_ADDRESS}
+      />
     </div>
   </div>
 );

@@ -1,6 +1,6 @@
 import { downloadFromResponse } from 'utilities';
 import { batch } from 'react-redux';
-import { get } from 'lodash';
+import { get, identity, pickBy } from 'lodash';
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
 import { toastError } from './toast';
@@ -21,12 +21,8 @@ export function downloadBureauPositionsData(userQuery) {
     page: 1,
   };
   const query = { ...userQuery, ...defaults };
-  const q = querystring.stringify(query,
-    {
-      arrayFormat: 'comma',
-      skipNull: true,
-    },
-  );
+  let q = pickBy(query, identity);
+  q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/export/?${q}`;
   return api().get(url, {
@@ -76,12 +72,8 @@ export function bureauPositionsFetchData(userQuery) {
   }
 
   // Combine defaults with given userQuery
-  const q = querystring.stringify(userQuery,
-    {
-      arrayFormat: 'comma',
-      skipNull: true,
-    },
-  );
+  let q = pickBy(userQuery, identity);
+  q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/?${q}`;
 
@@ -129,4 +121,3 @@ export function bureauUserSelectionsSaveSuccess(result) {
 export function saveBureauUserSelections(queryObject) {
   return (dispatch) => dispatch(bureauUserSelectionsSaveSuccess(queryObject));
 }
-
