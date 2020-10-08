@@ -89,7 +89,7 @@
     "saml2-js": "2.0.5",
     "shortid": "^2.2.15",
     "typeface-merriweather": "^1.1.13",
-    "typeface-roboto": "^0.0.75",
+    "typeface-roboto": "^1.1.13",
     "use-query-params": "^1.1.8",
     "uswds": "~1.6.12"
   },
