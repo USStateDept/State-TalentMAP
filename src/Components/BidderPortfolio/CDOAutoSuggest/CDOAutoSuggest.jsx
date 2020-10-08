@@ -4,11 +4,11 @@ import { throttle, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import bowser from 'bowser';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSelectCDOsToSearchBy } from 'actions/bidderPortfolio';
 import { unsetClientView } from 'actions/clientView';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import filterUsers from '../helpers';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 // TODO - Running into an issue where the label/span element is also
 // passing up an event almost concurrently (400ms difference).
@@ -41,8 +41,6 @@ class CDOAutoSuggest extends Component {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
     if (!isEqual(this.props.cdoPills, nextProps.cdoPills)) {
-      // eslint-disable-next-line no-console
-      console.log('cdoPills', this.props.cdoPills, nextProps.cdoPills);
       this.selectMultipleOption(nextProps.cdoPills);
     }
   }

@@ -3,7 +3,8 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bowser from 'bowser';
-import { filter, indexOf, isArray, map, throttle } from 'lodash';
+// eslint-disable-next-line no-unused-vars
+import { filter, flatMap, indexOf, isArray, isEqual, map, throttle } from 'lodash';
 import { format } from 'date-fns';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
@@ -48,6 +49,7 @@ export function renderList({ items, ...rest }) {
 class BidCyclePicker extends Component {
   constructor(props) {
     super(props);
+    this.setMultipleOptionFromParent = this.setMultipleOptionFromParent.bind(this);
     this.state = {
       arrayValue: [],
     };
@@ -65,6 +67,7 @@ class BidCyclePicker extends Component {
   }
   componentDidMount() {
     this.props.setSeasonsCb(this.getSeasons());
+    this.props.setClick(this.setMultipleOptionFromParent);
   }
   componentDidUpdate() {
     this.props.setSeasonsCb(this.getSeasons());
@@ -78,6 +81,11 @@ class BidCyclePicker extends Component {
     const { seasons } = this.props;
     const ids$ = isArray(seasons) ? [...seasons] : [];
     return filter(ids$, f => indexOf(arrayValue, f.description) > -1);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  setMultipleOptionFromParent(seasonObjs) {
+    this.setState({ arrayValue: flatMap(seasonObjs, a => a.description) }, () => this.setSeasons());
   }
 
   bidSeasonsToIds = () => {
@@ -121,6 +129,7 @@ BidCyclePicker.propTypes = {
   fetchSeasons: PropTypes.func.isRequired,
   setSeasons: PropTypes.func.isRequired,
   setSeasonsCb: PropTypes.func,
+  setClick: PropTypes.func,
 };
 
 BidCyclePicker.defaultProps = {
@@ -128,6 +137,7 @@ BidCyclePicker.defaultProps = {
   isLoading: false,
   hasErrored: false,
   setSeasonsCb: EMPTY_FUNCTION,
+  setClick: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({

@@ -5,7 +5,7 @@ import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import {
   BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
   BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
-import { filter, findIndex, get, indexOf } from 'lodash';
+import { filter, findIndex, get, indexOf, isEqual } from 'lodash';
 import ResultsPillContainer from '../../ResultsPillContainer/ResultsPillContainer';
 import SelectForm from '../../SelectForm';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
@@ -18,116 +18,95 @@ const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 class BidControls extends Component {
   constructor(props) {
     super(props);
+    // this.child = React.createRef();
     this.state = {
       hasSeasons: true,
-      pillFilters: {
-        proxyCdos: [],
-        displayClients: {},
-        bidSeason: [],
-        filterBy: {},
-        sortBy: {},
-      },
+      proxyCdos: [],
+      bidSeasons: [],
+      filterBy: {},
+      sortBy: {},
       pills: [],
     };
   }
 
+  componentDidMount() {
+    console.log(this.props.cdos);
+  }
+
   // eslint-disable-next-line react/sort-comp
   cdosUpdated = q => {
-    this.state.pillFilters.proxyCdos = q;
-    this.generatePills();
+    this.setState({ proxyCdos: q }, this.generatePills);
   };
 
   updateQueryLimit = q => {
-    this.state.pillFilters.displayClients = CLIENTS_PAGE_SIZES.options[
-      findIndex(CLIENTS_PAGE_SIZES.options, (o) => o.value === parseInt(q.target.value, 10))];
     this.props.queryParamUpdate({ limit: q.target.value });
-    this.generatePills();
   };
 
   onSeasonChange = seasons => {
-    this.state.pillFilters.bidSeason = seasons;
     const hasSeasons = !!seasons.length;
-    if (hasSeasons !== this.state.hasSeasons) {
+    if (!isEqual(hasSeasons, this.state.hasSeasons)) {
       this.setState({ hasSeasons });
     }
-    this.generatePills();
+    if (!isEqual(seasons, this.state.bidSeasons)) {
+      this.setState({ bidSeasons: seasons }, this.generatePills);
+    }
   };
 
   onFilterChange = q => {
-    this.state.pillFilters.filterBy = BID_PORTFOLIO_FILTERS.options[
-      findIndex(BID_PORTFOLIO_FILTERS.options, (o) => o.value === q.target.value)];
+    this.setState({ filterBy: BID_PORTFOLIO_FILTERS.options[
+      findIndex(BID_PORTFOLIO_FILTERS.options, (o) => o.value === q.target.value)] },
+    this.generatePills);
     const orderingObject = { hasHandshake: q.target.value };
     this.props.queryParamUpdate(orderingObject);
-    this.generatePills();
   };
 
   onSortChange = q => {
-    this.state.pillFilters.sortBy = BID_PORTFOLIO_SORTS.options[
-      findIndex(BID_PORTFOLIO_SORTS.options, (o) => o.value === q.target.value)];
+    this.setState({ sortBy: BID_PORTFOLIO_SORTS.options[
+      findIndex(BID_PORTFOLIO_SORTS.options, (o) => o.value === q.target.value)] },
+    this.generatePills);
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
-    this.generatePills();
   };
-
   generatePills = () => {
     const pills = [];
-    this.state.pillFilters.proxyCdos.forEach(a => {
+    this.state.proxyCdos.forEach(a => {
       pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
     });
-    if (indexOf(['', 5], get(this.state.pillFilters, 'displayClients.value', '')) === -1) {
-      pills.push({
-        description: this.state.pillFilters.displayClients.text,
-        selectionRef: 'displayClients',
-        codeRef: this.state.pillFilters.displayClients.value,
-      });
-    }
-    this.state.pillFilters.bidSeason.forEach(a => {
-      pills.push({ description: a.description, selectionRef: 'bidSeason', codeRef: a.id });
+    this.state.bidSeasons.forEach(a => {
+      pills.push({ description: a.description, selectionRef: 'bidSeasons', codeRef: a.id });
     });
-    if (indexOf([''], get(this.state.pillFilters, 'filterBy.value', '')) === -1 && this.state.pillFilters.bidSeason.length) {
+    if (indexOf([''], get(this.state, 'filterBy.value', '')) === -1 && this.state.bidSeasons.length) {
       pills.push({
-        description: this.state.pillFilters.filterBy.text,
+        description: this.state.filterBy.text,
         selectionRef: 'filterBy',
-        codeRef: this.state.pillFilters.filterBy.value,
+        codeRef: this.state.filterBy.value,
       });
     }
-    if (indexOf(['', 'client_last_name'], get(this.state.pillFilters, 'sortBy.value', '')) === -1) {
+    if (indexOf(['', 'client_last_name'], get(this.state, 'sortBy.value', '')) === -1) {
       pills.push({
-        description: this.state.pillFilters.sortBy.text,
+        description: this.state.sortBy.text,
         selectionRef: 'sortBy',
-        codeRef: this.state.pillFilters.sortBy.value,
+        codeRef: this.state.sortBy.value,
       });
     }
-
-    this.state.pills = pills;
-    // eslint-disable-next-line no-console
-    console.log('this.state.pillFilters:', this.state.pillFilters);
+    this.setState({ pills });
   };
 
   resetAllFilters = () => {
-    this.state.pillFilters.proxyCdos = [];
-    this.updateQueryLimit({ target: { value: CLIENTS_PAGE_SIZES.options[0].text } });
-    this.state.pillFilters.bidSeason = [];
+    this.setState({ proxyCdos: [] });
+    this.updateMultiSelect([]);
     this.onFilterChange({ target: { value: BID_PORTFOLIO_FILTERS.options[0].value } });
     this.onSortChange({ target: { value: BID_PORTFOLIO_SORTS.options[0].value } });
   };
 
-  // eslint-disable-next-line no-unused-vars
   pillClick = (dropdownID, pillID) => {
     switch (dropdownID) {
       case 'proxyCdos':
-        // the idea here is that this will trigger cdoPills
-        // and setCDOsToSearchBy in CDOAutoSuggest which will then
-        // call cdosUpdated in here
-        this.state.pillFilters.proxyCdos =
-            filter(this.state.pillFilters.proxyCdos, (o) => o.id !== pillID);
+        this.setState({ proxyCdos:
+                filter(this.state.proxyCdos, (o) => o.id !== pillID) });
         break;
-      case 'displayClients':
-        this.updateQueryLimit({ target: { value: CLIENTS_PAGE_SIZES.options[0].text } });
-        break;
-      case 'bidSeason':
-        this.state.pillFilters.bidSeason =
-            filter(this.state.pillFilters.bidSeason, (o) => o.id !== pillID);
+      case 'bidSeasons':
+        this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
         break;
       case 'filterBy':
         this.onFilterChange({ target: { value: BID_PORTFOLIO_FILTERS.options[0].value } });
@@ -141,8 +120,8 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize } = this.props;
-    const { hasSeasons, pills, pillFilters } = this.state;
+      defaultOrdering, pageSize, cdos } = this.props;
+    const { hasSeasons, pills, proxyCdos } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayCDOSeasonFilter = useCDOSeasonFilter();
     const showClear = !!pills.length;
@@ -151,10 +130,10 @@ class BidControls extends Component {
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <div className="portfolio-sort-container-contents bid-cycle-picker-container" style={{ float: 'left' }}>
-            <div className="label">Proxy CDO View:</div>
+            <div className="label">Proxy CDO View:</div>{console.log(cdos)}
             <CDOAutoSuggest
               updateCDOs={this.cdosUpdated}
-              cdoPills={pillFilters.proxyCdos}
+              cdoPills={proxyCdos}
             />
           </div>
           {displayCDOSeasonFilter &&
@@ -166,7 +145,10 @@ class BidControls extends Component {
               defaultSort={pageSize}
               onSelectOption={this.updateQueryLimit}
             />
-            <BidCyclePicker setSeasonsCb={this.onSeasonChange} />
+            <BidCyclePicker
+              setSeasonsCb={this.onSeasonChange}
+              setClick={(a) => { this.updateMultiSelect = a; }}
+            />
             {
               <PreferenceWrapper
                 onSelect={this.onFilterChange}
@@ -216,10 +198,12 @@ BidControls.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
+  cdos: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 BidControls.defaultProps = {
   pageSize: 0,
+  cdos: [],
 };
 
 export default BidControls;

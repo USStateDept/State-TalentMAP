@@ -20,9 +20,9 @@ class BidderPortfolioContainer extends Component {
 
   render() {
     const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
-      cdosLength, hideControls, classifications } = this.props;
+      cdos, hideControls, classifications } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
-    const showNoCdosAlert = !cdosLength;
+    const showNoCdosAlert = !cdos.length;
     const showEdit$ = showEdit && !hideControls;
     const showExpand = !hideControls;
     return (
@@ -82,7 +82,7 @@ BidderPortfolioContainer.propTypes = {
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
   isLoading: PropTypes.bool,
-  cdosLength: PropTypes.number,
+  cdos: PropTypes.arrayOf(PropTypes.shape({})),
   hideControls: PropTypes.bool,
 };
 
@@ -91,7 +91,7 @@ BidderPortfolioContainer.defaultProps = {
   showEdit: false,
   classifications: [],
   isLoading: false,
-  cdosLength: 0,
+  cdos: [],
   hideControls: false,
 };
 
