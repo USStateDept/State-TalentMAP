@@ -21,7 +21,7 @@ class BidControls extends Component {
     // this.child = React.createRef();
     this.state = {
       hasSeasons: true,
-      proxyCdos: [],
+      proxyCdos: [''],
       bidSeasons: [],
       filterBy: {},
       sortBy: {},
@@ -70,7 +70,9 @@ class BidControls extends Component {
   generatePills = () => {
     const pills = [];
     this.state.proxyCdos.forEach(a => {
-      pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
+      if (!isEqual(a, '')) {
+        pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
+      }
     });
     this.state.bidSeasons.forEach(a => {
       pills.push({ description: a.description, selectionRef: 'bidSeasons', codeRef: a.id });
