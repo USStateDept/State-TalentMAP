@@ -165,7 +165,7 @@ class BidderPortfolio extends Component {
           classificationsIsLoading={classificationsIsLoading}
           classificationsHasErrored={classificationsHasErrored}
           classifications={classifications}
-          cdos={cdos}
+          cdosLength={cdos.length}
           defaultHandshake={hasHandshake.value}
           defaultOrdering={ordering.value}
         />

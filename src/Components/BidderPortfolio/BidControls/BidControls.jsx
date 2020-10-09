@@ -21,16 +21,12 @@ class BidControls extends Component {
     // this.child = React.createRef();
     this.state = {
       hasSeasons: true,
-      proxyCdos: [''],
+      proxyCdos: [],
       bidSeasons: [],
       filterBy: {},
       sortBy: {},
       pills: [],
     };
-  }
-
-  componentDidMount() {
-    console.log(this.props.cdos);
   }
 
   // eslint-disable-next-line react/sort-comp
@@ -70,9 +66,7 @@ class BidControls extends Component {
   generatePills = () => {
     const pills = [];
     this.state.proxyCdos.forEach(a => {
-      if (!isEqual(a, '')) {
-        pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
-      }
+      pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
     });
     this.state.bidSeasons.forEach(a => {
       pills.push({ description: a.description, selectionRef: 'bidSeasons', codeRef: a.id });
@@ -122,7 +116,7 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize, cdos } = this.props;
+      defaultOrdering, pageSize } = this.props;
     const { hasSeasons, pills, proxyCdos } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayCDOSeasonFilter = useCDOSeasonFilter();
@@ -132,7 +126,7 @@ class BidControls extends Component {
       <div className="usa-grid-full portfolio-controls">
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <div className="portfolio-sort-container-contents bid-cycle-picker-container" style={{ float: 'left' }}>
-            <div className="label">Proxy CDO View:</div>{console.log(cdos)}
+            <div className="label">Proxy CDO View:</div>
             <CDOAutoSuggest
               updateCDOs={this.cdosUpdated}
               cdoPills={proxyCdos}
@@ -200,12 +194,10 @@ BidControls.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
-  cdos: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 BidControls.defaultProps = {
   pageSize: 0,
-  cdos: [],
 };
 
 export default BidControls;

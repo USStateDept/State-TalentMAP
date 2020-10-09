@@ -39,7 +39,7 @@ class BidderPortfolioPage extends Component {
   render() {
     const useClientCounts = getUseClientCounts();
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading, cdos,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, classificationsIsLoading,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
@@ -65,7 +65,7 @@ class BidderPortfolioPage extends Component {
 
     const showEdit = editType.show;
 
-    const hideControls = get(bidderPortfolio, 'results', []).length === 0 || !cdos.length;
+    const hideControls = get(bidderPortfolio, 'results', []).length === 0 || !cdosLength;
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
@@ -124,7 +124,7 @@ class BidderPortfolioPage extends Component {
                     showEdit={showEdit}
                     classifications={classifications}
                     isLoading={bidderPortfolioIsLoading}
-                    cdos={cdos}
+                    cdosLength={cdosLength}
                     hideControls={hideControls}
                   />
                 </ErrorBoundary>
@@ -148,7 +148,7 @@ BidderPortfolioPage.propTypes = {
   classificationsIsLoading: PropTypes.bool.isRequired,
   classificationsHasErrored: PropTypes.bool.isRequired,
   classifications: CLASSIFICATIONS,
-  cdos: PropTypes.arrayOf(PropTypes.shape({})),
+  cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
 };
@@ -156,7 +156,7 @@ BidderPortfolioPage.propTypes = {
 BidderPortfolioPage.defaultProps = {
   bidderPortfolioCountsIsLoading: false,
   classifications: [],
-  cdos: [],
+  cdosLength: 0,
 };
 
 export default BidderPortfolioPage;
