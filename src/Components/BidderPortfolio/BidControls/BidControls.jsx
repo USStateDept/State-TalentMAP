@@ -18,7 +18,6 @@ const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 class BidControls extends Component {
   constructor(props) {
     super(props);
-    // this.child = React.createRef();
     this.state = {
       hasSeasons: true,
       proxyCdos: [],
@@ -165,7 +164,7 @@ class BidControls extends Component {
           onPillClick={this.pillClick}
         />
         <div className="filter-control-right">
-          { showClear && <ResetFilters resetFilters={this.resetAllFilters} clearText="Deselect All" /> }
+          { showClear && <ResetFilters resetFilters={this.resetAllFilters} /> }
         </div>
       </div>
     );

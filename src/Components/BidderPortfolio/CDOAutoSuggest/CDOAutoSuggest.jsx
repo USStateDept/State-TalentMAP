@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle, isEqual } from 'lodash';
+import { throttle, isEqual, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import bowser from 'bowser';
@@ -41,13 +41,18 @@ class CDOAutoSuggest extends Component {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
     if (!isEqual(this.props.cdoPills, nextProps.cdoPills)) {
-      this.selectMultipleOption(nextProps.cdoPills);
+      this.selectMultipleOption(nextProps.cdoPills, true);
     }
   }
 
-  selectMultipleOption(value) {
-    this.props.updateCDOs(value);
-    this.props.setCDOsToSearchBy(value);
+  selectMultipleOption(value, fromPills) {
+    if (isEmpty(value) && fromPills) {
+      this.props.setCDOsToSearchBy([this.props.currentCDO]);
+      this.props.updateCDOs([]);
+    } else {
+      this.props.setCDOsToSearchBy(value);
+      this.props.updateCDOs(value);
+    }
   }
 
   render() {
@@ -86,6 +91,7 @@ CDOAutoSuggest.propTypes = {
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setCDOsToSearchBy: PropTypes.func,
   cdoPills: PropTypes.arrayOf(PropTypes.shape({})),
+  currentCDO: PropTypes.shape({}),
 };
 
 CDOAutoSuggest.defaultProps = {
@@ -95,6 +101,7 @@ CDOAutoSuggest.defaultProps = {
   selection: [],
   setCDOsToSearchBy: EMPTY_FUNCTION,
   cdoPills: [],
+  currentCDO: {},
 };
 
 const mapStateToProps = state => ({
@@ -102,6 +109,7 @@ const mapStateToProps = state => ({
   isLoading: state.bidderPortfolioCDOsIsLoading,
   hasErrored: state.bidderPortfolioCDOsHasErrored,
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
+  currentCDO: state.bidderPortfolioSelectedCDO,
 });
 
 export const mapDispatchToProps = dispatch => ({

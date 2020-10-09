@@ -85,7 +85,7 @@ class BidCyclePicker extends Component {
   }
 
   setMultipleOptionFromParent(seasonObjs) {
-    this.setState({ arrayValue: flatMap(seasonObjs, a => a.description) }, () => this.setSeasons());
+    this.setState({ arrayValue: seasonObjs.map(a => a.description) }, () => this.setSeasons());
   }
 
   bidSeasonsToIds = () => {
