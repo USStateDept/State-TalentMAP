@@ -24,7 +24,6 @@ class BidControls extends Component {
       proxyCdos: [],
       bidSeasons: [],
       filterBy: {},
-      sortBy: {},
       pills: [],
     };
   }
@@ -57,9 +56,6 @@ class BidControls extends Component {
   };
 
   onSortChange = q => {
-    this.setState({ sortBy: BID_PORTFOLIO_SORTS.options[
-      findIndex(BID_PORTFOLIO_SORTS.options, (o) => o.value === q.target.value)] },
-    this.generatePills);
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
@@ -78,13 +74,6 @@ class BidControls extends Component {
         codeRef: this.state.filterBy.value,
       });
     }
-    if (indexOf(['', 'client_last_name'], get(this.state, 'sortBy.value', '')) === -1) {
-      pills.push({
-        description: this.state.sortBy.text,
-        selectionRef: 'sortBy',
-        codeRef: this.state.sortBy.value,
-      });
-    }
     this.setState({ pills });
   };
 
@@ -92,7 +81,6 @@ class BidControls extends Component {
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange({ target: { value: BID_PORTFOLIO_FILTERS.options[0].value } });
-    this.onSortChange({ target: { value: BID_PORTFOLIO_SORTS.options[0].value } });
   };
 
   pillClick = (dropdownID, pillID) => {
@@ -106,9 +94,6 @@ class BidControls extends Component {
         break;
       case 'filterBy':
         this.onFilterChange({ target: { value: BID_PORTFOLIO_FILTERS.options[0].value } });
-        break;
-      case 'sortBy':
-        this.onSortChange({ target: { value: BID_PORTFOLIO_SORTS.options[0].value } });
         break;
       default:
     }

@@ -3,8 +3,7 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bowser from 'bowser';
-// eslint-disable-next-line no-unused-vars
-import { every, filter, flatMap, indexOf, isArray, isObject, map, omit, throttle } from 'lodash';
+import { every, filter, flatMap, indexOf, isArray, isObject, map, throttle } from 'lodash';
 import { format } from 'date-fns';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
