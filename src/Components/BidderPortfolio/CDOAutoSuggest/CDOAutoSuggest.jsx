@@ -85,7 +85,7 @@ class CDOAutoSuggest extends Component {
 
 CDOAutoSuggest.propTypes = {
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
-  updateCDOs: PropTypes.func.isRequired,
+  updateCDOs: PropTypes.func,
   isLoading: PropTypes.bool,
   hasErrored: PropTypes.bool,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
@@ -100,6 +100,7 @@ CDOAutoSuggest.defaultProps = {
   hasErrored: false,
   selection: [],
   setCDOsToSearchBy: EMPTY_FUNCTION,
+  updateCDOs: EMPTY_FUNCTION,
   cdoPills: [],
   currentCDO: {},
 };
