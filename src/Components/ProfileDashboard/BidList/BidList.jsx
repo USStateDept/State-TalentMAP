@@ -7,6 +7,7 @@ import { BID_RESULTS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
+import BidStatusStats from '../../BidTracker/BidStatusStats';
 import BidListHeader from './BidListHeader';
 import StaticDevContent from '../../StaticDevContent';
 import Spinner from '../../Spinner';
@@ -44,8 +45,9 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
           <BidListHeader />
         </StaticDevContent>
         <div className="usa-grid-full section-padded-inner-container">
-          <div className="usa-width-one-whole">
+          <div className="usa-width-one-whole bid-tracker-title--condensed">
             <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
+            <BidStatusStats bidList={bids} condensed />
           </div>
         </div>
         <div className="bid-list-container">

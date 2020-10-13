@@ -6,6 +6,7 @@ import { validStateEmail,
   fetchUserToken,
   formExploreRegionDropdown,
   scrollToTop,
+  getBidListStats,
   getItemLabel,
   shortenString,
   cleanQueryParams,
@@ -869,6 +870,30 @@ describe('scrollToGlossaryTerm', () => {
       const e = { stopPropagation: spy };
       stopProp(e);
       sinon.assert.calledOnce(spy);
+    });
+  });
+
+  describe('getBidListStats', () => {
+    it('properly counts statuses', () => {
+      const bidList = [{ status: 'a' }, { status: 'b' }, { status: 'c' }, { status: 'd' }, { status: 'e' }];
+      const statuses = ['a', 'b', 'c'];
+      expect(getBidListStats(bidList, statuses)).toBe(3);
+      expect(getBidListStats(bidList, ['x', 'y', 'z'])).toBe(0);
+      expect(getBidListStats(bidList, ['d'])).toBe(1);
+    });
+
+    it('properly pads numbers less than 10 when padWithZero', () => {
+      const bidList = [
+        { status: 'a' }, { status: 'a' }, { status: 'a' }, { status: 'a' }, { status: 'a' },
+        { status: 'a' }, { status: 'a' }, { status: 'a' }, { status: 'a' },
+        { status: 'b' }, { status: 'b' }, { status: 'b' }, { status: 'b' }, { status: 'b' },
+        { status: 'b' }, { status: 'b' }, { status: 'b' }, { status: 'b' }, { status: 'b' },
+      ];
+      const statuses = ['a', 'b', 'c'];
+      expect(getBidListStats(bidList, ['x', 'y', 'z'], true)).toBe('00');
+      expect(getBidListStats(bidList, ['a'], true)).toBe('09');
+      expect(getBidListStats(bidList, ['b'], true)).toBe('10');
+      expect(getBidListStats(bidList, statuses, true)).toBe('19');
     });
   });
 });
