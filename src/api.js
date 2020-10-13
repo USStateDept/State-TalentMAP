@@ -34,8 +34,6 @@ const debouncedLogout = throttle(
 
 const debouncedNetworkAlert = throttle(
   // eslint-disable-next-line global-require
-  // () => require('./store').store.dispatch(logoutRequest()),
-  // eslint-disable-next-line
   () => require('./store').store.dispatch(toastWarning(
     "We're having trouble reaching our servers. Some information on TalentMAP may not display correctly.",
     'Server Error',
