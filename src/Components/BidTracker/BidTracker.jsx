@@ -100,6 +100,11 @@ class BidTracker extends Component {
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <BackButton />
+        {isPublic &&
+          <div className="bid-tracker-search-client">
+            <SearchAsClientButton user={userProfile} />
+          </div>
+        }
         {
           !isPublic &&
           <NotificationsSection
@@ -119,11 +124,6 @@ class BidTracker extends Component {
               {
                 cdoEmail && !userProfileIsLoading &&
                 <ContactCDOButton email={cdoEmail} />
-              }
-              {isPublic &&
-                <div className="bid-tracker-search-client">
-                  <SearchAsClientButton user={userProfile} />
-                </div>
               }
             </div>
           </div>
@@ -148,19 +148,19 @@ class BidTracker extends Component {
           }
           {
             !isLoading && !bidListHasErrored &&
-              <div className="usa-grid-full">
-                <BidTrackerCardList
-                  bids={sortedBids}
-                  acceptBid={acceptBid}
-                  declineBid={declineBid}
-                  submitBid={submitBid}
-                  deleteBid={deleteBid}
-                  registerHandshake={registerHandshake}
-                  unregisterHandshake={unregisterHandshake}
-                  userProfile={userProfile}
-                  useCDOView={useCDOView}
-                />
-              </div>
+            <div className="usa-grid-full">
+              <BidTrackerCardList
+                bids={sortedBids}
+                acceptBid={acceptBid}
+                declineBid={declineBid}
+                submitBid={submitBid}
+                deleteBid={deleteBid}
+                registerHandshake={registerHandshake}
+                unregisterHandshake={unregisterHandshake}
+                userProfile={userProfile}
+                useCDOView={useCDOView}
+              />
+            </div>
           }
           {
             !isLoading && !bidListHasErrored && !get(bidList, 'results', []).length &&
