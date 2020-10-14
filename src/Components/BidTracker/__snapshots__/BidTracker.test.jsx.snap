@@ -4,7 +4,11 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
-  <Connect(withRouter(BackButton)) />
+  <div
+    className="usa-grid-full"
+  >
+    <Connect(withRouter(BackButton)) />
+  </div>
   <NotificationsSection
     markBidTrackerNotification={[Function]}
     notifications={
@@ -559,7 +563,11 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
 <div
   className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
-  <Connect(withRouter(BackButton)) />
+  <div
+    className="usa-grid-full"
+  >
+    <Connect(withRouter(BackButton)) />
+  </div>
   <NotificationsSection
     markBidTrackerNotification={[Function]}
     notifications={
