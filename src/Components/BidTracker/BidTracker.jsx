@@ -9,6 +9,7 @@ import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
 import { downloadBidlistData } from 'actions/bidList';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
+import BidStatusStats from './BidStatusStats';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
@@ -96,7 +97,6 @@ class BidTracker extends Component {
     const cdoEmail = get(userProfile, 'cdo.email');
 
     const sortedBids = this.getSortedBids();
-
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <div className="usa-grid-full">
@@ -147,6 +147,7 @@ class BidTracker extends Component {
           {
             !isLoading && !bidListHasErrored &&
               <div className="usa-grid-full">
+                <BidStatusStats bidList={bidList.results} />
                 <BidTrackerCardList
                   bids={sortedBids}
                   acceptBid={acceptBid}
