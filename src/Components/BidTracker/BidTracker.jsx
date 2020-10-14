@@ -99,12 +99,10 @@ class BidTracker extends Component {
 
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
-        <BackButton />
-        {isPublic &&
-          <div className="bid-tracker-search-client">
-            <SearchAsClientButton user={userProfile} />
-          </div>
-        }
+        <div className="usa-grid-full">
+          <BackButton />
+          {isPublic && <SearchAsClientButton user={userProfile} />}
+        </div>
         {
           !isPublic &&
           <NotificationsSection
