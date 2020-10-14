@@ -1,4 +1,5 @@
 import Q from 'q';
+import { subDays } from 'date-fns';
 import api from '../api';
 import { hasValidToken } from '../utilities';
 
@@ -103,10 +104,16 @@ export function unsetNotificationsCount() {
   };
 }
 
-export function notificationsCountFetchData() {
+export const getDateRange = () => {
+  const today$ = new Date();
+  const past60days = subDays(today$, 60).toJSON();
+  return past60days;
+};
+
+export function notificationsCountFetchData(useDateRange = true) {
   return (dispatch) => {
     if (hasValidToken()) {
-      api().get('/notification/?limit=1&is_read=false')
+      api().get(`/notification/?limit=1&is_read=false${useDateRange ? `&date_created__gte=${getDateRange()}` : ''}`)
         .then(({ data }) => {
           dispatch(notificationsCountFetchDataSuccess(data.count));
           dispatch(notificationsCountIsLoading(false));
@@ -123,7 +130,7 @@ export function notificationsCountFetchData() {
   };
 }
 
-export function notificationsFetchData(limit = 5, page = 1, ordering = '-date_created', tags = undefined, isRead = undefined) {
+export function notificationsFetchData(limit = 5, page = 1, ordering = '-date_created', tags = undefined, isRead = undefined, useDateRange = true) {
   return (dispatch) => {
     // Make use of any notifications request that could be used in the notifications popover
     const isForPopover = page === 1 && limit >= 5 && tags === undefined && isRead === undefined;
@@ -136,7 +143,7 @@ export function notificationsFetchData(limit = 5, page = 1, ordering = '-date_cr
       dispatch(notificationsPopoverHasErrored(false));
     }
 
-    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}`)
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}${tags !== undefined ? `&tags=${tags}` : ''}${isRead !== undefined ? `&is_read=${isRead}` : ''}${useDateRange ? `&date_created__gte=${getDateRange()}` : ''}`)
       .then(({ data }) => {
         dispatch(notificationsFetchDataSuccess(data));
         dispatch(notificationsHasErrored(false));

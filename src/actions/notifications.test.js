@@ -35,7 +35,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.notificationsFetchData());
+        store.dispatch(actions.notificationsFetchData(5, 1, '-date_created', undefined, undefined, false));
         store.dispatch(actions.notificationsIsLoading());
         done();
       }, 0);
@@ -48,7 +48,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.notificationsFetchData(2));
+        store.dispatch(actions.notificationsFetchData(2, 1, '-date_created', undefined, undefined, false));
         store.dispatch(actions.notificationsIsLoading());
         done();
       }, 0);
@@ -61,7 +61,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.notificationsFetchData(null, 'date_updated'));
+        store.dispatch(actions.notificationsFetchData(null, 'date_updated', undefined, undefined, false));
         store.dispatch(actions.notificationsIsLoading());
         done();
       }, 0);
@@ -74,7 +74,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.notificationsCountFetchData());
+        store.dispatch(actions.notificationsCountFetchData(false));
         store.dispatch(actions.notificationsCountIsLoading());
         done();
       }, 0);
@@ -142,7 +142,7 @@ describe('async actions', () => {
 
     const f = () => {
       setTimeout(() => {
-        store.dispatch(actions.notificationsCountFetchData());
+        store.dispatch(actions.notificationsCountFetchData(false));
         done();
       }, 0);
     };
