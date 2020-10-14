@@ -148,19 +148,19 @@ class BidTracker extends Component {
           }
           {
             !isLoading && !bidListHasErrored &&
-            <div className="usa-grid-full">
-              <BidTrackerCardList
-                bids={sortedBids}
-                acceptBid={acceptBid}
-                declineBid={declineBid}
-                submitBid={submitBid}
-                deleteBid={deleteBid}
-                registerHandshake={registerHandshake}
-                unregisterHandshake={unregisterHandshake}
-                userProfile={userProfile}
-                useCDOView={useCDOView}
-              />
-            </div>
+              <div className="usa-grid-full">
+                <BidTrackerCardList
+                  bids={sortedBids}
+                  acceptBid={acceptBid}
+                  declineBid={declineBid}
+                  submitBid={submitBid}
+                  deleteBid={deleteBid}
+                  registerHandshake={registerHandshake}
+                  unregisterHandshake={unregisterHandshake}
+                  userProfile={userProfile}
+                  useCDOView={useCDOView}
+                />
+              </div>
           }
           {
             !isLoading && !bidListHasErrored && !get(bidList, 'results', []).length &&
