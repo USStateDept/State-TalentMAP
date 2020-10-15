@@ -7,6 +7,7 @@ const GlossaryEditorSearch = ({ onUpdate }) => (
     <div className="results-search-bar-container">
       <ResultsSearchHeader
         labelSrOnly
+        legend="Find Glossary Terms"
         placeholder="Search for Glossary terms"
         onUpdate={onUpdate}
       />
