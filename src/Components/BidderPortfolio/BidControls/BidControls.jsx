@@ -6,6 +6,7 @@ import {
   BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
   BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import { filter, findIndex, get, indexOf, isEqual } from 'lodash';
+import { connect } from 'react-redux';
 import ResultsPillContainer from '../../ResultsPillContainer/ResultsPillContainer';
 import SelectForm from '../../SelectForm';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
@@ -20,21 +21,26 @@ class BidControls extends Component {
     super(props);
     this.state = {
       hasSeasons: true,
-      proxyCdos: [],
+      proxyCdos: this.props.selection || [],
       bidSeasons: [],
       filterBy: {},
       pills: [],
     };
   }
+  // eslint-disable-next-line class-methods-use-this
+  UNSAFE_componentWillMount() {
+    if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser'))) {
+      this.setState({ proxyCdos: this.props.selection }, this.generatePills);
+    }
+  }
 
-  // eslint-disable-next-line react/sort-comp
-  cdosUpdated = q => {
-    this.setState({ proxyCdos: q }, this.generatePills);
-  };
-
-  updateQueryLimit = q => {
-    this.props.queryParamUpdate({ limit: q.target.value });
-  };
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.selection, nextProps.selection)) {
+      if (!(nextProps.selection.length === 1 && get(nextProps, 'selection[0].isCurrentUser'))) {
+        this.setState({ proxyCdos: nextProps.selection }, this.generatePills);
+      }
+    }
+  }
 
   onSeasonChange = seasons => {
     const hasSeasons = !!seasons.length;
@@ -58,6 +64,11 @@ class BidControls extends Component {
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
+
+  updateQueryLimit = q => {
+    this.props.queryParamUpdate({ limit: q.target.value });
+  };
+
   generatePills = () => {
     const pills = [];
     this.state.proxyCdos.forEach(a => {
@@ -86,7 +97,7 @@ class BidControls extends Component {
     switch (dropdownID) {
       case 'proxyCdos':
         this.setState({ proxyCdos:
-                filter(this.state.proxyCdos, (o) => o.id !== pillID) });
+                filter(this.state.proxyCdos, (o) => o.id !== pillID) }, this.generatePills);
         break;
       case 'bidSeasons':
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
@@ -112,7 +123,6 @@ class BidControls extends Component {
           <div className="portfolio-sort-container-contents bid-cycle-picker-container" style={{ float: 'left' }}>
             <div className="label">Proxy CDO View:</div>
             <CDOAutoSuggest
-              updateCDOs={this.cdosUpdated}
               cdoPills={proxyCdos}
             />
           </div>
@@ -178,10 +188,16 @@ BidControls.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   pageSize: PropTypes.number,
+  selection: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 BidControls.defaultProps = {
   pageSize: 0,
+  selection: [],
 };
 
-export default BidControls;
+const mapStateToProps = state => ({
+  selection: state.bidderPortfolioSelectedCDOsToSearchBy,
+});
+
+export default connect(mapStateToProps)(BidControls);
