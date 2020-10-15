@@ -22,7 +22,6 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       </div>
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
-        updateCDOs={[Function]}
       />
     </div>
     <div
@@ -181,7 +180,6 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       </div>
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
-        updateCDOs={[Function]}
       />
     </div>
     <div
