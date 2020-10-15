@@ -160,11 +160,11 @@ class BidControls extends Component {
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
         </div>
         <div className="usa-width-one-whole portfolio-filter-pills-container">
+          { showClear && <ResetFilters resetFilters={this.resetAllFilters} /> }
           <ResultsPillContainer
             items={pills}
             onPillClick={this.pillClick}
           />
-          { showClear && <ResetFilters resetFilters={this.resetAllFilters} /> }
         </div>
       </div>
     );
