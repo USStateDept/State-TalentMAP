@@ -306,6 +306,10 @@
       flex-direction: column;
       margin-right: 2em;
       min-width: 300px;
+      .Linkify {
+        display: block;
+        text-align: justify;
+      }
     }
 
     .data-point-section {
