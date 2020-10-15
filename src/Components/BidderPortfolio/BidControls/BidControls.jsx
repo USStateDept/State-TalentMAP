@@ -27,7 +27,7 @@ class BidControls extends Component {
       pills: [],
     };
   }
-  // eslint-disable-next-line class-methods-use-this
+
   UNSAFE_componentWillMount() {
     if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser'))) {
       this.setState({ proxyCdos: this.props.selection }, this.generatePills);
