@@ -9,7 +9,7 @@ exports[`NotificationRowComponent matches snapshot 1`] = `
   <Column
     as="div"
     className=""
-    columns={9}
+    columns={8}
     style={
       Object {
         "display": "flex",
@@ -49,7 +49,7 @@ exports[`NotificationRowComponent matches snapshot 1`] = `
   <Column
     as="div"
     className="notification-button"
-    columns={3}
+    columns={4}
   >
     <LinkButton
       className="usa-button"

@@ -96,6 +96,10 @@ $results-container-width: 100% - $filter-container-width;
     }
   }
 
+  &.results-card--new {
+    box-shadow: 0 0 15px $color-dodger-blue;
+  }
+
   .tandem-identifier {
     font-size: 1.5rem;
     font-weight: 500;
