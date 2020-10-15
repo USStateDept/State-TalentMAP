@@ -99,8 +99,10 @@ class BidTracker extends Component {
     const sortedBids = this.getSortedBids();
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
-        <BackButton />
-        { isPublic && <SearchAsClientButton user={userProfile} /> }
+        <div className="usa-grid-full bid-tracker-top-row">
+          <BackButton />
+          {isPublic && <SearchAsClientButton user={userProfile} />}
+        </div>
         {
           !isPublic &&
           <NotificationsSection
