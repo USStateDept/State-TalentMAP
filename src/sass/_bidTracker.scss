@@ -22,6 +22,10 @@ $register-icon-offset: 44%;
     float: right;
   }
 
+  .search-as-client-button {
+      float: right;
+    }
+
   .bid-tracker-greeting {
     margin-bottom: 40px;
   }
@@ -60,7 +64,6 @@ $register-icon-offset: 44%;
       margin-bottom: 0;
     }
     .search-as-client-button {
-      float: right;
       margin-right: -.1em;
     }
   }
