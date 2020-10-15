@@ -5,13 +5,13 @@ $register-icon-offset: 44%;
 
 .bid-tracker-page {
   position: relative;
-
+  
   .searches-top-section {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 1.2em;
   }
-
+  
   .export-button-container {
     button {
       margin-top: 0;
@@ -22,12 +22,7 @@ $register-icon-offset: 44%;
     float: right;
   }
 
-  .search-as-client-button {
-    float: right;
-    margin-bottom: 1em;
-    margin-right: -.1em;
-  }
-
+  
   .bid-tracker-greeting {
     margin-bottom: 40px;
   }
@@ -49,22 +44,28 @@ $register-icon-offset: 44%;
   .bid-tracker-cdo-email {
     float: right;
   }
-
-  // .bid-tracker-search-client {
-  //   margin-bottom: 1em;
-  //   margin-right: -.5em;
-  // }
-
+    
   .bid-tracker-cdo-button {
     font-weight: normal;
     margin-right: 0;
     margin-top: 0;
-
+    
     .fa {
       margin-right: 10px;
     }
   }
-
+  
+  .bid-tracker-top-row {
+    margin-bottom: 1em;
+    .button-back-link {
+      margin-bottom: 0;
+    }
+    .search-as-client-button {
+      float: right;
+      margin-right: -.1em;
+    }
+  }
+    
   .padded-container-inner {
     padding: 15px;
   }

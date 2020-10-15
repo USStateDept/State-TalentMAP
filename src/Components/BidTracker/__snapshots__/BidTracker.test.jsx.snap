@@ -5,7 +5,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
   className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
   <div
-    className="usa-grid-full"
+    className="usa-grid-full bid-tracker-top-row"
   >
     <Connect(withRouter(BackButton)) />
   </div>
@@ -564,7 +564,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
   className="usa-grid-full profile-content-inner-container bid-tracker-page"
 >
   <div
-    className="usa-grid-full"
+    className="usa-grid-full bid-tracker-top-row"
   >
     <Connect(withRouter(BackButton)) />
   </div>
