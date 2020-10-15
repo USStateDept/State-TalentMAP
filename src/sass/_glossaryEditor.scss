@@ -13,6 +13,7 @@
 
   .create-term-container {
     float: right;
+    padding-left: 30px;
 
     button {
       float: right;
@@ -280,4 +281,10 @@
     min-width: 150px;
     padding: inherit 40px;
   }
+}
+
+.glossary-header-container {
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
 }
