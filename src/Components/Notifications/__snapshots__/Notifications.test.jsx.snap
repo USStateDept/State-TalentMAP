@@ -50,7 +50,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       >
         <SelectForm
           className="select-offset select-black"
-          defaultSort=""
+          defaultSort={null}
           disabled={false}
           emptyOptionText="- Select -"
           id="mark-notification-dropdown"
