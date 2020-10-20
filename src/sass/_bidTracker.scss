@@ -43,10 +43,7 @@ $register-icon-offset: 44%;
     padding-right: 10px;
   }
 
-  .bid-tracker-cdo-email-container {
-    float: left;
-  }
-
+  .bid-tracker-cdo-email-container,
   .bid-tracker-cdo-email {
     float: right;
   }
@@ -58,6 +55,16 @@ $register-icon-offset: 44%;
 
     .fa {
       margin-right: 10px;
+    }
+  }
+
+  .bid-tracker-top-row {
+    margin-bottom: 1em;
+    .button-back-link {
+      margin-bottom: 0;
+    }
+    .search-as-client-button {
+      margin-right: -.1em;
     }
   }
 
