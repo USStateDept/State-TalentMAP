@@ -5,13 +5,13 @@ exports[`GlossaryEditorSearchComponent matches snapshot 1`] = `
   className="bidder-portfolio-search-container"
 >
   <div
-    className="results-search-bar-container"
+    className="glossary-search-bar-container"
   >
     <ResultsSearchHeader
       defaultKeyword=""
       isHomePage={false}
       labelSrOnly={true}
-      legend="Find your next position"
+      legend="Find Glossary Terms"
       legendSrOnly={false}
       onFilterChange={[Function]}
       onUpdate={[Function]}
