@@ -11,7 +11,7 @@ import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
-import { bureauBidsFetchData, downloadBidderData } from 'actions/bureauPositionBids';
+import { bureauBidsFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import PositionManagerBidders from '../PositionManagerBidders';
 
@@ -30,6 +30,7 @@ class PositionManagerDetails extends Component {
   UNSAFE_componentWillMount() {
     this.getPositionBids();
     this.props.getPositionDetails(this.state.id);
+    this.props.getBidsRanking(this.state.id);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -72,6 +73,11 @@ class PositionManagerDetails extends Component {
     this.props.getBids(id, query);
   }
 
+  setRanking = ranking => {
+    const ranking$ = ranking.map(m => ({ ...m, cp_id: this.state.id }));
+    this.props.setRanking(this.state.id, ranking$);
+  }
+
   exportBidders = () => {
     const { id, ordering, filters } = this.state;
     const query = {
@@ -90,7 +96,7 @@ class PositionManagerDetails extends Component {
 
   render() {
     const { isLoading, hasLoaded } = this.state;
-    const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition } = this.props;
+    const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition, ranking } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
@@ -138,6 +144,8 @@ class PositionManagerDetails extends Component {
                       onSort={this.onSort}
                       onFilter={this.onFilter}
                       bidsIsLoading={bidsIsLoading}
+                      ranking={ranking}
+                      setRanking={this.setRanking}
                     />
                   </div>
                 </div>
@@ -154,8 +162,11 @@ PositionManagerDetails.propTypes = {
   bids: PropTypes.arrayOf(PropTypes.shape({})),
   bidsIsLoading: PropTypes.bool,
   getPositionDetails: PropTypes.func.isRequired,
+  getBidsRanking: PropTypes.func.isRequired,
   bureauPositionIsLoading: PropTypes.bool,
   bureauPosition: POSITION_DETAILS,
+  ranking: PropTypes.arrayOf(PropTypes.shape({})),
+  setRanking: PropTypes.func.isRequired,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -163,6 +174,7 @@ PositionManagerDetails.defaultProps = {
   bidsIsLoading: false,
   bureauPositionIsLoading: false,
   bureauPosition: {},
+  ranking: [],
 };
 
 const mapStateToProps = (state) => ({
@@ -170,12 +182,15 @@ const mapStateToProps = (state) => ({
   bidsIsLoading: state.bureauPositionBidsIsLoading,
   bureauPositionIsLoading: state.bureauPositionDetailsIsLoading,
   bureauPosition: state.bureauPositionDetails,
+  ranking: state.bureauPositionBidsRanking,
 });
 
 export const mapDispatchToProps = dispatch => ({
   getBids: (id, query) => dispatch(bureauBidsFetchData(id, query)),
+  getBidsRanking: id => dispatch(bureauBidsRankingFetchData(id)),
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
   downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),
+  setRanking: (id, ranking) => dispatch(bureauBidsSetRanking(id, ranking)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));
