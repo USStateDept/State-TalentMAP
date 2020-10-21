@@ -50,6 +50,11 @@
     .small-screen-stack {
       flex-wrap: wrap;
       float: none;
+      .filter-div {
+        .label {
+          min-width: 75px;
+        }
+      }
     }
     .small-screen-stack > div {
       flex-basis: 45%;
