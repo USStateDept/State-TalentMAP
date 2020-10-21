@@ -26,11 +26,11 @@ class GlossaryEditorPage extends Component {
 
     return (
       <div className="profile-content-inner-container glossary-editor-page-header">
-        <div className="usa-grid-full">
-          <div className="usa-width-five-sixths">
+        <div className="usa-grid-full glossary-header-container">
+          <div>
             <h2 className="hello-greeting">Glossary Editor</h2>
           </div>
-          <div className="usa-width-one-sixth create-term-container">
+          <div className="create-term-container">
             <button onClick={this.toggleNewTermEditor}>Create term</button>
           </div>
         </div>
