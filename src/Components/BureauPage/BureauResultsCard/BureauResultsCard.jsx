@@ -55,7 +55,7 @@ class BureauResultsCard extends Component {
         'Tour of duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
         'Language': language,
         'Post differential | Danger Pay': getDifferentials(pos),
-        'Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
+        'Bid cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
         'TED': getResult(result, 'ted', NO_DATE),
         'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
