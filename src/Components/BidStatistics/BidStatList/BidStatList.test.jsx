@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import BidStatList from './BidStatList';
 import bidStatistics from '../../../__mocks__/bidStatistics';

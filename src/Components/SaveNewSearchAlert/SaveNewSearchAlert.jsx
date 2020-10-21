@@ -1,4 +1,3 @@
-import React from 'react';
 import { NEW_SAVED_SEARCH_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import Alert from '../Alert/Alert';
 

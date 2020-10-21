@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FILTER_ITEMS_ARRAY } from '../../Constants/PropTypes';
 import FieldSet from '../../Components/FieldSet/FieldSet';

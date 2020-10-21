@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import InteractiveElement from '../InteractiveElement';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';

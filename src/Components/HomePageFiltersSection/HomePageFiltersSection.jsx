@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import HomePageFiltersContainer from './HomePageFiltersContainer';
 import { FILTER_ITEMS_ARRAY, USER_SKILL_CODE_ARRAY } from '../../Constants/PropTypes';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Home from '../../Containers/Home/Home';
 import Profile from '../../Containers/Profile';
 import Results from '../../Containers/Results/Results';

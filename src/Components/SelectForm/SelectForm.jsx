@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
 import { SORT_BY_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';

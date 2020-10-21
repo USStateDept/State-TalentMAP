@@ -1,4 +1,3 @@
-import React from 'react';
 import { getAssetPath } from '../../../utilities';
 
 const dosSeal = getAssetPath('/assets/img/rsz_dos-seal.png');

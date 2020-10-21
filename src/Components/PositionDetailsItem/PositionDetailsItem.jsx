@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Differentials from 'Components/Differentials';

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import sinon from 'sinon';
 import { Trigger, mapDispatchToProps } from './Trigger';
 import { testDispatchFunctions } from '../../../testUtilities/testUtilities';

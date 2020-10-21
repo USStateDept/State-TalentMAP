@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { FEEDBACK_OPEN_ICON_ID } from '../../Constants/HtmlAttributes';

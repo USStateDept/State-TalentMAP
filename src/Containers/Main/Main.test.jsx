@@ -1,4 +1,3 @@
-import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 
