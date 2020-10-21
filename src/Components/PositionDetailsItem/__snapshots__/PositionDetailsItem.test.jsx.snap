@@ -151,6 +151,11 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
           title="Post differential | Danger Pay"
         />
         <CondensedCardDataPoint
+          content="Demo BidCycle 2018-03-13 15:51:10.980576+00:00"
+          hasFixedTitleWidth={false}
+          title="Bid Cycle"
+        />
+        <CondensedCardDataPoint
           content="None listed"
           hasFixedTitleWidth={false}
           title="TED"
@@ -509,6 +514,11 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
           }
           hasFixedTitleWidth={false}
           title="Post differential | Danger Pay"
+        />
+        <CondensedCardDataPoint
+          content="Demo BidCycle 2018-03-13 15:51:10.980576+00:00"
+          hasFixedTitleWidth={false}
+          title="Bid Cycle"
         />
         <CondensedCardDataPoint
           content="None listed"
@@ -871,6 +881,11 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
           }
           hasFixedTitleWidth={false}
           title="Post differential | Danger Pay"
+        />
+        <CondensedCardDataPoint
+          content="Demo BidCycle 2018-03-13 15:51:10.980576+00:00"
+          hasFixedTitleWidth={false}
+          title="Bid Cycle"
         />
         <CondensedCardDataPoint
           content="None listed"
