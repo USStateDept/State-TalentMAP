@@ -66,3 +66,9 @@ export const GET_HAND_SHAKE_NEEDS_REGISTER_TITLE = () => ['Register Handshake'];
 export const GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE = () => ['Handshake Registered'];
 export const GET_PANEL_TITLE = () => ['Panel Scheduled'];
 export const GET_APPROVAL_TITLE = () => ['Assignment Approved'];
+
+// all the statuses considered 'submitted' and still 'active' on the bid tracker
+export const BID_TRACKER_SUBMITTED_ACTIVE_STATUSES = [
+  APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, HAND_SHAKE_OFFERED_PROP,
+  PRE_PANEL_PROP, IN_PANEL_PROP, SUBMITTED_PROP, PANEL_RESCHEDULED_PROP,
+  HAND_SHAKE_NEEDS_REGISTER_PROP];

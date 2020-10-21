@@ -65,6 +65,7 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
                   isRead={n.is_read}
                   onCheck={onCheck}
                   checked={checked}
+                  meta={n.meta}
                 />
               );
             })}
