@@ -51,7 +51,7 @@
     "react-copy-to-clipboard": "^5.0.2",
     "react-countup": "3.0.3",
     "react-day-picker": "^7.4.8",
-    "react-dom": "^16.13.1",
+    "react-dom": "^16.14.0",
     "react-dom-confetti": "^0.2.0",
     "react-fontawesome": "^1.7.1",
     "react-helmet": "^6.0.0",
