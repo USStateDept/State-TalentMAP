@@ -71,6 +71,7 @@ const PositionDetailsItem = (props) => {
   const differentials = <Differentials {...diffProps} />;
 
   const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
+  const cycle = get(position, 'latest_bidcycle.name', 'None Listed');
 
   const getPostedDate = () => {
     const posted = get(position, COMMON_PROPERTIES.posted);
@@ -126,6 +127,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />
             <CondensedCardDataPoint title="Language" content={<LanguageList languages={get(position, 'languages')} propToUse="representation" />} />
             <CondensedCardDataPoint title="Post differential | Danger Pay" content={differentials} />
+            <CondensedCardDataPoint title={isProjectedVacancy ? 'Bid Season' : 'Bid Cycle'} content={cycle} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
