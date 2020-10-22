@@ -153,6 +153,9 @@
 
   .bid-count-container {
     margin: 0 0 0 auto;
+    .bid-count-label {
+      font-size: 15px;
+    }
   }
 
   .bureau-card--header {
@@ -312,11 +315,6 @@
       flex: 9;
       min-width: 500px;
     }
-  }
-
-  .bid-count-label {
-    margin-right: 0;
-    min-width: 225px;
   }
 
   .bid-count-list {
