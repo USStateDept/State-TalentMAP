@@ -388,6 +388,8 @@
         }
 
         th {
+          display: flex; // fixes IE11
+          justify-content: center; // fixes IE11
           flex: 4;
           text-align: center;
           border: none;
@@ -429,6 +431,8 @@
       }
 
       td {
+        display: flex; // fixes IE11
+        justify-content: center; // fixes IE11
         flex: 4;
         text-align: center;
         border-top: none;
