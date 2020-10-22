@@ -29,14 +29,14 @@ class BidControls extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser'))) {
+    if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser', false))) {
       this.setState({ proxyCdos: this.props.selection }, this.generatePills);
     }
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (!isEqual(this.props.selection, nextProps.selection)) {
-      if (!(nextProps.selection.length === 1 && get(nextProps, 'selection[0].isCurrentUser'))) {
+      if (!(nextProps.selection.length === 1 && get(nextProps, 'selection[0].isCurrentUser', false))) {
         this.setState({ proxyCdos: nextProps.selection }, this.generatePills);
       }
     }

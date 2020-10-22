@@ -46,7 +46,7 @@ class CDOAutoSuggest extends Component {
   }
 
   selectMultipleOption(value, fromPills) {
-    if (isEmpty(value) && fromPills) {
+    if (isEmpty(value) && fromPills && !isEmpty(this.props.currentCDO)) {
       this.props.setCDOsToSearchBy([this.props.currentCDO]);
     } else {
       this.props.setCDOsToSearchBy(value);
