@@ -102,7 +102,7 @@
     "@babel/runtime-corejs2": "^7.12.1",
     "@epegzz/sass-vars-loader": "^6.0.0",
     "autoprefixer": "^9.8.6",
-    "axios-mock-adapter": "^1.18.2",
+    "axios-mock-adapter": "^1.19.0",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10",
     "babel-jest": "^25.4.0",
