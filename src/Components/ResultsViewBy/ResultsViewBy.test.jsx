@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import ResultsViewBy from './ResultsViewBy';
 

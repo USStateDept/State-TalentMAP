@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import ExternalUserStatus from '../../ProfileDashboard/ExternalUserStatus';
 import OrganizationStamp from '../../OrganizationStamp';

@@ -1,7 +1,10 @@
 {
   "plugins": [
     "@babel/plugin-syntax-dynamic-import",
-    "@babel/plugin-proposal-class-properties"
+    "@babel/plugin-proposal-class-properties",
+    ["@babel/plugin-transform-react-jsx", {
+      "runtime": "automatic"
+    }]
   ],
   "presets": [
     "react-app",

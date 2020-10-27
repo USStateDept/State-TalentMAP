@@ -1,4 +1,3 @@
-import React from 'react';
 import { isNil } from 'lodash';
 import { USER_SKILL_CODE_ARRAY } from '../../Constants/PropTypes';
 import { NO_USER_SKILL_CODE } from '../../Constants/SystemMessages';

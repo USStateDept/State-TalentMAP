@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import { existsInArray } from '../../utilities';

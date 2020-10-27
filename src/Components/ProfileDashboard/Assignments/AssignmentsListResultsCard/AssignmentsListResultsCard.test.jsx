@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import AssignmentsListResultsCard from './AssignmentsListResultsCard';
 import assignmentObject from '../../../../__mocks__/assignmentObject';

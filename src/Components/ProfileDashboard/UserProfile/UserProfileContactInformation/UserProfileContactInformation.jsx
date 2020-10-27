@@ -1,4 +1,3 @@
-import React from 'react';
 import { get } from 'lodash';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import { NO_EMAIL, NO_OFFICE_PHONE, NO_OFFICE_ADDRESS } from 'Constants/SystemMessages';

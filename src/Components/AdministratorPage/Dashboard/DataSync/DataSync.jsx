@@ -5,7 +5,7 @@ so that next_sync can be updated independently. Relevant components for this hav
 out with "TODO server-side".
 */
 
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, isNull, omit, orderBy, startsWith, toString } from 'lodash';
 import FA from 'react-fontawesome';

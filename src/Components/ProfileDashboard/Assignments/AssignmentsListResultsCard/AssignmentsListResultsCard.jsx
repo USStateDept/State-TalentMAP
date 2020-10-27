@@ -1,4 +1,3 @@
-import React from 'react';
 import { POSITION_DETAILS } from '../../../../Constants/PropTypes';
 import InformationDataPoint from '../../../ProfileDashboard/InformationDataPoint';
 import AssignmentsContent from './AssignmentsContent';

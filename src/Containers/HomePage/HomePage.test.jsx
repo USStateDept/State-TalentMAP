@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import sinon from 'sinon';
 import HomePage from './HomePage';
 import { DEFAULT_HOME_PAGE_POSITIONS } from '../../Constants/DefaultProps';
