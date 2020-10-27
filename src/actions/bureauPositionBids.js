@@ -25,6 +25,25 @@ export function bureauPositionBidsFetchDataSuccess(bids) {
   };
 }
 
+export function bureauPositionBidsAllHasErrored(bool) {
+  return {
+    type: 'BUREAU_POSITION_BIDS_ALL_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bureauPositionBidsAllIsLoading(bool) {
+  return {
+    type: 'BUREAU_POSITION_BIDS_ALL_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bureauPositionBidsAllFetchDataSuccess(bids) {
+  return {
+    type: 'BUREAU_POSITION_BIDS_ALL_FETCH_DATA_SUCCESS',
+    bids,
+  };
+}
+
 export function bureauPositionBidsRankingHasErrored(bool) {
   return {
     type: 'BUREAU_POSITION_BIDS_RANKING_HAS_ERRORED',
@@ -79,6 +98,25 @@ export function bureauBidsFetchData(id, query = {}) {
       .catch(() => {
         dispatch(bureauPositionBidsHasErrored(true));
         dispatch(bureauPositionBidsIsLoading(false));
+      });
+  };
+}
+
+export function bureauBidsAllFetchData(id) {
+  return (dispatch) => {
+    dispatch(bureauPositionBidsAllIsLoading(true));
+    dispatch(bureauPositionBidsAllHasErrored(false));
+    api()
+      .get(`/fsbid/bureau/positions/${id}/bids/`)
+      .then(({ data }) => data || [])
+      .then((bids) => {
+        dispatch(bureauPositionBidsAllFetchDataSuccess(bids));
+        dispatch(bureauPositionBidsAllHasErrored(false));
+        dispatch(bureauPositionBidsAllIsLoading(false));
+      })
+      .catch(() => {
+        dispatch(bureauPositionBidsAllHasErrored(true));
+        dispatch(bureauPositionBidsAllIsLoading(false));
       });
   };
 }

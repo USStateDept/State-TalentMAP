@@ -64,7 +64,7 @@ class PositionManagerBidders extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      shortList: this.getItems(rankedBids(props.bids, props.ranking), 'shortList'),
+      shortList: this.getItems(rankedBids(props.allBids, props.ranking), 'shortList'),
       unranked: this.getItems(unrankedBids(props.bids, props.ranking), 'unranked'),
       hasLoaded: false,
       rankingUpdate: Date.now(), // track when the user performs an action
@@ -79,7 +79,7 @@ class PositionManagerBidders extends Component {
       this.setState({ hasLoaded: true });
     }
     this.setState({
-      shortList: this.getItems(rankedBids(nextProps.bids, nextProps.ranking), 'shortList', nextProps),
+      shortList: this.getItems(rankedBids(nextProps.allBids, nextProps.ranking), 'shortList', nextProps),
       unranked: this.getItems(unrankedBids(nextProps.bids, nextProps.ranking), 'unranked', nextProps),
     });
   }
@@ -192,7 +192,7 @@ class PositionManagerBidders extends Component {
       Grade: get(m, 'grade', NO_GRADE),
       Language: get(m, 'language'),
       TED: formattedTed,
-      CDO: <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} />,
+      CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
     };
 
     if (props.bidsIsLoading) {
@@ -240,7 +240,7 @@ class PositionManagerBidders extends Component {
     };
 
     render() {
-      const { bids, bidsIsLoading } = this.props;
+      const { bids, bidsIsLoading, filtersSelected, filters } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
       const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
@@ -255,7 +255,7 @@ class PositionManagerBidders extends Component {
               // eslint-disable-next-line no-nested-ternary
               bidsIsLoading && !hasLoaded ? 'Loading...' :
                 (
-                  !bids.length ?
+                  !bids.length && !filtersSelected && !bidsIsLoading ?
                     <Alert type="info" title="There are no bids on this position" />
                     :
                     <>
@@ -313,6 +313,7 @@ class PositionManagerBidders extends Component {
                         <SelectForm
                           id="sort"
                           label="Sort by:"
+                          defaultSort={filters.ordering || ''}
                           options={BUREAU_BIDDER_SORT.options}
                           disabled={false}
                           onSelectOption={e => this.props.onSort(e.target.value)}
@@ -321,7 +322,7 @@ class PositionManagerBidders extends Component {
                           id="filter"
                           options={BUREAU_BIDDER_FILTERS.options}
                           label="Filter By:"
-                          defaultSort={''}
+                          defaultSort={filters.handshake_code || ''}
                           disabled={false}
                           onSelectOption={e => this.props.onFilter('handshake_code', e.target.value)}
                         />
@@ -392,6 +393,12 @@ PositionManagerBidders.propTypes = {
   onFilter: PropTypes.func,
   ranking: PropTypes.arrayOf(PropTypes.shape({})),
   setRanking: PropTypes.func,
+  filtersSelected: PropTypes.bool,
+  filters: PropTypes.shape({
+    handshake_code: PropTypes.string,
+    ordering: PropTypes.string,
+  }),
+  allBids: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 PositionManagerBidders.defaultProps = {
@@ -401,6 +408,9 @@ PositionManagerBidders.defaultProps = {
   onFilter: EMPTY_FUNCTION,
   ranking: [],
   setRanking: EMPTY_FUNCTION,
+  filtersSelected: false,
+  filters: {},
+  allBids: [],
 };
 
 export default PositionManagerBidders;

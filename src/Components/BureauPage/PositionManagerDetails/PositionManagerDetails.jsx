@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { get, identity, pickBy } from 'lodash';
+import { get, identity, keys, pickBy } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -11,7 +11,7 @@ import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
-import { bureauBidsFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
+import { bureauBidsFetchData, bureauBidsAllFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import PositionManagerBidders from '../PositionManagerBidders';
 
@@ -41,12 +41,8 @@ class PositionManagerDetails extends Component {
 
   onSort = sort => {
     this.setState({ ordering: sort }, () => {
-      const { id, ordering, filters } = this.state;
-      const query = {
-        ...filters,
-        ordering,
-      };
-      this.props.getBids(id, query);
+      this.props.getAllBids();
+      this.props.getBidsRanking(this.state.id);
     });
   }
 
@@ -55,12 +51,8 @@ class PositionManagerDetails extends Component {
     filters[f] = v;
     filters = pickBy(filters, identity);
     this.setState({ filters }, () => {
-      const { id, ordering } = this.state;
-      const query = {
-        ...filters,
-        ordering,
-      };
-      this.props.getBids(id, query);
+      this.getPositionBids();
+      this.props.getBidsRanking(this.state.id);
     });
   }
 
@@ -71,6 +63,7 @@ class PositionManagerDetails extends Component {
       ordering,
     };
     this.props.getBids(id, query);
+    this.props.getAllBids(id, query);
   }
 
   setRanking = ranking => {
@@ -95,12 +88,16 @@ class PositionManagerDetails extends Component {
   };
 
   render() {
-    const { isLoading, hasLoaded } = this.state;
-    const { bids, bidsIsLoading, bureauPositionIsLoading, bureauPosition, ranking } = this.props;
+    const { isLoading, hasLoaded, filters, ordering } = this.state;
+    const { allBids, allBidsIsLoading, bids, bidsIsLoading, bureauPositionIsLoading,
+      bureauPosition, ranking, rankingIsLoading } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
     const title = get(bureauPosition, 'position.title');
+    const filtersSelected = !!keys(filters).length;
+    const filters$ = { ...filters, ordering };
+    const isLoading$ = bidsIsLoading || allBidsIsLoading || rankingIsLoading;
 
     return (
       <div className="usa-grid-full profile-content-container position-manager-details">
@@ -143,9 +140,12 @@ class PositionManagerDetails extends Component {
                       bids={bids}
                       onSort={this.onSort}
                       onFilter={this.onFilter}
-                      bidsIsLoading={bidsIsLoading}
+                      bidsIsLoading={isLoading$}
                       ranking={ranking}
                       setRanking={this.setRanking}
+                      filtersSelected={filtersSelected}
+                      filters={filters$}
+                      allBids={allBids}
                     />
                   </div>
                 </div>
@@ -159,6 +159,7 @@ class PositionManagerDetails extends Component {
 
 PositionManagerDetails.propTypes = {
   getBids: PropTypes.func.isRequired,
+  getAllBids: PropTypes.func.isRequired,
   bids: PropTypes.arrayOf(PropTypes.shape({})),
   bidsIsLoading: PropTypes.bool,
   getPositionDetails: PropTypes.func.isRequired,
@@ -167,6 +168,9 @@ PositionManagerDetails.propTypes = {
   bureauPosition: POSITION_DETAILS,
   ranking: PropTypes.arrayOf(PropTypes.shape({})),
   setRanking: PropTypes.func.isRequired,
+  allBids: PropTypes.arrayOf(PropTypes.shape({})),
+  allBidsIsLoading: PropTypes.bool,
+  rankingIsLoading: PropTypes.bool,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -175,6 +179,9 @@ PositionManagerDetails.defaultProps = {
   bureauPositionIsLoading: false,
   bureauPosition: {},
   ranking: [],
+  allBids: [],
+  allBidsIsLoading: false,
+  rankingIsLoading: false,
 };
 
 const mapStateToProps = (state) => ({
@@ -183,10 +190,14 @@ const mapStateToProps = (state) => ({
   bureauPositionIsLoading: state.bureauPositionDetailsIsLoading,
   bureauPosition: state.bureauPositionDetails,
   ranking: state.bureauPositionBidsRanking,
+  allBids: state.bureauPositionBidsAll,
+  allBidsIsLoading: state.bureauPositionBidsAllIsLoading,
+  rankingIsLoading: state.bureauPositionBidsRankingIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
   getBids: (id, query) => dispatch(bureauBidsFetchData(id, query)),
+  getAllBids: (id, query) => dispatch(bureauBidsAllFetchData(id, query)),
   getBidsRanking: id => dispatch(bureauBidsRankingFetchData(id)),
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
   downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),

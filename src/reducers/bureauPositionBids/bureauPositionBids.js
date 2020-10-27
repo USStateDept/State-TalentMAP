@@ -23,6 +23,31 @@ export function bureauPositionBids(state = [], action) {
   }
 }
 
+export function bureauPositionBidsAllHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BUREAU_POSITION_BIDS_ALL_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bureauPositionBidsAllIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BUREAU_POSITION_BIDS_ALL_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bureauPositionBidsAll(state = [], action) {
+  switch (action.type) {
+    case 'BUREAU_POSITION_BIDS_ALL_FETCH_DATA_SUCCESS':
+      return action.bids;
+    default:
+      return state;
+  }
+}
+
 export function bureauPositionBidsRankingHasErrored(state = false, action) {
   switch (action.type) {
     case 'BUREAU_POSITION_BIDS_RANKING_HAS_ERRORED':
