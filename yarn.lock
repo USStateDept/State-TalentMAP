@@ -2069,9 +2069,9 @@
   dependencies:
     "@types/yargs-parser" "*"
 
-"@vxna/mini-html-webpack-template@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@vxna/mini-html-webpack-template/-/mini-html-webpack-template-1.0.0.tgz#66ce883b6e6678e1242ab51da04be21d3f1001bc"
+"@vxna/mini-html-webpack-template@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@vxna/mini-html-webpack-template/-/mini-html-webpack-template-2.0.0.tgz#79b012b3385a6f01ae54ef50a3c99dda64d2a29a"
   dependencies:
     common-tags "^1.8.0"
 
@@ -9040,11 +9040,11 @@ min-indent@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
 
-mini-html-webpack-plugin@^2.0.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/mini-html-webpack-plugin/-/mini-html-webpack-plugin-2.2.1.tgz#49bedc63fedde1cdedd9b604bd9f729fb267ae7f"
+mini-html-webpack-plugin@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/mini-html-webpack-plugin/-/mini-html-webpack-plugin-3.1.3.tgz#25ad501dd16ba47ef67aaa9637ce6b1e4b7a1344"
   dependencies:
-    webpack-sources "^1.3.0"
+    webpack-sources "^2.0.1"
 
 minimalistic-assert@^1.0.0, minimalistic-assert@^1.0.1:
   version "1.0.1"
@@ -11146,12 +11146,12 @@ react-sticky@^6.0.3:
     prop-types "^15.5.8"
     raf "^3.3.0"
 
-react-styleguidist@^11.1.0:
-  version "11.1.0"
-  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-11.1.0.tgz#25a9f98a70c0d062b1646b244b5f338a089babec"
+react-styleguidist@^11.1.1:
+  version "11.1.1"
+  resolved "https://registry.yarnpkg.com/react-styleguidist/-/react-styleguidist-11.1.1.tgz#d9c474fe90ba3b70ce77cb0e14ac9fab76492b42"
   dependencies:
     "@tippyjs/react" "4.1.0"
-    "@vxna/mini-html-webpack-template" "^1.0.0"
+    "@vxna/mini-html-webpack-template" "^2.0.0"
     acorn "^6.4.1"
     acorn-jsx "^5.1.0"
     ast-types "~0.13.2"
@@ -11189,7 +11189,7 @@ react-styleguidist@^11.1.0:
     lodash "^4.17.15"
     lowercase-keys "^2.0.0"
     markdown-to-jsx "^6.11.4"
-    mini-html-webpack-plugin "^2.0.0"
+    mini-html-webpack-plugin "^3.1.3"
     mri "^1.1.4"
     ora "^4.0.2"
     prismjs "^1.17.1"
@@ -12582,7 +12582,7 @@ sort-keys@^2.0.0:
   dependencies:
     is-plain-obj "^1.0.0"
 
-source-list-map@^2.0.0:
+source-list-map@^2.0.0, source-list-map@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.1.tgz#3993bd873bfc48479cca9ea3a547835c7c154b34"
 
@@ -14146,6 +14146,13 @@ webpack-sources@^1.0.1, webpack-sources@^1.1.0, webpack-sources@^1.3.0, webpack-
   dependencies:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
+
+webpack-sources@^2.0.1:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/webpack-sources/-/webpack-sources-2.1.0.tgz#0d6d309f5e048e445d34e22c07073a238ca12730"
+  dependencies:
+    source-list-map "^2.0.1"
+    source-map "^0.6.1"
 
 webpack@^4.44.2:
   version "4.44.2"
