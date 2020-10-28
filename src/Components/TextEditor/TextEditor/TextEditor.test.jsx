@@ -2,7 +2,6 @@
 
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import React from 'react';
 import { createEditorStateWithText } from 'draft-js-plugins-editor'; // for mocking draftjs editor state
 import TextEditor from './TextEditor';
 

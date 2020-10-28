@@ -858,4 +858,26 @@ $cdo-search-container-padding: 10px;
 .cdo-autosuggest > .picky {
   width: 250px;
 }
+
+.portfolio-filter-pills-container {
+  .selections-container {
+    margin-right: 10px;
+  }
+  .usa-grid-full {
+    display: inline;
+  }
+  .usa-grid-full > * {
+    display: inline;
+  }
+  .reset-filters-container {
+    span {
+      color: $primary-blue;
+    .fa-times {
+      color: $color-red;
+      margin-right: 5px;
+    }
+    }
+  }
+}
+
 // scss-lint:enable SelectorFormat

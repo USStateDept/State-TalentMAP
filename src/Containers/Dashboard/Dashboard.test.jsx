@@ -1,4 +1,3 @@
-import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import MockTestProvider from '../../testUtilities/MockProvider';

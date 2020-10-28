@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { get, identity, keys, pickBy } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

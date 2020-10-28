@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ReactMarkdown from 'react-markdown';
 import MediaQuery from '../MediaQuery';
 

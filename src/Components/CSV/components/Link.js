@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react';
+import { Component } from 'react';
 import { buildURI, toCSV } from '../core';
 import {
   defaultProps as commonDefaultProps,
@@ -10,7 +10,7 @@ import {
  *
  * @example ../../sample-site/csvlink.example.md
  */
-class CSVLink extends React.Component {
+class CSVLink extends Component {
   static defaultProps = commonDefaultProps;
   static propTypes = commonPropTypes;
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { GLOSSARY_ERROR_OBJECT } from '../../../Constants/PropTypes';
 import ErrorMessage from './ErrorMessage';

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import { APPROVED_PROP, DRAFT_PROP, SUBMITTED_PROP } from 'Constants/BidData';
 import BidTrackerCardTitle from './BidTrackerCardTitle';

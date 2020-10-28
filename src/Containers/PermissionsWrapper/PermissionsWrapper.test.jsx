@@ -1,4 +1,3 @@
-import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';

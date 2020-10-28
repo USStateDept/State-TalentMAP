@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';

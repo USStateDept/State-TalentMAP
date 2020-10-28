@@ -1,4 +1,3 @@
-import React from 'react';
 import { indexOf } from 'lodash';
 import CheckBox from '../../CheckBox';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';

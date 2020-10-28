@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT,

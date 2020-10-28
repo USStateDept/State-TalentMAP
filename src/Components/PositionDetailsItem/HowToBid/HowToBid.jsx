@@ -1,5 +1,3 @@
-import React from 'react';
-
 const HowToBid = () => (
   <div className="position-details-contact how-to-bid">
     <div className="contact-container">

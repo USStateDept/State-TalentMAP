@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import { get } from 'lodash';
 import DataSync, { parseDate } from './DataSync';
