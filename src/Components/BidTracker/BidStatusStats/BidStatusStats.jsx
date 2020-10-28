@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { DRAFT_PROP, BID_TRACKER_SUBMITTED_ACTIVE_STATUSES } from 'Constants/BidData';
 import { BID_RESULTS } from 'Constants/PropTypes';

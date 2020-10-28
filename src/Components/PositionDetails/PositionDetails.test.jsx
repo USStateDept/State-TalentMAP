@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import PositionDetails from './PositionDetails';
 import detailsObject from '../../__mocks__/detailsObject';
 

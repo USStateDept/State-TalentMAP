@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { usePrevious } from 'hooks';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

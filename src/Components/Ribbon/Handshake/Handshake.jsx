@@ -1,4 +1,3 @@
-import React from 'react';
 import Ribbon from '../Ribbon';
 
 const Handshake = ({ ...props }) => (

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 

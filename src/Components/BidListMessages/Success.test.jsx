@@ -1,6 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
-import toJSON from 'enzyme-to-json';
 import Success from './Success';
 import detailsObject from '../../__mocks__/detailsObject';
 

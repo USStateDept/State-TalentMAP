@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import PositionDetailsContact from './PositionDetailsContact';
 import detailsObject from '../../../__mocks__/detailsObject';

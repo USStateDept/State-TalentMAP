@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { BID_STATISTICS_OBJECT } from '../../Constants/PropTypes';
 import BidStatList from './BidStatList';

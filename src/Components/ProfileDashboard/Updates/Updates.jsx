@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import FA from 'react-fontawesome';
 import StaticDevContent from 'Components/StaticDevContent';
 import CheckboxList from 'Components/BidderPortfolio/CheckboxList';

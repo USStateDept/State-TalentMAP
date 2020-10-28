@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import BooleanFilter from '../BooleanFilter/BooleanFilter';
 import FieldSet from '../../FieldSet/FieldSet';

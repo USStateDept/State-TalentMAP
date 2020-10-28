@@ -1,4 +1,3 @@
-import React from 'react';
 import { USER_PROFILE } from '../../../../Constants/PropTypes';
 import { NO_BIRTHDAY } from '../../../../Constants/SystemMessages';
 import InformationDataPoint from '../../InformationDataPoint';

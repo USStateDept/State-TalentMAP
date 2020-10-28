@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';

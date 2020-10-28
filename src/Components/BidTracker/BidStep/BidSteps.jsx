@@ -1,4 +1,3 @@
-import React from 'react';
 import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
 import PropTypes from 'prop-types';

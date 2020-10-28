@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { SPECIAL_NEEDS } from 'Constants/EndpointParams';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
@@ -19,12 +19,10 @@ export class Trigger extends Component {
 
   render() {
     const { children, isPrimary } = this.props;
-    return (
-      React.cloneElement(children, {
-        onClick: this.onClick,
-        id: isPrimary ? ID : undefined,
-      })
-    );
+    return cloneElement(children, {
+      onClick: this.onClick,
+      id: isPrimary ? ID : undefined,
+    });
   }
 }
 

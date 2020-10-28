@@ -1,4 +1,3 @@
-import React from 'react';
 import { omit, pick } from 'lodash';
 import SetType from './SetType';
 

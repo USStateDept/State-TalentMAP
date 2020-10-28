@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import InformationDataPoint from '../../InformationDataPoint';
 import { getTimeDistanceInWords } from '../../../../utilities';

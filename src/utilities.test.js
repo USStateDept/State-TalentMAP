@@ -47,6 +47,7 @@ import { validStateEmail,
   downloadFromResponse,
   anyToTitleCase,
   stopProp,
+  move,
 } from './utilities';
 import { searchObjectParent } from './__mocks__/searchObject';
 
@@ -895,5 +896,13 @@ describe('scrollToGlossaryTerm', () => {
       expect(getBidListStats(bidList, ['b'], true)).toBe('10');
       expect(getBidListStats(bidList, statuses, true)).toBe('19');
     });
+  });
+});
+
+describe('move', () => {
+  it('moves an item in an array', () => {
+    const arr = [1, 2, 3];
+    const exp = move(arr, 0, 1);
+    expect(exp).toEqual([2, 1, 3]);
   });
 });

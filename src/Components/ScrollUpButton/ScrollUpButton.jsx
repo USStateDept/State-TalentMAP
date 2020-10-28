@@ -1,4 +1,3 @@
-import React from 'react';
 import { TinyButton } from 'react-scroll-up-button';
 
 // style is the only way to override most defaults
