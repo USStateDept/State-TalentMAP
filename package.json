@@ -48,6 +48,7 @@
     "rc-steps": "^3.4.1",
     "react": "^16.14.0",
     "react-autosuggest": "^9.4.3",
+    "react-beautiful-dnd": "^13.0.0",
     "react-copy-to-clipboard": "^5.0.2",
     "react-countup": "3.0.3",
     "react-day-picker": "^7.4.8",
