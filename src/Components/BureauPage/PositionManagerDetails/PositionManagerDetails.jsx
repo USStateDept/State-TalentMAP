@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import BackButton from 'Components/BackButton';
 import PositionDetailsItem from 'Components/PositionDetailsItem';
-import ExportButton from 'Components/ExportButton';
 import OBCUrl from 'Components/OBCUrl';
 import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
@@ -13,6 +12,7 @@ import { NO_POST } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import { bureauBidsFetchData, bureauBidsAllFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
+import ExportButton from '../ExportButton';
 import PositionManagerBidders from '../PositionManagerBidders';
 
 class PositionManagerDetails extends Component {
@@ -71,24 +71,8 @@ class PositionManagerDetails extends Component {
     this.props.setRanking(this.state.id, ranking$);
   }
 
-  exportBidders = () => {
-    const { id, ordering, filters } = this.state;
-    const query = {
-      ...filters,
-      ordering,
-    };
-    this.setState({ isLoading: true });
-    downloadBidderData(id, query)
-      .then(() => {
-        this.setState({ isLoading: false });
-      })
-      .catch(() => {
-        this.setState({ isLoading: false });
-      });
-  };
-
   render() {
-    const { isLoading, hasLoaded, filters, ordering } = this.state;
+    const { id, hasLoaded, filters, ordering } = this.state;
     const { allBids, allBidsIsLoading, bids, bidsIsLoading, bureauPositionIsLoading,
       bureauPosition, ranking, rankingIsLoading } = this.props;
     const isProjectedVacancy = false;
@@ -113,7 +97,7 @@ class PositionManagerDetails extends Component {
                     </div>
                     <div className="right-col">
                       <div className="export-button-container">
-                        <ExportButton onClick={this.exportBidders} isLoading={isLoading} />
+                        <ExportButton id={id} ordering={ordering} filters={filters} />
                       </div>
                     </div>
                   </div>
