@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import BidStatus from './BidStatus';
 import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED, HAND_SHAKE_OFFERED,

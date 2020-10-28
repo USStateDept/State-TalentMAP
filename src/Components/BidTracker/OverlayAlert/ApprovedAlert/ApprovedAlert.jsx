@@ -1,4 +1,3 @@
-import React from 'react';
 import StaticDevContent from '../../../StaticDevContent';
 
 // TODO - need to add PCS Travel link

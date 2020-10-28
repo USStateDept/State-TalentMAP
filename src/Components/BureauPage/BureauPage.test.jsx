@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';

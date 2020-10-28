@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
 import { USER_PROFILE } from '../../../Constants/PropTypes';

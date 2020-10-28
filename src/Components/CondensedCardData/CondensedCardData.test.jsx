@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import CondensedCardData from './CondensedCardData';
 import resultsObject from '../../__mocks__/resultsObject';

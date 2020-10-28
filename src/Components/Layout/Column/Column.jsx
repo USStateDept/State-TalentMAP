@@ -1,4 +1,3 @@
-import React from 'react';
 import { merge, isNumber, isString } from 'lodash';
 import Base from '../Base';
 

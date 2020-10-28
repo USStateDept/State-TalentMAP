@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import mappedRoutesArray from './RoutesMap';

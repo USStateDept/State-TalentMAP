@@ -1,4 +1,3 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
 import Profile, { mapDispatchToProps } from './Profile';

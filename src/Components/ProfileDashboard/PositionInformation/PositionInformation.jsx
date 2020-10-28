@@ -1,4 +1,3 @@
-import React from 'react';
 import { formatDate, propOrDefault } from '../../../utilities';
 import { ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
 import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE, NO_SKILL, NO_BUREAU } from '../../../Constants/SystemMessages';

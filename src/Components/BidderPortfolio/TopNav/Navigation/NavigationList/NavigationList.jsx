@@ -1,4 +1,3 @@
-import React from 'react';
 import { BIDDER_PORTFOLIO_COUNTS } from '../../../../../Constants/PropTypes';
 import NavigationItem from '../NavigationItem';
 

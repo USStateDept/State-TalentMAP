@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React from 'react';
+import { Component } from 'react';
 import {buildURI} from '../core';
 import {
    defaultProps as commonDefaultProps,
@@ -12,7 +12,7 @@ const defaultProps = {
  *
  * @example ../../sample-site/csvdownload.example.md
  */
-class CSVDownload extends React.Component {
+class CSVDownload extends Component {
 
   static defaultProps = Object.assign(
     commonDefaultProps,

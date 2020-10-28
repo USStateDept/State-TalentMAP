@@ -1,4 +1,3 @@
-import React from 'react';
 import sinon from 'sinon';
 import TestUtils from 'react-dom/test-utils';
 import { Provider } from 'react-redux';

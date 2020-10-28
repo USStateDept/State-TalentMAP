@@ -1,4 +1,3 @@
-import React from 'react';
 import createLoader from '../../Components/Loadable';
 
 export const path = () => import('./BidCycles');
