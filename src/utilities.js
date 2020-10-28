@@ -823,3 +823,10 @@ export function getBidListStats(bidList, statuses, padWithZero) {
 }
 
 export const isOnProxy = () => !!includes(get(window, 'location.host'), 'msappproxy');
+
+export function move(arr, fromIndex, toIndex) {
+  const element = arr[fromIndex];
+  arr.splice(fromIndex, 1);
+  arr.splice(toIndex, 0, element);
+  return arr;
+}

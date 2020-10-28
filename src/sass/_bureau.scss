@@ -359,12 +359,41 @@
 
 .position-manager-bidders {
   margin-top: 50px;
+
+  .list-toggle-container {
+    display: flex;
+
+    .interactive-element {
+      margin: 2em .4em .5em 0;
+    }
+  }
+
   table {
     margin: 0;
     width: 100%;
+
+    .is-dragging {
+      td {
+        background-color: $primary-alt-lightest;
+      }
+    }
+
     thead {
       tr {
+        display: flex;
+
+        th:first-of-type {
+          flex: 2
+        }
+
+        th:nth-of-type(4) {
+          flex: 1
+        }
+
         th {
+          display: flex; // fixes IE11
+          justify-content: center; // fixes IE11
+          flex: 4;
           text-align: center;
           border: none;
           background-color: $color-white;
@@ -387,7 +416,27 @@
     }
     tbody {
       border: 1px solid black;
+
+      > div {
+        min-height: 100px;
+      }
+
+      tr {
+        display: flex;
+      }
+
+      td:first-of-type {
+        flex: 2
+      }
+
+      td:nth-of-type(4) {
+        flex: 1
+      }
+
       td {
+        display: flex; // fixes IE11
+        justify-content: center; // fixes IE11
+        flex: 4;
         text-align: center;
         border-top: none;
         border-right: none;
@@ -408,6 +457,12 @@
         }
       }
     }
+  }
+}
+
+.position-manager-bidders:not(:first-of-type) {
+  h3 {
+    margin-top: .3em;
   }
 }
 
@@ -452,8 +507,10 @@
 }
 
 .bidders-controls {
+  border-top: 1px solid $color-gray-lighter;
   display: flex;
   justify-content: flex-end;
+  margin-top: 2em;
 
   div:first-child {
     margin-right: 5px;
