@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

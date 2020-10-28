@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { isValidElement, cloneElement, Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { difference, get, intersection } from 'lodash';
@@ -150,8 +150,8 @@ class NotificationsContainer extends Component {
       selectionsExist,
     };
     let toReturn = null;
-    if (React.isValidElement(children)) {
-      toReturn = React.cloneElement(children, props);
+    if (isValidElement(children)) {
+      toReturn = cloneElement(children, props);
     } else if (typeof children === 'function') {
       toReturn = this.props.children({
         props: this.props,

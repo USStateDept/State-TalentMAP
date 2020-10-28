@@ -1,4 +1,3 @@
-import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';

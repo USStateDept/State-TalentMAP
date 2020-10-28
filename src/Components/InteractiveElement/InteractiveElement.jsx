@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { ifEnter } from '../../utilities';

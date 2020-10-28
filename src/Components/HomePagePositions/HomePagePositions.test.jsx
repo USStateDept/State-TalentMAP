@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import React from 'react';
 import HomePagePositions from './HomePagePositions';
 import bidListObject from '../../__mocks__/bidListObject';
 

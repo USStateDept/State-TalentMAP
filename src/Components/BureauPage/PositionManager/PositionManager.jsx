@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
@@ -114,11 +114,11 @@ const PositionManager = props => {
 
   // Rerender and action on user selections
   useEffect(() => {
-    if (page === 1 && prevPage) {
+    if (prevPage) {
       props.fetchBureauPositions(query);
       props.saveSelections(currentInputs);
+      setPage(1);
     }
-    setPage(1);
   }, [
     selectedGrades,
     selectedSkills,

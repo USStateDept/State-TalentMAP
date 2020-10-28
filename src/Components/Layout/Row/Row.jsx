@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { merge } from 'lodash';
 import Base from '../Base';

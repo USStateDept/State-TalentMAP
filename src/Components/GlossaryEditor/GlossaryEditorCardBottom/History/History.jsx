@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { formatDate } from '../../../../utilities';
 import ArchiveIcon from '../../ArchiveIcon';

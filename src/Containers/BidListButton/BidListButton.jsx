@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { SetType, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';

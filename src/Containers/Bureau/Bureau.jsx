@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import BureauPage from '../../Components/BureauPage';
 
 class BureauContainer extends Component {

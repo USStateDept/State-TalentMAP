@@ -50,6 +50,11 @@
     .small-screen-stack {
       flex-wrap: wrap;
       float: none;
+      .filter-div {
+        .label {
+          min-width: 75px;
+        }
+      }
     }
     .small-screen-stack > div {
       flex-basis: 45%;
@@ -153,6 +158,9 @@
 
   .bid-count-container {
     margin: 0 0 0 auto;
+    .bid-count-label {
+      font-size: 15px;
+    }
   }
 
   .bureau-card--header {
@@ -209,8 +217,8 @@
       }
 
       dt {
-        color: $primary-gray-dark;
-        font-size: .85em;
+        color: $color-black;
+        font-size: 1.5rem;
         margin-bottom: .5em;
       }
     }

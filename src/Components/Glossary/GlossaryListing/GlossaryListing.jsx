@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { get, groupBy, trim } from 'lodash';
 import Accordion, { AccordionItem } from '../../Accordion';
 import { GLOSSARY_ARRAY } from '../../../Constants/PropTypes';

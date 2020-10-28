@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import SearchBar from 'Components/SearchBar/SearchBar';

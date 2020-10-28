@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default (props) => {
   const { children } = props; // eslint-disable-line react/prop-types
   const style = {
