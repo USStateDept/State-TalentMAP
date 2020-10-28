@@ -25,6 +25,7 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
         className="filter-control-right"
       >
         <ResetFilters
+          clearText="Clear Filters"
           resetFilters={[Function]}
         />
       </div>
@@ -99,6 +100,7 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
         className="filter-control-right"
       >
         <ResetFilters
+          clearText="Clear Filters"
           resetFilters={[Function]}
         />
       </div>

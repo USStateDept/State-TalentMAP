@@ -93,6 +93,8 @@ class BidderPortfolio extends Component {
   // Form our query and then retrieve bidders.
   getBidderPortfolio(removePageandLimit) {
     const query = this.createSearchQuery(removePageandLimit);
+    // eslint-disable-next-line no-console
+    console.log('for final check query: ', query);
     this.props.fetchBidderPortfolio(query);
   }
 

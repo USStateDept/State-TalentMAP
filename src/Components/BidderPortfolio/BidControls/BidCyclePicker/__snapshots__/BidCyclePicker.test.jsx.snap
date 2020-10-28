@@ -14,6 +14,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
     dropdownHeight={600}
     filterDebounce={150}
     id="picky"
+    includeSelectAll={true}
     keepOpen={true}
     multiple={true}
     numberDisplayed={1}
