@@ -1,3 +1,5 @@
+import PropTypes from "../utilities";
+
 export const bidderUserObject = {
   emp_id: '1',
   employee_info: {
@@ -13,6 +15,10 @@ export const bidderUserObject = {
     ],
     grade: '00',
   },
+  user_info: {
+    office_address: '1234 Apple St. NW Washington, DC 20010',
+    office_phone: '202-876-5432',
+  },
   id: 1,
   grade: '03',
   skills: [63, 40],
@@ -26,6 +32,10 @@ export const bidderUserObject = {
   display_name: 'John',
   initials: 'JD',
   is_cdo: false,
+  employee_profile_url: {
+    internal: 'https://internal.com',
+    external: 'https://external.com',
+  },
   cdo: {
     username: 'shadtrachl',
     initials: 'LS',
