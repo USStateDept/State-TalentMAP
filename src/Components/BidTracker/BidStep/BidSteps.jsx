@@ -26,7 +26,11 @@ const BidSteps = (props, context) => {
   const { bid } = props;
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
+  // eslint-disable-next-line no-console
+  console.log('current: bidData:', bidData);
   const getIcon = (status) => {
+  // eslint-disable-next-line no-console
+    console.log('current: bidData[status.prop].tooltip:', bidData[status.prop].tooltip);
     const icon = (
       <BidStepIcon
         isComplete={bidData[status.prop].isComplete}
@@ -34,6 +38,7 @@ const BidSteps = (props, context) => {
         isCurrent={bidData[status.prop].isCurrent}
         number={bidData[status.prop].number}
         hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
+        tooltip={bidData[status.prop].tooltip}
       />
     );
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text

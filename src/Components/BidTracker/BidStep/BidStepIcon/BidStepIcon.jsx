@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
+import { get } from 'lodash';
 import RescheduledIcon from './RescheduledIcon';
 
 const assignClasses = (isComplete, needsAction, isCurrent) => {
@@ -20,8 +22,19 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
   return classes.join(' ');
 };
 
+const getTooltipText = (tooltip) => (
+  <span>
+    <div>
+      {get(tooltip, 'title', 'no title')}
+    </div>
+    <div>
+      {get(tooltip, 'text', 'no text')}
+    </div>
+  </span>
+);
+
 const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
-  hasRescheduledTooltip }) => (
+  hasRescheduledTooltip, tooltip }) => (
   <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
       ?
@@ -33,7 +46,23 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
         </span>
         { hasRescheduledTooltip && <RescheduledIcon />}
       </div> :
-      <FontAwesome name="check" /> }
+      <div>
+        { tooltip &&
+        <Tooltip
+          html={getTooltipText(tooltip)}
+          arrow
+          tabIndex="0"
+          interactive
+          interactiveBorder={5}
+          useContext
+        >
+          <span>
+            <FontAwesome name="check" />
+          </span>
+        </Tooltip>}
+      </div>
+    }
+
   </span>
 );
 
@@ -43,11 +72,19 @@ BidStepIcon.propTypes = {
   isCurrent: PropTypes.bool.isRequired,
   number: PropTypes.number,
   hasRescheduledTooltip: PropTypes.bool,
+  tooltip: PropTypes.shape({
+    title: PropTypes.string,
+    text: PropTypes.string,
+  }),
 };
 
 BidStepIcon.defaultProps = {
   number: 0,
   hasRescheduledTooltip: false,
+  tooltip: PropTypes.shape({
+    title: '',
+    text: '',
+  }),
 };
 
 export default BidStepIcon;
