@@ -22,19 +22,19 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
   return classes.join(' ');
 };
 
-const getTooltipText = (tooltip) => (
-  <span>
-    <div>
-      {get(tooltip, 'title', 'no title')}
+const getTooltipText = (a, b) => (
+  <div className={'bidtracker-status-tooltip'}>
+    <div className={'tooltip-title'}>
+      {a}
     </div>
-    <div>
-      {get(tooltip, 'text', 'no text')}
+    <div className={'tooltip-text'}>
+      {b}
     </div>
-  </span>
+  </div>
 );
 
 const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
-  hasRescheduledTooltip, tooltip }) => (
+  hasRescheduledTooltip, tooltipTitle, tooltipText }) => (
   <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
       ?
@@ -45,24 +45,35 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
           {number > 0 ? number : null}
         </span>
         { hasRescheduledTooltip && <RescheduledIcon />}
+        { !hasRescheduledTooltip && tooltipTitle && tooltipText &&
+          <Tooltip
+            html={getTooltipText(tooltipTitle, tooltipText)}
+            arrow
+            tabIndex="0"
+            interactive
+            interactiveBorder={5}
+            useContext
+          />
+        }
       </div> :
       <div>
-        { tooltip &&
-        <Tooltip
-          html={getTooltipText(tooltip)}
-          arrow
-          tabIndex="0"
-          interactive
-          interactiveBorder={5}
-          useContext
-        >
-          <span>
+        { tooltipTitle && tooltipText
+          ?
+          <Tooltip
+            html={getTooltipText(tooltipTitle, tooltipText)}
+            arrow
+            tabIndex="0"
+            interactive
+            interactiveBorder={5}
+            useContext
+          >
             <FontAwesome name="check" />
-          </span>
-        </Tooltip>}
+          </Tooltip>
+          :
+          <FontAwesome name="check" />
+        }
       </div>
     }
-
   </span>
 );
 
@@ -72,19 +83,15 @@ BidStepIcon.propTypes = {
   isCurrent: PropTypes.bool.isRequired,
   number: PropTypes.number,
   hasRescheduledTooltip: PropTypes.bool,
-  tooltip: PropTypes.shape({
-    title: PropTypes.string,
-    text: PropTypes.string,
-  }),
+  tooltipTitle: PropTypes.string,
+  tooltipText: PropTypes.string,
 };
 
 BidStepIcon.defaultProps = {
   number: 0,
   hasRescheduledTooltip: false,
-  tooltip: PropTypes.shape({
-    title: '',
-    text: '',
-  }),
+  tooltipTitle: '',
+  tooltipText: '',
 };
 
 export default BidStepIcon;
