@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
-import { get } from 'lodash';
 import RescheduledIcon from './RescheduledIcon';
 
 const assignClasses = (isComplete, needsAction, isCurrent) => {
@@ -23,7 +22,7 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
 };
 
 const getTooltipText = (a, b) => (
-  <div className={'bidtracker-status-tooltip'}>
+  <div>
     <div className={'tooltip-title'}>
       {a}
     </div>
@@ -48,10 +47,10 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
         { !hasRescheduledTooltip && tooltipTitle && tooltipText &&
           <Tooltip
             html={getTooltipText(tooltipTitle, tooltipText)}
+            theme="bidtracker-status"
             arrow
             tabIndex="0"
             interactive
-            interactiveBorder={5}
             useContext
           />
         }
@@ -61,10 +60,10 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
           ?
           <Tooltip
             html={getTooltipText(tooltipTitle, tooltipText)}
+            theme="bidtracker-status"
             arrow
             tabIndex="0"
             interactive
-            interactiveBorder={5}
             useContext
           >
             <FontAwesome name="check" />

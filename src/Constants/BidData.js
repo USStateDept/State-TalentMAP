@@ -75,7 +75,7 @@ export const BID_TRACKER_SUBMITTED_ACTIVE_STATUSES = [
 
 export const BID_TRACKER_TOOLTIP_TEXT = {
   [DRAFT_PROP]: {
-    title: `What is "${GET_DRAFT_TITLE()}"?`,
+    title: `What is a "${GET_DRAFT_TITLE()}"?`,
     text: `"${GET_DRAFT_TITLE()}" are bids you have on your bid tracker but you haven’t submitted them for consideration.`,
   },
   [SUBMITTED_PROP]: {
