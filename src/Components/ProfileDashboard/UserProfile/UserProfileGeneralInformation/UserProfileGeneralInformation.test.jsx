@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import { bidderUserObject } from '../../../../__mocks__/userObject';
-// import { testDispatchFunctions } from '../../../../testUtilities/testUtilities';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 
 describe('UserProfileGeneralInformationComponent', () => {
