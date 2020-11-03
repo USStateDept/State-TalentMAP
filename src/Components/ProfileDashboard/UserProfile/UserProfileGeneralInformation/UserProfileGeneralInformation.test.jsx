@@ -1,24 +1,18 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { bidderUserObject } from '../../../../__mocks__/userObject';
-import {
-  expectMockWasCalled,
-  spyMockAdapter,
-  testDispatchFunctions,
-} from '../../../../testUtilities/testUtilities';
+import { testDispatchFunctions } from '../../../../testUtilities/testUtilities';
 import UserProfileGeneralInformation, { mapDispatchToProps } from './UserProfileGeneralInformation';
 
 describe('UserProfileGeneralInformationComponent', () => {
-  let mock;
-  let spy;
-  xit('is defined', () => {
+  it('is defined', () => {
     const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
       userProfile={bidderUserObject}
     />);
     expect(wrapper).toBeDefined();
   });
 
-  xit('renders current user name', () => {
+  it('renders current user name', () => {
     const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
       userProfile={bidderUserObject}
     />);
@@ -26,7 +20,7 @@ describe('UserProfileGeneralInformationComponent', () => {
       .props().title).toBe('Doe, John');
   });
 
-  xit('renders Avatar', () => {
+  it('renders Avatar', () => {
     const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
       userProfile={bidderUserObject}
       colorProp="displayName"
@@ -36,7 +30,7 @@ describe('UserProfileGeneralInformationComponent', () => {
     expect(wrapper.find('Avatar').props().initials).toBe('JD');
   });
 
-  xit('matches snapshot when showEditLink is true', () => {
+  it('matches snapshot when showEditLink is true', () => {
     const wrapper = shallow(
       <UserProfileGeneralInformation.WrappedComponent
         showEditLink
@@ -45,7 +39,7 @@ describe('UserProfileGeneralInformationComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  xit('matches snapshot when useGroup is true', () => {
+  it('matches snapshot when useGroup is true', () => {
     const wrapper = shallow(
       <UserProfileGeneralInformation.WrappedComponent
         useGroup
@@ -54,7 +48,7 @@ describe('UserProfileGeneralInformationComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  xdescribe('mapDispatchToProps', () => {
+  describe('mapDispatchToProps', () => {
     const config = {
       onToastError: ['CzHHiJ2kw'],
       onToastInfo: ['CzHHiJ2kw'],
@@ -63,17 +57,7 @@ describe('UserProfileGeneralInformationComponent', () => {
     testDispatchFunctions(mapDispatchToProps, config);
   });
 
-  it('get Employee Profile URL', (done) => {
-    ({ mock, spy } = spyMockAdapter({
-      url: 'HR/Employees/4/EmployeeProfileReportByCDO',
-      response: [200, { data: 'arraybuffer',
-        type: 'application/pdf' }],
-    })); mock();
-
-    expectMockWasCalled({ spy, cb: done });
-  });
-
-  xit('matches snapshot', () => {
+  it('matches snapshot', () => {
     const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
       userProfile={bidderUserObject}
     />);
