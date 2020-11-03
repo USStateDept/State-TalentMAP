@@ -66,6 +66,12 @@ class BidderPortfolioPage extends Component {
     const showEdit = editType.show;
 
     const hideControls = get(bidderPortfolio, 'results', []).length === 0 || !cdosLength;
+
+    let disableLink = false;
+    const total = get(bidderPortfolio, 'count');
+    if ((cdosLength === 0) || (cdosLength >= 1 && total === 0)) {
+      disableLink = true;
+    }
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
@@ -78,7 +84,7 @@ class BidderPortfolioPage extends Component {
               <StaticDevContent>
                 {isListView && !hideControls && <EditButtons onChange={this.changeEditType} />}
               </StaticDevContent>
-              <ExportLink />
+              <ExportLink disabled={disableLink} />
             </div>
           </div>
           {
