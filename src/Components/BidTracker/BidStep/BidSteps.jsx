@@ -26,11 +26,7 @@ const BidSteps = (props, context) => {
   const { bid } = props;
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
-  // eslint-disable-next-line no-console
-  console.log('current: bidData:', bidData);
   const getIcon = (status) => {
-  // eslint-disable-next-line no-console
-    console.log('current: bidData[status.prop].tooltip:', bidData[status.prop].tooltip);
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
     const tooltipText = get(bidData[status.prop], 'tooltip.text');
     const icon = (

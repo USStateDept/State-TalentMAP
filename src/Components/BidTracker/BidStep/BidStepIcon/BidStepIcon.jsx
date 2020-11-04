@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -21,60 +22,71 @@ const assignClasses = (isComplete, needsAction, isCurrent) => {
   return classes.join(' ');
 };
 
-const getTooltipText = (a, b) => (
+const getTooltipText = (title, text) => (
   <div>
-    <div className={'tooltip-title'}>
-      {a}
-    </div>
-    <div className={'tooltip-text'}>
-      {b}
-    </div>
+    <div className={'tooltip-title'}>{title}</div>
+    <div className={'tooltip-text'}>{text}</div>
   </div>
 );
 
-const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
-  hasRescheduledTooltip, tooltipTitle, tooltipText }) => (
-  <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
-    { !isComplete
-      ?
-      <div className="icon-container">
-        <span
-          className={assignClasses(isComplete, needsAction, isCurrent)}
+const getCheckIcon = (title, text, isCondensed) =>{
+  if(title && text && !isCondensed ) {
+    return (
+        <Tooltip
+            html={getTooltipText(title, text)}
+            theme="bidtracker-status"
+            arrow
+            tabIndex="0"
+            interactive
+            useContext
         >
-          {number > 0 ? number : null}
-        </span>
-        { hasRescheduledTooltip && <RescheduledIcon />}
-        { !hasRescheduledTooltip && tooltipTitle && tooltipText &&
-          <Tooltip
-            html={getTooltipText(tooltipTitle, tooltipText)}
-            theme="bidtracker-status"
-            arrow
-            tabIndex="0"
-            interactive
-            useContext
-          />
-        }
-      </div> :
-      <div>
-        { tooltipTitle && tooltipText
-          ?
-          <Tooltip
-            html={getTooltipText(tooltipTitle, tooltipText)}
-            theme="bidtracker-status"
-            arrow
-            tabIndex="0"
-            interactive
-            useContext
-          >
-            <FontAwesome name="check" />
-          </Tooltip>
-          :
           <FontAwesome name="check" />
-        }
-      </div>
-    }
+        </Tooltip>
+    )
+  }
+  return (
+      <FontAwesome name="check" />
+      )
+};
+
+const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
+  hasRescheduledTooltip, tooltipTitle, tooltipText }, { condensedView }) => (
+    <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
+    { !isComplete
+        ?
+        <div className="icon-container">
+          { tooltipTitle && tooltipText && !condensedView ?
+              <Tooltip
+                  html={getTooltipText(tooltipTitle, tooltipText)}
+                  theme="bidtracker-status"
+                  arrow
+                  tabIndex="0"
+                  interactive
+                  useContext
+              >
+              <span
+                  className={assignClasses(isComplete, needsAction, isCurrent)}
+              >
+                {number > 0 ? number : null}
+              </span>
+              </Tooltip>
+              :
+            <span
+                className={assignClasses(isComplete, needsAction, isCurrent)}
+            >
+              {number > 0 ? number : null}
+            </span>
+          }
+          { hasRescheduledTooltip && <RescheduledIcon />}
+        </div> :
+        getCheckIcon(tooltipTitle, tooltipText, condensedView)
+     }
   </span>
 );
+
+BidStepIcon.contextTypes = {
+  condensedView: PropTypes.bool,
+};
 
 BidStepIcon.propTypes = {
   isComplete: PropTypes.bool.isRequired,
