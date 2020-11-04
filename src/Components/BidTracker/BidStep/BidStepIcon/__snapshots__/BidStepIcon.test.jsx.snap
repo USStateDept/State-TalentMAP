@@ -1,66 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidStepIconComponent matches snapshot when isComplete is false 1`] = `
-<div>
-  <span
-    className="icon-incomplete"
+<span
+  className="icon-incomplete"
+>
+  <div
+    className="icon-container"
   >
-    <div
-      className="icon-container"
+    <span
+      className="number-icon number-icon-needs-action"
     >
-      <span
-        className="number-icon number-icon-needs-action"
-      >
-        3
-      </span>
-    </div>
-  </span>
-</div>
+      3
+    </span>
+  </div>
+</span>
 `;
 
 exports[`BidStepIconComponent matches snapshot when isComplete is false and hasRescheduledTooltip 1`] = `
-<div>
-  <span
-    className="icon-incomplete"
+<span
+  className="icon-incomplete"
+>
+  <div
+    className="icon-container"
   >
-    <div
-      className="icon-container"
+    <span
+      className="number-icon number-icon-needs-action"
     >
-      <span
-        className="number-icon number-icon-needs-action"
-      >
-        3
-      </span>
-      <PendingIcon />
-    </div>
-  </span>
-</div>
+      3
+    </span>
+    <PendingIcon />
+  </div>
+</span>
 `;
 
 exports[`BidStepIconComponent matches snapshot when isComplete is false and number is 0 1`] = `
-<div>
-  <span
-    className="icon-incomplete"
+<span
+  className="icon-incomplete"
+>
+  <div
+    className="icon-container"
   >
-    <div
-      className="icon-container"
-    >
-      <span
-        className="number-icon number-icon-needs-action"
-      />
-    </div>
-  </span>
-</div>
+    <span
+      className="number-icon number-icon-needs-action"
+    />
+  </div>
+</span>
 `;
 
 exports[`BidStepIconComponent matches snapshot when isComplete is true 1`] = `
-<div>
-  <span
-    className="icon-complete"
-  >
-    <FontAwesome
-      name="check"
-    />
-  </span>
-</div>
+<span
+  className="icon-complete"
+>
+  <FontAwesome
+    name="check"
+  />
+</span>
 `;
