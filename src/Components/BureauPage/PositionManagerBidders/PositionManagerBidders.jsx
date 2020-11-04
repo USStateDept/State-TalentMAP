@@ -261,7 +261,7 @@ class PositionManagerBidders extends Component {
                     <>
                       <div className="list-toggle-container">
                         <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('shortListVisible')}><FA name={shortListVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
-                        <h3>Short List</h3>
+                        <h3>Short List ({this.state.shortList.length})</h3>
                       </div>
                       {
                         shortListVisible &&
@@ -330,7 +330,7 @@ class PositionManagerBidders extends Component {
 
                       <div className="list-toggle-container">
                         <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('unrankedVisible')}><FA name={unrankedVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
-                        <h3>Candidates</h3>
+                        <h3>Candidates ({this.state.unranked.length})</h3>
                       </div>
                       {
                         unrankedVisible &&
