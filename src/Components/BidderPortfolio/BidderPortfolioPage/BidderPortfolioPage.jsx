@@ -69,7 +69,7 @@ class BidderPortfolioPage extends Component {
 
     let disableLink = false;
     const total = get(bidderPortfolio, 'count');
-    if ((cdosLength === 0) || (cdosLength >= 1 && total === 0)) {
+    if (cdosLength === 0 || total === 0) {
       disableLink = true;
     }
     return (
