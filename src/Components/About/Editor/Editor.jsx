@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { MarkdownEditor } from 'react-markdown-editor';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';

@@ -1,4 +1,3 @@
-import React from 'react';
 import { orderBy } from 'lodash';
 import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';

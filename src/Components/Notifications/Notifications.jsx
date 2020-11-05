@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
@@ -65,6 +64,7 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
                   isRead={n.is_read}
                   onCheck={onCheck}
                   checked={checked}
+                  meta={n.meta}
                 />
               );
             })}

@@ -12,8 +12,3 @@ exports[`Column matches snapshot 1`] = `
   />
 </Base>
 `;
-
-exports[`Column throws an error if the columns prop is not valid 1`] = `
-"Warning: Failed prop type: Invalid prop columns supplied to Column. Expects a string or number between 1 and 12.
-    in Column (at Column.test.jsx:43)"
-`;

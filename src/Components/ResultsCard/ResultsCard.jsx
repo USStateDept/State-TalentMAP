@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull, isNumber } from 'lodash';
@@ -107,6 +107,7 @@ class ResultsCard extends Component {
       favoritesTandem,
       favoritesPVTandem,
       isGroupEnd,
+      isNew,
     } = this.props;
     const { isProjectedVacancy, isClient } = this.context;
 
@@ -205,6 +206,7 @@ class ResultsCard extends Component {
     if (isTandem) cardClassArray.push('results-card--tandem');
     if (isTandem2) cardClassArray.push('results-card--tandem-two');
     if (isGroupEnd) cardClassArray.push('results-card--group-end');
+    if (isNew) cardClassArray.push('results-card--new');
     const cardClass = cardClassArray.join(' ');
 
     const headingTop =
@@ -359,6 +361,7 @@ ResultsCard.propTypes = {
   favoritesTandem: FAVORITE_POSITIONS_ARRAY,
   favoritesPVTandem: FAVORITE_POSITIONS_ARRAY,
   isGroupEnd: PropTypes.bool,
+  isNew: PropTypes.bool,
 };
 
 ResultsCard.defaultProps = {
@@ -367,6 +370,7 @@ ResultsCard.defaultProps = {
   favoritesTandem: [],
   favoritesPVTandem: [],
   isGroupEnd: false,
+  isNew: false,
 };
 
 export default ResultsCard;

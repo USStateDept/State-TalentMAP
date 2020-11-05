@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BidTrackerComponent renders appropriate class and matches snapshot when condensed 1`] = `
+<div
+  className="usa-grid-full bid-status-stats--condensed"
+>
+  Bids drafted: 
+  <div
+    className="bid-stat"
+  >
+    (
+    00
+    )
+  </div>
+  Bids submitted and active: 
+  <div
+    className="bid-stat"
+  >
+    (
+    00
+    )
+  </div>
+</div>
+`;
+
+exports[`BidTrackerComponent renders appropriate class and matches snapshot when not condensed 1`] = `
+<div
+  className="usa-grid-full bid-status-stats"
+>
+  Bids drafted: 
+  <div
+    className="bid-stat"
+  >
+    (
+    00
+    )
+  </div>
+  Bids submitted and active: 
+  <div
+    className="bid-stat"
+  >
+    (
+    00
+    )
+  </div>
+</div>
+`;

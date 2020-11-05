@@ -20,7 +20,9 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       >
         Proxy CDO View:
       </div>
-      <Connect(CDOAutoSuggest) />
+      <Connect(CDOAutoSuggest)
+        cdoPills={Array []}
+      />
     </div>
     <div
       className="portfolio-sort-container-contents small-screen-stack"
@@ -62,6 +64,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
         transformValue={[Function]}
       />
       <Connect(BidCyclePicker)
+        setClick={[Function]}
         setSeasonsCb={[Function]}
       />
       <Connect(PreferenceWrapper)
@@ -144,6 +147,14 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       onClick={[Function]}
     />
   </div>
+  <div
+    className="usa-width-one-whole portfolio-filter-pills-container"
+  >
+    <ResultsPillContainer
+      items={Array []}
+      onPillClick={[Function]}
+    />
+  </div>
 </div>
 `;
 
@@ -167,7 +178,9 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       >
         Proxy CDO View:
       </div>
-      <Connect(CDOAutoSuggest) />
+      <Connect(CDOAutoSuggest)
+        cdoPills={Array []}
+      />
     </div>
     <div
       className="portfolio-sort-container-contents small-screen-stack"
@@ -209,6 +222,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
         transformValue={[Function]}
       />
       <Connect(BidCyclePicker)
+        setClick={[Function]}
         setSeasonsCb={[Function]}
       />
       <Connect(PreferenceWrapper)
@@ -289,6 +303,14 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     <ResultsViewBy
       initial="card"
       onClick={[Function]}
+    />
+  </div>
+  <div
+    className="usa-width-one-whole portfolio-filter-pills-container"
+  >
+    <ResultsPillContainer
+      items={Array []}
+      onPillClick={[Function]}
     />
   </div>
 </div>

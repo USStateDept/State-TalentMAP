@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
 import { debounce, get, keys, isString, omit, pickBy, has } from 'lodash';
+import { toastInfo } from 'actions/toast';
 import queryParamUpdate from '../queryParams';
 import { scrollToTop, cleanQueryParams, cleanTandemQueryParams, getAssetPath } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
@@ -50,13 +51,15 @@ class Results extends Component {
   getChildContext() {
     const { tandem } = queryString.parse(get(this.state, 'query.value', ''));
     const isTandemSearch = tandem === 'tandem';
+    const newResultsCount = this.getNewResultsCount();
     return {
-      isTandemSearch,
+      isTandemSearch, newResultsCount,
     };
   }
 
   UNSAFE_componentWillMount() {
-    const { isAuthorized, onNavigateTo } = this.props;
+    const { isAuthorized, onNavigateTo, showNewResultsToast } = this.props;
+    const { count } = queryString.parse(get(this.state, 'query.value', ''));
     // store default search
     this.storeSearch();
     // check auth
@@ -65,6 +68,9 @@ class Results extends Component {
     } else {
       this.createQueryParams();
       this.props.bidListFetchData();
+    }
+    if (count) {
+      showNewResultsToast(`There are ${count} new positions for your saved search. They have been automatically sorted by posted date.`, 'New Results');
     }
   }
 
@@ -131,6 +137,12 @@ class Results extends Component {
       this.updateHistory(newQueryString);
     }
   };
+
+  getNewResultsCount = () => {
+    const q = queryString.parse(this.state.query.value);
+    const count = get(q, 'count');
+    return isNaN(count) ? 0 : +count;
+  }
 
   // check if there are filters selected so that the clear filters button can be displayed or hidden
   getQueryExists = () => {
@@ -205,10 +217,12 @@ class Results extends Component {
   // updates the history by passing a string of query params
   updateHistory(q) {
     let q$ = q;
+    q$ = omit(queryString.parse(q$), ['count']);
+    q$ = queryString.stringify(q$);
 
     // check if the keyword changed
     if (this.resultsPageRef) {
-      const q$$ = this.getStringifiedQuery(q);
+      const q$$ = this.getStringifiedQuery(q$);
       if (q$$) {
         q$ = q$$;
       }
@@ -308,6 +322,7 @@ Results.contextTypes = {
 
 Results.childContextTypes = {
   isTandemSearch: PropTypes.bool,
+  newResultsCount: PropTypes.number,
 };
 
 Results.propTypes = {
@@ -342,6 +357,7 @@ Results.propTypes = {
   client: BIDDER_OBJECT,
   clientIsLoading: PropTypes.bool,
   clientHasErrored: PropTypes.bool,
+  showNewResultsToast: PropTypes.func,
 };
 
 Results.defaultProps = {
@@ -368,6 +384,7 @@ Results.defaultProps = {
   client: {},
   clientIsLoading: false,
   clientHasErrored: false,
+  showNewResultsToast: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -405,6 +422,7 @@ export const mapDispatchToProps = dispatch => ({
   toggleSearchBarVisibility: bool => dispatch(toggleSearchBar(bool)),
   bidListFetchData: () => dispatch(bidListFetchData()),
   storeSearch: obj => dispatch(storeCurrentSearch(obj)),
+  showNewResultsToast: (message, title) => dispatch(toastInfo(message, title)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Results));

@@ -1,6 +1,6 @@
 import { downloadFromResponse } from 'utilities';
 import { batch } from 'react-redux';
-import { get, identity, pickBy } from 'lodash';
+import { get, identity, isArray, pickBy } from 'lodash';
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
 import { toastError } from './toast';
@@ -22,6 +22,7 @@ export function downloadBureauPositionsData(userQuery) {
   };
   const query = { ...userQuery, ...defaults };
   let q = pickBy(query, identity);
+  Object.keys(q).forEach(queryk => { if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); } });
   q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/export/?${q}`;
@@ -73,6 +74,7 @@ export function bureauPositionsFetchData(userQuery) {
 
   // Combine defaults with given userQuery
   let q = pickBy(userQuery, identity);
+  Object.keys(q).forEach(queryk => { if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); } });
   q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/?${q}`;

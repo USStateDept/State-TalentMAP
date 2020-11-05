@@ -1,5 +1,4 @@
 // forked from https://github.com/lachlanjc/react-box-shadow
-import React from 'react';
 import PropTypes from 'prop-types';
 import cssShadow from './BoxShadowUtility';
 

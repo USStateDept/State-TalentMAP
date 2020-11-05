@@ -43,10 +43,7 @@ $register-icon-offset: 44%;
     padding-right: 10px;
   }
 
-  .bid-tracker-cdo-email-container {
-    float: left;
-  }
-
+  .bid-tracker-cdo-email-container,
   .bid-tracker-cdo-email {
     float: right;
   }
@@ -61,8 +58,67 @@ $register-icon-offset: 44%;
     }
   }
 
+  .bid-tracker-top-row {
+    margin-bottom: 1em;
+    .button-back-link {
+      margin-bottom: 0;
+    }
+    .search-as-client-button {
+      margin-right: -.1em;
+    }
+  }
+
   .padded-container-inner {
     padding: 15px;
+  }
+
+  .bid-status-stats {
+    margin-bottom: 10px;
+    .bid-stat {
+      font-weight: bold;
+    }
+    div {
+      display: inline;
+    }
+    div:first-child {
+      margin-right: 20px;
+    }
+  }
+}
+
+.bid-tracker-title--condensed {
+  div {
+    display: inline;
+  }
+  .dashboard-section-title {
+    margin-bottom: 0;
+  }
+  .bid-status-stats--condensed {
+    float: right;
+    margin: 2px 20px 0 0;
+    .bid-stat {
+      font-weight: bold;
+    }
+    div:first-child {
+      margin-right: 20px;
+    }
+    @media screen and (min-width: 1200px) and (max-width: 1299px) {
+      font-size: 12px;
+      margin: 5px 0 0 0;
+      .bid-stat {
+        font-weight: normal;
+      }
+      div:first-child {
+        margin-right: 2px;
+      }
+    }
+    @media screen and (min-width: 1300px) and (max-width: 1450px) {
+      font-size: 14px;
+      margin: 4px 0 0 0;
+      div:first-child {
+        margin-right: 5px;
+      }
+    }
   }
 }
 
@@ -274,6 +330,12 @@ $register-icon-offset: 44%;
 
     .fa {
       margin-right: 5px;
+    }
+  }
+
+  .bid-tracker-cdo-submitted-container {
+    .fa {
+      color: $blue-primary;
     }
   }
 

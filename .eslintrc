@@ -39,6 +39,8 @@
   },
   // overrides to the Airbnb style follow
   "rules": {
+    "react/jsx-uses-react": [0],
+    "react/react-in-jsx-scope": [0],
     "arrow-parens": [0],
     "camelcase": [0], // only because of UNSAFE_ react lifecycle methods
     "react/jsx-no-target-blank": [0],

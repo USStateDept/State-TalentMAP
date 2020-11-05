@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import dateFns from 'date-fns';
 import { formatDate } from '../../../../utilities';

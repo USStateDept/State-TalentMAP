@@ -1,4 +1,3 @@
-import React from 'react';
 import { BID_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';

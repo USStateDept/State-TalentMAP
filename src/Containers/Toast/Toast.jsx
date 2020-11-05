@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,8 +13,8 @@ export class Toast extends Component {
     }
   }
 
-  notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate }) => {
-    const options = {
+  notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate, options }) => {
+    let options$ = {
       autoClose: true,
     };
     let title$;
@@ -26,12 +26,14 @@ export class Toast extends Component {
       toast.dismiss(this[id]);
     }
 
-    if (id && !isUpdate) { options.autoClose = false; }
+    if (id && !isUpdate) { options$.autoClose = false; }
+
+    options$ = { ...options$, ...options };
 
     const id$ = id || shortid.generate();
 
     this[id$] = toast[type](
-      <Alert type={type} title={title$} messages={[{ body: message }]} isDivided />, options,
+      <Alert type={type} title={title$} messages={[{ body: message }]} isDivided />, options$,
     );
   };
 
@@ -49,12 +51,14 @@ Toast.propTypes = {
     title: PropTypes.string,
     id: PropTypes.string,
     isUpdate: PropTypes.bool,
+    options: PropTypes.shape({}),
   }),
 };
 
 Toast.defaultProps = {
   toastData: {
     isUpdate: false,
+    options: {},
   },
 };
 

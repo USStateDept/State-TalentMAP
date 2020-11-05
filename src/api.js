@@ -6,6 +6,7 @@ import { get, throttle } from 'lodash';
 import Enum from 'enum';
 import bowser from 'bowser';
 import { setUserEmpId } from 'actions/userProfile';
+import { toastWarning } from 'actions/toast';
 import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from 'utilities';
 import { checkFlag } from 'flags';
 import { staticFilters } from './reducers/filters/filters';
@@ -28,6 +29,19 @@ const debouncedLogout = throttle(
   // eslint-disable-next-line global-require
   () => require('./store').store.dispatch(logoutRequest()),
   2000,
+  { leading: true, trailing: false },
+);
+
+const debouncedNetworkAlert = throttle(
+  // eslint-disable-next-line global-require
+  () => require('./store').store.dispatch(toastWarning(
+    "We're having trouble reaching our servers. Some information on TalentMAP may not display correctly.",
+    'Server Error',
+    'network-error',
+    true,
+    { position: 'bottom-center', autoClose: 6500 },
+  )),
+  10000,
   { leading: true, trailing: false },
 );
 
@@ -145,6 +159,11 @@ const api = () => {
       // exports of api to be undefined. So this causes an error for `userProfile.js` when
       // attempting to login. Went with the eslint quick re-enable to get around this.
         debouncedLogout();
+        break;
+      }
+
+      case 500: {
+        debouncedNetworkAlert();
         break;
       }
 

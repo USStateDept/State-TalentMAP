@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { BID_OBJECT, USER_PROFILE } from '../../../Constants/PropTypes';
 import BidTrackerCard from '../BidTrackerCard';

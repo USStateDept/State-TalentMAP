@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import CompareDrawer from './CompareDrawer';
 import resultsObject from '../../__mocks__/resultsObject';
 

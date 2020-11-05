@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import ResultsFilterContainer from './ResultsFilterContainer';
 import { bidderUserObject } from '../../__mocks__/userObject';

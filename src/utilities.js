@@ -1,8 +1,8 @@
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, includes, intersection, isArray, isEmpty, isEqual, isFunction,
-  isNumber, isObject, isString, keys, lowerCase, merge as merge$, orderBy, pick, split,
-  startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
+  isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy, padStart, pick,
+  split, startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -268,7 +268,8 @@ export const existsInNestedObject = (ref, array, prop = 'position', nestedProp =
 // we also want to get rid of page and limit,
 // since those aren't valid params in the saved search endpoint
 export const cleanQueryParams = (q) => {
-  const object = Object.assign({}, q);
+  let object = Object.assign({}, q);
+  object = omit(object, ['count']);
   Object.keys(object).forEach((key) => {
     if (VALID_PARAMS.indexOf(key) <= -1) {
       delete object[key];
@@ -810,4 +811,22 @@ export const getAvatarColor = str => {
   return null;
 };
 
+export function getBidListStats(bidList, statuses, padWithZero) {
+  let numBids = 0;
+  bidList.forEach(b => {
+    if (includes(statuses, b.status)) numBids += 1;
+  });
+  if (padWithZero) {
+    numBids = padStart(toString(numBids), 2, '0');
+  }
+  return numBids;
+}
+
 export const isOnProxy = () => !!includes(get(window, 'location.host'), 'msappproxy');
+
+export function move(arr, fromIndex, toIndex) {
+  const element = arr[fromIndex];
+  arr.splice(fromIndex, 1);
+  arr.splice(toIndex, 0, element);
+  return arr;
+}

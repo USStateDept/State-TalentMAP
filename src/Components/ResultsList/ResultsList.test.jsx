@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import ResultsList, { getIsGroupEnd } from './ResultsList';
 import resultsObject from '../../__mocks__/resultsObject';
 
