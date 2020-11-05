@@ -67,11 +67,8 @@ class BidderPortfolioPage extends Component {
 
     const hideControls = get(bidderPortfolio, 'results', []).length === 0 || !cdosLength;
 
-    let disableLink = false;
     const total = get(bidderPortfolio, 'count');
-    if (cdosLength === 0 || total === 0) {
-      disableLink = true;
-    }
+    const disableLink = (cdosLength === 0 || total === 0);
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
