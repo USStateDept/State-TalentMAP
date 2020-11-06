@@ -6,6 +6,7 @@ exports[`SearchResultsExportLink matches snapshot 1`] = `
 >
   <ExportButton
     className=""
+    disabled={false}
     isLoading={false}
     onClick={[Function]}
     primaryClass="usa-button-secondary"
