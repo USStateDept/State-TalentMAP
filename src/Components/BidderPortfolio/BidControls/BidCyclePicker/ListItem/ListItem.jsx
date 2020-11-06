@@ -1,6 +1,5 @@
 // reference react-picky for prop types
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from 'Components/CheckBox';

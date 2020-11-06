@@ -1,4 +1,3 @@
-import React from 'react';
 import { get } from 'lodash';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_DATE, NO_GRADE, NO_SKILL } from '../../Constants/SystemMessages';

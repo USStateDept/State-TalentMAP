@@ -1,4 +1,3 @@
-import React from 'react';
 import { find } from 'lodash';
 import BidCycleCard from './BidCycleCard';
 import { Row, Column } from '../Layout';

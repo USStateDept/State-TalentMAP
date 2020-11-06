@@ -1,4 +1,3 @@
-import React from 'react';
 import { BIDDER_RESULTS, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import BidderPortfolioStatCard from '../BidderPortfolioStatCard';
 

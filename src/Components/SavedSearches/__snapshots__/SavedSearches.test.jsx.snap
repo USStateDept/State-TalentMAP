@@ -21,7 +21,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort=""
+        defaultSort={null}
         disabled={false}
         emptyOptionText="- Select -"
         id="sort"
@@ -42,7 +42,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
             },
             Object {
               "text": "Date created: Most recent",
-              "value": "-id",
+              "value": "-date_created",
             },
           ]
         }

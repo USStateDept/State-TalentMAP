@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import { POSITION_SEARCH_SORTS_DYNAMIC } from '../../Constants/Sort';

@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import Explore from './Explore';
 import items from '../../__mocks__/exploreFilters';
 

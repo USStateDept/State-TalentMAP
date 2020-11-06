@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import toJSON from 'enzyme-to-json';
 import HomePageFiltersSection from './HomePageFiltersSection';
 import filters from '../../__mocks__/filtersArray';

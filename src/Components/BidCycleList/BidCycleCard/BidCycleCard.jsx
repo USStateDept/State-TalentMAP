@@ -1,4 +1,3 @@
-import React from 'react';
 import MediaQuery from 'react-responsive';
 import { get } from 'lodash';
 import { Row, Column, Card } from '../../Layout';

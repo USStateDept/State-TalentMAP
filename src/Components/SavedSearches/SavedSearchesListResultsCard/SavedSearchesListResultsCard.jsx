@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';

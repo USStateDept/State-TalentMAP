@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { throttle, isEqual } from 'lodash';
+import { throttle, isEqual, isEmpty } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import bowser from 'bowser';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSelectCDOsToSearchBy } from 'actions/bidderPortfolio';
 import { unsetClientView } from 'actions/clientView';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import filterUsers from '../helpers';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 // TODO - Running into an issue where the label/span element is also
 // passing up an event almost concurrently (400ms difference).
@@ -40,10 +40,17 @@ class CDOAutoSuggest extends Component {
     if (!isEqual(this.props.cdos, nextProps.cdos)) {
       this.setState({ suggestions: filterUsers('', nextProps.cdos) });
     }
+    if (!isEqual(this.props.cdoPills, nextProps.cdoPills)) {
+      this.selectMultipleOption(nextProps.cdoPills, true);
+    }
   }
 
-  selectMultipleOption(value) {
-    this.props.setCDOsToSearchBy(value);
+  selectMultipleOption(value, fromPills) {
+    if (isEmpty(value) && fromPills && !isEmpty(this.props.currentCDO)) {
+      this.props.setCDOsToSearchBy([this.props.currentCDO]);
+    } else {
+      this.props.setCDOsToSearchBy(value);
+    }
   }
 
   render() {
@@ -80,6 +87,8 @@ CDOAutoSuggest.propTypes = {
   hasErrored: PropTypes.bool,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setCDOsToSearchBy: PropTypes.func,
+  cdoPills: PropTypes.arrayOf(PropTypes.shape({})),
+  currentCDO: PropTypes.shape({}),
 };
 
 CDOAutoSuggest.defaultProps = {
@@ -88,6 +97,8 @@ CDOAutoSuggest.defaultProps = {
   hasErrored: false,
   selection: [],
   setCDOsToSearchBy: EMPTY_FUNCTION,
+  cdoPills: [],
+  currentCDO: {},
 };
 
 const mapStateToProps = state => ({
@@ -95,6 +106,7 @@ const mapStateToProps = state => ({
   isLoading: state.bidderPortfolioCDOsIsLoading,
   hasErrored: state.bidderPortfolioCDOsHasErrored,
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
+  currentCDO: state.bidderPortfolioSelectedCDO,
 });
 
 export const mapDispatchToProps = dispatch => ({

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, find, orderBy, reverse } from 'lodash';
 import Alert from 'Components/Alert';
@@ -9,6 +9,7 @@ import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
 import { downloadBidlistData } from 'actions/bidList';
 import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
+import BidStatusStats from './BidStatusStats';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
 import NotificationsSection from './NotificationsSection';
@@ -79,7 +80,8 @@ class BidTracker extends Component {
 
   render() {
     const { exportIsLoading, sortValue } = this.state;
-    const { bidList, bidListIsLoading, acceptBid, declineBid, submitBid, deleteBid,
+    const { bidList, bidListIsLoading, bidListHasErrored, acceptBid,
+      declineBid, submitBid, deleteBid,
       notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
       userProfileIsLoading, isPublic, useCDOView, registerHandshake,
       unregisterHandshake } = this.props;
@@ -95,11 +97,12 @@ class BidTracker extends Component {
     const cdoEmail = get(userProfile, 'cdo.email');
 
     const sortedBids = this.getSortedBids();
-
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
-        <BackButton />
-        { isPublic && <SearchAsClientButton user={userProfile} /> }
+        <div className="usa-grid-full bid-tracker-top-row">
+          <BackButton />
+          {isPublic && <SearchAsClientButton user={userProfile} />}
+        </div>
         {
           !isPublic &&
           <NotificationsSection
@@ -139,9 +142,12 @@ class BidTracker extends Component {
         </div>
         <div className="bid-tracker-content-container">
           {
-            isLoading ?
-              <Spinner type="homepage-position-results" size="big" /> :
+            isLoading && <Spinner type="homepage-position-results" size="big" />
+          }
+          {
+            !isLoading && !bidListHasErrored &&
               <div className="usa-grid-full">
+                <BidStatusStats bidList={bidList.results} />
                 <BidTrackerCardList
                   bids={sortedBids}
                   acceptBid={acceptBid}
@@ -156,8 +162,12 @@ class BidTracker extends Component {
               </div>
           }
           {
-            !isLoading && !get(bidList, 'results', []).length &&
+            !isLoading && !bidListHasErrored && !get(bidList, 'results', []).length &&
             <Alert type="info" title="Bid list empty" messages={[{ body: emptyBidListText }]} />
+          }
+          {
+            bidListHasErrored && !isLoading &&
+            <Alert type="error" title="An error has occurred" messages={[{ body: 'We were unable to load your bid list. Please try again later.' }]} />
           }
         </div>
       </div>
@@ -168,6 +178,7 @@ class BidTracker extends Component {
 BidTracker.propTypes = {
   bidList: BID_LIST.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
+  bidListHasErrored: PropTypes.bool,
   acceptBid: PropTypes.func.isRequired,
   declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
@@ -184,6 +195,7 @@ BidTracker.propTypes = {
 };
 
 BidTracker.defaultProps = {
+  bidListHasErrored: false,
   isPublic: false,
   useCDOView: false,
 };

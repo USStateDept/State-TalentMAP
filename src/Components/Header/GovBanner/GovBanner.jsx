@@ -1,5 +1,4 @@
-import React from 'react';
-import flag from 'uswds/dist/img/favicons/favicon-57.png'; // usa flag
+import flag from 'uswds/dist/img/favicons/favicon-57.png';
 import iconDotGov from 'uswds/dist/img/icon-dot-gov.svg'; // government building
 import iconHttps from 'uswds/dist/img/icon-https.svg'; // pad lock
 

@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { isString } from 'lodash';
 import { SORT_BY_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 class SelectForm extends Component {
@@ -17,10 +18,10 @@ class SelectForm extends Component {
   setDefaultValue(props) {
     const { selection } = this.state;
     const { includeFirstEmptyOption, defaultSort } = props;
-    if (includeFirstEmptyOption && !selection.length && defaultSort) {
-      this.selectOption({ target: { value: defaultSort } });
-    } else if (defaultSort && defaultSort !== selection) {
-      this.setState({ selection: defaultSort });
+    if (includeFirstEmptyOption && !selection.length && (defaultSort || isString(defaultSort))) {
+      this.selectOption({ target: { value: defaultSort || '' } });
+    } else if ((defaultSort || isString(defaultSort)) && defaultSort !== selection) {
+      this.setState({ selection: defaultSort || '' });
     }
   }
 
@@ -91,7 +92,7 @@ SelectForm.propTypes = {
 };
 
 SelectForm.defaultProps = {
-  defaultSort: '',
+  defaultSort: null,
   onSelectOption: EMPTY_FUNCTION,
   includeFirstEmptyOption: false,
   emptyOptionText: '- Select -',

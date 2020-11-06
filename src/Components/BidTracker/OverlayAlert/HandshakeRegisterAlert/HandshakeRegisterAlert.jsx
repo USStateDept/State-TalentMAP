@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';

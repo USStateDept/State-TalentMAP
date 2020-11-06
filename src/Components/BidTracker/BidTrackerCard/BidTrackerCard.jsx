@@ -1,7 +1,7 @@
 // NOTE: We've comments some things out around showing contact information for bids,
 // since we don't have that information yet.
 // Information needed for the glossary tooltip for bid tracker card top is commented out.
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { BID_OBJECT, /* USER_PROFILE, */ EMPTY_FUNCTION } from '../../../Constants/PropTypes';

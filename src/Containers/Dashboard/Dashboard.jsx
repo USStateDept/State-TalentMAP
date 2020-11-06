@@ -1,24 +1,22 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { assignmentFetchData } from 'actions/assignment';
 import { notificationsFetchData } from 'actions/notifications';
 import { bidListFetchData, toggleBidPosition, submitBid } from 'actions/bidList';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
-import { USER_PROFILE, NOTIFICATION_LIST, ASSIGNMENT_OBJECT, BID_LIST, FAVORITE_POSITIONS } from 'Constants/PropTypes';
+import { USER_PROFILE, NOTIFICATION_LIST, BID_LIST, FAVORITE_POSITIONS } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
 
 class DashboardContainer extends Component {
   UNSAFE_componentWillMount() {
-    this.props.fetchAssignment();
     this.props.fetchNotifications();
     this.props.fetchBidList();
     this.props.fetchFavorites();
   }
 
   render() {
-    const { userProfile, userProfileIsLoading, assignment, assignmentIsLoading,
+    const { userProfile, userProfileIsLoading,
       notifications, notificationsIsLoading, bidList, bidListIsLoading, favoritePositions,
       favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
       deleteBid } = this.props;
@@ -27,8 +25,6 @@ class DashboardContainer extends Component {
       <ProfileDashboard
         userProfile={userProfile}
         isLoading={userProfileIsLoading}
-        assignmentIsLoading={assignmentIsLoading}
-        assignment={assignment}
         notifications={notifications.results}
         notificationsIsLoading={notificationsIsLoading}
         bidList={bidList.results}
@@ -46,9 +42,6 @@ class DashboardContainer extends Component {
 DashboardContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
-  fetchAssignment: PropTypes.func.isRequired,
-  assignment: ASSIGNMENT_OBJECT.isRequired,
-  assignmentIsLoading: PropTypes.bool.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
@@ -66,8 +59,6 @@ DashboardContainer.propTypes = {
 DashboardContainer.defaultProps = {
   userProfile: DEFAULT_USER_PROFILE,
   userProfileIsLoading: false,
-  assignmentIsLoading: false,
-  assignment: {},
   notificationsIsLoading: false,
   notifications: { results: [] },
   bidList: { results: [] },
@@ -80,8 +71,6 @@ DashboardContainer.defaultProps = {
 const mapStateToProps = state => ({
   userProfile: state.userProfile,
   userProfileIsLoading: state.userProfileIsLoading,
-  assignment: state.assignment,
-  assignmentIsLoading: state.assignmentIsLoading,
   notifications: state.notifications,
   notificationsIsLoading: state.notificationsIsLoading,
   bidList: state.bidListFetchDataSuccess,
@@ -92,7 +81,6 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchAssignment: () => dispatch(assignmentFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),
   fetchFavorites: () => dispatch(favoritePositionsFetchData(null, 5, 1, 'all')),

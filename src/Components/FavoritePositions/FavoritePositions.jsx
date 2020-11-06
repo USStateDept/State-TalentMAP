@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';

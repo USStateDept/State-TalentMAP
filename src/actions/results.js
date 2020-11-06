@@ -68,7 +68,6 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
       .then((results) => {
         const originalResults = results.results;
         const filteredPositions = [];
-        // payload master array favs/bidList of ids
         const favoritesBidListArray = [];
         favorites.forEach(favorite => favoritesBidListArray.push(Number(favorite.id)));
         bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));

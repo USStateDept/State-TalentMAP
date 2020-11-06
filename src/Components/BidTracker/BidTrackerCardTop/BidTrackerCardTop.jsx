@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
@@ -61,6 +61,13 @@ class BidTrackerCardTop extends Component {
         </div>
         <div className="bid-tracker-card-title-outer-container-right">
           <div className="bid-tracker-card-title-container-right">
+            {bid.cdo_bid &&
+              <div className="bid-tracker-question-text-container bid-tracker-cdo-submitted-container">
+                <span>
+                  <FontAwesome name="flag" /> Bid Submitted by CDO
+                </span>
+              </div>
+            }
             {biddingTips &&
             <div className="bid-tracker-question-text-container">
               <Tooltip

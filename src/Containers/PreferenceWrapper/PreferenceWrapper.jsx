@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { cloneElement, Component } from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -13,9 +13,7 @@ export class PreferenceWrapper extends Component {
 
   render() {
     const { children, childCallback } = this.props;
-    return (
-      React.cloneElement(children, { [childCallback]: this.cb })
-    );
+    return cloneElement(children, { [childCallback]: this.cb });
   }
 }
 

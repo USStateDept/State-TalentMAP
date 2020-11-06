@@ -35,7 +35,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
       </div>
     </div>
     <div>
-      <BidControls
+      <Connect(BidControls)
         changeViewType={[Function]}
         defaultHandshake=""
         defaultOrdering=""

@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import SkillCodeFilter from '../../SkillCodeFilter';
 import Form from '../../../Form';

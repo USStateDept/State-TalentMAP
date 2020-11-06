@@ -1,4 +1,3 @@
-import React from 'react';
 import { propOrDefault, getPostName } from 'utilities';
 import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';

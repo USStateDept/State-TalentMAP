@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NOTIFICATION_LIST } from '../../../Constants/PropTypes';
 import Dismiss from '../../Dismiss';

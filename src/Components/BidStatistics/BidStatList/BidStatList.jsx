@@ -1,4 +1,3 @@
-import React from 'react';
 import { BID_STATISTICS_OBJECT } from '../../../Constants/PropTypes';
 import BidStatCard from '../BidStatCard';
 import { numbersToPercentString } from '../../../utilities';

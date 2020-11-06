@@ -50,7 +50,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       >
         <SelectForm
           className="select-offset select-black"
-          defaultSort=""
+          defaultSort={null}
           disabled={false}
           emptyOptionText="- Select -"
           id="mark-notification-dropdown"
@@ -88,16 +88,12 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       className=""
       columns={12}
     >
-      <NotificationRow
-        checked={false}
-        date=""
+      <Connect(withRouter(NotificationRow))
         deleteOne={[Function]}
         id={1}
-        isRead={false}
         key="1"
         message="message"
         onCheck={[Function]}
-        tags={Array []}
       />
     </Column>
     <Column

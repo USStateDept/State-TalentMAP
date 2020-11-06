@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from '../InteractiveElement';
@@ -17,7 +17,7 @@ class ResetFilters extends Component {
           className="reset-filters"
           onClick={this.resetFilters}
         >
-          <span><FontAwesome name="times" />Clear Filters</span>
+          <span><FontAwesome name="times" />{this.props.clearText}</span>
         </InteractiveElement>
       </div>
     );
@@ -26,6 +26,11 @@ class ResetFilters extends Component {
 
 ResetFilters.propTypes = {
   resetFilters: PropTypes.func.isRequired,
+  clearText: PropTypes.string,
+};
+
+ResetFilters.defaultProps = {
+  clearText: 'Clear Filters',
 };
 
 export default ResetFilters;

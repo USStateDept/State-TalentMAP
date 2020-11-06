@@ -1,4 +1,3 @@
-import React from 'react';
 import sinon from 'sinon';
 import { shallow } from 'enzyme';
 import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../Constants/DefaultProps';

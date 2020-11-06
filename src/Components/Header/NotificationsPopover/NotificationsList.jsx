@@ -1,4 +1,3 @@
-import React from 'react';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';

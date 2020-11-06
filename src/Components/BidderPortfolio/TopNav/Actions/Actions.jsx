@@ -1,4 +1,3 @@
-import React from 'react';
 import ActionsButton from './ActionsButton';
 
 const Actions = () => (

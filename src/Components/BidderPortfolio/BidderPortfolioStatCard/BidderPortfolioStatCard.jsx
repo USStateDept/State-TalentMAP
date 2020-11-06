@@ -1,4 +1,3 @@
-import React from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
