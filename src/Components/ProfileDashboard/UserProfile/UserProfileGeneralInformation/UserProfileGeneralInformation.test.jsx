@@ -1,7 +1,11 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { bidderUserObject } from '../../../../__mocks__/userObject';
-import { testDispatchFunctions } from '../../../../testUtilities/testUtilities';
+import {
+  expectMockWasCalled,
+  spyMockAdapter,
+  testDispatchFunctions,
+} from '../../../../testUtilities/testUtilities';
 import UserProfileGeneralInformation, { mapDispatchToProps } from './UserProfileGeneralInformation';
 
 describe('UserProfileGeneralInformationComponent', () => {
@@ -55,6 +59,24 @@ describe('UserProfileGeneralInformationComponent', () => {
       onToastSuccess: ['CzHHiJ2kw'],
     };
     testDispatchFunctions(mapDispatchToProps, config);
+  });
+
+  it('get Employee Profile URL', (done) => {
+    let mock;
+    let spy;
+    ({ mock, spy } = spyMockAdapter({
+      url: 'HR/Employees/4/EmployeeProfileReportByCDO',
+      response: [200, { data: 'arraybuffer',
+        type: 'application/pdf' }],
+    })); mock();
+
+    const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
+      userProfile={bidderUserObject}
+    />);
+
+    wrapper.instance().getEmployeeProfile();
+
+    expectMockWasCalled({ spy, cb: done });
   });
 
   it('matches snapshot', () => {
