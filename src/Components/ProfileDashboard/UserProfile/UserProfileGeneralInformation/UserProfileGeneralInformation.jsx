@@ -32,7 +32,11 @@ class UserProfileGeneralInformation extends Component {
       url$ = get(userProfile, 'employee_profile_url.external');
     }
     onToastInfo(id);
-    axios.get(url$, { headers: { JWTAuthorization: fetchJWT() }, responseType: 'arraybuffer' })
+    axios.get(url$, {
+      withCredentials: true,
+      headers: { JWTAuthorization: fetchJWT() },
+      responseType: 'arraybuffer' },
+    )
       .then(response => {
         onToastSuccess(id);
         downloadPdfBlob(response.data);
