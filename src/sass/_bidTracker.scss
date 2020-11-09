@@ -1323,7 +1323,7 @@ $register-icon-offset: 44%;
 }
 
 .tippy-popper {
-  .tippy-tooltip.bidtracker-status-theme {
+  .tippy-tooltip.bidtracker-status-theme, .tippy-tooltip.bidtracker-status-long-theme {
     background-color: $color-white;
     color: $color-black;
     border: 2px solid $tm-gray;
@@ -1340,6 +1340,9 @@ $register-icon-offset: 44%;
     .tooltip-text {
       padding: 15px 0 0 15px;
     }
+  }
+  .tippy-tooltip.bidtracker-status-long-theme {
+    bottom: 140px!important;
   }
 }
 

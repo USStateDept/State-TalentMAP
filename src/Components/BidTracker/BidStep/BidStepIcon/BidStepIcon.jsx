@@ -34,7 +34,7 @@ const getCheckIcon = (title, text, isCondensed) =>{
     return (
         <Tooltip
             html={getTooltipText(title, text)}
-            theme="bidtracker-status"
+            theme={text.length > 200 ? 'bidtracker-status-long' : 'bidtracker-status'}
             arrow
             tabIndex="0"
             interactive
@@ -58,7 +58,7 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
           { tooltipTitle && tooltipText && !condensedView ?
               <Tooltip
                   html={getTooltipText(tooltipTitle, tooltipText)}
-                  theme="bidtracker-status"
+                  theme={tooltipText.length > 200 ? 'bidtracker-status-long' : 'bidtracker-status'}
                   arrow
                   tabIndex="0"
                   interactive

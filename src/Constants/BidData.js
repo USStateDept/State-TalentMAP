@@ -76,7 +76,7 @@ export const BID_TRACKER_SUBMITTED_ACTIVE_STATUSES = [
 export const BID_TRACKER_TOOLTIP_TEXT = {
   [DRAFT_PROP]: {
     title: `What is a "${GET_DRAFT_TITLE()}"?`,
-    text: `"${GET_DRAFT_TITLE()}" are bids you have on your bid tracker but you haven’t submitted them for consideration.`,
+    text: `"${GET_DRAFT_TITLE()}"s are bids you have on your bid tracker but you haven’t submitted them for consideration.`,
   },
   [SUBMITTED_PROP]: {
     title: `What is "${GET_SUBMIT_BID_COMPLETE_TITLE()}"?`,
@@ -96,6 +96,6 @@ export const BID_TRACKER_TOOLTIP_TEXT = {
   },
   [APPROVED_PROP]: {
     title: `What is "${GET_APPROVAL_TITLE()}"?`,
-    text: `"${GET_APPROVAL_TITLE()}" is the date your assignment was officially approved at panel (Hover over this status for a surprise!) Within a few days of being approved at panel, you will receive your Travel Message (TMOne) announcing to your current and future post your approved assignment.`,
+    text: `"${GET_APPROVAL_TITLE()}" is the date your assignment was officially approved at panel (Hover over this status for a surprise!). Within a few days of being approved at panel, you will receive your Travel Message (TMOne) announcing to your current and future post your approved assignment.`,
   },
 };

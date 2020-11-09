@@ -26,7 +26,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         isCurrent={false}
         needsAction={false}
         number={1}
-        tooltipText="\\"Draft\\" are bids you have on your bid tracker but you haven’t submitted them for consideration."
+        tooltipText="\\"Draft\\"s are bids you have on your bid tracker but you haven’t submitted them for consideration."
         tooltipTitle="What is a \\"Draft\\"?"
       />
     }
