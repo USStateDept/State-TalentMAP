@@ -91,7 +91,7 @@
     "shortid": "^2.2.16",
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
-    "use-query-params": "^1.1.8",
+    "use-query-params": "^1.1.9",
     "uswds": "~1.6.12"
   },
   "devDependencies": {
