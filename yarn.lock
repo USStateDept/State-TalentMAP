@@ -13431,9 +13431,9 @@ use-memo-one@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/use-memo-one/-/use-memo-one-1.1.1.tgz#39e6f08fe27e422a7d7b234b5f9056af313bd22c"
 
-use-query-params@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-1.1.8.tgz#61d5e2ad903da9ed807383e509b4b52343c886ad"
+use-query-params@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/use-query-params/-/use-query-params-1.1.9.tgz#4f1b91c5b338107efa7d90dd889c56039108f944"
   dependencies:
     serialize-query-params "^1.2.3"
 
