@@ -2,7 +2,7 @@ import { isUndefined } from 'lodash';
 import { getPostName } from 'utilities';
 import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 
-// Mapping grade codes to a full descrition for clarity
+// Mapping grade codes to a full description for clarity
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
   switch (gradeCode) {
