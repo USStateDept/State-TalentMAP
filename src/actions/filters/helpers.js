@@ -7,7 +7,7 @@ import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 export function getCustomGradeDescription(gradeCode) {
   switch (gradeCode) {
     case '00':
-      return '00 Multiple Grades Considered';
+      return '00 (Multiple Grades Considered)';
     case 'CM':
       return 'CM Career Minister (FE-CM)';
     case 'MC':
