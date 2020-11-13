@@ -61,24 +61,6 @@ describe('UserProfileGeneralInformationComponent', () => {
     testDispatchFunctions(mapDispatchToProps, config);
   });
 
-  it('get Employee Profile URL', (done) => {
-    let mock;
-    let spy;
-    ({ mock, spy } = spyMockAdapter({
-      url: 'HR/Employees/4/EmployeeProfileReportByCDO',
-      response: [200, { data: 'arraybuffer',
-        type: 'application/pdf' }],
-    })); mock();
-
-    const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
-      userProfile={bidderUserObject}
-    />);
-
-    wrapper.instance().getEmployeeProfile();
-
-    expectMockWasCalled({ spy, cb: done });
-  });
-
   it('matches snapshot', () => {
     const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
       userProfile={bidderUserObject}
