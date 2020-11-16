@@ -42,6 +42,22 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         title="Doe, John"
       />
       <InformationDataPoint
+        className=""
+        content={
+          <InteractiveElement
+            className=""
+            onClick={[Function]}
+            title="Download Employee Profile PDF"
+            type="a"
+          >
+            Employee Profile
+          </InteractiveElement>
+        }
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+      <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"
         sideBySide={false}
@@ -117,6 +133,22 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         title="Doe, John"
       />
       <InformationDataPoint
+        className=""
+        content={
+          <InteractiveElement
+            className=""
+            onClick={[Function]}
+            title="Download Employee Profile PDF"
+            type="a"
+          >
+            Employee Profile
+          </InteractiveElement>
+        }
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+      <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"
         sideBySide={false}
@@ -190,6 +222,22 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         icon=""
         small={true}
         title="Doe, John"
+      />
+      <InformationDataPoint
+        className=""
+        content={
+          <InteractiveElement
+            className=""
+            onClick={[Function]}
+            title="Download Employee Profile PDF"
+            type="a"
+          >
+            Employee Profile
+          </InteractiveElement>
+        }
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
       />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
