@@ -173,7 +173,6 @@ export function deleteSavedSearch(id) {
           SystemMessages.DELETE_SAVED_SEARCH_SUCCESS_TITLE,
         ));
         dispatch(currentSavedSearch(false));
-        dispatch(savedSearchesFetchData());
       })
       .catch((err) => {
         dispatch(deleteSavedSearchHasErrored(JSON.stringify(propOrDefault(err, 'response.data', 'An error occurred trying to delete this search.'))));
