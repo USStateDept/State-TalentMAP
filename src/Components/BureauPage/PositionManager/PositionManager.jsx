@@ -198,7 +198,7 @@ const PositionManager = props => {
   };
 
   // Overlay for error, info, and positionLoading state
-  const noBureausSelected = selectedBureaus.length < 1;
+  const noBureausSelected = selectedBureaus.filter(f => f).length < 1;
   const noResults = !get(bureauPositions, 'results.length');
   const getOverlay = () => {
     if (bureauPositionsIsLoading) {
