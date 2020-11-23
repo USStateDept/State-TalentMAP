@@ -97,4 +97,15 @@ export const UNSET_CLIENT_SUCCESS_MESSAGE = 'You have exited client view.';
 export const POST_FEATURE_FLAGS_SUCCESS = 'Config File successfully updated.';
 export const POST_FEATURE_FLAGS_ERROR = 'Error updating Config File. Please try again.';
 
+
+export const ADD_TO_INTERNAL_LIST_SUCCESS_TITLE = 'User Added';
+export const ADD_TO_INTERNAL_LIST_SUCCESS = 'User Added to Internal List';
+
+export const REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE = 'User Removed';
+export const REMOVE_FROM_INTERNAL_LIST_SUCCESS = 'User Removed from Internal List';
+
+export const INTERNAL_LIST_ERROR_TITLE = 'Internal list Error';
+export const ADD_TO_INTERNAL_LIST_ERROR = 'We\'re experiencing an error attempting to add this user to the Internal list. Please try again.';
+export const REMOVE_FROM_INTERNAL_LIST_ERROR = 'We\'re experiencing an error attempting to remove this user from the Internal list. Please try again.';
+
 export const COMING_SOON = 'Coming Soon';

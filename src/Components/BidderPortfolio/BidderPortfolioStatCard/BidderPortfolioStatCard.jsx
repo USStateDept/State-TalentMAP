@@ -7,6 +7,7 @@ import SkillCodeList from '../../SkillCodeList';
 import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
 import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
+import AddToInternalListButton from '../AddToInternalListButton';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
@@ -43,6 +44,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
         {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <SearchAsClientButton user={userProfile} />
+          <AddToInternalListButton refKey={get(userProfile, 'id')} />
         </div>}
       </div>
     </BoxShadow>
