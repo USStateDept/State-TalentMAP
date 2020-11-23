@@ -1,4 +1,3 @@
-/* eslint-disable no-console,no-unused-vars */
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { CancelToken } from 'axios';
@@ -9,7 +8,6 @@ import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_ERROR,
 } from '../Constants/SystemMessages';
 import api from '../api';
-
 
 let cancel;
 
