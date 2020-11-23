@@ -1,8 +1,7 @@
-/* eslint-disable no-unused-vars,no-console */
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { includes, get } from 'lodash';
+import { includes } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { availableBiddersToggleUser, availableBiddersIds } from 'actions/cdo';
 import InteractiveElement from '../../InteractiveElement';
@@ -18,6 +17,13 @@ const AddToInternalListButton = props => {
   } = props;
 
   const [loading, setLoading] = useState(isLoading);
+
+  useEffect(() => {
+    // isLoading sets to true on local action, store false flips back
+    if (!isLoading && loading) {
+      setLoading(isLoading);
+    }
+  }, [isLoading]);
 
   useEffect(() => {
     fetchIds();
