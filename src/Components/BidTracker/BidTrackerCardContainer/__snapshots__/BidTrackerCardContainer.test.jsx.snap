@@ -98,6 +98,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
             },
           ],
         },
+        "employee_profile_url": Object {
+          "external": "https://external.com",
+          "internal": "https://internal.com",
+        },
         "favorite_positions": Array [
           Object {
             "id": 1,
@@ -148,6 +152,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
           "initials": "JD",
           "last_name": "Doe",
           "username": "jdoe",
+        },
+        "user_info": Object {
+          "office_address": "1234 Apple St. NW Washington, DC 20010",
+          "office_phone": "202-876-5432",
         },
       }
     }
@@ -317,6 +325,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
               },
             ],
           },
+          "employee_profile_url": Object {
+            "external": "https://external.com",
+            "internal": "https://internal.com",
+          },
           "favorite_positions": Array [
             Object {
               "id": 1,
@@ -367,6 +379,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
             "initials": "JD",
             "last_name": "Doe",
             "username": "jdoe",
+          },
+          "user_info": Object {
+            "office_address": "1234 Apple St. NW Washington, DC 20010",
+            "office_phone": "202-876-5432",
           },
         }
       }
