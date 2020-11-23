@@ -124,7 +124,7 @@ UserProfileGeneralInformation.defaultProps = {
   onToastSuccess: EMPTY_FUNCTION,
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onToastError: (id) => dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred', id, true)),
   onToastInfo: (id) => dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id)),
   onToastSuccess: (id) => dispatch(toastSuccess('Employee profile succesfully downloaded.', 'Success', id, true)),
