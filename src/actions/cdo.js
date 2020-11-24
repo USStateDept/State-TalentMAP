@@ -84,7 +84,6 @@ export function availableBiddersFetchData(limit = 15, page = 1) {
     api().get('cdo/availablebidders/')
       .then(({ data }) => {
         batch(() => {
-          console.log('current: availableBiddersFetchData data:', data);
           dispatch(availableBiddersFetchDataSuccess(data));
           dispatch(availableBiddersFetchDataErrored(false));
           dispatch(availableBiddersFetchDataLoading(false));
