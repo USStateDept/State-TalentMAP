@@ -3,13 +3,13 @@
   "version": "4.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.12.8",
+    "@babel/core": "^7.12.9",
     "@babel/polyfill": "^7.12.1",
     "@cmsgov/design-system-core": "^1.18.0",
     "@fortawesome/fontawesome-free": "^5.15.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
+    "@fortawesome/react-fontawesome": "^0.1.13",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.5.0",
     "babel-plugin-lodash": "^3.3.4",
@@ -95,7 +95,7 @@
     "uswds": "~1.6.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.8",
+    "@babel/core": "^7.12.9",
     "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.12.7",
