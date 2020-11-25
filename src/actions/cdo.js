@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { batch } from 'react-redux';
 import { get } from 'lodash';
 import axios from 'axios';
@@ -132,10 +131,6 @@ export function availableBiddersIds() {
 }
 
 export function availableBiddersToggleUser(id, remove) {
-  console.log(
-    '%c1',
-    'color:red;font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;font-weight:bold',
-  );
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
