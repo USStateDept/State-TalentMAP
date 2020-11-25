@@ -1,6 +1,7 @@
+/* eslint-disable */
 import { batch } from 'react-redux';
 import { get } from 'lodash';
-import { CancelToken } from 'axios';
+import axios from 'axios';
 import { toastSuccess, toastError } from './toast';
 import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE, REMOVE_FROM_INTERNAL_LIST_SUCCESS,
@@ -8,8 +9,6 @@ import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_ERROR,
 } from '../Constants/SystemMessages';
 import api from '../api';
-
-let cancel;
 
 export function availableBiddersFetchDataErrored(bool) {
   return {
@@ -67,21 +66,15 @@ export function availableBiddersToggleUserIsLoading(bool) {
   };
 }
 
-export function availableBiddersToggleUserSuccess(results) {
-  return {
-    type: 'TOGGLE_AVAILABLE_BIDDERS_SUCCESS',
-    results,
-  };
-}
 
-export function availableBiddersFetchData(limit = 15, page = 1) {
+export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));
       dispatch(availableBiddersFetchDataErrored(false));
     });
 
-    api().get('cdo/availablebidders/')
+    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}&ordering=${sortType}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(availableBiddersFetchDataSuccess(data));
@@ -139,51 +132,43 @@ export function availableBiddersIds() {
 }
 
 export function availableBiddersToggleUser(id, remove) {
-  const config = {
-    method: remove ? 'delete' : 'put',
-    url: `cdo/${id}/availablebidders/`,
-  };
-  const getAction = () => api()(config);
-
+  console.log(
+    '%c1',
+    'color:red;font-family:system-ui;font-size:2rem;-webkit-text-stroke: 1px black;font-weight:bold',
+  );
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); dispatch(availableBiddersToggleUserIsLoading(true)); }
+    const config = {
+      method: remove ? 'delete' : 'put',
+      url: `cdo/${id}/availablebidders/`,
+    };
+    const getAction = () => api()(config);
+
     batch(() => {
       dispatch(availableBiddersToggleUserIsLoading(true));
       dispatch(availableBiddersToggleUserErrored(false));
     });
 
-    api().get(getAction(), {
-      cancelToken: new CancelToken((c) => { cancel = c; }),
-    })
-      .then(({ data }) => {
+    axios.all([getAction()])
+      .then(() => {
+        const toastTitle = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE
+          : ADD_TO_INTERNAL_LIST_SUCCESS_TITLE;
+        const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS
+          : ADD_TO_INTERNAL_LIST_SUCCESS;
         batch(() => {
-          const toastTitle = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE
-            : ADD_TO_INTERNAL_LIST_SUCCESS_TITLE;
-          const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS
-            : ADD_TO_INTERNAL_LIST_SUCCESS;
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(availableBiddersToggleUserSuccess(data));
           dispatch(availableBiddersToggleUserErrored(false));
           dispatch(availableBiddersToggleUserIsLoading(false));
         });
       })
-      .catch((err) => {
+      .catch(() => {
         const toastTitle = INTERNAL_LIST_ERROR_TITLE;
         const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_ERROR
           : ADD_TO_INTERNAL_LIST_ERROR;
         dispatch(toastError(toastMessage, toastTitle));
-        if (get(err, 'message') === 'cancel') {
-          batch(() => {
-            dispatch(availableBiddersToggleUserErrored(false));
-            dispatch(availableBiddersToggleUserIsLoading(true));
-          });
-        } else {
-          batch(() => {
-            dispatch(availableBiddersToggleUserSuccess({ results: [] }));
-            dispatch(availableBiddersToggleUserErrored(true));
-            dispatch(availableBiddersToggleUserIsLoading(false));
-          });
-        }
+        batch(() => {
+          dispatch(availableBiddersToggleUserErrored(true));
+          dispatch(availableBiddersToggleUserIsLoading(false));
+        });
       });
   };
 }

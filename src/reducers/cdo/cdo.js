@@ -38,7 +38,7 @@ export function availableBiddersIdsLoading(state = false, action) {
       return state;
   }
 }
-export function availableBiddersIdsSuccess(state = {}, action) {
+export function availableBiddersIdsSuccess(state = [], action) {
   switch (action.type) {
     case 'AVAILABLE_BIDDERS_IDS_SUCCESS':
       return action.results;
@@ -62,11 +62,4 @@ export function availableBiddersToggleUserIsLoading(state = false, action) {
       return state;
   }
 }
-export function availableBiddersToggleUserSuccess(state = {}, action) {
-  switch (action.type) {
-    case 'TOGGLE_AVAILABLE_BIDDERS_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
+

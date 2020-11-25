@@ -7,7 +7,6 @@ import {
   availableBiddersIdsSuccess,
   availableBiddersToggleUserErrored,
   availableBiddersToggleUserIsLoading,
-  availableBiddersToggleUserSuccess,
 } from './cdo';
 
 export default {
@@ -19,5 +18,4 @@ export default {
   availableBiddersIdsSuccess,
   availableBiddersToggleUserErrored,
   availableBiddersToggleUserIsLoading,
-  availableBiddersToggleUserSuccess,
 };
