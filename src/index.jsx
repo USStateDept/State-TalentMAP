@@ -39,7 +39,7 @@ export const init = (config) => {
   };
 
   // Only needed for local development
-  if (isPersonaAuth()) { headers.tmusrname = sessionStorage.getItem('tmusrname'); }
+  if (isPersonaAuth()) { headers.tmusrname = localStorage.getItem('tmusrname'); }
 
   if (auth) {
     renderLoading();
