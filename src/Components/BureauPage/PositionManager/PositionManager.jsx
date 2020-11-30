@@ -317,7 +317,7 @@ const PositionManager = props => {
                         <div className="filter-div">
                           <div className="label">Organization:</div>
                           <Picky
-                            placeholder="Select Bureau(s)"
+                            placeholder="Select Organization(s)"
                             value={selectedOrgs}
                             options={organizationOptions}
                             onChange={values => setSelectedOrgs(values)}
