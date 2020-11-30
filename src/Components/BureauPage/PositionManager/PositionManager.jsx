@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
+import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, ORG_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
 import { get, sortBy, uniqBy, throttle } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
@@ -14,11 +14,13 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
 import { scrollToTop } from 'utilities';
 import { usePrevious } from 'hooks';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import SelectForm from 'Components/SelectForm';
+import StaticDevContent from 'Components/StaticDevContent';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
+import { filtersFetchData } from 'actions/filters/filters';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
-import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { filtersFetchData } from '../../../actions/filters/filters';
-import SelectForm from '../../SelectForm';
 
 
 const PositionManager = props => {
@@ -30,6 +32,7 @@ const PositionManager = props => {
     bureauFiltersIsLoading,
     bureauPositionsIsLoading,
     bureauPositionsHasErrored,
+    orgPermissions,
     userSelections,
   } = props;
 
@@ -47,6 +50,8 @@ const PositionManager = props => {
     useState(userSelections.selectedLanguages || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections.selectedBureaus || [props.bureauPermissions[0]]);
+  const [selectedOrgs, setSelectedOrgs] =
+    useState(userSelections.selectedOrgs || [props.orgPermissions[0]]);
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
@@ -65,6 +70,8 @@ const PositionManager = props => {
   const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
   const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
+  const organizations = orgPermissions;
+  const organizationOptions = sortBy(organizations, [(o) => o.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
   const postOptions = uniqBy(sortBy(posts.data, [(p) => p.city]), 'code');
   const cycles = bureauFilters$.find(f => f.item.description === 'bidCycle');
@@ -83,6 +90,7 @@ const PositionManager = props => {
     selectedPosts,
     selectedTODs,
     selectedBureaus,
+    selectedOrgs,
     selectedCycles,
     selectedLanguages,
     textSearch,
@@ -97,6 +105,7 @@ const PositionManager = props => {
     [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
     [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
     [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    org_code: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     ordering,
@@ -104,6 +113,9 @@ const PositionManager = props => {
     limit,
     q: textInput || textSearch,
   };
+
+  const noBureausSelected = selectedBureaus.filter(f => f).length < 1;
+  const noOrgsSelected = selectedOrgs.filter(f => f).length < 1;
 
   // Initial render
   useEffect(() => {
@@ -115,7 +127,9 @@ const PositionManager = props => {
   // Rerender and action on user selections
   useEffect(() => {
     if (prevPage) {
-      props.fetchBureauPositions(query);
+      if (!noBureausSelected || !noOrgsSelected) {
+        props.fetchBureauPositions(query);
+      }
       props.saveSelections(currentInputs);
       setPage(1);
     }
@@ -125,6 +139,7 @@ const PositionManager = props => {
     selectedPosts,
     selectedTODs,
     selectedBureaus,
+    selectedOrgs,
     selectedCycles,
     selectedLanguages,
     ordering,
@@ -198,13 +213,12 @@ const PositionManager = props => {
   };
 
   // Overlay for error, info, and positionLoading state
-  const noBureausSelected = selectedBureaus.filter(f => f).length < 1;
   const noResults = !get(bureauPositions, 'results.length');
   const getOverlay = () => {
     if (bureauPositionsIsLoading) {
       return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
-    } else if (noBureausSelected) {
-      return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
+    } else if (noBureausSelected && noOrgsSelected) {
+      return (<Alert type="error" title="No bureau/organization selected" messages={[{ body: 'Please select at least one bureau/organization filter.' }]} />);
     } else if (bureauPositionsHasErrored) {
       return (<Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />);
     } else if (noResults) {
@@ -279,23 +293,46 @@ const PositionManager = props => {
                         labelKey="custom_description"
                       />
                     </div>
-                    <div className="filter-div">
-                      <div className="label">Bureau:</div>
-                      <Picky
-                        placeholder="Select Bureau(s)"
-                        value={selectedBureaus}
-                        options={bureauOptions}
-                        onChange={values => setSelectedBureaus(values)}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="long_description"
-                        includeSelectAll
-                      />
-                    </div>
+                    <PermissionsWrapper permissions={['bureau_user']}>
+                      <div className="filter-div">
+                        <div className="label">Bureau:</div>
+                        <Picky
+                          placeholder="Select Bureau(s)"
+                          value={selectedBureaus}
+                          options={bureauOptions}
+                          onChange={values => setSelectedBureaus(values)}
+                          numberDisplayed={2}
+                          multiple
+                          includeFilter
+                          dropdownHeight={255}
+                          renderList={renderSelectionList}
+                          valueKey="code"
+                          labelKey="long_description"
+                          includeSelectAll
+                        />
+                      </div>
+                    </PermissionsWrapper>
+                    <StaticDevContent useWrapper={false}>
+                      <PermissionsWrapper permissions={['post_user']}>
+                        <div className="filter-div">
+                          <div className="label">Organization:</div>
+                          <Picky
+                            placeholder="Select Organization(s)"
+                            value={selectedOrgs}
+                            options={organizationOptions}
+                            onChange={values => setSelectedOrgs(values)}
+                            numberDisplayed={2}
+                            multiple
+                            includeFilter
+                            dropdownHeight={255}
+                            renderList={renderSelectionList}
+                            valueKey="code"
+                            labelKey="long_description"
+                            includeSelectAll
+                          />
+                        </div>
+                      </PermissionsWrapper>
+                    </StaticDevContent>
                     <div className="filter-div">
                       <div className="label">Skill:</div>
                       <Picky
@@ -386,7 +423,7 @@ const PositionManager = props => {
                       <ExportButton
                         onClick={exportPositions}
                         isLoading={isLoading}
-                        disabled={noBureausSelected}
+                        disabled={noBureausSelected && noOrgsSelected}
                       />
                     </div>
                   </div>
@@ -423,6 +460,7 @@ PositionManager.propTypes = {
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPositionsHasErrored: PropTypes.bool,
   bureauPermissions: BUREAU_PERMISSIONS,
+  orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
 };
 
@@ -433,6 +471,7 @@ PositionManager.defaultProps = {
   bureauPositionsIsLoading: false,
   bureauPositionsHasErrored: false,
   bureauPermissions: [],
+  orgPermissions: [],
   userSelections: {},
 };
 
@@ -444,6 +483,7 @@ const mapStateToProps = state => ({
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
   bureauPermissions: state.userProfile.bureau_permissions,
+  orgPermissions: state.userProfile.org_permissions,
   userSelections: state.bureauUserSelections,
 });
 
