@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
+import TestComp from '../../ProfileDashboard/TestComp/TestComp';
 
-const Classifications = ({ classifications, clientClassifications, isLoading, isPublic,
-  userId }) => (
+const Classifications = ({ classifications, clientClassifications, isLoading, showComp,
+  setShowComp }) => (
   <div className="usa-grid-full profile-section-container updates-container">
     <div className="usa-grid-full section-padded-inner-container">
       <div className="usa-width-one-whole">
@@ -23,11 +24,15 @@ const Classifications = ({ classifications, clientClassifications, isLoading, is
     {
       !isLoading &&
       <div className="section-padded-inner-container small-link-container view-more-link-centered">
-        <Link to={`/profile/bidtracker/${isPublic ? `public/${userId}` : ''}`}>
-          <FA name="pencil" /> Edit Classifications
-        </Link>
+        <FA
+          name="pencil"
+          onClick={() => setShowComp(!showComp)}
+        /> Edit Classifications
       </div>
     }
+    <div>
+      <TestComp />
+    </div>
   </div>
 );
 
@@ -35,16 +40,16 @@ Classifications.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
-  isPublic: PropTypes.bool,
-  userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  showComp: PropTypes.bool,
+  setShowComp: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isLoading: false,
-  isPublic: false,
-  userId: '',
+  showComp: false,
+  setShowComp: '',
 };
 
 export default Classifications;
