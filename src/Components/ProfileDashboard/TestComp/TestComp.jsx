@@ -2,20 +2,36 @@ import FA from 'react-fontawesome';
 import { useState } from 'react';
 
 function TestComp() {
-  const [showComp, setShowComp] = useState(false);
+  const [newColor, setNewColor] = useState(false);
+  const [hideComp, setHideComp] = useState(false);
 
   let changeColor = 'blue';
+  let hide = false;
 
-  if (showComp) {
+  if (newColor) {
     changeColor = 'red';
   }
 
+  if (hideComp) {
+    hide = true;
+  }
+
   return (
-    <div className="section-padded-inner-container small-link-container view-more-link-centered" style={{ color: changeColor }}>
-      Test Comp
+    <div>
+      {
+        hide && (
+          <div style={{ color: changeColor }}>
+            Test Comp
+            <FA
+              name="bars"
+              onClick={() => setNewColor(!newColor)}
+            />
+          </div>
+        )
+      }
       <FA
-        name="bars"
-        onClick={() => setShowComp(!showComp)}
+        name="times-circle"
+        onClick={() => setHideComp(!hideComp)}
       />
     </div>
   );

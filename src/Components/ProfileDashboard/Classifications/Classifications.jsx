@@ -6,8 +6,7 @@ import CheckboxList from '../../BidderPortfolio/CheckboxList';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import TestComp from '../../ProfileDashboard/TestComp/TestComp';
 
-const Classifications = ({ classifications, clientClassifications, isLoading, showComp,
-  setShowComp }) => (
+const Classifications = ({ classifications, clientClassifications, isLoading, showComp }) => (
   <div className="usa-grid-full profile-section-container updates-container">
     <div className="usa-grid-full section-padded-inner-container">
       <div className="usa-width-one-whole">
@@ -26,13 +25,18 @@ const Classifications = ({ classifications, clientClassifications, isLoading, sh
       <div className="section-padded-inner-container small-link-container view-more-link-centered">
         <FA
           name="pencil"
-          onClick={() => setShowComp(!showComp)}
+          onClick={() => this.setState({ showComp: !showComp })}
+          // onClick={this.showComp}
         /> Edit Classifications
       </div>
     }
-    <div>
-      <TestComp />
-    </div>
+    {
+      !showComp && (
+        <div className="section-padded-inner-container small-link-container view-more-link-centered" >
+          <TestComp />
+        </div>
+      )
+    }
   </div>
 );
 
@@ -41,7 +45,6 @@ Classifications.propTypes = {
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
   showComp: PropTypes.bool,
-  setShowComp: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
@@ -49,7 +52,6 @@ Classifications.defaultProps = {
   clientClassifications: [],
   isLoading: false,
   showComp: false,
-  setShowComp: '',
 };
 
 export default Classifications;
