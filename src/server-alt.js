@@ -19,7 +19,7 @@ const removeCacheControl = (req, res, next) => {
 };
 // define full path to static build
 const STATIC_PATH = process.env.STATIC_PATH || path.join(__dirname, '../build');
-// define the tPI root url
+// define the API root url
 const API_ROOT = process.env.API_ROOT || 'http://localhost:8000';
 // define the prefix for the application
 const PUBLIC_URL = process.env.PUBLIC_URL || '/talentmap/';
