@@ -143,6 +143,7 @@
     "postcss-flexbugs-fixes": "4.2.1",
     "postcss-loader": "3.0.0",
     "promise": "8.1.0",
+    "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "10.1.0",
     "react-error-overlay": "^6.0.7",
     "react-router-test-context": "^0.1.0",
