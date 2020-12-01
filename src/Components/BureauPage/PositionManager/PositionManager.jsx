@@ -180,6 +180,7 @@ const PositionManager = props => {
     throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
 
   const setTextInputThrottled = (q) => {
+    // this is my hideComp
     throttledTextInput(q);
   };
 

@@ -9,6 +9,7 @@ const PositionManagerSearch = props => {
   const [q, setQ] = useState('');
 
   function changeText(e) {
+    // this should call hideComp (parent) in my example
     props.onChange(e.target.value);
     setQ(e.target.value);
   }
