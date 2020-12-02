@@ -64,7 +64,6 @@ export function availableBiddersToggleUserIsLoading(bool) {
     isLoading: bool,
   };
 }
-
 export function availableBiddersIds() {
   return (dispatch) => {
     batch(() => {
@@ -96,7 +95,7 @@ export function availableBiddersIds() {
       });
   };
 }
-
+// add () to handle bureau view or check user role on BE and return data accordingly -\_:)_/-
 export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
   return (dispatch) => {
     batch(() => {
@@ -104,13 +103,13 @@ export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
       dispatch(availableBiddersFetchDataErrored(false));
     });
 
-    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}&ordering=${sortType}`)
+    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}${sortType ? `&ordering=${sortType}` : ''}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(availableBiddersFetchDataSuccess(data));
           dispatch(availableBiddersFetchDataErrored(false));
           dispatch(availableBiddersFetchDataLoading(false));
-          dispatch(availableBiddersIds);
+          dispatch(availableBiddersIds());
         });
       })
       .catch((err) => {
@@ -129,7 +128,6 @@ export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
       });
   };
 }
-
 
 export function availableBiddersToggleUser(id, remove) {
   return (dispatch) => {
@@ -154,7 +152,7 @@ export function availableBiddersToggleUser(id, remove) {
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(availableBiddersToggleUserErrored(false));
           dispatch(availableBiddersToggleUserIsLoading(false));
-          dispatch(availableBiddersIds);
+          dispatch(availableBiddersIds());
         });
       })
       .catch(() => {
