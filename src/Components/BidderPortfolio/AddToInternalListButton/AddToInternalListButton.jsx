@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { includes } from 'lodash';
 import FontAwesome from 'react-fontawesome';
-import { availableBiddersToggleUser, availableBiddersIds } from 'actions/cdo';
+import { availableBiddersToggleUser } from 'actions/cdo';
 import InteractiveElement from '../../InteractiveElement';
 
 
 const AddToInternalListButton = props => {
   const {
     refKey,
-    fetchIds,
     toggleAvailableBidder,
     isLoading,
     compareArray,
@@ -24,10 +23,6 @@ const AddToInternalListButton = props => {
       setLoading(isLoading);
     }
   }, [isLoading]);
-
-  useEffect(() => {
-    fetchIds();
-  }, []);
 
   const inInternalList = () => includes(compareArray, refKey);
 
@@ -57,7 +52,6 @@ const AddToInternalListButton = props => {
 AddToInternalListButton.propTypes = {
   refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
   toggleAvailableBidder: PropTypes.func.isRequired,
-  fetchIds: PropTypes.func.isRequired,
   compareArray: PropTypes.arrayOf(
     PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired])),
   isLoading: PropTypes.bool,
@@ -75,7 +69,6 @@ const mapStateToProps = state => ({
 
 export const mapDispatchToProps = dispatch => ({
   toggleAvailableBidder: (id, remove) => dispatch(availableBiddersToggleUser(id, remove)),
-  fetchIds: () => dispatch(availableBiddersIds()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddToInternalListButton);

@@ -65,39 +65,6 @@ export function availableBiddersToggleUserIsLoading(bool) {
   };
 }
 
-
-export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(availableBiddersFetchDataLoading(true));
-      dispatch(availableBiddersFetchDataErrored(false));
-    });
-
-    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}&ordering=${sortType}`)
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(availableBiddersFetchDataSuccess(data));
-          dispatch(availableBiddersFetchDataErrored(false));
-          dispatch(availableBiddersFetchDataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (get(err, 'message') === 'cancel') {
-          batch(() => {
-            dispatch(availableBiddersFetchDataErrored(false));
-            dispatch(availableBiddersFetchDataLoading(true));
-          });
-        } else {
-          batch(() => {
-            dispatch(availableBiddersFetchDataSuccess({ results: [] }));
-            dispatch(availableBiddersFetchDataErrored(true));
-            dispatch(availableBiddersFetchDataLoading(false));
-          });
-        }
-      });
-  };
-}
-
 export function availableBiddersIds() {
   return (dispatch) => {
     batch(() => {
@@ -130,6 +97,40 @@ export function availableBiddersIds() {
   };
 }
 
+export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(availableBiddersFetchDataLoading(true));
+      dispatch(availableBiddersFetchDataErrored(false));
+    });
+
+    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}&ordering=${sortType}`)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(availableBiddersFetchDataSuccess(data));
+          dispatch(availableBiddersFetchDataErrored(false));
+          dispatch(availableBiddersFetchDataLoading(false));
+          dispatch(availableBiddersIds);
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(availableBiddersFetchDataErrored(false));
+            dispatch(availableBiddersFetchDataLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(availableBiddersFetchDataSuccess({ results: [] }));
+            dispatch(availableBiddersFetchDataErrored(true));
+            dispatch(availableBiddersFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+
 export function availableBiddersToggleUser(id, remove) {
   return (dispatch) => {
     const config = {
@@ -153,6 +154,7 @@ export function availableBiddersToggleUser(id, remove) {
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(availableBiddersToggleUserErrored(false));
           dispatch(availableBiddersToggleUserIsLoading(false));
+          dispatch(availableBiddersIds);
         });
       })
       .catch(() => {
