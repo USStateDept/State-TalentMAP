@@ -83,27 +83,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidcycle_admin',
         ],
       },
-      checkFlag('flags.client_profiles') ?
-        {
-          text: 'Client Profiles', // aka Bidder Portfolio
-          route: '/profile/bidderportfolio',
-          icon: 'users',
-          roles: [
-            'cdo',
-          ],
-          params: {
-            type: 'all',
-          },
-        } : null,
-      checkFlag('flags.available_bidders') ?
-        {
-          text: 'Available Bidders',
-          route: '/profile/availableBidders',
-          icon: 'user-times',
-          roles: [
-            'cdo',
-          ],
-        } : null,
       checkFlag('flags.static_content') ?
         {
           text: 'Settings',
@@ -268,6 +247,40 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   } : null,
+  {
+    text: 'CDO',
+    route: '/profile/cdo/bidderportfolio',
+    icon: 'street-view',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'cdo',
+    ],
+    children: [
+      checkFlag('flags.client_profiles') ?
+        {
+          text: 'Client Profiles', // aka Bidder Portfolio
+          route: '/profile/cdo/bidderportfolio',
+          icon: 'address-book',
+          roles: [
+            'cdo',
+          ],
+          params: {
+            type: 'all',
+          },
+        } : null,
+      checkFlag('flags.available_bidders') ?
+        {
+          text: 'Available Bidders',
+          route: '/profile/cdo/availablebidders',
+          icon: 'users',
+          roles: [
+            'cdo',
+          ],
+        } : null,
+    ],
+  },
 ].filter(x => x));
 
 export default GET_PROFILE_MENU;
