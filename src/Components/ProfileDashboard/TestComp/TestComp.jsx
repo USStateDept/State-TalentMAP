@@ -42,7 +42,7 @@ const TestComp = props => {
       <FA
         name="times-circle"
         // onClick={() => setHideComp(!hideComp)}
-        onClick={() => changeHiddenComp(!hideComp)}
+        onClick={() => changeHiddenComp(true)}
         // prop functionality in Classifications
         // call function in parent
       />

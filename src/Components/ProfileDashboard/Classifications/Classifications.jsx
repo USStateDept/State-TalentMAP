@@ -18,17 +18,17 @@ const Classifications = props => {
   } = props;
 
   const [compHidden, setCompHidden] = useState(true);
-  // function hideComp(test) {
-  //   setCompHidden(false);
-  //   console.log(test);
-  //   // this should hide
-  // }
 
-  // const setHideComp = (q) => {
-  //   // this is my hideComp
-  //   // throttledTextInput(q);
-  //   toggleHideComp(true);
-  // };
+  const toggleHideComp = () =>
+    setCompHidden(false);
+    // console.log(test);
+    // this should hide
+
+  const setHideComp = () => {
+    // this is my hideComp
+    // throttledTextInput(q);
+    toggleHideComp();
+  };
 
   // const Classifications = ({ classifications, clientClassifications, isLoading, showComp }) => (
   return (
@@ -53,6 +53,8 @@ const Classifications = props => {
             name="pencil"
             // pencil always shows comp
             onClick={() => setCompHidden(false)}
+            // onClick={() => setCompHidden(!compHidden)}
+            // onClick={setHideComp}
             // onClick={() => this.setState({ showComp: !showComp })}
           // add function for toggle
           // onClick={this.showComp}
@@ -62,8 +64,11 @@ const Classifications = props => {
       {
         !compHidden && (
           <div className="section-padded-inner-container small-link-container view-more-link-centered" >
-            <TestComp />
+            <TestComp
+              onClick={setHideComp}
+            />
             {/* follow position manger search */}
+            {/* onClick{() => setHideComp(false)} */}
           </div>
         )
       }
