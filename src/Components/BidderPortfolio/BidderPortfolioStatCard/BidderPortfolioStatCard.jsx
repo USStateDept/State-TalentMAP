@@ -44,7 +44,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
         {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <SearchAsClientButton user={userProfile} />
-          <AddToInternalListButton refKey={get(userProfile, 'id')} />
+          <AddToInternalListButton refKey={get(userProfile, 'perdet_seq_number')} />
         </div>}
       </div>
     </BoxShadow>
