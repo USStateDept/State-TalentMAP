@@ -74,7 +74,7 @@ export function availableBiddersIds() {
     api().get('cdo/availablebidders/ids/')
       .then(({ data }) => {
         batch(() => {
-          dispatch(availableBiddersIdsSuccess(data));
+          dispatch(availableBiddersIdsSuccess(data.map(Number)));
           dispatch(availableBiddersIdsErrored(false));
           dispatch(availableBiddersIdsLoading(false));
         });
