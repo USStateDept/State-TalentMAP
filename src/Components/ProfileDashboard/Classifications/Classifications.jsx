@@ -19,15 +19,19 @@ const Classifications = props => {
 
   const [compHidden, setCompHidden] = useState(true);
 
-  const toggleHideComp = () =>
-    setCompHidden(false);
-    // console.log(test);
-    // this should hide
+  // const toggleHideComp = () =>
+  //   setCompHidden(false);
+  //   // console.log(test);
+  //   // this should hide
 
-  const setHideComp = () => {
+  const setHideComp = (abcArray) => {
     // this is my hideComp
     // throttledTextInput(q);
-    toggleHideComp();
+    // toggleHideComp();
+    // abcArray.push(4);
+    console.log('step #2');
+    // console.log(abcArray);
+    setCompHidden(abcArray);
   };
 
   // const Classifications = ({ classifications, clientClassifications, isLoading, showComp }) => (
@@ -65,8 +69,11 @@ const Classifications = props => {
         !compHidden && (
           <div className="section-padded-inner-container small-link-container view-more-link-centered" >
             <TestComp
-              onClick={setHideComp}
+              abcTest={(abcArray) => setHideComp(abcArray)}
+              abcVar={compHidden}
             />
+            {/* <TestComp test={this.showComp} /> */}
+            {/* // onClick={setHideComp} */}
             {/* follow position manger search */}
             {/* onClick{() => setHideComp(false)} */}
           </div>

@@ -6,13 +6,13 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const TestComp = props => {
   // Props
-  const {
-    showComp,
-  } = props;
+  // const {
+  //   showComp,
+  // } = props;
   // bring in props here
   // function TestComp() {
   const [newColor, setNewColor] = useState(false);
-  const [hideComp, setHideComp] = useState(false);
+  // const [hideComp, setHideComp] = useState(false);
 
   let changeColor = 'blue';
 
@@ -22,8 +22,13 @@ const TestComp = props => {
   // should be like "change text" in pos manger search
   function changeHiddenComp() {
     // this should call hideComp (parent) in my example
-    props.hideComp(showComp);
-    setHideComp(true);
+    // abcArray.push(2);
+    console.log('step #1');
+    // console.log(props.abcTest);
+    // console.log(this.props.abcTest);
+    // props.abcTest(abcArray);
+    // setHideComp(true);
+    props.abcTest(!props.abcVar);
   }
 
   if (newColor) {
@@ -42,24 +47,27 @@ const TestComp = props => {
       <FA
         name="times-circle"
         // onClick={() => setHideComp(!hideComp)}
-        onClick={() => changeHiddenComp(true)}
+        onClick={() => changeHiddenComp()}
+        // onClick={() => changeHiddenComp(!this.props.test)}
         // prop functionality in Classifications
         // call function in parent
       />
-      { hideComp.toString() }
+      {/* { hideComp.toString() } */}
     </div>
   );
 };
 
 // set up props
 TestComp.propTypes = {
-  showComp: PropTypes.bool,
-  hideComp: PropTypes.func,
+  // showComp: PropTypes.bool,
+  abcTest: PropTypes.func,
+  abcVar: PropTypes.bool,
 };
 
 TestComp.defaultProps = {
-  showComp: false,
-  hideComp: EMPTY_FUNCTION,
+  // showComp: false,
+  abcTest: EMPTY_FUNCTION,
+  abcVar: false,
 };
 
 export default TestComp;
