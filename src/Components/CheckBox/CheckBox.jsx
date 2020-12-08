@@ -30,7 +30,7 @@ class CheckBox extends Component {
 
   render() {
     const { id, label, title, name, labelSrOnly, small, className, disabled,
-      checkboxProps } = this.props;
+      checkboxProps, onChange } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
@@ -41,7 +41,7 @@ class CheckBox extends Component {
           title={title}
           name={name}
           value={checked.value}
-          onChange={e => this.onCheck(e)}
+          onChange={() => onChange(formattedId)}
           checked={checked.value}
           disabled={disabled}
           {...checkboxProps}
@@ -65,6 +65,7 @@ CheckBox.propTypes = {
   disabled: PropTypes.bool,
   checkboxProps: PropTypes.shape({}),
   overrideLifecycle: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 CheckBox.defaultProps = {
@@ -77,6 +78,7 @@ CheckBox.defaultProps = {
   disabled: false,
   checkboxProps: {},
   overrideLifecycle: false,
+  onChange: EMPTY_FUNCTION,
 };
 
 export default CheckBox;

@@ -1,8 +1,10 @@
+/* eslint-disable no-console */
 import { indexOf } from 'lodash';
+import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
-import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
+import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const CheckboxList = ({ list, clientClassifications }) => (
+const CheckboxList = ({ list, clientClassifications, editMode, updateClassifications }) => (
 
   <div className="client-checkbox-list">
     <CheckBox
@@ -17,16 +19,19 @@ const CheckboxList = ({ list, clientClassifications }) => (
     />
     {list.map((c) => {
       const checked = indexOf(clientClassifications, c.code) > -1;
+      console.log(checked);
       return (
         <CheckBox
           id={c.code}
           label={c.text}
           small
-          value={checked}
+          value={checked} // adds check marks when true
+          // value
           key={c.code}
-          disabled
+          disabled={editMode} // need to toggle when clicking pencil
           checked={checked}
           className="tm-checkbox-disabled-alternate"
+          onChange={(h) => updateClassifications(h)}
         />
       );
     })
@@ -37,12 +42,16 @@ const CheckboxList = ({ list, clientClassifications }) => (
 CheckboxList.propTypes = {
   list: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
+  editMode: PropTypes.bool,
+  updateClassifications: PropTypes.function,
 };
 
 CheckboxList.defaultProps = {
   isDisabled: false,
   list: [],
   clientClassifications: [],
+  editMode: false,
+  updateClassifications: EMPTY_FUNCTION,
 };
 
 export default CheckboxList;
