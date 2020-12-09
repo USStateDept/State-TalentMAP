@@ -25,10 +25,12 @@ const CheckboxList = ({ list, clientClassifications, editMode, updateClassificat
           id={c.code}
           label={c.text}
           small
-          value={checked} // adds check marks when true
+          // **** value is causing the error
+          // with the blue check not appearing ****
+          // value={checked} // adds check marks when true
           // value
           key={c.code}
-          disabled={editMode} // need to toggle when clicking pencil
+          disabled={editMode}
           checked={checked}
           className="tm-checkbox-disabled-alternate"
           onChange={(h) => updateClassifications(h)}

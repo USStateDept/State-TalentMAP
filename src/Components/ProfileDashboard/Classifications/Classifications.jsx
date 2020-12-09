@@ -44,7 +44,7 @@ const Classifications = props => {
         </div>
       </div>
       {
-        !isLoading &&
+        !isLoading && isEditable &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <span>
             <FA
@@ -52,6 +52,25 @@ const Classifications = props => {
               onClick={() => setIsEditable(false)}
             /> Edit Classifications
           </span>
+        </div>
+      }
+      { !isLoading && !isEditable &&
+        <div className="section-padded-inner-container small-link-container view-more-link-centered">
+          <div className="saved-search-form-buttons">
+            <button
+              type="button"
+              className="saved-search-form-primary-button"
+              onClick={() => setIsEditable(true)}
+            >Save
+            </button>
+            <button
+            // will need to set 'value' to false
+              type="button"
+              className="saved-search-form-primary-button"
+              onClick={() => setIsEditable(true)}
+            >Cancel
+            </button>
+          </div>
         </div>
       }
     </div>
