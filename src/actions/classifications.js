@@ -46,3 +46,16 @@ export function fetchClassifications() {
       });
   };
 }
+
+export function getClassifications() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(classificationsIsLoading(true));
+      dispatch(classificationsHasErrored(false));
+    });
+
+    const url = '/fsbid/reference/classifications/';
+
+    api().get(url);
+  };
+}

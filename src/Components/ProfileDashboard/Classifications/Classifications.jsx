@@ -4,7 +4,8 @@ import FA from 'react-fontawesome';
 import { useState } from 'react';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
-import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
+import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { getClassifications } from '../../../actions/classifications';
 
 const Classifications = props => {
   const {
@@ -13,15 +14,24 @@ const Classifications = props => {
     isLoading,
   } = props;
 
+  // "hooks" in component
   const [isEditable, setIsEditable] = useState(true);
   const [classificationsInput, setClassificationsInput] = useState([]);
 
   const handleInput = (c) => {
+    // need to hanlde checkmark still appearing on cancel here?
     console.log(c);
     console.log('Before');
     console.log(classificationsInput);
     const pushClass = classificationsInput;
-    pushClass.push(c);
+    if (!pushClass.includes(c)) {
+      pushClass.push(c);
+    } else {
+      const index = pushClass.indexOf(c);
+      if (index > -1) {
+        pushClass.splice(index, 1);
+      }
+    }
     setClassificationsInput(pushClass);
     console.log('After');
     console.log(classificationsInput);
@@ -61,6 +71,7 @@ const Classifications = props => {
               type="button"
               className="saved-search-form-primary-button"
               onClick={() => setIsEditable(true)}
+              // needs to call an action/pass argument
             >Save
             </button>
             <button
@@ -69,6 +80,7 @@ const Classifications = props => {
               className="saved-search-form-primary-button"
               onClick={() => setIsEditable(true)}
             >Cancel
+              {/* should set back to previous array */}
             </button>
           </div>
         </div>
@@ -81,12 +93,18 @@ Classifications.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
+  getClassifications: PropTypes.func,
 };
 
 Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isLoading: false,
+  getClassifications: EMPTY_FUNCTION,
 };
+
+export const mapDispatchToProps = dispatch => ({
+  getClassifications: () => dispatch(getClassifications()),
+});
 
 export default Classifications;
