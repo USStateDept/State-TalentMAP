@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useState } from 'react';
+import { connect } from 'react-redux';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
@@ -36,6 +37,17 @@ const Classifications = props => {
     console.log('After');
     console.log(classificationsInput);
   };
+
+  const onGetClassifications = () => {
+    getClassifications();
+  };
+
+  // const cancelInput = () => {
+  //   // cancel would return the previous list
+  //   console.log('cancel');
+  //   setClassificationsInput([]);
+  //   setIsEditable(true);
+  // };
 
   return (
     <div className="usa-grid-full profile-section-container updates-container">
@@ -79,6 +91,8 @@ const Classifications = props => {
               type="button"
               className="saved-search-form-primary-button"
               onClick={() => setIsEditable(true)}
+              getClassifications={onGetClassifications()}
+              // onClick={() => cancelInput()}
             >Cancel
               {/* should set back to previous array */}
             </button>
@@ -103,8 +117,15 @@ Classifications.defaultProps = {
   getClassifications: EMPTY_FUNCTION,
 };
 
+const mapStateToProps = state => ({
+  classifications: state.classifications,
+  clientClassifications: state.clientClassifications,
+  isLoading: state.isLoading,
+});
+
 export const mapDispatchToProps = dispatch => ({
   getClassifications: () => dispatch(getClassifications()),
 });
 
-export default Classifications;
+// export default Classifications;
+export default connect(mapStateToProps, mapDispatchToProps)(Classifications);

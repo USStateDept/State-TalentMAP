@@ -30,7 +30,7 @@ class CheckBox extends Component {
 
   render() {
     const { id, label, title, name, labelSrOnly, small, className, disabled,
-      checkboxProps, onChange } = this.props;
+      checkboxProps, onChange, getClassifications } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
@@ -45,6 +45,7 @@ class CheckBox extends Component {
           checked={checked.value}
           disabled={disabled}
           {...checkboxProps}
+          getClassifications={getClassifications}
         />
         <label htmlFor={formattedId}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
       </div>
@@ -66,6 +67,7 @@ CheckBox.propTypes = {
   checkboxProps: PropTypes.shape({}),
   overrideLifecycle: PropTypes.bool,
   onChange: PropTypes.func,
+  getClassifications: PropTypes.func.isRequired,
 };
 
 CheckBox.defaultProps = {

@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const CheckboxList = ({ list, clientClassifications, editMode, updateClassifications }) => (
+const CheckboxList = ({ list, clientClassifications, editMode, updateClassifications,
+  getClassifications }) => (
 
   <div className="client-checkbox-list">
     <CheckBox
@@ -34,6 +35,7 @@ const CheckboxList = ({ list, clientClassifications, editMode, updateClassificat
           checked={checked}
           className="tm-checkbox-disabled-alternate"
           onChange={(h) => updateClassifications(h)}
+          getClassifications={getClassifications}
         />
       );
     })
@@ -46,6 +48,7 @@ CheckboxList.propTypes = {
   clientClassifications: CLIENT_CLASSIFICATIONS,
   editMode: PropTypes.bool,
   updateClassifications: PropTypes.function,
+  getClassifications: PropTypes.func.isRequired,
 };
 
 CheckboxList.defaultProps = {
