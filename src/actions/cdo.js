@@ -6,6 +6,7 @@ import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE, REMOVE_FROM_INTERNAL_LIST_SUCCESS,
   INTERNAL_LIST_ERROR_TITLE, ADD_TO_INTERNAL_LIST_ERROR,
   REMOVE_FROM_INTERNAL_LIST_ERROR,
+  GENERIC_SUCCESS,
 } from '../Constants/SystemMessages';
 import api from '../api';
 
@@ -147,7 +148,7 @@ export function availableBiddersToggleUser(id, remove) {
         const toastTitle = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE
           : ADD_TO_INTERNAL_LIST_SUCCESS_TITLE;
         const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS
-          : ADD_TO_INTERNAL_LIST_SUCCESS;
+          : GENERIC_SUCCESS(ADD_TO_INTERNAL_LIST_SUCCESS, { path: '/profile/notifications', text: 'Go To Available Bidders' });
         batch(() => {
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(availableBiddersToggleUserErrored(false));
