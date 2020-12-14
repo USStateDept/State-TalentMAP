@@ -7809,9 +7809,9 @@ jsoneditor-react@^3.1.0:
   dependencies:
     prop-types "^15.7.2"
 
-jsoneditor@^9.1.4:
-  version "9.1.4"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.4.tgz#2c4451d9626118a8bbc77b64d74d355b7378c74a"
+jsoneditor@^9.1.5:
+  version "9.1.5"
+  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.5.tgz#190a366ca5171321a120aa7460c4398b53f2b9c1"
   dependencies:
     ace-builds "^1.4.12"
     ajv "^6.12.6"
