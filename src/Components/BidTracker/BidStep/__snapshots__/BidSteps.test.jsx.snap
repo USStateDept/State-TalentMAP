@@ -26,6 +26,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         isCurrent={false}
         needsAction={false}
         number={1}
+        tooltipText="\\"Drafts\\" are bids you have on your bid tracker but you haven’t submitted them for consideration."
+        tooltipTitle="What is a \\"Draft\\"?"
       />
     }
     key="1"
@@ -59,6 +61,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         isCurrent={false}
         needsAction={false}
         number={2}
+        tooltipText="\\"Bid Submitted\\" are those bids you have researched and submitted for consideration. Once a bid cycle is “open”, Bureaus can view who bid on their positions."
+        tooltipTitle="What is \\"Bid Submitted\\"?"
       />
     }
     key="2"
@@ -92,6 +96,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         isCurrent={false}
         needsAction={false}
         number={2}
+        tooltipText="\\"Pending Review\\" means your bid is currently being reviewed by the bureau for consideration (the Bureau confers with the Post or with the functional bureau for a consultative staffing position). Once you are offered and accept a handshake the CDO will review to ensure your handshake is ready to be registered. A CDO verifies if a bidder is an eligible bidder before the handshake can be registered."
+        tooltipTitle="What is \\"Pending Review\\"?"
       />
     }
     key="3"
@@ -123,6 +129,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         isCurrent={false}
         needsAction={false}
         number={4}
+        tooltipText="\\"Handshake Registered\\" reflects the date your handshake was registered by the CDO. Next the GTM/CDA Assignment Officer for your onward post prepares your assignment for panel."
+        tooltipTitle="What is \\"Handshake Registered\\"?"
       />
     }
     key="4"
@@ -156,6 +164,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         isCurrent={false}
         needsAction={false}
         number={5}
+        tooltipText="\\"Panel Scheduled\\" displays the date you are scheduled to be paneled once your position has been added to the panel agenda."
+        tooltipTitle="What is \\"Panel Scheduled\\"?"
       />
     }
     key="5"
@@ -198,6 +208,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           isCurrent={true}
           needsAction={false}
           number={6}
+          tooltipText=""
+          tooltipTitle=""
         />
       </ConfettiIcon>
     }

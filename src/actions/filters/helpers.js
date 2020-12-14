@@ -2,10 +2,12 @@ import { isUndefined } from 'lodash';
 import { getPostName } from 'utilities';
 import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 
-// Attempt to map the non-numeric grade codes to a full description.
+// Mapping grade codes to a full description for clarity
 // If no match is found, return the unmodified code.
 export function getCustomGradeDescription(gradeCode) {
   switch (gradeCode) {
+    case '00':
+      return '00 (Multiple Grades Considered)';
     case 'CM':
       return 'CM Career Minister (FE-CM)';
     case 'MC':

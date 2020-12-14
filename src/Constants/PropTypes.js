@@ -614,6 +614,14 @@ export const BUREAU_PERMISSIONS = PropTypes.arrayOf(
   }),
 );
 
+export const ORG_PERMISSIONS = PropTypes.arrayOf(
+  PropTypes.shape({
+    code: PropTypes.string,
+    long_description: PropTypes.string,
+    short_description: PropTypes.string,
+  }),
+);
+
 export const FILTER_SELECTION = PropTypes.arrayOf(PropTypes.string);
 
 export const BUREAU_USER_SELECTIONS = PropTypes.shape({

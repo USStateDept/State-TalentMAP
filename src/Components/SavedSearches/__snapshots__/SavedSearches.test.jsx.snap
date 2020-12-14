@@ -57,27 +57,27 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
       Array [
         Object {
           "numerator": 1,
-          "title": "All Saved Searches",
+          "title": "All Saved Searches ",
           "value": "all",
         },
         Object {
           "numerator": 1,
-          "title": "Open Positions",
+          "title": "Open Positions ",
           "value": "open",
         },
         Object {
           "numerator": 0,
-          "title": "Projected Vacancies",
+          "title": "Projected Vacancies ",
           "value": "pv",
         },
         Object {
           "numerator": 0,
-          "title": "Tandem Open Positions",
+          "title": "Tandem Open Positions ",
           "value": "open-ts",
         },
         Object {
           "numerator": 0,
-          "title": "Tandem Projected Vacancies",
+          "title": "Tandem Projected Vacancies ",
           "value": "pv-ts",
         },
       ]
