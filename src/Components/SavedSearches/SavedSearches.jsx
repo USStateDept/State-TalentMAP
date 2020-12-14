@@ -53,11 +53,11 @@ const SavedSearches = props => {
   const isLoading = (filtersIsLoading || savedSearchesIsLoading);
 
   const options = [
-    { title: 'All Saved Searches', value: 'all', numerator: getSearches('all').length },
-    { title: 'Open Positions', value: 'open', numerator: getSearches('open').length },
-    { title: 'Projected Vacancies', value: 'pv', numerator: getSearches('pv').length },
-    { title: 'Tandem Open Positions', value: 'open-ts', numerator: getSearches('open-ts').length },
-    { title: 'Tandem Projected Vacancies', value: 'pv-ts', numerator: getSearches('pv-ts').length },
+    { title: 'All Saved Searches ', value: 'all', numerator: getSearches('all').length },
+    { title: 'Open Positions ', value: 'open', numerator: getSearches('open').length },
+    { title: 'Projected Vacancies ', value: 'pv', numerator: getSearches('pv').length },
+    { title: 'Tandem Open Positions ', value: 'open-ts', numerator: getSearches('open-ts').length },
+    { title: 'Tandem Projected Vacancies ', value: 'pv-ts', numerator: getSearches('pv-ts').length },
   ];
 
   const searches = { results: getSearches() };
