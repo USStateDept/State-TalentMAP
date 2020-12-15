@@ -44,6 +44,10 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
               "text": "Date created: Most recent",
               "value": "-date_created",
             },
+            Object {
+              "text": "Date created: Oldest",
+              "value": "date_created",
+            },
           ]
         }
         transformValue={[Function]}
