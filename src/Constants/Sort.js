@@ -100,6 +100,7 @@ export const SAVED_SEARCH_SORTS = {
     { value: '', text: 'Sort option', disabled: true },
     { value: 'name', text: 'Name: A-Z' },
     { value: '-date_created', text: 'Date created: Most recent' },
+    { value: 'date_created', text: 'Date created: Oldest' },
   ],
 };
 
