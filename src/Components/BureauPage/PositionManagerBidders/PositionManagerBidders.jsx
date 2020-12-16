@@ -193,7 +193,6 @@ class PositionManagerBidders extends Component {
       Language: get(m, 'language'),
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
-      Deconflict: m.has_competing_rank ? 'Yes' : 'No',
     };
 
     if (props.bidsIsLoading) {
@@ -244,7 +243,7 @@ class PositionManagerBidders extends Component {
       const { bids, bidsIsLoading, filtersSelected, filters } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
-      const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO', 'Deconflict'].map(item => (
+      const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
         <th scope="col">{item}</th>
       ));
 
