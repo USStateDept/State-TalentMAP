@@ -27,8 +27,10 @@ const AddToInternalListButton = props => {
   const inInternalList = () => includes(compareArray, refKey);
 
   const toggleInternal = () => {
-    setLoading(true);
-    toggleAvailableBidder(refKey, inInternalList());
+    if (!isLoading) {
+      setLoading(true);
+      toggleAvailableBidder(refKey, inInternalList());
+    }
   };
 
   const getText = () => inInternalList() ? 'from Internal List' : 'to Internal List';
@@ -50,10 +52,9 @@ const AddToInternalListButton = props => {
 };
 
 AddToInternalListButton.propTypes = {
-  refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired]).isRequired,
+  refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   toggleAvailableBidder: PropTypes.func.isRequired,
-  compareArray: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.number, PropTypes.string.isRequired])),
+  compareArray: PropTypes.arrayOf(PropTypes.number).isRequired,
   isLoading: PropTypes.bool,
 };
 

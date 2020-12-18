@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { get } from 'lodash';
-import axios from 'axios';
+// import axios from 'axios';
 import { toastSuccess, toastError } from './toast';
 import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE, REMOVE_FROM_INTERNAL_LIST_SUCCESS,
@@ -96,7 +96,7 @@ export function availableBiddersIds() {
       });
   };
 }
-// add () to handle bureau view or check user role on BE and return data accordingly -\_:)_/-
+
 export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
   return (dispatch) => {
     batch(() => {
@@ -121,7 +121,7 @@ export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
           });
         } else {
           batch(() => {
-            dispatch(availableBiddersFetchDataSuccess({ results: [] }));
+            dispatch(availableBiddersFetchDataSuccess([]));
             dispatch(availableBiddersFetchDataErrored(true));
             dispatch(availableBiddersFetchDataLoading(false));
           });
@@ -136,17 +136,17 @@ export function availableBiddersToggleUser(id, remove) {
       method: remove ? 'delete' : 'put',
       url: `cdo/${id}/availablebidders/`,
     };
-    const getAction = () => api()(config);
 
     batch(() => {
       dispatch(availableBiddersToggleUserIsLoading(true));
       dispatch(availableBiddersToggleUserErrored(false));
     });
 
-    axios.all([getAction()])
+    api()(config)
       .then(() => {
         const toastTitle = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE
           : ADD_TO_INTERNAL_LIST_SUCCESS_TITLE;
+        // TODO: update this path during integration of Available Bidders
         const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS
           : GENERIC_SUCCESS(ADD_TO_INTERNAL_LIST_SUCCESS, { path: '/profile/notifications', text: 'Go To Available Bidders' });
         batch(() => {

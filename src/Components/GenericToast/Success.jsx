@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 
 const Success = ({ messageBefore, link, messageAfter }) => (
-  !!link && !!link.path && !!link.text ?
+  link && link.path && link.text ?
     <div>
       {messageBefore}
       <div>
