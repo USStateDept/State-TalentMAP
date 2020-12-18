@@ -1,6 +1,5 @@
 import { batch } from 'react-redux';
 import { get } from 'lodash';
-// import axios from 'axios';
 import { toastSuccess, toastError } from './toast';
 import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE, REMOVE_FROM_INTERNAL_LIST_SUCCESS,
