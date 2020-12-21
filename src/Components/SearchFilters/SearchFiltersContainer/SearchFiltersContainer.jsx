@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, indexOf, remove, sortBy } from 'lodash';
 import ToggleButton from 'Components/ToggleButton';

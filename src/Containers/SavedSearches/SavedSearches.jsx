@@ -1,24 +1,38 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from '../../actions/savedSearch';
-import { SAVED_SEARCH_PARENT_OBJECT } from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
+import { isEqual } from 'lodash';
+import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from 'actions/savedSearch';
+import { SAVED_SEARCH_PARENT_OBJECT } from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from 'Constants/DefaultProps';
+import { formQueryString } from 'utilities';
 import SavedSearchesMap from '../SavedSearchesMap';
-import { formQueryString } from '../../utilities';
 
 // Wrapper for anything related to saved searches
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
 // that use this container.
 class SavedSearchesContainer extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      defaultSort: '',
+    };
+  }
+
   UNSAFE_componentWillMount() {
     this.getSavedSearches();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(nextProps.deleteIsLoading, this.props.deleteIsLoading)) {
+      this.getSavedSearches();
+    }
+  }
+
   getSavedSearches() {
-    this.props.savedSearchesFetchData();
+    this.props.savedSearchesFetchData(this.state.defaultSort);
   }
 
   getSortedSearches = type => {
@@ -62,6 +76,7 @@ SavedSearchesContainer.propTypes = {
   savedSearchesIsLoading: PropTypes.bool.isRequired,
   setCurrentSavedSearch: PropTypes.func.isRequired,
   deleteSearch: PropTypes.func.isRequired,
+  deleteIsLoading: PropTypes.bool,
   ChildElement: PropTypes.func.isRequired,
 };
 
@@ -71,6 +86,7 @@ SavedSearchesContainer.defaultProps = {
   savedSearches: POSITION_RESULTS_OBJECT,
   savedSearchesIsLoading: true,
   savedSearchesHasErrored: false,
+  deleteIsLoading: false,
 };
 
 SavedSearchesContainer.contextTypes = {
@@ -83,6 +99,7 @@ const mapStateToProps = (state, ownProps) => ({
   savedSearches: state.savedSearchesSuccess,
   savedSearchesIsLoading: state.savedSearchesIsLoading,
   savedSearchesHasErrored: state.savedSearchesHasErrored,
+  deleteIsLoading: state.deleteSavedSearchIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({

@@ -1,8 +1,8 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
+import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -28,7 +28,6 @@ import {
 import {
   NO_BUREAU,
   NO_GRADE,
-  NO_SKILL,
   NO_END_DATE,
   NO_TOUR_OF_DUTY,
   NO_USER_LISTED,
@@ -121,7 +120,7 @@ const PositionDetailsItem = (props) => {
           <div className="usa-grid-full data-point-section">
             {hideContact && <BidCount bidStatistics={stats} altStyle isCondensed />}
             <CondensedCardDataPoint ariaLabel={getAccessiblePositionNumber(get(position, 'position_number'))} title="Position number" content={get(position, 'position_number')} />
-            <CondensedCardDataPoint title="Skill" content={get(position, 'skill', NO_SKILL)} />
+            <CondensedCardDataPoint title="Skill" content={<PositionSkillCodeList primarySkill={get(position, 'skill')} secondarySkill={get(position, 'skill_secondary')} />} />
             <CondensedCardDataPoint title="Grade" content={get(position, 'grade', NO_GRADE)} />
             <CondensedCardDataPoint title="Bureau" content={formattedBureau} />
             <CondensedCardDataPoint title="Tour of duty" content={formattedTOD} />

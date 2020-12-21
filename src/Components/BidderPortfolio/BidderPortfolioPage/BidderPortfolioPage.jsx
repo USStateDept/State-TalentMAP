@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
@@ -66,6 +66,9 @@ class BidderPortfolioPage extends Component {
     const showEdit = editType.show;
 
     const hideControls = get(bidderPortfolio, 'results', []).length === 0 || !cdosLength;
+
+    const total = get(bidderPortfolio, 'count');
+    const disableLink = (cdosLength === 0 || total === 0);
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
         <BidderPortfolioSearch onUpdate={queryParamUpdate} />
@@ -78,7 +81,7 @@ class BidderPortfolioPage extends Component {
               <StaticDevContent>
                 {isListView && !hideControls && <EditButtons onChange={this.changeEditType} />}
               </StaticDevContent>
-              <ExportLink />
+              <ExportLink disabled={disableLink} />
             </div>
           </div>
           {

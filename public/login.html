@@ -27,6 +27,9 @@
     <li>
       <a OnClick="login('woodwardw', 'password');">Wendy Woodward (Bureau)</a>
     </li>
+    <li>
+      <a OnClick="login('velezp', 'password');">Preston Velez (Post)</a>
+    </li>
   </ul>
 </div>
 <div>
@@ -64,7 +67,7 @@
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         // used to simulate the windows auth identification and token assignment
-        sessionStorage.setItem("tmusrname", username);
+        localStorage.setItem("tmusrname", username);
         window.location.href = '%PUBLIC_URL%/tokenValidation?tmApiToken=' + JSON.parse(xhr.response).token
       }
     };

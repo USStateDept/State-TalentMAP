@@ -1,4 +1,3 @@
-import React from 'react';
 import { mount, shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { forOwn } from 'lodash';
@@ -37,10 +36,6 @@ describe('Column', () => {
       const wrapper = mount(<Column as={tag} />);
       expect(wrapper.find(tag).exists()).toBe(true);
     });
-  });
-
-  it('throws an error if the columns prop is not valid', () => {
-    expect(() => shallow(<Column columns="a" />)).toThrowErrorMatchingSnapshot();
   });
 
   it('matches snapshot', () => {

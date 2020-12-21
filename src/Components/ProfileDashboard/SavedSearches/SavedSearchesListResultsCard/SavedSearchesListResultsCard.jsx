@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';

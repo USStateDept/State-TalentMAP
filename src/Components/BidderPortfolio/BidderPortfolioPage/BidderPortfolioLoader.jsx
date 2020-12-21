@@ -1,4 +1,3 @@
-import React from 'react';
 import createLoader from '../../Loadable';
 
 export const path = () => import('./BidderPortfolioPage');

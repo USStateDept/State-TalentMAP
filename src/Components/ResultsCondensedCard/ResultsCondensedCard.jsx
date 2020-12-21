@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';

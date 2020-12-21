@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import FieldSet from '../../FieldSet/FieldSet';
 import TextInput from '../../TextInput';

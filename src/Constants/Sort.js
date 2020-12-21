@@ -99,7 +99,8 @@ export const SAVED_SEARCH_SORTS = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
     { value: 'name', text: 'Name: A-Z' },
-    { value: '-id', text: 'Date created: Most recent' },
+    { value: '-date_created', text: 'Date created: Most recent' },
+    { value: 'date_created', text: 'Date created: Oldest' },
   ],
 };
 
@@ -141,7 +142,7 @@ export const BUREAU_POSITION_SORT = {
   options: [
     { value: 'position__title', text: 'Position title: A-Z' },
     { value: '-position__grade', text: 'Grade: Low to high' },
-    { value: '-position__bureau', text: 'Bureau: A-Z' },
+    { value: 'position__bureau', text: 'Bureau: A-Z' },
     { value: '-posted_date', text: 'Posted date: Most recent', availableOnly: true },
     { value: 'posted_date', text: 'Posted date: Oldest', availableOnly: true },
     { value: 'ted', text: 'TED: Soonest' },

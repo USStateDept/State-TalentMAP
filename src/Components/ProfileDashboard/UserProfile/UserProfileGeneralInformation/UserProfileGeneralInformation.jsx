@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import axios from 'axios';
@@ -32,7 +32,11 @@ class UserProfileGeneralInformation extends Component {
       url$ = get(userProfile, 'employee_profile_url.external');
     }
     onToastInfo(id);
-    axios.get(url$, { headers: { JWTAuthorization: fetchJWT() }, responseType: 'arraybuffer' })
+    axios.get(url$, {
+      withCredentials: true,
+      headers: { JWTAuthorization: fetchJWT() },
+      responseType: 'arraybuffer' },
+    )
       .then(response => {
         onToastSuccess(id);
         downloadPdfBlob(response.data);
@@ -120,7 +124,7 @@ UserProfileGeneralInformation.defaultProps = {
   onToastSuccess: EMPTY_FUNCTION,
 };
 
-const mapDispatchToProps = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   onToastError: (id) => dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred', id, true)),
   onToastInfo: (id) => dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id)),
   onToastSuccess: (id) => dispatch(toastSuccess('Employee profile succesfully downloaded.', 'Success', id, true)),

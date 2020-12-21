@@ -1,8 +1,12 @@
-import React from 'react';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { bidderUserObject } from '../../../../__mocks__/userObject';
-import UserProfileGeneralInformation from './UserProfileGeneralInformation';
+import {
+  expectMockWasCalled,
+  spyMockAdapter,
+  testDispatchFunctions,
+} from '../../../../testUtilities/testUtilities';
+import UserProfileGeneralInformation, { mapDispatchToProps } from './UserProfileGeneralInformation';
 
 describe('UserProfileGeneralInformationComponent', () => {
   it('is defined', () => {
@@ -10,6 +14,24 @@ describe('UserProfileGeneralInformationComponent', () => {
       userProfile={bidderUserObject}
     />);
     expect(wrapper).toBeDefined();
+  });
+
+  it('renders current user name', () => {
+    const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
+      userProfile={bidderUserObject}
+    />);
+    expect(wrapper.find('.name-group').children().find('PositionInformation').at(0)
+      .props().title).toBe('Doe, John');
+  });
+
+  it('renders Avatar', () => {
+    const wrapper = shallow(<UserProfileGeneralInformation.WrappedComponent
+      userProfile={bidderUserObject}
+      colorProp="displayName"
+      useColor
+    />);
+    expect(wrapper.find('Avatar').props().colorString).toBe('John');
+    expect(wrapper.find('Avatar').props().initials).toBe('JD');
   });
 
   it('matches snapshot when showEditLink is true', () => {
@@ -28,6 +50,15 @@ describe('UserProfileGeneralInformationComponent', () => {
         userProfile={bidderUserObject}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  describe('mapDispatchToProps', () => {
+    const config = {
+      onToastError: ['CzHHiJ2kw'],
+      onToastInfo: ['CzHHiJ2kw'],
+      onToastSuccess: ['CzHHiJ2kw'],
+    };
+    testDispatchFunctions(mapDispatchToProps, config);
   });
 
   it('matches snapshot', () => {

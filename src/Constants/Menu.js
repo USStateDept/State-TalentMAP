@@ -172,6 +172,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     roles: [
       'superuser',
       'bureau_user',
+      'post_user',
     ],
     children: [
       checkFlag('flags.static_content') ?
@@ -211,6 +212,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         roles: [
           'superuser',
           'bureau_user',
+          'post_user',
         ],
       },
       checkFlag('flags.available_bidders') ?

@@ -1,4 +1,3 @@
-import React from 'react';
 import Alert from '../../Alert';
 import { getAssetPath } from '../../../utilities';
 

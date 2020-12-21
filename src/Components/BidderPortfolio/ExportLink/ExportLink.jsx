@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { get, mapValues } from 'lodash';
@@ -76,7 +76,7 @@ export class ExportLink extends Component {
     const { data, isLoading } = this.state;
     return (
       <div className="export-button-container">
-        <ExportButton onClick={this.onClick} isLoading={isLoading} />
+        <ExportButton onClick={this.onClick} isLoading={isLoading} disabled={this.props.disabled} />
         <CSVLink
           transform={spliceStringForCSV}
           tabIndex="-1"
@@ -100,6 +100,7 @@ ExportLink.propTypes = {
   isLoading: PropTypes.bool,
   data: PropTypes.shape({ results: PropTypes.arrayOf(PropTypes.shape({})) }),
   bidderPortfolioLastQuery: PropTypes.shape({}),
+  disabled: PropTypes.bool,
 };
 
 ExportLink.defaultProps = {
@@ -108,6 +109,7 @@ ExportLink.defaultProps = {
   isLoading: false,
   data: {},
   bidderPortfolioLastQuery: {},
+  disabled: false,
 };
 
 const mapStateToProps = state => ({

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bowser from 'bowser';
-import { filter, indexOf, isArray, map, throttle } from 'lodash';
+import { every, filter, flatMap, indexOf, isArray, isObject, map, throttle } from 'lodash';
 import { format } from 'date-fns';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
@@ -17,17 +17,19 @@ const browser = bowser.getParser(window.navigator.userAgent);
 const isIE = browser.satisfies({ 'internet explorer': '<=11' });
 const THROTTLE_MS = isIE ? 1000 : 0;
 
-export function renderList({ items, ...rest }) {
+export function renderList({ items, selected, ...rest }) {
+  const selected$ = every(selected, isObject) ? flatMap(selected, a => a.description) : selected;
+  const getIsSelected = item => selected$.includes(item);
   return items.map(item => {
     const props = {
       ...rest,
+      getIsSelected,
       key: item.id,
       item: item.description,
     };
     const DATE_FORMAT = 'MMM YYYY';
     const startDate = format(item.start_date, DATE_FORMAT);
     const endDate = format(item.end_date, DATE_FORMAT);
-
     if (startDate && endDate) {
       const label = (
         <span>
@@ -48,6 +50,7 @@ export function renderList({ items, ...rest }) {
 class BidCyclePicker extends Component {
   constructor(props) {
     super(props);
+    this.setMultipleOptionFromParent = this.setMultipleOptionFromParent.bind(this);
     this.state = {
       arrayValue: [],
     };
@@ -65,6 +68,7 @@ class BidCyclePicker extends Component {
   }
   componentDidMount() {
     this.props.setSeasonsCb(this.getSeasons());
+    this.props.setClick(this.setMultipleOptionFromParent);
   }
   componentDidUpdate() {
     this.props.setSeasonsCb(this.getSeasons());
@@ -74,7 +78,14 @@ class BidCyclePicker extends Component {
     this.props.setSeasons(seasons);
   }
   getSeasons() {
-    return this.bidSeasonsToIds();
+    const { arrayValue } = this.state;
+    const { seasons } = this.props;
+    const ids$ = isArray(seasons) ? [...seasons] : [];
+    return filter(ids$, f => indexOf(arrayValue, f.description) > -1);
+  }
+
+  setMultipleOptionFromParent(seasonObjs) {
+    this.setState({ arrayValue: seasonObjs.map(a => a.description) }, () => this.setSeasons());
   }
 
   bidSeasonsToIds = () => {
@@ -87,7 +98,8 @@ class BidCyclePicker extends Component {
   };
 
   selectMultipleOption(value) {
-    this.setState({ arrayValue: value }, () => this.setSeasons());
+    const value$ = every(value, isObject) ? flatMap(value, a => a.description) : value;
+    this.setState({ arrayValue: value$ }, () => this.setSeasons());
   }
   render() {
     const { arrayValue } = this.state;
@@ -105,6 +117,7 @@ class BidCyclePicker extends Component {
           dropdownHeight={600}
           renderList={renderList}
           disabled={isLoading}
+          includeSelectAll
         />
       </div>
     );
@@ -118,6 +131,7 @@ BidCyclePicker.propTypes = {
   fetchSeasons: PropTypes.func.isRequired,
   setSeasons: PropTypes.func.isRequired,
   setSeasonsCb: PropTypes.func,
+  setClick: PropTypes.func,
 };
 
 BidCyclePicker.defaultProps = {
@@ -125,6 +139,7 @@ BidCyclePicker.defaultProps = {
   isLoading: false,
   hasErrored: false,
   setSeasonsCb: EMPTY_FUNCTION,
+  setClick: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({

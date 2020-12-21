@@ -1,4 +1,3 @@
-import React from 'react';
 import NavigationList from './Navigation/NavigationList';
 
 const TopNav = () => (

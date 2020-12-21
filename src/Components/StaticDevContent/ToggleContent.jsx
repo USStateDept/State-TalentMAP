@@ -6,7 +6,6 @@ its child component in a border when true, or simply return the unmodified
 child component when false.
 */
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { toggleStaticContent } from '../../actions/showStaticContent';

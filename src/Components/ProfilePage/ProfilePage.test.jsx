@@ -1,5 +1,9 @@
 import { shallow } from 'enzyme';
+<<<<<<< HEAD
 import React from 'react';
+=======
+import toJSON from 'enzyme-to-json';
+>>>>>>> dev
 import { MemoryRouter } from 'react-router-dom';
 import ProfilePage from './ProfilePage';
 import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';

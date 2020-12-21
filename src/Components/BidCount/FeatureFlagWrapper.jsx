@@ -1,4 +1,3 @@
-import React from 'react';
 import { Flag } from 'flag';
 import BidCount from './BidCount';
 

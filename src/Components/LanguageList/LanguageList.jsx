@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { NO_LANGUAGES } from '../../Constants/SystemMessages';
 import { LANGUAGES } from '../../Constants/PropTypes';

@@ -1,4 +1,3 @@
-import React from 'react';
 import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
 import PropTypes from 'prop-types';
@@ -28,6 +27,8 @@ const BidSteps = (props, context) => {
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
   const getIcon = (status) => {
+    const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
+    const tooltipText = get(bidData[status.prop], 'tooltip.text');
     const icon = (
       <BidStepIcon
         isComplete={bidData[status.prop].isComplete}
@@ -35,6 +36,8 @@ const BidSteps = (props, context) => {
         isCurrent={bidData[status.prop].isCurrent}
         number={bidData[status.prop].number}
         hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
+        tooltipTitle={tooltipTitle}
+        tooltipText={tooltipText}
       />
     );
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';

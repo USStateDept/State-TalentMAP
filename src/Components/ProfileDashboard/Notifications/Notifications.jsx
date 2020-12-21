@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { NOTIFICATION_RESULTS } from '../../../Constants/PropTypes';
 import SectionTitle from '../SectionTitle';

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
@@ -10,6 +10,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getResult, getBidStatsToUse, getDifferentials, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
+import { Handshake } from 'Components/Ribbon';
 import { getPostName, getBidStatisticsObject, propOrDefault, shortenString } from 'utilities';
 import {
   NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER,
@@ -74,6 +75,9 @@ class BureauResultsCard extends Component {
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
             <div>{postShort}</div>
+            {
+              get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+            }
             {renderBidCountMobile(stats)}
           </Row>
           <Row fluid className="bureau-card--section bureau-card--content">

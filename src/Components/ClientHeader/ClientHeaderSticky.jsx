@@ -1,4 +1,3 @@
-import React from 'react';
 import Sticky from 'react-sticky-el';
 import ClientHeader from './ClientHeader';
 

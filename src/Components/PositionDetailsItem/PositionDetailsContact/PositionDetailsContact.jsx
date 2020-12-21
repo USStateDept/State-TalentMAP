@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { propOrDefault, formatDate, getBidStatisticsObject } from 'utilities';
 import BidCount from 'Components/BidCount';

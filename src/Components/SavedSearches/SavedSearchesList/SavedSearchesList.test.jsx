@@ -1,5 +1,4 @@
 import { shallow } from 'enzyme';
-import React from 'react';
 import sinon from 'sinon';
 import SavedSearchesList from './SavedSearchesList';
 import searchObjectParent from '../../../__mocks__/searchObjectParent';

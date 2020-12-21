@@ -1,4 +1,3 @@
-import React from 'react';
 import EmptyListAlert from '../EmptyListAlert';
 
 const NoSavedSearches = () => {

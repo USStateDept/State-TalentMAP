@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import groupBy from 'lodash/groupBy';

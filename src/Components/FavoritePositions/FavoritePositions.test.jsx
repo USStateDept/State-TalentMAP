@@ -1,5 +1,4 @@
 import { shallow, mount } from 'enzyme';
-import React from 'react';
 import { act } from 'react-dom/test-utils';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';

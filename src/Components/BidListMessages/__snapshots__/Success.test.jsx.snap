@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Success matches snapshot 1`] = `
+<span>
+  Test Position
+   (
+  00003027
+  ) has been successfully added to Bid List. 
+  <span>
+    <Link
+      replace={false}
+      to="/profile/bidtracker/public/12345/"
+    >
+      Go to 
+      Woodard, Wendy's'
+       Bid Tracker
+    </Link>
+    .
+  </span>
+</span>
+`;

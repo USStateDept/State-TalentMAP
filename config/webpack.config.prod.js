@@ -57,6 +57,7 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: 'source-map',
   // In production, we only want to load the polyfills and the app code.
+  // Polyfills should always be first to avoid IE11 issues.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],
   output: {
     // The build folder.

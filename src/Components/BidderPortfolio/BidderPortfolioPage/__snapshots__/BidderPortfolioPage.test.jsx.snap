@@ -31,11 +31,13 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         }
       >
         <Connect(StaticDevContent) />
-        <Connect(ExportLink) />
+        <Connect(ExportLink)
+          disabled={true}
+        />
       </div>
     </div>
     <div>
-      <BidControls
+      <Connect(BidControls)
         changeViewType={[Function]}
         defaultHandshake=""
         defaultOrdering=""
