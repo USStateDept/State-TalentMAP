@@ -213,6 +213,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      checkFlag('flags.available_bidders') ?
+        {
+          text: 'Available Bidders',
+          route: '/profile/bureau/availablebidders',
+          icon: 'users',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
     ],
   } : null,
   checkFlag('flags.ao') ? {
