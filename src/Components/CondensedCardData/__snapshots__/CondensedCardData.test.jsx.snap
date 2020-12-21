@@ -10,7 +10,12 @@ exports[`CondensedCardDataComponent matches snapshot 1`] = `
     title="TED"
   />
   <CondensedCardDataPoint
-    content="OFFICE MANAGEMENT (9017)"
+    content={
+      <PositionSkillCodeList
+        primarySkill="OFFICE MANAGEMENT (9017)"
+        secondarySkill=""
+      />
+    }
     hasFixedTitleWidth={true}
     title="Skill"
   />
@@ -42,7 +47,12 @@ exports[`CondensedCardDataComponent matches snapshot with an empty estimated end
     title="TED"
   />
   <CondensedCardDataPoint
-    content="OFFICE MANAGEMENT (9017)"
+    content={
+      <PositionSkillCodeList
+        primarySkill="OFFICE MANAGEMENT (9017)"
+        secondarySkill=""
+      />
+    }
     hasFixedTitleWidth={true}
     title="Skill"
   />
@@ -74,7 +84,12 @@ exports[`CondensedCardDataComponent matches snapshot with an empty skill 1`] = `
     title="TED"
   />
   <CondensedCardDataPoint
-    content="OFFICE MANAGEMENT (9017)"
+    content={
+      <PositionSkillCodeList
+        primarySkill="OFFICE MANAGEMENT (9017)"
+        secondarySkill=""
+      />
+    }
     hasFixedTitleWidth={true}
     title="Skill"
   />
