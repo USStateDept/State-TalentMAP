@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
+import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -26,7 +27,7 @@ import { formatDate, propOrDefault, getPostName, shortenString,
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import {
   NO_BUREAU, NO_BID_CYCLE, NO_GRADE, NO_POSITION_NUMBER,
-  NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
+  NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 export const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
@@ -144,7 +145,7 @@ class ResultsCard extends Component {
       {
         'TED': getResult(result, 'ted', NO_DATE),
         [bidTypeTitle]: getResult(result, 'bidcycle.name', NO_BID_CYCLE),
-        'Skill': getResult(pos, 'skill', NO_SKILL),
+        'Skill': <PositionSkillCodeList primarySkill={get(pos, 'skill')} secondarySkill={get(pos, 'skill_secondary')} />,
         'Grade': getResult(pos, 'grade', NO_GRADE),
         'Bureau': getResult(pos, 'bureau', NO_BUREAU),
       },
