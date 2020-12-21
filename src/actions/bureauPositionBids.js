@@ -1,5 +1,6 @@
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
+import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { toastError } from './toast';
@@ -148,11 +149,15 @@ export function bureauBidsSetRanking(id, ranking = []) {
           .catch(() => {
             dispatch(bureauPositionBidsSetRankingHasErrored(true));
             dispatch(bureauPositionBidsSetRankingIsLoading(false));
+            dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
           });
       })
-      .catch(() => {
+      .catch((err) => {
         dispatch(bureauPositionBidsSetRankingHasErrored(true));
         dispatch(bureauPositionBidsSetRankingIsLoading(false));
+        if (get(err, 'response.status') === 403) {
+          dispatch(toastError('This position has been locked by the bureau. Your changes were not saved.', 'Bureau position locked'));
+        }
       });
   };
 }

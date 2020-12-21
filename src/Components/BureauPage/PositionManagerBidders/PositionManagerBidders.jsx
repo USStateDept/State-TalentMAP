@@ -9,9 +9,11 @@ import { formatDate, move } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { NO_GRADE, NO_END_DATE } from 'Constants/SystemMessages';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
 import InteractiveElement from 'Components/InteractiveElement';
+import ShortListLock from '../ShortListLock';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
 
@@ -240,15 +242,73 @@ class PositionManagerBidders extends Component {
     };
 
     render() {
-      const { bids, bidsIsLoading, filtersSelected, filters } = this.props;
+      const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
       const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
         <th scope="col">{item}</th>
       ));
 
+      const shortListLock = <ShortListLock id={id} />;
+
+      const shortListSection = (
+        <>
+          <div className="list-toggle-container">
+            <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('shortListVisible')}><FA name={shortListVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
+            <h3>Short List ({this.state.shortList.length})</h3>
+            {shortListLock}
+          </div>
+          {
+            shortListVisible &&
+          <table className="position-manager-bidders-table">
+            <thead>
+              <tr>
+                {tableHeaders}
+              </tr>
+            </thead>
+            <tbody>
+              <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                  <div
+                    ref={provided.innerRef}
+                    style={getListStyle(snapshot.isDraggingOver)}
+                  >
+                    {this.state.shortList.map((item, index) => (
+                      <Draggable
+                        key={item.id}
+                        draggableId={item.id}
+                        index={index}
+                        isDragDisabled={bidsIsLoading}
+                      >
+                        {(provided$, snapshot$) => (
+                          <div
+                            ref={provided$.innerRef}
+                            {...provided$.draggableProps}
+                            {...provided$.dragHandleProps}
+                            style={getItemStyle(
+                              snapshot$.isDragging,
+                              provided$.draggableProps.style,
+                            )}
+                            className={snapshot$.isDragging ? 'is-dragging' : ''}
+                          >
+                            {item.content}
+                          </div>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </tbody>
+          </table>
+          }
+        </>
+      );
+
       return (
         <div className="usa-width-one-whole position-manager-bidders">
+          { !bids.length && !!hasLoaded && shortListLock }
           <DragDropContext onDragEnd={this.onDragEnd}>
             {
               // >:)
@@ -259,55 +319,26 @@ class PositionManagerBidders extends Component {
                     <Alert type="info" title="There are no bids on this position" />
                     :
                     <>
-                      <div className="list-toggle-container">
-                        <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('shortListVisible')}><FA name={shortListVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
-                        <h3>Short List ({this.state.shortList.length})</h3>
-                      </div>
-                      {
-                        shortListVisible &&
-                        <table className="position-manager-bidders-table">
-                          <thead>
-                            <tr>
-                              {tableHeaders}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <Droppable droppableId="droppable">
-                              {(provided, snapshot) => (
-                                <div
-                                  ref={provided.innerRef}
-                                  style={getListStyle(snapshot.isDraggingOver)}
-                                >
-                                  {this.state.shortList.map((item, index) => (
-                                    <Draggable
-                                      key={item.id}
-                                      draggableId={item.id}
-                                      index={index}
-                                      isDragDisabled={bidsIsLoading}
-                                    >
-                                      {(provided$, snapshot$) => (
-                                        <div
-                                          ref={provided$.innerRef}
-                                          {...provided$.draggableProps}
-                                          {...provided$.dragHandleProps}
-                                          style={getItemStyle(
-                                            snapshot$.isDragging,
-                                            provided$.draggableProps.style,
-                                          )}
-                                          className={snapshot$.isDragging ? 'is-dragging' : ''}
-                                        >
-                                          {item.content}
-                                        </div>
-                                      )}
-                                    </Draggable>
-                                  ))}
-                                  {provided.placeholder}
-                                </div>
-                              )}
-                            </Droppable>
-                          </tbody>
-                        </table>
-                      }
+
+                      {isLocked ?
+                        <PermissionsWrapper
+                          permissions="bureau_user"
+                          fallback={
+                            <>
+                              <Alert
+                                type="info"
+                                title="Short List Locked"
+                                messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
+                              />
+                              <div>
+                                {shortListSection}
+                              </div>
+                            </>
+                          }
+                        >
+                          {shortListSection}
+                        </PermissionsWrapper>
+                        : shortListSection }
 
                       <div className="bidders-controls">
                         <SelectForm
@@ -399,6 +430,8 @@ PositionManagerBidders.propTypes = {
     ordering: PropTypes.string,
   }),
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.id]).isRequired,
+  isLocked: PropTypes.bool,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -411,6 +444,7 @@ PositionManagerBidders.defaultProps = {
   filtersSelected: false,
   filters: {},
   allBids: [],
+  isLocked: false,
 };
 
 export default PositionManagerBidders;
