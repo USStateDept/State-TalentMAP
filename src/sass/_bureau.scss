@@ -166,7 +166,7 @@
   .bureau-card--header {
     margin-bottom: .6em;
 
-    > div:nth-of-type(3) {
+    > div:nth-of-type(4) {
       margin-left: auto;
     }
 
@@ -178,6 +178,9 @@
       &:not(:first-child) {
         margin-top: 2px;
       }
+    }
+    .shortlist-icon {
+      color: $primary-blue;
     }
   }
 
