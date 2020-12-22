@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { PieChart, Pie, Cell, Bar, Legend } from 'recharts';
+import { PieChart, Pie, Cell, Bar } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
-import Spinner from '../../Spinner';
-import SelectForm from '../../SelectForm';
 import { Row } from '../../Layout';
 
 
