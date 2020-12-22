@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import CdoPage from 'Components/CdoPage';
 
 class CdoContainer extends Component {
