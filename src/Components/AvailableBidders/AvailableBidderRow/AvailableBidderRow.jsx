@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
@@ -6,7 +6,7 @@ import { get, keys } from 'lodash';
 import { formatDate } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { NO_GRADE, NO_END_DATE } from 'Constants/SystemMessages';
-import EditBidder from 'Components/AvailableBidders/EditBidder';
+// import EditBidder from 'Components/AvailableBidders/EditBidder';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 
