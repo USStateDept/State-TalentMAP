@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Bidders from '../Bidders';
 import AvailableBidderStats from '../AvailableBidderStats';
-import Picky from 'react-picky';
-import { get, sortBy, uniqBy, throttle } from 'lodash';
 
 
 const BidderManager = props => (
