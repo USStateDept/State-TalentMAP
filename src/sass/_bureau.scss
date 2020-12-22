@@ -157,7 +157,7 @@
   }
 
   .bid-count-container {
-    margin: 0 0 0 auto;
+    margin: 0;
     .bid-count-label {
       font-size: 15px;
     }
@@ -165,6 +165,10 @@
 
   .bureau-card--header {
     margin-bottom: .6em;
+
+    > div:nth-of-type(4) {
+      margin-left: auto;
+    }
 
     > div {
       &:not(:last-child) {

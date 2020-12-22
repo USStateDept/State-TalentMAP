@@ -11,6 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getResult, getBidStatsToUse, getDifferentials, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
+import { Handshake } from 'Components/Ribbon';
 import { getPostName, getBidStatisticsObject, propOrDefault, shortenString } from 'utilities';
 import {
   NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER,
@@ -84,6 +85,9 @@ class BureauResultsCard extends Component {
             <div>{detailsLink}</div>
             <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
+            {
+              get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+            }
             {renderBidCountMobile(stats)}
           </Row>
           <Row fluid className="bureau-card--section bureau-card--content">
