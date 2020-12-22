@@ -34,7 +34,7 @@ class BureauResultsCard extends Component {
     const title = propOrDefault(pos, 'title');
     const position = getResult(pos, 'position_number', NO_POSITION_NUMBER);
     const languages = getResult(pos, 'languages', []);
-    const hasShortList = getResult(result, 'hasShortList', false);
+    const hasShortList = getResult(result, 'has_short_list', false);
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
