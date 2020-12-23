@@ -121,6 +121,7 @@ class PositionManagerDetails extends Component {
                   />
                   <div className="usa-grid-full">
                     <PositionManagerBidders
+                      id={id}
                       bids={bids}
                       onSort={this.onSort}
                       onFilter={this.onFilter}
@@ -130,6 +131,7 @@ class PositionManagerDetails extends Component {
                       filtersSelected={filtersSelected}
                       filters={filters$}
                       allBids={allBids}
+                      isLocked={bureauPosition.is_locked}
                     />
                   </div>
                 </div>
