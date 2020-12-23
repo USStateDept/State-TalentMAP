@@ -53,6 +53,7 @@ import bureauPositionBids from './bureauPositionBids';
 import bureauPositionManager from './bureauPositionManager';
 import bureauPositionDetails from './bureauPositionDetails';
 import shortListLock from './shortListLock';
+import cdo from './cdo';
 
 export default (history) => combineReducers({
   ...results,
@@ -104,6 +105,7 @@ export default (history) => combineReducers({
   ...bureauPositionManager,
   ...bureauPositionDetails,
   ...shortListLock,
+  ...cdo,
   router: connectRouter(history),
   client,
   login,
