@@ -554,3 +554,12 @@
 .bureau-pagination-controls {
   padding-left: 35px;
 }
+
+.position-manager-bidders-table > tbody {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    min-height: 100px;
+  }
+}
