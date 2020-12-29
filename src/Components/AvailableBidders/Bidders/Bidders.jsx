@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { userSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import ToggleButton from 'Components/ToggleButton';
@@ -16,12 +16,22 @@ const Bidders = props => {
   const [cdoView, setCdoView] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
+  // Replace bidder fake data with line 20
+  // const bidderData = useSelector(state => state.bidderData);
+  const biddersIsLoading = useSelector(state => state.biddersIsLoading);
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(bidderActions);
+  // }, []);
+
   const modalContent = () => {
     setShowModal(!showModal);
     swal({
       title: 'Available Bidder Record Editor',
       buttons: ['Cancel', 'Save'],
-      show: this.state.showModal,
+      show: showModal,
       content: (
         <div>
           <form>
@@ -59,8 +69,6 @@ const Bidders = props => {
       ),
     });
   };
-
-  const { biddersIsLoading } = this.props;
 
   const tableHeaders = [
     'Name',
@@ -222,29 +230,16 @@ const Bidders = props => {
 };
 
 Bidders.propTypes = {
-  biddersIsLoading: PropTypes.bool,
 };
 
 Bidders.defaultProps = {
   bidders: [],
-  biddersIsLoading: false,
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
 };
 
 export default Bidders;
 
-// const mapStateToProps = state => ({
-//   bureauPositions: state.bureauPositions,
-//   bureauPositionsIsLoading: state.bureauPositionsIsLoading,
-//   bureauPositionsHasErrored: state.bureauPositionsHasErrored,
-//   bureauFilters: state.filters,
-//   bureauFiltersHasErrored: state.filtersHasErrored,
-//   bureauFiltersIsLoading: state.filtersIsLoading,
-//   bureauPermissions: state.userProfile.bureau_permissions,
-//   orgPermissions: state.userProfile.org_permissions,
-//   userSelections: state.bureauUserSelections,
-// });
 
 // export const mapDispatchToProps = dispatch => ({
 //   fetchBureauPositions: query => dispatch(bureauPositionsFetchData(query)),
