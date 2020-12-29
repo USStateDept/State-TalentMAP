@@ -9,7 +9,6 @@ import { formatDate, move } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { NO_GRADE, NO_END_DATE } from 'Constants/SystemMessages';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
-import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -242,7 +241,8 @@ class PositionManagerBidders extends Component {
     };
 
     render() {
-      const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked } = this.props;
+      const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
+        hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
       const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
@@ -250,6 +250,8 @@ class PositionManagerBidders extends Component {
       ));
 
       const shortListLock = <ShortListLock id={id} />;
+
+      const dndDisabled = bidsIsLoading || (isLocked && !hasBureauPermission);
 
       const shortListSection = (
         <>
@@ -267,7 +269,7 @@ class PositionManagerBidders extends Component {
               </tr>
             </thead>
             <tbody>
-              <Droppable droppableId="droppable">
+              <Droppable droppableId="droppable" isDropDisabled={dndDisabled}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -278,7 +280,7 @@ class PositionManagerBidders extends Component {
                         key={item.id}
                         draggableId={item.id}
                         index={index}
-                        isDragDisabled={bidsIsLoading}
+                        isDragDisabled={dndDisabled}
                       >
                         {(provided$, snapshot$) => (
                           <div
@@ -319,27 +321,20 @@ class PositionManagerBidders extends Component {
                     <Alert type="info" title="There are no bids on this position" />
                     :
                     <>
-
+                      {/* eslint-disable no-nested-ternary */}
                       {isLocked ?
-                        <PermissionsWrapper
-                          permissions="bureau_user"
-                          fallback={
-                            <>
-                              <Alert
-                                type="info"
-                                title="Short List Locked"
-                                messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
-                              />
-                              <div>
-                                {shortListSection}
-                              </div>
-                            </>
-                          }
-                        >
-                          {shortListSection}
-                        </PermissionsWrapper>
+                        hasBureauPermission ? shortListSection : <>
+                          <Alert
+                            type="info"
+                            title="Short List Locked"
+                            messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
+                          />
+                          <div>
+                            {shortListSection}
+                          </div>
+                        </>
                         : shortListSection }
-
+                      {/* eslint-enable no-nested-ternary */}
                       <div className="bidders-controls">
                         <SelectForm
                           id="sort"
@@ -372,7 +367,7 @@ class PositionManagerBidders extends Component {
                             </tr>
                           </thead>
                           <tbody>
-                            <Droppable droppableId="droppable2">
+                            <Droppable droppableId="droppable2" isDropDisabled={dndDisabled}>
                               {(provided, snapshot) => (
                                 <div
                                   ref={provided.innerRef}
@@ -383,7 +378,7 @@ class PositionManagerBidders extends Component {
                                       key={item.id}
                                       draggableId={item.id}
                                       index={index}
-                                      isDragDisabled={bidsIsLoading}
+                                      isDragDisabled={dndDisabled}
                                     >
                                       {(provided$, snapshot$) => (
                                         <div
@@ -432,6 +427,8 @@ PositionManagerBidders.propTypes = {
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.id]).isRequired,
   isLocked: PropTypes.bool,
+  hasBureauPermission: PropTypes.bool,
+  hasPostPermission: PropTypes.bool,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -445,6 +442,8 @@ PositionManagerBidders.defaultProps = {
   filters: {},
   allBids: [],
   isLocked: false,
+  hasBureauPermission: false,
+  hasPostPermission: false,
 };
 
 export default PositionManagerBidders;
