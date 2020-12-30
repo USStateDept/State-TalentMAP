@@ -1,12 +1,8 @@
-/* eslint-diable */
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Bidders from '../Bidders';
 import AvailableBidderStats from '../AvailableBidderStats';
 
 
-const BidderManager = props => (
+const BidderManager = () => (
   <div className="position-manager-details">
     <div className="usa-grid-full">
       <AvailableBidderStats />
@@ -27,12 +23,6 @@ BidderManager.defaultProps = {
 
 };
 
-const mapStateToProps = state => ({
-});
 
-export const mapDispatchToProps = dispatch => ({
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(BidderManager);
+export default (BidderManager);
 

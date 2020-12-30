@@ -11,6 +11,7 @@ const AvailableBidderStats = (props) => {
   const [showMore, setShowMore] = useState(false);
 
   const {
+    // eslint-disable-next-line no-unused-vars
     placeholderText,
   } = props;
   const data = [

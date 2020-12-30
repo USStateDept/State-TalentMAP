@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { availableBiddersFetchData } from 'actions/cdo';
 import ToggleButton from 'Components/ToggleButton';
 import ExportButton from 'Components/ExportButton';
 // import EditBidder from 'Components/AvailableBidders/EditBidder';
@@ -12,7 +12,7 @@ import shortid from 'shortid';
 import swal from '@sweetalert/with-react';
 
 
-const Bidders = props => {
+const Bidders = () => {
   const [cdoView, setCdoView] = useState(true);
   const [showModal, setShowModal] = useState(false);
 
@@ -20,11 +20,12 @@ const Bidders = props => {
   // const bidderData = useSelector(state => state.bidderData);
   const biddersIsLoading = useSelector(state => state.biddersIsLoading);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(bidderActions);
-  // }, []);
+  useEffect(() => {
+    dispatch(availableBiddersFetchData());
+  }, []);
+
 
   const modalContent = () => {
     setShowModal(!showModal);

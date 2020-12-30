@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import BidderPortfolio from 'Containers/BidderPortfolio';
 import BidderManager from 'Components/AvailableBidders/BidderManager';
