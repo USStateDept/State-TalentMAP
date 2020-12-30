@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import { get, keys } from 'lodash';
 import { formatDate } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { NO_GRADE, NO_END_DATE } from 'Constants/SystemMessages';
+import { NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU, NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST, NO_STATUS, NO_COMMENTS } from 'Constants/SystemMessages';
 // import EditBidder from 'Components/AvailableBidders/EditBidder';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -14,21 +14,21 @@ import { Tooltip } from 'react-tippy';
 const AvailableBidderRow = (props) => {
   const { bidder, CDOView, isLoading, showModal } = props;
 
-  const shared = Math.random() < 0.5; // Update to read from bidder object;
-  const ted = get(bidder, 'current_assignment.end_date');
+  const shared = get(bidder, 'is_shared', false);
+  const ted = get(bidder, 'TED');
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
 
   const sections = {
     Name: (<Link to={`/profile/public/${get(bidder, 'emp_id')}/bureau`}>{get(bidder, 'name')}</Link>),
-    Status: 'OC',
-    Skill: get(bidder, 'skills[0].description'),
+    Status: get(bidder, 'status', NO_STATUS),
+    Skill: get(bidder, 'skills[0].description', NO_USER_SKILL_CODE),
     Grade: get(bidder, 'grade', NO_GRADE),
     TED: formattedTed,
-    Current_Post: get(bidder, 'current_assignment.position.post.location.country'),
-    OC_Bureau: get(bidder, 'current_assignment.position.bureau'),
-    OC_Reason: 'Compassionate Curtailment',
-    CDO: get(bidder, 'cdo.name'),
-    Comments: 'Recently released from Sudan',
+    Current_Post: get(bidder, 'post.location.country', NO_POST),
+    OC_Bureau: get(bidder, 'current_assignment.position.bureau', NO_BUREAU),
+    OC_Reason: get(bidder, 'oc_reason', NO_OC_REASON),
+    CDO: get(bidder, 'cdo.name', NO_CDO),
+    Comments: get(bidder, 'comments', NO_COMMENTS),
   };
 
   return (
