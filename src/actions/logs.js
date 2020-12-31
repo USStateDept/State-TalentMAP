@@ -1,6 +1,7 @@
 import Q from 'q';
-import { get, takeRight } from 'lodash';
+import { get } from 'lodash';
 import { CancelToken } from 'axios';
+import q from 'query-string';
 import api from '../api';
 
 let cancel;
@@ -152,13 +153,17 @@ export function getLogsList() {
   };
 }
 
-export function getLog(id) {
+export function getLog(id, size) {
   if (cancel) { cancel('cancel'); }
   return (dispatch) => {
     dispatch(logIsLoading(true));
     dispatch(logHasErrored(false));
+
+    let q$ = { size };
+    q$ = q.stringify(q$);
+
     // get log by id
-    api().get(`/logs/${id}/`, {
+    api().get(`/logs/${id}/?${q$}`, {
       cancelToken: new CancelToken((c) => {
         cancel = c;
       }),
@@ -166,7 +171,6 @@ export function getLog(id) {
       .then((logList) => {
         let data = get(logList, 'data.data', []);
         data = data.split('\n');
-        data = takeRight(data, 500);
         if (data.length === 1 && !data[0]) {
           data = [];
         }
@@ -184,15 +188,18 @@ export function getLog(id) {
   };
 }
 
-export function getLogToDownload(id) {
+export function getLogToDownload(id, size = 1000) {
   return (dispatch) => {
     dispatch(logToDownloadIsLoading(true));
     dispatch(logToDownloadHasErrored(false));
 
+    let q$ = { size };
+    q$ = q.stringify(q$);
+
     let text = '';
 
     // get log by id
-    api().get(`/logs/${id}/`)
+    api().get(`/logs/${id}/?${q$}`)
       .then((response) => {
         const logText = get(response, 'data.data', '');
         const logName = id;
