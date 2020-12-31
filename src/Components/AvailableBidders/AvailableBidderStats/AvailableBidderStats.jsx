@@ -1,49 +1,46 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { get, sumBy } from 'lodash';
+import numeral from 'numeral';
 import FA from 'react-fontawesome';
-import { PieChart, Pie, Cell, Bar } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { Row } from '../../Layout';
 
 
 const AvailableBidderStats = (props) => {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(true);
 
   const {
-    // eslint-disable-next-line no-unused-vars
-    placeholderText,
+    stats,
   } = props;
-  const data = [
-    { name: 'OC: Overcompliment', value: 400 },
-    { name: 'UA: Unassigned', value: 300 },
-    { name: 'IT: In Transit', value: 300 },
-    { name: 'AWOL: Absent without leave', value: 200 },
+
+  let data = [
+    { name: 'Overcompliment (OC)', key: 'OC', value: 0, color: '#112E51' },
+    { name: 'Unassigned (UA)', key: 'UA', value: 0, color: '#205493' },
+    { name: 'In Transit (IT)', key: 'IT', value: 0, color: '#9BDAF1' },
+    { name: 'Absent without leave (AWOL)', key: 'AWOL', value: 0, color: '#02BFE7' },
   ];
 
-  const COLORS = ['#102f51', '#cc3334', '#c49208', '#2970bc'];
+  data = data.map(m => ({ ...m, value: get(stats, m.key, 0) }));
 
-  const RADIAN = Math.PI / 180;
-  const renderCustomizedLabel = ({
-    // eslint-disable-next-line react/prop-types
-    cx, cy, midAngle, innerRadius, outerRadius, percent,
-  }) => {
-    const radius = (innerRadius + (outerRadius - innerRadius)) * 0.5;
-    const x = cx + (radius * Math.cos(-midAngle * RADIAN));
-    const y = cy + (radius * Math.sin(-midAngle * RADIAN));
+  let sum = sumBy(data, 'value');
 
-    return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
+  if (sum === 0) {
+    data = data.map(m => ({ ...m, value: 1 }));
+    sum = sumBy(data, 'value');
+  }
 
+  const data$ = data.map(m => ({
+    ...m,
+    percent: numeral(m.value / sum).format('0%'),
+  }));
+
+  const chartData$ = data$.filter(f => f.value > 0);
 
   return (
-    <div
-      className={'usa-grid-full profile-content-inner-container'}
-    >
+    <div className="usa-grid-full profile-content-inner-container available-bidders-stats">
       <div className="usa-grid-full">
         <ProfileSectionTitle title="Available Bidders" icon="users" />
       </div>
@@ -58,30 +55,41 @@ const AvailableBidderStats = (props) => {
           </div>
           {
             showMore &&
-            <div className="usa-width-one-whole section">
-              <h4>Status</h4>
-              <div className="usa-width-one-whole">
-                <div className="usa-width-three-fourths align-left">
+            <div className="usa-grid-full section statistics-section">
+              <h3>Available Bidders Statistics</h3>
+              <div className="usa-grid-full flex">
+                <div className="usa-width-one-fourth legend-container">
+                  <div className="usa-grid-full legend">
+                    <h4>Available Bidders by Status</h4>
+                    {
+                      data$.map(m => (
+                        <div className="flex legend-item">
+                          <div
+                            className="legend-square"
+                            style={{ backgroundColor: m.color }}
+                          />
+                          <div className="legend-text">{`${m.percent} ${m.name}`}</div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                </div>
+                <div className="usa-width-one-third chart-container">
                   <PieChart width={400} height={400}>
                     <Pie
-                      data={data}
+                      data={chartData$}
                       cx={200}
                       cy={200}
                       labelLine={false}
-                      label={renderCustomizedLabel}
                       outerRadius={180}
                       fill="#8884d8"
                       dataKey="value"
                     >
                       {
-                      // eslint-disable-next-line react/no-array-index-key
-                        data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
+                        // eslint-disable-next-line react/no-array-index-key
+                        chartData$.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
                       }
                     </Pie>
-                    <Bar dataKey="OC: Overcompliment" fill="#102f51" />
-                    <Bar dataKey="UA: Unassigned" fill="#cc3334" />
-                    <Bar dataKey="IT: In Transit" fill="#c49208" />
-                    <Bar dataKey="AWOL: Absent without leave" fill="#2970bc" />
                   </PieChart>
                 </div>
               </div>
@@ -94,11 +102,16 @@ const AvailableBidderStats = (props) => {
 };
 
 AvailableBidderStats.propTypes = {
-  placeholderText: PropTypes.string,
+  stats: PropTypes.shape({}),
 };
 
 AvailableBidderStats.defaultProps = {
-  placeholderText: '',
+  stats: {
+    OC: 10,
+    UA: 3,
+    IT: 7,
+    AWOL: 1,
+  },
 };
 
 export default AvailableBidderStats;

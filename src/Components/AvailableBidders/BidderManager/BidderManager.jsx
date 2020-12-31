@@ -3,7 +3,7 @@ import AvailableBidderStats from '../AvailableBidderStats';
 
 
 const BidderManager = () => (
-  <div className="position-manager-details">
+  <div className="position-manager-details bidder-manager-page">
     <div className="usa-grid-full">
       <AvailableBidderStats />
     </div>
@@ -25,4 +25,3 @@ BidderManager.defaultProps = {
 
 
 export default (BidderManager);
-
