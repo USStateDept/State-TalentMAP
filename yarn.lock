@@ -4862,9 +4862,9 @@ eslint-plugin-jsx-a11y@5.1.1:
     emoji-regex "^6.1.0"
     jsx-ast-utils "^1.4.0"
 
-eslint-plugin-react@^7.21.5:
-  version "7.21.5"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.21.5.tgz#50b21a412b9574bfe05b21db176e8b7b3b15bff3"
+eslint-plugin-react@^7.22.0:
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-7.22.0.tgz#3d1c542d1d3169c45421c1215d9470e341707269"
   dependencies:
     array-includes "^3.1.1"
     array.prototype.flatmap "^1.2.3"
@@ -7793,9 +7793,9 @@ jsoneditor-react@^3.1.0:
   dependencies:
     prop-types "^15.7.2"
 
-jsoneditor@^9.1.6:
-  version "9.1.6"
-  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.6.tgz#4571396a55dfc74807ebe4c69f93c25e285938f6"
+jsoneditor@^9.1.7:
+  version "9.1.7"
+  resolved "https://registry.yarnpkg.com/jsoneditor/-/jsoneditor-9.1.7.tgz#eda50d23bf5f83a8096f1c1a3afa33af93279e20"
   dependencies:
     ace-builds "^1.4.12"
     ajv "^6.12.6"
@@ -13324,8 +13324,8 @@ uri-js@^4.2.2:
     punycode "^2.1.0"
 
 urijs@^1.16.1:
-  version "1.19.2"
-  resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.19.2.tgz#f9be09f00c4c5134b7cb3cf475c1dd394526265a"
+  version "1.19.5"
+  resolved "https://registry.yarnpkg.com/urijs/-/urijs-1.19.5.tgz#119683ab4b2fb0bd637e5ea6dd9117bcac68d3e4"
 
 urix@^0.1.0:
   version "0.1.0"
