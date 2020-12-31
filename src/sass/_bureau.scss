@@ -280,6 +280,14 @@
     margin: 0;
   }
 
+  // fix in IE11
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .ribbon-position-details {
+      right: 0;
+      position: absolute;
+    }
+  }
+
   .bureau-lock-button {
     margin: 1.5em 0 0 1.5em;
     max-height: 36px;
