@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FA from 'react-fontawesome';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import ExportButton from 'Components/ExportButton';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { shortListLockFetchData, shortListLockUpdateData } from 'actions/shortListLock';
@@ -57,8 +58,8 @@ PositionManagerDetails.propTypes = {
   statusHasErrored: PropTypes.string,
   statusUpdateIsLoading: PropTypes.bool,
   statusUpdateHasErrored: PropTypes.string,
-  updateStatus: PropTypes.func.isRequired,
-  getStatus: PropTypes.func.isRequired,
+  updateStatus: PropTypes.func,
+  getStatus: PropTypes.func,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -66,6 +67,8 @@ PositionManagerDetails.defaultProps = {
   statusHasErrored: '',
   statusUpdateIsLoading: false,
   statusUpdateHasErrored: '',
+  updateStatus: EMPTY_FUNCTION,
+  getStatus: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = (state) => ({
