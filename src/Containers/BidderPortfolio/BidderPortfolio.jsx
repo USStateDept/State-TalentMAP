@@ -8,6 +8,7 @@ import { fetchClassifications } from 'actions/classifications';
 import { BID_PORTFOLIO_SORTS_TYPE, BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
   bidderPortfolioCDOsFetchData } from 'actions/bidderPortfolio';
+import { availableBiddersFetchData } from 'actions/cdo';
 import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from 'Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
@@ -39,6 +40,7 @@ class BidderPortfolio extends Component {
     }
     this.props.fetchBidderPortfolioCDOs();
     this.props.fetchClassifications();
+    this.props.fetchAvailableBidders();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -192,6 +194,7 @@ BidderPortfolio.propTypes = {
   bidderPortfolioCDOsIsLoading: PropTypes.bool,
   defaultHandshakeFilter: PropTypes.string,
   defaultSort: PropTypes.string,
+  fetchAvailableBidders: PropTypes.func.isRequired,
 };
 
 BidderPortfolio.defaultProps = {
@@ -212,6 +215,7 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioCDOsIsLoading: false,
   defaultHandshakeFilter: '',
   defaultSort: '',
+  fetchAvailableBidders: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -238,6 +242,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolioCounts: () => dispatch(bidderPortfolioCountsFetchData()),
   fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
   fetchClassifications: () => dispatch(fetchClassifications()),
+  fetchAvailableBidders: () => dispatch(availableBiddersFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));

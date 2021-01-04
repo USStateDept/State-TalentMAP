@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { isEqual } from 'lodash';
+import TextInput from 'Components/TextInput';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import LogRow from './LogRow';
@@ -19,6 +20,8 @@ class LogsPage extends Component {
       selected: '',
       page: 1,
       range: 3,
+      logSize: 1000,
+      logOffset: 0,
     };
   }
 
@@ -36,8 +39,9 @@ class LogsPage extends Component {
   };
 
   selectLog = selected => {
+    const { logSize, logOffset } = this.state;
     this.setState({ selected }, () => {
-      this.props.getLog(selected);
+      this.props.getLog(selected, logSize, logOffset);
     });
   };
 
@@ -51,7 +55,7 @@ class LogsPage extends Component {
       logHasErrored,
       onDownloadOne,
     } = this.props;
-    const { page, range, selected } = this.state;
+    const { page, range, selected, logSize } = this.state;
 
     const logsLen = logsList.length;
 
@@ -72,6 +76,7 @@ class LogsPage extends Component {
         {
           !logsListIsLoading && !logsListHasErrored &&
           <div>
+            <TextInput inputProps={{ type: 'number' }} id="logSize" label="Log size (lines)" value={logSize} changeText={e => this.setState({ logSize: e })} />
             <div className="usa-grid-full total-results">
               <TotalResults total={logsLen} pageNumber={page} pageSize={range} />
             </div>
@@ -83,7 +88,7 @@ class LogsPage extends Component {
                     key={m}
                     name={m}
                     onClick={this.selectLog}
-                    onDownloadClick={onDownloadOne}
+                    onDownloadClick={e => onDownloadOne(e, logSize)}
                     isSelected={isSelected}
                   />
                 );
@@ -119,7 +124,7 @@ class LogsPage extends Component {
               </div>
               {
                 logSuccess &&
-                <button onClick={() => onDownloadOne(this.state.selected)} className="usa-button">Download</button>
+                <button onClick={() => onDownloadOne(this.state.selected, logSize)} className="usa-button">Download</button>
               }
             </div>
           </div>
