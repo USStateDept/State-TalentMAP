@@ -9,7 +9,7 @@ import OBCUrl from 'Components/OBCUrl';
 import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { POSITION_DETAILS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bureauBidsFetchData, bureauBidsAllFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import ExportButton from '../ExportButton';
@@ -121,6 +121,7 @@ class PositionManagerDetails extends Component {
                   />
                   <div className="usa-grid-full">
                     <PositionManagerBidders
+                      id={id}
                       bids={bids}
                       onSort={this.onSort}
                       onFilter={this.onFilter}
@@ -130,6 +131,9 @@ class PositionManagerDetails extends Component {
                       filtersSelected={filtersSelected}
                       filters={filters$}
                       allBids={allBids}
+                      isLocked={bureauPosition.is_locked}
+                      hasBureauPermission={bureauPosition.has_bureau_permission}
+                      hasPostPermission={bureauPosition.has_post_permission}
                     />
                   </div>
                 </div>
@@ -142,22 +146,27 @@ class PositionManagerDetails extends Component {
 }
 
 PositionManagerDetails.propTypes = {
-  getBids: PropTypes.func.isRequired,
-  getAllBids: PropTypes.func.isRequired,
+  getBids: PropTypes.func,
+  getAllBids: PropTypes.func,
   bids: PropTypes.arrayOf(PropTypes.shape({})),
   bidsIsLoading: PropTypes.bool,
-  getPositionDetails: PropTypes.func.isRequired,
-  getBidsRanking: PropTypes.func.isRequired,
+  getPositionDetails: PropTypes.func,
+  getBidsRanking: PropTypes.func,
   bureauPositionIsLoading: PropTypes.bool,
   bureauPosition: POSITION_DETAILS,
   ranking: PropTypes.arrayOf(PropTypes.shape({})),
-  setRanking: PropTypes.func.isRequired,
+  setRanking: PropTypes.func,
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
   allBidsIsLoading: PropTypes.bool,
   rankingIsLoading: PropTypes.bool,
 };
 
 PositionManagerDetails.defaultProps = {
+  getBids: EMPTY_FUNCTION,
+  getAllBids: EMPTY_FUNCTION,
+  getPositionDetails: EMPTY_FUNCTION,
+  getBidsRanking: EMPTY_FUNCTION,
+  setRanking: EMPTY_FUNCTION,
   bids: [],
   bidsIsLoading: false,
   bureauPositionIsLoading: false,

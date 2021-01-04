@@ -7,8 +7,10 @@ import SkillCodeList from '../../SkillCodeList';
 import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
 import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
+import AddToInternalListButton from '../AddToInternalListButton';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
+const useAvailableBidders = () => checkFlag('flags.available_bidders');
 
 const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
@@ -43,6 +45,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
         {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <SearchAsClientButton user={userProfile} />
+          { useAvailableBidders() && <AddToInternalListButton refKey={get(userProfile, 'perdet_seq_number')} /> }
         </div>}
       </div>
     </BoxShadow>

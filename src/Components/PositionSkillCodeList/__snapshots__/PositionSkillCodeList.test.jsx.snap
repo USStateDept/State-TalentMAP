@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionSkillCodeList matches snapshot when both skills are falsey 1`] = `
+<span>
+  None listed
+</span>
+`;
+
+exports[`PositionSkillCodeList matches snapshot when both skills are present 1`] = `
+<span>
+  SKILL (1000), OTHER SKILL (9001)
+</span>
+`;
+
+exports[`PositionSkillCodeList matches snapshot with only a primarySkill 1`] = `
+<span>
+  SKILL (1000)
+</span>
+`;
