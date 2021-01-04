@@ -30,6 +30,27 @@ export function availableBiddersFetchDataSuccess(results) {
   };
 }
 
+export function availableBidderFetchDataErrored(bool) {
+  return {
+    type: 'AVAILABLE_BIDDER_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function availableBidderFetchDataLoading(bool) {
+  return {
+    type: 'AVAILABLE_BIDDER_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function availableBidderFetchDataSuccess(results) {
+  return {
+    type: 'AVAILABLE_BIDDER_FETCH_SUCCESS',
+    results,
+  };
+}
+
 export function availableBiddersIdsErrored(bool) {
   return {
     type: 'AVAILABLE_BIDDERS_IDS_HAS_ERRORED',
@@ -62,6 +83,27 @@ export function availableBiddersToggleUserIsLoading(bool) {
   return {
     type: 'TOGGLE_AVAILABLE_BIDDERS_IS_LOADING',
     isLoading: bool,
+  };
+}
+
+export function availableBidderEditDataErrored(bool) {
+  return {
+    type: 'AVAILABLE_BIDDER_EDIT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function availableBidderEditDataLoading(bool) {
+  return {
+    type: 'AVAILABLE_BIDDER_EDIT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function availableBidderEditDataSuccess(success) {
+  return {
+    type: 'AVAILABLE_BIDDER_EDIT_SUCCESS',
+    success,
   };
 }
 
@@ -130,6 +172,38 @@ export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
   };
 }
 
+export function availableBidderFetchData(id) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(availableBidderFetchDataLoading(true));
+      dispatch(availableBidderFetchDataErrored(false));
+    });
+
+    api().get(`cdo/${id}/availablebidder/`)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(availableBidderFetchDataSuccess(data));
+          dispatch(availableBidderFetchDataErrored(false));
+          dispatch(availableBidderFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(availableBidderFetchDataErrored(false));
+            dispatch(availableBidderFetchDataLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(availableBidderFetchDataSuccess([]));
+            dispatch(availableBidderFetchDataErrored(true));
+            dispatch(availableBidderFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
 export function availableBiddersToggleUser(id, remove) {
   return (dispatch) => {
     const config = {
@@ -165,6 +239,40 @@ export function availableBiddersToggleUser(id, remove) {
           dispatch(availableBiddersToggleUserErrored(true));
           dispatch(availableBiddersToggleUserIsLoading(false));
         });
+      });
+  };
+}
+
+export function availableBidderEditData(id, data) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(availableBidderEditDataLoading(true));
+      dispatch(availableBidderEditDataErrored(false));
+    });
+
+    api().patch(`cdo/${id}/availablebidders/`, data)
+      .then(() => {
+        batch(() => {
+          dispatch(availableBidderEditDataErrored(false));
+          dispatch(availableBidderEditDataLoading(false));
+          dispatch(availableBidderEditDataSuccess(true));
+          dispatch(availableBiddersFetchData());
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(availableBidderEditDataErrored(false));
+            dispatch(availableBidderEditDataLoading(true));
+          });
+        } else {
+          batch(() => {
+            // Fix this
+            dispatch(availableBidderEditDataSuccess([]));
+            dispatch(availableBidderEditDataErrored(true));
+            dispatch(availableBidderEditDataLoading(false));
+          });
+        }
       });
   };
 }
