@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { includes } from 'lodash';
 import FontAwesome from 'react-fontawesome';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBiddersToggleUser } from 'actions/cdo';
 import InteractiveElement from '../../InteractiveElement';
 
@@ -54,11 +55,12 @@ const AddToInternalListButton = props => {
 AddToInternalListButton.propTypes = {
   refKey: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   toggleAvailableBidder: PropTypes.func.isRequired,
-  compareArray: PropTypes.arrayOf(PropTypes.number).isRequired,
+  compareArray: PropTypes.arrayOf(PropTypes.number),
   isLoading: PropTypes.bool,
 };
 
 AddToInternalListButton.defaultProps = {
+  toggleAvailableBidder: EMPTY_FUNCTION,
   compareArray: [],
   isLoading: false,
 };

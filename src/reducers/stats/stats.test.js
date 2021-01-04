@@ -32,4 +32,16 @@ describe('reducers', () => {
   it('can set reducer STATS_SUCCESS default', () => {
     expect(reducers.stats([], { type: 'DEFAULT' })).toEqual([]);
   });
+
+  it('can set reducer STATS_INTERVALS_HAS_ERRORED', () => {
+    expect(reducers.statsIntervalsHasErrored(true, { type: 'STATS_INTERVALS_HAS_ERRORED', hasErrored: false })).toBe(false);
+  });
+
+  it('can set reducer STATS_INTERVALS_IS_LOADING', () => {
+    expect(reducers.statsIntervalsIsLoading(true, { type: 'STATS_INTERVALS_IS_LOADING', isLoading: false })).toBe(false);
+  });
+
+  it('can set reducer STATS_INTERVALS_SUCCESS', () => {
+    expect(reducers.statsIntervals(true, { type: 'STATS_INTERVALS_SUCCESS', count: false })).toBe(false);
+  });
 });

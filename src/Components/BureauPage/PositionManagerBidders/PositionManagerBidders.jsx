@@ -9,7 +9,6 @@ import { formatDate, move } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { NO_GRADE, NO_END_DATE } from 'Constants/SystemMessages';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
-import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -77,13 +76,17 @@ class PositionManagerBidders extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+    let state = {};
     if (!nextProps.bidsIsLoading) {
-      this.setState({ hasLoaded: true });
+      state = { ...state, hasLoaded: true };
     }
-    this.setState({
+    state = {
+      ...state,
       shortList: this.getItems(rankedBids(nextProps.allBids, nextProps.ranking), 'shortList', nextProps),
       unranked: this.getItems(unrankedBids(nextProps.bids, nextProps.ranking), 'unranked', nextProps),
-    });
+    };
+
+    this.setState(state);
   }
 
   // Logic to check that either one of the lists updated, or a manually triggered (drag or rank)
@@ -91,6 +94,7 @@ class PositionManagerBidders extends Component {
   // If the ranking change was triggered by the user, call this.props.setRanking.
   componentDidUpdate(prevProps, prevState) {
     const { rankingUpdate, shortList, unranked } = this.state;
+    const { bidsIsLoading } = this.props;
 
     const shortListUpdated = !isEqual(
       shortList.map(m => m.emp_id), prevState.shortList.map(m => m.emp_id));
@@ -100,7 +104,9 @@ class PositionManagerBidders extends Component {
 
     const rankingUpdatedByUser = !isEqual(rankingUpdate, prevState.rankingUpdate);
 
-    if (shortListUpdated || unrankedUpdated || rankingUpdatedByUser) {
+    const loadingHasChanged = !isEqual(bidsIsLoading, prevProps.bidsIsLoading);
+
+    if (shortListUpdated || unrankedUpdated || rankingUpdatedByUser || loadingHasChanged) {
       // Running setState should be safe since it's conditional on multiple isEqual statements
       // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
@@ -182,7 +188,7 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
-        <select name="ranking" value={iter} onChange={a => { this.setState({ rankingUpdate: Date.now(), shortList: move(this.state.shortList, iter, a.target.value) }); }}>
+        <select name="ranking" disabled={this.isDndDisabled()} value={iter} onChange={a => { this.setState({ rankingUpdate: Date.now(), shortList: move(this.state.shortList, iter, a.target.value) }); }}>
           {[...Array(len).keys()]
             .map((e) => (<option
               key={e}
@@ -231,6 +237,12 @@ class PositionManagerBidders extends Component {
     return result;
   };
 
+  isDndDisabled = () => {
+    const { bidsIsLoading, isLocked,
+      hasBureauPermission } = this.props;
+    return bidsIsLoading || (isLocked && !hasBureauPermission);
+  }
+
     /**
        * A semi-generic way to handle multiple lists. Matches
        * the IDs of the droppable container to the names of the
@@ -242,7 +254,8 @@ class PositionManagerBidders extends Component {
     };
 
     render() {
-      const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked } = this.props;
+      const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
+        hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
       const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
@@ -250,6 +263,8 @@ class PositionManagerBidders extends Component {
       ));
 
       const shortListLock = <ShortListLock id={id} />;
+
+      const dndDisabled = this.isDndDisabled();
 
       const shortListSection = (
         <>
@@ -267,7 +282,7 @@ class PositionManagerBidders extends Component {
               </tr>
             </thead>
             <tbody>
-              <Droppable droppableId="droppable">
+              <Droppable droppableId="droppable" isDropDisabled={dndDisabled}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -278,7 +293,7 @@ class PositionManagerBidders extends Component {
                         key={item.id}
                         draggableId={item.id}
                         index={index}
-                        isDragDisabled={bidsIsLoading}
+                        isDragDisabled={dndDisabled}
                       >
                         {(provided$, snapshot$) => (
                           <div
@@ -319,27 +334,20 @@ class PositionManagerBidders extends Component {
                     <Alert type="info" title="There are no bids on this position" />
                     :
                     <>
-
+                      {/* eslint-disable no-nested-ternary */}
                       {isLocked ?
-                        <PermissionsWrapper
-                          permissions="bureau_user"
-                          fallback={
-                            <>
-                              <Alert
-                                type="info"
-                                title="Short List Locked"
-                                messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
-                              />
-                              <div>
-                                {shortListSection}
-                              </div>
-                            </>
-                          }
-                        >
-                          {shortListSection}
-                        </PermissionsWrapper>
+                        hasBureauPermission ? shortListSection : <>
+                          <Alert
+                            type="info"
+                            title="Short List Locked"
+                            messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
+                          />
+                          <div>
+                            {shortListSection}
+                          </div>
+                        </>
                         : shortListSection }
-
+                      {/* eslint-enable no-nested-ternary */}
                       <div className="bidders-controls">
                         <SelectForm
                           id="sort"
@@ -372,7 +380,7 @@ class PositionManagerBidders extends Component {
                             </tr>
                           </thead>
                           <tbody>
-                            <Droppable droppableId="droppable2">
+                            <Droppable droppableId="droppable2" isDropDisabled={dndDisabled}>
                               {(provided, snapshot) => (
                                 <div
                                   ref={provided.innerRef}
@@ -383,7 +391,7 @@ class PositionManagerBidders extends Component {
                                       key={item.id}
                                       draggableId={item.id}
                                       index={index}
-                                      isDragDisabled={bidsIsLoading}
+                                      isDragDisabled={dndDisabled}
                                     >
                                       {(provided$, snapshot$) => (
                                         <div
@@ -432,6 +440,8 @@ PositionManagerBidders.propTypes = {
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.id]).isRequired,
   isLocked: PropTypes.bool,
+  hasBureauPermission: PropTypes.bool,
+  hasPostPermission: PropTypes.bool,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -445,6 +455,8 @@ PositionManagerBidders.defaultProps = {
   filters: {},
   allBids: [],
   isLocked: false,
+  hasBureauPermission: false,
+  hasPostPermission: false,
 };
 
 export default PositionManagerBidders;
