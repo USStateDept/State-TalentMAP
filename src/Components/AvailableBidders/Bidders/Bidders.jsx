@@ -58,7 +58,7 @@ const Bidders = () => {
           <tr>
             {
               tableHeaders.map(item => (
-                <th className="ab-headers" scope="col">{item} <FA name="sort" /></th>
+                <th key={shortid.generate()} className="ab-headers" scope="col">{item} <FA name="sort" /></th>
               ))
             }
             <th className="action-header">
@@ -96,7 +96,7 @@ const Bidders = () => {
         </thead>
         <tbody>
           {bidders.map(bidder => (<AvailableBidderRow
-            id={shortid.generate()}
+            key={bidder.bidder_perdet}
             bidder={bidder}
             isLoading={biddersIsLoading}
             CDOView={cdoView}
