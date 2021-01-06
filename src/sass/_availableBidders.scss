@@ -110,6 +110,14 @@
   div:nth-child(2) {
     padding: 5px 0px 5px 0px;
   }
+
+  .fa-trash-o {
+    color: $color-red;
+  }
+
+  .fa-building {
+    color: $color-dodger-blue;
+  }
 }
 
 .ab-table-title-row {
@@ -125,4 +133,10 @@
 .action-header {
   display: flex;
   justify-content: center;
+}
+
+.ab-inactive {
+  td {
+    background-color: $color-gray-light;
+  }
 }
