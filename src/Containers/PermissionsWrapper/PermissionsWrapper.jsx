@@ -36,8 +36,21 @@ export class PermissionsWrapper extends Component {
   render() {
     const { children, fallback } = this.props;
     const hasPermissions = this.checkPermissions();
+
+    const renderProps = {
+      hasPermissions,
+    };
+
+    const children$ = typeof children === 'function'
+      ? children(renderProps)
+      : children;
+
+    const fallback$ = typeof fallback === 'function'
+      ? fallback(renderProps)
+      : fallback;
+
     return (
-      hasPermissions ? children : fallback
+      hasPermissions ? children$ : fallback$
     );
   }
 }
@@ -48,7 +61,8 @@ PermissionsWrapper.propTypes = {
   permissions: PropTypes.oneOfType(
     [PropTypes.arrayOf(PropTypes.string), PropTypes.string],
   ), // permissions to check exist
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.element]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.string,
+    PropTypes.number, PropTypes.element, PropTypes.func]).isRequired,
   fallback: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.element]),
   minimum: PropTypes.bool,
   onMount: PropTypes.func,
