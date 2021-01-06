@@ -101,7 +101,7 @@ const AvailableBidderRow = (props) => {
             position="top-end"
             tabIndex="0"
           >
-            <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true))} />
+            <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true, true))} />
           </Tooltip>
         </div>
       </td>

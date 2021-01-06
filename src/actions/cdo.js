@@ -30,27 +30,6 @@ export function availableBiddersFetchDataSuccess(results) {
   };
 }
 
-export function availableBidderFetchDataErrored(bool) {
-  return {
-    type: 'AVAILABLE_BIDDER_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function availableBidderFetchDataLoading(bool) {
-  return {
-    type: 'AVAILABLE_BIDDER_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function availableBidderFetchDataSuccess(results) {
-  return {
-    type: 'AVAILABLE_BIDDER_FETCH_SUCCESS',
-    results,
-  };
-}
-
 export function availableBiddersIdsErrored(bool) {
   return {
     type: 'AVAILABLE_BIDDERS_IDS_HAS_ERRORED',
@@ -172,39 +151,7 @@ export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
   };
 }
 
-export function availableBidderFetchData(id) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(availableBidderFetchDataLoading(true));
-      dispatch(availableBidderFetchDataErrored(false));
-    });
-
-    api().get(`cdo/${id}/availablebidder/`)
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(availableBidderFetchDataSuccess(data));
-          dispatch(availableBidderFetchDataErrored(false));
-          dispatch(availableBidderFetchDataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (get(err, 'message') === 'cancel') {
-          batch(() => {
-            dispatch(availableBidderFetchDataErrored(false));
-            dispatch(availableBidderFetchDataLoading(true));
-          });
-        } else {
-          batch(() => {
-            dispatch(availableBidderFetchDataSuccess([]));
-            dispatch(availableBidderFetchDataErrored(true));
-            dispatch(availableBidderFetchDataLoading(false));
-          });
-        }
-      });
-  };
-}
-
-export function availableBiddersToggleUser(id, remove) {
+export function availableBiddersToggleUser(id, remove, refresh = false) {
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
@@ -228,6 +175,9 @@ export function availableBiddersToggleUser(id, remove) {
           dispatch(availableBiddersToggleUserErrored(false));
           dispatch(availableBiddersToggleUserIsLoading(false));
           dispatch(availableBiddersIds());
+          if (refresh) {
+            dispatch(availableBiddersFetchData());
+          }
         });
       })
       .catch(() => {
