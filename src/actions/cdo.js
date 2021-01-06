@@ -118,14 +118,14 @@ export function availableBiddersIds() {
   };
 }
 
-export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
+export function availableBiddersFetchData(sortType) {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));
       dispatch(availableBiddersFetchDataErrored(false));
     });
 
-    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}${sortType ? `&ordering=${sortType}` : ''}`)
+    api().get(`cdo/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(availableBiddersFetchDataSuccess(data));

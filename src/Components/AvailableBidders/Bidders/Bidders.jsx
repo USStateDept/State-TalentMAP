@@ -62,7 +62,7 @@ const Bidders = () => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    <th key={shortid.generate()} className="ab-headers" scope="col">{item} <FA name="sort" /></th>
+                    <th key={shortid.generate()} className="ab-headers" scope="col" >{item} <FA name="sort" /></th>
                   ))
                 }
                 <th className="action-header">
