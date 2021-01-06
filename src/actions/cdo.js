@@ -118,14 +118,14 @@ export function availableBiddersIds() {
   };
 }
 
-export function availableBiddersFetchData(sortType) {
+export function availableBiddersFetchData(sortType, isCDO) {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));
       dispatch(availableBiddersFetchDataErrored(false));
     });
 
-    api().get(`cdo/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
+    api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(availableBiddersFetchDataSuccess(data));
