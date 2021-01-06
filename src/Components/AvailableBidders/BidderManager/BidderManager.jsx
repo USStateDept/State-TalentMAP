@@ -15,14 +15,5 @@ const BidderManager = () => (
   </div>
 );
 
-BidderManager.propTypes = {
-
-};
-
-BidderManager.defaultProps = {
-
-};
-
-
 export default (BidderManager);
 

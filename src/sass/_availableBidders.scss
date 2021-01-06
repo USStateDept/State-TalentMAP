@@ -58,7 +58,7 @@
         th {
           text-align: center;
           border: none;
-          background-color: $color-white;
+          background-color: $tm-white-smoke-light;
         }
         .table-title {
           font-size: 30px;
@@ -100,4 +100,29 @@
       }
     }
   }
+}
+
+.ab-action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  div:nth-child(2) {
+    padding: 5px 0px 5px 0px;
+  }
+}
+
+.ab-table-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ab-lower-section {
+  padding: 0px 35px 0px 35px;
+}
+
+.action-header {
+  display: flex;
+  justify-content: center;
 }

@@ -29,7 +29,7 @@ const AvailableBidderRow = (props) => {
     Grade: get(bidder, 'grade', NO_GRADE),
     TED: formattedTed,
     Current_Post: get(bidder, 'post.location.country', NO_POST),
-    OC_Bureau: get(bidder, 'current_assignment.position.bureau', NO_BUREAU),
+    OC_Bureau: get(bidder, 'oc_bureau', NO_BUREAU),
     OC_Reason: get(bidder, 'oc_reason', NO_OC_REASON),
     CDO: get(bidder, 'cdo.name', NO_CDO),
     Comments: get(bidder, 'comments', NO_COMMENTS),

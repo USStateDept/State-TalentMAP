@@ -7,7 +7,7 @@ const EditBidder = (props) => {
   const [status, setStatus] = useState(sections.Status);
   const [comment, setComment] = useState(sections.Comments);
   const [ocReason, setOCReason] = useState(sections.OC_Reason);
-  const [ocBureau, setOCBureau] = useState(sections.OC_Reason);
+  const [ocBureau, setOCBureau] = useState(sections.OC_Bureau);
 
   const submit = (e) => {
     e.preventDefault();
