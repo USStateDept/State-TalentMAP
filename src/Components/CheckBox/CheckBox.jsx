@@ -18,6 +18,9 @@ class CheckBox extends Component {
   }
 
   onCheck() {
+    const { id, onChange } = this.props;
+    const formattedId = formatIdSpacing(id);
+    console.log('checkbox', this.props.value);
     const { overrideLifecycle } = this.props;
     if (!overrideLifecycle) {
       const { checked } = this.state;
@@ -26,11 +29,12 @@ class CheckBox extends Component {
         this.props.onCheckBoxClick(checked.value, { ...this.props }),
       );
     }
+    onChange(formattedId);
   }
 
   render() {
     const { id, label, title, name, labelSrOnly, small, className, disabled,
-      checkboxProps, onChange, getClassifications } = this.props;
+      checkboxProps, getClassifications } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
@@ -41,7 +45,8 @@ class CheckBox extends Component {
           title={title}
           name={name}
           value={checked.value}
-          onChange={() => onChange(formattedId)}
+          // onChange={() => onChange(formattedId)}
+          onChange={e => this.onCheck(e)}
           checked={checked.value}
           disabled={disabled}
           {...checkboxProps}

@@ -98,3 +98,6 @@ export const POST_FEATURE_FLAGS_SUCCESS = 'Config File successfully updated.';
 export const POST_FEATURE_FLAGS_ERROR = 'Error updating Config File. Please try again.';
 
 export const COMING_SOON = 'Coming Soon';
+
+export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's Classifications have been updated";
+export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";
