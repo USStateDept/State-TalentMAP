@@ -32,7 +32,7 @@ const Bidders = (props) => {
     dispatch(availableBiddersFetchData(isCDO));
   }, []);
 
-  const tableHeaders = [
+  const tableHeaders = isCDO ? [
     'Name',
     'Status',
     'Skill',
@@ -43,6 +43,13 @@ const Bidders = (props) => {
     'OC Reason',
     'CDO',
     'Comments',
+  ] : [
+    'Name',
+    'Skill',
+    'Grade',
+    'TED',
+    'Post',
+    'CDO',
   ];
 
   return (
@@ -104,6 +111,7 @@ const Bidders = (props) => {
                 key={bidder.bidder_perdet}
                 bidder={bidder}
                 CDOView={cdoView}
+                isCDO={isCDO}
               />))}
             </tbody>
           </table>
