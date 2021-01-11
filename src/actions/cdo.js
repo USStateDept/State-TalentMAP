@@ -118,7 +118,7 @@ export function availableBiddersIds() {
   };
 }
 
-export function availableBiddersFetchData(sortType, isCDO) {
+export function availableBiddersFetchData(isCDO, sortType) {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));

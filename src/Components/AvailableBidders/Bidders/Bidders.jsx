@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBiddersFetchData } from 'actions/cdo';
 import ToggleButton from 'Components/ToggleButton';
@@ -12,7 +13,9 @@ import Spinner from 'Components/Spinner';
 import shortid from 'shortid';
 
 
-const Bidders = () => {
+const Bidders = (props) => {
+  const { isCDO } = props;
+
   // Local state
   const [cdoView, setCdoView] = useState(true);
 
@@ -26,9 +29,8 @@ const Bidders = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(availableBiddersFetchData());
+    dispatch(availableBiddersFetchData(isCDO));
   }, []);
-
 
   const tableHeaders = [
     'Name',
@@ -42,7 +44,6 @@ const Bidders = () => {
     'CDO',
     'Comments',
   ];
-
 
   return (
     <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
@@ -112,12 +113,14 @@ const Bidders = () => {
 };
 
 Bidders.propTypes = {
+  isCDO: PropTypes.bool,
 };
 
 Bidders.defaultProps = {
   bidders: [],
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
+  isCDO: false,
 };
 
 export default Bidders;

@@ -27,7 +27,7 @@ const BureauPage = () => {
         <Route path="/profile/(bureau|ao)/positionlists" render={() => <PositionLists {...posListsProps} />} />
         <Route path="/profile/(bureau|ao)/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/(bureau|ao)/positionmanager" render={() => <PositionManager />} />
-        <Route path="/profile/(bureau|ao)/availablebidders" render={() => <BidderManager />} />
+        <Route path="/profile/(bureau|ao)/availablebidders" render={() => <BidderManager isCDO={false} />} />
       </Switch>
     </div>
   );
