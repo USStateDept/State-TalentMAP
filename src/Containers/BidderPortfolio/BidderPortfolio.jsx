@@ -62,20 +62,16 @@ class BidderPortfolio extends Component {
   // the instance.
   onQueryParamUpdate = q => {
     const { query, page } = this.state;
-    let removePageandLimit = false;
-    if (isEqual(q, { limit: 'all' })) {
-      removePageandLimit = true;
-    }
+    const removeHandshake = get(q, 'hasHandshake', '') === 'available_bidders';
+
     this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
     let newQuery;
     let newQueryObject;
-    // removing page and limit from query.value
-    if (removePageandLimit) {
+
+    if (removeHandshake) {
       let qV = query.value;
-      const pageFind = qV.match(/page=\d{1,3}/i);
-      const limitFind = qV.match(/limit=\d{1,3}/i);
-      qV = qV.replace(pageFind, '');
-      qV = qV.replace(limitFind, '');
+      const hsFind = qV.match(/hasHandshake=(true|false)/gi);
+      qV = qV.replace(hsFind, '');
       newQuery = queryParamUpdate({}, qV);
       newQueryObject = queryParamUpdate(q, qV, true);
     } else {
@@ -88,13 +84,13 @@ class BidderPortfolio extends Component {
     const newQueryObjectPage = parseInt(newQueryObject.page, 10);
     page.value = newQueryObjectPage || 1;
     this.setState({ query, page }, () => {
-      this.getBidderPortfolio(removePageandLimit);
+      this.getBidderPortfolio(removeHandshake);
     });
   };
 
   // Form our query and then retrieve bidders.
-  getBidderPortfolio(removePageandLimit) {
-    const query = this.createSearchQuery(removePageandLimit);
+  getBidderPortfolio(removeHandshake) {
+    const query = this.createSearchQuery(removeHandshake);
     this.props.fetchBidderPortfolio(query);
   }
 
@@ -115,13 +111,14 @@ class BidderPortfolio extends Component {
   }
 
   // When we trigger a new search, we reset the page number and limit.
-  createSearchQuery(removePageandLimit) {
+  createSearchQuery(removeHandshake) {
     const { page, limit, hasHandshake, ordering } = this.state;
     this.mapTypeToQuery();
     let query;
-    if (removePageandLimit) {
+    if (removeHandshake) {
       query = {
-        hasHandshake: hasHandshake.value,
+        page: page.value,
+        limit: limit.value,
         ordering: ordering.value,
       };
     } else {

@@ -365,7 +365,7 @@ $cdo-search-container-padding: 10px;
     padding-left: 0 !important;
   }
 
-  .bid-cycle-picker-container {
+  .bid-cycle-picker-container, .unassigned-bidder-picker-container {
     > div {
       font-size: .8em;
     }
@@ -382,14 +382,29 @@ $cdo-search-container-padding: 10px;
     li:last-child {
       margin-bottom: 3px;
     }
-
-    .picky {
-      width: 200px;
-    }
     
     .picky--sublabel {
       margin-left: 2em;
     }
+  }
+  .bid-cycle-picker-container {
+    .picky {
+      width: 175px;
+    }
+  }
+  .unassigned-bidder-picker-container {
+    .picky {
+      width: 190px;
+      .picky__input--disabled {
+        background-color: $bg-gray-medium-4;
+        border-color: $bg-gray-medium-1;
+        color: $bg-gray-medium-0
+      }
+    }
+  }
+
+  .unassigned-disabled {
+    opacity: 0.4;
   }
 
   .dropdown-trigger-container {
@@ -470,7 +485,7 @@ $cdo-search-container-padding: 10px;
     float: right;
   }
 
-  @media screen and (max-width: 1525px) {
+  @media screen and (max-width: 1800px) {
     .small-screen-stack {
       flex-wrap: wrap;
       float: none;
@@ -480,10 +495,10 @@ $cdo-search-container-padding: 10px;
       margin: 0 10px;
     }
     .small-screen-stack > div > label,.label {
-      min-width: 100px;
+      min-width: 115px;
     }
   }
-  @media screen and (max-width: 1241px) {
+  @media screen and (max-width: 1301px) {
     .small-screen-stack {
       width: 100%;
       margin-bottom: 10px;
@@ -496,9 +511,9 @@ $cdo-search-container-padding: 10px;
       margin: 0 10px 0 0;
     }
   }
-  @media screen and (max-width: 890px) {
-    .small-screen-stack > div {
-      min-width: 300px;
+  @media screen and (max-width: 1000px) {
+    .small-screen-stack > div > label,.label {
+      min-width: 120px;
     }
   }
 

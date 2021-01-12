@@ -90,10 +90,19 @@ export const BID_PORTFOLIO_FILTERS = {
     { value: '', text: 'All' },
     { value: 'true', text: 'Handshake' },
     { value: 'false', text: 'No Handshake' },
+    { value: 'available_bidders', text: 'Available Bidders' },
   ],
 };
 
 BID_PORTFOLIO_FILTERS.defaultSort = BID_PORTFOLIO_FILTERS.options[0].value;
+
+export const UNASSIGNED_BIDDERS_FILTERS = {
+  options: [
+    { value: 'noHandshake', text: 'No Handshake' },
+    { value: 'noPanel', text: 'No Panel' },
+    { value: 'noBids', text: 'Has Not Placed Bids' },
+  ],
+};
 
 export const SAVED_SEARCH_SORTS = {
   options: [

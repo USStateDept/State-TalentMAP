@@ -34,6 +34,13 @@ export function bidderPortfolioSeasonsSuccess(results) {
   };
 }
 
+export function bidderPortfolioSelectedUnassigned(arr = []) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SELECTED_UNASSIGNED',
+    data: arr,
+  };
+}
+
 export function bidderPortfolioHasErrored(bool) {
   return {
     type: 'BIDDER_PORTFOLIO_HAS_ERRORED',
@@ -138,6 +145,17 @@ export function bidderPortfolioSetSeasons(seasons = []) {
   };
 }
 
+export function bidderPortfolioSetUnassigned(UA = []) {
+// eslint-disable-next-line no-console
+  console.log(
+    '%c bidderPortfolio SetUA UA:',
+    'color:red;font-family:system-ui;font-size:1rem;', UA,
+  );
+  return (dispatch) => {
+    dispatch(bidderPortfolioSelectedUnassigned(UA));
+  };
+}
+
 export function bidderPortfolioSeasonsFetchData() {
   return (dispatch) => {
     batch(() => {
@@ -210,6 +228,8 @@ export function bidderPortfolioFetchData(query = {}) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
     const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+    const unassigned = get(state, 'bidderPortfolioSelectedUnassigned', []);
+
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id__in = ids.join();
@@ -219,10 +239,23 @@ export function bidderPortfolioFetchData(query = {}) {
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
+      if (!query$.hasHandshake) {
+        if (unassigned.includes('noHandshake')) {
+          query$.hasHandshake = false;
+        }
+        if (unassigned.includes('noPanel')) {
+          query$.noPanel = true;
+        }
+        if (unassigned.includes('noBids')) {
+          query$.noBids = true;
+        }
+      }
     }
     if (!query$.ordering) {
       query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
     }
+    // eslint-disable-next-line no-console
+    console.log(query$);
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
