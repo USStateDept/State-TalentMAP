@@ -23,7 +23,7 @@ const Bidders = (props) => {
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const biddersDataIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const bidders = isCDO ? get(biddersData, 'results', []) : biddersData;
+  const bidders = get(biddersData, 'results', []);
 
   // Actions
   const dispatch = useDispatch();

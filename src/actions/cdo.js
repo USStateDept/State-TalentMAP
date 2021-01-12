@@ -127,8 +127,9 @@ export function availableBiddersFetchData(isCDO, sortType) {
 
     api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
       .then(({ data }) => {
+        const results = isCDO ? data : { results: data };
         batch(() => {
-          dispatch(availableBiddersFetchDataSuccess(data));
+          dispatch(availableBiddersFetchDataSuccess(results));
           dispatch(availableBiddersFetchDataErrored(false));
           dispatch(availableBiddersFetchDataLoading(false));
           dispatch(availableBiddersIds());

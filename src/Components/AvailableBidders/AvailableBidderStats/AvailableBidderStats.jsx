@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { PieChart, Pie, Cell, Bar } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { Row } from '../../Layout';
 
 
@@ -41,23 +40,17 @@ const AvailableBidderStats = (props) => {
 
 
   return (
-    <div
-      className={'usa-grid-full profile-content-inner-container'}
-    >
-      <div className="usa-grid-full">
-        <ProfileSectionTitle title="Available Bidders" icon="users" />
-      </div>
-      <div className="usa-grid-full">
-        <Row className="usa-grid-full">
-          <div className="usa-grid-full toggle-more-container">
-            <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
-              <h3>
-                <FA name="pie-chart" />  Statistics  <FA name={`chevron-${showMore ? 'down' : 'right'}`} />
-              </h3>
-            </InteractiveElement>
-          </div>
-          {
-            showMore &&
+    <div className="usa-grid-full">
+      <Row className="usa-grid-full">
+        <div className="usa-grid-full toggle-more-container">
+          <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+            <h3>
+              <FA name="pie-chart" />  Statistics  <FA name={`chevron-${showMore ? 'down' : 'right'}`} />
+            </h3>
+          </InteractiveElement>
+        </div>
+        {
+          showMore &&
             <div className="usa-width-one-whole section">
               <h4>Status</h4>
               <div className="usa-width-one-whole">
@@ -86,9 +79,8 @@ const AvailableBidderStats = (props) => {
                 </div>
               </div>
             </div>
-          }
-        </Row>
-      </div>
+        }
+      </Row>
     </div>
   );
 };
