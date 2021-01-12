@@ -20,7 +20,6 @@ class CheckBox extends Component {
   onCheck() {
     const { id, onChange } = this.props;
     const formattedId = formatIdSpacing(id);
-    console.log('checkbox', this.props.value);
     const { overrideLifecycle } = this.props;
     if (!overrideLifecycle) {
       const { checked } = this.state;
@@ -34,7 +33,7 @@ class CheckBox extends Component {
 
   render() {
     const { id, label, title, name, labelSrOnly, small, className, disabled,
-      checkboxProps, getClassifications } = this.props;
+      checkboxProps } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
@@ -45,12 +44,10 @@ class CheckBox extends Component {
           title={title}
           name={name}
           value={checked.value}
-          // onChange={() => onChange(formattedId)}
           onChange={e => this.onCheck(e)}
           checked={checked.value}
           disabled={disabled}
           {...checkboxProps}
-          getClassifications={getClassifications}
         />
         <label htmlFor={formattedId}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
       </div>
@@ -72,7 +69,6 @@ CheckBox.propTypes = {
   checkboxProps: PropTypes.shape({}),
   overrideLifecycle: PropTypes.bool,
   onChange: PropTypes.func,
-  getClassifications: PropTypes.func.isRequired,
 };
 
 CheckBox.defaultProps = {

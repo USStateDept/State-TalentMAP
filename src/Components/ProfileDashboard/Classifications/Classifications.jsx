@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
+import { pull } from 'lodash';
 import FA from 'react-fontawesome';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
-import { getClassifications, saveClassifications } from '../../../actions/classifications';
+import { saveClassifications } from '../../../actions/classifications';
 
 const Classifications = props => {
   const {
@@ -17,60 +18,44 @@ const Classifications = props => {
     userId,
   } = props;
 
+  // TODO:
+  // need to test useEffect
+  // need to test useState(clientClass)
+  // need to test referencing issue
+
   const [isEditable, setIsEditable] = useState(true);
-  const [classificationsInput, setClassificationsInput] = useState(clientClassifications);
+  // const [userInput, setUserInput] = useState([]);
+  const [userInput, setUserInput] = useState(clientClassifications);
 
-  // useEffect
-  // set classInput
-  // should handle initial render
-  // should only run once
-
-  // useEffect(() => {
-  //   console.log('client class', clientClassifications);
-  //   console.log('class input', classificationsInput);
-  //   console.log('setting orignal clientclass');
-  //   setClassificationsInput(['test']);
-  //   console.log('new class input', classificationsInput);
-  // }, []);
-
-  // need to re-render when clientClass changes
+  useEffect(() => {
+    if (!clientClassifications.length) {
+      setUserInput(clientClassifications);
+    }
+  }, [clientClassifications]);
 
   const handleInput = (c) => {
-    console.log('in handle input');
-    console.log('clientClass:', clientClassifications);
-    console.log('this is c:', c);
-    console.log('Before');
-    console.log('classificationsInput', classificationsInput);
-    const pushClass = classificationsInput;
-    if (!pushClass.includes(c)) {
-      pushClass.push(c);
+    const newClassifications = userInput;
+    if (newClassifications.includes(c)) {
+      pull(newClassifications, c);
     } else {
-      const index = pushClass.indexOf(c);
-      if (index > -1) {
-        pushClass.splice(index, 1);
-      }
+      newClassifications.push(c);
     }
-    setClassificationsInput(pushClass);
-    console.log('After');
-    console.log('classificationsInput', classificationsInput);
+    setUserInput(newClassifications);
   };
 
-  const onGetClassifications = () => {
-    getClassifications();
+  const cancelInput = (e) => {
+    e.preventDefault();
+    setUserInput(clientClassifications);
+    setIsEditable(true);
+    console.log('clientClassifications:', clientClassifications);
+    console.log('userInput', userInput);
   };
-
-  // const cancelInput = () => {
-  //   // cancel would return the previous list
-  //   console.log('cancel');
-  //   setClassificationsInput([]);
-  //   setIsEditable(true);
-  // };
 
   const onSubmit = () => {
     // needs to call an action/pass argument
-    console.log('inside onSubmit', classificationsInput);
+    console.log('inside onSubmit', userInput);
     console.log('userId perdet', userId);
-    saveUserClassifications(classificationsInput);
+    saveUserClassifications(userInput);
     setIsEditable(true);
   };
 
@@ -83,11 +68,10 @@ const Classifications = props => {
         <div className="usa-width-one-whole">
           <CheckboxList
             list={classifications}
-            clientClassifications={clientClassifications}
             id="updates"
             editMode={isEditable}
             updateClassifications={(h) => handleInput(h)}
-            input={classificationsInput}
+            input={userInput}
           />
         </div>
       </div>
@@ -112,12 +96,10 @@ const Classifications = props => {
             >Save
             </button>
             <button
-            // will need to set 'value' to false
               type="button"
               className="saved-search-form-primary-button"
-              onClick={() => setIsEditable(true)}
-              getClassifications={onGetClassifications()}
-              // onClick={() => cancelInput()}
+              // onClick={() => setIsEditable(true)}
+              onClick={(e) => cancelInput(e)}
             >Cancel
               {/* should set back to current object */}
             </button>
@@ -132,7 +114,6 @@ Classifications.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
-  // getClassifications: PropTypes.func,
   saveUserClassifications: PropTypes.func,
   userId: null,
   // userId: PropTypes.number,
@@ -142,7 +123,6 @@ Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isLoading: false,
-  getClassifications: EMPTY_FUNCTION,
   saveUserClassifications: EMPTY_FUNCTION,
   userId: null,
   // userId: 0,
@@ -154,7 +134,6 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  getClassifications: () => dispatch(getClassifications()),
   saveUserClassifications: (classification) => dispatch(saveClassifications(classification)),
 });
 
