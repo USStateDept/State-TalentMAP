@@ -125,7 +125,6 @@
       color: #272e3247;
     }
   }
-  
 }
 
 .ab-action-buttons {
@@ -143,5 +142,11 @@
 
   .fa-building {
     color: $color-dodger-blue;
+  }
+}
+
+.bureau-view-toggle {
+  .active {
+    text-shadow: 0 0 10px $color-dodger-blue;
   }
 }

@@ -95,7 +95,7 @@ const Bidders = (props) => {
                             position="top-end"
                             tabIndex="0"
                           >
-                            <FA name="street-view" className="fa-lg" />
+                            <FA name="street-view" className={`fa-lg ${cdoView ? 'active' : ''}`} />
                           </Tooltip>
                         }
                         labelTextRight={
@@ -106,12 +106,15 @@ const Bidders = (props) => {
                             position="top-end"
                             tabIndex="0"
                           >
-                            <FA name="building" className="fa-lg" />
+                            <FA name="building" className={`fa-lg ${!cdoView ? 'active' : ''}`} />
                           </Tooltip>
                         }
                         checked={!cdoView}
                         onChange={() => setCdoView(!cdoView)}
-                        onColor="#888"
+                        onColor="#86d3ff"
+                        onHandleColor="#2693e6"
+                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
                       />
                     </div>
                   </th>
