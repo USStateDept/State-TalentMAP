@@ -146,11 +146,6 @@ export function bidderPortfolioSetSeasons(seasons = []) {
 }
 
 export function bidderPortfolioSetUnassigned(UA = []) {
-// eslint-disable-next-line no-console
-  console.log(
-    '%c bidderPortfolio SetUA UA:',
-    'color:red;font-family:system-ui;font-size:1rem;', UA,
-  );
   return (dispatch) => {
     dispatch(bidderPortfolioSelectedUnassigned(UA));
   };
