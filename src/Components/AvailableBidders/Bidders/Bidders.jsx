@@ -23,7 +23,7 @@ const Bidders = (props) => {
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const biddersDataIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const bidders = get(biddersData, 'results', []);
+  const bidders = isCDO ? get(biddersData, 'results', []) : biddersData;
 
   // Actions
   const dispatch = useDispatch();
@@ -52,10 +52,19 @@ const Bidders = (props) => {
     'CDO',
   ];
 
+  let title;
+  if (!isCDO) {
+    title = 'Bureau View';
+  } else if (cdoView) {
+    title = 'Internal CDA View';
+  } else {
+    title = 'External Bureau View';
+  }
+
   return (
     <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
       <div className="ab-table-title-row">
-        <h3>{cdoView ? 'Internal CDO View' : 'External Bureau View'}</h3>
+        <h3>{title}</h3>
         <div className="export-button-container">
           <ExportButton />
         </div>
@@ -73,46 +82,51 @@ const Bidders = (props) => {
                     <th key={shortid.generate()} className="ab-headers" scope="col" >{item} <FA name="sort" /></th>
                   ))
                 }
-                <th className="action-header">
-                  <div className="bureau-view-toggle">
-                    <ToggleButton
-                      labelTextLeft={
-                        <Tooltip
-                          title="CDO View"
-                          arrow
-                          offset={-95}
-                          position="top-end"
-                          tabIndex="0"
-                        >
-                          <FA name="street-view" className="fa-lg" />
-                        </Tooltip>
-                      }
-                      labelTextRight={
-                        <Tooltip
-                          title="Bureau View"
-                          arrow
-                          offset={-95}
-                          position="top-end"
-                          tabIndex="0"
-                        >
-                          <FA name="building" className="fa-lg" />
-                        </Tooltip>
-                      }
-                      checked={!cdoView}
-                      onChange={() => setCdoView(!cdoView)}
-                      onColor="#888"
-                    />
-                  </div>
-                </th>
+                {
+                  isCDO &&
+                  <th className="action-header">
+                    <div className="bureau-view-toggle">
+                      <ToggleButton
+                        labelTextLeft={
+                          <Tooltip
+                            title="CDO View"
+                            arrow
+                            offset={-95}
+                            position="top-end"
+                            tabIndex="0"
+                          >
+                            <FA name="street-view" className="fa-lg" />
+                          </Tooltip>
+                        }
+                        labelTextRight={
+                          <Tooltip
+                            title="Bureau View"
+                            arrow
+                            offset={-95}
+                            position="top-end"
+                            tabIndex="0"
+                          >
+                            <FA name="building" className="fa-lg" />
+                          </Tooltip>
+                        }
+                        checked={!cdoView}
+                        onChange={() => setCdoView(!cdoView)}
+                        onColor="#888"
+                      />
+                    </div>
+                  </th>
+                }
               </tr>
             </thead>
             <tbody>
-              {bidders.map(bidder => (<AvailableBidderRow
-                key={bidder.bidder_perdet}
-                bidder={bidder}
-                CDOView={cdoView}
-                isCDO={isCDO}
-              />))}
+              {bidders.map(bidder => (
+                <AvailableBidderRow
+                  key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
+                  bidder={bidder}
+                  CDOView={cdoView}
+                  isCDO={isCDO}
+                />
+              ))}
             </tbody>
           </table>
       }

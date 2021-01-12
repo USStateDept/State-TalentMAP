@@ -17,9 +17,9 @@ const AvailableBidderRow = (props) => {
 
   // Formatting
   const shared = get(bidder, 'is_shared', false);
-  const ted = get(bidder, 'TED');
+  const ted = get(bidder, 'TED') || get(bidder, 'current_assignment.end_date');
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
-  const id = get(bidder, 'bidder_perdet');
+  const id = get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number');
   const name = get(bidder, 'name');
 
   const sections = isCDO ? {
@@ -38,7 +38,7 @@ const AvailableBidderRow = (props) => {
     Skill: get(bidder, 'skills[0].description', NO_USER_SKILL_CODE),
     Grade: get(bidder, 'grade', NO_GRADE),
     TED: formattedTed,
-    Current_Post: get(bidder, 'post.location.country', NO_POST),
+    Current_Post: get(bidder, 'current_assignment.position.post.location.country', NO_POST),
     CDO: get(bidder, 'cdo.name', NO_CDO),
   };
 
@@ -77,41 +77,44 @@ const AvailableBidderRow = (props) => {
             <td>{sections[i]}</td>
           ))
       }
-      <td>
-        <div className="ab-action-buttons">
-          <Tooltip
-            title="Edit Fields"
-            arrow
-            offset={-95}
-            position="top-end"
-            tabIndex="0"
-          >
-            <FA name="pencil-square-o" className="fa-lg" onClick={availableBidderModal} />
-          </Tooltip>
-          <Tooltip
-            title="Share with Bureaus"
-            arrow
-            offset={-95}
-            position="top-end"
-            tabIndex="0"
-          >
-            <FA
-              name={shared ? 'building' : 'building-o'}
-              className="fa-lg"
-              onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
-            />
-          </Tooltip>
-          <Tooltip
-            title="Remove from Available Bidders List"
-            arrow
-            offset={-95}
-            position="top-end"
-            tabIndex="0"
-          >
-            <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true, true))} />
-          </Tooltip>
-        </div>
-      </td>
+      {
+        isCDO &&
+        <td>
+          <div className="ab-action-buttons">
+            <Tooltip
+              title="Edit Fields"
+              arrow
+              offset={-95}
+              position="top-end"
+              tabIndex="0"
+            >
+              <FA name="pencil-square-o" className="fa-lg" onClick={availableBidderModal} />
+            </Tooltip>
+            <Tooltip
+              title="Share with Bureaus"
+              arrow
+              offset={-95}
+              position="top-end"
+              tabIndex="0"
+            >
+              <FA
+                name={shared ? 'building' : 'building-o'}
+                className="fa-lg"
+                onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
+              />
+            </Tooltip>
+            <Tooltip
+              title="Remove from Available Bidders List"
+              arrow
+              offset={-95}
+              position="top-end"
+              tabIndex="0"
+            >
+              <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true, true))} />
+            </Tooltip>
+          </div>
+        </td>
+      }
     </tr>
   );
 };
