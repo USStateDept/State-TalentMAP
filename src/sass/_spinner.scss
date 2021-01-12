@@ -154,3 +154,19 @@ $favorite-spinner-size: 14px;
     margin-right: .5em;
   }
 }
+
+.btn-icon-to-spinner {
+  &.usa-button {
+    .ds-c-spinner {
+      &,
+      &::before,
+      &::after {
+        height: 12px;
+        width: 12px;
+      }
+    }
+  }
+  .btn-icon-to-spinner-text {
+    padding-left: 10px;
+  }
+}

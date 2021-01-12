@@ -232,4 +232,68 @@ describe('async actions', () => {
     };
     f();
   });
+
+  it('unregisters a handshake', (done) => {
+    store = mockStore({ clientView: { client: { perdet_seq_number: 1 } } });
+
+    mockAdapter.onDelete('/fsbid/cdo/position/1/client/2/register/').reply(200,
+      { results: [] },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.unregisterHandshake(1, 2));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('handles errors when unregistering a handshake', (done) => {
+    store = mockStore({});
+
+    mockAdapter.onDelete('/fsbid/cdo/position/1/client/2/register/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.unregisterHandshake(1, 2));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('registers a handshake', (done) => {
+    store = mockStore({ clientView: { client: { perdet_seq_number: 1 } } });
+
+    mockAdapter.onPut('/fsbid/cdo/position/1/client/2/register/').reply(200,
+      { results: [] },
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.registerHandshake(1, 2));
+        done();
+      }, 0);
+    };
+    f();
+  });
+
+  it('handles errors when registering a handshake', (done) => {
+    store = mockStore({});
+
+    mockAdapter.onPut('/fsbid/cdo/position/1/client/2/register/').reply(404,
+      null,
+    );
+
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(actions.registerHandshake(1, 2));
+        done();
+      }, 0);
+    };
+    f();
+  });
 });
