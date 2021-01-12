@@ -39,8 +39,6 @@ const ProfileDashboard = ({
             { isPublic && showSearchAsClient && useCDOBidding() &&
               <SearchAsClientButton user={userProfile} /> }
           </div>
-          {/* eslint-disable-next-line no-console */}
-          {console.log('for cory:', userProfile)}
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
               let columns = !matches ? [3, 4, 5] : [6, 6, 12];
