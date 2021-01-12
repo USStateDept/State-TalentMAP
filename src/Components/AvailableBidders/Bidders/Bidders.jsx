@@ -14,10 +14,13 @@ import shortid from 'shortid';
 
 
 const Bidders = (props) => {
+  // CDO version or Bureau version
   const { isCDO } = props;
 
   // Local state
+  // Toggle view state within CDO Available Bidders
   const [cdoView, setCdoView] = useState(true);
+  const [sort, setSort] = useState('');
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
@@ -31,6 +34,10 @@ const Bidders = (props) => {
   useEffect(() => {
     dispatch(availableBiddersFetchData(isCDO));
   }, []);
+
+  useEffect(() => {
+    dispatch(availableBiddersFetchData(isCDO, sort));
+  }, [sort]);
 
   const tableHeaders = isCDO ? [
     'Name',
@@ -51,6 +58,23 @@ const Bidders = (props) => {
     'Post',
     'CDO',
   ];
+
+  const getSortIcon = (header) => {
+    if (header === sort) {
+      return 'sort-desc';
+    } else if (`-${header}` === sort) {
+      return 'sort-asc';
+    }
+    return 'sort';
+  };
+
+  const handleSort = (header) => {
+    if (header === sort) {
+      setSort(`-${header}`);
+    } else {
+      setSort(header);
+    }
+  };
 
   let title;
   if (!isCDO) {
@@ -79,7 +103,14 @@ const Bidders = (props) => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    <th key={shortid.generate()} className="ab-headers" scope="col" >{item} <FA name="sort" /></th>
+                    <th
+                      key={shortid.generate()}
+                      className="ab-headers"
+                      scope="col"
+                      onClick={() => handleSort(item)}
+                    >
+                      {item} <FA name={getSortIcon(item)} />
+                    </th>
                   ))
                 }
                 {
