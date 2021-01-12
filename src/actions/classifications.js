@@ -33,7 +33,7 @@ export function fetchClassifications() {
     });
 
     api()
-      .get('/fsbid/reference/classification/')
+      .get('/fsbid/reference/classifications/')
       .then(({ data }) => {
         batch(() => {
           dispatch(classificationsHasErrored(false));
