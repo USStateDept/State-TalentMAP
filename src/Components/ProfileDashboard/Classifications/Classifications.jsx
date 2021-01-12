@@ -18,45 +18,34 @@ const Classifications = props => {
     userId,
   } = props;
 
-  // TODO:
-  // need to test useEffect
-  // need to test useState(clientClass)
-  // need to test referencing issue
-
-  const [isEditable, setIsEditable] = useState(true);
-  // const [userInput, setUserInput] = useState([]);
-  const [userInput, setUserInput] = useState(clientClassifications);
+  const [editView, setEditView] = useState(false);
+  const [userInput, setUserInput] = useState([]);
 
   useEffect(() => {
-    if (!clientClassifications.length) {
-      setUserInput(clientClassifications);
+    if (clientClassifications.length) {
+      setUserInput([...clientClassifications]);
     }
   }, [clientClassifications]);
 
   const handleInput = (c) => {
-    const newClassifications = userInput;
-    if (newClassifications.includes(c)) {
-      pull(newClassifications, c);
+    const pushClass = [...userInput];
+    if (!pushClass.includes(c)) {
+      pushClass.push(c);
     } else {
-      newClassifications.push(c);
+      pull(pushClass, c);
     }
-    setUserInput(newClassifications);
+    setUserInput(pushClass);
   };
 
   const cancelInput = (e) => {
     e.preventDefault();
     setUserInput(clientClassifications);
-    setIsEditable(true);
-    console.log('clientClassifications:', clientClassifications);
-    console.log('userInput', userInput);
+    setEditView(false);
   };
 
   const onSubmit = () => {
-    // needs to call an action/pass argument
-    console.log('inside onSubmit', userInput);
-    console.log('userId perdet', userId);
     saveUserClassifications(userInput);
-    setIsEditable(true);
+    setEditView(false);
   };
 
   return (
@@ -69,24 +58,23 @@ const Classifications = props => {
           <CheckboxList
             list={classifications}
             id="updates"
-            editMode={isEditable}
+            editMode={!editView}
             updateClassifications={(h) => handleInput(h)}
             input={userInput}
           />
         </div>
       </div>
       {
-        !isLoading && isEditable &&
+        !isLoading && !editView &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
-          <span>
+          <button className="unstyled-button" onClick={() => setEditView(true)}>
             <FA
               name="edit"
-              onClick={() => setIsEditable(false)}
             /> Edit Classifications
-          </span>
+          </button>
         </div>
       }
-      { !isLoading && !isEditable &&
+      { !isLoading && editView &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <div className="saved-search-form-buttons">
             <button
@@ -98,10 +86,8 @@ const Classifications = props => {
             <button
               type="button"
               className="saved-search-form-primary-button"
-              // onClick={() => setIsEditable(true)}
               onClick={(e) => cancelInput(e)}
             >Cancel
-              {/* should set back to current object */}
             </button>
           </div>
         </div>
@@ -115,8 +101,7 @@ Classifications.propTypes = {
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
   saveUserClassifications: PropTypes.func,
-  userId: null,
-  // userId: PropTypes.number,
+  userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 Classifications.defaultProps = {
@@ -124,8 +109,6 @@ Classifications.defaultProps = {
   clientClassifications: [],
   isLoading: false,
   saveUserClassifications: EMPTY_FUNCTION,
-  userId: null,
-  // userId: 0,
 };
 
 const mapStateToProps = state => ({
@@ -137,5 +120,4 @@ export const mapDispatchToProps = dispatch => ({
   saveUserClassifications: (classification) => dispatch(saveClassifications(classification)),
 });
 
-// export default Classifications;
 export default connect(mapStateToProps, mapDispatchToProps)(Classifications);

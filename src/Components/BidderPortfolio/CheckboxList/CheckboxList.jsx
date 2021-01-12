@@ -28,7 +28,6 @@ const CheckboxList = ({ list, editMode, updateClassifications,
           value={checked}
           key={c.code}
           disabled={editMode}
-          // checked={checked}
           className="tm-checkbox-disabled-alternate"
           onChange={(h) => updateClassifications(h)}
         />
