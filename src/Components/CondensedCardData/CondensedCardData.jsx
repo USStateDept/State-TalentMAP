@@ -1,6 +1,7 @@
 import { get } from 'lodash';
+import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { POSITION_DETAILS } from '../../Constants/PropTypes';
-import { NO_DATE, NO_GRADE, NO_SKILL } from '../../Constants/SystemMessages';
+import { NO_DATE, NO_GRADE } from '../../Constants/SystemMessages';
 import LanguageList from '../LanguageList';
 import CondensedCardDataPoint from './CondensedCardDataPoint';
 import { formatDate, propOrDefault } from '../../utilities';
@@ -17,7 +18,7 @@ const CondensedCardData = ({ position }) => {
       />
       <CondensedCardDataPoint
         title="Skill"
-        content={get(position, 'position.skill', NO_SKILL)}
+        content={<PositionSkillCodeList primarySkill={get(position, 'position.skill')} secondarySkill={get(position, 'position.skill_secondary')} />}
         hasFixedTitleWidth
       />
       <CondensedCardDataPoint

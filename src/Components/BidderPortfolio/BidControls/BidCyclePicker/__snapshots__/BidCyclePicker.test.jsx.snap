@@ -11,7 +11,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
   </div>
   <r
     disabled={false}
-    dropdownHeight={600}
+    dropdownHeight={225}
     filterDebounce={150}
     id="picky"
     includeSelectAll={true}

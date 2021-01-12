@@ -249,7 +249,7 @@ const PositionManager = props => {
                         placeholder="Select cycle(s)"
                         value={selectedCycles}
                         options={cycleOptions}
-                        onChange={values => setSelectedCycles(values)}
+                        onChange={setSelectedCycles}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -266,7 +266,7 @@ const PositionManager = props => {
                         placeholder="Select TOD(s)"
                         value={selectedTODs}
                         options={todOptions}
-                        onChange={values => setSelectedTODs(values)}
+                        onChange={setSelectedTODs}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -283,7 +283,7 @@ const PositionManager = props => {
                         placeholder="Select Location(s)"
                         value={selectedPosts}
                         options={postOptions}
-                        onChange={values => setSelectedPosts(values)}
+                        onChange={setSelectedPosts}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -300,7 +300,7 @@ const PositionManager = props => {
                           placeholder="Select Bureau(s)"
                           value={selectedBureaus}
                           options={bureauOptions}
-                          onChange={values => setSelectedBureaus(values)}
+                          onChange={setSelectedBureaus}
                           numberDisplayed={2}
                           multiple
                           includeFilter
@@ -320,7 +320,7 @@ const PositionManager = props => {
                             placeholder="Select Organization(s)"
                             value={selectedOrgs}
                             options={organizationOptions}
-                            onChange={values => setSelectedOrgs(values)}
+                            onChange={setSelectedOrgs}
                             numberDisplayed={2}
                             multiple
                             includeFilter
@@ -339,7 +339,7 @@ const PositionManager = props => {
                         placeholder="Select Skill(s)"
                         value={selectedSkills}
                         options={skillOptions}
-                        onChange={values => setSelectedSkills(values)}
+                        onChange={setSelectedSkills}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -356,7 +356,7 @@ const PositionManager = props => {
                         placeholder="Select Grade(s)"
                         value={selectedGrades}
                         options={gradeOptions}
-                        onChange={values => setSelectedGrades(values)}
+                        onChange={setSelectedGrades}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -373,7 +373,7 @@ const PositionManager = props => {
                         placeholder="Select Language(s)"
                         value={selectedLanguages}
                         options={languageOptions}
-                        onChange={values => setSelectedLanguages(values)}
+                        onChange={setSelectedLanguages}
                         numberDisplayed={2}
                         multiple
                         includeFilter

@@ -3,7 +3,7 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bowser from 'bowser';
-import { every, filter, flatMap, indexOf, isArray, isObject, map, throttle } from 'lodash';
+import { every, filter, flatMap, includes, indexOf, isArray, isObject, map, throttle } from 'lodash';
 import { format } from 'date-fns';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSeasonsFetchData, bidderPortfolioSetSeasons } from 'actions/bidderPortfolio';
@@ -59,6 +59,11 @@ class BidCyclePicker extends Component {
       THROTTLE_MS,
       { trailing: false, leading: true },
     );
+
+    // restore stored bid season selections
+    let seasons$ = this.props.seasons.filter(f => includes(props.selectedSeasons, f.id));
+    seasons$ = seasons$.map(m => m.description);
+    this.state.arrayValue = seasons$;
   }
   UNSAFE_componentWillMount() {
     // Only perform once in the session since this will rarely change.
@@ -114,7 +119,7 @@ class BidCyclePicker extends Component {
           onChange={this.selectMultipleOption}
           numberDisplayed={1}
           multiple
-          dropdownHeight={600}
+          dropdownHeight={225}
           renderList={renderList}
           disabled={isLoading}
           includeSelectAll
@@ -132,6 +137,7 @@ BidCyclePicker.propTypes = {
   setSeasons: PropTypes.func.isRequired,
   setSeasonsCb: PropTypes.func,
   setClick: PropTypes.func,
+  selectedSeasons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
 };
 
 BidCyclePicker.defaultProps = {
@@ -140,10 +146,12 @@ BidCyclePicker.defaultProps = {
   hasErrored: false,
   setSeasonsCb: EMPTY_FUNCTION,
   setClick: EMPTY_FUNCTION,
+  selectedSeasons: [],
 };
 
 const mapStateToProps = state => ({
   seasons: state.bidderPortfolioSeasons,
+  selectedSeasons: state.bidderPortfolioSelectedSeasons,
   isLoading: state.bidderPortfolioSeasonsIsLoading,
   hasErrored: state.bidderPortfolioSeasonsHasErrored,
 });

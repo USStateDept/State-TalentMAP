@@ -58,14 +58,14 @@ class AdministratorContainer extends Component {
     }
   };
 
-  onDownloadOne = id => {
+  onDownloadOne = (id, size) => {
     if (!this.props.logToDownloadIsLoading) {
-      this.props.getLogToDownload(id);
+      this.props.getLogToDownload(id, size);
     }
   };
 
-  getLogById = id => {
-    this.props.getLog(id);
+  getLogById = (id, size) => {
+    this.props.getLog(id, size);
   };
 
   runAllJobs = () => {
@@ -202,8 +202,8 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   getLogs: () => dispatch(getLogs()),
   getLogsList: () => dispatch(getLogsList()),
-  getLog: id => dispatch(getLog(id)),
-  getLogToDownload: id => dispatch(getLogToDownload(id)),
+  getLog: (id, size) => dispatch(getLog(id, size)),
+  getLogToDownload: (id, size) => dispatch(getLogToDownload(id, size)),
   getSyncJobs: () => dispatch(syncsFetchData()),
   putAllSyncJobs: () => dispatch(putAllSyncs()),
   patchSyncJob: data => dispatch(patchSync(data)),

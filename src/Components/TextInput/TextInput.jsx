@@ -83,7 +83,7 @@ TextInput.propTypes = {
   type: PropTypes.oneOf(['success', 'error', 'focus']),
   label: PropTypes.string,
   labelMessage: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   inputProps: PropTypes.shape({}),
 };

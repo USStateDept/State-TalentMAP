@@ -157,7 +157,7 @@
   }
 
   .bid-count-container {
-    margin: 0 0 0 auto;
+    margin: 0;
     .bid-count-label {
       font-size: 15px;
     }
@@ -165,6 +165,10 @@
 
   .bureau-card--header {
     margin-bottom: .6em;
+
+    > div:nth-of-type(4) {
+      margin-left: auto;
+    }
 
     > div {
       &:not(:last-child) {
@@ -174,6 +178,9 @@
       &:not(:first-child) {
         margin-top: 2px;
       }
+    }
+    .shortlist-icon {
+      color: $primary-blue;
     }
   }
 
@@ -273,6 +280,33 @@
     margin: 0;
   }
 
+  // fix in IE11
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    .ribbon-position-details {
+      right: 0;
+      position: absolute;
+    }
+  }
+
+  .bureau-lock-button {
+    margin: 1.5em 0 0 1.5em;
+    max-height: 36px;
+  }
+
+  .ds-c-spinner {
+    height: $favorite-spinner-size;
+    margin-right: 5px;
+    top: 1px;
+    width: $favorite-spinner-size;
+
+    &::before,
+    &::after {
+      border-width: $favorite-spinner-border-width;
+      height: $favorite-spinner-size;
+      width: $favorite-spinner-size;
+    }
+  }
+
   .handshake-offset-container {
     left: initial;
     right: 0;
@@ -363,6 +397,10 @@
 
 .position-manager-bidders {
   margin-top: 50px;
+
+  > *:first-child {
+    margin-left: 0;
+  }
 
   .list-toggle-container {
     display: flex;
@@ -523,4 +561,13 @@
 
 .bureau-pagination-controls {
   padding-left: 35px;
+}
+
+.position-manager-bidders-table > tbody {
+  display: flex;
+  flex-direction: column;
+
+  > div {
+    min-height: 100px;
+  }
 }
