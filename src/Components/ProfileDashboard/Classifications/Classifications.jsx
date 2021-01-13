@@ -35,7 +35,7 @@ const Classifications = props => {
   };
 
   const cancelInput = () => {
-    setUserInput([...clientClassifications]);
+    setUserInput(clientClassifications);
     setEditView(false);
   };
 
