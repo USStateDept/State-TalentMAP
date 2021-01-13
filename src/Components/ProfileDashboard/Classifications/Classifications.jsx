@@ -18,12 +18,10 @@ const Classifications = props => {
   } = props;
 
   const [editView, setEditView] = useState(false);
-  const [userInput, setUserInput] = useState([]);
+  const [userInput, setUserInput] = useState(clientClassifications);
 
   useEffect(() => {
-    if (clientClassifications.length) {
-      setUserInput([...clientClassifications]);
-    }
+    setUserInput(clientClassifications);
   }, [clientClassifications]);
 
   const handleInput = (c) => {
@@ -37,7 +35,7 @@ const Classifications = props => {
   };
 
   const cancelInput = () => {
-    setUserInput(clientClassifications);
+    setUserInput([...clientClassifications]);
     setEditView(false);
   };
 
