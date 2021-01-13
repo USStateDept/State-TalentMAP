@@ -65,8 +65,6 @@ class BidControls extends Component {
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
-      // eslint-disable-next-line no-console
-      // console.log('wednesday: this.onFilterChange:', this.onFilterChange);
       this.onFilterChange(get(filterBy, 'value'));
     }
     if (!isEqual(hasSeasons, this.state.hasSeasons)) {
