@@ -44,10 +44,10 @@ class BidderPortfolio extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const props = ['cdos', 'selectedSeasons'];
+    const props = ['cdos', 'selectedSeasons', 'selectedUnassigned'];
     if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
       this.setState({
-        // Reset page number, since this filters are
+        // Reset page number, since these filters are
         // captured outside the normal query param lifecycle.
         page: { value: 1 },
       }, () => {
@@ -183,7 +183,7 @@ BidderPortfolio.propTypes = {
   fetchBidderPortfolioCounts: PropTypes.func.isRequired,
   fetchBidderPortfolioCDOs: PropTypes.func.isRequired,
   cdos: PropTypes.arrayOf(PropTypes.shape({})),
-  selectedSeasons: PropTypes.arrayOf(PropTypes.string), // eslint-disable-line
+  selectedSeasons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])), // eslint-disable-line
   fetchClassifications: PropTypes.func.isRequired,
   classifications: CLASSIFICATIONS,
   classificationsHasErrored: PropTypes.bool.isRequired,
@@ -192,6 +192,7 @@ BidderPortfolio.propTypes = {
   defaultHandshakeFilter: PropTypes.string,
   defaultSort: PropTypes.string,
   fetchAvailableBidders: PropTypes.func.isRequired,
+  selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
 };
 
 BidderPortfolio.defaultProps = {
@@ -213,6 +214,7 @@ BidderPortfolio.defaultProps = {
   defaultHandshakeFilter: '',
   defaultSort: '',
   fetchAvailableBidders: EMPTY_FUNCTION,
+  selectedUnassigned: [],
 };
 
 const mapStateToProps = state => ({
@@ -232,6 +234,7 @@ const mapStateToProps = state => ({
   classifications: state.classifications,
   defaultHandshakeFilter: get(state, `sortPreferences.${BID_PORTFOLIO_FILTERS_TYPE}.defaultSort`, BID_PORTFOLIO_FILTERS_TYPE.defaultSort),
   defaultSort: get(state, `sortPreferences.${BID_PORTFOLIO_SORTS_TYPE}.defaultSort`, BID_PORTFOLIO_SORTS_TYPE.defaultSort),
+  selectedUnassigned: state.bidderPortfolioSelectedUnassigned,
 });
 
 export const mapDispatchToProps = dispatch => ({

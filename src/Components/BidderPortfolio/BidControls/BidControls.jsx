@@ -18,6 +18,7 @@ import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
 
 const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
+const useUnassignedFilter = () => checkFlag('flags.unassigned_bidders');
 
 export function renderList({ items, selected, ...rest }) {
   const getIsSelected = item => !!selected.find(f => f.value === item.value);
@@ -41,11 +42,25 @@ class BidControls extends Component {
   }
 
   UNSAFE_componentWillMount() {
+    // console.log('wednesday: this.state.filterBy:', BID_PORTFOLIO_FILTERS().options[
+    // eslint-disable-next-line no-console
+    console.log('wednesday:', BID_PORTFOLIO_FILTERS(useUnassignedFilter()));
+    // eslint-disable-next-line no-console
+    console.log('wednesday:', BID_PORTFOLIO_FILTERS().options);
+    // eslint-disable-next-line no-console
+    console.log('wednesday:', this.props.defaultHandshake);
+
+
+    // eslint-disable-next-line no-console
+    // console.log('wednesday: this.props.defaultHandshake:', this.props.defaultHandshake);
+    // eslint-disable-next-line no-console
+    // console.log('wednesday: this.state.bidSeasons.length:', this.state.bidSeasons.length);
     if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser', false))) {
       this.setState({ proxyCdos: this.props.selection }, this.generatePills);
     }
-    this.setState({ filterBy: BID_PORTFOLIO_FILTERS.options[
-      findIndex(BID_PORTFOLIO_FILTERS.options, (o) => o.value === this.props.defaultHandshake)] });
+    this.setState({ filterBy: BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[
+      findIndex(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options, (o) => o.value ===
+        this.props.defaultHandshake)] });
     if (this.props.defaultHandshake === 'available_Bidders' && this.state.bidSeasons.length) {
       this.setState({ unassignedFilter: true });
     }
@@ -61,21 +76,29 @@ class BidControls extends Component {
 
   onSeasonChange = seasons => {
     const hasSeasons = !!seasons.length;
+    const { filterBy } = this.state;
+    if (!this.state.bidSeasons.length && this.state.hasSeasons) {
+      // eslint-disable-next-line no-console
+      // console.log('wednesday: this.onFilterChange:', this.onFilterChange);
+      this.onFilterChange(get(filterBy, 'value'));
+    }
     if (!isEqual(hasSeasons, this.state.hasSeasons)) {
-      this.setState({ hasSeasons });
+      this.setState({ hasSeasons }, () => {
+        this.onFilterChange(get(filterBy, 'value'));
+      });
     }
     if (!isEqual(seasons, this.state.bidSeasons)) {
       this.setState({
         bidSeasons: seasons,
       }, () => {
-        this.onFilterChange(this.state.filterBy.value);
+        this.generatePills();
       });
     }
   };
 
   onFilterChange = q => {
-    this.setState({ filterBy: BID_PORTFOLIO_FILTERS.options[
-      findIndex(BID_PORTFOLIO_FILTERS.options, (o) => o.value === q)] },
+    this.setState({ filterBy: BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[
+      findIndex(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options, (o) => o.value === q)] },
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'available_bidders' && this.state.hasSeasons) });
     this.props.queryParamUpdate({ hasHandshake: q });
@@ -98,20 +121,21 @@ class BidControls extends Component {
 
   generatePills = () => {
     const pills = [];
+    const { filterBy } = this.state;
     this.state.proxyCdos.forEach(a => {
       pills.push({ description: a.name, selectionRef: 'proxyCdos', codeRef: a.hru_id });
     });
     this.state.bidSeasons.forEach(a => {
       pills.push({ description: a.description, selectionRef: 'bidSeasons', codeRef: a.id });
     });
-    if (!includes(['', 'available_bidders'], get(this.state, 'filterBy.value', '')) && this.state.bidSeasons.length) {
+    if (!includes(['', 'available_bidders'], get(filterBy, 'value', '')) && this.state.bidSeasons.length) {
       pills.push({
-        description: this.state.filterBy.text,
+        description: filterBy.text,
         selectionRef: 'filterBy',
-        codeRef: this.state.filterBy.value,
+        codeRef: filterBy.value,
       });
     }
-    const renderUnassigned = this.state.bidSeasons.length && isEqual('available_bidders', this.state.filterBy.value);
+    const renderUnassigned = this.state.bidSeasons.length && isEqual('available_bidders', get(filterBy, 'value'));
     if (renderUnassigned) {
       this.state.unassignedBidders.forEach(a => {
         pills.push({ description: a.text, selectionRef: 'unassignedBidders', codeRef: a.value });
@@ -123,7 +147,7 @@ class BidControls extends Component {
   resetAllFilters = () => {
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
-    this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
+    this.onFilterChange(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[0].value);
     this.setState({ unassignedBidders: [] });
   };
 
@@ -137,7 +161,7 @@ class BidControls extends Component {
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
         break;
       case 'filterBy':
-        this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
+        this.onFilterChange(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[0].value);
         break;
       case 'unassignedBidders':
         this.setState({ unassignedBidders:
@@ -153,6 +177,8 @@ class BidControls extends Component {
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayCDOSeasonFilter = useCDOSeasonFilter();
+    const displayUnassignedFilter = useUnassignedFilter();
+    const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS(displayUnassignedFilter);
     const showClear = !!pills.length;
 
     return (
@@ -184,13 +210,14 @@ class BidControls extends Component {
               >
                 <SelectForm
                   id="porfolio-filter"
-                  options={BID_PORTFOLIO_FILTERS.options}
+                  options={BID_PORTFOLIO_FILTERS$.options}
                   label="Filter By:"
                   defaultSort={defaultHandshake}
                   disabled={!hasSeasons}
                 />
               </PreferenceWrapper>
             }
+            { displayUnassignedFilter &&
             <div className={`unassigned-bidder-picker-container usa-form ${!unassignedFilter ? 'unassigned-disabled' : ''}`}>
               <div className="label">Unassigned Bidders:</div>
               <Picky
@@ -208,6 +235,7 @@ class BidControls extends Component {
                 disabled={!unassignedFilter}
               />
             </div>
+            }
             <PreferenceWrapper
               onSelect={this.onSortChange}
               keyRef={BID_PORTFOLIO_SORTS_TYPE}

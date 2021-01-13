@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { stringify } from 'query-string';
-import { find, get, isArray, join, omit, replace } from 'lodash';
+import { find, get, includes, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
@@ -224,7 +224,6 @@ export function bidderPortfolioFetchData(query = {}) {
     const ids = cdos.map(m => m.hru_id).filter(f => f);
     const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
     const unassigned = get(state, 'bidderPortfolioSelectedUnassigned', []);
-
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id__in = ids.join();
@@ -234,23 +233,24 @@ export function bidderPortfolioFetchData(query = {}) {
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
-      if (!query$.hasHandshake) {
-        if (unassigned.includes('noHandshake')) {
-          query$.hasHandshake = false;
-        }
-        if (unassigned.includes('noPanel')) {
-          query$.noPanel = true;
-        }
-        if (unassigned.includes('noBids')) {
-          query$.noBids = true;
-        }
-      }
+    }
+    if (get(query, 'hasHandshake') === 'available_bidders') {
+      query$ = omit(query$, ['hasHandshake']); // temp, this should never even come through.
+    }
+    if (includes(unassigned, 'noHandshake')) {
+      query$.hasHandshake = false;
+    }
+    if (includes(unassigned, 'noPanel')) {
+      query$.noPanel = true;
+    }
+    if (includes(unassigned, 'noBids')) {
+      query$.noBids = true;
     }
     if (!query$.ordering) {
       query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
     }
     // eslint-disable-next-line no-console
-    console.log(query$);
+    console.log('current: query$', query$);
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
