@@ -1,13 +1,12 @@
-/* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { pull } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { saveClassifications } from 'actions/classifications';
+import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
-import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
-import { saveClassifications } from '../../../actions/classifications';
 
 const Classifications = props => {
   const {
@@ -37,14 +36,13 @@ const Classifications = props => {
     setUserInput(pushClass);
   };
 
-  const cancelInput = (e) => {
-    e.preventDefault();
+  const cancelInput = () => {
     setUserInput(clientClassifications);
     setEditView(false);
   };
 
   const onSubmit = () => {
-    saveUserClassifications(userInput);
+    saveUserClassifications(userInput, userId);
     setEditView(false);
   };
 
@@ -86,7 +84,7 @@ const Classifications = props => {
             <button
               type="button"
               className="saved-search-form-primary-button"
-              onClick={(e) => cancelInput(e)}
+              onClick={() => cancelInput()}
             >Cancel
             </button>
           </div>
@@ -117,7 +115,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  saveUserClassifications: (classification) => dispatch(saveClassifications(classification)),
+  saveUserClassifications: (classification, id) =>
+    dispatch(saveClassifications(classification, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Classifications);

@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import * as SystemMessages from 'Constants/SystemMessages';
-// import { userProfilePublicFetchData } from 'actions/userProfilePublic';
+import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { batch } from 'react-redux';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
@@ -50,20 +51,6 @@ export function fetchClassifications() {
   };
 }
 
-export function getClassifications() {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(classificationsIsLoading(true));
-      dispatch(classificationsHasErrored(false));
-    });
-
-    const url = '/fsbid/reference/classifications/';
-    // need specific classifications for user
-
-    api().get(url);
-  };
-}
-
 export function saveClassificationsHasErrored(bool) {
   return {
     type: 'CLASSIFICATIONS_HAS_ERRORED',
@@ -78,40 +65,30 @@ export function saveClassificationsIsLoading(bool) {
   };
 }
 
-// need to add id back
-// id = perdet_seq_number
-export function saveClassifications(data) {
-  console.log('inside save classification');
+export function saveClassifications(data, id) {
+  console.log('inside save classifications action');
   console.log('classification', data);
+  console.log('id', id);
 
-  // return (dispatch, getState) => {
   return (dispatch) => {
     batch(() => {
       dispatch(saveClassificationsIsLoading(true));
       dispatch(saveClassificationsHasErrored(false));
     });
 
-    // need a new url
-    // const url = '/fsbid/reference/classifications/';
-    const url = '/fsbid/reference/classification/';
+    // need to update url for BE
+    const url = `/fsbid/cdo/client/${id}/classifications/`;
 
-    // from bidList.js action
-    // const { perdet_seq_number: id } = getState().clientView.client;
-    // const url = `/fsbid/classifications/client/${id}/`;
-
-    // api().put(url, data)
-    api().get(url)
+    api().put(url, data)
       .then(response => response.data)
       .then(() => {
-        // need to update for success message
-        // const message = SystemMessages.REGISTER_HANDSHAKE_SUCCESS(undo);
         const message = SystemMessages.UPDATE_CLASSIFICATIONS_SUCCESS;
         batch(() => {
           dispatch(toastSuccess(message));
           dispatch(saveClassificationsHasErrored(false));
           dispatch(saveClassificationsIsLoading(false));
         });
-        // dispatch(userProfilePublicFetchData(id));
+        dispatch(userProfilePublicFetchData(id));
       })
       .catch(() => {
         const message = SystemMessages.UPDATE_CLASSIFICATIONS_ERROR;
