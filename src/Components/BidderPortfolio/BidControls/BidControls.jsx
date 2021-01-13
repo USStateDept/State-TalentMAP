@@ -42,19 +42,6 @@ class BidControls extends Component {
   }
 
   UNSAFE_componentWillMount() {
-    // console.log('wednesday: this.state.filterBy:', BID_PORTFOLIO_FILTERS().options[
-    // eslint-disable-next-line no-console
-    console.log('wednesday:', BID_PORTFOLIO_FILTERS(useUnassignedFilter()));
-    // eslint-disable-next-line no-console
-    console.log('wednesday:', BID_PORTFOLIO_FILTERS().options);
-    // eslint-disable-next-line no-console
-    console.log('wednesday:', this.props.defaultHandshake);
-
-
-    // eslint-disable-next-line no-console
-    // console.log('wednesday: this.props.defaultHandshake:', this.props.defaultHandshake);
-    // eslint-disable-next-line no-console
-    // console.log('wednesday: this.state.bidSeasons.length:', this.state.bidSeasons.length);
     if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser', false))) {
       this.setState({ proxyCdos: this.props.selection }, this.generatePills);
     }
