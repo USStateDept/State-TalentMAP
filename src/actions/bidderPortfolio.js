@@ -249,8 +249,6 @@ export function bidderPortfolioFetchData(query = {}) {
     if (!query$.ordering) {
       query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
     }
-    // eslint-disable-next-line no-console
-    console.log('current: query$', query$);
     const query$$ = stringify(query$);
     const endpoint = '/fsbid/client/';
     const q = `${endpoint}?${query$$}`;
