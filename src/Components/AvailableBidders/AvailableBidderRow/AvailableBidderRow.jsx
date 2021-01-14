@@ -42,6 +42,12 @@ const AvailableBidderRow = (props) => {
     CDO: get(bidder, 'cdo.name', NO_CDO),
   };
 
+  if (isLoading) {
+    keys(sections).forEach(k => {
+      sections[k] = <Skeleton duration={k} />;
+    });
+  }
+
   // Replaces connect() functionality
   const dispatch = useDispatch();
 
@@ -68,52 +74,48 @@ const AvailableBidderRow = (props) => {
   return (
     <tr className={!CDOView && !shared ? 'ab-inactive' : ''}>
       {
-        isLoading ?
-          keys(sections).forEach(k => {
-            sections[k] = <Skeleton />;
-          })
-          :
-          keys(sections).map(i => (
-            <td>{sections[i]}</td>
-          ))
+        keys(sections).map(i => (
+          <td>{sections[i]}</td>
+        ))
       }
       {
-        isCDO &&
-        <td>
-          <div className="ab-action-buttons">
-            <Tooltip
-              title="Edit Fields"
-              arrow
-              offset={-95}
-              position="top-end"
-              tabIndex="0"
-            >
-              <FA name="pencil-square-o" className="fa-lg" onClick={availableBidderModal} />
-            </Tooltip>
-            <Tooltip
-              title="Share with Bureaus"
-              arrow
-              offset={-95}
-              position="top-end"
-              tabIndex="0"
-            >
-              <FA
-                name={shared ? 'building' : 'building-o'}
-                className="fa-lg"
-                onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
-              />
-            </Tooltip>
-            <Tooltip
-              title="Remove from Available Bidders List"
-              arrow
-              offset={-95}
-              position="top-end"
-              tabIndex="0"
-            >
-              <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true, true))} />
-            </Tooltip>
-          </div>
-        </td>
+        isLoading && isCDO ? <td><Skeleton /></td> :
+          isCDO &&
+          <td>
+            <div className="ab-action-buttons">
+              <Tooltip
+                title="Edit Fields"
+                arrow
+                offset={-95}
+                position="top-end"
+                tabIndex="0"
+              >
+                <FA name="pencil-square-o" className="fa-lg" onClick={availableBidderModal} />
+              </Tooltip>
+              <Tooltip
+                title="Share with Bureaus"
+                arrow
+                offset={-95}
+                position="top-end"
+                tabIndex="0"
+              >
+                <FA
+                  name={shared ? 'building' : 'building-o'}
+                  className="fa-lg"
+                  onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
+                />
+              </Tooltip>
+              <Tooltip
+                title="Remove from Available Bidders List"
+                arrow
+                offset={-95}
+                position="top-end"
+                tabIndex="0"
+              >
+                <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true, true))} />
+              </Tooltip>
+            </div>
+          </td>
       }
     </tr>
   );

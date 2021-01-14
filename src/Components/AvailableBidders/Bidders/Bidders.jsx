@@ -9,7 +9,6 @@ import { get } from 'lodash';
 import AvailableBidderRow from 'Components/AvailableBidders/AvailableBidderRow';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
-import Spinner from 'Components/Spinner';
 import shortid from 'shortid';
 
 
@@ -24,9 +23,9 @@ const Bidders = (props) => {
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
-  const biddersDataIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+  const isLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const bidders = get(biddersData, 'results', []);
+  const bidders = isLoading ? [...new Array(10)] : get(biddersData, 'results', []);
 
   // Actions
   const dispatch = useDispatch();
@@ -94,27 +93,24 @@ const Bidders = (props) => {
         </div>
       </div>
       {
-        biddersDataIsLoading ?
-          <Spinner type="bureau-results" class="homepage-position-results" size="big" />
-          :
-          <table className="bidder-manager-bidders">
-            <thead>
-              <tr />
-              <tr>
-                {
-                  tableHeaders.map(item => (
-                    <th
-                      key={shortid.generate()}
-                      className="ab-headers"
-                      scope="col"
-                      onClick={() => handleSort(item)}
-                    >
-                      {item} <FA name={getSortIcon(item)} />
-                    </th>
-                  ))
-                }
-                {
-                  isCDO &&
+        <table className="bidder-manager-bidders">
+          <thead>
+            <tr />
+            <tr>
+              {
+                tableHeaders.map(item => (
+                  <th
+                    key={shortid.generate()}
+                    className="ab-headers"
+                    scope="col"
+                    onClick={() => handleSort(item)}
+                  >
+                    {item} <FA name={getSortIcon(item)} />
+                  </th>
+                ))
+              }
+              {
+                isCDO &&
                   <th className="action-header">
                     <div className="bureau-view-toggle">
                       <ToggleButton
@@ -149,20 +145,23 @@ const Bidders = (props) => {
                       />
                     </div>
                   </th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              {bidders.map(bidder => (
+              }
+            </tr>
+          </thead>
+          <tbody>
+            {
+              bidders.map(bidder => (
                 <AvailableBidderRow
                   key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
                   bidder={bidder}
                   CDOView={cdoView}
                   isCDO={isCDO}
+                  isLoading={isLoading}
                 />
-              ))}
-            </tbody>
-          </table>
+              ))
+            }
+          </tbody>
+        </table>
       }
     </div>
   );
