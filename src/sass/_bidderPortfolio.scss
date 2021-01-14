@@ -495,7 +495,7 @@ $cdo-search-container-padding: 10px;
       margin: 0 10px;
     }
     .small-screen-stack > div > label,.label {
-      min-width: 115px;
+      min-width: 120px;
     }
   }
   @media screen and (max-width: 1301px) {
@@ -509,11 +509,6 @@ $cdo-search-container-padding: 10px;
       display: flex;
       float: right;
       margin: 0 10px 0 0;
-    }
-  }
-  @media screen and (max-width: 1000px) {
-    .small-screen-stack > div > label,.label {
-      min-width: 120px;
     }
   }
 
