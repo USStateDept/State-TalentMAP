@@ -65,9 +65,13 @@ export function saveClassificationsIsLoading(bool) {
   };
 }
 
-export function saveClassifications(data, id) {
+// change to insertClassifications
+// updateClass on if/else (empty array)
+// insert(data), delete(data)
+export function saveClassifications(insertData, deleteData, id) {
   console.log('inside save classifications action');
-  console.log('classification', data);
+  console.log('inserted classification(s)', insertData);
+  console.log('delete classification(s)', deleteData);
   console.log('id', id);
 
   return (dispatch) => {
@@ -79,7 +83,7 @@ export function saveClassifications(data, id) {
     // need to update url for BE
     const url = `/fsbid/cdo/client/${id}/classifications/`;
 
-    api().put(url, data)
+    api().put(url, insertData)
       .then(response => response.data)
       .then(() => {
         const message = SystemMessages.UPDATE_CLASSIFICATIONS_SUCCESS;
@@ -100,3 +104,5 @@ export function saveClassifications(data, id) {
       });
   };
 }
+
+// add upate and delete

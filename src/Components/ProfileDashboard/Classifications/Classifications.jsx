@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import PropTypes from 'prop-types';
-import { pull } from 'lodash';
+import { pull, difference } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -19,11 +20,15 @@ const Classifications = props => {
 
   const [editView, setEditView] = useState(false);
   const [userInput, setUserInput] = useState(clientClassifications);
+  // need new array for handling delete
 
   useEffect(() => {
     setUserInput(clientClassifications);
   }, [clientClassifications]);
 
+  // need to handle the checking/unchecking process
+  // always compare to clientClassifications
+  // need to handle delete to a new array only if inside clientClassifications originally
   const handleInput = (c) => {
     const pushClass = [...userInput];
     if (!pushClass.includes(c)) {
@@ -40,7 +45,11 @@ const Classifications = props => {
   };
 
   const onSubmit = () => {
-    saveUserClassifications(userInput, userId);
+    const insertDiff = difference(userInput, clientClassifications);
+    const deleteDiff = difference(clientClassifications, userInput);
+    if (insertDiff.length !== 0 || deleteDiff.length > 0) {
+      saveUserClassifications(insertDiff, deleteDiff, userId);
+    }
     setEditView(false);
   };
 
@@ -66,7 +75,7 @@ const Classifications = props => {
           <button className="unstyled-button" onClick={() => setEditView(true)}>
             <FA
               name="edit"
-            /> Edit Classifications
+            />Edit Classifications
           </button>
         </div>
       }
@@ -113,8 +122,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  saveUserClassifications: (classification, id) =>
-    dispatch(saveClassifications(classification, id)),
+  saveUserClassifications: (insertClassification, deleteClassification, id) =>
+    dispatch(saveClassifications(insertClassification, deleteClassification, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Classifications);
