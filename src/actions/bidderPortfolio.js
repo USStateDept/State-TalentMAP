@@ -235,16 +235,16 @@ export function bidderPortfolioFetchData(query = {}) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
     }
     if (get(query, 'hasHandshake') === 'available_bidders') {
-      query$ = omit(query$, ['hasHandshake']); // temp, this should never even come through.
-    }
-    if (includes(unassigned, 'noHandshake')) {
-      query$.hasHandshake = false;
-    }
-    if (includes(unassigned, 'noPanel')) {
-      query$.noPanel = true;
-    }
-    if (includes(unassigned, 'noBids')) {
-      query$.noBids = true;
+      query$ = omit(query$, ['hasHandshake']);
+      if (includes(unassigned, 'noHandshake')) {
+        query$.hasHandshake = false;
+      }
+      if (includes(unassigned, 'noPanel')) {
+        query$.noPanel = true;
+      }
+      if (includes(unassigned, 'noBids')) {
+        query$.noBids = true;
+      }
     }
     if (!query$.ordering) {
       query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
