@@ -38,7 +38,7 @@ describe('async actions', () => {
       url: 'cdo/availablebidders/?limit=15&page=1', response: [200, {}],
     })); mock();
 
-    store.dispatch(actions.availableBiddersFetchData());
+    store.dispatch(actions.availableBiddersFetchData(true));
 
     expectMockWasCalled({ spy, cb: done });
   });
@@ -50,7 +50,7 @@ describe('async actions', () => {
       url: 'cdo/availablebidders/?limit=15&page=1', response: [404, null],
     })); mock();
 
-    store.dispatch(actions.availableBiddersFetchData());
+    store.dispatch(actions.availableBiddersFetchData(true));
 
     expectMockWasCalled({ spy, cb: done });
   });

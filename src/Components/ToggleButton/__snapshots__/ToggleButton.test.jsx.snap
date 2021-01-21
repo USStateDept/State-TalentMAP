@@ -9,21 +9,9 @@ exports[`ToggleButtonComponent matches snapshot 1`] = `
     }
   }
 >
-  <label
-    className="toggle-button-label-inline"
-    htmlFor="toggleSwitch"
-    style={
-      Object {
-        "fontSize": 16,
-        "margin": "0 10px 0 10px",
-      }
-    }
-  >
-    button label
-  </label>
   <ReactSwitch
-    activeBoxShadow="0 0 2px 3px #3bf"
-    boxShadow={null}
+    activeBoxShadow=""
+    boxShadow=""
     checked={true}
     checkedIcon={false}
     disabled={false}
@@ -33,7 +21,7 @@ exports[`ToggleButtonComponent matches snapshot 1`] = `
     offHandleColor="#fff"
     onChange={[Function]}
     onColor="#1ad142"
-    onHandleColor="#fff"
+    onHandleColor=""
     uncheckedIcon={false}
     width={40}
   />
