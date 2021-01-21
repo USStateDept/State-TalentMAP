@@ -8,7 +8,7 @@
     "@cmsgov/design-system-core": "^1.18.0",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-solid-svg-icons": "^5.15.1",
+    "@fortawesome/free-solid-svg-icons": "^5.15.2",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.5.0",
