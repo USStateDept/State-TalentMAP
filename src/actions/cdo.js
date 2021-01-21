@@ -177,7 +177,7 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
           dispatch(availableBiddersToggleUserIsLoading(false));
           dispatch(availableBiddersIds());
           if (refresh) {
-            dispatch(availableBiddersFetchData());
+            dispatch(availableBiddersFetchData(true));
           }
         });
       })
@@ -207,7 +207,7 @@ export function availableBidderEditData(id, data) {
           dispatch(availableBidderEditDataErrored(false));
           dispatch(availableBidderEditDataLoading(false));
           dispatch(availableBidderEditDataSuccess(true));
-          dispatch(availableBiddersFetchData());
+          dispatch(availableBiddersFetchData(true));
         });
       })
       .catch((err) => {

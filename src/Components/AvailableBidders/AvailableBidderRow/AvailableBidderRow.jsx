@@ -10,10 +10,11 @@ import EditBidder from 'Components/AvailableBidders/EditBidder';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
+import { FILTER } from 'Constants/PropTypes';
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, CDOView, isLoading, isCDO } = props;
+  const { bidder, CDOView, isLoading, isCDO, bureaus } = props;
 
   // Formatting
   const shared = get(bidder, 'is_shared', false);
@@ -44,7 +45,7 @@ const AvailableBidderRow = (props) => {
 
   if (isLoading) {
     keys(sections).forEach(k => {
-      sections[k] = <Skeleton duration={k} />;
+      sections[k] = <Skeleton />;
     });
   }
 
@@ -66,6 +67,7 @@ const AvailableBidderRow = (props) => {
           name={name}
           sections={sections}
           submitAction={submitAction}
+          bureaus={bureaus}
         />
       ),
     });
@@ -124,10 +126,11 @@ const AvailableBidderRow = (props) => {
 AvailableBidderRow.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   bidder: PropTypes.object,
-  // build out bidder proptype
+  // build out bidder proptype after connected with real data
   CDOView: PropTypes.bool,
   isLoading: PropTypes.bool,
   isCDO: PropTypes.bool,
+  bureaus: FILTER,
 };
 
 AvailableBidderRow.defaultProps = {
@@ -135,6 +138,7 @@ AvailableBidderRow.defaultProps = {
   CDOView: false,
   isLoading: false,
   isCDO: false,
+  bureaus: [],
 };
 
 export default AvailableBidderRow;

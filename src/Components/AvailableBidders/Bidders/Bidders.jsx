@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBiddersFetchData } from 'actions/cdo';
+import { filtersFetchData } from 'actions/filters/filters';
 import ToggleButton from 'Components/ToggleButton';
 import ExportButton from 'Components/ExportButton';
 import { get } from 'lodash';
@@ -23,7 +24,14 @@ const Bidders = (props) => {
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
-  const isLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+  const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+  const filtersIsLoading = useSelector(state => state.filtersIsLoading);
+  const filterData = useSelector(state => state.filters);
+
+  const isLoading = availableBiddersIsLoading || filtersIsLoading;
+
+
+  const bureaus = filterData.filters.find(f => f.item.description === 'region');
 
   const bidders = isLoading ? [...new Array(10)] : get(biddersData, 'results', []);
 
@@ -32,6 +40,7 @@ const Bidders = (props) => {
 
   useEffect(() => {
     dispatch(availableBiddersFetchData(isCDO));
+    dispatch(filtersFetchData(filterData, {}));
   }, []);
 
   useEffect(() => {
@@ -157,6 +166,7 @@ const Bidders = (props) => {
                   CDOView={cdoView}
                   isCDO={isCDO}
                   isLoading={isLoading}
+                  bureaus={bureaus}
                 />
               ))
             }

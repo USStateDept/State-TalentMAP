@@ -150,3 +150,26 @@
     text-shadow: 0 0 10px $color-dodger-blue;
   }
 }
+
+.available-bidder-form {
+  input[type="text"]:disabled {
+    border: None;
+    background: none;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    
+  }
+}
+
+.swal-modal {
+  width: 600px;
+
+  input select textarea {
+    width: 75%;
+  }
+}
