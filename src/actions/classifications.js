@@ -51,46 +51,43 @@ export function fetchClassifications() {
   };
 }
 
-export function saveClassificationsHasErrored(bool) {
+export function updateClassificationsHasErrored(bool) {
   return {
     type: 'CLASSIFICATIONS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function saveClassificationsIsLoading(bool) {
+export function updateClassificationsIsLoading(bool) {
   return {
     type: 'CLASSIFICATIONS_IS_LOADING',
     isLoading: bool,
   };
 }
 
-// change to insertClassifications
 // updateClass on if/else (empty array)
-// insert(data), delete(data)
-export function saveClassifications(insertData, deleteData, id) {
-  console.log('inside save classifications action');
-  console.log('inserted classification(s)', insertData);
-  console.log('delete classification(s)', deleteData);
+export function insertClassifications(data, id) {
+  console.log('inside insert classifications action');
+  console.log('inserted classification(s)', data);
   console.log('id', id);
 
   return (dispatch) => {
     batch(() => {
-      dispatch(saveClassificationsIsLoading(true));
-      dispatch(saveClassificationsHasErrored(false));
+      dispatch(updateClassificationsIsLoading(true));
+      dispatch(updateClassificationsHasErrored(false));
     });
 
     // need to update url for BE
     const url = `/fsbid/cdo/client/${id}/classifications/`;
 
-    api().put(url, insertData)
+    api().put(url, data)
       .then(response => response.data)
       .then(() => {
         const message = SystemMessages.UPDATE_CLASSIFICATIONS_SUCCESS;
         batch(() => {
           dispatch(toastSuccess(message));
-          dispatch(saveClassificationsHasErrored(false));
-          dispatch(saveClassificationsIsLoading(false));
+          dispatch(updateClassificationsHasErrored(false));
+          dispatch(updateClassificationsIsLoading(false));
         });
         dispatch(userProfilePublicFetchData(id));
       })
@@ -98,11 +95,48 @@ export function saveClassifications(insertData, deleteData, id) {
         const message = SystemMessages.UPDATE_CLASSIFICATIONS_ERROR;
         batch(() => {
           dispatch(toastError(message));
-          dispatch(saveClassificationsHasErrored(true));
-          dispatch(saveClassificationsIsLoading(false));
+          dispatch(updateClassificationsHasErrored(true));
+          dispatch(updateClassificationsIsLoading(false));
         });
       });
   };
 }
 
 // add upate and delete
+export function deleteClassifications(data, id) {
+  console.log('inside delete classifications action');
+  console.log('delete classification(s)', data);
+  console.log('id', id);
+
+  return (dispatch) => {
+    batch(() => {
+      dispatch(updateClassificationsIsLoading(true));
+      dispatch(updateClassificationsHasErrored(false));
+    });
+
+    // need to setup url -> views -> services on BE
+    const url = `/fsbid/cdo/client/${id}/classifications/`;
+    // const url = `/fsbid/cdo/client/${id}/classifications/${data}`;
+
+    // api().delete(url)
+    api().put(url, data)
+      .then(response => response.data)
+      .then(() => {
+        const message = SystemMessages.DELETE_CLASSIFICATIONS_SUCCESS;
+        batch(() => {
+          dispatch(toastSuccess(message));
+          dispatch(updateClassificationsHasErrored(false));
+          dispatch(updateClassificationsIsLoading(false));
+        });
+        dispatch(userProfilePublicFetchData(id));
+      })
+      .catch(() => {
+        const message = SystemMessages.DELETE_CLASSIFICATIONS_ERROR;
+        batch(() => {
+          dispatch(toastError(message));
+          dispatch(updateClassificationsHasErrored(true));
+          dispatch(updateClassificationsIsLoading(false));
+        });
+      });
+  };
+}

@@ -4,7 +4,7 @@ import { pull, difference } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { saveClassifications } from 'actions/classifications';
+import { insertClassifications, deleteClassifications } from 'actions/classifications';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
@@ -14,7 +14,8 @@ const Classifications = props => {
     classifications,
     clientClassifications,
     isLoading,
-    saveUserClassifications,
+    insertUserClassifications,
+    deleteUserClassifications,
     userId,
   } = props;
 
@@ -47,8 +48,11 @@ const Classifications = props => {
   const onSubmit = () => {
     const insertDiff = difference(userInput, clientClassifications);
     const deleteDiff = difference(clientClassifications, userInput);
-    if (insertDiff.length !== 0 || deleteDiff.length > 0) {
-      saveUserClassifications(insertDiff, deleteDiff, userId);
+    if (insertDiff.length !== 0) {
+      insertUserClassifications(insertDiff, userId);
+    }
+    if (deleteDiff.length > 0) {
+      deleteUserClassifications(deleteDiff, userId);
     }
     setEditView(false);
   };
@@ -105,7 +109,8 @@ Classifications.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
-  saveUserClassifications: PropTypes.func,
+  insertUserClassifications: PropTypes.func,
+  deleteUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
@@ -113,7 +118,8 @@ Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isLoading: false,
-  saveUserClassifications: EMPTY_FUNCTION,
+  insertUserClassifications: EMPTY_FUNCTION,
+  deleteUserClassifications: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -122,8 +128,10 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  saveUserClassifications: (insertClassification, deleteClassification, id) =>
-    dispatch(saveClassifications(insertClassification, deleteClassification, id)),
+  insertUserClassifications: (classification, id) =>
+    dispatch(insertClassifications(classification, id)),
+  deleteUserClassifications: (classification, id) =>
+    dispatch(deleteClassifications(classification, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Classifications);
