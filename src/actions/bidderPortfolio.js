@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { stringify } from 'query-string';
-import { find, get, includes, isArray, join, omit, replace } from 'lodash';
+import { find, flatMap, get, includes, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
@@ -236,13 +236,14 @@ export function bidderPortfolioFetchData(query = {}) {
     }
     if (get(query, 'hasHandshake') === 'available_bidders') {
       query$ = omit(query$, ['hasHandshake']);
-      if (includes(unassigned, 'noHandshake')) {
+      const UAvalues = flatMap(unassigned, a => a.value);
+      if (includes(UAvalues, 'noHandshake')) {
         query$.hasHandshake = false;
       }
-      if (includes(unassigned, 'noPanel')) {
+      if (includes(UAvalues, 'noPanel')) {
         query$.noPanel = true;
       }
-      if (includes(unassigned, 'noBids')) {
+      if (includes(UAvalues, 'noBids')) {
         query$.noBids = true;
       }
     }

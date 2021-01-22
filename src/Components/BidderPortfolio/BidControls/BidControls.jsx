@@ -5,7 +5,7 @@ import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import {
   BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
   BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES, UNASSIGNED_BIDDERS_FILTERS } from 'Constants/Sort';
-import { filter, findIndex, flatMap, get, includes, isEqual } from 'lodash';
+import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -45,11 +45,18 @@ class BidControls extends Component {
     if (!(this.props.selection.length === 1 && get(this.props, 'selection[0].isCurrentUser', false))) {
       this.setState({ proxyCdos: this.props.selection }, this.generatePills);
     }
-    this.setState({ filterBy: BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[
-      findIndex(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options, (o) => o.value ===
+    const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
+    if (!useUnassignedFilter()) {
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'available_bidders');
+    }
+    this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
+      findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value ===
         this.props.defaultHandshake)] });
     if (this.props.defaultHandshake === 'available_Bidders' && this.state.bidSeasons.length) {
       this.setState({ unassignedFilter: true });
+    }
+    if (this.props.unassignedSelection.length) {
+      this.setState({ unassignedBidders: this.props.unassignedSelection }, this.generatePills);
     }
   }
 
@@ -82,8 +89,12 @@ class BidControls extends Component {
   };
 
   onFilterChange = q => {
-    this.setState({ filterBy: BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[
-      findIndex(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options, (o) => o.value === q)] },
+    const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
+    if (!useUnassignedFilter()) {
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'available_bidders');
+    }
+    this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
+      findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'available_bidders' && this.state.hasSeasons) });
     this.props.queryParamUpdate({ hasHandshake: q });
@@ -91,8 +102,7 @@ class BidControls extends Component {
 
   onUnassignedChange = q => {
     this.setState({ unassignedBidders: q }, this.generatePills);
-    const values = flatMap(q, a => a.value);
-    this.props.setUnassigned(values);
+    this.props.setUnassigned(q);
   };
 
   onSortChange = q => {
@@ -132,7 +142,7 @@ class BidControls extends Component {
   resetAllFilters = () => {
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
-    this.onFilterChange(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[0].value);
+    this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
     this.setState({ unassignedBidders: [] });
   };
 
@@ -146,7 +156,7 @@ class BidControls extends Component {
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
         break;
       case 'filterBy':
-        this.onFilterChange(BID_PORTFOLIO_FILTERS(useUnassignedFilter()).options[0].value);
+        this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
         break;
       case 'unassignedBidders':
         this.setState({ unassignedBidders:
@@ -163,8 +173,11 @@ class BidControls extends Component {
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayCDOSeasonFilter = useCDOSeasonFilter();
     const displayUnassignedFilter = useUnassignedFilter();
-    const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS(displayUnassignedFilter);
     const showClear = !!pills.length;
+    const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
+    if (!displayUnassignedFilter) {
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'available_bidders');
+    }
 
     return (
       <div className="usa-grid-full portfolio-controls">
@@ -258,15 +271,18 @@ BidControls.propTypes = {
   pageSize: PropTypes.number,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
+  unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 BidControls.defaultProps = {
   pageSize: 0,
   selection: [],
+  unassignedSelection: [],
 };
 
 const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
+  unassignedSelection: state.bidderPortfolioSelectedUnassigned,
 });
 
 export const mapDispatchToProps = dispatch => ({

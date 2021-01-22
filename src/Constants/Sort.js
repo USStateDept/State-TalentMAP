@@ -85,20 +85,16 @@ export const BID_PORTFOLIO_SORTS = {
 
 BID_PORTFOLIO_SORTS.defaultSort = BID_PORTFOLIO_SORTS.options[0].value;
 
-export const BID_PORTFOLIO_FILTERS = (unassignedFlag) => {
-  const options$ = {
-    options: [
-      { value: '', text: 'All' },
-      { value: 'true', text: 'Handshake' },
-      { value: 'false', text: 'No Handshake' },
-    ],
-  };
-  if (unassignedFlag) {
-    options$.options.push({ value: 'available_bidders', text: 'Available Bidders' });
-  }
-  options$.defaultSort = options$.options[0].value;
-  return options$;
+export const BID_PORTFOLIO_FILTERS = {
+  options: [
+    { value: '', text: 'All' },
+    { value: 'true', text: 'Handshake' },
+    { value: 'false', text: 'No Handshake' },
+    { value: 'available_bidders', text: 'Available Bidders' },
+  ],
 };
+
+BID_PORTFOLIO_FILTERS.defaultSort = BID_PORTFOLIO_FILTERS.options[0].value;
 
 export const UNASSIGNED_BIDDERS_FILTERS = {
   options: [

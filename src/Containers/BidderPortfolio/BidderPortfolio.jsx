@@ -62,35 +62,23 @@ class BidderPortfolio extends Component {
   // the instance.
   onQueryParamUpdate = q => {
     const { query, page } = this.state;
-    const removeHandshake = get(q, 'hasHandshake', '') === 'available_bidders';
-
     this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
-    let newQuery;
-    let newQueryObject;
+    const newQuery = queryParamUpdate(q, query.value);
+    const newQueryObject = queryParamUpdate(q, query.value, true);
 
-    if (removeHandshake) {
-      let qV = query.value;
-      const hsFind = qV.match(/hasHandshake=(true|false)/gi);
-      qV = qV.replace(hsFind, '');
-      newQuery = queryParamUpdate({}, qV);
-      newQueryObject = queryParamUpdate(q, qV, true);
-    } else {
-      newQuery = queryParamUpdate(q, query.value);
-      newQueryObject = queryParamUpdate(q, query.value, true);
-    }
     // and update the query state
     query.value = newQuery;
     // convert to a number, if it exists
     const newQueryObjectPage = parseInt(newQueryObject.page, 10);
     page.value = newQueryObjectPage || 1;
     this.setState({ query, page }, () => {
-      this.getBidderPortfolio(removeHandshake);
+      this.getBidderPortfolio();
     });
   };
 
   // Form our query and then retrieve bidders.
-  getBidderPortfolio(removeHandshake) {
-    const query = this.createSearchQuery(removeHandshake);
+  getBidderPortfolio() {
+    const query = this.createSearchQuery();
     this.props.fetchBidderPortfolio(query);
   }
 
@@ -111,24 +99,15 @@ class BidderPortfolio extends Component {
   }
 
   // When we trigger a new search, we reset the page number and limit.
-  createSearchQuery(removeHandshake) {
+  createSearchQuery() {
     const { page, limit, hasHandshake, ordering } = this.state;
     this.mapTypeToQuery();
-    let query;
-    if (removeHandshake) {
-      query = {
-        page: page.value,
-        limit: limit.value,
-        ordering: ordering.value,
-      };
-    } else {
-      query = {
-        page: page.value,
-        limit: limit.value,
-        hasHandshake: hasHandshake.value,
-        ordering: ordering.value,
-      };
-    }
+    const query = {
+      page: page.value,
+      limit: limit.value,
+      hasHandshake: hasHandshake.value,
+      ordering: ordering.value,
+    };
     const queryState = queryString.parse(this.state.query.value);
     let newQuery = { ...queryState, ...query };
     newQuery = queryParamUpdate(
