@@ -8,7 +8,7 @@ describe('ToggleButtonComponent', () => {
   const props = {
     onChange: EMPTY_FUNCTION,
     checked: true,
-    labelText: 'button label',
+    labelTextLeft: 'button label',
   };
   it('is defined', () => {
     const wrapper = shallow(<ToggleButton

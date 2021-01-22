@@ -9,6 +9,18 @@ exports[`ToggleButtonComponent matches snapshot 1`] = `
     }
   }
 >
+  <label
+    className="toggle-button-label-inline"
+    htmlFor="toggleSwitch"
+    style={
+      Object {
+        "fontSize": 16,
+        "margin": "0 10px 0 10px",
+      }
+    }
+  >
+    button label
+  </label>
   <ReactSwitch
     activeBoxShadow=""
     boxShadow=""
