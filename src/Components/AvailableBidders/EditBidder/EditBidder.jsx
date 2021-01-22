@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
-import { uniqBy } from 'lodash';
+import { uniqBy, forEach } from 'lodash';
 import swal from '@sweetalert/with-react';
 
 const EditBidder = (props) => {
@@ -34,6 +34,12 @@ const EditBidder = (props) => {
       status,
       comments: comment,
     };
+
+    // Remap unmodified local defaults from None Listed to empty string for patch
+    forEach(userInputs, (v, k) => {
+      if (v === 'None listed') userInputs[k] = '';
+    });
+
     submitAction(userInputs);
   };
 
@@ -51,7 +57,7 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="status">Status:</label>
-          <select id="status" defaultValue={status} onChange={(e) => setStatus(e.target.value)} >
+          <select id="status" defaultValue={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="">None listed</option>
             <option value="OC">OC: Overcompliment</option>
             <option value="UA">UA: Unassigned</option>
