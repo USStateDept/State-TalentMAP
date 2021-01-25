@@ -124,8 +124,7 @@ const AvailableBidderRow = (props) => {
 };
 
 AvailableBidderRow.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  bidder: PropTypes.object,
+  bidder: PropTypes.shape({}),
   // build out bidder proptype after connected with real data
   CDOView: PropTypes.bool,
   isLoading: PropTypes.bool,

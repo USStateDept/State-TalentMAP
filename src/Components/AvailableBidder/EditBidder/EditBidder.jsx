@@ -115,8 +115,8 @@ const EditBidder = (props) => {
 };
 
 EditBidder.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  sections: PropTypes.object,
+  sections: PropTypes.shape({}),
+  // Build out sections after connection with real data
   name: PropTypes.string,
   submitAction: PropTypes.func,
   bureaus: FILTER,
