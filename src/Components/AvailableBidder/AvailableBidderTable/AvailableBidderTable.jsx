@@ -6,6 +6,7 @@ import { availableBiddersFetchData } from 'actions/availableBidders';
 import { filtersFetchData } from 'actions/filters/filters';
 import ToggleButton from 'Components/ToggleButton';
 import ExportButton from 'Components/ExportButton';
+import InteractiveElement from 'Components/InteractiveElement';
 import { get } from 'lodash';
 import AvailableBidderRow from 'Components/AvailableBidder/AvailableBidderRow';
 import FA from 'react-fontawesome';
@@ -14,11 +15,11 @@ import shortid from 'shortid';
 
 
 const AvailableBidderTable = (props) => {
-  // CDO version or Bureau version
+  // CDO or Bureau version
   const { isCDO } = props;
 
   // Local state
-  // Toggle view state within CDO Available Bidders
+  // Toggle view state within CDO version
   const [cdoView, setCdoView] = useState(true);
   const [sort, setSort] = useState('');
 
@@ -76,21 +77,14 @@ const AvailableBidderTable = (props) => {
     return 'sort';
   };
 
-  const handleSort = (header) => {
-    if (header === sort) {
-      setSort(`-${header}`);
-    } else {
-      setSort(header);
-    }
-  };
+  const handleSort = (header) => (
+    // Dynamically set the sort asc or desc('-'). Requires updates with real data
+    header === sort ? setSort(`-${header}`) : setSort(header)
+  );
 
-  let title;
-  if (!isCDO) {
-    title = 'Bureau View';
-  } else if (cdoView) {
-    title = 'Internal CDA View';
-  } else {
-    title = 'External Bureau View';
+  let title = 'Bureau View';
+  if (isCDO) {
+    title = cdoView ? 'Internal CDA View' : 'External Bureau View';
   }
 
   return (
@@ -112,9 +106,10 @@ const AvailableBidderTable = (props) => {
                     key={shortid.generate()}
                     className="ab-headers"
                     scope="col"
-                    onClick={() => handleSort(item)}
                   >
-                    {item} <FA name={getSortIcon(item)} />
+                    <InteractiveElement onClick={() => handleSort(item)}>
+                      {item} <FA name={getSortIcon(item)} />
+                    </InteractiveElement>
                   </th>
                 ))
               }

@@ -7,6 +7,7 @@ import { availableBiddersToggleUser, availableBidderEditData } from 'actions/ava
 import { useDispatch } from 'react-redux';
 import { NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU, NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST, NO_STATUS, NO_COMMENTS } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
+import InteractiveElement from 'Components/InteractiveElement';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
@@ -92,7 +93,9 @@ const AvailableBidderRow = (props) => {
                 position="top-end"
                 tabIndex="0"
               >
-                <FA name="pencil-square-o" className="fa-lg" onClick={availableBidderModal} />
+                <InteractiveElement onClick={availableBidderModal}>
+                  <FA name="pencil-square-o" className="fa-lg" />
+                </InteractiveElement>
               </Tooltip>
               <Tooltip
                 title="Share with Bureaus"
@@ -101,11 +104,11 @@ const AvailableBidderRow = (props) => {
                 position="top-end"
                 tabIndex="0"
               >
-                <FA
-                  name={shared ? 'building' : 'building-o'}
-                  className="fa-lg"
+                <InteractiveElement
                   onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
-                />
+                >
+                  <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
+                </InteractiveElement>
               </Tooltip>
               <Tooltip
                 title="Remove from Available Bidders List"
@@ -114,7 +117,11 @@ const AvailableBidderRow = (props) => {
                 position="top-end"
                 tabIndex="0"
               >
-                <FA name="trash-o" className="fa-lg" onClick={() => dispatch(availableBiddersToggleUser(id, true, true))} />
+                <InteractiveElement
+                  onClick={() => dispatch(availableBiddersToggleUser(id, true, true))}
+                >
+                  <FA name="trash-o" className="fa-lg" />
+                </InteractiveElement>
               </Tooltip>
             </div>
           </td>
