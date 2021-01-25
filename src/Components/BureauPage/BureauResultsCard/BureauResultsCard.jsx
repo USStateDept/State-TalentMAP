@@ -59,19 +59,19 @@ class BureauResultsCard extends Component {
     /* eslint-disable quote-props */
       {
         'Position number': position,
-        'Skill': getResult(pos, 'skill_code', NO_SKILL),
-        'Grade': getResult(pos, 'grade', NO_GRADE),
-        'Bureau': getResult(pos, 'bureau_short_desc', NO_BUREAU),
-        'Tour of duty': getResult(pos, 'post.tour_of_duty', NO_TOUR_OF_DUTY),
+        'Skill': getResult(pos, 'skill_code') || NO_SKILL,
+        'Grade': getResult(pos, 'grade') || NO_GRADE,
+        'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+        'Tour of duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
         'Language': language,
         'Post differential | Danger Pay': getDifferentials(pos),
         'Bid cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-        'TED': getResult(result, 'ted', NO_DATE),
-        'Incumbent': getResult(pos, 'current_assignment.user', NO_USER_LISTED),
-        'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
+        'TED': getResult(result, 'ted') || NO_DATE,
+        'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
+        'Posted': getResult(result, COMMON_PROPERTIES.posted) || NO_UPDATE_DATE,
       },
       {
-        'Last Updated': getResult(pos, 'update_date', NO_UPDATE_DATE),
+        'Last Updated': getResult(pos, 'description.date_updated') || NO_UPDATE_DATE,
       },
     /* eslint-enable quote-props */
     ];
