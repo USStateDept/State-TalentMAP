@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import Bidders from '../Bidders';
+import AvailableBidderTable from '../AvailableBidderTable';
 import AvailableBidderStats from '../AvailableBidderStats';
 
 
-const BidderManager = ({ isCDO }) => (
+const AvailableBidderContainer = ({ isCDO }) => (
   <div className="position-manager-details">
     <div className={'usa-grid-full profile-content-inner-container'}>
       <div className="usa-grid-full">
@@ -18,20 +18,20 @@ const BidderManager = ({ isCDO }) => (
       }
       <div className="usa-width-one-whole">
         <div className="usa-grid-full">
-          <Bidders isCDO={isCDO} />
+          <AvailableBidderTable isCDO={isCDO} />
         </div>
       </div>
     </div>
   </div>
 );
 
-BidderManager.propTypes = {
+AvailableBidderContainer.propTypes = {
   isCDO: PropTypes.bool,
 };
 
-BidderManager.defaultProps = {
+AvailableBidderContainer.defaultProps = {
   isCDO: false,
 };
 
-export default (BidderManager);
+export default AvailableBidderContainer;
 

@@ -2,18 +2,18 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { availableBiddersFetchData } from 'actions/cdo';
+import { availableBiddersFetchData } from 'actions/availableBidders';
 import { filtersFetchData } from 'actions/filters/filters';
 import ToggleButton from 'Components/ToggleButton';
 import ExportButton from 'Components/ExportButton';
 import { get } from 'lodash';
-import AvailableBidderRow from 'Components/AvailableBidders/AvailableBidderRow';
+import AvailableBidderRow from 'Components/AvailableBidder/AvailableBidderRow';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
 
 
-const Bidders = (props) => {
+const AvailableBidderTable = (props) => {
   // CDO version or Bureau version
   const { isCDO } = props;
 
@@ -177,15 +177,15 @@ const Bidders = (props) => {
   );
 };
 
-Bidders.propTypes = {
+AvailableBidderTable.propTypes = {
   isCDO: PropTypes.bool,
 };
 
-Bidders.defaultProps = {
+AvailableBidderTable.defaultProps = {
   bidders: [],
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
   isCDO: false,
 };
 
-export default Bidders;
+export default AvailableBidderTable;
