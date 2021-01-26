@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { indexOf } from 'lodash';
 import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';

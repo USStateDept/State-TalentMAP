@@ -116,5 +116,3 @@ export const COMING_SOON = 'Coming Soon';
 
 export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications have been updated";
 export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";
-export const DELETE_CLASSIFICATIONS_SUCCESS = "Client's classifications have been deleted";
-export const DELETE_CLASSIFICATIONS_ERROR = "Error deleting client's classifications";

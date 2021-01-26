@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
 import PropTypes from 'prop-types';
-import { pull, difference } from 'lodash';
+import { pull, difference, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { insertClassifications, deleteClassifications } from 'actions/classifications';
+import { updateClassifications } from 'actions/classifications';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
@@ -14,22 +13,17 @@ const Classifications = props => {
     classifications,
     clientClassifications,
     isLoading,
-    insertUserClassifications,
-    deleteUserClassifications,
+    updateUserClassifications,
     userId,
   } = props;
 
   const [editView, setEditView] = useState(false);
   const [userInput, setUserInput] = useState(clientClassifications);
-  // need new array for handling delete
 
   useEffect(() => {
     setUserInput(clientClassifications);
   }, [clientClassifications]);
 
-  // need to handle the checking/unchecking process
-  // always compare to clientClassifications
-  // need to handle delete to a new array only if inside clientClassifications originally
   const handleInput = (c) => {
     const pushClass = [...userInput];
     if (!pushClass.includes(c)) {
@@ -48,13 +42,18 @@ const Classifications = props => {
   const onSubmit = () => {
     const insertDiff = difference(userInput, clientClassifications);
     const deleteDiff = difference(clientClassifications, userInput);
+    const updateDiff = {};
     if (insertDiff.length !== 0) {
-      insertUserClassifications(insertDiff, userId);
+      updateDiff.insert = insertDiff;
     }
-    if (deleteDiff.length > 0) {
-      deleteUserClassifications(deleteDiff, userId);
+    if (deleteDiff.length !== 0) {
+      updateDiff.delete = deleteDiff;
     }
-    setEditView(false);
+    if (isEmpty(updateDiff)) {
+      setEditView(false);
+    } else {
+      updateUserClassifications(updateDiff, userId);
+    }
   };
 
   return (
@@ -109,8 +108,7 @@ Classifications.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isLoading: PropTypes.bool,
-  insertUserClassifications: PropTypes.func,
-  deleteUserClassifications: PropTypes.func,
+  updateUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
@@ -118,8 +116,7 @@ Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isLoading: false,
-  insertUserClassifications: EMPTY_FUNCTION,
-  deleteUserClassifications: EMPTY_FUNCTION,
+  updateUserClassifications: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -128,10 +125,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  insertUserClassifications: (classification, id) =>
-    dispatch(insertClassifications(classification, id)),
-  deleteUserClassifications: (classification, id) =>
-    dispatch(deleteClassifications(classification, id)),
+  updateUserClassifications: (classification, id) =>
+    dispatch(updateClassifications(classification, id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Classifications);
