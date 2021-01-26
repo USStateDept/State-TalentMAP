@@ -40,16 +40,11 @@ const Classifications = props => {
   };
 
   const onSubmit = () => {
-    const insertDiff = difference(userInput, clientClassifications);
-    const deleteDiff = difference(clientClassifications, userInput);
-    const updateDiff = {};
-    if (insertDiff.length !== 0) {
-      updateDiff.insert = insertDiff;
-    }
-    if (deleteDiff.length !== 0) {
-      updateDiff.delete = deleteDiff;
-    }
-    if (isEmpty(updateDiff)) {
+    const updateDiff = {
+      insert: difference(userInput, clientClassifications),
+      delete: difference(clientClassifications, userInput),
+    };
+    if (isEmpty(updateDiff.insert) && isEmpty(updateDiff.delete)) {
       setEditView(false);
     } else {
       updateUserClassifications(updateDiff, userId);
