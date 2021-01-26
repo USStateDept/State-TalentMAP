@@ -52,7 +52,7 @@ class BidControls extends Component {
     this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value ===
         this.props.defaultHandshake)] });
-    if (this.props.defaultHandshake === 'available_Bidders' && this.state.bidSeasons.length) {
+    if (this.props.defaultHandshake === 'available_bidders' && this.state.bidSeasons.length) {
       this.setState({ unassignedFilter: true });
     }
     if (this.props.unassignedSelection.length) {
