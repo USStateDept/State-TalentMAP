@@ -3944,13 +3944,7 @@ debug@^3.1.1, debug@^3.2.5, debug@^3.2.6:
   dependencies:
     ms "^2.1.1"
 
-debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/debug/-/debug-4.2.0.tgz#7f150f93920e94c58f5574c2fd01a3110effe7f1"
-  dependencies:
-    ms "2.1.2"
-
-debug@~4.3.1:
+debug@^4.0.0, debug@^4.0.1, debug@^4.1.0, debug@^4.1.1, debug@~4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.3.1.tgz#f0d229c505e0c6d8c49ac553d1b13dc183f6b2ee"
   dependencies:
@@ -11627,9 +11621,9 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
 
-saml2-js@2.0.6:
-  version "2.0.6"
-  resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.6.tgz#de7e403ae8b3affb738d2a6004aaca38ce809684"
+saml2-js@2.0.7:
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/saml2-js/-/saml2-js-2.0.7.tgz#7e911f139d103b59b099b1e70afafba26cfc6dea"
   dependencies:
     async "^2.5.0"
     debug "^2.6.0"
