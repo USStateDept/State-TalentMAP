@@ -87,7 +87,7 @@
     "redux-saga": "^0.16.2",
     "redux-thunk": "^2.2.0",
     "regenerator-runtime": "^0.13.7",
-    "saml2-js": "2.0.6",
+    "saml2-js": "2.0.7",
     "shortid": "^2.2.16",
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
