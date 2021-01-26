@@ -123,13 +123,33 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               },
               Object {
                 "nonTandemOnly": true,
-                "text": "Location: A-Z",
-                "value": "location",
+                "text": "Location(city): A-Z",
+                "value": "location_city",
               },
               Object {
                 "nonTandemOnly": true,
-                "text": "Location: Z-A",
-                "value": "-location",
+                "text": "Location(city): Z-A",
+                "value": "-location_city",
+              },
+              Object {
+                "nonTandemOnly": true,
+                "text": "Location(state): A-Z",
+                "value": "location_state",
+              },
+              Object {
+                "nonTandemOnly": true,
+                "text": "Location(state): Z-A",
+                "value": "-location_state",
+              },
+              Object {
+                "nonTandemOnly": true,
+                "text": "Location(country): A-Z",
+                "value": "location_country",
+              },
+              Object {
+                "nonTandemOnly": true,
+                "text": "Location(country): Z-A",
+                "value": "-location_country",
               },
             ]
           }

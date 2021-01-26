@@ -80,16 +80,40 @@ exports[`SelectForm matches snapshot 1`] = `
       Featured positions
     </option>
     <option
-      key="location"
-      value="location"
+      key="location_city"
+      value="location_city"
     >
-      Location: A-Z
+      Location(city): A-Z
     </option>
     <option
-      key="-location"
-      value="-location"
+      key="-location_city"
+      value="-location_city"
     >
-      Location: Z-A
+      Location(city): Z-A
+    </option>
+    <option
+      key="location_state"
+      value="location_state"
+    >
+      Location(state): A-Z
+    </option>
+    <option
+      key="-location_state"
+      value="-location_state"
+    >
+      Location(state): Z-A
+    </option>
+    <option
+      key="location_country"
+      value="location_country"
+    >
+      Location(country): A-Z
+    </option>
+    <option
+      key="-location_country"
+      value="-location_country"
+    >
+      Location(country): Z-A
     </option>
   </select>
 </div>
@@ -175,16 +199,40 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       Featured positions
     </option>
     <option
-      key="location"
-      value="location"
+      key="location_city"
+      value="location_city"
     >
-      Location: A-Z
+      Location(city): A-Z
     </option>
     <option
-      key="-location"
-      value="-location"
+      key="-location_city"
+      value="-location_city"
     >
-      Location: Z-A
+      Location(city): Z-A
+    </option>
+    <option
+      key="location_state"
+      value="location_state"
+    >
+      Location(state): A-Z
+    </option>
+    <option
+      key="-location_state"
+      value="-location_state"
+    >
+      Location(state): Z-A
+    </option>
+    <option
+      key="location_country"
+      value="location_country"
+    >
+      Location(country): A-Z
+    </option>
+    <option
+      key="-location_country"
+      value="-location_country"
+    >
+      Location(country): Z-A
     </option>
   </select>
 </div>
