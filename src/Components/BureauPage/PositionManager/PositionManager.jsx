@@ -19,6 +19,7 @@ import SelectForm from 'Components/SelectForm';
 import StaticDevContent from 'Components/StaticDevContent';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { filtersFetchData } from 'actions/filters/filters';
+import ResetFilters from 'Components/ResetFilters/ResetFilters';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 
@@ -34,6 +35,8 @@ const PositionManager = props => {
     bureauPositionsHasErrored,
     orgPermissions,
     userSelections,
+    // showClear,
+    // resetFilters,
   } = props;
 
   // Local state populating with defaults from previous user selections stored in redux
@@ -227,6 +230,12 @@ const PositionManager = props => {
     return false;
   };
 
+  const resetFilters = () => {
+    this.context.router.history.push({
+      search: '',
+    });
+  };
+
   return (
     bureauFiltersIsLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -241,6 +250,9 @@ const PositionManager = props => {
                   onChange={setTextInputThrottled}
                 />
                 <div className="filterby-label">Filter by:</div>
+                <div className="filter-control-right">
+                  {<ResetFilters resetFilters={resetFilters} />}
+                </div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
                     <div className="filter-div">
@@ -450,6 +462,10 @@ const PositionManager = props => {
   );
 };
 
+PositionManager.contextTypes = {
+  router: PropTypes.object,
+};
+
 PositionManager.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
@@ -462,6 +478,8 @@ PositionManager.propTypes = {
   bureauPermissions: BUREAU_PERMISSIONS,
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
+  showClear: PropTypes.bool,
+  // resetFilters: PropTypes.func.isRequired,
 };
 
 PositionManager.defaultProps = {
@@ -473,6 +491,7 @@ PositionManager.defaultProps = {
   bureauPermissions: [],
   orgPermissions: [],
   userSelections: {},
+  showClear: true,
 };
 
 const mapStateToProps = state => ({
