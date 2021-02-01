@@ -35,8 +35,6 @@ const PositionManager = props => {
     bureauPositionsHasErrored,
     orgPermissions,
     userSelections,
-    // showClear,
-    // resetFilters,
   } = props;
 
   // Local state populating with defaults from previous user selections stored in redux
@@ -58,6 +56,7 @@ const PositionManager = props => {
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
+  const [clearFilters, setClearFilters] = useState(false);
 
   // Pagination
   const prevPage = usePrevious(page);
@@ -231,10 +230,44 @@ const PositionManager = props => {
   };
 
   const resetFilters = () => {
-    this.context.router.history.push({
-      search: '',
-    });
+    setSelectedGrades([]);
+    setSelectedSkills([]);
+    setSelectedPosts([]);
+    setSelectedTODs([]);
+    setSelectedCycles([]);
+    setSelectedLanguages([]);
+    setClearFilters(false);
+    // A Bureau needs to be selected
+    // for the other dropdowns to work
+    // may not need to reset/clear bureaus
+    // setSelectedBureaus(selectedBureaus);
   };
+
+  useEffect(() => {
+    // put in rerender action above?
+    // page needs to appear when page limit changes?
+    // if (clearFilters === false) {
+    //   console.log('if use effect clear filter');
+    //   setClearFilters(true);
+    // } else {
+    //   console.log('else use effect clear filter');
+    //   setClearFilters(false);
+    // }
+    if (!clearFilters) {
+      setClearFilters(true);
+    } else {
+      setClearFilters(false);
+    }
+  }, [
+    selectedGrades,
+    selectedSkills,
+    selectedPosts,
+    selectedTODs,
+    // selectedBureaus,
+    selectedOrgs,
+    selectedCycles,
+    selectedLanguages,
+  ]);
 
   return (
     bureauFiltersIsLoading ?
@@ -250,9 +283,13 @@ const PositionManager = props => {
                   onChange={setTextInputThrottled}
                 />
                 <div className="filterby-label">Filter by:</div>
-                <div className="filter-control-right">
-                  {<ResetFilters resetFilters={resetFilters} />}
-                </div>
+                {!clearFilters &&
+                  <div className="filter-control-right" >
+                    <button onClick={resetFilters}>
+                      <ResetFilters />
+                    </button>
+                  </div>
+                }
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
                     <div className="filter-div">
@@ -478,8 +515,6 @@ PositionManager.propTypes = {
   bureauPermissions: BUREAU_PERMISSIONS,
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
-  showClear: PropTypes.bool,
-  // resetFilters: PropTypes.func.isRequired,
 };
 
 PositionManager.defaultProps = {
@@ -491,7 +526,7 @@ PositionManager.defaultProps = {
   bureauPermissions: [],
   orgPermissions: [],
   userSelections: {},
-  showClear: true,
+  showClear: false,
 };
 
 const mapStateToProps = state => ({
