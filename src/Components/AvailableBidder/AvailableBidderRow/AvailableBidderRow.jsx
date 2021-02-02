@@ -25,23 +25,23 @@ const AvailableBidderRow = (props) => {
   const name = get(bidder, 'name');
 
   const sections = isCDO ? {
-    Name: (<Link to={`/profile/public/${get(bidder, 'emp_id')}/cdo`}>{name}</Link>),
+    Name: (<Link to={`/profile/public/${get(bidder, 'bidder_perdet')}/cdo`}>{name}</Link>),
     Status: get(bidder, 'status') || NO_STATUS,
-    Skill: get(bidder, 'skills[0].description', NO_USER_SKILL_CODE),
-    Grade: get(bidder, 'grade', NO_GRADE),
+    Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    Grade: get(bidder, 'grade') || NO_GRADE,
     TED: formattedTed,
-    Current_Post: get(bidder, 'post.location.country', NO_POST),
+    Current_Post: get(bidder, 'post.location.country') || NO_POST,
     OC_Bureau: get(bidder, 'oc_bureau') || NO_BUREAU,
     OC_Reason: get(bidder, 'oc_reason') || NO_OC_REASON,
-    CDO: get(bidder, 'cdo.name', NO_CDO),
+    CDO: get(bidder, 'cdo.name') || NO_CDO,
     Comments: get(bidder, 'comments') || NO_COMMENTS,
   } : {
     Name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
-    Skill: get(bidder, 'skills[0].description', NO_USER_SKILL_CODE),
-    Grade: get(bidder, 'grade', NO_GRADE),
+    Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    Grade: get(bidder, 'grade') || NO_GRADE,
     TED: formattedTed,
-    Current_Post: get(bidder, 'current_assignment.position.post.location.country', NO_POST),
-    CDO: get(bidder, 'cdo.name', NO_CDO),
+    Current_Post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
+    CDO: get(bidder, 'cdo.name') || NO_CDO,
   };
 
   if (isLoading) {
