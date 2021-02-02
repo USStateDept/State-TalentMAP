@@ -25,7 +25,7 @@ const AvailableBidderRow = (props) => {
   const name = get(bidder, 'name');
 
   const sections = isCDO ? {
-    Name: (<Link to={`/profile/public/${get(bidder, 'bidder_perdet')}/cdo`}>{name}</Link>),
+    Name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
     Status: get(bidder, 'status') || NO_STATUS,
     Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     Grade: get(bidder, 'grade') || NO_GRADE,
