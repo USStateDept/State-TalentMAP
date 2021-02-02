@@ -4,7 +4,9 @@ import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE, REMOVE_FROM_INTERNAL_LIST_SUCCESS,
   INTERNAL_LIST_ERROR_TITLE, ADD_TO_INTERNAL_LIST_ERROR,
   REMOVE_FROM_INTERNAL_LIST_ERROR,
-  GENERIC_SUCCESS,
+  GENERIC_SUCCESS, UPDATE_AVAILABLE_BIDDER_SUCCESS,
+  UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE, UPDATE_AVAILABLE_BIDDER_ERROR,
+  UPDATE_AVAILABLE_BIDDER_ERROR_TITLE,
 } from 'Constants/SystemMessages';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
@@ -202,10 +204,13 @@ export function availableBidderEditData(id, data) {
 
     api().patch(`cdo/${id}/availablebidders/`, data)
       .then(() => {
+        const toastTitle = UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE;
+        const toastMessage = UPDATE_AVAILABLE_BIDDER_SUCCESS;
         batch(() => {
           dispatch(availableBidderEditDataErrored(false));
           dispatch(availableBidderEditDataLoading(false));
           dispatch(availableBidderEditDataSuccess(true));
+          dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(availableBiddersFetchData(true));
         });
       })
@@ -216,9 +221,10 @@ export function availableBidderEditData(id, data) {
             dispatch(availableBidderEditDataLoading(true));
           });
         } else {
+          const toastTitle = UPDATE_AVAILABLE_BIDDER_ERROR_TITLE;
+          const toastMessage = UPDATE_AVAILABLE_BIDDER_ERROR;
+          dispatch(toastError(toastMessage, toastTitle));
           batch(() => {
-            // Fix this
-            dispatch(availableBidderEditDataSuccess([]));
             dispatch(availableBidderEditDataErrored(true));
             dispatch(availableBidderEditDataLoading(false));
           });

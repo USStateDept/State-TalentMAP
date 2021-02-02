@@ -85,6 +85,7 @@
         border-left: none;
         padding: 20px 30px;
         font-size: 14px;
+        transition: .15s;
       }
       @media screen and (max-width: 1700px) {
         td {
@@ -116,6 +117,7 @@
   td:not(:nth-of-type(11)) {
     color: #272e3247;
     background-color: #aeb0b59e;
+    transition: 1.5s;
     a {
       color: #272e3247;
     }
@@ -129,7 +131,7 @@
   justify-content: center;
   
   div:nth-child(2) {
-    padding: 0px 5px 0px 5px;
+    padding: 0px 7px 0px 7px;
   }
 
   .fa-trash-o {
