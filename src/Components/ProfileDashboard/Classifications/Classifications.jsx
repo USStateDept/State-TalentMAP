@@ -70,7 +70,7 @@ const Classifications = props => {
       {
         !isLoading && !editView &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
-          <button className="unstyled-button" onClick={() => setEditView(true)}>
+          <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
               name="edit"
             />Edit Classifications

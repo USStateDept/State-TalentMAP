@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatIdSpacing } from '../../utilities';
 
 class CheckBox extends Component {
