@@ -1,0 +1,173 @@
+.bidder-manager-page {
+
+  border-top: 1px solid $color-white;
+
+  .bidder-manager-search-container {
+    background-color: $bg-blue-dark-1;
+    padding: 12px 31px;
+  }
+
+  .bidder-manager-upper-section {
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    padding: 20px 35px;
+    background-color: $bg-blue-dark-1;
+  }
+
+
+  @media screen and (max-width: 1525px) {
+    .small-screen-stack {
+      flex-wrap: wrap;
+      float: none;
+    }
+    .small-screen-stack > div {
+      flex-basis: 45%;
+      margin: 0 10px;
+    }
+    .small-screen-stack > div > label,.label {
+      min-width: 100px;
+    }
+  }
+  @media screen and (max-width: 1241px) {
+    .small-screen-stack {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .small-screen-stack > div {
+      align-items: center;
+      display: flex;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+  }
+  @media screen and (max-width: 890px) {
+    .small-screen-stack > div {
+      min-width: 300px;
+    }
+  }
+}
+
+.bidder-manager-bidders {
+  color: $color-black;
+  margin-top: 50px;
+  table {
+    margin: 0;
+    width: 100%;
+    thead {
+      tr {
+        th {
+          text-align: center;
+          border: none;
+          background-color: $tm-white-smoke-light;
+        }
+        .table-title {
+          // font-size: 30px;
+          font-weight: bold;
+        }
+        @media screen and (max-width: 1600px) {
+          .table-title {
+            // font-size: 25px;
+          }
+        }
+        @media screen and (max-width: 1400px) {
+          .table-title {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    tbody {
+      border: 1px solid $tm-gray;
+      td {
+        text-align: center;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        padding: 20px 30px;
+        font-size: 14px;
+        transition: .15s;
+      }
+      @media screen and (max-width: 1700px) {
+        td {
+          padding: 10px 15px;
+          // font-size: 15px;
+        }
+      }
+      @media screen and (max-width: 1400px) {
+        td {
+          padding: 5px 7px;
+          // font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+.ab-table-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.ab-lower-section {
+  padding: 0;
+}
+
+.ab-inactive {
+  td:not(:nth-of-type(11)) {
+    color: #272e3247;
+    background-color: #aeb0b59e;
+    transition: 1.5s;
+    a {
+      color: #272e3247;
+    }
+  }
+}
+
+.ab-action-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  
+  div:nth-child(2) {
+    padding: 0px 7px 0px 7px;
+  }
+
+  .fa-trash-o {
+    color: $color-red;
+  }
+
+  .fa-building {
+    color: $color-dodger-blue;
+  }
+}
+
+.bureau-view-toggle {
+  .active {
+    text-shadow: 0 0 10px $color-dodger-blue;
+  }
+}
+
+.available-bidder-form {
+  input[type="text"]:disabled {
+    border: None;
+    background: none;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    
+  }
+}
+
+.swal-modal {
+  width: 600px;
+
+  input select textarea {
+    width: 75%;
+  }
+}

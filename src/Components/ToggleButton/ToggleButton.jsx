@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import Switch from 'react-switch';
 
 const ToggleButton = props => {
-  const { labelText, labelToLeft, labelSameLine, checked,
-    onChange, height, width, onColor } = props;
+  const { labelTextLeft, labelTextRight, labelSameLine, checked,
+    onChange, height, width, onColor, offColor, checkedIcon, uncheckedIcon,
+    onHandleColor, offHandleColor, boxShadow, activeBoxShadow } = props;
 
   const style = {
     display: 'flex',
@@ -15,24 +16,26 @@ const ToggleButton = props => {
     fontSize: height - (height / 5),
   };
 
-  let labelLeft = <label style={labelStyle} className={labelSameLine ? 'toggle-button-label-inline' : ''} htmlFor={'toggleSwitch'}>{labelText}</label>;
-  let labelRight = <label style={labelStyle} className={labelSameLine ? 'toggle-button-label-inline' : ''} htmlFor={'toggleSwitch'}>{labelText}</label>;
-
-  if (labelToLeft) labelRight = '';
-  else labelLeft = '';
+  const labelLeft = labelTextLeft ? <label style={labelStyle} className={labelSameLine ? 'toggle-button-label-inline' : ''} htmlFor={'toggleSwitch'}>{labelTextLeft}</label> : '';
+  const labelRight = labelTextRight ? <label style={labelStyle} className={labelSameLine ? 'toggle-button-label-inline' : ''} htmlFor={'toggleSwitch'}>{labelTextRight}</label> : '';
 
   return (
     <div style={style}>
       {labelLeft}
       <Switch
         id="toggleSwitch"
-        checkedIcon={false}
-        uncheckedIcon={false}
+        checkedIcon={checkedIcon}
+        uncheckedIcon={uncheckedIcon}
         height={height}
         width={width}
         checked={checked}
         onChange={onChange}
         onColor={onColor}
+        offColor={offColor}
+        onHandleColor={onHandleColor}
+        offHandleColor={offHandleColor}
+        boxShadow={boxShadow}
+        activeBoxShadow={activeBoxShadow}
       />
       {labelRight}
     </div>
@@ -40,24 +43,40 @@ const ToggleButton = props => {
 };
 
 ToggleButton.propTypes = {
-  labelText: PropTypes.string,
-  labelToLeft: PropTypes.bool,
+  labelTextLeft: PropTypes.string,
+  labelTextRight: PropTypes.string,
   labelSameLine: PropTypes.bool,
   checked: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   height: PropTypes.number,
   width: PropTypes.number,
   onColor: PropTypes.string,
+  offColor: PropTypes.string,
+  checkedIcon: PropTypes.string,
+  uncheckedIcon: PropTypes.string,
+  onHandleColor: PropTypes.string,
+  offHandleColor: PropTypes.string,
+  boxShadow: PropTypes.string,
+  activeBoxShadow: PropTypes.string,
 };
 
 ToggleButton.defaultProps = {
   labelText: '',
   labelToLeft: true,
+  labelTextLeft: '',
+  labelTextRight: '',
   labelSameLine: true,
   checked: false,
+  checkedIcon: false,
+  uncheckedIcon: false,
   height: 20,
   width: 40,
   onColor: '#1ad142',
+  offColor: '',
+  onHandleColor: '',
+  offHandleColor: '',
+  boxShadow: '',
+  activeBoxShadow: '',
 };
 
 export default ToggleButton;
