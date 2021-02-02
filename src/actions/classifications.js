@@ -52,14 +52,14 @@ export function fetchClassifications() {
 
 export function updateClassificationsHasErrored(bool) {
   return {
-    type: 'CLASSIFICATIONS_HAS_ERRORED',
+    type: 'UPDATE_CLASSIFICATIONS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
 export function updateClassificationsIsLoading(bool) {
   return {
-    type: 'CLASSIFICATIONS_IS_LOADING',
+    type: 'UPDATE_CLASSIFICATIONS_IS_LOADING',
     isLoading: bool,
   };
 }
