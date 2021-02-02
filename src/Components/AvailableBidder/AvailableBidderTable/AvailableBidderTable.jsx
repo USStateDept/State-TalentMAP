@@ -9,6 +9,7 @@ import ExportButton from 'Components/ExportButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import { get } from 'lodash';
 import AvailableBidderRow from 'Components/AvailableBidder/AvailableBidderRow';
+import Alert from 'Components/Alert/Alert';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
@@ -90,32 +91,40 @@ const AvailableBidderTable = (props) => {
   }
 
   return (
-    <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
-      <div className="ab-table-title-row">
-        <h3>{title}</h3>
-        <div className="export-button-container">
-          <ExportButton />
-        </div>
+    !bidders.length && !isLoading ?
+      <div className="usa-width-two-thirds">
+        <Alert
+          title="Available Bidders List is Empty"
+          messages={[{ body: 'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' }]}
+        />
       </div>
-      {
-        <table className="bidder-manager-bidders">
-          <thead>
-            <tr>
-              {
-                tableHeaders.map(item => (
-                  <th
-                    key={shortid.generate()}
-                    className="ab-headers"
-                    scope="col"
-                  >
-                    <InteractiveElement onClick={() => handleSort(item)}>
-                      {item} <FA name={getSortIcon(item)} />
-                    </InteractiveElement>
-                  </th>
-                ))
-              }
-              {
-                isCDO &&
+      :
+      <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
+        <div className="ab-table-title-row">
+          <h3>{title}</h3>
+          <div className="export-button-container">
+            <ExportButton />
+          </div>
+        </div>
+        {
+          <table className="bidder-manager-bidders">
+            <thead>
+              <tr>
+                {
+                  tableHeaders.map(item => (
+                    <th
+                      key={shortid.generate()}
+                      className="ab-headers"
+                      scope="col"
+                    >
+                      <InteractiveElement onClick={() => handleSort(item)}>
+                        {item} <FA name={getSortIcon(item)} />
+                      </InteractiveElement>
+                    </th>
+                  ))
+                }
+                {
+                  isCDO &&
                   <th>
                     <div className="bureau-view-toggle">
                       <ToggleButton
@@ -152,26 +161,26 @@ const AvailableBidderTable = (props) => {
                       />
                     </div>
                   </th>
+                }
+              </tr>
+            </thead>
+            <tbody>
+              {
+                bidders.map(bidder => (
+                  <AvailableBidderRow
+                    key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
+                    bidder={bidder}
+                    CDOView={cdoView}
+                    isCDO={isCDO}
+                    isLoading={isLoading}
+                    bureaus={bureaus}
+                  />
+                ))
               }
-            </tr>
-          </thead>
-          <tbody>
-            {
-              bidders.map(bidder => (
-                <AvailableBidderRow
-                  key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
-                  bidder={bidder}
-                  CDOView={cdoView}
-                  isCDO={isCDO}
-                  isLoading={isLoading}
-                  bureaus={bureaus}
-                />
-              ))
-            }
-          </tbody>
-        </table>
-      }
-    </div>
+            </tbody>
+          </table>
+        }
+      </div>
   );
 };
 
