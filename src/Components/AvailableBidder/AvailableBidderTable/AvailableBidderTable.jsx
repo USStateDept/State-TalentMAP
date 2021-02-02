@@ -84,7 +84,7 @@ const AvailableBidderTable = (props) => {
     header === sort ? setSort(`-${header}`) : setSort(header)
   );
 
-  let title = 'Bureau View';
+  let title = '';
   if (isCDO) {
     title = cdoView ? 'Internal CDA View' : 'External Bureau View';
   }
