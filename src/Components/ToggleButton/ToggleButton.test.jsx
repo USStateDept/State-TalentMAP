@@ -1,6 +1,5 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import sinon from 'sinon';
 import ToggleButton from './ToggleButton';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
@@ -8,7 +7,13 @@ describe('ToggleButtonComponent', () => {
   const props = {
     onChange: EMPTY_FUNCTION,
     checked: true,
-    labelText: 'button label',
+    labelTextLeft: 'button label',
+  };
+  const propsTwoLabels = {
+    onChange: EMPTY_FUNCTION,
+    checked: true,
+    labelTextLeft: 'button label',
+    labelTextRight: 'button label',
   };
   it('is defined', () => {
     const wrapper = shallow(<ToggleButton
@@ -22,6 +27,13 @@ describe('ToggleButtonComponent', () => {
       {...props}
     />);
     expect(wrapper.find('label').length).toBe(1);
+  });
+
+  it('has rendered both labels', () => {
+    const wrapper = shallow(<ToggleButton
+      {...propsTwoLabels}
+    />);
+    expect(wrapper.find('label').length).toBe(2);
   });
 
   it('has rendered proper label text', () => {

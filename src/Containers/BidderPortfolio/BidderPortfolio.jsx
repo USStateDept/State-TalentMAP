@@ -8,7 +8,7 @@ import { fetchClassifications } from 'actions/classifications';
 import { BID_PORTFOLIO_SORTS_TYPE, BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import { bidderPortfolioFetchData, bidderPortfolioCountsFetchData,
   bidderPortfolioCDOsFetchData } from 'actions/bidderPortfolio';
-import { availableBiddersFetchData } from 'actions/cdo';
+import { availableBiddersFetchData } from 'actions/availableBidders';
 import { BIDDER_LIST, EMPTY_FUNCTION, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from 'Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
