@@ -83,37 +83,13 @@ exports[`SelectForm matches snapshot 1`] = `
       key="location_city"
       value="location_city"
     >
-      Location(city): A-Z
+      Location: A-Z
     </option>
     <option
       key="-location_city"
       value="-location_city"
     >
-      Location(city): Z-A
-    </option>
-    <option
-      key="location_state"
-      value="location_state"
-    >
-      Location(state): A-Z
-    </option>
-    <option
-      key="-location_state"
-      value="-location_state"
-    >
-      Location(state): Z-A
-    </option>
-    <option
-      key="location_country"
-      value="location_country"
-    >
-      Location(country): A-Z
-    </option>
-    <option
-      key="-location_country"
-      value="-location_country"
-    >
-      Location(country): Z-A
+      Location: Z-A
     </option>
   </select>
 </div>
@@ -202,37 +178,13 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       key="location_city"
       value="location_city"
     >
-      Location(city): A-Z
+      Location: A-Z
     </option>
     <option
       key="-location_city"
       value="-location_city"
     >
-      Location(city): Z-A
-    </option>
-    <option
-      key="location_state"
-      value="location_state"
-    >
-      Location(state): A-Z
-    </option>
-    <option
-      key="-location_state"
-      value="-location_state"
-    >
-      Location(state): Z-A
-    </option>
-    <option
-      key="location_country"
-      value="location_country"
-    >
-      Location(country): A-Z
-    </option>
-    <option
-      key="-location_country"
-      value="-location_country"
-    >
-      Location(country): Z-A
+      Location: Z-A
     </option>
   </select>
 </div>
