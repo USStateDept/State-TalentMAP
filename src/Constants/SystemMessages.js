@@ -41,6 +41,10 @@ export const NO_TOUR_OF_DUTY = DEFAULT_TEXT;
 export const NO_USER_LISTED = DEFAULT_TEXT;
 export const NO_USER_SKILL_CODE = 'No Skills listed';
 export const NO_TOUR_END_DATE = DEFAULT_TEXT;
+export const NO_CDO = DEFAULT_TEXT;
+export const NO_COMMENTS = DEFAULT_TEXT;
+export const NO_OC_REASON = DEFAULT_TEXT;
+export const NO_STATUS = DEFAULT_TEXT;
 
 export const GENERAL_SAVED_SEARCH_ERROR = 'An error occurred trying to save this search.';
 
@@ -107,6 +111,11 @@ export const ADD_TO_INTERNAL_LIST_SUCCESS = 'Client Added to Internal List';
 
 export const REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE = 'Client Removed';
 export const REMOVE_FROM_INTERNAL_LIST_SUCCESS = 'Client Removed from Internal List';
+
+export const UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE = 'Success';
+export const UPDATE_AVAILABLE_BIDDER_SUCCESS = 'Available Bidder information updated';
+export const UPDATE_AVAILABLE_BIDDER_ERROR_TITLE = 'Error';
+export const UPDATE_AVAILABLE_BIDDER_ERROR = 'Error updating Available Bidder information. Please try again.';
 
 export const INTERNAL_LIST_ERROR_TITLE = 'Internal list Error';
 export const ADD_TO_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to add this client to the Internal list. Please try again.";
