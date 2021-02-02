@@ -98,7 +98,6 @@ const AvailableBidderTable = (props) => {
       {
         <table className="bidder-manager-bidders">
           <thead>
-            <tr />
             <tr>
               {
                 tableHeaders.map(item => (
@@ -115,7 +114,7 @@ const AvailableBidderTable = (props) => {
               }
               {
                 isCDO &&
-                  <th className="action-header">
+                  <th>
                     <div className="bureau-view-toggle">
                       <ToggleButton
                         labelTextLeft={
