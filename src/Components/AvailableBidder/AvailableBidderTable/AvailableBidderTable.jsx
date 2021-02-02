@@ -45,7 +45,9 @@ const AvailableBidderTable = (props) => {
   }, []);
 
   useEffect(() => {
-    dispatch(availableBiddersFetchData(isCDO, sort));
+    if (sort !== '') {
+      dispatch(availableBiddersFetchData(isCDO, sort));
+    }
   }, [sort]);
 
   const tableHeaders = isCDO ? [
@@ -143,8 +145,8 @@ const AvailableBidderTable = (props) => {
                         onChange={() => setCdoView(!cdoView)}
                         onColor="#888888"
                         offColor="#888888"
-                        onHandleColor="#2693e6"
-                        offHandleColor="#2693e6"
+                        onHandleColor="#FFFFFF"
+                        offHandleColor="#FFFFFF"
                         boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
                         activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
                       />
