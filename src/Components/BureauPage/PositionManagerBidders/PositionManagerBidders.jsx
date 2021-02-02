@@ -7,7 +7,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
 import { formatDate, move } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { NO_GRADE, NO_END_DATE } from 'Constants/SystemMessages';
+import { NO_GRADE, NO_END_DATE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
@@ -185,7 +185,9 @@ class PositionManagerBidders extends Component {
   // Renders an individual bid
   bid$ = (m, props = this.props, iter, len, type) => {
     const ted = get(m, 'ted');
+    const submitted = get(m, 'submitted_date');
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
+    const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
         <select name="ranking" disabled={this.isDndDisabled()} value={iter} onChange={a => { this.setState({ rankingUpdate: Date.now(), shortList: move(this.state.shortList, iter, a.target.value) }); }}>
@@ -196,8 +198,9 @@ class PositionManagerBidders extends Component {
             >{e + 1}</option>))}
         </select>,
       Name: (<Link to={`/profile/public/${m.emp_id}/bureau`}>{get(m, 'name')}</Link>),
+      SubmittedDate: formattedSubmitted,
       Skill: get(m, 'skill'),
-      Grade: get(m, 'grade', NO_GRADE),
+      Grade: get(m, 'grade') || NO_GRADE,
       Language: get(m, 'language'),
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
@@ -258,7 +261,7 @@ class PositionManagerBidders extends Component {
         hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
-      const tableHeaders = ['Ranking', 'Name', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
+      const tableHeaders = ['Ranking', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
         <th scope="col">{item}</th>
       ));
 
