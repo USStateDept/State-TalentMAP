@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { includes } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { availableBiddersToggleUser } from 'actions/cdo';
+import { availableBiddersToggleUser } from 'actions/availableBidders';
 import InteractiveElement from '../../InteractiveElement';
 
 

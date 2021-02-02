@@ -22,18 +22,18 @@ exports[`ToggleButtonComponent matches snapshot 1`] = `
     button label
   </label>
   <ReactSwitch
-    activeBoxShadow="0 0 2px 3px #3bf"
-    boxShadow={null}
+    activeBoxShadow=""
+    boxShadow=""
     checked={true}
     checkedIcon={false}
     disabled={false}
     height={20}
     id="toggleSwitch"
-    offColor="#888"
-    offHandleColor="#fff"
+    offColor=""
+    offHandleColor=""
     onChange={[Function]}
     onColor="#1ad142"
-    onHandleColor="#fff"
+    onHandleColor=""
     uncheckedIcon={false}
     width={40}
   />
