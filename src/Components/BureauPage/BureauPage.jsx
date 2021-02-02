@@ -1,4 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
+import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionLists from './PositionLists';
@@ -26,6 +27,7 @@ const BureauPage = () => {
         <Route path="/profile/(bureau|ao)/positionlists" render={() => <PositionLists {...posListsProps} />} />
         <Route path="/profile/(bureau|ao)/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/(bureau|ao)/positionmanager" render={() => <PositionManager />} />
+        <Route path="/profile/(bureau|ao)/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
       </Switch>
     </div>
   );
