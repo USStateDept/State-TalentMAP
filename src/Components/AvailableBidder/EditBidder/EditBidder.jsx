@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+// Remove after defining sections with real data
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
