@@ -90,6 +90,17 @@ const AvailableBidderTable = (props) => {
     title = cdoView ? 'Internal CDA View' : 'External Bureau View';
   }
 
+  let bidderCountTitle = '';
+  if (!isLoading) {
+    const bidderAllCount = bidders.length;
+    const bidderSharedCount = bidders.filter(a => a.is_shared).length;
+    if (isCDO) {
+      bidderCountTitle = cdoView ? `(${bidderAllCount})` : `(${bidderSharedCount})`;
+    } else {
+      bidderCountTitle = `Shared Available Bidders (${bidderAllCount})`;
+    }
+  }
+
   return (
     !bidders.length && !isLoading ?
       <div className="usa-width-two-thirds">
@@ -101,7 +112,7 @@ const AvailableBidderTable = (props) => {
       :
       <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
         <div className="ab-table-title-row">
-          <h3>{title}</h3>
+          <h3>{title} {bidderCountTitle}</h3>
           <div className="export-button-container">
             <ExportButton />
           </div>
