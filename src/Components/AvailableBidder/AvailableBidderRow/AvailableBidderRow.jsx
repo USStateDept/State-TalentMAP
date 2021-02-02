@@ -98,7 +98,7 @@ const AvailableBidderRow = (props) => {
                 </InteractiveElement>
               </Tooltip>
               <Tooltip
-                title="Share with Bureaus"
+                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
                 arrow
                 offset={-95}
                 position="top-end"

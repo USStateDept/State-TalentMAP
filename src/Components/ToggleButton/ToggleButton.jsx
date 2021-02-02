@@ -3,8 +3,8 @@ import Switch from 'react-switch';
 
 const ToggleButton = props => {
   const { labelTextLeft, labelTextRight, labelSameLine, checked,
-    onChange, height, width, onColor, checkedIcon, uncheckedIcon,
-    onHandleColor, boxShadow, activeBoxShadow } = props;
+    onChange, height, width, onColor, offColor, checkedIcon, uncheckedIcon,
+    onHandleColor, offHandleColor, boxShadow, activeBoxShadow } = props;
 
   const style = {
     display: 'flex',
@@ -31,7 +31,9 @@ const ToggleButton = props => {
         checked={checked}
         onChange={onChange}
         onColor={onColor}
+        offColor={offColor}
         onHandleColor={onHandleColor}
+        offHandleColor={offHandleColor}
         boxShadow={boxShadow}
         activeBoxShadow={activeBoxShadow}
       />
@@ -49,9 +51,11 @@ ToggleButton.propTypes = {
   height: PropTypes.number,
   width: PropTypes.number,
   onColor: PropTypes.string,
+  offColor: PropTypes.string,
   checkedIcon: PropTypes.string,
   uncheckedIcon: PropTypes.string,
   onHandleColor: PropTypes.string,
+  offHandleColor: PropTypes.string,
   boxShadow: PropTypes.string,
   activeBoxShadow: PropTypes.string,
 };
@@ -68,7 +72,9 @@ ToggleButton.defaultProps = {
   height: 20,
   width: 40,
   onColor: '#1ad142',
+  offColor: '',
   onHandleColor: '',
+  offHandleColor: '',
   boxShadow: '',
   activeBoxShadow: '',
 };
