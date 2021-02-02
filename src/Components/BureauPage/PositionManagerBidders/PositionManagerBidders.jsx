@@ -200,7 +200,7 @@ class PositionManagerBidders extends Component {
       Name: (<Link to={`/profile/public/${m.emp_id}/bureau`}>{get(m, 'name')}</Link>),
       SubmittedDate: formattedSubmitted,
       Skill: get(m, 'skill'),
-      Grade: get(m, 'grade', NO_GRADE),
+      Grade: get(m, 'grade') || NO_GRADE,
       Language: get(m, 'language'),
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
