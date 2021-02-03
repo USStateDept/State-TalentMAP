@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { updateClassifications } from 'actions/classifications';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { checkFlag } from 'flags';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 
@@ -51,6 +52,9 @@ const Classifications = props => {
     }
   };
 
+  const useClassificationsEditor = () => checkFlag('flags.classifications');
+  const displayClassificationsEditor = useClassificationsEditor();
+
   return (
     <div className="usa-grid-full profile-section-container updates-container">
       <div className="usa-grid-full section-padded-inner-container">
@@ -68,7 +72,7 @@ const Classifications = props => {
         </div>
       </div>
       {
-        !isLoading && !editView &&
+        !isLoading && !editView && displayClassificationsEditor &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
