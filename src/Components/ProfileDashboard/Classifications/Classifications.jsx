@@ -65,7 +65,7 @@ const Classifications = props => {
             list={classifications}
             id="updates"
             editMode={!editView}
-            updateClassifications={(h) => handleInput(h)}
+            updateClassifications={handleInput}
             input={userInput}
           />
         </div>
@@ -92,7 +92,7 @@ const Classifications = props => {
             <button
               type="button"
               className="saved-search-form-primary-button"
-              onClick={() => cancelInput()}
+              onClick={cancelInput}
             >Cancel
             </button>
           </div>
