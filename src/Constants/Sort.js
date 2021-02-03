@@ -13,8 +13,8 @@ const POSITION_SEARCH_SORTS$ = {
     { value: '-ted', text: 'TED: Latest' },
     { value: 'position__position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
     { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true }, // sort by service needs first
-    { value: 'location', text: 'Location: A-Z', nonTandemOnly: true },
-    { value: '-location', text: 'Location: Z-A', nonTandemOnly: true },
+    { value: 'location_city', text: 'Location: A-Z', nonTandemOnly: true },
+    { value: '-location_city', text: 'Location: Z-A', nonTandemOnly: true },
   ],
 };
 
