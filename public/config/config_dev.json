@@ -24,6 +24,6 @@
     "us_codes": true,
     "ao": true,
     "available_bidders": true,
-    "unassigned_bidders": true
+    "unassigned_filters": true
   }
 }
