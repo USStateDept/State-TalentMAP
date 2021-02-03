@@ -207,7 +207,7 @@ class BidControls extends Component {
                 keyRef={BID_PORTFOLIO_FILTERS_TYPE}
               >
                 <SelectForm
-                  id="porfolio-filter"
+                  id="portfolio-filter"
                   options={BID_PORTFOLIO_FILTERS$.options}
                   label="Filter By:"
                   defaultSort={defaultHandshake}
