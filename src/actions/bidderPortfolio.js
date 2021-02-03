@@ -234,7 +234,7 @@ export function bidderPortfolioFetchData(query = {}) {
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
     }
-    if (get(query, 'hasHandshake') === 'available_bidders') {
+    if (get(query, 'hasHandshake') === 'unassigned_filters') {
       query$ = omit(query$, ['hasHandshake']);
       const UAvalues = unassigned.map(a => a.value);
       if (includes(UAvalues, 'noHandshake')) {

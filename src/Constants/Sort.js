@@ -90,7 +90,7 @@ export const BID_PORTFOLIO_FILTERS = {
     { value: '', text: 'All' },
     { value: 'true', text: 'Handshake' },
     { value: 'false', text: 'No Handshake' },
-    { value: 'available_bidders', text: 'Available Bidders' },
+    { value: 'unassigned_filters', text: 'Unassigned Filters' },
   ],
 };
 

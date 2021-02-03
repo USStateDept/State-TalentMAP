@@ -96,8 +96,8 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
                 "value": "false",
               },
               Object {
-                "text": "Available Bidders",
-                "value": "available_bidders",
+                "text": "Unassigned Filters",
+                "value": "unassigned_filters",
               },
             ]
           }
@@ -302,8 +302,8 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
                 "value": "false",
               },
               Object {
-                "text": "Available Bidders",
-                "value": "available_bidders",
+                "text": "Unassigned Filters",
+                "value": "unassigned_filters",
               },
             ]
           }

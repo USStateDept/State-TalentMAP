@@ -47,12 +47,12 @@ class BidControls extends Component {
     }
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
-      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'available_bidders');
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
     this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value ===
         this.props.defaultHandshake)] });
-    if (this.props.defaultHandshake === 'available_bidders' && this.state.bidSeasons.length) {
+    if (this.props.defaultHandshake === 'unassigned_filters' && this.state.bidSeasons.length) {
       this.setState({ unassignedFilter: true });
     }
     if (this.props.unassignedSelection.length) {
@@ -91,12 +91,12 @@ class BidControls extends Component {
   onFilterChange = q => {
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
-      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'available_bidders');
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
     this.setState({ filterBy: BID_PORTFOLIO_FILTERS$.options[
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
     this.generatePills);
-    this.setState({ unassignedFilter: (q === 'available_bidders' && this.state.hasSeasons) });
+    this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
     this.props.queryParamUpdate({ hasHandshake: q });
   };
 
@@ -123,14 +123,14 @@ class BidControls extends Component {
     this.state.bidSeasons.forEach(a => {
       pills.push({ description: a.description, selectionRef: 'bidSeasons', codeRef: a.id });
     });
-    if (!includes(['', 'available_bidders'], get(filterBy, 'value', '')) && this.state.bidSeasons.length) {
+    if (!includes(['', 'unassigned_filters'], get(filterBy, 'value', '')) && this.state.bidSeasons.length) {
       pills.push({
         description: filterBy.text,
         selectionRef: 'filterBy',
         codeRef: filterBy.value,
       });
     }
-    const renderUnassigned = this.state.bidSeasons.length && isEqual('available_bidders', get(filterBy, 'value'));
+    const renderUnassigned = this.state.bidSeasons.length && isEqual('unassigned_filters', get(filterBy, 'value'));
     if (renderUnassigned) {
       this.state.unassignedBidders.forEach(a => {
         pills.push({ description: a.text, selectionRef: 'unassignedBidders', codeRef: a.value });
@@ -176,7 +176,7 @@ class BidControls extends Component {
     const showClear = !!pills.length;
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!displayUnassignedFilter) {
-      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'available_bidders');
+      BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
 
     return (
