@@ -18,7 +18,7 @@ import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
 
 const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
-const useUnassignedFilter = () => checkFlag('flags.unassigned_bidders');
+const useUnassignedFilter = () => checkFlag('flags.unassigned_filters');
 
 export function renderList({ items, selected, ...rest }) {
   const getIsSelected = item => !!selected.find(f => f.value === item.value);
