@@ -13,7 +13,6 @@ const Classifications = props => {
   const {
     classifications,
     clientClassifications,
-    isLoading,
     updateUserClassifications,
     userId,
   } = props;
@@ -72,7 +71,7 @@ const Classifications = props => {
         </div>
       </div>
       {
-        !isLoading && !editView && displayClassificationsEditor &&
+        !editView && displayClassificationsEditor &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
@@ -81,7 +80,7 @@ const Classifications = props => {
           </button>
         </div>
       }
-      { !isLoading && editView &&
+      { editView &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <div className="saved-search-form-buttons">
             <button
@@ -106,7 +105,6 @@ const Classifications = props => {
 Classifications.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
-  isLoading: PropTypes.bool,
   updateUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
@@ -114,13 +112,11 @@ Classifications.propTypes = {
 Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
-  isLoading: false,
   updateUserClassifications: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
   classifications: state.classifications,
-  isLoading: state.isLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
