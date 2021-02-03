@@ -62,4 +62,28 @@ export function availableBiddersToggleUserIsLoading(state = false, action) {
       return state;
   }
 }
+export function availableBidderEditDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'AVAILABLE_BIDDER_EDIT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function availableBidderEditDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'AVAILABLE_BIDDER_EDIT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function availableBidderEditDataSuccess(state = {}, action) {
+  switch (action.type) {
+    case 'AVAILABLE_BIDDER_EDIT_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
 

@@ -451,7 +451,7 @@ class SearchFiltersContainer extends Component {
         </div>
         {
           useTandem() &&
-          <ToggleButton labelText="Tandem Search" labelToLeft={false} checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
+          <ToggleButton labelTextRight="Tandem Search" checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
         }
       </div>
     );

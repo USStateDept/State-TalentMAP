@@ -80,14 +80,14 @@ exports[`SelectForm matches snapshot 1`] = `
       Featured positions
     </option>
     <option
-      key="location"
-      value="location"
+      key="location_city"
+      value="location_city"
     >
       Location: A-Z
     </option>
     <option
-      key="-location"
-      value="-location"
+      key="-location_city"
+      value="-location_city"
     >
       Location: Z-A
     </option>
@@ -175,14 +175,14 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       Featured positions
     </option>
     <option
-      key="location"
-      value="location"
+      key="location_city"
+      value="location_city"
     >
       Location: A-Z
     </option>
     <option
-      key="-location"
-      value="-location"
+      key="-location_city"
+      value="-location_city"
     >
       Location: Z-A
     </option>
