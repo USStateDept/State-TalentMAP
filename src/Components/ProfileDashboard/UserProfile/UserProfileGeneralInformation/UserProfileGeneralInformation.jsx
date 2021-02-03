@@ -8,7 +8,7 @@ import { NO_GRADE } from 'Constants/SystemMessages';
 import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
-import { downloadPdfBlob, fetchJWT, isOnProxy } from 'utilities';
+import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import EditProfile from '../EditProfile';
@@ -38,8 +38,8 @@ class UserProfileGeneralInformation extends Component {
       responseType: 'arraybuffer' },
     )
       .then(response => {
+        downloadPdfStream(response.data);
         onToastSuccess(id);
-        downloadPdfBlob(response.data);
       })
       .catch(() => {
         onToastError(id);
