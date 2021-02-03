@@ -115,13 +115,9 @@ Classifications.defaultProps = {
   updateUserClassifications: EMPTY_FUNCTION,
 };
 
-const mapStateToProps = state => ({
-  classifications: state.classifications,
-});
-
 export const mapDispatchToProps = dispatch => ({
   updateUserClassifications: (classification, id) =>
     dispatch(updateClassifications(classification, id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Classifications);
+export default connect(null, mapDispatchToProps)(Classifications);
