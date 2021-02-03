@@ -1,5 +1,5 @@
 import { setupAsyncMocks, spyMockAdapter, expectMockWasCalled } from '../testUtilities/testUtilities';
-import * as actions from './cdo';
+import * as actions from './availableBidders';
 
 const { mockStore } = setupAsyncMocks();
 
@@ -35,10 +35,10 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'cdo/availablebidders/?limit=15&page=1', response: [200, {}],
+      url: 'cdo/availablebidders/', response: [200, {}],
     })); mock();
 
-    store.dispatch(actions.availableBiddersFetchData());
+    store.dispatch(actions.availableBiddersFetchData(true));
 
     expectMockWasCalled({ spy, cb: done });
   });
@@ -47,10 +47,10 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'cdo/availablebidders/?limit=15&page=1', response: [404, null],
+      url: 'cdo/availablebidders/', response: [404, null],
     })); mock();
 
-    store.dispatch(actions.availableBiddersFetchData());
+    store.dispatch(actions.availableBiddersFetchData(true));
 
     expectMockWasCalled({ spy, cb: done });
   });

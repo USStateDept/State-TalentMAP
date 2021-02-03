@@ -124,12 +124,12 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
               Object {
                 "nonTandemOnly": true,
                 "text": "Location: A-Z",
-                "value": "location",
+                "value": "location_city",
               },
               Object {
                 "nonTandemOnly": true,
                 "text": "Location: Z-A",
-                "value": "-location",
+                "value": "-location_city",
               },
             ]
           }
