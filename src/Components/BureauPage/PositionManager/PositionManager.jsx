@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, ORG_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, sortBy, uniqBy, throttle } from 'lodash';
+import { get, sortBy, uniqBy, throttle, isEmpty } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -19,10 +19,9 @@ import SelectForm from 'Components/SelectForm';
 import StaticDevContent from 'Components/StaticDevContent';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { filtersFetchData } from 'actions/filters/filters';
-import ResetFilters from 'Components/ResetFilters/ResetFilters';
+import FA from 'react-fontawesome';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
-
 
 const PositionManager = props => {
   // Props
@@ -237,34 +236,20 @@ const PositionManager = props => {
     setSelectedCycles([]);
     setSelectedLanguages([]);
     setClearFilters(false);
-    // A Bureau needs to be selected
-    // for the other dropdowns to work
-    // may not need to reset/clear bureaus
-    // setSelectedBureaus(selectedBureaus);
   };
 
   useEffect(() => {
-    // put in rerender action above?
-    // page needs to appear when page limit changes?
-    // if (clearFilters === false) {
-    //   console.log('if use effect clear filter');
-    //   setClearFilters(true);
-    // } else {
-    //   console.log('else use effect clear filter');
-    //   setClearFilters(false);
-    // }
-    if (!clearFilters) {
-      setClearFilters(true);
-    } else {
+    if (isEmpty(selectedGrades) && isEmpty(selectedSkills) && isEmpty(selectedPosts)
+      && isEmpty(selectedTODs) && isEmpty(selectedCycles) && isEmpty(selectedLanguages)) {
       setClearFilters(false);
+    } else {
+      setClearFilters(true);
     }
   }, [
     selectedGrades,
     selectedSkills,
     selectedPosts,
     selectedTODs,
-    // selectedBureaus,
-    selectedOrgs,
     selectedCycles,
     selectedLanguages,
   ]);
@@ -282,14 +267,17 @@ const PositionManager = props => {
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
                 />
-                <div className="filterby-label">Filter by:</div>
-                {!clearFilters &&
-                  <div className="filter-control-right" >
-                    <button onClick={resetFilters}>
-                      <ResetFilters />
-                    </button>
+                <div className="filterby-container">
+                  <div className="filterby-label">Filter by:</div>
+                  <div className="filterby-clear">
+                    {clearFilters &&
+                        <button className="unstyled-button" onClick={resetFilters}>
+                          <FA name="times" />
+                              Clear Filters
+                        </button>
+                    }
                   </div>
-                }
+                </div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
                   <div className="small-screen-stack position-manager-filters-inner">
                     <div className="filter-div">

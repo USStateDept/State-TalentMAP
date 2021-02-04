@@ -84,9 +84,23 @@
   }
 }
 
+.filterby-container {
+  margin-top: 20px;
+}
+
 .filterby-label {
   font-size: 20px;
-  margin: 20px 0 10px 0;
+  margin-bottom: 10px;
+  float: left;
+  width: 10%;
+}
+
+.filterby-clear {
+  font-weight: bold;
+  .fa-times {
+      color: $color-red;
+      margin-right: 5px;
+    }
 }
 
 .position-manager-filters {
