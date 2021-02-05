@@ -722,6 +722,23 @@ export const downloadPdfBlob = (response, filename = 'employee-profile.pdf') => 
   }
 };
 
+function saveByteArray(reportName, byte) {
+  const blob = new Blob([byte], { type: 'application/pdf' });
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) { // if IE
+    window.navigator.msSaveOrOpenBlob(blob);
+  } else {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    const fileName = reportName;
+    link.download = fileName;
+    link.click();
+  }
+}
+
+export const downloadPdfStream = (response, filename = 'employee-profile.pdf') => {
+  saveByteArray(filename, response);
+};
+
 export const getBidCycleName = (bidcycle) => {
   let text = isObject(bidcycle) && has(bidcycle, 'name') ? bidcycle.name : bidcycle;
   if (!isString(text) || !text) { text = NO_BID_CYCLE; }

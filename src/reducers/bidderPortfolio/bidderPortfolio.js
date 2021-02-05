@@ -32,7 +32,14 @@ export function bidderPortfolioSeasons(state = [], action) {
       return state;
   }
 }
-
+export function bidderPortfolioSelectedUnassigned(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SELECTED_UNASSIGNED':
+      return action.data;
+    default:
+      return state;
+  }
+}
 export function bidderPortfolioHasErrored(state = false, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_HAS_ERRORED':

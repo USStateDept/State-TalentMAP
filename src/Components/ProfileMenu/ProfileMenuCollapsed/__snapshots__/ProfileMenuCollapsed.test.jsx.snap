@@ -46,6 +46,13 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
       link="/profile/ao/positionmanager/"
       search=""
     />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="street-view"
+      key="CDO"
+      link="/profile/cdo/bidderportfolio"
+      search=""
+    />
   </NavLinksContainer>
 </div>
 `;
@@ -94,6 +101,13 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
       iconName="building-o"
       key="AO"
       link="/profile/ao/positionmanager/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={true}
+      iconName="street-view"
+      key="CDO"
+      link="/profile/cdo/bidderportfolio"
       search=""
     />
   </NavLinksContainer>
