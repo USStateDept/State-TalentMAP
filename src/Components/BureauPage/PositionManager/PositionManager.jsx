@@ -228,6 +228,7 @@ const PositionManager = props => {
     return false;
   };
 
+  // Resetting the filters
   const resetFilters = () => {
     setSelectedGrades([]);
     setSelectedSkills([]);
@@ -235,12 +236,20 @@ const PositionManager = props => {
     setSelectedTODs([]);
     setSelectedCycles([]);
     setSelectedLanguages([]);
+    setTextSearch('');
     setClearFilters(false);
   };
 
   useEffect(() => {
-    if (isEmpty(selectedGrades) && isEmpty(selectedSkills) && isEmpty(selectedPosts)
-      && isEmpty(selectedTODs) && isEmpty(selectedCycles) && isEmpty(selectedLanguages)) {
+    const filters = [
+      selectedGrades,
+      selectedSkills,
+      selectedPosts,
+      selectedTODs,
+      selectedCycles,
+      selectedLanguages,
+    ];
+    if (isEmpty(filters.flat()) && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -252,6 +261,7 @@ const PositionManager = props => {
     selectedTODs,
     selectedCycles,
     selectedLanguages,
+    textSearch,
   ]);
 
   return (
