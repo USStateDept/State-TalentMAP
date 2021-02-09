@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
@@ -117,6 +117,7 @@ const PositionManager = props => {
 
   const noBureausSelected = selectedBureaus.filter(f => f).length < 1;
   const noOrgsSelected = selectedOrgs.filter(f => f).length < 1;
+  const childRef = useRef();
 
   // Initial render
   useEffect(() => {
@@ -230,8 +231,9 @@ const PositionManager = props => {
 
   // Resetting the filters
   const resetFilters = () => {
-    setSelectedGrades([]);
+    childRef.current.clearText();
     setSelectedSkills([]);
+    setSelectedGrades([]);
     setSelectedPosts([]);
     setSelectedTODs([]);
     setSelectedCycles([]);
@@ -263,7 +265,6 @@ const PositionManager = props => {
     selectedLanguages,
     textSearch,
   ]);
-
   return (
     bureauFiltersIsLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -276,6 +277,7 @@ const PositionManager = props => {
                 <PositionManagerSearch
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
+                  ref={childRef}
                 />
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
