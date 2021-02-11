@@ -1,10 +1,10 @@
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
-import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
+import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { NO_GRADE, NO_POST } from 'Constants/SystemMessages';
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
-import { NO_GRADE, NO_POST } from '../../../Constants/SystemMessages';
 import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
@@ -23,6 +23,9 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
             {get(userProfile, 'name', 'N/A')}
           </h3>
           <Link to={`/profile/public/${userProfile.perdet_seq_number}`}>View Profile</Link>
+        </div>
+        <div className="stat-card-data-point">
+          <dt>Employee ID:</dt><dd>{get(userProfile, 'employee_id')}</dd>
         </div>
         <div className="stat-card-data-point">
           <dt>Skill:</dt><dd><SkillCodeList skillCodes={userProfile.skills} /></dd>

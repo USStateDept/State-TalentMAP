@@ -59,6 +59,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
       />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Employee ID: undefined"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"
         sideBySide={false}
         title=""
@@ -150,6 +157,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
       />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Employee ID: undefined"
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"
         sideBySide={false}
         title=""
@@ -235,6 +249,13 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
             Employee Profile
           </InteractiveElement>
         }
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+        content="Employee ID: undefined"
         sideBySide={false}
         title=""
         titleOnBottom={false}
