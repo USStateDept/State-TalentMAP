@@ -479,7 +479,7 @@
 
       td {
         .deconflict-indicator {
-          color: #e67e22;
+          color: $tertiary-gold;
           font-size: 40px;
         }
         display: flex; // fixes IE11
@@ -520,7 +520,7 @@
       border: none;
     }
     .deconflict-indicator-small {
-      color: #e67e22;
+      color: $tertiary-gold;
       font-size: 15px;
       padding-right: 20px;
     }
