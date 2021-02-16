@@ -47,7 +47,7 @@ class UserProfileGeneralInformation extends Component {
   }
   render() {
     const { userProfile, showEditLink, useGroup,
-      colorProp, useColor } = this.props;
+      colorProp, useColor, isPublic } = this.props;
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
@@ -60,7 +60,7 @@ class UserProfileGeneralInformation extends Component {
     const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
     const userSkills = get(userProfile, 'employee_info.skills');
     let userID = get(userProfile, 'employee_info.employee_id');
-    if (isOnProxy()) {
+    if (isPublic) {
       userID = get(userProfile, 'employee_id');
     }
     return (
@@ -120,6 +120,7 @@ UserProfileGeneralInformation.propTypes = {
   onToastError: PropTypes.func,
   onToastInfo: PropTypes.func,
   onToastSuccess: PropTypes.func,
+  isPublic: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
@@ -130,6 +131,7 @@ UserProfileGeneralInformation.defaultProps = {
   onToastError: EMPTY_FUNCTION,
   onToastInfo: EMPTY_FUNCTION,
   onToastSuccess: EMPTY_FUNCTION,
+  isPublic: false,
 };
 
 export const mapDispatchToProps = dispatch => ({
