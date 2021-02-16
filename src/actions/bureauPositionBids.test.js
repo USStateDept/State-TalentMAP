@@ -6,7 +6,9 @@ const { mockStore } = setupAsyncMocks();
 describe('async actions', () => {
   let mock;
   let spy;
-
+  const query = {
+    ordering: 'bidder_name',
+  };
   it('fetches bureauBidsFetchData', (done) => {
     const store = mockStore({});
 
@@ -35,10 +37,10 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: '/fsbid/bureau/positions/1/bids/', response: [200, []],
+      url: '/fsbid/bureau/positions/1/bids/?ordering=bidder_name', response: [200, []],
     })); mock();
 
-    store.dispatch(actions.bureauBidsAllFetchData(1));
+    store.dispatch(actions.bureauBidsAllFetchData(1, query));
 
     expectMockWasCalled({ spy, cb: done });
   });
@@ -47,10 +49,10 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: '/fsbid/bureau/positions/1/bids/', response: [404, null],
+      url: '/fsbid/bureau/positions/1/bids/?ordering=bidder_name', response: [404, null],
     })); mock();
 
-    store.dispatch(actions.bureauBidsAllFetchData(1));
+    store.dispatch(actions.bureauBidsAllFetchData(1, query));
 
     expectMockWasCalled({ spy, cb: done });
   });
