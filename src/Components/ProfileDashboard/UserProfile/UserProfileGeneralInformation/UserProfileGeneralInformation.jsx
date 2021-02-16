@@ -59,9 +59,9 @@ class UserProfileGeneralInformation extends Component {
     avatar.colorString = useColor ? avatar[colorProp] : undefined;
     const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
     const userSkills = get(userProfile, 'employee_info.skills');
-    let userID = get(userProfile, 'employee_info.employee_id');
+    let userID = get(userProfile, 'emp_id');
     if (isPublic) {
-      userID = get(userProfile, 'employee_id');
+      userID = get(userProfile, 'perdet_seq_number');
     }
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">

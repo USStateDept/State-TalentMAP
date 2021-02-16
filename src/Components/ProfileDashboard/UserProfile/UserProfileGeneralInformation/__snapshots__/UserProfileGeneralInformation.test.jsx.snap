@@ -59,7 +59,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
       />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-        content="Employee ID: undefined"
+        content="Employee ID: 1"
         sideBySide={false}
         title=""
         titleOnBottom={false}
@@ -157,7 +157,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
       />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-        content="Employee ID: undefined"
+        content="Employee ID: 1"
         sideBySide={false}
         title=""
         titleOnBottom={false}
@@ -255,7 +255,7 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
       />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-        content="Employee ID: undefined"
+        content="Employee ID: 1"
         sideBySide={false}
         title=""
         titleOnBottom={false}
