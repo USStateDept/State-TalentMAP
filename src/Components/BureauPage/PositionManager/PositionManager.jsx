@@ -236,6 +236,8 @@ const PositionManager = props => {
     setSelectedGrades([]);
     setSelectedPosts([]);
     setSelectedTODs([]);
+    setSelectedOrgs([props.orgPermissions[0]]);
+    setSelectedBureaus([props.bureauPermissions[0]]);
     setSelectedCycles([]);
     setSelectedLanguages([]);
     setTextSearch('');
@@ -243,6 +245,8 @@ const PositionManager = props => {
   };
 
   useEffect(() => {
+    const defaultOrgCode = get(props, 'orgPermissions[0].code');
+    const defaultBureauCode = get(props, 'bureauPermissions[0].code');
     const filters = [
       selectedGrades,
       selectedSkills,
@@ -251,7 +255,9 @@ const PositionManager = props => {
       selectedCycles,
       selectedLanguages,
     ];
-    if (isEmpty(filters.flat()) && isEmpty(textSearch)) {
+    if ((isEmpty(filters.flat()) && isEmpty(textSearch)) &&
+      (defaultBureauCode === undefined || defaultBureauCode === selectedBureaus[0].code) &&
+      (defaultOrgCode === undefined || defaultOrgCode)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -264,6 +270,8 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     textSearch,
+    selectedOrgs,
+    selectedBureaus,
   ]);
   return (
     bureauFiltersIsLoading ?
