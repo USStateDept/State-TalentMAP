@@ -47,7 +47,7 @@ class UserProfileGeneralInformation extends Component {
   }
   render() {
     const { userProfile, showEditLink, useGroup,
-      colorProp, useColor } = this.props;
+      colorProp, useColor, isPublic } = this.props;
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
@@ -59,6 +59,10 @@ class UserProfileGeneralInformation extends Component {
     avatar.colorString = useColor ? avatar[colorProp] : undefined;
     const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
     const userSkills = get(userProfile, 'employee_info.skills');
+    let userID = get(userProfile, 'emp_id');
+    if (isPublic) {
+      userID = get(userProfile, 'perdet_seq_number');
+    }
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
@@ -86,6 +90,10 @@ class UserProfileGeneralInformation extends Component {
                 />
             }
             <InformationDataPoint
+              content={`Employee ID: ${userID}`}
+              className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+            />
+            <InformationDataPoint
               content={`Grade: ${userGrade}`}
               className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
             />
@@ -112,6 +120,7 @@ UserProfileGeneralInformation.propTypes = {
   onToastError: PropTypes.func,
   onToastInfo: PropTypes.func,
   onToastSuccess: PropTypes.func,
+  isPublic: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
@@ -122,6 +131,7 @@ UserProfileGeneralInformation.defaultProps = {
   onToastError: EMPTY_FUNCTION,
   onToastInfo: EMPTY_FUNCTION,
   onToastSuccess: EMPTY_FUNCTION,
+  isPublic: false,
 };
 
 export const mapDispatchToProps = dispatch => ({
