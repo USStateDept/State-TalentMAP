@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { availableBiddersFetchData } from 'actions/availableBidders';
+import { availableBiddersFetchData, availableBidderExport } from 'actions/availableBidders';
 import { filtersFetchData } from 'actions/filters/filters';
 import ToggleButton from 'Components/ToggleButton';
 import ExportButton from 'Components/ExportButton';
@@ -23,6 +23,7 @@ const AvailableBidderTable = (props) => {
   // Toggle view state within CDO version
   const [cdoView, setCdoView] = useState(true);
   const [sort, setSort] = useState('');
+  const [exportIsLoading, setExportIsLoading] = useState(false);
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
@@ -102,6 +103,18 @@ const AvailableBidderTable = (props) => {
     return bidderCountTitle;
   };
 
+  const exportBidders = () => {
+    if (!isLoading) {
+      setExportIsLoading(true);
+      availableBidderExport(isCDO)
+        .then(() => {
+          setExportIsLoading(false);
+        })
+        .catch(() => {
+          setExportIsLoading(false);
+        });
+    }
+  };
 
   return (
     !bidders.length && !isLoading ?
@@ -116,7 +129,11 @@ const AvailableBidderTable = (props) => {
         <div className="ab-table-title-row">
           <h3>{title} {getTitleCount()}</h3>
           <div className="export-button-container">
-            <ExportButton />
+            <ExportButton
+              onClick={exportBidders}
+              isLoading={exportIsLoading}
+              disabled={!bidders.length}
+            />
           </div>
         </div>
         {
