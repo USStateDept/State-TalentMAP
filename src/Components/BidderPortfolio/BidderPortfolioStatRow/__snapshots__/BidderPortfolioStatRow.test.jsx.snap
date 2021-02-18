@@ -21,6 +21,14 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
         className="stat-card-data-point"
       >
         <dt>
+          Employee ID:
+        </dt>
+        <dd />
+      </div>
+      <div
+        className="stat-card-data-point"
+      >
+        <dt>
           Skill:
         </dt>
         <dd>
