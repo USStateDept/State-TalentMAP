@@ -254,10 +254,10 @@ const PositionManager = props => {
       selectedTODs,
       selectedCycles,
       selectedLanguages,
+      selectedOrgs.filter(f => get(f, 'code') !== defaultOrgCode),
+      selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
-    if ((isEmpty(filters.flat()) && isEmpty(textSearch)) &&
-      (defaultBureauCode === undefined || defaultBureauCode === selectedBureaus[0].code) &&
-      (defaultOrgCode === undefined || defaultOrgCode)) {
+    if (isEmpty(filters.flat()) && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
