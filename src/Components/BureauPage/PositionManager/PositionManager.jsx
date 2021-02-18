@@ -507,10 +507,6 @@ const PositionManager = props => {
   );
 };
 
-PositionManager.contextTypes = {
-  router: PropTypes.object,
-};
-
 PositionManager.propTypes = {
   fetchBureauPositions: PropTypes.func.isRequired,
   fetchFilters: PropTypes.func.isRequired,
