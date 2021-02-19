@@ -111,7 +111,7 @@ const AvailableBidderTable = (props) => {
           messages={[{
             body: isCDO ?
               'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
-              'Please wait for CDOs to add available bidders.',
+              'Please wait for CDOs to share available bidders.',
           }]}
         />
       </div>
