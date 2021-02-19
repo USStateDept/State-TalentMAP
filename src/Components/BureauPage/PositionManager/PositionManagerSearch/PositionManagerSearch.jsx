@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
+import { useState, forwardRef, useImperativeHandle, useRef, useEffect } from 'react';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import SearchBar from 'Components/SearchBar/SearchBar';
@@ -12,6 +12,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
   function changeText(e) {
     props.onChange(e.target.value);
     setQ(e.target.value);
+    // setQ(props.textSearch);
   }
   function onClear() {
     setQ('');
@@ -32,6 +33,17 @@ const PositionManagerSearch = forwardRef((props, ref) => {
       },
     }),
   );
+
+  useEffect(() => {
+    if (props.textSearch !== '' && q === '') {
+      console.log('in use effect if state');
+      console.log('position manager search q:', q);
+      console.log('textSearch', props.textSearch);
+      // props.onChange(props.textSearch);
+      // setQ(props.textSearch);
+    }
+  });
+
 
   return (
     <form className="usa-grid-full">
@@ -69,12 +81,14 @@ PositionManagerSearch.propTypes = {
   submitSearch: PropTypes.func,
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,
+  textSearch: PropTypes.string,
 };
 
 PositionManagerSearch.defaultProps = {
   submitSearch: EMPTY_FUNCTION,
   onChange: EMPTY_FUNCTION,
   defaultValue: '',
+  textSearch: '',
 };
 
 export default PositionManagerSearch;
