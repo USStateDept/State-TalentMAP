@@ -32,6 +32,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
       },
     }),
   );
+
   return (
     <form className="usa-grid-full">
       <fieldset className="usa-width-five-sixths">
