@@ -121,7 +121,11 @@ const AvailableBidderTable = (props) => {
       <div className="usa-width-two-thirds">
         <Alert
           title="Available Bidders List is Empty"
-          messages={[{ body: 'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' }]}
+          messages={[{
+            body: isCDO ?
+              'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
+              'Please wait for CDOs to share available bidders.',
+          }]}
         />
       </div>
       :
