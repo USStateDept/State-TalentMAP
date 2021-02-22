@@ -14,7 +14,7 @@ const AvailableBidderStats = (props) => {
     placeholderText,
   } = props;
   const data = [
-    { name: 'OC: Overcompliment', value: 400 },
+    { name: 'OC: Overcomplement', value: 400 },
     { name: 'UA: Unassigned', value: 300 },
     { name: 'IT: In Transit', value: 300 },
     { name: 'AWOL: Absent without leave', value: 200 },
@@ -71,7 +71,7 @@ const AvailableBidderStats = (props) => {
                         data.map((entry, index) => <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />)
                       }
                     </Pie>
-                    <Bar dataKey="OC: Overcompliment" fill="#102f51" />
+                    <Bar dataKey="OC: Overcomplement" fill="#102f51" />
                     <Bar dataKey="UA: Unassigned" fill="#cc3334" />
                     <Bar dataKey="IT: In Transit" fill="#c49208" />
                     <Bar dataKey="AWOL: Absent without leave" fill="#2970bc" />
