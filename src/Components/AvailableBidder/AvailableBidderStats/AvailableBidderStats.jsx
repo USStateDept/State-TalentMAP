@@ -5,12 +5,11 @@ import numeral from 'numeral';
 import FA from 'react-fontawesome';
 import { PieChart, Pie, Cell } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { Row } from '../../Layout';
 
 
 const AvailableBidderStats = (props) => {
-  const [showMore, setShowMore] = useState(true);
+  const [showMore, setShowMore] = useState(false);
 
   const {
     stats,
@@ -40,10 +39,7 @@ const AvailableBidderStats = (props) => {
   const chartData$ = data$.filter(f => f.value > 0);
 
   return (
-    <div className="usa-grid-full profile-content-inner-container available-bidders-stats">
-      <div className="usa-grid-full">
-        <ProfileSectionTitle title="Available Bidders" icon="users" />
-      </div>
+    <div className="usa-grid-full available-bidders-stats">
       <div className="usa-grid-full">
         <Row className="usa-grid-full">
           <div className="usa-grid-full toggle-more-container">
@@ -56,7 +52,6 @@ const AvailableBidderStats = (props) => {
           {
             showMore &&
             <div className="usa-grid-full section statistics-section">
-              <h3>Available Bidders Statistics</h3>
               <div className="usa-grid-full flex">
                 <div className="usa-width-one-fourth legend-container">
                   <div className="usa-grid-full legend">

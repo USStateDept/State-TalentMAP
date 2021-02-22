@@ -22,6 +22,8 @@
     "bureau": true,
     "indicators": true,
     "us_codes": true,
-    "available_bidders": true
+    "ao": true,
+    "available_bidders": true,
+    "unassigned_filters": true
   }
 }

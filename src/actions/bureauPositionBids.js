@@ -103,12 +103,15 @@ export function bureauBidsFetchData(id, query = {}) {
   };
 }
 
-export function bureauBidsAllFetchData(id) {
+export function bureauBidsAllFetchData(id, query) {
+  let url = `/fsbid/bureau/positions/${id}/bids/`;
+  const sort = query.ordering;
+  if (sort) { url += `?ordering=${sort}`; }
   return (dispatch) => {
     dispatch(bureauPositionBidsAllIsLoading(true));
     dispatch(bureauPositionBidsAllHasErrored(false));
     api()
-      .get(`/fsbid/bureau/positions/${id}/bids/`)
+      .get(url)
       .then(({ data }) => data || [])
       .then((bids) => {
         dispatch(bureauPositionBidsAllFetchDataSuccess(bids));

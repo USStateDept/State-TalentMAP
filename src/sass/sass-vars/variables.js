@@ -34,6 +34,8 @@ module.exports = {
   tertiaryGoldLighter: '#FAD980',
   get 'var-tertiary-gold-lighter'() { return this.tertiaryGoldLighter; },
 
+  colorBlueChill: '#117C8D',
+
   // Set our asset path. This is similar to getAssetPath in utilities, but
   // we wrap the environment variable in quotes so it can be used in .scss files.
   get 'asset-path'() { return process.env.PUBLIC_URL ? `"${process.env.PUBLIC_URL}"` : '"/"'; },

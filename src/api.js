@@ -32,6 +32,7 @@ const debouncedLogout = throttle(
   { leading: true, trailing: false },
 );
 
+// eslint-disable-next-line no-unused-vars
 const debouncedNetworkAlert = throttle(
   // eslint-disable-next-line global-require
   () => require('./store').store.dispatch(toastWarning(
@@ -162,10 +163,10 @@ const api = () => {
         break;
       }
 
-      case 500: {
+      /* case 500: {
         debouncedNetworkAlert();
         break;
-      }
+      } */
 
       default: {
       // We don't want to stop the pipeline even if there's a problem with the dispatch

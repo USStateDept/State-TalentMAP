@@ -4,7 +4,9 @@ import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE, REMOVE_FROM_INTERNAL_LIST_SUCCESS,
   INTERNAL_LIST_ERROR_TITLE, ADD_TO_INTERNAL_LIST_ERROR,
   REMOVE_FROM_INTERNAL_LIST_ERROR,
-  GENERIC_SUCCESS,
+  GENERIC_SUCCESS, UPDATE_AVAILABLE_BIDDER_SUCCESS,
+  UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE, UPDATE_AVAILABLE_BIDDER_ERROR,
+  UPDATE_AVAILABLE_BIDDER_ERROR_TITLE,
 } from 'Constants/SystemMessages';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
@@ -65,6 +67,27 @@ export function availableBiddersToggleUserIsLoading(bool) {
   };
 }
 
+export function availableBidderEditDataErrored(bool) {
+  return {
+    type: 'AVAILABLE_BIDDER_EDIT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function availableBidderEditDataLoading(bool) {
+  return {
+    type: 'AVAILABLE_BIDDER_EDIT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function availableBidderEditDataSuccess(success) {
+  return {
+    type: 'AVAILABLE_BIDDER_EDIT_SUCCESS',
+    success,
+  };
+}
+
 export function availableBiddersIds() {
   return (dispatch) => {
     batch(() => {
@@ -97,17 +120,17 @@ export function availableBiddersIds() {
   };
 }
 
-export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
+export function availableBiddersFetchData(isCDO, sortType) {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));
       dispatch(availableBiddersFetchDataErrored(false));
     });
-
-    api().get(`cdo/availablebidders/?limit=${limit}&page=${page}${sortType ? `&ordering=${sortType}` : ''}`)
+    api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
       .then(({ data }) => {
+        const results = isCDO ? data : { results: data };
         batch(() => {
-          dispatch(availableBiddersFetchDataSuccess(data));
+          dispatch(availableBiddersFetchDataSuccess(results));
           dispatch(availableBiddersFetchDataErrored(false));
           dispatch(availableBiddersFetchDataLoading(false));
           dispatch(availableBiddersIds());
@@ -130,7 +153,7 @@ export function availableBiddersFetchData(limit = 15, page = 1, sortType) {
   };
 }
 
-export function availableBiddersToggleUser(id, remove) {
+export function availableBiddersToggleUser(id, remove, refresh = false) {
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
@@ -154,6 +177,9 @@ export function availableBiddersToggleUser(id, remove) {
           dispatch(availableBiddersToggleUserErrored(false));
           dispatch(availableBiddersToggleUserIsLoading(false));
           dispatch(availableBiddersIds());
+          if (refresh) {
+            dispatch(availableBiddersFetchData(true));
+          }
         });
       })
       .catch(() => {
@@ -165,6 +191,44 @@ export function availableBiddersToggleUser(id, remove) {
           dispatch(availableBiddersToggleUserErrored(true));
           dispatch(availableBiddersToggleUserIsLoading(false));
         });
+      });
+  };
+}
+
+export function availableBidderEditData(id, data) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(availableBidderEditDataLoading(true));
+      dispatch(availableBidderEditDataErrored(false));
+    });
+
+    api().patch(`cdo/${id}/availablebidders/`, data)
+      .then(() => {
+        const toastTitle = UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE;
+        const toastMessage = UPDATE_AVAILABLE_BIDDER_SUCCESS;
+        batch(() => {
+          dispatch(availableBidderEditDataErrored(false));
+          dispatch(availableBidderEditDataLoading(false));
+          dispatch(availableBidderEditDataSuccess(true));
+          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(availableBiddersFetchData(true));
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(availableBidderEditDataErrored(false));
+            dispatch(availableBidderEditDataLoading(true));
+          });
+        } else {
+          const toastTitle = UPDATE_AVAILABLE_BIDDER_ERROR_TITLE;
+          const toastMessage = UPDATE_AVAILABLE_BIDDER_ERROR;
+          dispatch(toastError(toastMessage, toastTitle));
+          batch(() => {
+            dispatch(availableBidderEditDataErrored(true));
+            dispatch(availableBidderEditDataLoading(false));
+          });
+        }
       });
   };
 }

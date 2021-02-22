@@ -233,13 +233,22 @@ exports[`SearchFiltersContainerComponent matches snapshot 1`] = `
     />
   </div>
   <ToggleButton
+    activeBoxShadow=""
+    boxShadow=""
     checked={false}
+    checkedIcon={false}
     height={20}
     labelSameLine={true}
-    labelText="Tandem Search"
-    labelToLeft={false}
+    labelText=""
+    labelTextLeft=""
+    labelTextRight="Tandem Search"
+    labelToLeft={true}
+    offColor="#888888"
+    offHandleColor="#ffffff"
     onChange={[Function]}
-    onColor="#1ad142"
+    onColor="#117C8D"
+    onHandleColor="#ffffff"
+    uncheckedIcon={false}
     width={40}
   />
 </div>
