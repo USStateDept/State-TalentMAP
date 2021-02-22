@@ -9,7 +9,7 @@ const UserProfileContactInformation = ({ userProfile }) => (
   <div className="current-user-section-container">
     <div className="section-padded-inner-container">
       <SectionTitle small title="Contact Information" icon="list-alt" />
-      <InformationDataPoint title="Email address" content={get(userProfile, 'user_info.email') ? <a href={`mailto:${get(userProfile, 'user_info.email')}`} rel="nofollow">{get(userProfile, 'user_info.email')}</a> : NO_EMAIL} />
+      <InformationDataPoint title="Email address" content={get(userProfile, 'user.email') ? <a href={`mailto:${get(userProfile, 'user.email')}`} rel="nofollow">{get(userProfile, 'user.email')}</a> : NO_EMAIL} />
       <InformationDataPoint title="Office number" content={get(userProfile, 'user_info.office_phone') ? <a href={`tel:${get(userProfile, 'user_info.office_phone')}`} rel="nofollow">{get(userProfile, 'user_info.office_phone')}</a> : NO_OFFICE_PHONE} />
       <StaticDevContent>
         <InformationDataPoint title="Personal contact number" content={<a href="tel:+240-331-7189" rel="nofollow">+240-331-7189</a>} />

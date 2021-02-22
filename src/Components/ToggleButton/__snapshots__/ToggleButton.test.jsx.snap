@@ -29,11 +29,11 @@ exports[`ToggleButtonComponent matches snapshot 1`] = `
     disabled={false}
     height={20}
     id="toggleSwitch"
-    offColor=""
-    offHandleColor=""
+    offColor="#888888"
+    offHandleColor="#ffffff"
     onChange={[Function]}
-    onColor="#1ad142"
-    onHandleColor=""
+    onColor="#008800"
+    onHandleColor="#ffffff"
     uncheckedIcon={false}
     width={40}
   />

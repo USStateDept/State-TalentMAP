@@ -76,7 +76,7 @@ const EditBidder = (props) => {
             }}
           >
             <option value="">None listed</option>
-            <option value="OC">OC: Overcompliment</option>
+            <option value="OC">OC: Overcomplement</option>
             <option value="UA">UA: Unassigned</option>
             <option value="IT">IT: In Transit</option>
             <option value="AWOL">AWOL: Absent without leave</option>
