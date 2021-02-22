@@ -1,19 +1,26 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { get, sumBy } from 'lodash';
 import numeral from 'numeral';
 import FA from 'react-fontawesome';
 import { PieChart, Pie, Cell } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
+import LoadingText from 'Components/LoadingText';
 import { Row } from '../../Layout';
 
 
-const AvailableBidderStats = (props) => {
+const AvailableBidderStats = () => {
   const [showMore, setShowMore] = useState(false);
 
-  const {
-    stats,
-  } = props;
+  // App state
+  const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
+  const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+
+  const stats = get(biddersData, 'stats', {});
+
+  const statsSum = Object.values(stats).reduce((a, b) => a + b, 0);
+
+  console.log(biddersData, availableBiddersIsLoading);
 
   let data = [
     { name: 'Overcompliment (OC)', key: 'OC', value: 0, color: '#112E51' },
@@ -52,61 +59,57 @@ const AvailableBidderStats = (props) => {
           {
             showMore &&
             <div className="usa-grid-full section statistics-section">
-              <div className="usa-grid-full flex">
-                <div className="usa-width-one-fourth legend-container">
-                  <div className="usa-grid-full legend">
-                    <h4>Available Bidders by Status</h4>
-                    {
-                      data$.map(m => (
-                        <div className="flex legend-item">
-                          <div
-                            className="legend-square"
-                            style={{ backgroundColor: m.color }}
-                          />
-                          <div className="legend-text">{`${m.percent} ${m.name}`}</div>
-                        </div>
-                      ))
-                    }
+              {
+                !!availableBiddersIsLoading && <LoadingText />
+              }
+              {
+                !availableBiddersIsLoading && !statsSum && 'No available bidders have an assigned status.'
+              }
+              {
+                !availableBiddersIsLoading && !!statsSum &&
+                <div className="usa-grid-full flex">
+                  <div className="usa-width-one-fourth legend-container">
+                    <div className="usa-grid-full legend">
+                      <h4>Available Bidders by Status</h4>
+                      {
+                        data$.map(m => (
+                          <div className="flex legend-item">
+                            <div
+                              className="legend-square"
+                              style={{ backgroundColor: m.color }}
+                            />
+                            <div className="legend-text">{`${m.percent} ${m.name}`}</div>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                  <div className="usa-width-one-third chart-container">
+                    <PieChart width={400} height={400}>
+                      <Pie
+                        data={chartData$}
+                        cx={200}
+                        cy={200}
+                        labelLine={false}
+                        outerRadius={180}
+                        fill="#8884d8"
+                        dataKey="value"
+                      >
+                        {
+                        // eslint-disable-next-line react/no-array-index-key
+                          chartData$.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
+                        }
+                      </Pie>
+                    </PieChart>
                   </div>
                 </div>
-                <div className="usa-width-one-third chart-container">
-                  <PieChart width={400} height={400}>
-                    <Pie
-                      data={chartData$}
-                      cx={200}
-                      cy={200}
-                      labelLine={false}
-                      outerRadius={180}
-                      fill="#8884d8"
-                      dataKey="value"
-                    >
-                      {
-                        // eslint-disable-next-line react/no-array-index-key
-                        chartData$.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
-                      }
-                    </Pie>
-                  </PieChart>
-                </div>
-              </div>
+              }
             </div>
           }
         </Row>
       </div>
     </div>
   );
-};
-
-AvailableBidderStats.propTypes = {
-  stats: PropTypes.shape({}),
-};
-
-AvailableBidderStats.defaultProps = {
-  stats: {
-    OC: 10,
-    UA: 3,
-    IT: 7,
-    AWOL: 1,
-  },
 };
 
 export default AvailableBidderStats;
