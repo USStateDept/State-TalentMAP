@@ -16,6 +16,7 @@ import TandemSelectionFilter from '../TandemSelectionFilter';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { propSort, sortGrades, getPostName, mapDuplicates, propOrDefault, sortTods } from '../../../utilities';
 import { ENDPOINT_PARAMS, COMMON_PROPERTIES } from '../../../Constants/EndpointParams';
+import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
 const useBidding = () => checkFlag('flags.bidding');
 const usePostIndicators = () => checkFlag('flags.indicators');
@@ -451,7 +452,12 @@ class SearchFiltersContainer extends Component {
         </div>
         {
           useTandem() &&
-          <ToggleButton labelTextRight="Tandem Search" checked={tandemIsSelected} onChange={this.onTandemSearchClick} />
+          <ToggleButton
+            labelTextRight="Tandem Search"
+            checked={tandemIsSelected}
+            onChange={this.onTandemSearchClick}
+            onColor={colorBlueChill}
+          />
         }
       </div>
     );
