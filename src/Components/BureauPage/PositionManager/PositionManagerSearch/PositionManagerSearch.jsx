@@ -40,7 +40,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
           <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
           <SearchBar
             id="bureau-search-keyword-field"
-            defaultValue={props.defaultValue}
+            defaultValue={props.textSearch || props.defaultValue}
             label="Keywords"
             labelSrOnly
             noButton
@@ -69,12 +69,14 @@ PositionManagerSearch.propTypes = {
   submitSearch: PropTypes.func,
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,
+  textSearch: PropTypes.string,
 };
 
 PositionManagerSearch.defaultProps = {
   submitSearch: EMPTY_FUNCTION,
   onChange: EMPTY_FUNCTION,
   defaultValue: '',
+  textSearch: '',
 };
 
 export default PositionManagerSearch;
