@@ -182,7 +182,7 @@
     "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
     "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
     "bundlesize": "bundlesize",
-    "postinstall": "./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert"
+    "postinstall": "test -n \"$NOYARNPOSTINSTALL\" || ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert"
   },
   "engines": {
     "node": ">=12"
