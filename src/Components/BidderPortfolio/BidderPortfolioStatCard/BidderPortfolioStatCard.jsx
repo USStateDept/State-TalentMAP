@@ -21,7 +21,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
       <div className="bidder-portfolio-stat-card-top">
         <div>
           <h3>
-            {get(userProfile, 'name', 'N/A')}
+            {get(userProfile, 'shortned_name', 'N/A')}
           </h3>
           <Link to={`/profile/public/${perdet}`}>View Profile</Link>
         </div>
