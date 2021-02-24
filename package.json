@@ -82,7 +82,7 @@
     "react-switch": "^6.0.0",
     "react-tippy": "^1.4.0",
     "react-toastify": "^6.2.0",
-    "recharts": "^1.8.5",
+    "recharts": "^2.0.7",
     "redux": "^4.0.5",
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.2",
