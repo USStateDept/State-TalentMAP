@@ -20,8 +20,6 @@ const AvailableBidderStats = () => {
 
   const statsSum = Object.values(stats).reduce((a, b) => a + b, 0);
 
-  console.log(biddersData, availableBiddersIsLoading);
-
   let data = [
     { name: 'Overcompliment (OC)', key: 'OC', value: 0, color: '#112E51' },
     { name: 'Unassigned (UA)', key: 'UA', value: 0, color: '#205493' },
