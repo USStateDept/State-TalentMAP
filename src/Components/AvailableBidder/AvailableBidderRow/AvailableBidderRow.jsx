@@ -23,12 +23,17 @@ const AvailableBidderRow = (props) => {
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
   const id = get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number');
   const name = get(bidder, 'name');
+  const status = () => {
+    
+  };
 
   const sections = isCDO ? {
     Name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
     Status: get(bidder, 'status') || NO_STATUS,
     Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     Grade: get(bidder, 'grade') || NO_GRADE,
+    // Update Language
+    Language: 'Fake Language (F/L)',
     TED: formattedTed,
     Current_Post: get(bidder, 'post.location.country') || NO_POST,
     OC_Bureau: get(bidder, 'oc_bureau') || NO_BUREAU,
@@ -39,6 +44,8 @@ const AvailableBidderRow = (props) => {
     Name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
     Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     Grade: get(bidder, 'grade') || NO_GRADE,
+    // Update language
+    Language: 'Fake Language (F/L)',
     TED: formattedTed,
     Current_Post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
     CDO: get(bidder, 'cdo.name') || NO_CDO,

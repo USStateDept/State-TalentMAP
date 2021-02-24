@@ -91,6 +91,10 @@ const EditBidder = (props) => {
           <input type="text" name="grade" disabled value={sections.Grade} />
         </div>
         <div>
+          <label htmlFor="language">Language:</label>
+          <input type="text" name="language" disabled value={sections.Language} />
+        </div>
+        <div>
           <label htmlFor="ted">TED:</label>
           <input type="text" name="ted" disabled value={sections.TED} />
         </div>

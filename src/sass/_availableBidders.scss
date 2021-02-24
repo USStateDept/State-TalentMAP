@@ -114,7 +114,7 @@
 }
 
 .ab-inactive {
-  td:not(:nth-of-type(11)) {
+  td:not(:nth-of-type(12)) {
     color: #272e3247;
     background-color: #aeb0b59e;
     transition: 1.5s;
@@ -125,7 +125,7 @@
 }
 
 .ab-active {
-  td:nth-of-type(2), td:nth-of-type(7), td:nth-of-type(8), td:nth-of-type(10) {
+  td:nth-of-type(2), td:nth-of-type(8), td:nth-of-type(9), td:nth-of-type(11) {
     color: #272e3247;
     background-color: #aeb0b59e;
     transition: 1.5s;
