@@ -90,18 +90,35 @@ const AvailableBidderTable = (props) => {
     title = cdoView ? 'Internal CDA View' : 'External Bureau View';
   }
 
+  const getTitleCount = () => {
+    let bidderCountTitle = '';
+    if (!isLoading) {
+      if (isCDO) {
+        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => b.is_shared).length})`;
+      } else {
+        bidderCountTitle = `Shared Available Bidders (${bidders.length})`;
+      }
+    }
+    return bidderCountTitle;
+  };
+
+
   return (
     !bidders.length && !isLoading ?
       <div className="usa-width-two-thirds">
         <Alert
           title="Available Bidders List is Empty"
-          messages={[{ body: 'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' }]}
+          messages={[{
+            body: isCDO ?
+              'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
+              'Please wait for CDOs to share available bidders.',
+          }]}
         />
       </div>
       :
       <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
         <div className="ab-table-title-row">
-          <h3>{title}</h3>
+          <h3>{title} {getTitleCount()}</h3>
           <div className="export-button-container">
             <ExportButton />
           </div>

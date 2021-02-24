@@ -169,9 +169,8 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
       .then(() => {
         const toastTitle = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE
           : ADD_TO_INTERNAL_LIST_SUCCESS_TITLE;
-        // TODO: update this path during integration of Available Bidders
         const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS
-          : GENERIC_SUCCESS(ADD_TO_INTERNAL_LIST_SUCCESS, { path: '/profile/notifications', text: 'Go To Available Bidders' });
+          : GENERIC_SUCCESS(ADD_TO_INTERNAL_LIST_SUCCESS, { path: '/profile/cdo/availablebidders', text: 'Go To Available Bidders' });
         batch(() => {
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(availableBiddersToggleUserErrored(false));
