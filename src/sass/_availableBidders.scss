@@ -150,6 +150,11 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  .export-button-container {
+    button {
+      display: inline;
+    }
+  }
 }
 
 .ab-lower-section {
