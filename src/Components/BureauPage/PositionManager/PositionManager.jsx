@@ -286,6 +286,7 @@ const PositionManager = props => {
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
                   ref={childRef}
+                  textSearch={textSearch}
                 />
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
