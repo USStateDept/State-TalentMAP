@@ -43,25 +43,29 @@ const AvailableBidderStats = () => {
 
   const chartData$ = data$.filter(f => f.value > 0);
 
+  const isNoBidders = !get(biddersData, 'results', []).length;
+
   return (
-    <div className="usa-grid-full available-bidders-stats">
-      <div className="usa-grid-full">
-        <Row className="usa-grid-full">
-          <div className="usa-grid-full toggle-more-container">
-            <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
-              <h3>
-                <FA name="pie-chart" />  Statistics  <FA name={`chevron-${showMore ? 'down' : 'right'}`} />
-              </h3>
-            </InteractiveElement>
-          </div>
-          {
-            showMore &&
+    !availableBiddersIsLoading && !statsSum && !!isNoBidders ?
+      null :
+      <div className="usa-grid-full available-bidders-stats">
+        <div className="usa-grid-full">
+          <Row className="usa-grid-full">
+            <div className="usa-grid-full toggle-more-container">
+              <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+                <h3>
+                  <FA name="pie-chart" />  Statistics  <FA name={`chevron-${showMore ? 'down' : 'right'}`} />
+                </h3>
+              </InteractiveElement>
+            </div>
+            {
+              showMore &&
             <div className="usa-grid-full section statistics-section">
               {
                 !!availableBiddersIsLoading && <LoadingText />
               }
               {
-                !availableBiddersIsLoading && !statsSum && 'No available bidders have an assigned status.'
+                !availableBiddersIsLoading && !statsSum && 'There are no available bidders categorized by status.'
               }
               {
                 !availableBiddersIsLoading && !!statsSum &&
@@ -103,10 +107,10 @@ const AvailableBidderStats = () => {
                 </div>
               }
             </div>
-          }
-        </Row>
+            }
+          </Row>
+        </div>
       </div>
-    </div>
   );
 };
 
