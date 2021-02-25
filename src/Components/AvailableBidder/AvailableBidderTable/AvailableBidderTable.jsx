@@ -59,8 +59,6 @@ const AvailableBidderTable = (props) => {
     'Language',
     'TED',
     'Post',
-    'OC Bureau',
-    'OC Reason',
     'CDO',
     'Comments',
   ] : [

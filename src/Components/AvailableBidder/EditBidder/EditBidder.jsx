@@ -7,11 +7,11 @@ import { uniqBy, forEach } from 'lodash';
 import swal from '@sweetalert/with-react';
 
 const EditBidder = (props) => {
-  const { name, sections, submitAction, bureaus } = props;
-  const [status, setStatus] = useState(sections.Status);
+  const { name, sections, submitAction, bureaus, details } = props;
+  const [status, setStatus] = useState(details.status);
   const [comment, setComment] = useState(sections.Comments);
-  const [ocReason, setOCReason] = useState(sections.OC_Reason);
-  const [ocBureau, setOCBureau] = useState(sections.OC_Bureau);
+  const [ocReason, setOCReason] = useState(details.ocReason);
+  const [ocBureau, setOCBureau] = useState(details.ocBureau);
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
@@ -83,6 +83,24 @@ const EditBidder = (props) => {
           </select>
         </div>
         <div>
+          <label htmlFor="ocBureau">*OC Bureau:</label>
+          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
+            <option value="">None listed</option>
+            {bureauOptions.map(o => (
+              <option value={o.short_description}>{o.custom_description}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label htmlFor="ocReason">*OC Reason:</label>
+          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
+            <option value="">None listed</option>
+            {reasons.map(r => (
+              <option value={r}>{r}</option>
+            ))}
+          </select>
+        </div>
+        <div>
           <label htmlFor="skill">Skill:</label>
           <input type="text" name="skill" disabled value={sections.Skill} />
         </div>
@@ -101,24 +119,6 @@ const EditBidder = (props) => {
         <div>
           <label htmlFor="currentPost">Current Post:</label>
           <input type="text" name="currentPost" disabled value={sections.Current_Post} />
-        </div>
-        <div>
-          <label htmlFor="ocBureau">*OC Bureau:</label>
-          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
-            <option value="">None listed</option>
-            {bureauOptions.map(o => (
-              <option value={o.short_description}>{o.custom_description}</option>
-            ))}
-          </select>
-        </div>
-        <div>
-          <label htmlFor="ocReason">*OC Reason:</label>
-          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
-            <option value="">None listed</option>
-            {reasons.map(r => (
-              <option value={r}>{r}</option>
-            ))}
-          </select>
         </div>
         <div>
           <label htmlFor="cdo">CDO:</label>

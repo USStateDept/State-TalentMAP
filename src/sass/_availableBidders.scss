@@ -114,7 +114,7 @@
 }
 
 .ab-inactive {
-  td:not(:nth-of-type(12)) {
+  td:not(:nth-of-type(10)) {
     color: #272e3247;
     background-color: #aeb0b59e;
     transition: 1.5s;
@@ -125,7 +125,7 @@
 }
 
 .ab-active {
-  td:nth-of-type(2), td:nth-of-type(8), td:nth-of-type(9), td:nth-of-type(11) {
+  td:nth-of-type(2), td:nth-of-type(9) {
     color: #272e3247;
     background-color: #aeb0b59e;
     transition: 1.5s;
@@ -189,4 +189,32 @@
 
 #ocReason:disabled, #ocBureau:disabled {
   background: darkgrey;
+}
+
+.tippy-popper {
+  .tippy-tooltip.oc-status-theme, .tippy-tooltip.oc-status-long-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-weight: bold;
+    }
+    .tooltip-text {
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+    }
+  }
+  .tippy-tooltip.oc-status-long-theme {
+    bottom: 140px!important;
+  }
 }

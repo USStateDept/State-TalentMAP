@@ -23,21 +23,45 @@ const AvailableBidderRow = (props) => {
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
   const id = get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number');
   const name = get(bidder, 'name');
-  const status = () => {
-    
+  const ocBureau = get(bidder, 'oc_bureau') || NO_BUREAU;
+  const ocReason = get(bidder, 'oc_reason') || NO_OC_REASON;
+  const status = get(bidder, 'status') || NO_STATUS;
+  const getStatus = () => {
+    if (status === 'OC') {
+      return (
+        <Tooltip
+          html={
+            <div>
+              <div className={'tooltip-text'}>
+                <span className="title">OC Reason:</span> <span className="text">{ocReason}</span>
+                <br />
+                <span className="title">OC Bureau:</span> <span className="text">{ocBureau}</span>
+              </div>
+            </div>
+          }
+          theme="oc-status-long"
+          arrow
+          tabIndex="0"
+          interactive
+          useContext
+          hideDelay="100"
+        >
+          {status} <FA name="question-circle-o" />
+        </Tooltip>
+      );
+    }
+    return status;
   };
 
   const sections = isCDO ? {
     Name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
-    Status: get(bidder, 'status') || NO_STATUS,
+    Status: getStatus(),
     Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     Grade: get(bidder, 'grade') || NO_GRADE,
     // Update Language
     Language: 'Fake Language (F/L)',
     TED: formattedTed,
     Current_Post: get(bidder, 'post.location.country') || NO_POST,
-    OC_Bureau: get(bidder, 'oc_bureau') || NO_BUREAU,
-    OC_Reason: get(bidder, 'oc_reason') || NO_OC_REASON,
     CDO: get(bidder, 'cdo.name') || NO_CDO,
     Comments: get(bidder, 'comments') || NO_COMMENTS,
   } : {
@@ -76,6 +100,7 @@ const AvailableBidderRow = (props) => {
           sections={sections}
           submitAction={submitAction}
           bureaus={bureaus}
+          details={{ ocBureau, ocReason, status }}
         />
       ),
     });
