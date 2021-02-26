@@ -33,9 +33,12 @@ const AvailableBidderRow = (props) => {
           html={
             <div>
               <div className={'tooltip-text'}>
-                <span className="title">OC Reason:</span> <span className="text">{ocReason}</span>
-                <br />
-                <span className="title">OC Bureau:</span> <span className="text">{ocBureau}</span>
+                <div>
+                  <span className="title">OC Reason:</span> <span className="text">{ocReason}</span>
+                </div>
+                <div>
+                  <span className="title">OC Bureau:</span> <span className="text">{ocBureau}</span>
+                </div>
               </div>
             </div>
           }
@@ -46,7 +49,7 @@ const AvailableBidderRow = (props) => {
           useContext
           hideDelay="100"
         >
-          {status} <FA name="question-circle-o" />
+          {status} <FA className="oc-icon" name="question-circle" />
         </Tooltip>
       );
     }

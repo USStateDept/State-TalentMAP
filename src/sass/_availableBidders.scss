@@ -212,9 +212,17 @@
         font-size: 16px;
         font-weight: bold;
       }
+      div:first-child {
+        padding-bottom: 10px;
+      }
     }
   }
   .tippy-tooltip.oc-status-long-theme {
     bottom: 140px!important;
   }
+}
+
+.oc-icon {
+  color: $tertiary-gold;
+  font-size: 1.2em;
 }
