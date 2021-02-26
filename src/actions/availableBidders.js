@@ -8,6 +8,7 @@ import { ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, ADD_TO_INTERNAL_LIST_SUCCESS,
   UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE, UPDATE_AVAILABLE_BIDDER_ERROR,
   UPDATE_AVAILABLE_BIDDER_ERROR_TITLE,
 } from 'Constants/SystemMessages';
+import { downloadFromResponse, formatDate } from 'utilities';
 import { toastSuccess, toastError } from './toast';
 import api from '../api';
 
@@ -169,9 +170,8 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
       .then(() => {
         const toastTitle = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS_TITLE
           : ADD_TO_INTERNAL_LIST_SUCCESS_TITLE;
-        // TODO: update this path during integration of Available Bidders
         const toastMessage = remove ? REMOVE_FROM_INTERNAL_LIST_SUCCESS
-          : GENERIC_SUCCESS(ADD_TO_INTERNAL_LIST_SUCCESS, { path: '/profile/notifications', text: 'Go To Available Bidders' });
+          : GENERIC_SUCCESS(ADD_TO_INTERNAL_LIST_SUCCESS, { path: '/profile/cdo/availablebidders', text: 'Go To Available Bidders' });
         batch(() => {
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(availableBiddersToggleUserErrored(false));
@@ -231,4 +231,12 @@ export function availableBidderEditData(id, data) {
         }
       });
   };
+}
+
+export function availableBidderExport(cdo) {
+  return api()
+    .get(`${cdo ? '/cdo' : '/bureau'}/availablebidders/export/`)
+    .then((response) => {
+      downloadFromResponse(response, `Available_Bidders_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+    });
 }

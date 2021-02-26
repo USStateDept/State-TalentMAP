@@ -1,8 +1,8 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { EMPTY_FUNCTION, PREVENT_DEFAULT } from 'Constants/PropTypes';
 import InteractiveElement from '../InteractiveElement';
-import { EMPTY_FUNCTION, PREVENT_DEFAULT } from '../../Constants/PropTypes';
 import { focusById } from '../../utilities';
 
 class SearchBar extends Component {

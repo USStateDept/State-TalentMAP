@@ -170,6 +170,7 @@ export const BUREAU_BIDDER_SORT = {
     { value: 'bidder_ted', text: 'TED' },
     { value: 'bidder_langauge', text: "Bidder's Langauge" },
     { value: 'bidder_name', text: "Bidder's Name" },
+    { value: 'bidder_bid_submitted_date', text: 'Bid Submitted Date' },
     // What order do we want these in?
   ],
 };

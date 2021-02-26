@@ -53,15 +53,30 @@ const EditBidder = (props) => {
   return (
     <div>
       <form className="available-bidder-form">
+        <hr />
+        <div>
+          <span>* Internal CDO field only, not shared with Bureaus</span>
+        </div>
+        <hr />
         <div>
           <label htmlFor="name">Client Name:</label>
           <input type="text" name="name" disabled value={name} />
         </div>
         <div>
-          <label htmlFor="status">Status:</label>
-          <select id="status" defaultValue={status} onChange={(e) => setStatus(e.target.value)}>
+          <label htmlFor="status">*Status:</label>
+          <select
+            id="status"
+            defaultValue={status}
+            onChange={(e) => {
+              setStatus(e.target.value);
+              if (e.target.value !== 'OC') {
+                setOCReason('');
+                setOCBureau('');
+              }
+            }}
+          >
             <option value="">None listed</option>
-            <option value="OC">OC: Overcompliment</option>
+            <option value="OC">OC: Overcomplement</option>
             <option value="UA">UA: Unassigned</option>
             <option value="IT">IT: In Transit</option>
             <option value="AWOL">AWOL: Absent without leave</option>
@@ -84,8 +99,8 @@ const EditBidder = (props) => {
           <input type="text" name="currentPost" disabled value={sections.Current_Post} />
         </div>
         <div>
-          <label htmlFor="ocBureau">OC Bureau:</label>
-          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} >
+          <label htmlFor="ocBureau">*OC Bureau:</label>
+          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
             <option value="">None listed</option>
             {bureauOptions.map(o => (
               <option value={o.short_description}>{o.custom_description}</option>
@@ -93,8 +108,8 @@ const EditBidder = (props) => {
           </select>
         </div>
         <div>
-          <label htmlFor="ocReason">OC Reason:</label>
-          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} >
+          <label htmlFor="ocReason">*OC Reason:</label>
+          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
             <option value="">None listed</option>
             {reasons.map(r => (
               <option value={r}>{r}</option>
@@ -106,7 +121,7 @@ const EditBidder = (props) => {
           <input type="text" name="cdo" disabled value={sections.CDO} />
         </div>
         <div>
-          <label htmlFor="comment">Comment:</label>
+          <label htmlFor="comment">*Comment:</label>
           <input type="text" name="comment" defaultValue={comment} onChange={(e) => setComment(e.target.value)} />
         </div>
         <button onClick={submit} type="submit">Submit</button>

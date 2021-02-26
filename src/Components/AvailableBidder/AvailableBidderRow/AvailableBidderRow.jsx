@@ -74,8 +74,17 @@ const AvailableBidderRow = (props) => {
     });
   };
 
+  const getTRClass = () => {
+    if (CDOView) {
+      return '';
+    } else if (shared) {
+      return 'ab-active';
+    }
+    return 'ab-inactive';
+  };
+
   return (
-    <tr className={!CDOView && !shared ? 'ab-inactive' : ''}>
+    <tr className={getTRClass()}>
       {
         keys(sections).map(i => (
           <td>{sections[i]}</td>

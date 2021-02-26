@@ -107,6 +107,11 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+  .export-button-container {
+    button {
+      display: inline;
+    }
+  }
 }
 
 .ab-lower-section {
@@ -123,6 +128,18 @@
     }
   }
 }
+
+.ab-active {
+  td:nth-of-type(2), td:nth-of-type(7), td:nth-of-type(8), td:nth-of-type(10) {
+    color: #272e3247;
+    background-color: #aeb0b59e;
+    transition: 1.5s;
+    a {
+      color: #272e3247;
+    }
+  }
+}
+
 
 .ab-action-buttons {
   display: flex;
@@ -144,6 +161,9 @@
 }
 
 .bureau-view-toggle {
+  display: flex;
+  justify-content: center;
+
   .active {
     text-shadow: 0 0 10px $color-dodger-blue;
   }
@@ -170,4 +190,8 @@
   input select textarea {
     width: 75%;
   }
+}
+
+#ocReason:disabled, #ocBureau:disabled {
+  background: darkgrey;
 }
