@@ -47,7 +47,6 @@ const AvailableBidderRow = (props) => {
           tabIndex="0"
           interactive
           useContext
-          hideDelay="100"
         >
           {status} <FA className="oc-icon" name="question-circle" />
         </Tooltip>
@@ -56,13 +55,38 @@ const AvailableBidderRow = (props) => {
     return status;
   };
 
+  const getLanguage = () => (
+    <Tooltip
+      html={
+        <div>
+          <div className={'tooltip-text'}>
+            <div>
+              <span className="title">Speaking:</span> <span className="text">{3}</span>
+            </div>
+            <div>
+              <span className="title">Reading:</span> <span className="text">{4}</span>
+            </div>
+          </div>
+        </div>
+      }
+      theme="oc-status-long"
+      arrow
+      tabIndex="0"
+      interactive
+      useContext
+      hideDelay="100"
+    >
+      {'Fr'} <FA className="oc-icon" name="question-circle" />
+    </Tooltip>
+  );
+
   const sections = isCDO ? {
     Name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
     Status: getStatus(),
     Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     Grade: get(bidder, 'grade') || NO_GRADE,
     // Update Language
-    Language: 'Fake Language (F/L)',
+    Language: getLanguage(),
     TED: formattedTed,
     Current_Post: get(bidder, 'post.location.country') || NO_POST,
     CDO: get(bidder, 'cdo.name') || NO_CDO,
@@ -72,7 +96,7 @@ const AvailableBidderRow = (props) => {
     Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     Grade: get(bidder, 'grade') || NO_GRADE,
     // Update language
-    Language: 'Fake Language (F/L)',
+    Language: getLanguage(),
     TED: formattedTed,
     Current_Post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
     CDO: get(bidder, 'cdo.name') || NO_CDO,
