@@ -5,7 +5,7 @@ import AvailableBidderStats from '../AvailableBidderStats';
 
 
 const AvailableBidderContainer = ({ isCDO }) => (
-  <div className="position-manager-details">
+  <div className="position-manager-details bidder-manager-page">
     <div className={'usa-grid-full profile-content-inner-container'}>
       <div className="usa-grid-full">
         <ProfileSectionTitle title="Available Bidders" icon="users" />
