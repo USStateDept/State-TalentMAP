@@ -13,6 +13,49 @@
     background-color: $bg-blue-dark-1;
   }
 
+  .available-bidders-stats {
+
+    .statistics-section {
+      background-color: $color-white;
+      border: 2px solid $color-gray-light;
+      padding: 1.2em 10% 2em 1.5em;
+
+      h3, h4 {
+        font-family: 'Roboto';
+      }
+    }
+
+    .legend-container {
+      margin-left: auto;
+    }
+
+    .legend {
+      margin-top: 2em;
+    }
+
+    .legend-item {
+      margin-top: 1em;
+    }
+
+    .legend-square {
+      height: 1.2em;
+      width: 1.2em;
+    }
+
+    .legend-text {
+       margin: auto;
+       margin-left: 1.5em;
+    }
+
+    .chart-container {
+      margin-right: auto;
+
+      > div {
+        margin-left: auto;
+      }
+    }
+
+  }
 
   @media screen and (max-width: 1525px) {
     .small-screen-stack {
@@ -148,7 +191,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  
+
   div:nth-child(2) {
     // Adds some spacing between the 3 buttons using the middle element (nth(2)) 
     padding: 0px 7px 0px 7px;
@@ -183,7 +226,7 @@
     justify-content: space-between;
     align-items: baseline;
 
-    
+
   }
 }
 
