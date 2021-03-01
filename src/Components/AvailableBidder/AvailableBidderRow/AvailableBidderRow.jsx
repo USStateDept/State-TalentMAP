@@ -81,25 +81,25 @@ const AvailableBidderRow = (props) => {
   );
 
   const sections = isCDO ? {
-    Name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
-    Status: getStatus(),
-    Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
-    Grade: get(bidder, 'grade') || NO_GRADE,
+    name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
+    status: getStatus(),
+    skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    grade: get(bidder, 'grade') || NO_GRADE,
     // Update Language
-    Language: getLanguage(),
-    TED: formattedTed,
-    Current_Post: get(bidder, 'post.location.country') || NO_POST,
-    CDO: get(bidder, 'cdo.name') || NO_CDO,
-    Comments: get(bidder, 'comments') || NO_COMMENTS,
+    language: getLanguage(),
+    ted: formattedTed,
+    current_post: get(bidder, 'post.location.country') || NO_POST,
+    cdo: get(bidder, 'cdo.name') || NO_CDO,
+    comments: get(bidder, 'comments') || NO_COMMENTS,
   } : {
-    Name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
-    Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
-    Grade: get(bidder, 'grade') || NO_GRADE,
+    name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
+    skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    grade: get(bidder, 'grade') || NO_GRADE,
     // Update language
-    Language: getLanguage(),
-    TED: formattedTed,
-    Current_Post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
-    CDO: get(bidder, 'cdo.name') || NO_CDO,
+    language: getLanguage(),
+    ted: formattedTed,
+    current_post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
+    cdo: get(bidder, 'cdo.name') || NO_CDO,
   };
 
   if (isLoading) {

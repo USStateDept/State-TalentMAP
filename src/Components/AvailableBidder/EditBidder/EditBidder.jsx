@@ -9,7 +9,7 @@ import swal from '@sweetalert/with-react';
 const EditBidder = (props) => {
   const { name, sections, submitAction, bureaus, details } = props;
   const [status, setStatus] = useState(details.status);
-  const [comment, setComment] = useState(sections.Comments);
+  const [comment, setComment] = useState(sections.comments);
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
 
@@ -102,27 +102,27 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="skill">Skill:</label>
-          <input type="text" name="skill" disabled value={sections.Skill} />
+          <input type="text" name="skill" disabled value={sections.skill} />
         </div>
         <div>
           <label htmlFor="grade">Grade:</label>
-          <input type="text" name="grade" disabled value={sections.Grade} />
+          <input type="text" name="grade" disabled value={sections.grade} />
         </div>
         <div>
           <label htmlFor="language">Language:</label>
-          <input type="text" name="language" disabled value={sections.Language} />
+          <input type="text" name="language" disabled value={sections.language} />
         </div>
         <div>
           <label htmlFor="ted">TED:</label>
-          <input type="text" name="ted" disabled value={sections.TED} />
+          <input type="text" name="ted" disabled value={sections.ted} />
         </div>
         <div>
           <label htmlFor="currentPost">Current Post:</label>
-          <input type="text" name="currentPost" disabled value={sections.Current_Post} />
+          <input type="text" name="currentPost" disabled value={sections.current_post} />
         </div>
         <div>
           <label htmlFor="cdo">CDO:</label>
-          <input type="text" name="cdo" disabled value={sections.CDO} />
+          <input type="text" name="cdo" disabled value={sections.cdo} />
         </div>
         <div>
           <label htmlFor="comment">*Comment:</label>
@@ -141,6 +141,7 @@ EditBidder.propTypes = {
   name: PropTypes.string,
   submitAction: PropTypes.func,
   bureaus: FILTER,
+  details: PropTypes.shape({}),
 };
 
 EditBidder.defaultProps = {
@@ -148,6 +149,7 @@ EditBidder.defaultProps = {
   name: '',
   submitAction: EMPTY_FUNCTION,
   bureaus: [],
+  details: {},
 };
 
 export default EditBidder;
