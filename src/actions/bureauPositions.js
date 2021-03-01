@@ -1,6 +1,6 @@
 import { downloadFromResponse } from 'utilities';
 import { batch } from 'react-redux';
-import { get, identity, isArray, pickBy } from 'lodash';
+import { get, identity, isArray, omit, pickBy } from 'lodash';
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
 import { toastError } from './toast';
@@ -61,9 +61,13 @@ export function bureauPositionsFetchDataSuccess(results) {
 }
 
 
-export function bureauPositionsFetchData(userQuery) {
-  // Ensure the userQuery includes a bureau - otherwise we risk querying unauthorized positions
-  if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
+export function bureauPositionsFetchData(userQuery, isAO) {
+  let userQuery$ = userQuery;
+  // AO has no Bureau restrictions
+  // Ensure userQuery includes a bureau, if !AO - otherwise we risk querying unauthorized positions
+  if (isAO) {
+    userQuery$ = omit(userQuery, ['position__bureau__code__in']);
+  } else if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
     return (dispatch) => {
       batch(() => {
         dispatch(bureauPositionsHasErrored(true));
@@ -72,8 +76,8 @@ export function bureauPositionsFetchData(userQuery) {
     };
   }
 
-  // Combine defaults with given userQuery
-  let q = pickBy(userQuery, identity);
+  // Combine defaults with given userQuery$
+  let q = pickBy(userQuery$, identity);
   Object.keys(q).forEach(queryk => { if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); } });
   q = querystring.stringify(q);
 

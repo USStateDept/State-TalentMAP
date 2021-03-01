@@ -34,6 +34,7 @@ const PositionManager = props => {
     bureauPositionsHasErrored,
     orgPermissions,
     userSelections,
+    isAO,
   } = props;
 
   // Local state populating with defaults from previous user selections stored in redux
@@ -122,7 +123,7 @@ const PositionManager = props => {
   // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    props.fetchBureauPositions(query);
+    props.fetchBureauPositions(query, isAO);
     props.saveSelections(currentInputs);
   }, []);
 
@@ -130,7 +131,7 @@ const PositionManager = props => {
   useEffect(() => {
     if (prevPage) {
       if (!noBureausSelected || !noOrgsSelected) {
-        props.fetchBureauPositions(query);
+        props.fetchBureauPositions(query, isAO);
       }
       props.saveSelections(currentInputs);
       setPage(1);
@@ -154,7 +155,7 @@ const PositionManager = props => {
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
-      props.fetchBureauPositions(query);
+      props.fetchBureauPositions(query, isAO);
       props.saveSelections(currentInputs);
     }
   }, [page]);
@@ -520,6 +521,7 @@ PositionManager.propTypes = {
   bureauPermissions: BUREAU_PERMISSIONS,
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
+  isAO: PropTypes.bool,
 };
 
 PositionManager.defaultProps = {
@@ -532,6 +534,7 @@ PositionManager.defaultProps = {
   orgPermissions: [],
   userSelections: {},
   showClear: false,
+  isAO: false,
 };
 
 const mapStateToProps = state => ({
@@ -547,7 +550,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: query => dispatch(bureauPositionsFetchData(query)),
+  fetchBureauPositions: (query, isAO) => dispatch(bureauPositionsFetchData(query, isAO)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
