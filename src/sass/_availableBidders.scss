@@ -119,6 +119,7 @@
 }
 
 .ab-inactive {
+  // td(10) is the action buttons column which should never be grayed out
   td:not(:nth-of-type(10)) {
     color: #272e3247;
     background-color: #aeb0b59e;
@@ -130,6 +131,7 @@
 }
 
 .ab-active {
+  // td(2) is the status column, and td(9) is the comment column
   td:nth-of-type(2), td:nth-of-type(9) {
     color: #272e3247;
     background-color: #aeb0b59e;
@@ -148,6 +150,7 @@
   justify-content: center;
   
   div:nth-child(2) {
+    // Adds some spacing between the 3 buttons using the middle element (nth(2)) 
     padding: 0px 7px 0px 7px;
   }
 
@@ -223,7 +226,7 @@
     }
   }
   .tippy-tooltip.oc-status-long-theme {
-    bottom: 140px!important;
+    bottom: 140px !important;
   }
 }
 
