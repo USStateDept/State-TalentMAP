@@ -244,9 +244,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/ao/dashboard/',
           icon: 'tachometer',
           roles: [
-            'superuser',
-            'bureau_user',
             'ao_user',
+            'superuser',
           ],
         } : null,
       {
@@ -265,6 +264,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           icon: 'users',
           roles: [
             'ao_user',
+            'superuser',
           ],
         } : null,
     ],
