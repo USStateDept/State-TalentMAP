@@ -93,7 +93,7 @@
     "sweetalert": "^2.1.2",
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
-    "use-query-params": "^1.1.9",
+    "use-query-params": "^1.2.0",
     "uswds": "~1.6.12"
   },
   "devDependencies": {
@@ -101,7 +101,7 @@
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
     "@babel/plugin-transform-react-jsx": "^7.12.17",
-    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-env": "^7.13.8",
     "@babel/register": "^7.12.13",
     "@babel/runtime-corejs2": "^7.12.13",
     "@epegzz/sass-vars-loader": "^6.0.0",
