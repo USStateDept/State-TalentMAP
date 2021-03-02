@@ -80,7 +80,7 @@ const AvailableBidderRow = (props) => {
   );
 
   const sections = isCDO ? {
-    name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
+    name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
     status: getStatus(),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     grade: get(bidder, 'grade') || NO_GRADE,
