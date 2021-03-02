@@ -55,7 +55,7 @@ const AvailableBidderRow = (props) => {
     return status;
   };
 
-  const getLanguage = () => (
+  const getLanguages = () => (
     <Tooltip
       html={
         <div>
@@ -84,8 +84,8 @@ const AvailableBidderRow = (props) => {
     status: getStatus(),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     grade: get(bidder, 'grade') || NO_GRADE,
-    // Update Language
-    language: getLanguage(),
+    // Update Languages
+    languages: getLanguages(),
     ted: formattedTed,
     current_post: get(bidder, 'post.location.country') || NO_POST,
     cdo: get(bidder, 'cdo.name') || NO_CDO,
@@ -94,8 +94,8 @@ const AvailableBidderRow = (props) => {
     name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     grade: get(bidder, 'grade') || NO_GRADE,
-    // Update language
-    language: getLanguage(),
+    // Update languages
+    languages: getLanguages(),
     ted: formattedTed,
     current_post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
     cdo: get(bidder, 'cdo.name') || NO_CDO,

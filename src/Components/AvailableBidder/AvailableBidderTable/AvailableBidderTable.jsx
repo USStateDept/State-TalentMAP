@@ -57,7 +57,7 @@ const AvailableBidderTable = (props) => {
     'Status',
     'Skill',
     'Grade',
-    'Language',
+    'Languages',
     'TED',
     'Post',
     'CDO',
@@ -66,7 +66,7 @@ const AvailableBidderTable = (props) => {
     'Name',
     'Skill',
     'Grade',
-    'Language',
+    'Languages',
     'TED',
     'Post',
     'CDO',
@@ -146,7 +146,7 @@ const AvailableBidderTable = (props) => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    item !== 'Language' || item !== 'Comments' ?
+                    item !== 'Languages' && item !== 'Comments' ?
                       <th
                         key={shortid.generate()}
                         className="ab-headers"
