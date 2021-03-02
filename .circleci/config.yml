@@ -99,6 +99,8 @@ jobs:
       - run:
           name: Install dependencies
           command: yarn install --production=true --no-lockfile --modules-folder server/node_modules/
+          environment:
+            NOYARNPOSTINSTALL: 1
       - run:
           name: Zip artifact
           command: zip talentmap-server.zip -r server/*
