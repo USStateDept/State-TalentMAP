@@ -148,7 +148,7 @@ const AvailableBidderTable = (props) => {
                   tableHeaders.map(item => (
                     item !== 'Languages' && item !== 'Comments' ?
                       <th
-                        key={shortid.generate()}
+                        key={item}
                         className="ab-headers"
                         scope="col"
                       >
@@ -158,7 +158,7 @@ const AvailableBidderTable = (props) => {
                       </th>
                       :
                       <th
-                        key={shortid.generate()}
+                        key={item}
                         className="ab-headers"
                         scope="col"
                       >
@@ -211,7 +211,7 @@ const AvailableBidderTable = (props) => {
               {
                 bidders.map(bidder => (
                   <AvailableBidderRow
-                    key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
+                    key={shortid.generate()}
                     bidder={bidder}
                     CDOView={cdoView}
                     isCDO={isCDO}

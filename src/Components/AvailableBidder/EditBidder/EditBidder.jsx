@@ -95,7 +95,7 @@ const EditBidder = (props) => {
             {
               (status === 'OC') &&
               reasons.map(r => (
-                <option value={r}>{r}</option>
+                <option key={r} value={r}>{r}</option>
               ))
             }
           </select>
@@ -107,7 +107,7 @@ const EditBidder = (props) => {
             {
               (status === 'OC') &&
                 bureauOptions.map(o => (
-                  <option value={o.short_description}>{o.custom_description}</option>
+                  <option key={o.id} value={o.short_description}>{o.custom_description}</option>
                 ))
             }
           </select>

@@ -145,7 +145,7 @@ const AvailableBidderRow = (props) => {
     <tr className={getTRClass()}>
       {
         keys(sections).map(i => (
-          <td>{sections[i]}</td>
+          <td key={i}>{sections[i]}</td>
         ))
       }
       {
