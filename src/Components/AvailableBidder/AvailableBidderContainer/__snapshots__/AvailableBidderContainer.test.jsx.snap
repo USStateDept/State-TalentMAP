@@ -2,7 +2,7 @@
 
 exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
 <div
-  className="position-manager-details"
+  className="position-manager-details bidder-manager-page"
 >
   <div
     className="usa-grid-full profile-content-inner-container"
@@ -18,9 +18,7 @@ exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
     <div
       className="usa-grid-full"
     >
-      <AvailableBidderStats
-        placeholderText=""
-      />
+      <AvailableBidderStats />
     </div>
     <div
       className="usa-width-one-whole"
@@ -42,7 +40,7 @@ exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
 
 exports[`AvailableBidderContainerComponent matches snapshot when not CDO 1`] = `
 <div
-  className="position-manager-details"
+  className="position-manager-details bidder-manager-page"
 >
   <div
     className="usa-grid-full profile-content-inner-container"
