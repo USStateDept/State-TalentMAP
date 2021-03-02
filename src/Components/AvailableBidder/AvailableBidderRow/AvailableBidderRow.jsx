@@ -74,7 +74,6 @@ const AvailableBidderRow = (props) => {
       tabIndex="0"
       interactive
       useContext
-      hideDelay="100"
     >
       {'Fr'} <FA className="oc-icon" name="question-circle" />
     </Tooltip>
