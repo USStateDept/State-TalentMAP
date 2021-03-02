@@ -243,7 +243,7 @@
 }
 
 .tippy-popper {
-  .tippy-tooltip.oc-status-theme, .tippy-tooltip.oc-status-long-theme {
+  .tippy-tooltip.oc-status-long-theme {
     background-color: $color-white;
     color: $color-black;
     border: 2px solid $tm-gray;
@@ -252,6 +252,7 @@
     padding: 15px;
     text-align: left;
     box-shadow: $tm-gray 3px 14px 29px;
+    bottom: 140px;
     .arrow-regular {
       border: none;
     }
@@ -267,9 +268,6 @@
         padding-bottom: 10px;
       }
     }
-  }
-  .tippy-tooltip.oc-status-long-theme {
-    bottom: 140px !important;
   }
 }
 
