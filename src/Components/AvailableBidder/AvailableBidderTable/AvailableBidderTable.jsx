@@ -146,15 +146,24 @@ const AvailableBidderTable = (props) => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    <th
-                      key={shortid.generate()}
-                      className="ab-headers"
-                      scope="col"
-                    >
-                      <InteractiveElement onClick={() => handleSort(item)}>
-                        {item} <FA name={getSortIcon(item)} />
-                      </InteractiveElement>
-                    </th>
+                    item !== 'Language' || item !== 'Comments' ?
+                      <th
+                        key={shortid.generate()}
+                        className="ab-headers"
+                        scope="col"
+                      >
+                        <InteractiveElement onClick={() => handleSort(item)}>
+                          {item} <FA name={getSortIcon(item)} />
+                        </InteractiveElement>
+                      </th>
+                      :
+                      <th
+                        key={shortid.generate()}
+                        className="ab-headers"
+                        scope="col"
+                      >
+                        {item}
+                      </th>
                   ))
                 }
                 {
