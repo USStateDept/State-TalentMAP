@@ -138,7 +138,13 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="comment">*Comment:</label>
-          <input type="text" name="comment" defaultValue={comment} onChange={(e) => setComment(e.target.value)} />
+          <input
+            type="text"
+            name="comment"
+            placeholder="None listed"
+            defaultValue={comment === 'None listed' ? '' : comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
         </div>
         <button onClick={submit} type="submit">Submit</button>
         <button onClick={cancel}>Cancel</button>
