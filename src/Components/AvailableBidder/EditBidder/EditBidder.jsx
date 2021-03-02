@@ -12,9 +12,11 @@ const EditBidder = (props) => {
   const [comment, setComment] = useState(sections.comments);
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
+  const [shared, setShared] = useState(details.shared);
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
+  // To Do: Move these to the DB/Django backend after more user feedback
   const reasons = [
     'Appealing/Grieving Selection Out',
     'CAT-4 (MED)',
@@ -35,6 +37,7 @@ const EditBidder = (props) => {
       oc_reason: ocReason,
       status,
       comments: comment,
+      is_shared: shared,
     };
 
     // Remap unmodified local defaults from None Listed to empty string for patch
@@ -69,9 +72,12 @@ const EditBidder = (props) => {
             defaultValue={status}
             onChange={(e) => {
               setStatus(e.target.value);
-              if (e.target.value !== 'OC') {
+              if (status !== 'OC') {
                 setOCReason('');
                 setOCBureau('');
+                if (status !== 'UA') {
+                  setShared(false);
+                }
               }
             }}
           >
@@ -86,18 +92,24 @@ const EditBidder = (props) => {
           <label htmlFor="ocBureau">*OC Bureau:</label>
           <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
             <option value="">None listed</option>
-            {bureauOptions.map(o => (
-              <option value={o.short_description}>{o.custom_description}</option>
-            ))}
+            {
+              (status === 'OC') &&
+                bureauOptions.map(o => (
+                  <option value={o.short_description}>{o.custom_description}</option>
+                ))
+            }
           </select>
         </div>
         <div>
           <label htmlFor="ocReason">*OC Reason:</label>
           <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
             <option value="">None listed</option>
-            {reasons.map(r => (
-              <option value={r}>{r}</option>
-            ))}
+            {
+              (status === 'OC') &&
+              reasons.map(r => (
+                <option value={r}>{r}</option>
+              ))
+            }
           </select>
         </div>
         <div>

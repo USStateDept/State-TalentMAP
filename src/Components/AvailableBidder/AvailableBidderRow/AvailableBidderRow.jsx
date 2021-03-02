@@ -127,7 +127,7 @@ const AvailableBidderRow = (props) => {
           sections={sections}
           submitAction={submitAction}
           bureaus={bureaus}
-          details={{ ocBureau, ocReason, status }}
+          details={{ ocBureau, ocReason, status, shared }}
         />
       ),
     });
@@ -165,19 +165,32 @@ const AvailableBidderRow = (props) => {
                   <FA name="pencil-square-o" className="fa-lg" />
                 </InteractiveElement>
               </Tooltip>
-              <Tooltip
-                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
-                arrow
-                offset={-95}
-                position="top-end"
-                tabIndex="0"
-              >
-                <InteractiveElement
-                  onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
-                >
-                  <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
-                </InteractiveElement>
-              </Tooltip>
+              {
+                status === 'OC' || status === 'UA' ?
+                  <Tooltip
+                    title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                    arrow
+                    offset={-95}
+                    position="top-end"
+                    tabIndex="0"
+                  >
+                    <InteractiveElement
+                      onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
+                    >
+                      <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
+                    </InteractiveElement>
+                  </Tooltip>
+                  :
+                  <Tooltip
+                    title={'Status must be UA or OC to share with bureau'}
+                    arrow
+                    offset={-95}
+                    position="top-end"
+                    tabIndex="0"
+                  >
+                    <FA name="lock" className="fa-lg" />
+                  </Tooltip>
+              }
               <Tooltip
                 title="Remove from Available Bidders List"
                 arrow
