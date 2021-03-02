@@ -72,10 +72,10 @@ const EditBidder = (props) => {
             defaultValue={status}
             onChange={(e) => {
               setStatus(e.target.value);
-              if (status !== 'OC') {
+              if (e.target.value !== 'OC') {
                 setOCReason('');
                 setOCBureau('');
-                if (status !== 'UA') {
+                if (e.target.value !== 'UA') {
                   setShared(false);
                 }
               }
