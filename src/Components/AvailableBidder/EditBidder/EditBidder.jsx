@@ -89,18 +89,6 @@ const EditBidder = (props) => {
           </select>
         </div>
         <div>
-          <label htmlFor="ocBureau">*OC Bureau:</label>
-          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
-            <option value="">None listed</option>
-            {
-              (status === 'OC') &&
-                bureauOptions.map(o => (
-                  <option value={o.short_description}>{o.custom_description}</option>
-                ))
-            }
-          </select>
-        </div>
-        <div>
           <label htmlFor="ocReason">*OC Reason:</label>
           <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
             <option value="">None listed</option>
@@ -109,6 +97,18 @@ const EditBidder = (props) => {
               reasons.map(r => (
                 <option value={r}>{r}</option>
               ))
+            }
+          </select>
+        </div>
+        <div>
+          <label htmlFor="ocBureau">*OC Bureau:</label>
+          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
+            <option value="">None listed</option>
+            {
+              (status === 'OC') &&
+                bureauOptions.map(o => (
+                  <option value={o.short_description}>{o.custom_description}</option>
+                ))
             }
           </select>
         </div>
