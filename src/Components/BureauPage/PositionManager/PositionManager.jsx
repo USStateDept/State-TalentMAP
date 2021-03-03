@@ -123,7 +123,7 @@ const PositionManager = props => {
   // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    props.fetchBureauPositions(query, isAO);
+    props.fetchBureauPositions(query);
     props.saveSelections(currentInputs);
   }, []);
 
@@ -131,7 +131,7 @@ const PositionManager = props => {
   useEffect(() => {
     if (prevPage) {
       if (!noBureausSelected || !noOrgsSelected) {
-        props.fetchBureauPositions(query, isAO);
+        props.fetchBureauPositions(query);
       }
       props.saveSelections(currentInputs);
       setPage(1);
@@ -155,7 +155,7 @@ const PositionManager = props => {
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
-      props.fetchBureauPositions(query, isAO);
+      props.fetchBureauPositions(query);
       props.saveSelections(currentInputs);
     }
   }, [page]);
@@ -550,7 +550,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query, isAO) => dispatch(bureauPositionsFetchData(query, isAO)),
+  fetchBureauPositions: (query) => dispatch(bureauPositionsFetchData(query)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
