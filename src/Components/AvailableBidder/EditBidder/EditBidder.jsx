@@ -13,6 +13,7 @@ const EditBidder = (props) => {
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
   const [shared, setShared] = useState(details.shared);
+  const { languages } = details;
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
@@ -122,7 +123,15 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="languages">Languages:</label>
-          <input type="text" name="languages" disabled value={sections.languages} />
+          <input
+            type="text"
+            name="languages"
+            disabled
+            value={
+              languages.map((l) => (
+                ` ${l.representation}`
+              ))}
+          />
         </div>
         <div>
           <label htmlFor="ted">TED:</label>

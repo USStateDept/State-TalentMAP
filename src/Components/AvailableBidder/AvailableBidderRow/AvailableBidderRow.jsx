@@ -5,7 +5,12 @@ import { get, keys } from 'lodash';
 import { formatDate } from 'utilities';
 import { availableBiddersToggleUser, availableBidderEditData } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
-import { NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU, NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST, NO_STATUS, NO_COMMENTS } from 'Constants/SystemMessages';
+import {
+  NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU,
+  NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST,
+  NO_STATUS, NO_COMMENTS,
+  // NO_LANGUAGES,
+} from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
 import FA from 'react-fontawesome';
@@ -26,6 +31,38 @@ const AvailableBidderRow = (props) => {
   const ocBureau = get(bidder, 'oc_bureau') || NO_BUREAU;
   const ocReason = get(bidder, 'oc_reason') || NO_OC_REASON;
   const status = get(bidder, 'status') || NO_STATUS;
+  // Dummy Data for Languages
+  const languages = [
+    {
+      language: 'Arabic',
+      readingScore: 5,
+      speakingScore: 5,
+      languageCode: 'A',
+      representation: 'Arabic 5/5',
+    },
+    {
+      language: 'French',
+      readingScore: 1,
+      speakingScore: 2,
+      languageCode: 'FR',
+      representation: 'French 1/2',
+    },
+    {
+      language: 'German',
+      readingScore: 3,
+      speakingScore: 3,
+      languageCode: 'GR',
+      representation: 'German 3/3',
+    },
+    {
+      language: 'Spanish',
+      readingScore: 1,
+      speakingScore: 1,
+      languageCode: 'S',
+      representation: 'Spanish 1/1',
+    },
+  ];
+
   const getStatus = () => {
     if (status === 'OC') {
       return (
@@ -42,7 +79,7 @@ const AvailableBidderRow = (props) => {
               </div>
             </div>
           }
-          theme="oc-status-long"
+          theme="oc-status"
           arrow
           tabIndex="0"
           interactive
@@ -56,28 +93,37 @@ const AvailableBidderRow = (props) => {
   };
 
   const getLanguages = () => (
-    <Tooltip
-      html={
-        <div>
-          <div className={'tooltip-text'}>
-            <div>
-              <span className="title">Speaking:</span> <span className="text">{3}</span>
+    <div className="ab-languages">
+      <Tooltip
+        html={
+          languages.map(l => (
+            <div className="language-group">
+              <div className={'tooltip-title'}>{l.language}</div>
+              <div className={'tooltip-text'}>
+                <div>
+                  <span className="title">Speaking:</span> <span className="text">{l.speakingScore}</span>
+                </div>
+                <div>
+                  <span className="title">Reading:</span> <span className="text">{l.readingScore}</span>
+                </div>
+              </div>
             </div>
-            <div>
-              <span className="title">Reading:</span> <span className="text">{4}</span>
-            </div>
-          </div>
-        </div>
-      }
-      theme="oc-status-long"
-      arrow
-      tabIndex="0"
-      interactive
-      useContext
-    >
-      {'Fr'} <FA className="oc-icon" name="question-circle" />
-    </Tooltip>
+          ))
+        }
+        theme="ab-languages"
+        arrow
+        tabIndex="0"
+        interactive
+        useContext
+      >
+        {
+          languages.map((l, i) => <span>{l.languageCode}{i === languages.length - 1 ? '' : ', '}</span>)
+        }
+        <FA className="oc-icon" name="question-circle" />
+      </Tooltip>
+    </div>
   );
+
 
   const sections = isCDO ? {
     name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
@@ -126,7 +172,7 @@ const AvailableBidderRow = (props) => {
           sections={sections}
           submitAction={submitAction}
           bureaus={bureaus}
-          details={{ ocBureau, ocReason, status, shared }}
+          details={{ ocBureau, ocReason, status, shared, languages }}
         />
       ),
     });

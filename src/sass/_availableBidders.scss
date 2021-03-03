@@ -243,7 +243,7 @@
 }
 
 .tippy-popper {
-  .tippy-tooltip.oc-status-long-theme {
+  .tippy-tooltip.oc-status-theme {
     background-color: $color-white;
     color: $color-black;
     border: 2px solid $tm-gray;
@@ -268,9 +268,43 @@
       }
     }
   }
+
+  .tippy-tooltip.ab-languages-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+    .tooltip-text {
+      text-align: right;
+    }
+  }
 }
 
+
 .oc-icon {
-  color: #9D6B02;
+  color: $tertiary-gold;
   font-size: 1.2em;
+}
+
+.ab-languages {
+  display: inline-flex;
+  
+  span {
+    padding-left: 5px;
+  }
+}
+
+.language-group {
+  padding-bottom: 10px;
 }
