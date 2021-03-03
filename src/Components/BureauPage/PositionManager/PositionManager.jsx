@@ -352,7 +352,7 @@ const PositionManager = props => {
                         labelKey="custom_description"
                       />
                     </div>
-                    <PermissionsWrapper permissions={['bureau_user']}>
+                    <PermissionsWrapper permissions={['bureau_user', 'ao_user']} minimum>
                       <div className="filter-div">
                         <div className="label">Bureau:</div>
                         <Picky

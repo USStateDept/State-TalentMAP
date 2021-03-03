@@ -257,16 +257,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
-      checkFlag('flags.available_bidders') ?
-        {
-          text: 'Available Bidders',
-          route: '/profile/cdo/availablebidders',
-          icon: 'users',
-          roles: [
-            'ao_user',
-            'superuser',
-          ],
-        } : null,
     ],
   } : null,
   {
