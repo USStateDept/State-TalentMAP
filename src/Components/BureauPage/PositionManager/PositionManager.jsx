@@ -37,10 +37,11 @@ const PositionManager = props => {
     // eslint-disable-next-line no-unused-vars
     isAO,
   } = props;
-  const bureauPermissions$ = [];
-  bureauFilters.filters.find(f => f.item.description === 'region').data.forEach(a => {
-    bureauPermissions$.push(pick(a, ['code', 'short_description', 'long_description']));
-  });
+
+  const bureauPermissions$ = sortBy(bureauFilters.filters.find(f => f.item.description === 'region').data.map(a =>
+    pick(a, ['code', 'short_description', 'long_description']),
+  ), [(b) => b.long_description]);
+
   // eslint-disable-next-line no-console
   console.log('current: bureauPermissions', bureauPermissions);
   // eslint-disable-next-line no-console
@@ -249,7 +250,8 @@ const PositionManager = props => {
     setSelectedPosts([]);
     setSelectedTODs([]);
     setSelectedOrgs([props.orgPermissions[0]]);
-    setSelectedBureaus(isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]);
+    setSelectedBureaus(isAO ?
+      [bureauPermissions$[0]].filter(f => f) : [props.bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
     setTextSearch('');
@@ -368,7 +370,7 @@ const PositionManager = props => {
                         <div className="label">Bureau:</div>
                         <Picky
                           placeholder="Select Bureau(s)"
-                          value={selectedBureaus}
+                          value={selectedBureaus.filter(f => f)}
                           options={bureauOptions}
                           onChange={setSelectedBureaus}
                           numberDisplayed={2}
