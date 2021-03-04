@@ -57,16 +57,16 @@ const AvailableBidderTable = (props) => {
     'Status',
     'Skill',
     'Grade',
+    'Languages',
     'TED',
     'Post',
-    'OC Bureau',
-    'OC Reason',
     'CDO',
     'Comments',
   ] : [
     'Name',
     'Skill',
     'Grade',
+    'Languages',
     'TED',
     'Post',
     'CDO',
@@ -146,15 +146,24 @@ const AvailableBidderTable = (props) => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    <th
-                      key={shortid.generate()}
-                      className="ab-headers"
-                      scope="col"
-                    >
-                      <InteractiveElement onClick={() => handleSort(item)}>
-                        {item} <FA name={getSortIcon(item)} />
-                      </InteractiveElement>
-                    </th>
+                    item !== 'Languages' && item !== 'Comments' ?
+                      <th
+                        key={item}
+                        className="ab-headers"
+                        scope="col"
+                      >
+                        <InteractiveElement onClick={() => handleSort(item)}>
+                          {item} <FA name={getSortIcon(item)} />
+                        </InteractiveElement>
+                      </th>
+                      :
+                      <th
+                        key={item}
+                        className="ab-headers"
+                        scope="col"
+                      >
+                        {item}
+                      </th>
                   ))
                 }
                 {
@@ -202,7 +211,7 @@ const AvailableBidderTable = (props) => {
               {
                 bidders.map(bidder => (
                   <AvailableBidderRow
-                    key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
+                    key={shortid.generate()}
                     bidder={bidder}
                     CDOView={cdoView}
                     isCDO={isCDO}
