@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "5.0.0",
+  "version": "4.1.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.12.13",
@@ -183,7 +183,7 @@
     "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
     "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
     "bundlesize": "bundlesize",
-    "postinstall": "npm install --unsafe-perm=true -g cross-os && cross-os babel-deps"
+    "postinstall": "npm install -g cross-os && cross-os babel-deps"
   },
   "cross-os": {
     "babel-deps": {
