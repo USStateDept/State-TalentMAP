@@ -116,6 +116,7 @@
     "bundlesize": "^0.18.1",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "chalk": "2.4.2",
+    "cross-os": "^1.4.0",
     "css-loader": "^3.6.0",
     "dotenv": "4.0.0",
     "enzyme": "^3.11.0",
@@ -182,7 +183,14 @@
     "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
     "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
     "bundlesize": "bundlesize",
-    "postinstall": "test -n \"$NOYARNPOSTINSTALL\" || ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert"
+    "postinstall": "npm install -g cross-os && cross-os babel-deps"
+  },
+  "cross-os": {
+    "babel-deps": {
+      "linux": "test -n \"$NOYARNPOSTINSTALL\" || ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert",
+      "darwin": "test -n \"$NOYARNPOSTINSTALL\" || ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert",
+      "win32": "node ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert"
+    }
   },
   "engines": {
     "node": ">=12"
