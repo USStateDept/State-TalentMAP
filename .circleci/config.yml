@@ -54,7 +54,8 @@ jobs:
       - run: cd ..
       - restore_cache:
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: yarn install --pure-lockfile
+      - run: sudo chown -R "$(whoami)" /usr/local/lib/node_modules
+      - run: sudo yarn install --pure-lockfile
       - run:
           name: Install JUnit coverage reporter
           command: yarn add --dev jest-junit@8.0.0
@@ -75,7 +76,8 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: yarn install --pure-lockfile
+      - run: sudo chown -R "$(whoami)" /usr/local/lib/node_modules
+      - run: sudo yarn install --pure-lockfile
       - run:
           name: Rebuild node-sass
           command: npm rebuild node-sass
@@ -94,12 +96,13 @@ jobs:
       - checkout
       - restore_cache:
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+      - run: sudo chown -R "$(whoami)" /usr/local/lib/node_modules
       - run:
           name: Build server
           command: mkdir server && cp package.json src/server.js src/saml2-config.js src/routes.js server/
       - run:
           name: Install dependencies
-          command: yarn install --production=true --no-lockfile --modules-folder server/node_modules/
+          command: sudo yarn install --production=true --no-lockfile --modules-folder server/node_modules/
           environment:
             NOYARNPOSTINSTALL: 1
       - run:
