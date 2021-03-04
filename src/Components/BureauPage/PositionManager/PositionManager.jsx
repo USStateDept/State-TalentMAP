@@ -34,18 +34,12 @@ const PositionManager = props => {
     bureauPositionsHasErrored,
     orgPermissions,
     userSelections,
-    // eslint-disable-next-line no-unused-vars
     isAO,
   } = props;
 
   const bureauPermissions$ = sortBy(bureauFilters.filters.find(f => f.item.description === 'region').data.map(a =>
     pick(a, ['code', 'short_description', 'long_description']),
   ), [(b) => b.long_description]);
-
-  // eslint-disable-next-line no-console
-  console.log('current: bureauPermissions', bureauPermissions);
-  // eslint-disable-next-line no-console
-  console.log('current: bureauPermissions$', bureauPermissions$);
 
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
