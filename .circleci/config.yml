@@ -21,7 +21,8 @@ jobs:
           - dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
           # fallback to using the latest cache if no exact match is found
           - dependency-cache-
-      - run: sudo chown -R $USER /usr/local/lib/node_modules && yarn install --pure-lockfile
+      - run: sudo chown -R $USER /usr/local/lib/node_modules
+      - run: yarn install --pure-lockfile
       - save_cache:
           key: dependency-cache-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
