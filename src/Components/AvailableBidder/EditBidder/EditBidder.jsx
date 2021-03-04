@@ -7,14 +7,17 @@ import { uniqBy, forEach } from 'lodash';
 import swal from '@sweetalert/with-react';
 
 const EditBidder = (props) => {
-  const { name, sections, submitAction, bureaus } = props;
-  const [status, setStatus] = useState(sections.Status);
-  const [comment, setComment] = useState(sections.Comments);
-  const [ocReason, setOCReason] = useState(sections.OC_Reason);
-  const [ocBureau, setOCBureau] = useState(sections.OC_Bureau);
+  const { name, sections, submitAction, bureaus, details } = props;
+  const [status, setStatus] = useState(details.status);
+  const [comment, setComment] = useState(sections.comments);
+  const [ocReason, setOCReason] = useState(details.ocReason);
+  const [ocBureau, setOCBureau] = useState(details.ocBureau);
+  const [shared, setShared] = useState(details.shared);
+  const { languages } = details;
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
+  // To Do: Move these to the DB/Django backend after more user feedback
   const reasons = [
     'Appealing/Grieving Selection Out',
     'CAT-4 (MED)',
@@ -35,6 +38,7 @@ const EditBidder = (props) => {
       oc_reason: ocReason,
       status,
       comments: comment,
+      is_shared: shared,
     };
 
     // Remap unmodified local defaults from None Listed to empty string for patch
@@ -72,6 +76,9 @@ const EditBidder = (props) => {
               if (e.target.value !== 'OC') {
                 setOCReason('');
                 setOCBureau('');
+                if (e.target.value !== 'UA') {
+                  setShared(false);
+                }
               }
             }}
           >
@@ -83,46 +90,70 @@ const EditBidder = (props) => {
           </select>
         </div>
         <div>
-          <label htmlFor="skill">Skill:</label>
-          <input type="text" name="skill" disabled value={sections.Skill} />
-        </div>
-        <div>
-          <label htmlFor="grade">Grade:</label>
-          <input type="text" name="grade" disabled value={sections.Grade} />
-        </div>
-        <div>
-          <label htmlFor="ted">TED:</label>
-          <input type="text" name="ted" disabled value={sections.TED} />
-        </div>
-        <div>
-          <label htmlFor="currentPost">Current Post:</label>
-          <input type="text" name="currentPost" disabled value={sections.Current_Post} />
+          <label htmlFor="ocReason">*OC Reason:</label>
+          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
+            <option value="">None listed</option>
+            {
+              (status === 'OC') &&
+              reasons.map(r => (
+                <option key={r} value={r}>{r}</option>
+              ))
+            }
+          </select>
         </div>
         <div>
           <label htmlFor="ocBureau">*OC Bureau:</label>
           <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
             <option value="">None listed</option>
-            {bureauOptions.map(o => (
-              <option value={o.short_description}>{o.custom_description}</option>
-            ))}
+            {
+              (status === 'OC') &&
+                bureauOptions.map(o => (
+                  <option key={o.id} value={o.short_description}>{o.custom_description}</option>
+                ))
+            }
           </select>
         </div>
         <div>
-          <label htmlFor="ocReason">*OC Reason:</label>
-          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
-            <option value="">None listed</option>
-            {reasons.map(r => (
-              <option value={r}>{r}</option>
-            ))}
-          </select>
+          <label htmlFor="skill">Skill:</label>
+          <input type="text" name="skill" disabled value={sections.skill} />
+        </div>
+        <div>
+          <label htmlFor="grade">Grade:</label>
+          <input type="text" name="grade" disabled value={sections.grade} />
+        </div>
+        <div>
+          <label htmlFor="languages">Languages:</label>
+          <input
+            type="text"
+            name="languages"
+            disabled
+            value={
+              languages.map((l) => (
+                ` ${l.representation}`
+              ))}
+          />
+        </div>
+        <div>
+          <label htmlFor="ted">TED:</label>
+          <input type="text" name="ted" disabled value={sections.ted} />
+        </div>
+        <div>
+          <label htmlFor="currentPost">Current Post:</label>
+          <input type="text" name="currentPost" disabled value={sections.current_post} />
         </div>
         <div>
           <label htmlFor="cdo">CDO:</label>
-          <input type="text" name="cdo" disabled value={sections.CDO} />
+          <input type="text" name="cdo" disabled value={sections.cdo} />
         </div>
         <div>
           <label htmlFor="comment">*Comment:</label>
-          <input type="text" name="comment" defaultValue={comment} onChange={(e) => setComment(e.target.value)} />
+          <input
+            type="text"
+            name="comment"
+            placeholder="None listed"
+            defaultValue={comment === 'None listed' ? '' : comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
         </div>
         <button onClick={submit} type="submit">Submit</button>
         <button onClick={cancel}>Cancel</button>
@@ -137,6 +168,7 @@ EditBidder.propTypes = {
   name: PropTypes.string,
   submitAction: PropTypes.func,
   bureaus: FILTER,
+  details: PropTypes.shape({}),
 };
 
 EditBidder.defaultProps = {
@@ -144,6 +176,7 @@ EditBidder.defaultProps = {
   name: '',
   submitAction: EMPTY_FUNCTION,
   bureaus: [],
+  details: {},
 };
 
 export default EditBidder;
