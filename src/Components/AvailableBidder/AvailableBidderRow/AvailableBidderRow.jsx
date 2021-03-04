@@ -5,7 +5,12 @@ import { get, keys } from 'lodash';
 import { formatDate } from 'utilities';
 import { availableBiddersToggleUser, availableBidderEditData } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
-import { NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU, NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST, NO_STATUS, NO_COMMENTS } from 'Constants/SystemMessages';
+import {
+  NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU,
+  NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST,
+  NO_STATUS, NO_COMMENTS,
+  // NO_LANGUAGES,
+} from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
 import FA from 'react-fontawesome';
@@ -23,25 +28,123 @@ const AvailableBidderRow = (props) => {
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
   const id = get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number');
   const name = get(bidder, 'name');
+  const ocBureau = get(bidder, 'oc_bureau') || NO_BUREAU;
+  const ocReason = get(bidder, 'oc_reason') || NO_OC_REASON;
+  const status = get(bidder, 'status') || NO_STATUS;
+  // Dummy Data for Languages
+  const languages = [
+    {
+      language: 'Arabic',
+      readingScore: 5,
+      speakingScore: 5,
+      languageCode: 'A',
+      representation: 'Arabic 5/5',
+    },
+    {
+      language: 'French',
+      readingScore: 1,
+      speakingScore: 2,
+      languageCode: 'FR',
+      representation: 'French 1/2',
+    },
+    {
+      language: 'German',
+      readingScore: 3,
+      speakingScore: 3,
+      languageCode: 'GR',
+      representation: 'German 3/3',
+    },
+    {
+      language: 'Spanish',
+      readingScore: 1,
+      speakingScore: 1,
+      languageCode: 'S',
+      representation: 'Spanish 1/1',
+    },
+  ];
+
+  const getStatus = () => {
+    if (status === 'OC') {
+      return (
+        <Tooltip
+          html={
+            <div>
+              <div className={'tooltip-text'}>
+                <div>
+                  <span className="title">OC Reason:</span> <span className="text">{ocReason}</span>
+                </div>
+                <div>
+                  <span className="title">OC Bureau:</span> <span className="text">{ocBureau}</span>
+                </div>
+              </div>
+            </div>
+          }
+          theme="oc-status"
+          arrow
+          tabIndex="0"
+          interactive
+          useContext
+        >
+          {status} <FA className="oc-icon" name="question-circle" />
+        </Tooltip>
+      );
+    }
+    return status;
+  };
+
+  const getLanguages = () => (
+    <div className="ab-languages">
+      <Tooltip
+        html={
+          languages.map(l => (
+            <div className="language-group">
+              <div className={'tooltip-title'}>{l.language}</div>
+              <div className={'tooltip-text'}>
+                <div>
+                  <span className="title">Speaking:</span> <span className="text">{l.speakingScore}</span>
+                </div>
+                <div>
+                  <span className="title">Reading:</span> <span className="text">{l.readingScore}</span>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+        theme="ab-languages"
+        arrow
+        tabIndex="0"
+        interactive
+        useContext
+      >
+        {
+          languages.map((l, i) => <span>{l.languageCode}{i === languages.length - 1 ? '' : ', '}</span>)
+        }
+        <FA className="oc-icon" name="question-circle" />
+      </Tooltip>
+    </div>
+  );
+
 
   const sections = isCDO ? {
-    Name: (<Link to={`/profile/public/${id}/cdo`}>{name}</Link>),
-    Status: get(bidder, 'status') || NO_STATUS,
-    Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
-    Grade: get(bidder, 'grade') || NO_GRADE,
-    TED: formattedTed,
-    Current_Post: get(bidder, 'post.location.country') || NO_POST,
-    OC_Bureau: get(bidder, 'oc_bureau') || NO_BUREAU,
-    OC_Reason: get(bidder, 'oc_reason') || NO_OC_REASON,
-    CDO: get(bidder, 'cdo.name') || NO_CDO,
-    Comments: get(bidder, 'comments') || NO_COMMENTS,
+    name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
+    status: getStatus(),
+    skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    grade: get(bidder, 'grade') || NO_GRADE,
+    // Update Languages
+    languages: getLanguages(),
+    ted: formattedTed,
+    current_post: get(bidder, 'post.location.country') || NO_POST,
+    cdo: get(bidder, 'cdo.name') || NO_CDO,
+    comments: get(bidder, 'comments') || NO_COMMENTS,
   } : {
-    Name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
-    Skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
-    Grade: get(bidder, 'grade') || NO_GRADE,
-    TED: formattedTed,
-    Current_Post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
-    CDO: get(bidder, 'cdo.name') || NO_CDO,
+    name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
+    skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    grade: get(bidder, 'grade') || NO_GRADE,
+    // Update languages
+    languages: getLanguages(),
+    ted: formattedTed,
+    current_post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
+    cdo: get(bidder, 'cdo.name') || NO_CDO,
   };
 
   if (isLoading) {
@@ -69,6 +172,7 @@ const AvailableBidderRow = (props) => {
           sections={sections}
           submitAction={submitAction}
           bureaus={bureaus}
+          details={{ ocBureau, ocReason, status, shared, languages }}
         />
       ),
     });
@@ -87,7 +191,7 @@ const AvailableBidderRow = (props) => {
     <tr className={getTRClass()}>
       {
         keys(sections).map(i => (
-          <td>{sections[i]}</td>
+          <td key={i}>{sections[i]}</td>
         ))
       }
       {
@@ -106,19 +210,32 @@ const AvailableBidderRow = (props) => {
                   <FA name="pencil-square-o" className="fa-lg" />
                 </InteractiveElement>
               </Tooltip>
-              <Tooltip
-                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
-                arrow
-                offset={-95}
-                position="top-end"
-                tabIndex="0"
-              >
-                <InteractiveElement
-                  onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
-                >
-                  <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
-                </InteractiveElement>
-              </Tooltip>
+              {
+                status === 'OC' || status === 'UA' ?
+                  <Tooltip
+                    title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                    arrow
+                    offset={-95}
+                    position="top-end"
+                    tabIndex="0"
+                  >
+                    <InteractiveElement
+                      onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
+                    >
+                      <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
+                    </InteractiveElement>
+                  </Tooltip>
+                  :
+                  <Tooltip
+                    title={'Status must be UA or OC to share with bureau'}
+                    arrow
+                    offset={-95}
+                    position="top-end"
+                    tabIndex="0"
+                  >
+                    <FA name="lock" className="fa-lg" />
+                  </Tooltip>
+              }
               <Tooltip
                 title="Remove from Available Bidders List"
                 arrow
