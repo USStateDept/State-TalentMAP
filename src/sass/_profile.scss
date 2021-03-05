@@ -63,10 +63,18 @@
       .classifications-badges {
         .classifications-client-badges {
           padding-bottom: 15px;
-          .client-badge-container .client-badge svg {
-            // margin-left: 0px;
-            // display: inline;
-            float: left;
+          display: inline;
+          .client-badge-container {
+            text-align: initial;
+            .client-badge {
+              // margin-left: 0px;
+              display: inline;
+
+              svg {
+                margin: 0;
+                display: initial;
+              }
+            }
           }
           .classifications-dropdown {
             float: right;
@@ -74,8 +82,8 @@
         }
         .classifications-badges-text {
           // background-color: red;
-          float: right;
-          text-align: center;
+          // float: right;
+          // text-align: center;
         }
       }
     }
