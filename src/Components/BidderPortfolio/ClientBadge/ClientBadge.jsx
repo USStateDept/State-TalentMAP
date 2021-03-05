@@ -107,15 +107,16 @@ const icons = {
 
 const status$ = ['none', 'success'];
 
-const ClientBadge = ({ type, status }) => {
+const ClientBadge = ({ type, status, showShortCode }) => {
   const isHighlighted = status === true ? 'success' : 'none';
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   const icon = get(icons, type, 'None');
+  const text = showShortCode === true ? get(icon, 'text', 'None') : '';
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type] && icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       <div className="client-badge">
         <Tooltip
-          title={get(icon, 'text', 'None')}
+          title={text}
           arrow
           offset={-95}
           position="top-end"
@@ -127,9 +128,11 @@ const ClientBadge = ({ type, status }) => {
           />
         </Tooltip>
       </div>
-      <div className="client-badge-text">
-        <span>{get(icon, 'shortCode', 'None')}</span>
-      </div>
+      {showShortCode &&
+        <div className="client-badge-text">
+          <span>{get(icon, 'shortCode', 'None')}</span>
+        </div>
+      }
     </div>
   );
 };
@@ -153,11 +156,13 @@ ClientBadge.propTypes = {
     'T',
   ]).isRequired,
   status: PropTypes.bool,
+  showShortCode: PropTypes.bool,
 };
 
 ClientBadge.defaultProps = {
   type: [],
   status: false,
+  showShortCode: true,
 };
 
 export default ClientBadge;

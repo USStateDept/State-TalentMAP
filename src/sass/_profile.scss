@@ -60,9 +60,23 @@
       flex-direction: column;
       flex-grow: 1;
 
-      div:nth-child(2) {
-        display: flex;
-        flex-grow: 1;
+      .classifications-badges {
+        .classifications-client-badges {
+          padding-bottom: 15px;
+          .client-badge-container .client-badge svg {
+            // margin-left: 0px;
+            // display: inline;
+            float: left;
+          }
+          .classifications-dropdown {
+            float: right;
+          }
+        }
+        .classifications-badges-text {
+          // background-color: red;
+          float: right;
+          text-align: center;
+        }
       }
     }
 

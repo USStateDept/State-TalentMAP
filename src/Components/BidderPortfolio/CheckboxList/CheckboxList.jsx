@@ -1,6 +1,8 @@
 import { indexOf } from 'lodash';
+import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
+import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const CheckboxList = ({ list, editMode, updateClassifications,
@@ -17,6 +19,33 @@ const CheckboxList = ({ list, editMode, updateClassifications,
       checked
       className="tm-checkbox-disabled-alternate"
     />
+    <div className="classifications-badges">
+      {list.map((c) => {
+        const checked = input.includes(c.code);
+        const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidders' ? true : '';
+        return (
+          <div className="classifications-client-badges">
+            {tenDiffFlag &&
+              <div className="classifications-dropdown">
+                <Picky
+                  placeholder={c.text}
+                />
+              </div>
+            }
+            <ClientBadge
+              key={c.code}
+              type={c.code}
+              status={checked}
+              showShortCode={false}
+            />
+            <div className="classifications-badges-text">
+              {c.text}
+            </div>
+          </div>
+        );
+      })
+      }
+    </div>
     {list.map((c) => {
       const checked = indexOf(input, c.code) > -1;
       return (
