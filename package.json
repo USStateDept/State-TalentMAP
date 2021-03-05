@@ -1,9 +1,9 @@
 {
   "name": "talentmap",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/core": "^7.13.8",
     "@babel/polyfill": "^7.12.1",
     "@cmsgov/design-system-core": "^1.18.0",
     "@fortawesome/fontawesome-free": "^5.15.2",
@@ -38,7 +38,7 @@
     "jsoneditor": "^9.2.0",
     "jsoneditor-react": "^3.1.0",
     "localforage": "^1.9.0",
-    "lodash": "^4.17.20",
+    "lodash": "^4.17.21",
     "lodash-webpack-plugin": "^0.11.6",
     "memoize-one": "^5.0.5",
     "numeral": "^2.0.6",
@@ -64,7 +64,7 @@
     "react-loading-skeleton": "0.5.0",
     "react-markdown": "^4.3.1",
     "react-markdown-editor": "1.0.0",
-    "react-paginate": "^7.0.0",
+    "react-paginate": "^7.1.0",
     "react-picky": "^4.7.2",
     "react-redux": "^7.2.2",
     "react-responsive": "^8.1.0",
@@ -82,7 +82,7 @@
     "react-switch": "^6.0.0",
     "react-tippy": "^1.4.0",
     "react-toastify": "^6.2.0",
-    "recharts": "^2.0.7",
+    "recharts": "1.8.5",
     "redux": "^4.0.5",
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.2",
@@ -93,15 +93,16 @@
     "sweetalert": "^2.1.2",
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
-    "use-query-params": "^1.1.9",
+    "use-query-params": "^1.2.0",
     "uswds": "~1.6.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.13",
+    "@babel/cli": "^7.13.0",
+    "@babel/core": "^7.13.8",
     "@babel/plugin-proposal-class-properties": "^7.12.13",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
-    "@babel/plugin-transform-react-jsx": "^7.12.13",
-    "@babel/preset-env": "^7.12.13",
+    "@babel/plugin-transform-react-jsx": "^7.12.17",
+    "@babel/preset-env": "^7.13.8",
     "@babel/register": "^7.12.13",
     "@babel/runtime-corejs2": "^7.12.13",
     "@epegzz/sass-vars-loader": "^6.0.0",
@@ -115,6 +116,7 @@
     "bundlesize": "^0.18.1",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
     "chalk": "2.4.2",
+    "cross-os": "^1.4.0",
     "css-loader": "^3.6.0",
     "dotenv": "4.0.0",
     "enzyme": "^3.11.0",
@@ -180,7 +182,15 @@
     "analyze:eslint": "codeclimate analyze -e eslint:eslint-3 -f html > codeclimate.html",
     "analyze:scss": "codeclimate analyze -e scss-lint -f html > codeclimate.html",
     "stats": "NODE_ENV=production webpack --json --config ./config/webpack.config.prod.js > stats.json",
-    "bundlesize": "bundlesize"
+    "bundlesize": "bundlesize",
+    "postinstall": "npm install -g cross-os && cross-os babel-deps"
+  },
+  "cross-os": {
+    "babel-deps": {
+      "linux": "test -n \"$NOYARNPOSTINSTALL\" || ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert",
+      "darwin": "test -n \"$NOYARNPOSTINSTALL\" || ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert",
+      "win32": "node ./node_modules/@babel/cli/bin/babel.js --presets @babel/preset-env ./node_modules/@sweetalert --out-dir ./node_modules/@sweetalert"
+    }
   },
   "engines": {
     "node": ">=12"

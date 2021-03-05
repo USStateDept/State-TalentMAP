@@ -109,7 +109,10 @@ export const FILTER = PropTypes.shape({
     PropTypes.string,
     PropTypes.number,
   ]),
-  code: PropTypes.string,
+  code: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   description: PropTypes.string,
   long_description: PropTypes.string,
   short_description: PropTypes.string,

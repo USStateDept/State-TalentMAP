@@ -13,6 +13,49 @@
     background-color: $bg-blue-dark-1;
   }
 
+  .available-bidders-stats {
+
+    .statistics-section {
+      background-color: $color-white;
+      border: 2px solid $color-gray-light;
+      padding: 1.2em 10% 2em 1.5em;
+
+      h3, h4 {
+        font-family: 'Roboto';
+      }
+    }
+
+    .legend-container {
+      margin-left: auto;
+    }
+
+    .legend {
+      margin-top: 2em;
+    }
+
+    .legend-item {
+      margin-top: 1em;
+    }
+
+    .legend-square {
+      height: 1.2em;
+      width: 1.2em;
+    }
+
+    .legend-text {
+       margin: auto;
+       margin-left: 1.5em;
+    }
+
+    .chart-container {
+      margin-right: auto;
+
+      > div {
+        margin-left: auto;
+      }
+    }
+
+  }
 
   @media screen and (max-width: 1525px) {
     .small-screen-stack {
@@ -119,23 +162,25 @@
 }
 
 .ab-inactive {
-  td:not(:nth-of-type(11)) {
-    color: #272e3247;
-    background-color: #aeb0b59e;
+  // td(10) is the action buttons column which should never be grayed out
+  td:not(:nth-of-type(10)) {
+    color: #a9acaf;
+    background-color: #cacbce;
     transition: 1.5s;
     a {
-      color: #272e3247;
+      color: #a9acaf;
     }
   }
 }
 
 .ab-active {
-  td:nth-of-type(2), td:nth-of-type(7), td:nth-of-type(8), td:nth-of-type(10) {
-    color: #272e3247;
-    background-color: #aeb0b59e;
+  // td(2) is the status column, and td(9) is the comment column
+  td:nth-of-type(2), td:nth-of-type(9) {
+    color: #a9acaf;
+    background-color: #cacbce;
     transition: 1.5s;
     a {
-      color: #272e3247;
+      color: #a9acaf;
     }
   }
 }
@@ -146,9 +191,10 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  
+
   div:nth-child(2) {
-    padding: 0px 7px 0px 7px;
+    // Adds some spacing between the 3 buttons using the middle element (nth(2)) 
+    padding: 0px 7px;
   }
 
   .fa-trash-o {
@@ -180,7 +226,7 @@
     justify-content: space-between;
     align-items: baseline;
 
-    
+
   }
 }
 
@@ -194,4 +240,72 @@
 
 #ocReason:disabled, #ocBureau:disabled {
   background: darkgrey;
+}
+
+.tippy-popper {
+  .tippy-tooltip.oc-status-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-weight: bold;
+    }
+    .tooltip-text {
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      div:first-child {
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .tippy-tooltip.ab-languages-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+    .tooltip-text {
+      text-align: right;
+      padding-left: 5px;
+    }
+  }
+}
+
+
+.oc-icon {
+  color: $tertiary-gold;
+  font-size: 1.2em;
+}
+
+.ab-languages {
+  display: inline-flex;
+  
+  span {
+    padding-left: 5px;
+  }
+}
+
+.language-group {
+  padding-bottom: 10px;
 }
