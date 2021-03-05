@@ -60,28 +60,24 @@
       flex-direction: column;
       flex-grow: 1;
 
-      .classifications-badges {
         .classifications-client-badges {
           padding-bottom: 15px;
-          display: inline;
+          min-width: 100%;
           .client-badge-container {
+            display: inline-block;
             text-align: initial;
             .client-badge {
               display: inline;
-
-              svg {
-                margin: 0;
-                display: initial;
-              }
             }
           }
           .classifications-dropdown {
             float: right;
           }
+          .classifications-badges-text {
+            display: inline-block;
+            vertical-align: super;
+          }
         }
-        .classifications-badges-text {
-        }
-      }
     }
 
     .unstyled-button {
