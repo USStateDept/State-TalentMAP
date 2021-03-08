@@ -329,9 +329,11 @@
     }
   }
 
-  &.client-badge-container--success > .client-badge > div > svg {
-    background-color: $color-green-dark;
-    color: $color-white;
+  &.client-badge-container--success {
+    svg {
+      background-color: $color-green-dark;
+      color: $color-white;
+    }
   }
 
   &.client-badge-container--warning > .client-badge > svg {

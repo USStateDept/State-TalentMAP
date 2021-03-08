@@ -1,11 +1,11 @@
 import { indexOf } from 'lodash';
-import Picky from 'react-picky';
+// import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
 import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
-const CheckboxList = ({ list, editMode, updateClassifications,
+const CheckboxList = ({ list, editView, updateClassifications,
   input }) => (
 
   <div className="client-checkbox-list">
@@ -20,22 +20,25 @@ const CheckboxList = ({ list, editMode, updateClassifications,
       className="tm-checkbox-disabled-alternate"
     />
     {list.map((c) => {
-      const checked = input.includes(c.code);
-      const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidders' ? true : '';
+      const checked = indexOf(input, c.code) > -1;
+      // const tenDiffFlag = c.text === 'Tenured 4' || c.text ==
+      // = 'Differential Bidders' ? true : '';
       return (
         <div className="classifications-client-badges">
-          {tenDiffFlag &&
+          {/* {tenDiffFlag &&
             <div className="classifications-dropdown">
               <Picky
                 placeholder={c.text}
               />
             </div>
-          }
+          } */}
           <ClientBadge
-            key={c.code}
+            key={c.te_id}
             type={c.code}
             status={checked}
             showShortCode={false}
+            onChange={updateClassifications}
+            editView={editView}
           />
           <div className="classifications-badges-text">
             {c.text}
@@ -44,28 +47,12 @@ const CheckboxList = ({ list, editMode, updateClassifications,
       );
     })
     }
-    {list.map((c) => {
-      const checked = indexOf(input, c.code) > -1;
-      return (
-        <CheckBox
-          id={c.code}
-          label={c.text}
-          small
-          value={checked}
-          key={c.code}
-          disabled={editMode}
-          className="tm-checkbox-disabled-alternate"
-          onChange={updateClassifications}
-        />
-      );
-    })
-    }
   </div>
 );
 
 CheckboxList.propTypes = {
   list: CLASSIFICATIONS,
-  editMode: PropTypes.bool,
+  editView: PropTypes.bool,
   updateClassifications: PropTypes.function,
   input: CLIENT_CLASSIFICATIONS,
 };
@@ -74,7 +61,7 @@ CheckboxList.defaultProps = {
   isDisabled: false,
   list: [],
   input: [],
-  editMode: false,
+  editView: false,
   updateClassifications: EMPTY_FUNCTION,
 };
 

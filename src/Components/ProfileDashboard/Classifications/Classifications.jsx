@@ -64,7 +64,7 @@ const Classifications = props => {
           <CheckboxList
             list={classifications}
             id="updates"
-            editMode={!editView}
+            editView={editView}
             updateClassifications={handleInput}
             input={userInput}
           />

@@ -2,9 +2,10 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { get } from 'lodash';
-
 import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
   faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix, faSpa } from '@fortawesome/free-solid-svg-icons';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import InteractiveElement from '../../InteractiveElement';
 
 const icons = {
   3: {
@@ -107,27 +108,45 @@ const icons = {
 
 const status$ = ['none', 'success'];
 
-const ClientBadge = ({ type, status, showShortCode }) => {
+const ClientBadge = ({ type, status, showShortCode, editView, onChange }) => {
   const isHighlighted = status === true ? 'success' : 'none';
   const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
   const icon = get(icons, type, 'None');
   const text = showShortCode === true ? get(icon, 'text', 'None') : '';
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type] && icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
-      <div className="client-badge">
-        <Tooltip
-          title={text}
-          arrow
-          offset={-95}
-          position="top-end"
-          tabIndex="0"
-        >
-          <FontAwesomeIcon
-            aria-label={ariaLabel}
-            icon={get(icon, 'name', 'None')}
-          />
-        </Tooltip>
-      </div>
+      {editView ? <InteractiveElement onClick={() => onChange(type)}>
+        <div className="client-badge">
+          <Tooltip
+            title={text}
+            arrow
+            offset={-95}
+            position="top-end"
+            tabIndex="0"
+          >
+            <FontAwesomeIcon
+              aria-label={ariaLabel}
+              icon={get(icon, 'name', 'None')}
+            />
+          </Tooltip>
+        </div>
+      </InteractiveElement>
+        :
+        <div className="client-badge">
+          <Tooltip
+            title={text}
+            arrow
+            offset={-95}
+            position="top-end"
+            tabIndex="0"
+          >
+            <FontAwesomeIcon
+              aria-label={ariaLabel}
+              icon={get(icon, 'name', 'None')}
+            />
+          </Tooltip>
+        </div>
+      }
       {showShortCode &&
         <div className="client-badge-text">
           <span>{get(icon, 'shortCode', 'None')}</span>
@@ -157,12 +176,17 @@ ClientBadge.propTypes = {
   ]).isRequired,
   status: PropTypes.bool,
   showShortCode: PropTypes.bool,
+  editView: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
+  onChange: PropTypes.func,
 };
 
 ClientBadge.defaultProps = {
   type: [],
   status: false,
   showShortCode: true,
+  editView: false,
+  onChange: EMPTY_FUNCTION,
 };
 
 export default ClientBadge;
