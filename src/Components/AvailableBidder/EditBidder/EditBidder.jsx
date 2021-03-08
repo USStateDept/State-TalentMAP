@@ -129,7 +129,7 @@ const EditBidder = (props) => {
             disabled
             value={
               languages.map((l) => (
-                ` ${l.representation}`
+                ` ${l.custom_description}`
               ))}
           />
         </div>
