@@ -172,8 +172,13 @@ $register-icon-offset: 44%;
 }
 
 .bid-tracker-overlay-alert--closed {
-  background: $color-gray;
+  background: rgba(91, 97, 107, 0.8);
+  //option2: just keep the before color and change opacity on hover?
+  //   background: $color-gray;
 }
+//.bid-tracker-overlay-alert--closed:hover {
+//  opacity: 50%;
+//}
 
 .bid-tracker-overlay-alert--draft {
   background: $bg-blue-dark-2;
