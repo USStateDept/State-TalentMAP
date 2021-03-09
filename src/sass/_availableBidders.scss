@@ -225,8 +225,20 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+  }
 
+  dd {
+    margin-inline-start: 30;
+    text-align: justify;
+    margin-right: auto;
+    margin-left: 0;
+  }
 
+  label, dt {
+    display: block;
+    margin-top: 3rem;
+    min-width: 7em;
+    text-align: left;
   }
 }
 

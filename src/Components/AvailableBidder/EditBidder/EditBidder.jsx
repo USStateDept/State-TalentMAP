@@ -63,8 +63,8 @@ const EditBidder = (props) => {
         </div>
         <hr />
         <div>
-          <label htmlFor="name">Client Name:</label>
-          <input type="text" name="name" disabled value={name} />
+          <dt>Client Name:</dt>
+          <dd>{name}</dd>
         </div>
         <div>
           <label htmlFor="status">*Status:</label>
@@ -114,36 +114,30 @@ const EditBidder = (props) => {
           </select>
         </div>
         <div>
-          <label htmlFor="skill">Skill:</label>
-          <input type="text" name="skill" disabled value={sections.skill} />
+          <dt>Skill:</dt>
+          <dd>{sections.skill}</dd>
         </div>
         <div>
-          <label htmlFor="grade">Grade:</label>
-          <input type="text" name="grade" disabled value={sections.grade} />
+          <dt>Grade:</dt>
+          <dd>{sections.grade}</dd>
         </div>
         <div>
-          <label htmlFor="languages">Languages:</label>
-          <input
-            type="text"
-            name="languages"
-            disabled
-            value={
-              languages.map((l) => (
-                ` ${l.custom_description}`
-              ))}
-          />
+          <dt>Languages:</dt>
+          <dd>{languages.map((l, i) => (
+            ` ${l.custom_description}${i + 1 === languages.length ? '' : ','}`
+          ))}</dd>
         </div>
         <div>
-          <label htmlFor="ted">TED:</label>
-          <input type="text" name="ted" disabled value={sections.ted} />
+          <dt>TED:</dt>
+          <dd>{sections.ted}</dd>
         </div>
         <div>
-          <label htmlFor="currentPost">Current Post:</label>
-          <input type="text" name="currentPost" disabled value={sections.current_post} />
+          <dt>Current Post:</dt>
+          <dd>{sections.current_post}</dd>
         </div>
         <div>
-          <label htmlFor="cdo">CDO:</label>
-          <input type="text" name="cdo" disabled value={sections.cdo} />
+          <dt>CDO:</dt>
+          <dd>{sections.cdo}</dd>
         </div>
         <div>
           <label htmlFor="comment">*Comment:</label>
