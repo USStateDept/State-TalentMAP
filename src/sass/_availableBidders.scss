@@ -243,7 +243,39 @@
 }
 
 .swal-modal {
-  width: 600px;
+  width: 1000px;
+  background-color: #fff0;
+  padding: 0 200px;
+
+  .swal-title, .swal-content {
+    background-color: white;
+  }
+
+  swal-title:first-child {
+    margin-top: 5px;
+  }
+
+  .swal-title:not(:last-child) {
+    margin-bottom: -2px;
+    padding: 39px 16px 28px;
+  }
+  .swal-title {
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .swal-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 0;
+    padding: 20px 20px 40px;
+    .detail {
+      padding: 10px 0;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+    }
+  }
 
   input select textarea {
     width: 75%;

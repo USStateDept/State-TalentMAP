@@ -57,11 +57,9 @@ const EditBidder = (props) => {
   return (
     <div>
       <form className="available-bidder-form">
-        <hr />
-        <div>
+        <div className="detail">
           <span>* Internal CDO field only, not shared with Bureaus</span>
         </div>
-        <hr />
         <div>
           <dt>Client Name:</dt>
           <dd>{name}</dd>
