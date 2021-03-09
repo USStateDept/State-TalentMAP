@@ -69,15 +69,9 @@ const AvailableBidderRow = (props) => {
         html={
           languages.map(l => (
             <div className="language-group">
-              <div className={'tooltip-title'}>{get(l, 'language', 'None listed')}</div>
-              <div className={'tooltip-text'}>
-                <div>
-                  <span className="title">Speaking:</span> <span className="text">{get(l, 'speaking_score') || 'None listed'}</span>
-                </div>
-                <div>
-                  <span className="title">Reading:</span> <span className="text">{get(l, 'reading_score') || 'None listed'}</span>
-                </div>
-              </div>
+              <span className="language-name">{get(l, 'language', 'None listed')}: </span>
+              <span className="title">Speaking:</span> <span className="text">{get(l, 'speaking_score') || 'None listed'} | </span>
+              <span className="title">Reading:</span> <span className="text">{get(l, 'reading_score') || 'None listed'}</span>
             </div>
           ))
         }
