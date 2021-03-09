@@ -193,7 +193,7 @@
   justify-content: center;
 
   div:nth-child(2) {
-    // Adds some spacing between the 3 buttons using the middle element (nth(2)) 
+    // Adds some spacing between the 3 buttons using the middle element (nth(2))
     padding: 0px 7px;
   }
 
@@ -336,7 +336,6 @@
   }
 }
 
-
 .oc-icon {
   color: $tertiary-gold;
   font-size: 1.2em;
@@ -344,12 +343,21 @@
 
 .ab-languages {
   display: inline-flex;
-  
+
   span {
     padding-left: 5px;
   }
 }
 
-.language-group {
-  padding-bottom: 10px;
+.ab-languages-theme {
+
+  .language-group {
+    padding-top: 2px;
+    padding-bottom : 2px;
+    font-size: 0.9em;
+
+    .language-name {
+      font-weight: bold;
+    }
+  }
 }
