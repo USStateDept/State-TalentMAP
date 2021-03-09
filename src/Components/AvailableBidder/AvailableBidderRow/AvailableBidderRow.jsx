@@ -12,6 +12,7 @@ import {
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
+import MailToButton from 'Components/MailToButton';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
@@ -31,7 +32,7 @@ const AvailableBidderRow = (props) => {
   const ocReason = get(bidder, 'available_bidder_details.oc_reason') || NO_OC_REASON;
   const status = get(bidder, 'available_bidder_details.status') || NO_STATUS;
   const languages = get(bidder, 'languages', false);
-
+  const cdo = get(bidder, 'cdo', { name: 'Leah Shadtrach', email: 'google.com' });
 
   const getStatus = () => {
     if (status === 'OC') {
@@ -110,6 +111,10 @@ const AvailableBidderRow = (props) => {
     return `${get(loc, 'city')}, ${get(loc, 'country')}`;
   };
 
+  const getCDO = () => (
+    <MailToButton email={get(cdo, 'email')} textBefore={get(cdo, 'name')} />
+  );
+
 
   const sections = isCDO ? {
     name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
@@ -119,7 +124,7 @@ const AvailableBidderRow = (props) => {
     languages: languages ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
     current_post: getCustomLocation(),
-    cdo: get(bidder, 'cdo.name') || NO_CDO,
+    cdo: cdo ? getCDO() : NO_CDO,
     comments: get(bidder, 'available_bidder_details.comments') || NO_COMMENTS,
   } : {
     name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
