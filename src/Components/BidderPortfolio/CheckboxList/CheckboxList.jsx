@@ -22,7 +22,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
     {list.map((c) => {
       const checked = indexOf(input, c.code) > -1;
       // const tenDiffFlag = c.text === 'Tenured 4' || c.text ==
-      // = 'Differential Bidders' ? true : '';
+      // = 'Differential Bidder' ? true : '';
       return (
         <div className="classifications-client-badges">
           {/* {tenDiffFlag &&

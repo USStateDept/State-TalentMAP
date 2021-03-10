@@ -588,14 +588,26 @@ export const HIGHLIGHT_POSITION = PropTypes.shape({
 export { SetType };
 
 export const CLASSIFICATION = PropTypes.shape({
-  id: PropTypes.string,
-  show: PropTypes.string,
+  // id: PropTypes.string,
+  // show: PropTypes.string,
+  // text: PropTypes.string,
+  // may need to add new keys?
+  code: PropTypes.string,
   text: PropTypes.string,
+  disabled_ind: PropTypes.bool,
+  te_id: PropTypes.string,
+  season_text: PropTypes.string,
 });
 
 export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);
 
-export const CLIENT_CLASSIFICATION = PropTypes.string;
+// export const CLIENT_CLASSIFICATION = PropTypes.string;
+export const CLIENT_CLASSIFICATION = PropTypes.shape({
+  id: PropTypes.string,
+  show: PropTypes.string,
+  text: PropTypes.string,
+  // may need to add new keys?
+});
 
 export const CLIENT_CLASSIFICATIONS = PropTypes.arrayOf(CLIENT_CLASSIFICATION);
 

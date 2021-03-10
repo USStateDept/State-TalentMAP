@@ -177,7 +177,6 @@ ClientBadge.propTypes = {
   status: PropTypes.bool,
   showShortCode: PropTypes.bool,
   editView: PropTypes.bool,
-  // eslint-disable-next-line react/no-unused-prop-types
   onChange: PropTypes.func,
 };
 

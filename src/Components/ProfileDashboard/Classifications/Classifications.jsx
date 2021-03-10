@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import PropTypes from 'prop-types';
-import { pull, difference, isEmpty } from 'lodash';
+import { pull, difference, isEmpty, some, remove } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -32,6 +33,21 @@ const Classifications = props => {
       pull(pushClass, c);
     }
     setUserInput(pushClass);
+
+    // expected functionality
+    // to handle an array of objects
+    const fakePushClassOrg = [{ code: 'c' }, { code: 'f' }, { code: 'a' }];
+    const fakePushClassDummy = [{ code: 'c' }, { code: 'f' }, { code: 'a' }];
+    const fakeValue = { code: 'c' }; // change to 'code: d' for if
+
+    console.log('fakepushClass pre some', fakePushClassOrg);
+    console.log('checking for', fakeValue);
+    if (!some(fakePushClassDummy, fakeValue)) {
+      fakePushClassDummy.push(fakeValue);
+    } else {
+      remove(fakePushClassDummy, fakeValue);
+    }
+    console.log('fakepushClass post some', fakePushClassDummy);
   };
 
   const cancelInput = () => {
