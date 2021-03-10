@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import PropTypes from 'prop-types';
-import { pull, difference, isEmpty, some, remove } from 'lodash';
+import { difference, isEmpty, some, remove } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -26,28 +26,18 @@ const Classifications = props => {
   }, [clientClassifications]);
 
   const handleInput = (c) => {
+    console.log('org', userInput);
+    console.log(c);
     const pushClass = [...userInput];
-    if (!pushClass.includes(c)) {
+    console.log('before', pushClass);
+    if (!some(pushClass, c)) {
       pushClass.push(c);
     } else {
-      pull(pushClass, c);
+      remove(pushClass, c);
     }
+    console.log('after', pushClass);
+
     setUserInput(pushClass);
-
-    // expected functionality
-    // to handle an array of objects
-    const fakePushClassOrg = [{ code: 'c' }, { code: 'f' }, { code: 'a' }];
-    const fakePushClassDummy = [{ code: 'c' }, { code: 'f' }, { code: 'a' }];
-    const fakeValue = { code: 'c' }; // change to 'code: d' for if
-
-    console.log('fakepushClass pre some', fakePushClassOrg);
-    console.log('checking for', fakeValue);
-    if (!some(fakePushClassDummy, fakeValue)) {
-      fakePushClassDummy.push(fakeValue);
-    } else {
-      remove(fakePushClassDummy, fakeValue);
-    }
-    console.log('fakepushClass post some', fakePushClassDummy);
   };
 
   const cancelInput = () => {

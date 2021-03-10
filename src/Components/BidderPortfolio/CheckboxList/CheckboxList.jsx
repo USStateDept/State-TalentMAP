@@ -34,7 +34,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
           } */}
           <ClientBadge
             key={c.te_id}
-            type={c.code}
+            type={c}
             status={checked}
             showShortCode={false}
             onChange={updateClassifications}
