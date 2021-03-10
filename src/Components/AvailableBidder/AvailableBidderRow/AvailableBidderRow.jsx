@@ -32,7 +32,7 @@ const AvailableBidderRow = (props) => {
   const ocReason = get(bidder, 'available_bidder_details.oc_reason') || NO_OC_REASON;
   const status = get(bidder, 'available_bidder_details.status') || NO_STATUS;
   const languages = get(bidder, 'languages', false);
-  const cdo = get(bidder, 'cdo', { name: 'Leah Shadtrach', email: 'google.com' });
+  const cdo = get(bidder, 'cdo', false);
 
   const getStatus = () => {
     if (status === 'OC') {
@@ -106,7 +106,7 @@ const AvailableBidderRow = (props) => {
   };
 
   const getCDO = () => (
-    <MailToButton email={get(cdo, 'email')} textBefore={get(cdo, 'name')} />
+    <MailToButton email={get(cdo, 'email')} textBefore={`${get(cdo, 'first_name')[0]}. ${get(cdo, 'last_name')}`} />
   );
 
 
