@@ -127,7 +127,7 @@ const AvailableBidderRow = (props) => {
     languages: languages ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
     current_post: getCustomLocation(),
-    cdo: get(bidder, 'cdo.name') || NO_CDO,
+    cdo: cdo ? getCDO() : NO_CDO,
   };
 
   if (isLoading) {

@@ -95,7 +95,7 @@ const AvailableBidderTable = (props) => {
     let bidderCountTitle = '';
     if (!isLoading) {
       if (isCDO) {
-        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => b.is_shared).length})`;
+        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => b.available_bidder_details.is_shared).length})`;
       } else {
         bidderCountTitle = `Shared Available Bidders (${bidders.length})`;
       }
