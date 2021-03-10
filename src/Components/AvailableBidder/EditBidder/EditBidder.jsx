@@ -122,7 +122,7 @@ const EditBidder = (props) => {
         <div>
           <dt>Languages:</dt>
           <dd>{languages.map((l, i) => (
-            `${l.custom_description}${i + 1 === languages.length ? '' : ','}`
+            ` ${l.custom_description}${i + 1 === languages.length ? '' : ','}`
           ))}</dd>
         </div>
         <div>
