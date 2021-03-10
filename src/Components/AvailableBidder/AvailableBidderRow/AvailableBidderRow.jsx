@@ -91,22 +91,17 @@ const AvailableBidderRow = (props) => {
 
   const getCustomLocation = () => {
     const loc = get(bidder, 'current_assignment.position.post.location', false);
-    if (!loc) {
-      return NO_POST;
-    }
-    if (get(loc, 'state') === 'DC') {
-      // DC Post - org ex. GTM/EX/SDD
-      return get(bidder, 'current_assignment.position.organization');
-    } else if (get(loc, 'country') === 'USA') {
-      // Domestic outside of DC - City, State
-      return `${get(loc, 'city')}, ${get(loc, 'state')}`;
-    }
+    if (!loc) return NO_POST;
+    // DC Post - org ex. GTM/EX/SDD
+    if (get(loc, 'state') === 'DC') return get(bidder, 'current_assignment.position.organization');
+    // Domestic outside of DC - City, State
+    if (get(loc, 'country') === 'USA') return `${get(loc, 'city')}, ${get(loc, 'state')}`;
     // Foreign posts - City, Country
     return `${get(loc, 'city')}, ${get(loc, 'country')}`;
   };
 
   const getCDO = () => (
-    <MailToButton email={get(cdo, 'email')} textBefore={`${get(cdo, 'first_name')[0]}. ${get(cdo, 'last_name')}`} />
+    <MailToButton email={get(cdo, 'email')} textBefore={`${get(cdo, 'first_name[0]')}. ${get(cdo, 'last_name')}`} />
   );
 
 
