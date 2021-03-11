@@ -1,4 +1,3 @@
-// import { indexOf } from 'lodash';
 // import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
@@ -20,7 +19,6 @@ const CheckboxList = ({ list, editView, updateClassifications,
       className="tm-checkbox-disabled-alternate"
     />
     {list.map((c) => {
-      // const checked = indexOf(input, c.code) > -1;
       // need to update with te_id
       let checked = false;
       input.forEach((item) => {
@@ -41,7 +39,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
           } */}
           <ClientBadge
             key={c.te_id}
-            type={c.code}
+            type={c}
             status={checked}
             showShortCode={false}
             onChange={updateClassifications}

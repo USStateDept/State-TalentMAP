@@ -7,6 +7,7 @@ const ClientBadgeList = ({ classifications, clientClassifications }) => (
     {orderBy(classifications, c => clientClassifications.includes(c.code), ['desc'])
       .slice(0, 4)
       .map((c) => {
+        // need to update with te_id
         let checked = false;
         clientClassifications.forEach((item) => {
           if (item.tp_code === c.code || item.code === c.code) {
@@ -16,7 +17,7 @@ const ClientBadgeList = ({ classifications, clientClassifications }) => (
         return (
           <ClientBadge
             key={c.code}
-            type={c.code}
+            type={c}
             status={checked}
           />
         );
