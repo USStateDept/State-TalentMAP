@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import {
   NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU,
   NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST,
-  NO_STATUS, NO_COMMENTS, NO_LANGUAGES,
+  NO_STATUS, NO_COMMENTS, NO_LANGUAGES, NO_LANGUAGE,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -31,7 +31,7 @@ const AvailableBidderRow = (props) => {
   const ocBureau = get(bidder, 'available_bidder_details.oc_bureau') || NO_BUREAU;
   const ocReason = get(bidder, 'available_bidder_details.oc_reason') || NO_OC_REASON;
   const status = get(bidder, 'available_bidder_details.status') || NO_STATUS;
-  const languages = get(bidder, 'languages', false);
+  const languages = get(bidder, 'languages', []);
   const cdo = get(bidder, 'cdo', false);
 
   const getStatus = () => {
@@ -69,9 +69,9 @@ const AvailableBidderRow = (props) => {
         html={
           languages.map(l => (
             <div className="language-group">
-              <span className="language-name">{get(l, 'language', 'None listed')}: </span>
-              <span className="title">Speaking:</span> <span className="text">{get(l, 'speaking_score') || 'None listed'} | </span>
-              <span className="title">Reading:</span> <span className="text">{get(l, 'reading_score') || 'None listed'}</span>
+              <span className="language-name">{get(l, 'language', NO_LANGUAGE)}: </span>
+              <span className="title">Speaking:</span> <span className="text">{get(l, 'speaking_score') || NO_LANGUAGE} | </span>
+              <span className="title">Reading:</span> <span className="text">{get(l, 'reading_score') || NO_LANGUAGE}</span>
             </div>
           ))
         }
@@ -110,7 +110,7 @@ const AvailableBidderRow = (props) => {
     status: getStatus(),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     grade: get(bidder, 'grade') || NO_GRADE,
-    languages: languages ? getLanguages() : NO_LANGUAGES,
+    languages: languages.length ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
     current_post: getCustomLocation(),
     cdo: cdo ? getCDO() : NO_CDO,
