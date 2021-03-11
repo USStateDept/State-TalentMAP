@@ -31,7 +31,7 @@ const AvailableBidderRow = (props) => {
   const ocBureau = get(bidder, 'available_bidder_details.oc_bureau') || NO_BUREAU;
   const ocReason = get(bidder, 'available_bidder_details.oc_reason') || NO_OC_REASON;
   const status = get(bidder, 'available_bidder_details.status') || NO_STATUS;
-  const languages = get(bidder, 'languages', []);
+  const languages = get(bidder, 'languages') || [];
   const cdo = get(bidder, 'cdo', false);
 
   const getStatus = () => {
