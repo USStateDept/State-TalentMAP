@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import PropTypes from 'prop-types';
 import { difference, isEmpty, some, remove } from 'lodash';
 import FA from 'react-fontawesome';
@@ -26,17 +25,12 @@ const Classifications = props => {
   }, [clientClassifications]);
 
   const handleInput = (c) => {
-    console.log('org', userInput);
-    console.log(c);
     const pushClass = [...userInput];
-    console.log('before', pushClass);
     if (!some(pushClass, c)) {
       pushClass.push(c);
     } else {
       remove(pushClass, c);
     }
-    console.log('after', pushClass);
-
     setUserInput(pushClass);
   };
 

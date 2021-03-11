@@ -1,4 +1,4 @@
-import { indexOf } from 'lodash';
+// import { indexOf } from 'lodash';
 // import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import CheckBox from '../../CheckBox';
@@ -20,7 +20,14 @@ const CheckboxList = ({ list, editView, updateClassifications,
       className="tm-checkbox-disabled-alternate"
     />
     {list.map((c) => {
-      const checked = indexOf(input, c.code) > -1;
+      // const checked = indexOf(input, c.code) > -1;
+      // need to update with te_id
+      let checked = false;
+      input.forEach((item) => {
+        if (item.tp_code === c.code || item.code === c.code) {
+          checked = true;
+        }
+      });
       // const tenDiffFlag = c.text === 'Tenured 4' || c.text ==
       // = 'Differential Bidder' ? true : '';
       return (
@@ -34,7 +41,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
           } */}
           <ClientBadge
             key={c.te_id}
-            type={c}
+            type={c.code}
             status={checked}
             showShortCode={false}
             onChange={updateClassifications}

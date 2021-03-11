@@ -110,11 +110,11 @@ const status$ = ['none', 'success'];
 
 const ClientBadge = ({ type, status, showShortCode, editView, onChange }) => {
   const isHighlighted = status === true ? 'success' : 'none';
-  const ariaLabel = `type of "${type.code}" with status of "${status$[status]}"`;
-  const icon = get(icons, type.code, 'None');
+  const ariaLabel = `type of "${type}" with status of "${status$[status]}"`;
+  const icon = get(icons, type, 'None');
   const text = showShortCode === true ? get(icon, 'text', 'None') : '';
   return (
-    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type.code] && icons[type.code].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
+    <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type] && icons[type].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
       {editView ? <InteractiveElement onClick={() => onChange(type)}>
         <div className="client-badge">
           <Tooltip
@@ -158,21 +158,21 @@ const ClientBadge = ({ type, status, showShortCode, editView, onChange }) => {
 
 ClientBadge.propTypes = {
   type: PropTypes.oneOf([
-    { code: '3', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: '4', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'R', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: '6', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'A', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'C', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'C1', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'CC', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'D', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'F', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'F1', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'F2', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'M', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'P', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
-    { code: 'T', text: PropTypes.string, disabled_ind: PropTypes.bool, te_id: PropTypes.number, season_text: PropTypes.string },
+    '3',
+    '4',
+    'R',
+    '6',
+    'A',
+    'C',
+    'C1',
+    'CC',
+    'D',
+    'F',
+    'F1',
+    'F2',
+    'M',
+    'P',
+    'T',
   ]).isRequired,
   status: PropTypes.bool,
   showShortCode: PropTypes.bool,
