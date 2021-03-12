@@ -90,7 +90,7 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.10",
     "promise": "7.3.1",
-    "react-dev-utils": "^3.1.1",
+    "react-dev-utils": "^11.0.4",
     "react-error-overlay": "^1.0.10",
     "react-router-test-context": "^0.1.0",
     "react-test-renderer": "^15.6.1",
