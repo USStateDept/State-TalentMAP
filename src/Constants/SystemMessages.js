@@ -25,6 +25,7 @@ export const NO_END_DATE = DEFAULT_TEXT;
 export const NO_FAVORITES = 'You do not have any favorited positions.';
 export const NO_GRADE = DEFAULT_TEXT;
 export const NO_LANGUAGES = 'None';
+export const NO_LANGUAGE = DEFAULT_TEXT;
 export const NO_OC_REASON = DEFAULT_TEXT;
 export const NO_OFFICE_ADDRESS = DEFAULT_TEXT;
 export const NO_OFFICE_PHONE = DEFAULT_TEXT;

@@ -126,7 +126,7 @@
         border-top: none;
         border-right: none;
         border-left: none;
-        padding: 20px 30px;
+        padding: 20px;
         font-size: 14px;
         transition: .15s;
       }
@@ -193,7 +193,7 @@
   justify-content: center;
 
   div:nth-child(2) {
-    // Adds some spacing between the 3 buttons using the middle element (nth(2)) 
+    // Adds some spacing between the 3 buttons using the middle element (nth(2))
     padding: 0px 7px;
   }
 
@@ -225,13 +225,57 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+  }
 
+  dd {
+    margin-inline-start: 30;
+    text-align: justify;
+    margin-right: auto;
+    margin-left: 0;
+  }
 
+  label, dt {
+    display: block;
+    margin-top: 3rem;
+    min-width: 7em;
+    text-align: left;
   }
 }
 
 .swal-modal {
-  width: 600px;
+  width: 1000px;
+  background-color: #fff0;
+  padding: 0 200px;
+
+  .swal-title, .swal-content {
+    background-color: white;
+  }
+
+  swal-title:first-child {
+    margin-top: 5px;
+  }
+
+  .swal-title:not(:last-child) {
+    margin-bottom: -2px;
+    padding: 39px 16px 28px;
+  }
+  .swal-title {
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .swal-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 0;
+    padding: 20px 20px 40px;
+    .detail {
+      padding: 10px 0;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+    }
+  }
 
   input select textarea {
     width: 75%;
@@ -292,7 +336,6 @@
   }
 }
 
-
 .oc-icon {
   color: $tertiary-gold;
   font-size: 1.2em;
@@ -300,12 +343,21 @@
 
 .ab-languages {
   display: inline-flex;
-  
+
   span {
     padding-left: 5px;
   }
 }
 
-.language-group {
-  padding-bottom: 10px;
+.ab-languages-theme {
+
+  .language-group {
+    padding-top: 2px;
+    padding-bottom : 2px;
+    font-size: 0.9em;
+
+    .language-name {
+      font-weight: bold;
+    }
+  }
 }
