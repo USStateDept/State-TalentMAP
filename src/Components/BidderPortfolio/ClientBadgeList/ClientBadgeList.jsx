@@ -10,6 +10,7 @@ const ClientBadgeList = ({ classifications, clientClassifications }) => (
         // need to update with te_id
         let checked = false;
         clientClassifications.forEach((item) => {
+          // if (item.te_id === c.te_id) {
           if (item.tp_code === c.code || item.code === c.code) {
             checked = true;
           }

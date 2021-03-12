@@ -22,6 +22,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
       // need to update with te_id
       let checked = false;
       input.forEach((item) => {
+        // if (item.te_id === c.te_id) {
         if (item.tp_code === c.code || item.code === c.code) {
           checked = true;
         }
