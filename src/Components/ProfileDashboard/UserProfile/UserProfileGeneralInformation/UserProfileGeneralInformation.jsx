@@ -61,7 +61,7 @@ class UserProfileGeneralInformation extends Component {
     const userSkills = get(userProfile, 'employee_info.skills');
     let userID = get(userProfile, 'emp_id');
     if (isPublic) {
-      userID = get(userProfile, 'perdet_seq_number');
+      userID = get(userProfile, 'employee_id');
     }
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
