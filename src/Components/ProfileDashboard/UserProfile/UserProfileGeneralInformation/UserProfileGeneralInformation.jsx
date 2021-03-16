@@ -59,10 +59,8 @@ class UserProfileGeneralInformation extends Component {
     avatar.colorString = useColor ? avatar[colorProp] : undefined;
     const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
     const userSkills = get(userProfile, 'employee_info.skills');
-    let userID = get(userProfile, 'emp_id');
-    if (isPublic) {
-      userID = get(userProfile, 'employee_id');
-    }
+    const userID = get(userProfile, 'employee_id');
+
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
@@ -89,10 +87,12 @@ class UserProfileGeneralInformation extends Component {
                   }
                 />
             }
-            <InformationDataPoint
-              content={`Employee ID: ${userID}`}
-              className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
-            />
+            { isPublic &&
+              <InformationDataPoint
+                content={`Employee ID: ${userID}`}
+                className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+              />
+            }
             <InformationDataPoint
               content={`Grade: ${userGrade}`}
               className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
