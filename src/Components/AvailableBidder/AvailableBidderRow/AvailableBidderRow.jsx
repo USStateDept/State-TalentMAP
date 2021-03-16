@@ -8,11 +8,11 @@ import { useDispatch } from 'react-redux';
 import {
   NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU,
   NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST,
-  NO_STATUS, NO_COMMENTS,
-  // NO_LANGUAGES,
+  NO_STATUS, NO_COMMENTS, NO_LANGUAGES, NO_LANGUAGE,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
+import MailToButton from 'Components/MailToButton';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
@@ -23,45 +23,16 @@ const AvailableBidderRow = (props) => {
   const { bidder, CDOView, isLoading, isCDO, bureaus } = props;
 
   // Formatting
-  const shared = get(bidder, 'is_shared', false);
-  const ted = get(bidder, 'TED') || get(bidder, 'current_assignment.end_date');
+  const shared = get(bidder, 'available_bidder_details.is_shared', false);
+  const ted = get(bidder, 'current_assignment.end_date');
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
   const id = get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number');
   const name = get(bidder, 'name');
-  const ocBureau = get(bidder, 'oc_bureau') || NO_BUREAU;
-  const ocReason = get(bidder, 'oc_reason') || NO_OC_REASON;
-  const status = get(bidder, 'status') || NO_STATUS;
-  // Dummy Data for Languages
-  const languages = [
-    {
-      language: 'Arabic',
-      readingScore: 5,
-      speakingScore: 5,
-      languageCode: 'A',
-      representation: 'Arabic 5/5',
-    },
-    {
-      language: 'French',
-      readingScore: 1,
-      speakingScore: 2,
-      languageCode: 'FR',
-      representation: 'French 1/2',
-    },
-    {
-      language: 'German',
-      readingScore: 3,
-      speakingScore: 3,
-      languageCode: 'GR',
-      representation: 'German 3/3',
-    },
-    {
-      language: 'Spanish',
-      readingScore: 1,
-      speakingScore: 1,
-      languageCode: 'S',
-      representation: 'Spanish 1/1',
-    },
-  ];
+  const ocBureau = get(bidder, 'available_bidder_details.oc_bureau') || NO_BUREAU;
+  const ocReason = get(bidder, 'available_bidder_details.oc_reason') || NO_OC_REASON;
+  const status = get(bidder, 'available_bidder_details.status') || NO_STATUS;
+  const languages = get(bidder, 'languages') || [];
+  const cdo = get(bidder, 'cdo', false);
 
   const getStatus = () => {
     if (status === 'OC') {
@@ -98,15 +69,9 @@ const AvailableBidderRow = (props) => {
         html={
           languages.map(l => (
             <div className="language-group">
-              <div className={'tooltip-title'}>{l.language}</div>
-              <div className={'tooltip-text'}>
-                <div>
-                  <span className="title">Speaking:</span> <span className="text">{l.speakingScore}</span>
-                </div>
-                <div>
-                  <span className="title">Reading:</span> <span className="text">{l.readingScore}</span>
-                </div>
-              </div>
+              <span className="language-name">{get(l, 'language', NO_LANGUAGE)}: </span>
+              <span className="title">Speaking:</span> <span className="text">{get(l, 'speaking_score') || NO_LANGUAGE} | </span>
+              <span className="title">Reading:</span> <span className="text">{get(l, 'reading_score') || NO_LANGUAGE}</span>
             </div>
           ))
         }
@@ -117,11 +82,26 @@ const AvailableBidderRow = (props) => {
         useContext
       >
         {
-          languages.map((l, i) => <span>{l.languageCode}{i === languages.length - 1 ? '' : ', '}</span>)
+          languages.map((l, i) => <span>{get(l, 'code')}{i === languages.length - 1 ? '' : ', '}</span>)
         }
         <FA className="oc-icon" name="question-circle" />
       </Tooltip>
     </div>
+  );
+
+  const getCustomLocation = () => {
+    const loc = get(bidder, 'current_assignment.position.post.location', false);
+    if (!loc) return NO_POST;
+    // DC Post - org ex. GTM/EX/SDD
+    if (get(loc, 'state') === 'DC') return get(bidder, 'current_assignment.position.organization');
+    // Domestic outside of DC - City, State
+    if (get(loc, 'country') === 'USA') return `${get(loc, 'city')}, ${get(loc, 'state')}`;
+    // Foreign posts - City, Country
+    return `${get(loc, 'city')}, ${get(loc, 'country')}`;
+  };
+
+  const getCDO = () => (
+    <MailToButton email={get(cdo, 'email')} textBefore={`${get(cdo, 'first_name[0]')}. ${get(cdo, 'last_name')}`} />
   );
 
 
@@ -130,21 +110,19 @@ const AvailableBidderRow = (props) => {
     status: getStatus(),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     grade: get(bidder, 'grade') || NO_GRADE,
-    // Update Languages
-    languages: getLanguages(),
+    languages: languages.length ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
-    current_post: get(bidder, 'post.location.country') || NO_POST,
-    cdo: get(bidder, 'cdo.name') || NO_CDO,
-    comments: get(bidder, 'comments') || NO_COMMENTS,
+    current_post: getCustomLocation(),
+    cdo: cdo ? getCDO() : NO_CDO,
+    comments: get(bidder, 'available_bidder_details.comments') || NO_COMMENTS,
   } : {
     name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
     grade: get(bidder, 'grade') || NO_GRADE,
-    // Update languages
-    languages: getLanguages(),
+    languages: languages ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
-    current_post: get(bidder, 'current_assignment.position.post.location.country') || NO_POST,
-    cdo: get(bidder, 'cdo.name') || NO_CDO,
+    current_post: getCustomLocation(),
+    cdo: cdo ? getCDO() : NO_CDO,
   };
 
   if (isLoading) {

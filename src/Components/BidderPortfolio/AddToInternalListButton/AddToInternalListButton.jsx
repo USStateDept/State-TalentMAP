@@ -25,7 +25,7 @@ const AddToInternalListButton = props => {
     }
   }, [isLoading]);
 
-  const inInternalList = () => includes(compareArray, refKey);
+  const inInternalList = () => includes(compareArray.map(m => `${m}`), refKey);
 
   const toggleInternal = () => {
     if (!isLoading) {

@@ -15,6 +15,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
+  const id = get(userProfile, 'employee_id');
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
@@ -24,7 +25,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       <div>
         <div>
           <div className="stat-card-data-point">
-            <dt>Employee ID:</dt><dd>{perdet}</dd>
+            <dt>Employee ID:</dt><dd>{id}</dd>
           </div>
           <div className="stat-card-data-point">
             <dt>Skill:</dt><dd><SkillCodeList skillCodes={userProfile.skills} /></dd>
