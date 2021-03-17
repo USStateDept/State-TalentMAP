@@ -1,5 +1,6 @@
-// import Picky from 'react-picky';
 import PropTypes from 'prop-types';
+import { Accordion, AccordionItem } from 'Components/Accordion';
+// import FontAwesome from 'react-fontawesome';
 import CheckBox from '../../CheckBox';
 import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
@@ -27,17 +28,38 @@ const CheckboxList = ({ list, editView, updateClassifications,
           checked = true;
         }
       });
-      // const tenDiffFlag = c.text === 'Tenured 4' || c.text ==
-      // = 'Differential Bidder' ? true : '';
+      const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder' ? true : '';
+      // const expandText = 'Expand All';
+      // const expandIcon = 'plus';
+      // const showExpand = false;
       return (
         <div className="classifications-client-badges">
-          {/* {tenDiffFlag &&
+          {tenDiffFlag &&
             <div className="classifications-dropdown">
-              <Picky
-                placeholder={c.text}
-              />
+              {/* {
+                showExpand &&
+                <button className="usa-accordion-button-all"
+                 title={expandText} onClick={this.toggleExpand}>
+                  <FontAwesome name={expandIcon} />
+                </button>
+              } */}
+              <Accordion className="usa-grid-full accordion-inverse user-dashboard portfolio-row-list" isMultiselectable>
+                {
+                  <AccordionItem
+                    controlled
+                    // className="portfolio-row"
+                    // id={`${result.id}-row`}
+                    key={c.te_id}
+                    // title={c.season_text}
+                    title={c.text}
+                    // setAccordion={this.onSetAccordion}
+                    // ref={(ref) => { this[`accordion-${result.id}`] = ref; }}
+                    // refs are defined from the id of the result
+                  />
+                }
+              </Accordion>
             </div>
-          } */}
+          }
           <ClientBadge
             key={c.te_id}
             type={c}
