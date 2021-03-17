@@ -22,14 +22,14 @@ class PositionManagerDetails extends Component {
 
   render() {
     const { status, statusIsLoading, statusUpdateIsLoading, statusUpdateHasErrored,
-      statusHasErrored, id } = this.props;
+      statusHasErrored, id, biddersInShortList } = this.props;
     const isLoading = statusIsLoading || statusUpdateIsLoading;
     let text = 'Lock';
     let disabled = false;
     if (status) {
       text = 'Unlock';
     }
-    if (statusHasErrored || statusUpdateHasErrored) {
+    if (statusHasErrored || statusUpdateHasErrored || !biddersInShortList) {
       disabled = true;
       text = statusHasErrored || statusUpdateHasErrored;
     }
@@ -60,6 +60,7 @@ PositionManagerDetails.propTypes = {
   statusUpdateHasErrored: PropTypes.string,
   updateStatus: PropTypes.func,
   getStatus: PropTypes.func,
+  biddersInShortList: PropTypes.number,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -69,6 +70,7 @@ PositionManagerDetails.defaultProps = {
   statusUpdateHasErrored: '',
   updateStatus: EMPTY_FUNCTION,
   getStatus: EMPTY_FUNCTION,
+  biddersInShortList: 0,
 };
 
 const mapStateToProps = (state) => ({
