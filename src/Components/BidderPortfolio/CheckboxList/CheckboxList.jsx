@@ -47,15 +47,16 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 {
                   <AccordionItem
                     controlled
-                    // className="portfolio-row"
-                    // id={`${result.id}-row`}
+                    className="portfolio-row"
+                    id={'testid'}
                     key={c.te_id}
-                    // title={c.season_text}
                     title={c.text}
                     // setAccordion={this.onSetAccordion}
                     // ref={(ref) => { this[`accordion-${result.id}`] = ref; }}
                     // refs are defined from the id of the result
-                  />
+                  >
+                    {c.season_text}
+                  </AccordionItem>
                 }
               </Accordion>
             </div>
