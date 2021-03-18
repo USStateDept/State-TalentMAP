@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Accordion, AccordionItem } from 'Components/Accordion';
-// import FontAwesome from 'react-fontawesome';
+import FontAwesome from 'react-fontawesome';
 import CheckBox from '../../CheckBox';
 import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
@@ -29,25 +29,24 @@ const CheckboxList = ({ list, editView, updateClassifications,
         }
       });
       const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder' ? true : '';
-      // const expandText = 'Expand All';
-      // const expandIcon = 'plus';
-      // const showExpand = false;
+      const expandText = 'Expand All';
+      const expandIcon = 'angle-right';
+      const showExpand = false;
       return (
         <div className="classifications-client-badges">
           {tenDiffFlag &&
             <div className="classifications-dropdown">
-              {/* {
+              {
                 showExpand &&
-                <button className="usa-accordion-button-all"
-                 title={expandText} onClick={this.toggleExpand}>
+                <button className="usa-accordion-button-all" title={expandText}>
                   <FontAwesome name={expandIcon} />
                 </button>
-              } */}
+              }
               <Accordion className="usa-grid-full accordion-inverse user-dashboard portfolio-row-list" isMultiselectable>
                 {
                   <AccordionItem
                     controlled
-                    className="portfolio-row"
+                    className="classifications-row"
                     id={'testid'}
                     key={c.te_id}
                     title={c.text}
