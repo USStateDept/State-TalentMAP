@@ -111,8 +111,12 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
           Array [
             Object {
               "defaultSort": true,
-              "text": "Bid Status",
+              "text": "Active Bids",
               "value": "status",
+            },
+            Object {
+              "text": "Inactive Bids",
+              "value": "-status",
             },
             Object {
               "text": "Recently updated",
@@ -678,8 +682,12 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
           Array [
             Object {
               "defaultSort": true,
-              "text": "Bid Status",
+              "text": "Active Bids",
               "value": "status",
+            },
+            Object {
+              "text": "Inactive Bids",
+              "value": "-status",
             },
             Object {
               "text": "Recently updated",
