@@ -2,7 +2,6 @@ import * as SystemMessages from 'Constants/SystemMessages';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { batch } from 'react-redux';
 import { toastSuccess, toastError } from './toast';
-import { uniqBy } from 'lodash';
 import api from '../api';
 
 export function classificationsHasErrored(bool) {
@@ -36,11 +35,10 @@ export function fetchClassifications() {
     api()
       .get('/fsbid/reference/classifications/')
       .then(({ data }) => {
-        const data$ = uniqBy(data, 'code');
         batch(() => {
           dispatch(classificationsHasErrored(false));
           dispatch(classificationsIsLoading(false));
-          dispatch(classificationsFetchDataSuccess(data$));
+          dispatch(classificationsFetchDataSuccess(data));
         });
       })
       .catch(() => {
