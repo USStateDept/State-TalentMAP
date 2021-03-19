@@ -14,14 +14,19 @@ const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
+  const perdet = get(userProfile, 'perdet_seq_number');
+  const id = get(userProfile, 'employee_id');
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
         {get(userProfile, 'name', 'N/A')}
-        <Link to={`/profile/public/${userProfile.perdet_seq_number}`}>View Profile</Link>
+        <Link to={`/profile/public/${perdet}`}>View Profile</Link>
       </div>
       <div>
         <div>
+          <div className="stat-card-data-point">
+            <dt>Employee ID:</dt><dd>{id}</dd>
+          </div>
           <div className="stat-card-data-point">
             <dt>Skill:</dt><dd><SkillCodeList skillCodes={userProfile.skills} /></dd>
           </div>

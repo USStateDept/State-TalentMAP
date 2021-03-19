@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import SearchBar from 'Components/SearchBar/SearchBar';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 
-const PositionManagerSearch = props => {
+const PositionManagerSearch = forwardRef((props, ref) => {
   const [q, setQ] = useState('');
+  const childRef = useRef();
 
   function changeText(e) {
     props.onChange(e.target.value);
@@ -23,6 +24,15 @@ const PositionManagerSearch = props => {
     props.submitSearch(q);
   }
 
+  useImperativeHandle(
+    ref,
+    () => ({
+      clearText() {
+        childRef.current.clearSearch();
+      },
+    }),
+  );
+
   return (
     <form className="usa-grid-full">
       <fieldset className="usa-width-five-sixths">
@@ -30,7 +40,7 @@ const PositionManagerSearch = props => {
           <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
           <SearchBar
             id="bureau-search-keyword-field"
-            defaultValue={props.defaultValue}
+            defaultValue={props.textSearch || props.defaultValue}
             label="Keywords"
             labelSrOnly
             noButton
@@ -41,6 +51,7 @@ const PositionManagerSearch = props => {
             showClear
             submitText="Search"
             type="medium"
+            ref={childRef}
           />
         </div>
       </fieldset>
@@ -52,18 +63,20 @@ const PositionManagerSearch = props => {
       </div>
     </form>
   );
-};
+});
 
 PositionManagerSearch.propTypes = {
   submitSearch: PropTypes.func,
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,
+  textSearch: PropTypes.string,
 };
 
 PositionManagerSearch.defaultProps = {
   submitSearch: EMPTY_FUNCTION,
   onChange: EMPTY_FUNCTION,
   defaultValue: '',
+  textSearch: '',
 };
 
 export default PositionManagerSearch;

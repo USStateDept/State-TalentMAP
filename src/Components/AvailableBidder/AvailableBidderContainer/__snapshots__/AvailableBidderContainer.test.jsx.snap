@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
+<div
+  className="position-manager-details bidder-manager-page"
+>
+  <div
+    className="usa-grid-full profile-content-inner-container"
+  >
+    <div
+      className="usa-grid-full"
+    >
+      <ProfileSectionTitle
+        icon="users"
+        title="Available Bidders"
+      />
+    </div>
+    <div
+      className="usa-grid-full"
+    >
+      <AvailableBidderStats />
+    </div>
+    <div
+      className="usa-width-one-whole"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <AvailableBidderTable
+          bidders={Array []}
+          isCDO={true}
+          onFilter={[Function]}
+          onSort={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`AvailableBidderContainerComponent matches snapshot when not CDO 1`] = `
+<div
+  className="position-manager-details bidder-manager-page"
+>
+  <div
+    className="usa-grid-full profile-content-inner-container"
+  >
+    <div
+      className="usa-grid-full"
+    >
+      <ProfileSectionTitle
+        icon="users"
+        title="Available Bidders"
+      />
+    </div>
+    <div
+      className="usa-width-one-whole"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <AvailableBidderTable
+          bidders={Array []}
+          isCDO={false}
+          onFilter={[Function]}
+          onSort={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
