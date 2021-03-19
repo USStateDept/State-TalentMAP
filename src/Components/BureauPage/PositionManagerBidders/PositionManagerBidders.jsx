@@ -289,7 +289,10 @@ class PositionManagerBidders extends Component {
         <th scope="col">{item}</th>
       ));
 
-      const shortListLock = <ShortListLock id={id} />;
+      const shortListLock = (<ShortListLock
+        id={id}
+        biddersInShortList={this.state.shortList.length}
+      />);
 
       const dndDisabled = this.isDndDisabled();
 

@@ -19,10 +19,12 @@ import BackButton from '../BackButton';
 const STATUS = 'status';
 const UPDATED = 'update_date';
 const LOCATION = 'position.post.location.city';
+const REVERSE_STATUS = '-status';
 // const TED = 'position.ted'; TODO - add
 
 const SORT_OPTIONS = [
-  { value: STATUS, text: 'Bid Status', defaultSort: true },
+  { value: STATUS, text: 'Active Bids', defaultSort: true },
+  { value: REVERSE_STATUS, text: 'Inactive Bids' },
   { value: UPDATED, text: 'Recently updated' },
   { value: LOCATION, text: 'City name (A-Z)' },
   // { value: TED, text: 'TED' }, TODO - add
@@ -59,6 +61,9 @@ class BidTracker extends Component {
       case STATUS:
         results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
         results$ = reverse(results$);
+        break;
+      case REVERSE_STATUS:
+        results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`));
         break;
       default:
         results$ = results;

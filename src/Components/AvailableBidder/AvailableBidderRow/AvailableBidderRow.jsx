@@ -96,8 +96,12 @@ const AvailableBidderRow = (props) => {
     if (get(loc, 'state') === 'DC') return get(bidder, 'current_assignment.position.organization');
     // Domestic outside of DC - City, State
     if (get(loc, 'country') === 'USA') return `${get(loc, 'city')}, ${get(loc, 'state')}`;
+    if (!get(loc, 'city') && !get(loc, 'country')) return '';
     // Foreign posts - City, Country
-    return `${get(loc, 'city')}, ${get(loc, 'country')}`;
+    let x = `${get(loc, 'city')}, ${get(loc, 'country')}`;
+    if (!get(loc, 'city')) { x = get(loc, 'country'); }
+    if (!get(loc, 'country')) { x = get(loc, 'city'); }
+    return x;
   };
 
   const getCDO = () => (

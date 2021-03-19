@@ -174,6 +174,12 @@ $register-icon-offset: 44%;
 .bid-tracker-overlay-alert--closed {
   background: $color-gray;
 }
+.bid-tracker-overlay-alert--closed:hover {
+  opacity: 50%;
+  .top-text {
+    display: none;
+  }
+}
 
 .bid-tracker-overlay-alert--draft {
   background: $bg-blue-dark-2;
