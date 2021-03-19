@@ -40,7 +40,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
             <div className="classifications-dropdown">
               <Row className="usa-grid-full">
                 <div className="usa-grid-full toggle-more-container">
-                  <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+                  <InteractiveElement className="toggle-more classifications-row" onClick={() => setShowMore(!showMore)}>
                     <ClientBadge
                       key={c.te_id}
                       type={c}
@@ -59,7 +59,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 </div>
                 {
                   showMore &&
-                  <div className="usa-grid-full section statistics-section">
+                  <div className="classifications-season-text">
                     {c.season_text}
                   </div>
                 }
