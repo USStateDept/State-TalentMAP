@@ -24,7 +24,8 @@ const CheckboxList = ({ list, editView, updateClassifications,
         className="tm-checkbox-disabled-alternate"
       />
       {list.map((c) => {
-      // need to update with te_id
+        const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder' ? true : '';
+        // need to update with te_id
         let checked = false;
         input.forEach((item) => {
         // if (item.te_id === c.te_id) {
@@ -32,7 +33,15 @@ const CheckboxList = ({ list, editView, updateClassifications,
             checked = true;
           }
         });
-        const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder' ? true : '';
+
+        // may need to pass in from Classifications comp
+        // array gets reset on each reload
+        // const multiBidSeason = [];
+        // if (c.text === 'Tenured 4') {
+        //   console.log('in if');
+        //   multiBidSeason.push(c.season_text);
+        // }
+        // console.log(multiBidSeason);
 
         return (
           <div className="classifications-client-badges">
@@ -61,6 +70,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                   showMore &&
                   <div className="classifications-season-text">
                     {c.season_text}
+                    {/* {multiBidSeason} */}
                   </div>
                 }
               </Row>
