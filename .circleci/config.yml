@@ -259,13 +259,13 @@ workflows:
               only: /^zap.*/
             branches:
               ignore: /.*/
-      - push-stable:
-          requires:
-            - yarn
-            # Disabled see 1368 - pa11y
-          filters:
-            branches:
-              only:
-                - dev
-                - staging
-                - master
+      #- push-stable:
+      #    requires:
+      #      - yarn
+      #      # Disabled see 1368 - pa11y
+      #    filters:
+      #      branches:
+      #        only:
+      #          - dev
+      #          - staging
+      #          - master
