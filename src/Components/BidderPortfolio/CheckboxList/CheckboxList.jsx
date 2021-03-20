@@ -28,20 +28,22 @@ const CheckboxList = ({ list, editView, updateClassifications,
         // need to update with te_id
         let checked = false;
         input.forEach((item) => {
-        // if (item.te_id === c.te_id) {
+          console.log(item);
+          console.log(c);
+          // if (item.te_id === c.te_id) {
           if (item.tp_code === c.code || item.code === c.code) {
             checked = true;
           }
         });
 
-        // may need to pass in from Classifications comp
-        // array gets reset on each reload
-        // const multiBidSeason = [];
-        // if (c.text === 'Tenured 4') {
-        //   console.log('in if');
-        //   multiBidSeason.push(c.season_text);
-        // }
-        // console.log(multiBidSeason);
+        const multiBidSeason = [];
+        if (c.seasons.length > 1) {
+          c.seasons.forEach((item) => {
+            // console.log(item);
+            multiBidSeason.push(item.season_text);
+          });
+        }
+        console.log(multiBidSeason);
 
         return (
           <div className="classifications-client-badges">
@@ -69,8 +71,19 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 {
                   showMore &&
                   <div className="classifications-season-text">
-                    {c.season_text}
-                    {/* {multiBidSeason} */}
+                    {/* {'test season'} */}
+                    <ClientBadge
+                      key={c.te_id}
+                      type={c}
+                      status={checked}
+                      showShortCode={false}
+                      onChange={updateClassifications}
+                      editView={editView}
+                    />
+                    <div className="classifications-badges-text">
+                      {/* {c.text} */}
+                      {multiBidSeason[0]}
+                    </div>
                   </div>
                 }
               </Row>
