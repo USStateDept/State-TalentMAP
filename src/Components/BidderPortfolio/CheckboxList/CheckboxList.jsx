@@ -11,6 +11,18 @@ const CheckboxList = ({ list, editView, updateClassifications,
   input }) => {
   const [showMore, setShowMore] = useState(false);
 
+  // const multiBidSeason = () => {
+  // const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
+  // const multiBidSeason = [];
+  // if (c.seasons.length > 1) {
+  //   c.seasons.forEach((item) => {
+  //     // console.log(item.season_text);
+  //     multiBidSeason.push(item.season_text);
+  //   });
+  //   // console.log(multiBidSeason);
+  // }
+  // };
+
   return (
     <div className="client-checkbox-list">
       <CheckBox
@@ -27,20 +39,20 @@ const CheckboxList = ({ list, editView, updateClassifications,
         const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
         // need to update with te_id
         let checked = false;
+        // let multiBidSeasonChecked = false;
         input.forEach((item) => {
-          // if (item.te_id === c.te_id) {
+          // if (c.seasons.length > 1) {
+          //   c.seasons.forEach((m) => {
+          //     if (item.te_id === m.id) {
+          //       multiBidSeasonChecked = true;
+          //     }
+          //   });
+          // }
+          // if (item.te_id === c.seasons[0].id && c.seaons.length == 1) {
           if (item.tp_code === c.code || item.code === c.code) {
             checked = true;
           }
         });
-        const multiBidSeason = [];
-        if (c.seasons.length > 1) {
-          c.seasons.forEach((item) => {
-            // console.log(item.season_text);
-            multiBidSeason.push(item.season_text);
-          });
-          // console.log(multiBidSeason);
-        }
 
         return (
           <div className="classifications-client-badges">
@@ -74,6 +86,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                           key={m.id}
                           type={c}
                           status={checked}
+                          // status={multiBidSeasonChecked}
                           showShortCode={false}
                           onChange={updateClassifications}
                           editView={editView}
