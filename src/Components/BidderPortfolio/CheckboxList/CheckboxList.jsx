@@ -24,26 +24,23 @@ const CheckboxList = ({ list, editView, updateClassifications,
         className="tm-checkbox-disabled-alternate"
       />
       {list.map((c) => {
-        const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder' ? true : '';
+        const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
         // need to update with te_id
         let checked = false;
         input.forEach((item) => {
-          console.log(item);
-          console.log(c);
           // if (item.te_id === c.te_id) {
           if (item.tp_code === c.code || item.code === c.code) {
             checked = true;
           }
         });
-
         const multiBidSeason = [];
         if (c.seasons.length > 1) {
           c.seasons.forEach((item) => {
-            // console.log(item);
+            // console.log(item.season_text);
             multiBidSeason.push(item.season_text);
           });
+          // console.log(multiBidSeason);
         }
-        console.log(multiBidSeason);
 
         return (
           <div className="classifications-client-badges">
@@ -70,20 +67,23 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 </div>
                 {
                   showMore &&
-                  <div className="classifications-season-text">
-                    {/* {'test season'} */}
-                    <ClientBadge
-                      key={c.te_id}
-                      type={c}
-                      status={checked}
-                      showShortCode={false}
-                      onChange={updateClassifications}
-                      editView={editView}
-                    />
-                    <div className="classifications-badges-text">
-                      {/* {c.text} */}
-                      {multiBidSeason[0]}
-                    </div>
+                  <div>
+                    {c.seasons.map((m) => (
+                      <>
+                        <ClientBadge
+                          key={m.id}
+                          type={c}
+                          status={checked}
+                          showShortCode={false}
+                          onChange={updateClassifications}
+                          editView={editView}
+                        />
+                        <div className="classifications-badges-text">
+                          {m.season_text}
+                        </div>
+                      </>
+                    ))
+                    }
                   </div>
                 }
               </Row>
