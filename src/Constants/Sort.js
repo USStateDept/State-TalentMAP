@@ -13,8 +13,8 @@ const POSITION_SEARCH_SORTS$ = {
     { value: '-ted', text: 'TED: Latest' },
     { value: 'position__position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
     { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true }, // sort by service needs first
-    { value: 'location', text: 'Location: A-Z', nonTandemOnly: true },
-    { value: '-location', text: 'Location: Z-A', nonTandemOnly: true },
+    { value: 'location_city', text: 'Location: A-Z', nonTandemOnly: true },
+    { value: '-location_city', text: 'Location: Z-A', nonTandemOnly: true },
   ],
 };
 
@@ -90,10 +90,19 @@ export const BID_PORTFOLIO_FILTERS = {
     { value: '', text: 'All' },
     { value: 'true', text: 'Handshake' },
     { value: 'false', text: 'No Handshake' },
+    { value: 'unassigned_filters', text: 'Unassigned Filters' },
   ],
 };
 
 BID_PORTFOLIO_FILTERS.defaultSort = BID_PORTFOLIO_FILTERS.options[0].value;
+
+export const UNASSIGNED_BIDDERS_FILTERS = {
+  options: [
+    { value: 'noHandshake', text: 'No Handshake' },
+    { value: 'noPanel', text: 'No Panel' },
+    { value: 'noBids', text: 'Has Not Placed Bids' },
+  ],
+};
 
 export const SAVED_SEARCH_SORTS = {
   options: [
@@ -161,6 +170,7 @@ export const BUREAU_BIDDER_SORT = {
     { value: 'bidder_ted', text: 'TED' },
     { value: 'bidder_langauge', text: "Bidder's Langauge" },
     { value: 'bidder_name', text: "Bidder's Name" },
+    { value: 'bidder_bid_submitted_date', text: 'Bid Submitted Date' },
     // What order do we want these in?
   ],
 };

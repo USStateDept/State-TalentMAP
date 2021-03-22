@@ -83,18 +83,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidcycle_admin',
         ],
       },
-      checkFlag('flags.client_profiles') ?
-        {
-          text: 'Client Profiles', // aka Bidder Portfolio
-          route: '/profile/bidderportfolio',
-          icon: 'users',
-          roles: [
-            'cdo',
-          ],
-          params: {
-            type: 'all',
-          },
-        } : null,
       checkFlag('flags.static_content') ?
         {
           text: 'Settings',
@@ -227,6 +215,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
+      checkFlag('flags.available_bidders') ?
+        {
+          text: 'Available Bidders',
+          route: '/profile/bureau/availablebidders',
+          icon: 'users',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
     ],
   } : null,
   checkFlag('flags.ao') ? {
@@ -246,8 +244,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           route: '/profile/ao/dashboard/',
           icon: 'tachometer',
           roles: [
+            'ao_user',
             'superuser',
-            'bureau_user',
           ],
         } : null,
       {
@@ -261,6 +259,40 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   } : null,
+  {
+    text: 'CDO',
+    route: '/profile/cdo/bidderportfolio',
+    icon: 'street-view',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'cdo',
+    ],
+    children: [
+      checkFlag('flags.client_profiles') ?
+        {
+          text: 'Client Profiles', // aka Bidder Portfolio
+          route: '/profile/cdo/bidderportfolio',
+          icon: 'address-book',
+          roles: [
+            'cdo',
+          ],
+          params: {
+            type: 'all',
+          },
+        } : null,
+      checkFlag('flags.available_bidders') ?
+        {
+          text: 'Available Bidders',
+          route: '/profile/cdo/availablebidders',
+          icon: 'users',
+          roles: [
+            'cdo',
+          ],
+        } : null,
+    ],
+  },
 ].filter(x => x));
 
 export default GET_PROFILE_MENU;

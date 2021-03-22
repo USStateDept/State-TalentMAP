@@ -8,7 +8,7 @@ import { NO_GRADE } from 'Constants/SystemMessages';
 import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
-import { downloadPdfBlob, fetchJWT, isOnProxy } from 'utilities';
+import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import EditProfile from '../EditProfile';
@@ -38,8 +38,8 @@ class UserProfileGeneralInformation extends Component {
       responseType: 'arraybuffer' },
     )
       .then(response => {
+        downloadPdfStream(response.data);
         onToastSuccess(id);
-        downloadPdfBlob(response.data);
       })
       .catch(() => {
         onToastError(id);
@@ -47,7 +47,7 @@ class UserProfileGeneralInformation extends Component {
   }
   render() {
     const { userProfile, showEditLink, useGroup,
-      colorProp, useColor } = this.props;
+      colorProp, useColor, isPublic } = this.props;
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
@@ -59,6 +59,8 @@ class UserProfileGeneralInformation extends Component {
     avatar.colorString = useColor ? avatar[colorProp] : undefined;
     const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
     const userSkills = get(userProfile, 'employee_info.skills');
+    const userID = get(userProfile, 'employee_id');
+
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
@@ -84,6 +86,12 @@ class UserProfileGeneralInformation extends Component {
                     </InteractiveElement>
                   }
                 />
+            }
+            { isPublic &&
+              <InformationDataPoint
+                content={`Employee ID: ${userID}`}
+                className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
+              />
             }
             <InformationDataPoint
               content={`Grade: ${userGrade}`}
@@ -112,6 +120,7 @@ UserProfileGeneralInformation.propTypes = {
   onToastError: PropTypes.func,
   onToastInfo: PropTypes.func,
   onToastSuccess: PropTypes.func,
+  isPublic: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
@@ -122,6 +131,7 @@ UserProfileGeneralInformation.defaultProps = {
   onToastError: EMPTY_FUNCTION,
   onToastInfo: EMPTY_FUNCTION,
   onToastSuccess: EMPTY_FUNCTION,
+  isPublic: false,
 };
 
 export const mapDispatchToProps = dispatch => ({

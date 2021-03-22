@@ -1,0 +1,363 @@
+.bidder-manager-page {
+
+  border-top: 1px solid $color-white;
+
+  .bidder-manager-search-container {
+    background-color: $bg-blue-dark-1;
+    padding: 12px 31px;
+  }
+
+  .bidder-manager-upper-section {
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    padding: 20px 35px;
+    background-color: $bg-blue-dark-1;
+  }
+
+  .available-bidders-stats {
+
+    .statistics-section {
+      background-color: $color-white;
+      border: 2px solid $color-gray-light;
+      padding: 1.2em 10% 2em 1.5em;
+
+      h3, h4 {
+        font-family: 'Roboto';
+      }
+    }
+
+    .legend-container {
+      margin-left: auto;
+    }
+
+    .legend {
+      margin-top: 2em;
+    }
+
+    .legend-item {
+      margin-top: 1em;
+    }
+
+    .legend-square {
+      height: 1.2em;
+      width: 1.2em;
+    }
+
+    .legend-text {
+       margin: auto;
+       margin-left: 1.5em;
+    }
+
+    .chart-container {
+      margin-right: auto;
+
+      > div {
+        margin-left: auto;
+      }
+    }
+
+  }
+
+  @media screen and (max-width: 1525px) {
+    .small-screen-stack {
+      flex-wrap: wrap;
+      float: none;
+    }
+    .small-screen-stack > div {
+      flex-basis: 45%;
+      margin: 0 10px;
+    }
+    .small-screen-stack > div > label,.label {
+      min-width: 100px;
+    }
+  }
+  @media screen and (max-width: 1241px) {
+    .small-screen-stack {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    .small-screen-stack > div {
+      align-items: center;
+      display: flex;
+      float: right;
+      margin: 0 10px 0 0;
+    }
+  }
+  @media screen and (max-width: 890px) {
+    .small-screen-stack > div {
+      min-width: 300px;
+    }
+  }
+}
+
+.bidder-manager-bidders {
+  color: $color-black;
+  margin-top: 50px;
+  table {
+    margin: 0;
+    width: 100%;
+    thead {
+      tr {
+        th {
+          text-align: center;
+          border: none;
+          background-color: $tm-white-smoke-light;
+        }
+        .table-title {
+          // font-size: 30px;
+          font-weight: bold;
+        }
+        @media screen and (max-width: 1600px) {
+          .table-title {
+            // font-size: 25px;
+          }
+        }
+        @media screen and (max-width: 1400px) {
+          .table-title {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+    tbody {
+      border: 1px solid $tm-gray;
+      td {
+        text-align: center;
+        border-top: none;
+        border-right: none;
+        border-left: none;
+        padding: 20px;
+        font-size: 14px;
+        transition: .15s;
+      }
+      @media screen and (max-width: 1700px) {
+        td {
+          padding: 10px 15px;
+          // font-size: 15px;
+        }
+      }
+      @media screen and (max-width: 1400px) {
+        td {
+          padding: 5px 7px;
+          // font-size: 13px;
+        }
+      }
+    }
+  }
+}
+
+.ab-table-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  .export-button-container {
+    button {
+      display: inline;
+    }
+  }
+}
+
+.ab-lower-section {
+  padding: 0;
+}
+
+.ab-inactive {
+  // td(10) is the action buttons column which should never be grayed out
+  td:not(:nth-of-type(10)) {
+    color: #a9acaf;
+    background-color: #cacbce;
+    transition: 1.5s;
+    a {
+      color: #a9acaf;
+    }
+  }
+}
+
+.ab-active {
+  // td(2) is the status column, and td(9) is the comment column
+  td:nth-of-type(2), td:nth-of-type(9) {
+    color: #a9acaf;
+    background-color: #cacbce;
+    transition: 1.5s;
+    a {
+      color: #a9acaf;
+    }
+  }
+}
+
+
+.ab-action-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  div:nth-child(2) {
+    // Adds some spacing between the 3 buttons using the middle element (nth(2))
+    padding: 0px 7px;
+  }
+
+  .fa-trash-o {
+    color: $color-red;
+  }
+
+  .fa-building {
+    color: $color-dodger-blue;
+  }
+}
+
+.bureau-view-toggle {
+  display: flex;
+  justify-content: center;
+
+  .active {
+    text-shadow: 0 0 10px $color-dodger-blue;
+  }
+}
+
+.available-bidder-form {
+  input[type="text"]:disabled {
+    border: None;
+    background: none;
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  dd {
+    margin-inline-start: 30;
+    text-align: justify;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  label, dt {
+    display: block;
+    margin-top: 3rem;
+    min-width: 7em;
+    text-align: left;
+  }
+}
+
+.swal-modal {
+  width: 1000px;
+  background-color: #fff0;
+  padding: 0 200px;
+
+  .swal-title, .swal-content {
+    background-color: white;
+  }
+
+  swal-title:first-child {
+    margin-top: 5px;
+  }
+
+  .swal-title:not(:last-child) {
+    margin-bottom: -2px;
+    padding: 39px 16px 28px;
+  }
+  .swal-title {
+    background-color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .swal-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    margin: 0;
+    padding: 20px 20px 40px;
+    .detail {
+      padding: 10px 0;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+    }
+  }
+
+  input select textarea {
+    width: 75%;
+  }
+}
+
+#ocReason:disabled, #ocBureau:disabled {
+  background: darkgrey;
+}
+
+.tippy-popper {
+  .tippy-tooltip.oc-status-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-weight: bold;
+    }
+    .tooltip-text {
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      div:first-child {
+        padding-bottom: 10px;
+      }
+    }
+  }
+
+  .tippy-tooltip.ab-languages-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-size: 16px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+    .tooltip-text {
+      text-align: right;
+      padding-left: 5px;
+    }
+  }
+}
+
+.oc-icon {
+  color: $tertiary-gold;
+  font-size: 1.2em;
+}
+
+.ab-languages {
+  display: inline-flex;
+
+  span {
+    padding-left: 5px;
+  }
+}
+
+.ab-languages-theme {
+
+  .language-group {
+    padding-top: 2px;
+    padding-bottom : 2px;
+    font-size: 0.9em;
+
+    .language-name {
+      font-weight: bold;
+    }
+  }
+}

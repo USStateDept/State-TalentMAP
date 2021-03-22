@@ -23,6 +23,7 @@
     "indicators": true,
     "us_codes": true,
     "ao": true,
-    "available_bidders": true
+    "available_bidders": true,
+    "unassigned_filters": true
   }
 }

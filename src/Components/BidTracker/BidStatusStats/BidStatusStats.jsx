@@ -10,7 +10,7 @@ const BidStatusStats = ({ bidList, condensed }) => {
   return (
     <div className={`usa-grid-full bid-status-stats${condensed ? '--condensed' : ''}`}>
         Bids drafted: <div className="bid-stat">({draftBids})</div>
-        Bids submitted and active: <div className="bid-stat">({submittedActiveBids})</div>
+        Submitted Bids: <div className="bid-stat">({submittedActiveBids})</div>
     </div>
   );
 };

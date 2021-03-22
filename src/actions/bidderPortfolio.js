@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import { stringify } from 'query-string';
-import { find, get, isArray, join, omit, replace } from 'lodash';
+import { find, get, includes, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
@@ -31,6 +31,13 @@ export function bidderPortfolioSeasonsSuccess(results) {
   return {
     type: 'BIDDER_PORTFOLIO_SEASONS_SUCCESS',
     results,
+  };
+}
+
+export function bidderPortfolioSelectedUnassigned(arr = []) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SELECTED_UNASSIGNED',
+    data: arr,
   };
 }
 
@@ -138,6 +145,12 @@ export function bidderPortfolioSetSeasons(seasons = []) {
   };
 }
 
+export function bidderPortfolioSetUnassigned(UA = []) {
+  return (dispatch) => {
+    dispatch(bidderPortfolioSelectedUnassigned(UA));
+  };
+}
+
 export function bidderPortfolioSeasonsFetchData() {
   return (dispatch) => {
     batch(() => {
@@ -210,6 +223,7 @@ export function bidderPortfolioFetchData(query = {}) {
     const cdos = get(state, 'bidderPortfolioSelectedCDOsToSearchBy', []);
     const ids = cdos.map(m => m.hru_id).filter(f => f);
     const seasons = get(state, 'bidderPortfolioSelectedSeasons', []);
+    const unassigned = get(state, 'bidderPortfolioSelectedUnassigned', []);
     let query$ = { ...query };
     if (ids.length) {
       query$.hru_id__in = ids.join();
@@ -219,6 +233,19 @@ export function bidderPortfolioFetchData(query = {}) {
     }
     if (!query$.bid_seasons || !query$.bid_seasons.length) {
       query$ = omit(query$, ['hasHandshake']); // hasHandshake requires at least one bid season
+    }
+    if (get(query, 'hasHandshake') === 'unassigned_filters') {
+      query$ = omit(query$, ['hasHandshake']);
+      const UAvalues = unassigned.map(a => a.value);
+      if (includes(UAvalues, 'noHandshake')) {
+        query$.hasHandshake = false;
+      }
+      if (includes(UAvalues, 'noPanel')) {
+        query$.noPanel = true;
+      }
+      if (includes(UAvalues, 'noBids')) {
+        query$.noBids = true;
+      }
     }
     if (!query$.ordering) {
       query$.ordering = BID_PORTFOLIO_SORTS.defaultSort;
