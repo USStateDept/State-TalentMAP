@@ -41,3 +41,14 @@ export function toastInfo(toast, title, id, isUpdate, options) {
     options,
   };
 }
+
+export function toastHandshake(toast, title, id, isUpdate, options) {
+  return {
+    type: 'TOAST_NOTIFICATION_HANDSHAKE',
+    toast,
+    title,
+    id,
+    isUpdate,
+    options,
+  };
+}
