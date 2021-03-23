@@ -91,7 +91,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                           onChange={updateClassifications}
                           editView={editView}
                         />
-                        <div className="classifications-badges-text">
+                        <div className="classifications-season-text">
                           {m.season_text}
                         </div>
                       </>
