@@ -40,9 +40,25 @@ const Classifications = props => {
   };
 
   const onSubmit = () => {
+    const clientClassificationsId = [];
+    const userInputId = [];
+
+    userInput.forEach((u) => {
+      if (u.te_id) {
+        userInputId.push(u.te_id);
+      }
+      if (u.seasons) {
+        userInputId.push(u.seasons[0].id);
+      }
+    });
+
+    clientClassifications.forEach((c) => {
+      clientClassificationsId.push(c.te_id);
+    });
+
     const updateDiff = {
-      insert: difference(userInput, clientClassifications),
-      delete: difference(clientClassifications, userInput),
+      insert: difference(userInputId, clientClassificationsId),
+      delete: difference(clientClassificationsId, userInputId),
     };
     if (isEmpty(updateDiff.insert) && isEmpty(updateDiff.delete)) {
       setEditView(false);
