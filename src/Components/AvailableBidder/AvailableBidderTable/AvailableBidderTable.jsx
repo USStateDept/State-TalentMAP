@@ -22,7 +22,7 @@ const AvailableBidderTable = (props) => {
   // Local state
   // Toggle view state within CDO version
   const [cdoView, setCdoView] = useState(true);
-  const [sort, setSort] = useState('');
+  const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
   // App state
@@ -42,14 +42,12 @@ const AvailableBidderTable = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(availableBiddersFetchData(isCDO));
+    dispatch(availableBiddersFetchData(isCDO, sort));
     dispatch(filtersFetchData(filterData, {}));
   }, []);
 
   useEffect(() => {
-    if (sort !== '') {
-      dispatch(availableBiddersFetchData(isCDO, sort));
-    }
+    dispatch(availableBiddersFetchData(isCDO, sort));
   }, [sort]);
 
   const tableHeaders = isCDO ? [
@@ -57,16 +55,16 @@ const AvailableBidderTable = (props) => {
     'Status',
     'Skill',
     'Grade',
+    'Languages',
     'TED',
     'Post',
-    'OC Bureau',
-    'OC Reason',
     'CDO',
     'Comments',
   ] : [
     'Name',
     'Skill',
     'Grade',
+    'Languages',
     'TED',
     'Post',
     'CDO',
@@ -74,15 +72,15 @@ const AvailableBidderTable = (props) => {
 
   const getSortIcon = (header) => {
     if (header === sort) {
-      return 'sort-desc';
-    } else if (`-${header}` === sort) {
       return 'sort-asc';
+    } else if (`-${header}` === sort) {
+      return 'sort-desc';
     }
     return 'sort';
   };
 
   const handleSort = (header) => (
-    // Dynamically set the sort asc or desc('-'). Requires updates with real data
+    // Dynamically set the sort asc or desc('-')
     header === sort ? setSort(`-${header}`) : setSort(header)
   );
 
@@ -95,7 +93,7 @@ const AvailableBidderTable = (props) => {
     let bidderCountTitle = '';
     if (!isLoading) {
       if (isCDO) {
-        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => b.is_shared).length})`;
+        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => get(b, 'available_bidder_details.is_shared')).length})`;
       } else {
         bidderCountTitle = `Shared Available Bidders (${bidders.length})`;
       }
@@ -146,15 +144,24 @@ const AvailableBidderTable = (props) => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    <th
-                      key={shortid.generate()}
-                      className="ab-headers"
-                      scope="col"
-                    >
-                      <InteractiveElement onClick={() => handleSort(item)}>
-                        {item} <FA name={getSortIcon(item)} />
-                      </InteractiveElement>
-                    </th>
+                    item !== 'Languages' && item !== 'Comments' ?
+                      <th
+                        key={item}
+                        className="ab-headers"
+                        scope="col"
+                      >
+                        <InteractiveElement onClick={() => handleSort(item)}>
+                          {item} <FA name={getSortIcon(item)} />
+                        </InteractiveElement>
+                      </th>
+                      :
+                      <th
+                        key={item}
+                        className="ab-headers"
+                        scope="col"
+                      >
+                        {item}
+                      </th>
                   ))
                 }
                 {
@@ -202,7 +209,7 @@ const AvailableBidderTable = (props) => {
               {
                 bidders.map(bidder => (
                   <AvailableBidderRow
-                    key={get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number')}
+                    key={shortid.generate()}
                     bidder={bidder}
                     CDOView={cdoView}
                     isCDO={isCDO}

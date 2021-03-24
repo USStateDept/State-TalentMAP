@@ -12,7 +12,7 @@ exports[`BidTrackerComponent renders appropriate class and matches snapshot when
     00
     )
   </div>
-  Bids submitted and active: 
+  Submitted Bids: 
   <div
     className="bid-stat"
   >
@@ -35,7 +35,7 @@ exports[`BidTrackerComponent renders appropriate class and matches snapshot when
     00
     )
   </div>
-  Bids submitted and active: 
+  Submitted Bids: 
   <div
     className="bid-stat"
   >

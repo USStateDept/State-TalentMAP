@@ -16,17 +16,18 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
+  const id = get(userProfile, 'employee_id');
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
         <div>
           <h3>
-            {get(userProfile, 'name', 'N/A')}
+            {get(userProfile, 'shortened_name', 'N/A')}
           </h3>
           <Link to={`/profile/public/${perdet}`}>View Profile</Link>
         </div>
         <div className="stat-card-data-point">
-          <dt>Employee ID:</dt><dd>{perdet}</dd>
+          <dt>Employee ID:</dt><dd>{id}</dd>
         </div>
         <div className="stat-card-data-point">
           <dt>Skill:</dt><dd><SkillCodeList skillCodes={userProfile.skills} /></dd>
