@@ -8,6 +8,8 @@ const HandshakeOffered = ({ name, position }) => (
     <div className="bottom-section">
       Go to your Bid Tracker to accept the Handshake
       <Link to="/profile/bidtracker">
+        {/* <Link to="/profile/bidtracker/#bid-6_2441"> */}
+        {/* <Link to="/profile/bidtracker#bid-6_2441"> */}
         <button role="link"> Bid Tracker</button>
       </Link>
     </div>
