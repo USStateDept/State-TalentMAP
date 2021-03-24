@@ -12,6 +12,8 @@ const CheckboxList = ({ list, editView, updateClassifications,
   const [showMore, setShowMore] = useState(false);
 
   // const multiBidSeason = () => {
+  // loop through classifications
+  // pull all text where seasons property.length > 1
   // const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
   // const multiBidSeason = [];
   // if (c.seasons.length > 1) {
@@ -36,7 +38,8 @@ const CheckboxList = ({ list, editView, updateClassifications,
         className="tm-checkbox-disabled-alternate"
       />
       {list.map((c) => {
-        const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
+        // function call to psudeo code above
+        const multiBidSeason = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
         // need to update with te_id
         let checked = false;
         // let multiBidSeasonChecked = false;
@@ -56,7 +59,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
 
         return (
           <div className="classifications-client-badges">
-            {tenDiffFlag &&
+            {multiBidSeason &&
             <div className="classifications-dropdown">
               <Row className="usa-grid-full">
                 <div className="usa-grid-full toggle-more-container">
@@ -102,7 +105,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
               </Row>
             </div>
             }
-            {!tenDiffFlag &&
+            {!multiBidSeason &&
               <div>
                 <ClientBadge
                   key={c.te_id}
