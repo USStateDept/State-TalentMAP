@@ -26,18 +26,14 @@ const Classifications = props => {
 
   const handleInput = (c) => {
     const pushClass = [...userInput];
-    if (!pushClass.includes(c.seasons[0].id)) {
-      pushClass.push(c.seasons[0].id);
+    if (!pushClass.includes(c)) {
+      pushClass.push(c);
     } else {
-      const index = pushClass.indexOf(c.seasons[0].id);
+      const index = pushClass.indexOf(c);
       if (index > -1) {
         pushClass.splice(index, 1);
       }
     }
-
-    // if (c.seasons.length > 1) {
-    //   console.log(c.seasons);
-    // }
     setUserInput(pushClass);
   };
 

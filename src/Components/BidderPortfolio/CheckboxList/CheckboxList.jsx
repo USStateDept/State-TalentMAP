@@ -12,17 +12,17 @@ const CheckboxList = ({ list, editView, updateClassifications,
   const [showMore, setShowMore] = useState(false);
 
   // const multiBidSeason = () => {
-  // loop through classifications
-  // pull all text where seasons property.length > 1
-  // const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
-  // const multiBidSeason = [];
-  // if (c.seasons.length > 1) {
-  //   c.seasons.forEach((item) => {
-  //     // console.log(item.season_text);
-  //     multiBidSeason.push(item.season_text);
+  //   // loop through classifications
+  //   // pull all text where seasons property.length > 1
+  //   // const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
+  //   const flag = false;
+  //   list.forEach((item) => {
+  //     console.log(item);
+  //     // if (item.seasons.length > 1) {
+  //     //   flag = true;
+  //     // }
   //   });
-  //   // console.log(multiBidSeason);
-  // }
+  //   return flag;
   // };
 
   return (
@@ -39,7 +39,8 @@ const CheckboxList = ({ list, editView, updateClassifications,
       />
       {list.map((c) => {
         // function call to pseudo code above
-        const multiBidSeason = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
+        const multiBidSeasonFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
+        // const multiBidSeasonFlag = multiBidSeason();
         let checked = false;
         input.forEach((item) => {
           if (c.seasons.length === 1 && c.seasons[0].id === item) {
@@ -54,13 +55,15 @@ const CheckboxList = ({ list, editView, updateClassifications,
 
         return (
           <div className="classifications-client-badges">
-            {multiBidSeason &&
+            {multiBidSeasonFlag &&
             <div className="classifications-dropdown">
               <Row className="usa-grid-full">
                 <div className="usa-grid-full toggle-more-container">
                   <InteractiveElement className="toggle-more classifications-row" onClick={() => setShowMore(!showMore)}>
                     <ClientBadge
                       // need to update key/id
+                      // from tenured 4 so onChange/handleInput
+                      // works correctly
                       key={'tenured4'}
                       type={c}
                       id={'tenured4'}
@@ -110,7 +113,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
               </Row>
             </div>
             }
-            {!multiBidSeason &&
+            {!multiBidSeasonFlag &&
               <div>
                 <ClientBadge
                   key={c.seasons[0].id}
