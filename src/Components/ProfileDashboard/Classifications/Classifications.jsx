@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { difference, isEmpty, some, remove } from 'lodash';
+import { difference, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
@@ -26,11 +26,18 @@ const Classifications = props => {
 
   const handleInput = (c) => {
     const pushClass = [...userInput];
-    if (!some(pushClass, c)) {
-      pushClass.push(c);
+    if (!pushClass.includes(c.seasons[0].id)) {
+      pushClass.push(c.seasons[0].id);
     } else {
-      remove(pushClass, c);
+      const index = pushClass.indexOf(c.seasons[0].id);
+      if (index > -1) {
+        pushClass.splice(index, 1);
+      }
     }
+
+    // if (c.seasons.length > 1) {
+    //   console.log(c.seasons);
+    // }
     setUserInput(pushClass);
   };
 
@@ -40,25 +47,9 @@ const Classifications = props => {
   };
 
   const onSubmit = () => {
-    const clientClassificationsId = [];
-    const userInputId = [];
-
-    userInput.forEach((u) => {
-      if (u.te_id) {
-        userInputId.push(u.te_id);
-      }
-      if (u.seasons) {
-        userInputId.push(u.seasons[0].id);
-      }
-    });
-
-    clientClassifications.forEach((c) => {
-      clientClassificationsId.push(c.te_id);
-    });
-
     const updateDiff = {
-      insert: difference(userInputId, clientClassificationsId),
-      delete: difference(clientClassificationsId, userInputId),
+      insert: difference(userInput, clientClassifications),
+      delete: difference(clientClassifications, userInput),
     };
     if (isEmpty(updateDiff.insert) && isEmpty(updateDiff.delete)) {
       setEditView(false);

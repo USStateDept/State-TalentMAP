@@ -51,10 +51,12 @@ const CheckboxList = ({ list, editView, updateClassifications,
           //     }
           //   });
           // }
-          // if (item.te_id === c.seasons[0].id && c.seaons.length == 1) {
-          if (item.tp_code === c.code || item.code === c.code) {
+          if (c.seasons.length === 1 && c.seasons[0].id === item) {
             checked = true;
           }
+          // if (c.seasons.length > 1) {
+          //   console.log(c.seasons);
+          // }
         });
 
         return (
@@ -65,7 +67,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 <div className="usa-grid-full toggle-more-container">
                   <InteractiveElement className="toggle-more classifications-row" onClick={() => setShowMore(!showMore)}>
                     <ClientBadge
-                      key={c.te_id}
+                      key={c.seasons[0].id}
                       type={c}
                       status={checked}
                       showShortCode={false}
