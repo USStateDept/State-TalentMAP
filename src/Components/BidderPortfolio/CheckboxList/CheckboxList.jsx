@@ -25,17 +25,9 @@ const CheckboxList = ({ list, editView, updateClassifications,
       />
       {list.map((c) => {
         let checked = false;
-        let multiBidSeasonFlag = false;
+        const multiBidSeasonFlag = c.seasons.length > 1;
         input.forEach((item) => {
-          if (c.seasons.length === 1 && c.seasons[0].id === item) {
-            checked = true;
-          }
-          if (c.seasons.length > 1) {
-            multiBidSeasonFlag = true;
-            c.seasons.forEach((cs) => {
-              if (cs.id === item) checked = true;
-            });
-          }
+          c.seasons.forEach((cs) => { if (cs.id === item) checked = true; });
         });
 
         return (
@@ -70,13 +62,9 @@ const CheckboxList = ({ list, editView, updateClassifications,
                   <div>
                     {c.seasons.map((m) => {
                       let multiBidSeasonChecked = false;
-                      input.forEach((item) => {
-                        if (m.id === item) {
-                          multiBidSeasonChecked = true;
-                        }
-                      });
+                      input.forEach((item) => { if (m.id === item) multiBidSeasonChecked = true; });
                       return (
-                        <>
+                        <div className="multiBidSeason">
                           <ClientBadge
                             key={m.id}
                             type={c}
@@ -89,7 +77,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                           <div className="classifications-season-text">
                             {m.season_text}
                           </div>
-                        </>
+                        </div>
                       );
                     })
                     }
