@@ -38,25 +38,18 @@ const CheckboxList = ({ list, editView, updateClassifications,
         className="tm-checkbox-disabled-alternate"
       />
       {list.map((c) => {
-        // function call to psudeo code above
+        // function call to pseudo code above
         const multiBidSeason = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
-        // need to update with te_id
         let checked = false;
-        // let multiBidSeasonChecked = false;
         input.forEach((item) => {
-          // if (c.seasons.length > 1) {
-          //   c.seasons.forEach((m) => {
-          //     if (item.te_id === m.id) {
-          //       multiBidSeasonChecked = true;
-          //     }
-          //   });
-          // }
           if (c.seasons.length === 1 && c.seasons[0].id === item) {
             checked = true;
           }
-          // if (c.seasons.length > 1) {
-          //   console.log(c.seasons);
-          // }
+          if (c.seasons.length > 1) {
+            c.seasons.forEach((cs) => {
+              if (cs.id === item) checked = true;
+            });
+          }
         });
 
         return (
@@ -67,8 +60,10 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 <div className="usa-grid-full toggle-more-container">
                   <InteractiveElement className="toggle-more classifications-row" onClick={() => setShowMore(!showMore)}>
                     <ClientBadge
-                      key={c.seasons[0].id}
+                      // need to update key/id
+                      key={'tenured4'}
                       type={c}
+                      id={'tenured4'}
                       status={checked}
                       showShortCode={false}
                       onChange={updateClassifications}
@@ -85,22 +80,30 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 {
                   showMore &&
                   <div>
-                    {c.seasons.map((m) => (
-                      <>
-                        <ClientBadge
-                          key={m.id}
-                          type={c}
-                          status={checked}
-                          // status={multiBidSeasonChecked}
-                          showShortCode={false}
-                          onChange={updateClassifications}
-                          editView={editView}
-                        />
-                        <div className="classifications-season-text">
-                          {m.season_text}
-                        </div>
-                      </>
-                    ))
+                    {c.seasons.map((m) => {
+                      let multiBidSeasonChecked = false;
+                      input.forEach((item) => {
+                        if (m.id === item) {
+                          multiBidSeasonChecked = true;
+                        }
+                      });
+                      return (
+                        <>
+                          <ClientBadge
+                            key={m.id}
+                            type={c}
+                            id={m.id}
+                            status={multiBidSeasonChecked}
+                            showShortCode={false}
+                            onChange={updateClassifications}
+                            editView={editView}
+                          />
+                          <div className="classifications-season-text">
+                            {m.season_text}
+                          </div>
+                        </>
+                      );
+                    })
                     }
                   </div>
                 }
@@ -110,8 +113,9 @@ const CheckboxList = ({ list, editView, updateClassifications,
             {!multiBidSeason &&
               <div>
                 <ClientBadge
-                  key={c.te_id}
+                  key={c.seasons[0].id}
                   type={c}
+                  id={c.seasons[0].id}
                   status={checked}
                   showShortCode={false}
                   onChange={updateClassifications}

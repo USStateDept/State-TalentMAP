@@ -108,14 +108,14 @@ const icons = {
 
 const status$ = ['none', 'success'];
 
-const ClientBadge = ({ type, status, showShortCode, editView, onChange }) => {
+const ClientBadge = ({ type, status, showShortCode, editView, onChange, id }) => {
   const isHighlighted = status === true ? 'success' : 'none';
   const ariaLabel = `type of "${type.code}" with status of "${status$[status]}"`;
   const icon = get(icons, type.code, 'None');
   const text = showShortCode === true ? get(icon, 'text', 'None') : '';
   return (
     <div className={`usa-grid-full client-badge-container client-badge-container--${icons[type.code] && icons[type.code].isIcon ? 'icon' : 'text'} client-badge-container--${isHighlighted}`}>
-      {editView ? <InteractiveElement onClick={() => onChange(type)}>
+      {editView ? <InteractiveElement onClick={() => onChange(id)}>
         <div className="client-badge">
           <Tooltip
             title={text}
@@ -178,6 +178,7 @@ ClientBadge.propTypes = {
   showShortCode: PropTypes.bool,
   editView: PropTypes.bool,
   onChange: PropTypes.func,
+  id: PropTypes.number,
 };
 
 ClientBadge.defaultProps = {
@@ -186,6 +187,7 @@ ClientBadge.defaultProps = {
   showShortCode: true,
   editView: false,
   onChange: EMPTY_FUNCTION,
+  id: 0,
 };
 
 export default ClientBadge;
