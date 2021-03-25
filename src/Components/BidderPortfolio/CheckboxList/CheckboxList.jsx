@@ -11,20 +11,6 @@ const CheckboxList = ({ list, editView, updateClassifications,
   input }) => {
   const [showMore, setShowMore] = useState(false);
 
-  // const multiBidSeason = () => {
-  //   // loop through classifications
-  //   // pull all text where seasons property.length > 1
-  //   // const tenDiffFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
-  //   const flag = false;
-  //   list.forEach((item) => {
-  //     console.log(item);
-  //     // if (item.seasons.length > 1) {
-  //     //   flag = true;
-  //     // }
-  //   });
-  //   return flag;
-  // };
-
   return (
     <div className="client-checkbox-list">
       <CheckBox
@@ -38,15 +24,14 @@ const CheckboxList = ({ list, editView, updateClassifications,
         className="tm-checkbox-disabled-alternate"
       />
       {list.map((c) => {
-        // function call to pseudo code above
-        const multiBidSeasonFlag = c.text === 'Tenured 4' || c.text === 'Differential Bidder';
-        // const multiBidSeasonFlag = multiBidSeason();
         let checked = false;
+        let multiBidSeasonFlag = false;
         input.forEach((item) => {
           if (c.seasons.length === 1 && c.seasons[0].id === item) {
             checked = true;
           }
           if (c.seasons.length > 1) {
+            multiBidSeasonFlag = true;
             c.seasons.forEach((cs) => {
               if (cs.id === item) checked = true;
             });
