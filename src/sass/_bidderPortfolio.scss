@@ -70,6 +70,15 @@
   padding-top: 10px;
 }
 
+.multiBidSeasonDropdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(165px, 1fr));
+}
+
+.multiBidSeason {
+    display: inline;
+  }
+
 .bidder-portfolio-stat-row {
   border: 1px solid $color-gray-light;
   display: flex;

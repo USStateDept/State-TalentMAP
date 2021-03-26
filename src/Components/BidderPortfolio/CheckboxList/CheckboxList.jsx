@@ -33,7 +33,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
         return (
           <div className="classifications-client-badges">
             {multiBidSeasonFlag &&
-            <div className="classifications-dropdown">
+            <div>
               <Row className="usa-grid-full">
                 <div className="usa-grid-full toggle-more-container">
                   <InteractiveElement className="toggle-more classifications-row" onClick={() => setShowMore(!showMore)}>
@@ -59,7 +59,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 </div>
                 {
                   showMore &&
-                  <div>
+                  <div className="multiBidSeasonDropdown">
                     {c.seasons.map((m) => {
                       let multiBidSeasonChecked = false;
                       input.forEach((item) => { if (m.id === item) multiBidSeasonChecked = true; });
