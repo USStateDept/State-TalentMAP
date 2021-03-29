@@ -125,5 +125,5 @@ export const REMOVE_FROM_INTERNAL_LIST_ERROR = "We're experiencing an error atte
 
 export const COMING_SOON = 'Coming Soon';
 
-export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications have been updated";
+export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications updated";
 export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";

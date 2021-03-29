@@ -65,10 +65,6 @@
           min-width: 100%;
           .client-badge-container {
             display: inline-block;
-            text-align: initial;
-            .client-badge {
-              display: inline;
-            }
           }
           .classifications-badges-text {
             display: inline-block;
@@ -80,7 +76,6 @@
             vertical-align: super;
             padding-left: 10px;
             padding-top: 20px;
-            min-width: 135px;
           }
         }
     }
@@ -92,6 +87,7 @@
 
     .classifications-checkbox {
       align-items: center;
+      font-size: 16px;
     }
 
     .small-link-container {
