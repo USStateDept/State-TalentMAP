@@ -52,12 +52,9 @@ const CheckboxList = ({ list, editView, updateClassifications,
                 <div className="usa-grid-full toggle-more-container">
                   <InteractiveElement className="toggle-more classifications-row" onClick={() => updateShowMore(uniqueShowMore)}>
                     <ClientBadge
-                      // need to update key/id
-                      // from tenured 4 so onChange/handleInput
-                      // works correctly
-                      key={'tenured4'}
+                      key={c.seasons[0].id}
                       type={c}
-                      id={'tenured4'}
+                      id={c.seasons[0].id}
                       status={checked}
                       showShortCode={false}
                       editView={editView}
