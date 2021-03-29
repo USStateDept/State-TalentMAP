@@ -73,7 +73,7 @@ export function updateClassifications(data, id) {
       dispatch(updateClassificationsHasErrored(false));
     });
 
-    const url = `/fsbid/cdo/client/${id}/classifications/`;
+    const url = `/fsbid/cdo/classifications/${id}/`;
 
     api().put(url, data)
       .then(response => response.data)

@@ -13,9 +13,9 @@ const mockStore = configureStore(middlewares);
 describe('UpdatesComponent', () => {
   const props = {
     classifications: [{
-      id: 'id',
-      show: 'show',
-      text: 'text',
+      code: 'P',
+      text: 'Pickering/Rangel Fellows',
+      seasons: [{ id: 185, season_text: null }],
     }],
     clientClassifications: ['1', '2'],
     updateUserClassifications: EMPTY_FUNCTION,

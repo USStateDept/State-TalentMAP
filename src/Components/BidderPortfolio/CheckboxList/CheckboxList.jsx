@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
+import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from '../../Layout';
 import CheckBox from '../../CheckBox';
 import ClientBadge from '../ClientBadge';
-import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const CheckboxList = ({ list, editView, updateClassifications,
   input }) => {
@@ -46,7 +46,6 @@ const CheckboxList = ({ list, editView, updateClassifications,
                       id={'tenured4'}
                       status={checked}
                       showShortCode={false}
-                      onChange={updateClassifications}
                       editView={editView}
                     />
                     <div className="classifications-badges-text">

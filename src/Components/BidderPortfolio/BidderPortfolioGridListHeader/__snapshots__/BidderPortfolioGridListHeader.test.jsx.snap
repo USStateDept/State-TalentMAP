@@ -24,6 +24,7 @@ exports[`BidderPortfolioGridListHeaderComponent matches snapshot 1`] = `
             label="Select all"
             labelSrOnly={true}
             name=""
+            onChange={[Function]}
             onCheckBoxClick={[Function]}
             overrideLifecycle={false}
             small={true}
