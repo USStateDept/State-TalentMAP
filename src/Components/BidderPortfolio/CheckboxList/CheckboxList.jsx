@@ -12,12 +12,8 @@ const CheckboxList = ({ list, editView, updateClassifications,
   const [showMore, setShowMore] = useState({});
 
   useEffect(() => {
-    // setting up showMore vars
-    list.forEach(showMoreVar => {
-      if (showMoreVar.seasons.length > 1) {
-        setShowMore(prevState => ({ ...prevState, [showMoreVar.text.split(' ')[0]]: false }));
-      }
-    });
+    // setting up showMore vars for classifications that have a season attached
+    setShowMore(Object.assign({}, ...(list.filter(f => f.seasons.length > 1).map(c => ({ [c.text.split(' ')[0]]: false })))));
   }, []);
 
   function updateShowMore(uniqShowMore) {
