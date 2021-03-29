@@ -51,7 +51,7 @@ class Alert extends Component {
 }
 
 Alert.propTypes = {
-  type: PropTypes.oneOf(['info', 'warning', 'error', 'success']),
+  type: PropTypes.oneOf(['info', 'warning', 'error', 'success', 'dark']),
   title: PropTypes.string.isRequired,
   messages: PropTypes.arrayOf(
     PropTypes.shape({
