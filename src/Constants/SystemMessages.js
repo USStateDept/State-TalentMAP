@@ -5,6 +5,7 @@ import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from 'Components/BidListMessages/Success';
 import BidRemoveSuccess from 'Components/BidListMessages/RemoveSuccess';
 import SavedSearchSuccess from 'Components/SavedSearchMessages/Success';
+import HandshakeOffered from 'Components/BidTracker/Messages/handshakeOffered';
 import GenericSuccessToast from 'Components/GenericToast/Success';
 
 export const DEFAULT_TEXT = 'None listed';
@@ -122,5 +123,9 @@ export const UPDATE_AVAILABLE_BIDDER_ERROR = 'Error updating Available Bidder in
 export const INTERNAL_LIST_ERROR_TITLE = 'Internal list Error';
 export const ADD_TO_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to add this client to the Internal list. Please try again.";
 export const REMOVE_FROM_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to remove this client from the Internal list. Please try again.";
+
+export const HANDSHAKE_OFFERED_TITLE = 'Handshake Offered!';
+export const HANDSHAKE_OFFERED_BODY = ({ name, position, bid }) =>
+  HandshakeOffered({ name, position, bid });
 
 export const COMING_SOON = 'Coming Soon';
