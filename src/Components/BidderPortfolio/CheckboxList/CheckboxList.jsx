@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -9,7 +9,21 @@ import ClientBadge from '../ClientBadge';
 
 const CheckboxList = ({ list, editView, updateClassifications,
   input }) => {
-  const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState({});
+
+  useEffect(() => {
+    // setting up showMore vars
+    list.forEach(showMoreVar => {
+      if (showMoreVar.seasons.length > 1) {
+        setShowMore(prevState => ({ ...prevState, [showMoreVar.text.split(' ')[0]]: false }));
+      }
+    });
+  }, []);
+
+  function updateShowMore(uniqShowMore) {
+    const newVal = !showMore[uniqShowMore];
+    setShowMore(prevState => ({ ...prevState, [uniqShowMore]: newVal }));
+  }
 
   return (
     <div className="client-checkbox-list">
@@ -25,7 +39,11 @@ const CheckboxList = ({ list, editView, updateClassifications,
       />
       {list.map((c) => {
         let checked = false;
+        let uniqueShowMore = '';
         const multiBidSeasonFlag = c.seasons.length > 1;
+        if (multiBidSeasonFlag) {
+          uniqueShowMore = c.text.split(' ')[0];
+        }
         input.forEach((item) => {
           c.seasons.forEach((cs) => { if (cs.id === item) checked = true; });
         });
@@ -36,7 +54,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
             <div>
               <Row className="usa-grid-full">
                 <div className="usa-grid-full toggle-more-container">
-                  <InteractiveElement className="toggle-more classifications-row" onClick={() => setShowMore(!showMore)}>
+                  <InteractiveElement className="toggle-more classifications-row" onClick={() => updateShowMore(uniqueShowMore)}>
                     <ClientBadge
                       // need to update key/id
                       // from tenured 4 so onChange/handleInput
@@ -52,12 +70,12 @@ const CheckboxList = ({ list, editView, updateClassifications,
                       {c.text}
                     </div>
                     <FontAwesome
-                      name={`chevron-${showMore ? 'down' : 'right'}`}
+                      name={`chevron-${showMore[uniqueShowMore] ? 'down' : 'right'}`}
                     />
                   </InteractiveElement>
                 </div>
                 {
-                  showMore &&
+                  showMore[uniqueShowMore] &&
                   <div className="multiBidSeasonDropdown">
                     {c.seasons.map((m) => {
                       let multiBidSeasonChecked = false;
