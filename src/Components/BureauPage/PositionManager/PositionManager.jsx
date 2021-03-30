@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, ORG_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, sortBy, uniqBy, throttle, isEmpty, pick } from 'lodash';
+import { get, has, sortBy, uniqBy, throttle, isEmpty, pick } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -53,6 +53,8 @@ const PositionManager = props => {
   const [selectedCycles, setSelectedCycles] = useState(userSelections.selectedCycles || []);
   const [selectedLanguages, setSelectedLanguages] =
     useState(userSelections.selectedLanguages || []);
+  const [selectedPostIndicators, setSelectedPostIndicators] =
+    useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections.selectedBureaus ||
       isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]);
@@ -86,6 +88,8 @@ const PositionManager = props => {
   const cycleOptions = uniqBy(sortBy(cycles.data, [(c) => c.custom_description]), 'custom_description');
   const languages = bureauFilters$.find(f => f.item.description === 'language');
   const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
+  const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
+  const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
   const sorts = BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
@@ -101,6 +105,7 @@ const PositionManager = props => {
     selectedOrgs,
     selectedCycles,
     selectedLanguages,
+    selectedPostIndicators,
     textSearch,
     textInput,
   };
@@ -116,6 +121,7 @@ const PositionManager = props => {
     org_code: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
+    [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
     ordering,
     page,
     limit,
@@ -151,6 +157,7 @@ const PositionManager = props => {
     selectedOrgs,
     selectedCycles,
     selectedLanguages,
+    selectedPostIndicators,
     ordering,
     limit,
     textSearch,
@@ -168,29 +175,22 @@ const PositionManager = props => {
 
 
   function renderSelectionList({ items, selected, ...rest }) {
-    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    const queryProp = get(items, '[0].custom_description', false) ? 'custom_description' : 'long_description';
+    let codeOrID = 'code';
+    // only Cycle needs to use 'id'
+    if (!has(items[0], 'code')) {
+      codeOrID = 'id';
+    }
+    const getSelected = item => !!selected.find(f => f[codeOrID] === item[codeOrID]);
+    let queryProp = 'description';
+    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
+    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
     return items.map(item =>
       (<ListItem
-        key={item.code}
+        key={item[codeOrID]}
         item={item}
         {...rest}
         queryProp={queryProp}
-        getIsSelected={getCodeSelected}
-      />),
-    );
-  }
-
-  function renderSelectionListById({ items, selected, ...rest }) {
-    const getIDSelected = item => !!selected.find(f => f.id === item.id);
-    const queryProp = get(items[0], 'custom_description', false) ? 'custom_description' : 'long_description';
-    return items.map(item =>
-      (<ListItem
-        key={item.id}
-        item={item}
-        {...rest}
-        queryProp={queryProp}
-        getIsSelected={getIDSelected}
+        getIsSelected={getSelected}
       />),
     );
   }
@@ -248,6 +248,7 @@ const PositionManager = props => {
       [bureauPermissions$[0]].filter(f => f) : [props.bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
+    setSelectedPostIndicators([]);
     setTextSearch('');
     setClearFilters(false);
   };
@@ -262,6 +263,7 @@ const PositionManager = props => {
       selectedTODs,
       selectedCycles,
       selectedLanguages,
+      selectedPostIndicators,
       selectedOrgs.filter(f => get(f, 'code') !== defaultOrgCode),
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
@@ -277,6 +279,7 @@ const PositionManager = props => {
     selectedTODs,
     selectedCycles,
     selectedLanguages,
+    selectedPostIndicators,
     textSearch,
     selectedOrgs,
     selectedBureaus,
@@ -308,31 +311,64 @@ const PositionManager = props => {
                   </div>
                 </div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
-                  <div className="small-screen-stack position-manager-filters-inner">
+                  <div className="filter-div">
+                    <div className="label">Cycle:</div>
+                    <Picky
+                      placeholder="Select cycle(s)"
+                      value={selectedCycles}
+                      options={cycleOptions}
+                      onChange={setSelectedCycles}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="id"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">TOD:</div>
+                    <Picky
+                      placeholder="Select TOD(s)"
+                      value={selectedTODs}
+                      options={todOptions}
+                      onChange={setSelectedTODs}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="long_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Location:</div>
+                    <Picky
+                      placeholder="Select Location(s)"
+                      value={selectedPosts}
+                      options={postOptions}
+                      onChange={setSelectedPosts}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                    />
+                  </div>
+                  <PermissionsWrapper permissions={['bureau_user', 'ao_user']} minimum>
                     <div className="filter-div">
-                      <div className="label">Cycle:</div>
+                      <div className="label">Bureau:</div>
                       <Picky
-                        placeholder="Select cycle(s)"
-                        value={selectedCycles}
-                        options={cycleOptions}
-                        onChange={setSelectedCycles}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionListById}
-                        valueKey="id"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
-                    <div className="filter-div">
-                      <div className="label">TOD:</div>
-                      <Picky
-                        placeholder="Select TOD(s)"
-                        value={selectedTODs}
-                        options={todOptions}
-                        onChange={setSelectedTODs}
+                        placeholder="Select Bureau(s)"
+                        value={selectedBureaus.filter(f => f)}
+                        options={bureauOptions}
+                        onChange={setSelectedBureaus}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -343,30 +379,16 @@ const PositionManager = props => {
                         includeSelectAll
                       />
                     </div>
-                    <div className="filter-div">
-                      <div className="label">Location:</div>
-                      <Picky
-                        placeholder="Select Location(s)"
-                        value={selectedPosts}
-                        options={postOptions}
-                        onChange={setSelectedPosts}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                      />
-                    </div>
-                    <PermissionsWrapper permissions={['bureau_user', 'ao_user']} minimum>
+                  </PermissionsWrapper>
+                  <StaticDevContent useWrapper={false}>
+                    <PermissionsWrapper permissions={['post_user']}>
                       <div className="filter-div">
-                        <div className="label">Bureau:</div>
+                        <div className="label">Organization:</div>
                         <Picky
-                          placeholder="Select Bureau(s)"
-                          value={selectedBureaus.filter(f => f)}
-                          options={bureauOptions}
-                          onChange={setSelectedBureaus}
+                          placeholder="Select Organization(s)"
+                          value={selectedOrgs}
+                          options={organizationOptions}
+                          onChange={setSelectedOrgs}
                           numberDisplayed={2}
                           multiple
                           includeFilter
@@ -378,78 +400,74 @@ const PositionManager = props => {
                         />
                       </div>
                     </PermissionsWrapper>
-                    <StaticDevContent useWrapper={false}>
-                      <PermissionsWrapper permissions={['post_user']}>
-                        <div className="filter-div">
-                          <div className="label">Organization:</div>
-                          <Picky
-                            placeholder="Select Organization(s)"
-                            value={selectedOrgs}
-                            options={organizationOptions}
-                            onChange={setSelectedOrgs}
-                            numberDisplayed={2}
-                            multiple
-                            includeFilter
-                            dropdownHeight={255}
-                            renderList={renderSelectionList}
-                            valueKey="code"
-                            labelKey="long_description"
-                            includeSelectAll
-                          />
-                        </div>
-                      </PermissionsWrapper>
-                    </StaticDevContent>
-                    <div className="filter-div">
-                      <div className="label">Skill:</div>
-                      <Picky
-                        placeholder="Select Skill(s)"
-                        value={selectedSkills}
-                        options={skillOptions}
-                        onChange={setSelectedSkills}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
-                    <div className="filter-div">
-                      <div className="label">Grade:</div>
-                      <Picky
-                        placeholder="Select Grade(s)"
-                        value={selectedGrades}
-                        options={gradeOptions}
-                        onChange={setSelectedGrades}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
-                    <div className="filter-div">
-                      <div className="label">Language:</div>
-                      <Picky
-                        placeholder="Select Language(s)"
-                        value={selectedLanguages}
-                        options={languageOptions}
-                        onChange={setSelectedLanguages}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
+                  </StaticDevContent>
+                  <div className="filter-div">
+                    <div className="label">Skill:</div>
+                    <Picky
+                      placeholder="Select Skill(s)"
+                      value={selectedSkills}
+                      options={skillOptions}
+                      onChange={setSelectedSkills}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Grade:</div>
+                    <Picky
+                      placeholder="Select Grade(s)"
+                      value={selectedGrades}
+                      options={gradeOptions}
+                      onChange={setSelectedGrades}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Language:</div>
+                    <Picky
+                      placeholder="Select Language(s)"
+                      value={selectedLanguages}
+                      options={languageOptions}
+                      onChange={setSelectedLanguages}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Post Indicators:</div>
+                    <Picky
+                      placeholder="Select Post Indicator(s)"
+                      value={selectedPostIndicators}
+                      options={postIndicatorsOptions}
+                      onChange={setSelectedPostIndicators}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
                   </div>
                 </div>
               </div>

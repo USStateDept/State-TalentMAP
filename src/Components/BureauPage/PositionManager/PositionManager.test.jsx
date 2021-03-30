@@ -113,6 +113,16 @@ describe('BureauPage', () => {
             },
           ],
         },
+        {
+          item: { description: 'postIndicators' },
+          data: [
+            {
+              code: 'BT_MOST_DIFFICULT_TO_STAFF_FLG',
+              description: 'Historic Diff. to Staff',
+              isSelected: false,
+            },
+          ],
+        },
       ],
     },
     bureauPermissions: [
