@@ -13,7 +13,8 @@ const CheckboxList = ({ list, editView, updateClassifications,
 
   useEffect(() => {
     // setting up showMore vars for classifications that have a season attached
-    setShowMore(Object.assign({}, ...(list.filter(f => f.seasons.length > 1).map(c => ({ [c.text.split(' ')[0]]: false })))));
+    // eslint-disable-next-line no-param-reassign
+    setShowMore(list.reduce((a, c) => { if (c.seasons.length > 1) { a[c.text.split(' ')[0]] = false; } return a; }, {}));
   }, []);
 
   function updateShowMore(uniqShowMore) {
