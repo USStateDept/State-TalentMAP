@@ -19,7 +19,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
 
   function updateShowMore(uniqShowMore) {
     const newVal = !showMore[uniqShowMore];
-    setShowMore(prevState => ({ ...prevState, [uniqShowMore]: newVal }));
+    setShowMore({ ...showMore, [uniqShowMore]: newVal });
   }
 
   return (
