@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatIdSpacing } from '../../utilities';
 
 class CheckBox extends Component {
@@ -18,6 +18,8 @@ class CheckBox extends Component {
   }
 
   onCheck() {
+    const { id, onChange } = this.props;
+    const formattedId = formatIdSpacing(id);
     const { overrideLifecycle } = this.props;
     if (!overrideLifecycle) {
       const { checked } = this.state;
@@ -26,6 +28,7 @@ class CheckBox extends Component {
         this.props.onCheckBoxClick(checked.value, { ...this.props }),
       );
     }
+    onChange(formattedId);
   }
 
   render() {
@@ -65,6 +68,7 @@ CheckBox.propTypes = {
   disabled: PropTypes.bool,
   checkboxProps: PropTypes.shape({}),
   overrideLifecycle: PropTypes.bool,
+  onChange: PropTypes.func,
 };
 
 CheckBox.defaultProps = {
@@ -77,6 +81,7 @@ CheckBox.defaultProps = {
   disabled: false,
   checkboxProps: {},
   overrideLifecycle: false,
+  onChange: EMPTY_FUNCTION,
 };
 
 export default CheckBox;
