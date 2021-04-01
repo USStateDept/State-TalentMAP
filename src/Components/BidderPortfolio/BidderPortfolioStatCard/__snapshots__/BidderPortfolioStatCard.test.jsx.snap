@@ -69,6 +69,26 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
       className="stat-card-data-point"
     >
       <dt>
+        Languages:
+      </dt>
+      <dd>
+        None
+      </dd>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
+        TED:
+      </dt>
+      <dd>
+        None listed
+      </dd>
+    </div>
+    <div
+      className="stat-card-data-point"
+    >
+      <dt>
         Location:
       </dt>
       <dd>
