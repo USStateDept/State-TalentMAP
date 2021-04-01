@@ -19,7 +19,6 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const perdet = get(userProfile, 'perdet_seq_number');
   const id = get(userProfile, 'employee_id');
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
-  // need to get client's languages (full or shortened?)
   const languages = get(userProfile, 'current_assignment.position.language');
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
