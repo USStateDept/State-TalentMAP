@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
-import { NO_GRADE, NO_POST, NO_TOUR_END_DATE, NO_LANGUAGES } from 'Constants/SystemMessages';
+import { NO_GRADE, NO_POST, NO_TOUR_END_DATE, NO_LANGUAGE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
@@ -39,7 +39,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
           <dt>Grade:</dt><dd>{userProfile.grade || NO_GRADE}</dd>
         </div>
         <div className="stat-card-data-point">
-          <dt>Languages:</dt><dd>{languages || NO_LANGUAGES}</dd>
+          <dt>Languages:</dt><dd>{languages || NO_LANGUAGE}</dd>
         </div>
         <div className="stat-card-data-point">
           <dt>TED:</dt><dd>{ted || NO_TOUR_END_DATE}</dd>
