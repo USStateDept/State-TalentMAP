@@ -13,6 +13,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const webpackDashboard = require('webpack-dashboard/plugin');
+const { WebpackPluginRamdisk } = require('webpack-plugin-ramdisk');
 
 const envVariables = require('./env');
 const paths = require('./paths');
@@ -252,6 +253,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new WebpackPluginRamdisk({}),
     new webpackDashboard(),
     new HardSourceWebpackPlugin(),
     new ExtractTextPlugin('style.css'),
