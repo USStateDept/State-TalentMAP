@@ -60,15 +60,34 @@
       flex-direction: column;
       flex-grow: 1;
 
-      div:nth-child(2) {
-        display: flex;
-        flex-grow: 1;
-      }
+        .classifications-client-badges {
+          padding-bottom: 15px;
+          min-width: 100%;
+          .client-badge-container {
+            display: inline-block;
+          }
+          .classifications-badges-text {
+            display: inline-block;
+            vertical-align: super;
+            padding-left: 10px;
+          }
+          .classifications-season-text {
+            display: inline-block;
+            vertical-align: super;
+            padding-left: 10px;
+            padding-top: 20px;
+          }
+        }
     }
 
     .unstyled-button {
       color: $blue-primary;
       font-size: 1.2em;
+    }
+
+    .classifications-checkbox {
+      align-items: center;
+      font-size: 16px;
     }
 
     .small-link-container {

@@ -1,32 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UpdatesComponent matches snapshot 1`] = `
-<div
-  className="usa-grid-full profile-section-container updates-container"
->
-  <div
-    className="usa-grid-full section-padded-inner-container"
-  >
-    <div
-      className="usa-width-one-whole"
-    >
-      <PositionInformation
-        className=""
-        icon="tasks"
-        small={false}
-        title="Bidder Classifications"
-      />
-    </div>
-    <div
-      className="usa-width-one-whole"
-    >
-      <CheckboxList
-        clientClassifications={Array []}
-        id="updates"
-        isDisabled={false}
-        list={Array []}
-      />
-    </div>
-  </div>
-</div>
-`;
+exports[`UpdatesComponent matches snapshot 1`] = `undefined`;

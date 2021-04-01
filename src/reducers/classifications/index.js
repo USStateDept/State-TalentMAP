@@ -1,7 +1,11 @@
 import { classificationsHasErrored,
   classificationsIsLoading,
-  classifications } from './classifications';
+  classifications,
+  updateClassificationsHasErrored,
+  updateClassificationsIsLoading } from './classifications';
 
 export default { classificationsHasErrored,
   classificationsIsLoading,
-  classifications };
+  classifications,
+  updateClassificationsHasErrored,
+  updateClassificationsIsLoading };
