@@ -110,6 +110,7 @@ const ProfileDashboard = ({
                         <Classifications
                           classifications={classifications}
                           clientClassifications={clientClassifications}
+                          userId={userProfile.perdet_seq_number}
                         />
                       </BoxShadow>
                     </Column>
