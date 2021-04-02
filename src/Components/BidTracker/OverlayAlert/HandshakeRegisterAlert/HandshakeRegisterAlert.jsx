@@ -7,6 +7,7 @@ import { getPostName, formatDate } from 'utilities';
 
 class HandshakeRegisterAlert extends Component {
   onRegisterHandshake = () => {
+    // would need to redirect to Handshake Registration Checklist here
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position.id);
   };
