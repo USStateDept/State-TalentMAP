@@ -8,7 +8,7 @@
     "@cmsgov/design-system-core": "^1.18.0",
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
-    "@fortawesome/free-solid-svg-icons": "^5.15.2",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@sweetalert/with-react": "^0.1.1",
     "axios": "^0.18.1",
@@ -93,7 +93,7 @@
     "sweetalert": "^2.1.2",
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
-    "use-query-params": "^1.2.0",
+    "use-query-params": "^1.2.2",
     "uswds": "~1.6.12"
   },
   "devDependencies": {
@@ -129,7 +129,7 @@
     "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react": "^7.23.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "6.1.0",
     "fs-extra": "^8.1.0",
