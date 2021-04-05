@@ -145,4 +145,8 @@
 
 .Toastify__toast-container { // scss-lint:disable SelectorFormat
   width: 400px;
+    .Toastify__toast--dark {
+      width: 500px;
+      margin-left: -108px;
+    }
 }
