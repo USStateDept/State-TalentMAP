@@ -24,3 +24,21 @@ export function classifications(state = [], action) {
       return state;
   }
 }
+
+export function updateClassificationsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'UPDATE_CLASSIFICATIONS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function updateClassificationsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'UPDATE_CLASSIFICATIONS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}

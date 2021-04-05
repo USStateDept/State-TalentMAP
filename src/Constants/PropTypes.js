@@ -588,9 +588,9 @@ export const HIGHLIGHT_POSITION = PropTypes.shape({
 export { SetType };
 
 export const CLASSIFICATION = PropTypes.shape({
-  id: PropTypes.string,
-  show: PropTypes.string,
+  code: PropTypes.string,
   text: PropTypes.string,
+  seasons: PropTypes.arrayOf(PropTypes.object),
 });
 
 export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);

@@ -129,3 +129,6 @@ export const HANDSHAKE_OFFERED_BODY = ({ name, position, bid }) =>
   HandshakeOffered({ name, position, bid });
 
 export const COMING_SOON = 'Coming Soon';
+
+export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications updated";
+export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";

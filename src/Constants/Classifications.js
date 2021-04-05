@@ -2,77 +2,77 @@ const CLASSIFICATIONS = [
   {
     code: '3',
     text: '3rd Tour Bidders',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: '4',
     text: 'Tenured',
-    disabled_ind: false,
+    seasons: [{ id: 215, season_text: 'Summer 2023' }, { id: 214, season_text: 'Summer 2022' }],
   },
   {
     code: 'D',
     text: 'Differential Bidder',
-    disabled_ind: true,
+    seasons: [{ id: 215, season_text: 'Summer 2023' }, { id: 214, season_text: 'Summer 2022' }],
   },
   {
     code: 'T',
     text: 'Tandem Bidder',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'M',
     text: 'Meritorious Step Increases',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: '6',
     text: '6/8 Rule',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'F',
     text: 'Fair Share Bidders',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'C',
     text: 'Critical Need Language',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'C1',
     text: 'Critical Need Language 1st Tour Complete',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'CC',
     text: 'Critical Need Language Final Tour Complete',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'R',
     text: 'Recommended for Tenure',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'A',
     text: 'Ambassador or Deputy Assistant Secretary',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'F1',
     text: 'Pickering Fellows',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'F2',
     text: 'Rangel Fellows',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
   {
     code: 'P',
     text: 'Pickering/Rangel Fellows',
-    disabled_ind: false,
+    seasons: [{ id: 185, season_text: null }],
   },
 ];
 
