@@ -1,8 +1,9 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
-import DraftAlert  from './DraftAlert';
+import DraftAlert, { mapDispatchToProps } from './DraftAlert';
 import bidListObject from '../../../../__mocks__/bidListObject';
+import { testDispatchFunctions } from '../../../../testUtilities/testUtilities';
 
 describe('DraftAlertComponent', () => {
   const props = {
@@ -44,4 +45,8 @@ describe('DraftAlertComponent', () => {
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
+});
+
+describe('mapDispatchToProps', () => {
+  testDispatchFunctions(mapDispatchToProps);
 });

@@ -12,7 +12,7 @@ class DraftAlert extends Component {
   onSubmitBid = () => {
     const { submitBid, bid } = this.props;
     submitBid(bid.position.id);
-    this.props.handshakeAccepted();
+    this.props.clientAcceptedHandshake();
   };
 
   render() {
@@ -84,15 +84,15 @@ DraftAlert.contextTypes = {
 DraftAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   submitBid: PropTypes.func.isRequired,
-  handshakeAccepted: PropTypes.func,
+  clientAcceptedHandshake: PropTypes.func,
 };
 
 DraftAlert.defaultProps = {
-  handshakeAccepted: EMPTY_FUNCTION,
+  clientAcceptedHandshake: EMPTY_FUNCTION,
 };
 
 export const mapDispatchToProps = dispatch => ({
-  handshakeAccepted: () => dispatch(handshakeAccepted()),
+  clientAcceptedHandshake: () => dispatch(handshakeAccepted()),
 });
 
 export default connect(null, mapDispatchToProps)(DraftAlert);
