@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
-import DraftAlert from './DraftAlert';
+import DraftAlert  from './DraftAlert';
 import bidListObject from '../../../../__mocks__/bidListObject';
 
 describe('DraftAlertComponent', () => {
@@ -13,14 +13,15 @@ describe('DraftAlertComponent', () => {
 
   it('is defined', () => {
     const wrapper = shallow(
-      <DraftAlert {...props} />,
-    );
+      <DraftAlert.WrappedComponent
+        {...props}
+      />);
     expect(wrapper).toBeDefined();
   });
 
   it('is defined when skill and grade are undefined', () => {
     const wrapper = shallow(
-      <DraftAlert
+      <DraftAlert.WrappedComponent
         {...props}
         bid={{ ...props.bid, position: { ...props.bid.position, skill: null, grade: null } }}
       />,
@@ -31,7 +32,7 @@ describe('DraftAlertComponent', () => {
   it('can submit a bid', () => {
     const submitSpy = sinon.spy();
     const wrapper = shallow(
-      <DraftAlert {...props} submitBid={submitSpy} />,
+      <DraftAlert.WrappedComponent {...props} submitBid={submitSpy} />,
     );
     wrapper.find('.tm-button-submit-bid').simulate('click');
     sinon.assert.calledOnce(submitSpy);
@@ -39,7 +40,7 @@ describe('DraftAlertComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <DraftAlert {...props} />,
+      <DraftAlert.WrappedComponent {...props} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
