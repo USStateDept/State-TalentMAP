@@ -8,7 +8,6 @@ import Form from '../../Form';
 import FieldSet from '../../FieldSet/FieldSet';
 import TextInput from '../../TextInput';
 import { saveSearch, toggleViewSavedSearchDialog } from '../../../actions/savedSearch';
-import { handshakeOffered } from '../../../actions/bidTracker';
 import { focusById } from '../../../utilities';
 import { ID } from '../Trigger';
 
@@ -49,7 +48,6 @@ export class SaveNewSearchDialog extends Component {
       endpoint,
       filters,
     });
-    this.props.handshakeOffered();
   };
 
   onCancel = () => {
@@ -118,7 +116,6 @@ SaveNewSearchDialog.propTypes = {
   hasErrored: PropTypes.node,
   isLoading: PropTypes.bool,
   saveSearch: PropTypes.func,
-  handshakeOffered: PropTypes.func,
   currentSearch: PropTypes.shape({}),
 };
 
@@ -128,7 +125,6 @@ SaveNewSearchDialog.defaultProps = {
   hasErrored: '',
   isLoading: false,
   saveSearch: EMPTY_FUNCTION,
-  handshakeOffered: EMPTY_FUNCTION,
   currentSearch: {},
 };
 
@@ -142,7 +138,6 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   toggle: bool => dispatch(toggleViewSavedSearchDialog(bool)),
   saveSearch: object => dispatch(saveSearch(object)),
-  handshakeOffered: () => dispatch(handshakeOffered()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveNewSearchDialog);
