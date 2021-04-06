@@ -8,7 +8,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
 import { formatDate, move } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { NO_GRADE, NO_END_DATE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
+import { NO_CLASSIFICATIONS, NO_GRADE, NO_END_DATE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
@@ -199,6 +199,7 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
+    const classifications = get(m, 'classifications', []);
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -226,6 +227,7 @@ class PositionManagerBidders extends Component {
       Skill: get(m, 'skill'),
       Grade: get(m, 'grade') || NO_GRADE,
       Language: get(m, 'language'),
+      Classifications: classifications.length ? classifications : NO_CLASSIFICATIONS,
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
     };
@@ -285,7 +287,7 @@ class PositionManagerBidders extends Component {
         hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
-      const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
+      const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO'].map(item => (
         <th scope="col">{item}</th>
       ));
 
