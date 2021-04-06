@@ -39,7 +39,15 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 }
 
 .ribbon-cn {
-  background-color: red;
+  background-color: $secondary-light;
+}
+
+.ribbon-htf {
+  background-color: $primary-alt-base;
+}
+
+.ribbon-snd {
+  background-color: $tertiary-success-lighter;
 }
 
 .ribbon-outer-container-cut-left {
