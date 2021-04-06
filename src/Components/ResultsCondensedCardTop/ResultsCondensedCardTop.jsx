@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { Featured, Handshake } from '../Ribbon';
+import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
@@ -63,6 +63,24 @@ const ResultsCondensedCardTop = ({
         <div className="ribbon-container">
           {
             hasHandshake && <Handshake className="ribbon-condensed-card" />
+          }
+          {
+            <CriticalNeed
+              condensed
+              className="ribbon-condensed-card"
+            />
+          }
+          {
+            <HardToFill
+              condensed
+              className="ribbon-condensed-card"
+            />
+          }
+          {
+            <ServiceNeedDifferential
+              condensed
+              className="ribbon-condensed-card"
+            />
           }
           {
             get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
