@@ -14,7 +14,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { Featured, Handshake } from '../Ribbon';
+import { Featured, Handshake, CriticalNeed } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
@@ -303,6 +303,9 @@ class ResultsCard extends Component {
                   <div className="ribbon-container">
                     {
                       get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                    }
+                    {
+                      <CriticalNeed isWide className="ribbon-results-card" />
                     }
                     {
                       get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />

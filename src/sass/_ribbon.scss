@@ -38,6 +38,10 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   background-color: $tertiary-success-lightest;
 }
 
+.ribbon-cn {
+  background-color: red;
+}
+
 .ribbon-outer-container-cut-left {
   box-shadow: 3px 4px 4px -4px $ribbon-shadow-color;
 }
