@@ -31,7 +31,7 @@ export function handshakeAcceptedNotification(notificationInformation) {
 
 export function handshakeAccepted() {
   return (dispatch) => {
-    const x = { name: 'Tarek Rehman', position: { name: 'Special Agent (56013011)', link: '/details/8006' }, bid: '/profile/bidtracker/6_2144' };
+    const x = { name: 'Tarek Rehman', position: { name: 'Special Agent (56013011)', link: '/details/8006' }, bid: '/profile/bidtracker/public/6' };
     dispatch(handshakeAcceptedNotification({
       title: SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
       message: SystemMessages.HANDSHAKE_ACCEPTED_BODY(x),
