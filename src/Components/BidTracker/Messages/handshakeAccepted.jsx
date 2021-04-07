@@ -7,7 +7,7 @@ const HandshakeAccepted = ({ name, position, bid }) => (
     <Link to={position.link}>{position.name}</Link>
     <div className="bottom-section">
       {/* eslint-disable-next-line react/no-unescaped-entities */}
-      Go to Client's Bid Tracker to register the Handshake Testing GitHub Account Changes
+      Go to Client's Bid Tracker to register the Handshake
       <Link to={bid}>
         <button role="link"> Bid Tracker</button>
       </Link>
