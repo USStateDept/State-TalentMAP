@@ -6,7 +6,7 @@ const HandshakeAccepted = ({ name, position, bid }) => (
     {name}, has accepted a handshake for position:
     <Link to={position.link}>{position.name}</Link>
     <div className="bottom-section">
-      Go to Clients Bid Tracker to approve and register the Handshake
+      Go to Client&apos;s Bid Tracker to register the Handshake
       <Link to={bid}>
         <button role="link"> Bid Tracker</button>
       </Link>

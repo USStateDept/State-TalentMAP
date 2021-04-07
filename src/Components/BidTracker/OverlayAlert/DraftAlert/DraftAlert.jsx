@@ -3,10 +3,10 @@ import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { connect } from 'react-redux';
-import { BID_OBJECT, EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
-import { NO_POST, NO_SKILL, NO_GRADE } from '../../../../Constants/SystemMessages';
-import { getPostName, formatDate } from '../../../../utilities';
-import { handshakeAccepted } from '../../../../actions/bidTracker';
+import { BID_OBJECT, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
+import { getPostName, formatDate } from 'utilities';
+import { handshakeAccepted } from 'actions/bidTracker';
 
 class DraftAlert extends Component {
   onSubmitBid = () => {
