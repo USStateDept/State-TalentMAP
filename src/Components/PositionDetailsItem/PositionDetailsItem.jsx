@@ -10,7 +10,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { Featured, Handshake } from '../Ribbon';
+import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   propOrDefault,
@@ -37,6 +37,20 @@ import {
 export const renderHandshake = stats => (
   get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
 );
+
+export const renderCriticalNeed = () => (
+  // need to verify if this is in the payload
+  <CriticalNeed cutSide="both" className="ribbon-position-details" />
+);
+
+export const renderHardToFill = details => (
+  get(details, 'isDifficultToStaff', false) && <HardToFill cutSide="both" className="ribbon-position-details" />
+);
+
+export const renderServiceNeedDifferential = details => (
+  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
+);
+
 
 const PositionDetailsItem = (props) => {
   const {
@@ -90,6 +104,9 @@ const PositionDetailsItem = (props) => {
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
         {renderHandshake(stats, position)}
+        {renderCriticalNeed()}
+        {renderHardToFill(details)}
+        {renderServiceNeedDifferential(details)}
         {
           isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
         }

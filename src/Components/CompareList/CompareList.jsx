@@ -18,7 +18,7 @@ import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
-import { Handshake } from '../Ribbon';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import MediaQuery from '../MediaQuery';
 
 export const renderBidCounts = (compareArray, emptyArray) => (
@@ -312,6 +312,17 @@ class CompareList extends Component {
                                 {
                                   get(c, 'bid_statistics[0].has_handshake_offered', false)
                                   && <Handshake isWide={matches} showText={matches} />
+                                }
+                                { // need to verify if this is in the payload
+                                  <CriticalNeed isWide={matches} showText={matches} />
+                                }
+                                {
+                                  get(c, 'isDifficultToStaff', false)
+                                  && <HardToFill isWide={matches} showText={matches} />
+                                }
+                                {
+                                  get(c, 'isServiceNeedDifferential', false)
+                                  && <ServiceNeedDifferential isWide={matches} showText={matches} />
                                 }
                               </td>
                             )}
