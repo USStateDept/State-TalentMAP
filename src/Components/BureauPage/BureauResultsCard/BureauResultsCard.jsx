@@ -11,7 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getResult, getBidStatsToUse, getDifferentials, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { Handshake } from 'Components/Ribbon';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
 import { getPostName, getBidStatisticsObject, propOrDefault, shortenString } from 'utilities';
 import {
   NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER,
@@ -87,6 +87,15 @@ class BureauResultsCard extends Component {
             <div className="shortlist-icon">{shortListIndicator}</div>
             {
               get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+            }
+            { // need to verify if this is in the payload
+              <CriticalNeed isWide className="ribbon-results-card" />
+            }
+            {
+              get(result, 'isDifficultToStaff', false) && <HardToFill isWide className="ribbon-results-card" />
+            }
+            {
+              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide className="ribbon-results-card" />
             }
             {renderBidCountMobile(stats)}
           </Row>

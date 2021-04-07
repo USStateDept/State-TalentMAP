@@ -304,14 +304,14 @@ class ResultsCard extends Component {
                     {
                       get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
                     }
-                    {
+                    { // need to verify if this is in the payload
                       <CriticalNeed isWide className="ribbon-results-card" />
                     }
                     {
-                      <HardToFill isWide className="ribbon-results-card" />
+                      get(result, 'isDifficultToStaff', false) && <HardToFill isWide className="ribbon-results-card" />
                     }
                     {
-                      <ServiceNeedDifferential isWide className="ribbon-results-card" />
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide className="ribbon-results-card" />
                     }
                     {
                       get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />

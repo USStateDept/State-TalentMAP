@@ -27,6 +27,9 @@ const ResultsCondensedCardTop = ({
   const p = position.position || position;
   const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
+  // const isCriticalNeed = ???
+  const isDifficultToStaff = get(position, 'isDifficultToStaff', false);
+  const isServiceNeedDifferential = get(position, 'isServiceNeedDifferential', false);
 
   const title = get(position, 'position.title', '');
 
@@ -64,23 +67,14 @@ const ResultsCondensedCardTop = ({
           {
             hasHandshake && <Handshake className="ribbon-condensed-card" />
           }
-          {
-            <CriticalNeed
-              condensed
-              className="ribbon-condensed-card"
-            />
+          { // need to verify if this is in the payload
+            <CriticalNeed condensed className="ribbon-condensed-card" />
           }
           {
-            <HardToFill
-              condensed
-              className="ribbon-condensed-card"
-            />
+            isDifficultToStaff && <HardToFill condensed className="ribbon-condensed-card" />
           }
           {
-            <ServiceNeedDifferential
-              condensed
-              className="ribbon-condensed-card"
-            />
+            isServiceNeedDifferential && <ServiceNeedDifferential condensed className="ribbon-condensed-card" />
           }
           {
             get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
