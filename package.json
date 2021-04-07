@@ -105,7 +105,7 @@
     "@babel/preset-env": "^7.13.12",
     "@babel/register": "^7.13.14",
     "@babel/runtime-corejs2": "^7.13.10",
-    "@epegzz/sass-vars-loader": "^6.0.0",
+    "@epegzz/sass-vars-loader": "^6.1.0",
     "autoprefixer": "^9.8.6",
     "axios-mock-adapter": "^1.19.0",
     "babel-core": "7.0.0-bridge.0",

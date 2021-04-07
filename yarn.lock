@@ -1214,9 +1214,10 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@epegzz/sass-vars-loader@^6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@epegzz/sass-vars-loader/-/sass-vars-loader-6.0.0.tgz#ec9bbb58cce365578145670d32fa33bcba18e82b"
+"@epegzz/sass-vars-loader@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@epegzz/sass-vars-loader/-/sass-vars-loader-6.1.0.tgz#19e011a6ad613b6b2063354b410cd1645935f507"
+  integrity sha512-EksiwzknZ+2Ve/Z1WcPRZvwmvvyhGmBwhATw8p5iSIcE4wxF7fHAcdpGhdLJqdFgALA2pW2y/9eMYnP6NDDEGw==
   dependencies:
     loader-utils "^1.2.3"
     require-from-string "^2.0.2"
