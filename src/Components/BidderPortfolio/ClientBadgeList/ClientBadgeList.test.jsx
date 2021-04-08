@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import Classifications from 'Constants/Classifications';
+import { Classifications } from 'Constants/Classifications';
 import ClientBadgeList from './ClientBadgeList';
 
 describe('ClientBadgeList', () => {
