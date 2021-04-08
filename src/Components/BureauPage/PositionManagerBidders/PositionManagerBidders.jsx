@@ -311,7 +311,6 @@ class PositionManagerBidders extends Component {
 
     render() {
       const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
-        // eslint-disable-next-line no-unused-vars
         hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
