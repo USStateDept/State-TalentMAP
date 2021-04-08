@@ -13,6 +13,7 @@ const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const paths = require('./paths');
 const envVariables = require('./env');
+const FAST_BUILD = process.env.FAST_BUILD || false;
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -55,7 +56,7 @@ module.exports = {
   bail: true,
   // We generate sourcemaps in production. This is slow but gives good results.
   // You can exclude the *.map files from the build during deployment.
-  devtool: 'source-map',
+  devtool: FAST_BUILD ? undefined : 'source-map',
   // In production, we only want to load the polyfills and the app code.
   // Polyfills should always be first to avoid IE11 issues.
   entry: [require.resolve('./polyfills'), paths.appIndexJs],

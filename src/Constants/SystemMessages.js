@@ -6,6 +6,7 @@ import BidAddSuccess from 'Components/BidListMessages/Success';
 import BidRemoveSuccess from 'Components/BidListMessages/RemoveSuccess';
 import SavedSearchSuccess from 'Components/SavedSearchMessages/Success';
 import HandshakeOffered from 'Components/BidTracker/Messages/handshakeOffered';
+import HandshakeAccepted from 'Components/BidTracker/Messages/handshakeAccepted';
 import GenericSuccessToast from 'Components/GenericToast/Success';
 
 export const DEFAULT_TEXT = 'None listed';
@@ -128,6 +129,10 @@ export const REMOVE_FROM_INTERNAL_LIST_ERROR = "We're experiencing an error atte
 export const HANDSHAKE_OFFERED_TITLE = 'Handshake Offered!';
 export const HANDSHAKE_OFFERED_BODY = ({ name, position, bid }) =>
   HandshakeOffered({ name, position, bid });
+
+export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
+export const HANDSHAKE_ACCEPTED_BODY = ({ name, position, bid }) =>
+  HandshakeAccepted({ name, position, bid });
 
 export const COMING_SOON = 'Coming Soon';
 
