@@ -7,7 +7,8 @@ import { Tooltip } from 'react-tippy';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
 import { formatDate, move } from 'utilities';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { Icons } from 'Constants/Classifications';
 import { NO_CLASSIFICATIONS, NO_GRADE, NO_END_DATE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
@@ -17,6 +18,32 @@ import InteractiveElement from 'Components/InteractiveElement';
 import ShortListLock from '../ShortListLock';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
+
+const getClassificationsInfo = (userClassifications, refClassifications) => {
+  const classificationsInfo = [];
+  const shortCodesCache = [];
+  userClassifications.forEach(c => {
+    refClassifications.forEach(a => {
+      a.seasons.forEach(b => {
+        if (b.id === c) {
+          const k = shortCodesCache.indexOf(Icons[a.code].shortCode);
+          if (k < 0) {
+            shortCodesCache.push(Icons[a.code].shortCode);
+            classificationsInfo.push({
+              name: Icons[a.code].name,
+              shortCode: Icons[a.code].shortCode,
+              text: a.text,
+              seasons: [b.season_text],
+            });
+          } else {
+            classificationsInfo[k].seasons.push(b.season_text);
+          }
+        }
+      });
+    });
+  });
+  return classificationsInfo;
+};
 
 const getItemStyle = (isDragging, draggableStyle) => {
   const border = isDragging ? '1px solid black' : 'none';
@@ -199,7 +226,7 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
-    const classifications = get(m, 'classifications', []);
+    const classifications = getClassificationsInfo(get(m, 'classifications', []), props.classifications).map(c => c.shortCode).join(', ');
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -284,6 +311,7 @@ class PositionManagerBidders extends Component {
 
     render() {
       const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
+        // eslint-disable-next-line no-unused-vars
         hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
@@ -474,6 +502,7 @@ PositionManagerBidders.propTypes = {
   isLocked: PropTypes.bool,
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
+  classifications: CLASSIFICATIONS,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -489,6 +518,7 @@ PositionManagerBidders.defaultProps = {
   isLocked: false,
   hasBureauPermission: false,
   hasPostPermission: false,
+  classifications: [],
 };
 
 export default PositionManagerBidders;

@@ -93,6 +93,8 @@ export function bureauBidsFetchData(id, query = {}) {
       .then(({ data }) => data || [])
       .then((bids) => {
         dispatch(bureauPositionBidsFetchDataSuccess(bids));
+        // eslint-disable-next-line no-console
+        console.log('current: ', bids);
         dispatch(bureauPositionBidsHasErrored(false));
         dispatch(bureauPositionBidsIsLoading(false));
       })
