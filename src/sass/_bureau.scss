@@ -392,6 +392,7 @@
     thead {
       tr {
         display: flex;
+        padding-right: 19px; // scroll bar delta between headers and table content
 
         th:first-of-type {
           flex: 2
@@ -447,7 +448,6 @@
         border-top: none;
         border-right: none;
         border-left: none;
-        background-color: yellow;
         padding: 20px 1.5rem;
         font-size: 1.6rem;
         display: flex; // fixes IE11
