@@ -86,16 +86,16 @@ class BureauResultsCard extends Component {
             <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
             {
-              get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+              get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
             }
             { // need to verify if this is in the payload
-              <CriticalNeed isWide className="ribbon-results-card" />
+              <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'isDifficultToStaff', false) && <HardToFill isWide className="ribbon-results-card" />
+              get(result, 'isDifficultToStaff', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide className="ribbon-results-card" />
+              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
             }
             {renderBidCountMobile(stats)}
           </Row>
