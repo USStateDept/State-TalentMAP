@@ -22,7 +22,7 @@ Ribbon.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string,
   containerProps: PropTypes.shape({}),
-  type: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'success']),
+  type: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'success', 'cn', 'htf', 'snd']),
   cutSide: PropTypes.oneOf(['left', 'right', 'both']),
   isWide: PropTypes.bool,
   showText: PropTypes.bool,
