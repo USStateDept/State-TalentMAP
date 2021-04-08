@@ -40,10 +40,18 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 
 .ribbon-cn {
   background-color: $cn-flag;
+
+  .fa {
+    margin-right: .5em;
+  }
 }
 
 .ribbon-htf {
   background-color: $htf-flag;
+
+  .fa {
+    margin-right: .4em;
+  }
 }
 
 .ribbon-snd {
@@ -52,6 +60,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 
 .ribbon-outer-container-cut-left {
   box-shadow: 3px 4px 4px -4px $ribbon-shadow-color;
+  margin-bottom: 2px;
 }
 
 .ribbon-outer-container-cut-right {
