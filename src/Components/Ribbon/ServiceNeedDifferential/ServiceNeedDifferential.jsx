@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
 import Ribbon from '../Ribbon';
 
-const ServiceNeedDifferential = ({ condensed, ...props }) => {
-  const text = condensed ? 'SND' : 'Service need differential';
+const ServiceNeedDifferential = ({ condensed, compare, ...props }) => {
+  let text = 'Service need differential';
+  if (condensed) {
+    text = '';
+  }
+  if (compare) {
+    text = 'SND';
+  }
   return (
     <Ribbon icon="line-chart" text={text} type="snd" {...props} />
   );
@@ -10,10 +16,12 @@ const ServiceNeedDifferential = ({ condensed, ...props }) => {
 
 ServiceNeedDifferential.propTypes = {
   condensed: PropTypes.bool,
+  compare: PropTypes.bool,
 };
 
 ServiceNeedDifferential.defaultProps = {
   condensed: false,
+  compare: false,
 };
 
 export default ServiceNeedDifferential;

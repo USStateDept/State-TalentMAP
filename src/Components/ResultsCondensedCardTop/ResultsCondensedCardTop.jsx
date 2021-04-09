@@ -63,9 +63,9 @@ const ResultsCondensedCardTop = ({
             }
           </span></span>
         </div>
-        <div className="ribbon-container">
+        <div className="ribbon-container-condensed">
           {
-            hasHandshake && <Handshake className="ribbon-condensed-card" />
+            hasHandshake && <Handshake condensed className="ribbon-condensed-card" />
           }
           { // need to verify if this is in the payload
             <CriticalNeed condensed className="ribbon-condensed-card" />

@@ -310,19 +310,35 @@ class CompareList extends Component {
                             {matches => (
                               <td key={shortId.generate()} className="compare-ribbon">
                                 {
-                                  get(c, 'bid_statistics[0].has_handshake_offered', false)
-                                  && <Handshake isWide={matches} showText={matches} />
+                                  get(c, 'bid_statistics[0].has_handshake_offered', false) &&
+                                  <Handshake
+                                    compare
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                                 { // need to verify if this is in the payload
-                                  <CriticalNeed isWide={matches} showText={matches} />
+                                  <CriticalNeed
+                                    compare
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                                 {
-                                  get(c, 'isDifficultToStaff', false)
-                                  && <HardToFill isWide={matches} showText={matches} />
+                                  get(c, 'isDifficultToStaff', false) &&
+                                  <HardToFill
+                                    compare
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                                 {
-                                  get(c, 'isServiceNeedDifferential', false)
-                                  && <ServiceNeedDifferential isWide={matches} showText={matches} />
+                                  get(c, 'isServiceNeedDifferential', false) &&
+                                  <ServiceNeedDifferential
+                                    compare
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                               </td>
                             )}
