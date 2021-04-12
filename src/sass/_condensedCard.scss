@@ -126,19 +126,19 @@ $condensed-card-data-padding: 15px 20px 9px;
     
     .ribbon-container-condensed {
       position: absolute;
-      right: -1px;
-      top: calc(100% - 60px);
+      right: -2px;
+      top: -1px;
       z-index: $ribbon-condensed-card-z;
 
       .ribbon-cn {
         .fa {
-        margin-right: .1em;
+        margin-right: .2em;
         }
       }
       
       .ribbon-htf {
         .fa {
-        margin-right: 0em;
+        margin-right: .2em;
         }
       }
     }

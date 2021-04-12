@@ -112,14 +112,12 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   }
 
   .ribbon-cn {
-    // max-width: 143px;
     float: right;
     padding-left: 2em;
     padding-right: 1.35em;
   }
   
   .ribbon-htf {
-    // max-width: 150px;
     float: right;
     padding-left: 2em;
     padding-right: 1.35em;
@@ -135,9 +133,9 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   margin-bottom: 10px;
 }
 
-// .ribbon-condensed-card {
-//   margin-bottom: 10px;
-// }
+.ribbon-condensed-card {
+  width: 40px;
+}
 
 .ribbon-wide {
   min-width: 150px;
