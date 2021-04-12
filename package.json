@@ -6,8 +6,8 @@
     "@babel/core": "^7.13.14",
     "@babel/polyfill": "^7.12.1",
     "@cmsgov/design-system-core": "^1.18.0",
-    "@fortawesome/fontawesome-free": "^5.15.2",
-    "@fortawesome/fontawesome-svg-core": "^1.2.34",
+    "@fortawesome/fontawesome-free": "^5.15.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@sweetalert/with-react": "^0.1.1",
@@ -64,7 +64,7 @@
     "react-loading-skeleton": "0.5.0",
     "react-markdown": "^4.3.1",
     "react-markdown-editor": "1.0.0",
-    "react-paginate": "^7.1.0",
+    "react-paginate": "^7.1.2",
     "react-picky": "^4.7.2",
     "react-redux": "^7.2.3",
     "react-responsive": "^8.1.0",
@@ -170,7 +170,7 @@
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-plugin-ramdisk": "^0.1.8",
     "whatwg-fetch": "2.0.3",
-    "workbox-webpack-plugin": "^6.1.0",
+    "workbox-webpack-plugin": "^6.1.2",
     "yarn": "^1.22.10"
   },
   "scripts": {
