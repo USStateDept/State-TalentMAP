@@ -65,16 +65,16 @@ const ResultsCondensedCardTop = ({
         </div>
         <div className="ribbon-container-condensed">
           {
-            hasHandshake && <Handshake condensed className="ribbon-condensed-card" />
+            hasHandshake && <Handshake showText={false} className="ribbon-condensed-card" />
           }
           { // need to verify if this is in the payload
-            <CriticalNeed condensed className="ribbon-condensed-card" />
+            <CriticalNeed showText={false} className="ribbon-condensed-card" />
           }
           {
-            isDifficultToStaff && <HardToFill condensed className="ribbon-condensed-card" />
+            isDifficultToStaff && <HardToFill showText={false} className="ribbon-condensed-card" />
           }
           {
-            isServiceNeedDifferential && <ServiceNeedDifferential condensed className="ribbon-condensed-card" />
+            isServiceNeedDifferential && <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
           }
           {
             get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />

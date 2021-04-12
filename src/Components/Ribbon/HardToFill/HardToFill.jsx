@@ -1,27 +1,19 @@
 import PropTypes from 'prop-types';
 import Ribbon from '../Ribbon';
 
-const HardToFill = ({ condensed, compare, ...props }) => {
-  let text = 'Hard to fill';
-  if (condensed) {
-    text = '';
-  }
-  if (compare) {
-    text = 'HTF';
-  }
+const HardToFill = ({ shortName, ...props }) => {
+  const text = shortName ? 'HTF' : 'Hard to fill';
   return (
     <Ribbon icon="bolt" text={text} type="htf" {...props} />
   );
 };
 
 HardToFill.propTypes = {
-  condensed: PropTypes.bool,
-  compare: PropTypes.bool,
+  shortName: PropTypes.bool,
 };
 
 HardToFill.defaultProps = {
-  condensed: false,
-  compare: false,
+  shortName: false,
 };
 
 export default HardToFill;

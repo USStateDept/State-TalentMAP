@@ -1,27 +1,19 @@
 import PropTypes from 'prop-types';
 import Ribbon from '../Ribbon';
 
-const CriticalNeed = ({ condensed, compare, ...props }) => {
-  let text = 'Critical need';
-  if (condensed) {
-    text = '';
-  }
-  if (compare) {
-    text = 'CN';
-  }
+const CriticalNeed = ({ shortName, ...props }) => {
+  const text = shortName ? 'CN' : 'Critical need';
   return (
     <Ribbon icon="exclamation" text={text} type="cn" {...props} />
   );
 };
 
 CriticalNeed.propTypes = {
-  condensed: PropTypes.bool,
-  compare: PropTypes.bool,
+  shortName: PropTypes.bool,
 };
 
 CriticalNeed.defaultProps = {
-  condensed: false,
-  compare: false,
+  shortName: false,
 };
 
 export default CriticalNeed;

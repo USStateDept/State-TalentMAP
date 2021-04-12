@@ -1,27 +1,19 @@
 import PropTypes from 'prop-types';
 import Ribbon from '../Ribbon';
 
-const Handshake = ({ condensed, compare, ...props }) => {
-  let text = 'Handshake';
-  if (condensed) {
-    text = '';
-  }
-  if (compare) {
-    text = 'HS';
-  }
+const Handshake = ({ shortName, ...props }) => {
+  const text = shortName ? 'HS' : 'Handshake';
   return (
     <Ribbon icon="handshake-o" text={text} type="hs" {...props} />
   );
 };
 
 Handshake.propTypes = {
-  condensed: PropTypes.bool,
-  compare: PropTypes.bool,
+  shortName: PropTypes.bool,
 };
 
 Handshake.defaultProps = {
-  condensed: false,
-  compare: false,
+  shortName: false,
 };
 
 export default Handshake;

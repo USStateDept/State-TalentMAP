@@ -312,14 +312,14 @@ class CompareList extends Component {
                                 {
                                   get(c, 'bid_statistics[0].has_handshake_offered', false) &&
                                   <Handshake
-                                    compare
+                                    shortName
                                     isWide={matches}
                                     showText={matches}
                                   />
                                 }
                                 { // need to verify if this is in the payload
                                   <CriticalNeed
-                                    compare
+                                    shortName
                                     isWide={matches}
                                     showText={matches}
                                   />
@@ -327,7 +327,7 @@ class CompareList extends Component {
                                 {
                                   get(c, 'isDifficultToStaff', false) &&
                                   <HardToFill
-                                    compare
+                                    shortName
                                     isWide={matches}
                                     showText={matches}
                                   />
@@ -335,7 +335,7 @@ class CompareList extends Component {
                                 {
                                   get(c, 'isServiceNeedDifferential', false) &&
                                   <ServiceNeedDifferential
-                                    compare
+                                    shortName
                                     isWide={matches}
                                     showText={matches}
                                   />
