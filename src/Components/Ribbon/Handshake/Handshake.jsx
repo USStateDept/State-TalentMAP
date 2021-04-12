@@ -10,7 +10,7 @@ const Handshake = ({ condensed, compare, ...props }) => {
     text = 'HS';
   }
   return (
-    <Ribbon icon="handshake-o" text={text} type="primary" {...props} />
+    <Ribbon icon="handshake-o" text={text} type="hs" {...props} />
   );
 };
 

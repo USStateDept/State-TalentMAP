@@ -38,6 +38,10 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   background-color: $tertiary-success-lightest;
 }
 
+.ribbon-hs {
+  background-color: $tertiary-gold-lighter;
+}
+
 .ribbon-cn {
   background-color: $cn-flag;
 
@@ -92,6 +96,39 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 .ribbon-container {
   position: absolute;
   right: -1px;
+}
+
+.ribbon-container-results {
+  position: absolute;
+  right: -1px;
+  top: calc(100% - 220px);
+  width: 170px;
+
+  .ribbon-hs {
+    max-width: 150px;
+    float: right;
+    padding-left: 4em;
+    padding-right: 3.35em;
+  }
+
+  .ribbon-cn {
+    // max-width: 143px;
+    float: right;
+    padding-left: 2em;
+    padding-right: 1.35em;
+  }
+  
+  .ribbon-htf {
+    // max-width: 150px;
+    float: right;
+    padding-left: 2em;
+    padding-right: 1.35em;
+  }
+  
+  .ribbon-snd {
+    font-size: 10px;
+    float: right;
+  }
 }
 
 .ribbon-results-card {

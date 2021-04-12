@@ -300,18 +300,18 @@ class ResultsCard extends Component {
                   </Column>
                 }
                 <Column columns="2">
-                  <div className="ribbon-container">
+                  <div className="ribbon-container-results">
                     {
-                      get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
                     }
                     { // need to verify if this is in the payload
-                      <CriticalNeed isWide className="ribbon-results-card" />
+                      <CriticalNeed className="ribbon-results-card" />
                     }
                     {
-                      get(result, 'isDifficultToStaff', false) && <HardToFill isWide className="ribbon-results-card" />
+                      get(result, 'isDifficultToStaff', false) && <HardToFill className="ribbon-results-card" />
                     }
                     {
-                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide className="ribbon-results-card" />
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential className="ribbon-results-card" />
                     }
                     {
                       get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
