@@ -8210,9 +8210,10 @@ json5@^2.1.0, json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
-jsoneditor-react@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/jsoneditor-react/-/jsoneditor-react-3.1.0.tgz#7d0629451121a23959aa4ab1091dc5031d184570"
+jsoneditor-react@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/jsoneditor-react/-/jsoneditor-react-3.1.1.tgz#30c4c0a7c38b2bb1c1cd030c38b7f2990ffe7ffe"
+  integrity sha512-7cl2PXfqoOFpGX9mO7d445EpGJGUlk8/AwWgKZiOMh3kPHBduSo6cIIUQrWVqX3pDBjM7z+map+rD1RXyl6FcA==
   dependencies:
     prop-types "^15.7.2"
 
