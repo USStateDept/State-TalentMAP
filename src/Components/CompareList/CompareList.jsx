@@ -10,6 +10,7 @@ import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
 import COMPARE_LIMIT from 'Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from 'Constants/SystemMessages';
 import { propOrDefault, formatDate, getPostName, getAccessiblePositionNumber } from 'utilities';
+import StaticDevContent from 'Components/StaticDevContent';
 import BackButton from '../BackButton';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
@@ -317,12 +318,14 @@ class CompareList extends Component {
                                     showText={matches}
                                   />
                                 }
-                                { // need to verify if this is in the payload
-                                  <CriticalNeed
-                                    shortName
-                                    isWide={matches}
-                                    showText={matches}
-                                  />
+                                {
+                                  <StaticDevContent>
+                                    <CriticalNeed
+                                      shortName
+                                      isWide={matches}
+                                      showText={matches}
+                                    />
+                                  </StaticDevContent>
                                 }
                                 {
                                   get(c, 'isDifficultToStaff', false) &&

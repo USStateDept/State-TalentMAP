@@ -5,6 +5,7 @@ import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -300,12 +301,14 @@ class ResultsCard extends Component {
                   </Column>
                 }
                 <Column columns="2">
-                  <div className="ribbon-container-results">
+                  <div className="ribbon-container">
                     {
                       get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
                     }
-                    { // need to verify if this is in the payload
-                      <CriticalNeed className="ribbon-results-card" />
+                    {
+                      <StaticDevContent>
+                        <CriticalNeed className="ribbon-results-card" />
+                      </StaticDevContent>
                     }
                     {
                       get(result, 'isDifficultToStaff', false) && <HardToFill className="ribbon-results-card" />

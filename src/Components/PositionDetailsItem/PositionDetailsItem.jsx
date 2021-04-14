@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -39,8 +40,9 @@ export const renderHandshake = stats => (
 );
 
 export const renderCriticalNeed = () => (
-  // need to verify if this is in the payload
-  <CriticalNeed cutSide="both" className="ribbon-position-details" />
+  <StaticDevContent>
+    <CriticalNeed cutSide="both" className="ribbon-position-details" />
+  </StaticDevContent>
 );
 
 export const renderHardToFill = details => (

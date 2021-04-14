@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
+import StaticDevContent from 'Components/StaticDevContent';
 import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
@@ -27,7 +28,6 @@ const ResultsCondensedCardTop = ({
   const p = position.position || position;
   const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
-  // const isCriticalNeed = ???
   const isDifficultToStaff = get(position, 'isDifficultToStaff', false);
   const isServiceNeedDifferential = get(position, 'isServiceNeedDifferential', false);
 
@@ -67,8 +67,10 @@ const ResultsCondensedCardTop = ({
           {
             hasHandshake && <Handshake showText={false} className="ribbon-condensed-card" />
           }
-          { // need to verify if this is in the payload
-            <CriticalNeed showText={false} className="ribbon-condensed-card" />
+          {
+            <StaticDevContent>
+              <CriticalNeed showText={false} className="ribbon-condensed-card" />
+            </StaticDevContent>
           }
           {
             isDifficultToStaff && <HardToFill showText={false} className="ribbon-condensed-card" />
@@ -77,7 +79,7 @@ const ResultsCondensedCardTop = ({
             isServiceNeedDifferential && <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
           }
           {
-            get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
+            get(position, 'position.is_highlighted') && <Featured showText={false} className="ribbon-condensed-card" />
           }
         </div>
       </div>

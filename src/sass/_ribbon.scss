@@ -39,7 +39,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 }
 
 .ribbon-cn {
-  background-color: $cn-flag;
+  background-color: $ribbon-cn;
 
   .fa {
     margin-right: .5em;
@@ -47,7 +47,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 }
 
 .ribbon-htf {
-  background-color: $htf-flag;
+  background-color: $ribbon-htf;
 
   .fa {
     margin-right: .4em;
@@ -90,11 +90,6 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 }
 
 .ribbon-container {
-  position: absolute;
-  right: -1px;
-}
-
-.ribbon-container-results {
   position: absolute;
   right: -1px;
   top: calc(100% - 220px);
