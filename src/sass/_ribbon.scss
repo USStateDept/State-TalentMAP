@@ -38,10 +38,6 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   background-color: $tertiary-success-lightest;
 }
 
-.ribbon-hs {
-  background-color: $tertiary-gold-lighter;
-}
-
 .ribbon-cn {
   background-color: $cn-flag;
 
@@ -104,20 +100,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   top: calc(100% - 220px);
   width: 170px;
 
-  .ribbon-hs {
-    max-width: 150px;
-    float: right;
-    padding-left: 4em;
-    padding-right: 3.35em;
-  }
-
-  .ribbon-cn {
-    float: right;
-    padding-left: 2em;
-    padding-right: 1.35em;
-  }
-  
-  .ribbon-htf {
+  .ribbon-primary, .ribbon-cn, .ribbon-htf {
     float: right;
     padding-left: 2em;
     padding-right: 1.35em;
