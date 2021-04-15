@@ -42,11 +42,13 @@ exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
       <div
         className="ribbon-container-condensed"
       >
-        <CriticalNeed
-          className="ribbon-condensed-card"
-          shortName={false}
-          showText={false}
-        />
+        <Connect(StaticDevContent)>
+          <CriticalNeed
+            className="ribbon-condensed-card"
+            shortName={false}
+            showText={false}
+          />
+        </Connect(StaticDevContent)>
       </div>
     </div>
   </div>
@@ -95,11 +97,13 @@ exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceN
       <div
         className="ribbon-container-condensed"
       >
-        <CriticalNeed
-          className="ribbon-condensed-card"
-          shortName={false}
-          showText={false}
-        />
+        <Connect(StaticDevContent)>
+          <CriticalNeed
+            className="ribbon-condensed-card"
+            shortName={false}
+            showText={false}
+          />
+        </Connect(StaticDevContent)>
       </div>
     </div>
   </div>
