@@ -3,7 +3,7 @@ import FA from 'react-fontawesome';
 
 const Ribbon = ({ type, className, icon, text, cutSide, containerProps, isWide, showText }) => (
   <div
-    className={`ribbon-outer-container ribbon-outer-container-cut-${cutSide} ${isWide ? 'ribbon-wide' : ''} ${className}`}
+    className={`ribbon-outer-container-cut-${cutSide} ${isWide ? 'ribbon-wide' : ''} ${className}`}
     {...containerProps}
   >
     <div className={`ribbon ribbon-${type} ribbon-cut-${cutSide}`}>
