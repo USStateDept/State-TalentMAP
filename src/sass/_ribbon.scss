@@ -68,7 +68,8 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 }
 
 .ribbon-outer-container-cut-both {
-  box-shadow: polygon(9% 0, 100% 0, 91% 100%, 0 100%, 0 100%);
+  box-shadow: 0 4px 4px -4px $ribbon-shadow-color;
+  clip-path: polygon(9% 0, 100% 0, 91% 100%, 0 100%, 0 100%);
 }
 
 .ribbon-cut-left {
@@ -108,7 +109,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 }
 
 .ribbon-results-card {
-  margin-bottom: 10px;
+  float: right;
 }
 
 .ribbon-condensed-card {
