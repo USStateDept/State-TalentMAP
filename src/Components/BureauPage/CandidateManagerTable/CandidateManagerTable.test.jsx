@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import PositionLists from './PositionLists';
+import CandidateManagerTable from './CandidateManager';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -12,13 +12,13 @@ const mockStore = configureStore(middlewares);
 describe('BureauPage', () => {
   it('mounts', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <PositionLists />
+      <CandidateManagerTable />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
 
   it('is defined', () => {
-    const wrapper = shallow(<PositionLists />);
+    const wrapper = shallow(<CandidateManagerTable />);
     expect(wrapper).toBeDefined();
   });
 });

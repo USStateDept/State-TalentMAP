@@ -97,3 +97,28 @@ export function bureauPositionBidsSetRanking(state = false, action) {
       return state;
   }
 }
+
+export function bureauBidderRankingsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_RANKINGS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bureauBidderRankingsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_RANKINGS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bureauBidderRankings(state = [], action) {
+  switch (action.type) {
+    case 'BIDDER_RANKING_FETCH_DATA_SUCCESS':
+      return action.bids;
+    default:
+      return state;
+  }
+}

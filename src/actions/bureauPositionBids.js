@@ -1,11 +1,33 @@
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
+import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { toastError } from './toast';
 
 let cancelRanking;
+
+export function bidderRankingsHasErrored(bool) {
+  return {
+    type: 'BIDDER_RANKINGS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function bidderRankingsIsLoading(bool) {
+  return {
+    type: 'BIDDER_RANKINGS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function bidderRankingFetchDataSuccess(results) {
+  return {
+    type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
+    results,
+  };
+}
 
 export function bureauPositionBidsHasErrored(bool) {
   return {
@@ -197,4 +219,30 @@ export function downloadBidderData(id, query = {}) {
       // eslint-disable-next-line global-require
       require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
     });
+}
+
+export function fetchBidderRankings(perdet) {
+  const url = `/bureau/rankings/${perdet}/`;
+
+  return (dispatch) => {
+    batch(() => {
+      dispatch(bidderRankingsIsLoading(true));
+      dispatch(bidderRankingsHasErrored(false));
+    });
+    api().get(url)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bidderRankingFetchDataSuccess(data));
+          dispatch(bidderRankingsHasErrored(false));
+          dispatch(bidderRankingsIsLoading(false));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(bidderRankingFetchDataSuccess({ results: [] }));
+          dispatch(bidderRankingsHasErrored(true));
+          dispatch(bidderRankingsIsLoading(false));
+        });
+      });
+  };
 }

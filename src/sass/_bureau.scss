@@ -456,9 +456,7 @@
         justify-content: center; // fixes IE11
         flex: 4;
         text-align: center;
-        border-top: none;
-        border-right: none;
-        border-left: none;
+        border: none;
         padding: 20px 30px;
         font-size: 20px;
       }
@@ -571,5 +569,20 @@
 
   > div {
     min-height: 100px;
+  }
+}
+
+.bidder-rankings {
+  background-color: white;
+  border-bottom: 1px solid black;
+  .bidder-rankings-toggle {
+    text-align: right;
+    padding: 0 10px 20px;
+    span {
+      padding-left: 10px;
+    }
+  }
+  .bidder-rankings-table-container {
+    padding: 20px;
   }
 }

@@ -15,6 +15,7 @@ import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
 import InteractiveElement from 'Components/InteractiveElement';
 import ShortListLock from '../ShortListLock';
+import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
 
@@ -337,6 +338,7 @@ class PositionManagerBidders extends Component {
                             className={snapshot$.isDragging ? 'is-dragging' : ''}
                           >
                             {item.content}
+                            <BidderRankings perdet={item.bid.emp_id} />
                           </div>
                         )}
                       </Draggable>
@@ -435,6 +437,7 @@ class PositionManagerBidders extends Component {
                                           className={snapshot$.isDragging ? 'is-dragging' : ''}
                                         >
                                           {item.content}
+                                          <BidderRankings perdet={item.bid.emp_id} />
                                         </div>
                                       )}
                                     </Draggable>
