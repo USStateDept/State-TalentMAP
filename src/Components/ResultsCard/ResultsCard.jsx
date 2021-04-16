@@ -5,6 +5,7 @@ import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Row, Column } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -14,7 +15,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { Featured, Handshake } from '../Ribbon';
+import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
@@ -302,7 +303,18 @@ class ResultsCard extends Component {
                 <Column columns="2">
                   <div className="ribbon-container">
                     {
-                      get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
+                    }
+                    {
+                      <StaticDevContent>
+                        <CriticalNeed className="ribbon-results-card" />
+                      </StaticDevContent>
+                    }
+                    {
+                      get(result, 'isDifficultToStaff', false) && <HardToFill className="ribbon-results-card" />
+                    }
+                    {
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential className="ribbon-results-card" />
                     }
                     {
                       get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />

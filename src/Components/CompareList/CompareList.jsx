@@ -10,6 +10,7 @@ import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
 import COMPARE_LIMIT from 'Constants/Compare';
 import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from 'Constants/SystemMessages';
 import { propOrDefault, formatDate, getPostName, getAccessiblePositionNumber } from 'utilities';
+import StaticDevContent from 'Components/StaticDevContent';
 import BackButton from '../BackButton';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
@@ -18,7 +19,7 @@ import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
-import { Handshake } from '../Ribbon';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import MediaQuery from '../MediaQuery';
 
 export const renderBidCounts = (compareArray, emptyArray) => (
@@ -310,8 +311,37 @@ class CompareList extends Component {
                             {matches => (
                               <td key={shortId.generate()} className="compare-ribbon">
                                 {
-                                  get(c, 'bid_statistics[0].has_handshake_offered', false)
-                                  && <Handshake isWide={matches} showText={matches} />
+                                  get(c, 'bid_statistics[0].has_handshake_offered', false) &&
+                                  <Handshake
+                                    shortName
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
+                                }
+                                {
+                                  <StaticDevContent>
+                                    <CriticalNeed
+                                      shortName
+                                      isWide={matches}
+                                      showText={matches}
+                                    />
+                                  </StaticDevContent>
+                                }
+                                {
+                                  get(c, 'isDifficultToStaff', false) &&
+                                  <HardToFill
+                                    shortName
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
+                                }
+                                {
+                                  get(c, 'isServiceNeedDifferential', false) &&
+                                  <ServiceNeedDifferential
+                                    shortName
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                               </td>
                             )}
