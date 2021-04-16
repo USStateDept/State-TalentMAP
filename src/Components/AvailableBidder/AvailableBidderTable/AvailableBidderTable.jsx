@@ -166,42 +166,42 @@ const AvailableBidderTable = (props) => {
                 }
                 {
                   isCDO &&
-                  <th>
-                    <div className="bureau-view-toggle">
-                      <ToggleButton
-                        labelTextLeft={
-                          <Tooltip
-                            title="CDO View"
-                            arrow
-                            offset={-95}
-                            position="top-end"
-                            tabIndex="0"
-                          >
-                            <FA name="street-view" className={`fa-lg ${cdoView ? 'active' : ''}`} />
-                          </Tooltip>
-                        }
-                        labelTextRight={
-                          <Tooltip
-                            title="Bureau View"
-                            arrow
-                            offset={-95}
-                            position="top-end"
-                            tabIndex="0"
-                          >
-                            <FA name="building" className={`fa-lg ${!cdoView ? 'active' : ''}`} />
-                          </Tooltip>
-                        }
-                        checked={!cdoView}
-                        onChange={() => setCdoView(!cdoView)}
-                        onColor="#888888"
-                        offColor="#888888"
-                        onHandleColor="#FFFFFF"
-                        offHandleColor="#FFFFFF"
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                      />
-                    </div>
-                  </th>
+                    <th className="ab-headers">
+                      <div className="bureau-view-toggle">
+                        <ToggleButton
+                          labelTextLeft={
+                            <Tooltip
+                              title="CDO View"
+                              arrow
+                              offset={-95}
+                              position="top-end"
+                              tabIndex="0"
+                            >
+                              <FA name="street-view" className={`fa-lg ${cdoView ? 'active' : ''}`} />
+                            </Tooltip>
+                          }
+                          labelTextRight={
+                            <Tooltip
+                              title="Bureau View"
+                              arrow
+                              offset={-95}
+                              position="top-end"
+                              tabIndex="0"
+                            >
+                              <FA name="building" className={`fa-lg ${!cdoView ? 'active' : ''}`} />
+                            </Tooltip>
+                          }
+                          checked={!cdoView}
+                          onChange={() => setCdoView(!cdoView)}
+                          onColor="#888888"
+                          offColor="#888888"
+                          onHandleColor="#FFFFFF"
+                          offHandleColor="#FFFFFF"
+                          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                        />
+                      </div>
+                    </th>
                 }
               </tr>
             </thead>

@@ -14,7 +14,6 @@
   }
 
   .available-bidders-stats {
-
     .statistics-section {
       background-color: $color-white;
       border: 2px solid $color-gray-light;
@@ -75,7 +74,6 @@
       width: 100%;
       margin-bottom: 10px;
     }
-
     .small-screen-stack > div {
       align-items: center;
       display: flex;
@@ -101,6 +99,11 @@
         th {
           text-align: center;
           border: none;
+          color: $color-white;
+          background-color: $dos-blue;
+        }
+        th:last-child {
+          color: $color-black;
           background-color: $tm-white-smoke-light;
         }
         .table-title {
@@ -360,4 +363,12 @@
       font-weight: bold;
     }
   }
+}
+
+// Position sticky not supported on ie11
+// Position sticky is half supported on other browsers (Must target th; not thead) 
+.ab-headers {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
