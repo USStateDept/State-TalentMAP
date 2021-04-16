@@ -13,7 +13,6 @@ import { getResult, getBidStatsToUse, getDifferentials, renderBidCountMobile } f
 import LanguageList from 'Components/LanguageList';
 import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
 import { getPostName, getBidStatisticsObject, propOrDefault, shortenString } from 'utilities';
-import StaticDevContent from 'Components/StaticDevContent';
 import {
   NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER,
   NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
@@ -89,10 +88,8 @@ class BureauResultsCard extends Component {
             {
               get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
             }
-            {
-              <StaticDevContent>
-                <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
-              </StaticDevContent>
+            { // for demoing purposes only
+              get(result, 'isCriticalNeed', true) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
               get(result, 'isDifficultToStaff', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
