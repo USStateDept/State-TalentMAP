@@ -120,6 +120,7 @@
         margin-top: 20px;
         margin-left: -7em;
         font-size: 13px;
+        text-align: center;
         button {
           border: 1px solid #eee;
           border-radius: 0;
@@ -145,4 +146,8 @@
 
 .Toastify__toast-container { // scss-lint:disable SelectorFormat
   width: 400px;
+    .Toastify__toast--dark {
+      width: 500px;
+      margin-left: -108px;
+    }
 }
