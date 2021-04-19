@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { Featured, Handshake } from '../Ribbon';
+import StaticDevContent from 'Components/StaticDevContent';
+import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
@@ -27,6 +28,8 @@ const ResultsCondensedCardTop = ({
   const p = position.position || position;
   const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
+  const isDifficultToStaff = get(position, 'isDifficultToStaff', false);
+  const isServiceNeedDifferential = get(position, 'isServiceNeedDifferential', false);
 
   const title = get(position, 'position.title', '');
 
@@ -60,12 +63,23 @@ const ResultsCondensedCardTop = ({
             }
           </span></span>
         </div>
-        <div className="ribbon-container">
+        <div className="ribbon-container-condensed">
           {
-            hasHandshake && <Handshake className="ribbon-condensed-card" />
+            hasHandshake && <Handshake showText={false} className="ribbon-condensed-card" />
           }
           {
-            get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
+            <StaticDevContent>
+              <CriticalNeed showText={false} className="ribbon-condensed-card" />
+            </StaticDevContent>
+          }
+          {
+            isDifficultToStaff && <HardToFill showText={false} className="ribbon-condensed-card" />
+          }
+          {
+            isServiceNeedDifferential && <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+          }
+          {
+            get(position, 'position.is_highlighted') && <Featured showText={false} className="ribbon-condensed-card" />
           }
         </div>
       </div>
