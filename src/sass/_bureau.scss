@@ -583,6 +583,10 @@
     }
   }
   .bidder-rankings-table-container {
-    padding: 20px;
+    padding: 50px 20px;
+    .tm-spinner-bidder-rankings-table {
+      position: relative;
+      top: -30px;
+    }
   }
 }

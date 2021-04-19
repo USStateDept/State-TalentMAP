@@ -2,7 +2,10 @@ import { bureauPositionBidsHasErrored, bureauPositionBidsIsLoading, bureauPositi
   bureauPositionBidsAllHasErrored, bureauPositionBidsAllIsLoading, bureauPositionBidsAll,
   bureauPositionBidsRankingHasErrored, bureauPositionBidsRankingIsLoading,
   bureauPositionBidsRanking,
-  bureauPositionBidsSetRankingHasErrored, bureauPositionBidsSetRankingIsLoading, bureauPositionBidsSetRanking } from './bureauPositionBids';
+  bureauPositionBidsSetRankingHasErrored, bureauPositionBidsSetRankingIsLoading,
+  bureauPositionBidsSetRanking,
+  bureauBidderRankingsHasErrored, bureauBidderRankingsIsLoading, bureauBidderRankings,
+} from './bureauPositionBids';
 
 export default { bureauPositionBidsHasErrored,
   bureauPositionBidsIsLoading,
@@ -15,4 +18,8 @@ export default { bureauPositionBidsHasErrored,
   bureauPositionBidsRanking,
   bureauPositionBidsSetRankingHasErrored,
   bureauPositionBidsSetRankingIsLoading,
-  bureauPositionBidsSetRanking };
+  bureauPositionBidsSetRanking,
+  bureauBidderRankingsHasErrored,
+  bureauBidderRankingsIsLoading,
+  bureauBidderRankings,
+};

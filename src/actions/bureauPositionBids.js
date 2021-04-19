@@ -1,6 +1,5 @@
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
-import { batch } from 'react-redux';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
@@ -223,26 +222,19 @@ export function downloadBidderData(id, query = {}) {
 
 export function fetchBidderRankings(perdet) {
   const url = `/bureau/rankings/${perdet}/`;
-
   return (dispatch) => {
-    batch(() => {
-      dispatch(bidderRankingsIsLoading(true));
-      dispatch(bidderRankingsHasErrored(false));
-    });
+    dispatch(bidderRankingsIsLoading(true));
+    dispatch(bidderRankingsHasErrored(false));
     api().get(url)
       .then(({ data }) => {
-        batch(() => {
-          dispatch(bidderRankingFetchDataSuccess(data));
-          dispatch(bidderRankingsHasErrored(false));
-          dispatch(bidderRankingsIsLoading(false));
-        });
+        dispatch(bidderRankingFetchDataSuccess(data));
+        dispatch(bidderRankingsHasErrored(false));
+        dispatch(bidderRankingsIsLoading(false));
       })
       .catch(() => {
-        batch(() => {
-          dispatch(bidderRankingFetchDataSuccess({ results: [] }));
-          dispatch(bidderRankingsHasErrored(true));
-          dispatch(bidderRankingsIsLoading(false));
-        });
+        dispatch(bidderRankingFetchDataSuccess({ results: [] }));
+        dispatch(bidderRankingsHasErrored(true));
+        dispatch(bidderRankingsIsLoading(false));
       });
   };
 }

@@ -47,7 +47,7 @@ const BidderRankings = ({ perdet }) => {
           <div className={'bidder-rankings-table-container'}>
             {
               bidderRankingDataIsLoading ?
-                <Spinner type="homepage-position-results" size="big" />
+                <Spinner type="bidder-rankings-table" size="small" />
                 :
                 <div>im hidden content</div>
             }

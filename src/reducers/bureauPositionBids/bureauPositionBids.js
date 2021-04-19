@@ -117,7 +117,7 @@ export function bureauBidderRankingsIsLoading(state = false, action) {
 export function bureauBidderRankings(state = [], action) {
   switch (action.type) {
     case 'BIDDER_RANKING_FETCH_DATA_SUCCESS':
-      return action.bids;
+      return action.results;
     default:
       return state;
   }
