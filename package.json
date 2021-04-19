@@ -12,7 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@sweetalert/with-react": "^0.1.1",
     "axios": "^0.18.1",
-    "axios-cache-adapter": "^2.5.0",
+    "axios-cache-adapter": "^2.7.3",
     "babel-plugin-lodash": "^3.3.4",
     "body-parser": "^1.18.2",
     "bowser": "^2.11.0",
@@ -129,7 +129,7 @@
     "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react": "^7.23.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "6.1.0",
     "fs-extra": "^8.1.0",
@@ -170,7 +170,7 @@
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-plugin-ramdisk": "^0.1.8",
     "whatwg-fetch": "2.0.3",
-    "workbox-webpack-plugin": "^6.1.2",
+    "workbox-webpack-plugin": "^6.1.5",
     "yarn": "^1.22.10"
   },
   "scripts": {
