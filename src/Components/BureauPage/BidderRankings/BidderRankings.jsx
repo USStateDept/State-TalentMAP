@@ -62,17 +62,8 @@ const BidderRankings = ({ perdet }) => {
             {
               !bidderRankingDataIsLoading && bidderRankingData.results &&
                 <div>
-                  <table className={'candidate-manager-table'}>
+                  <table className={'bidder-rankings-table'}>
                     <thead>
-                      <tr className={'bidder-information'}>
-                        <th>SPECIAL AGENT</th>
-                        <th>Js current post</th>
-                        <th>EXECUTIVE (CAREER) (0020)</th>
-                        <th>00</th>
-                        <th />
-                        <th />
-                        <th />
-                      </tr>
                       <tr className={'table-headers'}>
                         {
                           positionTableHeaders.map(item => (
