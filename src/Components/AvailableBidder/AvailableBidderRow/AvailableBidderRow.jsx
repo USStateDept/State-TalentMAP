@@ -16,7 +16,7 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
 import { FILTER } from 'Constants/PropTypes';
-import SkillCodeList from '../../SkillCodeList';
+// import SkillCodeList from '../../SkillCodeList';
 
 
 const AvailableBidderRow = (props) => {
@@ -112,7 +112,8 @@ const AvailableBidderRow = (props) => {
   const sections = isCDO ? {
     name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
     status: getStatus(),
-    skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
+    // skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
+    skill: `${get(bidder, 'skills[0].description')} (${get(bidder, 'skills[0].code')})`,
     grade: get(bidder, 'grade') || NO_GRADE,
     languages: languages.length ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
@@ -121,7 +122,8 @@ const AvailableBidderRow = (props) => {
     comments: get(bidder, 'available_bidder_details.comments') || NO_COMMENTS,
   } : {
     name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
-    skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
+    // skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
+    skill: `${get(bidder, 'skills[0].description')} (${get(bidder, 'skills[0].code')}`,
     grade: get(bidder, 'grade') || NO_GRADE,
     languages: languages ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
