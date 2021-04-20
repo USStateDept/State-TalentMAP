@@ -118,7 +118,7 @@ const AvailableBidderRow = (props) => {
     ted: formattedTed,
     current_post: getCustomLocation(),
     cdo: cdo ? getCDO() : NO_CDO,
-    comments: get(bidder, 'available_bidder_details.comments') || NO_COMMENTS,
+    comments: get(bidder, 'available_bidder_details.comments') || <text className="no-comments">{NO_COMMENTS}</text>,
   } : {
     name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
     skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
