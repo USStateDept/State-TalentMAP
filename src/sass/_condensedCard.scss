@@ -128,6 +128,7 @@ $condensed-card-data-padding: 15px 20px 9px;
       position: absolute;
       right: -2px;
       top: -1px;
+      pointer-events: none;
       z-index: $ribbon-condensed-card-z;
 
       .ribbon-cn {
