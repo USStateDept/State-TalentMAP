@@ -173,8 +173,8 @@ const AvailableBidderRow = (props) => {
     <tr className={getTRClass()}>
       {
         keys(sections).map(i => {
-          if (i === 'comments' && sections[i] === 'None listed') {
-            return (<td key={i}><text className="no-comments">{sections[i]}</text></td>);
+          if (i === 'comments' && sections[i] === NO_COMMENTS) {
+            return (<td key={i}><text aria-disabled="true" className="no-comments">{sections[i]}</text></td>);
           }
           return (
             <td key={i}>{sections[i]}</td>
