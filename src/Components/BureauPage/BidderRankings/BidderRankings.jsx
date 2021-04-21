@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
@@ -55,9 +56,10 @@ const BidderRankings = ({ perdet }) => {
       {
         showRankingData &&
           <div className={'bidder-rankings-table-container'}>
+            <div className={'arrow-down'} />
             {
               bidderRankingDataIsLoading &&
-              <Spinner type="bidder-rankings-table" size="small" />
+                <Spinner type="bidder-rankings-table" size="small" />
             }
             {
               !bidderRankingDataIsLoading && bidderRankingData.results &&
@@ -83,7 +85,7 @@ const BidderRankings = ({ perdet }) => {
                         bidderRankingData.results.map(pos => (
                           <tr>
                             <td>{pos.ranking || 'unranked'}</td>
-                            <td>{pos.position.title}</td>
+                            <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
                             <td>{pos.position.post.location.country}</td>
                             <td>{pos.position.skill}</td>
                             <td>{pos.position.grade}</td>
@@ -94,6 +96,8 @@ const BidderRankings = ({ perdet }) => {
                       }
                     </tbody>
                   </table>
+                  {/* eslint-disable-next-line react/no-unescaped-entities */}
+                  <div>Number of Bids in other Bureau's ShortLists: {bidderRankingData['other-sl-bidcount']}</div>
                 </div>
             }
           </div>

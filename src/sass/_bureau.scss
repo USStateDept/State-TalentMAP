@@ -443,6 +443,7 @@
   thead {
     tr {
       display: flex;
+      border-bottom: 1px solid black;
       th {
         text-align: center;
         border: none;
@@ -481,9 +482,7 @@
       text-align: center;
       display: flex; // fixes IE11
       justify-content: center; // fixes IE11
-      border-top: none;
-      border-right: none;
-      border-left: none;
+      border: none;
       padding: 20px 30px;
       flex: 4;
       font-size: 1.6rem;
@@ -525,8 +524,20 @@
       padding-left: 10px;
     }
   }
+  .arrow-down {
+    width: 0;
+    height: 0;
+    margin: 10px auto 20px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 15px solid $color-white;
+  }
   .bidder-rankings-table-container {
-    padding: 20px;
+    padding: 0 20px 20px;
+    background-color: $bg-gray-medium-4;
+    -moz-box-shadow: inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow: inset 0 0 10px #000000;
     .tm-spinner-bidder-rankings-table {
       position: relative;
       top: -30px;
@@ -535,17 +546,36 @@
       width: 75%;
       margin: 0;
       .table-headers {
+        th:first-of-type {
+          border-top-left-radius: 10px;
+        }
+        th:last-of-type {
+          border-top-right-radius: 10px;
+        }
         th {
           font-size: 1.3rem;
           padding: 5px;
+          background-color: $bg-gray-dark-0;
+          color: $color-white;
         }
       }
       tbody {
+        border: none;
+        tr:last-of-type {
+          td:first-of-type {
+            border-bottom-left-radius: 10px;
+          }
+          td:last-of-type {
+            border-bottom-right-radius: 10px;
+          }
+        }
         tr {
-          border-bottom: 1px solid black;
+          border-bottom: 1px solid $bg-gray-medium-4;
           td {
             font-size: 1.2rem;
             padding: 5px;
+            background-color: $bg-gray-dark-2;
+            color: $color-white;
           }
         }
       }

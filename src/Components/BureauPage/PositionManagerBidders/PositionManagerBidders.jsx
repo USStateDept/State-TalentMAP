@@ -38,7 +38,7 @@ const getItemStyle = (isDragging, draggableStyle) => {
 
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? tertiaryCoolBlueLightest : tertiaryCoolBlueLight,
-  maxHeight: 325,
+  maxHeight: 1000,
   overflowY: 'scroll',
 });
 
