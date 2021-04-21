@@ -221,7 +221,7 @@ export function downloadBidderData(id, query = {}) {
 }
 
 export function fetchBidderRankings(perdet) {
-  const url = `/bureau/rankings/${perdet}/`;
+  const url = `/available_position/rankings/${perdet}/`;
   return (dispatch) => {
     dispatch(bidderRankingsIsLoading(true));
     dispatch(bidderRankingsHasErrored(false));
