@@ -147,7 +147,6 @@ const AvailableBidderTable = (props) => {
                     item !== 'Languages' && item !== 'Comments' ?
                       <th
                         key={item}
-                        className="ab-headers"
                         scope="col"
                       >
                         <InteractiveElement onClick={() => handleSort(item)}>
@@ -157,7 +156,6 @@ const AvailableBidderTable = (props) => {
                       :
                       <th
                         key={item}
-                        className="ab-headers"
                         scope="col"
                       >
                         {item}
@@ -166,7 +164,7 @@ const AvailableBidderTable = (props) => {
                 }
                 {
                   isCDO &&
-                    <th className="ab-headers">
+                    <th>
                       <div className="bureau-view-toggle">
                         <ToggleButton
                           labelTextLeft={
