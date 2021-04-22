@@ -303,25 +303,25 @@ class ResultsCard extends Component {
                 <Column columns="2">
                   <div className="ribbon-container">
                     {
-                      get(stats, 'has_handshake_offered', false) && <Handshake className="ribbon-results-card" />
+                      get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className="ribbon-results-card" />
                     }
                     {
                       <StaticDevContent>
-                        <CriticalNeed className="ribbon-results-card" />
+                        <CriticalNeed isWideResults className="ribbon-results-card" />
                       </StaticDevContent>
                     }
                     {
-                      get(result, 'isDifficultToStaff', false) && <HardToFill className="ribbon-results-card" />
+                      get(result, 'isDifficultToStaff', false) && <HardToFill isWideResults className="ribbon-results-card" />
                     }
                     {
                       get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential className="ribbon-results-card" />
                     }
                     {
-                      get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
+                      get(result, 'position.is_highlighted') && <Featured isWideResults className="ribbon-results-card" />
                     }
                     {
                       // conditional rendering occurs inside the container
-                      <InBidListContainer id={result.id} isWide className="ribbon-results-card" />
+                      <InBidListContainer id={result.id} isWideResults className="ribbon-results-card" />
                     }
                   </div>
                 </Column>
