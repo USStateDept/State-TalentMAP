@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
+import { Tooltip } from 'react-tippy';
 import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
@@ -65,21 +66,50 @@ const ResultsCondensedCardTop = ({
         </div>
         <div className="ribbon-container-condensed">
           {
-            hasHandshake && <Handshake showText={false} className="ribbon-condensed-card" />
+            hasHandshake &&
+            <Tooltip
+              tabIndex="0"
+              title="Handshake"
+            >
+              <Handshake showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
           }
           {
             <StaticDevContent>
-              <CriticalNeed showText={false} className="ribbon-condensed-card" />
+              <Tooltip
+                tabIndex="0"
+                title="Critical need"
+              >
+                <CriticalNeed showText={false} className="ribbon-condensed-card" />
+              </Tooltip>
             </StaticDevContent>
           }
           {
-            isDifficultToStaff && <HardToFill showText={false} className="ribbon-condensed-card" />
+            isDifficultToStaff &&
+            <Tooltip
+              tabIndex="0"
+              title="Hard to fill"
+            >
+              <HardToFill showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
           }
           {
-            isServiceNeedDifferential && <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+            isServiceNeedDifferential &&
+            <Tooltip
+              tabIndex="0"
+              title="Service need differential"
+            >
+              <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
           }
           {
-            get(position, 'position.is_highlighted') && <Featured showText={false} className="ribbon-condensed-card" />
+            get(position, 'position.is_highlighted') &&
+            <Tooltip
+              tabIndex="0"
+              title="Featured"
+            >
+              <Featured showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
           }
         </div>
       </div>
