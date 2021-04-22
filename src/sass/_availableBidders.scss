@@ -14,7 +14,6 @@
   }
 
   .available-bidders-stats {
-
     .statistics-section {
       background-color: $color-white;
       border: 2px solid $color-gray-light;
@@ -75,7 +74,6 @@
       width: 100%;
       margin-bottom: 10px;
     }
-
     .small-screen-stack > div {
       align-items: center;
       display: flex;
@@ -93,14 +91,29 @@
 .bidder-manager-bidders {
   color: $color-black;
   margin-top: 50px;
+  // Needed to make sure the th borders moves with position: sticky
+  border-collapse: separate;
   table {
     margin: 0;
     width: 100%;
+    border: 1px solid $dos-blue;
+    
     thead {
       tr {
         th {
           text-align: center;
+          color: $color-white;
+          background-color: $dos-blue;
+          // Position sticky not supported on ie11
+          // Position sticky has partial support on browsers (Must target th; not thead) 
+          position: -webkit-sticky;
+          position: sticky;
+          top: 0;
           border: none;
+          border-bottom: 1px solid $dos-blue;
+        }
+        th:last-child {
+          color: $color-black;
           background-color: $tm-white-smoke-light;
         }
         .table-title {
@@ -120,15 +133,12 @@
       }
     }
     tbody {
-      border: 1px solid $tm-gray;
       td {
         text-align: center;
-        border-top: none;
-        border-right: none;
-        border-left: none;
         padding: 20px;
         font-size: 14px;
-        transition: .15s;
+        border: none;
+        border-bottom: 1px solid $tm-gray;
       }
       @media screen and (max-width: 1700px) {
         td {
@@ -166,7 +176,6 @@
   td:not(:nth-of-type(10)) {
     color: #a9acaf;
     background-color: #cacbce;
-    transition: 1.5s;
     a {
       color: #a9acaf;
     }
@@ -178,7 +187,6 @@
   td:nth-of-type(2), td:nth-of-type(9) {
     color: #a9acaf;
     background-color: #cacbce;
-    transition: 1.5s;
     a {
       color: #a9acaf;
     }
