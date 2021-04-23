@@ -120,12 +120,23 @@
     }
 
     .client-checkbox-list > :first-child {
-      border: 0;
       border-bottom: 1px solid $bg-gray-dark-2;
       border-top: 1px solid $bg-gray-dark-2;
       margin-bottom: 1em;
+      min-width: 100%;
+      .static-client-badge {
+        background-color: $tertiary-success;
+        height: 30px;
+        width: 30px;
+        margin: 10px 10px 10px 0;
+      }
+      > div {
+        display: inline-block;
+        vertical-align: middle;
+      }
     }
 
+    //Do we use the Updates component anywhere? (if not, i can delete lines 139-149)
     .tm-checkbox {
       margin: 0 auto;
       margin-left: 0;
