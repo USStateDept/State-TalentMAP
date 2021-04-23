@@ -174,9 +174,14 @@ const AvailableBidderRow = (props) => {
   return (
     <tr className={getTRClass()}>
       {
-        keys(sections).map(i => (
-          <td key={i}>{sections[i]}</td>
-        ))
+        keys(sections).map(i => {
+          if (i === 'comments' && sections[i] === NO_COMMENTS) {
+            return (<td key={i}><text aria-disabled="true" className="no-comments">{sections[i]}</text></td>);
+          }
+          return (
+            <td key={i}>{sections[i]}</td>
+          );
+        })
       }
       {
         isLoading && isCDO ? <td><Skeleton /></td> :
