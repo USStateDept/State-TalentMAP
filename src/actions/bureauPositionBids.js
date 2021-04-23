@@ -1,6 +1,6 @@
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
-import { get } from 'lodash';
+import { get, isEqual } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { toastError } from './toast';
@@ -137,13 +137,15 @@ export function bureauBidsSetRanking(id, ranking = []) {
         }),
       })
       .then(() => {
-        api()
-          .post('/available_position/ranking/', ranking, {
-            cancelToken: new CancelToken((c) => {
-              cancelRanking = c;
-            }),
-          })
-          .then(({ data }) => data || [])
+        const prom = () => isEqual(ranking, []) ? Promise.resolve() :
+          api()
+            .post('/available_position/ranking/', ranking, {
+              cancelToken: new CancelToken((c) => {
+                cancelRanking = c;
+              }),
+            });
+
+        prom()
           .then(() => {
             dispatch(bureauPositionBidsSetRankingFetchDataSuccess(true));
             dispatch(bureauPositionBidsSetRankingHasErrored(false));
