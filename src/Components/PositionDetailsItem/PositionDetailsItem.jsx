@@ -4,7 +4,6 @@ import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import StaticDevContent from 'Components/StaticDevContent';
-import { Tooltip } from 'react-tippy';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -42,21 +41,22 @@ export const renderHandshake = stats => (
 
 export const renderCriticalNeed = () => (
   <StaticDevContent>
-    <Tooltip
-      tabIndex="0"
-      title="Critical need"
-    >
-      <CriticalNeed cutSide="both" className="ribbon-position-details" />
-    </Tooltip>
+    <CriticalNeed cutSide="both" className="ribbon-position-details" />
   </StaticDevContent>
 );
 
 export const renderHardToFill = details => (
-  get(details, 'isDifficultToStaff', false) && <HardToFill cutSide="both" className="ribbon-position-details" />
+  get(details, 'isDifficultToStaff', false) &&
+  <StaticDevContent>
+    <HardToFill cutSide="both" className="ribbon-position-details" />
+  </StaticDevContent>
 );
 
 export const renderServiceNeedDifferential = details => (
-  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
+  get(details, 'isServiceNeedDifferential', false) &&
+  <StaticDevContent>
+    <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
+  </StaticDevContent>
 );
 
 

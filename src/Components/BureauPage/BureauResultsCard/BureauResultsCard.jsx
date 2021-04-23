@@ -88,14 +88,14 @@ class BureauResultsCard extends Component {
             {
               get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
             }
-            { // for demoing purposes only
-              get(result, 'isCriticalNeed', true) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
+            {
+              get(result, 'dummydata', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'isDifficultToStaff', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'dummydata', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'dummydata', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
             }
             {renderBidCountMobile(stats)}
           </Row>
