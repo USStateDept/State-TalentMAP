@@ -89,13 +89,13 @@ class BureauResultsCard extends Component {
               get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'dummydata', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'dummydata', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'staticDevContentAlt', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'dummydata', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'staticDevContentAlt', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
             }
             {renderBidCountMobile(stats)}
           </Row>

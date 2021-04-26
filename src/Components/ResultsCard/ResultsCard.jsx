@@ -319,7 +319,7 @@ class ResultsCard extends Component {
                     {
                       get(result, 'isServiceNeedDifferential', false) &&
                       <StaticDevContent>
-                        <ServiceNeedDifferential className="ribbon-results-card" />
+                        <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
                       </StaticDevContent>
                     }
                     {

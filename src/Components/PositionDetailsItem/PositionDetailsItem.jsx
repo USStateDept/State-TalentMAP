@@ -11,7 +11,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   propOrDefault,
@@ -115,9 +115,6 @@ const PositionDetailsItem = (props) => {
         {renderCriticalNeed()}
         {renderHardToFill(details)}
         {renderServiceNeedDifferential(details)}
-        {
-          isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
-        }
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>

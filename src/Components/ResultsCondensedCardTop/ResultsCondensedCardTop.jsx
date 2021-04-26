@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
-import { Featured, Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getPostName, getBidStatisticsObject } from '../../utilities';
@@ -83,9 +83,6 @@ const ResultsCondensedCardTop = ({
             <StaticDevContent>
               <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
             </StaticDevContent>
-          }
-          {
-            get(position, 'position.is_highlighted') && <Featured showText={false} className="ribbon-condensed-card" />
           }
         </div>
       </div>
