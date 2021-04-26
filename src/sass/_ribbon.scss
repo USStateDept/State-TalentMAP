@@ -40,18 +40,10 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 
 .ribbon-cn {
   background-color: $ribbon-cn;
-
-  .fa {
-    margin-right: .5em;
-  }
 }
 
 .ribbon-htf {
   background-color: $ribbon-htf;
-
-  .fa {
-    margin-right: .4em;
-  }
 }
 
 .ribbon-snd {
@@ -94,12 +86,6 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   right: -1px;
   top: calc(100% - 220px);
   width: 170px;
-
-  .ribbon-primary, .ribbon-cn, .ribbon-htf {
-    float: right;
-    padding-left: 2em;
-    padding-right: 1.35em;
-  }
   
   .ribbon-snd {
     font-size: 10px;
@@ -125,4 +111,8 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   .ribbon-cut-right {
     padding-left: 1.5em;
   }
+}
+
+.ribbon-wide-results {
+  min-width: 163.05px;
 }
