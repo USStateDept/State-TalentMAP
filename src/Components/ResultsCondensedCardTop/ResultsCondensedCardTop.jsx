@@ -65,8 +65,7 @@ const ResultsCondensedCardTop = ({
         </div>
         <div className="ribbon-container-condensed">
           {
-            hasHandshake &&
-              <Handshake showText={false} className="ribbon-condensed-card" />
+            hasHandshake && <Handshake showText={false} className="ribbon-condensed-card" />
           }
           {
             <StaticDevContent>
@@ -86,8 +85,7 @@ const ResultsCondensedCardTop = ({
             </StaticDevContent>
           }
           {
-            get(position, 'position.is_highlighted') &&
-              <Featured showText={false} className="ribbon-condensed-card" />
+            get(position, 'position.is_highlighted') && <Featured showText={false} className="ribbon-condensed-card" />
           }
         </div>
       </div>
