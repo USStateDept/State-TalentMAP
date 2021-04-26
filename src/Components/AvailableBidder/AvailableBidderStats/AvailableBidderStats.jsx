@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { get, sumBy } from 'lodash';
+import { get } from 'lodash';
 import numeral from 'numeral';
 import FA from 'react-fontawesome';
 import { PieChart, Pie, Cell } from 'recharts';
@@ -29,17 +29,14 @@ const AvailableBidderStats = () => {
 
   data = data.map(m => ({ ...m, value: get(stats, m.key, 0) }));
 
-  let sum = sumBy(data, 'value');
-
-  if (sum === 0) {
-    data = data.map(m => ({ ...m, value: 1 }));
-    sum = sumBy(data, 'value');
-  }
-
-  const data$ = data.map(m => ({
-    ...m,
-    percent: numeral(m.value / sum).format('0%'),
-  }));
+  const data$ = data.map(m => {
+    // handling division by zero
+    const sum = statsSum !== 0 ? statsSum : 1;
+    return {
+      ...m,
+      percent: numeral(m.value / sum).format('0%'),
+    };
+  });
 
   const chartData$ = data$.filter(f => f.value > 0);
 
@@ -72,7 +69,7 @@ const AvailableBidderStats = () => {
                 <div className="usa-grid-full flex">
                   <div className="usa-width-one-fourth legend-container">
                     <div className="usa-grid-full legend">
-                      <h4>Available Bidders by Status</h4>
+                      <h4>Available Bidders by Status ({statsSum})</h4>
                       {
                         data$.map(m => (
                           <div className="flex legend-item">
@@ -80,7 +77,7 @@ const AvailableBidderStats = () => {
                               className="legend-square"
                               style={{ backgroundColor: m.color }}
                             />
-                            <div className="legend-text">{`${m.percent} ${m.name}`}</div>
+                            <div className="legend-text">{`${m.percent}(${m.value}) ${m.name}`}</div>
                           </div>
                         ))
                       }
