@@ -2,17 +2,14 @@ import { Component } from 'react';
 import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { connect } from 'react-redux';
-import { BID_OBJECT, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
 import { getPostName, formatDate } from 'utilities';
-import { handshakeAccepted } from 'actions/bidTracker';
 
 class DraftAlert extends Component {
   onSubmitBid = () => {
     const { submitBid, bid } = this.props;
     submitBid(bid.position.id);
-    this.props.clientAcceptedHandshake();
   };
 
   render() {
@@ -84,15 +81,6 @@ DraftAlert.contextTypes = {
 DraftAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   submitBid: PropTypes.func.isRequired,
-  clientAcceptedHandshake: PropTypes.func,
 };
 
-DraftAlert.defaultProps = {
-  clientAcceptedHandshake: EMPTY_FUNCTION,
-};
-
-export const mapDispatchToProps = dispatch => ({
-  clientAcceptedHandshake: () => dispatch(handshakeAccepted()),
-});
-
-export default connect(null, mapDispatchToProps)(DraftAlert);
+export default DraftAlert;
