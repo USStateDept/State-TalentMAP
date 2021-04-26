@@ -4,7 +4,6 @@ import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from '../../Layout';
-import CheckBox from '../../CheckBox';
 import ClientBadge from '../ClientBadge';
 
 const CheckboxList = ({ list, editView, updateClassifications,
@@ -24,16 +23,9 @@ const CheckboxList = ({ list, editView, updateClassifications,
 
   return (
     <div className="client-checkbox-list">
-      <CheckBox
-        id="key"
-        label="Bidder Has Classification"
-        small
-        value
-        key="key"
-        disabled
-        checked
-        className="tm-checkbox-disabled-alternate"
-      />
+      <div className="usa-width-one-whole">
+        <div className="static-client-badge" /> <div>Bidder Has Classification</div>
+      </div>
       {list.map((c) => {
         let checked = false;
         let uniqueShowMore = '';
