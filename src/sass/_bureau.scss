@@ -365,120 +365,6 @@
   }
 }
 
-.position-manager-bidders {
-
-  > *:first-child {
-    margin-left: 0;
-  }
-
-  .list-toggle-container {
-    display: flex;
-
-    .interactive-element {
-      margin: 2em .4em .5em 0;
-    }
-  }
-
-  table {
-    margin: auto;
-    width: 100%;
-
-    .is-dragging {
-      td {
-        background-color: $primary-alt-lightest;
-      }
-    }
-
-    thead {
-      tr {
-        display: flex;
-        padding-right: 19px; // scroll bar delta between headers and table content
-
-        th:first-of-type {
-          flex: 2
-        }
-
-        th:nth-of-type(2),
-        th:nth-of-type(6) {
-          flex: 1
-        }
-
-        th {
-          display: flex; // fixes IE11
-          justify-content: center; // fixes IE11
-          flex: 4;
-          text-align: center;
-          border: none;
-          background-color: $color-white;
-        }
-        @media screen and (max-width: 1600px) {
-          .table-title {
-            font-size: 25px;
-          }
-        }
-        @media screen and (max-width: 1400px) {
-          .table-title {
-            font-size: 20px;
-          }
-        }
-      }
-    }
-    tbody {
-      border: 1px solid black;
-
-      > div {
-        min-height: 100px;
-      }
-
-      tr {
-        display: flex;
-      }
-
-      td:first-of-type {
-        flex: 2
-      }
-
-      td:nth-of-type(2),
-      td:nth-of-type(6) {
-        flex: 1
-      }
-
-      td {
-        text-align: center;
-        border-top: none;
-        border-right: none;
-        border-left: none;
-        padding: 20px 1.5rem;
-        font-size: 1.6rem;
-        display: flex; // fixes IE11
-        justify-content: center; // fixes IE11
-        flex: 4;
-        .deconflict-indicator {
-          color: $tertiary-gold;
-          font-size: 40px;
-        }
-      }
-      @media screen and (max-width: 1700px) {
-        td {
-          padding: 10px 15px;
-          font-size: 15px;
-        }
-      }
-      @media screen and (max-width: 1400px) {
-        td {
-          padding: 5px 7px;
-          font-size: 13px;
-        }
-      }
-    }
-  }
-
-
-  .usa-alert {
-    margin-top: 2em !important;
-  }
-
-}
 .tippy-popper {
   .tippy-tooltip.deconflict-indicator-theme {
     background-color: $color-white;
@@ -506,9 +392,28 @@
     }
   }
 }
+
 .position-manager-bidders:not(:first-of-type) {
   h3 {
     margin-top: .3em;
+  }
+}
+
+.position-manager-bidders {
+  > *:first-child {
+    margin-left: 0;
+  }
+
+  .list-toggle-container {
+    display: flex;
+
+    .interactive-element {
+      margin: 2em .4em .5em 0;
+    }
+  }
+
+  .usa-alert {
+    margin-top: 2em !important;
   }
 }
 
@@ -527,11 +432,85 @@
   padding-left: 35px;
 }
 
-.position-manager-bidders-table > tbody {
-  display: flex;
-  flex-direction: column;
+.position-manager-bidders-table {
+  margin: auto;
+  width: 100%;
+  .is-dragging {
+    td {
+      background-color: $primary-alt-lightest;
+    }
+  }
+  thead {
+    tr {
+      display: flex;
+      th {
+        text-align: center;
+        border: none;
+        background-color: $color-white;
+        display: flex; // fixes IE11
+        justify-content: center; // fixes IE11
+        flex: 4;
+      }
+      th:first-of-type {
+        flex: 2
+      }
 
-  > div {
-    min-height: 100px;
+      th:nth-of-type(2),
+      th:nth-of-type(6) {
+        flex: 1
+      }
+      h1 {
+        font-family: 'Roboto';
+        font-size: 1.9rem;
+        margin-top: 50px;
+      }
+    }
+  }
+  tbody {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    > div {
+      min-height: 100px;
+    }
+
+    tr {
+      display: flex;
+    }
+    td {
+      text-align: center;
+      display: flex; // fixes IE11
+      justify-content: center; // fixes IE11
+      border-top: none;
+      border-right: none;
+      border-left: none;
+      padding: 20px 30px;
+      flex: 4;
+      font-size: 1.6rem;
+      .deconflict-indicator {
+        color: $tertiary-gold;
+        font-size: 40px;
+      }
+    }
+    td:first-of-type {
+      flex: 2
+    }
+
+    td:nth-of-type(2),
+    td:nth-of-type(6) {
+      flex: 1
+    }
+    @media screen and (max-width: 1700px) {
+      td {
+        padding: 10px 15px;
+        font-size: 15px;
+      }
+    }
+    @media screen and (max-width: 1400px) {
+      td {
+        padding: 5px 7px;
+        font-size: 13px;
+      }
+    }
   }
 }
