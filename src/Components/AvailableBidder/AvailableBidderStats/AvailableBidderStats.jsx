@@ -77,7 +77,7 @@ const AvailableBidderStats = () => {
                               className="legend-square"
                               style={{ backgroundColor: m.color }}
                             />
-                            <div className="legend-text">{`${m.percent}(${m.value}) ${m.name}`}</div>
+                            <div className="legend-text">{`(${m.value}) ${m.name} ${m.percent}`}</div>
                           </div>
                         ))
                       }
