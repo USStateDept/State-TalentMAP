@@ -81,7 +81,7 @@
     "react-sticky-el": "^1.1.0",
     "react-switch": "^6.0.0",
     "react-tippy": "^1.4.0",
-    "react-toastify": "^7.0.3",
+    "react-toastify": "^7.0.4",
     "recharts": "^1.8.5",
     "redux": "^4.0.5",
     "redux-persist": "^5.10.0",
