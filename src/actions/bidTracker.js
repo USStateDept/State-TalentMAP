@@ -8,16 +8,14 @@ export function handshakeOfferedNotification(notificationInformation) {
   };
 }
 
-export function handshakeOffered(name, message) {
-  // eslint-disable-next-line no-console
-  console.log('current: 3 name, message:', name, message);
+export function handshakeOffered(name, message, cb) {
   return (dispatch) => {
     dispatch(handshakeOfferedNotification({
       title: SystemMessages.HANDSHAKE_OFFERED_TITLE,
-      message: SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message }),
+      message: SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message, cb }),
     }));
     dispatch(toastHandshake(
-      SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message }),
+      SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message, cb }),
       SystemMessages.HANDSHAKE_OFFERED_TITLE,
     ));
   };

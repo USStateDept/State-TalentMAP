@@ -195,8 +195,6 @@ export function bidTrackerNotificationsFetchData() {
 
 export function markNotification(id, isRead = true, shouldDelete = false,
   bypassTrackerUpdate = false, cb = () => {}) {
-  // eslint-disable-next-line no-console
-  console.log('current: in markNotification ');
   return (dispatch) => {
     dispatch(markNotificationIsLoading(true));
     dispatch(markNotificationHasErrored(false));
@@ -253,26 +251,20 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
 export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', tags = 'fakeTag', isRead = false, useDateRange = true) {
   // grabbing HS notifications that have no been read, to render a toast notification for them.
   // tags doesn't seem to be filtering.
-  // eslint-disable-next-line no-console
-  console.log('current: 1');
   return (dispatch) => {
     dispatch(hsNotificationsIsLoading(true));
     dispatch(hsNotificationsHasErrored(false));
-
+    // new EP to mark all notifications(based on tag) as read.
+    // would return if any unread HS notifications
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&tags=${tags}&is_read=${isRead}${useDateRange ? `&date_created__gte=${getDateRange()}` : ''}`)
       .then(({ data }) => {
-        // eslint-disable-next-line no-console
-        console.log('current: 1t:', data);
-        // eslint-disable-next-line no-console
-        console.log('current: 2:', data.results[0].owner, data.results[0].message);
-        dispatch(handshakeOffered(data.results[0].owner, data.results[0].message));
+        dispatch(handshakeOffered(data.results[0].owner, data.results[0].message,
+          () => dispatch(markNotification(data.results[0].id))));
         dispatch(hsNotificationsFetchDataSuccess(data));
         dispatch(hsNotificationsHasErrored(false));
         dispatch(hsNotificationsIsLoading(false));
       })
       .catch(() => {
-        // eslint-disable-next-line no-console
-        console.log('current: 1c');
         dispatch(hsNotificationsHasErrored(true));
         dispatch(hsNotificationsIsLoading(false));
       });
