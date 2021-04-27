@@ -66,7 +66,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "draft" 1`] = `
     <div
       className="bid-tracker-overlay-alert-content"
     >
-      <Connect(DraftAlert)
+      <DraftAlert
         bid={
           Object {
             "approved_date": "2017-12-20",
