@@ -4,12 +4,12 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
+import { notificationsCountFetchData, notificationsFetchData, handshakeNotificationsFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
 
 class Notifications extends Component {
   UNSAFE_componentWillMount() {
-    const { fetchNotificationsCount, history } = this.props;
+    const { fetchNotificationsCount, history, fetchHandshakeNotifications } = this.props;
 
     // If the user is on the login page, don't try to pull notifications.
     //
@@ -23,6 +23,7 @@ class Notifications extends Component {
     history.listen((newLocation) => {
       if (newLocation.pathname !== loginRoute) {
         fetchNotificationsCount();
+        fetchHandshakeNotifications();
       }
     });
   }
@@ -51,6 +52,7 @@ Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
+  fetchHandshakeNotifications: PropTypes.func.isRequired,
   history: HISTORY_OBJECT.isRequired,
 };
 
@@ -65,6 +67,7 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
+  fetchHandshakeNotifications: () => dispatch(handshakeNotificationsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Notifications));

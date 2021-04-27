@@ -126,8 +126,8 @@ export const ADD_TO_INTERNAL_LIST_ERROR = "We're experiencing an error attemptin
 export const REMOVE_FROM_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to remove this client from the Internal list. Please try again.";
 
 export const HANDSHAKE_OFFERED_TITLE = 'Handshake Offered!';
-export const HANDSHAKE_OFFERED_BODY = ({ name, position, bid }) =>
-  HandshakeOffered({ name, position, bid });
+export const HANDSHAKE_OFFERED_BODY = ({ name, message }) =>
+  HandshakeOffered({ name, message });
 
 export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
 export const HANDSHAKE_ACCEPTED_BODY = ({ name, position, bid }) =>

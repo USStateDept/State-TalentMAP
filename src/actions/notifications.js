@@ -2,6 +2,7 @@ import Q from 'q';
 import { subDays } from 'date-fns';
 import api from '../api';
 import { hasValidToken } from '../utilities';
+import { handshakeOffered } from '../actions/bidTracker';
 
 export function notificationsHasErrored(bool) {
   return {
@@ -98,6 +99,25 @@ export function markNotificationsSuccess(response) {
   };
 }
 
+export function hsNotificationsHasErrored(bool) {
+  return {
+    type: 'HS_NOTIFICATIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function hsNotificationsIsLoading(bool) {
+  return {
+    type: 'HS_NOTIFICATIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function hsNotificationsFetchDataSuccess(notifications) {
+  return {
+    type: 'HS_NOTIFICATIONS_FETCH_DATA_SUCCESS',
+    notifications,
+  };
+}
+
 export function unsetNotificationsCount() {
   return (dispatch) => {
     dispatch(notificationsCountFetchDataSuccess(0));
@@ -175,6 +195,8 @@ export function bidTrackerNotificationsFetchData() {
 
 export function markNotification(id, isRead = true, shouldDelete = false,
   bypassTrackerUpdate = false, cb = () => {}) {
+  // eslint-disable-next-line no-console
+  console.log('current: in markNotification ');
   return (dispatch) => {
     dispatch(markNotificationIsLoading(true));
     dispatch(markNotificationHasErrored(false));
@@ -224,6 +246,35 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
           dispatch(markNotificationsHasErrored(false));
           dispatch(markNotificationsIsLoading(false));
         }, 0);
+      });
+  };
+}
+
+export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', tags = 'fakeTag', isRead = false, useDateRange = true) {
+  // grabbing HS notifications that have no been read, to render a toast notification for them.
+  // tags doesn't seem to be filtering.
+  // eslint-disable-next-line no-console
+  console.log('current: 1');
+  return (dispatch) => {
+    dispatch(hsNotificationsIsLoading(true));
+    dispatch(hsNotificationsHasErrored(false));
+
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&tags=${tags}&is_read=${isRead}${useDateRange ? `&date_created__gte=${getDateRange()}` : ''}`)
+      .then(({ data }) => {
+        // eslint-disable-next-line no-console
+        console.log('current: 1t:', data);
+        // eslint-disable-next-line no-console
+        console.log('current: 2:', data.results[0].owner, data.results[0].message);
+        dispatch(handshakeOffered(data.results[0].owner, data.results[0].message));
+        dispatch(hsNotificationsFetchDataSuccess(data));
+        dispatch(hsNotificationsHasErrored(false));
+        dispatch(hsNotificationsIsLoading(false));
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.log('current: 1c');
+        dispatch(hsNotificationsHasErrored(true));
+        dispatch(hsNotificationsIsLoading(false));
       });
   };
 }
