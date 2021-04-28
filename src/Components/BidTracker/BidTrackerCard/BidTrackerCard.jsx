@@ -12,6 +12,7 @@ import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert } from '../BidHelpers';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
 import {
   APPROVED_PROP,
   // HAND_SHAKE_ACCEPTED_PROP,
@@ -51,6 +52,21 @@ class BidTrackerCard extends Component {
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
+          {/* need to rename class for ribbon to bid tracker related names */}
+          <div className="bid-tracker-ribbon-container">
+            {
+              <Handshake cutSide="both" />
+            }
+            {
+              <CriticalNeed cutSide="both" />
+            }
+            {
+              <HardToFill cutSide="both" />
+            }
+            {
+              <ServiceNeedDifferential cutSide="both" />
+            }
+          </div>
           <BidTrackerCardTop
             bid={bid}
             deleteBid={deleteBid}
