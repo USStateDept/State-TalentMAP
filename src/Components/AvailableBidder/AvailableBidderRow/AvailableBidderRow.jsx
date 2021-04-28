@@ -6,8 +6,7 @@ import { formatDate } from 'utilities';
 import { availableBiddersToggleUser, availableBidderEditData } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
-  NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU,
-  NO_USER_SKILL_CODE, NO_OC_REASON, NO_POST,
+  NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU, NO_OC_REASON, NO_POST,
   NO_STATUS, NO_COMMENTS, NO_LANGUAGES, NO_LANGUAGE,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
@@ -17,6 +16,7 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
 import { FILTER } from 'Constants/PropTypes';
+import SkillCodeList from '../../SkillCodeList';
 
 
 const AvailableBidderRow = (props) => {
@@ -112,7 +112,7 @@ const AvailableBidderRow = (props) => {
   const sections = isCDO ? {
     name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
     status: getStatus(),
-    skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
     grade: get(bidder, 'grade') || NO_GRADE,
     languages: languages.length ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
@@ -121,7 +121,7 @@ const AvailableBidderRow = (props) => {
     comments: get(bidder, 'available_bidder_details.comments') || NO_COMMENTS,
   } : {
     name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
-    skill: get(bidder, 'skills[0].description') || NO_USER_SKILL_CODE,
+    skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
     grade: get(bidder, 'grade') || NO_GRADE,
     languages: languages ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
