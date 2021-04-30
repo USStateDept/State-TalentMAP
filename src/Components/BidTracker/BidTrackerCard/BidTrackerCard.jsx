@@ -30,7 +30,7 @@ class BidTrackerCard extends Component {
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
       registerHandshake, showBidCount, /* userProfile, */ useCDOView, userId,
-      unregisterHandshake } = this.props;
+      unregisterHandshake, showRibbons } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
     // determine whether we should show the contacts section based on the status
@@ -52,21 +52,23 @@ class BidTrackerCard extends Component {
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
-          {/* need to rename class for ribbon to bid tracker related names */}
-          <div className="bid-tracker-ribbon-container">
-            {
-              <Handshake cutSide="both" />
-            }
-            {
-              <CriticalNeed cutSide="both" />
-            }
-            {
-              <HardToFill cutSide="both" />
-            }
-            {
-              <ServiceNeedDifferential cutSide="both" />
-            }
-          </div>
+          { showRibbons &&
+            <div className="bid-tracker-ribbon-container">
+              {/* still need to verify how these ribbons should be hooked into the BE */}
+              {
+                <Handshake cutSide="both" />
+              }
+              {
+                <CriticalNeed cutSide="both" />
+              }
+              {
+                <HardToFill cutSide="both" />
+              }
+              {
+                <ServiceNeedDifferential cutSide="both" />
+              }
+            </div>
+          }
           <BidTrackerCardTop
             bid={bid}
             deleteBid={deleteBid}
@@ -134,6 +136,7 @@ BidTrackerCard.propTypes = {
   useCDOView: PropTypes.bool,
   readOnly: PropTypes.bool,
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  showRibbons: PropTypes.bool,
 };
 
 BidTrackerCard.defaultProps = {
@@ -146,6 +149,7 @@ BidTrackerCard.defaultProps = {
   useCDOView: false,
   readOnly: false,
   userId: '',
+  showRibbons: true,
 };
 
 BidTrackerCard.childContextTypes = {
