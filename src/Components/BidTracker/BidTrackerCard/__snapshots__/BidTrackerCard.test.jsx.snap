@@ -16,6 +16,34 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-inner-container"
   >
+    <div
+      className="bid-tracker-ribbon-container"
+    >
+      <Connect(StaticDevContent)>
+        <Handshake
+          cutSide="both"
+          shortName={false}
+        />
+      </Connect(StaticDevContent)>
+      <Connect(StaticDevContent)>
+        <CriticalNeed
+          cutSide="both"
+          shortName={false}
+        />
+      </Connect(StaticDevContent)>
+      <Connect(StaticDevContent)>
+        <HardToFill
+          cutSide="both"
+          shortName={false}
+        />
+      </Connect(StaticDevContent)>
+      <Connect(StaticDevContent)>
+        <ServiceNeedDifferential
+          cutSide="both"
+          shortName={false}
+        />
+      </Connect(StaticDevContent)>
+    </div>
     <BidTrackerCardTop
       bid={
         Object {
