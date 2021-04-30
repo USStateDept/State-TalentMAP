@@ -4,6 +4,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, /* USER_PROFILE, */ EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import BidSteps from '../BidStep';
 // import BidTrackerCardBottom from '../BidTrackerCardBottom';
@@ -56,16 +57,24 @@ class BidTrackerCard extends Component {
             <div className="bid-tracker-ribbon-container">
               {/* still need to verify how these ribbons should be hooked into the BE */}
               {
-                <Handshake cutSide="both" />
+                <StaticDevContent>
+                  <Handshake cutSide="both" />
+                </StaticDevContent>
               }
               {
-                <CriticalNeed cutSide="both" />
+                <StaticDevContent>
+                  <CriticalNeed cutSide="both" />
+                </StaticDevContent>
               }
               {
-                <HardToFill cutSide="both" />
+                <StaticDevContent>
+                  <HardToFill cutSide="both" />
+                </StaticDevContent>
               }
               {
-                <ServiceNeedDifferential cutSide="both" />
+                <StaticDevContent>
+                  <ServiceNeedDifferential cutSide="both" />
+                </StaticDevContent>
               }
             </div>
           }
