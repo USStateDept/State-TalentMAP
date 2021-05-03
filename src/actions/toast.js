@@ -42,13 +42,11 @@ export function toastInfo(toast, title, id, isUpdate, options) {
   };
 }
 
-export function toastHandshake(toast, title, id, isUpdate, options) {
+export function toastHandshake(toast, title, options) {
   return {
     type: 'TOAST_NOTIFICATION_HANDSHAKE',
     toast,
     title,
-    id,
-    isUpdate,
     options,
   };
 }

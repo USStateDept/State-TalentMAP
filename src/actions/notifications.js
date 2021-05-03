@@ -195,6 +195,8 @@ export function bidTrackerNotificationsFetchData() {
 
 export function markNotification(id, isRead = true, shouldDelete = false,
   bypassTrackerUpdate = false, cb = () => {}) {
+  // eslint-disable-next-line no-console
+  console.log('current markNotification id: ', id);
   return (dispatch) => {
     dispatch(markNotificationIsLoading(true));
     dispatch(markNotificationHasErrored(false));
@@ -222,6 +224,8 @@ export function markNotification(id, isRead = true, shouldDelete = false,
 
 export function markNotifications({ ids = new Set(), markAsRead = false, shouldDelete = false,
   cb = () => {} }) {
+  // eslint-disable-next-line no-console
+  console.log('current: in markNotifications');
   return (dispatch) => {
     dispatch(markNotificationsIsLoading(true));
     dispatch(markNotificationsHasErrored(false));
@@ -248,18 +252,26 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
   };
 }
 
-export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', tags = 'fakeTag', isRead = false, useDateRange = true) {
-  // grabbing HS notifications that have no been read, to render a toast notification for them.
+export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', isRead = false) {
+  // grabbing HS notifications that have not been read, to render a toast notification for them.
   // tags doesn't seem to be filtering.
   return (dispatch) => {
     dispatch(hsNotificationsIsLoading(true));
     dispatch(hsNotificationsHasErrored(false));
     // new EP to mark all notifications(based on tag) as read.
     // would return if any unread HS notifications
-    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&tags=${tags}&is_read=${isRead}${useDateRange ? `&date_created__gte=${getDateRange()}` : ''}`)
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}`)
       .then(({ data }) => {
-        dispatch(handshakeOffered(data.results[0].owner, data.results[0].message,
-          () => dispatch(markNotification(data.results[0].id))));
+        const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
+        const ids = data$.map(b => b.id);
+        // eslint-disable-next-line no-console
+        console.log('current data$, ids:', data$, ids);
+        dispatch(handshakeOffered(data$[0].owner, data$[0].message,
+          () => dispatch(markNotifications({ ids, markAsRead: true })),
+          {
+            autoClose: false,
+            draggable: false,
+            onClose: () => dispatch(markNotifications({ ids, markAsRead: true })) }));
         dispatch(hsNotificationsFetchDataSuccess(data));
         dispatch(hsNotificationsHasErrored(false));
         dispatch(hsNotificationsIsLoading(false));

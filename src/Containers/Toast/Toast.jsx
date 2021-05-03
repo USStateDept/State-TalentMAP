@@ -3,6 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
+// import { get } from 'lodash';
 import Alert from '../../Components/Alert';
 
 export class Toast extends Component {
@@ -16,6 +17,7 @@ export class Toast extends Component {
   notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate, options }) => {
     let options$ = {
       autoClose: true,
+      // onClose: get(options, 'onCloseCB', {}),
     };
     let title$;
     if (type === 'success') { title$ = 'Success'; }
