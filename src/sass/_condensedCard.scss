@@ -123,26 +123,6 @@ $condensed-card-data-padding: 15px 20px 9px;
       top: calc(100% - 26px);
       z-index: $ribbon-condensed-card-z;
     }
-    
-    .ribbon-container-condensed {
-      position: absolute;
-      right: -2px;
-      top: -1px;
-      pointer-events: none;
-      z-index: $ribbon-condensed-card-z;
-
-      .ribbon-cn {
-        .fa {
-        margin-right: .2em;
-        }
-      }
-      
-      .ribbon-htf {
-        .fa {
-        margin-right: .2em;
-        }
-      }
-    }
   }
 
   .card-top-alternate {
@@ -232,6 +212,25 @@ $condensed-card-data-padding: 15px 20px 9px;
     flex-direction: column;
     height: 100%;
     position: relative;
+
+    .ribbon-container-condensed {
+      position: absolute;
+      right: -2px;
+      top: -1px;
+      z-index: 2;
+
+      .ribbon-cn {
+        .fa {
+        margin-right: .2em;
+        }
+      }
+      
+      .ribbon-htf {
+        .fa {
+        margin-right: .2em;
+        }
+      }
+    }
   }
 
   .condensed-card-bottom {
