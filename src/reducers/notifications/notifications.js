@@ -139,7 +139,7 @@ export function hsNotificationsIsLoading(state = false, action) {
       return state;
   }
 }
-export function hsNotifications(state = { results: [] }, action) {
+export function hsNotifications(state = [], action) {
   switch (action.type) {
     case 'HS_NOTIFICATIONS_FETCH_DATA_SUCCESS':
       return action.notifications;
