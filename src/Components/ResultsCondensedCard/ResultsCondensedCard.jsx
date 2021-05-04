@@ -1,12 +1,9 @@
 import PropTypes from 'prop-types';
-import { Tooltip } from 'react-tippy';
-import StaticDevContent from 'Components/StaticDevContent';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
 import ResultsCondensedCardFooter from '../ResultsCondensedCardFooter';
 import BoxShadow from '../BoxShadow';
 import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 
 const ResultsCondensedCard = (
   {
@@ -29,45 +26,6 @@ const ResultsCondensedCard = (
     isTandem,
   }) => (
   <BoxShadow className="usa-grid-full condensed-card-inner">
-    <div className="ribbon-container-condensed">
-      {
-        // hasHandshake &&
-        <Tooltip
-          title="Handshake"
-        >
-          <Handshake showText={false} className="ribbon-condensed-card" />
-        </Tooltip>
-      }
-      {
-        <Tooltip
-          title="Critical need"
-        >
-          <StaticDevContent>
-            <CriticalNeed showText={false} className="ribbon-condensed-card" />
-          </StaticDevContent>
-        </Tooltip>
-      }
-      {
-        // isDifficultToStaff &&
-        <Tooltip
-          title="Hard to fill"
-        >
-          <StaticDevContent>
-            <HardToFill showText={false} className="ribbon-condensed-card" />
-          </StaticDevContent>
-        </Tooltip>
-      }
-      {
-        // isServiceNeedDifferential &&
-        <Tooltip
-          title="Serive need differential"
-        >
-          <StaticDevContent>
-            <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
-          </StaticDevContent>
-        </Tooltip>
-      }
-    </div>
     <ResultsCondensedCardTop
       position={position}
       type={type}
