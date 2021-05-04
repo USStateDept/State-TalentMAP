@@ -262,6 +262,9 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
     // would return if any unread HS notifications
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}`)
       .then(({ data }) => {
+        // compare data in hsNotificationsFetchDataSuccess with data just pulled;
+        // if no changes, do not progress
+        // (should prevent duplicate notifications)
         const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
         const ids = data$.map(b => b.id);
         // eslint-disable-next-line no-console
@@ -272,7 +275,7 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
             autoClose: false,
             draggable: false,
             onClose: () => dispatch(markNotifications({ ids, markAsRead: true })) }));
-        dispatch(hsNotificationsFetchDataSuccess(data));
+        dispatch(hsNotificationsFetchDataSuccess(data$));
         dispatch(hsNotificationsHasErrored(false));
         dispatch(hsNotificationsIsLoading(false));
       })
