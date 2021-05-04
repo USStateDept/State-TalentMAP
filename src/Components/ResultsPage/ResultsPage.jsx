@@ -49,7 +49,7 @@ class Results extends Component {
     const hasLoaded = !isLoading && results.results && !!results.results.length;
 
     let sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
-    sortBy$ = isTandemSearch ? filterTandemSorts(sortBy$) : sortBy;
+    sortBy$ = isTandemSearch ? filterTandemSorts(sortBy$) : sortBy$;
 
     const filterContainer = (
       <ResultsFilterContainer
