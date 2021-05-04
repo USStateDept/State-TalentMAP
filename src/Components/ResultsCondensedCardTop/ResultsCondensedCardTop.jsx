@@ -45,6 +45,7 @@ const ResultsCondensedCardTop = ({
           hasHandshake &&
           <Tooltip
             title="Handshake"
+            offset={-30}
           >
             <Handshake showText={false} className="ribbon-condensed-card" />
           </Tooltip>
@@ -52,6 +53,7 @@ const ResultsCondensedCardTop = ({
         {
           <Tooltip
             title="Critical need"
+            offset={-30}
           >
             <StaticDevContent>
               <CriticalNeed showText={false} className="ribbon-condensed-card" />
@@ -62,6 +64,7 @@ const ResultsCondensedCardTop = ({
           isDifficultToStaff &&
           <Tooltip
             title="Hard to fill"
+            offset={-30}
           >
             <StaticDevContent>
               <HardToFill showText={false} className="ribbon-condensed-card" />
@@ -72,6 +75,7 @@ const ResultsCondensedCardTop = ({
           isServiceNeedDifferential &&
           <Tooltip
             title="Serive need differential"
+            offset={-30}
           >
             <StaticDevContent>
               <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
