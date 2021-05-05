@@ -117,13 +117,6 @@ $condensed-card-data-padding: 15px 20px 9px;
       }
     }
 
-    .ribbon-container {
-      position: absolute;
-      right: -1px;
-      top: calc(100% - 26px);
-      z-index: $ribbon-condensed-card-z;
-    }
-    
     .ribbon-container-condensed {
       position: absolute;
       right: -2px;
