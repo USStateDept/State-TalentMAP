@@ -1,4 +1,4 @@
-export function handshakeOfferedNotification(state = { name: null, message: null, cb: null }, action) {
+export function handshakeOfferedNotification(state = { name: null, message: null }, action) {
   switch (action.type) {
     case 'HANDSHAKE_OFFERED_NOTIFICATION':
       return action.notificationInformation;

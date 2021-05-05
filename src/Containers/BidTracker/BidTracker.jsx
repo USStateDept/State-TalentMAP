@@ -7,7 +7,7 @@ import { bidListFetchData, toggleBidPosition, routeChangeResetState,
   submitBid, acceptBid, declineBid, registerHandshake,
   unregisterHandshake } from '../../actions/bidList';
 import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
-import { bidTrackerNotificationsFetchData, markNotification, markNotifications } from '../../actions/notifications';
+import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
 import { BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED, BID_LIST_TOGGLE_SUCCESS, SUBMIT_BID_HAS_ERRORED,
   SUBMIT_BID_SUCCESS, EMPTY_FUNCTION, ACCEPT_BID_SUCCESS, ACCEPT_BID_HAS_ERRORED, USER_PROFILE,
   DECLINE_BID_SUCCESS, DECLINE_BID_HAS_ERRORED, NOTIFICATION_LIST, MARK_NOTIFICATION_SUCCESS,
@@ -24,7 +24,6 @@ class BidTrackerContainer extends Component {
       this.getPublicBidList(id);
     } else {
       this.getBidList();
-      this.markBiddingNotificationsRead();
       this.props.fetchNotifications();
     }
     // reset the alert messages
@@ -47,11 +46,6 @@ class BidTrackerContainer extends Component {
 
   getPublicBidList(id) {
     this.props.fetchUserData(id);
-  }
-
-  markBiddingNotificationsRead() {
-    const ids = this.props.hsNotifications.map(b => b.id);
-    this.props.markBidNotificationsRead(ids);
   }
 
   // Scroll to the bid provided by route id.
@@ -182,8 +176,6 @@ BidTrackerContainer.propTypes = {
   userProfilePublic: USER_PROFILE,
   userProfilePublicIsLoading: PropTypes.bool,
   userProfilePublicHasErrored: PropTypes.bool,
-  hsNotifications: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  markBidNotificationsRead: PropTypes.func.isRequired,
 };
 
 BidTrackerContainer.defaultProps = {
@@ -229,8 +221,6 @@ BidTrackerContainer.defaultProps = {
   userProfilePublicIsLoading: false,
   userProfilePublicHasErrored: false,
   match: { params: {} },
-  hsNotifications: [],
-  markBidNotificationsRead: EMPTY_FUNCTION,
 };
 
 BidTrackerContainer.contextTypes = {
@@ -268,7 +258,6 @@ const mapStateToProps = state => ({
   userProfilePublic: state.userProfilePublic,
   userProfilePublicIsLoading: state.userProfilePublicIsLoading,
   userProfilePublicHasErrored: state.userProfilePublicHasErrored,
-  hsNotifications: state.hsNotifications,
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
@@ -292,7 +281,6 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
       acceptBidPosition: id => dispatch(acceptBid(id)),
       declineBidPosition: id => dispatch(declineBid(id)),
       deleteBid: id => dispatch(toggleBidPosition(id, true, false, false, true)),
-      markBidNotificationsRead: ids => dispatch(markNotifications({ ids, markAsRead: true })),
     };
   } else {
     config = {

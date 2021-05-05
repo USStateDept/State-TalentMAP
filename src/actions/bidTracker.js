@@ -8,14 +8,14 @@ export function handshakeOfferedNotification(notificationInformation) {
   };
 }
 
-export function handshakeOffered(name, message, cb, options) {
+export function handshakeOffered(name, message, options) {
   return (dispatch) => {
     dispatch(handshakeOfferedNotification({
       title: SystemMessages.HANDSHAKE_OFFERED_TITLE,
-      message: SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message, cb }),
+      message: SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message }),
     }));
     dispatch(toastHandshake(
-      SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message, cb }),
+      SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message }),
       SystemMessages.HANDSHAKE_OFFERED_TITLE,
       options,
     ));

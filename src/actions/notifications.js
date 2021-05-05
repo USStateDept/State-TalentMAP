@@ -1,6 +1,5 @@
 import Q from 'q';
 import { subDays } from 'date-fns';
-import { isEqual } from 'lodash';
 import api from '../api';
 import { hasValidToken } from '../utilities';
 import { handshakeOffered } from '../actions/bidTracker';
@@ -249,28 +248,24 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
   };
 }
 
-export function handshakeNotificationsFetchData(cachedHS, limit = 15, page = 1, ordering = '-date_created', isRead = false) {
+export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', isRead = false) {
   return (dispatch) => {
     dispatch(hsNotificationsIsLoading(true));
     dispatch(hsNotificationsHasErrored(false));
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}`)
       .then(({ data }) => {
+        // mark as read once it renders toast.
+        // see about setting a date limit:
+        // date fns subtract 30 days
         const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
-        const ids = data$.map(b => b.id);
+        // const ids = data$.map(b => b.id);
+        //             () => dispatch(markNotifications({ ids, markAsRead: true })),
         // eslint-disable-next-line no-console
-        console.log('current data$, cachedHS', data$, cachedHS);
-        const skip = isEqual(cachedHS, data$);
-        if (!skip) {
-          dispatch(handshakeOffered(data$[0].owner, data$[0].message,
-            () => dispatch(markNotifications({ ids, markAsRead: true })),
-            {
-              autoClose: false,
-              draggable: false,
-              onClose: () => dispatch(markNotifications({ ids, markAsRead: true })) }));
-          dispatch(hsNotificationsFetchDataSuccess(data$));
-          dispatch(hsNotificationsHasErrored(false));
-          dispatch(hsNotificationsIsLoading(false));
-        }
+        dispatch(handshakeOffered(data$[0].owner, data$[0].message,
+          { autoClose: false, draggable: false }));
+        dispatch(hsNotificationsFetchDataSuccess(data$));
+        dispatch(hsNotificationsHasErrored(false));
+        dispatch(hsNotificationsIsLoading(false));
       })
       .catch(() => {
         dispatch(hsNotificationsHasErrored(true));

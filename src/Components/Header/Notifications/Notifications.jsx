@@ -32,7 +32,7 @@ class Notifications extends Component {
     if (nextProps.notificationsCount !== this.props.notificationsCount && path !== '/profile/notifications') {
       // only fetch notifications if the count has changed
       this.props.fetchNotifications();
-      this.props.fetchHandshakeNotifications(this.props.hsNotifications);
+      this.props.fetchHandshakeNotifications();
     }
   }
   render() {
@@ -50,7 +50,6 @@ class Notifications extends Component {
 
 Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
-  hsNotifications: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
   fetchHandshakeNotifications: PropTypes.func.isRequired,
@@ -63,14 +62,12 @@ Notifications.defaultProps = {
 
 const mapStateToProps = state => ({
   notificationsCount: state.notificationsCount,
-  hsNotifications: state.hsNotifications,
 });
 
 export const mapDispatchToProps = dispatch => ({
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
-  fetchHandshakeNotifications: cachedHS =>
-    dispatch(handshakeNotificationsFetchData(cachedHS)),
+  fetchHandshakeNotifications: () => dispatch(handshakeNotificationsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Notifications));
