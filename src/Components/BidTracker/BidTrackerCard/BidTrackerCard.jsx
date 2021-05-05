@@ -22,6 +22,7 @@ import {
   // BID_EXPLANATION_TEXT,
 } from '../../../Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
+import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
   getChildContext() {
@@ -53,31 +54,46 @@ class BidTrackerCard extends Component {
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
-          { showRibbons &&
-            <div className="bid-tracker-ribbon-container">
-              {/* still need to verify how these ribbons should be hooked into the BE */}
-              {
-                <StaticDevContent>
-                  <Handshake cutSide="both" />
-                </StaticDevContent>
-              }
-              {
-                <StaticDevContent>
-                  <CriticalNeed cutSide="both" />
-                </StaticDevContent>
-              }
-              {
-                <StaticDevContent>
-                  <HardToFill cutSide="both" />
-                </StaticDevContent>
-              }
-              {
-                <StaticDevContent>
-                  <ServiceNeedDifferential cutSide="both" />
-                </StaticDevContent>
-              }
-            </div>
-          }
+          <MediaQuery breakpoint="screenXLgMin" widthType="min">
+            {matches => (
+              showRibbons &&
+              <div className="bid-tracker-ribbon-container">
+                {/* still need to verify how these ribbons should be hooked into the BE */}
+                {
+                  <StaticDevContent>
+                    <Handshake
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+                {
+                  <StaticDevContent>
+                    <CriticalNeed
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+                {
+                  <StaticDevContent>
+                    <HardToFill
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+                {
+                  <StaticDevContent>
+                    <ServiceNeedDifferential
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+              </div>
+            )}
+          </MediaQuery>
           <BidTrackerCardTop
             bid={bid}
             deleteBid={deleteBid}

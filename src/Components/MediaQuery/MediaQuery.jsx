@@ -16,7 +16,7 @@ const MediaQueryWrapper = ({ breakpoint, widthType, children }) => {
 };
 
 MediaQueryWrapper.propTypes = {
-  breakpoint: PropTypes.oneOf(['screenSmMin', 'screenXsMax', 'screenMdMin', 'screenSmMax', 'screenLgMin', 'screenMdMax']).isRequired,
+  breakpoint: PropTypes.oneOf(['screenSmMin', 'screenXsMax', 'screenMdMin', 'screenSmMax', 'screenLgMin', 'screenMdMax', 'screenXLgMin', 'screenXLgMax']).isRequired,
   widthType: PropTypes.oneOf(['max', 'min']).isRequired,
   children: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
 };
