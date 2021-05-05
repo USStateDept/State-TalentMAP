@@ -18,10 +18,10 @@ module.exports = {
   get screenMdMaxNum() { return this.screenLgMinNum - 1; },
   get 'screen-md-max'() { return `${this.screenMdMaxNum}px`; },
 
-  screenXLgMinNum: 1400,
-  get 'screen-xlg-min'() { return `${this.screenXLgMinNum}px`; },
+  screenXlgMinNum: 1400,
+  get 'screen-xlg-min'() { return `${this.screenXlgMinNum}px`; },
 
-  get screenXLgMaxNum() { return this.screenXLgMinNum - 1; },
+  get screenXLgMaxNum() { return this.screenXlgMinNum - 1; },
   get 'screen-lg-max'() { return `${this.screenLgMaxNum}px`; },
 
   // Colors

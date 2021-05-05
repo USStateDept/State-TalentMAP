@@ -54,7 +54,7 @@ class BidTrackerCard extends Component {
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
-          <MediaQuery breakpoint="screenXLgMin" widthType="min">
+          <MediaQuery breakpoint="screenXlgMin" widthType="min">
             {matches => (
               showRibbons &&
               <div className="bid-tracker-ribbon-container">
