@@ -124,10 +124,10 @@ export function unsetNotificationsCount() {
   };
 }
 
-export const getDateRange = () => {
+export const getDateRange = (toDate = 60) => {
   const today$ = new Date();
-  const past60days = subDays(today$, 60).toJSON();
-  return past60days;
+  const pastNumDays = subDays(today$, toDate).toJSON();
+  return pastNumDays;
 };
 
 export function notificationsCountFetchData(useDateRange = true) {
@@ -252,11 +252,10 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
   return (dispatch) => {
     dispatch(hsNotificationsIsLoading(true));
     dispatch(hsNotificationsHasErrored(false));
-    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}`)
+
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(30)}`)
       .then(({ data }) => {
         // mark as read once it renders toast.
-        // see about setting a date limit:
-        // date fns subtract 30 days
         const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
         // const ids = data$.map(b => b.id);
         //             () => dispatch(markNotifications({ ids, markAsRead: true })),
