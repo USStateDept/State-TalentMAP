@@ -3,6 +3,7 @@ import FA from 'react-fontawesome';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
+import { get } from 'lodash';
 import { formQueryString } from 'utilities';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import { Column, Row } from '../../Layout';
@@ -29,6 +30,14 @@ export const NotificationRow = ({ id, message, tags, deleteOne, date, isRead, on
     if (meta.count && meta.search && meta.search.endpoint !== '/api/v1/fsbid/projected_vacancies/' && meta.search.endpoint !== '/api/v1/fsbid/projected_vacancies/tandem/') {
       buttonTitle2 = 'View New Results';
     }
+  }
+  if (tags$.has('bureau_bidding')) {
+    const bureauPositionId = get(meta, 'id');
+    if (bureauPositionId) {
+      link = `/profile/bureau/positionmanager/available/${bureauPositionId}`;
+      buttonTitle = 'Go to Position Details';
+    }
+    icon = 'clipboard';
   }
   const title = (
     <div>
