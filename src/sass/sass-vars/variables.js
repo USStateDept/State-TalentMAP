@@ -21,7 +21,7 @@ module.exports = {
   screenXlgMinNum: 1400,
   get 'screen-xlg-min'() { return `${this.screenXlgMinNum}px`; },
 
-  get screenXLgMaxNum() { return this.screenXlgMinNum - 1; },
+  get screenLgMaxNum() { return this.screenXlgMinNum - 1; },
   get 'screen-lg-max'() { return `${this.screenLgMaxNum}px`; },
 
   // Colors
