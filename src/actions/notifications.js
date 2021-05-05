@@ -135,6 +135,7 @@ export function notificationsFetchData(limit = 5, page = 1, ordering = '-date_cr
   return (dispatch) => {
     // Make use of any notifications request that could be used in the notifications popover
     const isForPopover = page === 1 && limit >= 5 && tags === undefined && isRead === undefined;
+
     dispatch(notificationsIsLoading(true));
     dispatch(notificationsHasErrored(false));
 
