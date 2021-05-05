@@ -122,28 +122,3 @@ export function markNotificationsSuccess(state = false, action) {
       return state;
   }
 }
-
-export function hsNotificationsHasErrored(state = false, action) {
-  switch (action.type) {
-    case 'HS_NOTIFICATIONS_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function hsNotificationsIsLoading(state = false, action) {
-  switch (action.type) {
-    case 'HS_NOTIFICATIONS_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function hsNotifications(state = [], action) {
-  switch (action.type) {
-    case 'HS_NOTIFICATIONS_FETCH_DATA_SUCCESS':
-      return action.notifications;
-    default:
-      return state;
-  }
-}

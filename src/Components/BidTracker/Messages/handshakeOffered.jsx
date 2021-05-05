@@ -5,9 +5,9 @@ const HandshakeOffered = ({ name, message }) => (
   <span>
     {name}, {message}
     <div className="bottom-section">
-      Go to your Bid Tracker to accept the Handshake
+      Go to your Bid Tracker to accept/decline the Handshake
       <Link to="/profile/bidtracker">
-        <button role="link"> Bid Tracker</button>
+        <button role="link">Bid Tracker</button>
       </Link>
     </div>
   </span>

@@ -6,10 +6,7 @@ import { notificationsHasErrored, notificationsIsLoading, notifications,
   markNotificationSuccess,
   markNotificationsHasErrored,
   markNotificationsIsLoading,
-  markNotificationsSuccess,
-  hsNotificationsHasErrored,
-  hsNotificationsIsLoading,
-  hsNotifications } from './notifications';
+  markNotificationsSuccess } from './notifications';
 
 export default { notificationsHasErrored,
   notificationsIsLoading,
@@ -25,7 +22,4 @@ export default { notificationsHasErrored,
   markNotificationSuccess,
   markNotificationsHasErrored,
   markNotificationsIsLoading,
-  markNotificationsSuccess,
-  hsNotificationsHasErrored,
-  hsNotificationsIsLoading,
-  hsNotifications };
+  markNotificationsSuccess };

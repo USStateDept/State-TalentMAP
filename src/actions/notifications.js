@@ -99,25 +99,6 @@ export function markNotificationsSuccess(response) {
   };
 }
 
-export function hsNotificationsHasErrored(bool) {
-  return {
-    type: 'HS_NOTIFICATIONS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function hsNotificationsIsLoading(bool) {
-  return {
-    type: 'HS_NOTIFICATIONS_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function hsNotificationsFetchDataSuccess(notifications) {
-  return {
-    type: 'HS_NOTIFICATIONS_FETCH_DATA_SUCCESS',
-    notifications,
-  };
-}
-
 export function unsetNotificationsCount() {
   return (dispatch) => {
     dispatch(notificationsCountFetchDataSuccess(0));
@@ -154,7 +135,8 @@ export function notificationsFetchData(limit = 5, page = 1, ordering = '-date_cr
   return (dispatch) => {
     // Make use of any notifications request that could be used in the notifications popover
     const isForPopover = page === 1 && limit >= 5 && tags === undefined && isRead === undefined;
-
+    // eslint-disable-next-line no-console
+    console.log('current: called notificationsFetchData');
     dispatch(notificationsIsLoading(true));
     dispatch(notificationsHasErrored(false));
 
@@ -250,25 +232,14 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
 
 export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', isRead = false) {
   return (dispatch) => {
-    dispatch(hsNotificationsIsLoading(true));
-    dispatch(hsNotificationsHasErrored(false));
-
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(30)}`)
       .then(({ data }) => {
-        // mark as read once it renders toast.
         const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
-        // const ids = data$.map(b => b.id);
-        //             () => dispatch(markNotifications({ ids, markAsRead: true })),
-        // eslint-disable-next-line no-console
-        dispatch(handshakeOffered(data$[0].owner, data$[0].message,
-          { autoClose: false, draggable: false }));
-        dispatch(hsNotificationsFetchDataSuccess(data$));
-        dispatch(hsNotificationsHasErrored(false));
-        dispatch(hsNotificationsIsLoading(false));
-      })
-      .catch(() => {
-        dispatch(hsNotificationsHasErrored(true));
-        dispatch(hsNotificationsIsLoading(false));
+        data$.forEach(n => {
+          dispatch(handshakeOffered(n.owner, n.message,
+            { autoClose: false, draggable: false, closeOnClick: false }));
+          dispatch(markNotification(n.id));
+        });
       });
   };
 }
