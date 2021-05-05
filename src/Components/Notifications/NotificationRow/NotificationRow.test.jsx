@@ -20,8 +20,13 @@ describe('NotificationRowComponent', () => {
   });
 
   it('is defined with different props', () => {
-    const wrapper = shallow(
+    let wrapper = shallow(
       <NotificationRow {...props} tags={['saved_search']} />,
+    );
+    expect(wrapper).toBeDefined();
+
+    wrapper = shallow(
+      <NotificationRow {...props} tags={['bureau_bidding']} />,
     );
     expect(wrapper).toBeDefined();
   });

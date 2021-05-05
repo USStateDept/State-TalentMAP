@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
+import { Tooltip } from 'react-tippy';
 import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
@@ -37,6 +38,59 @@ const ResultsCondensedCardTop = ({
 
   const link = `/${isProjectedVacancy ? 'vacancy' : 'details'}/${position.id}${isTandem ? '?tandem=true' : ''}`;
 
+  const ribbons = (
+    <div className="post-ribbon-container">
+      <div className="ribbon-container-condensed">
+        {
+          hasHandshake &&
+          <Tooltip
+            title="Handshake"
+            arrow
+            offset={-30}
+          >
+            <Handshake showText={false} className="ribbon-condensed-card" />
+          </Tooltip>
+        }
+        {
+          <Tooltip
+            title="Critical need"
+            arrow
+            offset={-30}
+          >
+            <StaticDevContent>
+              <CriticalNeed showText={false} className="ribbon-condensed-card" />
+            </StaticDevContent>
+          </Tooltip>
+        }
+        {
+          isDifficultToStaff &&
+          <Tooltip
+            title="Hard to fill"
+            arrow
+            offset={-30}
+          >
+            <StaticDevContent>
+              <HardToFill showText={false} className="ribbon-condensed-card" />
+            </StaticDevContent>
+          </Tooltip>
+        }
+        {
+          isServiceNeedDifferential &&
+          <Tooltip
+            title="Service need differential"
+            arrow
+            offset={-30}
+          >
+            <StaticDevContent>
+              <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+            </StaticDevContent>
+          </Tooltip>
+        }
+      </div>
+
+    </div>
+  );
+
   const innerContent = (
     <div>
       {
@@ -63,40 +117,21 @@ const ResultsCondensedCardTop = ({
             }
           </span></span>
         </div>
-        <div className="ribbon-container-condensed">
-          {
-            hasHandshake && <Handshake showText={false} className="ribbon-condensed-card" />
-          }
-          {
-            <StaticDevContent>
-              <CriticalNeed showText={false} className="ribbon-condensed-card" />
-            </StaticDevContent>
-          }
-          {
-            isDifficultToStaff &&
-            <StaticDevContent>
-              <HardToFill showText={false} className="ribbon-condensed-card" />
-            </StaticDevContent>
-          }
-          {
-            isServiceNeedDifferential &&
-            <StaticDevContent>
-              <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
-            </StaticDevContent>
-          }
-        </div>
       </div>
     </div>
   );
 
   const containerProps = {
-    className: `usa-grid-full condensed-card-top ${cardTopClass} condensed-card-top--clickable`,
+    className: `usa-grid-full ${cardTopClass} condensed-card-top--clickable`,
   };
 
   return (
-    <Link to={link} {...containerProps} title="View details for this position">
-      {innerContent}
-    </Link>
+    <div className="condensed-card-top">
+      {ribbons}
+      <Link to={link} {...containerProps} title="View details for this position">
+        {innerContent}
+      </Link>
+    </div>
   );
 };
 
