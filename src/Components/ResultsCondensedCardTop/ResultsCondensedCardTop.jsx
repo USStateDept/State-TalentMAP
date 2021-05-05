@@ -39,12 +39,13 @@ const ResultsCondensedCardTop = ({
   const link = `/${isProjectedVacancy ? 'vacancy' : 'details'}/${position.id}${isTandem ? '?tandem=true' : ''}`;
 
   const ribbons = (
-    <div className="usa-grid-full post-ribbon-container">
+    <div className="post-ribbon-container">
       <div className="ribbon-container-condensed">
         {
           hasHandshake &&
           <Tooltip
             title="Handshake"
+            arrow
             offset={-30}
           >
             <Handshake showText={false} className="ribbon-condensed-card" />
@@ -53,6 +54,7 @@ const ResultsCondensedCardTop = ({
         {
           <Tooltip
             title="Critical need"
+            arrow
             offset={-30}
           >
             <StaticDevContent>
@@ -64,6 +66,7 @@ const ResultsCondensedCardTop = ({
           isDifficultToStaff &&
           <Tooltip
             title="Hard to fill"
+            arrow
             offset={-30}
           >
             <StaticDevContent>
@@ -75,6 +78,7 @@ const ResultsCondensedCardTop = ({
           isServiceNeedDifferential &&
           <Tooltip
             title="Serive need differential"
+            arrow
             offset={-30}
           >
             <StaticDevContent>
@@ -118,13 +122,13 @@ const ResultsCondensedCardTop = ({
   );
 
   const containerProps = {
-    className: `usa-grid-full condensed-card-top ${cardTopClass} condensed-card-top--clickable`,
+    className: `usa-grid-full ${cardTopClass} condensed-card-top--clickable`,
   };
 
   return (
-    <div {...containerProps}>
+    <div className="condensed-card-top">
       {ribbons}
-      <Link to={link} title="View details for this position">
+      <Link to={link} {...containerProps} title="View details for this position">
         {innerContent}
       </Link>
     </div>
