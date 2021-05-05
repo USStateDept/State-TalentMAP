@@ -233,11 +233,12 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
     api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(30)}`)
       .then(({ data }) => {
         const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
+        const ids = data$.map(b => b.id);
         data$.forEach(n => {
           dispatch(handshakeOffered(n.owner, n.message,
             { autoClose: false, draggable: false, closeOnClick: false }));
-          dispatch(markNotification(n.id));
         });
+        dispatch(markNotifications({ ids, markAsRead: true }));
       });
   };
 }
