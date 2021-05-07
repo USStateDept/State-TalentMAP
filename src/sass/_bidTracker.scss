@@ -249,6 +249,10 @@ $register-icon-offset: 44%;
   }
 }
 
+.bid-tracker-overlay-alert--unregister:hover {
+  opacity: 50%;
+}
+
 .bid-tracker {
 
   background: $color-white;
