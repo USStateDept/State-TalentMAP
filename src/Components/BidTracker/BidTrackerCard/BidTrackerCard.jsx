@@ -4,6 +4,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, /* USER_PROFILE, */ EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import BidSteps from '../BidStep';
 // import BidTrackerCardBottom from '../BidTrackerCardBottom';
@@ -12,6 +13,7 @@ import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert } from '../BidHelpers';
+import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
 import {
   APPROVED_PROP,
   // HAND_SHAKE_ACCEPTED_PROP,
@@ -20,6 +22,7 @@ import {
   // BID_EXPLANATION_TEXT,
 } from '../../../Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
+import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
   getChildContext() {
@@ -29,7 +32,7 @@ class BidTrackerCard extends Component {
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
       registerHandshake, showBidCount, /* userProfile, */ useCDOView, userId,
-      unregisterHandshake } = this.props;
+      unregisterHandshake, showRibbons } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
     // determine whether we should show the contacts section based on the status
@@ -51,6 +54,46 @@ class BidTrackerCard extends Component {
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className="bid-tracker-inner-container">
+          <MediaQuery breakpoint="screenXlgMin" widthType="min">
+            {matches => (
+              showRibbons &&
+              <div className="bid-tracker-ribbon-container">
+                {/* still need to verify how these ribbons should be hooked into the BE */}
+                {
+                  <StaticDevContent>
+                    <Handshake
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+                {
+                  <StaticDevContent>
+                    <CriticalNeed
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+                {
+                  <StaticDevContent>
+                    <HardToFill
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+                {
+                  <StaticDevContent>
+                    <ServiceNeedDifferential
+                      cutSide="both"
+                      shortName={!matches}
+                    />
+                  </StaticDevContent>
+                }
+              </div>
+            )}
+          </MediaQuery>
           <BidTrackerCardTop
             bid={bid}
             deleteBid={deleteBid}
@@ -118,6 +161,7 @@ BidTrackerCard.propTypes = {
   useCDOView: PropTypes.bool,
   readOnly: PropTypes.bool,
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  showRibbons: PropTypes.bool,
 };
 
 BidTrackerCard.defaultProps = {
@@ -130,6 +174,7 @@ BidTrackerCard.defaultProps = {
   useCDOView: false,
   readOnly: false,
   userId: '',
+  showRibbons: true,
 };
 
 BidTrackerCard.childContextTypes = {

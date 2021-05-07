@@ -16,6 +16,12 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-inner-container"
   >
+    <MediaQueryWrapper
+      breakpoint="screenXlgMin"
+      widthType="min"
+    >
+      <Component />
+    </MediaQueryWrapper>
     <BidTrackerCardTop
       bid={
         Object {

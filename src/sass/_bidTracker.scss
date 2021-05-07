@@ -127,6 +127,13 @@ $register-icon-offset: 44%;
   position: relative;
 }
 
+.bid-tracker-ribbon-container {
+  display: flex;
+  position: absolute;
+  right: 13px;
+  top: 50px;
+}
+
 .bid-tracker-overlay-alert {
   background: $color-gray;
   color: $color-white;
