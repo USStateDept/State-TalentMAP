@@ -5,8 +5,8 @@ import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from 'Components/BidListMessages/Success';
 import BidRemoveSuccess from 'Components/BidListMessages/RemoveSuccess';
 import SavedSearchSuccess from 'Components/SavedSearchMessages/Success';
-import HandshakeOffered from 'Components/BidTracker/Messages/handshakeOffered';
-import HandshakeAccepted from 'Components/BidTracker/Messages/handshakeAccepted';
+import HandshakeOffered from 'Components/BidTracker/Messages/HandshakeOffered';
+import HandshakeAccepted from 'Components/BidTracker/Messages/HandshakeAccepted';
 import GenericSuccessToast from 'Components/GenericToast/Success';
 
 export const DEFAULT_TEXT = 'None listed';
