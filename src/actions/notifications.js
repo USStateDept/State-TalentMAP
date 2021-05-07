@@ -1,8 +1,12 @@
 import Q from 'q';
+import { CancelToken } from 'axios';
 import { subDays } from 'date-fns';
+import { get } from 'lodash';
 import api from '../api';
 import { hasValidToken } from '../utilities';
 import { handshakeOffered } from '../actions/bidTracker';
+
+let cancelRanking;
 
 export function notificationsHasErrored(bool) {
   return {
@@ -231,9 +235,14 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
 
 export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', isRead = false) {
   return (dispatch) => {
-    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(30)}`)
+    if (cancelRanking) { cancelRanking('cancel'); }
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(2)}`, {git add
+      cancelToken: new CancelToken((c) => {
+        cancelRanking = c;
+      }),
+    })
       .then(({ data }) => {
-        const data$ = data.results.filter(a => a.tags.includes('handshake_bidder'));
+        const data$ = data.results.filter(a => (get(a, 'tags') || []).includes('handshake_bidder'));
         const ids = data$.map(b => b.id);
         data$.forEach(n => {
           dispatch(handshakeOffered(n.owner, n.message,
