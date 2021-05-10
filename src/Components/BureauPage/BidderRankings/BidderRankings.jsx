@@ -57,11 +57,11 @@ const BidderRankings = ({ perdet }) => {
         showRankingData &&
           <div className={'bidder-rankings-table-container'}>
             {
-              bidderRankingDataIsLoading &&
+              bidderRankingDataIsLoading.has(perdet) &&
                 <Spinner type="bidder-rankings-table" size="small" />
             }
             {
-              !bidderRankingDataIsLoading && bidderRankingData.results &&
+              !bidderRankingDataIsLoading.has(perdet) && bidderRankingData.results &&
                 <table className={'bidder-rankings-table'}>
                   <thead>
                     <tr className={'table-headers'}>

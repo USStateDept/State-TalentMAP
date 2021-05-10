@@ -14,10 +14,10 @@ export function bidderRankingsHasErrored(bool) {
   };
 }
 
-export function bidderRankingsIsLoading(bool) {
+export function bidderRankingsIsLoading(bool, id) {
   return {
     type: 'BIDDER_RANKINGS_IS_LOADING',
-    isLoading: bool,
+    isLoading: { bool, id },
   };
 }
 
@@ -225,18 +225,18 @@ export function downloadBidderData(id, query = {}) {
 export function fetchBidderRankings(perdet) {
   const url = `/available_position/rankings/${perdet}/`;
   return (dispatch) => {
-    dispatch(bidderRankingsIsLoading(true));
+    dispatch(bidderRankingsIsLoading(true, perdet));
     dispatch(bidderRankingsHasErrored(false));
     api().get(url)
       .then(({ data }) => {
         dispatch(bidderRankingFetchDataSuccess(data));
         dispatch(bidderRankingsHasErrored(false));
-        dispatch(bidderRankingsIsLoading(false));
+        dispatch(bidderRankingsIsLoading(false, perdet));
       })
       .catch(() => {
         dispatch(bidderRankingFetchDataSuccess({ results: [] }));
         dispatch(bidderRankingsHasErrored(true));
-        dispatch(bidderRankingsIsLoading(false));
+        dispatch(bidderRankingsIsLoading(false, perdet));
       });
   };
 }

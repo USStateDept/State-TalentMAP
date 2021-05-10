@@ -106,10 +106,16 @@ export function bureauBidderRankingsHasErrored(state = false, action) {
       return state;
   }
 }
-export function bureauBidderRankingsIsLoading(state = false, action) {
+export function bureauBidderRankingsIsLoading(state = new Set(), action) {
+  const newSet = new Set(state);
   switch (action.type) {
     case 'BIDDER_RANKINGS_IS_LOADING':
-      return action.isLoading;
+      if (action.isLoading.bool) {
+        newSet.add(action.isLoading.id);
+        return newSet;
+      }
+      newSet.delete(action.isLoading.id);
+      return newSet;
     default:
       return state;
   }
