@@ -83,6 +83,9 @@ export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
 export const UNREGISTER_HANDSHAKE_SUCCESS = undo => UnregisterHandshakeSuccess({ undo });
 export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
 
+export const OFFER_HANDSHAKE_SUCCESS = 'Handshake successfully offered.';
+export const OFFER_HANDSHAKE_ERROR = 'Error offering handshake.';
+
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
 export const DELETE_SAVED_SEARCH_SUCCESS_TITLE = 'Success';

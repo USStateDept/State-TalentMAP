@@ -81,6 +81,7 @@ class PositionManagerBidders extends Component {
       rankingUpdate: Date.now(), // track when the user performs an action
       shortListVisible: true,
       unrankedVisible: true,
+      offeredHS: false,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -228,6 +229,13 @@ class PositionManagerBidders extends Component {
       Language: get(m, 'language'),
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
+      Action: <button
+        className=""
+        title={`${props.offeredHS ? 'Withdrawl' : 'Offer'} handshake`}
+        onClick={() => props.offerHS(m.emp_id, props.id)}
+      >
+        <FA name="handshake-o" />
+      </button>,
     };
 
     if (props.bidsIsLoading) {
