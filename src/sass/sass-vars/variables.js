@@ -18,6 +18,12 @@ module.exports = {
   get screenMdMaxNum() { return this.screenLgMinNum - 1; },
   get 'screen-md-max'() { return `${this.screenMdMaxNum}px`; },
 
+  screenXlgMinNum: 1400,
+  get 'screen-xlg-min'() { return `${this.screenXlgMinNum}px`; },
+
+  get screenLgMaxNum() { return this.screenXlgMinNum - 1; },
+  get 'screen-lg-max'() { return `${this.screenLgMaxNum}px`; },
+
   // Colors
   tertiaryCoolBlueLightest: '#DCE4EF',
   get 'var-tertiary-cool-blue-lightest'() { return this.tertiaryCoolBlueLightest; },
