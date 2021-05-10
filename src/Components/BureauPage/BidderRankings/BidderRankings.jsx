@@ -82,7 +82,7 @@ const BidderRankings = ({ perdet }) => {
                     {
                       bidderRankingData.results.map(pos => (
                         <tr>
-                          <td>{pos.ranking || 'unranked'}</td>
+                          <td>{pos.ranking + 1}</td>
                           <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
                           <td>{pos.position.post.location.country}</td>
                           <td>{pos.position.skill}</td>
