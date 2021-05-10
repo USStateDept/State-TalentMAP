@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
+import { NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { fetchBidderRankings } from 'actions/bureauPositionBids';
+import { formatDate } from 'utilities';
 import Spinner from '../../Spinner';
 
 const BidderRankings = ({ perdet }) => {
@@ -29,7 +31,7 @@ const BidderRankings = ({ perdet }) => {
     'Skill',
     'Grade',
     'Bid Cycle',
-    'Date of Submission',
+    'Submitted Date',
   ];
 
   function toggleRankingData() {
@@ -44,9 +46,7 @@ const BidderRankings = ({ perdet }) => {
   }, [showRankingData]);
 
   return (
-    <div
-      className={'bidder-rankings'}
-    >
+    <div className={'bidder-rankings'} >
       <div className={'bidder-rankings-toggle'} >
         <InteractiveElement onClick={toggleRankingData}>
           View Bidder Ranking Data
@@ -56,49 +56,49 @@ const BidderRankings = ({ perdet }) => {
       {
         showRankingData &&
           <div className={'bidder-rankings-table-container'}>
-            <div className={'arrow-down'} />
             {
               bidderRankingDataIsLoading &&
                 <Spinner type="bidder-rankings-table" size="small" />
             }
             {
               !bidderRankingDataIsLoading && bidderRankingData.results &&
-                <div>
-                  <table className={'bidder-rankings-table'}>
-                    <thead>
-                      <tr className={'table-headers'}>
-                        {
-                          positionTableHeaders.map(item => (
-                            <th
-                              key={item}
-                              className="ab-headers"
-                              scope="col"
-                            >
-                              {item}
-                            </th>
-                          ))
-                        }
-                      </tr>
-                    </thead>
-                    <tbody>
+                <table className={'bidder-rankings-table'}>
+                  <thead>
+                    <tr className={'table-headers'}>
                       {
-                        bidderRankingData.results.map(pos => (
-                          <tr>
-                            <td>{pos.ranking || 'unranked'}</td>
-                            <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
-                            <td>{pos.position.post.location.country}</td>
-                            <td>{pos.position.skill}</td>
-                            <td>{pos.position.grade}</td>
-                            <td>{pos.bidcycle}</td>
-                            <td>{pos.submitted_date}</td>
-                          </tr>
+                        positionTableHeaders.map(item => (
+                          <th
+                            key={item}
+                            className="ab-headers"
+                            scope="col"
+                          >
+                            {item}
+                          </th>
                         ))
                       }
-                    </tbody>
-                  </table>
-                  {/* eslint-disable-next-line react/no-unescaped-entities */}
-                  <div>Number of Bids in other Bureau's ShortLists: {bidderRankingData['other-sl-bidcount']}</div>
-                </div>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {
+                      bidderRankingData.results.map(pos => (
+                        <tr>
+                          <td>{pos.ranking || 'unranked'}</td>
+                          <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
+                          <td>{pos.position.post.location.country}</td>
+                          <td>{pos.position.skill}</td>
+                          <td>{pos.position.grade}</td>
+                          <td>{pos.bidcycle}</td>
+                          {/* eslint-disable-next-line max-len */}
+                          <td>{pos.submitted_date ? formatDate(pos.submitted_date) : NO_SUBMIT_DATE}</td>
+                        </tr>
+                      ))
+                    }
+                    <tr className="other-sl-count-row">
+                      {/* eslint-disable-next-line react/no-unescaped-entities */}
+                      Number of Bids in other Bureau's ShortLists: {bidderRankingData['other-sl-bidcount']}
+                    </tr>
+                  </tbody>
+                </table>
             }
           </div>
       }
