@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { get, isEmpty } from 'lodash';
+import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { NO_SUBMIT_DATE } from 'Constants/SystemMessages';
@@ -11,7 +11,6 @@ import { formatDate } from 'utilities';
 import Spinner from '../../Spinner';
 
 const BidderRankings = ({ perdet, cp_id }) => {
-  const [showRankingData, setShowRankingData] = useState(false);
   const bidderRankingData = useSelector(state => state.bureauBidderRankings);
   const bidderRankingData$ = get(bidderRankingData, perdet) || {};
   const bidderRankingDataIsLoading = useSelector(state => state.bureauBidderRankingsIsLoading);
@@ -19,6 +18,8 @@ const BidderRankings = ({ perdet, cp_id }) => {
   // eslint-disable-next-line no-unused-vars
   const bidderRankingDataHasErrored = useSelector(state => state.bureauBidderRankingsHasErrored);
 
+  const [showRankingData, setShowRankingData] = useState(false);
+  const [isFetched, setIsFetched] = useState(false);
 
   // Actions
   const dispatch = useDispatch();
@@ -38,8 +39,9 @@ const BidderRankings = ({ perdet, cp_id }) => {
   }
 
   useEffect(() => {
-    if (showRankingData && isEmpty(bidderRankingData$)) {
+    if (showRankingData && !isFetched) {
       dispatch(fetchBidderRankings(perdet, cp_id));
+      setIsFetched(true);
     }
   }, [showRankingData]);
 
