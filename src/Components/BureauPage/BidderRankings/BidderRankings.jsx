@@ -78,18 +78,21 @@ const BidderRankings = ({ perdet, cp_id }) => {
                   </thead>
                   <tbody>
                     {
-                      bidderRankingData$.results.map(pos => (
-                        <tr>
-                          <td>{pos.ranking + 1}</td>
-                          <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
-                          <td>{pos.position.post.location.country}</td>
-                          <td>{pos.position.skill}</td>
-                          <td>{pos.position.grade}</td>
-                          <td>{pos.bidcycle}</td>
-                          {/* eslint-disable-next-line max-len */}
-                          <td>{pos.submitted_date ? formatDate(pos.submitted_date) : NO_SUBMIT_DATE}</td>
-                        </tr>
-                      ))
+                      !bidderRankingData$.results.length ?
+                        <tr><td>No other bids shortlisted</td></tr>
+                        :
+                        bidderRankingData$.results.map(pos => (
+                          <tr>
+                            <td>{pos.ranking + 1}</td>
+                            <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
+                            <td>{pos.position.post.location.country}</td>
+                            <td>{pos.position.skill}</td>
+                            <td>{pos.position.grade}</td>
+                            <td>{pos.bidcycle}</td>
+                            {/* eslint-disable-next-line max-len */}
+                            <td>{pos.submitted_date ? formatDate(pos.submitted_date) : NO_SUBMIT_DATE}</td>
+                          </tr>
+                        ))
                     }
                     <tr className="other-sl-count-row">
                       {/* eslint-disable-next-line react/no-unescaped-entities */}
