@@ -6,6 +6,7 @@ import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP, HAND_S
 import { useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
 import ApprovedAlert from './ApprovedAlert';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
@@ -28,6 +29,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
+  // const hideOverlay = 'bid-tracker-overlay-alert--unregister-hide';
+  const hideOverlay = 'bid-tracker-overlay-alert--register-hide';
 
   const { position } = bid;
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
@@ -138,13 +141,17 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   }
   return (
     overlayContent ?
-      // can put condition here
-      <div className={`bid-tracker-overlay-alert ${overlayClass}`}>
-        <InteractiveElement onClick={toggleOverlay}>
-          <FontAwesome
-            name={`chevron-${showOverlay ? 'right' : 'left'}`}
-          />
-        </InteractiveElement>
+      <div className={`bid-tracker-overlay-alert ${showOverlay ? overlayClass : hideOverlay}`}>
+        <Tooltip
+          title="Collapse overlay"
+          arrow
+        >
+          <InteractiveElement onClick={toggleOverlay}>
+            <FontAwesome
+              name={`arrow-circle-${showOverlay ? 'right' : 'left'}`}
+            />
+          </InteractiveElement>
+        </Tooltip>
         <div className="bid-tracker-overlay-alert-content-container">
           <div className="bid-tracker-overlay-alert-content">
             {overlayContent}

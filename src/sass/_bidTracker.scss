@@ -226,7 +226,6 @@ $register-hide-icon: 95%;
   background: $blue-primary;
   color: $color-white;
   margin-left: $register-icon-offset;
-  // margin-left: $register-hide-icon;
 
   .tm-button-transparent {
     box-shadow: 0 0 0 2px $color-white inset;
@@ -237,6 +236,11 @@ $register-hide-icon: 95%;
     padding-right: $register-icon-offset;
     width: 95%;
   }
+}
+
+.bid-tracker-overlay-alert--register-hide {
+  background: $blue-primary;
+  margin-left: $register-hide-icon;
 }
 
 .bid-tracker-overlay-alert--register::after {
@@ -260,6 +264,11 @@ $register-hide-icon: 95%;
       background-color: $blue-primary;
     }
   }
+}
+
+.bid-tracker-overlay-alert--unregister-hide {
+  background: $bg-blue-dark-0;
+  margin-left: $register-hide-icon;
 }
 
 .bid-tracker {
