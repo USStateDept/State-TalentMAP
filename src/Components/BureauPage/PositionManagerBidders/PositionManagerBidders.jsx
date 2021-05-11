@@ -338,7 +338,7 @@ class PositionManagerBidders extends Component {
                             className={snapshot$.isDragging ? 'is-dragging' : ''}
                           >
                             {item.content}
-                            <BidderRankings perdet={item.bid.emp_id} />
+                            <BidderRankings perdet={item.bid.emp_id} cp_id={id} />
                           </div>
                         )}
                       </Draggable>
@@ -437,7 +437,7 @@ class PositionManagerBidders extends Component {
                                           className={snapshot$.isDragging ? 'is-dragging' : ''}
                                         >
                                           {item.content}
-                                          <BidderRankings perdet={item.bid.emp_id} />
+                                          <BidderRankings perdet={item.bid.emp_id} cp_id={id} />
                                         </div>
                                       )}
                                     </Draggable>

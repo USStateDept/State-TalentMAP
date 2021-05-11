@@ -10,7 +10,7 @@ import { fetchBidderRankings } from 'actions/bureauPositionBids';
 import { formatDate } from 'utilities';
 import Spinner from '../../Spinner';
 
-const BidderRankings = ({ perdet }) => {
+const BidderRankings = ({ perdet, cp_id }) => {
   const [showRankingData, setShowRankingData] = useState(false);
   const bidderRankingData = useSelector(state => state.bureauBidderRankings);
   const bidderRankingData$ = get(bidderRankingData, perdet) || {};
@@ -39,7 +39,7 @@ const BidderRankings = ({ perdet }) => {
 
   useEffect(() => {
     if (showRankingData && isEmpty(bidderRankingData$)) {
-      dispatch(fetchBidderRankings(perdet));
+      dispatch(fetchBidderRankings(perdet, cp_id));
     }
   }, [showRankingData]);
 
@@ -49,6 +49,7 @@ const BidderRankings = ({ perdet }) => {
         <InteractiveElement onClick={toggleRankingData}>
           View Bidder Ranking Data
           <FA name={showRankingData ? 'chevron-down' : 'chevron-right'} />
+          {cp_id}
         </InteractiveElement>
       </div>
       {
@@ -106,6 +107,7 @@ const BidderRankings = ({ perdet }) => {
 
 BidderRankings.propTypes = {
   perdet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  cp_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
 };
 
 export default BidderRankings;

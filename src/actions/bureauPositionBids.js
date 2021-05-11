@@ -222,8 +222,8 @@ export function downloadBidderData(id, query = {}) {
     });
 }
 
-export function fetchBidderRankings(perdet) {
-  const url = `/available_position/rankings/${perdet}/`;
+export function fetchBidderRankings(perdet, cp_id) {
+  const url = `/available_position/rankings/${perdet}/${cp_id}/`;
   return (dispatch) => {
     dispatch(bidderRankingsIsLoading(true, perdet));
     dispatch(bidderRankingsHasErrored(false));
