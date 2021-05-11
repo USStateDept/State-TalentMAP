@@ -49,7 +49,6 @@ const BidderRankings = ({ perdet, cp_id }) => {
         <InteractiveElement onClick={toggleRankingData}>
           View Bidder Ranking Data
           <FA name={showRankingData ? 'chevron-down' : 'chevron-right'} />
-          {cp_id}
         </InteractiveElement>
       </div>
       {
