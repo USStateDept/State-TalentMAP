@@ -8,7 +8,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Alert from 'Components/Alert';
 import { NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { fetchBidderRankings } from 'actions/bureauPositionBids';
-import { formatDate } from 'utilities';
+import { formatDate, getCustomLocation } from 'utilities';
 import Spinner from '../../Spinner';
 
 const BidderRankings = ({ perdet, cp_id }) => {
@@ -91,7 +91,8 @@ const BidderRankings = ({ perdet, cp_id }) => {
                           <tr>
                             <td>{pos.ranking + 1}</td>
                             <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
-                            <td>{pos.position.post.location.country}</td>
+                            <td>{getCustomLocation(pos.position.post.location,
+                              pos.position.organization)}</td>
                             <td>{pos.position.skill}</td>
                             <td>{pos.position.grade}</td>
                             <td>{pos.bidcycle}</td>
