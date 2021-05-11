@@ -2,6 +2,7 @@
 $card-width: 775px;
 $draft-icon-offset: 120px;
 $register-icon-offset: 44%;
+$register-hide-icon: 95%;
 
 .bid-tracker-page {
   position: relative;
@@ -145,6 +146,10 @@ $register-icon-offset: 44%;
   top: 0;
   width: 100%;
 
+  // .fa {
+  //   color: red;
+  // }
+
   .bid-tracker-overlay-alert-content-container {
     margin: 0 auto;
     position: relative;
@@ -221,6 +226,7 @@ $register-icon-offset: 44%;
   background: $blue-primary;
   color: $color-white;
   margin-left: $register-icon-offset;
+  // margin-left: $register-hide-icon;
 
   .tm-button-transparent {
     box-shadow: 0 0 0 2px $color-white inset;

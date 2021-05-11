@@ -3,6 +3,9 @@ import { BID_OBJECT } from 'Constants/PropTypes';
 import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP,
   HAND_SHAKE_NEEDS_REGISTER_PROP } from 'Constants/BidData';
+import { useState } from 'react';
+import InteractiveElement from 'Components/InteractiveElement';
+import FontAwesome from 'react-fontawesome';
 import ApprovedAlert from './ApprovedAlert';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
@@ -48,6 +51,12 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       overlayContent = <ApprovedAlert />;
     }
   };
+
+  const [showOverlay, setShowOverlay] = useState(true);
+
+  function toggleOverlay() {
+    setShowOverlay(!showOverlay);
+  }
 
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
@@ -129,7 +138,13 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   }
   return (
     overlayContent ?
+      // can put condition here
       <div className={`bid-tracker-overlay-alert ${overlayClass}`}>
+        <InteractiveElement onClick={toggleOverlay}>
+          <FontAwesome
+            name={`chevron-${showOverlay ? 'right' : 'left'}`}
+          />
+        </InteractiveElement>
         <div className="bid-tracker-overlay-alert-content-container">
           <div className="bid-tracker-overlay-alert-content">
             {overlayContent}

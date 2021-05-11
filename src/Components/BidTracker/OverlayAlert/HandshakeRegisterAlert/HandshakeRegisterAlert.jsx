@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
 import { getPostName, formatDate } from 'utilities';
-import FontAwesome from 'react-fontawesome';
-import InteractiveElement from 'Components/InteractiveElement';
 
 class HandshakeRegisterAlert extends Component {
   constructor(props) {
@@ -21,14 +19,6 @@ class HandshakeRegisterAlert extends Component {
   onUnregisterHandshake = () => {
     const { unregisterHandshake, bid } = this.props;
     unregisterHandshake(bid.position.id);
-  };
-
-  toggleOverlay = (shouldExpand = true) => {
-    this.setState({ expanded: !!shouldExpand });
-  }
-
-  toggle = () => {
-    this.toggleOverlay(!this.state.expanded);
   };
 
   render() {
@@ -66,13 +56,6 @@ class HandshakeRegisterAlert extends Component {
     return (
       <div className={classes$}>
         <div className="usa-grid-full" style={{ display: 'flex' }}>
-          {/* <InteractiveElement className="toggle-more classifications-row"
-           onClick={() => updateShowMore(uniqueShowMore)}> */}
-          <InteractiveElement onClick={this.toggle}>
-            <FontAwesome
-              name={`chevron-${this.state.expanded ? 'right' : 'left'}`}
-            />
-          </InteractiveElement>
           <div className="register-submission-container" style={{ flex: 1 }}>
             <div className="sub-submission-text">
               {mainText}
