@@ -21,10 +21,10 @@ export function bidderRankingsIsLoading(bool, id) {
   };
 }
 
-export function bidderRankingFetchDataSuccess(results) {
+export function bidderRankingFetchDataSuccess(id, data) {
   return {
     type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
-    results,
+    results: { id, data },
   };
 }
 
@@ -229,12 +229,12 @@ export function fetchBidderRankings(perdet) {
     dispatch(bidderRankingsHasErrored(false));
     api().get(url)
       .then(({ data }) => {
-        dispatch(bidderRankingFetchDataSuccess(data));
+        dispatch(bidderRankingFetchDataSuccess(perdet, data));
         dispatch(bidderRankingsHasErrored(false));
         dispatch(bidderRankingsIsLoading(false, perdet));
       })
       .catch(() => {
-        dispatch(bidderRankingFetchDataSuccess({ results: [] }));
+        dispatch(bidderRankingFetchDataSuccess(perdet, {}));
         dispatch(bidderRankingsHasErrored(true));
         dispatch(bidderRankingsIsLoading(false, perdet));
       });

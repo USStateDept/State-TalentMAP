@@ -120,10 +120,10 @@ export function bureauBidderRankingsIsLoading(state = new Set(), action) {
       return state;
   }
 }
-export function bureauBidderRankings(state = [], action) {
+export function bureauBidderRankings(state = {}, action) {
   switch (action.type) {
     case 'BIDDER_RANKING_FETCH_DATA_SUCCESS':
-      return action.results;
+      return { ...state, [action.results.id]: action.results.data };
     default:
       return state;
   }

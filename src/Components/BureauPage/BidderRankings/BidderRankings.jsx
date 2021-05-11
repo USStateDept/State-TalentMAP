@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { NO_SUBMIT_DATE } from 'Constants/SystemMessages';
@@ -12,11 +12,10 @@ import Spinner from '../../Spinner';
 
 const BidderRankings = ({ perdet }) => {
   const [showRankingData, setShowRankingData] = useState(false);
-  const [rankingData, setRankingData] = useState([]);
-
-  // eslint-disable-next-line no-unused-vars
   const bidderRankingData = useSelector(state => state.bureauBidderRankings);
+  const bidderRankingData$ = get(bidderRankingData, perdet) || {};
   const bidderRankingDataIsLoading = useSelector(state => state.bureauBidderRankingsIsLoading);
+  const bidderRankingDataIsLoading$ = bidderRankingDataIsLoading.has(perdet);
   // eslint-disable-next-line no-unused-vars
   const bidderRankingDataHasErrored = useSelector(state => state.bureauBidderRankingsHasErrored);
 
@@ -39,9 +38,8 @@ const BidderRankings = ({ perdet }) => {
   }
 
   useEffect(() => {
-    if (showRankingData && isEmpty(rankingData)) {
+    if (showRankingData && isEmpty(bidderRankingData$)) {
       dispatch(fetchBidderRankings(perdet));
-      setRankingData([':)']);
     }
   }, [showRankingData]);
 
@@ -57,11 +55,11 @@ const BidderRankings = ({ perdet }) => {
         showRankingData &&
           <div className={'bidder-rankings-table-container'}>
             {
-              bidderRankingDataIsLoading.has(perdet) &&
+              bidderRankingDataIsLoading$ &&
                 <Spinner type="bidder-rankings-table" size="small" />
             }
             {
-              !bidderRankingDataIsLoading.has(perdet) && bidderRankingData.results &&
+              !bidderRankingDataIsLoading$ && bidderRankingData$.results &&
                 <table className={'bidder-rankings-table'}>
                   <thead>
                     <tr className={'table-headers'}>
@@ -80,7 +78,7 @@ const BidderRankings = ({ perdet }) => {
                   </thead>
                   <tbody>
                     {
-                      bidderRankingData.results.map(pos => (
+                      bidderRankingData$.results.map(pos => (
                         <tr>
                           <td>{pos.ranking + 1}</td>
                           <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
@@ -95,7 +93,7 @@ const BidderRankings = ({ perdet }) => {
                     }
                     <tr className="other-sl-count-row">
                       {/* eslint-disable-next-line react/no-unescaped-entities */}
-                      Number of Bids in other Bureau's ShortLists: {bidderRankingData['other-sl-bidcount']}
+                      Number of Bids in other Bureau's ShortLists: {bidderRankingData$['other-sl-bidcount']}
                     </tr>
                   </tbody>
                 </table>
