@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
+import Alert from 'Components/Alert';
 import { NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { fetchBidderRankings } from 'actions/bureauPositionBids';
 import { formatDate } from 'utilities';
@@ -15,8 +16,8 @@ const BidderRankings = ({ perdet, cp_id }) => {
   const bidderRankingData$ = get(bidderRankingData, perdet) || {};
   const bidderRankingDataIsLoading = useSelector(state => state.bureauBidderRankingsIsLoading);
   const bidderRankingDataIsLoading$ = bidderRankingDataIsLoading.has(perdet);
-  // eslint-disable-next-line no-unused-vars
   const bidderRankingDataHasErrored = useSelector(state => state.bureauBidderRankingsHasErrored);
+  const bidderRankingDataHasErrored$ = bidderRankingDataHasErrored.has(perdet);
 
   const [showRankingData, setShowRankingData] = useState(false);
   const [isFetched, setIsFetched] = useState(false);
@@ -33,6 +34,9 @@ const BidderRankings = ({ perdet, cp_id }) => {
     'Bid Cycle',
     'Submitted Date',
   ];
+
+  const showTable = !bidderRankingDataIsLoading$ &&
+    !bidderRankingDataHasErrored$ && bidderRankingData$.results;
 
   function toggleRankingData() {
     setShowRankingData(!showRankingData);
@@ -61,17 +65,17 @@ const BidderRankings = ({ perdet, cp_id }) => {
                 <Spinner type="bidder-rankings-table" size="small" />
             }
             {
-              !bidderRankingDataIsLoading$ && bidderRankingData$.results &&
+              bidderRankingDataHasErrored$ &&
+              <Alert type="error" title="Error retrieving shortlist bids" />
+            }
+            {
+              showTable &&
                 <table className={'bidder-rankings-table'}>
                   <thead>
                     <tr className={'table-headers'}>
                       {
                         positionTableHeaders.map(item => (
-                          <th
-                            key={item}
-                            className="ab-headers"
-                            scope="col"
-                          >
+                          <th key={item} className="ab-headers" scope="col" >
                             {item}
                           </th>
                         ))

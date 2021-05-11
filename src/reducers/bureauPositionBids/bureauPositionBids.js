@@ -98,10 +98,16 @@ export function bureauPositionBidsSetRanking(state = false, action) {
   }
 }
 
-export function bureauBidderRankingsHasErrored(state = false, action) {
+export function bureauBidderRankingsHasErrored(state = new Set(), action) {
+  const newSet = new Set(state);
   switch (action.type) {
     case 'BIDDER_RANKINGS_HAS_ERRORED':
-      return action.hasErrored;
+      if (action.hasErrored.bool) {
+        newSet.add(action.hasErrored.id);
+        return newSet;
+      }
+      newSet.delete(action.hasErrored.id);
+      return newSet;
     default:
       return state;
   }

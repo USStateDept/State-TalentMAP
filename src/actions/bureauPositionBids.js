@@ -7,10 +7,10 @@ import { toastError } from './toast';
 
 let cancelRanking;
 
-export function bidderRankingsHasErrored(bool) {
+export function bidderRankingsHasErrored(bool, id) {
   return {
     type: 'BIDDER_RANKINGS_HAS_ERRORED',
-    hasErrored: bool,
+    hasErrored: { bool, id },
   };
 }
 
@@ -226,16 +226,16 @@ export function fetchBidderRankings(perdet, cp_id) {
   const url = `/available_position/rankings/${perdet}/${cp_id}/`;
   return (dispatch) => {
     dispatch(bidderRankingsIsLoading(true, perdet));
-    dispatch(bidderRankingsHasErrored(false));
+    dispatch(bidderRankingsHasErrored(false, perdet));
     api().get(url)
       .then(({ data }) => {
         dispatch(bidderRankingFetchDataSuccess(perdet, data));
-        dispatch(bidderRankingsHasErrored(false));
+        dispatch(bidderRankingsHasErrored(false, perdet));
         dispatch(bidderRankingsIsLoading(false, perdet));
       })
       .catch(() => {
         dispatch(bidderRankingFetchDataSuccess(perdet, {}));
-        dispatch(bidderRankingsHasErrored(true));
+        dispatch(bidderRankingsHasErrored(true, perdet));
         dispatch(bidderRankingsIsLoading(false, perdet));
       });
   };
