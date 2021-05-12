@@ -8,16 +8,16 @@ export function handshakeOfferedNotification(notificationInformation) {
   };
 }
 
-export function handshakeOffered() {
+export function handshakeOffered(name, message, options) {
   return (dispatch) => {
-    const x = { name: 'Tarek Rehman', position: { name: 'ASST REGIONAL SECURITY OFCR (56562005)', link: '/details/2674' }, bid: '/profile/bidtracker/6_2144' };
     dispatch(handshakeOfferedNotification({
       title: SystemMessages.HANDSHAKE_OFFERED_TITLE,
-      message: SystemMessages.HANDSHAKE_OFFERED_BODY(x),
+      message: SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message }),
     }));
     dispatch(toastHandshake(
-      SystemMessages.HANDSHAKE_OFFERED_BODY(x),
+      SystemMessages.HANDSHAKE_OFFERED_BODY({ name, message }),
       SystemMessages.HANDSHAKE_OFFERED_TITLE,
+      options,
     ));
   };
 }
