@@ -21,7 +21,7 @@ import { getBidIdUrl } from './helpers';
 // Alert rendering based on status is handled here.
 // eslint-disable-next-line complexity
 const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView },
+  unregisterHandshake, useCDOView, showArrow },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
@@ -30,7 +30,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
   // const hideOverlay = 'bid-tracker-overlay-alert--unregister-hide';
-  const hideOverlay = 'bid-tracker-overlay-alert--register-hide';
+  // const hideOverlay = 'bid-tracker-overlay-alert--register-hide';
 
   const { position } = bid;
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
@@ -139,19 +139,22 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     default:
       break;
   }
+  console.log(overlayClass.concat('-hide'));
   return (
     overlayContent ?
-      <div className={`bid-tracker-overlay-alert ${showOverlay ? overlayClass : hideOverlay}`}>
-        <Tooltip
-          title="Collapse overlay"
-          arrow
-        >
+      <div className={`bid-tracker-overlay-alert ${showOverlay ? overlayClass : overlayClass.concat('-hide')}`}>
+        {showArrow && (overlayClass !== CLASS_DRAFT) && (overlayClass !== CLASS_CLOSED) &&
           <InteractiveElement onClick={toggleOverlay}>
-            <FontAwesome
-              name={`arrow-circle-${showOverlay ? 'right' : 'left'}`}
-            />
+            <Tooltip
+              title={showOverlay ? 'Collapse overaly' : 'Expand overlay'}
+              arrow
+            >
+              <FontAwesome
+                name={`arrow-circle-${showOverlay ? 'right' : 'left'}`}
+              />
+            </Tooltip>
           </InteractiveElement>
-        </Tooltip>
+        }
         <div className="bid-tracker-overlay-alert-content-container">
           <div className="bid-tracker-overlay-alert-content">
             {overlayContent}
@@ -170,11 +173,13 @@ OverlayAlert.propTypes = {
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
   useCDOView: PropTypes.bool,
+  showArrow: PropTypes.bool,
 };
 
 OverlayAlert.defaultProps = {
   userId: '',
   useCDOView: false,
+  showArrow: false,
 };
 
 OverlayAlert.contextTypes = {
