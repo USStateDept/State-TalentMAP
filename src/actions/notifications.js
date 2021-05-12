@@ -1,7 +1,6 @@
 import Q from 'q';
 import { CancelToken } from 'axios';
 import { subDays } from 'date-fns';
-import { get } from 'lodash';
 import api from '../api';
 import { hasValidToken } from '../utilities';
 import { handshakeOffered } from '../actions/bidTracker';
