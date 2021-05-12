@@ -236,15 +236,14 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
 export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', isRead = false) {
   return (dispatch) => {
     if (cancelRanking) { cancelRanking('cancel'); }
-    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(2)}`, {
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(2)}&tags=handshake_bidder`, {
       cancelToken: new CancelToken((c) => {
         cancelRanking = c;
       }),
     })
       .then(({ data }) => {
-        const data$ = data.results.filter(a => (get(a, 'tags') || []).includes('handshake_bidder'));
-        const ids = data$.map(b => b.id);
-        data$.forEach(n => {
+        const ids = data.map(b => b.id);
+        data.forEach(n => {
           dispatch(handshakeOffered(n.owner, n.message,
             { autoClose: false, draggable: false, closeOnClick: false }));
         });
