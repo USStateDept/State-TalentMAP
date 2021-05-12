@@ -68,6 +68,27 @@ export function offerHandshakeSuccess(response) {
   };
 }
 
+export function revokeHandshakeHasErrored(bool) {
+  return {
+    type: 'REVOKE_HANDSHAKE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function revokeHandshakeIsLoading(bool) {
+  return {
+    type: 'REVOKE_HANDSHAKE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function revokeHandshakeSuccess(response) {
+  return {
+    type: 'REVOKE_HANDSHAKE_SUCCESS',
+    response,
+  };
+}
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -182,6 +203,41 @@ export function offerHandshake(perdet, cp_id) {
           dispatch(toastError(message));
           dispatch(offerHandshakeHasErrored(message));
           dispatch(offerHandshakeIsLoading(false));
+        });
+      });
+  };
+}
+
+export function revokeHandshake(perdet, cp_id) {
+  return (dispatch) => {
+    const perdetString = perdet.toString();
+    const cpString = cp_id.toString();
+    // reset the states to ensure only one message can be shown
+    batch(() => {
+      dispatch(routeChangeResetState());
+      dispatch(revokeHandshakeIsLoading(true));
+      dispatch(revokeHandshakeHasErrored(false));
+    });
+
+    const url = `/bidding/handshake/bureau/${perdetString}/${cpString}/`;
+
+    api().delete(url)
+      .then(response => response.data)
+      .then(() => {
+        const message = SystemMessages.REVOKE_HANDSHAKE_SUCCESS;
+        batch(() => {
+          dispatch(toastSuccess(message));
+          dispatch(revokeHandshakeHasErrored(false));
+          dispatch(revokeHandshakeIsLoading(false));
+          dispatch(revokeHandshakeSuccess(message));
+        });
+      })
+      .catch(() => {
+        const message = SystemMessages.REVOKE_HANDSHAKE_ERROR;
+        batch(() => {
+          dispatch(toastError(message));
+          dispatch(revokeHandshakeHasErrored(message));
+          dispatch(revokeHandshakeIsLoading(false));
         });
       });
   };

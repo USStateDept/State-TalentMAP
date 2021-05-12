@@ -5,6 +5,9 @@ import {
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
+  revokeHandshakeHasErrored,
+  revokeHandshakeIsLoading,
+  revokeHandshakeSuccess,
 } from './handshake';
 
 export default {
@@ -14,4 +17,7 @@ export default {
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
+  revokeHandshakeHasErrored,
+  revokeHandshakeIsLoading,
+  revokeHandshakeSuccess,
 };

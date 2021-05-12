@@ -81,7 +81,6 @@ class PositionManagerBidders extends Component {
       rankingUpdate: Date.now(), // track when the user performs an action
       shortListVisible: true,
       unrankedVisible: true,
-      offeredHS: false,
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -187,6 +186,32 @@ class PositionManagerBidders extends Component {
 
   getList = id => this.state[this.id2List[id]];
 
+  getBidderHSClass = status => {
+    switch (status) {
+      case 'A':
+        return 'accepted';
+      case 'D':
+        return 'declined';
+      default:
+        return 'inactive';
+    }
+  }
+
+  getBureauHSClass = status => {
+    switch (status) {
+      case 'O':
+        return 'offered';
+      case 'R':
+        return 'revoked';
+      case 'A':
+        return 'offered';
+      case 'D':
+        return 'offered';
+      default:
+        return 'inactive';
+    }
+  }
+
   // type = 'shortListVisible' or 'unrankedVisible'
   toggleVisibility = type => {
     const type$ = get(this.state, type);
@@ -200,6 +225,7 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
+    const handshakeOffered = get(m, 'tmap_hs.status');
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -229,13 +255,29 @@ class PositionManagerBidders extends Component {
       Language: get(m, 'language'),
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
-      Action: <button
-        className=""
-        title={`${props.offeredHS ? 'Withdrawl' : 'Offer'} handshake`}
-        onClick={() => props.offerHS(m.emp_id, props.id)}
-      >
-        <FA name="handshake-o" />
-      </button>,
+      Action:
+        <>
+          <div className="hs-status-container">
+            <div className={`hs-status-bureau ${this.getBureauHSClass(handshakeOffered)}`}>
+              <FA name="hand-paper-o fa-rotate-90" />
+            </div>
+            <div className={`hs-status-bidder ${this.getBidderHSClass(handshakeOffered)}`}>
+              <span className="fa-flip-vertical">
+                <FA name="hand-paper-o fa-rotate-270" />
+              </span>
+            </div>
+          </div>
+          <button
+            className=""
+            title={`${!handshakeOffered || handshakeOffered === 'R' ? 'Offer' : 'Revoke'} handshake`}
+            onClick={!handshakeOffered || handshakeOffered === 'R' ?
+              () => props.offerHS(m.emp_id, props.id) :
+              () => props.revokeHS(m.emp_id, props.id)
+            }
+          >
+            {`${!handshakeOffered || handshakeOffered === 'R' ? 'Offer' : 'Revoke'} handshake`}
+          </button>
+        </>,
     };
 
     if (props.bidsIsLoading) {
@@ -293,7 +335,7 @@ class PositionManagerBidders extends Component {
         hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
-      const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'TED', 'CDO'].map(item => (
+      const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'TED', 'CDO', ''].map(item => (
         <th scope="col">{item}</th>
       ));
 

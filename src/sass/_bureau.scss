@@ -500,6 +500,9 @@
     td:nth-of-type(6) {
       flex: 1
     }
+    td:last-of-type {
+      flex-direction: column;
+    }
     @media screen and (max-width: 1700px) {
       td {
         padding: 10px 15px;
@@ -512,5 +515,36 @@
         font-size: 13px;
       }
     }
+  }
+}
+
+.hs-status-container {
+  display: flex;
+  justify-content: center;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    min-width: 30px;
+  }
+
+  .inactive {
+    background-color: lightgrey;
+  }
+
+  .offered, .accepted {
+    background-color: limegreen;
+  }
+
+  .revoked, .declined {
+    background-color: lightcoral;
+  }
+
+  .hs-status-bureau {
+
+  }
+
+  .hs-status-bidder {
+
   }
 }
