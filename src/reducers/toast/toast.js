@@ -10,7 +10,7 @@ export default function toast(state = { type: 'success', message: '', title: '',
     case 'TOAST_NOTIFICATION_INFO':
       return { type: 'info', message, title, id, isUpdate, options };
     case 'TOAST_NOTIFICATION_HANDSHAKE':
-      return { type: 'dark', message, title, id, isUpdate, options: { autoClose: false } };
+      return { type: 'dark', message, title, options };
     default:
       return state;
   }
