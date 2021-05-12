@@ -186,29 +186,44 @@ class PositionManagerBidders extends Component {
 
   getList = id => this.state[this.id2List[id]];
 
-  getBidderHSClass = status => {
-    switch (status) {
-      case 'A':
-        return 'accepted';
-      case 'D':
-        return 'declined';
-      default:
-        return 'inactive';
-    }
-  }
 
-  getBureauHSClass = status => {
+  getHSClass = status => {
     switch (status) {
       case 'O':
-        return 'offered';
+        return {
+          bidder: 'inactive',
+          bidderIcon: 'hand-paper-o',
+          bureau: 'offered',
+          bureauIcon: 'hand-paper-o',
+        };
       case 'R':
-        return 'revoked';
+        return {
+          bidder: 'inactive',
+          bidderIcon: 'hand-paper-o',
+          bureau: 'revoked',
+          bureauIcon: 'hand-rock-o',
+        };
       case 'A':
-        return 'offered';
+        return {
+          bidder: 'accepted',
+          bidderIcon: 'hand-paper-o',
+          bureau: 'offered',
+          bureauIcon: 'hand-paper-o',
+        };
       case 'D':
-        return 'offered';
+        return {
+          bidder: 'declined',
+          bidderIcon: 'hand-rock-o',
+          bureau: 'offered',
+          bureauIcon: 'hand-paper-o',
+        };
       default:
-        return 'inactive';
+        return {
+          bidder: 'inactive',
+          bidderIcon: 'hand-paper-o',
+          bureau: 'inactive',
+          bureauIcon: 'hand-paper-o',
+        };
     }
   }
 
@@ -226,6 +241,7 @@ class PositionManagerBidders extends Component {
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
     const handshakeOffered = get(m, 'tmap_hs.status');
+    const hsStyling = this.getHSClass(handshakeOffered);
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -258,12 +274,12 @@ class PositionManagerBidders extends Component {
       Action:
         <>
           <div className="hs-status-container">
-            <div className={`hs-status-bureau ${this.getBureauHSClass(handshakeOffered)}`}>
-              <FA name="hand-paper-o fa-rotate-90" />
+            <div className={`hs-status-bureau ${hsStyling.bureau}`}>
+              <FA name={`${hsStyling.bureauIcon} fa-rotate-90`} />
             </div>
-            <div className={`hs-status-bidder ${this.getBidderHSClass(handshakeOffered)}`}>
+            <div className={`hs-status-bidder ${hsStyling.bidder}`}>
               <span className="fa-flip-vertical">
-                <FA name="hand-paper-o fa-rotate-270" />
+                <FA name={`${hsStyling.bidderIcon} fa-rotate-270`} />
               </span>
             </div>
           </div>
