@@ -139,10 +139,9 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     default:
       break;
   }
-  console.log(overlayClass.concat('-hide'));
   return (
     overlayContent ?
-      <div className={`bid-tracker-overlay-alert ${showOverlay ? overlayClass : overlayClass.concat('-hide')}`}>
+      <div className={`bid-tracker-overlay-alert ${overlayClass} ${showOverlay ? '' : 'abc'}`}>
         {showArrow && (overlayClass !== CLASS_DRAFT) && (overlayClass !== CLASS_CLOSED) &&
           <InteractiveElement onClick={toggleOverlay}>
             <Tooltip
