@@ -29,8 +29,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
-  // const hideOverlay = 'bid-tracker-overlay-alert--unregister-hide';
-  // const hideOverlay = 'bid-tracker-overlay-alert--register-hide';
 
   const { position } = bid;
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
@@ -55,10 +53,10 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     }
   };
 
-  const [showOverlay, setShowOverlay] = useState(true);
+  const [collapseOverlay, setCollapseOverlay] = useState(false);
 
   function toggleOverlay() {
-    setShowOverlay(!showOverlay);
+    setCollapseOverlay(!collapseOverlay);
   }
 
   switch (bid.status) {
@@ -141,15 +139,15 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   }
   return (
     overlayContent ?
-      <div className={`bid-tracker-overlay-alert ${overlayClass} ${showOverlay ? '' : 'abc'}`}>
+      <div className={`bid-tracker-overlay-alert ${overlayClass} ${collapseOverlay ? 'collapse-overlay' : ''}`}>
         {showArrow && (overlayClass !== CLASS_DRAFT) && (overlayClass !== CLASS_CLOSED) &&
           <InteractiveElement onClick={toggleOverlay}>
             <Tooltip
-              title={showOverlay ? 'Collapse overaly' : 'Expand overlay'}
+              title={collapseOverlay ? 'Expand overlay' : 'Collapse overlay'}
               arrow
             >
               <FontAwesome
-                name={`arrow-circle-${showOverlay ? 'right' : 'left'}`}
+                name={`arrow-circle-${collapseOverlay ? 'left' : 'right'}`}
               />
             </Tooltip>
           </InteractiveElement>
