@@ -240,9 +240,10 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
         cancelRanking = c;
       }),
     })
-      .then(({ data }) => {
-        const ids = data.map(b => b.id);
-        data.forEach(n => {
+      .then(({ data }) => {     
+        const data$ = get(data, 'results') || [];
+        const ids = data$.map(b => b.id);
+        data$.forEach(n => {
           dispatch(handshakeOffered(n.owner, n.message,
             { autoClose: false, draggable: false, closeOnClick: false }));
         });
