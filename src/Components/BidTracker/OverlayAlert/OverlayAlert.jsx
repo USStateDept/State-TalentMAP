@@ -139,7 +139,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   }
   return (
     overlayContent ?
-      <div className={`bid-tracker-overlay-alert ${overlayClass} ${collapseOverlay ? 'collapse-overlay' : ''}`}>
+      <div className={`bid-tracker-overlay-alert ${overlayClass}${collapseOverlay ? ' collapse-overlay' : ''}`}>
         {showArrow && (overlayClass !== CLASS_DRAFT) && (overlayClass !== CLASS_CLOSED) &&
           <InteractiveElement onClick={toggleOverlay}>
             <Tooltip
