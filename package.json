@@ -156,7 +156,7 @@
     "redux-saga-test-plan": "^3.7.0",
     "redux-testkit": "^1.0.6",
     "resolve-url-loader": "4.0.0",
-    "sass": "^1.32.12",
+    "sass": "^1.32.13",
     "sass-lint": "^1.13.1",
     "sass-loader": "^10.1.1",
     "sinon": "^2.4.1",
