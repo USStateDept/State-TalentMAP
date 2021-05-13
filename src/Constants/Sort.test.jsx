@@ -1,4 +1,4 @@
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES, filterPVSorts } from './Sort';
+import { POSITION_PAGE_SIZES, POSITION_SEARCH_SORTS, filterPVSorts } from './Sort';
 
 describe('Dropdown options', () => {
   it('POSITION_SEARCH_SORTS should be defined', () => {

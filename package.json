@@ -129,6 +129,7 @@
     "eslint-plugin-flowtype": "2.41.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-react": "^7.23.2",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "file-loader": "6.1.0",

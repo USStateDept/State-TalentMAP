@@ -4,7 +4,7 @@ import { get, includes, orderBy } from 'lodash';
 import { FILTER_ITEM } from '../../../Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';
-import { getItemLabel, formatIdSpacing } from '../../../utilities';
+import { formatIdSpacing, getItemLabel } from '../../../utilities';
 
 const hiddenGroups = ['no-language']; // hide the checkbox children
 

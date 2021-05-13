@@ -2,9 +2,9 @@ import { merge } from 'lodash';
 import { propOrDefault } from '../utilities';
 
 import {
+  LOGIN_ERROR,
   LOGIN_REQUESTING,
   LOGIN_SUCCESS,
-  LOGIN_ERROR,
   LOGOUT_REQUESTING,
   LOGOUT_SUCCESS,
   TOKEN_VALIDATION_REQUESTING,

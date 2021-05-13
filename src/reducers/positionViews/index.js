@@ -1,4 +1,4 @@
-import { positionViewsIsLoading, positionViewsHasErrored, positionViews } from './positionViews';
+import { positionViews, positionViewsHasErrored, positionViewsIsLoading } from './positionViews';
 
 export default { positionViewsIsLoading,
   positionViewsHasErrored,

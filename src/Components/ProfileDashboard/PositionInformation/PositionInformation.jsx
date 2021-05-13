@@ -1,6 +1,6 @@
 import { formatDate, propOrDefault } from '../../../utilities';
 import { ASSIGNMENT_OBJECT } from '../../../Constants/PropTypes';
-import { NO_ASSIGNMENT_POSITION, NO_ASSIGNMENT_DATE, NO_SKILL, NO_BUREAU } from '../../../Constants/SystemMessages';
+import { NO_ASSIGNMENT_DATE, NO_ASSIGNMENT_POSITION, NO_BUREAU, NO_SKILL } from '../../../Constants/SystemMessages';
 import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 import StartEnd from './StartEnd';

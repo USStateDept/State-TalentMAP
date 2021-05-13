@@ -4,8 +4,8 @@ import Q from 'q';
 import api from '../../api';
 import { ASYNC_PARAMS, ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import { mapDuplicates, removeDuplicates } from '../../utilities';
-import { getFilterCustomDescription, getPillDescription, getPostOrMissionDescription,
-  doesCodeOrIdMatch, isBooleanFilter, isPercentageFilter, getFilterCustomAttributes } from './helpers';
+import { doesCodeOrIdMatch, getFilterCustomAttributes, getFilterCustomDescription,
+  getPillDescription, getPostOrMissionDescription, isBooleanFilter, isPercentageFilter } from './helpers';
 
 export function filtersHasErrored(bool) {
   return {

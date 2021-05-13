@@ -11,7 +11,7 @@ import PermissionsWrapper from 'Containers/PermissionsWrapper';
 // Actions
 import { getViewStats, postPositionView } from 'actions/positionStats';
 import { positionDetailsFetchData } from 'actions/positionDetails';
-import { putHighlightedPosition, deleteHighlightPosition } from 'actions/highlightPosition';
+import { deleteHighlightPosition, putHighlightedPosition } from 'actions/highlightPosition';
 import { bidListFetchData } from 'actions/bidList';
 import {
   editDescriptionContent,
@@ -23,16 +23,16 @@ import {
 import { LOGIN_REDIRECT } from '../../login/routes';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
-  POSITION_DETAILS,
-  USER_PROFILE,
+  BIDDER_OBJECT,
   BID_LIST,
   BID_LIST_TOGGLE_HAS_ERRORED,
   BID_LIST_TOGGLE_SUCCESS,
   DESCRIPTION_EDIT_HAS_ERRORED,
   EMPTY_FUNCTION,
   HIGHLIGHT_POSITION,
-  BIDDER_OBJECT,
+  POSITION_DETAILS,
   ROUTER_LOCATION_OBJECT,
+  USER_PROFILE,
 } from '../../Constants/PropTypes';
 
 class Position extends Component {

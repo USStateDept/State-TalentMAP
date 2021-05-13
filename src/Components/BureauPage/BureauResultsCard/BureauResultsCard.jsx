@@ -9,13 +9,13 @@ import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
-import { getResult, getBidStatsToUse, getDifferentials, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
+import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
-import { getPostName, getBidStatisticsObject, propOrDefault, shortenString } from 'utilities';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
+import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
-  NO_BUREAU, NO_GRADE, NO_POSITION_NUMBER,
-  NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
+  NO_BUREAU, NO_DATE, NO_GRADE,
+  NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 

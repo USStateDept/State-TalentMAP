@@ -1,8 +1,8 @@
 import { shortListLock,
-  shortListLockIsLoading,
   shortListLockHasErrored,
-  shortListLockUpdateIsLoading,
-  shortListLockUpdateHasErrored } from './shortListLock';
+  shortListLockIsLoading,
+  shortListLockUpdateHasErrored,
+  shortListLockUpdateIsLoading } from './shortListLock';
 
 export default {
   shortListLock,

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Flag } from 'flag';
-import { USER_PROFILE, NOTIFICATION_RESULTS, BID_RESULTS,
-  FAVORITE_POSITIONS_ARRAY, EMPTY_FUNCTION, CLIENT_CLASSIFICATIONS, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
+  EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, NOTIFICATION_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { checkFlag } from 'flags';
@@ -10,7 +10,7 @@ import BidList from './BidList';
 import Notifications from './Notifications';
 import Spinner from '../Spinner';
 import ProfileSectionTitle from '../ProfileSectionTitle';
-import { Row, Column } from '../Layout';
+import { Column, Row } from '../Layout';
 import MediaQueryWrapper from '../MediaQuery';
 import Favorites from './Favorites';
 import Assignments from './Assignments';

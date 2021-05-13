@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { homePageRecommendedPositionsFetchData, homePageFeaturedPositionsFetchData } from 'actions/homePagePositions';
-import { EMPTY_FUNCTION, USER_PROFILE, BID_RESULTS } from 'Constants/PropTypes';
-import { DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS, DEFAULT_HOME_PAGE_FEATURED_POSITIONS } from 'Constants/DefaultProps';
+import { homePageFeaturedPositionsFetchData, homePageRecommendedPositionsFetchData } from 'actions/homePagePositions';
+import { BID_RESULTS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
+import { DEFAULT_HOME_PAGE_FEATURED_POSITIONS, DEFAULT_HOME_PAGE_RECOMMENDED_POSITIONS } from 'Constants/DefaultProps';
 import HomePagePositions from '../../Components/HomePagePositions/HomePagePositions';
 import Spinner from '../../Components/Spinner';
 

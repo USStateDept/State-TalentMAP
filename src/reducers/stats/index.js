@@ -1,5 +1,5 @@
-import { statsIsLoading, statsHasErrored, stats,
-  statsIntervalsIsLoading, statsIntervalsHasErrored, statsIntervals } from './stats';
+import { stats, statsHasErrored, statsIntervals,
+  statsIntervalsHasErrored, statsIntervalsIsLoading, statsIsLoading } from './stats';
 
 export default { statsIsLoading,
   statsHasErrored,

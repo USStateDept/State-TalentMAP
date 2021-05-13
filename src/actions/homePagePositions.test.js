@@ -1,15 +1,15 @@
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import {
-  GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY,
-  GET_RECOMMENDED_GRADE_POSITIONS_QUERY,
   FAVORITE_POSITIONS_QUERY,
   GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY,
   GET_FEATURED_GRADE_POSITIONS_QUERY,
   GET_FEATURED_POSITIONS_QUERY,
-  homePageRecommendedPositionsFetchData,
-  homePageRecommendedPositionsIsLoading,
+  GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY,
+  GET_RECOMMENDED_GRADE_POSITIONS_QUERY,
   homePageFeaturedPositionsFetchData,
   homePageFeaturedPositionsIsLoading,
+  homePageRecommendedPositionsFetchData,
+  homePageRecommendedPositionsIsLoading,
 } from './homePagePositions';
 import resultsObject from '../__mocks__/resultsObject';
 

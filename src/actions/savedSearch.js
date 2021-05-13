@@ -1,7 +1,7 @@
 import api from '../api';
 import * as SystemMessages from '../Constants/SystemMessages';
 import { propOrDefault } from '../utilities';
-import { toastSuccess, toastError } from './toast';
+import { toastError, toastSuccess } from './toast';
 
 export function newSavedSearchHasErrored(bool) {
   return {

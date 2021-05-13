@@ -3,7 +3,7 @@ import FA from 'react-fontawesome';
 import { Link } from 'react-router-dom';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
-import { Row, Column } from '../../Layout';
+import { Column, Row } from '../../Layout';
 import LinkButton from '../../LinkButton';
 import MediaQueryWrapper from '../../MediaQuery';
 import SystemMonitor from '../SystemMonitor';

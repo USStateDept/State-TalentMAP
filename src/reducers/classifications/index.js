@@ -1,6 +1,6 @@
-import { classificationsHasErrored,
+import { classifications,
+  classificationsHasErrored,
   classificationsIsLoading,
-  classifications,
   updateClassificationsHasErrored,
   updateClassificationsIsLoading } from './classifications';
 

@@ -1,4 +1,4 @@
-import { cloneElement, Component } from 'react';
+import { Component, cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';

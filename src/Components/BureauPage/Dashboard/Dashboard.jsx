@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { includes } from 'lodash';
-import { PieChart, Pie, Cell } from 'recharts';
+import { Cell, Pie, PieChart } from 'recharts';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import SelectForm from '../../SelectForm';
-import { Row, Column } from '../../Layout';
+import { Column, Row } from '../../Layout';
 
 
 const BureauPage = (props) => {

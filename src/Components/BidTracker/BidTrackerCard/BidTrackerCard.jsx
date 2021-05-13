@@ -13,7 +13,7 @@ import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert } from '../BidHelpers';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
 import {
   APPROVED_PROP,
   // HAND_SHAKE_ACCEPTED_PROP,
