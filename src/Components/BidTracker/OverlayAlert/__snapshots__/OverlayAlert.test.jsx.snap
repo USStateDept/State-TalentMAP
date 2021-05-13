@@ -2,7 +2,7 @@
 
 exports[`OverlayAlertComponent matches snapshot when type is "approved" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--success"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -18,7 +18,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "approved" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "closed" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -38,7 +38,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "closed" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "declined" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -58,7 +58,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "declined" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "draft" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--draft "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--draft"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -129,7 +129,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "fake prop" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "handshake_declined" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--closed"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -149,7 +149,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_declined
 
 exports[`OverlayAlertComponent matches snapshot when type is "handshake_needs_registered" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--register "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--register"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -221,7 +221,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_needs_re
 
 exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -243,7 +243,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered"
 
 exports[`OverlayAlertComponent matches snapshot when type is "in_panel" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
@@ -262,7 +262,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "in_panel" 1`] = `
 
 exports[`OverlayAlertComponent matches snapshot when type is "panel_rescheduled" 1`] = `
 <div
-  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending "
+  className="bid-tracker-overlay-alert bid-tracker-overlay-alert--pending"
 >
   <div
     className="bid-tracker-overlay-alert-content-container"
