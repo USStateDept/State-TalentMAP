@@ -22,24 +22,23 @@ import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/s
 const getClassificationsInfo = (userClassifications, refClassifications) => {
   const classificationsInfo = [];
   const shortCodesCache = [];
-  userClassifications.forEach(c => {
-    refClassifications.forEach(a => {
-      a.seasons.forEach(b => {
-        if (b.id === c) {
-          const k = shortCodesCache.indexOf(Icons[a.code].shortCode);
-          if (k < 0) {
-            shortCodesCache.push(Icons[a.code].shortCode);
-            classificationsInfo.push({
-              name: Icons[a.code].name,
-              shortCode: Icons[a.code].shortCode,
-              text: a.text,
-              seasons: [b.season_text],
-            });
-          } else {
-            classificationsInfo[k].seasons.push(b.season_text);
-          }
+  refClassifications.forEach(a => {
+    a.seasons.forEach(b => {
+      const c = userClassifications.find(f => f === b.id);
+      if (c) {
+        const k = shortCodesCache.indexOf(Icons[a.code].shortCode);
+        if (k < 0) {
+          shortCodesCache.push(Icons[a.code].shortCode);
+          classificationsInfo.push({
+            name: Icons[a.code].name,
+            shortCode: Icons[a.code].shortCode,
+            text: a.text,
+            seasons: [b.season_text],
+          });
+        } else {
+          classificationsInfo[k].seasons.push(b.season_text);
         }
-      });
+      }
     });
   });
   return classificationsInfo;
