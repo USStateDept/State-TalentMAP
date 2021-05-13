@@ -432,6 +432,36 @@
   padding-left: 35px;
 }
 
+.tippy-popper {
+  .tippy-tooltip.classifications-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    padding: 10px 10px 0;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .classification-wrapper {
+      padding-bottom: 10px;
+      .classification-icon {
+        color: $tertiary-success;
+        font-size: 20px;
+        padding-right: 10px;
+        min-width: 30px;
+      }
+      .classification-text {
+        font-size: 15px;
+        font-weight: bold;
+      }
+      .classification-season {
+        padding-left: 40px;
+      }
+    }
+  }
+}
+
 .position-manager-bidders-table {
   margin: auto;
   width: 100%;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isEqual, keys, orderBy } from 'lodash';
 import FA from 'react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
@@ -30,7 +31,7 @@ const getClassificationsInfo = (userClassifications, refClassifications) => {
         if (k < 0) {
           shortCodesCache.push(Icons[a.code].shortCode);
           classificationsInfo.push({
-            name: Icons[a.code].name,
+            icon: Icons[a.code].name,
             shortCode: Icons[a.code].shortCode,
             text: a.text,
             seasons: [b.season_text],
@@ -43,6 +44,26 @@ const getClassificationsInfo = (userClassifications, refClassifications) => {
   });
   return classificationsInfo;
 };
+
+// eslint-disable-next-line no-unused-vars
+const getClassificationsTooltip = (classifications) => (
+  <div>
+    {classifications.map(i => (
+      <div className="classification-wrapper">
+        <div className="classification-text">
+          <FontAwesomeIcon
+            icon={get(i, 'icon')}
+            className="classification-icon"
+          />
+          {i.text}
+        </div>
+        {(get(i, 'seasons') || []).map(s => (
+          <div className="classification-season">{s}</div>
+        ))}
+      </div>
+    ))}
+  </div>
+);
 
 const getItemStyle = (isDragging, draggableStyle) => {
   const border = isDragging ? '1px solid black' : 'none';
@@ -225,8 +246,7 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
-    const classifications = getClassificationsInfo(get(m, 'classifications', []), props.classifications).map(c => c.shortCode).join(', ');
-
+    const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
         <select name="ranking" disabled={this.isDndDisabled()} value={iter} onChange={a => { this.setState({ rankingUpdate: Date.now(), shortList: move(this.state.shortList, iter, a.target.value) }); }}>
@@ -253,7 +273,18 @@ class PositionManagerBidders extends Component {
       Skill: get(m, 'skill'),
       Grade: get(m, 'grade') || NO_GRADE,
       Language: get(m, 'language'),
-      Classifications: classifications.length ? classifications : NO_CLASSIFICATIONS,
+      Classifications: classifications.length ?
+        <Tooltip
+          html={getClassificationsTooltip(classifications)}
+          theme={'classifications'}
+          arrow
+          tabIndex="0"
+          interactive
+          useContext
+        >
+          {classifications.map(c => c.shortCode).join(', ')}
+        </Tooltip>
+        : NO_CLASSIFICATIONS,
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
     };
