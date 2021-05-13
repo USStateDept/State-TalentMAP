@@ -45,7 +45,6 @@ const getClassificationsInfo = (userClassifications, refClassifications) => {
   return classificationsInfo;
 };
 
-// eslint-disable-next-line no-unused-vars
 const getClassificationsTooltip = (classifications) => (
   <div>
     {classifications.map(i => (
