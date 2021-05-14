@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
-  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP,
-  HAND_SHAKE_NEEDS_REGISTER_PROP } from 'Constants/BidData';
 import { useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
