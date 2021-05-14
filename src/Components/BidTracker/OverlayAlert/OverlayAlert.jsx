@@ -4,6 +4,7 @@ import { useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
+import { get, includes } from 'lodash';
 import { APPROVED_PROP, CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
   PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
@@ -140,7 +141,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   return (
     overlayContent ?
       <div className={`bid-tracker-overlay-alert ${overlayClass}${collapseOverlay ? ' collapse-overlay' : ''}`}>
-        {showArrow && (overlayClass !== CLASS_DRAFT) && (overlayClass !== CLASS_CLOSED) &&
+        {showArrow && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status')) &&
           <InteractiveElement onClick={toggleOverlay}>
             <Tooltip
               title={collapseOverlay ? 'Expand overlay' : 'Collapse overlay'}
