@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import AdditionalView from './AdditionalView';
-import { clientObject, clientWaivers, clientBids } from '../../../../__mocks__/client';
+import { clientBids, clientObject, clientWaivers } from '../../../../__mocks__/client';
 
 describe('AdditionalViewComponent', () => {
   const props = {

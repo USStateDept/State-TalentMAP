@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { get, keys } from 'lodash';
 import { formatDate } from 'utilities';
-import { availableBiddersToggleUser, availableBidderEditData } from 'actions/availableBidders';
+import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
-  NO_GRADE, NO_END_DATE, NO_CDO, NO_BUREAU, NO_OC_REASON, NO_POST,
-  NO_STATUS, NO_COMMENTS, NO_LANGUAGES, NO_LANGUAGE,
+  NO_BUREAU, NO_CDO, NO_COMMENTS, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
+  NO_LANGUAGES, NO_OC_REASON, NO_POST, NO_STATUS,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';

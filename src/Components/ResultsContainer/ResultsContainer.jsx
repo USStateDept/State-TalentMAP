@@ -6,9 +6,9 @@ import ErrorBoundary from 'Components/ErrorBoundary';
 import ResultsList from 'Components/ResultsList/ResultsList';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import { POSITION_SEARCH_RESULTS, EMPTY_FUNCTION,
-  SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY, USER_PROFILE,
-  BID_RESULTS } from '../../Constants/PropTypes';
+import { BID_RESULTS, EMPTY_FUNCTION,
+  PILL_ITEM_ARRAY, POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT,
+  USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
 import Alert from '../Alert/Alert';
 import ResultsControls from '../ResultsControls/ResultsControls';

@@ -1,7 +1,7 @@
 import {
+  featureFlags,
   featureFlagsHasErrored,
   featureFlagsIsLoading,
-  featureFlags,
   featureFlagsPostHasErrored,
   featureFlagsPostIsLoading,
   featureFlagsPostSuccess,

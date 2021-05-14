@@ -7,7 +7,7 @@ import Bowser from 'bowser';
 import { loadImg } from 'utilities';
 import api, { INTERCEPTORS } from '../api';
 import { favoritePositionsFetchData } from './favoritePositions';
-import { toastSuccess, toastError } from './toast';
+import { toastError, toastSuccess } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
 
 export function userProfileHasErrored(bool) {

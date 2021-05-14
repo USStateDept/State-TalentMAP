@@ -1,6 +1,6 @@
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
-import { fetchClient, fetchClientWaivers, fetchClientBids, fetchAllClientData } from './client';
-import { clientObject, clientBids, clientWaivers } from '../__mocks__/client';
+import { fetchAllClientData, fetchClient, fetchClientBids, fetchClientWaivers } from './client';
+import { clientBids, clientObject, clientWaivers } from '../__mocks__/client';
 
 const { mockAdapter } = setupAsyncMocks();
 

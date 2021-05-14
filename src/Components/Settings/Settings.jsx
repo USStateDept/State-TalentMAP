@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import { fetchUserToken, fetchJWT } from 'utilities';
+import { fetchJWT, fetchUserToken } from 'utilities';
 
 class RadioList extends Component {
   constructor(props) {

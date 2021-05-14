@@ -2,8 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
-  enable as enableDarkMode,
   disable as disableDarkMode,
+  enable as enableDarkMode,
 } from 'darkreader';
 import { checkFlag } from '../../flags';
 import { getBrowserName } from '../../utilities';

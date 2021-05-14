@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import ResultsPage from './ResultsPage';
-import { POSITION_SEARCH_SORTS, POSITION_PAGE_SIZES } from '../../Constants/Sort';
+import { POSITION_PAGE_SIZES, POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import resultsObject from '../../__mocks__/resultsObject';
 
 describe('ResultsPageComponent', () => {

@@ -2,10 +2,10 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { notificationsFetchData } from 'actions/notifications';
-import { bidListFetchData, toggleBidPosition, submitBid } from 'actions/bidList';
+import { bidListFetchData, submitBid, toggleBidPosition } from 'actions/bidList';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
-import { USER_PROFILE, NOTIFICATION_LIST, BID_LIST, FAVORITE_POSITIONS } from 'Constants/PropTypes';
-import { DEFAULT_USER_PROFILE, DEFAULT_FAVORITES } from 'Constants/DefaultProps';
+import { BID_LIST, FAVORITE_POSITIONS, NOTIFICATION_LIST, USER_PROFILE } from 'Constants/PropTypes';
+import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
 
 class DashboardContainer extends Component {

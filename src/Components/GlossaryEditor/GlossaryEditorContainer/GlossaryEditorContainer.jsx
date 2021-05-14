@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION, GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT, GROUPED_GLOSSARY_ARRAYS_OBJECT } from '../../../Constants/PropTypes';
 import GlossaryEditorCardList from '../GlossaryEditorCardList';
 
 const GlossaryEditorContainer = (props) => {

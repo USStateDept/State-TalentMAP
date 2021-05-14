@@ -1,10 +1,10 @@
 import {
-  homePageRecommendedPositions,
-  homePageRecommendedPositionsHasErrored,
-  homePageRecommendedPositionsIsLoading,
   homePageFeaturedPositions,
   homePageFeaturedPositionsHasErrored,
   homePageFeaturedPositionsIsLoading,
+  homePageRecommendedPositions,
+  homePageRecommendedPositionsHasErrored,
+  homePageRecommendedPositionsIsLoading,
 } from './homePagePositions';
 
 export default {

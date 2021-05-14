@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import groupBy from 'lodash/groupBy';
-import { GLOSSARY_ARRAY, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ARRAY, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
 import Spinner from '../../Spinner';
 import GlossaryEditorContainer from '../GlossaryEditorContainer';
 import GlossaryEditorSearch from '../GlossaryEditorSearch';

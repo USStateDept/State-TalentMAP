@@ -11,7 +11,7 @@ import Fuse from 'fuse.js';
 import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
 import { NO_BID_CYCLE } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
-import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
+import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 
 const scroll = Scroll.animateScroll;
 
@@ -195,6 +195,7 @@ export const scrollToId = ({ el, config = {} }) => {
   const getElemDistance = (elem) => {
     let location = 0;
     if (elem.offsetParent) {
+      // eslint-disable-next-line no-loops/no-loops
       do {
         location += elem.offsetTop;
         elem = elem.offsetParent; // eslint-disable-line

@@ -3,13 +3,13 @@ import {
   CLOSED_PROP,
   DRAFT_PROP,
   HAND_SHAKE_ACCEPTED_PROP,
-  HAND_SHAKE_OFFERED_PROP,
   HAND_SHAKE_DECLINED_PROP,
-  PRE_PANEL_PROP,
+  HAND_SHAKE_OFFERED_PROP,
   IN_PANEL_PROP,
+  PRE_PANEL_PROP,
   SUBMITTED_PROP,
 } from '../../Constants/BidData';
-import { bidClassesFromCurrentStatus, shouldShowAlert, getActionPermissions } from './BidHelpers';
+import { bidClassesFromCurrentStatus, getActionPermissions, shouldShowAlert } from './BidHelpers';
 import bidListObject from '../../__mocks__/bidListObject';
 
 // Test that the result of each status prop is defined

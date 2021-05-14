@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
-import { NO_GRADE, NO_POST, NO_TOUR_END_DATE, NO_LANGUAGE } from 'Constants/SystemMessages';
+import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';

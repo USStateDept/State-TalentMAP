@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import BidderPortfolioGridList, { isAllTrue, isAllFalse } from './BidderPortfolioGridList';
+import BidderPortfolioGridList, { isAllFalse, isAllTrue } from './BidderPortfolioGridList';
 import bidderListObject from '../../../__mocks__/bidderListObject';
 import classifications from '../../../__mocks__/classificationsObject';
 
