@@ -6,7 +6,7 @@ import TextEditor from '../../TextEditor';
 import EditContentButton from '../../EditContentButton';
 import { POSITION_DETAILS } from '../../../Constants/PropTypes';
 import { NO_POSITION_DESCRIPTION } from '../../../Constants/SystemMessages';
-import { shortenString, propOrDefault } from '../../../utilities';
+import { propOrDefault, shortenString } from '../../../utilities';
 
 class PositionDetailsDescription extends Component {
   constructor(props) {

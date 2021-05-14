@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ScrollArea from 'react-scrollbar/dist/no-css';
 import { merge } from 'lodash';
-import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
+import { MAPPED_PARAM_ARRAY, SAVED_SEARCH_PARENT_OBJECT } from 'Constants/PropTypes';
 import SavedSearchesListResultsCard from '../SavedSearchesListResultsCard';
 import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
 

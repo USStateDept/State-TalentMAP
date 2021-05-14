@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { APPROVED, CLOSED, DRAFT, DECLINED, HAND_SHAKE_ACCEPTED,
-  HAND_SHAKE_OFFERED, IN_PANEL, SUBMITTED, HAND_SHAKE_DECLINED } from '../../../Constants/BidStatuses';
+import { APPROVED, CLOSED, DECLINED, DRAFT, HAND_SHAKE_ACCEPTED,
+  HAND_SHAKE_DECLINED, HAND_SHAKE_OFFERED, IN_PANEL, SUBMITTED } from '../../../Constants/BidStatuses';
 
 const BidStatus = ({ status, positionTitle }) => {
   let icon;

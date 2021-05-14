@@ -2,10 +2,10 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AdministratorPage from '../../Components/AdministratorPage';
-import { getLogs, getLogsList, getLog, getLogToDownload } from '../../actions/logs';
-import { getUsers, getTableStats } from '../../actions/userRoles';
+import { getLog, getLogToDownload, getLogs, getLogsList } from '../../actions/logs';
+import { getTableStats, getUsers } from '../../actions/userRoles';
 import { fetchFeatureFlagsData } from '../../actions/featureFlags';
-import { syncsFetchData, putAllSyncs, patchSync } from '../../actions/synchronizations';
+import { patchSync, putAllSyncs, syncsFetchData } from '../../actions/synchronizations';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 
 export const downloadFile = (text) => {

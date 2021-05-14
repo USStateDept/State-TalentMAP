@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { extend } from 'lodash';
-import { EMPTY_FUNCTION, GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT, GROUPED_GLOSSARY_ARRAYS_OBJECT } from '../../../../Constants/PropTypes';
 import GlossaryEditorCard from '../../GlossaryEditorCard';
 
 // Holds all response error states for editor cards

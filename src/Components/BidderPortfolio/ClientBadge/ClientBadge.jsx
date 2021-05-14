@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { get } from 'lodash';
-import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
-  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix, faSpa } from '@fortawesome/free-solid-svg-icons';
+import { faBalanceScaleLeft, faChessQueen, faDiceSix, faGraduationCap, faLanguage, faMedal,
+  faPercentage, faRegistered, faSeedling, faSpa, faTree, faUserFriends }
+  from '@fortawesome/free-solid-svg-icons';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import InteractiveElement from '../../InteractiveElement';
 

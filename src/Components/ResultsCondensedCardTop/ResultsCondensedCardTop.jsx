@@ -3,10 +3,10 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
 import { Tooltip } from 'react-tippy';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
-import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
-import { getPostName, getBidStatisticsObject } from '../../utilities';
+import { getBidStatisticsObject, getPostName } from '../../utilities';
 
 const ResultsCondensedCardTop = ({
   position,

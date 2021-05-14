@@ -3,8 +3,8 @@ import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
-import { getPostName, formatDate } from 'utilities';
+import { NO_GRADE, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
+import { formatDate, getPostName } from 'utilities';
 
 class DraftAlert extends Component {
   onSubmitBid = () => {

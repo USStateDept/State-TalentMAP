@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { SAVED_SEARCH_PARENT_OBJECT, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
+import { MAPPED_PARAM_ARRAY, SAVED_SEARCH_PARENT_OBJECT } from 'Constants/PropTypes';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { SPECIAL_NEEDS } from 'Constants/EndpointParams';
-import { USER_PROFILE, BID_RESULTS, HOME_PAGE_FEATURED_POSITIONS, HOME_PAGE_RECOMMENDED_POSITIONS } from 'Constants/PropTypes';
+import { BID_RESULTS, HOME_PAGE_FEATURED_POSITIONS, HOME_PAGE_RECOMMENDED_POSITIONS, USER_PROFILE } from 'Constants/PropTypes';
 import HomePagePositionsSection from '../HomePagePositionsSection';
 
 const HomePagePositions = ({ homePageFeaturedPositions,

@@ -6,7 +6,7 @@ import numeral from 'numeral';
 import shortid from 'shortid';
 import { downloadFromResponse } from 'utilities';
 import { store } from '../store';
-import { toastSuccess, toastError, toastInfo } from './toast';
+import { toastError, toastInfo, toastSuccess } from './toast';
 import api from '../api';
 
 let cancel;

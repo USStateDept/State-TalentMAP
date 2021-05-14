@@ -7,7 +7,7 @@ import { get } from 'lodash';
 import { comparisonsFetchData } from 'actions/comparisons';
 import { bidListFetchData } from 'actions/bidList';
 import CompareList from 'Components/CompareList/CompareList';
-import { COMPARE_LIST, USER_PROFILE, BID_LIST, SetType } from 'Constants/PropTypes';
+import { BID_LIST, COMPARE_LIST, SetType, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 

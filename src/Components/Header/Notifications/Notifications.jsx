@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { notificationsCountFetchData, notificationsFetchData, handshakeNotificationsFetchData } from '../../../actions/notifications';
+import { handshakeNotificationsFetchData, notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
 
 class Notifications extends Component {

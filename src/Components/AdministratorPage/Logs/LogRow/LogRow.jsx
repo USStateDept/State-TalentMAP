@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
 import { stopProp } from 'utilities';
-import { Row, Column } from '../../../Layout';
+import { Column, Row } from '../../../Layout';
 import { EMPTY_FUNCTION } from '../../../../Constants/PropTypes';
 import InteractiveElement from '../../../InteractiveElement';
 
