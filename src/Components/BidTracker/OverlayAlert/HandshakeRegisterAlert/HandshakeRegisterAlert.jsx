@@ -6,11 +6,6 @@ import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
 import { getPostName, formatDate } from 'utilities';
 
 class HandshakeRegisterAlert extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { expanded: true };
-  }
-
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position.id);
