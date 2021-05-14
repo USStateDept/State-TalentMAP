@@ -56,9 +56,11 @@ const getClassificationsTooltip = (classifications) => (
           />
           {i.text}
         </div>
-        {(get(i, 'seasons') || []).map(s => (
-          <div className="classification-season">{s}</div>
-        ))}
+        <div className="classification-season-wrapper">
+          {(get(i, 'seasons') || []).map(s => (
+            <div className="classification-season">{s}</div>
+          ))}
+        </div>
       </div>
     ))}
   </div>
