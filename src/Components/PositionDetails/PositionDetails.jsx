@@ -12,10 +12,10 @@ import GoBackLink from '../BackButton';
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
   BID_LIST,
+  EMPTY_FUNCTION,
+  HIGHLIGHT_POSITION,
   POSITION_DETAILS,
   USER_PROFILE,
-  HIGHLIGHT_POSITION,
-  EMPTY_FUNCTION,
 } from '../../Constants/PropTypes';
 
 class PositionDetails extends Component {

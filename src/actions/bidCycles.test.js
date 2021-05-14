@@ -1,4 +1,4 @@
-import { fetchBidCycles, RECEIVE_BID_CYCLES } from './bidCycles';
+import { RECEIVE_BID_CYCLES, fetchBidCycles } from './bidCycles';
 import mock from '../__mocks__/bidCycles';
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
 

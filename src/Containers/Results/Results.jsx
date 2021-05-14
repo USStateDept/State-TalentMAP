@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import { withRouter } from 'react-router';
 import queryString from 'query-string';
-import { debounce, get, keys, isString, omit, pickBy, has } from 'lodash';
+import { debounce, get, has, isString, keys, omit, pickBy } from 'lodash';
 import { toastInfo } from 'actions/toast';
 import queryParamUpdate from '../queryParams';
-import { scrollToTop, cleanQueryParams, cleanTandemQueryParams, getAssetPath } from '../../utilities';
+import { cleanQueryParams, cleanTandemQueryParams, getAssetPath, scrollToTop } from '../../utilities';
 import { resultsFetchData } from '../../actions/results';
 import { filtersFetchData } from '../../actions/filters/filters';
 import { bidListFetchData } from '../../actions/bidList';
@@ -18,9 +18,9 @@ import { setSelectedAccordion } from '../../actions/selectedAccordion';
 import { toggleSearchBar } from '../../actions/showSearchBar';
 import ResultsPage from '../../Components/ResultsPage/ResultsPage';
 import CompareDrawer from '../../Components/CompareDrawer';
-import { POSITION_SEARCH_RESULTS, FILTERS_PARENT, ACCORDION_SELECTION_OBJECT,
-  USER_PROFILE, MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY,
-  EMPTY_FUNCTION, BID_LIST, BIDDER_OBJECT } from '../../Constants/PropTypes';
+import { ACCORDION_SELECTION_OBJECT, BIDDER_OBJECT, BID_LIST,
+  EMPTY_FUNCTION, FILTERS_PARENT, MISSION_DETAILS_ARRAY,
+  POSITION_SEARCH_RESULTS, POST_DETAILS_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import { LOGIN_REDIRECT } from '../../login/routes';
 import { POSITION_PAGE_SIZES, POSITION_PAGE_SIZES_TYPE,

@@ -6,9 +6,9 @@ import { filtersFetchData } from '../../actions/filters/filters';
 import { mapSavedSearchesToSingleQuery } from '../../utilities';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from '../../Constants/DefaultProps';
 import {
-  SAVED_SEARCH_PARENT_OBJECT,
   EMPTY_FUNCTION,
   FILTERS_PARENT,
+  SAVED_SEARCH_PARENT_OBJECT,
 } from '../../Constants/PropTypes';
 
 class SavedSearchesMap extends Component {

@@ -1,6 +1,6 @@
-import { homeBannerContentHasErrored,
+import { homeBannerContent,
+  homeBannerContentHasErrored,
   homeBannerContentIsLoading,
-  homeBannerContent,
   homeBannerContentPatchHasErrored,
   homeBannerContentPatchIsLoading,
   homeBannerContentPatchSuccess } from './homeBannerContent';

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { difference, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { updateClassifications } from 'actions/classifications';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';

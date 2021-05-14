@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { get } from 'lodash';
 import numeral from 'numeral';
 import FA from 'react-fontawesome';
-import { PieChart, Pie, Cell } from 'recharts';
+import { Cell, Pie, PieChart } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
 import { Row } from '../../Layout';

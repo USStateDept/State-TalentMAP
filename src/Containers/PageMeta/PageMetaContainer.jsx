@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import PageTitle from '../../Components/PageTitle';
 import routes from '../../routes';
-import { getApplicationPath, getAssetPath, focusById } from '../../utilities';
+import { focusById, getApplicationPath, getAssetPath } from '../../utilities';
 import getBestMatchPath from './helpers';
 
 class PageMetaContainer extends Component {

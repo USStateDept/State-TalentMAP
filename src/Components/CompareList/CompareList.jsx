@@ -2,14 +2,14 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import shortId from 'shortid';
-import { isNull, get } from 'lodash';
+import { get, isNull } from 'lodash';
 import FA from 'react-fontawesome';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
 import COMPARE_LIMIT from 'Constants/Compare';
-import { NO_POST, NO_TOUR_OF_DUTY, NO_BUREAU, NO_SKILL, NO_DATE, NO_GRADE } from 'Constants/SystemMessages';
-import { propOrDefault, formatDate, getPostName, getAccessiblePositionNumber } from 'utilities';
+import { NO_BUREAU, NO_DATE, NO_GRADE, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY } from 'Constants/SystemMessages';
+import { formatDate, getAccessiblePositionNumber, getPostName, propOrDefault } from 'utilities';
 import StaticDevContent from 'Components/StaticDevContent';
 import BackButton from '../BackButton';
 import Spinner from '../Spinner';
@@ -19,7 +19,7 @@ import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import MediaQuery from '../MediaQuery';
 
 export const renderBidCounts = (compareArray, emptyArray) => (

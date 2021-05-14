@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { ROUTER_LOCATION_OBJECT, EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, PROFILE_MENU_SECTION_EXPANDED, ROUTER_LOCATION_OBJECT } from '../../../Constants/PropTypes';
 import isCurrentPath, { checkIfChildrenMatchPath } from '../navigation';
 import InteractiveElement from '../../InteractiveElement';
 import { propOrDefault } from '../../../utilities';

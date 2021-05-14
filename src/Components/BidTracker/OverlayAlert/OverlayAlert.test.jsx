@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import OverlayAlert from './OverlayAlert';
-import { APPROVED_PROP, CLOSED_PROP, HAND_SHAKE_OFFERED_PROP, DRAFT_PROP,
-  HAND_SHAKE_DECLINED_PROP, IN_PANEL_PROP, DECLINED_PROP, PANEL_RESCHEDULED_PROP,
-  HAND_SHAKE_NEEDS_REGISTER_PROP } from '../../../Constants/BidData';
+import { APPROVED_PROP, CLOSED_PROP, DECLINED_PROP, DRAFT_PROP,
+  HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
+  PANEL_RESCHEDULED_PROP } from '../../../Constants/BidData';
 import bidListObject from '../../../__mocks__/bidListObject';
 
 describe('OverlayAlertComponent', () => {

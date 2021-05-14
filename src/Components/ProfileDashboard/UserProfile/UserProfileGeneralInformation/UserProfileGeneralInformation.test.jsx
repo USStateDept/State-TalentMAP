@@ -2,8 +2,6 @@ import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import { bidderUserObject } from '../../../../__mocks__/userObject';
 import {
-  expectMockWasCalled,
-  spyMockAdapter,
   testDispatchFunctions,
 } from '../../../../testUtilities/testUtilities';
 import UserProfileGeneralInformation, { mapDispatchToProps } from './UserProfileGeneralInformation';

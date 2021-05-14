@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import ExportButton from 'Components/ExportButton';
 import { downloadPositionData } from 'actions/favoritePositions';
-import { FAVORITE_POSITIONS_ARRAY, BID_RESULTS, FAVORITE_POSITION_COUNTS, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { BID_RESULTS, EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, FAVORITE_POSITION_COUNTS } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES_COUNTS } from 'Constants/DefaultProps';
 import { POSITION_SEARCH_SORTS_DYNAMIC, filterPVSorts, filterTandemSorts } from 'Constants/Sort';
 import TotalResults from '../TotalResults';
