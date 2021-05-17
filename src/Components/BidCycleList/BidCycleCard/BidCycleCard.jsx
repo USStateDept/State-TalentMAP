@@ -1,6 +1,6 @@
 import MediaQuery from 'react-responsive';
 import { get } from 'lodash';
-import { Row, Column, Card } from '../../Layout';
+import { Card, Column, Row } from '../../Layout';
 import DefinitionList, { Definition } from '../../DefinitionList';
 import { BID_CYCLE } from '../../../Constants/PropTypes';
 import { NO_BID_CYCLE, NO_DATE } from '../../../Constants/SystemMessages';

@@ -1,9 +1,9 @@
-import { bidListHasErrored, bidListIsLoading, bidListFetchDataSuccess,
-  clientBidListHasErrored, clientBidListIsLoading, clientBidListFetchDataSuccess,
+import { acceptBidHasErrored, acceptBidIsLoading, acceptBidSuccess,
+  bidListFetchDataSuccess, bidListHasErrored, bidListIsLoading,
   bidListToggleHasErrored, bidListToggleIsLoading, bidListToggleSuccess,
-  submitBidHasErrored, submitBidIsLoading, submitBidSuccess,
-  acceptBidHasErrored, acceptBidIsLoading, acceptBidSuccess,
-  declineBidHasErrored, declineBidIsLoading, declineBidSuccess } from './bidList';
+  clientBidListFetchDataSuccess, clientBidListHasErrored, clientBidListIsLoading,
+  declineBidHasErrored, declineBidIsLoading, declineBidSuccess,
+  submitBidHasErrored, submitBidIsLoading, submitBidSuccess } from './bidList';
 
 export default {
   bidListHasErrored,

@@ -1,4 +1,4 @@
-import { useState, forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import SearchBar from 'Components/SearchBar/SearchBar';

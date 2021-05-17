@@ -1,6 +1,6 @@
-import { aboutContentHasErrored,
+import { aboutContent,
+  aboutContentHasErrored,
   aboutContentIsLoading,
-  aboutContent,
   aboutContentPatchHasErrored,
   aboutContentPatchIsLoading,
   aboutContentPatchSuccess } from './aboutContent';

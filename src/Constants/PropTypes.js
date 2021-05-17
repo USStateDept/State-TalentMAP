@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import {
   APPROVED_PROP,
   CLOSED_PROP,
-  HAND_SHAKE_OFFERED_PROP,
-  HAND_SHAKE_DECLINED_PROP,
-  IN_PANEL_PROP,
   DECLINED_PROP,
+  HAND_SHAKE_DECLINED_PROP,
+  HAND_SHAKE_OFFERED_PROP,
+  IN_PANEL_PROP,
 } from './BidData';
 import SetType from './SetType';
 

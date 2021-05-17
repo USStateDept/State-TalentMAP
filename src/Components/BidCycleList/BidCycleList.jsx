@@ -1,6 +1,6 @@
 import { find } from 'lodash';
 import BidCycleCard from './BidCycleCard';
-import { Row, Column } from '../Layout';
+import { Column, Row } from '../Layout';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import { BID_CYCLES } from '../../Constants/PropTypes';
 import GET_PROFILE_MENU from '../../Constants/Menu';

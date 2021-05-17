@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
-import { uniqBy, forEach } from 'lodash';
+import { forEach, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
 
 const EditBidder = (props) => {

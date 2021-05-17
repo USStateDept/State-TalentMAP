@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
 import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import {
-  BID_PORTFOLIO_SORTS, BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_SORTS_TYPE,
-  BID_PORTFOLIO_FILTERS_TYPE, CLIENTS_PAGE_SIZES, UNASSIGNED_BIDDERS_FILTERS } from 'Constants/Sort';
+  BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_FILTERS_TYPE, BID_PORTFOLIO_SORTS,
+  BID_PORTFOLIO_SORTS_TYPE, CLIENTS_PAGE_SIZES, UNASSIGNED_BIDDERS_FILTERS } from 'Constants/Sort';
 import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';

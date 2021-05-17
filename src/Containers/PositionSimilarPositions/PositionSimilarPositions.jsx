@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { resultsFetchSimilarPositions } from '../../actions/results';
 import { bidListFetchData } from '../../actions/bidList';
-import { POSITION_SEARCH_RESULTS, USER_PROFILE, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { BID_LIST, EMPTY_FUNCTION, POSITION_SEARCH_RESULTS, USER_PROFILE } from '../../Constants/PropTypes';
 import HomePagePositionsSection from '../../Components/HomePagePositionsSection';
 
 class Position extends Component {

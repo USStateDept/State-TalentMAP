@@ -11,28 +11,28 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
-  propOrDefault,
   getAccessiblePositionNumber,
   getBidStatisticsObject,
+  propOrDefault,
 } from '../../utilities';
 
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
+  EMPTY_FUNCTION,
+  HIGHLIGHT_POSITION,
   POSITION_DETAILS,
   USER_PROFILE,
-  HIGHLIGHT_POSITION,
-  EMPTY_FUNCTION,
 } from '../../Constants/PropTypes';
 import {
   NO_BUREAU,
-  NO_GRADE,
   NO_END_DATE,
+  NO_GRADE,
   NO_TOUR_OF_DUTY,
-  NO_USER_LISTED,
   NO_UPDATE_DATE,
+  NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 export const renderHandshake = stats => (

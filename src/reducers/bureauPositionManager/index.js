@@ -1,4 +1,4 @@
-import { bureauPositionsHasErrored, bureauPositionsIsLoading, bureauPositions, bureauUserSelections } from './bureauPositionManager';
+import { bureauPositions, bureauPositionsHasErrored, bureauPositionsIsLoading, bureauUserSelections } from './bureauPositionManager';
 
 export default {
   bureauPositionsHasErrored,

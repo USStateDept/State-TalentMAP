@@ -12,7 +12,7 @@ import Glossary from '../../Containers/Glossary';
 import AuthorizedWrapper from '../../Containers/AuthorizedWrapper';
 import DarkMode from '../../Containers/DarkMode';
 import checkIndexAuthentication from '../../lib/check-auth';
-import { store, history } from '../../store';
+import { history, store } from '../../store';
 import PageMeta from '../../Containers/PageMeta';
 import Toast from '../Toast';
 import getFlags from '../../flags';
