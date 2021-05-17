@@ -22,7 +22,7 @@ import { getBidIdUrl } from './helpers';
 // Alert rendering based on status is handled here.
 // eslint-disable-next-line complexity
 const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, showArrow },
+  unregisterHandshake, useCDOView, isCollapsible },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
@@ -138,17 +138,22 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     default:
       break;
   }
+
+  const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
+  const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
+
   return (
     overlayContent ?
       <div className={`bid-tracker-overlay-alert ${overlayClass}${collapseOverlay ? ' collapse-overlay' : ''}`}>
-        {showArrow && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status')) &&
+        {isCollapsible$ &&
           <InteractiveElement onClick={toggleOverlay}>
             <Tooltip
               title={collapseOverlay ? 'Expand overlay' : 'Collapse overlay'}
               arrow
             >
               <FontAwesome
-                name={`arrow-circle-${collapseOverlay ? 'left' : 'right'}`}
+                style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                name="arrow-circle-right"
               />
             </Tooltip>
           </InteractiveElement>
@@ -171,13 +176,13 @@ OverlayAlert.propTypes = {
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
   useCDOView: PropTypes.bool,
-  showArrow: PropTypes.bool,
+  isCollapsible: PropTypes.bool,
 };
 
 OverlayAlert.defaultProps = {
   userId: '',
   useCDOView: false,
-  showArrow: false,
+  isCollapsible: false,
 };
 
 OverlayAlert.contextTypes = {
