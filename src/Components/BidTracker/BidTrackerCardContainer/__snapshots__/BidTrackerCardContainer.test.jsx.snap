@@ -60,10 +60,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
     condensedView={false}
     declineBid={[Function]}
     deleteBid={[Function]}
+    isCollapsible={true}
     priorityExists={false}
     readOnly={false}
     registerHandshake={[Function]}
-    showArrow={true}
     showBidCount={true}
     showRibbons={true}
     submitBid={[Function]}
@@ -289,10 +289,10 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
       condensedView={false}
       declineBid={[Function]}
       deleteBid={[Function]}
+      isCollapsible={true}
       priorityExists={false}
       readOnly={false}
       registerHandshake={[Function]}
-      showArrow={true}
       showBidCount={false}
       showRibbons={true}
       submitBid={[Function]}

@@ -192,8 +192,8 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         }
         declineBid={[Function]}
         deleteBid={[Function]}
+        isCollapsible={true}
         registerHandshake={[Function]}
-        showArrow={true}
         submitBid={[Function]}
         unregisterHandshake={[Function]}
         useCDOView={false}
