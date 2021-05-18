@@ -1,6 +1,11 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
+import { useState } from 'react';
+import InteractiveElement from 'Components/InteractiveElement';
+import FontAwesome from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
+import { get, includes } from 'lodash';
+import { APPROVED_PROP, CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
   PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
@@ -16,7 +21,7 @@ import { getBidIdUrl } from './helpers';
 // Alert rendering based on status is handled here.
 // eslint-disable-next-line complexity
 const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, userName },
+  unregisterHandshake, useCDOView, isCollapsible, userName },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -39,6 +44,12 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
         <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
     }
   };
+
+  const [collapseOverlay, setCollapseOverlay] = useState(false);
+
+  function toggleOverlay() {
+    setCollapseOverlay(!collapseOverlay);
+  }
 
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
@@ -116,9 +127,26 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     default:
       break;
   }
+
+  const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
+  const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
+
   return (
     overlayContent ?
-      <div className={`bid-tracker-overlay-alert ${overlayClass}`}>
+      <div className={`bid-tracker-overlay-alert ${overlayClass}${collapseOverlay ? ' collapse-overlay' : ''}`}>
+        {isCollapsible$ &&
+          <InteractiveElement onClick={toggleOverlay}>
+            <Tooltip
+              title={collapseOverlay ? 'Expand overlay' : 'Collapse overlay'}
+              arrow
+            >
+              <FontAwesome
+                style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                name="arrow-circle-right"
+              />
+            </Tooltip>
+          </InteractiveElement>
+        }
         <div className={`${bid.status !== HAND_SHAKE_OFFERED_PROP ? 'bid-tracker-overlay-alert-content-container' : ''}`}>
           <div className={`${bid.status !== HAND_SHAKE_OFFERED_PROP ? 'bid-tracker-overlay-alert-content' : ''}`}>
             {overlayContent}
@@ -138,12 +166,14 @@ OverlayAlert.propTypes = {
   unregisterHandshake: PropTypes.func.isRequired,
   useCDOView: PropTypes.bool,
   userName: PropTypes.string,
+  isCollapsible: PropTypes.bool,
 };
 
 OverlayAlert.defaultProps = {
   userId: '',
   useCDOView: false,
   userName: '',
+  isCollapsible: false,
 };
 
 OverlayAlert.contextTypes = {
