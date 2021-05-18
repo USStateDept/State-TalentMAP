@@ -198,6 +198,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
+        userName="John"
       />
     </div>
   </div>

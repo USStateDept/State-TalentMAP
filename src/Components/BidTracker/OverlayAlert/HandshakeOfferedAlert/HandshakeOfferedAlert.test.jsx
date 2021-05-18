@@ -1,12 +1,13 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
+import { BID_OBJECT } from 'Constants/PropTypes';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 
 describe('HandshakeOfferedAlertComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={() => {}} declineBid={() => {}} />,
+      <HandshakeOfferedAlert id={1} bid={BID_OBJECT} userName="test" acceptBid={() => {}} declineBid={() => {}} />,
     );
     expect(wrapper).toBeDefined();
   });
@@ -14,7 +15,7 @@ describe('HandshakeOfferedAlertComponent', () => {
   it('can accept a bid', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={spy} declineBid={() => {}} />,
+      <HandshakeOfferedAlert id={1} bid={BID_OBJECT} userName="test" acceptBid={spy} declineBid={() => {}} />,
     );
     const button = wrapper.find('button').at(0);
     button.simulate('click');
@@ -24,7 +25,7 @@ describe('HandshakeOfferedAlertComponent', () => {
   it('can decline a bid', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={() => {}} declineBid={spy} />,
+      <HandshakeOfferedAlert id={1} bid={BID_OBJECT} userName="test" acceptBid={() => {}} declineBid={spy} />,
     );
     const button = wrapper.find('button').at(1);
     button.simulate('click');
@@ -33,7 +34,7 @@ describe('HandshakeOfferedAlertComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={() => {}} declineBid={() => {}} />,
+      <HandshakeOfferedAlert id={1} bid={BID_OBJECT} userName="test" acceptBid={() => {}} declineBid={() => {}} />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

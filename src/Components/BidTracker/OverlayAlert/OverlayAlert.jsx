@@ -5,7 +5,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { get, includes } from 'lodash';
-import { APPROVED_PROP, CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
+import { CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
   PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';

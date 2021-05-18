@@ -263,6 +263,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
+        userProfile={Object {}}
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -331,6 +332,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
+        userProfile={Object {}}
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -402,6 +404,7 @@ exports[`BidListComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
+        userProfile={Object {}}
       />
     </div>
     <div
