@@ -56,7 +56,9 @@ class HandshakeOfferedAlert extends Component {
               <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid}>
                 Decline Handshake
               </button>
-              <div>24 hours to accept the handshake</div>
+              <StaticDevContent>
+                <div>24 hours to accept the handshake</div>
+              </StaticDevContent>
             </div>
             <div className="right-half">
               <div style={{ display: 'flex' }}>
