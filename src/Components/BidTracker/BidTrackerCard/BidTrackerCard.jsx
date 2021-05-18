@@ -5,7 +5,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
-import { BID_OBJECT, /* USER_PROFILE, */ EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import BidSteps from '../BidStep';
 // import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
@@ -31,7 +31,7 @@ class BidTrackerCard extends Component {
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
-      registerHandshake, showBidCount, /* userProfile, */ useCDOView, userId,
+      registerHandshake, showBidCount, userProfile, useCDOView, userId,
       unregisterHandshake, showRibbons } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
@@ -113,6 +113,7 @@ class BidTrackerCard extends Component {
                   submitBid={submitBid}
                   deleteBid={deleteBid}
                   userId={userId}
+                  userName={get(userProfile, 'user.first_name', '')}
                   registerHandshake={registerHandshake}
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
@@ -154,7 +155,7 @@ BidTrackerCard.propTypes = {
   deleteBid: PropTypes.func.isRequired,
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
-  // userProfile: USER_PROFILE,
+  userProfile: USER_PROFILE,
   showBidCount: PropTypes.bool,
   condensedView: PropTypes.bool,
   priorityExists: PropTypes.bool,
@@ -167,7 +168,7 @@ BidTrackerCard.propTypes = {
 BidTrackerCard.defaultProps = {
   acceptBid: EMPTY_FUNCTION,
   declineBid: EMPTY_FUNCTION,
-  // userProfile: {},
+  userProfile: {},
   showBidCount: true,
   condensedView: false,
   priorityExists: false,

@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { APPROVED_PROP, CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
+import { CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
   PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
-import ApprovedAlert from './ApprovedAlert';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
 import HandshakeDeclinedAlert from './HandshakeDeclinedAlert';
@@ -17,10 +16,9 @@ import { getBidIdUrl } from './helpers';
 // Alert rendering based on status is handled here.
 // eslint-disable-next-line complexity
 const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView },
+  unregisterHandshake, useCDOView, userName },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
-  const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
@@ -42,13 +40,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     }
   };
 
-  const setApproved = () => {
-    if (!condensedView) {
-      overlayClass = CLASS_SUCCESS;
-      overlayContent = <ApprovedAlert />;
-    }
-  };
-
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
       overlayClass = CLASS_REGISTER;
@@ -59,15 +50,13 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
           bid={bid}
         />);
       break;
-    case APPROVED_PROP:
-      setApproved();
-      break;
     case HAND_SHAKE_OFFERED_PROP:
       overlayClass = CLASS_PENDING;
       overlayContent = (
         <HandshakeOfferedAlert
           id={bid.id}
-          userName={bid.user}
+          userName={userName}
+          bid={bid}
           acceptBid={acceptBid}
           declineBid={declineBid}
           bidIdUrl={bidIdUrl}
@@ -130,8 +119,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   return (
     overlayContent ?
       <div className={`bid-tracker-overlay-alert ${overlayClass}`}>
-        <div className="bid-tracker-overlay-alert-content-container">
-          <div className="bid-tracker-overlay-alert-content">
+        <div className={`${bid.status !== HAND_SHAKE_OFFERED_PROP ? 'bid-tracker-overlay-alert-content-container' : ''}`}>
+          <div className={`${bid.status !== HAND_SHAKE_OFFERED_PROP ? 'bid-tracker-overlay-alert-content' : ''}`}>
             {overlayContent}
           </div>
         </div>
@@ -148,11 +137,13 @@ OverlayAlert.propTypes = {
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
   useCDOView: PropTypes.bool,
+  userName: PropTypes.string,
 };
 
 OverlayAlert.defaultProps = {
   userId: '',
   useCDOView: false,
+  userName: '',
 };
 
 OverlayAlert.contextTypes = {

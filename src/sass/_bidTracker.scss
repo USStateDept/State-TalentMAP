@@ -1141,10 +1141,29 @@ $register-icon-offset: 44%;
 }
 
 .bid-tracker-alert-container--handshake-offered {
-  top: 30px;
+  padding: 30px;
 
   button {
-    margin-right: 30px;
+    margin: 20px 30px 20px 0;
+  }
+  .link-button-wrapper {
+    margin: auto;
+  }
+  .tm-button-no-box {
+    text-decoration: underline;
+  }
+  .right-half {
+    border-left: 1px solid $color-white;
+    text-align: left;
+    flex: 1;
+    padding-left: 50px;
+    span {
+      font-weight: bold;
+    }
+    .hs-offered-date {
+      font-size: small;
+      text-align: right;
+    }
   }
 }
 
