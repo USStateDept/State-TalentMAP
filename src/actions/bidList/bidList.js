@@ -260,7 +260,6 @@ export function clientBidListFetchData(ordering = 'draft_date') {
       api().get(endpoint)
         .then((response) => {
           batch(() => {
-            console.log('x');
             dispatch(clientBidListFetchDataSuccess({ results: mapBidData(get(response, 'data.results') || []) }));
             dispatch(clientBidListHasErrored(false));
             dispatch(clientBidListIsLoading(false));
