@@ -2,10 +2,11 @@ import { batch } from 'react-redux';
 import axios from 'axios';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
-import api from '../api';
-import { toastError, toastSuccess } from './toast';
-import { userProfilePublicFetchData } from './userProfilePublic';
-import * as SystemMessages from '../Constants/SystemMessages';
+import * as SystemMessages from 'Constants/SystemMessages';
+import api from '../../api';
+import { toastError, toastSuccess } from '../toast';
+import { userProfilePublicFetchData } from '../userProfilePublic';
+import { mapBidData } from './helpers';
 
 export function downloadBidlistData(useClient = false, clientId = '') {
   const url = useClient && clientId ? `/fsbid/cdo/client/${clientId}/export/` : '/fsbid/bidlist/export/';
@@ -18,7 +19,7 @@ export function downloadBidlistData(useClient = false, clientId = '') {
     })
     .catch(() => {
       // eslint-disable-next-line global-require
-      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+      require('../../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
     });
 }
 
@@ -228,7 +229,7 @@ export function bidListFetchData(ordering = 'draft_date') {
     const endpoint = `/fsbid/bidlist/?ordering=${ordering}`;
 
     api().get(endpoint)
-      .then(response => response.data.results)
+      .then(response => mapBidData(get(response, 'data.results') || []))
       .then((results) => {
         batch(() => {
           dispatch(bidListFetchDataSuccess({ results }));
@@ -259,7 +260,8 @@ export function clientBidListFetchData(ordering = 'draft_date') {
       api().get(endpoint)
         .then((response) => {
           batch(() => {
-            dispatch(clientBidListFetchDataSuccess({ results: get(response, 'data.results', []) }));
+            console.log('x');
+            dispatch(clientBidListFetchDataSuccess({ results: mapBidData(get(response, 'data.results') || []) }));
             dispatch(clientBidListHasErrored(false));
             dispatch(clientBidListIsLoading(false));
           });

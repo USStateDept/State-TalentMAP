@@ -1,3 +1,5 @@
+import { checkFlag } from 'flags';
+
 import limitedConfig from './Limited';
 import completeConfig from './Complete';
 
@@ -9,7 +11,7 @@ export const TYPE_LIMITED = 'limited';
 // This could be configured with a feature flag,
 // but the old bidding model would break the UI.
 // eslint-disable-next-line no-confusing-arrow
-export const BID_PHASE_TYPE = () => TYPE_LIMITED;
+export const BID_PHASE_TYPE = () => checkFlag('flags.handshake_bidding') ? TYPE_COMPLETE : TYPE_LIMITED;
 
 export const isTypeComplete = () => BID_PHASE_TYPE() === TYPE_COMPLETE;
 
