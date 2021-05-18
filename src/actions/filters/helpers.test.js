@@ -1,10 +1,10 @@
 import {
+  doesCodeOrIdMatch,
   getCustomGradeDescription,
   getFilterCustomAttributes,
   getFilterCustomDescription,
   getPillDescription,
   getPostOrMissionDescription,
-  doesCodeOrIdMatch,
   isBooleanFilter,
   isPercentageFilter,
 } from './helpers';

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { GROUPED_GLOSSARY_ARRAYS_OBJECT, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../../Constants/PropTypes';
+import { GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT, GROUPED_GLOSSARY_ARRAYS_OBJECT } from '../../../Constants/PropTypes';
 import LetterList from '../LetterList';
 import GroupedCardList from './GroupedCardList';
 import Alert from '../../Alert';

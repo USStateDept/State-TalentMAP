@@ -24,7 +24,7 @@
     "ecmaVersion": 6,
     "ecmaFeatures": {
       "jsx": true
-    },
+    }
   },
   "settings": {
     "import/resolver": {
@@ -37,8 +37,15 @@
       }
     }
   },
+  "plugins": [
+    "no-loops"
+  ],
   // overrides to the Airbnb style follow
-  "rules": {
+    "rules": {
+    "no-loops/no-loops": 2,
+    "sort-imports": ["error", {
+      "ignoreDeclarationSort": true
+    }],
     "linebreak-style": [0],
     "react/jsx-uses-react": [0],
     "react/react-in-jsx-scope": [0],

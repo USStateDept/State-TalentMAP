@@ -1,4 +1,4 @@
-import { merge, isNumber, isString } from 'lodash';
+import { isNumber, isString, merge } from 'lodash';
 import Base from '../Base';
 
 export const columnsMap = {

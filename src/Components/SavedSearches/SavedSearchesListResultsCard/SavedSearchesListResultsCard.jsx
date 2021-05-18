@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { POSITION_DETAILS, MAPPED_PARAM_ARRAY } from 'Constants/PropTypes';
-import { NO_UPDATE_DATE, GET_NOW_AVAILABLE, GET_POSITIONS_ADDED } from 'Constants/SystemMessages';
-import { mapSavedSearchToDescriptions, formatDate } from 'utilities';
-import { Row, Column } from '../../Layout';
+import { MAPPED_PARAM_ARRAY, POSITION_DETAILS } from 'Constants/PropTypes';
+import { GET_NOW_AVAILABLE, GET_POSITIONS_ADDED, NO_UPDATE_DATE } from 'Constants/SystemMessages';
+import { formatDate, mapSavedSearchToDescriptions } from 'utilities';
+import { Column, Row } from '../../Layout';
 import MediaQueryWrapper from '../../MediaQuery';
 import DefinitionList, { Definition } from '../../DefinitionList';
 import SavedSearchPillList from '../../SavedSearchPillList';

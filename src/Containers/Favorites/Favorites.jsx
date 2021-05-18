@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { usePrevious } from 'hooks';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { get, isEqual, keys } from 'lodash';
-import { withDefault, withQueryParams, NumberParam, StringParam } from 'use-query-params';
+import { NumberParam, StringParam, withDefault, withQueryParams } from 'use-query-params';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
 import { bidListFetchData } from 'actions/bidList';
 import { userProfileToggleFavoritePosition } from 'actions/userProfile';
-import { FAVORITE_POSITIONS, BID_LIST, EMPTY_FUNCTION, SetType } from 'Constants/PropTypes';
+import { BID_LIST, EMPTY_FUNCTION, FAVORITE_POSITIONS, SetType } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES } from 'Constants/DefaultProps';
 import FavoritePositions from 'Components/FavoritePositions';
 import CompareDrawer from 'Components/CompareDrawer';

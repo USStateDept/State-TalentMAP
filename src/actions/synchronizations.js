@@ -1,7 +1,7 @@
 import Q from 'q';
 import { omit } from 'lodash';
 import api from '../api';
-import { toastSuccess, toastError, toastWarning } from './toast';
+import { toastError, toastSuccess, toastWarning } from './toast';
 
 export function syncsHasErrored(bool) {
   return {

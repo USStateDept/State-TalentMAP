@@ -7,7 +7,7 @@ import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
-import { Row, Column } from '../Layout';
+import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
 import Favorite from '../../Containers/Favorite';
 import MediaQueryWrapper from '../MediaQuery';
@@ -15,20 +15,20 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import bannerImg from '../../assets/svg/card-flag.svg';
 
-import { formatDate, propOrDefault, getPostName, shortenString,
-  getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
+import { formatDate, getBidStatisticsObject, getDifferentialPercentage, getPostName,
+  propOrDefault, shortenString } from '../../utilities';
 
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { FAVORITE_POSITIONS_ARRAY, POSITION_DETAILS } from '../../Constants/PropTypes';
 import {
-  NO_BUREAU, NO_BID_CYCLE, NO_GRADE, NO_POSITION_NUMBER,
-  NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
+  NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
+  NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 export const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;

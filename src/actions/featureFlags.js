@@ -2,7 +2,7 @@ import { batch } from 'react-redux';
 import { get } from 'lodash';
 import axios from 'axios';
 import { getAssetPath } from 'utilities';
-import { toastSuccess, toastError } from './toast';
+import { toastError, toastSuccess } from './toast';
 import api from '../api';
 import * as SystemMessages from '../Constants/SystemMessages';
 
