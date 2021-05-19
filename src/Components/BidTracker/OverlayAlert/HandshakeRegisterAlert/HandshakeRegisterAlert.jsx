@@ -25,6 +25,7 @@ class HandshakeRegisterAlert extends Component {
     const skillCode = position.skill ? position.skill : NO_SKILL;
     const grade = position.grade ? position.grade : NO_GRADE;
     const ted = formatDate('2020-07-02T05:00:00Z');
+    // Updates are needed on the BE to hook into TED
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     // modify line 6: import NO_TOUR_END_DATE from SystemMessages
     let mainText;
