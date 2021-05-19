@@ -25,6 +25,7 @@
     "ao": true,
     "available_bidders": true,
     "unassigned_filters": true,
-    "classifications": true
+    "classifications": true,
+    "handshake_bidding": true
   }
 }
