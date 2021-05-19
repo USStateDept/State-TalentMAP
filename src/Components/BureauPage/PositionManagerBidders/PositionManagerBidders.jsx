@@ -13,6 +13,7 @@ import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
+import HandshakeStatus from 'Components/HandshakeStatus';
 import InteractiveElement from 'Components/InteractiveElement';
 import ShortListLock from '../ShortListLock';
 import MailToButton from '../../MailToButton';
@@ -186,47 +187,6 @@ class PositionManagerBidders extends Component {
 
   getList = id => this.state[this.id2List[id]];
 
-
-  getHSClass = status => {
-    switch (status) {
-      case 'O':
-        return {
-          bidder: 'inactive',
-          bidderIcon: 'hand-paper-o',
-          bureau: 'offered',
-          bureauIcon: 'hand-paper-o',
-        };
-      case 'R':
-        return {
-          bidder: 'inactive',
-          bidderIcon: 'hand-paper-o',
-          bureau: 'revoked',
-          bureauIcon: 'hand-rock-o',
-        };
-      case 'A':
-        return {
-          bidder: 'accepted',
-          bidderIcon: 'hand-paper-o',
-          bureau: 'offered',
-          bureauIcon: 'hand-paper-o',
-        };
-      case 'D':
-        return {
-          bidder: 'declined',
-          bidderIcon: 'hand-rock-o',
-          bureau: 'offered',
-          bureauIcon: 'hand-paper-o',
-        };
-      default:
-        return {
-          bidder: 'inactive',
-          bidderIcon: 'hand-paper-o',
-          bureau: 'inactive',
-          bureauIcon: 'hand-paper-o',
-        };
-    }
-  }
-
   // type = 'shortListVisible' or 'unrankedVisible'
   toggleVisibility = type => {
     const type$ = get(this.state, type);
@@ -241,7 +201,6 @@ class PositionManagerBidders extends Component {
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
     const handshakeOffered = get(m, 'tmap_hs.status');
-    const hsStyling = this.getHSClass(handshakeOffered);
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -273,16 +232,7 @@ class PositionManagerBidders extends Component {
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
       Action:
         <>
-          <div className="hs-status-container">
-            <div className={`hs-status-bureau ${hsStyling.bureau}`}>
-              <FA name={`${hsStyling.bureauIcon} fa-rotate-90`} />
-            </div>
-            <div className={`hs-status-bidder ${hsStyling.bidder}`}>
-              <span className="fa-flip-vertical">
-                <FA name={`${hsStyling.bidderIcon} fa-rotate-270`} />
-              </span>
-            </div>
-          </div>
+          <HandshakeStatus />
           <button
             className=""
             title={`${!handshakeOffered || handshakeOffered === 'R' ? 'Offer' : 'Revoke'} handshake`}

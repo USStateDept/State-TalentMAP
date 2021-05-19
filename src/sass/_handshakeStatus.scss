@@ -1,0 +1,30 @@
+.hs-status-container {
+  display: flex;
+  justify-content: center;
+
+  div {
+    display: flex;
+    justify-content: space-around;
+    min-width: 30px;
+  }
+
+  .inactive {
+    background-color: lightgrey;
+  }
+
+  .offered, .accepted {
+    background-color: limegreen;
+  }
+
+  .revoked, .declined {
+    background-color: lightcoral;
+  }
+
+  .hs-status-bureau {
+
+  }
+
+  .hs-status-bidder {
+
+  }
+}

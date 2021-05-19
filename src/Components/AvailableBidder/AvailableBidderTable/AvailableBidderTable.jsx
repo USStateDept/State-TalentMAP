@@ -15,7 +15,7 @@ import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
 
 
-const AvailableBidderTable = (props) => {
+const AvailableBidderTable = props => {
   // CDO or Bureau version
   const { isCDO } = props;
 
