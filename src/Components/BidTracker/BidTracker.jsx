@@ -19,11 +19,13 @@ const STATUS = 'status';
 const UPDATED = 'update_date';
 const LOCATION = 'position.post.location.city';
 const REVERSE_STATUS = '-status';
+const DRAFT = 'draft';
 // const TED = 'position.ted'; TODO - add
 
 const SORT_OPTIONS = [
   { value: STATUS, text: 'Active Bids', defaultSort: true },
   { value: REVERSE_STATUS, text: 'Inactive Bids' },
+  { value: DRAFT, text: 'Draft Bids' },
   { value: UPDATED, text: 'Recently updated' },
   { value: LOCATION, text: 'City name (A-Z)' },
   // { value: TED, text: 'TED' }, TODO - add
@@ -56,6 +58,9 @@ class BidTracker extends Component {
         break;
       case LOCATION:
         results$ = orderBy(results$, LOCATION);
+        break;
+      case DRAFT:
+        results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
         break;
       case STATUS:
         results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
