@@ -6,6 +6,8 @@
     display: flex;
     justify-content: space-around;
     min-width: 30px;
+    font-size: 20px;
+    clip-path: polygon(0 25%, 75% 25%, 100% 50%, 75% 75%, 0 75%);
   }
 
   .inactive {
@@ -28,3 +30,5 @@
 
   }
 }
+
+

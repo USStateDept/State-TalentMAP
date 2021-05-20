@@ -54,11 +54,11 @@ const HandshakeStatus = props => {
     <>
       <div className="hs-status-container">
         <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
-          <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
+          <FA name={`${bureauStyle.bureauIcon} fa-rotate-90 fa-lg`} />
         </div>
         <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
           <span className="fa-flip-vertical">
-            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
+            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270 fa-lg`} />
           </span>
         </div>
       </div>
