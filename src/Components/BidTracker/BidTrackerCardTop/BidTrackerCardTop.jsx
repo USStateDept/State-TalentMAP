@@ -24,17 +24,17 @@ class BidTrackerCardTop extends Component {
 
   onDeleteBid = () => {
     const { deleteBid, bid } = this.props;
-    deleteBid(bid.position.id);
+    deleteBid(get(bid, 'position_info.id'));
   };
 
   render() {
     const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;
     const { readOnly } = this.context;
-    const { position } = bid;
+    const { position_info } = bid;
     // const showQuestion = !!(questionText && questionText.text);
-    const bidStatistics = get(bid, 'bid_statistics[0]', {});
-    const post = get(position, 'post', {});
-    const positionNumber = get(position, 'position_number');
+    const bidStatistics = get(bid, 'position_info.bid_statistics[0]') || {};
+    const post = get(position_info, 'post') || {};
+    const positionNumber = get(position_info, 'position_number');
     const biddingTips = useBiddingTips();
 
     const getQuestionElement = () => (
@@ -49,14 +49,14 @@ class BidTrackerCardTop extends Component {
       <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
         <div className="bid-tracker-title-content-container">
           <BidTrackerCardTitle
-            title={position.title}
+            title={position_info.title}
             positionNumber={positionNumber}
-            id={bid.position.id}
+            id={position_info.id}
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}
             showBidCount={showBidCount}
-            bidCycle={bid.bidcycle}
+            bidCycle={position_info.bidcycle.name}
           />
         </div>
         <div className="bid-tracker-card-title-outer-container-right">

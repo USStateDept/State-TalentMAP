@@ -6,6 +6,13 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
+import {
+  APPROVED_PROP,
+  // HAND_SHAKE_ACCEPTED_PROP,
+  // PRE_PANEL_PROP,
+  // IN_PANEL_PROP,
+  // BID_EXPLANATION_TEXT,
+} from 'Constants/BidData';
 import BidSteps from '../BidStep';
 // import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
@@ -14,13 +21,6 @@ import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert } from '../BidHelpers';
 import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
-import {
-  APPROVED_PROP,
-  // HAND_SHAKE_ACCEPTED_PROP,
-  // PRE_PANEL_PROP,
-  // IN_PANEL_PROP,
-  // BID_EXPLANATION_TEXT,
-} from '../../../Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
 import MediaQuery from '../../MediaQuery';
 
@@ -39,9 +39,9 @@ class BidTrackerCard extends Component {
     /* const showContacts = [APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, PRE_PANEL_PROP, IN_PANEL_PROP]
                         .includes(bid.status); */
     // add class to container for draft since we need to apply an overflow:hidden for drafts only
-    const bidStatus = get(bid, 'status', '');
+    const bidStatus = get(bid, 'status') || '';
     const statusClass = `bid-tracker-bid-steps-container--${formatIdSpacing(bidStatus)}`;
-    const bidStatistics = get(bid, 'bid_statistics[0]', {});
+    const bidStatistics = get(bid, 'position_info.bid_statistics[0]') || {};
     const containerClass = [
       'bid-tracker',
       condensedView ? 'bid-tracker--condensed' : '',
@@ -129,7 +129,7 @@ class BidTrackerCard extends Component {
               <div className="padded-container-inner">
                 <BidTrackerCardBottom
                   reviewer={bid.reviewer}
-                  bureau={bid.position.bureau}
+                  bureau={bid.position_info.position.bureau}
                   userProfile={userProfile}
                 />
               </div>

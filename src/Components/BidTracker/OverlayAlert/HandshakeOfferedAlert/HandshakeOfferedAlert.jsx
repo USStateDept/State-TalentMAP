@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { NO_BID_CYCLE, NO_BUREAU, NO_DANGER_PAY,
   NO_GRADE, NO_LANGUAGE, NO_POSITION_NUMBER, NO_POSITION_TITLE,
-  NO_POST, NO_POST_DIFFERENTIAL, NO_SKILL, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
+  NO_POST, NO_POST_DIFFERENTIAL, NO_SKILL, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
 import { formatDate, getDifferentialPercentage, getPostName } from 'utilities';
 import StaticDevContent from 'Components/StaticDevContent';
 import LinkButton from '../../../LinkButton';
@@ -25,20 +25,20 @@ class HandshakeOfferedAlert extends Component {
   render() {
     const { userName, bidIdUrl, bid } = this.props;
     const { condensedView } = this.context;
-    const { position } = bid;
-    const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
-    const positionNumber = get(position, 'position_number') || NO_POSITION_NUMBER;
-    const post = getPostName(get(position, 'post'), NO_POST);
-    const ted = formatDate('2020-05-18T05:00:00Z');
-    const bidCycle = get(bid, 'bidcycle') || NO_BID_CYCLE;
-    const skill = get(position, 'skill') || NO_SKILL;
-    const grade = get(position, 'grade') || NO_GRADE;
-    const bureau = get(position, 'bureau') || NO_BUREAU;
-    const tod = get(position, 'post.tour_of_duty') || NO_TOUR_OF_DUTY;
-    const language = get(position, 'languages') || NO_LANGUAGE;
-    const postDiff = getDifferentialPercentage(get(position, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
-    const dangerPay = get(position, 'post.danger_pay') || NO_DANGER_PAY;
-    const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
+    const { position_info } = bid;
+    const positionTitle = get(position_info, 'title') || NO_POSITION_TITLE;
+    const positionNumber = get(position_info, 'position_number') || NO_POSITION_NUMBER;
+    const post = getPostName(get(position_info, 'post'), NO_POST);
+    const ted = formatDate(get(position_info, 'ted')) || NO_TOUR_END_DATE;
+    const bidCycle = get(position_info, 'bidcycle.name') || NO_BID_CYCLE;
+    const skill = get(position_info, 'skill') || NO_SKILL;
+    const grade = get(position_info, 'grade') || NO_GRADE;
+    const bureau = get(position_info, 'position.bureau') || NO_BUREAU;
+    const tod = get(position_info, 'position.tour_of_duty') || NO_TOUR_OF_DUTY;
+    const language = get(position_info, 'position.languages') || NO_LANGUAGE;
+    const postDiff = getDifferentialPercentage(get(position_info, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
+    const dangerPay = get(position_info, 'post.danger_pay') || NO_DANGER_PAY;
+    const incumbent = get(position_info, 'position.current_assignment.user') || NO_USER_LISTED;
 
     return (
       <div className="bid-tracker-alert-container--handshake-offered">
