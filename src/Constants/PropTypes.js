@@ -312,9 +312,16 @@ export const POSITION_POST_NESTED_LOCATION = PropTypes.shape({
   state: PropTypes.string,
 });
 
+export const BID_CYCLE_NAME_TYPE = PropTypes.oneOfType([
+  PropTypes.shape({
+    name: PropTypes.string,
+  }),
+  PropTypes.string,
+]);
+
 export const BID_CYCLE = PropTypes.shape({
   id: PropTypes.number,
-  name: PropTypes.string,
+  name: BID_CYCLE_NAME_TYPE,
   cycle_start_date: PropTypes.string,
   cycle_deadline_date: PropTypes.string,
   cycle_end_date: PropTypes.string,
@@ -323,12 +330,7 @@ export const BID_CYCLE = PropTypes.shape({
 
 export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
 
-export const BID_CYCLE_NAME_TYPE = PropTypes.oneOfType([
-  PropTypes.shape({
-    name: PropTypes.string,
-  }),
-  PropTypes.string,
-]);
+
 
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
@@ -373,23 +375,13 @@ export const BID_OBJECT = PropTypes.shape({
         has_handshake_accepted: PropTypes.bool,
       },
     ],
-    grade: PropTypes.string,
-    skill: PropTypes.string,
-    position_number: PropTypes.string,
-    title: PropTypes.string,
-    create_date: PropTypes.string,
-    update_date: PropTypes.string,
-    post: PropTypes.shape({
-      id: PropTypes.number,
-      location: POSITION_POST_NESTED_LOCATION,
-    }),
+    unaccompaniedStatus: PropTypes.string,
+    isConsumable: PropTypes.bool,
+    isServiceNeedDifferential: PropTypes.bool,
+    isDifficultToStaff: PropTypes.bool,
+    isEFMInside: PropTypes.bool,
+    isEFMOutside: PropTypes.bool,
   }),
-  unaccompaniedStatus: PropTypes.string,
-  isConsumable: PropTypes.bool,
-  isServiceNeedDifferential: PropTypes.bool,
-  isDifficultToStaff: PropTypes.bool,
-  isEFMInside: PropTypes.bool,
-  isEFMOutside: PropTypes.bool,
 });
 
 export const BID_RESULTS = PropTypes.arrayOf(

@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
-import { BID_OBJECT } from '../../../Constants/PropTypes';
+import { BID_OBJECT } from 'Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 // import ConfirmLink from '../../ConfirmLink';
 // import GlossaryTermTrigger from '../../GlossaryTermTrigger';
@@ -32,8 +32,8 @@ class BidTrackerCardTop extends Component {
     const { readOnly } = this.context;
     const { position_info } = bid;
     // const showQuestion = !!(questionText && questionText.text);
-    const bidStatistics = get(bid, 'position_info.bid_statistics[0]') || {};
-    const post = get(position_info, 'post') || {};
+    const bidStatistics = get(position_info, 'bid_statistics[0]') || {};
+    const post = get(position_info, 'position.post') || {};
     const positionNumber = get(position_info, 'position_number');
     const biddingTips = useBiddingTips();
 

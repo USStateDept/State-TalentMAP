@@ -7,7 +7,7 @@ import { Tooltip } from 'react-tippy';
 import { get, includes } from 'lodash';
 import { CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
-  PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
+  PANEL_RESCHEDULED_PROP, NO_BUREAU } from 'Constants/BidData';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
 import HandshakeDeclinedAlert from './HandshakeDeclinedAlert';
@@ -29,8 +29,9 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
 
-  const { position } = bid;
-  const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
+  const { position_info } = bid;
+  const BID_TITLE = `${position_info.title}${position_info.position_number ? ` (${position_info.position_number})` : ''}`;
+  const bureau = get(position_info, 'position.bureau') || NO_BUREAU;
 
   const bidIdUrl = getBidIdUrl(bid.id, readOnly, userId);
 
@@ -94,14 +95,14 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       overlayContent = (
         <HandshakeDeclinedAlert
           userName={bid.user}
-          bureau={position.bureau}
+          bureau={bureau}
           bidIdUrl={bidIdUrl}
         />
       );
       break;
     case DECLINED_PROP:
       overlayClass = CLASS_CLOSED;
-      overlayContent = <DeclinedAlert bureau={position.bureau} id={bid.id} bidIdUrl={bidIdUrl} />;
+      overlayContent = <DeclinedAlert bureau={bureau} id={bid.id} bidIdUrl={bidIdUrl} />;
       break;
     case CLOSED_PROP:
       overlayClass = CLASS_CLOSED;

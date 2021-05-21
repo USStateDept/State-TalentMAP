@@ -2,28 +2,29 @@ import { Component } from 'react';
 import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { NO_GRADE, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
+import {NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL} from 'Constants/SystemMessages';
 import { formatDate, getPostName } from 'utilities';
+import {get} from "../../../../utilities";
 
 class HandshakeRegisterAlert extends Component {
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
-    registerHandshake(bid.position.id);
+    registerHandshake(bid.position_info.id);
   };
 
   onUnregisterHandshake = () => {
     const { unregisterHandshake, bid } = this.props;
-    unregisterHandshake(bid.position.id);
+    unregisterHandshake(bid.position_info.id);
   };
 
   render() {
     const { bid, isUnregister, userName } = this.props;
     const { readOnly } = this.context;
-    const { position } = bid;
-    const positionTitle = position.title;
-    const post = getPostName(position.post, NO_POST);
-    const skillCode = position.skill ? position.skill : NO_SKILL;
-    const grade = position.grade ? position.grade : NO_GRADE;
+    const { position_info } = bid;
+    const positionTitle = get(position_info, 'title') || NO_POSITION_TITLE;
+    const post = getPostName(get(position_info, 'post'), NO_POST);
+    const skillCode = position_info.skill ? position_info.skill : NO_SKILL;
+    const grade = get(position_info, 'grade') || NO_GRADE;
     const ted = formatDate('2020-07-02T05:00:00Z');
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     // modify line 6: import NO_TOUR_END_DATE from SystemMessages

@@ -28,7 +28,7 @@ class HandshakeOfferedAlert extends Component {
     const { position_info } = bid;
     const positionTitle = get(position_info, 'title') || NO_POSITION_TITLE;
     const positionNumber = get(position_info, 'position_number') || NO_POSITION_NUMBER;
-    const post = getPostName(get(position_info, 'post'), NO_POST);
+    const post = getPostName(get(position_info, 'position.post'), NO_POST);
     const ted = formatDate(get(position_info, 'ted')) || NO_TOUR_END_DATE;
     const bidCycle = get(position_info, 'bidcycle.name') || NO_BID_CYCLE;
     const skill = get(position_info, 'skill') || NO_SKILL;
