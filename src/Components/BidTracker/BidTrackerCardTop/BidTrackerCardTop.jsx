@@ -31,10 +31,11 @@ class BidTrackerCardTop extends Component {
     const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;
     const { readOnly } = this.context;
     const { position_info } = bid;
+    const { position } = position_info;
     // const showQuestion = !!(questionText && questionText.text);
     const bidStatistics = get(position_info, 'bid_statistics[0]') || {};
-    const post = get(position_info, 'position.post') || {};
-    const positionNumber = get(position_info, 'position_number');
+    const post = get(position, 'post') || {};
+    const positionNumber = get(position, 'position_number');
     const biddingTips = useBiddingTips();
 
     const getQuestionElement = () => (
@@ -49,7 +50,7 @@ class BidTrackerCardTop extends Component {
       <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
         <div className="bid-tracker-title-content-container">
           <BidTrackerCardTitle
-            title={position_info.title}
+            title={position.title}
             positionNumber={positionNumber}
             id={position_info.id}
             status={bid.status}

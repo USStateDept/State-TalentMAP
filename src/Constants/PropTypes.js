@@ -330,8 +330,6 @@ export const BID_CYCLE = PropTypes.shape({
 
 export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
 
-
-
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
   emp_id: PropTypes.string,

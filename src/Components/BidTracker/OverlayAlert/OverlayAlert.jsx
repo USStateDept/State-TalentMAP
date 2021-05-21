@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
+import { NO_BUREAU } from 'Constants/SystemMessages';
 import { useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
@@ -7,7 +8,7 @@ import { Tooltip } from 'react-tippy';
 import { get, includes } from 'lodash';
 import { CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
-  PANEL_RESCHEDULED_PROP, NO_BUREAU } from 'Constants/BidData';
+  PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
 import HandshakeDeclinedAlert from './HandshakeDeclinedAlert';
@@ -29,9 +30,9 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
 
-  const { position_info } = bid;
-  const BID_TITLE = `${position_info.title}${position_info.position_number ? ` (${position_info.position_number})` : ''}`;
-  const bureau = get(position_info, 'position.bureau') || NO_BUREAU;
+  const { position } = bid.position_info;
+  const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
+  const bureau = get(position, 'bureau') || NO_BUREAU;
 
   const bidIdUrl = getBidIdUrl(bid.id, readOnly, userId);
 

@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { get } from 'lodash';
+import { get, join, pick, values } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { NO_BID_CYCLE, NO_BUREAU, NO_DANGER_PAY,
-  NO_GRADE, NO_LANGUAGE, NO_POSITION_NUMBER, NO_POSITION_TITLE,
+  NO_GRADE, NO_LANGUAGES, NO_POSITION_NUMBER, NO_POSITION_TITLE,
   NO_POST, NO_POST_DIFFERENTIAL, NO_SKILL, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
 import { formatDate, getDifferentialPercentage, getPostName } from 'utilities';
 import StaticDevContent from 'Components/StaticDevContent';
@@ -26,19 +26,21 @@ class HandshakeOfferedAlert extends Component {
     const { userName, bidIdUrl, bid } = this.props;
     const { condensedView } = this.context;
     const { position_info } = bid;
-    const positionTitle = get(position_info, 'title') || NO_POSITION_TITLE;
-    const positionNumber = get(position_info, 'position_number') || NO_POSITION_NUMBER;
-    const post = getPostName(get(position_info, 'position.post'), NO_POST);
+    const { position } = position_info;
+    const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
+    const positionNumber = get(position, 'position_number') || NO_POSITION_NUMBER;
+    const post = getPostName(get(position, 'post'), NO_POST);
     const ted = formatDate(get(position_info, 'ted')) || NO_TOUR_END_DATE;
     const bidCycle = get(position_info, 'bidcycle.name') || NO_BID_CYCLE;
-    const skill = get(position_info, 'skill') || NO_SKILL;
-    const grade = get(position_info, 'grade') || NO_GRADE;
-    const bureau = get(position_info, 'position.bureau') || NO_BUREAU;
-    const tod = get(position_info, 'position.tour_of_duty') || NO_TOUR_OF_DUTY;
-    const language = get(position_info, 'position.languages') || NO_LANGUAGE;
-    const postDiff = getDifferentialPercentage(get(position_info, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
-    const dangerPay = get(position_info, 'post.danger_pay') || NO_DANGER_PAY;
-    const incumbent = get(position_info, 'position.current_assignment.user') || NO_USER_LISTED;
+    const skill = get(position, 'skill') || NO_SKILL;
+    const grade = get(position, 'grade') || NO_GRADE;
+    const bureau = get(position, 'bureau') || NO_BUREAU;
+    const tod = get(position, 'tour_of_duty') || NO_TOUR_OF_DUTY;
+    const languages = get(position, 'languages');
+    const languages$ = join(values(languages.forEach(l => pick(l, ['language']))), ', ') || NO_LANGUAGES;
+    const postDiff = getDifferentialPercentage(get(position, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
+    const dangerPay = get(position, 'post.danger_pay') || NO_DANGER_PAY;
+    const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
 
     return (
       <div className="bid-tracker-alert-container--handshake-offered">
@@ -70,13 +72,11 @@ class HandshakeOfferedAlert extends Component {
                   <div><span>Grade: </span>{grade}</div>
                 </div>
                 <div style={{ flex: 1 }}>
-                  <StaticDevContent>
-                    <div><span>Bureau: </span>{bureau}</div>
-                    <div><span>Tour of Duty: </span>{tod}</div>
-                    <div><span>Bid Language: </span>{language}</div>
-                    <div><span>Post Differential | Danger Pay: </span>{postDiff}|{dangerPay}</div>
-                    <div><span>Incumbent: </span>{incumbent}</div>
-                  </StaticDevContent>
+                  <div><span>Bureau: </span>{bureau}</div>
+                  <div><span>Tour of Duty: </span>{tod}</div>
+                  <div><span>Bid Languages: </span>{languages$}</div>
+                  <div><span>Post Differential | Danger Pay: </span>{postDiff}|{dangerPay}</div>
+                  <div><span>Incumbent: </span>{incumbent}</div>
                 </div>
               </div>
               <StaticDevContent>
@@ -91,7 +91,10 @@ class HandshakeOfferedAlert extends Component {
 }
 
 HandshakeOfferedAlert.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
   userName: PropTypes.string.isRequired,
   bid: BID_OBJECT.isRequired,
   acceptBid: PropTypes.func.isRequired,
