@@ -38,7 +38,8 @@ const AddToInternalListButton = props => {
   // Options for text change
   const getText = () => inInternalList() ? 'from AB List' : 'to AB List';
   // const getText = () => inInternalList() ? 'from ABL' : 'to ABL';
-  // const getText = () => inInternalList() ? 'from Avail.Bidders List' : 'to Avail.Bidders List';
+  // const getText = () => inInternalList() ? 'from Avail.Bidders' : 'to Avail.Bidders';
+  // const getText = () => inInternalList() ? 'Avail.Bidders List' : 'Avail.Bidders List';
   // const getText = () => inInternalList() ? 'from Available Bidders' : 'to Available Bidders';
   const getIcon = () => inInternalList() ? 'minus' : 'plus';
 
