@@ -40,7 +40,7 @@ const AddToInternalListButton = props => {
   // const getText = () => inInternalList() ? 'from ABL' : 'to ABL';
   // const getText = () => inInternalList() ? 'from Avail.Bidders' : 'to Avail.Bidders';
   // const getText = () => inInternalList() ? 'Avail.Bidders List' : 'Avail.Bidders List';
-  // const getText = () => inInternalList() ? 'from Available Bidders' : 'to Available Bidders';
+  // const getText = () => inInternalList() ? 'Available Bidders' : 'Available Bidders';
   const getIcon = () => inInternalList() ? 'minus' : 'plus';
 
   return (
