@@ -96,6 +96,9 @@
     "use-query-params": "^1.2.2",
     "uswds": "~1.6.12"
   },
+  "@comment devDependencies": [
+    "dart-sass 1.33.0 introduces a breaking change to division. This causes uswds compilation to fail. https://github.com/sass/dart-sass/releases/tag/1.33.0"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.14.3",
     "@babel/core": "^7.14.3",
@@ -157,7 +160,7 @@
     "redux-saga-test-plan": "^3.7.0",
     "redux-testkit": "^1.0.6",
     "resolve-url-loader": "4.0.0",
-    "sass": "^1.32.13",
+    "sass": "1.32.13",
     "sass-lint": "^1.13.1",
     "sass-loader": "^10.1.1",
     "sinon": "^2.4.1",
