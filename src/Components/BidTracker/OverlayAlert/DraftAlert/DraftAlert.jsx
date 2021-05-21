@@ -15,11 +15,11 @@ class DraftAlert extends Component {
   render() {
     const { bid } = this.props;
     const { readOnly } = this.context;
-    const { position } = bid;
-    const positionTitle = position.title;
-    const post = getPostName(position.post, NO_POST);
-    const skillCode = position.skill ? position.skill : NO_SKILL;
-    const grade = position.grade ? position.grade : NO_GRADE;
+    const { position_info } = bid;
+    const positionTitle = position_info.title;
+    const post = getPostName(position_info.post, NO_POST);
+    const skillCode = position_info.skill ? position_info.skill : NO_SKILL;
+    const grade = position_info.grade ? position_info.grade : NO_GRADE;
     const ted = formatDate('2020-07-02T05:00:00Z');
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     // modify line 6: import NO_TOUR_END_DATE from SystemMessages
