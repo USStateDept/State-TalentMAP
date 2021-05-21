@@ -1,5 +1,5 @@
-import { setupAsyncMocks } from '../testUtilities/testUtilities';
-import * as actions from './bidList';
+import { setupAsyncMocks } from '../../testUtilities/testUtilities';
+import * as actions from './index';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
 
