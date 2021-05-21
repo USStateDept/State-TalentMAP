@@ -9,7 +9,7 @@ import { formatDate, getPostName } from 'utilities';
 class DraftAlert extends Component {
   onSubmitBid = () => {
     const { submitBid, bid } = this.props;
-    submitBid(bid.position.id);
+    submitBid(bid.position_info.id);
   };
 
   render() {

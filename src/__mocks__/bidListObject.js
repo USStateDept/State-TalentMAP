@@ -5,28 +5,30 @@ const bidListObject = {
   results: [
     {
       id: 3,
-      bidcycle: {
-        name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
-      },
       user: 'rehmant',
-      position: {
+      position_info: {
         id: 11,
-        grade: '03',
-        skill: 'POLITICAL AND ECONOMIC AFFAIRS (6050)',
-        position_number: '10035561',
-        title: 'POLITICAL/ECONOMIC OFFICER',
-        create_date: '2015-08-05',
-        update_date: '2017-06-08',
-        bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
-        post: {
-          id: 199,
-          location: {
-            id: 103,
-            country: 'Sierra Leone',
-            code: '00A',
-            city: 'Freetown',
-            state: '',
+        position: {
+          grade: '03',
+          skill: 'POLITICAL AND ECONOMIC AFFAIRS (6050)',
+          position_number: '10035561',
+          title: 'POLITICAL/ECONOMIC OFFICER',
+          create_date: '2015-08-05',
+          update_date: '2017-06-08',
+          bureau: '(AF) BUREAU OF AFRICAN AFFAIRS',
+          post: {
+            id: 199,
+            location: {
+              id: 103,
+              country: 'Sierra Leone',
+              code: '00A',
+              city: 'Freetown',
+              state: '',
+            },
           },
+        },
+        bidcycle: {
+          name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
         },
       },
       status: 'approved',
@@ -54,12 +56,8 @@ const bidListObject = {
     },
     {
       id: 1,
-      bidcycle: {
-        name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
-      },
       user: 'rehmant',
-      position: {
-        id: 1,
+      position_info: {
         position: {
           id: 1,
           grade: '05',
@@ -78,6 +76,9 @@ const bidListObject = {
               city: 'Freetown',
               state: '',
             },
+          },
+          bidcycle: {
+            name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
           },
         },
       },
@@ -106,11 +107,8 @@ const bidListObject = {
     },
     {
       id: 2,
-      bidcycle: {
-        name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
-      },
       user: 'rehmant',
-      position: {
+      position_info: {
         id: 79,
         position: {
           id: 84,
@@ -130,6 +128,9 @@ const bidListObject = {
               city: 'Freetown',
               state: '',
             },
+          },
+          bidcycle: {
+            name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
           },
         },
       },

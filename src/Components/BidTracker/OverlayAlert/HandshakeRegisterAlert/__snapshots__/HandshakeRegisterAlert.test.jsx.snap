@@ -45,7 +45,7 @@ exports[`HandshakeRegisterAlert matches snapshot 1`] = `
       }
     >
       <div>
-        POLITICAL/ECONOMIC OFFICER
+        None listed
       </div>
       <div>
         <span
@@ -53,7 +53,7 @@ exports[`HandshakeRegisterAlert matches snapshot 1`] = `
         >
           Location: 
         </span>
-        Freetown, Sierra Leone
+        None listed
       </div>
       <div>
         <Connect(StaticDevContent)>
@@ -71,7 +71,7 @@ exports[`HandshakeRegisterAlert matches snapshot 1`] = `
         >
           Skill: 
         </span>
-        POLITICAL AND ECONOMIC AFFAIRS (6050)
+        None listed
       </div>
       <div>
         <span
@@ -79,7 +79,7 @@ exports[`HandshakeRegisterAlert matches snapshot 1`] = `
         >
           Grade: 
         </span>
-        03
+        None listed
       </div>
     </div>
   </div>
