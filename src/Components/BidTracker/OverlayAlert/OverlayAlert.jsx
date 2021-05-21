@@ -30,7 +30,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
 
-  const { position } = bid.position_info;
+  const position = get(bid, 'position_info.position');
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
   const bureau = get(position, 'bureau') || NO_BUREAU;
 
