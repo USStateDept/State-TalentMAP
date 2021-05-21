@@ -12,12 +12,12 @@ const HandshakeStatus = props => {
   } = props;
 
   const getBureauStyling = () => {
-    if (bureauStatus === 'O') {
+    if (bureauStatus === 'handshake_offered') {
       return {
         bureau: 'offered',
         bureauIcon: 'hand-paper-o',
       };
-    } else if (bureauStatus === 'R') {
+    } else if (bureauStatus === 'handshake_offer_revoked') {
       return {
         bureau: 'revoked',
         bureauIcon: 'hand-rock-o',
@@ -30,12 +30,12 @@ const HandshakeStatus = props => {
   };
 
   const getBidderStyling = () => {
-    if (bidderStatus === 'A') {
+    if (bidderStatus === 'handshake_offer_accepted') {
       return {
         bidder: 'accepted',
         bidderIcon: 'hand-paper-o',
       };
-    } else if (bidderStatus === 'D') {
+    } else if (bidderStatus === 'handshake_offer_declined') {
       return {
         bidder: 'declined',
         bidderIcon: 'hand-rock-o',
@@ -54,11 +54,13 @@ const HandshakeStatus = props => {
     <>
       <div className="hs-status-container">
         <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
-          <FA name={`${bureauStyle.bureauIcon} fa-rotate-90 fa-lg`} />
+          <span className="fa-sm">
+            <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
+          </span>
         </div>
         <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
           <span className="fa-flip-vertical">
-            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270 fa-lg`} />
+            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270 fa-sm`} />
           </span>
         </div>
       </div>

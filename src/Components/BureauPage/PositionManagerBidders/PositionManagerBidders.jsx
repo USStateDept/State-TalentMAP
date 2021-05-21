@@ -200,7 +200,11 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
-    const handshakeOffered = get(m, 'tmap_hs.status');
+    const hsStatusCode = get(m, 'hs_status_code');
+    // Break out hsStatusCode with Mike's DB update
+    // const hsBureauStatus
+    // const hsBidderStatus
+    const shouldOffer = !hsStatusCode || hsStatusCode === 'handshake_offer_revoked';
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -232,16 +236,19 @@ class PositionManagerBidders extends Component {
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
       Action:
         <>
-          <HandshakeStatus />
+          <HandshakeStatus
+            bureauStatus={hsStatusCode}
+            bidderStatus={hsStatusCode}
+          />
           <button
             className=""
-            title={`${!handshakeOffered || handshakeOffered === 'R' ? 'Offer' : 'Revoke'} handshake`}
-            onClick={!handshakeOffered || handshakeOffered === 'R' ?
+            title={`${shouldOffer ? 'Offer' : 'Revoke'} handshake`}
+            onClick={shouldOffer ?
               () => props.offerHS(m.emp_id, props.id) :
               () => props.revokeHS(m.emp_id, props.id)
             }
           >
-            {`${!handshakeOffered || handshakeOffered === 'R' ? 'Offer' : 'Revoke'} handshake`}
+            {`${shouldOffer ? 'Offer' : 'Revoke'} handshake`}
           </button>
         </>,
     };

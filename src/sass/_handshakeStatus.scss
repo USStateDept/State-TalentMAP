@@ -4,10 +4,8 @@
 
   div {
     display: flex;
-    justify-content: space-around;
-    min-width: 30px;
+    min-width: 40px;
     font-size: 20px;
-    clip-path: polygon(0 25%, 75% 25%, 100% 50%, 75% 75%, 0 75%);
   }
 
   .inactive {
@@ -15,19 +13,21 @@
   }
 
   .offered, .accepted {
-    background-color: limegreen;
+    background-color: green;
   }
 
   .revoked, .declined {
-    background-color: lightcoral;
+    background-color: red;
   }
 
   .hs-status-bureau {
-
+    clip-path: polygon(0 0, 75% 0%, 100% 50%, 75% 100%, 0 100%);
+    padding-left: 5px;
   }
 
   .hs-status-bidder {
-
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
+    padding-left: 15px;
   }
 }
 
