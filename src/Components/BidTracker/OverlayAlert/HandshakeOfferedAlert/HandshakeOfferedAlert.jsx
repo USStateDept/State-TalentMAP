@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { get, join, pick, values } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,17 +10,18 @@ import { NO_BID_CYCLE, NO_BUREAU, NO_DANGER_PAY,
   NO_POST, NO_POST_DIFFERENTIAL, NO_SKILL, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
 import { formatDate, getDifferentialPercentage, getPostName } from 'utilities';
 import StaticDevContent from 'Components/StaticDevContent';
+import { acceptHandshake, declineHandshake } from '../../../../actions/handshake2';
 import LinkButton from '../../../LinkButton';
 
 class HandshakeOfferedAlert extends Component {
   onAcceptBid = () => {
-    const { acceptBid, id } = this.props;
-    acceptBid(id);
+    const { acceptBidHandshake, bid } = this.props;
+    acceptBidHandshake(get(bid, 'position_info.id'));
   };
 
   onDeclineBid = () => {
-    const { declineBid, id } = this.props;
-    declineBid(id);
+    const { declineBidHandshake, bid } = this.props;
+    declineBidHandshake(get(bid, 'position_info.id'));
   };
 
   render() {
@@ -91,15 +93,16 @@ class HandshakeOfferedAlert extends Component {
 }
 
 HandshakeOfferedAlert.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
   id: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
   userName: PropTypes.string.isRequired,
   bid: BID_OBJECT.isRequired,
-  acceptBid: PropTypes.func.isRequired,
-  declineBid: PropTypes.func.isRequired,
   bidIdUrl: PropTypes.string,
+  acceptBidHandshake: PropTypes.func.isRequired,
+  declineBidHandshake: PropTypes.func.isRequired,
 };
 
 HandshakeOfferedAlert.defaultProps = {
@@ -110,4 +113,9 @@ HandshakeOfferedAlert.contextTypes = {
   condensedView: PropTypes.bool,
 };
 
-export default HandshakeOfferedAlert;
+export const mapDispatchToProps = dispatch => ({
+  acceptBidHandshake: cp_id => dispatch(acceptHandshake(cp_id)),
+  declineBidHandshake: cp_id => dispatch(declineHandshake(cp_id)),
+});
+
+export default connect(null, mapDispatchToProps)(HandshakeOfferedAlert);

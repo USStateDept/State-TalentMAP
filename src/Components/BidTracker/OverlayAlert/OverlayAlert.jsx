@@ -20,7 +20,8 @@ import DraftAlert from './DraftAlert';
 import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
-// eslint-disable-next-line complexity
+// do i need to prop-drill the acceptBid and declineBid?????
+// eslint-disable-next-line complexity,no-unused-vars
 const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
   unregisterHandshake, useCDOView, isCollapsible, userName },
 { condensedView, readOnly }) => {
@@ -70,8 +71,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
           id={bid.id}
           userName={userName}
           bid={bid}
-          acceptBid={acceptBid}
-          declineBid={declineBid}
           bidIdUrl={bidIdUrl}
         />
       );
