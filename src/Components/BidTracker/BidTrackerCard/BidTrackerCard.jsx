@@ -6,22 +6,15 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
-import {
-  APPROVED_PROP,
-  // HAND_SHAKE_ACCEPTED_PROP,
-  // PRE_PANEL_PROP,
-  // IN_PANEL_PROP,
-  // BID_EXPLANATION_TEXT,
-} from 'Constants/BidData';
+import { APPROVED_PROP } from 'Constants/BidData';
+import { formatDate, formatIdSpacing, getTimeDistanceInWords } from 'utilities';
 import BidSteps from '../BidStep';
-// import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
 import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert } from '../BidHelpers';
 import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
-import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
 import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
