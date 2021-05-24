@@ -32,7 +32,7 @@ class BidTrackerCard extends Component {
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
       registerHandshake, showBidCount, /* userProfile, */ useCDOView, userId,
-      unregisterHandshake, showRibbons } = this.props;
+      unregisterHandshake, showRibbons, isCollapsible } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
     // determine whether we should show the contacts section based on the status
@@ -116,6 +116,7 @@ class BidTrackerCard extends Component {
                   registerHandshake={registerHandshake}
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
+                  isCollapsible={isCollapsible}
                 />
             }
           </div>
@@ -162,6 +163,7 @@ BidTrackerCard.propTypes = {
   readOnly: PropTypes.bool,
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   showRibbons: PropTypes.bool,
+  isCollapsible: PropTypes.bool,
 };
 
 BidTrackerCard.defaultProps = {
@@ -175,6 +177,7 @@ BidTrackerCard.defaultProps = {
   readOnly: false,
   userId: '',
   showRibbons: true,
+  isCollapsible: true,
 };
 
 BidTrackerCard.childContextTypes = {
