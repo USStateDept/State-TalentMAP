@@ -1,5 +1,6 @@
-import { faLanguage, faGraduationCap, faUserFriends, faMedal, faTree, faRegistered, faChessQueen,
-  faSeedling, faPercentage, faBalanceScaleLeft, faDiceSix, faSpa } from '@fortawesome/free-solid-svg-icons';
+import { faBalanceScaleLeft, faChessQueen, faDiceSix,
+  faGraduationCap, faLanguage, faMedal, faPercentage,
+  faRegistered, faSeedling, faSpa, faTree, faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 export const Classifications = [
   {
