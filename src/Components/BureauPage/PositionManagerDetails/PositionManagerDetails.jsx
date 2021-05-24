@@ -12,7 +12,6 @@ import { NO_POST } from 'Constants/SystemMessages';
 import { POSITION_DETAILS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bureauBidsFetchData, bureauBidsAllFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
-import { offerHandshake, revokeHandshake } from 'actions/handshake';
 import ExportButton from '../ExportButton';
 import PositionManagerBidders from '../PositionManagerBidders';
 
@@ -80,7 +79,7 @@ class PositionManagerDetails extends Component {
   render() {
     const { id, hasLoaded, filters, ordering } = this.state;
     const { allBids, allBidsIsLoading, bids, bidsIsLoading, bureauPositionIsLoading,
-      bureauPosition, ranking, rankingIsLoading, offerHS, revokeHS } = this.props;
+      bureauPosition, ranking, rankingIsLoading } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
@@ -140,8 +139,6 @@ class PositionManagerDetails extends Component {
                       isLocked={bureauPosition.is_locked}
                       hasBureauPermission={bureauPosition.has_bureau_permission}
                       hasPostPermission={bureauPosition.has_post_permission}
-                      offerHS={offerHS}
-                      revokeHS={revokeHS}
                     />
                   </div>
                 </div>
@@ -167,8 +164,6 @@ PositionManagerDetails.propTypes = {
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
   allBidsIsLoading: PropTypes.bool,
   rankingIsLoading: PropTypes.bool,
-  offerHS: PropTypes.Func,
-  revokeHS: PropTypes.Func,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -177,8 +172,6 @@ PositionManagerDetails.defaultProps = {
   getPositionDetails: EMPTY_FUNCTION,
   getBidsRanking: EMPTY_FUNCTION,
   setRanking: EMPTY_FUNCTION,
-  offerHS: EMPTY_FUNCTION,
-  revokeHS: EMPTY_FUNCTION,
   bids: [],
   bidsIsLoading: false,
   bureauPositionIsLoading: false,
@@ -207,8 +200,6 @@ export const mapDispatchToProps = dispatch => ({
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
   downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),
   setRanking: (id, ranking) => dispatch(bureauBidsSetRanking(id, ranking)),
-  offerHS: (id, cp_id) => dispatch(offerHandshake(id, cp_id)),
-  revokeHS: (id, cp_id) => dispatch(revokeHandshake(id, cp_id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));

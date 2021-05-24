@@ -6,6 +6,7 @@
     display: flex;
     min-width: 40px;
     font-size: 20px;
+    color: $color-white;
   }
 
   .inactive {
@@ -13,11 +14,11 @@
   }
 
   .offered, .accepted {
-    background-color: green;
+    background-color: $color-green;
   }
 
   .revoked, .declined {
-    background-color: red;
+    background-color: $color-red;
   }
 
   .hs-status-bureau {

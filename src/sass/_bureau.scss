@@ -502,6 +502,12 @@
     }
     td:last-of-type {
       flex-direction: column;
+      align-items: center;
+
+      button {
+        margin: 5px;
+        width: 82px;
+      }
     }
     @media screen and (max-width: 1700px) {
       td {

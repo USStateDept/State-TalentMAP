@@ -13,7 +13,8 @@ import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_SORT, BUREAU_BIDDER_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
-import HandshakeStatus from 'Components/HandshakeStatus';
+import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
+import HandshakeBureauButton from 'Components/Handshake/HandshakeBureauButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import ShortListLock from '../ShortListLock';
 import MailToButton from '../../MailToButton';
@@ -204,7 +205,6 @@ class PositionManagerBidders extends Component {
     // Break out hsStatusCode with Mike's DB update
     // const hsBureauStatus
     // const hsBidderStatus
-    const shouldOffer = !hsStatusCode || hsStatusCode === 'handshake_offer_revoked';
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -240,16 +240,11 @@ class PositionManagerBidders extends Component {
             bureauStatus={hsStatusCode}
             bidderStatus={hsStatusCode}
           />
-          <button
-            className=""
-            title={`${shouldOffer ? 'Offer' : 'Revoke'} handshake`}
-            onClick={shouldOffer ?
-              () => props.offerHS(m.emp_id, props.id) :
-              () => props.revokeHS(m.emp_id, props.id)
-            }
-          >
-            {`${shouldOffer ? 'Offer' : 'Revoke'} handshake`}
-          </button>
+          <HandshakeBureauButton
+            bureauStatus={hsStatusCode}
+            positionID={props.id}
+            personID={m.emp_id}
+          />
         </>,
     };
 
