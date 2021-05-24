@@ -1,4 +1,4 @@
-import { bureauPositionDetailsHasErrored, bureauPositionDetailsIsLoading, bureauPositionDetails } from './bureauPositionDetails';
+import { bureauPositionDetails, bureauPositionDetailsHasErrored, bureauPositionDetailsIsLoading } from './bureauPositionDetails';
 
 export default {
   bureauPositionDetailsHasErrored,

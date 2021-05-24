@@ -1,4 +1,4 @@
-import { handshakeOfferedNotification, handshakeAcceptedNotification } from './bidTracker';
+import { handshakeAcceptedNotification, handshakeOfferedNotification } from './bidTracker';
 
 export default {
   handshakeOfferedNotification,

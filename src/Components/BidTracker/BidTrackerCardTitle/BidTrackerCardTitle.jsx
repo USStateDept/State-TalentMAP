@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { BID_STATISTICS_OBJECT, POST_DETAILS, BID_CYCLE_NAME_TYPE } from 'Constants/PropTypes';
-import { getPostName, getBidCycleName } from 'utilities';
+import { BID_CYCLE_NAME_TYPE, BID_STATISTICS_OBJECT, POST_DETAILS } from 'Constants/PropTypes';
+import { getBidCycleName, getPostName } from 'utilities';
 import { getStatusProperty } from 'Constants/BidStatuses';
 import { APPROVED_PROP } from 'Constants/BidData';
 import BidCount from '../../BidCount';

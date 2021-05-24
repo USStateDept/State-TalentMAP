@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, find, orderBy, reverse } from 'lodash';
+import { find, get, orderBy, reverse } from 'lodash';
 import Alert from 'Components/Alert';
 import ExportButton from 'Components/ExportButton';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';

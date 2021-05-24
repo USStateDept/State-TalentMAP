@@ -1,4 +1,4 @@
-import { setupAsyncMocks, spyMockAdapter, expectMockWasCalled } from '../testUtilities/testUtilities';
+import { expectMockWasCalled, setupAsyncMocks, spyMockAdapter } from '../testUtilities/testUtilities';
 import * as actions from './bidStatistics';
 import { bidStatisticsList } from '../__mocks__/bidStatistics';
 

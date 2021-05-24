@@ -1,5 +1,5 @@
 import sinon from 'sinon';
-import { shallow, mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';

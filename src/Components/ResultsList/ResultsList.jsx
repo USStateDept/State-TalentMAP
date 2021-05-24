@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { get } from 'lodash';
 import ResultsCard from 'Components/ResultsCard/ResultsCard';
-import { POSITION_SEARCH_RESULTS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS } from 'Constants/PropTypes';
+import { BID_RESULTS, FAVORITE_POSITIONS_ARRAY, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 
 export const getIsGroupEnd = (results, i) => {
   const nextIndex = i + 1;

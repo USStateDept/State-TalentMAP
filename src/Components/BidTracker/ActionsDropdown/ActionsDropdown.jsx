@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
+import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
 import { toggleBidPosition } from '../../../actions/bidList';
 import ActionsLink from '../ActionsLink';
 import InteractiveElement from '../../InteractiveElement';

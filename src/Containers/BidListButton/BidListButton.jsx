@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SetType, BID_LIST, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { BID_LIST, EMPTY_FUNCTION, SetType } from '../../Constants/PropTypes';
 import { toggleBidPosition, toggleClientBidPosition } from '../../actions/bidList';
 import BidListButton from '../../Components/BidListButton';
 

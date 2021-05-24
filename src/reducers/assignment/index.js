@@ -1,3 +1,3 @@
-import { assignmentHasErrored, assignmentIsLoading, assignment } from './assignment';
+import { assignment, assignmentHasErrored, assignmentIsLoading } from './assignment';
 
 export default { assignmentHasErrored, assignmentIsLoading, assignment };
