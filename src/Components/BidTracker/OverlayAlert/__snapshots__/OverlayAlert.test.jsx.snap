@@ -219,8 +219,7 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered"
     <div
       className=""
     >
-      <HandshakeOfferedAlert
-        acceptBid={[Function]}
+      <Connect(HandshakeOfferedAlert)
         bid={
           Object {
             "approved_date": "2017-12-20",
@@ -275,7 +274,6 @@ exports[`OverlayAlertComponent matches snapshot when type is "handshake_offered"
           }
         }
         bidIdUrl="/profile/bidtracker/3"
-        declineBid={[Function]}
         id={3}
         userName=""
       />

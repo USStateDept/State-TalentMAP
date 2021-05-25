@@ -47,7 +47,9 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         }
       }
     >
-      <div />
+      <div>
+        None listed
+      </div>
       <div>
         <span
           className="title"
@@ -57,14 +59,12 @@ exports[`DraftAlertComponent matches snapshot 1`] = `
         None listed
       </div>
       <div>
-        <Connect(StaticDevContent)>
-          <span
-            className="title"
-          >
-            TED: 
-          </span>
-          07/02/2020
-        </Connect(StaticDevContent)>
+        <span
+          className="title"
+        >
+          TED: 
+        </span>
+        None listed
       </div>
       <div>
         <span

@@ -28,7 +28,7 @@ class HandshakeOfferedAlert extends Component {
     const { userName, bidIdUrl, bid } = this.props;
     const { condensedView } = this.context;
     const { position_info } = bid;
-    const { position } = position_info;
+    const position = bid.position_info;
     const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
     const positionNumber = get(position, 'position_number') || NO_POSITION_NUMBER;
     const post = getPostName(get(position, 'post'), NO_POST);
@@ -39,11 +39,14 @@ class HandshakeOfferedAlert extends Component {
     const bureau = get(position, 'bureau') || NO_BUREAU;
     const tod = get(position, 'tour_of_duty') || NO_TOUR_OF_DUTY;
     const languages = get(position, 'languages');
-    const languages$ = join(values(languages.forEach(l => pick(l, ['language']))), ', ') || NO_LANGUAGES;
     const postDiff = getDifferentialPercentage(get(position, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
     const dangerPay = get(position, 'post.danger_pay') || NO_DANGER_PAY;
     const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
     const hsOfferedDate = formatDate(get(bid, 'handshake.hs_date_offered')) || DEFAULT_TEXT;
+    let languages$ = NO_LANGUAGES;
+    if (languages) {
+      languages$ = join(values(languages.forEach(l => pick(l, ['language']))), ', ');
+    }
 
     return (
       <div className="bid-tracker-alert-container--handshake-offered">

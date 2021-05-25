@@ -31,7 +31,7 @@ class BidTrackerCardTop extends Component {
     const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;
     const { readOnly } = this.context;
     const { position_info } = bid;
-    const { position } = position_info;
+    const position = bid.position_info;
     // const showQuestion = !!(questionText && questionText.text);
     const bidStatistics = get(position_info, 'bid_statistics[0]') || {};
     const post = get(position, 'post') || {};

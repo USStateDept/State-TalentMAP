@@ -97,7 +97,7 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
             <span>
               TED: 
             </span>
-            05/18/2020
+            None listed
           </div>
           <div>
             <span>
@@ -125,50 +125,46 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
             }
           }
         >
-          <Connect(StaticDevContent)>
-            <div>
-              <span>
-                Bureau: 
-              </span>
-              None listed
-            </div>
-            <div>
-              <span>
-                Tour of Duty: 
-              </span>
-              None listed
-            </div>
-            <div>
-              <span>
-                Bid Language: 
-              </span>
-              None listed
-            </div>
-            <div>
-              <span>
-                Post Differential | Danger Pay: 
-              </span>
-              None listed
-              |
-              None listed
-            </div>
-            <div>
-              <span>
-                Incumbent: 
-              </span>
-              None listed
-            </div>
-          </Connect(StaticDevContent)>
+          <div>
+            <span>
+              Bureau: 
+            </span>
+            None listed
+          </div>
+          <div>
+            <span>
+              Tour of Duty: 
+            </span>
+            None listed
+          </div>
+          <div>
+            <span>
+              Bid Languages: 
+            </span>
+            None
+          </div>
+          <div>
+            <span>
+              Post Differential | Danger Pay: 
+            </span>
+            None listed
+            |
+            None listed
+          </div>
+          <div>
+            <span>
+              Incumbent: 
+            </span>
+            None listed
+          </div>
         </div>
       </div>
-      <Connect(StaticDevContent)>
-        <div
-          className="hs-offered-date"
-        >
-          Handshake offered 
-          05/18/2020
-        </div>
-      </Connect(StaticDevContent)>
+      <div
+        className="hs-offered-date"
+      >
+        Handshake offered 
+        None listed
+      </div>
     </div>
   </div>
 </div>
