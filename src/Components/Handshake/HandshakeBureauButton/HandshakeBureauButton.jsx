@@ -1,16 +1,20 @@
-// import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { offerHandshake, revokeHandshake } from 'actions/handshake';
 // import { Tooltip } from 'react-tippy';
 
 const HandshakeBureauButton = props => {
-  const {
-    bureauStatus,
-    // isRegistered,
-    positionID,
-    personID,
-  } = props;
+  const [bureauStatus, setBureauStatus] = useState(props.bureauStatus);
+  // const [isRegistered, setIsRegistered] = useState(props.isRegistered);
+  const [positionID, setPositionID] = useState(props.positionID);
+  const [personID, setPersonID] = useState(props.personID);
+
+  useEffect(() => {
+    setBureauStatus(props.bureauStatus);
+    setPositionID(props.positionID);
+    setPersonID(props.personID);
+  }, [props]);
 
   const dispatch = useDispatch();
 
@@ -31,9 +35,9 @@ const HandshakeBureauButton = props => {
       <button
         className=""
         title={`${buttonText()} handshake`}
-        onClick={bureauStatus !== 'handshake_offer_revoked' ?
-          () => dispatch(offerHandshake(positionID, personID)) :
-          () => dispatch(revokeHandshake(positionID, personID))
+        onClick={!bureauStatus || bureauStatus === 'handshake_offer_revoked' ?
+          () => dispatch(offerHandshake(personID, positionID)) :
+          () => dispatch(revokeHandshake(personID, positionID))
         }
         disabled={isDisabled}
       >

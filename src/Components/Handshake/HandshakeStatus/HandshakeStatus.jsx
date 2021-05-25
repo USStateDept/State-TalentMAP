@@ -1,15 +1,17 @@
-// import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 // import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 // import { Tooltip } from 'react-tippy';
 
 const HandshakeStatus = props => {
-  const {
-    bureauStatus,
-    bidderStatus,
-    // isRegistered,
-  } = props;
+  const [bureauStatus, setBureauStatus] = useState(props.bureauStatus);
+  const [bidderStatus, setBidderStatus] = useState(props.bidderStatus);
+
+  useEffect(() => {
+    setBureauStatus(props.bureauStatus);
+    setBidderStatus(props.bidderStatus);
+  }, [props]);
 
   const getBureauStyling = () => {
     if (bureauStatus === 'handshake_offered') {

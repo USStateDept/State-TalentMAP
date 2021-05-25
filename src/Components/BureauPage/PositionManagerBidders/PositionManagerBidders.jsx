@@ -202,6 +202,7 @@ class PositionManagerBidders extends Component {
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
     const hsStatusCode = get(m, 'hs_status_code');
+    console.log(m);
     // Break out hsStatusCode with Mike's DB update
     // const hsBureauStatus
     // const hsBidderStatus
