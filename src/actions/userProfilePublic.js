@@ -2,6 +2,7 @@ import axios from 'axios';
 import { get, isArray } from 'lodash';
 import { clientBidListFetchDataSuccess } from './bidList';
 import api from '../api';
+import { mapBidData } from './bidList/helpers';
 
 export function userProfilePublicHasErrored(bool) {
   return {
@@ -72,7 +73,7 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true) {
               skills: acct$.skills,
               grade: acct$.grade,
             },
-            bidList: get(bids, 'data.results', []),
+            bidList: mapBidData(get(bids, 'data.results') || []),
             // any other profile info we want to add in the future
           };
 
