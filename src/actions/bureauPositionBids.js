@@ -13,14 +13,12 @@ export function bidderRankingsHasErrored(bool, id) {
     hasErrored: { bool, id },
   };
 }
-
 export function bidderRankingsIsLoading(bool, id) {
   return {
     type: 'BIDDER_RANKINGS_IS_LOADING',
     isLoading: { bool, id },
   };
 }
-
 export function bidderRankingFetchDataSuccess(id, data) {
   return {
     type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
