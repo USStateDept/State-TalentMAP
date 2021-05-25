@@ -17,6 +17,7 @@ export const NO_BID_CYCLE = DEFAULT_TEXT;
 export const NO_BIRTHDAY = DEFAULT_TEXT;
 export const NO_BUREAU = DEFAULT_TEXT;
 export const NO_CDO = DEFAULT_TEXT;
+export const NO_CLASSIFICATIONS = DEFAULT_TEXT;
 export const NO_COLA = DEFAULT_TEXT;
 export const NO_COMMENTS = DEFAULT_TEXT;
 export const NO_CREATE_DATE = 'Unknown';
