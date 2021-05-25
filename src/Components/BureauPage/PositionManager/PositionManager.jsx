@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { get, has, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
+import { flatten, get, has, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -267,7 +267,7 @@ const PositionManager = props => {
       selectedOrgs.filter(f => get(f, 'code') !== defaultOrgCode),
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
-    if (isEmpty(filters.flat()) && isEmpty(textSearch)) {
+    if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
