@@ -264,6 +264,7 @@ class PositionManagerBidders extends Component {
           arrow
           tabIndex="0"
           interactive
+          style={{ height: 'fit-content' }}
           useContext
         >
           <FA name={'exclamation-triangle'} className={'deconflict-indicator'} />
@@ -281,6 +282,7 @@ class PositionManagerBidders extends Component {
           arrow
           tabIndex="0"
           interactive
+          style={{ height: 'fit-content' }}
           useContext
         >
           {classifications.map(c => c.shortCode).join(', ')}
