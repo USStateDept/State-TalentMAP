@@ -7,7 +7,7 @@ import { availableBidderEditData, availableBiddersToggleUser } from 'actions/ava
 import { useDispatch } from 'react-redux';
 import {
   NO_BUREAU, NO_CDO, NO_COMMENTS, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
-  NO_LANGUAGES, NO_OC_REASON, NO_POST, NO_STATUS,
+  NO_LANGUAGES, NO_OC_REASON, NO_STATUS,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';

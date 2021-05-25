@@ -98,7 +98,7 @@ export function bureauPositionBidsSetRanking(state = false, action) {
   }
 }
 
-export function bureauBidderRankingsHasErrored(state = new Set(), action) {
+export function bidderRankingsHasErrored(state = new Set(), action) {
   const newSet = new Set(state);
   switch (action.type) {
     case 'BIDDER_RANKINGS_HAS_ERRORED':
@@ -112,7 +112,7 @@ export function bureauBidderRankingsHasErrored(state = new Set(), action) {
       return state;
   }
 }
-export function bureauBidderRankingsIsLoading(state = new Set(), action) {
+export function bidderRankingsIsLoading(state = new Set(), action) {
   const newSet = new Set(state);
   switch (action.type) {
     case 'BIDDER_RANKINGS_IS_LOADING':
@@ -126,7 +126,7 @@ export function bureauBidderRankingsIsLoading(state = new Set(), action) {
       return state;
   }
 }
-export function bureauBidderRankings(state = {}, action) {
+export function bidderRankingFetchDataSuccess(state = {}, action) {
   switch (action.type) {
     case 'BIDDER_RANKING_FETCH_DATA_SUCCESS':
       return { ...state, [action.results.id]: action.results.data };
