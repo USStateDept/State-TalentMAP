@@ -5,7 +5,7 @@ import { BID_OBJECT } from 'Constants/PropTypes';
 import { get, join, pick, values } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { NO_BID_CYCLE, NO_BUREAU, NO_DANGER_PAY,
+import { DEFAULT_TEXT, NO_BID_CYCLE, NO_BUREAU, NO_DANGER_PAY,
   NO_GRADE, NO_LANGUAGES, NO_POSITION_NUMBER, NO_POSITION_TITLE,
   NO_POST, NO_POST_DIFFERENTIAL, NO_SKILL, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
 import { formatDate, getDifferentialPercentage, getPostName } from 'utilities';
@@ -43,6 +43,7 @@ class HandshakeOfferedAlert extends Component {
     const postDiff = getDifferentialPercentage(get(position, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
     const dangerPay = get(position, 'post.danger_pay') || NO_DANGER_PAY;
     const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
+    const hsOfferedDate = formatDate(get(bid, 'handshake.hs_date_offered')) || DEFAULT_TEXT;
 
     return (
       <div className="bid-tracker-alert-container--handshake-offered">
@@ -53,6 +54,7 @@ class HandshakeOfferedAlert extends Component {
           :
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 1 }}>
+              {/* <div style={{ flex: .65 }}> */}
               <div>{`${userName}, you've been offered a handshake for ${positionTitle} (${positionNumber})`}</div>
               <button className="tm-button-transparent" onClick={this.onAcceptBid}>
                 <FontAwesomeIcon icon={faCheck} /> Accept Handshake
@@ -81,9 +83,7 @@ class HandshakeOfferedAlert extends Component {
                   <div><span>Incumbent: </span>{incumbent}</div>
                 </div>
               </div>
-              <StaticDevContent>
-                <div className="hs-offered-date">Handshake offered {formatDate('2020-05-18T05:00:00Z')}</div>
-              </StaticDevContent>
+              <div className="hs-offered-date">Handshake offered {hsOfferedDate}</div>
             </div>
           </div>
         }

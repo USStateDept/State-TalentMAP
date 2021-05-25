@@ -1154,7 +1154,7 @@ $register-hide-icon: 95%;
 }
 
 .bid-tracker-alert-container--handshake-offered {
-  padding: 30px;
+  padding: 10px 30px;
 
   button {
     margin: 20px 30px 20px 0;
@@ -1169,13 +1169,28 @@ $register-hide-icon: 95%;
     border-left: 1px solid $color-white;
     text-align: left;
     flex: 1;
-    padding-left: 50px;
+    padding-left: 25px;
     span {
       font-weight: bold;
     }
     .hs-offered-date {
       font-size: small;
       text-align: right;
+    }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .bid-tracker-alert-container--handshake-offered {
+    padding: 5px 15px;
+    button {
+      margin: 10px;
+    }
+    .right-half {
+      padding-left: 15px;
+      span {
+        font-weight: bold;
+      }
     }
   }
 }
