@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isEqual, keys, orderBy, isNull } from 'lodash';
+import { get, isEqual, isNull, keys, orderBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -364,7 +364,7 @@ class PositionManagerBidders extends Component {
       const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
         hasBureauPermission } = this.props;
       const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
-      
+
       const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
         <th scope="col">{item}</th>
       ));

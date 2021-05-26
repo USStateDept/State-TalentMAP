@@ -1,10 +1,10 @@
 import {
-  registerHandshakeHasErrored,
-  registerHandshakeIsLoading,
-  registerHandshakeSuccess,
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
+  registerHandshakeHasErrored,
+  registerHandshakeIsLoading,
+  registerHandshakeSuccess,
   revokeHandshakeHasErrored,
   revokeHandshakeIsLoading,
   revokeHandshakeSuccess,
