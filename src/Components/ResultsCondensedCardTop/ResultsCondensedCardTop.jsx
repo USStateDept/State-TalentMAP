@@ -3,10 +3,10 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
 import { Tooltip } from 'react-tippy';
-import { Handshake, CriticalNeed, HardToFill, ServiceNeedDifferential } from '../Ribbon';
-import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
-import { getPostName, getBidStatisticsObject } from '../../utilities';
+import { getBidStatisticsObject, getPostName } from '../../utilities';
 
 const ResultsCondensedCardTop = ({
   position,
@@ -46,45 +46,45 @@ const ResultsCondensedCardTop = ({
           <Tooltip
             title="Handshake"
             arrow
-            offset={-30}
+            offset={-60}
           >
             <Handshake showText={false} className="ribbon-condensed-card" />
           </Tooltip>
         }
         {
-          <Tooltip
-            title="Critical need"
-            arrow
-            offset={-30}
-          >
-            <StaticDevContent>
+          <StaticDevContent>
+            <Tooltip
+              title="Critical need"
+              arrow
+              offset={-60}
+            >
               <CriticalNeed showText={false} className="ribbon-condensed-card" />
-            </StaticDevContent>
-          </Tooltip>
+            </Tooltip>
+          </StaticDevContent>
         }
         {
           isDifficultToStaff &&
-          <Tooltip
-            title="Hard to fill"
-            arrow
-            offset={-30}
-          >
-            <StaticDevContent>
+          <StaticDevContent>
+            <Tooltip
+              title="Hard to fill"
+              arrow
+              offset={-60}
+            >
               <HardToFill showText={false} className="ribbon-condensed-card" />
-            </StaticDevContent>
-          </Tooltip>
+            </Tooltip>
+          </StaticDevContent>
         }
         {
           isServiceNeedDifferential &&
-          <Tooltip
-            title="Service need differential"
-            arrow
-            offset={-30}
-          >
-            <StaticDevContent>
+          <StaticDevContent>
+            <Tooltip
+              title="Service need differential"
+              arrow
+              offset={-100}
+            >
               <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
-            </StaticDevContent>
-          </Tooltip>
+            </Tooltip>
+          </StaticDevContent>
         }
       </div>
 

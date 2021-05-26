@@ -432,6 +432,41 @@
   padding-left: 35px;
 }
 
+.tippy-popper {
+  .tippy-tooltip.classifications-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    padding: 10px 10px 0;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .classification-wrapper {
+      padding-bottom: 10px;
+      .classification-text {
+        font-size: 15px;
+        font-weight: bold;
+        .classification-icon {
+          color: $tertiary-success;
+          font-size: 20px;
+          padding-right: 10px;
+          min-width: 30px;
+        }
+      }
+      .classification-season-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
+        margin-left: 20px;
+        .classification-season {
+          padding-left: 15px;
+        }
+      }
+    }
+  }
+}
+
 .position-manager-bidders-table {
   margin: auto;
   width: 100%;

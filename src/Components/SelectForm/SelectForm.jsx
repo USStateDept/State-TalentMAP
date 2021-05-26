@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
-import { SORT_BY_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, SORT_BY_ARRAY } from '../../Constants/PropTypes';
 
 class SelectForm extends Component {
   constructor(props) {

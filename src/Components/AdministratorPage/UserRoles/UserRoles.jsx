@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import DELEGATE_ROLES from 'Constants/DelegateRoles';
 import { getUsers } from 'actions/userRoles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { omit, get, isNil } from 'lodash';
+import { get, isNil, omit } from 'lodash';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';

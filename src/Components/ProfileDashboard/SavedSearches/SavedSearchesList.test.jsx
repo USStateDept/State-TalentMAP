@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import SavedSearchesList from './SavedSearchesList';
-import { searchObjectParent, mappedParams } from '../../../__mocks__/searchObject';
+import { mappedParams, searchObjectParent } from '../../../__mocks__/searchObject';
 
 describe('SavedSearchesListComponent', () => {
   const props = {

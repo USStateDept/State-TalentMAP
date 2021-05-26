@@ -1,4 +1,4 @@
-import { setupAsyncMocks, spyMockAdapter, expectMockWasCalled } from '../testUtilities/testUtilities';
+import { expectMockWasCalled, setupAsyncMocks, spyMockAdapter } from '../testUtilities/testUtilities';
 import * as actions from './bidderPortfolio';
 import bidderListObject from '../__mocks__/bidderListObject';
 import bidderPortfolioCountsObject from '../__mocks__/bidderPortfolioCountsObject';
@@ -12,7 +12,7 @@ describe('bidderPortfolio async actions', () => {
     store = mockStore({ results: [], bidderPortfolioSelectedCDOsToSearchBy: [{ hru_id: 1 }] });
 
     ({ mock, spy } = spyMockAdapter({
-      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name', response: [200, bidderListObject],
+      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name%2Cclient_first_name', response: [200, bidderListObject],
     })); mock();
   });
 
@@ -50,7 +50,7 @@ describe('bidderPortfolio async actions', () => {
 
   it('handles failures when fetching data from the last query', (done) => {
     ({ mock, spy } = spyMockAdapter({
-      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name&q=failure', response: [404],
+      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name%2Cclient_first_name&q=failure', response: [404],
     })); mock();
 
     store.dispatch(actions.bidderPortfolioFetchData({ q: 'failure' }));

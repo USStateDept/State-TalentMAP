@@ -1,5 +1,5 @@
-import { syncs, syncsHasErrored, syncsIsLoading, patchSyncHasErrored,
-  putAllSyncsSuccess, putAllSyncsHasErrored, putAllSyncsIsLoading, patchSyncIsLoading } from './synchronizations';
+import { patchSyncHasErrored, patchSyncIsLoading, putAllSyncsHasErrored, putAllSyncsIsLoading,
+  putAllSyncsSuccess, syncs, syncsHasErrored, syncsIsLoading } from './synchronizations';
 
 export default {
   syncs,

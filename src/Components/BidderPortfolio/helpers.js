@@ -15,4 +15,11 @@ function filterUsers(term = '', cdos = []) {
   return uniqBy(data, 'id');
 }
 
+export const orderClassifications = (c = []) => {
+  const last = c.length;
+  // our custom ordering
+  const ordering = ['D', 'M', 'T', '8', 'C', 'C1', 'CC', '3', 'R', '4', 'A', 'F', '6', 'P'];
+  return orderBy(c, a => ordering.indexOf(a.code) !== -1 ? ordering.indexOf(a.code) : last);
+};
+
 export default filterUsers;

@@ -1,4 +1,4 @@
-import { getStatusProperty, APPROVED } from './BidStatuses';
+import { APPROVED, getStatusProperty } from './BidStatuses';
 
 describe('BidStatuses', () => {
   it('should return a class_name with getStatusProperty function', () => {

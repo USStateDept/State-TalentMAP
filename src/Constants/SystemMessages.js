@@ -5,8 +5,8 @@ import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from 'Components/BidListMessages/Success';
 import BidRemoveSuccess from 'Components/BidListMessages/RemoveSuccess';
 import SavedSearchSuccess from 'Components/SavedSearchMessages/Success';
-import HandshakeOffered from 'Components/BidTracker/Messages/handshakeOffered';
-import HandshakeAccepted from 'Components/BidTracker/Messages/handshakeAccepted';
+import HandshakeOffered from 'Components/BidTracker/Messages/HandshakeOffered';
+import HandshakeAccepted from 'Components/BidTracker/Messages/HandshakeAccepted';
 import GenericSuccessToast from 'Components/GenericToast/Success';
 
 export const DEFAULT_TEXT = 'None listed';
@@ -17,6 +17,7 @@ export const NO_BID_CYCLE = DEFAULT_TEXT;
 export const NO_BIRTHDAY = DEFAULT_TEXT;
 export const NO_BUREAU = DEFAULT_TEXT;
 export const NO_CDO = DEFAULT_TEXT;
+export const NO_CLASSIFICATIONS = DEFAULT_TEXT;
 export const NO_COLA = DEFAULT_TEXT;
 export const NO_COMMENTS = DEFAULT_TEXT;
 export const NO_CREATE_DATE = 'Unknown';
@@ -131,8 +132,8 @@ export const ADD_TO_INTERNAL_LIST_ERROR = "We're experiencing an error attemptin
 export const REMOVE_FROM_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to remove this client from the Internal list. Please try again.";
 
 export const HANDSHAKE_OFFERED_TITLE = 'Handshake Offered!';
-export const HANDSHAKE_OFFERED_BODY = ({ name, position, bid }) =>
-  HandshakeOffered({ name, position, bid });
+export const HANDSHAKE_OFFERED_BODY = ({ name, message }) =>
+  HandshakeOffered({ name, message });
 
 export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
 export const HANDSHAKE_ACCEPTED_BODY = ({ name, position, bid }) =>

@@ -2,7 +2,7 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
 import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';
-import { searchObject, mappedParams } from '../../../__mocks__/searchObject';
+import { mappedParams, searchObject } from '../../../__mocks__/searchObject';
 
 describe('SavedSearchesListResultsCardComponent', () => {
   const props = {

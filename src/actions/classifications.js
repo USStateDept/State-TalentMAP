@@ -2,7 +2,7 @@ import * as SystemMessages from 'Constants/SystemMessages';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { batch } from 'react-redux';
 import { uniqBy } from 'lodash';
-import { toastSuccess, toastError } from './toast';
+import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
 export function classificationsHasErrored(bool) {

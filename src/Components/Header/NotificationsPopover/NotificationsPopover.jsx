@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Dropdown, { DropdownTrigger, DropdownContent } from 'react-simple-dropdown';
+import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
 import Notifications from 'Containers/Notifications';
 import NotificationsList from './NotificationsList';
 import NotificationsIcon from '../Notifications';
