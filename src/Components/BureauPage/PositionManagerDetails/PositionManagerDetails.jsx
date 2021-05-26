@@ -139,7 +139,6 @@ class PositionManagerDetails extends Component {
                       isLocked={bureauPosition.is_locked}
                       hasBureauPermission={bureauPosition.has_bureau_permission}
                       hasPostPermission={bureauPosition.has_post_permission}
-                      active_hs_perdet={get(bureauPosition, 'bid_handshake.active_handshake_perdet')}
                     />
                   </div>
                 </div>

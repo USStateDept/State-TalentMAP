@@ -202,7 +202,7 @@ class PositionManagerBidders extends Component {
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
     const handshake = get(m, 'handshake', {});
-    const active_hs_perdet = props.active_hs_perdet;
+    const active_hs_perdet = get(m, 'active_handshake_perdet');
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -242,7 +242,7 @@ class PositionManagerBidders extends Component {
             handshake={handshake}
             positionID={props.id}
             personID={m.emp_id}
-            disabled={active_hs_perdet !== m.emp_id.toString() && !isNull(active_hs_perdet)}
+            disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
           />
         </>,
     };
@@ -489,7 +489,6 @@ PositionManagerBidders.propTypes = {
   isLocked: PropTypes.bool,
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
-  active_hs_perdet: PropTypes.string,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -505,7 +504,6 @@ PositionManagerBidders.defaultProps = {
   isLocked: false,
   hasBureauPermission: false,
   hasPostPermission: false,
-  active_hs_perdet: '',
 };
 
 export default PositionManagerBidders;
