@@ -7,19 +7,19 @@ import { toastError } from './toast';
 
 let cancelRanking;
 
-export function bidderRankingsHasErrored(bool, id) {
+export function bidderRankingsErrored(bool, id) {
   return {
     type: 'BIDDER_RANKINGS_HAS_ERRORED',
     hasErrored: { bool, id },
   };
 }
-export function bidderRankingsIsLoading(bool, id) {
+export function bidderRankingsLoading(bool, id) {
   return {
     type: 'BIDDER_RANKINGS_IS_LOADING',
     isLoading: { bool, id },
   };
 }
-export function bidderRankingFetchDataSuccess(id, data) {
+export function bidderRankingsFetchSuccess(id, data) {
   return {
     type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
     results: { id, data },
@@ -223,18 +223,18 @@ export function downloadBidderData(id, query = {}) {
 export function fetchBidderRankings(perdet, cp_id) {
   const url = `/available_position/rankings/${perdet}/${cp_id}/`;
   return (dispatch) => {
-    dispatch(bidderRankingsIsLoading(true, perdet));
-    dispatch(bidderRankingsHasErrored(false, perdet));
+    dispatch(bidderRankingsLoading(true, perdet));
+    dispatch(bidderRankingsErrored(false, perdet));
     api().get(url)
       .then(({ data }) => {
-        dispatch(bidderRankingFetchDataSuccess(perdet, data));
-        dispatch(bidderRankingsHasErrored(false, perdet));
-        dispatch(bidderRankingsIsLoading(false, perdet));
+        dispatch(bidderRankingsFetchSuccess(perdet, data));
+        dispatch(bidderRankingsErrored(false, perdet));
+        dispatch(bidderRankingsLoading(false, perdet));
       })
       .catch(() => {
-        dispatch(bidderRankingFetchDataSuccess(perdet, {}));
-        dispatch(bidderRankingsHasErrored(true, perdet));
-        dispatch(bidderRankingsIsLoading(false, perdet));
+        dispatch(bidderRankingsFetchSuccess(perdet, {}));
+        dispatch(bidderRankingsErrored(true, perdet));
+        dispatch(bidderRankingsLoading(false, perdet));
       });
   };
 }

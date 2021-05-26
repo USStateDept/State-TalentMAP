@@ -12,11 +12,11 @@ import { formatDate, getCustomLocation } from 'utilities';
 import Spinner from '../../Spinner';
 
 const BidderRankings = ({ perdet, cp_id }) => {
-  const bidderRankingData = useSelector(state => state.bureauBidderRankings);
+  const bidderRankingData = useSelector(state => state.bidderRankingFetchDataSuccess);
   const bidderRankingData$ = get(bidderRankingData, perdet) || {};
-  const bidderRankingDataIsLoading = useSelector(state => state.bureauBidderRankingsIsLoading);
+  const bidderRankingDataIsLoading = useSelector(state => state.bidderRankingsIsLoading);
   const bidderRankingDataIsLoading$ = bidderRankingDataIsLoading.has(perdet);
-  const bidderRankingDataHasErrored = useSelector(state => state.bureauBidderRankingsHasErrored);
+  const bidderRankingDataHasErrored = useSelector(state => state.bidderRankingsHasErrored);
   const bidderRankingDataHasErrored$ = bidderRankingDataHasErrored.has(perdet);
 
   const [showRankingData, setShowRankingData] = useState(false);
