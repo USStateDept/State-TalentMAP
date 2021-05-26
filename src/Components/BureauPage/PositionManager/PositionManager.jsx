@@ -255,7 +255,7 @@ const PositionManager = props => {
 
   useEffect(() => {
     const defaultOrgCode = get(props, 'orgPermissions[0].code');
-    const defaultBureauCode = get(props, 'bureauPermissions[0].code');
+    const defaultBureauCode = isAO ? get(bureauPermissions$, '[0].code') : get(props, 'bureauPermissions[0].code');
     const filters = [
       selectedGrades,
       selectedSkills,
