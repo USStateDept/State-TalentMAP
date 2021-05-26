@@ -5,26 +5,36 @@ import { offerHandshake, revokeHandshake } from 'actions/handshake';
 // import { Tooltip } from 'react-tippy';
 
 const HandshakeBureauButton = props => {
-  const [bureauStatus, setBureauStatus] = useState(props.bureauStatus);
+  const [handshake, setHandshake] = useState(props.handshake);
   // const [isRegistered, setIsRegistered] = useState(props.isRegistered);
   const [positionID, setPositionID] = useState(props.positionID);
   const [personID, setPersonID] = useState(props.personID);
+  const [disabled, setDisabled] = useState(props.disabled);
 
   useEffect(() => {
-    setBureauStatus(props.bureauStatus);
+    setHandshake(props.handshake);
     setPositionID(props.positionID);
     setPersonID(props.personID);
+    setDisabled(props.disabled);
   }, [props]);
 
   const dispatch = useDispatch();
 
-  const isDisabled = false; // Fix with prop or check for if there is another active bid
+  const {
+    hs_status_code,
+    // bidder_hs_code,
+    // hs_cdo_indicator,
+    // hs_date_accepted,
+    // hs_date_declined,
+    // hs_date_offered,
+    // hs_date_revoked,
+  } = handshake;
 
 
   const buttonText = () => {
-    if (bureauStatus === 'handshake_offer_revoked') {
+    if (hs_status_code === 'handshake_revoked') {
       return 'Re-offer';
-    } else if (bureauStatus === 'handshake_offered') {
+    } else if (hs_status_code === 'handshake_offered') {
       return 'Revoke';
     }
     return 'Offer';
@@ -35,11 +45,11 @@ const HandshakeBureauButton = props => {
       <button
         className=""
         title={`${buttonText()} handshake`}
-        onClick={!bureauStatus || bureauStatus === 'handshake_offer_revoked' ?
+        onClick={!hs_status_code || hs_status_code === 'handshake_revoked' ?
           () => dispatch(offerHandshake(personID, positionID)) :
           () => dispatch(revokeHandshake(personID, positionID))
         }
-        disabled={isDisabled}
+        disabled={disabled}
       >
         {buttonText()}
       </button>
@@ -48,17 +58,19 @@ const HandshakeBureauButton = props => {
 };
 
 HandshakeBureauButton.propTypes = {
-  bureauStatus: PropTypes.string,
+  handshake: PropTypes.shape({}),
   // isRegistered: PropTypes.bool,
   positionID: PropTypes.string,
   personID: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 HandshakeBureauButton.defaultProps = {
-  bureauStatus: 'inactive',
+  handshake: {},
   // isRegistered: false,
   positionID: '',
   personID: '',
+  disabled: true,
 };
 
 export default HandshakeBureauButton;

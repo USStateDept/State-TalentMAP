@@ -5,21 +5,29 @@ import FA from 'react-fontawesome';
 // import { Tooltip } from 'react-tippy';
 
 const HandshakeStatus = props => {
-  const [bureauStatus, setBureauStatus] = useState(props.bureauStatus);
-  const [bidderStatus, setBidderStatus] = useState(props.bidderStatus);
+  const [handshake, setHandshake] = useState(props.handshake);
 
   useEffect(() => {
-    setBureauStatus(props.bureauStatus);
-    setBidderStatus(props.bidderStatus);
+    setHandshake(props.handshake);
   }, [props]);
 
+  const {
+    hs_status_code,
+    bidder_hs_code,
+    // hs_cdo_indicator,
+    // hs_date_accepted,
+    // hs_date_declined,
+    // hs_date_offered,
+    // hs_date_revoked,
+  } = handshake;
+
   const getBureauStyling = () => {
-    if (bureauStatus === 'handshake_offered') {
+    if (hs_status_code === 'handshake_offered') {
       return {
         bureau: 'offered',
         bureauIcon: 'hand-paper-o',
       };
-    } else if (bureauStatus === 'handshake_offer_revoked') {
+    } else if (hs_status_code === 'handshake_revoked') {
       return {
         bureau: 'revoked',
         bureauIcon: 'hand-rock-o',
@@ -32,12 +40,12 @@ const HandshakeStatus = props => {
   };
 
   const getBidderStyling = () => {
-    if (bidderStatus === 'handshake_offer_accepted') {
+    if (bidder_hs_code === 'handshake_accepted') {
       return {
         bidder: 'accepted',
         bidderIcon: 'hand-paper-o',
       };
-    } else if (bidderStatus === 'handshake_offer_declined') {
+    } else if (bidder_hs_code === 'handshake_declined') {
       return {
         bidder: 'declined',
         bidderIcon: 'hand-rock-o',
@@ -71,14 +79,12 @@ const HandshakeStatus = props => {
 };
 
 HandshakeStatus.propTypes = {
-  bureauStatus: PropTypes.string,
-  bidderStatus: PropTypes.string,
+  handshake: PropTypes.shape({}),
   // isRegistered: PropTypes.bool,
 };
 
 HandshakeStatus.defaultProps = {
-  bureauStatus: 'inactive',
-  bidderStatus: 'inactive',
+  handshake: {},
   // isRegistered: false,
 };
 

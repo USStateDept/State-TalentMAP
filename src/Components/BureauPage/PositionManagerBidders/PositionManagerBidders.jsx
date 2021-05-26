@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isEqual, keys, orderBy } from 'lodash';
+import { get, isEqual, keys, orderBy, isNull } from 'lodash';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -201,11 +201,8 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
-    const hsStatusCode = get(m, 'hs_status_code');
-    console.log(m);
-    // Break out hsStatusCode with Mike's DB update
-    // const hsBureauStatus
-    // const hsBidderStatus
+    const handshake = get(m, 'handshake', {});
+    const active_hs_perdet = props.active_hs_perdet;
 
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -238,13 +235,13 @@ class PositionManagerBidders extends Component {
       Action:
         <>
           <HandshakeStatus
-            bureauStatus={hsStatusCode}
-            bidderStatus={hsStatusCode}
+            handshake={handshake}
           />
           <HandshakeBureauButton
-            bureauStatus={hsStatusCode}
+            handshake={handshake}
             positionID={props.id}
             personID={m.emp_id}
+            disabled={active_hs_perdet !== m.emp_id.toString() && !isNull(active_hs_perdet)}
           />
         </>,
     };
@@ -491,6 +488,7 @@ PositionManagerBidders.propTypes = {
   isLocked: PropTypes.bool,
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
+  active_hs_perdet: PropTypes.string,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -506,6 +504,7 @@ PositionManagerBidders.defaultProps = {
   isLocked: false,
   hasBureauPermission: false,
   hasPostPermission: false,
+  active_hs_perdet: '',
 };
 
 export default PositionManagerBidders;
