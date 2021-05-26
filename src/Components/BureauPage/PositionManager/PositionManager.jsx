@@ -57,7 +57,7 @@ const PositionManager = props => {
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections.selectedBureaus ||
-      isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]);
+      (isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]));
   const [selectedOrgs, setSelectedOrgs] =
     useState(userSelections.selectedOrgs || [props.orgPermissions[0]]);
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
