@@ -233,6 +233,7 @@ class PositionManagerBidders extends Component {
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
       Action:
+        type !== 'unranked' &&
         <>
           <HandshakeStatus
             handshake={handshake}
