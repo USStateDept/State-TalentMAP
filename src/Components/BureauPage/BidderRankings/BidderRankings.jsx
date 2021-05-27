@@ -66,7 +66,7 @@ const BidderRankings = ({ perdet, cp_id }) => {
             }
             {
               bidderRankingDataHasErrored$ &&
-              <Alert type="error" title="Error retrieving shortlist bids" />
+              <Alert type="error" title="Error retrieving Short List bids" />
             }
             {
               showTable &&
@@ -85,7 +85,7 @@ const BidderRankings = ({ perdet, cp_id }) => {
                   <tbody>
                     {
                       !bidderRankingData$.results.length ?
-                        <tr><td>No other bids shortlisted</td></tr>
+                        <tr><td>No other bids added to Short Lists</td></tr>
                         :
                         bidderRankingData$.results.map(pos => (
                           <tr>
@@ -103,7 +103,7 @@ const BidderRankings = ({ perdet, cp_id }) => {
                     }
                     <tr className="other-sl-count-row">
                       {/* eslint-disable-next-line react/no-unescaped-entities */}
-                      Number of Bids in other Bureau's ShortLists: {bidderRankingData$['other-sl-bidcount']}
+                      Number of Bids in other Bureau's Short Lists: {bidderRankingData$['other-sl-bidcount']}
                     </tr>
                   </tbody>
                 </table>
