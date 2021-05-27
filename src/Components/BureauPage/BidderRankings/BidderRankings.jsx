@@ -103,7 +103,7 @@ const BidderRankings = ({ perdet, cp_id }) => {
                     }
                     <tr className="other-sl-count-row">
                       {/* eslint-disable-next-line react/no-unescaped-entities */}
-                      Number of Bids in other Bureau's Short Lists: {bidderRankingData$['other-sl-bidcount']}
+                      Number of bids in other Bureau's Short Lists: {bidderRankingData$['other-sl-bidcount']}
                     </tr>
                   </tbody>
                 </table>
