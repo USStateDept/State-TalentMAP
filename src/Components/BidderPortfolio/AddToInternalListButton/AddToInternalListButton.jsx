@@ -5,6 +5,7 @@ import { includes } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBiddersToggleUser } from 'actions/availableBidders';
+import { Tooltip } from 'react-tippy';
 import InteractiveElement from '../../InteractiveElement';
 
 
@@ -34,7 +35,7 @@ const AddToInternalListButton = props => {
     }
   };
 
-  const getText = () => inInternalList() ? 'from Internal List' : 'to Internal List';
+  const getText = () => inInternalList() ? 'from ABL' : 'to ABL';
   const getIcon = () => inInternalList() ? 'minus' : 'plus';
 
   return (
@@ -43,11 +44,17 @@ const AddToInternalListButton = props => {
       className="usa-button btn-icon-to-spinner"
       type="button"
     >
-      {loading ?
-        (<span className="ds-c-spinner spinner-white" />) :
-        <FontAwesome name={getIcon()} />
-      }
-      <span className="btn-icon-to-spinner-text">{getText()}</span>
+      <Tooltip
+        title="Available Bidders List"
+        arrow
+        distance={20}
+      >
+        {loading ?
+          (<span className="ds-c-spinner spinner-white" />) :
+          <FontAwesome name={getIcon()} />
+        }
+        <span className="btn-icon-to-spinner-text">{getText()}</span>
+      </Tooltip>
     </InteractiveElement>
   );
 };
