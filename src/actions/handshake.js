@@ -2,7 +2,7 @@ import { batch } from 'react-redux';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
-import { bureauBidsAllFetchData, bureauBidsFetchData } from './bureauPositionBids';
+import { bureauBidsAllFetchData, bureauBidsFetchData, bureauBidsRankingFetchData } from './bureauPositionBids';
 
 import * as SystemMessages from '../Constants/SystemMessages';
 
@@ -200,6 +200,7 @@ export function offerHandshake(perdet, cp_id) {
         });
         dispatch(bureauBidsAllFetchData(cp_id, {}));
         dispatch(bureauBidsFetchData(cp_id, {}));
+        dispatch(bureauBidsRankingFetchData(cp_id));
       })
       .catch(() => {
         const message = SystemMessages.OFFER_HANDSHAKE_ERROR;
@@ -237,6 +238,7 @@ export function revokeHandshake(perdet, cp_id) {
         });
         dispatch(bureauBidsAllFetchData(cp_id, {}));
         dispatch(bureauBidsFetchData(cp_id, {}));
+        dispatch(bureauBidsRankingFetchData(cp_id));
       })
       .catch(() => {
         const message = SystemMessages.REVOKE_HANDSHAKE_ERROR;
