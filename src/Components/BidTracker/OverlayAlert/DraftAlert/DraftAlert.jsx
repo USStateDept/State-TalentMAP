@@ -16,7 +16,7 @@ class DraftAlert extends Component {
     const { bid } = this.props;
     const { readOnly } = this.context;
     const { position_info } = bid;
-    const position = bid.position_info;
+    const position = get(bid, 'position_info.position');
     const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
     const post = getPostName(get(position, 'post'), NO_POST);
     const skill = get(position, 'skill') || NO_SKILL;

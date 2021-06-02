@@ -20,11 +20,12 @@ class HandshakeRegisterAlert extends Component {
   render() {
     const { bid, isUnregister, userName } = this.props;
     const { readOnly } = this.context;
-    const { position_info } = bid;
-    const positionTitle = get(position_info, 'title') || NO_POSITION_TITLE;
-    const post = getPostName(get(position_info, 'post'), NO_POST);
-    const skillCode = position_info.skill ? position_info.skill : NO_SKILL;
-    const grade = get(position_info, 'grade') || NO_GRADE;
+    const position = get(bid, 'position_info.position');
+    const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
+    const post = getPostName(get(position, 'post'), NO_POST);
+    const skillCode = get(position, 'skill') || NO_SKILL;
+    const grade = get(position, 'grade') || NO_GRADE;
+    // saving ted for Cory
     const ted = formatDate('2020-07-02T05:00:00Z');
     // const ted = position.bid.ted ? formatDate(position.bid.ted) : NO_TOUR_END_DATE;
     // modify line 6: import NO_TOUR_END_DATE from SystemMessages

@@ -2,13 +2,13 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { get, join, pick, values } from 'lodash';
+import { get } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
-import { DEFAULT_TEXT, NO_BID_CYCLE, NO_BUREAU, NO_DANGER_PAY,
-  NO_GRADE, NO_LANGUAGES, NO_POSITION_NUMBER, NO_POSITION_TITLE,
-  NO_POST, NO_POST_DIFFERENTIAL, NO_SKILL, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
-import { formatDate, getDifferentialPercentage, getPostName } from 'utilities';
+import { DEFAULT_TEXT, NO_BUREAU, NO_DANGER_PAY,
+  NO_GRADE, NO_LANGUAGES, NO_POST_DIFFERENTIAL, NO_SKILL,
+  NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
+import { formatDate, getDifferentialPercentage } from 'utilities';
 import StaticDevContent from 'Components/StaticDevContent';
 import { acceptHandshake, declineHandshake } from '../../../../actions/handshake2';
 import LinkButton from '../../../LinkButton';
@@ -28,12 +28,8 @@ class HandshakeOfferedAlert extends Component {
     const { userName, bidIdUrl, bid } = this.props;
     const { condensedView } = this.context;
     const { position_info } = bid;
-    const position = bid.position_info;
-    const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
-    const positionNumber = get(position, 'position_number') || NO_POSITION_NUMBER;
-    const post = getPostName(get(position, 'post'), NO_POST);
+    const position = get(bid, 'position_info.position');
     const ted = formatDate(get(position_info, 'ted')) || NO_TOUR_END_DATE;
-    const bidCycle = get(position_info, 'bidcycle.name') || NO_BID_CYCLE;
     const skill = get(position, 'skill') || NO_SKILL;
     const grade = get(position, 'grade') || NO_GRADE;
     const bureau = get(position, 'bureau') || NO_BUREAU;
@@ -45,7 +41,7 @@ class HandshakeOfferedAlert extends Component {
     const hsOfferedDate = formatDate(get(bid, 'handshake.hs_date_offered')) || DEFAULT_TEXT;
     let languages$ = NO_LANGUAGES;
     if (languages) {
-      languages$ = join(values(languages.forEach(l => pick(l, ['language']))), ', ');
+      languages$ = languages.map(l => l.representation).join(', ');
     }
 
     return (
@@ -56,9 +52,8 @@ class HandshakeOfferedAlert extends Component {
           </LinkButton>
           :
           <div style={{ display: 'flex' }}>
-            <div style={{ flex: 1 }}>
-              {/* <div style={{ flex: .65 }}> */}
-              <div>{`${userName}, you've been offered a handshake for ${positionTitle} (${positionNumber})`}</div>
+            <div style={{ flex: 0.65 }}>
+              <div>{`${userName}, you've been offered a handshake`}</div>
               <button className="tm-button-transparent" onClick={this.onAcceptBid}>
                 <FontAwesomeIcon icon={faCheck} /> Accept Handshake
               </button>
@@ -72,14 +67,12 @@ class HandshakeOfferedAlert extends Component {
             <div className="right-half">
               <div style={{ display: 'flex' }}>
                 <div style={{ flex: 1 }}>
-                  <div><span>Post: </span>{post}</div>
                   <div><span>TED: </span>{ted}</div>
-                  <div><span>Bid Cycle: </span>{bidCycle}</div>
                   <div><span>Skill: </span>{skill}</div>
                   <div><span>Grade: </span>{grade}</div>
+                  <div><span>Bureau: </span>{bureau}</div>
                 </div>
                 <div style={{ flex: 1 }}>
-                  <div><span>Bureau: </span>{bureau}</div>
                   <div><span>Tour of Duty: </span>{tod}</div>
                   <div><span>Bid Languages: </span>{languages$}</div>
                   <div><span>Post Differential | Danger Pay: </span>{postDiff}|{dangerPay}</div>
