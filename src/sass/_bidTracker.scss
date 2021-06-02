@@ -1184,13 +1184,20 @@ $register-hide-icon: 95%;
   .bid-tracker-alert-container--handshake-offered {
     padding: 5px 15px;
     button {
-      margin: 10px;
+      margin: 8px;
     }
     .right-half {
-      padding-left: 15px;
-      span {
-        font-weight: bold;
-      }
+      padding-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .bid-tracker-alert-container--handshake-offered {
+    padding: 5px;
+    font-size: 14px;
+    button {
+      margin: 5px;
     }
   }
 }
