@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { get } from 'lodash';
+import { get, isEqual } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Alert from 'Components/Alert';
@@ -11,7 +11,7 @@ import { fetchBidderRankings } from 'actions/bureauPositionBids';
 import { formatDate, getCustomLocation } from 'utilities';
 import Spinner from '../../Spinner';
 
-const BidderRankings = ({ perdet, cp_id }) => {
+const BidderRankings = ({ perdet, cp_id, is_dragging, is_mouse_down, mouse_down_emp }) => {
   const bidderRankingData = useSelector(state => state.bidderRankingFetchDataSuccess);
   const bidderRankingData$ = get(bidderRankingData, perdet) || {};
   const bidderRankingDataIsLoading = useSelector(state => state.bidderRankingsIsLoading);
@@ -48,6 +48,14 @@ const BidderRankings = ({ perdet, cp_id }) => {
       setIsFetched(true);
     }
   }, [showRankingData]);
+
+  useEffect(() => {
+    if (isEqual(mouse_down_emp, perdet)) {
+      if (is_dragging || is_mouse_down) {
+        setShowRankingData(false);
+      }
+    }
+  }, [is_dragging, is_mouse_down]);
 
   return (
     <div className={'bidder-rankings'} >
@@ -117,6 +125,15 @@ const BidderRankings = ({ perdet, cp_id }) => {
 BidderRankings.propTypes = {
   perdet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   cp_id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  is_dragging: PropTypes.bool,
+  is_mouse_down: PropTypes.bool,
+  mouse_down_emp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+};
+
+BidderRankings.defaultProps = {
+  is_dragging: false,
+  is_mouse_down: false,
+  mouse_down_emp: '',
 };
 
 export default BidderRankings;
