@@ -129,6 +129,9 @@ export function bidderRankingsIsLoading(state = new Set(), action) {
 export function bidderRankingFetchDataSuccess(state = {}, action) {
   switch (action.type) {
     case 'BIDDER_RANKING_FETCH_DATA_SUCCESS':
+      if (action.results.clearAll) {
+        return {};
+      }
       return { ...state, [action.results.id]: action.results.data };
     default:
       return state;

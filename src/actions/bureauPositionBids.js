@@ -19,10 +19,10 @@ export function bidderRankingsLoading(bool, id) {
     isLoading: { bool, id },
   };
 }
-export function bidderRankingsFetchSuccess(id, data) {
+export function bidderRankingsFetchSuccess(id, data, clearAll) {
   return {
     type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
-    results: { id, data },
+    results: { id, data, clearAll },
   };
 }
 
@@ -236,5 +236,11 @@ export function fetchBidderRankings(perdet, cp_id) {
         dispatch(bidderRankingsErrored(true, perdet));
         dispatch(bidderRankingsLoading(false, perdet));
       });
+  };
+}
+
+export function clearBidderRankings() {
+  return (dispatch) => {
+    dispatch(bidderRankingsFetchSuccess(null, null, true));
   };
 }

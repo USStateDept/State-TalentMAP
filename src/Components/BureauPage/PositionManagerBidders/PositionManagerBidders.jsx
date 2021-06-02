@@ -69,6 +69,8 @@ const getClassificationsTooltip = (classifications) => (
 
 const getItemStyle = (isDragging, draggableStyle) => {
   const border = isDragging ? '1px solid black' : 'none';
+  const height = isDragging ? '130px' : '';
+  const overflowY = isDragging ? 'hidden' : '';
   return {
   // some basic styles to make the items look a bit nicer
     userSelect: 'none',
@@ -78,6 +80,8 @@ const getItemStyle = (isDragging, draggableStyle) => {
     borderBottom: border,
     borderRight: border,
     borderLeft: border,
+    height,
+    overflowY,
 
     // styles we need to apply on draggables
     ...draggableStyle,

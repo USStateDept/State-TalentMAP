@@ -51,7 +51,7 @@ const BidderRankings = ({ perdet, cp_id, is_dragging, is_mouse_down, mouse_down_
 
   useEffect(() => {
     if (isEqual(mouse_down_emp, perdet)) {
-      if (is_dragging || is_mouse_down) {
+      if (is_dragging && is_mouse_down) {
         setShowRankingData(false);
       }
     }
