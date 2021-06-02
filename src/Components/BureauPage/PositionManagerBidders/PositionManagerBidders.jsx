@@ -402,9 +402,9 @@ class PositionManagerBidders extends Component {
                         isDragDisabled={dndDisabled}
                       >
                         {(provided$, snapshot$) => (
-                          // eslint-disable-next-line jsx-a11y/interactive-supports-focus
                           <div
-                            role="button"
+                            role="row"
+                            tabIndex={0}
                             onMouseDown={(e) => { this.handleEvent(e, item.bid.emp_id); }}
                             onMouseUp={this.handleEvent}
                             ref={provided$.innerRef}
@@ -511,10 +511,9 @@ class PositionManagerBidders extends Component {
                                       isDragDisabled={dndDisabled}
                                     >
                                       {(provided$, snapshot$) => (
-                                        // eslint-disable-next-line max-len
-                                        // eslint-disable-next-line jsx-a11y/interactive-supports-focus
                                         <div
-                                          role="button"
+                                          role="row"
+                                          tabIndex={0}
                                           /* eslint-disable-next-line max-len */
                                           onMouseDown={(e) => { this.handleEvent(e, item.bid.emp_id); }}
                                           onMouseUp={this.handleEvent}
