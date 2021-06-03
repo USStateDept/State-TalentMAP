@@ -195,16 +195,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
-      checkFlag('flags.static_content') ?
-        {
-          text: 'Position Lists',
-          route: '/profile/bureau/positionlists',
-          icon: 'list-ol',
-          roles: [
-            'superuser',
-            'bureau_user',
-          ],
-        } : null,
       {
         text: 'Position Manager',
         route: '/profile/bureau/positionmanager',
@@ -215,6 +205,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Candidate Manager',
+          route: '/profile/bureau/candidatemanager',
+          icon: 'exclamation-triangle',
+          roles: [
+            'superuser',
+            'bureau_user',
+            'post_user',
+          ],
+        } : null,
       checkFlag('flags.available_bidders') ?
         {
           text: 'Available Bidders',

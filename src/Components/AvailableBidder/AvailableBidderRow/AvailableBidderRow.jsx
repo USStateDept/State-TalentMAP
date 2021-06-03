@@ -2,12 +2,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { get, keys } from 'lodash';
-import { formatDate } from 'utilities';
+import { formatDate, getCustomLocation } from 'utilities';
 import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
   NO_BUREAU, NO_CDO, NO_COMMENTS, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
-  NO_LANGUAGES, NO_OC_REASON, NO_POST, NO_STATUS,
+  NO_LANGUAGES, NO_OC_REASON, NO_STATUS,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -89,20 +89,8 @@ const AvailableBidderRow = (props) => {
     </div>
   );
 
-  const getCustomLocation = () => {
-    const loc = get(bidder, 'current_assignment.position.post.location', false);
-    if (!loc) return NO_POST;
-    // DC Post - org ex. GTM/EX/SDD
-    if (get(loc, 'state') === 'DC') return get(bidder, 'current_assignment.position.organization');
-    // Domestic outside of DC - City, State
-    if (get(loc, 'country') === 'USA') return `${get(loc, 'city')}, ${get(loc, 'state')}`;
-    if (!get(loc, 'city') && !get(loc, 'country')) return '';
-    // Foreign posts - City, Country
-    let x = `${get(loc, 'city')}, ${get(loc, 'country')}`;
-    if (!get(loc, 'city')) { x = get(loc, 'country'); }
-    if (!get(loc, 'country')) { x = get(loc, 'city'); }
-    return x;
-  };
+  const currentPost = getCustomLocation(get(bidder, 'current_assignment.position.post.location', false),
+    get(bidder, 'current_assignment.position.organization'));
 
   const getCDO = () => (
     <MailToButton email={get(cdo, 'email')} textBefore={`${get(cdo, 'first_name[0]')}. ${get(cdo, 'last_name')}`} />
@@ -116,7 +104,7 @@ const AvailableBidderRow = (props) => {
     grade: get(bidder, 'grade') || NO_GRADE,
     languages: languages.length ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
-    current_post: getCustomLocation(),
+    current_post: currentPost,
     cdo: cdo ? getCDO() : NO_CDO,
     comments: get(bidder, 'available_bidder_details.comments') || NO_COMMENTS,
   } : {
@@ -125,7 +113,7 @@ const AvailableBidderRow = (props) => {
     grade: get(bidder, 'grade') || NO_GRADE,
     languages: languages ? getLanguages() : NO_LANGUAGES,
     ted: formattedTed,
-    current_post: getCustomLocation(),
+    current_post: currentPost,
     cdo: cdo ? getCDO() : NO_CDO,
   };
 
