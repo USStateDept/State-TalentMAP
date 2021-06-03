@@ -17,6 +17,7 @@ import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
 import HandshakeRegisterAlert from './HandshakeRegisterAlert';
 import DraftAlert from './DraftAlert';
+import HandshakeRegisterAnotherClientAlert from './HandshakeRegisterAnotherClientAlert';
 import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
@@ -28,7 +29,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
   const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
-  const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
+  // const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
+  const CLASS_REGISTER = 'bid-tracker-overlay-alert--register-another-client';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
 
   const { position } = bid;
@@ -60,6 +62,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
     setCollapseOverlay(!collapseOverlay);
   }
 
+  const bidId = '4_2262';
+
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
       overlayClass = CLASS_REGISTER;
@@ -90,6 +94,16 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
         overlayClass = [CLASS_REGISTER, CLASS_UNREGISTER].join(' ');
         overlayContent = (
           <HandshakeRegisterAlert
+            registerHandshake={registerHandshake}
+            unregisterHandshake={unregisterHandshake}
+            bid={bid}
+            isUnregister
+          />);
+      }
+      if (bidId) {
+        overlayClass = CLASS_REGISTER;
+        overlayContent =
+          (<HandshakeRegisterAnotherClientAlert
             registerHandshake={registerHandshake}
             unregisterHandshake={unregisterHandshake}
             bid={bid}

@@ -51,9 +51,11 @@ class BidTrackerCard extends Component {
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
+
+    const bidTaken = bid.id === '6_2266' || bid.id === '4_2266' ? ' bid-tracker-hs-another-client' : '';
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
-        <div className="bid-tracker-inner-container">
+        <div className={`bid-tracker-inner-container${bidTaken}`}>
           <MediaQuery breakpoint="screenXlgMin" widthType="min">
             {matches => (
               showRibbons &&

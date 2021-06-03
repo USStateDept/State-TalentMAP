@@ -3,6 +3,7 @@ $card-width: 775px;
 $draft-icon-offset: 120px;
 $register-icon-offset: 44%;
 $register-hide-icon: 95%;
+$register-another-client-offset: 57%;
 
 .bid-tracker-page {
   position: relative;
@@ -266,6 +267,16 @@ $register-hide-icon: 95%;
     &:not(:focus):not(:active):not(:hover) {
       background-color: $blue-primary;
     }
+  }
+}
+
+.bid-tracker-overlay-alert--register-another-client {
+  background: gray;
+  margin-left: $register-another-client-offset;
+
+  .bid-tracker-overlay-alert-content-container {
+    padding-right: $register-icon-offset;
+    width: 95%;
   }
 }
 
@@ -1228,6 +1239,10 @@ $register-hide-icon: 95%;
     border-right: 1px solid $color-white;
   }
 
+  .register-another-client-container {
+    border-left: 1px solid $color-white;
+  }
+
   .register-submission-buttons-container {
     display: flex;
     margin: auto;
@@ -1399,4 +1414,8 @@ $register-hide-icon: 95%;
 
 .bid-tracker-inner-container {
   overflow: hidden;
+}
+
+.bid-tracker-hs-another-client {
+  background: lightgrey;
 }
