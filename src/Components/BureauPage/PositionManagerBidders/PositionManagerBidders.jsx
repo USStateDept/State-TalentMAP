@@ -351,12 +351,10 @@ class PositionManagerBidders extends Component {
 
   handleEvent = (event, id) => {
     if (event.type === 'mousedown') {
-      this.setState({ isMouseDown: true });
-      this.setState({ mouseDownEmp: id });
+      this.setState({ isMouseDown: true, mouseDownEmp: id });
     }
     if (event.type === 'mouseup') {
-      this.setState({ isMouseDown: false });
-      this.setState({ mouseDownEmp: '' });
+      this.setState({ isMouseDown: false, mouseDownEmp: '' });
     }
   }
 
