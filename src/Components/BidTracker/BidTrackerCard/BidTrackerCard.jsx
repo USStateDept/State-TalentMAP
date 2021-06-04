@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { APPROVED_PROP } from 'Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from 'utilities';
 import BidSteps from '../BidStep';
@@ -106,7 +107,7 @@ class BidTrackerCard extends Component {
                   submitBid={submitBid}
                   deleteBid={deleteBid}
                   userId={userId}
-                  userName={get(userProfile, 'user.first_name', '')}
+                  userName={get(userProfile, 'user.first_name') || ''}
                   registerHandshake={registerHandshake}
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
@@ -163,7 +164,7 @@ BidTrackerCard.propTypes = {
 BidTrackerCard.defaultProps = {
   acceptBid: EMPTY_FUNCTION,
   declineBid: EMPTY_FUNCTION,
-  userProfile: {},
+  userProfile: DEFAULT_USER_PROFILE,
   showBidCount: true,
   condensedView: false,
   priorityExists: false,

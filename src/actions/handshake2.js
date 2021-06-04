@@ -86,7 +86,6 @@ export function acceptHandshake(cp_id) {
   };
 }
 
-// eslint-disable-next-line no-unused-vars
 export function declineHandshake(cp_id) {
   return (dispatch) => {
     batch(() => {

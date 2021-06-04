@@ -21,12 +21,12 @@ class BidListResultsCard extends Component {
 
   render() {
     const { bid, condensedView } = this.props;
-    const position = get(bid, 'position_info.position');
+    const position = get(bid, 'position_info.position') || {};
     const createdDate = formatDate(bid.create_date);
     const timeDistanceInWords = getTimeDistanceInWords(bid.update_date);
     const contentTitle = timeDistanceInWords && createdDate ?
       `${timeDistanceInWords} | Added to Bid List: ${createdDate}` : null;
-    const bidStatistics = get(position, 'bid_statistics[0]', {});
+    const bidStatistics = get(position, 'bid_statistics[0]') || {};
     return (
       <div className="usa-grid-full saved-search-card" key={bid.id}>
         <div className="usa-grid-full">
