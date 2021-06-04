@@ -18,6 +18,7 @@ import Alert from 'Components/Alert';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import HandshakeBureauButton from 'Components/Handshake/HandshakeBureauButton';
 import InteractiveElement from 'Components/InteractiveElement';
+import LoadingText from 'Components/LoadingText';
 import ShortListLock from '../ShortListLock';
 import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
@@ -467,7 +468,7 @@ class PositionManagerBidders extends Component {
           {
             // >:)
             // eslint-disable-next-line no-nested-ternary
-            bidsIsLoading && !hasLoaded ? 'Loading...' :
+            bidsIsLoading ? <LoadingText /> :
               (
                 !bids.length && !filtersSelected && !bidsIsLoading ?
                   <Alert type="info" title="There are no bids on this position" />
