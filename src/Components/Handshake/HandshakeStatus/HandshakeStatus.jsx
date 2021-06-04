@@ -21,56 +21,43 @@ const HandshakeStatus = props => {
     // hs_date_revoked,
   } = handshake;
 
-  const getBureauStyling = () => {
-    if (hs_status_code === 'handshake_offered') {
-      return {
-        bureau: 'offered',
-        bureauIcon: 'hand-paper-o',
-      };
-    } else if (hs_status_code === 'handshake_revoked') {
-      return {
-        bureau: 'revoked',
-        bureauIcon: 'hand-rock-o',
-      };
-    }
-    return {
+  const styling = {
+    handshake_offered: {
+      bureau: 'offered',
+      bureauIcon: 'hand-paper-o',
+    },
+    handshake_revoked: {
+      bureau: 'revoked',
+      bureauIcon: 'hand-rock-o',
+    },
+    handshake_accepted: {
+      bidder: 'accepted',
+      bidderIcon: 'hand-paper-o',
+    },
+    handshake_declined: {
+      bidder: 'accepted',
+      bidderIcon: 'hand-paper-o',
+    },
+    default: {
+      bidder: 'inactive',
       bureau: 'inactive',
       bureauIcon: 'hand-paper-o',
-    };
-  };
-
-  const getBidderStyling = () => {
-    if (bidder_hs_code === 'handshake_accepted') {
-      return {
-        bidder: 'accepted',
-        bidderIcon: 'hand-paper-o',
-      };
-    } else if (bidder_hs_code === 'handshake_declined') {
-      return {
-        bidder: 'declined',
-        bidderIcon: 'hand-rock-o',
-      };
-    }
-    return {
-      bidder: 'inactive',
       bidderIcon: 'hand-paper-o',
-    };
+    },
   };
 
-  const bureauStyle = getBureauStyling();
-  const bidderStyle = getBidderStyling();
+  const bureauStyle = styling[hs_status_code] || styling.default;
+  const bidderStyle = styling[bidder_hs_code] || styling.default;
 
   return (
     <>
       <div className="hs-status-container">
         <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
-          <span className="fa-sm">
-            <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
-          </span>
+          <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
         </div>
         <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
           <span className="fa-flip-vertical">
-            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270 fa-sm`} />
+            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
           </span>
         </div>
       </div>
