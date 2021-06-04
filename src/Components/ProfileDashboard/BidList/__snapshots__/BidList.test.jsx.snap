@@ -263,7 +263,18 @@ exports[`BidListComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
-        userProfile={Object {}}
+        userProfile={
+          Object {
+            "display_name": "...",
+            "favorite_positions": Array [],
+            "initials": "",
+            "user": Object {
+              "first_name": "",
+              "last_name": "",
+              "username": "",
+            },
+          }
+        }
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -334,7 +345,18 @@ exports[`BidListComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
-        userProfile={Object {}}
+        userProfile={
+          Object {
+            "display_name": "...",
+            "favorite_positions": Array [],
+            "initials": "",
+            "user": Object {
+              "first_name": "",
+              "last_name": "",
+              "username": "",
+            },
+          }
+        }
       />
       <BidTrackerCard
         acceptBid={[Function]}
@@ -406,7 +428,18 @@ exports[`BidListComponent matches snapshot 1`] = `
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
-        userProfile={Object {}}
+        userProfile={
+          Object {
+            "display_name": "...",
+            "favorite_positions": Array [],
+            "initials": "",
+            "user": Object {
+              "first_name": "",
+              "last_name": "",
+              "username": "",
+            },
+          }
+        }
       />
     </div>
     <div

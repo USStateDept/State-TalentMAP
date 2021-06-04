@@ -43,7 +43,7 @@ const BidSteps = (props, context) => {
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
     && getUseConfetti() && !condensedView) {
       let colors;
-      const country = get(bid, 'position_info.post.location.country');
+      const country = get(bid, 'position_info.position.post.location.country');
       if (country) {
         colors = getFlagColorsByTextSearch(country);
       }
