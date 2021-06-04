@@ -153,6 +153,23 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       break;
   }
 
+  // switch (positionHandshakeRegistered) {
+  //   case (positionHandshakeRegistered && bid.status !== HAND_SHAKE_ACCEPTED_PROP):
+  //     console.log('show new overlay');
+  //     overlayClass = CLASS_REGISTER;
+  //     overlayContent =
+  //       (<HandshakeRegisterAnotherClientAlert
+  //         registerHandshake={registerHandshake}
+  //         unregisterHandshake={unregisterHandshake}
+  //         bid={bid}
+  //         isUnregister
+  //       />);
+  //     break;
+  //   default:
+  //     console.log('dont show new overlay');
+  //     break;
+  // }
+
   const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
   const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
 
