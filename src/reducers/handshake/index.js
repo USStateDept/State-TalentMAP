@@ -1,4 +1,6 @@
 import {
+  handshakeAcceptedNotification,
+  handshakeOfferedNotification,
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
@@ -8,16 +10,24 @@ import {
   revokeHandshakeHasErrored,
   revokeHandshakeIsLoading,
   revokeHandshakeSuccess,
+  unregisterHandshakeHasErrored,
+  unregisterHandshakeIsLoading,
+  unregisterHandshakeSuccess,
 } from './handshake';
 
 export default {
-  registerHandshakeHasErrored,
-  registerHandshakeIsLoading,
-  registerHandshakeSuccess,
+  handshakeAcceptedNotification,
+  handshakeOfferedNotification,
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
+  registerHandshakeHasErrored,
+  registerHandshakeIsLoading,
+  registerHandshakeSuccess,
   revokeHandshakeHasErrored,
   revokeHandshakeIsLoading,
   revokeHandshakeSuccess,
+  unregisterHandshakeHasErrored,
+  unregisterHandshakeIsLoading,
+  unregisterHandshakeSuccess,
 };
