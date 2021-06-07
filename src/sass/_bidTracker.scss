@@ -271,7 +271,7 @@ $register-another-client-offset: 57%;
 }
 
 .bid-tracker-overlay-alert--register-another-client {
-  background: gray;
+  background: #636363;
   margin-left: $register-another-client-offset;
 
   .bid-tracker-overlay-alert-content-container {
@@ -1417,5 +1417,5 @@ $register-another-client-offset: 57%;
 }
 
 .bid-tracker-hs-another-client {
-  background: lightgrey;
+  background: #dbdbdb;
 }

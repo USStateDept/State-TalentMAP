@@ -23,7 +23,7 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, isUnregister }) => {
   return (
     <div className={classes$}>
       <div className="usa-grid-full" style={{ display: 'flex' }}>
-        <div className="register-another-client-container register-position-details" style={{ flex: 1 }}>
+        <div className="register-another-client-container register-position-details">
           {text}
           <div>
             {positionTitle}

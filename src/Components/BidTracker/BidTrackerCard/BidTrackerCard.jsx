@@ -52,7 +52,10 @@ class BidTrackerCard extends Component {
     const showBidCount$ = showBidCount && !priorityExists;
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
 
+    // const bidTakenFlag = (bid.position_info.bid_statistics[0].has_handshake_offered &&
+    // bid.status !== 'HAND_SHAKE_ACCEPTED_PROP'); uncomment above
     const bidTaken = bid.id === '6_2266' || bid.id === '4_2266' ? ' bid-tracker-hs-another-client' : '';
+    // const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className={`bid-tracker-inner-container${bidTaken}`}>

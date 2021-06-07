@@ -153,6 +153,7 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       break;
   }
 
+  // const positionHandshakeRegistered = bid.position_info.bid_statistics[0].has_handshake_offered;
   // switch (positionHandshakeRegistered) {
   //   case (positionHandshakeRegistered && bid.status !== HAND_SHAKE_ACCEPTED_PROP):
   //     console.log('show new overlay');
