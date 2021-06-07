@@ -2,19 +2,13 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const HandshakeAccepted = ({ position_info, username, cdoView }) => (
+const HandshakeAccepted = ({ position_info, username, isCDO }) => (
   <span>
     {
-      !cdoView &&
-        <>
-          {username}, you have successfully accepted a handshake for position:
-        </>
-    }
-    {
-      cdoView &&
-        <>
-          You have successfully accepted a handshake, on behalf of {username}, for position:
-        </>
+      !isCDO ?
+        `${username}, you have successfully accepted a handshake for position:`
+        :
+        `You have successfully accepted a handshake, on behalf of ${username}, for position:`
     }
     <Link to={`/details/${position_info.id}`}>{position_info.position.title}</Link>
   </span>
@@ -28,11 +22,11 @@ HandshakeAccepted.propTypes = {
       title: PropTypes.string,
     }),
   }).isRequired,
-  cdoView: PropTypes.bool,
+  isCDO: PropTypes.bool,
 };
 
 HandshakeAccepted.defaultProps = {
-  cdoView: false,
+  isCDO: false,
 };
 
 export default HandshakeAccepted;

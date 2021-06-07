@@ -94,11 +94,12 @@ HandshakeOfferedAlert.propTypes = {
   bidIdUrl: PropTypes.string,
   acceptBidHandshake: PropTypes.func.isRequired,
   declineBidHandshake: PropTypes.func.isRequired,
-  cdoView: PropTypes.bool.isRequired,
+  cdoView: PropTypes.bool,
 };
 
 HandshakeOfferedAlert.defaultProps = {
   bidIdUrl: '',
+  cdoView: false,
 };
 
 HandshakeOfferedAlert.contextTypes = {
