@@ -26,7 +26,7 @@ class BidListResultsCard extends Component {
     const timeDistanceInWords = getTimeDistanceInWords(bid.update_date);
     const contentTitle = timeDistanceInWords && createdDate ?
       `${timeDistanceInWords} | Added to Bid List: ${createdDate}` : null;
-    const bidStatistics = get(position, 'bid_statistics[0]') || {};
+    const bidStatistics = get(bid, 'position_info.bid_statistics[0]') || {};
     return (
       <div className="usa-grid-full saved-search-card" key={bid.id}>
         <div className="usa-grid-full">
