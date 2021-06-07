@@ -19,7 +19,7 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
       }
     >
       <div>
-        test, you've been offered a handshake
+        test , you've been offered a handshake
       </div>
       <button
         className="tm-button-transparent"

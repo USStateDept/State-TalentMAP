@@ -131,8 +131,8 @@ export const HANDSHAKE_OFFERED_BODY = ({ name, message }) =>
   HandshakeOffered({ name, message });
 
 export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
-export const HANDSHAKE_ACCEPTED_BODY = ({ position_info, username }) =>
-  HandshakeAccepted({ position_info, username });
+export const HANDSHAKE_ACCEPTED_BODY = ({ position_info, username, isCDO }) =>
+  HandshakeAccepted({ position_info, username, isCDO });
 export const HANDSHAKE_ACCEPT_ERROR = "We're experiencing an error attempting to accept the handshake. Please try again.";
 
 export const HANDSHAKE_DECLINE_TITLE = 'Handshake Declined';

@@ -2,17 +2,21 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const HandshakeAccepted = ({ position_info, username }) => (
+const HandshakeAccepted = ({ position_info, username, cdoView }) => (
   <span>
-    {username}, you have successfully accepted a handshake for position:
+    {
+      !cdoView &&
+        <>
+          {username}, you have successfully accepted a handshake for position:
+        </>
+    }
+    {
+      cdoView &&
+        <>
+          You have successfully accepted a handshake, on behalf of {username}, for position:
+        </>
+    }
     <Link to={`/details/${position_info.id}`}>{position_info.position.title}</Link>
-    {/* <div className="bottom-section"> */}
-    {/* eslint-disable-next-line react/no-unescaped-entities */}
-    {/* Go to Client's Bid Tracker to register the Handshake */}
-    {/* <Link to={bid}> */}
-    {/* <button role="link"> Bid Tracker</button> */}
-    {/* </Link> */}
-    {/* </div> */}
   </span>
 );
 
@@ -24,6 +28,11 @@ HandshakeAccepted.propTypes = {
       title: PropTypes.string,
     }),
   }).isRequired,
+  cdoView: PropTypes.bool,
+};
+
+HandshakeAccepted.defaultProps = {
+  cdoView: false,
 };
 
 export default HandshakeAccepted;

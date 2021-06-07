@@ -15,17 +15,17 @@ import LinkButton from '../../../LinkButton';
 
 class HandshakeOfferedAlert extends Component {
   onAcceptBid = () => {
-    const { acceptBidHandshake, bid } = this.props;
-    acceptBidHandshake(get(bid, 'position_info'), this.props.userName);
+    const { acceptBidHandshake, bid, cdoView } = this.props;
+    acceptBidHandshake(get(bid, 'position_info'), this.props.userName, cdoView, get(bid, 'emp_id'));
   };
 
   onDeclineBid = () => {
-    const { declineBidHandshake, bid } = this.props;
-    declineBidHandshake(get(bid, 'position_info.id'));
+    const { declineBidHandshake, bid, cdoView } = this.props;
+    declineBidHandshake(get(bid, 'position_info.id'), cdoView, get(bid, 'emp_id'));
   };
 
   render() {
-    const { userName, bidIdUrl, bid } = this.props;
+    const { userName, bidIdUrl, bid, cdoView } = this.props;
     const { condensedView } = this.context;
     const { position_info } = bid;
     const position = get(bid, 'position_info.position');
@@ -53,7 +53,7 @@ class HandshakeOfferedAlert extends Component {
           :
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 0.65 }}>
-              <div>{`${userName}, you've been offered a handshake`}</div>
+              <div>{`${userName} ${cdoView ? 'has' : ", you've"} been offered a handshake`}</div>
               <button className="tm-button-transparent" onClick={this.onAcceptBid}>
                 <FontAwesomeIcon icon={faCheck} /> Accept Handshake
               </button>
@@ -89,16 +89,12 @@ class HandshakeOfferedAlert extends Component {
 }
 
 HandshakeOfferedAlert.propTypes = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  id: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
   userName: PropTypes.string.isRequired,
   bid: BID_OBJECT.isRequired,
   bidIdUrl: PropTypes.string,
   acceptBidHandshake: PropTypes.func.isRequired,
   declineBidHandshake: PropTypes.func.isRequired,
+  cdoView: PropTypes.bool.isRequired,
 };
 
 HandshakeOfferedAlert.defaultProps = {
@@ -110,8 +106,9 @@ HandshakeOfferedAlert.contextTypes = {
 };
 
 export const mapDispatchToProps = dispatch => ({
-  acceptBidHandshake: (pos_info, name) => dispatch(acceptHandshake(pos_info, name)),
-  declineBidHandshake: cp_id => dispatch(declineHandshake(cp_id)),
+  acceptBidHandshake: (pos_info, name, isCDO, emp_id) => dispatch(acceptHandshake(pos_info,
+    name, isCDO, emp_id)),
+  declineBidHandshake: (cp_id, isCDO, emp_id) => dispatch(declineHandshake(cp_id, isCDO, emp_id)),
 });
 
 export default connect(null, mapDispatchToProps)(HandshakeOfferedAlert);

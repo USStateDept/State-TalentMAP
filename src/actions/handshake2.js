@@ -53,22 +53,22 @@ export function declineHandshakeSuccess(response) {
   };
 }
 
-export function acceptHandshake(position_info, username) {
+export function acceptHandshake(position_info, username, isCDO, emp_id) {
   return (dispatch) => {
     batch(() => {
       dispatch(acceptHandshakeIsLoading(true));
       dispatch(acceptHandshakeHasErrored(false));
     });
-    const url = `/bidding/handshake/bidder/${get(position_info, 'id')}/`;
+    const url = `/bidding/handshake/${isCDO ? `cdo/${emp_id}` : 'bidder'}/${get(position_info, 'id')}/`;
     api().put(url)
       .then((response) => {
         batch(() => {
           dispatch(acceptedHandshakeNotification({
             title: SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
-            message: SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username }),
+            message: SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username, isCDO }),
           }));
           dispatch(toastHandshake(
-            SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username }),
+            SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username, isCDO }),
             SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
           ));
           dispatch(acceptHandshakeSuccess(response));
@@ -86,13 +86,15 @@ export function acceptHandshake(position_info, username) {
   };
 }
 
-export function declineHandshake(cp_id) {
+export function declineHandshake(cp_id, isCDO, emp_id) {
+  // eslint-disable-next-line no-console
+  console.log('current: emp_id 3.', emp_id);
   return (dispatch) => {
     batch(() => {
       dispatch(declineHandshakeIsLoading(true));
       dispatch(declineHandshakeHasErrored(false));
     });
-    const url = `/bidding/handshake/bidder/${cp_id}/`;
+    const url = `/bidding/handshake/${isCDO ? `cdo/${emp_id}` : 'bidder'}/${cp_id}/`;
     api().delete(url)
       .then((response) => {
         batch(() => {
