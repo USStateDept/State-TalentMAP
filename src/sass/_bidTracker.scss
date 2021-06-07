@@ -1159,6 +1159,9 @@ $register-hide-icon: 95%;
   button {
     margin: 20px 30px 20px 0;
   }
+  button:disabled {
+    opacity: 75%;
+  }
   .link-button-wrapper {
     margin: auto;
   }

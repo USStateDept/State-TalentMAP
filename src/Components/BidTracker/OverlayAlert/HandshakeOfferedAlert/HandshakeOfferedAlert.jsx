@@ -39,6 +39,12 @@ class HandshakeOfferedAlert extends Component {
     const dangerPay = get(position, 'post.danger_pay') || NO_DANGER_PAY;
     const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
     const hsOfferedDate = formatDate(get(bid, 'handshake.hs_date_offered')) || DEFAULT_TEXT;
+    const handshake = get(bid, 'handshake') || {};
+    const bidderAction = get(handshake, 'bidder_hs_code');
+    const bidderAction$ = bidderAction === 'handshake_accepted' ? 'accepted' : 'declined';
+    const hsActionBy = `${handshake.hs_cdo_indicator ? 'a cdo' : `${cdoView ? userName : 'you'}`}`;
+    const hsActionDate = formatDate(bidderAction$ === 'accepted' ? get(handshake, 'hs_date_accepted') : get(handshake, 'hs_date_declined'));
+
     let languages$ = NO_LANGUAGES;
     if (languages) {
       languages$ = languages.map(l => l.representation).join(', ');
@@ -53,16 +59,31 @@ class HandshakeOfferedAlert extends Component {
           :
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 0.65 }}>
-              <div>{`${userName}${cdoView ? ' has' : ", you've"} been offered a handshake`}</div>
-              <button className="tm-button-transparent" onClick={this.onAcceptBid}>
-                <FontAwesomeIcon icon={faCheck} /> Accept Handshake
-              </button>
-              <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid}>
-                Decline Handshake
-              </button>
-              <StaticDevContent>
-                <div>24 hours to accept the handshake</div>
-              </StaticDevContent>
+              {
+                !bidderAction ?
+                  <>
+                    <div>{`${userName}${cdoView ? ' has' : ", you've"} been offered a handshake`}</div>
+                    <button className="tm-button-transparent" onClick={this.onAcceptBid}>
+                      <FontAwesomeIcon icon={faCheck} /> Accept Handshake
+                    </button>
+                    <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid}>
+                    Decline Handshake
+                    </button>
+                    <StaticDevContent>
+                      <div>24 hours to accept the handshake</div>
+                    </StaticDevContent>
+                  </>
+                  :
+                  <>
+                    <div>{`Handshake was ${bidderAction$} by ${hsActionBy} on ${hsActionDate}`}</div>
+                    <button className="tm-button-transparent" onClick={this.onAcceptBid} disabled={bidderAction$ === 'accepted'}>
+                      <FontAwesomeIcon icon={faCheck} /> Accept Handshake
+                    </button>
+                    <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid} disabled={bidderAction$ === 'declined'}>
+                      Decline Handshake
+                    </button>
+                  </>
+              }
             </div>
             <div className="right-half">
               <div style={{ display: 'flex' }}>

@@ -65,18 +65,16 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
         />);
       break;
     case HAND_SHAKE_OFFERED_PROP:
-      if (get(bid, 'handshake.bidder_hs_code') === null) {
-        overlayClass = CLASS_PENDING;
-        overlayContent = (
-          <HandshakeOfferedAlert
-            id={bid.id}
-            userName={userName}
-            bid={bid}
-            bidIdUrl={bidIdUrl}
-            cdoView={useCDOView}
-          />
-        );
-      }
+      overlayClass = CLASS_PENDING;
+      overlayContent = (
+        <HandshakeOfferedAlert
+          id={bid.id}
+          userName={userName}
+          bid={bid}
+          bidIdUrl={bidIdUrl}
+          cdoView={useCDOView}
+        />
+      );
       break;
     case HAND_SHAKE_ACCEPTED_PROP:
       if (useCDOView) {
