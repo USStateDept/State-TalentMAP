@@ -134,6 +134,9 @@ export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
 export const HANDSHAKE_ACCEPTED_BODY = ({ position_info, username }) =>
   HandshakeAccepted({ position_info, username });
 export const HANDSHAKE_ACCEPT_ERROR = "We're experiencing an error attempting to accept the handshake. Please try again.";
+
+export const HANDSHAKE_DECLINE_TITLE = 'Handshake Declined';
+export const HANDSHAKE_DECLINE_BODY = 'Handshake successfully declined.';
 export const HANDSHAKE_DECLINE_ERROR = "We're experiencing an error attempting to decline the handshake. Please try again.";
 
 export const COMING_SOON = 'Coming Soon';

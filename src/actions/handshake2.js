@@ -2,7 +2,7 @@ import { batch } from 'react-redux';
 import * as SystemMessages from 'Constants/SystemMessages';
 import { get } from 'lodash';
 import api from '../api';
-import { toastError, toastHandshake } from './toast';
+import {toastError, toastHandshake, toastSuccess} from './toast';
 
 export function acceptedHandshakeNotification(notificationInformation) {
   return {
@@ -96,15 +96,8 @@ export function declineHandshake(cp_id) {
     api().delete(url)
       .then((response) => {
         batch(() => {
-        //  need to add HS decline toast
-        //   dispatch(declineHandshakeNotification({
-        //     title: SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
-        //     message: SystemMessages.HANDSHAKE_ACCEPTED_BODY(x),
-        //   }));
-        //   dispatch(toastHandshake(
-        //     SystemMessages.HANDSHAKE_ACCEPTED_BODY(x),
-        //     SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
-        //   ));
+          dispatch(toastSuccess(SystemMessages.HANDSHAKE_DECLINE_BODY,
+            SystemMessages.HANDSHAKE_DECLINE_TITLE));
           dispatch(declineHandshakeSuccess(response));
           dispatch(declineHandshakeHasErrored(false));
           dispatch(declineHandshakeIsLoading(false));
