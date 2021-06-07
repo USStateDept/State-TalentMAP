@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
-import swal from '@sweetalert/with-react';
 import { formatDate, move } from 'utilities';
 import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
@@ -380,41 +379,31 @@ class PositionManagerBidders extends Component {
     }
   }
 
-    handshakeModal = () => {
-      swal({
-        title: 'Handshake Editor',
-        button: false,
-        content: (
-          <EditHandshake />
-        ),
-      });
-    };
+  render() {
+    const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
+      hasBureauPermission } = this.props;
+    const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
-    render() {
-      const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
-        hasBureauPermission } = this.props;
-      const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
+    const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
+      <th scope="col">{item}</th>
+    ));
 
-      const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
-        <th scope="col">{item}</th>
-      ));
+    const shortListLock = (<ShortListLock
+      id={id}
+      biddersInShortList={this.state.shortList.length}
+    />);
 
-      const shortListLock = (<ShortListLock
-        id={id}
-        biddersInShortList={this.state.shortList.length}
-      />);
+    const dndDisabled = this.isDndDisabled();
 
-      const dndDisabled = this.isDndDisabled();
-
-      const shortListSection = (
-        <>
-          <div className="list-toggle-container">
-            <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('shortListVisible')}><FA name={shortListVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
-            <h3>Short List ({this.state.shortList.length})</h3>
-            {shortListLock}
-          </div>
-          {
-            shortListVisible &&
+    const shortListSection = (
+      <>
+        <div className="list-toggle-container">
+          <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('shortListVisible')}><FA name={shortListVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
+          <h3>Short List ({this.state.shortList.length})</h3>
+          {shortListLock}
+        </div>
+        {
+          shortListVisible &&
           <table className="position-manager-bidders-table">
             <thead>
               <tr>
@@ -468,62 +457,62 @@ class PositionManagerBidders extends Component {
               </Droppable>
             </tbody>
           </table>
-          }
-        </>
-      );
+        }
+      </>
+    );
 
-      return (
-        <div className="usa-width-one-whole position-manager-bidders">
-          { !bids.length && !!hasLoaded && shortListLock }
-          <DragDropContext onDragEnd={this.onDragEnd}>
-            {
+    return (
+      <div className="usa-width-one-whole position-manager-bidders">
+        { !bids.length && !!hasLoaded && shortListLock }
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          {
             // >:)
             // eslint-disable-next-line no-nested-ternary
-              bidsIsLoading ? <LoadingText /> :
-                (
-                  !bids.length && !filtersSelected && !bidsIsLoading ?
-                    <Alert type="info" title="There are no bids on this position" />
-                    :
-                    <>
-                      {/* eslint-disable no-nested-ternary */}
-                      {isLocked ?
-                        hasBureauPermission ? shortListSection : <>
-                          <Alert
-                            type="info"
-                            title="Short List Locked"
-                            messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
-                          />
-                          <div>
-                            {shortListSection}
-                          </div>
-                        </>
-                        : shortListSection }
-                      {/* eslint-enable no-nested-ternary */}
-                      <div className="bidders-controls">
-                        <SelectForm
-                          id="sort"
-                          label="Sort by:"
-                          defaultSort={filters.ordering || ''}
-                          options={BUREAU_BIDDER_SORT.options}
-                          disabled={false}
-                          onSelectOption={e => this.props.onSort(e.target.value)}
+            bidsIsLoading ? <LoadingText /> :
+              (
+                !bids.length && !filtersSelected && !bidsIsLoading ?
+                  <Alert type="info" title="There are no bids on this position" />
+                  :
+                  <>
+                    {/* eslint-disable no-nested-ternary */}
+                    {isLocked ?
+                      hasBureauPermission ? shortListSection : <>
+                        <Alert
+                          type="info"
+                          title="Short List Locked"
+                          messages={[{ body: 'The short list has been locked by the bureau. You cannot modify the short list until it has been unlocked.' }]}
                         />
-                        <SelectForm
-                          id="filter"
-                          options={BUREAU_BIDDER_FILTERS.options}
-                          label="Filter By:"
-                          defaultSort={filters.handshake_code || ''}
-                          disabled={false}
-                          onSelectOption={e => this.props.onFilter('handshake_code', e.target.value)}
-                        />
-                      </div>
+                        <div>
+                          {shortListSection}
+                        </div>
+                      </>
+                      : shortListSection }
+                    {/* eslint-enable no-nested-ternary */}
+                    <div className="bidders-controls">
+                      <SelectForm
+                        id="sort"
+                        label="Sort by:"
+                        defaultSort={filters.ordering || ''}
+                        options={BUREAU_BIDDER_SORT.options}
+                        disabled={false}
+                        onSelectOption={e => this.props.onSort(e.target.value)}
+                      />
+                      <SelectForm
+                        id="filter"
+                        options={BUREAU_BIDDER_FILTERS.options}
+                        label="Filter By:"
+                        defaultSort={filters.handshake_code || ''}
+                        disabled={false}
+                        onSelectOption={e => this.props.onFilter('handshake_code', e.target.value)}
+                      />
+                    </div>
 
-                      <div className="list-toggle-container">
-                        <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('unrankedVisible')}><FA name={unrankedVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
-                        <h3>Candidates ({this.state.unranked.length})</h3>
-                      </div>
-                      {
-                        unrankedVisible &&
+                    <div className="list-toggle-container">
+                      <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('unrankedVisible')}><FA name={unrankedVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
+                      <h3>Candidates ({this.state.unranked.length})</h3>
+                    </div>
+                    {
+                      unrankedVisible &&
                         <table className="position-manager-bidders-table">
                           <thead>
                             <tr>
@@ -578,14 +567,14 @@ class PositionManagerBidders extends Component {
                             </Droppable>
                           </tbody>
                         </table>
-                      }
-                    </>
-                )
-            }
-          </DragDropContext>
-        </div>
-      );
-    }
+                    }
+                  </>
+              )
+          }
+        </DragDropContext>
+      </div>
+    );
+  }
 }
 
 PositionManagerBidders.propTypes = {
