@@ -9,7 +9,7 @@ import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
 import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
-import { NO_BID_CYCLE } from 'Constants/SystemMessages';
+import { NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
 import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 
@@ -847,4 +847,18 @@ export function move(arr, fromIndex, toIndex) {
   arr.splice(fromIndex, 1);
   arr.splice(toIndex, 0, element);
   return arr;
+}
+
+export function getCustomLocation(loc, org) {
+  if (!loc) return NO_POST;
+  // DC Post - org ex. GTM/EX/SDD
+  if (get(loc, 'state') === 'DC') return org || NO_POST;
+  // Domestic outside of DC - City, State
+  if (get(loc, 'country') === 'USA') return `${get(loc, 'city')}, ${get(loc, 'state')}`;
+  if (!get(loc, 'city') && !get(loc, 'country')) return '';
+  // Foreign posts - City, Country
+  let x = `${get(loc, 'city')}, ${get(loc, 'country')}`;
+  if (!get(loc, 'city')) { x = get(loc, 'country'); }
+  if (!get(loc, 'country')) { x = get(loc, 'city'); }
+  return x;
 }
