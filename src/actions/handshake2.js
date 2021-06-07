@@ -2,7 +2,7 @@ import { batch } from 'react-redux';
 import * as SystemMessages from 'Constants/SystemMessages';
 import { get } from 'lodash';
 import api from '../api';
-import {toastError, toastHandshake, toastSuccess} from './toast';
+import { toastError, toastHandshake, toastSuccess } from './toast';
 
 export function acceptedHandshakeNotification(notificationInformation) {
   return {
