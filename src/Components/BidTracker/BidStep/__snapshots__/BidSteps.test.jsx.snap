@@ -196,7 +196,13 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <ConfettiIcon
-        colors={Array []}
+        colors={
+          Array [
+            "#0072c6",
+            "#fff",
+            "#1eb53a",
+          ]
+        }
       >
         <BidStepIcon
           hasRescheduledTooltip={false}
