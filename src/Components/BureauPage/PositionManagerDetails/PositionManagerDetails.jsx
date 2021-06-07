@@ -10,7 +10,7 @@ import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
 import { CLASSIFICATIONS, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
-import { bureauBidsAllFetchData, bureauBidsFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
+import { bureauBidsAllFetchData, bureauBidsFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, clearBidderRankings, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
 import { fetchClassifications } from 'actions/classifications';
 import ExportButton from '../ExportButton';
@@ -33,6 +33,7 @@ class PositionManagerDetails extends Component {
     this.props.getPositionDetails(this.state.id);
     this.props.getBidsRanking(this.state.id);
     this.props.getClassifications();
+    this.props.clearBidderRankingsData();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -172,6 +173,7 @@ PositionManagerDetails.propTypes = {
   getClassifications: PropTypes.func,
   classifications: CLASSIFICATIONS,
   classificationsIsLoading: PropTypes.bool,
+  clearBidderRankingsData: PropTypes.func,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -191,6 +193,7 @@ PositionManagerDetails.defaultProps = {
   getClassifications: EMPTY_FUNCTION,
   classifications: [],
   classificationsIsLoading: true,
+  clearBidderRankingsData: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = (state) => ({
@@ -214,6 +217,7 @@ export const mapDispatchToProps = dispatch => ({
   downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),
   setRanking: (id, ranking) => dispatch(bureauBidsSetRanking(id, ranking)),
   getClassifications: () => dispatch(fetchClassifications()),
+  clearBidderRankingsData: () => dispatch(clearBidderRankings()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));
