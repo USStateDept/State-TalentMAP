@@ -87,8 +87,6 @@ export function acceptHandshake(position_info, username, isCDO, emp_id) {
 }
 
 export function declineHandshake(cp_id, isCDO, emp_id) {
-  // eslint-disable-next-line no-console
-  console.log('current: emp_id 3.', emp_id);
   return (dispatch) => {
     batch(() => {
       dispatch(declineHandshakeIsLoading(true));

@@ -15,8 +15,8 @@ import LinkButton from '../../../LinkButton';
 
 class HandshakeOfferedAlert extends Component {
   onAcceptBid = () => {
-    const { acceptBidHandshake, bid, cdoView } = this.props;
-    acceptBidHandshake(get(bid, 'position_info'), this.props.userName, cdoView, get(bid, 'emp_id'));
+    const { acceptBidHandshake, bid, cdoView, userName } = this.props;
+    acceptBidHandshake(get(bid, 'position_info'), userName, cdoView, get(bid, 'emp_id'));
   };
 
   onDeclineBid = () => {
@@ -53,7 +53,7 @@ class HandshakeOfferedAlert extends Component {
           :
           <div style={{ display: 'flex' }}>
             <div style={{ flex: 0.65 }}>
-              <div>{`${userName} ${cdoView ? 'has' : ", you've"} been offered a handshake`}</div>
+              <div>{`${userName}${cdoView ? ' has' : ", you've"} been offered a handshake`}</div>
               <button className="tm-button-transparent" onClick={this.onAcceptBid}>
                 <FontAwesomeIcon icon={faCheck} /> Accept Handshake
               </button>
