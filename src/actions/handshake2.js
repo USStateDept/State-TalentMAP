@@ -1,5 +1,6 @@
 import { batch } from 'react-redux';
 import * as SystemMessages from 'Constants/SystemMessages';
+import { get } from 'lodash';
 import api from '../api';
 import { toastError, toastHandshake } from './toast';
 
@@ -52,23 +53,22 @@ export function declineHandshakeSuccess(response) {
   };
 }
 
-export function acceptHandshake(cp_id) {
+export function acceptHandshake(position_info, username) {
   return (dispatch) => {
     batch(() => {
       dispatch(acceptHandshakeIsLoading(true));
       dispatch(acceptHandshakeHasErrored(false));
     });
-    const url = `/bidding/handshake/bidder/${cp_id}/`;
+    const url = `/bidding/handshake/bidder/${get(position_info, 'id')}/`;
     api().put(url)
       .then((response) => {
-        const x = { name: 'Tarek Rehman', position: { name: 'Special Agent (56013011)', link: '/details/8006' }, bid: '/profile/bidtracker/public/6' };
         batch(() => {
           dispatch(acceptedHandshakeNotification({
             title: SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
-            message: SystemMessages.HANDSHAKE_ACCEPTED_BODY(x),
+            message: SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username }),
           }));
           dispatch(toastHandshake(
-            SystemMessages.HANDSHAKE_ACCEPTED_BODY(x),
+            SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username }),
             SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
           ));
           dispatch(acceptHandshakeSuccess(response));

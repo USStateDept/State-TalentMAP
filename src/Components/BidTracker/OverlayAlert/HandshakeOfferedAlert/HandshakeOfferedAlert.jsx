@@ -16,7 +16,7 @@ import LinkButton from '../../../LinkButton';
 class HandshakeOfferedAlert extends Component {
   onAcceptBid = () => {
     const { acceptBidHandshake, bid } = this.props;
-    acceptBidHandshake(get(bid, 'position_info.id'));
+    acceptBidHandshake(get(bid, 'position_info'), this.props.userName);
   };
 
   onDeclineBid = () => {
@@ -110,7 +110,7 @@ HandshakeOfferedAlert.contextTypes = {
 };
 
 export const mapDispatchToProps = dispatch => ({
-  acceptBidHandshake: cp_id => dispatch(acceptHandshake(cp_id)),
+  acceptBidHandshake: (pos_info, name) => dispatch(acceptHandshake(pos_info, name)),
   declineBidHandshake: cp_id => dispatch(declineHandshake(cp_id)),
 });
 
