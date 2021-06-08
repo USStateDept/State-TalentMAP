@@ -30,7 +30,7 @@ class Alert extends React.Component<Props> {
   };
 
   // prevent unneeded rerenders, which can cause accessibility issues
-  shouldComponentUpdate(nextProps: any): boolean {
+  shouldComponentUpdate(nextProps: Props): boolean {
     return !isEqual(this.props, nextProps);
   }
 
