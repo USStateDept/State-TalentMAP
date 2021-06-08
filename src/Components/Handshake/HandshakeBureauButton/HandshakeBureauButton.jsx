@@ -37,7 +37,7 @@ const HandshakeBureauButton = props => {
       <button
         className=""
         title={`${buttonText()} handshake`}
-        onClick={(!hs_status_code || hs_status_code) === 'handshake_revoked' ?
+        onClick={(!hs_status_code || hs_status_code === 'handshake_revoked') ?
           () => dispatch(offerHandshake(personID, positionID)) :
           () => dispatch(revokeHandshake(personID, positionID))
         }
