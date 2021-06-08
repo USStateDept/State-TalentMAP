@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
-// import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-// import { Tooltip } from 'react-tippy';
 
 const HandshakeStatus = props => {
   const [handshake, setHandshake] = useState(props.handshake);
@@ -14,11 +12,6 @@ const HandshakeStatus = props => {
   const {
     hs_status_code,
     bidder_hs_code,
-    // hs_cdo_indicator,
-    // hs_date_accepted,
-    // hs_date_declined,
-    // hs_date_offered,
-    // hs_date_revoked,
   } = handshake;
 
   const styling = {
@@ -67,12 +60,10 @@ const HandshakeStatus = props => {
 
 HandshakeStatus.propTypes = {
   handshake: PropTypes.shape({}),
-  // isRegistered: PropTypes.bool,
 };
 
 HandshakeStatus.defaultProps = {
   handshake: {},
-  // isRegistered: false,
 };
 
 export default HandshakeStatus;
