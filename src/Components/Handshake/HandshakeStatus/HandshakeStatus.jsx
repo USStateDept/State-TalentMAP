@@ -35,8 +35,8 @@ const HandshakeStatus = props => {
       bidderIcon: 'hand-paper-o',
     },
     handshake_declined: {
-      bidder: 'accepted',
-      bidderIcon: 'hand-paper-o',
+      bidder: 'declined',
+      bidderIcon: 'hand-rock-o',
     },
     default: {
       bidder: 'inactive',
