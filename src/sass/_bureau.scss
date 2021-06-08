@@ -520,7 +520,7 @@
       justify-content: center; // fixes IE11
       border: none;
       padding: 20px 30px;
-      flex: 3;
+      flex: 4;
       font-size: 1.6rem;
       .deconflict-indicator {
         color: $tertiary-gold;
@@ -528,7 +528,7 @@
       }
     }
     td:first-of-type {
-      flex: 2
+      flex: none;
     }
 
     td:nth-of-type(2),
