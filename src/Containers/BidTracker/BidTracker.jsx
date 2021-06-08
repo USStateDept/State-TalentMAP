@@ -4,19 +4,20 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import { acceptBid, bidListFetchData, declineBid,
-  registerHandshake, routeChangeResetState, submitBid, toggleBidPosition,
-  unregisterHandshake } from '../../actions/bidList';
-import { userProfilePublicFetchData } from '../../actions/userProfilePublic';
-import { bidTrackerNotificationsFetchData, markNotification } from '../../actions/notifications';
+  routeChangeResetState, submitBid, toggleBidPosition,
+} from 'actions/bidList';
+import { registerHandshake, unregisterHandshake } from 'actions/handshake';
+import { userProfilePublicFetchData } from 'actions/userProfilePublic';
+import { bidTrackerNotificationsFetchData, markNotification } from 'actions/notifications';
 import { ACCEPT_BID_HAS_ERRORED, ACCEPT_BID_SUCCESS, BID_LIST, BID_LIST_TOGGLE_HAS_ERRORED,
   BID_LIST_TOGGLE_SUCCESS, DECLINE_BID_HAS_ERRORED, DECLINE_BID_SUCCESS, EMPTY_FUNCTION,
   MARK_NOTIFICATION_SUCCESS, NOTIFICATION_LIST, REGISTER_HANDSHAKE_HAS_ERRORED,
   REGISTER_HANDSHAKE_SUCCESS, SUBMIT_BID_HAS_ERRORED, SUBMIT_BID_SUCCESS,
   UNREGISTER_HANDSHAKE_HAS_ERRORED, UNREGISTER_HANDSHAKE_SUCCESS,
   USER_PROFILE,
-} from '../../Constants/PropTypes';
-import { DEFAULT_USER_PROFILE } from '../../Constants/DefaultProps';
-import BidTracker from '../../Components/BidTracker';
+} from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
+import BidTracker from 'Components/BidTracker';
 
 class BidTrackerContainer extends Component {
   UNSAFE_componentWillMount() {

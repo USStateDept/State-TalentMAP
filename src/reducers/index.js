@@ -55,7 +55,9 @@ import bureauPositionDetails from './bureauPositionDetails';
 import shortListLock from './shortListLock';
 import cdo from './cdo';
 import hs from './handshake2';
+import handshake from './handshake';
 // TODO: remove handshake2 after PR 1494 merged (bc handshake2 will be moved to handshake.js)
+
 export default (history) => combineReducers({
   ...results,
   ...filters,
@@ -108,6 +110,7 @@ export default (history) => combineReducers({
   ...shortListLock,
   ...cdo,
   ...hs,
+  ...handshake,
   router: connectRouter(history),
   client,
   login,
