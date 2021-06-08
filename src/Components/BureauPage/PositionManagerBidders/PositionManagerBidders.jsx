@@ -257,7 +257,7 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
-    const handshake = get(m, 'handshake', {});
+    const handshake = get(m, 'handshake', {}) || {};
     const active_hs_perdet = get(m, 'active_handshake_perdet');
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
