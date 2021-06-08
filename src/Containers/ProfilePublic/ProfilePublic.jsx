@@ -10,7 +10,7 @@ import { fetchClassifications } from 'actions/classifications';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { CLASSIFICATIONS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
-import { registerHandshake, unregisterHandshake } from 'actions/bidList';
+import { registerHandshake, unregisterHandshake } from 'actions/handshake';
 
 class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {

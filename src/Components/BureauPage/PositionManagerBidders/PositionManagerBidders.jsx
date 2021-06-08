@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isEqual, keys, orderBy } from 'lodash';
+import { get, isEqual, isNull, keys, orderBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -15,7 +15,10 @@ import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_FILTERS, BUREAU_BIDDER_SORT } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
+import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
+import HandshakeBureauButton from 'Components/Handshake/HandshakeBureauButton';
 import InteractiveElement from 'Components/InteractiveElement';
+import LoadingText from 'Components/LoadingText';
 import ShortListLock from '../ShortListLock';
 import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
@@ -254,6 +257,9 @@ class PositionManagerBidders extends Component {
     const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
+    const handshake = get(m, 'handshake', {}) || {};
+    const active_hs_perdet = get(m, 'active_handshake_perdet');
+
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
       RetainedSpace: type === 'unranked' ? 'Unranked' :
@@ -297,6 +303,21 @@ class PositionManagerBidders extends Component {
         : NO_CLASSIFICATIONS,
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
+      Action:
+        <>
+          <HandshakeStatus
+            handshake={handshake}
+          />
+          {
+            type !== 'unranked' &&
+            <HandshakeBureauButton
+              handshake={handshake}
+              positionID={props.id}
+              personID={m.emp_id}
+              disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
+            />
+          }
+        </>,
     };
 
     if (props.bidsIsLoading) {
@@ -363,7 +384,7 @@ class PositionManagerBidders extends Component {
       hasBureauPermission } = this.props;
     const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
-    const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO'].map(item => (
+    const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
       <th scope="col">{item}</th>
     ));
 
@@ -447,7 +468,7 @@ class PositionManagerBidders extends Component {
           {
             // >:)
             // eslint-disable-next-line no-nested-ternary
-            bidsIsLoading && !hasLoaded ? 'Loading...' :
+            bidsIsLoading ? <LoadingText /> :
               (
                 !bids.length && !filtersSelected && !bidsIsLoading ?
                   <Alert type="info" title="There are no bids on this position" />

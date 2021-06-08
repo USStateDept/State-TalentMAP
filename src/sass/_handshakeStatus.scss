@@ -1,0 +1,35 @@
+.hs-status-container {
+  display: flex;
+  justify-content: center;
+
+  div {
+    display: flex;
+    min-width: 40px;
+    font-size: 20px;
+    color: $color-white;
+  }
+
+  .inactive {
+    background-color: lightgrey;
+  }
+
+  .offered, .accepted {
+    background-color: $color-green;
+  }
+
+  .revoked, .declined {
+    background-color: $color-red;
+  }
+
+  .hs-status-bureau {
+    clip-path: polygon(0 0, 75% 0%, 100% 50%, 75% 100%, 0 100%);
+    padding-left: 5px;
+  }
+
+  .hs-status-bidder {
+    clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
+    padding-left: 15px;
+  }
+}
+
+
