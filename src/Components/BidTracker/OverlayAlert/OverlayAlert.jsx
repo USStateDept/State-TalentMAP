@@ -20,9 +20,7 @@ import DraftAlert from './DraftAlert';
 import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
-// do i need to prop-drill the acceptBid and declineBid?????
-// eslint-disable-next-line complexity,no-unused-vars
-const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
+const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   unregisterHandshake, useCDOView, isCollapsible, userName },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
@@ -160,8 +158,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
 
 OverlayAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
-  acceptBid: PropTypes.func.isRequired,
-  declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   registerHandshake: PropTypes.func.isRequired,

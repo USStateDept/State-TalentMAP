@@ -57,8 +57,8 @@ class HandshakeOfferedAlert extends Component {
             Go to Bid Tracker to Accept or Decline Handshake
           </LinkButton>
           :
-          <div style={{ display: 'flex' }}>
-            <div style={{ flex: 0.65 }}>
+          <div className="flex">
+            <div className="left-side">
               {
                 !bidderAction ?
                   <>
@@ -85,15 +85,15 @@ class HandshakeOfferedAlert extends Component {
                   </>
               }
             </div>
-            <div className="right-half">
-              <div style={{ display: 'flex' }}>
-                <div style={{ flex: 1 }}>
+            <div className="right-side">
+              <div className="flex">
+                <div>
                   <div><span>TED: </span>{ted}</div>
                   <div><span>Skill: </span>{skill}</div>
                   <div><span>Grade: </span>{grade}</div>
                   <div><span>Bureau: </span>{bureau}</div>
                 </div>
-                <div style={{ flex: 1 }}>
+                <div>
                   <div><span>Tour of Duty: </span>{tod}</div>
                   <div><span>Bid Languages: </span>{languages$}</div>
                   <div><span>Post Differential | Danger Pay: </span>{postDiff}|{dangerPay}</div>
