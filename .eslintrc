@@ -3,7 +3,10 @@
 // the base style guide for this project is Airbnb
 // see: https://github.com/airbnb/javascript
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb",
+    "plugin:flowtype/recommended"
+  ],
   "env": {
     "es6": true,
     "jasmine": true,
@@ -38,7 +41,8 @@
     }
   },
   "plugins": [
-    "no-loops"
+    "no-loops",
+    "flowtype"
   ],
   // overrides to the Airbnb style follow
     "rules": {

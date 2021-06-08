@@ -1,15 +1,40 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+// @flow
+import * as React from 'react';
+import { isEqual, map } from 'lodash';
 
 const shortid = require('shortid');
 
-class Alert extends Component {
+type Message = {
+  body: React.Node,
+}
+
+type DefaultProps = {
+  type: string,
+  title?: string,
+  messages: Array<Message>,
+  isAriaLive?: boolean,
+  isDivided?: boolean,
+};
+
+type Props = {
+  ...DefaultProps
+}
+
+class Alert extends React.Component<Props> {
+  static defaultProps: DefaultProps = {
+    type: 'info', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
+    title: '',
+    messages: [{ body: '' }],
+    isAriaLive: false,
+    isDivided: false,
+  };
+
   // prevent unneeded rerenders, which can cause accessibility issues
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps: any): boolean {
     return !isEqual(this.props, nextProps);
   }
-  render() {
+
+  render(): React.Node {
     const { type, title, messages, isAriaLive, isDivided } = this.props;
     // 'type' is injected into the class name
     // type 'error' requires an ARIA role
@@ -21,7 +46,7 @@ class Alert extends Component {
       };
     }
     const h3 = <h3 className="usa-alert-heading">{title}</h3>;
-    const body = messages.map(message =>
+    const body = map(messages, (message: Message) =>
       (<p className="usa-alert-text" key={shortid.generate()}>
         {message.body}
       </p>),
@@ -49,23 +74,5 @@ class Alert extends Component {
     );
   }
 }
-
-Alert.propTypes = {
-  type: PropTypes.oneOf(['info', 'warning', 'error', 'success', 'dark']),
-  title: PropTypes.string.isRequired,
-  messages: PropTypes.arrayOf(
-    PropTypes.shape({
-      body: PropTypes.node,
-    })),
-  isAriaLive: PropTypes.bool,
-  isDivided: PropTypes.bool,
-};
-
-Alert.defaultProps = {
-  type: 'info', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
-  messages: [{ body: '' }],
-  isAriaLive: false,
-  isDivided: false,
-};
 
 export default Alert;
