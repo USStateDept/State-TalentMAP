@@ -9,7 +9,7 @@ type Message = {
 }
 
 type DefaultProps = {
-  type: string,
+  type: 'info' | 'warning' | 'error' | 'success' | 'dark',
   title?: string,
   messages: Array<Message>,
   isAriaLive?: boolean,
