@@ -8,7 +8,7 @@ const HandshakeAccepted = ({ position_info, username, isCDO }) => (
       !isCDO ?
         `${username}, you have successfully accepted a handshake for position:`
         :
-        `You have successfully accepted a handshake, on behalf of ${username}, for position:`
+        `On behalf of ${username}, you have successfully accepted a handshake for position:`
     }
     <Link to={`/details/${position_info.id}`}>{position_info.position.title}</Link>
   </span>
