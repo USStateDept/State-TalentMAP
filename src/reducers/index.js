@@ -54,6 +54,7 @@ import bureauPositionManager from './bureauPositionManager';
 import bureauPositionDetails from './bureauPositionDetails';
 import shortListLock from './shortListLock';
 import cdo from './cdo';
+import handshake from './handshake';
 
 export default (history) => combineReducers({
   ...results,
@@ -106,6 +107,7 @@ export default (history) => combineReducers({
   ...bureauPositionDetails,
   ...shortListLock,
   ...cdo,
+  ...handshake,
   router: connectRouter(history),
   client,
   login,

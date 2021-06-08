@@ -64,27 +64,4 @@ describe('reducers', () => {
   it('can set reducer DECLINE_BID_SUCCESS', () => {
     expect(reducers.declineBidSuccess(false, { type: 'DECLINE_BID_SUCCESS', response: true })).toBe(true);
   });
-
-  it('can set reducer REGISTER_HANDSHAKE_HAS_ERRORED', () => {
-    expect(reducers.registerHandshakeHasErrored(false, { type: 'REGISTER_HANDSHAKE_HAS_ERRORED', hasErrored: true })).toBe(true);
-  });
-
-  it('can set reducer REGISTER_HANDSHAKE_IS_LOADING', () => {
-    expect(reducers.registerHandshakeIsLoading(false, { type: 'REGISTER_HANDSHAKE_IS_LOADING', isLoading: true })).toBe(true);
-  });
-
-  it('can set reducer REGISTER_HANDSHAKE_SUCCESS', () => {
-    expect(reducers.registerHandshakeSuccess(false, { type: 'REGISTER_HANDSHAKE_SUCCESS', response: true })).toBe(true);
-  });
-  it('can set reducer UNREGISTER_HANDSHAKE_HAS_ERRORED', () => {
-    expect(reducers.unregisterHandshakeHasErrored(false, { type: 'UNREGISTER_HANDSHAKE_HAS_ERRORED', hasErrored: true })).toBe(true);
-  });
-
-  it('can set reducer UNREGISTER_HANDSHAKE_IS_LOADING', () => {
-    expect(reducers.unregisterHandshakeIsLoading(false, { type: 'UNREGISTER_HANDSHAKE_IS_LOADING', isLoading: true })).toBe(true);
-  });
-
-  it('can set reducer UNREGISTER_HANDSHAKE_SUCCESS', () => {
-    expect(reducers.unregisterHandshakeSuccess(false, { type: 'UNREGISTER_HANDSHAKE_SUCCESS', response: true })).toBe(true);
-  });
 });

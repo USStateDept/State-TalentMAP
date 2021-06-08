@@ -7,6 +7,25 @@ import { toastError } from './toast';
 
 let cancelRanking;
 
+export function bidderRankingsErrored(bool, id) {
+  return {
+    type: 'BIDDER_RANKINGS_HAS_ERRORED',
+    hasErrored: { bool, id },
+  };
+}
+export function bidderRankingsLoading(bool, id) {
+  return {
+    type: 'BIDDER_RANKINGS_IS_LOADING',
+    isLoading: { bool, id },
+  };
+}
+export function bidderRankingsFetchSuccess(id, data, clearAll) {
+  return {
+    type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
+    results: { id, data, clearAll },
+  };
+}
+
 export function bureauPositionBidsHasErrored(bool) {
   return {
     type: 'BUREAU_POSITION_BIDS_HAS_ERRORED',
@@ -151,10 +170,12 @@ export function bureauBidsSetRanking(id, ranking = []) {
             dispatch(bureauPositionBidsSetRankingHasErrored(false));
             dispatch(bureauPositionBidsSetRankingIsLoading(false));
           })
-          .catch(() => {
-            dispatch(bureauPositionBidsSetRankingHasErrored(true));
-            dispatch(bureauPositionBidsSetRankingIsLoading(false));
-            dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
+          .catch((err) => {
+            if (get(err, 'message') !== 'cancel') {
+              dispatch(bureauPositionBidsSetRankingHasErrored(true));
+              dispatch(bureauPositionBidsSetRankingIsLoading(false));
+              dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
+            }
           });
       })
       .catch((err) => {
@@ -199,4 +220,29 @@ export function downloadBidderData(id, query = {}) {
       // eslint-disable-next-line global-require
       require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
     });
+}
+
+export function fetchBidderRankings(perdet, cp_id) {
+  const url = `/available_position/rankings/${perdet}/${cp_id}/`;
+  return (dispatch) => {
+    dispatch(bidderRankingsLoading(true, perdet));
+    dispatch(bidderRankingsErrored(false, perdet));
+    api().get(url)
+      .then(({ data }) => {
+        dispatch(bidderRankingsFetchSuccess(perdet, data));
+        dispatch(bidderRankingsErrored(false, perdet));
+        dispatch(bidderRankingsLoading(false, perdet));
+      })
+      .catch(() => {
+        dispatch(bidderRankingsFetchSuccess(perdet, {}));
+        dispatch(bidderRankingsErrored(true, perdet));
+        dispatch(bidderRankingsLoading(false, perdet));
+      });
+  };
+}
+
+export function clearBidderRankings() {
+  return (dispatch) => {
+    dispatch(bidderRankingsFetchSuccess(null, null, true));
+  };
 }

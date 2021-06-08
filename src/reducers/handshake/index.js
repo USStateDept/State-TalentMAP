@@ -1,0 +1,33 @@
+import {
+  handshakeAcceptedNotification,
+  handshakeOfferedNotification,
+  offerHandshakeHasErrored,
+  offerHandshakeIsLoading,
+  offerHandshakeSuccess,
+  registerHandshakeHasErrored,
+  registerHandshakeIsLoading,
+  registerHandshakeSuccess,
+  revokeHandshakeHasErrored,
+  revokeHandshakeIsLoading,
+  revokeHandshakeSuccess,
+  unregisterHandshakeHasErrored,
+  unregisterHandshakeIsLoading,
+  unregisterHandshakeSuccess,
+} from './handshake';
+
+export default {
+  handshakeAcceptedNotification,
+  handshakeOfferedNotification,
+  offerHandshakeHasErrored,
+  offerHandshakeIsLoading,
+  offerHandshakeSuccess,
+  registerHandshakeHasErrored,
+  registerHandshakeIsLoading,
+  registerHandshakeSuccess,
+  revokeHandshakeHasErrored,
+  revokeHandshakeIsLoading,
+  revokeHandshakeSuccess,
+  unregisterHandshakeHasErrored,
+  unregisterHandshakeIsLoading,
+  unregisterHandshakeSuccess,
+};
