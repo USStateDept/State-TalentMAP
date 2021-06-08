@@ -1,9 +1,11 @@
 import { batch } from 'react-redux';
 import * as SystemMessages from 'Constants/SystemMessages';
 import { get } from 'lodash';
+import { userProfilePublicFetchData } from './userProfilePublic';
+import { bidListFetchData } from './bidList/bidList';
 import api from '../api';
 import { toastError, toastHandshake, toastSuccess } from './toast';
-
+// TODO: move contents of this file over to handshake.js after PR 1494 merged
 export function acceptedHandshakeNotification(notificationInformation) {
   return {
     type: 'ACCEPTED_HANDSHAKE_NOTIFICATION',
@@ -25,10 +27,10 @@ export function acceptHandshakeIsLoading(bool) {
   };
 }
 
-export function acceptHandshakeSuccess(response) {
+export function acceptHandshakeSuccess(bool) {
   return {
     type: 'ACCEPT_HANDSHAKE_SUCCESS',
-    response,
+    success: bool,
   };
 }
 
@@ -46,10 +48,10 @@ export function declineHandshakeIsLoading(bool) {
   };
 }
 
-export function declineHandshakeSuccess(response) {
+export function declineHandshakeSuccess(bool) {
   return {
     type: 'DECLINE_HANDSHAKE_SUCCESS',
-    response,
+    success: bool,
   };
 }
 
@@ -61,7 +63,7 @@ export function acceptHandshake(position_info, username, isCDO, emp_id) {
     });
     const url = `/bidding/handshake/${isCDO ? `cdo/${emp_id}` : 'bidder'}/${get(position_info, 'id')}/`;
     api().put(url)
-      .then((response) => {
+      .then(() => {
         batch(() => {
           dispatch(acceptedHandshakeNotification({
             title: SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
@@ -71,10 +73,15 @@ export function acceptHandshake(position_info, username, isCDO, emp_id) {
             SystemMessages.HANDSHAKE_ACCEPTED_BODY({ position_info, username, isCDO }),
             SystemMessages.HANDSHAKE_ACCEPTED_TITLE,
           ));
-          dispatch(acceptHandshakeSuccess(response));
+          dispatch(acceptHandshakeSuccess(true));
           dispatch(acceptHandshakeHasErrored(false));
           dispatch(acceptHandshakeIsLoading(false));
         });
+        if (isCDO) {
+          dispatch(userProfilePublicFetchData(emp_id));
+        } else {
+          dispatch(bidListFetchData());
+        }
       })
       .catch(() => {
         batch(() => {
@@ -94,14 +101,19 @@ export function declineHandshake(cp_id, isCDO, emp_id) {
     });
     const url = `/bidding/handshake/${isCDO ? `cdo/${emp_id}` : 'bidder'}/${cp_id}/`;
     api().delete(url)
-      .then((response) => {
+      .then(() => {
         batch(() => {
           dispatch(toastSuccess(SystemMessages.HANDSHAKE_DECLINE_BODY,
             SystemMessages.HANDSHAKE_DECLINE_TITLE));
-          dispatch(declineHandshakeSuccess(response));
+          dispatch(declineHandshakeSuccess(true));
           dispatch(declineHandshakeHasErrored(false));
           dispatch(declineHandshakeIsLoading(false));
         });
+        if (isCDO) {
+          dispatch(userProfilePublicFetchData(emp_id));
+        } else {
+          dispatch(bidListFetchData());
+        }
       })
       .catch(() => {
         batch(() => {

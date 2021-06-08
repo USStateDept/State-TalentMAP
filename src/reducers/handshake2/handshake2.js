@@ -17,7 +17,7 @@ export function acceptHandshakeIsLoading(state = false, action) {
 export function acceptHandshakeSuccess(state = false, action) {
   switch (action.type) {
     case 'ACCEPT_HANDSHAKE_SUCCESS':
-      return action.response;
+      return action.success;
     default:
       return state;
   }
@@ -41,7 +41,7 @@ export function declineHandshakeIsLoading(state = false, action) {
 export function declineHandshakeSuccess(state = false, action) {
   switch (action.type) {
     case 'DECLINE_HANDSHAKE_SUCCESS':
-      return action.response;
+      return action.success;
     default:
       return state;
   }
