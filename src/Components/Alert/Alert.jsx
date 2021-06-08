@@ -9,7 +9,7 @@ type Message = {
 }
 
 type DefaultProps = {
-  type: 'info' | 'warning' | 'error' | 'success' | 'dark',
+  type: 'info' | 'warning' | 'error' | 'success' | 'dark', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   title?: string,
   messages: Array<Message>,
   isAriaLive?: boolean,
@@ -22,7 +22,7 @@ type Props = {
 
 class Alert extends React.Component<Props> {
   static defaultProps: DefaultProps = {
-    type: 'info', // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
+    type: 'info',
     title: '',
     messages: [{ body: '' }],
     isAriaLive: false,
