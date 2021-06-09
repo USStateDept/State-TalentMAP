@@ -42,7 +42,7 @@ class HandshakeOfferedAlert extends Component {
     const handshake = get(bid, 'handshake') || {};
     const bidderAction = get(handshake, 'bidder_hs_code');
     const bidderAction$ = bidderAction === 'handshake_accepted' ? 'accepted' : 'declined';
-    const hsActionBy = `${handshake.hs_cdo_indicator ? 'a cdo' : `${cdoView ? userName : 'you'}`}`;
+    const hsActionBy = `${handshake.hs_cdo_indicator ? 'a CDO' : `${cdoView ? userName : 'you'}`}`;
     const hsActionDate = formatDate(bidderAction$ === 'accepted' ? get(handshake, 'hs_date_accepted') : get(handshake, 'hs_date_declined'));
 
     let languages$ = NO_LANGUAGES;
