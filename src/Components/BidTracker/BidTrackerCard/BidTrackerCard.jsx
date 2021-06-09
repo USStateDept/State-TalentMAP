@@ -5,23 +5,17 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
-import { BID_OBJECT, /* USER_PROFILE, */ EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
+import { APPROVED_PROP } from 'Constants/BidData';
+import { formatDate, formatIdSpacing, getTimeDistanceInWords } from 'utilities';
 import BidSteps from '../BidStep';
-// import BidTrackerCardBottom from '../BidTrackerCardBottom';
 import BidTrackerCardTop from '../BidTrackerCardTop';
 import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert } from '../BidHelpers';
 import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../../Ribbon';
-import {
-  APPROVED_PROP,
-  // HAND_SHAKE_ACCEPTED_PROP,
-  // PRE_PANEL_PROP,
-  // IN_PANEL_PROP,
-  // BID_EXPLANATION_TEXT,
-} from '../../../Constants/BidData';
-import { formatDate, formatIdSpacing, getTimeDistanceInWords } from '../../../utilities';
 import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
@@ -31,7 +25,7 @@ class BidTrackerCard extends Component {
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
-      registerHandshake, showBidCount, /* userProfile, */ useCDOView, userId,
+      registerHandshake, showBidCount, userProfile, useCDOView, userId,
       unregisterHandshake, showRibbons, isCollapsible } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
@@ -39,9 +33,9 @@ class BidTrackerCard extends Component {
     /* const showContacts = [APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, PRE_PANEL_PROP, IN_PANEL_PROP]
                         .includes(bid.status); */
     // add class to container for draft since we need to apply an overflow:hidden for drafts only
-    const bidStatus = get(bid, 'status', '');
+    const bidStatus = get(bid, 'status') || '';
     const statusClass = `bid-tracker-bid-steps-container--${formatIdSpacing(bidStatus)}`;
-    const bidStatistics = get(bid, 'bid_statistics[0]', {});
+    const bidStatistics = get(bid, 'position_info.bid_statistics[0]') || {};
     const containerClass = [
       'bid-tracker',
       condensedView ? 'bid-tracker--condensed' : '',
@@ -113,6 +107,7 @@ class BidTrackerCard extends Component {
                   submitBid={submitBid}
                   deleteBid={deleteBid}
                   userId={userId}
+                  userName={get(userProfile, 'user.first_name') || ''}
                   registerHandshake={registerHandshake}
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
@@ -128,7 +123,7 @@ class BidTrackerCard extends Component {
               <div className="padded-container-inner">
                 <BidTrackerCardBottom
                   reviewer={bid.reviewer}
-                  bureau={bid.position.bureau}
+                  bureau={bid.position_info.position.bureau}
                   userProfile={userProfile}
                 />
               </div>
@@ -155,7 +150,7 @@ BidTrackerCard.propTypes = {
   deleteBid: PropTypes.func.isRequired,
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
-  // userProfile: USER_PROFILE,
+  userProfile: USER_PROFILE,
   showBidCount: PropTypes.bool,
   condensedView: PropTypes.bool,
   priorityExists: PropTypes.bool,
@@ -169,7 +164,7 @@ BidTrackerCard.propTypes = {
 BidTrackerCard.defaultProps = {
   acceptBid: EMPTY_FUNCTION,
   declineBid: EMPTY_FUNCTION,
-  // userProfile: {},
+  userProfile: DEFAULT_USER_PROFILE,
   showBidCount: true,
   condensedView: false,
   priorityExists: false,

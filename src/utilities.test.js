@@ -220,7 +220,7 @@ describe('formQueryString', () => {
 
 describe('existsInNestedObject', () => {
   it('can return true when something exists in a nested object', () => {
-    const arr = [{ position: { id: 1 } }];
+    const arr = [{ position_info: { id: 1 } }];
     expect(existsInNestedObject(1, arr)).toEqual(arr[0]);
   });
 
