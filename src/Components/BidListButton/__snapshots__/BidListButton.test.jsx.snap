@@ -15,11 +15,11 @@ exports[`BidListButtonComponent matches snapshot when context.client === true 1`
     className="button-icon"
   >
     <FontAwesome
-      name="trash"
+      name="plus-circle"
     />
   </span>
   <span>
-    Remove from Client Bid List
+    Add to Client Bid List
   </span>
 </button>
 `;
@@ -63,11 +63,11 @@ exports[`BidListButtonComponent matches snapshot when the user can remove the po
     className="button-icon"
   >
     <FontAwesome
-      name="trash"
+      name="plus-circle"
     />
   </span>
   <span>
-    Remove from Bid List
+    Add to Bid List
   </span>
 </button>
 `;

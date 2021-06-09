@@ -1154,10 +1154,63 @@ $register-hide-icon: 95%;
 }
 
 .bid-tracker-alert-container--handshake-offered {
-  top: 30px;
+  padding: 10px 30px;
 
   button {
-    margin-right: 30px;
+    margin: 20px 30px 20px 0;
+  }
+  button:disabled {
+    opacity: 75%;
+  }
+  .left-side {
+    flex: 0.65;
+  }
+  .link-button-wrapper {
+    margin: auto;
+  }
+  .tm-button-no-box {
+    text-decoration: underline;
+  }
+  .right-side {
+    border-left: 1px solid $color-white;
+    text-align: left;
+    flex: 1;
+    padding-left: 25px;
+    margin-top: auto;
+    span {
+      font-weight: bold;
+    }
+    .hs-offered-date {
+      font-size: small;
+      text-align: right;
+    }
+    .flex {
+      div {
+        flex: 1;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .bid-tracker-alert-container--handshake-offered {
+    padding: 5px 15px;
+    button {
+      margin: 8px;
+    }
+    .right-half {
+      padding-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .bid-tracker-alert-container--handshake-offered {
+    padding: 5px;
+    font-size: 14px;
+    button {
+      margin: 5px;
+    }
   }
 }
 
