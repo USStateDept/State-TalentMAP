@@ -251,7 +251,7 @@ export const existsInArray = (ref, array) => {
 };
 
 // for checking if a position is in the user's bid list
-export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+export const existsInNestedObject = (ref, array, prop = 'position_info', nestedProp = 'id') => {
   const array$ = isArray(array) ? array : [];
   let found = false;
   array$.some((i) => {
