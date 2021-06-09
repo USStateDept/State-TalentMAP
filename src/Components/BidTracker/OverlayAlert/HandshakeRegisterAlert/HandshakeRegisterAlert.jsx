@@ -1,8 +1,7 @@
 import { Component } from 'react';
-import StaticDevContent from 'Components/StaticDevContent';
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
+import { NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { get } from 'lodash';
 import { formatDate, getPostName } from 'utilities';
 
@@ -25,11 +24,7 @@ class HandshakeRegisterAlert extends Component {
     const post = getPostName(get(position, 'post'), NO_POST);
     const skillCode = get(position, 'skill') || NO_SKILL;
     const grade = get(position, 'grade') || NO_GRADE;
-    // saving ted for Cory
-    const ted = formatDate('2020-07-02T05:00:00Z');
-    // modify line 6: import NO_TOUR_END_DATE from SystemMessages
-    // const ted = position.current_assignment.estimated_end_date ?
-    //   formatDate(position.current_assignment.estimated_end_date) : NO_TOUR_END_DATE;
+    const ted = formatDate(get(bid, 'position_info.ted')) || NO_TOUR_END_DATE;
     let mainText;
     if (!isUnregister) {
       if (!readOnly) {
@@ -76,10 +71,8 @@ class HandshakeRegisterAlert extends Component {
               {post}
             </div>
             <div>
-              <StaticDevContent>
-                <span className="title">TED: </span>
-                {ted}
-              </StaticDevContent>
+              <span className="title">TED: </span>
+              {ted}
             </div>
             <div>
               <span className="title">Skill: </span>
