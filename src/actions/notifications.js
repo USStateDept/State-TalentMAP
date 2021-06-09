@@ -4,7 +4,7 @@ import { subDays } from 'date-fns';
 import { get } from 'lodash';
 import api from '../api';
 import { hasValidToken } from '../utilities';
-import { handshakeOffered } from '../actions/bidTracker';
+import { handshakeOffered } from '../actions/handshake';
 
 let cancelRanking;
 
