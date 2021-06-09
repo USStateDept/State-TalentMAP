@@ -62,9 +62,6 @@ jobs:
       - run: export PATH=~/.npm-global/bin:$PATH
       - run: yarn install --pure-lockfile
       - run:
-          name: Flow
-          command: yarn flow
-      - run:
           name: Jest Test Coverage
           command: |
                     TEST=$(circleci tests glob "src/**/[a-bA-B0-9]*.test.{js,jsx}" "src/**/[c-jC-J]*.test.{js,jsx}" "src/**/[k-rK-R]*.test.{js,jsx}" "src/**/[s-zS-Z]*.test.{js,jsx}" | circleci tests split)
