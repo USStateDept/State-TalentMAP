@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
 import { checkFlag } from 'flags';
 import { get } from 'lodash';
+import { BID_OBJECT } from 'Constants/PropTypes';
 import ConfettiIcon from './ConfettiIcon';
 import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
 import BidPreparingIcon from './BidStepIcon/BidPreparingIcon';
-import { BID_OBJECT } from '../../../Constants/PropTypes';
 import { formatDate, getFlagColorsByTextSearch } from '../../../utilities';
 
 const getUseConfetti = () => checkFlag('flags.confetti');
@@ -43,7 +43,7 @@ const BidSteps = (props, context) => {
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
     && getUseConfetti() && !condensedView) {
       let colors;
-      const country = get(bid, 'position.post.location.country');
+      const country = get(bid, 'position_info.position.post.location.country');
       if (country) {
         colors = getFlagColorsByTextSearch(country);
       }

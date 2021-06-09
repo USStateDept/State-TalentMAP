@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { Tooltip } from 'react-tippy';
 import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
-import { BID_OBJECT } from '../../../Constants/PropTypes';
+import { BID_OBJECT } from 'Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
 // import ConfirmLink from '../../ConfirmLink';
 // import GlossaryTermTrigger from '../../GlossaryTermTrigger';
@@ -24,16 +24,17 @@ class BidTrackerCardTop extends Component {
 
   onDeleteBid = () => {
     const { deleteBid, bid } = this.props;
-    deleteBid(bid.position.id);
+    deleteBid(get(bid, 'position_info.id'));
   };
 
   render() {
     const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;
     const { readOnly } = this.context;
-    const { position } = bid;
+    const { position_info } = bid;
+    const position = get(bid, 'position_info.position');
     // const showQuestion = !!(questionText && questionText.text);
-    const bidStatistics = get(bid, 'bid_statistics[0]', {});
-    const post = get(position, 'post', {});
+    const bidStatistics = get(position_info, 'bid_statistics[0]') || {};
+    const post = get(position, 'post') || {};
     const positionNumber = get(position, 'position_number');
     const biddingTips = useBiddingTips();
 
@@ -51,12 +52,12 @@ class BidTrackerCardTop extends Component {
           <BidTrackerCardTitle
             title={position.title}
             positionNumber={positionNumber}
-            id={bid.position.id}
+            id={position_info.id}
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}
             showBidCount={showBidCount}
-            bidCycle={bid.bidcycle}
+            bidCycle={position_info.bidcycle.name}
           />
         </div>
         <div className="bid-tracker-card-title-outer-container-right">

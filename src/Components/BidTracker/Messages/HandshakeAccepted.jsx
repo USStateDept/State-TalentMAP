@@ -1,27 +1,32 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const HandshakeAccepted = ({ name, position, bid }) => (
+const HandshakeAccepted = ({ position_info, username, isCDO }) => (
   <span>
-    {name}, has accepted a handshake for position:
-    <Link to={position.link}>{position.name}</Link>
-    <div className="bottom-section">
-      {/* eslint-disable-next-line react/no-unescaped-entities */}
-      Go to Client's Bid Tracker to register the Handshake
-      <Link to={bid}>
-        <button role="link"> Bid Tracker</button>
-      </Link>
-    </div>
+    {
+      !isCDO ?
+        `${username}, you have successfully accepted a handshake for position:`
+        :
+        `On behalf of ${username}, you have successfully accepted a handshake for position:`
+    }
+    <Link to={`/details/${position_info.id}`}>{position_info.position.title}</Link>
   </span>
 );
 
 HandshakeAccepted.propTypes = {
-  name: PropTypes.string.isRequired,
-  position: PropTypes.shape({
-    name: PropTypes.string,
-    link: PropTypes.string,
+  username: PropTypes.string.isRequired,
+  position_info: PropTypes.shape({
+    id: PropTypes.string,
+    position: PropTypes.shape({
+      title: PropTypes.string,
+    }),
   }).isRequired,
-  bid: PropTypes.string.isRequired,
+  isCDO: PropTypes.bool,
+};
+
+HandshakeAccepted.defaultProps = {
+  isCDO: false,
 };
 
 export default HandshakeAccepted;

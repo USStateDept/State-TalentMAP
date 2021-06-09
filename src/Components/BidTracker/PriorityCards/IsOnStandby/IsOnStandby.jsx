@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { BID_OBJECT } from '../../../../Constants/PropTypes';
-import { getStatusProperty } from '../../../../Constants/BidStatuses';
-import { CLOSED_PROP, DECLINED_PROP } from '../../../../Constants/BidData';
+import { BID_OBJECT } from 'Constants/PropTypes';
+import { getStatusProperty } from 'Constants/BidStatuses';
+import { CLOSED_PROP, DECLINED_PROP } from 'Constants/BidData';
 import BidTrackerCardTop from '../../BidTrackerCardTop';
 
 const IsOnStandby = ({ bid, deleteBid }) => {

@@ -84,6 +84,11 @@ export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
 export const UNREGISTER_HANDSHAKE_SUCCESS = undo => UnregisterHandshakeSuccess({ undo });
 export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
 
+export const OFFER_HANDSHAKE_SUCCESS = 'Handshake successfully offered.';
+export const OFFER_HANDSHAKE_ERROR = 'Error offering handshake.';
+export const REVOKE_HANDSHAKE_SUCCESS = 'Handshake successfully revoked.';
+export const REVOKE_HANDSHAKE_ERROR = 'Error revoking handshake.';
+
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
 export const DELETE_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
@@ -131,8 +136,13 @@ export const HANDSHAKE_OFFERED_BODY = ({ name, message }) =>
   HandshakeOffered({ name, message });
 
 export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
-export const HANDSHAKE_ACCEPTED_BODY = ({ name, position, bid }) =>
-  HandshakeAccepted({ name, position, bid });
+export const HANDSHAKE_ACCEPTED_BODY = ({ position_info, username, isCDO }) =>
+  HandshakeAccepted({ position_info, username, isCDO });
+export const HANDSHAKE_ACCEPT_ERROR = "We're experiencing an error attempting to accept the handshake. Please try again.";
+
+export const HANDSHAKE_DECLINE_TITLE = 'Handshake Declined';
+export const HANDSHAKE_DECLINE_BODY = 'Handshake successfully declined.';
+export const HANDSHAKE_DECLINE_ERROR = "We're experiencing an error attempting to decline the handshake. Please try again.";
 
 export const COMING_SOON = 'Coming Soon';
 

@@ -319,26 +319,67 @@ export const BID_CYCLE_NAME_TYPE = PropTypes.oneOfType([
   PropTypes.string,
 ]);
 
+export const BID_CYCLE = PropTypes.shape({
+  id: PropTypes.number,
+  name: BID_CYCLE_NAME_TYPE,
+  cycle_start_date: PropTypes.string,
+  cycle_deadline_date: PropTypes.string,
+  cycle_end_date: PropTypes.string,
+  active: PropTypes.bool,
+});
+
+export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
+
 export const BID_OBJECT = PropTypes.shape({
   id: PropTypes.number,
-  bidcycle: BID_CYCLE_NAME_TYPE,
+  emp_id: PropTypes.string,
   user: PropTypes.string,
-  position: PropTypes.shape({
-    id: PropTypes.number,
-    grade: PropTypes.string,
-    skill: PropTypes.string,
-    position_number: PropTypes.string,
-    title: PropTypes.string,
-    create_date: PropTypes.string,
-    update_date: PropTypes.string,
-    post: PropTypes.shape({
-      id: PropTypes.number,
-      location: POSITION_POST_NESTED_LOCATION,
-    }),
-  }),
-  reviewer: BID_REVIEWER_OBJECT,
+  can_delete: PropTypes.bool,
   status: PropTypes.string,
-  submission_date: PropTypes.string,
+  panel_status: PropTypes.string,
+  draft_date: PropTypes.string,
+  submitted_date: PropTypes.string,
+  handshake_offered_date: PropTypes.string,
+  handshake_accepted_date: PropTypes.string,
+  handshake_declined_date: PropTypes.string,
+  in_panel_date: PropTypes.string,
+  scheduled_panel_date: PropTypes.string,
+  approved_date: PropTypes.string,
+  declined_date: PropTypes.string,
+  closed_date: PropTypes.string,
+  is_priority: PropTypes.bool,
+  panel_reschedule_count: PropTypes.number,
+  create_date: PropTypes.string,
+  update_date: PropTypes.string,
+  reviewer: BID_REVIEWER_OBJECT,
+  cdo_bid: PropTypes.bool,
+  hs_status_code: PropTypes.string,
+  hs_cdo_indicator: PropTypes.bool,
+  position_info: PropTypes.shape({
+    id: PropTypes.number,
+    status_code: PropTypes.string,
+    ted: PropTypes.string,
+    posted_date: PropTypes.string,
+    ...POSITION_DETAILS,
+    bidcycle: BID_CYCLE,
+    bid_statistics: [
+      {
+        id: PropTypes.number,
+        total_bids: PropTypes.number,
+        in_grade: PropTypes.number,
+        at_skill: PropTypes.number,
+        in_grade_at_skill: PropTypes.number,
+        has_handshake_offered: PropTypes.bool,
+        has_handshake_accepted: PropTypes.bool,
+      },
+    ],
+    unaccompaniedStatus: PropTypes.string,
+    isConsumable: PropTypes.bool,
+    isServiceNeedDifferential: PropTypes.bool,
+    isDifficultToStaff: PropTypes.bool,
+    isEFMInside: PropTypes.bool,
+    isEFMOutside: PropTypes.bool,
+  }),
 });
 
 export const BID_RESULTS = PropTypes.arrayOf(
@@ -567,17 +608,6 @@ export const CLIENT_BY_ID = PropTypes.shape({
 });
 
 export const HOME_PAGE_CARD_TYPE = PropTypes.oneOf(['default', 'serviceNeed']);
-
-export const BID_CYCLE = PropTypes.shape({
-  id: PropTypes.number,
-  name: PropTypes.string,
-  cycle_start_date: PropTypes.string,
-  cycle_deadline_date: PropTypes.string,
-  cycle_end_date: PropTypes.string,
-  active: PropTypes.bool,
-});
-
-export const BID_CYCLES = PropTypes.arrayOf(BID_CYCLE);
 
 export const HIGHLIGHT_POSITION = PropTypes.shape({
   loading: PropTypes.bool,

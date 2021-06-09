@@ -50,7 +50,7 @@ describe('shouldShowAlert function', () => {
 
   xit('returns false for an invalid status but when is_paneling_today === true', () => {
     const result = shouldShowAlert(
-      { status: HAND_SHAKE_OFFERED_PROP, is_paneling_today: true },
+      { status: PRE_PANEL_PROP, is_paneling_today: true },
       {},
     );
     expect(result).toBe(false);
