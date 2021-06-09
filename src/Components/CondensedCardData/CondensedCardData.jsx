@@ -7,6 +7,8 @@ import CondensedCardDataPoint from './CondensedCardDataPoint';
 import { formatDate, propOrDefault } from '../../utilities';
 
 const CondensedCardData = ({ position }) => {
+  // eslint-disable-next-line no-console
+  console.log('current: position', position);
   const estimatedEndDate = propOrDefault(position, 'ted') ?
     formatDate(position.ted) : NO_DATE;
   return (
