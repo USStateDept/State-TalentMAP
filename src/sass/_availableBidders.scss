@@ -248,6 +248,11 @@
     min-width: 7em;
     text-align: left;
   }
+
+  .select-error {
+    border-color: $alert-red;
+    box-shadow: 0px 0px 0px 2px $alert-red;
+  }
 }
 
 .swal-modal {

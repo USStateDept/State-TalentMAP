@@ -28,11 +28,12 @@ const AvailableBidderRow = (props) => {
   const formattedTed = ted ? formatDate(ted) : NO_END_DATE;
   const id = get(bidder, 'bidder_perdet') || get(bidder, 'perdet_seq_number');
   const name = get(bidder, 'name');
-  const ocBureau = get(bidder, 'available_bidder_details.oc_bureau') || NO_BUREAU;
-  const ocReason = get(bidder, 'available_bidder_details.oc_reason') || NO_OC_REASON;
-  const status = get(bidder, 'available_bidder_details.status') || NO_STATUS;
+  const ocBureau = get(bidder, 'available_bidder_details.oc_bureau');
+  const ocReason = get(bidder, 'available_bidder_details.oc_reason');
+  const status = get(bidder, 'available_bidder_details.status');
   const languages = get(bidder, 'languages') || [];
   const cdo = get(bidder, 'cdo', false);
+  const bidderBureau = get(bidder, 'current_assignment.position.bureau_code');
 
   const getStatus = () => {
     if (status === 'OC') {
@@ -42,10 +43,10 @@ const AvailableBidderRow = (props) => {
             <div>
               <div className={'tooltip-text'}>
                 <div>
-                  <span className="title">OC Reason:</span> <span className="text">{ocReason}</span>
+                  <span className="title">OC Reason:</span> <span className="text">{ocReason || NO_OC_REASON}</span>
                 </div>
                 <div>
-                  <span className="title">OC Bureau:</span> <span className="text">{ocBureau}</span>
+                  <span className="title">OC Bureau:</span> <span className="text">{ocBureau || NO_BUREAU}</span>
                 </div>
               </div>
             </div>
@@ -56,11 +57,11 @@ const AvailableBidderRow = (props) => {
           interactive
           useContext
         >
-          {status} <FA className="oc-icon" name="question-circle" />
+          {status || NO_STATUS} <FA className="oc-icon" name="question-circle" />
         </Tooltip>
       );
     }
-    return status;
+    return status || NO_STATUS;
   };
 
   const getLanguages = () => (
@@ -142,7 +143,7 @@ const AvailableBidderRow = (props) => {
           sections={sections}
           submitAction={submitAction}
           bureaus={bureaus}
-          details={{ ocBureau, ocReason, status, shared, languages }}
+          details={{ ocBureau, ocReason, status, shared, languages, bidderBureau }}
         />
       ),
     });
