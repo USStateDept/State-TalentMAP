@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { NO_GRADE, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
+import { NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
 import { getPostName } from 'utilities';
+import { get } from 'lodash';
 
-const HandshakeRegisterAnotherClientAlert = ({ bid, isUnregister }) => {
-  const { position } = bid;
-  const positionTitle = position.title;
-  const post = getPostName(position.post, NO_POST);
-  const skillCode = position.skill ? position.skill : NO_SKILL;
-  const grade = position.grade ? position.grade : NO_GRADE;
+const HandshakeRegisterAnotherClientAlert = ({ bid }) => {
+  const position = get(bid, 'position_info.position');
+  const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
+  const post = getPostName(get(position, 'post'), NO_POST);
+  const skillCode = get(position, 'skill') || NO_SKILL;
+  const grade = get(position, 'grade') || NO_GRADE;
 
   const classes = [
     'bid-tracker-alert-container',
     'bid-tracker-alert-container--register',
-    isUnregister ? 'bid-tracker-alert-container--unregister' : '',
   ];
 
   const classes$ = classes.join(' ');
@@ -52,12 +52,12 @@ HandshakeRegisterAnotherClientAlert.contextTypes = {
 
 HandshakeRegisterAnotherClientAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
-  isUnregister: PropTypes.bool,
-//   userName: PropTypes.string,
+  // isCDO: PropTypes.bool,
+  // userName: PropTypes.string,
 };
 
 HandshakeRegisterAnotherClientAlert.defaultProps = {
-  isUnregister: false,
+  // isCDO: false,
 //   userName: '',
 };
 

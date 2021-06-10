@@ -7,7 +7,7 @@ import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
-import { APPROVED_PROP } from 'Constants/BidData';
+import { APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP } from 'Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from 'utilities';
 import BidSteps from '../BidStep';
 import BidTrackerCardTop from '../BidTrackerCardTop';
@@ -46,10 +46,9 @@ class BidTrackerCard extends Component {
     const showBidCount$ = showBidCount && !priorityExists;
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
 
-    // const bidTakenFlag = (bid.position_info.bid_statistics[0].has_handshake_offered &&
-    // bid.status !== 'HAND_SHAKE_ACCEPTED_PROP'); uncomment above
-    const bidTaken = bid.id === '6_2266' || bid.id === '4_2266' ? ' bid-tracker-hs-another-client' : '';
-    // const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
+    const bidTakenFlag = (bid.position_info.bid_statistics[0].has_handshake_offered
+      && bid.status !== HAND_SHAKE_ACCEPTED_PROP);
+    const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className={`bid-tracker-inner-container${bidTaken}`}>

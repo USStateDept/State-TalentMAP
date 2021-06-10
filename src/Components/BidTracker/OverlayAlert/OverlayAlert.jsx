@@ -27,9 +27,9 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
-  // const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
-  const CLASS_REGISTER = 'bid-tracker-overlay-alert--register-another-client';
+  const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
+  const CLASS_REGISTER_ANOTHER_CLIENT = 'bid-tracker-overlay-alert--register-another-client';
 
   const position = get(bid, 'position_info.position');
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
@@ -54,7 +54,6 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
     setCollapseOverlay(!collapseOverlay);
   }
 
-  const bidId = '4_2262';
 
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
@@ -83,16 +82,6 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
         overlayClass = [CLASS_REGISTER, CLASS_UNREGISTER].join(' ');
         overlayContent = (
           <HandshakeRegisterAlert
-            registerHandshake={registerHandshake}
-            unregisterHandshake={unregisterHandshake}
-            bid={bid}
-            isUnregister
-          />);
-      }
-      if (bidId) {
-        overlayClass = CLASS_REGISTER;
-        overlayContent =
-          (<HandshakeRegisterAnotherClientAlert
             registerHandshake={registerHandshake}
             unregisterHandshake={unregisterHandshake}
             bid={bid}
@@ -142,23 +131,14 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
       break;
   }
 
-  // const positionHandshakeRegistered = bid.position_info.bid_statistics[0].has_handshake_offered;
-  // switch (positionHandshakeRegistered) {
-  //   case (positionHandshakeRegistered && bid.status !== HAND_SHAKE_ACCEPTED_PROP):
-  //     console.log('show new overlay');
-  //     overlayClass = CLASS_REGISTER;
-  //     overlayContent =
-  //       (<HandshakeRegisterAnotherClientAlert
-  //         registerHandshake={registerHandshake}
-  //         unregisterHandshake={unregisterHandshake}
-  //         bid={bid}
-  //         isUnregister
-  //       />);
-  //     break;
-  //   default:
-  //     console.log('dont show new overlay');
-  //     break;
-  // }
+  const positionHandshakeRegistered = bid.position_info.bid_statistics[0].has_handshake_offered;
+  if (positionHandshakeRegistered && bid.status !== HAND_SHAKE_ACCEPTED_PROP) {
+    overlayClass = CLASS_REGISTER_ANOTHER_CLIENT;
+    overlayContent =
+      (<HandshakeRegisterAnotherClientAlert
+        bid={bid}
+      />);
+  }
 
   const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
   const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
