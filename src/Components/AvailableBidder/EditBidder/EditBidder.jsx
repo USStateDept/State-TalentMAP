@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import { forEach, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
+import FA from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
+import InteractiveElement from 'Components/InteractiveElement';
 
 const EditBidder = (props) => {
   const { name, sections, submitAction, bureaus, details } = props;
@@ -146,6 +149,68 @@ const EditBidder = (props) => {
             defaultValue={comment === 'None listed' ? '' : comment}
             onChange={(e) => setComment(e.target.value)}
           />
+        </div>
+        <div>
+          <dt>Bureau Share:</dt>
+          {
+            status === 'OC' || status === 'UA' ?
+              <Tooltip
+                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                theme="testingTHis"
+                arrow
+                offset={-95}
+                position="top-end"
+                tabIndex="0"
+                // option 1
+                popperOptions={{
+                  modifiers: {
+                    addZIndex: {
+                      enabled: true,
+                      order: 810,
+                      fn: data => ({
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          zIndex: 10000,
+                        },
+                      }),
+                    },
+                  },
+                }}
+              >
+                <InteractiveElement
+                  onClick={() => setShared(!shared)}
+                >
+                  <dd className="ab-action-buttons"><FA name={shared ? 'building' : 'building-o'} className="fa-lg" /></dd>
+                </InteractiveElement>
+              </Tooltip>
+              :
+              <Tooltip
+                title={'Status must be UA or OC to share with bureau'}
+                arrow
+                offset={-95}
+                position="top-end"
+                tabIndex="0"
+                // option 1
+                popperOptions={{
+                  modifiers: {
+                    addZIndex: {
+                      enabled: true,
+                      order: 810,
+                      fn: data => ({
+                        ...data,
+                        styles: {
+                          ...data.styles,
+                          zIndex: 10000,
+                        },
+                      }),
+                    },
+                  },
+                }}
+              >
+                <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
+              </Tooltip>
+          }
         </div>
         <button onClick={submit} type="submit">Submit</button>
         <button onClick={cancel}>Cancel</button>
