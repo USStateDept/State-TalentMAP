@@ -170,10 +170,12 @@ export function bureauBidsSetRanking(id, ranking = []) {
             dispatch(bureauPositionBidsSetRankingHasErrored(false));
             dispatch(bureauPositionBidsSetRankingIsLoading(false));
           })
-          .catch(() => {
-            dispatch(bureauPositionBidsSetRankingHasErrored(true));
-            dispatch(bureauPositionBidsSetRankingIsLoading(false));
-            dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
+          .catch((err) => {
+            if (get(err, 'message') !== 'cancel') {
+              dispatch(bureauPositionBidsSetRankingHasErrored(true));
+              dispatch(bureauPositionBidsSetRankingIsLoading(false));
+              dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
+            }
           });
       })
       .catch((err) => {

@@ -8,11 +8,7 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
     className="bid-tracker-title-content-container"
   >
     <BidTrackerCardTitle
-      bidCycle={
-        Object {
-          "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-        }
-      }
+      bidCycle="Demo BidCycle 2017-10-31 16:00:51.254762"
       bidStatistics={Object {}}
       id={11}
       positionNumber="10035561"

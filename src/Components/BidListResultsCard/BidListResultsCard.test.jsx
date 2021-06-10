@@ -9,7 +9,8 @@ describe('BidListResultsCardComponent', () => {
     id: 1,
     status: SUBMITTED.property,
     post: 'Paris',
-    position: {
+    position_info: {
+      id: 2,
       position: {
         id: 2,
         position_number: '05A',
