@@ -7,7 +7,7 @@ interface Props {
 }
 
 const TimeRemaining = (props: Props) => {
-  const { time = addHours(Date.now(), sample([45]) || 2) } = props;
+  const { time = addHours(Date.now(), sample([0.1, 1, 4, 25, 45]) || 2) } = props; // TODO - don't include these, for demoing
 
   const getTimeInWords = () => {
     const now = Date.now();
