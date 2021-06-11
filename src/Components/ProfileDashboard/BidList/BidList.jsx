@@ -37,6 +37,7 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
       useCDOView={useCDOView}
       showRibbons={false}
       isCollapsible={false}
+      showAnotherClient
     />
   ));
   return (

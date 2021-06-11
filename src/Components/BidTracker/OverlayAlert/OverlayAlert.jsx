@@ -22,7 +22,7 @@ import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, isCollapsible, userName },
+  unregisterHandshake, useCDOView, isCollapsible, userName, showAnotherClient },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -53,7 +53,6 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   function toggleOverlay() {
     setCollapseOverlay(!collapseOverlay);
   }
-
 
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
@@ -132,15 +131,19 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   }
 
   const positionHandshakeRegistered = bid.position_info.bid_statistics[0].has_handshake_offered;
+  let showArrow = true;
   if (positionHandshakeRegistered && bid.status !== HAND_SHAKE_ACCEPTED_PROP) {
+    showArrow = false;
     overlayClass = CLASS_REGISTER_ANOTHER_CLIENT;
-    overlayContent =
-      (<HandshakeRegisterAnotherClientAlert
+    overlayContent = (
+      <HandshakeRegisterAnotherClientAlert
+        showAnotherClient={showAnotherClient}
         bid={bid}
       />);
   }
 
-  const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
+  const isCollapsible$ =
+    isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status')) && showArrow;
   const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
 
   return (
@@ -177,6 +180,7 @@ OverlayAlert.propTypes = {
   useCDOView: PropTypes.bool,
   userName: PropTypes.string,
   isCollapsible: PropTypes.bool,
+  showAnotherClient: PropTypes.bool,
 };
 
 OverlayAlert.defaultProps = {
@@ -184,6 +188,7 @@ OverlayAlert.defaultProps = {
   useCDOView: false,
   userName: '',
   isCollapsible: false,
+  showAnotherClient: false,
 };
 
 OverlayAlert.contextTypes = {
