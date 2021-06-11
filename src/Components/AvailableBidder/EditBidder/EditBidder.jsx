@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
-import { forEach, uniqBy } from 'lodash';
+import { find, forEach, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
 
 const EditBidder = (props) => {
@@ -13,7 +13,7 @@ const EditBidder = (props) => {
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
   const [shared, setShared] = useState(details.shared);
-  const { languages } = details;
+  const { languages, bidderBureau } = details;
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
@@ -54,6 +54,17 @@ const EditBidder = (props) => {
     swal.close();
   };
 
+  const setBureauFromUser = () => {
+    if (find(bureauOptions, a => a.short_description === bidderBureau)) {
+      setOCBureau(bidderBureau);
+    }
+  };
+
+  const ocSelected = status === 'OC';
+  const ocReasonError = ocSelected && !ocReason;
+  const ocBureauError = ocSelected && !ocBureau;
+  const submitDisabled = ocReasonError || ocBureauError;
+
   return (
     <div>
       <form className="available-bidder-form">
@@ -77,6 +88,8 @@ const EditBidder = (props) => {
                 if (e.target.value !== 'UA') {
                   setShared(false);
                 }
+              } else {
+                setBureauFromUser();
               }
             }}
           >
@@ -89,7 +102,22 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="ocReason">*OC Reason:</label>
-          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
+          {
+            // for accessibility only
+            ocReasonError &&
+            <span className="usa-sr-only" id="ocReason-error" role="alert">
+              Required
+            </span>
+          }
+          <select
+            id="ocReason"
+            className={ocReasonError ? 'select-error' : ''}
+            defaultValue={ocReason}
+            onChange={(e) => setOCReason(e.target.value)}
+            disabled={status !== 'OC'}
+            aria-describedby={ocReasonError ? 'ocReason-error' : ''}
+            value={ocReason}
+          >
             <option value="">None listed</option>
             {
               (status === 'OC') &&
@@ -101,7 +129,22 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="ocBureau">*OC Bureau:</label>
-          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
+          {
+            // for accessibility only
+            ocBureauError &&
+            <span className="usa-sr-only" id="ocBureau-error" role="alert">
+              Required
+            </span>
+          }
+          <select
+            id="ocBureau"
+            className={ocBureauError ? 'select-error' : ''}
+            defaultValue={ocBureau}
+            onChange={(e) => setOCBureau(e.target.value)}
+            disabled={status !== 'OC'}
+            aria-describedby={ocReasonError ? 'ocBureau-error' : ''}
+            value={ocBureau}
+          >
             <option value="">None listed</option>
             {
               (status === 'OC') &&
@@ -147,7 +190,7 @@ const EditBidder = (props) => {
             onChange={(e) => setComment(e.target.value)}
           />
         </div>
-        <button onClick={submit} type="submit">Submit</button>
+        <button onClick={submit} type="submit" disabled={submitDisabled}>Submit</button>
         <button onClick={cancel}>Cancel</button>
       </form>
     </div>
