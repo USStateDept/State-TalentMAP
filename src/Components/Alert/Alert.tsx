@@ -7,7 +7,7 @@ type Message = {
   body: React.ReactNode;
 };
 
-type DefaultProps = {
+type Props = {
   type: "info" | "warning" | "error" | "success" | "dark";
   // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   title?: string;
@@ -16,10 +16,8 @@ type DefaultProps = {
   isDivided?: boolean;
 };
 
-type Props = DefaultProps;
-
 class Alert extends React.Component<Props> {
-  static defaultProps: DefaultProps = {
+  static defaultProps: Props = {
     type: 'info',
     title: '',
     messages: [{
