@@ -3,7 +3,9 @@
 // the base style guide for this project is Airbnb
 // see: https://github.com/airbnb/javascript
 {
-  "extends": "airbnb",
+  "extends": [
+    "airbnb"
+  ],
   "env": {
     "es6": true,
     "jasmine": true,
@@ -29,6 +31,7 @@
   "settings": {
     "import/resolver": {
       "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
         "paths": ["src"],
         "moduleDirectory": [
           "node_modules",
@@ -41,7 +44,18 @@
     "no-loops"
   ],
   // overrides to the Airbnb style follow
-    "rules": {
+  "rules": {
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "react/jsx-filename-extension": 0,
     "no-loops/no-loops": 2,
     "sort-imports": ["error", {
       "ignoreDeclarationSort": true
