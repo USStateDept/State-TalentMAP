@@ -56,9 +56,6 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
       >
         Decline Handshake
       </button>
-      <Connect(StaticDevContent)>
-        <TimeRemaining />
-      </Connect(StaticDevContent)>
     </div>
     <div
       className="right-side"
