@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_SKILL } from 'Constants/SystemMessages';
 import { get } from 'lodash';
+import { Link } from 'react-router-dom';
 
 const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
   const position = get(bid, 'position_info.position');
@@ -16,7 +17,8 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
 
   const classes$ = classes.join(' ');
 
-  const text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER FOR: ';
+  const text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER FOR:';
+  const perdet = 6;
 
   return (
     <div className={classes$}>
@@ -24,7 +26,7 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
         {showAnotherClient &&
           <div className="register-submission-container">
             <div className="sub-submission-text">
-              {text}
+              {text} <Link to={`/profile/public/${perdet}`}>Bidder Name</Link>
               <div>
                 {positionTitle}
               </div>
@@ -40,7 +42,7 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
           </div>
         }
         <div className="register-another-client-container register-position-details">
-          {text}
+          {text} <Link to={`/profile/public/${perdet}`}>Bidder Name</Link>
           <div>
             {positionTitle}
           </div>
