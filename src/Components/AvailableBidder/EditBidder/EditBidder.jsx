@@ -63,6 +63,25 @@ const EditBidder = (props) => {
     }
   };
 
+  const commonTooltipProps = {
+    arrow: true,
+    popperOptions: {
+      modifiers: {
+        addZIndex: {
+          enabled: true,
+          order: 810,
+          fn: data => ({
+            ...data,
+            styles: {
+              ...data.styles,
+              zIndex: 10000,
+            },
+          }),
+        },
+      },
+    },
+  };
+
   const ocSelected = status === 'OC';
   const ocReasonError = ocSelected && !ocReason;
   const ocBureauError = ocSelected && !ocBureau;
@@ -199,27 +218,7 @@ const EditBidder = (props) => {
             status === 'OC' || status === 'UA' ?
               <Tooltip
                 title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
-                theme="testingTHis"
-                arrow
-                offset={-95}
-                position="top-end"
-                tabIndex="0"
-                // option 1
-                popperOptions={{
-                  modifiers: {
-                    addZIndex: {
-                      enabled: true,
-                      order: 810,
-                      fn: data => ({
-                        ...data,
-                        styles: {
-                          ...data.styles,
-                          zIndex: 10000,
-                        },
-                      }),
-                    },
-                  },
-                }}
+                {...commonTooltipProps}
               >
                 <InteractiveElement
                   onClick={() => setShared(!shared)}
@@ -230,26 +229,7 @@ const EditBidder = (props) => {
               :
               <Tooltip
                 title={'Status must be UA or OC to share with bureau'}
-                arrow
-                offset={-95}
-                position="top-end"
-                tabIndex="0"
-                // option 1
-                popperOptions={{
-                  modifiers: {
-                    addZIndex: {
-                      enabled: true,
-                      order: 810,
-                      fn: data => ({
-                        ...data,
-                        styles: {
-                          ...data.styles,
-                          zIndex: 10000,
-                        },
-                      }),
-                    },
-                  },
-                }}
+                {...commonTooltipProps}
               >
                 <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
               </Tooltip>
