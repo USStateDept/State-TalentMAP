@@ -139,6 +139,7 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
       <HandshakeRegisterAnotherClientAlert
         showAnotherClient={showAnotherClient}
         bid={bid}
+        cdoView={useCDOView}
       />);
   }
 

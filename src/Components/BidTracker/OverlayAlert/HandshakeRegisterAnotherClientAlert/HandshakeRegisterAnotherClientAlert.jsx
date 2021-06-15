@@ -4,7 +4,7 @@ import { NO_GRADE, NO_POSITION_TITLE, NO_SKILL } from 'Constants/SystemMessages'
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 
-const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
+const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient, cdoView }) => {
   const position = get(bid, 'position_info.position');
   const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
   const skillCode = get(position, 'skill') || NO_SKILL;
@@ -17,8 +17,13 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
 
   const classes$ = classes.join(' ');
 
-  const text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER FOR:';
+  let text = '';
+  let bidderName = ''; // need to hook into
   const perdet = 6;
+  if (cdoView) {
+    text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER FOR: ';
+    bidderName = 'Bidder Name';
+  }
 
   return (
     <div className={classes$}>
@@ -26,7 +31,10 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
         {showAnotherClient &&
           <div className="register-submission-container">
             <div className="sub-submission-text">
-              {text} <Link to={`/profile/public/${perdet}`}>Bidder Name</Link>
+              <span>
+                {text}
+                <Link to={`/profile/public/${perdet}`}>{bidderName}</Link>
+              </span>
               <div>
                 {positionTitle}
               </div>
@@ -42,7 +50,7 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient }) => {
           </div>
         }
         <div className="register-another-client-container register-position-details">
-          {text} <Link to={`/profile/public/${perdet}`}>Bidder Name</Link>
+          {text} <Link to={`/profile/public/${perdet}`}>{bidderName}</Link>
           <div>
             {positionTitle}
           </div>
@@ -67,13 +75,13 @@ HandshakeRegisterAnotherClientAlert.contextTypes = {
 HandshakeRegisterAnotherClientAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   showAnotherClient: PropTypes.bool,
-  // isCDO: PropTypes.bool,
+  cdoView: PropTypes.bool,
   // userName: PropTypes.string,
 };
 
 HandshakeRegisterAnotherClientAlert.defaultProps = {
   showAnotherClient: false,
-  // isCDO: false,
+  cdoView: false,
 //   userName: '',
 };
 
