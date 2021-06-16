@@ -9,7 +9,17 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
   >
     <BidTrackerCardTitle
       bidCycle="Demo BidCycle 2017-10-31 16:00:51.254762"
-      bidStatistics={Object {}}
+      bidStatistics={
+        Object {
+          "at_skill": 0,
+          "has_handshake_accepted": null,
+          "has_handshake_offered": false,
+          "id": null,
+          "in_grade": 0,
+          "in_grade_at_skill": 0,
+          "total_bids": 0,
+        }
+      }
       id={11}
       positionNumber="10035561"
       post={

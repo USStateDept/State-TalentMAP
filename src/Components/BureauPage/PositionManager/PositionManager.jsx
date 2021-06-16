@@ -469,6 +469,23 @@ const PositionManager = props => {
                       includeSelectAll
                     />
                   </div>
+                  <div className="filter-div">
+                    <div className="label">Handshake Status:</div>
+                    <Picky
+                      placeholder="Select Handshake Status(es)"
+                      value={selectedPostIndicators}
+                      options={postIndicatorsOptions}
+                      onChange={setSelectedPostIndicators}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
+                  </div>
                 </div>
               </div>
             </div>
