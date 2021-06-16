@@ -10,7 +10,8 @@ describe('reducers', () => {
   });
 
   it('can set reducer BID_LIST_FETCH_DATA_SUCCESS', () => {
-    expect(reducers.bidListFetchDataSuccess(false, { type: 'BID_LIST_FETCH_DATA_SUCCESS', results: true })).toBe(true);
+    expect(reducers.bidListFetchDataSuccess(false,
+      { type: 'BID_LIST_FETCH_DATA_SUCCESS', results: { results: [{ a: 1 }] } })).toEqual({ results: [{ a: 1 }] });
   });
 
   it('can set reducer BID_LIST_TOGGLE_HAS_ERRORED', () => {
