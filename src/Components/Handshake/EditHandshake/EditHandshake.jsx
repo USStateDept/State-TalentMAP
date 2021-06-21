@@ -5,18 +5,20 @@ import { useState } from 'react';
 // import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import TimeInput from 'react-keyboard-time-input';
+// import TimeInput from 'react-keyboard-time-input';
 
 const EditHandshake = props => {
   const { submitAction, personID, positionID } = props;
   const [value, setValue] = useState(new Date());
-  const [dateTime, setDateTime] = useState(new Date());
+
+  // useEffect(() => {
+  //   setValue(new Date());
+  //   setDateTime(new Date());
+  // }, [props]);
 
   const submit = (e) => {
     e.preventDefault();
     const userInputs = {
-      dateTime,
       perdet: personID,
       cp_id: positionID,
     };
@@ -25,28 +27,29 @@ const EditHandshake = props => {
 
   const cancel = (e) => {
     e.preventDefault();
+    setValue(Date.now());
     swal.close();
   };
 
-  const getHSStartDate = () => {
-    const date = dateTime;
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  };
+  // const getHSStartDate = () => {
+  //   const date = dateTime;
+  //   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  // };
 
-  const getHSStartTime = () => {
-    const time = dateTime;
-    return time.toTimeString();
-  };
+  // const getHSStartTime = () => {
+  //   const time = dateTime;
+  //   return time.toTimeString();
+  // };
 
-  const getHSEndDate = () => {
-    const date = dateTime;
-    return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
-  };
+  // const getHSEndDate = () => {
+  //   const date = dateTime;
+  //   return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+  // };
 
-  const getHSEndTime = () => {
-    const time = dateTime;
-    return time.toTimeString();
-  };
+  // const getHSEndTime = () => {
+  //   const time = dateTime;
+  //   return time.toTimeString();
+  // };
 
   return (
     <div>
@@ -56,13 +59,13 @@ const EditHandshake = props => {
           <input
             type="text"
             name="handshakeStartDate"
-            defaultValue={getHSStartDate()}
+            defaultValue={value}
             disabled
           />
           <input
             type="text"
             name="handshakeStartTime"
-            defaultValue={getHSStartTime()}
+            defaultValue={value}
             disabled
           />
         </div>
@@ -71,19 +74,22 @@ const EditHandshake = props => {
           <input
             type="text"
             name="handshakeEndDate"
-            defaultValue={getHSEndDate()}
+            defaultValue={value}
             disabled
           />
-          <TimeInput
+          {/* <TimeInput
             id="time-input"
             value={dateTime}
             onChange={() => setDateTime(value)}
+          /> */}
+        </div>
+        <div className="calendar-wrapper">
+          <Calendar
+            onChange={() => {}}
+            value={value}
           />
         </div>
-        <Calendar
-          onChange={() => {}}
-          value={value}
-        />
+
         <button onClick={submit} type="submit">Submit</button>
         <button onClick={cancel}>Cancel</button>
       </form>
