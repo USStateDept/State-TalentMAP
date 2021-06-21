@@ -4,9 +4,6 @@ import FontAwesome from 'react-fontawesome';
 import { get } from 'lodash';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import BidTrackerCardTitle from '../BidTrackerCardTitle';
-// import ConfirmLink from '../../ConfirmLink';
-// import GlossaryTermTrigger from '../../GlossaryTermTrigger';
-// Note that all glossary logic is commented out for tooltip
 
 
 class BidTrackerCardTop extends Component {
@@ -23,11 +20,10 @@ class BidTrackerCardTop extends Component {
   };
 
   render() {
-    const { bid, hideDelete, showBidCount, useCDOView /* , questionText */ } = this.props;
+    const { bid, hideDelete, showBidCount, useCDOView } = this.props;
     const { readOnly } = this.context;
     const { position_info } = bid;
     const position = get(bid, 'position_info.position');
-    // const showQuestion = !!(questionText && questionText.text);
     const bidStatistics = get(position_info, 'bid_statistics[0]') || {};
     const post = get(position, 'post') || {};
     const positionNumber = get(position, 'position_number');
@@ -74,11 +70,6 @@ BidTrackerCardTop.contextTypes = {
 
 BidTrackerCardTop.propTypes = {
   bid: BID_OBJECT.isRequired,
-  // questionText: PropTypes.shape({
-  //   text: PropTypes.string,
-  //   link: PropTypes.string,
-  //   term: PropTypes.string,
-  // }),
   deleteBid: PropTypes.func.isRequired,
   showBidCount: PropTypes.bool,
   hideDelete: PropTypes.bool,
@@ -86,8 +77,6 @@ BidTrackerCardTop.propTypes = {
 };
 
 BidTrackerCardTop.defaultProps = {
-  questionText: {},
-  showQuestion: true,
   showBidCount: true,
   hideDelete: false,
   useCDOView: false,

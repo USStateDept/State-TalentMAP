@@ -52,7 +52,6 @@ class BidTrackerCard extends Component {
             {matches => (
               showRibbons &&
               <div className="bid-tracker-ribbon-container">
-                {/* still need to verify how these ribbons should be hooked into the BE */}
                 {
                   get(bid, 'position_info.bid_statistics[0].has_handshake_offered', false) &&
                   <Handshake
