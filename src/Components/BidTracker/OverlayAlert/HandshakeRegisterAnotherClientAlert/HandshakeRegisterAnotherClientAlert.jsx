@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_SKILL } from 'Constants/SystemMessages';
-import { get } from 'lodash';
+import { forEach, get } from 'lodash';
 import { Link } from 'react-router-dom';
 
 const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient, cdoView }) => {
@@ -18,11 +18,16 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient, cdoView }
   const classes$ = classes.join(' ');
 
   let text = '';
-  let bidderName = ''; // need to hook into
-  const perdet = 6;
+  let perdet = '';
+  let bidderName = '';
   if (cdoView) {
     text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER FOR: ';
-    bidderName = 'Bidder Name';
+    forEach(bid.bid_info, (bidderInfo) => {
+      if (bidderInfo.has_handshake_offered === true) {
+        bidderName = bidderInfo.name;
+        perdet = bidderInfo.emp_id;
+      }
+    });
   }
 
   return (
