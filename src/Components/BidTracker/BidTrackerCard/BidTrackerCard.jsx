@@ -52,14 +52,12 @@ class BidTrackerCard extends Component {
             {matches => (
               showRibbons &&
               <div className="bid-tracker-ribbon-container">
-                {/* still need to verify how these ribbons should be hooked into the BE */}
                 {
-                  <StaticDevContent>
-                    <Handshake
-                      cutSide="both"
-                      shortName={!matches}
-                    />
-                  </StaticDevContent>
+                  get(bid, 'position_info.bid_statistics[0].has_handshake_offered', false) &&
+                  <Handshake
+                    cutSide="both"
+                    shortName={!matches}
+                  />
                 }
                 {
                   <StaticDevContent>
@@ -70,20 +68,18 @@ class BidTrackerCard extends Component {
                   </StaticDevContent>
                 }
                 {
-                  <StaticDevContent>
-                    <HardToFill
-                      cutSide="both"
-                      shortName={!matches}
-                    />
-                  </StaticDevContent>
+                  get(bid, 'position_info.isDifficultToStaff', false) &&
+                  <HardToFill
+                    cutSide="both"
+                    shortName={!matches}
+                  />
                 }
                 {
-                  <StaticDevContent>
-                    <ServiceNeedDifferential
-                      cutSide="both"
-                      shortName={!matches}
-                    />
-                  </StaticDevContent>
+                  get(bid, 'position_info.isServiceNeedDifferential', false) &&
+                  <ServiceNeedDifferential
+                    cutSide="both"
+                    shortName={!matches}
+                  />
                 }
               </div>
             )}
