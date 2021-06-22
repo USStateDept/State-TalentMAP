@@ -37,10 +37,10 @@ const EditBidder = (props) => {
   const submit = (e) => {
     e.preventDefault();
     const userInputs = {
-      oc_bureau: ocBureau,
-      oc_reason: ocReason,
+      oc_bureau: ocBureau || '',
+      oc_reason: ocReason || '',
       status,
-      comments: comment,
+      comments: comment || '',
       is_shared: shared,
     };
 
