@@ -360,19 +360,14 @@ $register-another-client-offset: 57%;
     float: right;
   }
 
-  .bid-tracker-question-text-container {
+  .bid-tracker-cdo-submitted-container {
     float: left;
     font-size: 13px;
     margin: 3px 20px 0 0;
 
     .fa {
-      margin-right: 5px;
-    }
-  }
-
-  .bid-tracker-cdo-submitted-container {
-    .fa {
       color: $blue-primary;
+      margin-right: 5px;
     }
   }
 
@@ -921,10 +916,6 @@ $register-another-client-offset: 57%;
 
   .bid-tracker-card-title-outer-container-right {
     flex: 3;
-
-    .bid-tracker-question-text-container {
-      display: none;
-    }
 
     .remove-bid-link {
       display: initial;
