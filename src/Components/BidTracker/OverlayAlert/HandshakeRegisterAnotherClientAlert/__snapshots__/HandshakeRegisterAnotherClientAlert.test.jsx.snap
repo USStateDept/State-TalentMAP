@@ -18,7 +18,7 @@ exports[`HandshakeRegisterAnotherClientAlert matches snapshot 1`] = `
        
       <Link
         replace={false}
-        to="/profile/public/6"
+        to="/profile/public/"
       />
       <div>
         POLITICAL/ECONOMIC OFFICER
