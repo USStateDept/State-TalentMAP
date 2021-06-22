@@ -17,7 +17,7 @@ export const mapBidData = (data = []) => {
 
   let data$ = clone(data);
   data$ = data$.map(m => {
-    const h = get(m, 'handshake');
+    const h = get(m, 'handshake') || {};
     // store our overrides
     const override = {};
 
