@@ -45,7 +45,7 @@ class BidTrackerCardTop extends Component {
         <div className="bid-tracker-card-title-outer-container-right">
           <div className="bid-tracker-card-title-container-right">
             {bid.cdo_bid &&
-              <div className="bid-tracker-question-text-container bid-tracker-cdo-submitted-container">
+              <div className="bid-tracker-cdo-submitted-container">
                 <span>
                   <FontAwesome name="flag" /> Bid Submitted by CDO
                 </span>
