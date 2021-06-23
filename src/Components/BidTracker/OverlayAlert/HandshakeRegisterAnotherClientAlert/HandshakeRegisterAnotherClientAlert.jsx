@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_SKILL } from 'Constants/SystemMessages';
-import { forEach, get } from 'lodash';
-import { Link } from 'react-router-dom';
+import { get } from 'lodash';
 
-const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient, cdoView }) => {
+const HandshakeRegisterAnotherClientAlert = ({ bid, condensedView }) => {
   const position = get(bid, 'position_info.position');
   const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
   const skillCode = get(position, 'skill') || NO_SKILL;
@@ -17,28 +16,16 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient, cdoView }
 
   const classes$ = classes.join(' ');
 
-  let text = '';
-  let perdet = '';
-  let bidderName = '';
-  if (cdoView) {
-    text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER FOR: ';
-    forEach(bid.bid_info, (bidderInfo) => {
-      if (bidderInfo.has_handshake_offered === true) {
-        bidderName = bidderInfo.name;
-        perdet = bidderInfo.emp_id;
-      }
-    });
-  }
+  const text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER:';
 
   return (
     <div className={classes$}>
       <div className="usa-grid-full" style={{ display: 'flex' }}>
-        {showAnotherClient &&
+        {condensedView &&
           <div className="register-submission-container">
             <div className="sub-submission-text">
               <span>
                 {text}
-                <Link to={`/profile/public/${perdet}`}>{bidderName}</Link>
               </span>
               <div>
                 {positionTitle}
@@ -55,7 +42,7 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, showAnotherClient, cdoView }
           </div>
         }
         <div className="register-another-client-container register-position-details">
-          {text} <Link to={`/profile/public/${perdet}`}>{bidderName}</Link>
+          {text}
           <div>
             {positionTitle}
           </div>
@@ -79,14 +66,12 @@ HandshakeRegisterAnotherClientAlert.contextTypes = {
 
 HandshakeRegisterAnotherClientAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
-  showAnotherClient: PropTypes.bool,
-  cdoView: PropTypes.bool,
+  condensedView: PropTypes.bool,
   // userName: PropTypes.string,
 };
 
 HandshakeRegisterAnotherClientAlert.defaultProps = {
-  showAnotherClient: false,
-  cdoView: false,
+  condensedView: false,
 //   userName: '',
 };
 

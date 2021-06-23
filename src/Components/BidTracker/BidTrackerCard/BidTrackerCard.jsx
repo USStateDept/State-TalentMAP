@@ -26,7 +26,7 @@ class BidTrackerCard extends Component {
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
       registerHandshake, showBidCount, userProfile, useCDOView, userId,
-      unregisterHandshake, showRibbons, isCollapsible, showAnotherClient } = this.props;
+      unregisterHandshake, showRibbons, isCollapsible } = this.props;
     // determine whether we render an alert on top of the card
     const showAlert = shouldShowAlert(bid, { condensedView });
     // determine whether we should show the contacts section based on the status
@@ -45,10 +45,10 @@ class BidTrackerCard extends Component {
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
-
-    const bidTakenFlag = (bid.position_info.bid_statistics[0].has_handshake_offered
-      && bid.status !== HAND_SHAKE_ACCEPTED_PROP);
+    const bidTakenFlag = get(bid, 'position_info.bid_statistics[0].has_handshake_offered')
+      && bid.status !== HAND_SHAKE_ACCEPTED_PROP;
     const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
+
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
         <div className={`bid-tracker-inner-container${bidTaken}`}>
@@ -116,7 +116,7 @@ class BidTrackerCard extends Component {
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
-                  showAnotherClient={showAnotherClient}
+                  condensedView={condensedView}
                 />
             }
           </div>
@@ -164,7 +164,6 @@ BidTrackerCard.propTypes = {
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   showRibbons: PropTypes.bool,
   isCollapsible: PropTypes.bool,
-  showAnotherClient: PropTypes.bool,
 };
 
 BidTrackerCard.defaultProps = {
@@ -179,7 +178,6 @@ BidTrackerCard.defaultProps = {
   userId: '',
   showRibbons: true,
   isCollapsible: true,
-  showAnotherClient: false,
 };
 
 BidTrackerCard.childContextTypes = {

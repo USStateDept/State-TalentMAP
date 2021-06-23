@@ -22,7 +22,7 @@ import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, isCollapsible, userName, showAnotherClient },
+  unregisterHandshake, useCDOView, isCollapsible, userName },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -132,14 +132,13 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
 
   const positionHandshakeRegistered = bid.position_info.bid_statistics[0].has_handshake_offered;
   let showArrow = true;
-  if (positionHandshakeRegistered && bid.status !== HAND_SHAKE_ACCEPTED_PROP) {
+  if (positionHandshakeRegistered && (bid.status !== HAND_SHAKE_ACCEPTED_PROP)) {
     showArrow = false;
     overlayClass = CLASS_REGISTER_ANOTHER_CLIENT;
     overlayContent = (
       <HandshakeRegisterAnotherClientAlert
-        showAnotherClient={showAnotherClient}
+        condensedView={condensedView}
         bid={bid}
-        cdoView={useCDOView}
       />);
   }
 
@@ -181,7 +180,6 @@ OverlayAlert.propTypes = {
   useCDOView: PropTypes.bool,
   userName: PropTypes.string,
   isCollapsible: PropTypes.bool,
-  showAnotherClient: PropTypes.bool,
 };
 
 OverlayAlert.defaultProps = {
@@ -189,7 +187,6 @@ OverlayAlert.defaultProps = {
   useCDOView: false,
   userName: '',
   isCollapsible: false,
-  showAnotherClient: false,
 };
 
 OverlayAlert.contextTypes = {
