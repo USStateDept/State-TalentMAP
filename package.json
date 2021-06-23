@@ -152,6 +152,7 @@
     "jest-junit": "^12.2.0",
     "jest-localstorage-mock": "^1.2.0",
     "jsdom": "11.12",
+    "mini-css-extract-plugin": "^1.6.0",
     "mock-local-storage": "^1.1.17",
     "node-mocks-http": "^1.10.1",
     "object-assign": "4.1.1",

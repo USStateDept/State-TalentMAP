@@ -15,6 +15,7 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const webpackDashboard = require('webpack-dashboard/plugin');
 const { WebpackPluginRamdisk } = require('webpack-plugin-ramdisk');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const envVariables = require('./env');
 const paths = require('./paths');
@@ -237,9 +238,8 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
+        use: [
+            MiniCssExtractPlugin.loader,
             'css-loader',
             {
               loader: 'resolve-url-loader',
@@ -262,7 +262,6 @@ module.exports = {
               }
             }
           ],
-        }),
       },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.
@@ -316,6 +315,7 @@ module.exports = {
       paths: true,
       shorthands: true,
     }),
+    new MiniCssExtractPlugin(),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
