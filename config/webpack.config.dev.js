@@ -15,6 +15,11 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const webpackDashboard = require('webpack-dashboard/plugin');
 const { WebpackPluginRamdisk } = require('webpack-plugin-ramdisk');
 
+// get git info from command line
+let commitHash = require('child_process')
+  .execSync('git rev-parse --short HEAD')
+  .toString();
+
 const envVariables = require('./env');
 const paths = require('./paths');
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -298,6 +303,9 @@ module.exports = {
       collections: true,
       paths: true,
       shorthands: true,
+    }),
+    new webpack.DefinePlugin({
+      __COMMIT_HASH__: JSON.stringify(commitHash),
     }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
