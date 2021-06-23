@@ -77,7 +77,6 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
     priorityExists={false}
     readOnly={false}
     registerHandshake={[Function]}
-    showAnotherClient={false}
     showBidCount={true}
     showRibbons={true}
     submitBid={[Function]}
@@ -333,7 +332,6 @@ exports[`BidTrackerCardContainerComponent matches snapshot when priorityExists i
       priorityExists={false}
       readOnly={false}
       registerHandshake={[Function]}
-      showAnotherClient={false}
       showBidCount={false}
       showRibbons={true}
       submitBid={[Function]}
