@@ -174,7 +174,7 @@ export function registerHandshake(id, clientId) {
   };
 }
 
-export function offerHandshake(perdet, cp_id) {
+export function offerHandshake(perdet, cp_id, data) {
   return (dispatch) => {
     const perdetString = perdet.toString();
     const cpString = cp_id.toString();
@@ -187,7 +187,7 @@ export function offerHandshake(perdet, cp_id) {
 
     const url = `/bidding/handshake/bureau/${perdetString}/${cpString}/`;
 
-    api().put(url)
+    api().put(url, data)
       .then(response => response.data)
       .then(() => {
         const message = SystemMessages.OFFER_HANDSHAKE_SUCCESS;

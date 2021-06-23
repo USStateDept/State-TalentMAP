@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { offerHandshake, revokeHandshake } from 'actions/handshake';
+import { offerHandshake, revokeHandshake } from 'actions/handshake';
 import swal from '@sweetalert/with-react';
 import EditHandshake from '../EditHandshake';
 // import { Tooltip } from 'react-tippy';
 
 const HandshakeBureauButton = props => {
+  const { positionID, personID } = props;
   const [handshake, setHandshake] = useState(props.handshake);
-  // const [isRegistered, setIsRegistered] = useState(props.isRegistered);
-  // const [positionID, setPositionID] = useState(props.positionID);
-  // const [personID, setPersonID] = useState(props.personID);
   const [disabled, setDisabled] = useState(props.disabled);
+
 
   useEffect(() => {
     setHandshake(props.handshake);
-    // setPositionID(props.positionID);
-    // setPersonID(props.personID);
     setDisabled(props.disabled);
   }, [props]);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const {
     hs_status_code,
+    hs_date_expiration,
   } = handshake;
 
 
@@ -36,14 +34,24 @@ const HandshakeBureauButton = props => {
     return 'Offer';
   };
 
+  const submitAction = (data) => {
+    if (!hs_status_code || (hs_status_code === 'handshake_revoked')) {
+      dispatch(offerHandshake(personID, positionID, data));
+    } else {
+      dispatch(revokeHandshake(personID, positionID));
+    }
+    swal.close();
+  };
+
   const handshakeModal = () => {
     swal({
       title: 'Offer Handshake',
       button: false,
       content: (
         <EditHandshake
-          positionID={props.positionID}
-          personID={props.personID}
+          submitAction={submitAction}
+          expiration={hs_date_expiration}
+          disabled={hs_status_code === 'handshake_offered'}
         />
       ),
     });
@@ -55,10 +63,6 @@ const HandshakeBureauButton = props => {
         className=""
         title={`${buttonText()} handshake`}
         onClick={handshakeModal}
-        // onClick={!hs_status_code || hs_status_code === 'handshake_revoked' ?
-        //   () => dispatch(offerHandshake(personID, positionID)) :
-        //   () => dispatch(revokeHandshake(personID, positionID))
-        // }
         disabled={disabled}
       >
         {buttonText()}

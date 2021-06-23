@@ -6,10 +6,10 @@ import { useEffect, useState } from 'react';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import { differenceInCalendarDays } from 'date-fns';
-// import TimeInput from 'react-keyboard-time-input';
+// import TimePicker from 'react-time-picker/dist/entry.nostyle';
 
 const EditHandshake = props => {
-  const { submitAction, personID, positionID } = props;
+  const { submitAction, expiration, disabled } = props;
   // Offer date is defaulted to `now` until future business rules clarify functionality
   // Expected to be able to dynamically determine if we should offer now or future HS start date
   const [offerDate, setOfferDate] = useState(new Date());
@@ -23,8 +23,7 @@ const EditHandshake = props => {
   const submit = (e) => {
     e.preventDefault();
     const userInputs = {
-      perdet: personID,
-      cp_id: positionID,
+      expiration_date: expirationDate,
     };
     submitAction(userInputs);
   };
@@ -66,6 +65,9 @@ const EditHandshake = props => {
       }
       if (fakeBureauTimeline.find(dDate => isSameDay(dDate, date))) {
         return 'react-calendar__tile--cycleTimeline';
+      }
+      if (disabled && (isSameDay(expiration, date))) {
+        return 'react-calendar__tile--endDate';
       }
     }
     return '';
