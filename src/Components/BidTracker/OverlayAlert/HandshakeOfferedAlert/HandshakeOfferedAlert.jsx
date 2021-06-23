@@ -9,7 +9,7 @@ import { DEFAULT_TEXT, NO_BUREAU, NO_DANGER_PAY,
   NO_GRADE, NO_LANGUAGES, NO_POST_DIFFERENTIAL, NO_SKILL,
   NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
 import { formatDate, getDifferentialPercentage } from 'utilities';
-import StaticDevContent from 'Components/StaticDevContent';
+import TimeRemaining from '../TimeRemaining';
 import { acceptHandshake, declineHandshake } from '../../../../actions/handshake2';
 import LinkButton from '../../../LinkButton';
 
@@ -44,6 +44,7 @@ class HandshakeOfferedAlert extends Component {
     const bidderAction$ = bidderAction === 'handshake_accepted' ? 'accepted' : 'declined';
     const hsActionBy = `${handshake.hs_cdo_indicator ? 'a CDO' : `${cdoView ? userName : 'you'}`}`;
     const hsActionDate = formatDate(bidderAction$ === 'accepted' ? get(handshake, 'hs_date_accepted') : get(handshake, 'hs_date_declined'));
+    const hsExpiration = get(handshake, 'hs_date_expiration');
 
     let languages$ = NO_LANGUAGES;
     if (languages) {
@@ -69,9 +70,7 @@ class HandshakeOfferedAlert extends Component {
                     <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid}>
                     Decline Handshake
                     </button>
-                    <StaticDevContent>
-                      <div>24 hours to accept the handshake</div>
-                    </StaticDevContent>
+                    {!!hsExpiration && <TimeRemaining time={hsExpiration} />}
                   </>
                   :
                   <>
