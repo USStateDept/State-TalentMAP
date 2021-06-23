@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import { find, forEach, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
+import FA from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
+import InteractiveElement from 'Components/InteractiveElement';
 
 const EditBidder = (props) => {
   const { name, sections, submitAction, bureaus, details } = props;
@@ -34,10 +37,10 @@ const EditBidder = (props) => {
   const submit = (e) => {
     e.preventDefault();
     const userInputs = {
-      oc_bureau: ocBureau,
-      oc_reason: ocReason,
+      oc_bureau: ocBureau || '',
+      oc_reason: ocReason || '',
       status,
-      comments: comment,
+      comments: comment || '',
       is_shared: shared,
     };
 
@@ -58,6 +61,25 @@ const EditBidder = (props) => {
     if (find(bureauOptions, a => a.short_description === bidderBureau)) {
       setOCBureau(bidderBureau);
     }
+  };
+
+  const commonTooltipProps = {
+    arrow: true,
+    popperOptions: {
+      modifiers: {
+        addZIndex: {
+          enabled: true,
+          order: 810,
+          fn: data => ({
+            ...data,
+            styles: {
+              ...data.styles,
+              zIndex: 10000,
+            },
+          }),
+        },
+      },
+    },
   };
 
   const ocSelected = status === 'OC';
@@ -189,6 +211,29 @@ const EditBidder = (props) => {
             defaultValue={comment === 'None listed' ? '' : comment}
             onChange={(e) => setComment(e.target.value)}
           />
+        </div>
+        <div>
+          <dt>Bureau Share:</dt>
+          {
+            status === 'OC' || status === 'UA' ?
+              <Tooltip
+                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                {...commonTooltipProps}
+              >
+                <InteractiveElement
+                  onClick={() => setShared(!shared)}
+                >
+                  <dd className="ab-action-buttons"><FA name={shared ? 'building' : 'building-o'} className="fa-lg" /></dd>
+                </InteractiveElement>
+              </Tooltip>
+              :
+              <Tooltip
+                title={'Status must be UA or OC to share with bureau'}
+                {...commonTooltipProps}
+              >
+                <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
+              </Tooltip>
+          }
         </div>
         <button onClick={submit} type="submit" disabled={submitDisabled}>Submit</button>
         <button onClick={cancel}>Cancel</button>
