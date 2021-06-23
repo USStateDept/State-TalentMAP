@@ -1,5 +1,5 @@
 .react-calendar {
-  width: 350px;
+  width: 485px;
   max-width: 100%;
   background: white;
   border: 1px solid #a0a096;
@@ -120,4 +120,19 @@
 }
 .react-calendar__tile--endDate {
   background-color: #f2d3d3;
+}
+.bureau-hs-form {
+  display: flex;
+  justify-content: center;
+
+  .input-label {
+    display: flex;
+  }
+}
+.date-time-inputs {
+  display: flex;
+  padding-bottom: 5px;
+}
+.hs-modal-time-picker {
+  
 }

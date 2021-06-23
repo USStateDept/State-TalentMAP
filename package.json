@@ -81,6 +81,7 @@
     "react-sticky": "^6.0.3",
     "react-sticky-el": "^1.1.0",
     "react-switch": "^6.0.0",
+    "react-time-picker": "^4.3.0",
     "react-tippy": "^1.4.0",
     "react-toastify": "^7.0.4",
     "recharts": "^1.8.5",

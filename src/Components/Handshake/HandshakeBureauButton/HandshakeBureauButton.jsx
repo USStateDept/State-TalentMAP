@@ -45,13 +45,14 @@ const HandshakeBureauButton = props => {
 
   const handshakeModal = () => {
     swal({
-      title: 'Offer Handshake',
+      title: `${buttonText()} handshake`,
       button: false,
       content: (
         <EditHandshake
           submitAction={submitAction}
           expiration={hs_date_expiration}
           disabled={hs_status_code === 'handshake_offered'}
+          submitText={buttonText()}
         />
       ),
     });
