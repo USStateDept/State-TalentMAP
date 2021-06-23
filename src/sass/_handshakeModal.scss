@@ -113,7 +113,8 @@
 .react-calender__tile--startDate {
   background: #d4e0ee;
 }
+.react-calendar__tile--cycleTimeline:disabled,
 .react-calendar__tile--cycleTimeline,
-.react-calender__tile--cycleTimeline:disabled {
+.react-calendar__tile--cycleTimeline button {
   background-color: #cce6cc;
 }
