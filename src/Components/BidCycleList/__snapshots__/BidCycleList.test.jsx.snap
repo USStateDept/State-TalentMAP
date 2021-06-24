@@ -26,7 +26,7 @@ exports[`BidCycleList Component matches snapshot 1`] = `
           "name": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
         }
       }
-      key="Demo BidCycle 2018-03-13 15:51:10.980576+00:00"
+      key="1"
     />
   </Column>
 </Row>
