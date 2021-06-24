@@ -16,32 +16,17 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, condensedView }) => {
 
   const classes$ = classes.join(' ');
 
+  const overlayClasses = condensedView ?
+    ['register-submission-container', 'sub-submission-text'] : ['register-another-client-container', 'register-position-details'];
+
+  const overlayClasses$ = overlayClasses.join(' ');
+
   const text = 'A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER:';
 
   return (
     <div className={classes$}>
       <div className="usa-grid-full" style={{ display: 'flex' }}>
-        {condensedView &&
-          <div className="register-submission-container">
-            <div className="sub-submission-text">
-              <span>
-                {text}
-              </span>
-              <div>
-                {positionTitle}
-              </div>
-              <div>
-                <span className="title">Skill: </span>
-                {skillCode}
-              </div>
-              <div>
-                <span className="title">Grade: </span>
-                {grade}
-              </div>
-            </div>
-          </div>
-        }
-        <div className="register-another-client-container register-position-details">
+        <div className={overlayClasses$}>
           {text}
           <div>
             {positionTitle}
