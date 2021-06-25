@@ -134,5 +134,13 @@
   padding-bottom: 5px;
 }
 .hs-modal-time-picker {
-  
+  .react-time-picker__inputGroup {
+    display: flex;
+    align-items: center;
+  }
+
+  .react-datetime-picker__inputGroup {
+    display: flex;
+    align-items: center;
+  }
 }

@@ -1,12 +1,14 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 // Remove after defining sections with real data
 import { useState } from 'react';
 // import PropTypes from 'prop-types';
 // import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
-import Calendar from 'react-calendar';
+// import Calendar from 'react-calendar';
 import { differenceInCalendarDays, format } from 'date-fns-v2';
-import TimePicker from 'react-time-picker';
+// import TimePicker from 'react-time-picker';
+import DateTimePicker from 'react-datetime-picker';
 
 const EditHandshake = props => {
   const { submitAction, expiration, disabled, submitText } = props;
@@ -72,7 +74,11 @@ const EditHandshake = props => {
             />
           </div>
         </div>
-        <div>
+        <DateTimePicker
+          onChange={disabled ? () => {} : setExpirationDate}
+          value={expirationDate}
+        />
+        {/* <div>
           <label htmlFor="handshakeEndDate" className="input-label">Handshake expiration:</label>
           <div className="date-time-inputs">
             <input
@@ -84,7 +90,6 @@ const EditHandshake = props => {
               className="hs-modal-time-picker"
               onChange={setExpirationDate}
               value={expirationDate}
-              disableClock
             />
           </div>
         </div>
@@ -96,7 +101,7 @@ const EditHandshake = props => {
             value={expirationDate}
             tileClassName={tileClassName}
           />
-        </div>
+        </div> */}
 
         <button onClick={submit} type="submit">{submitText}</button>
         <button onClick={cancel}>Cancel</button>
