@@ -10,7 +10,6 @@ const receiveBidCycles = data => ({
 });
 
 export const fetchBidCycles = () => dispatch => {
-  console.log('h');
   const ep = ['/fsbid/reference/cycles/', '/bidhandshakecycle/'];
   const queryProms = ep.map(url =>
     api().get(url)
@@ -30,9 +29,7 @@ export const fetchBidCycles = () => dispatch => {
             .map(m => ({ ...m, _id: i === 1 ? get(m, 'id') : null }))
             .map((m => ({ ...m, id: m.cycle_id ? `${m.cycle_id}` : `${m.id}` }))),
         );
-      console.log(results$);
       results$ = values(merge(keyBy(results$[1], 'id'), keyBy(results$[0].map(m => pickBy(m, identity)), 'id')));
-      console.log(results$);
       dispatch(receiveBidCycles(results$));
     });
 };
