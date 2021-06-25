@@ -5,14 +5,15 @@ import { useState } from 'react';
 // import PropTypes from 'prop-types';
 // import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
-// import Calendar from 'react-calendar';
+import Calendar from 'react-calendar';
+import TimePicker from 'react-time-picker';
+// import DateTimePicker from 'react-datetime-picker';
 import { differenceInCalendarDays, format } from 'date-fns-v2';
-// import TimePicker from 'react-time-picker';
-import DateTimePicker from 'react-datetime-picker';
 
 const EditHandshake = props => {
   const { submitAction, expiration, disabled, submitText } = props;
   const [expirationDate, setExpirationDate] = useState(new Date());
+  const [expirationTime, setExpirationTime] = useState(new Date());
 
   // Offer date is defaulted to `now` until future business rules clarify functionality
   // Expected to be able to dynamically determine if we should offer now or future HS start date
@@ -74,11 +75,7 @@ const EditHandshake = props => {
             />
           </div>
         </div>
-        <DateTimePicker
-          onChange={disabled ? () => {} : setExpirationDate}
-          value={expirationDate}
-        />
-        {/* <div>
+        <div>
           <label htmlFor="handshakeEndDate" className="input-label">Handshake expiration:</label>
           <div className="date-time-inputs">
             <input
@@ -88,8 +85,9 @@ const EditHandshake = props => {
             />
             <TimePicker
               className="hs-modal-time-picker"
-              onChange={setExpirationDate}
-              value={expirationDate}
+              onChange={setExpirationTime}
+              value={expirationTime}
+              disableClock
             />
           </div>
         </div>
@@ -101,7 +99,7 @@ const EditHandshake = props => {
             value={expirationDate}
             tileClassName={tileClassName}
           />
-        </div> */}
+        </div>
 
         <button onClick={submit} type="submit">{submitText}</button>
         <button onClick={cancel}>Cancel</button>
