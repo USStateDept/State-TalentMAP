@@ -60,21 +60,31 @@ class BidCycleCard extends Component {
       deadline: getCycleInfo(cycle$$, 'handshake_allowed_date'),
     };
 
-    const patch = () => {
+    const patch = (isClear = false) => {
       this.setState({ isLoading: true, hasErrored: false });
       const method = cycle._id || data?.id ? 'patch' : 'post';
       const body = { handshake_allowed_date: date };
       if (method === 'post') {
         body.cycle_id = cycle.id;
       }
+      if (isClear) {
+        body.handshake_allowed_date = null;
+      }
       const url = `/bidhandshakecycle/${method === 'post' ? '' : `${cycle._id}/`}`;
       api()[method](url, body)
         .then((response) => {
           const { data: data$ } = response;
-          this.setState({ data:
-            { ...data$, _id: data$.id, id: data$.cycle_id },
-          isLoading: false,
-          hasErrored: false });
+          this.setState({
+            data: {
+              ...data$,
+              _id: data$.id,
+              id: data$.cycle_id,
+              handshake_allowed_date: data$.handshake_allowed_date,
+            },
+            isLoading: false,
+            hasErrored: false,
+            editActive: false,
+          });
         })
         .catch(() => {
           this.setState({ isLoading: false, hasErrored: true });
@@ -101,7 +111,8 @@ class BidCycleCard extends Component {
                       dateFormat="MMMM d, yyyy h:mm aa"
                     />
                   </div>
-                  <button className="usa-button-secondary" onClick={patch}>Submit</button>
+                  <button className="usa-button-secondary" onClick={() => patch(false)}>Submit</button>
+                  <button className="usa-button-secondary" onClick={() => patch(true)}>Remove Date</button>
                 </>
                 :
                 <DefinitionList>
