@@ -4,21 +4,26 @@ import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import RescheduledIcon from './RescheduledIcon';
 
-const assignClasses = (isComplete, needsAction, isCurrent) => {
+const assignClasses = (isComplete, needsAction, isCurrent, handshakeRegisteredAnotherClient) => {
   const classes = ['number-icon'];
 
   if (!needsAction) {
     classes.push('number-icon-incomplete');
   }
 
-  if (!needsAction && isCurrent) {
-    classes.push('number-icon-is-current-no-action');
+  if (!needsAction && isCurrent && handshakeRegisteredAnotherClient) {
+    classes.push('hs-another-client-number-icon-is-current-no-action');
+  } else if (!needsAction && isCurrent) {
+    classes.push('number-icon-is-current-no-action')
   }
 
   if (needsAction && isCurrent) {
     classes.push('number-icon-needs-action');
   }
 
+  if (handshakeRegisteredAnotherClient) {
+    classes.push('hs-registered-another-client-icon')
+  }
   return classes.join(' ');
 };
 
@@ -29,7 +34,7 @@ const getTooltipText = (title, text) => (
   </div>
 );
 
-const getCheckIcon = (title, text, isCondensed) =>{
+const getCheckIcon = (title, text, isCondensed, handshakeRegisteredAnotherClient) => {
   if(title && text && !isCondensed ) {
     return (
         <Tooltip
@@ -50,7 +55,8 @@ const getCheckIcon = (title, text, isCondensed) =>{
 };
 
 const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
-  hasRescheduledTooltip, tooltipTitle, tooltipText }, { condensedView }) => (
+  hasRescheduledTooltip, tooltipTitle, tooltipText,
+  handshakeRegisteredAnotherClient}, { condensedView }) => (
     <span className={isComplete ? 'icon-complete' : 'icon-incomplete'}>
     { !isComplete
         ?
@@ -65,14 +71,14 @@ const BidStepIcon = ({ isComplete, needsAction, isCurrent, number,
                   useContext
               >
               <span
-                  className={assignClasses(isComplete, needsAction, isCurrent)}
+                  className={assignClasses(isComplete, needsAction, isCurrent, handshakeRegisteredAnotherClient)}
               >
                 {number > 0 ? number : null}
               </span>
               </Tooltip>
               :
             <span
-                className={assignClasses(isComplete, needsAction, isCurrent)}
+                className={assignClasses(isComplete, needsAction, isCurrent, handshakeRegisteredAnotherClient)}
             >
               {number > 0 ? number : null}
             </span>
@@ -96,6 +102,7 @@ BidStepIcon.propTypes = {
   hasRescheduledTooltip: PropTypes.bool,
   tooltipTitle: PropTypes.string,
   tooltipText: PropTypes.string,
+  handshakeRegisteredAnotherClient: PropTypes.bool.isRequired,
 };
 
 BidStepIcon.defaultProps = {

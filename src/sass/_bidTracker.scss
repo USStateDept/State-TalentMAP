@@ -280,6 +280,19 @@ $register-another-client-offset: 57%;
   }
 }
 
+.bid-tracker-overlay-alert--register-another-client::after {
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #dbdbdb;
+  border-top: 10px solid transparent;
+  clear: both;
+  content: '';
+  height: 0;
+  left: 0;
+  position: absolute;
+  top: 43px;
+  width: 0;
+}
+
 .bid-tracker {
 
   background: $color-white;
@@ -496,6 +509,23 @@ $register-another-client-offset: 57%;
     border-color: $color-green-dark;
   }
 
+  .hs-registered-another-client-icon {
+    animation: none;
+    background: $color-green-dark-opacity50;
+    border-color: $color-green-dark-opacity50;
+    // border-color: $color-gray-light;
+    // background: $color-gray-light;
+    //   border: 1px solid $color-green-dark-opacity50;
+    //   border-radius: 21px;
+    //   color: $color-white;
+    //   padding: 5px;
+  }
+
+  .hs-another-client-number-icon-is-current-no-action {
+    background: $color-green-dark-opacity50;
+    border-color: $color-green-dark-opacity50;
+  }
+
   .number-icon-is-current-no-action {
     background: $blue-primary;
     border-color: $blue-primary;
@@ -627,6 +657,15 @@ $register-another-client-offset: 57%;
     .rc-steps-item-tail::after {
       border: 1.5px dashed $blue-primary;
       color: $blue-primary;
+    }
+  }
+
+  .hs-another-client-bid-steps {   
+    .pending-line {
+      .rc-steps-item-tail::after {
+        border: 1.5px dashed $color-green-dark-opacity50;
+        color: $blue-primary;
+      }
     }
   }
 
@@ -1071,6 +1110,13 @@ $register-another-client-offset: 57%;
       .rc-steps-item-content {
         display: block;
       }
+    }
+  }
+
+  .hs-another-client-bid-steps {
+    .hs-registered-another-client-icon {
+      background: $color-green-dark-opacity50;
+      border-color: $color-green-dark-opacity50;
     }
   }
 

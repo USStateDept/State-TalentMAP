@@ -48,6 +48,13 @@ class BidTrackerCard extends Component {
     const bidTakenFlag = get(bid, 'position_info.bid_statistics[0].has_handshake_offered')
       && bid.status !== HAND_SHAKE_ACCEPTED_PROP;
     const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
+    const bidStepsClass = ['usa-grid-full', 'padded-container-inner', 'bid-tracker-bid-steps-container', statusClass];
+
+    if (bidTakenFlag) {
+      bidStepsClass.push('hs-another-client-bid-steps');
+    }
+
+    const bidStepsClasses$ = bidStepsClass.join(' ');
 
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
@@ -96,7 +103,7 @@ class BidTrackerCard extends Component {
             // questionText={questionText}
             useCDOView={useCDOView}
           />
-          <div className={`usa-grid-full padded-container-inner bid-tracker-bid-steps-container ${statusClass}`}>
+          <div className={bidStepsClasses$}>
             <BidSteps bid={bid} />
             {
               showAlert &&
