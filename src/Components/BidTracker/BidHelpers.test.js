@@ -56,9 +56,9 @@ describe('shouldShowAlert function', () => {
     expect(result).toBe(false);
   });
 
-  it('returns false for an invalid status', () => {
+  it('returns true for an invalid status', () => {
     const result = shouldShowAlert({ status: SUBMITTED_PROP }, {});
-    expect(result).toBe(false);
+    expect(result).toBe(true);
   });
 
   it('returns false for specific statuses when condensedView is true', () => {
