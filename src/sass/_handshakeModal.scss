@@ -1,8 +1,8 @@
 .react-calendar {
-  width: 485px;
   max-width: 100%;
   background: white;
   border: 1px solid #a0a096;
+  border-bottom: none;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
 }
@@ -125,20 +125,97 @@
 .bureau-hs-form {
   display: flex;
   justify-content: center;
+  border-top: 1px solid $color-blue-mariner;
+  padding-top: 20px;
+
+  form {
+    width: 440px;
+  }
 
   .input-label {
     display: flex;
+    margin-top: 1rem;
+  }
+
+  .calendar-legend {
+    display: flex;
+    justify-content: space-around;
+    font-size: small;
+    padding: 10px 0px;
+    border: 1px solid #a0a096;
+    border-top: none;
+
+    .cycle-key,
+    .offer-key,
+    .expire-key {
+      display: flex;
+
+      div:first-child {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+      }
+    }
+
+    .cycle-key {
+      padding-right: 15px;
+
+      div:first-child {
+        background-color: #cce6cc;
+      }
+    }
+    .offer-key {
+      padding-right: 15px;
+
+      div:first-child {
+        background-color: #d4e0ee;
+      }
+    }
+    .expire-key {
+      div:first-child {
+        background-color: #f2d3d3;
+      }
+    }
+  }
+
+  .hs-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+
+    button {
+      margin-top: 7.5px;
+    }
+
+    button:first-child {
+      background: none;
+      color: $color-blue-mariner;
+
+    }
   }
 }
 .date-time-inputs {
   display: flex;
   padding-bottom: 5px;
+
+  input:disabled {
+    background-color: $bg-gray-dark-3;
+  }
+
+  input:nth-child(2) {
+    width: 175;
+  }
+
+  input:first-child {
+    width: 250px;
+    margin-right: 20px;
+  }
 }
 .hs-modal-time-picker {
   align-items: center;
 
   .react-time-picker__wrapper {
-    width: 240px;
+    width: 175px;
   }
 
   .react-time-picker__inputGroup {
@@ -149,5 +226,9 @@
 
   .react-time-picker__inputGroup__input {
     min-width: 1.1em;
+  }
+
+  .react-time-picker__inputGroup__hour {
+    text-align: right;
   }
 }

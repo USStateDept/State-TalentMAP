@@ -7,36 +7,46 @@ import { useState } from 'react';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
-// import DateTimePicker from 'react-datetime-picker';
-import { differenceInCalendarDays, format } from 'date-fns-v2';
+import { differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear } from 'date-fns-v2';
 
 const EditHandshake = props => {
   const { submitAction, expiration, disabled, submitText } = props;
   const [expirationDate, setExpirationDate] = useState(new Date());
-  const [expirationTime, setExpirationTime] = useState(new Date());
+  // what to use for default expiration?
+  const [expirationTime, setExpirationTime] = useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
   // Offer date is defaulted to `now` until future business rules clarify functionality
   // Expected to be able to dynamically determine if we should offer now or future HS start date
   const offerDate = new Date();
 
-  const submit = (e) => {
-    e.preventDefault();
-    const userInputs = {
-      expiration_date: expirationDate,
-    };
-    submitAction(userInputs);
-  };
 
   const cancel = (e) => {
     e.preventDefault();
     swal.close();
   };
 
+  const validateExpiration = () => {
+    const [hour, minute] = expirationTime.split(':');
+    const year = getYear(expirationDate);
+    const month = getMonth(expirationDate);
+    const date = getDate(expirationDate);
+    return new Date(year, month, date, hour, minute);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    const input = validateExpiration();
+    const userInputs = {
+      expiration_date: input,
+    };
+    submitAction(userInputs);
+  };
+
   // TO-DO: Replace with business rule for enforcing hard-stop to bureau HS offers per cycle
   const fakeBureauTimeline = [new Date(2021, 5, 1), new Date(2021, 6, 29)];
 
-  const getTime = (date) => format(date, 'p');
-  const getDate = (date) => format(date, 'P');
+  const getTime$ = (date) => format(date, 'p');
+  const getDate$ = (date) => format(date, 'P');
 
   const isSameDay = (a, b) => differenceInCalendarDays(a, b) === 0;
 
@@ -64,13 +74,13 @@ const EditHandshake = props => {
             <input
               type="text"
               name="handshakeStartDate"
-              value={getDate(offerDate)}
+              value={getDate$(offerDate)}
               disabled
             />
             <input
               type="text"
               name="handshakeStartTime"
-              value={getTime(offerDate)}
+              value={getTime$(offerDate)}
               disabled
             />
           </div>
@@ -81,13 +91,13 @@ const EditHandshake = props => {
             <input
               type="text"
               name="handshakeEndDate"
-              value={getDate(expirationDate)}
+              value={getDate$(expirationDate)}
             />
             <TimePicker
               className="hs-modal-time-picker"
               onChange={setExpirationTime}
               value={expirationTime}
-              disableClock
+              required
             />
           </div>
         </div>
@@ -100,9 +110,24 @@ const EditHandshake = props => {
             tileClassName={tileClassName}
           />
         </div>
-
-        <button onClick={submit} type="submit">{submitText}</button>
-        <button onClick={cancel}>Cancel</button>
+        <div className="calendar-legend">
+          <div className="cycle-key">
+            <div />
+            <div>Cycle Start & End</div>
+          </div>
+          <div className="offer-key">
+            <div />
+            <div>Handshake offer</div>
+          </div>
+          <div className="expire-key">
+            <div />
+            <div>Handshake expiration</div>
+          </div>
+        </div>
+        <div className="hs-button-wrapper" >
+          <button onClick={cancel}>Cancel</button>
+          <button onClick={submit} type="submit">{submitText}</button>
+        </div>
       </form>
     </div>
   );

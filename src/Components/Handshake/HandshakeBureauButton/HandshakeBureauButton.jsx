@@ -45,7 +45,7 @@ const HandshakeBureauButton = props => {
 
   const handshakeModal = () => {
     swal({
-      title: `${buttonText()} handshake`,
+      title: `${buttonText()} Handshake`,
       button: false,
       content: (
         <EditHandshake
