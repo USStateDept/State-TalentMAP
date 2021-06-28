@@ -52,12 +52,10 @@ HandshakeRegisterAnotherClientAlert.contextTypes = {
 HandshakeRegisterAnotherClientAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   condensedView: PropTypes.bool,
-  // userName: PropTypes.string,
 };
 
 HandshakeRegisterAnotherClientAlert.defaultProps = {
   condensedView: false,
-//   userName: '',
 };
 
 export default HandshakeRegisterAnotherClientAlert;

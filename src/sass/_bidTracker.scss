@@ -3,7 +3,6 @@ $card-width: 775px;
 $draft-icon-offset: 120px;
 $register-icon-offset: 44%;
 $register-hide-icon: 95%;
-$register-another-client-offset: 57%;
 
 .bid-tracker-page {
   position: relative;
@@ -272,11 +271,13 @@ $register-another-client-offset: 57%;
 
 .bid-tracker-overlay-alert--register-another-client {
   background: #636363;
-  margin-left: $register-another-client-offset;
+  width: 43%;
+  margin-left: auto;
+  position: absolute;
+  right: 0;
 
   .bid-tracker-overlay-alert-content-container {
-    padding-right: $register-icon-offset;
-    width: 95%;
+    width: 90%;
   }
 }
 
