@@ -56,7 +56,7 @@ describe('shouldShowAlert function', () => {
     expect(result).toBe(false);
   });
 
-  it('returns true for an invalid status', () => {
+  it('returns true for a invalid status', () => {
     const result = shouldShowAlert({ status: SUBMITTED_PROP }, {});
     expect(result).toBe(true);
   });
