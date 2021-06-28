@@ -1,1 +1,1 @@
-export { default } from './EditHandshake';
+export { default } from './EditHandshakeLoadable';
