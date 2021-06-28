@@ -270,7 +270,7 @@ $register-hide-icon: 95%;
 }
 
 .bid-tracker-overlay-alert--register-another-client {
-  background: #636363;
+  background: $bg-overlay-hs-another-client;
   width: 43%;
   margin-left: auto;
   position: absolute;
@@ -514,12 +514,6 @@ $register-hide-icon: 95%;
     animation: none;
     background: $color-green-dark-opacity50;
     border-color: $color-green-dark-opacity50;
-    // border-color: $color-gray-light;
-    // background: $color-gray-light;
-    //   border: 1px solid $color-green-dark-opacity50;
-    //   border-radius: 21px;
-    //   color: $color-white;
-    //   padding: 5px;
   }
 
   .hs-another-client-number-icon-is-current-no-action {
@@ -1512,5 +1506,5 @@ $register-hide-icon: 95%;
 }
 
 .bid-tracker-hs-another-client {
-  background: #dbdbdb;
+  background: $bg-hs-another-client;
 }
