@@ -7,11 +7,11 @@ import { useState } from 'react';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
-import { differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear } from 'date-fns-v2';
+import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear } from 'date-fns-v2';
 
 const EditHandshake = props => {
   const { submitAction, expiration, disabled, submitText } = props;
-  const [expirationDate, setExpirationDate] = useState(new Date());
+  const [expirationDate, setExpirationDate] = useState(add(new Date(), { days: 1 }));
   // what to use for default expiration?
   const [expirationTime, setExpirationTime] = useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
