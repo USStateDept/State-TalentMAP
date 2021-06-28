@@ -1,7 +1,7 @@
 import Q from 'q';
 import { CancelToken } from 'axios';
 import { subDays } from 'date-fns';
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 import api from '../api';
 import { hasValidToken } from '../utilities';
 import { handshakeOffered } from '../actions/handshake';
@@ -244,10 +244,26 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
       .then(({ data }) => {
         const data$ = get(data, 'results') || [];
         const ids = data$.map(b => b.id);
-        data$.forEach(n => {
-          dispatch(handshakeOffered(n.owner, n.message,
+        // group by cp_id and sort on date_updated,
+        // so we only show the user the most recent notification per cp_id
+        const groupedNotifications = {};
+        data$.forEach(b => {
+          const currentID = b.meta.id;
+          if (Object.keys(groupedNotifications).includes(currentID)) {
+            groupedNotifications[currentID].push(b);
+          } else if (!isNull(currentID)) {
+            groupedNotifications[currentID] = [b];
+          }
+        });
+        const groupedIds = Object.keys(groupedNotifications);
+        groupedIds.forEach(id => {
+          groupedNotifications[id].sort((a, b) =>
+            new Date(b.date_updated) - new Date(a.date_updated));
+          const currentNotification = groupedNotifications[id][0];
+          dispatch(handshakeOffered(currentNotification.owner, currentNotification.message,
             { autoClose: false, draggable: false, closeOnClick: false }));
         });
+        // once toast is rendered, notifications are marked read, even the ones that are outdated
         dispatch(markNotifications({ ids, markAsRead: true }));
       });
   };
