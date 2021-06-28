@@ -2,17 +2,17 @@
 /* eslint-disable react/prop-types */
 // Remove after defining sections with real data
 import { useState } from 'react';
+import { isNil } from 'lodash';
 // import PropTypes from 'prop-types';
 // import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
-import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear } from 'date-fns-v2';
+import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture } from 'date-fns-v2';
 
 const EditHandshake = props => {
   const { submitAction, expiration, disabled, submitText } = props;
   const [expirationDate, setExpirationDate] = useState(add(new Date(), { days: 1 }));
-  // what to use for default expiration?
   const [expirationTime, setExpirationTime] = useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
   // Offer date is defaulted to `now` until future business rules clarify functionality
@@ -126,7 +126,7 @@ const EditHandshake = props => {
         </div>
         <div className="hs-button-wrapper" >
           <button onClick={cancel}>Cancel</button>
-          <button onClick={submit} type="submit">{submitText}</button>
+          <button onClick={submit} type="submit" disabled={isNil(expirationTime) || (!isFuture(validateExpiration()))}>{submitText}</button>
         </div>
       </form>
     </div>
