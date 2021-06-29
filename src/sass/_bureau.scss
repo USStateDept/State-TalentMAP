@@ -539,10 +539,36 @@
       flex-direction: column;
       align-items: center;
 
-      button {
-        margin: 5px;
-        width: 95px;
+      .btn-hs-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+          margin: 7.5px 0px;
+          padding: 1rem;
+        }
+
+        button:first-of-type {
+          width: 75px;
+          border-top-right-radius: 0px;
+          border-bottom-right-radius: 0px;
+        }
+
+        button:nth-of-type(2) {
+          border-left: 1px solid $color-white;
+          border-top-left-radius: 0px;
+          border-bottom-left-radius: 0px;
+        }
       }
+
+      // button:first-of-type {
+      //   width: 75px;
+      // }
+
+      // button:nth-of-type(2) {
+
+      // }
     }
     @media screen and (max-width: 1700px) {
       td {

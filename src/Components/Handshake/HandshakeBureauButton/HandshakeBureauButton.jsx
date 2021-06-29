@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { offerHandshake, revokeHandshake } from 'actions/handshake';
 import swal from '@sweetalert/with-react';
+import FA from 'react-fontawesome';
 import EditHandshake from '../EditHandshake';
 // import { Tooltip } from 'react-tippy';
 
@@ -22,6 +23,7 @@ const HandshakeBureauButton = props => {
   const {
     hs_status_code,
     hs_date_expiration,
+    hs_date_offered,
   } = handshake;
 
 
@@ -43,15 +45,17 @@ const HandshakeBureauButton = props => {
     swal.close();
   };
 
-  const handshakeModal = () => {
+  const handshakeModal = (infoOnly = false) => {
     swal({
-      title: `${buttonText()} Handshake`,
+      title: infoOnly ? 'Handshake Info' : `${buttonText()} Handshake`,
       button: false,
       content: (
         <EditHandshake
           submitAction={submitAction}
           expiration={hs_date_expiration}
-          disabled={hs_status_code === 'handshake_offered'}
+          offer={hs_date_offered}
+          uneditable={hs_status_code === 'handshake_offered'}
+          infoOnly={infoOnly}
           submitText={buttonText()}
         />
       ),
@@ -59,16 +63,22 @@ const HandshakeBureauButton = props => {
   };
 
   return (
-    <>
+    <div className="btn-hs-wrapper">
       <button
-        className=""
+        className="btn-action"
         title={`${buttonText()} handshake`}
-        onClick={handshakeModal}
+        onClick={() => handshakeModal(false)}
         disabled={disabled}
       >
         {buttonText()}
       </button>
-    </>
+      <button
+        className="btn-infoOnly"
+        onClick={() => handshakeModal(true)}
+      >
+        <FA name="info-circle" />
+      </button>
+    </div>
   );
 };
 

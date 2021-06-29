@@ -210,9 +210,14 @@
     width: 250px;
     margin-right: 20px;
   }
+  
+  input:first-child[disabled] {
+    background-color: $bg-gray-dark-3;
+  }
 }
 .hs-modal-time-picker {
   align-items: center;
+  background-color: transparent;
 
   .react-time-picker__wrapper {
     width: 175px;
@@ -230,5 +235,16 @@
 
   .react-time-picker__inputGroup__hour {
     text-align: right;
+  }
+}
+
+.react-time-picker--disabled {
+  background-color: transparent !important;
+  .react-time-picker__wrapper {
+    background-color: $bg-gray-dark-3;
+    .react-time-picker__inputGroup,
+    .react-time-picker__button {
+      background-color: $bg-gray-dark-3;
+    }
   }
 }
