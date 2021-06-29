@@ -8,7 +8,7 @@ import EditHandshake from '../EditHandshake';
 // import { Tooltip } from 'react-tippy';
 
 const HandshakeBureauButton = props => {
-  const { positionID, personID } = props;
+  const { positionID, personID, bidCycle } = props;
   const [handshake, setHandshake] = useState(props.handshake);
   const [disabled, setDisabled] = useState(props.disabled);
 
@@ -52,6 +52,7 @@ const HandshakeBureauButton = props => {
       content: (
         <EditHandshake
           submitAction={submitAction}
+          bidCycle={bidCycle}
           expiration={hs_date_expiration}
           offer={hs_date_offered}
           uneditable={hs_status_code === 'handshake_offered'}
@@ -84,6 +85,7 @@ const HandshakeBureauButton = props => {
 
 HandshakeBureauButton.propTypes = {
   handshake: PropTypes.shape({}),
+  bidCycle: PropTypes.shape({}),
   positionID: PropTypes.string,
   personID: PropTypes.string,
   disabled: PropTypes.bool,
@@ -91,6 +93,7 @@ HandshakeBureauButton.propTypes = {
 
 HandshakeBureauButton.defaultProps = {
   handshake: {},
+  bidCycle: {},
   positionID: '',
   personID: '',
   disabled: true,

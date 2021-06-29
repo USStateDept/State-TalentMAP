@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { isNil } from 'lodash';
+import { get, isNil } from 'lodash';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
@@ -8,15 +8,23 @@ import TimePicker from 'react-time-picker';
 import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture } from 'date-fns-v2';
 
 const EditHandshake = props => {
-  const { submitAction, expiration, infoOnly, uneditable, submitText, offer } = props;
+  const { submitAction, expiration, infoOnly, uneditable, submitText, offer, bidCycle } = props;
   const expirationFormatted = expiration ? new Date(expiration) : add(new Date(), { days: 1 });
   const [expirationDate, setExpirationDate] = useState(expirationFormatted);
   const [expirationTime, setExpirationTime] =
     useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
-  // Offer date is defaulted to `now` until future business rules clarify functionality
-  // Expected to be able to dynamically determine if we should offer now or future HS start date
-  const offerDate = offer ? new Date(offer) : new Date();
+  // Date when bidders are able to begin seeing HS offers
+  const revealDate = get(bidCycle, 'handshake_allowed_date');
+
+  const offerDate = () => {
+    if (revealDate && isFuture(new Date(revealDate))) {
+      return new Date(revealDate);
+    } else if (offer) {
+      return new Date(offer);
+    }
+    return new Date();
+  };
 
   const validateExpiration = () => {
     const [hour, minute] = expirationTime.split(':');
@@ -45,9 +53,8 @@ const EditHandshake = props => {
   };
 
   // TO-DO: Replace with business rule for enforcing hard-stop to bureau HS offers per cycle
-  const fakeBureauTimeline = [new Date(2021, 5, 1), new Date(2021, 6, 29)];
+  // const fakeBureauTimeline = [new Date(2021, 5, 1), new Date(2021, 6, 29)];
 
-  // Not to be confused with date-fns getTime & getDate
   const getTime$ = (date) => format(date, 'p');
   const getDate$ = (date) => format(date, 'P');
 
@@ -55,15 +62,16 @@ const EditHandshake = props => {
 
   const tileClassName = ({ date, view }) => {
     if (view === 'month') {
-      if (isSameDay(new Date(), date)) {
-        return 'react-calender__tile--startDate';
-      }
-      if (fakeBureauTimeline.find(dDate => isSameDay(dDate, date))) {
-        return 'react-calendar__tile--cycleTimeline';
-      }
-      if (infoOnly && (isSameDay(expiration, date))) {
+      if (isSameDay(expirationDate, date)) {
         return 'react-calendar__tile--endDate';
       }
+      if (isSameDay(offerDate(), date)) {
+        return 'react-calender__tile--startDate';
+      }
+      // TO-DO: Add dates from bidCycle object to complete
+      // if (fakeBureauTimeline.find(dDate => isSameDay(dDate, date))) {
+      //   return 'react-calendar__tile--cycleTimeline';
+      // }
     }
     return '';
   };
@@ -72,18 +80,18 @@ const EditHandshake = props => {
     <div className="bureau-hs-form">
       <form>
         <div>
-          <label htmlFor="handshakeStartDate" className="input-label">Handshake offered:</label>
+          <label htmlFor="handshakeStartDate" className="input-label">Handshake revealed:</label>
           <div className="date-time-inputs">
             <input
               type="text"
               name="handshakeStartDate"
-              value={getDate$(offerDate)}
+              value={getDate$(offerDate())}
               disabled
             />
             <input
               type="text"
               name="handshakeStartTime"
-              value={getTime$(offerDate)}
+              value={getTime$(offerDate())}
               disabled
             />
           </div>
@@ -109,21 +117,24 @@ const EditHandshake = props => {
         {/* TO-DO: Use this class yet for calendar to disable all interation */}
         <div className={`calendar-wrapper ${readOnly ? 'disabled' : ''}`}>
           <Calendar
-            minDate={new Date()}
-            maxDate={fakeBureauTimeline[1]}
+            minDate={offerDate()}
+            // TO-DO: maxDate={fakeBureauTimeline[1]}
             onChange={readOnly ? () => {} : setExpirationDate}
             value={expirationDate}
             tileClassName={tileClassName}
           />
         </div>
         <div className="calendar-legend">
-          <div className="cycle-key">
-            <div />
-            <div>Cycle Start & End</div>
-          </div>
+          {/*
+          TO-DO: Add cycle end/begin key
+            <div className="cycle-key">
+              <div />
+              <div>Cycle Start & End</div>
+            </div> */
+          }
           <div className="offer-key">
             <div />
-            <div>Handshake offer</div>
+            <div>Handshake reveal</div>
           </div>
           <div className="expire-key">
             <div />
@@ -143,6 +154,7 @@ const EditHandshake = props => {
 };
 
 EditHandshake.propTypes = {
+  bidCycle: PropTypes.shape({}),
   submitAction: PropTypes.func,
   submitText: PropTypes.string,
   infoOnly: PropTypes.bool,
@@ -152,6 +164,7 @@ EditHandshake.propTypes = {
 };
 
 EditHandshake.defaultProps = {
+  bidCycle: {},
   submitAction: EMPTY_FUNCTION,
   submitText: 'Submit',
   infoOnly: true,
