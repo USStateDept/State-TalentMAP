@@ -12,7 +12,7 @@ const EditHandshake = props => {
   const expirationFormatted = expiration ? new Date(expiration) : add(new Date(), { days: 1 });
   const [expirationDate, setExpirationDate] = useState(expirationFormatted);
   const [expirationTime, setExpirationTime] =
-  useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
+    useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
   // Offer date is defaulted to `now` until future business rules clarify functionality
   // Expected to be able to dynamically determine if we should offer now or future HS start date
@@ -27,8 +27,7 @@ const EditHandshake = props => {
   };
 
   const readOnly = uneditable || infoOnly;
-  // Hide button or not for infoOnly version?
-  const disabledButton = isNil(expirationTime) || !isFuture(validateExpiration()) || infoOnly;
+  const disabledButton = isNil(expirationTime) || !isFuture(validateExpiration());
 
 
   const cancel = (e) => {
@@ -132,8 +131,11 @@ const EditHandshake = props => {
           </div>
         </div>
         <div className="hs-button-wrapper" >
-          <button onClick={cancel}>Cancel</button>
-          <button onClick={submit} type="submit" disabled={disabledButton}>{submitText}</button>
+          <button onClick={cancel}>{infoOnly ? 'Close' : 'Cancel'}</button>
+          {
+            !infoOnly &&
+            <button onClick={submit} type="submit" disabled={disabledButton}>{submitText}</button>
+          }
         </div>
       </form>
     </div>
