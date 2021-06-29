@@ -82,7 +82,6 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
       }
       deleteBid={[Function]}
       hideDelete={true}
-      questionText={Object {}}
       showBidCount={false}
       showQuestion={false}
       useCDOView={false}

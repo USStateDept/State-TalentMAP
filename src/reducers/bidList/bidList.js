@@ -1,3 +1,6 @@
+import { get } from 'lodash';
+import { mapBidData } from 'actions/bidList/helpers';
+
 export function bidListHasErrored(state = false, action) {
   switch (action.type) {
     case 'BID_LIST_HAS_ERRORED':
@@ -17,7 +20,7 @@ export function bidListIsLoading(state = false, action) {
 export function bidListFetchDataSuccess(state = { results: [] }, action) {
   switch (action.type) {
     case 'BID_LIST_FETCH_DATA_SUCCESS':
-      return action.results;
+      return { results: mapBidData(get(action, 'results.results', [])) };
     default:
       return state;
   }
@@ -41,7 +44,7 @@ export function clientBidListIsLoading(state = false, action) {
 export function clientBidListFetchDataSuccess(state = { results: [] }, action) {
   switch (action.type) {
     case 'CLIENT_BID_LIST_FETCH_DATA_SUCCESS':
-      return action.results;
+      return { results: mapBidData(get(action, 'results.results', [])) };
     default:
       return state;
   }

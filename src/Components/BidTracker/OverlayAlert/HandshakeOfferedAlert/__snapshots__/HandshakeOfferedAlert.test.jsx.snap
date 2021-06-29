@@ -56,11 +56,6 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
       >
         Decline Handshake
       </button>
-      <Connect(StaticDevContent)>
-        <div>
-          24 hours to accept the handshake
-        </div>
-      </Connect(StaticDevContent)>
     </div>
     <div
       className="right-side"
@@ -112,7 +107,7 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
               Post Differential | Danger Pay: 
             </span>
             None listed
-            |
+             | 
             None listed
           </div>
           <div>
