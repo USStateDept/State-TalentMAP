@@ -62,7 +62,7 @@ class BidCycleCard extends Component {
 
     const patch = (isClear = false) => {
       this.setState({ isLoading: true, hasErrored: false });
-      const method = cycle._id || data?.id ? 'patch' : 'post';
+      const method = cycle$$._id || data?.id ? 'patch' : 'post';
       const body = { handshake_allowed_date: date };
       if (method === 'post') {
         body.cycle_id = cycle.id;
@@ -70,7 +70,7 @@ class BidCycleCard extends Component {
       if (isClear) {
         body.handshake_allowed_date = null;
       }
-      const url = `/bidhandshakecycle/${method === 'post' ? '' : `${cycle._id}/`}`;
+      const url = `/bidhandshakecycle/${method === 'post' ? '' : `${cycle$$._id}/`}`;
       api()[method](url, body)
         .then((response) => {
           const { data: data$ } = response;
