@@ -1,9 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`BidCycleCard Component matches snapshot 1`] = `
-<MediaQuery
-  maxWidth="760px"
+<Card
+  as="div"
+  className=""
 >
-  <Component />
-</MediaQuery>
+  <Row
+    as="div"
+    className=""
+    fluid={true}
+  >
+    <Column
+      as="div"
+      className=""
+      columns={12}
+    >
+      <DefinitionList
+        itemProps={Object {}}
+        items={Array []}
+        truncate={true}
+      >
+        <Definition
+          definition="No"
+          excludeColon={false}
+          term="In Database"
+          truncate={true}
+        />
+        <Definition
+          definition=""
+          excludeColon={false}
+          term="ID"
+          truncate={true}
+        />
+        <Definition
+          definition="None listed (This may not be an active bid cycle)"
+          excludeColon={false}
+          term="Name"
+          truncate={true}
+        />
+        <Definition
+          definition="None listed"
+          excludeColon={false}
+          term="Handshake Reveal Date"
+          truncate={true}
+        />
+      </DefinitionList>
+      <button
+        onClick={[Function]}
+      >
+        Edit Reveal Date
+      </button>
+    </Column>
+  </Row>
+</Card>
 `;
