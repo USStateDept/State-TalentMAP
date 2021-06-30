@@ -18,7 +18,8 @@
     "sessionStorage": true,
     "Blob": true,
     "Image": true,
-    "System": true
+    "System": true,
+    "__COMMIT_HASH__": "readonly"
   },
   "parser": "babel-eslint",
   "parserOptions": {

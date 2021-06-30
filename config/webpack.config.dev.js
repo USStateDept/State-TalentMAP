@@ -17,6 +17,11 @@ const { WebpackPluginRamdisk } = require('webpack-plugin-ramdisk');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// get git info from command line
+let commitHash = require('child_process')
+  .execSync('git rev-parse --short HEAD')
+  .toString();
+
 const envVariables = require('./env');
 const paths = require('./paths');
 // Webpack uses `publicPath` to determine where the app is being served from.
@@ -314,6 +319,9 @@ module.exports = {
       collections: true,
       paths: true,
       shorthands: true,
+    }),
+    new webpack.DefinePlugin({
+      __COMMIT_HASH__: JSON.stringify(commitHash),
     }),
     new MiniCssExtractPlugin(),
   ],
