@@ -6,6 +6,7 @@ const hrFooterLogo = getAssetPath('/assets/logos/png/hr-logo-white-sm.png');
 const tmFooterLogo = getAssetPath('/assets/logos/png/horizontal_white_thin-sm.png');
 
 const version = process.env.VERSION;
+/* eslint-enable */
 
 const Footer = () => (
   <footer className="usa-footer usa-footer-medium tm-footer" role="contentinfo">
@@ -18,7 +19,7 @@ const Footer = () => (
                 <Link className="usa-footer-primary-link" to="/">Home</Link>
               </li>
               <li className="usa-width-one-sixth usa-footer-primary-content">
-                <Link className="usa-footer-primary-link" to='/about'>About</Link>
+                <Link className="usa-footer-primary-link" to="/about">About</Link>
               </li>
             </ul>
           </nav>
@@ -59,12 +60,13 @@ const Footer = () => (
             !!version &&
               <div className="tm-footer-body-contact-item">
                 {`Version ${version}`}
+                <span className="commit-hash">{__COMMIT_HASH__}</span>
               </div>
           }
         </div>
       </div>
     </div>
   </footer>
-  );
+);
 
 export default Footer;
