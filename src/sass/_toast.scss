@@ -134,6 +134,38 @@
     }
   }
 
+  .hs-revoked-toast {
+    background-color: $primary-alt-darkest;
+    background-image: url('#{$asset-path}assets/img/handshake-closed.svg');
+    background-position-y: -14px;
+    .divider {
+      border-bottom-color: $tertiary-cool-blue-lightest;
+    }
+    .usa-alert-body {
+      color: $color-white;
+      padding-left: 7rem;
+      a {
+        color: $color-white;
+        padding-left: 10px;
+      }
+      .bottom-section {
+        margin-top: 20px;
+        margin-left: -7em;
+        font-size: 13px;
+        text-align: center;
+        button {
+          border: 1px solid #eee;
+          border-radius: 0;
+          color: #f1f1f1;
+          background-color: $primary-alt-darkest;
+          padding: 5px;
+          margin: 0;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
   &.Toastify__toast--success,
   &.Toastify__toast--error,
   &.Toastify__toast--info,
