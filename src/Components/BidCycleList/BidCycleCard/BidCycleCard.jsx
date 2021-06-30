@@ -37,6 +37,7 @@ class BidCycleCard extends Component {
       hasErrored: false,
       data: null,
       date: props.cycle.handshake_allowed_date || new Date(),
+      date$: null,
     };
   }
 
@@ -48,9 +49,13 @@ class BidCycleCard extends Component {
 
   render() {
     const { cycle } = this.props;
-    const { data, date, editActive, isLoading, hasErrored } = this.state;
+    const { data, date, date$, editActive, isLoading, hasErrored } = this.state;
 
-    const cycle$$ = { ...pickBy(cycle, identity), ...pickBy(data, identity) };
+    const cycle$$ = {
+      ...pickBy(cycle, identity),
+      ...pickBy(data, identity),
+      handshake_allowed_date: date$,
+    };
 
     const { _id: id$ } = cycle$$;
 
@@ -84,6 +89,7 @@ class BidCycleCard extends Component {
             isLoading: false,
             hasErrored: false,
             editActive: false,
+            date$: data$.handshake_allowed_date,
           });
         })
         .catch(() => {
@@ -119,7 +125,7 @@ class BidCycleCard extends Component {
                   <Definition term="In Database" definition={id$ ? 'Yes' : 'No'} />
                   <Definition term="ID" definition={cycle$.id} />
                   <Definition term="Name" definition={cycle$.name} />
-                  <Definition term="Deadline Date" definition={cycle$.deadline} />
+                  <Definition term="Handshake Reveal Date" definition={cycle$.deadline} />
                 </DefinitionList>
             }
             <button onClick={() => this.setState({ editActive: !editActive })}>{ editActive ? 'Close' : 'Edit' }</button>
