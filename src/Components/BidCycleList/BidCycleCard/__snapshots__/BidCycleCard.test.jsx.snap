@@ -41,7 +41,7 @@ exports[`BidCycleCard Component matches snapshot 1`] = `
         <Definition
           definition="None listed"
           excludeColon={false}
-          term="Deadline Date"
+          term="Handshake Reveal Date"
           truncate={true}
         />
       </DefinitionList>
