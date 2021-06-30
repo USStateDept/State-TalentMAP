@@ -133,7 +133,7 @@ class BidCycleCard extends Component {
                   <Definition term="Handshake Reveal Date" definition={cycle$.deadline} />
                 </DefinitionList>
             }
-            <button onClick={() => this.setState({ editActive: !editActive })}>{ editActive ? 'Close' : 'Edit' }</button>
+            <button onClick={() => this.setState({ editActive: !editActive })}>{ editActive ? 'Close' : 'Edit Reveal Date' }</button>
             { editActive && isLoading && <LoadingText /> }
             { editActive && !isLoading && hasErrored && 'Error. Try again'}
           </Column>

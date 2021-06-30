@@ -48,7 +48,7 @@ exports[`BidCycleCard Component matches snapshot 1`] = `
       <button
         onClick={[Function]}
       >
-        Edit
+        Edit Reveal Date
       </button>
     </Column>
   </Row>
