@@ -38,6 +38,7 @@ class BidCycleCard extends Component {
       data: null,
       date: props.cycle.handshake_allowed_date || new Date(),
       date$: null,
+      hasUpdated: false,
     };
   }
 
@@ -49,13 +50,16 @@ class BidCycleCard extends Component {
 
   render() {
     const { cycle } = this.props;
-    const { data, date, date$, editActive, isLoading, hasErrored } = this.state;
+    const { data, date, date$, editActive, isLoading, hasErrored, hasUpdated } = this.state;
 
     const cycle$$ = {
       ...pickBy(cycle, identity),
       ...pickBy(data, identity),
-      handshake_allowed_date: date$,
     };
+
+    if (hasUpdated) {
+      cycle$$.handshake_allowed_date = date$;
+    }
 
     const { _id: id$ } = cycle$$;
 
@@ -90,6 +94,7 @@ class BidCycleCard extends Component {
             hasErrored: false,
             editActive: false,
             date$: data$.handshake_allowed_date,
+            hasUpdated: true,
           });
         })
         .catch(() => {
