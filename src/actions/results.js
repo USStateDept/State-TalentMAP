@@ -70,7 +70,7 @@ export function resultsFetchSimilarPositions(id, favorites, bidList) {
         const filteredPositions = [];
         const favoritesBidListArray = [];
         favorites.forEach(favorite => favoritesBidListArray.push(Number(favorite.id)));
-        bidList.forEach(bid => favoritesBidListArray.push(bid.position.id));
+        bidList.forEach(bid => favoritesBidListArray.push(Number(bid.position_info.id)));
         originalResults.forEach(position => {
           if (filteredPositions.length < 3 && !favoritesBidListArray.includes(position.id)) {
             filteredPositions.push(position);

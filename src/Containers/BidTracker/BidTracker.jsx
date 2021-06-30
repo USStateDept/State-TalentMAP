@@ -76,7 +76,11 @@ class BidTrackerContainer extends Component {
       registerHandshakePosition, registerHandshakeHasErrored,
       registerHandshakeIsLoading, registerHandshakeSuccess,
       unregisterHandshakeHasErrored, unregisterHandshakeSuccess,
-      unregisterHandshakePosition, unregisterHandshakeIsLoading } = this.props;
+      unregisterHandshakePosition, unregisterHandshakeIsLoading,
+      acceptHandshakeHasErrored, acceptHandshakeIsLoading,
+      acceptHandshakeSuccess, declineHandshakeHasErrored,
+      declineHandshakeIsLoading, declineHandshakeSuccess,
+    } = this.props;
 
     const bidList$ = isPublic ? { results: userProfilePublic.bidList } : bidList;
     const bidListHasErrored$ = isPublic ? userProfilePublicHasErrored : bidListHasErrored;
@@ -124,6 +128,12 @@ class BidTrackerContainer extends Component {
         userProfileIsLoading={userProfileIsLoading$}
         isPublic={isPublic}
         useCDOView={useCDOView}
+        acceptHandshakeHasErrored={acceptHandshakeHasErrored}
+        acceptHandshakeIsLoading={acceptHandshakeIsLoading}
+        acceptHandshakeSuccess={acceptHandshakeSuccess}
+        declineHandshakeHasErrored={declineHandshakeHasErrored}
+        declineHandshakeIsLoading={declineHandshakeIsLoading}
+        declineHandshakeSuccess={declineHandshakeSuccess}
       />
     );
   }
@@ -178,6 +188,12 @@ BidTrackerContainer.propTypes = {
   userProfilePublic: USER_PROFILE,
   userProfilePublicIsLoading: PropTypes.bool,
   userProfilePublicHasErrored: PropTypes.bool,
+  acceptHandshakeHasErrored: PropTypes.bool,
+  acceptHandshakeIsLoading: PropTypes.bool,
+  acceptHandshakeSuccess: PropTypes.bool,
+  declineHandshakeHasErrored: PropTypes.bool,
+  declineHandshakeIsLoading: PropTypes.bool,
+  declineHandshakeSuccess: PropTypes.bool,
 };
 
 BidTrackerContainer.defaultProps = {
@@ -223,6 +239,12 @@ BidTrackerContainer.defaultProps = {
   userProfilePublicIsLoading: false,
   userProfilePublicHasErrored: false,
   match: { params: {} },
+  acceptHandshakeHasErrored: false,
+  acceptHandshakeIsLoading: false,
+  acceptHandshakeSuccess: false,
+  declineHandshakeHasErrored: false,
+  declineHandshakeIsLoading: false,
+  declineHandshakeSuccess: false,
 };
 
 BidTrackerContainer.contextTypes = {
@@ -260,6 +282,12 @@ const mapStateToProps = state => ({
   userProfilePublic: state.userProfilePublic,
   userProfilePublicIsLoading: state.userProfilePublicIsLoading,
   userProfilePublicHasErrored: state.userProfilePublicHasErrored,
+  acceptHandshakeHasErrored: state.acceptHandshakeHasErrored,
+  acceptHandshakeIsLoading: state.acceptHandshakeIsLoading,
+  acceptHandshakeSuccess: state.acceptHandshakeSuccess,
+  declineHandshakeHasErrored: state.declineHandshakeHasErrored,
+  declineHandshakeIsLoading: state.declineHandshakeIsLoading,
+  declineHandshakeSuccess: state.declineHandshakeSuccess,
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => {

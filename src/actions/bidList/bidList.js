@@ -6,7 +6,6 @@ import * as SystemMessages from 'Constants/SystemMessages';
 import api from '../../api';
 import { toastError, toastSuccess } from '../toast';
 import { userProfilePublicFetchData } from '../userProfilePublic';
-import { mapBidData } from './helpers';
 import { registerHandshakeHasErrored, registerHandshakeIsLoading, registerHandshakeSuccess } from '../handshake';
 
 export function downloadBidlistData(useClient = false, clientId = '') {
@@ -188,7 +187,7 @@ export function bidListFetchData(ordering = 'draft_date') {
     const endpoint = `/fsbid/bidlist/?ordering=${ordering}`;
 
     api().get(endpoint)
-      .then(response => mapBidData(get(response, 'data.results') || []))
+      .then(response => get(response, 'data.results') || [])
       .then((results) => {
         batch(() => {
           dispatch(bidListFetchDataSuccess({ results }));
@@ -219,7 +218,7 @@ export function clientBidListFetchData(ordering = 'draft_date') {
       api().get(endpoint)
         .then((response) => {
           batch(() => {
-            dispatch(clientBidListFetchDataSuccess({ results: mapBidData(get(response, 'data.results') || []) }));
+            dispatch(clientBidListFetchDataSuccess({ results: get(response, 'data.results') || [] }));
             dispatch(clientBidListHasErrored(false));
             dispatch(clientBidListIsLoading(false));
           });

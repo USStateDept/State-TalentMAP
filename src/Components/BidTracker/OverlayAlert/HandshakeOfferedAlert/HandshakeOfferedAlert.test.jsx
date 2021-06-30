@@ -1,12 +1,20 @@
-import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
+import { shallow } from 'enzyme';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
+import bidListObject from '../../../../__mocks__/bidListObject';
 
 describe('HandshakeOfferedAlertComponent', () => {
   it('is defined', () => {
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={() => {}} declineBid={() => {}} />,
+      <HandshakeOfferedAlert.WrappedComponent
+        id={1}
+        bid={bidListObject}
+        userName="test"
+        acceptBidHandshake={() => {}}
+        declineBidHandshake={() => {}}
+      />,
+
     );
     expect(wrapper).toBeDefined();
   });
@@ -14,7 +22,13 @@ describe('HandshakeOfferedAlertComponent', () => {
   it('can accept a bid', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={spy} declineBid={() => {}} />,
+      <HandshakeOfferedAlert.WrappedComponent
+        id={1}
+        bid={bidListObject}
+        userName="test"
+        acceptBidHandshake={spy}
+        declineBidHandshake={() => {}}
+      />,
     );
     const button = wrapper.find('button').at(0);
     button.simulate('click');
@@ -24,7 +38,13 @@ describe('HandshakeOfferedAlertComponent', () => {
   it('can decline a bid', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={() => {}} declineBid={spy} />,
+      <HandshakeOfferedAlert.WrappedComponent
+        id={1}
+        bid={bidListObject}
+        userName="test"
+        acceptBidHandshake={() => {}}
+        declineBidHandshake={spy}
+      />,
     );
     const button = wrapper.find('button').at(1);
     button.simulate('click');
@@ -33,7 +53,13 @@ describe('HandshakeOfferedAlertComponent', () => {
 
   it('matches snapshot', () => {
     const wrapper = shallow(
-      <HandshakeOfferedAlert id={1} userName="test" acceptBid={() => {}} declineBid={() => {}} />,
+      <HandshakeOfferedAlert.WrappedComponent
+        id={1}
+        bid={bidListObject}
+        userName="test"
+        acceptBidHandshake={() => {}}
+        declineBidHandshake={() => {}}
+      />,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });

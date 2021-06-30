@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
+import { NO_BUREAU } from 'Constants/SystemMessages';
 import { useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { get, includes } from 'lodash';
-import { APPROVED_PROP, CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
+import { CLOSED_PROP, DECLINED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP,
   HAND_SHAKE_DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_OFFERED_PROP, IN_PANEL_PROP,
   PANEL_RESCHEDULED_PROP } from 'Constants/BidData';
-import ApprovedAlert from './ApprovedAlert';
 import HandshakeOfferedAlert from './HandshakeOfferedAlert';
 import InPanelAlert from './InPanelAlert';
 import HandshakeDeclinedAlert from './HandshakeDeclinedAlert';
@@ -20,19 +20,18 @@ import DraftAlert from './DraftAlert';
 import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
-// eslint-disable-next-line complexity
-const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, isCollapsible },
+const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
+  unregisterHandshake, useCDOView, isCollapsible, userName },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
-  const CLASS_SUCCESS = 'bid-tracker-overlay-alert--success';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
 
-  const { position } = bid;
+  const position = get(bid, 'position_info.position');
   const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
+  const bureau = get(position, 'bureau') || NO_BUREAU;
 
   const bidIdUrl = getBidIdUrl(bid.id, readOnly, userId);
 
@@ -44,13 +43,6 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       overlayClass = CLASS_PENDING;
       overlayContent =
         <InPanelAlert title={BID_TITLE} date={bid.in_panel_date} />;
-    }
-  };
-
-  const setApproved = () => {
-    if (!condensedView) {
-      overlayClass = CLASS_SUCCESS;
-      overlayContent = <ApprovedAlert />;
     }
   };
 
@@ -70,18 +62,15 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
           bid={bid}
         />);
       break;
-    case APPROVED_PROP:
-      setApproved();
-      break;
     case HAND_SHAKE_OFFERED_PROP:
       overlayClass = CLASS_PENDING;
       overlayContent = (
         <HandshakeOfferedAlert
           id={bid.id}
-          userName={bid.user}
-          acceptBid={acceptBid}
-          declineBid={declineBid}
+          userName={userName}
+          bid={bid}
           bidIdUrl={bidIdUrl}
+          cdoView={useCDOView}
         />
       );
       break;
@@ -105,14 +94,14 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
       overlayContent = (
         <HandshakeDeclinedAlert
           userName={bid.user}
-          bureau={position.bureau}
+          bureau={bureau}
           bidIdUrl={bidIdUrl}
         />
       );
       break;
     case DECLINED_PROP:
       overlayClass = CLASS_CLOSED;
-      overlayContent = <DeclinedAlert bureau={position.bureau} id={bid.id} bidIdUrl={bidIdUrl} />;
+      overlayContent = <DeclinedAlert bureau={bureau} id={bid.id} bidIdUrl={bidIdUrl} />;
       break;
     case CLOSED_PROP:
       overlayClass = CLASS_CLOSED;
@@ -158,8 +147,8 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
             </Tooltip>
           </InteractiveElement>
         }
-        <div className="bid-tracker-overlay-alert-content-container">
-          <div className="bid-tracker-overlay-alert-content">
+        <div className={`${bid.status !== HAND_SHAKE_OFFERED_PROP ? 'bid-tracker-overlay-alert-content-container' : ''}`}>
+          <div className={`${bid.status !== HAND_SHAKE_OFFERED_PROP ? 'bid-tracker-overlay-alert-content' : ''}`}>
             {overlayContent}
           </div>
         </div>
@@ -169,19 +158,19 @@ const OverlayAlert = ({ bid, acceptBid, declineBid, submitBid, userId, registerH
 
 OverlayAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
-  acceptBid: PropTypes.func.isRequired,
-  declineBid: PropTypes.func.isRequired,
   submitBid: PropTypes.func.isRequired,
   userId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
   useCDOView: PropTypes.bool,
+  userName: PropTypes.string,
   isCollapsible: PropTypes.bool,
 };
 
 OverlayAlert.defaultProps = {
   userId: '',
   useCDOView: false,
+  userName: '',
   isCollapsible: false,
 };
 

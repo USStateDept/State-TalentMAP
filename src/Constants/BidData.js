@@ -13,8 +13,8 @@ export const HAND_SHAKE_NEEDS_REGISTER_PROP = 'handshake_needs_registered';
 
 // tmap-specific props
 export const HAND_SHAKE_OFFERED_PROP = 'handshake_offered';
-export const HAND_SHAKE_OFFER_ACCEPTED_PROP = 'handshake_offer_accepted';
-export const HAND_SHAKE_OFFER_DECLINED_PROP = 'handshake_offer_declined';
+export const HAND_SHAKE_OFFER_ACCEPTED_PROP = 'handshake_accepted';
+export const HAND_SHAKE_OFFER_DECLINED_PROP = 'handshake_declined';
 export const HAND_SHAKE_REVOKED_PROP = 'handshake_offer_revoked';
 
 export const BID_EXPLANATION_TEXT = {

@@ -20,7 +20,7 @@ exports[`BidListResultsCardComponent matches snapshot 1`] = `
               id={2}
               positionNumber="05A"
               positionTitle="AO"
-              postName="Paris"
+              postName="None listed"
               status="submitted"
             />
           </div>

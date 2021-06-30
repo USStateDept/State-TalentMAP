@@ -78,7 +78,12 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
           || item.selectionRef === ENDPOINT_PARAMS.postAP) {
           dispatch(filtersIsLoading(true));
           const endpoint = '/fsbid/reference/locations/';
-          return api().get(endpoint)
+          return api().get(endpoint, {
+            cache: {
+              maxAge: 2 * 60 * 1000, // 2 min
+              exclude: { query: false },
+            },
+          })
             .then((response) => {
             // TODO - this is dummy logic to get a single location,
             // since there is no fsbid endpoint to do so. Once that exists,
@@ -279,7 +284,12 @@ export function filtersFetchData(items = { filters: [] }, queryParams = {}, save
       const endpointResponses = {};
 
       const uniqueEndpoints = uniqBy(dynamicFilters, 'item.endpoint').map(m => m.item.endpoint);
-      const uniqueFilters = uniqueEndpoints.map(m => api().get(`/${m}`).then(res => {
+      const uniqueFilters = uniqueEndpoints.map(m => api().get(`/${m}`, {
+        cache: {
+          maxAge: 2 * 60 * 1000, // 2 min
+          exclude: { query: false },
+        },
+      }).then(res => {
         endpointResponses[m] = res;
         return res;
       })

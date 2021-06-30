@@ -234,6 +234,10 @@
     justify-content: space-between;
     align-items: baseline;
   }
+  // for the Share Bureau icon
+  div:nth-child(13) {
+    justify-content: flex-start;
+  }
 
   dd {
     margin-inline-start: 30;
@@ -247,6 +251,11 @@
     margin-top: 3rem;
     min-width: 7em;
     text-align: left;
+  }
+
+  .select-error {
+    border-color: $alert-red;
+    box-shadow: 0px 0px 0px 2px $alert-red;
   }
 }
 
