@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const LinkButton = () => {
+const LoadingText = () => {
   const [suffix, setSuffix] = useState('...');
   useEffect(() => {
     const timer = setInterval(() => {
@@ -17,4 +17,4 @@ const LinkButton = () => {
   );
 };
 
-export default LinkButton;
+export default LoadingText;
