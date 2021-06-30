@@ -1,33 +1,27 @@
-import { RECEIVE_BID_CYCLES, fetchBidCycles } from './bidCycles';
+import { fetchBidCycles } from './bidCycles';
 import mock from '../__mocks__/bidCycles';
 import { setupAsyncMocks } from '../testUtilities/testUtilities';
 
 const { mockStore, mockAdapter } = setupAsyncMocks();
 
 describe('bidCycles async actions', () => {
-  beforeEach(() => {
-    mockAdapter.onAny().reply((config) => {
-      switch (config.method) {
-        case 'get':
-          return [200, { results: mock }];
+  it('fetches bidcycles and bidhandshakecycles', (done) => {
+    const store = mockStore({ profile: {} });
 
-        default:
-          break;
-      }
+    mockAdapter.onGet('/bidhandshakecycle/').reply(200,
+      { results: [] },
+    );
 
-      return [500, null];
-    });
-  });
+    mockAdapter.onPost('/fsbid/reference/cycles/').reply(200,
+      mock,
+    );
 
-  it('creates RECEIVE_BID_CYCLES after fetchBidCycles() finishes', () => {
-    const store = mockStore({ bidCycles: [] });
-    const actions = [
-      { type: RECEIVE_BID_CYCLES, data: mock },
-    ];
-
-    return store.dispatch(fetchBidCycles())
-      .then(() => {
-        expect(store.getActions()).toEqual(actions);
-      });
+    const f = () => {
+      setTimeout(() => {
+        store.dispatch(fetchBidCycles(false, () => {}));
+        done();
+      }, 0);
+    };
+    f();
   });
 });

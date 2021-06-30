@@ -10,9 +10,7 @@ import { BID_CYCLES } from '../../Constants/PropTypes';
 
 class BidCycles extends Component {
   componentDidMount() {
-    if (!this.props.cycles.length) {
-      this.props.actions.fetchCycles();
-    }
+    this.props.actions.fetchCycles();
   }
 
   render() {
