@@ -98,7 +98,7 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
           </div>
           <div>
             <span>
-              Bid Languages: 
+              Language: 
             </span>
             None
           </div>
