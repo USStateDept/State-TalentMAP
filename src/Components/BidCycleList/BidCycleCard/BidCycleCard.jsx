@@ -102,7 +102,7 @@ class BidCycleCard extends Component {
         });
     };
 
-    const time = new Date(date || new Date());
+    const time = new Date(date);
 
     return (
       <Card>
