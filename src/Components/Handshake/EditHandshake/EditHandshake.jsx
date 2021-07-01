@@ -122,6 +122,7 @@ const EditHandshake = props => {
             onChange={readOnly ? () => {} : setExpirationDate}
             value={expirationDate}
             tileClassName={tileClassName}
+            tileDisabled={() => readOnly}
           />
         </div>
         <div className="calendar-legend">
