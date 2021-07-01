@@ -80,6 +80,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         route: '/profile/cycles/',
         icon: 'hourglass-start',
         roles: [
+          'superuser',
           'bidcycle_admin',
         ],
       },
