@@ -137,7 +137,10 @@ export function bureauBidsAllFetchData(id, query) {
         dispatch(bureauPositionBidsAllHasErrored(false));
         dispatch(bureauPositionBidsAllIsLoading(false));
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err.response.status === 403) {
+          dispatch(toastError('You do not have the bureau or organization permissions associated with this position. Bidders will be hidden.', 'Insufficient Permissions'));
+        }
         dispatch(bureauPositionBidsAllHasErrored(true));
         dispatch(bureauPositionBidsAllIsLoading(false));
       });
@@ -216,9 +219,14 @@ export function downloadBidderData(id, query = {}) {
     .then((response) => {
       downloadFromResponse(response, 'TalentMap_position_bids');
     })
-    .catch(() => {
-      // eslint-disable-next-line global-require
-      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+    .catch((err) => {
+      /* eslint-disable global-require */
+      if (err.response.status === 403) {
+        require('../store').store.dispatch(toastError('You do not have the bureau or organization permissions associated with this position.', 'Insufficient Permissions'));
+      } else {
+        require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+      }
+      /* eslint-enable global-require */
     });
 }
 
