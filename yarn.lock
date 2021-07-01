@@ -1538,7 +1538,8 @@
 
 "@pmmmwh/react-refresh-webpack-plugin@pmmmwh/react-refresh-webpack-plugin#main":
   version "0.5.0-rc.0"
-  resolved "https://codeload.github.com/pmmmwh/react-refresh-webpack-plugin/tar.gz/86c9a7782e114a8606160d7fe1e087a6259139f2"
+  uid c7d74107bc6d878e215b81bda5b9b385539b87ed
+  resolved "https://codeload.github.com/pmmmwh/react-refresh-webpack-plugin/tar.gz/c7d74107bc6d878e215b81bda5b9b385539b87ed"
   dependencies:
     ansi-html "^0.0.7"
     core-js-pure "^3.8.1"
