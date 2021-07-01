@@ -132,7 +132,8 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
 
   const positionHandshakeRegistered = get(bid, 'position_info.bid_statistics[0].has_handshake_offered');
   let showArrow = true;
-  if (positionHandshakeRegistered && (bid.status !== HAND_SHAKE_ACCEPTED_PROP)) {
+  if (positionHandshakeRegistered &&
+    (bid.status !== HAND_SHAKE_ACCEPTED_PROP && bid.status !== DRAFT_PROP)) {
     showArrow = false;
     overlayClass = CLASS_REGISTER_ANOTHER_CLIENT;
     overlayContent = (
