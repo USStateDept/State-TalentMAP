@@ -30,6 +30,17 @@ const bidListObject = {
         bidcycle: {
           name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
         },
+        bid_statistics: [
+          {
+            id: null,
+            total_bids: 0,
+            in_grade: 0,
+            at_skill: 0,
+            in_grade_at_skill: 0,
+            has_handshake_offered: false,
+            has_handshake_accepted: null,
+          },
+        ],
       },
       status: 'approved',
       draft_date: '2017-12-20',
@@ -81,6 +92,17 @@ const bidListObject = {
             name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
           },
         },
+        bid_statistics: [
+          {
+            id: null,
+            total_bids: 0,
+            in_grade: 0,
+            at_skill: 0,
+            in_grade_at_skill: 0,
+            has_handshake_offered: false,
+            has_handshake_accepted: null,
+          },
+        ],
       },
       status: 'closed',
       draft_date: '2017-12-20',
@@ -133,6 +155,17 @@ const bidListObject = {
             name: 'Demo BidCycle 2017-10-31 16:00:51.254762',
           },
         },
+        bid_statistics: [
+          {
+            id: null,
+            total_bids: 0,
+            in_grade: 0,
+            at_skill: 0,
+            in_grade_at_skill: 0,
+            has_handshake_offered: false,
+            has_handshake_accepted: null,
+          },
+        ],
       },
       status: 'closed',
       draft_date: '2017-12-20',
