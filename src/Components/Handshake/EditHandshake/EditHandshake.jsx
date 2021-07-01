@@ -80,7 +80,7 @@ const EditHandshake = props => {
     <div className="bureau-hs-form">
       <form>
         <div>
-          <label htmlFor="handshakeStartDate" className="input-label">Handshake revealed:</label>
+          <label htmlFor="handshakeStartDate" className="input-label">Handshake reveal:</label>
           <div className="date-time-inputs">
             <input
               type="text"
