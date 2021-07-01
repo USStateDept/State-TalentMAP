@@ -220,19 +220,17 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - docker-build:
-          requires:
-            - build
-          filters:
-            branches:
-              only:
-                - dev
-                - staging
-                - master
-      - yarn:
-          requires:
-            - build
+      # - build
+      # - docker-build:
+      #     requires:
+      #       - build
+      #     filters:
+      #       branches:
+      #         only:
+      #           - dev
+      #           - staging
+      #           - master
+      - yarn
       - site:
           requires:
             - yarn
@@ -248,14 +246,14 @@ workflows:
           filters:
             branches:
               only: dev
-      - zap:
-          requires:
-            - docker-build
-          filters:
-            tags:
-              only: /^zap.*/
-            branches:
-              ignore: /.*/
+      # - zap:s
+      #     requires:
+      #       - docker-build
+      #     filters:
+      #       tags:
+      #         only: /^zap.*/
+      #       branches:
+      #         ignore: /.*/
       #- push-stable:
       #    requires:
       #      - yarn

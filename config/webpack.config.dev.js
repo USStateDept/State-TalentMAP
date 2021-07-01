@@ -14,6 +14,13 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const webpackDashboard = require('webpack-dashboard/plugin');
 const { WebpackPluginRamdisk } = require('webpack-plugin-ramdisk');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+
+// get git info from command line
+let commitHash = require('child_process')
+  .execSync('git rev-parse --short HEAD')
+  .toString();
 
 const envVariables = require('./env');
 const paths = require('./paths');
@@ -180,8 +187,23 @@ module.exports = {
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.
-          cacheDirectory: true,
+          cacheDirectory: false,
         },
+      },
+      {
+        test: /\.[jt]sx?$/,
+        exclude: /node_modules/,
+        include: paths.appSrc,
+        use: [
+          {
+            loader: require.resolve('babel-loader'),
+            options: {
+              plugins: [
+                require.resolve('react-refresh/babel'),
+              ],
+            },
+          },
+        ],
       },
       // "postcss" loader applies autoprefixer to our CSS.
       // "css" loader resolves paths in CSS and adds assets as dependencies.
@@ -221,9 +243,8 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
+        use: [
+            MiniCssExtractPlugin.loader,
             'css-loader',
             {
               loader: 'resolve-url-loader',
@@ -246,7 +267,6 @@ module.exports = {
               }
             }
           ],
-        }),
       },
       // ** STOP ** Are you adding a new loader?
       // Remember to add the new extension(s) to the "file" loader exclusion list.
@@ -277,6 +297,7 @@ module.exports = {
     new webpack.DefinePlugin(env.stringified),
     // This is necessary to emit hot updates (currently CSS only):
     new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
     // Watcher doesn't work well if you mistype casing in a path so we use
     // a plugin that prints an error when you attempt to do this.
     // See https://github.com/facebookincubator/create-react-app/issues/240
@@ -299,6 +320,10 @@ module.exports = {
       paths: true,
       shorthands: true,
     }),
+    new webpack.DefinePlugin({
+      __COMMIT_HASH__: JSON.stringify(commitHash),
+    }),
+    new MiniCssExtractPlugin(),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
