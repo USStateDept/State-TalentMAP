@@ -120,7 +120,7 @@
         margin-top: 20px;
         margin-left: -7em;
         font-size: 13px;
-        text-align: center;
+        text-align: end;
         button {
           border: 1px solid #eee;
           border-radius: 0;
@@ -137,20 +137,15 @@
   .hs-revoked-toast {
     background-color: $primary-alt-darkest;
     background-image: url('#{$asset-path}assets/img/handshake-closed.svg');
-    background-position-y: -14px;
+    background-position-y: -12px;
+    background-position-x: -18px;
     .divider {
       border-bottom-color: $tertiary-cool-blue-lightest;
     }
     .usa-alert-body {
-      color: $color-white;
-      padding-left: 7rem;
-      a {
-        color: $color-white;
-        padding-left: 10px;
-      }
+      padding-left: 6rem;
       .bottom-section {
-        margin-top: 20px;
-        margin-left: -7em;
+        margin-top: 10px;
         font-size: 13px;
         text-align: center;
         button {

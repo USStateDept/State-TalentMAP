@@ -6,7 +6,6 @@ const HandshakeRevoked = ({ name, message }) => (
   <span>
     {name}, {message}
     <div className="bottom-section">
-      Go to your Bid Tracker to accept/decline the Handshake
       <Link to="/profile/bidtracker">
         <button role="link" onClick={() => toast.dismiss()}>Bid Tracker</button>
       </Link>

@@ -260,7 +260,7 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
           groupedNotifications[id].sort((a, b) =>
             new Date(b.date_updated) - new Date(a.date_updated));
           const currentNotification = groupedNotifications[id][0];
-          if (get(groupedNotifications[id], 'meta.extended', false) || get(groupedNotifications[id], 'meta.accepted', false)) {
+          if (get(currentNotification, 'meta.extended', false) || get(currentNotification, 'meta.accepted', false)) {
             dispatch(handshakeOffered(currentNotification.owner, currentNotification.message,
               { autoClose: false, draggable: false, closeOnClick: false }));
           } else {
