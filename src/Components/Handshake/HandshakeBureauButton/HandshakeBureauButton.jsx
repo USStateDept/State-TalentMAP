@@ -76,6 +76,7 @@ const HandshakeBureauButton = props => {
       <button
         className="btn-infoOnly"
         onClick={() => handshakeModal(true)}
+        disabled={!hs_date_offered}
       >
         <FA name="info-circle" />
       </button>
