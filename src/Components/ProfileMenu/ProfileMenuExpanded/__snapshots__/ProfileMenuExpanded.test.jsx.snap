@@ -197,14 +197,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="exclamation-triangle"
-        key="Candidate Manager"
-        link="/profile/bureau/candidatemanager"
-        search=""
-        title="Candidate Manager"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="users"
         key="Available Bidders"
         link="/profile/bureau/availablebidders"
@@ -472,14 +464,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Manager"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="exclamation-triangle"
-        key="Candidate Manager"
-        link="/profile/bureau/candidatemanager"
-        search=""
-        title="Candidate Manager"
       />
       <withRouter(NavLink)
         hidden={true}

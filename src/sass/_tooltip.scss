@@ -2,10 +2,7 @@
 .tippy-tooltip--regular {
   font-size: .8em;
 }
-// option 2
-.tippy-popper {
-  z-index: 10000!important;
-}
+
 .tippy-popper {
   .tippy-tooltip.light-theme {
     background-color: $blue-primary;

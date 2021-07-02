@@ -1,6 +1,7 @@
 import {
   handshakeAcceptedNotification,
   handshakeOfferedNotification,
+  handshakeRevokedNotification,
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
@@ -18,6 +19,7 @@ import {
 export default {
   handshakeAcceptedNotification,
   handshakeOfferedNotification,
+  handshakeRevokedNotification,
   offerHandshakeHasErrored,
   offerHandshakeIsLoading,
   offerHandshakeSuccess,
