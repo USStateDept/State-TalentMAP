@@ -105,7 +105,7 @@
 .react-calendar__tile--active,
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #f2d3d3;
+  background: #feeabf
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
   background-color: #e6e6e6;
@@ -119,7 +119,7 @@
   background-color: #cce6cc;
 }
 .react-calendar__tile--endDate {
-  background-color: #f2d3d3;
+  background-color: #feeabf
 }
 
 .disabled {
@@ -134,7 +134,7 @@
     background: #d4e0ee;
   }
   .react-calendar__tile--endDate {
-    background: #f2d3d3;
+    background: #feeabf
   }
 }
   
@@ -189,7 +189,7 @@
     }
     .expire-key {
       div:first-child {
-        background-color: #f2d3d3;
+        background-color: #feeabf
       }
     }
   }
@@ -238,6 +238,13 @@
   .react-time-picker__wrapper {
     width: 175px;
   }
+
+  .react-time-picker__clear-button:hover svg {
+    stroke: white!important;
+    }
+    .react-time-picker__clock-button:hover svg {
+    stroke: white!important;
+    }
 
   .react-time-picker__inputGroup {
     display: flex;
