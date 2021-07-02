@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import { offerHandshake, revokeHandshake } from 'actions/handshake';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
+import { useCloseSwalOnUnmount } from 'utilities';
 import EditHandshake from '../EditHandshake';
-// import { Tooltip } from 'react-tippy';
 
 const HandshakeBureauButton = props => {
   const { positionID, personID, bidCycle } = props;
   const [handshake, setHandshake] = useState(props.handshake);
   const [disabled, setDisabled] = useState(props.disabled);
 
+  useCloseSwalOnUnmount();
 
   useEffect(() => {
     setHandshake(props.handshake);

@@ -6,6 +6,7 @@ import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
 import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture } from 'date-fns-v2';
+import { useCloseSwalOnUnmount } from 'utilities';
 
 const EditHandshake = props => {
   const { submitAction, expiration, infoOnly, uneditable, submitText, offer, bidCycle } = props;
@@ -13,6 +14,8 @@ const EditHandshake = props => {
   const [expirationDate, setExpirationDate] = useState(expirationFormatted);
   const [expirationTime, setExpirationTime] =
     useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
+
+  useCloseSwalOnUnmount();
 
   // Date when bidders are able to begin seeing HS offers
   const revealDate = get(bidCycle, 'handshake_allowed_date');
