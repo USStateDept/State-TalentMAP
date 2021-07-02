@@ -269,6 +269,18 @@
 
   .react-time-picker__inputGroup__input {
     min-width: 1.1em;
+    color: #212121;
+  }
+
+  .react-time-picker__inputGroup__input--hasLeadingZero {
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: -10px;
+  }
+
+  .react-time-picker__inputGroup__leadingZero,
+  .react-time-picker__inputGroup__amPm:disabled {
+    color: #212121;
   }
 
   .react-time-picker__inputGroup__hour {
