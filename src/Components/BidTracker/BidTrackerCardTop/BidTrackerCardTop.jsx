@@ -28,7 +28,7 @@ class BidTrackerCardTop extends Component {
     const bidStatistics = get(position_info, 'bid_statistics[0]') || {};
     const post = get(position, 'post') || {};
     const positionNumber = get(position, 'position_number');
-    const hideDelete$ = hideDelete || ((get(bid, 'status') === HAND_SHAKE_OFFERED_PROP) && !bidTakenFlag && !useCDOView);
+    const hideDelete$ = hideDelete || ((get(bid, 'status') === HAND_SHAKE_OFFERED_PROP) && !bidTakenFlag);
 
     return (
       <div className="usa-grid-full padded-container-inner bid-tracker-title-container">
