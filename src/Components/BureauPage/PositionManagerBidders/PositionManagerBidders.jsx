@@ -315,6 +315,7 @@ class PositionManagerBidders extends Component {
               positionID={props.id}
               personID={m.emp_id}
               disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
+              bidCycle={get(props, 'bidCycle', {})}
             />
           }
         </>,

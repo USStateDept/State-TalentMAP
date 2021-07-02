@@ -142,6 +142,7 @@ class PositionManagerDetails extends Component {
                       filters={filters$}
                       allBids={allBids}
                       isLocked={bureauPosition.is_locked}
+                      bidCycle={bureauPosition.bidcycle}
                       hasBureauPermission={bureauPosition.has_bureau_permission}
                       hasPostPermission={bureauPosition.has_post_permission}
                       classifications={classifications}

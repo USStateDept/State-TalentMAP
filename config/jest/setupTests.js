@@ -1,3 +1,5 @@
+import 'core-js/shim'; // included < Stage 4 proposals
+import 'regenerator-runtime/runtime';
 import chalk from 'chalk';
 import { JSDOM } from 'jsdom';
 Object.entries = require('object.entries'); // because jest doesn't import babel
