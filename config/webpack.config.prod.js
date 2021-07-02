@@ -16,9 +16,12 @@ const envVariables = require('./env');
 const FAST_BUILD = process.env.FAST_BUILD || false;
 
 // get git info from command line
-let commitHash = require('child_process')
-  .execSync('git rev-parse --short HEAD')
-  .toString();
+let commitHash = ''
+try {
+  commitHash = require('child_process')
+    .execSync('git rev-parse --short HEAD')
+    .toString();
+} catch {}
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
