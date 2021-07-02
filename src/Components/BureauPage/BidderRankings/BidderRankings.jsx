@@ -28,7 +28,7 @@ const BidderRankings = ({ perdet, cp_id, is_dragging, is_mouse_down, mouse_down_
   const positionTableHeaders = [
     'Rank',
     'Position',
-    'Post',
+    'Location',
     'Skill',
     'Grade',
     'Bid Cycle',
