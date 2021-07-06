@@ -867,5 +867,8 @@ export function getCustomLocation(loc, org) {
 
 export const useCloseSwalOnUnmount = () =>
   useEffect(() => () => {
-    swal.close();
+    try {
+      swal.close();
+    } catch { return null; }
+    return null;
   }, []);
