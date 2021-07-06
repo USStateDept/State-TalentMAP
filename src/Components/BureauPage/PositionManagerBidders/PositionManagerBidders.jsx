@@ -308,11 +308,20 @@ class PositionManagerBidders extends Component {
       TED: formattedTed,
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
       Action:
-        postHandshakeVisibility() &&
         <>
-          <HandshakeStatus
-            handshake={handshake}
-          />
+          <PermissionsWrapper
+            permissions="bureau_user"
+            fallback={
+              postHandshakeVisibility() &&
+              <HandshakeStatus
+                handshake={handshake}
+              />
+            }
+          >
+            <HandshakeStatus
+              handshake={handshake}
+            />
+          </PermissionsWrapper>
           {
             type !== 'unranked' &&
             <PermissionsWrapper permissions="bureau_user">
