@@ -36,7 +36,7 @@ class BidTrackerCardTop extends Component {
           <BidTrackerCardTitle
             title={position.title || 'N/A'}
             positionNumber={positionNumber || 'N/A'}
-            id={position_info.id}
+            id={get(position_info, 'id')}
             status={bid.status}
             bidStatistics={bidStatistics}
             post={post}
