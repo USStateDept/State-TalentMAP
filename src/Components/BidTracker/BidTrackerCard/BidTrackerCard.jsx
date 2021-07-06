@@ -19,9 +19,23 @@ import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '..
 import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      flipArrow: true,
+    };
+  }
+
   getChildContext() {
     const { bid, condensedView, priorityExists, readOnly } = this.props;
     return { condensedView, priorityExists, isPriority: bid.is_priority, readOnly };
+  }
+
+  childToParent = () => {
+    const { flipArrow } = this.state;
+    this.setState({ flipArrow: !flipArrow });
+    console.log('bid tracker comp');
+    console.log(flipArrow);
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
@@ -55,6 +69,9 @@ class BidTrackerCard extends Component {
     }
 
     const bidStepsClasses$ = bidStepsClass.join(' ');
+
+    const { flipArrow } = this.state;
+    // console.log(isCollapsible);
 
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
@@ -104,7 +121,10 @@ class BidTrackerCard extends Component {
             useCDOView={useCDOView}
           />
           <div className={bidStepsClasses$}>
-            <BidSteps bid={bid} />
+            <BidSteps
+              bid={bid}
+              collapseOverlay={flipArrow}
+            />
             {
               showAlert &&
                 <OverlayAlert
@@ -119,6 +139,7 @@ class BidTrackerCard extends Component {
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
+                  childToParent={this.childToParent}
                   condensedView={condensedView}
                 />
             }
