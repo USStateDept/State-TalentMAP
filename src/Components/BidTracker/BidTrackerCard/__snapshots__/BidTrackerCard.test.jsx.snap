@@ -87,6 +87,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
           "user": "rehmant",
         }
       }
+      bidTakenFlag={false}
       deleteBid={[Function]}
       hideDelete={false}
       showBidCount={true}

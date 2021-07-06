@@ -91,6 +91,7 @@ exports[`IsOnStandbyComponent matches snapshot 1`] = `
           "user": "rehmant",
         }
       }
+      bidTakenFlag={false}
       deleteBid={[Function]}
       hideDelete={true}
       showBidCount={false}
