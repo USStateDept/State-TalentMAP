@@ -19,7 +19,9 @@ const BidTrackerCardTitle = ({
 { condensedView, priorityExists, isPriority }) => {
   const viewPosition = (
     <div className="bid-tracker-card-title-link">
-      <Link to={`/${status === APPROVED_PROP ? 'archived' : 'details'}/${id}`}>View position</Link>
+      {
+        id ? <Link to={`/${status === APPROVED_PROP ? 'archived' : 'details'}/${id}`}>View position</Link> : null
+      }
     </div>
   );
   let title$ = `${title}${positionNumber ? ` (${positionNumber})` : ''}`;

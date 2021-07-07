@@ -31,8 +31,8 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
   const CLASS_REGISTER_ANOTHER_CLIENT = 'bid-tracker-overlay-alert--register-another-client';
 
-  const position = get(bid, 'position_info.position');
-  const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
+  const position = get(bid, 'position_info.position') || {};
+  const BID_TITLE = position.title ? `${position.title}${position.position_number ? ` (${position.position_number})` : ''}` : 'N/A';
   const bureau = get(position, 'bureau') || NO_BUREAU;
 
   const bidIdUrl = getBidIdUrl(bid.id, readOnly, userId);

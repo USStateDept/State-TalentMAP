@@ -8,6 +8,7 @@ import { Tooltip } from 'react-tippy';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import Skeleton from 'react-loading-skeleton';
 import { formatDate, move } from 'utilities';
+import { checkFlag } from 'flags';
 import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
 import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
@@ -19,10 +20,13 @@ import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import HandshakeBureauButton from 'Components/Handshake/HandshakeBureauButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
+import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import ShortListLock from '../ShortListLock';
 import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
+
+const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
 const getClassificationsInfo = (userClassifications, refClassifications) => {
   const classificationsInfo = [];
@@ -305,18 +309,30 @@ class PositionManagerBidders extends Component {
       CDO: get(m, 'cdo.email') ? <MailToButton email={get(m, 'cdo.email')} textAfter={get(m, 'cdo.name')} /> : 'N/A',
       Action:
         <>
-          <HandshakeStatus
-            handshake={handshake}
-          />
+          <PermissionsWrapper
+            permissions="bureau_user"
+            fallback={
+              postHandshakeVisibility() &&
+              <HandshakeStatus
+                handshake={handshake}
+              />
+            }
+          >
+            <HandshakeStatus
+              handshake={handshake}
+            />
+          </PermissionsWrapper>
           {
             type !== 'unranked' &&
-            <HandshakeBureauButton
-              handshake={handshake}
-              positionID={props.id}
-              personID={m.emp_id}
-              disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
-              bidCycle={get(props, 'bidCycle', {})}
-            />
+            <PermissionsWrapper permissions="bureau_user">
+              <HandshakeBureauButton
+                handshake={handshake}
+                positionID={props.id}
+                personID={m.emp_id}
+                disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
+                bidCycle={get(props, 'bidCycle', {})}
+              />
+            </PermissionsWrapper>
           }
         </>,
     };
