@@ -64,10 +64,7 @@ const BidSteps = (props, context) => {
       {
         BID_STEPS.map((status) => {
           const icon = getIcon(status);
-          console.log('bid steps:', collapseOverlay);
-          console.log('bidata value:', bidData[status.prop].hasBidPreparingTooltip);
-          // const showBidPrepToolTip =
-          //   false ? (bidData[status.prop].hasBidPreparingTooltip && collapseOverlay) : false;
+          const showBidPrepToolTip = bidData[status.prop].hasBidPreparingTooltip && collapseOverlay;
           return (<Step
             key={shortId.generate()}
             className={`
@@ -83,8 +80,7 @@ const BidSteps = (props, context) => {
               </div>
             }
             tailContent={
-              bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null
-              // showBidPrepToolTip ? <BidPreparingIcon /> : null
+              showBidPrepToolTip ? <BidPreparingIcon /> : null
             }
             icon={icon}
           />

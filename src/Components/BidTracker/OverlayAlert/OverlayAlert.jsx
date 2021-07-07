@@ -22,7 +22,7 @@ import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, isCollapsible, userName, childToParent },
+  unregisterHandshake, useCDOView, isCollapsible, userName, tooglePanelAlert },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -49,18 +49,11 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   };
 
   const [collapseOverlay, setCollapseOverlay] = useState(false);
-  // const collapseOverlay = false;
 
-  // eslint-disable-next-line no-unused-vars
   function toggleOverlay() {
+    tooglePanelAlert(!collapseOverlay);
     setCollapseOverlay(!collapseOverlay);
   }
-
-  // function childToParent() {
-  //   setCollapseOverlay(!collapseOverlay);
-  // }
-
-  // console.log('childToParent', childToParent);
 
   switch (bid.status) {
     case HAND_SHAKE_NEEDS_REGISTER_PROP:
@@ -159,7 +152,7 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
     overlayContent ?
       <div className={`bid-tracker-overlay-alert ${overlayClass}${collapseOverlay ? ' collapse-overlay' : ''}`}>
         {isCollapsible$ &&
-          <InteractiveElement onClick={childToParent}>
+          <InteractiveElement onClick={toggleOverlay}>
             <Tooltip
               title={collapseOverlay ? 'Expand overlay' : 'Collapse overlay'}
               arrow
@@ -189,7 +182,7 @@ OverlayAlert.propTypes = {
   useCDOView: PropTypes.bool,
   userName: PropTypes.string,
   isCollapsible: PropTypes.bool,
-  childToParent: PropTypes.func.isRequired,
+  tooglePanelAlert: PropTypes.func.isRequired,
 };
 
 OverlayAlert.defaultProps = {

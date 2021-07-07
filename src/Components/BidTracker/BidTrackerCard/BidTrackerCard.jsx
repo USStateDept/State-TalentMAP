@@ -22,7 +22,7 @@ class BidTrackerCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      flipArrow: true,
+      showPanelAlert: false,
     };
   }
 
@@ -31,11 +31,8 @@ class BidTrackerCard extends Component {
     return { condensedView, priorityExists, isPriority: bid.is_priority, readOnly };
   }
 
-  childToParent = () => {
-    const { flipArrow } = this.state;
-    this.setState({ flipArrow: !flipArrow });
-    console.log('bid tracker comp');
-    console.log(flipArrow);
+  tooglePanelAlert = collapseOverlay => {
+    this.setState({ showPanelAlert: collapseOverlay });
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
@@ -59,6 +56,7 @@ class BidTrackerCard extends Component {
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
+    const { showPanelAlert } = this.state;
     const bidTakenFlag = (get(bid, 'position_info.bid_statistics[0].has_handshake_offered'))
       && (bid.status !== HAND_SHAKE_ACCEPTED_PROP && bid.status !== DRAFT_PROP);
     const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
@@ -69,9 +67,6 @@ class BidTrackerCard extends Component {
     }
 
     const bidStepsClasses$ = bidStepsClass.join(' ');
-
-    const { flipArrow } = this.state;
-    // console.log(isCollapsible);
 
     return (
       <BoxShadow className={containerClass} id={`bid-${bid.id}`}>
@@ -124,7 +119,7 @@ class BidTrackerCard extends Component {
           <div className={bidStepsClasses$}>
             <BidSteps
               bid={bid}
-              collapseOverlay={flipArrow}
+              collapseOverlay={showPanelAlert}
             />
             {
               showAlert &&
@@ -140,7 +135,7 @@ class BidTrackerCard extends Component {
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
-                  childToParent={this.childToParent}
+                  tooglePanelAlert={this.tooglePanelAlert}
                   condensedView={condensedView}
                 />
             }
