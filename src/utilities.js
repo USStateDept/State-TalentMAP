@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, includes, intersection, isArray, isEmpty, isEqual, isFunction,
@@ -862,3 +864,11 @@ export function getCustomLocation(loc, org) {
   if (!get(loc, 'country')) { x = get(loc, 'city'); }
   return x;
 }
+
+export const useCloseSwalOnUnmount = () =>
+  useEffect(() => () => {
+    try {
+      swal.close();
+    } catch { return null; }
+    return null;
+  }, []);

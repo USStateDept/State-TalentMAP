@@ -17,6 +17,7 @@ import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
 import HandshakeRegisterAlert from './HandshakeRegisterAlert';
 import DraftAlert from './DraftAlert';
+import HandshakeRegisterAnotherClientAlert from './HandshakeRegisterAnotherClientAlert';
 import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
@@ -28,9 +29,10 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
+  const CLASS_REGISTER_ANOTHER_CLIENT = 'bid-tracker-overlay-alert--register-another-client';
 
-  const position = get(bid, 'position_info.position');
-  const BID_TITLE = `${position.title}${position.position_number ? ` (${position.position_number})` : ''}`;
+  const position = get(bid, 'position_info.position') || {};
+  const BID_TITLE = position.title ? `${position.title}${position.position_number ? ` (${position.position_number})` : ''}` : 'N/A';
   const bureau = get(position, 'bureau') || NO_BUREAU;
 
   const bidIdUrl = getBidIdUrl(bid.id, readOnly, userId);
@@ -128,7 +130,21 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
       break;
   }
 
-  const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
+  const positionHandshakeRegistered = get(bid, 'position_info.bid_statistics[0].has_handshake_offered');
+  let showArrow = true;
+  if (positionHandshakeRegistered &&
+    (bid.status !== HAND_SHAKE_ACCEPTED_PROP && bid.status !== DRAFT_PROP)) {
+    showArrow = false;
+    overlayClass = CLASS_REGISTER_ANOTHER_CLIENT;
+    overlayContent = (
+      <HandshakeRegisterAnotherClientAlert
+        condensedView={condensedView}
+        bid={bid}
+      />);
+  }
+
+  const isCollapsible$ =
+    isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status')) && showArrow;
   const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
 
   return (
