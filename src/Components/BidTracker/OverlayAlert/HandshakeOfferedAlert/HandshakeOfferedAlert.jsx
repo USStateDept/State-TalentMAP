@@ -78,9 +78,14 @@ class HandshakeOfferedAlert extends Component {
                     <button className="tm-button-transparent" onClick={this.onAcceptBid} disabled={bidderAction$ === 'accepted'}>
                       <FontAwesomeIcon icon={faCheck} /> Accept Handshake
                     </button>
-                    <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid} disabled={bidderAction$ === 'declined'}>
-                      Decline Handshake
-                    </button>
+                    {
+                      cdoView &&
+                        <button
+                          className="tm-button-transparent tm-button-no-box"
+                          onClick={this.onDeclineBid}
+                          disabled={bidderAction$ === 'declined'}
+                        >Decline Handshake</button>
+                    }
                   </>
               }
             </div>
@@ -94,7 +99,7 @@ class HandshakeOfferedAlert extends Component {
                 </div>
                 <div>
                   <div><span>Tour of Duty: </span>{tod}</div>
-                  <div><span>Bid Languages: </span>{languages$}</div>
+                  <div><span>Language: </span>{languages$}</div>
                   <div><span>Post Differential | Danger Pay: </span>{postDiff} | {dangerPay}</div>
                   <div><span>Incumbent: </span>{incumbent}</div>
                 </div>

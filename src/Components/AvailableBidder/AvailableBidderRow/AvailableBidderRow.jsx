@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
 import { get, keys } from 'lodash';
-import { formatDate, getCustomLocation } from 'utilities';
+import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities';
 import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
@@ -16,11 +16,14 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
 import { FILTER } from 'Constants/PropTypes';
+
 import SkillCodeList from '../../SkillCodeList';
 
 
 const AvailableBidderRow = (props) => {
   const { bidder, CDOView, isLoading, isCDO, bureaus } = props;
+
+  useCloseSwalOnUnmount();
 
   // Formatting
   const shared = get(bidder, 'available_bidder_details.is_shared', false);

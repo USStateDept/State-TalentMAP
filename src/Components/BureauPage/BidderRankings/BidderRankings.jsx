@@ -28,7 +28,7 @@ const BidderRankings = ({ perdet, cp_id, is_dragging, is_mouse_down, mouse_down_
   const positionTableHeaders = [
     'Rank',
     'Position',
-    'Post',
+    'Location',
     'Skill',
     'Grade',
     'Bid Cycle',
@@ -98,12 +98,24 @@ const BidderRankings = ({ perdet, cp_id, is_dragging, is_mouse_down, mouse_down_
                         bidderRankingData$.results.map(pos => (
                           <tr>
                             <td>{pos.ranking + 1}</td>
-                            <td><Link to={`/profile/bureau/positionmanager/available/${pos.position.id}`}>{pos.position.title}</Link></td>
-                            <td>{getCustomLocation(pos.position.post.location,
-                              pos.position.organization)}</td>
-                            <td>{pos.position.skill}</td>
-                            <td>{pos.position.grade}</td>
-                            <td>{pos.bidcycle}</td>
+                            <td>
+                              {
+                                get(pos, 'position_info.id') && get(pos, 'position_info.position.title') ?
+                                  <Link to={`/profile/bureau/positionmanager/available/${pos.position_info.id}`}>{pos.position_info.position.title}</Link>
+                                  : 'N/A'
+                              }
+                            </td>
+                            <td>
+                              {getCustomLocation(
+                                get(pos,
+                                  'position_info.position.post.location'),
+                                get(pos,
+                                  'position_info.position.organization'),
+                              )}
+                            </td>
+                            <td>{get(pos, 'position_info.position.skill') || 'N/A'}</td>
+                            <td>{get(pos, 'position_info.position.grade') || 'N/A'}</td>
+                            <td>{get(pos, 'position_info.bidcycle.name') || 'N/A'}</td>
                             {/* eslint-disable-next-line max-len */}
                             <td>{pos.submitted_date ? formatDate(pos.submitted_date) : NO_SUBMIT_DATE}</td>
                           </tr>

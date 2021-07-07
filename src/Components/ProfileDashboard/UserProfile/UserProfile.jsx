@@ -39,9 +39,7 @@ const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
             </div>
           }
           {
-            isPublic &&
             <div className="current-user-section-border">
-              {/* we don't currently have current_assignment coming through for private profile */}
               <PositionInformation assignment={get(userProfile, 'current_assignment')} />
             </div>
           }

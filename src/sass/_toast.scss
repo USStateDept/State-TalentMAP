@@ -120,6 +120,33 @@
         margin-top: 20px;
         margin-left: -7em;
         font-size: 13px;
+        text-align: end;
+        button {
+          border: 1px solid #eee;
+          border-radius: 0;
+          color: #f1f1f1;
+          background-color: $primary-alt-darkest;
+          padding: 5px;
+          margin: 0;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .hs-revoked-toast {
+    background-color: $primary-alt-darkest;
+    background-image: url('#{$asset-path}assets/img/handshake-closed.svg');
+    background-position-y: -12px;
+    background-position-x: -18px;
+    .divider {
+      border-bottom-color: $tertiary-cool-blue-lightest;
+    }
+    .usa-alert-body {
+      padding-left: 6rem;
+      .bottom-section {
+        margin-top: 10px;
+        font-size: 13px;
         text-align: center;
         button {
           border: 1px solid #eee;

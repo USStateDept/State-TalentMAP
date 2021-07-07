@@ -12,7 +12,7 @@ const BidCycleList = ({ cycles }) => (
     <Column>
       <ProfileSectionTitle title={title} />
       {cycles.map(cycle => (
-        <BidCycleCard key={cycle.name} cycle={cycle} />
+        <BidCycleCard key={cycle.id} cycle={cycle} />
       ))}
     </Column>
   </Row>
