@@ -32,4 +32,31 @@
   }
 }
 
+.tippy-popper {
+  .tippy-tooltip.hs-status-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-weight: bold;
+    }
+    .tooltip-text {
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      div:first-child {
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
 

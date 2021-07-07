@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
+import { format, isDate } from 'date-fns-v2';
+
 
 const HandshakeStatus = props => {
   const [handshake, setHandshake] = useState(props.handshake);
@@ -9,33 +12,53 @@ const HandshakeStatus = props => {
     setHandshake(props.handshake);
   }, [props]);
 
+
+  const formatDateTime = (d) => isDate(new Date(d)) ? format(new Date(d), 'Pp') : '';
+
+
   const {
     hs_status_code,
     bidder_hs_code,
+    hs_date_accepted,
+    hs_date_declined,
+    hs_date_offered,
+    hs_date_revoked,
+    // hs_date_expiration,
+    // hs_cdo_indicator,
   } = handshake;
 
   const styling = {
     handshake_offered: {
       bureau: 'offered',
       bureauIcon: 'hand-paper-o',
+      tooltip: 'Offered',
+      date: hs_date_offered,
     },
     handshake_revoked: {
       bureau: 'revoked',
       bureauIcon: 'hand-rock-o',
+      tooltip: 'Revoked',
+      date: hs_date_revoked,
     },
     handshake_accepted: {
       bidder: 'accepted',
       bidderIcon: 'hand-paper-o',
+      tooltip: 'Accepted',
+      date: hs_date_accepted,
     },
     handshake_declined: {
       bidder: 'declined',
       bidderIcon: 'hand-rock-o',
+      tooltip: 'Declined',
+      date: hs_date_declined,
     },
     default: {
       bidder: 'inactive',
       bureau: 'inactive',
       bureauIcon: 'hand-paper-o',
       bidderIcon: 'hand-paper-o',
+      tooltip: '',
+      date: '',
     },
   };
 
@@ -44,16 +67,30 @@ const HandshakeStatus = props => {
 
   return (
     <>
-      <div className="hs-status-container">
-        <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
-          <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
+      <Tooltip
+        html={
+          <div className="status">
+            <span className="title">Bureau:</span> <span className="text">{bureauStyle.tooltip} {bureauStyle.date ? formatDateTime(bureauStyle.date) : 'No action'} | </span>
+            <span className="title">Bidder:</span> <span className="text">{bidderStyle.tooltip} {bidderStyle.date ? formatDateTime(bidderStyle.date) : 'No action'}</span>
+          </div>
+        }
+        theme="hs-status"
+        arrow
+        tabIndex="0"
+        interactive
+        useContext
+      >
+        <div className="hs-status-container">
+          <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
+            <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
+          </div>
+          <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
+            <span className="fa-flip-vertical">
+              <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
+            </span>
+          </div>
         </div>
-        <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
-          <span className="fa-flip-vertical">
-            <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
-          </span>
-        </div>
-      </div>
+      </Tooltip>
     </>
   );
 };
