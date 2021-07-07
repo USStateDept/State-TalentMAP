@@ -23,6 +23,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "bidcycle": Object {
                 "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
               },
@@ -74,6 +85,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "position": Object {
                 "bidcycle": Object {
                   "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -125,6 +147,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "id": 79,
               "position": Object {
                 "bidcycle": Object {
@@ -205,6 +238,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "bidcycle": Object {
                 "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
               },
@@ -256,6 +300,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "position": Object {
                 "bidcycle": Object {
                   "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -307,6 +362,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "id": 79,
               "position": Object {
                 "bidcycle": Object {
@@ -398,6 +464,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "bidcycle": Object {
                 "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
               },
@@ -449,6 +526,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "position": Object {
                 "bidcycle": Object {
                   "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -500,6 +588,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "id": 79,
               "position": Object {
                 "bidcycle": Object {
@@ -569,6 +668,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "bidcycle": Object {
                 "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
               },
@@ -620,6 +730,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": true,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "position": Object {
                 "bidcycle": Object {
                   "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
@@ -671,6 +792,17 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
             "in_panel_date": "2017-12-20",
             "is_priority": false,
             "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
+                },
+              ],
               "id": 79,
               "position": Object {
                 "bidcycle": Object {

@@ -36,7 +36,7 @@ class HandshakeOfferedAlert extends Component {
     const tod = get(position, 'tour_of_duty') || NO_TOUR_OF_DUTY;
     const languages = get(position, 'languages');
     const postDiff = getDifferentialPercentage(get(position, 'post.differential_rate')) || NO_POST_DIFFERENTIAL;
-    const dangerPay = get(position, 'post.danger_pay') || NO_DANGER_PAY;
+    const dangerPay = getDifferentialPercentage(get(position, 'post.danger_pay')) || NO_DANGER_PAY;
     const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
     const hsOfferedDate = formatDate(get(bid, 'handshake.hs_date_offered')) || DEFAULT_TEXT;
     const handshake = get(bid, 'handshake') || {};
@@ -78,9 +78,14 @@ class HandshakeOfferedAlert extends Component {
                     <button className="tm-button-transparent" onClick={this.onAcceptBid} disabled={bidderAction$ === 'accepted'}>
                       <FontAwesomeIcon icon={faCheck} /> Accept Handshake
                     </button>
-                    <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid} disabled={bidderAction$ === 'declined'}>
-                      Decline Handshake
-                    </button>
+                    {
+                      cdoView &&
+                        <button
+                          className="tm-button-transparent tm-button-no-box"
+                          onClick={this.onDeclineBid}
+                          disabled={bidderAction$ === 'declined'}
+                        >Decline Handshake</button>
+                    }
                   </>
               }
             </div>
@@ -94,8 +99,8 @@ class HandshakeOfferedAlert extends Component {
                 </div>
                 <div>
                   <div><span>Tour of Duty: </span>{tod}</div>
-                  <div><span>Bid Languages: </span>{languages$}</div>
-                  <div><span>Post Differential | Danger Pay: </span>{postDiff}|{dangerPay}</div>
+                  <div><span>Language: </span>{languages$}</div>
+                  <div><span>Post Differential | Danger Pay: </span>{postDiff} | {dangerPay}</div>
                   <div><span>Incumbent: </span>{incumbent}</div>
                 </div>
               </div>

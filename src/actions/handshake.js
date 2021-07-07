@@ -1,6 +1,6 @@
 import { batch } from 'react-redux';
 import api from '../api';
-import { toastError, toastHandshake, toastSuccess } from './toast';
+import { toastError, toastHandshake, toastHandshakeRevoke, toastSuccess } from './toast';
 import { userProfilePublicFetchData } from './userProfilePublic';
 import { bureauBidsAllFetchData, bureauBidsFetchData, bureauBidsRankingFetchData } from './bureauPositionBids';
 import * as SystemMessages from '../Constants/SystemMessages';
@@ -90,6 +90,27 @@ export function revokeHandshakeSuccess(response) {
   };
 }
 
+export function handshakeOfferedNotification(notificationInformation) {
+  return {
+    type: 'HANDSHAKE_OFFERED_NOTIFICATION',
+    notificationInformation,
+  };
+}
+
+export function handshakeRevokedNotification(notificationInformation) {
+  return {
+    type: 'HANDSHAKE_REVOKED_NOTIFICATION',
+    notificationInformation,
+  };
+}
+
+export function handshakeAcceptedNotification(notificationInformation) {
+  return {
+    type: 'HANDSHAKE_ACCEPTED_NOTIFICATION',
+    notificationInformation,
+  };
+}
+
 // to reset state
 export function routeChangeResetState() {
   return (dispatch) => {
@@ -174,7 +195,7 @@ export function registerHandshake(id, clientId) {
   };
 }
 
-export function offerHandshake(perdet, cp_id) {
+export function offerHandshake(perdet, cp_id, data) {
   return (dispatch) => {
     const perdetString = perdet.toString();
     const cpString = cp_id.toString();
@@ -187,7 +208,7 @@ export function offerHandshake(perdet, cp_id) {
 
     const url = `/bidding/handshake/bureau/${perdetString}/${cpString}/`;
 
-    api().put(url)
+    api().put(url, data)
       .then(response => response.data)
       .then(() => {
         const message = SystemMessages.OFFER_HANDSHAKE_SUCCESS;
@@ -250,13 +271,6 @@ export function revokeHandshake(perdet, cp_id) {
   };
 }
 
-export function handshakeOfferedNotification(notificationInformation) {
-  return {
-    type: 'HANDSHAKE_OFFERED_NOTIFICATION',
-    notificationInformation,
-  };
-}
-
 export function handshakeOffered(name, message, options) {
   return (dispatch) => {
     dispatch(handshakeOfferedNotification({
@@ -271,10 +285,18 @@ export function handshakeOffered(name, message, options) {
   };
 }
 
-export function handshakeAcceptedNotification(notificationInformation) {
-  return {
-    type: 'HANDSHAKE_ACCEPTED_NOTIFICATION',
-    notificationInformation,
+export function handshakeRevoked(name, message, className, options) {
+  return (dispatch) => {
+    dispatch(handshakeRevokedNotification({
+      title: SystemMessages.HANDSHAKE_REVOKED_TITLE,
+      message: SystemMessages.HANDSHAKE_REVOKED_BODY({ name, message }),
+    }));
+    dispatch(toastHandshakeRevoke(
+      SystemMessages.HANDSHAKE_REVOKED_BODY({ name, message }),
+      SystemMessages.HANDSHAKE_REVOKED_TITLE,
+      className,
+      options,
+    ));
   };
 }
 

@@ -34,6 +34,8 @@
 // react-day-picker
 @import '~react-day-picker/lib/style.css';
 
+@import "~react-datepicker/dist/react-datepicker.css";
+
 // Global
 @import 'variables';
 
@@ -105,4 +107,4 @@
 @import 'faq';
 @import 'availableBidders';
 @import 'handshakeStatus';
-@import 'candidateManager';
+@import 'handshakeModal';
