@@ -109,7 +109,7 @@ exports[`GlossaryEditorCardListComponent matches snapshot when there are no term
     terms={Object {}}
   />
   <Alert
-    customClassName=""
+    customClassName={false}
     isAriaLive={false}
     isDivided={false}
     messages={

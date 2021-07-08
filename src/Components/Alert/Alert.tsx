@@ -14,7 +14,7 @@ type Props = {
   messages: Array<Message>;
   isAriaLive?: boolean;
   isDivided?: boolean;
-  customClassName?: string;
+  customClassName?: boolean;
 };
 
 class Alert extends React.Component<Props> {
@@ -26,7 +26,7 @@ class Alert extends React.Component<Props> {
     }],
     isAriaLive: false,
     isDivided: false,
-    customClassName: '',
+    customClassName: false,
   };
 
   // prevent unneeded rerenders, which can cause accessibility issues
@@ -56,7 +56,7 @@ class Alert extends React.Component<Props> {
     );
 
     return (
-      <div className={`usa-alert usa-alert-${type} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
+      <div className={`usa-alert usa-alert-${type}${customClassName ? ' hs-revoked-toast' : ''}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
