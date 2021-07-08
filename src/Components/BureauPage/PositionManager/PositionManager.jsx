@@ -20,6 +20,7 @@ import SelectForm from 'Components/SelectForm';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { filtersFetchData } from 'actions/filters/filters';
 import FA from 'react-fontawesome';
+import StaticDevContent from 'Components/StaticDevContent';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 
@@ -105,6 +106,7 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
+    // selectedHandshakeStatus,
     textSearch,
     textInput,
   };
@@ -120,6 +122,8 @@ const PositionManager = props => {
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
+    // [handshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(hsStatusObject =>
+    //  (get(hsStatusObject, 'code'))),
     ordering,
     page,
     limit,
@@ -155,6 +159,7 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
+    // selectedHandshakeStatus,
     ordering,
     limit,
     textSearch,
@@ -260,6 +265,7 @@ const PositionManager = props => {
       selectedCycles,
       selectedLanguages,
       selectedPostIndicators,
+      // selectedHandshakeStatus,
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
     if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
@@ -275,6 +281,7 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
+    // selectedHandshakeStatus,
     textSearch,
     selectedBureaus,
   ]);
@@ -442,26 +449,28 @@ const PositionManager = props => {
                       includeSelectAll
                     />
                   </div>
-                  <div className="filter-div">
-                    <div className="label">Handshake:</div>
-                    <Picky
-                      placeholder="Select Handshake Status"
-                      value={selectedPostIndicators}
-                      // value={selectedHandshakeStatus}
-                      options={postIndicatorsOptions}
-                      // options={handshakeStatusOptions}
-                      onChange={setSelectedPostIndicators}
-                      // onChange={setSelectedHandshakeStatus}
-                      numberDisplayed={2}
-                      multiple
-                      includeFilter
-                      dropdownHeight={255}
-                      renderList={renderSelectionList}
-                      valueKey="code"
-                      labelKey="description"
-                      includeSelectAll
-                    />
-                  </div>
+                  <StaticDevContent>
+                    <div className="filter-div">
+                      <div className="label">Handshake:</div>
+                      <Picky
+                        placeholder="Select Handshake Status"
+                        value={selectedPostIndicators}
+                        // value={selectedHandshakeStatus}
+                        options={postIndicatorsOptions}
+                        // options={handshakeStatusOptions}
+                        onChange={setSelectedPostIndicators}
+                        // onChange={setSelectedHandshakeStatus}
+                        numberDisplayed={2}
+                        multiple
+                        includeFilter
+                        dropdownHeight={255}
+                        renderList={renderSelectionList}
+                        valueKey="code"
+                        labelKey="description"
+                        includeSelectAll
+                      />
+                    </div>
+                  </StaticDevContent>
                 </div>
               </div>
             </div>
