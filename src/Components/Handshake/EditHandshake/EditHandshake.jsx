@@ -5,11 +5,12 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
-import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture } from 'date-fns-v2';
+import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture, isPast } from 'date-fns-v2';
 import { useCloseSwalOnUnmount } from 'utilities';
 
 const EditHandshake = props => {
-  const { submitAction, expiration, infoOnly, uneditable, submitText, offer, bidCycle } = props;
+  const { submitAction, expiration, infoOnly, currentlyOffered,
+    submitText, offer, bidCycle } = props;
   const expirationFormatted = expiration ? new Date(expiration) : add(new Date(), { days: 1 });
   const [expirationDate, setExpirationDate] = useState(expirationFormatted);
   const [expirationTime, setExpirationTime] =
@@ -37,8 +38,9 @@ const EditHandshake = props => {
     return new Date(year, month, date, hour, minute);
   };
 
-  const readOnly = uneditable || infoOnly;
-  const disabledButton = isNil(expirationTime) || !isFuture(validateExpiration());
+  const readOnly = currentlyOffered || infoOnly;
+  const disabledButton = !currentlyOffered &&
+    (isNil(expirationTime) || isPast(validateExpiration()));
 
 
   const cancel = (e) => {
@@ -164,7 +166,7 @@ EditHandshake.propTypes = {
   infoOnly: PropTypes.bool,
   expiration: PropTypes.string,
   offer: PropTypes.string,
-  uneditable: PropTypes.bool,
+  currentlyOffered: PropTypes.bool,
 };
 
 EditHandshake.defaultProps = {
@@ -173,7 +175,7 @@ EditHandshake.defaultProps = {
   submitText: 'Submit',
   infoOnly: true,
   expiration: '',
-  uneditable: true,
+  currentlyOffered: true,
   offer: '',
 };
 
