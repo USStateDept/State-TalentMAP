@@ -52,7 +52,7 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
     </div>
   </div>
   <Alert
-    className=""
+    customClassName=""
     isAriaLive={true}
     isDivided={false}
     messages={

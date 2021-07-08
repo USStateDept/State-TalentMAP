@@ -14,7 +14,7 @@ type Props = {
   messages: Array<Message>;
   isAriaLive?: boolean;
   isDivided?: boolean;
-  className?: string;
+  customClassName?: string;
 };
 
 class Alert extends React.Component<Props> {
@@ -26,7 +26,7 @@ class Alert extends React.Component<Props> {
     }],
     isAriaLive: false,
     isDivided: false,
-    className: '',
+    customClassName: '',
   };
 
   // prevent unneeded rerenders, which can cause accessibility issues
@@ -35,7 +35,7 @@ class Alert extends React.Component<Props> {
   }
 
   render(): React.ReactNode {
-    const { type, title, messages, isAriaLive, isDivided, className } = this.props;
+    const { type, title, messages, isAriaLive, isDivided, customClassName } = this.props;
     // 'type' is injected into the class name
     // type 'error' requires an ARIA role
 
@@ -56,7 +56,7 @@ class Alert extends React.Component<Props> {
     );
 
     return (
-      <div className={`usa-alert usa-alert-${type} ${className}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
+      <div className={`usa-alert usa-alert-${type} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
