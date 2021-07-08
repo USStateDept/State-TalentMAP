@@ -103,7 +103,9 @@ const HandshakeStatus = props => {
           <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
             {
               isExpired ?
-                <FA name={bidderStyle.bidderIcon} />
+                <span>
+                  <FA name={bidderStyle.bidderIcon} />
+                </span>
                 :
                 <span className="fa-flip-vertical">
                   <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
