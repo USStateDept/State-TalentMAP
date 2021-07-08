@@ -48,13 +48,27 @@
     .tooltip-title {
       font-weight: bold;
     }
-    .tooltip-text {
+    .status-tooltip-wrapper {
+      display: flex;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      div:first-child {
+        padding-right: 5px;
+        border-right: 1px solid $color-gray-light;
+      }
+      div:nth-child(2) {
+        padding-left: 5px;
+      }
       .title {
         font-size: 16px;
         font-weight: bold;
       }
-      div:first-child {
-        padding-bottom: 10px;
+      .status-name {
+        font-weight: 400;
+        font-style: italic;
       }
     }
   }

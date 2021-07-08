@@ -57,7 +57,7 @@ const HandshakeStatus = props => {
       bureau: 'inactive',
       bureauIcon: 'hand-paper-o',
       bidderIcon: 'hand-paper-o',
-      tooltip: '',
+      tooltip: 'Awaiting Action',
       date: '',
     },
   };
@@ -69,9 +69,13 @@ const HandshakeStatus = props => {
     <>
       <Tooltip
         html={
-          <div className="status">
-            <span className="title">Bureau:</span> <span className="text">{bureauStyle.tooltip} {bureauStyle.date ? formatDateTime(bureauStyle.date) : 'No action'} | </span>
-            <span className="title">Bidder:</span> <span className="text">{bidderStyle.tooltip} {bidderStyle.date ? formatDateTime(bidderStyle.date) : 'No action'}</span>
+          <div className="status-tooltip-wrapper">
+            <div>
+              <span className="title">Bureau: <span className="status-name">{bureauStyle.tooltip}</span></span> <span className="text"> {bureauStyle.date ? formatDateTime(bureauStyle.date) : ''}</span>
+            </div>
+            <div>
+              <span className="title">Bidder: <span className="status-name">{bidderStyle.tooltip}</span></span> <span className="text"> {bidderStyle.date ? formatDateTime(bidderStyle.date) : ''}</span>
+            </div>
           </div>
         }
         theme="hs-status"
