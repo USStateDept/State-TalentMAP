@@ -12,7 +12,7 @@ export default function toast(state = { type: 'success', message: '', title: '',
     case 'TOAST_NOTIFICATION_HANDSHAKE':
       return { type: 'dark', message, title, options };
     case 'TOAST_NOTIFICATION_REVOKE_HANDSHAKE':
-      return { type: 'error', message, title, customClassName, options };
+      return { type: 'hs-revoke', message, title, customClassName, options };
     default:
       return state;
   }

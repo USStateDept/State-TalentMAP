@@ -8,7 +8,7 @@ type Message = {
 };
 
 type Props = {
-  type: "info" | "warning" | "error" | "success" | "dark";
+  type: "info" | "warning" | "error" | "success" | "dark" | "hs-revoke";
   // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   title?: string;
   messages: Array<Message>;
@@ -48,15 +48,20 @@ class Alert extends React.Component<Props> {
       };
     }
 
+    const type$ = type === 'hs-revoke' ? 'error hs-revoked-toast' : type;
     const h3 = <h3 className="usa-alert-heading">{title}</h3>;
     const body = map(messages, (message: Message) =>
       (<p className="usa-alert-text" key={shortid.generate()}>
         {message.body}
       </p>),
     );
+    
+    /* eslint-disable */
+    console.log(this.props);
+    /* eslint-enable */
 
     return (
-      <div className={`usa-alert usa-alert-${type}${customClassName ? ' hs-revoked-toast' : ''}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
+      <div className={`usa-alert usa-alert-${type$}${customClassName ? ' worked' : ''}`} role={type === ('error' || 'hs-revoke') ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
