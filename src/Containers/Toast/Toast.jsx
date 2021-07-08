@@ -19,7 +19,7 @@ export class Toast extends Component {
     };
     let title$;
     if (type === 'success') { title$ = 'Success'; }
-    if (type === ('error' || 'hs-revoke')) { title$ = 'Error'; }
+    if (type === 'error') { title$ = 'Error'; }
     if (title) { title$ = title; }
 
     if (isUpdate && this[id]) {

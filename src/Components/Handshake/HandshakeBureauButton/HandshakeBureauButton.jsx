@@ -56,7 +56,7 @@ const HandshakeBureauButton = props => {
           bidCycle={bidCycle}
           expiration={hs_date_expiration}
           offer={hs_date_offered}
-          uneditable={hs_status_code === 'handshake_offered'}
+          currentlyOffered={hs_status_code === 'handshake_offered'}
           infoOnly={infoOnly}
           submitText={buttonText()}
         />
