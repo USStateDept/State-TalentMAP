@@ -621,6 +621,9 @@
         th:nth-of-type(5) {
           flex: 1
         }
+        .ab-headers:nth-of-type(3) {
+          padding: 5px 20px;
+        }
       }
       tbody {
         border: none;
