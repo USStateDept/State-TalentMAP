@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
-import { format, isDate } from 'date-fns-v2';
+import { format, isDate, isPast } from 'date-fns-v2';
 
 
 const HandshakeStatus = props => {
@@ -13,7 +13,8 @@ const HandshakeStatus = props => {
   }, [props]);
 
 
-  const formatDateTime = (d) => isDate(new Date(d)) ? format(new Date(d), 'Pp') : '';
+  const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'Pp') : '';
+  // const formatTime = (d) => isDate(new Date(d)) ? format(new Date(d), 'p') : '';
 
 
   const {
@@ -23,9 +24,11 @@ const HandshakeStatus = props => {
     hs_date_declined,
     hs_date_offered,
     hs_date_revoked,
-    // hs_date_expiration,
+    hs_date_expiration,
     // hs_cdo_indicator,
   } = handshake;
+
+  const isExpired = hs_date_expiration && isPast(new Date(hs_date_expiration));
 
   const styling = {
     handshake_offered: {
@@ -52,18 +55,25 @@ const HandshakeStatus = props => {
       tooltip: 'Declined',
       date: hs_date_declined,
     },
+    // Calculated statuses below - not identical tmap hs_status_code
+    handshake_expired: {
+      bidder: 'expired',
+      bidderIcon: 'clock-o',
+      tooltip: 'Handshake Expired',
+      date: hs_date_expiration,
+    },
     default: {
-      bidder: 'inactive',
       bureau: 'inactive',
-      bureauIcon: 'hand-paper-o',
+      bidder: 'inactive',
       bidderIcon: 'hand-paper-o',
+      bureauIcon: 'hand-paper-o',
       tooltip: 'Awaiting Action',
       date: '',
     },
   };
 
   const bureauStyle = styling[hs_status_code] || styling.default;
-  const bidderStyle = styling[bidder_hs_code] || styling.default;
+  const bidderStyle = styling[bidder_hs_code] || styling[isExpired ? 'handshake_expired' : 'default'];
 
   return (
     <>
@@ -71,10 +81,14 @@ const HandshakeStatus = props => {
         html={
           <div className="status-tooltip-wrapper">
             <div>
-              <span className="title">Bureau: <span className="status-name">{bureauStyle.tooltip}</span></span> <span className="text"> {bureauStyle.date ? formatDateTime(bureauStyle.date) : ''}</span>
+              <span className="title">Bureau: <span className="status-name">{bureauStyle.tooltip}</span></span>
+
+              <span className="text"> {bureauStyle.date ? formatDate(bureauStyle.date) : ''}</span>
             </div>
             <div>
-              <span className="title">Bidder: <span className="status-name">{bidderStyle.tooltip}</span></span> <span className="text"> {bidderStyle.date ? formatDateTime(bidderStyle.date) : ''}</span>
+              <span className="title">Bidder: <span className="status-name">{bidderStyle.tooltip}</span></span>
+
+              <span className="text"> {bidderStyle.date ? formatDate(bidderStyle.date) : ''}</span>
             </div>
           </div>
         }
@@ -89,9 +103,14 @@ const HandshakeStatus = props => {
             <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
           </div>
           <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
-            <span className="fa-flip-vertical">
-              <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
-            </span>
+            {
+              isExpired ?
+                <FA name={bidderStyle.bidderIcon} />
+                :
+                <span className="fa-flip-vertical">
+                  <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
+                </span>
+            }
           </div>
         </div>
       </Tooltip>
