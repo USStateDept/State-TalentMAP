@@ -55,6 +55,10 @@ class Alert extends React.Component<Props> {
         {message.body}
       </p>),
     );
+    
+    /* eslint-disable */
+    console.log(this.props);
+    /* eslint-enable */
 
     return (
       <div className={`usa-alert usa-alert-${type$}${customClassName ? ' worked' : ''}`} role={type === ('error' || 'hs-revoke') ? 'alert' : undefined} {...ariaLiveProps}>
