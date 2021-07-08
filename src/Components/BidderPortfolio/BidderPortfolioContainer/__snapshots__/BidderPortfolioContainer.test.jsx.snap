@@ -9,7 +9,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
     className="usa-width-two-thirds"
   >
     <Alert
-      customClassName=""
+      customClassName={false}
       isAriaLive={false}
       isDivided={false}
       messages={
@@ -35,7 +35,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
     className="usa-width-two-thirds"
   >
     <Alert
-      customClassName=""
+      customClassName={false}
       isAriaLive={false}
       isDivided={false}
       messages={

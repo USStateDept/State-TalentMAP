@@ -1,4 +1,4 @@
-export default function toast(state = { type: 'success', message: '', title: '', customClassName: '', options: {} }, action) {
+export default function toast(state = { type: 'success', message: '', title: '', customClassName: false, options: {} }, action) {
   const { toast: message, title, id, isUpdate, customClassName, options } = action;
   switch (action.type) {
     case 'TOAST_NOTIFICATION_SUCCESS':
