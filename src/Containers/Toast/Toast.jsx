@@ -57,7 +57,7 @@ Toast.propTypes = {
     title: PropTypes.string,
     id: PropTypes.string,
     isUpdate: PropTypes.bool,
-    customClassName: PropTypes.string,
+    customClassName: PropTypes.bool,
     options: PropTypes.shape({}),
   }),
 };
@@ -65,7 +65,7 @@ Toast.propTypes = {
 Toast.defaultProps = {
   toastData: {
     isUpdate: false,
-    customClassName: '',
+    customClassName: false,
     options: {},
   },
 };
