@@ -22,7 +22,7 @@ import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, isCollapsible, userName },
+  unregisterHandshake, useCDOView, isCollapsible, userName, tooglePanelAlert },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -51,6 +51,7 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const [collapseOverlay, setCollapseOverlay] = useState(false);
 
   function toggleOverlay() {
+    tooglePanelAlert(!collapseOverlay);
     setCollapseOverlay(!collapseOverlay);
   }
 
@@ -181,6 +182,7 @@ OverlayAlert.propTypes = {
   useCDOView: PropTypes.bool,
   userName: PropTypes.string,
   isCollapsible: PropTypes.bool,
+  tooglePanelAlert: PropTypes.func.isRequired,
 };
 
 OverlayAlert.defaultProps = {
