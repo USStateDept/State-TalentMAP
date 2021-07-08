@@ -64,27 +64,23 @@ const ResultsCondensedCardTop = ({
         }
         {
           isDifficultToStaff &&
-          <StaticDevContent>
-            <Tooltip
-              title="Hard to fill"
-              arrow
-              offset={-60}
-            >
-              <HardToFill showText={false} className="ribbon-condensed-card" />
-            </Tooltip>
-          </StaticDevContent>
+          <Tooltip
+            title="Hard to fill"
+            arrow
+            offset={-60}
+          >
+            <HardToFill showText={false} className="ribbon-condensed-card" />
+          </Tooltip>
         }
         {
           isServiceNeedDifferential &&
-          <StaticDevContent>
-            <Tooltip
-              title="Service need differential"
-              arrow
-              offset={-100}
-            >
-              <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
-            </Tooltip>
-          </StaticDevContent>
+          <Tooltip
+            title="Service need differential"
+            arrow
+            offset={-100}
+          >
+            <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+          </Tooltip>
         }
       </div>
 

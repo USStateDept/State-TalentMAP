@@ -329,23 +329,19 @@ class CompareList extends Component {
                                 }
                                 {
                                   get(c, 'isDifficultToStaff', false) &&
-                                  <StaticDevContent>
-                                    <HardToFill
-                                      shortName
-                                      isWide={matches}
-                                      showText={matches}
-                                    />
-                                  </StaticDevContent>
+                                  <HardToFill
+                                    shortName
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                                 {
                                   get(c, 'isServiceNeedDifferential', false) &&
-                                  <StaticDevContent>
-                                    <ServiceNeedDifferential
-                                      shortName
-                                      isWide={matches}
-                                      showText={matches}
-                                    />
-                                  </StaticDevContent>
+                                  <ServiceNeedDifferential
+                                    shortName
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
                                 }
                               </td>
                             )}
