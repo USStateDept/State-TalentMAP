@@ -19,7 +19,7 @@ export class Toast extends Component {
     };
     let title$;
     if (type === 'success') { title$ = 'Success'; }
-    if (type === ('error' || 'hs-revoke')) { title$ = 'Error'; }
+    if ((type === 'error') || (type === 'hs-revoke')) { title$ = 'Error'; }
     if (title) { title$ = title; }
 
     if (isUpdate && this[id]) {
@@ -31,8 +31,9 @@ export class Toast extends Component {
     options$ = { ...options$, ...options };
 
     const id$ = id || shortid.generate();
+    const type$ = type === 'hs-revoke' ? 'error' : type;
 
-    this[id$] = toast[type](
+    this[id$] = toast[type$](
       <Alert
         type={type}
         title={title$}
