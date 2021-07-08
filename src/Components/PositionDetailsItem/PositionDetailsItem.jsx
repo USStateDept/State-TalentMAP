@@ -46,17 +46,11 @@ export const renderCriticalNeed = () => (
 );
 
 export const renderHardToFill = details => (
-  get(details, 'isDifficultToStaff', false) &&
-  <StaticDevContent>
-    <HardToFill cutSide="both" className="ribbon-position-details" />
-  </StaticDevContent>
+  get(details, 'isDifficultToStaff', false) && <HardToFill cutSide="both" className="ribbon-position-details" />
 );
 
 export const renderServiceNeedDifferential = details => (
-  get(details, 'isServiceNeedDifferential', false) &&
-  <StaticDevContent>
-    <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
-  </StaticDevContent>
+  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
 );
 
 
