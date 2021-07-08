@@ -14,8 +14,6 @@ const HandshakeStatus = props => {
 
 
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'Pp') : '';
-  // const formatTime = (d) => isDate(new Date(d)) ? format(new Date(d), 'p') : '';
-
 
   const {
     hs_status_code,
