@@ -13,13 +13,13 @@ export class Toast extends Component {
     }
   }
 
-  notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate, customClassName, testID, options }) => {
+  notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate, customClassName, options }) => {
     let options$ = {
       autoClose: true,
     };
     let title$;
     if (type === 'success') { title$ = 'Success'; }
-    if ((type === 'error') || (type === 'hs-revoke')) { title$ = 'Error'; }
+    if (type === 'error') { title$ = 'Error'; }
     if (title) { title$ = title; }
 
     if (isUpdate && this[id]) {
@@ -31,14 +31,12 @@ export class Toast extends Component {
     options$ = { ...options$, ...options };
 
     const id$ = id || shortid.generate();
-    const type$ = type === 'hs-revoke' ? 'error' : type;
 
-    this[id$] = toast[type$](
+    this[id$] = toast[type](
       <Alert
         type={type}
         title={title$}
         customClassName={customClassName}
-        testID={testID}
         messages={[{ body: message }]}
         isDivided
       />, options$,
@@ -59,8 +57,7 @@ Toast.propTypes = {
     title: PropTypes.string,
     id: PropTypes.string,
     isUpdate: PropTypes.bool,
-    customClassName: PropTypes.bool,
-    testID: PropTypes.string,
+    customClassName: PropTypes.string,
     options: PropTypes.shape({}),
   }),
 };
@@ -68,8 +65,7 @@ Toast.propTypes = {
 Toast.defaultProps = {
   toastData: {
     isUpdate: false,
-    customClassName: false,
-    testID: '',
+    customClassName: '',
     options: {},
   },
 };
