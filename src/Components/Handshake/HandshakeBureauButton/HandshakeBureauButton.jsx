@@ -23,7 +23,6 @@ const HandshakeBureauButton = props => {
 
   const {
     hs_status_code,
-    hs_date_expiration,
     hs_date_offered,
   } = handshake;
 
@@ -54,9 +53,7 @@ const HandshakeBureauButton = props => {
         <EditHandshake
           submitAction={submitAction}
           bidCycle={bidCycle}
-          expiration={hs_date_expiration}
-          offer={hs_date_offered}
-          currentlyOffered={hs_status_code === 'handshake_offered'}
+          handshake={handshake}
           infoOnly={infoOnly}
           submitText={buttonText()}
         />
