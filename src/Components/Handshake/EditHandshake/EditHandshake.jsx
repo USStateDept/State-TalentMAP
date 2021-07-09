@@ -5,14 +5,24 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
-import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture, isPast } from 'date-fns-v2';
+import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isBefore, isFuture, isPast } from 'date-fns-v2';
 import { useCloseSwalOnUnmount } from 'utilities';
 
 const EditHandshake = props => {
-  const { submitAction, expiration, infoOnly, currentlyOffered,
-    submitText, offer, bidCycle } = props;
-  const expirationFormatted = expiration ? new Date(expiration) : add(new Date(), { days: 1 });
-  const [expirationDate, setExpirationDate] = useState(expirationFormatted);
+  const { submitAction, handshake, infoOnly, submitText, bidCycle } = props;
+  const { hs_date_expiration, hs_date_offered, hs_status_code } = handshake;
+  const currentlyOffered = hs_status_code === 'handshake_offered';
+
+  const calculateExpiration = () => {
+    let e = hs_date_expiration;
+    // If already revoked, but in create mode, reset the expiration
+    if (!infoOnly && (hs_status_code === 'handshake_revoked')) {
+      e = false;
+    }
+    return e ? new Date(e) : add(new Date(), { days: 1 });
+  };
+
+  const [expirationDate, setExpirationDate] = useState(calculateExpiration());
   const [expirationTime, setExpirationTime] =
     useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
@@ -21,11 +31,31 @@ const EditHandshake = props => {
   // Date when bidders are able to begin seeing HS offers
   const revealDate = get(bidCycle, 'handshake_allowed_date');
 
-  const offerDate = () => {
+  const calculateReveal = () => {
+    // Case 1:
+    // We have a reveal date and its in the future
+    //   a) INFO-ONLY => show reveal
+    //   b) CREATE-MODE => show reveal
+    // Case 2:
+    // We have a reveal date and its in the past
+    //  a) INFO-ONLY && (offer_dt < reveal_dt) => show reveal_dt
+    //  b) INFO-ONLY && (offer_dt > reveal_dt) => show offer_dt
+    //  c) CREATE-MODE => show today
+    // Case 3:
+    // No reveal date
+    //   a) INFO-ONLY => show offer_dt
+    //   b) create-mode => show today
     if (revealDate && isFuture(new Date(revealDate))) {
       return new Date(revealDate);
-    } else if (offer) {
-      return new Date(offer);
+    } else if (revealDate && infoOnly) {
+      if (isBefore(new Date(hs_date_offered), new Date(revealDate))) {
+        return new Date(revealDate);
+      }
+      return new Date(hs_date_offered);
+    } else if (revealDate && !infoOnly) {
+      return new Date();
+    } else if (infoOnly) {
+      return new Date(hs_date_offered);
     }
     return new Date();
   };
@@ -39,8 +69,7 @@ const EditHandshake = props => {
   };
 
   const readOnly = currentlyOffered || infoOnly;
-  const disabledButton = !currentlyOffered &&
-    (isNil(expirationTime) || isPast(validateExpiration()));
+  const userInputError = isNil(expirationTime) || isPast(validateExpiration());
 
 
   const cancel = (e) => {
@@ -70,7 +99,7 @@ const EditHandshake = props => {
       if (isSameDay(expirationDate, date)) {
         return 'react-calendar__tile--endDate';
       }
-      if (isSameDay(offerDate(), date)) {
+      if (isSameDay(calculateReveal(), date)) {
         return 'react-calender__tile--startDate';
       }
       // TO-DO: Add dates from bidCycle object to complete
@@ -90,13 +119,13 @@ const EditHandshake = props => {
             <input
               type="text"
               name="handshakeStartDate"
-              value={getDate$(offerDate())}
+              value={getDate$(calculateReveal())}
               disabled
             />
             <input
               type="text"
               name="handshakeStartTime"
-              value={getTime$(offerDate())}
+              value={getTime$(calculateReveal())}
               disabled
             />
           </div>
@@ -122,7 +151,7 @@ const EditHandshake = props => {
         {/* TO-DO: Use this class yet for calendar to disable all interation */}
         <div className={`calendar-wrapper ${readOnly ? 'disabled' : ''}`}>
           <Calendar
-            minDate={offerDate()}
+            minDate={calculateReveal()}
             // TO-DO: maxDate={fakeBureauTimeline[1]}
             onChange={readOnly ? () => {} : setExpirationDate}
             value={expirationDate}
@@ -151,7 +180,13 @@ const EditHandshake = props => {
           <button onClick={cancel}>{infoOnly ? 'Close' : 'Cancel'}</button>
           {
             !infoOnly &&
-            <button onClick={submit} type="submit" disabled={disabledButton}>{submitText}</button>
+              <button
+                onClick={submit}
+                type="submit"
+                disabled={!currentlyOffered && userInputError}
+              >
+                {submitText}
+              </button>
           }
         </div>
       </form>
@@ -164,9 +199,7 @@ EditHandshake.propTypes = {
   submitAction: PropTypes.func,
   submitText: PropTypes.string,
   infoOnly: PropTypes.bool,
-  expiration: PropTypes.string,
-  offer: PropTypes.string,
-  currentlyOffered: PropTypes.bool,
+  handshake: PropTypes.shape({}),
 };
 
 EditHandshake.defaultProps = {
@@ -174,9 +207,7 @@ EditHandshake.defaultProps = {
   submitAction: EMPTY_FUNCTION,
   submitText: 'Submit',
   infoOnly: true,
-  expiration: '',
-  currentlyOffered: true,
-  offer: '',
+  handshake: {},
 };
 
 export default EditHandshake;
