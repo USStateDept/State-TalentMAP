@@ -13,7 +13,7 @@ export class Toast extends Component {
     }
   }
 
-  notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate, customClassName, options }) => {
+  notify = ({ type = 'success', message = 'Message', title = '', id, isUpdate, customClassName, testID, options }) => {
     let options$ = {
       autoClose: true,
     };
@@ -38,6 +38,7 @@ export class Toast extends Component {
         type={type}
         title={title$}
         customClassName={customClassName}
+        testID={testID}
         messages={[{ body: message }]}
         isDivided
       />, options$,
@@ -59,6 +60,7 @@ Toast.propTypes = {
     id: PropTypes.string,
     isUpdate: PropTypes.bool,
     customClassName: PropTypes.bool,
+    testID: PropTypes.string,
     options: PropTypes.shape({}),
   }),
 };
@@ -67,6 +69,7 @@ Toast.defaultProps = {
   toastData: {
     isUpdate: false,
     customClassName: false,
+    testID: '',
     options: {},
   },
 };

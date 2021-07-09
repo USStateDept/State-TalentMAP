@@ -1,5 +1,5 @@
-export default function toast(state = { type: 'success', message: '', title: '', customClassName: false, options: {} }, action) {
-  const { toast: message, title, id, isUpdate, customClassName, options } = action;
+export default function toast(state = { type: 'success', message: '', title: '', customClassName: false, testID: '', options: {} }, action) {
+  const { toast: message, title, id, isUpdate, customClassName, testID, options } = action;
   switch (action.type) {
     case 'TOAST_NOTIFICATION_SUCCESS':
       return { type: 'success', message, title, id, isUpdate, options };
@@ -12,7 +12,7 @@ export default function toast(state = { type: 'success', message: '', title: '',
     case 'TOAST_NOTIFICATION_HANDSHAKE':
       return { type: 'dark', message, title, options };
     case 'TOAST_NOTIFICATION_REVOKE_HANDSHAKE':
-      return { type: 'error', message, title, customClassName, options };
+      return { type: 'hs-revoke', message, title, customClassName, testID, options };
     default:
       return state;
   }
