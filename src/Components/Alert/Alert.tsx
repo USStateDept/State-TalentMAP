@@ -63,8 +63,7 @@ class Alert extends React.Component<Props> {
     /* eslint-enable */
 
     return (
-      <div className={`usa-alert usa-alert-${type$}${customClassName ? ' worked' : ''}`} role={(type === 'error') || (type === 'hs-revoke') ? 'alert' : undefined} {...ariaLiveProps}>
-        <div className={`${testID === 'hs-r' ? 'hs-revoked-toast' : ''}`} />
+      <div id={testID} className={`usa-alert usa-alert-${type$}${customClassName ? ' worked' : ''}`} role={(type === 'error') || (type === 'hs-revoke') ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
