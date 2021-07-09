@@ -102,7 +102,7 @@ const HandshakeStatus = props => {
           </div>
           <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
             {
-              isExpired ?
+              bidderStyle.bidderIcon === 'clock-o' ?
                 <span>
                   <FA name={bidderStyle.bidderIcon} />
                 </span>
