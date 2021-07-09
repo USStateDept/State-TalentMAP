@@ -22,7 +22,7 @@ class BidTrackerCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPanelAlert: false,
+      showPanelAlert: true,
     };
   }
 
@@ -31,7 +31,7 @@ class BidTrackerCard extends Component {
     return { condensedView, priorityExists, isPriority: bid.is_priority, readOnly };
   }
 
-  tooglePanelAlert = collapseOverlay => {
+  togglePanelAlert = collapseOverlay => {
     this.setState({ showPanelAlert: collapseOverlay });
   }
   render() {
@@ -135,7 +135,7 @@ class BidTrackerCard extends Component {
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
-                  tooglePanelAlert={this.tooglePanelAlert}
+                  togglePanelAlert={this.togglePanelAlert}
                   condensedView={condensedView}
                 />
             }
