@@ -51,12 +51,13 @@ export function toastHandshake(toast, title, options) {
   };
 }
 
-export function toastHandshakeRevoke(toast, title, customClassName, options) {
+export function toastHandshakeRevoke(toast, title, customClassName, testID, options) {
   return {
     type: 'TOAST_NOTIFICATION_REVOKE_HANDSHAKE',
     toast,
     title,
     customClassName,
+    testID,
     options,
   };
 }
