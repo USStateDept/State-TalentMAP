@@ -35,7 +35,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'cdo/availablebidders/', response: [200, {}],
+      url: 'cdo/availablebidders/?ordering=Name', response: [200, {}],
     })); mock();
 
     store.dispatch(actions.availableBiddersFetchData(true));
@@ -47,7 +47,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'cdo/availablebidders/', response: [404, null],
+      url: 'cdo/availablebidders/?ordering=Name', response: [404, null],
     })); mock();
 
     store.dispatch(actions.availableBiddersFetchData(true));
