@@ -285,7 +285,7 @@ export function handshakeOffered(name, message, options) {
   };
 }
 
-export function handshakeRevoked(name, message, customClassName, options) {
+export function handshakeRevoked(name, message, customClassName, testID, options) {
   return (dispatch) => {
     dispatch(handshakeRevokedNotification({
       title: SystemMessages.HANDSHAKE_REVOKED_TITLE,
@@ -295,6 +295,7 @@ export function handshakeRevoked(name, message, customClassName, options) {
       SystemMessages.HANDSHAKE_REVOKED_BODY({ name, message }),
       SystemMessages.HANDSHAKE_REVOKED_TITLE,
       customClassName,
+      testID,
       options,
     ));
   };

@@ -15,6 +15,7 @@ exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
         },
       ]
     }
+    testID=""
     title="Title"
     type="success"
   />
