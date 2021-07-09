@@ -9,7 +9,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
     className="usa-width-two-thirds"
   >
     <Alert
-      customClassName={false}
+      customClassName=""
       isAriaLive={false}
       isDivided={false}
       messages={
@@ -19,7 +19,6 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           },
         ]
       }
-      testID=""
       title="You have not selected any CDOs"
       type="info"
     />
@@ -36,7 +35,7 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
     className="usa-width-two-thirds"
   >
     <Alert
-      customClassName={false}
+      customClassName=""
       isAriaLive={false}
       isDivided={false}
       messages={
@@ -46,7 +45,6 @@ exports[`BidderPortfolioContainerComponent matches snapshot when the all propert
           },
         ]
       }
-      testID=""
       title="You have not selected any CDOs"
       type="info"
     />
