@@ -199,7 +199,11 @@ EditHandshake.propTypes = {
   submitAction: PropTypes.func,
   submitText: PropTypes.string,
   infoOnly: PropTypes.bool,
-  handshake: PropTypes.shape({}),
+  handshake: PropTypes.shape({
+    hs_date_expiration: PropTypes.string,
+    hs_date_offered: PropTypes.string,
+    hs_status_code: PropTypes.string,
+  }),
 };
 
 EditHandshake.defaultProps = {
