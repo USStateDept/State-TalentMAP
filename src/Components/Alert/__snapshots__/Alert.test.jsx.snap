@@ -2,8 +2,7 @@
 
 exports[`Alert displays error alert with multiple messages 1`] = `
 <div
-  className="usa-alert usa-alert-error"
-  id=""
+  className="usa-alert usa-alert-error "
   role="alert"
 >
   <div
@@ -32,8 +31,7 @@ exports[`Alert displays error alert with multiple messages 1`] = `
 
 exports[`Alert displays info alert 1`] = `
 <div
-  className="usa-alert usa-alert-info"
-  id=""
+  className="usa-alert usa-alert-info "
 >
   <div
     className="usa-alert-body"
@@ -55,8 +53,7 @@ exports[`Alert displays info alert 1`] = `
 
 exports[`Alert displays success alert 1`] = `
 <div
-  className="usa-alert usa-alert-success"
-  id=""
+  className="usa-alert usa-alert-success "
 >
   <div
     className="usa-alert-body"
@@ -78,8 +75,7 @@ exports[`Alert displays success alert 1`] = `
 
 exports[`Alert displays warning alert 1`] = `
 <div
-  className="usa-alert usa-alert-info"
-  id=""
+  className="usa-alert usa-alert-info "
 >
   <div
     className="usa-alert-body"
@@ -103,8 +99,7 @@ exports[`Alert matches snapshot when isAriaLive is true 1`] = `
 <div
   aria-atomic="true"
   aria-live="polite"
-  className="usa-alert usa-alert-success"
-  id=""
+  className="usa-alert usa-alert-success "
 >
   <div
     className="usa-alert-body"

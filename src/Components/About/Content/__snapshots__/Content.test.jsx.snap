@@ -38,7 +38,7 @@ exports[`Content matches snapshot 1`] = `
       positions at the right time.
   </p>
   <Alert
-    customClassName={false}
+    customClassName=""
     isAriaLive={false}
     isDivided={false}
     messages={
@@ -58,7 +58,6 @@ exports[`Content matches snapshot 1`] = `
         },
       ]
     }
-    testID=""
     title="TalentMAP Progress is Ongoing"
     type="info"
   />

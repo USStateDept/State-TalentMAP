@@ -52,7 +52,7 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
     </div>
   </div>
   <Alert
-    customClassName={false}
+    customClassName=""
     isAriaLive={true}
     isDivided={false}
     messages={
@@ -62,7 +62,6 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
         },
       ]
     }
-    testID=""
     title="Success"
     type="success"
   />
