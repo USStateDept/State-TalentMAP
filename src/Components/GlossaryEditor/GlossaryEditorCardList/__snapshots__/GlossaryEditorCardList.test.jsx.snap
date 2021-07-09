@@ -109,7 +109,7 @@ exports[`GlossaryEditorCardListComponent matches snapshot when there are no term
     terms={Object {}}
   />
   <Alert
-    customClassName={false}
+    customClassName=""
     isAriaLive={false}
     isDivided={false}
     messages={
@@ -119,7 +119,6 @@ exports[`GlossaryEditorCardListComponent matches snapshot when there are no term
         },
       ]
     }
-    testID=""
     title="No glossary terms within your search criteria."
     type="info"
   />

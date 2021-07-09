@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_BUREAU } from 'Constants/SystemMessages';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -22,7 +22,7 @@ import { getBidIdUrl } from './helpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
-  unregisterHandshake, useCDOView, isCollapsible, userName, tooglePanelAlert },
+  unregisterHandshake, useCDOView, isCollapsible, userName, togglePanelAlert },
 { condensedView, readOnly }) => {
   const CLASS_PENDING = 'bid-tracker-overlay-alert--pending';
   const CLASS_CLOSED = 'bid-tracker-overlay-alert--closed';
@@ -51,7 +51,7 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const [collapseOverlay, setCollapseOverlay] = useState(false);
 
   function toggleOverlay() {
-    tooglePanelAlert(!collapseOverlay);
+    togglePanelAlert(!collapseOverlay);
     setCollapseOverlay(!collapseOverlay);
   }
 
@@ -131,6 +131,11 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
       break;
   }
 
+  // set tooltip to false on mount only
+  useEffect(() => {
+    togglePanelAlert(!overlayContent);
+  }, []);
+
   const positionHandshakeRegistered = get(bid, 'position_info.bid_statistics[0].has_handshake_offered');
   let showArrow = true;
   if (positionHandshakeRegistered &&
@@ -182,7 +187,7 @@ OverlayAlert.propTypes = {
   useCDOView: PropTypes.bool,
   userName: PropTypes.string,
   isCollapsible: PropTypes.bool,
-  tooglePanelAlert: PropTypes.func.isRequired,
+  togglePanelAlert: PropTypes.func.isRequired,
 };
 
 OverlayAlert.defaultProps = {
