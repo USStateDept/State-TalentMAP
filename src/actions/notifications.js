@@ -264,7 +264,7 @@ export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering =
             dispatch(handshakeOffered(currentNotification.owner, currentNotification.message,
               { autoClose: false, draggable: false, closeOnClick: false }));
           } else {
-            dispatch(handshakeRevoked(currentNotification.owner, currentNotification.message, true, 'hs-r',
+            dispatch(handshakeRevoked(currentNotification.owner, currentNotification.message, 'hs-revoked-toast',
               { autoClose: false, draggable: false, closeOnClick: false }));
           }
         });

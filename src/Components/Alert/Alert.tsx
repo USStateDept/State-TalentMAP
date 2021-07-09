@@ -8,14 +8,13 @@ type Message = {
 };
 
 type Props = {
-  type: "info" | "warning" | "error" | "success" | "dark" | "hs-revoke";
+  type: "info" | "warning" | "error" | "success" | "dark";
   // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   title?: string;
   messages: Array<Message>;
   isAriaLive?: boolean;
   isDivided?: boolean;
-  customClassName?: boolean;
-  testID?: string;
+  customClassName?: string;
 };
 
 class Alert extends React.Component<Props> {
@@ -27,8 +26,7 @@ class Alert extends React.Component<Props> {
     }],
     isAriaLive: false,
     isDivided: false,
-    customClassName: false,
-    testID: '',
+    customClassName: '',
   };
 
   // prevent unneeded rerenders, which can cause accessibility issues
@@ -37,7 +35,7 @@ class Alert extends React.Component<Props> {
   }
 
   render(): React.ReactNode {
-    const { type, title, messages, isAriaLive, isDivided, customClassName, testID } = this.props;
+    const { type, title, messages, isAriaLive, isDivided, customClassName } = this.props;
     // 'type' is injected into the class name
     // type 'error' requires an ARIA role
 
@@ -50,7 +48,6 @@ class Alert extends React.Component<Props> {
       };
     }
 
-    const type$ = type === 'hs-revoke' ? 'error hs-revoked-toast' : type;
     const h3 = <h3 className="usa-alert-heading">{title}</h3>;
     const body = map(messages, (message: Message) =>
       (<p className="usa-alert-text" key={shortid.generate()}>
@@ -58,12 +55,8 @@ class Alert extends React.Component<Props> {
       </p>),
     );
 
-    /* eslint-disable */
-    console.log(this.props);
-    /* eslint-enable */
-
     return (
-      <div id={testID} className={`usa-alert usa-alert-${type$}${customClassName ? ' worked' : ''}`} role={(type === 'error') || (type === 'hs-revoke') ? 'alert' : undefined} {...ariaLiveProps}>
+      <div className={`usa-alert usa-alert-${type} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
