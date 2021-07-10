@@ -20,12 +20,12 @@ const EditHandshake = props => {
   const revealDate = (useExistingHS) => {
     // Official Reveal date set
     if (officialReveal) {
-      if (useExistingHS) { //
+      if (useExistingHS) {
         if (beforeReveal(hs_date_offered)) {
           return new Date(officialReveal);
         }
         return new Date(hs_date_offered);
-      }
+      } // New HS
       if (beforeReveal(new Date())) {
         return new Date(officialReveal);
       }
@@ -34,7 +34,7 @@ const EditHandshake = props => {
     // Official Reveal date not set
     if (useExistingHS) {
       return new Date(hs_date_offered);
-    }
+    } // New HS
     return new Date();
   };
 
