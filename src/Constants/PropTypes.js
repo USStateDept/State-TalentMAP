@@ -680,3 +680,14 @@ export const HOME_PAGE_RECOMMENDED_POSITIONS = PropTypes.shape({
   positions: PropTypes.arrayOf(POSITION_DETAILS),
   name: PropTypes.string,
 });
+
+export const HANDSHAKE_DETAILS = PropTypes.shape({
+  hs_status_code: PropTypes.string,
+  bidder_hs_code: PropTypes.string,
+  hs_date_accepted: PropTypes.string,
+  hs_date_declined: PropTypes.string,
+  hs_date_offered: PropTypes.string,
+  hs_date_revoked: PropTypes.string,
+  hs_date_expiration: PropTypes.string,
+  hs_cdo_indicator: PropTypes.bool,
+});
