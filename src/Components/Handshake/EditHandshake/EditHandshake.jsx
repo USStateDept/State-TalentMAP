@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { get, isNil } from 'lodash';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { EMPTY_FUNCTION, HANDSHAKE_DETAILS } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
@@ -13,52 +13,63 @@ const EditHandshake = props => {
   const { hs_date_expiration, hs_date_offered, hs_status_code } = handshake;
   const currentlyOffered = hs_status_code === 'handshake_offered';
 
-  const calculateExpiration = () => {
-    let e = hs_date_expiration;
-    // If already revoked, but in create mode, reset the expiration
-    if (!infoOnly && (hs_status_code === 'handshake_revoked')) {
-      e = false;
+  const officialReveal = get(bidCycle, 'handshake_allowed_date');
+
+  const beforeReveal = (d) => isBefore(new Date(d), new Date(officialReveal));
+
+  const revealDate = (useExistingHS) => {
+    // Official Reveal date set
+    if (officialReveal) {
+      if (useExistingHS) {
+        if (beforeReveal(hs_date_offered)) {
+          return new Date(officialReveal);
+        }
+        return new Date(hs_date_offered);
+      } // New HS
+      if (beforeReveal(new Date())) {
+        return new Date(officialReveal);
+      }
+      return new Date();
     }
-    return e ? new Date(e) : add(new Date(), { days: 1 });
+    // Official Reveal date not set
+    if (useExistingHS) {
+      return new Date(hs_date_offered);
+    } // New HS
+    return new Date();
   };
 
-  const [expirationDate, setExpirationDate] = useState(calculateExpiration());
+  const calculateExpiration = () => {
+    if (officialReveal && isFuture(new Date(officialReveal))) {
+      return new Date(officialReveal);
+    }
+    return add(new Date(), { days: 1 });
+  };
+
+  const modes = {
+    readOnly: {
+      expiration: new Date(hs_date_expiration),
+      reveal: revealDate(true),
+    },
+    create: {
+      expiration: calculateExpiration(),
+      reveal: revealDate(false),
+    },
+  };
+
+  const getMode = () => {
+    if (infoOnly) {
+      return modes.readOnly;
+    } else if ((hs_status_code === 'handshake_revoked') || !hs_status_code) {
+      return modes.create;
+    }
+    return modes.readOnly;
+  };
+
+  const [expirationDate, setExpirationDate] = useState(getMode().expiration);
   const [expirationTime, setExpirationTime] =
     useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
   useCloseSwalOnUnmount();
-
-  // Date when bidders are able to begin seeing HS offers
-  const revealDate = get(bidCycle, 'handshake_allowed_date');
-
-  const calculateReveal = () => {
-    // Case 1:
-    // We have a reveal date and its in the future
-    //   a) INFO-ONLY => show reveal
-    //   b) CREATE-MODE => show reveal
-    // Case 2:
-    // We have a reveal date and its in the past
-    //  a) INFO-ONLY && (offer_dt < reveal_dt) => show reveal_dt
-    //  b) INFO-ONLY && (offer_dt > reveal_dt) => show offer_dt
-    //  c) CREATE-MODE => show today
-    // Case 3:
-    // No reveal date
-    //   a) INFO-ONLY => show offer_dt
-    //   b) create-mode => show today
-    if (revealDate && isFuture(new Date(revealDate))) {
-      return new Date(revealDate);
-    } else if (revealDate && infoOnly) {
-      if (isBefore(new Date(hs_date_offered), new Date(revealDate))) {
-        return new Date(revealDate);
-      }
-      return new Date(hs_date_offered);
-    } else if (revealDate && !infoOnly) {
-      return new Date();
-    } else if (infoOnly) {
-      return new Date(hs_date_offered);
-    }
-    return new Date();
-  };
 
   const validateExpiration = () => {
     const [hour, minute] = expirationTime.split(':');
@@ -99,7 +110,7 @@ const EditHandshake = props => {
       if (isSameDay(expirationDate, date)) {
         return 'react-calendar__tile--endDate';
       }
-      if (isSameDay(calculateReveal(), date)) {
+      if (isSameDay(getMode().reveal, date)) {
         return 'react-calender__tile--startDate';
       }
       // TO-DO: Add dates from bidCycle object to complete
@@ -119,13 +130,13 @@ const EditHandshake = props => {
             <input
               type="text"
               name="handshakeStartDate"
-              value={getDate$(calculateReveal())}
+              value={getDate$(getMode().reveal)}
               disabled
             />
             <input
               type="text"
               name="handshakeStartTime"
-              value={getTime$(calculateReveal())}
+              value={getTime$(getMode().reveal)}
               disabled
             />
           </div>
@@ -151,7 +162,7 @@ const EditHandshake = props => {
         {/* TO-DO: Use this class yet for calendar to disable all interation */}
         <div className={`calendar-wrapper ${readOnly ? 'disabled' : ''}`}>
           <Calendar
-            minDate={calculateReveal()}
+            minDate={getMode().reveal}
             // TO-DO: maxDate={fakeBureauTimeline[1]}
             onChange={readOnly ? () => {} : setExpirationDate}
             value={expirationDate}
@@ -196,22 +207,18 @@ const EditHandshake = props => {
 
 EditHandshake.propTypes = {
   bidCycle: PropTypes.shape({}),
+  handshake: HANDSHAKE_DETAILS,
   submitAction: PropTypes.func,
   submitText: PropTypes.string,
   infoOnly: PropTypes.bool,
-  handshake: PropTypes.shape({
-    hs_date_expiration: PropTypes.string,
-    hs_date_offered: PropTypes.string,
-    hs_status_code: PropTypes.string,
-  }),
 };
 
 EditHandshake.defaultProps = {
   bidCycle: {},
+  handshake: {},
   submitAction: EMPTY_FUNCTION,
   submitText: 'Submit',
   infoOnly: true,
-  handshake: {},
 };
 
 export default EditHandshake;
