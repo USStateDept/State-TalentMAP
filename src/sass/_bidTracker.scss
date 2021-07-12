@@ -1314,7 +1314,9 @@ $register-hide-icon: 95%;
 }
 
 .bid-tracker-alert-container--register {
-  top: 35px;
+  // top: 35px;
+  margin-top: 35px;
+  top: 0;
 
   .remove-bid-link {
     cursor: pointer;
