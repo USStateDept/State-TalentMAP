@@ -19,9 +19,20 @@ import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '..
 import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showPanelAlert: true,
+    };
+  }
+
   getChildContext() {
     const { bid, condensedView, priorityExists, readOnly } = this.props;
     return { condensedView, priorityExists, isPriority: bid.is_priority, readOnly };
+  }
+
+  togglePanelAlert = collapseOverlay => {
+    this.setState({ showPanelAlert: collapseOverlay });
   }
   render() {
     const { bid, acceptBid, condensedView, declineBid, priorityExists, submitBid, deleteBid,
@@ -45,6 +56,7 @@ class BidTrackerCard extends Component {
     ].join(' ');
     const showBidCount$ = showBidCount && !priorityExists;
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
+    const { showPanelAlert } = this.state;
     const bidTakenFlag = (get(bid, 'position_info.bid_statistics[0].has_handshake_offered'))
       && (bid.status !== HAND_SHAKE_ACCEPTED_PROP && bid.status !== DRAFT_PROP);
     const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
@@ -105,7 +117,10 @@ class BidTrackerCard extends Component {
             useCDOView={useCDOView}
           />
           <div className={bidStepsClasses$}>
-            <BidSteps bid={bid} />
+            <BidSteps
+              bid={bid}
+              collapseOverlay={showPanelAlert}
+            />
             {
               showAlert &&
                 <OverlayAlert
@@ -120,6 +135,7 @@ class BidTrackerCard extends Component {
                   unregisterHandshake={unregisterHandshake}
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
+                  togglePanelAlert={this.togglePanelAlert}
                   condensedView={condensedView}
                 />
             }

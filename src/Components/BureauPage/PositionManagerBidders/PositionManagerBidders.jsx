@@ -116,7 +116,7 @@ const rankedBids = (bids, ranking) => {
 };
 
 const unrankedBids = (bids, ranking) => (bids || []).map(m => {
-  const match = ranking.find(f => +f.bidder_perdet === m.emp_id);
+  const match = ranking.find(f => +f.bidder_perdet === +m.emp_id);
   if (match) {
     return null;
   }

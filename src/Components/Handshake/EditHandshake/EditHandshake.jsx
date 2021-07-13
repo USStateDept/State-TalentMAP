@@ -1,33 +1,75 @@
 import { useState } from 'react';
 import { get, isNil } from 'lodash';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { EMPTY_FUNCTION, HANDSHAKE_DETAILS } from 'Constants/PropTypes';
 import swal from '@sweetalert/with-react';
 import Calendar from 'react-calendar';
 import TimePicker from 'react-time-picker';
-import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isFuture } from 'date-fns-v2';
+import { add, differenceInCalendarDays, format, getDate, getHours, getMinutes, getMonth, getYear, isBefore, isFuture, isPast } from 'date-fns-v2';
 import { useCloseSwalOnUnmount } from 'utilities';
 
 const EditHandshake = props => {
-  const { submitAction, expiration, infoOnly, uneditable, submitText, offer, bidCycle } = props;
-  const expirationFormatted = expiration ? new Date(expiration) : add(new Date(), { days: 1 });
-  const [expirationDate, setExpirationDate] = useState(expirationFormatted);
+  const { submitAction, handshake, infoOnly, submitText, bidCycle } = props;
+  const { hs_date_expiration, hs_date_offered, hs_status_code } = handshake;
+  const currentlyOffered = hs_status_code === 'handshake_offered';
+
+  const officialReveal = get(bidCycle, 'handshake_allowed_date');
+
+  const beforeReveal = (d) => isBefore(new Date(d), new Date(officialReveal));
+
+  const revealDate = (useExistingHS) => {
+    // Official Reveal date set
+    if (officialReveal) {
+      if (useExistingHS) {
+        if (beforeReveal(hs_date_offered)) {
+          return new Date(officialReveal);
+        }
+        return new Date(hs_date_offered);
+      } // New HS
+      if (beforeReveal(new Date())) {
+        return new Date(officialReveal);
+      }
+      return new Date();
+    }
+    // Official Reveal date not set
+    if (useExistingHS) {
+      return new Date(hs_date_offered);
+    } // New HS
+    return new Date();
+  };
+
+  const calculateExpiration = () => {
+    if (officialReveal && isFuture(new Date(officialReveal))) {
+      return new Date(officialReveal);
+    }
+    return add(new Date(), { days: 1 });
+  };
+
+  const modes = {
+    readOnly: {
+      expiration: new Date(hs_date_expiration),
+      reveal: revealDate(true),
+    },
+    create: {
+      expiration: calculateExpiration(),
+      reveal: revealDate(false),
+    },
+  };
+
+  const getMode = () => {
+    if (infoOnly) {
+      return modes.readOnly;
+    } else if ((hs_status_code === 'handshake_revoked') || !hs_status_code) {
+      return modes.create;
+    }
+    return modes.readOnly;
+  };
+
+  const [expirationDate, setExpirationDate] = useState(getMode().expiration);
   const [expirationTime, setExpirationTime] =
     useState(`${getHours(expirationDate)}:${getMinutes(expirationDate)}`);
 
   useCloseSwalOnUnmount();
-
-  // Date when bidders are able to begin seeing HS offers
-  const revealDate = get(bidCycle, 'handshake_allowed_date');
-
-  const offerDate = () => {
-    if (revealDate && isFuture(new Date(revealDate))) {
-      return new Date(revealDate);
-    } else if (offer) {
-      return new Date(offer);
-    }
-    return new Date();
-  };
 
   const validateExpiration = () => {
     const [hour, minute] = expirationTime.split(':');
@@ -37,8 +79,8 @@ const EditHandshake = props => {
     return new Date(year, month, date, hour, minute);
   };
 
-  const readOnly = uneditable || infoOnly;
-  const disabledButton = isNil(expirationTime) || !isFuture(validateExpiration());
+  const readOnly = currentlyOffered || infoOnly;
+  const userInputError = isNil(expirationTime) || isPast(validateExpiration());
 
 
   const cancel = (e) => {
@@ -68,7 +110,7 @@ const EditHandshake = props => {
       if (isSameDay(expirationDate, date)) {
         return 'react-calendar__tile--endDate';
       }
-      if (isSameDay(offerDate(), date)) {
+      if (isSameDay(getMode().reveal, date)) {
         return 'react-calender__tile--startDate';
       }
       // TO-DO: Add dates from bidCycle object to complete
@@ -88,13 +130,13 @@ const EditHandshake = props => {
             <input
               type="text"
               name="handshakeStartDate"
-              value={getDate$(offerDate())}
+              value={getDate$(getMode().reveal)}
               disabled
             />
             <input
               type="text"
               name="handshakeStartTime"
-              value={getTime$(offerDate())}
+              value={getTime$(getMode().reveal)}
               disabled
             />
           </div>
@@ -120,7 +162,7 @@ const EditHandshake = props => {
         {/* TO-DO: Use this class yet for calendar to disable all interation */}
         <div className={`calendar-wrapper ${readOnly ? 'disabled' : ''}`}>
           <Calendar
-            minDate={offerDate()}
+            minDate={getMode().reveal}
             // TO-DO: maxDate={fakeBureauTimeline[1]}
             onChange={readOnly ? () => {} : setExpirationDate}
             value={expirationDate}
@@ -149,7 +191,13 @@ const EditHandshake = props => {
           <button onClick={cancel}>{infoOnly ? 'Close' : 'Cancel'}</button>
           {
             !infoOnly &&
-            <button onClick={submit} type="submit" disabled={disabledButton}>{submitText}</button>
+              <button
+                onClick={submit}
+                type="submit"
+                disabled={!currentlyOffered && userInputError}
+              >
+                {submitText}
+              </button>
           }
         </div>
       </form>
@@ -159,22 +207,18 @@ const EditHandshake = props => {
 
 EditHandshake.propTypes = {
   bidCycle: PropTypes.shape({}),
+  handshake: HANDSHAKE_DETAILS,
   submitAction: PropTypes.func,
   submitText: PropTypes.string,
   infoOnly: PropTypes.bool,
-  expiration: PropTypes.string,
-  offer: PropTypes.string,
-  uneditable: PropTypes.bool,
 };
 
 EditHandshake.defaultProps = {
   bidCycle: {},
+  handshake: {},
   submitAction: EMPTY_FUNCTION,
   submitText: 'Submit',
   infoOnly: true,
-  expiration: '',
-  uneditable: true,
-  offer: '',
 };
 
 export default EditHandshake;

@@ -311,16 +311,10 @@ class ResultsCard extends Component {
                       </StaticDevContent>
                     }
                     {
-                      get(result, 'isDifficultToStaff', false) &&
-                      <StaticDevContent>
-                        <HardToFill isWideResults className="ribbon-results-card" />
-                      </StaticDevContent>
+                      get(result, 'isDifficultToStaff', false) && <HardToFill isWideResults className="ribbon-results-card" />
                     }
                     {
-                      get(result, 'isServiceNeedDifferential', false) &&
-                      <StaticDevContent>
-                        <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
-                      </StaticDevContent>
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
                     }
                     {
                       // conditional rendering occurs inside the container
