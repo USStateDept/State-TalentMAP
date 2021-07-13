@@ -149,7 +149,7 @@
     background: #d4e0ee;
   }
   .react-calendar__tile--endDate {
-    background: #F7B578;
+    background: $hs-expiration-orange;
   }
 }
   
@@ -204,7 +204,7 @@
     }
     .expire-key {
       div:first-child {
-        background-color: #F7B578;
+        background-color: $hs-expiration-orange;
       }
     }
   }

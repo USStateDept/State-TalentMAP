@@ -92,10 +92,10 @@ class BureauResultsCard extends Component {
               get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'staticDevContentAlt', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'isDifficultToStaff', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'staticDevContentAlt', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
             }
             {renderBidCountMobile(stats)}
           </Row>
