@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import { SUBMITTED, DRAFT } from '../../Constants/BidStatuses';
+import { DRAFT, SUBMITTED } from '../../Constants/BidStatuses';
 import BidListResultsCard from './BidListResultsCard';
 
 describe('BidListResultsCardComponent', () => {
@@ -9,7 +9,8 @@ describe('BidListResultsCardComponent', () => {
     id: 1,
     status: SUBMITTED.property,
     post: 'Paris',
-    position: {
+    position_info: {
+      id: 2,
       position: {
         id: 2,
         position_number: '05A',

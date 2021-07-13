@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -10,33 +11,48 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { Featured, Handshake } from '../Ribbon';
+import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
-  propOrDefault,
   getAccessiblePositionNumber,
   getBidStatisticsObject,
+  propOrDefault,
 } from '../../utilities';
 
 import { DEFAULT_HIGHLIGHT_POSITION } from '../../Constants/DefaultProps';
 import {
+  EMPTY_FUNCTION,
+  HIGHLIGHT_POSITION,
   POSITION_DETAILS,
   USER_PROFILE,
-  HIGHLIGHT_POSITION,
-  EMPTY_FUNCTION,
 } from '../../Constants/PropTypes';
 import {
   NO_BUREAU,
-  NO_GRADE,
   NO_END_DATE,
+  NO_GRADE,
   NO_TOUR_OF_DUTY,
-  NO_USER_LISTED,
   NO_UPDATE_DATE,
+  NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 export const renderHandshake = stats => (
   get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
 );
+
+export const renderCriticalNeed = () => (
+  <StaticDevContent>
+    <CriticalNeed cutSide="both" className="ribbon-position-details" />
+  </StaticDevContent>
+);
+
+export const renderHardToFill = details => (
+  get(details, 'isDifficultToStaff', false) && <HardToFill cutSide="both" className="ribbon-position-details" />
+);
+
+export const renderServiceNeedDifferential = details => (
+  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
+);
+
 
 const PositionDetailsItem = (props) => {
   const {
@@ -90,9 +106,9 @@ const PositionDetailsItem = (props) => {
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
         {renderHandshake(stats, position)}
-        {
-          isHighlighted && <Featured cutSide="both" className="ribbon-position-details" />
-        }
+        {renderCriticalNeed()}
+        {renderHardToFill(details)}
+        {renderServiceNeedDifferential(details)}
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>

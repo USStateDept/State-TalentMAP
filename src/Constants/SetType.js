@@ -35,6 +35,7 @@ function setType(props, propName, componentName) {
     return error(propName, componentName, 'size', 'a number');
   }
 
+  // eslint-disable-next-line no-loops/no-loops
   for (let i = 0; i < methods.length; i += 1) {
     const method = methods[i];
     if (typeof s[method] !== 'function') {

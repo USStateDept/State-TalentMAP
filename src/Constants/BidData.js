@@ -4,13 +4,18 @@ export const CLOSED_PROP = 'closed';
 export const DRAFT_PROP = 'draft';
 export const DECLINED_PROP = 'declined';
 export const HAND_SHAKE_ACCEPTED_PROP = 'handshake_accepted';
-export const HAND_SHAKE_OFFERED_PROP = 'handshake_offered';
 export const HAND_SHAKE_DECLINED_PROP = 'handshake_declined';
 export const PRE_PANEL_PROP = 'pre_panel';
 export const IN_PANEL_PROP = 'in_panel';
 export const SUBMITTED_PROP = 'submitted';
 export const PANEL_RESCHEDULED_PROP = 'panel_rescheduled';
 export const HAND_SHAKE_NEEDS_REGISTER_PROP = 'handshake_needs_registered';
+
+// tmap-specific props
+export const HAND_SHAKE_OFFERED_PROP = 'handshake_offered';
+export const HAND_SHAKE_OFFER_ACCEPTED_PROP = 'handshake_accepted';
+export const HAND_SHAKE_OFFER_DECLINED_PROP = 'handshake_declined';
+export const HAND_SHAKE_REVOKED_PROP = 'handshake_offer_revoked';
 
 export const BID_EXPLANATION_TEXT = {
   [SUBMITTED_PROP]: {

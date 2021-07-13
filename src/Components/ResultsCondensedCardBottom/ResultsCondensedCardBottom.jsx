@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isNull, get } from 'lodash';
+import { get, isNull } from 'lodash';
 import { Flag } from 'flag';
+import { FAVORITE_POSITIONS_ARRAY, POSITION_DETAILS } from 'Constants/PropTypes';
 import CondensedCardData from '../CondensedCardData';
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
 import Favorite from '../../Containers/Favorite';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';

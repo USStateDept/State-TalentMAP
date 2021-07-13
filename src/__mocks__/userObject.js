@@ -1,5 +1,3 @@
-import PropTypes from "../utilities";
-
 export const bidderUserObject = {
   emp_id: '1',
   employee_info: {

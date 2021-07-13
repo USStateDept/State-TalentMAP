@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ErrorBoundary from 'Components/ErrorBoundary';
-import { FILTER_ITEMS_ARRAY, ACCORDION_SELECTION_OBJECT,
+import { ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY,
   MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer';

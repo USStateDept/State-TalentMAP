@@ -85,7 +85,6 @@ Build the application
 
 ```bash
 yarn install
-yarn rebuild node-sass
 yarn run build
 ```
 

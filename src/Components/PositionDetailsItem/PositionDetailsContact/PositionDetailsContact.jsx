@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { propOrDefault, formatDate, getBidStatisticsObject } from 'utilities';
+import { formatDate, getBidStatisticsObject, propOrDefault } from 'utilities';
 import BidCount from 'Components/BidCount';
 import PositionViews from 'Components/PositionViews';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';

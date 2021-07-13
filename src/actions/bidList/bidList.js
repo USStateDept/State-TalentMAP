@@ -2,10 +2,11 @@ import { batch } from 'react-redux';
 import axios from 'axios';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
-import api from '../api';
-import { toastSuccess, toastError } from './toast';
-import { userProfilePublicFetchData } from './userProfilePublic';
-import * as SystemMessages from '../Constants/SystemMessages';
+import * as SystemMessages from 'Constants/SystemMessages';
+import api from '../../api';
+import { toastError, toastSuccess } from '../toast';
+import { userProfilePublicFetchData } from '../userProfilePublic';
+import { registerHandshakeHasErrored, registerHandshakeIsLoading, registerHandshakeSuccess } from '../handshake';
 
 export function downloadBidlistData(useClient = false, clientId = '') {
   const url = useClient && clientId ? `/fsbid/cdo/client/${clientId}/export/` : '/fsbid/bidlist/export/';
@@ -18,7 +19,7 @@ export function downloadBidlistData(useClient = false, clientId = '') {
     })
     .catch(() => {
       // eslint-disable-next-line global-require
-      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+      require('../../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
     });
 }
 
@@ -148,48 +149,6 @@ export function declineBidSuccess(response) {
   };
 }
 
-export function registerHandshakeHasErrored(bool) {
-  return {
-    type: 'REGISTER_HANDSHAKE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function registerHandshakeIsLoading(bool) {
-  return {
-    type: 'REGISTER_HANDSHAKE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function registerHandshakeSuccess(response) {
-  return {
-    type: 'REGISTER_HANDSHAKE_SUCCESS',
-    response,
-  };
-}
-
-export function unregisterHandshakeHasErrored(bool) {
-  return {
-    type: 'UNREGISTER_HANDSHAKE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function unregisterHandshakeIsLoading(bool) {
-  return {
-    type: 'UNREGISTER_HANDSHAKE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function unregisterHandshakeSuccess(response) {
-  return {
-    type: 'UNREGISTER_HANDSHAKE_SUCCESS',
-    response,
-  };
-}
-
 
 // to reset state
 export function routeChangeResetState() {
@@ -228,7 +187,7 @@ export function bidListFetchData(ordering = 'draft_date') {
     const endpoint = `/fsbid/bidlist/?ordering=${ordering}`;
 
     api().get(endpoint)
-      .then(response => response.data.results)
+      .then(response => get(response, 'data.results') || [])
       .then((results) => {
         batch(() => {
           dispatch(bidListFetchDataSuccess({ results }));
@@ -259,7 +218,7 @@ export function clientBidListFetchData(ordering = 'draft_date') {
       api().get(endpoint)
         .then((response) => {
           batch(() => {
-            dispatch(clientBidListFetchDataSuccess({ results: get(response, 'data.results', []) }));
+            dispatch(clientBidListFetchDataSuccess({ results: get(response, 'data.results') || [] }));
             dispatch(clientBidListHasErrored(false));
             dispatch(clientBidListIsLoading(false));
           });
@@ -391,79 +350,6 @@ export function declineBid(id, clientId) {
         batch(() => {
           dispatch(declineBidHasErrored(SystemMessages.DECLINE_BID_ERROR));
           dispatch(declineBidIsLoading(false));
-        });
-      });
-  };
-}
-
-export function unregisterHandshake(id, clientId) {
-  return (dispatch) => {
-    const idString = id.toString();
-    // reset the states to ensure only one message can be shown
-    batch(() => {
-      dispatch(routeChangeResetState());
-      dispatch(unregisterHandshakeIsLoading(true));
-      dispatch(unregisterHandshakeHasErrored(false));
-    });
-
-    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
-
-    api().delete(url)
-      .then(response => response.data)
-      .then(() => {
-        // eslint-disable-next-line no-use-before-define
-        const undo = () => dispatch(registerHandshake(id, clientId));
-        const message = SystemMessages.UNREGISTER_HANDSHAKE_SUCCESS(undo);
-        batch(() => {
-          dispatch(toastSuccess(message));
-          dispatch(unregisterHandshakeHasErrored(false));
-          dispatch(unregisterHandshakeIsLoading(false));
-          dispatch(unregisterHandshakeSuccess(message));
-        });
-        dispatch(userProfilePublicFetchData(clientId));
-      })
-      .catch(() => {
-        const message = SystemMessages.UNREGISTER_HANDSHAKE_ERROR;
-        batch(() => {
-          dispatch(toastError(message));
-          dispatch(unregisterHandshakeHasErrored(message));
-          dispatch(unregisterHandshakeIsLoading(false));
-        });
-      });
-  };
-}
-
-export function registerHandshake(id, clientId) {
-  return (dispatch) => {
-    const idString = id.toString();
-    // reset the states to ensure only one message can be shown
-    batch(() => {
-      dispatch(routeChangeResetState());
-      dispatch(registerHandshakeIsLoading(true));
-      dispatch(registerHandshakeHasErrored(false));
-    });
-
-    const url = `/fsbid/cdo/position/${idString}/client/${clientId}/register/`;
-
-    api().put(url)
-      .then(response => response.data)
-      .then(() => {
-        const undo = () => dispatch(unregisterHandshake(id, clientId));
-        const message = SystemMessages.REGISTER_HANDSHAKE_SUCCESS(undo);
-        batch(() => {
-          dispatch(toastSuccess(message));
-          dispatch(registerHandshakeHasErrored(false));
-          dispatch(registerHandshakeIsLoading(false));
-          dispatch(registerHandshakeSuccess(message));
-        });
-        dispatch(userProfilePublicFetchData(clientId));
-      })
-      .catch(() => {
-        const message = SystemMessages.REGISTER_HANDSHAKE_ERROR;
-        batch(() => {
-          dispatch(toastError(message));
-          dispatch(registerHandshakeHasErrored(message));
-          dispatch(registerHandshakeIsLoading(false));
         });
       });
   };

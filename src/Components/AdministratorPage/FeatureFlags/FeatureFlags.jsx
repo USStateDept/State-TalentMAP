@@ -7,7 +7,7 @@ import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { userHasPermissions } from 'utilities';
 import { postFeatureFlagsData } from 'actions/featureFlags';
-import { keys, get, isObject } from 'lodash';
+import { get, isObject, keys } from 'lodash';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import Spinner from '../../Spinner';
 

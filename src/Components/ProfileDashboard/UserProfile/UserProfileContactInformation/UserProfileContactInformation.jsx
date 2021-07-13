@@ -1,6 +1,6 @@
 import { get } from 'lodash';
 import { USER_PROFILE } from 'Constants/PropTypes';
-import { NO_EMAIL, NO_OFFICE_PHONE, NO_OFFICE_ADDRESS } from 'Constants/SystemMessages';
+import { NO_EMAIL, NO_OFFICE_ADDRESS, NO_OFFICE_PHONE } from 'Constants/SystemMessages';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import StaticDevContent from '../../../StaticDevContent';

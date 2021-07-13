@@ -40,8 +40,10 @@ describe('ProfileDashboardComponent', () => {
     // Really hacky.
     // This did not work: wrapper.find('Connect(withRouter(SearchAsClientButton))').exists()
     expect(toString(wrapper.debug())).toMatch(/SearchAsClientButton/);
-    wrapper.setProps({ ...props, isPublic: false });
-    wrapper.update();
+  });
+  it('does not display the Search as Client button when not isPublic', () => {
+    const wrapper = shallow(
+      <ProfileDashboard {...props} />);
     expect(toString(wrapper.debug())).not.toMatch(/SearchAsClientButton/);
   });
 

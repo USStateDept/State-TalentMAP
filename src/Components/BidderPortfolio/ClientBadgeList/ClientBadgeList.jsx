@@ -1,17 +1,21 @@
 import { orderBy } from 'lodash';
+import { orderClassifications } from '../helpers';
 import ClientBadge from '../ClientBadge';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS } from '../../../Constants/PropTypes';
 
 const ClientBadgeList = ({ classifications, clientClassifications }) => (
   <div className="usa-grid-full client-badge-list">
-    {orderBy(classifications, c => clientClassifications.includes(c.code), ['desc'])
+    {orderBy(orderClassifications(classifications), c => clientClassifications.includes(c.code), ['desc'])
       .slice(0, 4)
       .map((c) => {
-        const checked = clientClassifications.includes(c.code);
+        let checked = false;
+        clientClassifications.forEach((item) => {
+          c.seasons.forEach((cs) => { if (cs.id === item) checked = true; });
+        });
         return (
           <ClientBadge
             key={c.code}
-            type={c.code}
+            type={c}
             status={checked}
           />
         );

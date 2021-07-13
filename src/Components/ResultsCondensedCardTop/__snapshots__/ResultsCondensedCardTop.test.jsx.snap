@@ -1,95 +1,207 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsCondensedCardTopComponent matches snapshot 1`] = `
-<Link
-  className="usa-grid-full condensed-card-top  condensed-card-top--clickable"
-  replace={false}
-  title="View details for this position"
-  to="/details/1"
+<div
+  className="condensed-card-top"
 >
-  <div>
+  <div
+    className="post-ribbon-container"
+  >
     <div
-      className="usa-grid-full condensed-card-top-header-container"
+      className="ribbon-container-condensed"
     >
-      <div
-        className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
-      >
-        <h3>
-          OMS (DCM)
-        </h3>
-      </div>
-    </div>
-    <div
-      className="usa-grid-full post-ribbon-container"
-    >
-      <div
-        className="post-container"
-      >
-        <span>
-          <span
-            className="title"
-          >
-            Location:
-          </span>
-           
-          <span
-            className="data"
-          >
-            Freetown, Sierra Leone
-          </span>
-        </span>
-      </div>
-      <div
-        className="ribbon-container"
-      />
+      <Connect(StaticDevContent)>
+        <Tooltip
+          animateFill={true}
+          animation="shift"
+          arrow={true}
+          arrowSize="regular"
+          className=""
+          delay={0}
+          disabled={false}
+          distance={10}
+          duration={375}
+          followCursor={false}
+          hideDelay={0}
+          hideDuration={375}
+          hideOnClick={true}
+          html={null}
+          inertia={false}
+          interactive={false}
+          interactiveBorder={2}
+          multiple={false}
+          offset={-60}
+          onHidden={[Function]}
+          onHide={[Function]}
+          onRequestClose={[Function]}
+          onShow={[Function]}
+          onShown={[Function]}
+          popperOptions={Object {}}
+          position="top"
+          size="regular"
+          sticky={false}
+          stickyDuration={200}
+          style={Object {}}
+          tag="div"
+          theme="dark"
+          title="Critical need"
+          touchHold={false}
+          trigger="mouseenter focus"
+          unmountHTMLWhenHide={false}
+          zIndex={9999}
+        >
+          <CriticalNeed
+            className="ribbon-condensed-card"
+            shortName={false}
+            showText={false}
+          />
+        </Tooltip>
+      </Connect(StaticDevContent)>
     </div>
   </div>
-</Link>
+  <Link
+    className="usa-grid-full  condensed-card-top--clickable"
+    replace={false}
+    title="View details for this position"
+    to="/details/1"
+  >
+    <div>
+      <div
+        className="usa-grid-full condensed-card-top-header-container"
+      >
+        <div
+          className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
+        >
+          <h3>
+            OMS (DCM)
+          </h3>
+        </div>
+      </div>
+      <div
+        className="usa-grid-full post-ribbon-container"
+      >
+        <div
+          className="post-container"
+        >
+          <span>
+            <span
+              className="title"
+            >
+              Location:
+            </span>
+             
+            <span
+              className="data"
+            >
+              Freetown, Sierra Leone
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </Link>
+</div>
 `;
 
 exports[`ResultsCondensedCardTopComponent matches snapshot when type is serviceNeed 1`] = `
-<Link
-  className="usa-grid-full condensed-card-top  condensed-card-top--clickable"
-  replace={false}
-  title="View details for this position"
-  to="/details/1"
+<div
+  className="condensed-card-top"
 >
-  <div>
+  <div
+    className="post-ribbon-container"
+  >
     <div
-      className="usa-grid-full condensed-card-top-header-container"
+      className="ribbon-container-condensed"
     >
-      <div
-        className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
-      >
-        <h3>
-          OMS (DCM)
-        </h3>
-      </div>
-    </div>
-    <div
-      className="usa-grid-full post-ribbon-container"
-    >
-      <div
-        className="post-container"
-      >
-        <span>
-          <span
-            className="title"
-          >
-            Location:
-          </span>
-           
-          <span
-            className="data"
-          >
-            Freetown, Sierra Leone
-          </span>
-        </span>
-      </div>
-      <div
-        className="ribbon-container"
-      />
+      <Connect(StaticDevContent)>
+        <Tooltip
+          animateFill={true}
+          animation="shift"
+          arrow={true}
+          arrowSize="regular"
+          className=""
+          delay={0}
+          disabled={false}
+          distance={10}
+          duration={375}
+          followCursor={false}
+          hideDelay={0}
+          hideDuration={375}
+          hideOnClick={true}
+          html={null}
+          inertia={false}
+          interactive={false}
+          interactiveBorder={2}
+          multiple={false}
+          offset={-60}
+          onHidden={[Function]}
+          onHide={[Function]}
+          onRequestClose={[Function]}
+          onShow={[Function]}
+          onShown={[Function]}
+          popperOptions={Object {}}
+          position="top"
+          size="regular"
+          sticky={false}
+          stickyDuration={200}
+          style={Object {}}
+          tag="div"
+          theme="dark"
+          title="Critical need"
+          touchHold={false}
+          trigger="mouseenter focus"
+          unmountHTMLWhenHide={false}
+          zIndex={9999}
+        >
+          <CriticalNeed
+            className="ribbon-condensed-card"
+            shortName={false}
+            showText={false}
+          />
+        </Tooltip>
+      </Connect(StaticDevContent)>
     </div>
   </div>
-</Link>
+  <Link
+    className="usa-grid-full  condensed-card-top--clickable"
+    replace={false}
+    title="View details for this position"
+    to="/details/1"
+  >
+    <div>
+      <div
+        className="usa-grid-full condensed-card-top-header-container"
+      >
+        <div
+          className="usa-width-one-whole condensed-card-top-header condensed-card-top-header-left"
+        >
+          <h3>
+            OMS (DCM)
+          </h3>
+        </div>
+      </div>
+      <div
+        className="usa-grid-full post-ribbon-container"
+      >
+        <div
+          className="post-container"
+        >
+          <span>
+            <span
+              className="title"
+            >
+              Location:
+            </span>
+             
+            <span
+              className="data"
+            >
+              Freetown, Sierra Leone
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </Link>
+</div>
 `;

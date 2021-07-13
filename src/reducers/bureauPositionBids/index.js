@@ -1,10 +1,23 @@
-import { bureauPositionBidsHasErrored, bureauPositionBidsIsLoading, bureauPositionBids,
-  bureauPositionBidsAllHasErrored, bureauPositionBidsAllIsLoading, bureauPositionBidsAll,
-  bureauPositionBidsRankingHasErrored, bureauPositionBidsRankingIsLoading,
+import {
+  bidderRankingFetchDataSuccess,
+  bidderRankingsHasErrored,
+  bidderRankingsIsLoading,
+  bureauPositionBids,
+  bureauPositionBidsAll,
+  bureauPositionBidsAllHasErrored,
+  bureauPositionBidsAllIsLoading,
+  bureauPositionBidsHasErrored,
+  bureauPositionBidsIsLoading,
   bureauPositionBidsRanking,
-  bureauPositionBidsSetRankingHasErrored, bureauPositionBidsSetRankingIsLoading, bureauPositionBidsSetRanking } from './bureauPositionBids';
+  bureauPositionBidsRankingHasErrored,
+  bureauPositionBidsRankingIsLoading,
+  bureauPositionBidsSetRanking,
+  bureauPositionBidsSetRankingHasErrored,
+  bureauPositionBidsSetRankingIsLoading,
+} from './bureauPositionBids';
 
-export default { bureauPositionBidsHasErrored,
+export default {
+  bureauPositionBidsHasErrored,
   bureauPositionBidsIsLoading,
   bureauPositionBids,
   bureauPositionBidsAllHasErrored,
@@ -15,4 +28,8 @@ export default { bureauPositionBidsHasErrored,
   bureauPositionBidsRanking,
   bureauPositionBidsSetRankingHasErrored,
   bureauPositionBidsSetRankingIsLoading,
-  bureauPositionBidsSetRanking };
+  bureauPositionBidsSetRanking,
+  bidderRankingsHasErrored,
+  bidderRankingsIsLoading,
+  bidderRankingFetchDataSuccess,
+};

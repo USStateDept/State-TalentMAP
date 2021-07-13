@@ -80,6 +80,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         route: '/profile/cycles/',
         icon: 'hourglass-start',
         roles: [
+          'superuser',
           'bidcycle_admin',
         ],
       },
@@ -190,16 +191,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Statistics',
           route: '/profile/bureau/stats/',
           icon: 'bar-chart',
-          roles: [
-            'superuser',
-            'bureau_user',
-          ],
-        } : null,
-      checkFlag('flags.static_content') ?
-        {
-          text: 'Position Lists',
-          route: '/profile/bureau/positionlists',
-          icon: 'list-ol',
           roles: [
             'superuser',
             'bureau_user',

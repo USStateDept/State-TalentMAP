@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import sinon from 'sinon';
-import { SUBMITTED, DRAFT } from '../../../Constants/BidStatuses';
+import { DRAFT, SUBMITTED } from '../../../Constants/BidStatuses';
 import BidActions from './BidActions';
 
 describe('BidActionsComponent', () => {

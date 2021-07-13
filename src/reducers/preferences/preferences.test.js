@@ -1,4 +1,4 @@
-import { sortPreferences, darkModePreference } from './preferences';
+import { darkModePreference, sortPreferences } from './preferences';
 import { POSITION_SEARCH_SORTS_TYPE } from '../../Constants/Sort';
 
 describe('reducers', () => {

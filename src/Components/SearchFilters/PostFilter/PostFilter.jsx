@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, orderBy } from 'lodash';
-import { getItemLabel, formatIdSpacing, mapDuplicates } from 'utilities';
+import { formatIdSpacing, getItemLabel, mapDuplicates } from 'utilities';
 import { FILTER_ITEM } from 'Constants/PropTypes';
 import Accordion, { AccordionItem } from '../../Accordion';
 import CheckBox from '../../CheckBox';

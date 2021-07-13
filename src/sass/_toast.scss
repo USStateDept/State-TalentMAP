@@ -7,6 +7,7 @@
 }
 
 .Toastify__toast { // scss-lint:disable SelectorFormat
+  border-radius: 0;
   padding: 0;
 
   .usa-alert-heading {
@@ -96,9 +97,74 @@
     }
   }
 
+  .Toastify__toast-body {
+    padding: 0;
+    width: 100%;
+  }
+  
+  .usa-alert-dark {
+    background-color: $primary-alt-darkest;
+    background-image: url('#{$asset-path}assets/img/handshake.svg');
+    background-position-y: -14px;
+    .divider {
+      border-bottom-color: $tertiary-cool-blue-lightest;
+    }
+    .usa-alert-body {
+      color: $color-white;
+      padding-left: 7rem;
+      a {
+        color: $color-white;
+        padding-left: 10px;
+      }
+      .bottom-section {
+        margin-top: 20px;
+        margin-left: -7em;
+        font-size: 13px;
+        text-align: end;
+        button {
+          border: 1px solid #eee;
+          border-radius: 0;
+          color: #f1f1f1;
+          background-color: $primary-alt-darkest;
+          padding: 5px;
+          margin: 0;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
+  .hs-revoked-toast {
+    background-color: $primary-alt-darkest;
+    background-image: url('#{$asset-path}assets/img/handshake-closed.svg');
+    background-position-y: -12px;
+    background-position-x: -18px;
+    .divider {
+      border-bottom-color: $tertiary-cool-blue-lightest;
+    }
+    .usa-alert-body {
+      padding-left: 6rem;
+      .bottom-section {
+        margin-top: 10px;
+        font-size: 13px;
+        text-align: center;
+        button {
+          border: 1px solid #eee;
+          border-radius: 0;
+          color: #f1f1f1;
+          background-color: $primary-alt-darkest;
+          padding: 5px;
+          margin: 0;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+
   &.Toastify__toast--success,
   &.Toastify__toast--error,
-  &.Toastify__toast--info {
+  &.Toastify__toast--info,
+  &.Toastify__toast--dark {
     .Toastify__close-button {
       color: $color-white;
     }
@@ -107,4 +173,8 @@
 
 .Toastify__toast-container { // scss-lint:disable SelectorFormat
   width: 400px;
+    .Toastify__toast--dark {
+      width: 500px;
+      margin-left: -108px;
+    }
 }

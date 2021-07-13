@@ -38,9 +38,11 @@ const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
               />
             </div>
           }
-          <div className="current-user-section-border">
-            <PositionInformation assignment={get(userProfile, 'current_assignment')} />
-          </div>
+          {
+            <div className="current-user-section-border">
+              <PositionInformation assignment={get(userProfile, 'current_assignment')} />
+            </div>
+          }
           <UserProfileContactInformation userProfile={userProfile} />
         </div>
       }

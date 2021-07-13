@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
 import { checkFlag } from 'flags';
 import { get } from 'lodash';
+import { BID_OBJECT } from 'Constants/PropTypes';
+import { HAND_SHAKE_ACCEPTED_PROP } from 'Constants/BidData';
 import ConfettiIcon from './ConfettiIcon';
 import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
 import BidPreparingIcon from './BidStepIcon/BidPreparingIcon';
-import { BID_OBJECT } from '../../../Constants/PropTypes';
 import { formatDate, getFlagColorsByTextSearch } from '../../../utilities';
 
 const getUseConfetti = () => checkFlag('flags.confetti');
@@ -23,9 +24,11 @@ const getUseConfetti = () => checkFlag('flags.confetti');
 // by bidClassesFromCurrentStatus.
 // These classes determine colors, whether to use an icon or a number, the title text, etc.
 const BidSteps = (props, context) => {
-  const { bid } = props;
+  const { bid, collapseOverlay } = props;
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
+  const handshakeRegisteredAnotherClient =
+    get(bid, 'position_info.bid_statistics[0].has_handshake_offered') && (bid.status !== HAND_SHAKE_ACCEPTED_PROP);
   const getIcon = (status) => {
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
     const tooltipText = get(bidData[status.prop], 'tooltip.text');
@@ -38,12 +41,13 @@ const BidSteps = (props, context) => {
         hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
         tooltipTitle={tooltipTitle}
         tooltipText={tooltipText}
+        handshakeRegisteredAnotherClient={handshakeRegisteredAnotherClient}
       />
     );
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
     && getUseConfetti() && !condensedView) {
       let colors;
-      const country = get(bid, 'position.post.location.country');
+      const country = get(bid, 'position_info.position.post.location.country');
       if (country) {
         colors = getFlagColorsByTextSearch(country);
       }
@@ -60,6 +64,7 @@ const BidSteps = (props, context) => {
       {
         BID_STEPS.map((status) => {
           const icon = getIcon(status);
+          const showBidPrepToolTip = bidData[status.prop].hasBidPreparingTooltip && collapseOverlay;
           return (<Step
             key={shortId.generate()}
             className={`
@@ -75,7 +80,7 @@ const BidSteps = (props, context) => {
               </div>
             }
             tailContent={
-              bidData[status.prop].hasBidPreparingTooltip ? <BidPreparingIcon /> : null
+              showBidPrepToolTip ? <BidPreparingIcon /> : null
             }
             icon={icon}
           />
@@ -92,6 +97,7 @@ BidSteps.contextTypes = {
 
 BidSteps.propTypes = {
   bid: BID_OBJECT.isRequired,
+  collapseOverlay: PropTypes.bool.isRequired,
 };
 
 export default BidSteps;

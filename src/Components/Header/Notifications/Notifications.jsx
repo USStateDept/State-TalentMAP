@@ -4,7 +4,7 @@ import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
+import { handshakeNotificationsFetchData, notificationsCountFetchData, notificationsFetchData } from '../../../actions/notifications';
 import IconAlert from '../../IconAlert';
 
 class Notifications extends Component {
@@ -32,6 +32,7 @@ class Notifications extends Component {
     if (nextProps.notificationsCount !== this.props.notificationsCount && path !== '/profile/notifications') {
       // only fetch notifications if the count has changed
       this.props.fetchNotifications();
+      this.props.fetchHandshakeNotifications();
     }
   }
   render() {
@@ -51,6 +52,7 @@ Notifications.propTypes = {
   notificationsCount: PropTypes.number.isRequired,
   fetchNotificationsCount: PropTypes.func.isRequired,
   fetchNotifications: PropTypes.func.isRequired,
+  fetchHandshakeNotifications: PropTypes.func.isRequired,
   history: HISTORY_OBJECT.isRequired,
 };
 
@@ -65,6 +67,7 @@ const mapStateToProps = state => ({
 export const mapDispatchToProps = dispatch => ({
   fetchNotificationsCount: () => dispatch(notificationsCountFetchData()),
   fetchNotifications: () => dispatch(notificationsFetchData()),
+  fetchHandshakeNotifications: () => dispatch(handshakeNotificationsFetchData()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Notifications));

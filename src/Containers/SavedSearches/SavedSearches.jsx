@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
 import { isEqual } from 'lodash';
-import { savedSearchesFetchData, setCurrentSavedSearch, deleteSavedSearch } from 'actions/savedSearch';
+import { deleteSavedSearch, savedSearchesFetchData, setCurrentSavedSearch } from 'actions/savedSearch';
 import { SAVED_SEARCH_PARENT_OBJECT } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from 'Constants/DefaultProps';
 import { formQueryString } from 'utilities';

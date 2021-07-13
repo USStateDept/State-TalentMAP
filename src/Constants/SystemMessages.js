@@ -5,6 +5,9 @@ import RemoveSuccess from 'Components/FavoriteMessages/RemoveSuccess';
 import BidAddSuccess from 'Components/BidListMessages/Success';
 import BidRemoveSuccess from 'Components/BidListMessages/RemoveSuccess';
 import SavedSearchSuccess from 'Components/SavedSearchMessages/Success';
+import HandshakeOffered from 'Components/BidTracker/Messages/HandshakeOffered';
+import HandshakeRevoked from 'Components/BidTracker/Messages/HandshakeRevoked';
+import HandshakeAccepted from 'Components/BidTracker/Messages/HandshakeAccepted';
 import GenericSuccessToast from 'Components/GenericToast/Success';
 
 export const DEFAULT_TEXT = 'None listed';
@@ -15,6 +18,7 @@ export const NO_BID_CYCLE = DEFAULT_TEXT;
 export const NO_BIRTHDAY = DEFAULT_TEXT;
 export const NO_BUREAU = DEFAULT_TEXT;
 export const NO_CDO = DEFAULT_TEXT;
+export const NO_CLASSIFICATIONS = DEFAULT_TEXT;
 export const NO_COLA = DEFAULT_TEXT;
 export const NO_COMMENTS = DEFAULT_TEXT;
 export const NO_CREATE_DATE = 'Unknown';
@@ -81,6 +85,11 @@ export const REGISTER_HANDSHAKE_ERROR = 'Error trying to register handshake.';
 export const UNREGISTER_HANDSHAKE_SUCCESS = undo => UnregisterHandshakeSuccess({ undo });
 export const UNREGISTER_HANDSHAKE_ERROR = 'Error trying to unregister handshake.';
 
+export const OFFER_HANDSHAKE_SUCCESS = 'Handshake successfully offered.';
+export const OFFER_HANDSHAKE_ERROR = 'Error offering handshake.';
+export const REVOKE_HANDSHAKE_SUCCESS = 'Handshake successfully revoked.';
+export const REVOKE_HANDSHAKE_ERROR = 'Error revoking handshake.';
+
 export const NEW_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
 export const UPDATED_SAVED_SEARCH_SUCCESS_TITLE = 'Saved search updated';
 export const DELETE_SAVED_SEARCH_SUCCESS_TITLE = 'Success';
@@ -123,4 +132,24 @@ export const INTERNAL_LIST_ERROR_TITLE = 'Internal list Error';
 export const ADD_TO_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to add this client to the Internal list. Please try again.";
 export const REMOVE_FROM_INTERNAL_LIST_ERROR = "We're experiencing an error attempting to remove this client from the Internal list. Please try again.";
 
+export const HANDSHAKE_OFFERED_TITLE = 'Handshake Offered!';
+export const HANDSHAKE_OFFERED_BODY = ({ name, message }) =>
+  HandshakeOffered({ name, message });
+
+export const HANDSHAKE_REVOKED_TITLE = 'Handshake Revoked';
+export const HANDSHAKE_REVOKED_BODY = ({ name, message }) =>
+  HandshakeRevoked({ name, message });
+
+export const HANDSHAKE_ACCEPTED_TITLE = 'Handshake Accepted!';
+export const HANDSHAKE_ACCEPTED_BODY = ({ position_info, username, isCDO }) =>
+  HandshakeAccepted({ position_info, username, isCDO });
+export const HANDSHAKE_ACCEPT_ERROR = "We're experiencing an error attempting to accept the handshake. Please try again.";
+
+export const HANDSHAKE_DECLINE_TITLE = 'Handshake Declined';
+export const HANDSHAKE_DECLINE_BODY = 'Handshake successfully declined.';
+export const HANDSHAKE_DECLINE_ERROR = "We're experiencing an error attempting to decline the handshake. Please try again.";
+
 export const COMING_SOON = 'Coming Soon';
+
+export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications updated";
+export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";

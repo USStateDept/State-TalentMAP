@@ -1,8 +1,8 @@
-import { isValidElement, cloneElement, Component } from 'react';
+import { Component, cloneElement, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { difference, get, intersection } from 'lodash';
-import { notificationsFetchData, markNotification, markNotifications } from '../../actions/notifications';
+import { markNotification, markNotifications, notificationsFetchData } from '../../actions/notifications';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import { scrollToTop } from '../../utilities';
 

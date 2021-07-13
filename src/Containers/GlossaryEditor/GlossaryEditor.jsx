@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { glossaryEditorCancel, glossaryEditorFetchData, glossaryPatch, glossaryPost } from '../../actions/glossary';
-import { EMPTY_FUNCTION, GLOSSARY_LIST, GLOSSARY_ERROR_OBJECT, GLOSSARY_SUCCESS_OBJECT } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_LIST, GLOSSARY_SUCCESS_OBJECT } from '../../Constants/PropTypes';
 import GlossaryEditor from '../../Components/GlossaryEditor';
 
 class GlossaryEditorContainer extends Component {

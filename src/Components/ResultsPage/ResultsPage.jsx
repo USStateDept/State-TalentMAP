@@ -2,9 +2,9 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
-import { POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT, PILL_ITEM_ARRAY,
-  ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY, USER_PROFILE, BID_RESULTS,
-  MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { ACCORDION_SELECTION_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
+  FILTER_ITEMS_ARRAY, MISSION_DETAILS_ARRAY, PILL_ITEM_ARRAY, POSITION_SEARCH_RESULTS,
+  POST_DETAILS_ARRAY, SORT_BY_PARENT_OBJECT, USER_PROFILE } from '../../Constants/PropTypes';
 import { filterPVSorts, filterTandemSorts } from '../../Constants/Sort';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import ResultsContainer from '../ResultsContainer/ResultsContainer';
@@ -49,7 +49,7 @@ class Results extends Component {
     const hasLoaded = !isLoading && results.results && !!results.results.length;
 
     let sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
-    sortBy$ = isTandemSearch ? filterTandemSorts(sortBy$) : sortBy;
+    sortBy$ = isTandemSearch ? filterTandemSorts(sortBy$) : sortBy$;
 
     const filterContainer = (
       <ResultsFilterContainer

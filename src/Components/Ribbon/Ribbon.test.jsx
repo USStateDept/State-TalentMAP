@@ -28,7 +28,7 @@ describe('RibbonComponent', () => {
     const wrapper = shallow(<Ribbon {...props$} />);
 
     expect(wrapper.find('div').at(0).props().className)
-      .toBe(`ribbon-outer-container ribbon-outer-container-cut-${props$.cutSide}  ${props$.className}`);
+      .toBe(`ribbon-outer-container-cut-${props$.cutSide}   ${props$.className}`);
     expect(wrapper.find('div').at(1).props().className)
       .toBe(`ribbon ribbon-${props$.type} ribbon-cut-${props$.cutSide}`);
   });

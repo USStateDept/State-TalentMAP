@@ -1,12 +1,12 @@
 import { isObject, merge } from 'lodash';
-import { take, call, put, cancelled, race } from 'redux-saga/effects';
+import { call, cancelled, put, race, take } from 'redux-saga/effects';
 import { push } from 'connected-react-router';
 import api from '../api';
 import { unsetNotificationsCount } from '../actions/notifications';
-import { userProfileFetchData, unsetUserProfile, trackLogin, updateSavedSearches } from '../actions/userProfile';
+import { trackLogin, unsetUserProfile, updateSavedSearches, userProfileFetchData } from '../actions/userProfile';
 import { setClient, unsetClient } from '../client/actions';
 import isCurrentPath from '../Components/ProfileMenu/navigation';
-import { redirectToLogout, redirectToLogin } from '../utilities';
+import { redirectToLogin, redirectToLogout } from '../utilities';
 import { authError, authSuccess } from './actions';
 
 // Our login constants
@@ -154,6 +154,7 @@ function getLoginCredentials(loggingIn) {
 function* loginWatcher() {
   const evaluate = true;
   // Check if user entered already logged in or not
+  // eslint-disable-next-line no-loops/no-loops
   while (evaluate) {
     const races = {
       loggingIn: take(TOKEN_VALIDATION_REQUESTING),

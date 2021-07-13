@@ -3,8 +3,11 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
-import { uniqBy, forEach } from 'lodash';
+import { find, forEach, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
+import FA from 'react-fontawesome';
+import { Tooltip } from 'react-tippy';
+import InteractiveElement from 'Components/InteractiveElement';
 
 const EditBidder = (props) => {
   const { name, sections, submitAction, bureaus, details } = props;
@@ -13,7 +16,7 @@ const EditBidder = (props) => {
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
   const [shared, setShared] = useState(details.shared);
-  const { languages } = details;
+  const { languages, bidderBureau } = details;
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
@@ -34,10 +37,10 @@ const EditBidder = (props) => {
   const submit = (e) => {
     e.preventDefault();
     const userInputs = {
-      oc_bureau: ocBureau,
-      oc_reason: ocReason,
+      oc_bureau: ocBureau || '',
+      oc_reason: ocReason || '',
       status,
-      comments: comment,
+      comments: comment || '',
       is_shared: shared,
     };
 
@@ -53,6 +56,36 @@ const EditBidder = (props) => {
     e.preventDefault();
     swal.close();
   };
+
+  const setBureauFromUser = () => {
+    if (find(bureauOptions, a => a.short_description === bidderBureau)) {
+      setOCBureau(bidderBureau);
+    }
+  };
+
+  const commonTooltipProps = {
+    arrow: true,
+    popperOptions: {
+      modifiers: {
+        addZIndex: {
+          enabled: true,
+          order: 810,
+          fn: data => ({
+            ...data,
+            styles: {
+              ...data.styles,
+              zIndex: 10000,
+            },
+          }),
+        },
+      },
+    },
+  };
+
+  const ocSelected = status === 'OC';
+  const ocReasonError = ocSelected && !ocReason;
+  const ocBureauError = ocSelected && !ocBureau;
+  const submitDisabled = ocReasonError || ocBureauError;
 
   return (
     <div>
@@ -77,6 +110,8 @@ const EditBidder = (props) => {
                 if (e.target.value !== 'UA') {
                   setShared(false);
                 }
+              } else {
+                setBureauFromUser();
               }
             }}
           >
@@ -89,7 +124,22 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="ocReason">*OC Reason:</label>
-          <select id="ocReason" defaultValue={ocReason} onChange={(e) => setOCReason(e.target.value)} disabled={status !== 'OC'} >
+          {
+            // for accessibility only
+            ocReasonError &&
+            <span className="usa-sr-only" id="ocReason-error" role="alert">
+              Required
+            </span>
+          }
+          <select
+            id="ocReason"
+            className={ocReasonError ? 'select-error' : ''}
+            defaultValue={ocReason}
+            onChange={(e) => setOCReason(e.target.value)}
+            disabled={status !== 'OC'}
+            aria-describedby={ocReasonError ? 'ocReason-error' : ''}
+            value={ocReason}
+          >
             <option value="">None listed</option>
             {
               (status === 'OC') &&
@@ -101,7 +151,22 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="ocBureau">*OC Bureau:</label>
-          <select id="ocBureau" defaultValue={ocBureau} onChange={(e) => setOCBureau(e.target.value)} disabled={status !== 'OC'} >
+          {
+            // for accessibility only
+            ocBureauError &&
+            <span className="usa-sr-only" id="ocBureau-error" role="alert">
+              Required
+            </span>
+          }
+          <select
+            id="ocBureau"
+            className={ocBureauError ? 'select-error' : ''}
+            defaultValue={ocBureau}
+            onChange={(e) => setOCBureau(e.target.value)}
+            disabled={status !== 'OC'}
+            aria-describedby={ocReasonError ? 'ocBureau-error' : ''}
+            value={ocBureau}
+          >
             <option value="">None listed</option>
             {
               (status === 'OC') &&
@@ -147,7 +212,30 @@ const EditBidder = (props) => {
             onChange={(e) => setComment(e.target.value)}
           />
         </div>
-        <button onClick={submit} type="submit">Submit</button>
+        <div>
+          <dt>Bureau Share:</dt>
+          {
+            status === 'OC' || status === 'UA' ?
+              <Tooltip
+                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                {...commonTooltipProps}
+              >
+                <InteractiveElement
+                  onClick={() => setShared(!shared)}
+                >
+                  <dd className="ab-action-buttons"><FA name={shared ? 'building' : 'building-o'} className="fa-lg" /></dd>
+                </InteractiveElement>
+              </Tooltip>
+              :
+              <Tooltip
+                title={'Status must be UA or OC to share with bureau'}
+                {...commonTooltipProps}
+              >
+                <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
+              </Tooltip>
+          }
+        </div>
+        <button onClick={submit} type="submit" disabled={submitDisabled}>Submit</button>
         <button onClick={cancel}>Cancel</button>
       </form>
     </div>

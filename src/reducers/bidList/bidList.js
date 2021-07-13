@@ -1,3 +1,6 @@
+import { get } from 'lodash';
+import { mapBidData } from 'actions/bidList/helpers';
+
 export function bidListHasErrored(state = false, action) {
   switch (action.type) {
     case 'BID_LIST_HAS_ERRORED':
@@ -17,7 +20,7 @@ export function bidListIsLoading(state = false, action) {
 export function bidListFetchDataSuccess(state = { results: [] }, action) {
   switch (action.type) {
     case 'BID_LIST_FETCH_DATA_SUCCESS':
-      return action.results;
+      return { results: mapBidData(get(action, 'results.results', [])) };
     default:
       return state;
   }
@@ -41,7 +44,7 @@ export function clientBidListIsLoading(state = false, action) {
 export function clientBidListFetchDataSuccess(state = { results: [] }, action) {
   switch (action.type) {
     case 'CLIENT_BID_LIST_FETCH_DATA_SUCCESS':
-      return action.results;
+      return { results: mapBidData(get(action, 'results.results', [])) };
     default:
       return state;
   }
@@ -149,51 +152,4 @@ export function declineBidSuccess(state = false, action) {
       return state;
   }
 }
-export function registerHandshakeHasErrored(state = false, action) {
-  switch (action.type) {
-    case 'REGISTER_HANDSHAKE_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function registerHandshakeIsLoading(state = false, action) {
-  switch (action.type) {
-    case 'REGISTER_HANDSHAKE_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function registerHandshakeSuccess(state = false, action) {
-  switch (action.type) {
-    case 'REGISTER_HANDSHAKE_SUCCESS':
-      return action.response;
-    default:
-      return state;
-  }
-}
-export function unregisterHandshakeHasErrored(state = false, action) {
-  switch (action.type) {
-    case 'UNREGISTER_HANDSHAKE_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function unregisterHandshakeIsLoading(state = false, action) {
-  switch (action.type) {
-    case 'UNREGISTER_HANDSHAKE_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function unregisterHandshakeSuccess(state = false, action) {
-  switch (action.type) {
-    case 'UNREGISTER_HANDSHAKE_SUCCESS':
-      return action.response;
-    default:
-      return state;
-  }
-}
+

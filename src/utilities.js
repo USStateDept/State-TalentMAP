@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
 import { cloneDeep, get, has, includes, intersection, isArray, isEmpty, isEqual, isFunction,
@@ -9,9 +11,9 @@ import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
 import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
-import { NO_BID_CYCLE } from 'Constants/SystemMessages';
+import { NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
-import { LOGOUT_ROUTE, LOGIN_ROUTE, LOGIN_REDIRECT } from './login/routes';
+import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 
 const scroll = Scroll.animateScroll;
 
@@ -195,6 +197,7 @@ export const scrollToId = ({ el, config = {} }) => {
   const getElemDistance = (elem) => {
     let location = 0;
     if (elem.offsetParent) {
+      // eslint-disable-next-line no-loops/no-loops
       do {
         location += elem.offsetTop;
         elem = elem.offsetParent; // eslint-disable-line
@@ -250,7 +253,7 @@ export const existsInArray = (ref, array) => {
 };
 
 // for checking if a position is in the user's bid list
-export const existsInNestedObject = (ref, array, prop = 'position', nestedProp = 'id') => {
+export const existsInNestedObject = (ref, array, prop = 'position_info', nestedProp = 'id') => {
   const array$ = isArray(array) ? array : [];
   let found = false;
   array$.some((i) => {
@@ -847,3 +850,25 @@ export function move(arr, fromIndex, toIndex) {
   arr.splice(toIndex, 0, element);
   return arr;
 }
+
+export function getCustomLocation(loc, org) {
+  if (!loc) return NO_POST;
+  // DC Post - org ex. GTM/EX/SDD
+  if (get(loc, 'state') === 'DC') return org || NO_POST;
+  // Domestic outside of DC - City, State
+  if (get(loc, 'country') === 'USA') return `${get(loc, 'city')}, ${get(loc, 'state')}`;
+  if (!get(loc, 'city') && !get(loc, 'country')) return '';
+  // Foreign posts - City, Country
+  let x = `${get(loc, 'city')}, ${get(loc, 'country')}`;
+  if (!get(loc, 'city')) { x = get(loc, 'country'); }
+  if (!get(loc, 'country')) { x = get(loc, 'city'); }
+  return x;
+}
+
+export const useCloseSwalOnUnmount = () =>
+  useEffect(() => () => {
+    try {
+      swal.close();
+    } catch { return null; }
+    return null;
+  }, []);
