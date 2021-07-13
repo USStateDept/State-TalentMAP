@@ -1,6 +1,7 @@
 .hs-status-container {
   display: flex;
   justify-content: center;
+  cursor: help;
 
   div {
     display: flex;
@@ -21,6 +22,10 @@
     background-color: $color-red;
   }
 
+  .expired {
+    background-color: $hs-expiration-orange;
+  }
+
   .hs-status-bureau {
     clip-path: polygon(0 0, 75% 0%, 100% 50%, 75% 100%, 0 100%);
     padding-left: 5px;
@@ -32,4 +37,45 @@
   }
 }
 
+.tippy-popper {
+  .tippy-tooltip.hs-status-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .tooltip-title {
+      font-weight: bold;
+    }
+    .status-tooltip-wrapper {
+      display: flex;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      div:first-child {
+        padding-right: 10px;
+        border-right: 1px solid $color-gray-light;
+      }
+      div:nth-child(2) {
+        padding-left: 10px;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .status-name {
+        font-weight: 400;
+        font-style: italic;
+      }
+    }
+  }
+}
 

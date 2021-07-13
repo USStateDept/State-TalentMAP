@@ -161,6 +161,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "user": "rehmant",
           }
         }
+        collapseOverlay={true}
       />
       <OverlayAlert
         acceptBid={[Function]}
@@ -234,6 +235,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         isCollapsible={true}
         registerHandshake={[Function]}
         submitBid={[Function]}
+        togglePanelAlert={[Function]}
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
