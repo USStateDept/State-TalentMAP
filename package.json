@@ -116,7 +116,7 @@
     "@epegzz/sass-vars-loader": "^6.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "pmmmwh/react-refresh-webpack-plugin#main",
     "@types/date-fns": "^2.6.0",
-    "@types/jest": "^26.0.23",
+    "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.171",
     "@types/node": "^16.3.1",
     "@types/react": "^17.0.14",
