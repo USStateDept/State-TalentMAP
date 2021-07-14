@@ -43,6 +43,8 @@ const PositionManager = props => {
     pick(a, ['code', 'short_description', 'long_description']),
   ), [(b) => b.long_description]);
 
+  const bureauPermissions$ = isAO ? allBureaus : bureauPermissions;
+
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
@@ -58,9 +60,7 @@ const PositionManager = props => {
   const [selectedPostIndicators, setSelectedPostIndicators] =
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
-    useState(userSelections.selectedBureaus ||
-      // eslint-disable-next-line no-nested-ternary
-      (isAO ? [allBureaus[0]] : (get(props, 'bureauPermissions[0]') ? [get(props, 'bureauPermissions[0]')] : [])));
+    useState(userSelections.selectedBureaus || (get(bureauPermissions$, '[0]') ? [get(bureauPermissions$, '[0]')] : []));
   const [selectedOrgs, setSelectedOrgs] =
   useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]') ? [get(props, 'orgPermissions[0]')] : []));
 
@@ -82,8 +82,7 @@ const PositionManager = props => {
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
   const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
-  const bureauOptions = sortBy(isAO ? allBureaus : bureauPermissions,
-    [(b) => b.long_description]);
+  const bureauOptions = sortBy(bureauPermissions$, [(b) => b.long_description]);
   const organizations = orgPermissions;
   const organizationOptions = sortBy(organizations, [(o) => o.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
@@ -248,8 +247,7 @@ const PositionManager = props => {
     setSelectedPosts([]);
     setSelectedTODs([]);
     setSelectedOrgs([props.orgPermissions[0]]);
-    setSelectedBureaus(isAO ?
-      [allBureaus[0]].filter(f => f) : [props.bureauPermissions[0]].filter(f => f));
+    setSelectedBureaus([bureauPermissions$[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
@@ -259,7 +257,7 @@ const PositionManager = props => {
 
   useEffect(() => {
     const defaultOrgCode = get(props, 'orgPermissions[0].code');
-    const defaultBureauCode = isAO ? get(allBureaus, '[0].code') : get(props, 'bureauPermissions[0].code');
+    const defaultBureauCode = get(bureauPermissions$, '[0].code');
     const filters = [
       selectedGrades,
       selectedSkills,
