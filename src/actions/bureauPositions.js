@@ -63,6 +63,8 @@ export function bureauPositionsFetchDataSuccess(results) {
 export function bureauPositionsFetchData(userQuery) {
   // Ensure the userQuery includes a bureau - otherwise we risk querying unauthorized positions
   if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
+    // eslint-disable-next-line no-console
+    console.log('current: userQuery', userQuery);
     return (dispatch) => {
       batch(() => {
         dispatch(bureauPositionsHasErrored(true));

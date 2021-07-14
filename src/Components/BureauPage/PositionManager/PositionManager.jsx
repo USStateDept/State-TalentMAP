@@ -37,7 +37,9 @@ const PositionManager = props => {
     orgPermissions,
   } = props;
 
-  const bureauPermissions$ = sortBy(bureauFilters.filters.find(f => f.item.description === 'region').data.map(a =>
+  // bureauPermissions comes from the userProfile
+  // allBureaus are all the possible bureau filters
+  const allBureaus = sortBy(bureauFilters.filters.find(f => f.item.description === 'region').data.map(a =>
     pick(a, ['code', 'short_description', 'long_description']),
   ), [(b) => b.long_description]);
 
@@ -57,9 +59,11 @@ const PositionManager = props => {
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections.selectedBureaus ||
-      (isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]));
+      // eslint-disable-next-line no-nested-ternary
+      (isAO ? [allBureaus[0]] : (get(props, 'bureauPermissions[0]') ? [get(props, 'bureauPermissions[0]')] : [])));
   const [selectedOrgs, setSelectedOrgs] =
-    useState(userSelections.selectedOrgs || [props.orgPermissions[0]]);
+  useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]') ? [get(props, 'orgPermissions[0]')] : []));
+
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
@@ -69,7 +73,7 @@ const PositionManager = props => {
   const prevPage = usePrevious(page);
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
-  // Relevant filter objects from mega filter state
+  // Relevant filter objects from mega filter state: bureauFilters.filters
   const bureauFilters$ = bureauFilters.filters;
   const tods = bureauFilters$.find(f => f.item.description === 'tod');
   const todOptions = uniqBy(tods.data, 'code');
@@ -78,7 +82,7 @@ const PositionManager = props => {
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
   const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
-  const bureauOptions = sortBy(isAO ? bureauPermissions$ : bureauPermissions,
+  const bureauOptions = sortBy(isAO ? allBureaus : bureauPermissions,
     [(b) => b.long_description]);
   const organizations = orgPermissions;
   const organizationOptions = sortBy(organizations, [(o) => o.long_description]);
@@ -245,7 +249,7 @@ const PositionManager = props => {
     setSelectedTODs([]);
     setSelectedOrgs([props.orgPermissions[0]]);
     setSelectedBureaus(isAO ?
-      [bureauPermissions$[0]].filter(f => f) : [props.bureauPermissions[0]].filter(f => f));
+      [allBureaus[0]].filter(f => f) : [props.bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
@@ -255,7 +259,7 @@ const PositionManager = props => {
 
   useEffect(() => {
     const defaultOrgCode = get(props, 'orgPermissions[0].code');
-    const defaultBureauCode = isAO ? get(bureauPermissions$, '[0].code') : get(props, 'bureauPermissions[0].code');
+    const defaultBureauCode = isAO ? get(allBureaus, '[0].code') : get(props, 'bureauPermissions[0].code');
     const filters = [
       selectedGrades,
       selectedSkills,
@@ -361,7 +365,7 @@ const PositionManager = props => {
                       labelKey="custom_description"
                     />
                   </div>
-                  <PermissionsWrapper permissions={['bureau_user', 'ao_user']} minimum>
+                  <PermissionsWrapper permissions={['bureau_user']} minimum>
                     <div className="filter-div">
                       <div className="label">Bureau:</div>
                       <Picky
@@ -380,6 +384,8 @@ const PositionManager = props => {
                       />
                     </div>
                   </PermissionsWrapper>
+                  {/* Bureau and Organization dropdowns get exposed based on roles;
+                  however, dropdown options get rendered based on permissions */}
                   <StaticDevContent useWrapper={false}>
                     <PermissionsWrapper permissions={['post_user']}>
                       <div className="filter-div">
