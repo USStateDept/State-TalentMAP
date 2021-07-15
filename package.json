@@ -96,7 +96,7 @@
     "sweetalert": "^2.1.2",
     "typeface-merriweather": "^1.1.13",
     "typeface-roboto": "^1.1.13",
-    "use-query-params": "^1.2.2",
+    "use-query-params": "^1.2.3",
     "uswds": "~1.6.12"
   },
   "@comment devDependencies": [
