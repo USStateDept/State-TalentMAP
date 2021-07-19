@@ -909,6 +909,7 @@ $register-hide-icon: 95%;
 
   .bid-tracker-alert-container {
     top: 0;
+    margin-top: 0px;
   }
 
   .top-text {
@@ -1519,12 +1520,6 @@ $register-hide-icon: 95%;
 
   .collapse-overlay {
     margin-left: $register-hide-icon;
-  }
-  
-  .bid-tracker--condensed {
-    .bid-tracker-alert-container--register {
-      margin-top: 0px;
-    }
   }
 }
 
