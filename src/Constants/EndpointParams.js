@@ -5,6 +5,7 @@ export const ENDPOINT_PARAMS = {
   language: 'language_codes',
   grade: 'position__grade__code__in',
   tod: 'position__post__tour_of_duty__code__in',
+  // what does this mean? are we mapping position__bureau__code__in to org? will research further
   org: 'position__bureau__code__in',
   functionalOrg: 'org_has_groups',
   cola: 'position__post__cost_of_living_adjustment__gt',

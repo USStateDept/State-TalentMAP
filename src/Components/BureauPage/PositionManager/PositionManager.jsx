@@ -121,7 +121,7 @@ const PositionManager = props => {
     [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
     [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
     [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    org_code: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
+    position__org__code__in: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
@@ -138,7 +138,7 @@ const PositionManager = props => {
   // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    props.fetchBureauPositions(query);
+    props.fetchBureauPositions(query, bureauPermissions$, orgPermissions);
     props.saveSelections(currentInputs);
   }, []);
 
@@ -146,7 +146,7 @@ const PositionManager = props => {
   useEffect(() => {
     if (prevPage) {
       if (!noBureausSelected || !noOrgsSelected) {
-        props.fetchBureauPositions(query);
+        props.fetchBureauPositions(query, bureauPermissions$, orgPermissions);
       }
       props.saveSelections(currentInputs);
       setPage(1);
@@ -171,7 +171,7 @@ const PositionManager = props => {
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
-      props.fetchBureauPositions(query);
+      props.fetchBureauPositions(query, bureauPermissions$, orgPermissions);
       props.saveSelections(currentInputs);
     }
   }, [page]);
@@ -579,7 +579,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query) => dispatch(bureauPositionsFetchData(query)),
+  fetchBureauPositions: (query, bureauPerms, orgPerms) =>
+    dispatch(bureauPositionsFetchData(query, bureauPerms, orgPerms)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
