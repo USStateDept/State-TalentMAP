@@ -62,11 +62,7 @@ export function bureauPositionsFetchDataSuccess(results) {
 
 export function bureauPositionsFetchData(userQuery, bureauPerms, orgPerms) {
   const userQuery$ = userQuery;
-  // if only bureau user, org will be empty
-  // if only org user, bureau will be empty
 
-  // eslint-disable-next-line no-console
-  console.log('current: userQuery$ bf:', userQuery$);
   // Ensure the userQuery includes a bureau - otherwise we risk querying unauthorized positions
   if ((get(userQuery$, 'position__bureau__code__in', []).length < 1) && (get(userQuery$, 'position__org__code__in', []).length < 1)) {
     return (dispatch) => {
@@ -76,12 +72,8 @@ export function bureauPositionsFetchData(userQuery, bureauPerms, orgPerms) {
       });
     };
   } else if (get(userQuery$, 'position__bureau__code__in', []).length < 1 && !isEmpty(bureauPerms)) {
-    //  if the user has no Bureaus selected and has some Bureau perms,
-    //  then we want to query with all of their Bureau perms
     userQuery$.position__bureau__code__in = bureauPerms.map(bureauObject => (get(bureauObject, 'code')));
   } else if (get(userQuery$, 'position__org__code__in', []).length < 1 && !isEmpty(orgPerms)) {
-    //  if the user has no Orgs selected and has some Org perms,
-    //  then we want to query with all of their Org perms
     userQuery$.position__org__code__in = orgPerms.map(orgObject => (get(orgObject, 'code')));
   }
 
@@ -91,8 +83,6 @@ export function bureauPositionsFetchData(userQuery, bureauPerms, orgPerms) {
   q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/?${q}`;
-  // eslint-disable-next-line no-console
-  console.log('current: userQuery$ af:', userQuery$);
   return (dispatch) => {
     if (cancel) { cancel('cancel'); dispatch(bureauPositionsIsLoading(true)); }
     batch(() => {
