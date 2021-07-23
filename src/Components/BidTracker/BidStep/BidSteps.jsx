@@ -5,7 +5,6 @@ import { APPROVED } from 'Constants/BidStatuses';
 import { checkFlag } from 'flags';
 import { get } from 'lodash';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { HAND_SHAKE_ACCEPTED_PROP } from 'Constants/BidData';
 import ConfettiIcon from './ConfettiIcon';
 import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
@@ -27,8 +26,6 @@ const BidSteps = (props, context) => {
   const { bid, collapseOverlay } = props;
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
-  const handshakeRegisteredAnotherClient =
-    get(bid, 'position_info.bid_statistics[0].has_handshake_offered') && (bid.status !== HAND_SHAKE_ACCEPTED_PROP);
   const getIcon = (status) => {
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
     const tooltipText = get(bidData[status.prop], 'tooltip.text');
@@ -41,7 +38,6 @@ const BidSteps = (props, context) => {
         hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
         tooltipTitle={tooltipTitle}
         tooltipText={tooltipText}
-        handshakeRegisteredAnotherClient={handshakeRegisteredAnotherClient}
       />
     );
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
