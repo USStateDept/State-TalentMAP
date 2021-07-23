@@ -909,6 +909,7 @@ $register-hide-icon: 95%;
 
   .bid-tracker-alert-container {
     top: 0;
+    margin-top: 0px;
   }
 
   .top-text {
@@ -1314,7 +1315,8 @@ $register-hide-icon: 95%;
 }
 
 .bid-tracker-alert-container--register {
-  top: 35px;
+  margin-top: 35px;
+  top: 0;
 
   .remove-bid-link {
     cursor: pointer;
@@ -1514,6 +1516,10 @@ $register-hide-icon: 95%;
 
   .bid-tracker-overlay-alert--register-another-client::after {
     display: none;
+  }
+
+  .collapse-overlay {
+    margin-left: $register-hide-icon;
   }
 }
 
