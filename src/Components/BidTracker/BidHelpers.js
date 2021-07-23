@@ -17,7 +17,7 @@ import getConfig, { isTypeComplete } from './BidPhaseConfig/config';
 export function shouldShowAlert(bid, { condensedView = false }) {
   // TO-DO - Add APPROVED_PROP back in with meanginful information
   const alertStatusArray = [DRAFT_PROP, CLOSED_PROP, HAND_SHAKE_ACCEPTED_PROP,
-    HAND_SHAKE_DECLINED_PROP, DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, SUBMITTED_PROP];
+    HAND_SHAKE_DECLINED_PROP, DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP];
 
   if (isTypeComplete()) {
     alertStatusArray.push(HAND_SHAKE_OFFERED_PROP);
