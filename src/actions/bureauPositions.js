@@ -63,7 +63,8 @@ export function bureauPositionsFetchDataSuccess(results) {
 export function bureauPositionsFetchData(userQuery, bureauPerms, orgPerms) {
   const userQuery$ = userQuery;
 
-  // Ensure the userQuery includes a bureau - otherwise we risk querying unauthorized positions
+  // Ensure the userQuery includes bureaus or orgs, based on perms
+  // - otherwise we risk querying unauthorized positions
   if ((get(userQuery$, 'position__bureau__code__in', []).length < 1) && (get(userQuery$, 'position__org__code__in', []).length < 1)) {
     return (dispatch) => {
       batch(() => {
