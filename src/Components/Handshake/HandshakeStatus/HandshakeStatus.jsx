@@ -26,6 +26,8 @@ const HandshakeStatus = props => {
     // hs_cdo_indicator,
   } = handshake;
 
+  console.log('props', props.hsStatusCode);
+
   const isExpired = hs_date_expiration && isPast(new Date(hs_date_expiration));
 
   const styling = {
@@ -72,6 +74,7 @@ const HandshakeStatus = props => {
 
   const bureauStyle = styling[hs_status_code] || styling.default;
   const bidderStyle = styling[bidder_hs_code] || styling[isExpired ? 'handshake_expired' : 'default'];
+  console.log('bureaustyle', bureauStyle.bureau);
 
   return (
     <>
