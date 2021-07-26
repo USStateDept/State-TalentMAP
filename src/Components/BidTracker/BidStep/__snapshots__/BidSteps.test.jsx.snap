@@ -21,7 +21,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -57,7 +56,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -93,7 +91,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -129,7 +126,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -165,7 +161,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -210,7 +205,6 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         }
       >
         <BidStepIcon
-          handshakeRegisteredAnotherClient={false}
           hasRescheduledTooltip={false}
           isComplete={false}
           isCurrent={true}
