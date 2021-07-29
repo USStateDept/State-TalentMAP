@@ -190,7 +190,7 @@
     "webpack-plugin-ramdisk": "^0.1.8",
     "whatwg-fetch": "2.0.3",
     "workbox-webpack-plugin": "^6.1.5",
-    "yarn": "^1.22.10"
+    "yarn": "^1.22.11"
   },
   "scripts": {
     "start": "node scripts/start.js",
