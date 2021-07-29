@@ -10,7 +10,21 @@
         <img src="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/gpa.svg" /></a>
 
 
-A comprehensive research, bidding, and matching system to match Foreign Service employees with the right skills to available posts and positions.
+## Overview
+
+A comprehensive research, bidding, and matching system to match Foreign Service employees with the right skills to available posts and positions. Key features include:
+#### Researching
+- Searching and Filtering Positions
+- Saving Searches
+- Favoriting Positions
+#### Bidding
+- Submitting & Updating Bids (Job Applications)
+- Monitoring Bid Status
+#### Matching (Currently Under Development)
+- Candidate Ranking
+- Ability to Progress Candidate Bid (Accept or Reject)
+#### Position Management (Future Development)
+- Ability to Manage Positions for Bidding (Create, Edit, Delete)
 
 ## Getting Started
 
