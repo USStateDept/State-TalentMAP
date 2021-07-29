@@ -10,7 +10,7 @@
         <img src="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/gpa.svg" /></a>
 
 
-- [High-level architecture - test](https://unsplash.com/photos/OzAeZPNsLXk)
+- [High-level architecture - test](https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/1656/commits/d25083c2df44ecb639fbcfd968c9c69d20be29f4)
 
 ## Overview
 
