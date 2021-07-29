@@ -10,7 +10,32 @@
         <img src="https://codeclimate.com/github/MetaPhase-Consulting/State-TalentMAP/badges/gpa.svg" /></a>
 
 
-A comprehensive research, bidding, and matching system to match Foreign Service employees with the right skills to available posts and positions.
+- [High-level architecture - test](https://github.com/MetaPhase-Consulting/State-TalentMAP/pull/1656/commits/d25083c2df44ecb639fbcfd968c9c69d20be29f4)
+
+## Overview
+
+A comprehensive research, bidding, and matching system that matches Foreign Service employees to available positions. Key features include:
+#### Researching
+- Searching and Filtering Positions
+- Saving Searches
+- Favoriting Positions
+#### Bidding
+- Submitting & Updating Bids (Job Applications)
+- Monitoring Bid Status
+#### Matching (Currently Under Development)
+- Candidate Ranking
+- Ability to Progress Candidate Bid (Accept or Reject)
+#### Position Management (Future Development)
+- Ability to Manage Positions for Bidding (Create, Edit, Delete)
+
+## High Level Architecture
+The system can be divided into 3 parts:
+1) Frontend UI
+2) Backend API
+3) Existing Federal Services
+
+The frontend is responsible for providing a clean user experience leveraging React and Redux, while the data is supplied by the Django MVT framework. The system is meant to operate independently or with existing federal data APIs, allowing the system to remain flexible with new or legacy application data. This empowers developers by allowing them to expand new features with the TalentMAP application while leveraging existing data services already provided to other federal applications.
+![Architecture Diagram](./architecture-diagram.png)
 
 ## Getting Started
 
