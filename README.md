@@ -35,8 +35,7 @@ The system can be divided into 3 parts:
 3) Existing Federal Services
 
 The frontend is responsible for providing a clean user experience leveraging React and Redux, while the data is supplied by the Django MVT framework. The system is meant to operate independently or with existing federal data APIs, allowing the system to remain flexible with new or legacy application data. This empowers developers by allowing them to expand new features with the TalentMAP application while leveraging existing data services already provided to other federal applications.
-
-<img src="./architecture-diagram.png" alt="Architecture Diagram">
+![Architecture Diagram](./architecture-diagram.png)
 
 ## Getting Started
 
