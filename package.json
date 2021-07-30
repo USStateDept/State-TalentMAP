@@ -162,6 +162,7 @@
     "object.entries": "^1.1.4",
     "postcss-flexbugs-fixes": "4.2.1",
     "postcss-loader": "3.0.0",
+    "progress-bar-webpack-plugin": "^2.1.0",
     "promise": "8.1.0",
     "react-app-polyfill": "^2.0.0",
     "react-dev-utils": "10.1.0",
