@@ -127,7 +127,7 @@ export function availableBiddersFetchData(isCDO, sortType = 'Name') {
       dispatch(availableBiddersFetchDataLoading(true));
       dispatch(availableBiddersFetchDataErrored(false));
     });
-    api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
+    api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/?ordering=${sortType}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(availableBiddersFetchDataSuccess(data));
@@ -232,9 +232,9 @@ export function availableBidderEditData(id, data) {
   };
 }
 
-export function availableBidderExport(cdo) {
+export function availableBidderExport(cdo, isSort = 'Name') {
   return api()
-    .get(`${cdo ? '/cdo' : '/bureau'}/availablebidders/export/`)
+    .get(`${cdo ? '/cdo' : '/bureau'}/availablebidders/export/?ordering=${isSort}`)
     .then((response) => {
       downloadFromResponse(response, `Available_Bidders_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });
