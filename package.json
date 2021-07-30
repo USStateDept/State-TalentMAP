@@ -90,7 +90,7 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^0.16.2",
     "redux-thunk": "^2.2.0",
-    "regenerator-runtime": "^0.13.7",
+    "regenerator-runtime": "^0.13.9",
     "saml2-js": "2.0.7",
     "shortid": "^2.2.16",
     "sweetalert": "^2.1.2",
