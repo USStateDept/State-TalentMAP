@@ -63,8 +63,8 @@ const PositionManager = props => {
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
   const [clearFilters, setClearFilters] = useState(false);
-  // const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
-  //   useState(userSelections.selectedHandshakeStatus || []);
+  const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
+    useState(userSelections.selectedHandshakeStatus || []);
 
   // Pagination
   const prevPage = usePrevious(page);
@@ -89,8 +89,9 @@ const PositionManager = props => {
   const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
   const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
-  // const handshakeStatus = bureauFilters$.find(f => f.item.description === 'lead_hs_status_code');
-  // const handshakeStatusOptions = sortBy(handshakeStatus.data, [(c) => c.description]);
+  const handshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
+  // const handshakeStatusOptions = uniqBy(handshakeStatus.data, 'description');
+  const handshakeStatusOptions = sortBy(handshakeStatus.data, 'description');
   const sorts = BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
@@ -106,7 +107,7 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
-    // selectedHandshakeStatus,
+    selectedHandshakeStatus,
     textSearch,
     textInput,
   };
@@ -122,8 +123,7 @@ const PositionManager = props => {
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
-    // [handshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(hsStatusObject =>
-    //  (get(hsStatusObject, 'code'))),
+    [handshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(hsStatusObject => (get(hsStatusObject, 'description'))),
     ordering,
     page,
     limit,
@@ -159,7 +159,7 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
-    // selectedHandshakeStatus,
+    selectedHandshakeStatus,
     ordering,
     limit,
     textSearch,
@@ -251,7 +251,7 @@ const PositionManager = props => {
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
     setTextSearch('');
-    // setSelectedHandshakeStatus([]);
+    setSelectedHandshakeStatus([]);
     setClearFilters(false);
   };
 
@@ -265,7 +265,7 @@ const PositionManager = props => {
       selectedCycles,
       selectedLanguages,
       selectedPostIndicators,
-      // selectedHandshakeStatus,
+      selectedHandshakeStatus,
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
     if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
@@ -281,7 +281,7 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
-    // selectedHandshakeStatus,
+    selectedHandshakeStatus,
     textSearch,
     selectedBureaus,
   ]);
@@ -454,12 +454,9 @@ const PositionManager = props => {
                       <div className="label">Handshake:</div>
                       <Picky
                         placeholder="Select Handshake Status"
-                        value={selectedPostIndicators}
-                        // value={selectedHandshakeStatus}
-                        options={postIndicatorsOptions}
-                        // options={handshakeStatusOptions}
-                        onChange={setSelectedPostIndicators}
-                        // onChange={setSelectedHandshakeStatus}
+                        value={selectedHandshakeStatus}
+                        options={handshakeStatusOptions}
+                        onChange={setSelectedHandshakeStatus}
                         numberDisplayed={2}
                         multiple
                         includeFilter
