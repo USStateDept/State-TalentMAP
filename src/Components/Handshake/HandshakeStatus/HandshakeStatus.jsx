@@ -72,7 +72,6 @@ const HandshakeStatus = props => {
 
   const bureauStyle = styling[hs_status_code] || styling.default;
   const bidderStyle = styling[bidder_hs_code] || styling[isExpired ? 'handshake_expired' : 'default'];
-  console.log('bureaustyle', bureauStyle.bureau);
 
   return (
     <>
