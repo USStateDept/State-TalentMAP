@@ -26,8 +26,6 @@ const HandshakeStatus = props => {
     // hs_cdo_indicator,
   } = handshake;
 
-  console.log('props', props.hsStatusCode);
-
   const isExpired = hs_date_expiration && isPast(new Date(hs_date_expiration));
 
   const styling = {
