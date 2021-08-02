@@ -11454,9 +11454,10 @@ react-scroll-up-button@^1.6.4:
     prop-types "^15.6.2"
     tween-functions "^1.2.0"
 
-react-scroll@^1.8.1:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.8.1.tgz#eb4052265f1606cf60855c981ebcfed1bc3beff3"
+react-scroll@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/react-scroll/-/react-scroll-1.8.3.tgz#0aff41567808f548b1b4d893ce6bd551ba1b16ef"
+  integrity sha512-BpEMPUIkLuu3BGZYeaCxDA4tk4Hd25f7da9qGb3a2FY8gURtaVaA62q/Vk2/DChP/4GETp5WMbvkRLaMLzVgwg==
   dependencies:
     lodash.throttle "^4.1.1"
     prop-types "^15.7.2"
