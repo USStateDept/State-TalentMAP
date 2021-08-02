@@ -79,7 +79,6 @@ class BureauResultsCard extends Component {
 
     if (isProjectedVacancy) { delete sections[2].Posted; }
 
-    console.log('lead?', result.handshake);
     return (
       <Row fluid className="bureau-results-card">
         <Row fluid>
