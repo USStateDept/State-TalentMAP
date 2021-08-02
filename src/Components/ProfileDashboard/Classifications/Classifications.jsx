@@ -16,6 +16,7 @@ const Classifications = props => {
     clientClassifications,
     updateUserClassifications,
     userId,
+    isPublic,
   } = props;
 
   const [editView, setEditView] = useState(false);
@@ -56,7 +57,7 @@ const Classifications = props => {
   };
 
   const useClassificationsEditor = () => checkFlag('flags.classifications');
-  const displayClassificationsEditor = useClassificationsEditor();
+  const displayClassificationsEditor = useClassificationsEditor() && isPublic;
 
   const classifications$ = orderClassifications(classifications);
 
@@ -113,12 +114,14 @@ Classifications.propTypes = {
   clientClassifications: CLIENT_CLASSIFICATIONS,
   updateUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  isPublic: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   updateUserClassifications: EMPTY_FUNCTION,
+  isPublic: false,
 };
 
 export const mapDispatchToProps = dispatch => ({

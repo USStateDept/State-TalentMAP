@@ -4,27 +4,30 @@ import { connect } from 'react-redux';
 import { notificationsFetchData } from 'actions/notifications';
 import { bidListFetchData, submitBid, toggleBidPosition } from 'actions/bidList';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
-import { BID_LIST, FAVORITE_POSITIONS, NOTIFICATION_LIST, USER_PROFILE } from 'Constants/PropTypes';
+import { BID_LIST, CLASSIFICATIONS, EMPTY_FUNCTION, FAVORITE_POSITIONS, NOTIFICATION_LIST, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
+import { fetchClassifications } from 'actions/classifications';
 
 class DashboardContainer extends Component {
   UNSAFE_componentWillMount() {
     this.props.fetchNotifications();
     this.props.fetchBidList();
     this.props.fetchFavorites();
+    this.props.fetchClassifications();
   }
 
   render() {
     const { userProfile, userProfileIsLoading,
       notifications, notificationsIsLoading, bidList, bidListIsLoading, favoritePositions,
       favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
-      deleteBid } = this.props;
+      deleteBid, classifications, classificationsIsLoading } = this.props;
     const allFavorites = favoritePositions.favorites.concat(favoritePositions.favoritesPV);
+    const userClassifications = userProfile.classifications;
     return (
       <ProfileDashboard
         userProfile={userProfile}
-        isLoading={userProfileIsLoading}
+        isLoading={userProfileIsLoading || classificationsIsLoading}
         notifications={notifications.results}
         notificationsIsLoading={notificationsIsLoading}
         bidList={bidList.results}
@@ -34,6 +37,9 @@ class DashboardContainer extends Component {
         favoritePositionsHasErrored={favoritePositionsHasErrored}
         submitBidPosition={submitBidPosition}
         deleteBid={deleteBid}
+        classifications={classifications}
+        clientClassifications={userClassifications}
+        showClassifications
       />
     );
   }
@@ -54,6 +60,9 @@ DashboardContainer.propTypes = {
   favoritePositionsHasErrored: PropTypes.bool,
   submitBidPosition: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
+  fetchClassifications: PropTypes.func,
+  classificationsIsLoading: PropTypes.bool,
+  classifications: CLASSIFICATIONS,
 };
 
 DashboardContainer.defaultProps = {
@@ -66,6 +75,10 @@ DashboardContainer.defaultProps = {
   favoritePositions: DEFAULT_FAVORITES,
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
+  fetchClassifications: EMPTY_FUNCTION,
+  classificationsIsLoading: true,
+  classificationsHasErrored: false,
+  classifications: [],
 };
 
 const mapStateToProps = state => ({
@@ -78,6 +91,8 @@ const mapStateToProps = state => ({
   favoritePositions: state.favoritePositions,
   favoritePositionsHasErrored: state.favoritePositionsHasErrored,
   favoritePositionsIsLoading: state.favoritePositionsIsLoading,
+  classificationsIsLoading: state.classificationsIsLoading,
+  classifications: state.classifications,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -86,6 +101,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchFavorites: () => dispatch(favoritePositionsFetchData(null, 5, 1, 'all')),
   submitBidPosition: id => dispatch(submitBid(id)),
   deleteBid: id => dispatch(toggleBidPosition(id, true)),
+  fetchClassifications: () => dispatch(fetchClassifications()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

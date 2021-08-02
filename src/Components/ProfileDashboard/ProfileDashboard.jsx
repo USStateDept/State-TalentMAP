@@ -101,7 +101,7 @@ const ProfileDashboard = ({
                     </div>
                   }
                   {
-                    isPublic && showClassifications &&
+                    showClassifications &&
                     <Column
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-2"
@@ -111,6 +111,7 @@ const ProfileDashboard = ({
                           classifications={classifications}
                           clientClassifications={clientClassifications}
                           userId={userProfile.perdet_seq_number}
+                          isPublic={isPublic}
                         />
                       </BoxShadow>
                     </Column>
