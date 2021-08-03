@@ -26,7 +26,7 @@ const ProfileDashboard = ({
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
-  unregisterHandshake,
+  unregisterHandshake, userClassificationsHasErrored,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -97,19 +97,22 @@ const ProfileDashboard = ({
                             </PermissionsWrapper>
                           )}
                         />
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                          <Classifications
-                            classifications={classifications}
-                            clientClassifications={clientClassifications}
-                            userId={userProfile.perdet_seq_number}
-                            isPublic={isPublic}
-                          />
-                        </BoxShadow>
+                        {
+                          !userClassificationsHasErrored &&
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                            <Classifications
+                              classifications={classifications}
+                              clientClassifications={clientClassifications}
+                              userId={userProfile.perdet_seq_number}
+                              isPublic={isPublic}
+                            />
+                          </BoxShadow>
+                        }
                       </Column>
                     </div>
                   }
                   {
-                    isPublic && showClassifications &&
+                    isPublic && showClassifications && !userClassificationsHasErrored &&
                     <Column
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-2"
@@ -179,6 +182,7 @@ ProfileDashboard.propTypes = {
   showClassifications: PropTypes.bool,
   showAssignmentHistory: PropTypes.bool,
   showSearchAsClient: PropTypes.bool,
+  userClassificationsHasErrored: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
@@ -200,6 +204,7 @@ ProfileDashboard.defaultProps = {
   showClassifications: true,
   showAssignmentHistory: true,
   showSearchAsClient: true,
+  userClassificationsHasErrored: false,
 };
 
 export default ProfileDashboard;

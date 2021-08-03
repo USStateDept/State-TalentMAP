@@ -101,15 +101,8 @@ export function userProfileFetchData(bypass, cb) {
         const bureauPermissions = get(results, '[5].value.data', []);
         const orgPermissions = get(results, '[6].value.data', []);
         const account = get(results, '[7].value.data', {});
-        // eslint-disable-next-line no-unused-vars
-        let classifications = [];
 
-        api().get(`/fsbid/classifications/${account.emp_id}/`)
-          .then((a) => {
-            classifications = a.data;
-          });
 
-        // grab classifications for user
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
@@ -121,7 +114,6 @@ export function userProfileFetchData(bypass, cb) {
           cdo: account.cdo_info, // don't use deprecated CDO API model
           bureau_permissions: bureauPermissions,
           org_permissions: orgPermissions,
-          classifications,
         };
 
         if (!bypass) {
