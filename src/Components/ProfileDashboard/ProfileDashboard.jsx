@@ -72,6 +72,9 @@ const ProfileDashboard = ({
                         <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                           <SavedSearches />
                         </BoxShadow>
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                          <Favorites favorites={favoritePositions} />
+                        </BoxShadow>
                       </Column>
                       <Column
                         columns={columns[2]}
@@ -94,14 +97,19 @@ const ProfileDashboard = ({
                             </PermissionsWrapper>
                           )}
                         />
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                          <Favorites favorites={favoritePositions} />
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                          <Classifications
+                            classifications={classifications}
+                            clientClassifications={clientClassifications}
+                            userId={userProfile.perdet_seq_number}
+                            isPublic={isPublic}
+                          />
                         </BoxShadow>
                       </Column>
                     </div>
                   }
                   {
-                    showClassifications &&
+                    isPublic && showClassifications &&
                     <Column
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-2"

@@ -63,7 +63,7 @@ const Classifications = props => {
 
   return (
     <div className="usa-grid-full profile-section-container updates-container">
-      <div className="usa-grid-full section-padded-inner-container">
+      <div className="section-padded-inner-container">
         <div className="usa-width-one-whole">
           <SectionTitle title="Bidder Classifications" icon="tasks" />
         </div>
@@ -74,6 +74,7 @@ const Classifications = props => {
             editView={editView}
             updateClassifications={handleInput}
             input={userInput}
+            isPublic={isPublic}
           />
         </div>
       </div>
