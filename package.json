@@ -117,7 +117,7 @@
     "@pmmmwh/react-refresh-webpack-plugin": "pmmmwh/react-refresh-webpack-plugin#main",
     "@types/date-fns": "^2.6.0",
     "@types/jest": "^26.0.24",
-    "@types/lodash": "^4.14.171",
+    "@types/lodash": "^4.14.172",
     "@types/node": "^16.4.10",
     "@types/react": "^17.0.15",
     "@types/react-dom": "^17.0.9",
