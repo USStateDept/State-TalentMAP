@@ -12,6 +12,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
 import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
+import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE,
@@ -85,6 +86,7 @@ class BureauResultsCard extends Component {
             <div>{detailsLink}</div>
             <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
+            <HandshakeStatus handshake={result.handshake} />
             {
               get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
             }

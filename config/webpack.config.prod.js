@@ -14,6 +14,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const paths = require('./paths');
 const envVariables = require('./env');
 const FAST_BUILD = process.env.FAST_BUILD || false;
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 
 // get git info from command line
 let commitHash = ''
@@ -323,6 +324,7 @@ module.exports = {
     new webpack.DefinePlugin({
       __COMMIT_HASH__: JSON.stringify(commitHash),
     }),
+    new ProgressBarPlugin(),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.

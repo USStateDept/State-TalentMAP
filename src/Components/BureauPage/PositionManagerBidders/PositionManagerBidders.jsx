@@ -11,7 +11,7 @@ import { formatDate, move } from 'utilities';
 import { checkFlag } from 'flags';
 import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
-import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
+import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_LANGUAGE, NO_SKILL, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
 import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_FILTERS, BUREAU_BIDDER_SORT } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
@@ -289,9 +289,9 @@ class PositionManagerBidders extends Component {
         : '',
       Name: (<Link to={`/profile/public/${m.emp_id}/bureau`}>{get(m, 'name')}</Link>),
       SubmittedDate: formattedSubmitted,
-      Skill: get(m, 'skill'),
+      Skill: get(m, 'skill') || NO_SKILL,
       Grade: get(m, 'grade') || NO_GRADE,
-      Language: get(m, 'language'),
+      Language: get(m, 'language') || NO_LANGUAGE,
       Classifications: classifications.length ?
         <Tooltip
           html={getClassificationsTooltip(classifications)}
