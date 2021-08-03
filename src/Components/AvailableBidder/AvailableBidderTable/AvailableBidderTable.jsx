@@ -104,7 +104,7 @@ const AvailableBidderTable = props => {
   const exportBidders = () => {
     if (!isLoading) {
       setExportIsLoading(true);
-      availableBidderExport(isCDO)
+      availableBidderExport(isCDO, sort)
         .then(() => {
           setExportIsLoading(false);
         })
