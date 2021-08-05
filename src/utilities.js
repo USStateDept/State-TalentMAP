@@ -655,6 +655,13 @@ export const mapDuplicates = (data = [], propToCheck = 'custom_description') => 
   return p$;
 });
 
+
+export const termInGlossary = (term) => {
+  // id formatting used for glossary accordion buttons
+  const id = `${formatIdSpacing(term)}-button`;
+  return document.getElementById(id) !== null;
+};
+
 // scroll to a specific glossary term
 export const scrollToGlossaryTerm = (term) => {
   // id formatting used for glossary accordion buttons

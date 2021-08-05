@@ -5,6 +5,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Row } from '../../Layout';
 import ClientBadge from '../ClientBadge';
+import GlossaryTermTrigger from '../../GlossaryTermTrigger';
 
 const CheckboxList = ({ list, editView, updateClassifications,
   input, isPublic }) => {
@@ -44,18 +45,19 @@ const CheckboxList = ({ list, editView, updateClassifications,
               <div>
                 <Row className="usa-grid-full">
                   <div className="usa-grid-full toggle-more-container">
+                    <ClientBadge
+                      key={c.seasons[0].id}
+                      type={c}
+                      id={c.seasons[0].id}
+                      status={checked}
+                      showShortCode={false}
+                      editView={editView}
+                    />
+                    <div className="classifications-badges-text">
+                      {c.text}
+                    </div>
+                    <GlossaryTermTrigger className="classifications-glossary-link" icon="book" hideMissingTerm term={c.text} />
                     <InteractiveElement className="toggle-more classifications-row" onClick={() => updateShowMore(uniqueShowMore)}>
-                      <ClientBadge
-                        key={c.seasons[0].id}
-                        type={c}
-                        id={c.seasons[0].id}
-                        status={checked}
-                        showShortCode={false}
-                        editView={editView}
-                      />
-                      <div className="classifications-badges-text">
-                        {c.text}
-                      </div>
                       <FontAwesome
                         name={`chevron-${showMore[uniqueShowMore] ? 'down' : 'right'}`}
                       />
@@ -80,6 +82,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                               onChange={updateClassifications}
                               editView={editView}
                             />
+
                             <div className="classifications-season-text">
                               {m.season_text}
                             </div>
@@ -106,6 +109,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                   <div className="classifications-badges-text">
                     {c.text}
                   </div>
+                  <GlossaryTermTrigger className="classifications-glossary-link" hideMissingTerm icon="book" term={c.text} />
                 </div>
               }
             </div>

@@ -75,6 +75,14 @@
           vertical-align: super;
           padding-left: 10px;
         }
+        .classifications-glossary-link {
+          vertical-align: super;
+          padding-left: 10px;
+          color: $bg-gray-dark-2;
+        }
+        .classifications-glossary-link:hover {
+          color: $bg-gray-dark-1;
+        }
         .classifications-season-text {
           display: inline-block;
           vertical-align: super;

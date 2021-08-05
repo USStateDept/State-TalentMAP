@@ -65,7 +65,7 @@ class GlossaryComponent extends Component {
 
   handleOutsideClick = e => {
     const { visible } = this.props;
-    if (visible && !document.getElementById(ID).contains(e.target)) {
+    if (visible && !document.getElementById(ID).contains(e.target) && (e.target.id !== 'bypass-glossary')) {
       this.toggleVisibility();
     }
   };
