@@ -1,5 +1,6 @@
 'use strict';
 
+const os = require('os');
 const autoprefixer = require('autoprefixer');
 const path = require('path');
 const webpack = require('webpack');
@@ -11,6 +12,7 @@ const { GenerateSW } = require('workbox-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const paths = require('./paths');
 const envVariables = require('./env');
 const FAST_BUILD = process.env.FAST_BUILD || false;
@@ -165,6 +167,27 @@ module.exports = {
           name: 'static/media/[name].[hash:8].[ext]',
         },
       },
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+						// main typescript compilation loader
+						loader: 'ts-loader',
+						options: {
+							/**
+							 * Increase build speed by disabling typechecking for the
+							 * main process and is required to be used with thread-loader
+							 * @see https://github.com/TypeStrong/ts-loader/blob/master/examples/thread-loader/webpack.config.js
+							 * Requires to use the ForkTsCheckerWebpack Plugin
+							 */
+              happyPackMode: true,
+              configFile: paths.tsconfig,
+						},
+					},
+        ]
+      },
       // Process JS with Babel.
       {
         test: /\.(js|jsx|ts|tsx)$/,
@@ -282,6 +305,18 @@ module.exports = {
       template: paths.loginHtml,
       filename: 'login.html'
     }),
+    // Webpack plugin that runs typescript type checker on a separate process.
+		new ForkTsCheckerWebpackPlugin({
+			// block webpack's emit to wait for type checker/linter and to add errors to the webpack's compilation
+			async: false,
+			typescript: {
+				diagnosticOptions: {
+					semantic: true,
+					syntactic: true,
+				},
+				configFile: paths.tsconfig,
+			},
+		}),
     // Makes some environment variables available in index.html.
     // The public URL is available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
