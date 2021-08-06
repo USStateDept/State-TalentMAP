@@ -32,10 +32,7 @@ exports[`HomePageBanner Component matches snapshot 1`] = `
       </SkeletonTheme>
     </div>
     <LinkButton
-      className=""
-      isExternal={false}
       toLink="/results"
-      useDefaultClass={true}
     >
       Find Your Next Position
     </LinkButton>
