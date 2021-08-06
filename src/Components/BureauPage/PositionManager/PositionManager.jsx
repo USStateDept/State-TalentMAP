@@ -90,9 +90,9 @@ const PositionManager = props => {
   const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
   const handshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
-  // const handshakeStatusOptions = uniqBy(handshakeStatus.data, 'description');
-  const handshakeStatusOptions = sortBy(handshakeStatus.data, 'description');
+  const handshakeStatusOptions = uniqBy(handshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
+  // will be making filter here
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -123,7 +123,7 @@ const PositionManager = props => {
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
-    [handshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(hsStatusObject => (get(hsStatusObject, 'description'))),
+    [handshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(hsStatusObject => (get(hsStatusObject, 'code'))),
     ordering,
     page,
     limit,
