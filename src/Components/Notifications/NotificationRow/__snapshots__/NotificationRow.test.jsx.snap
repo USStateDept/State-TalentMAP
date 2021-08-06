@@ -54,9 +54,7 @@ exports[`NotificationRowComponent matches snapshot 1`] = `
   >
     <LinkButton
       className="usa-button"
-      isExternal={false}
       toLink="/profile/bidtracker"
-      useDefaultClass={true}
     >
       Go to Bid Tracker
     </LinkButton>
