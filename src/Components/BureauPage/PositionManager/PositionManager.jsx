@@ -89,10 +89,29 @@ const PositionManager = props => {
   const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
   const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
-  const handshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
-  const handshakeStatusOptions = uniqBy(handshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
-  // will be making filter here
+  const handshakeStatus =
+  {
+    data: [
+      { code: 'A', description: 'Handshake Accepted', isSelected: false },
+      { code: 'D', description: 'Handshake Declined', isSelected: false },
+      { code: 'O', description: 'Handshake Offered', isSelected: false },
+      { code: 'R', description: 'Handshake Revoked', isSelected: false },
+      { code: 'HS', description: 'Handshake Registered', isSelected: false },
+      { code: 'OP', description: 'No Handshake', isSelected: false },
+    ],
+    dataAP: [],
+    item: {
+      description: 'handshake',
+      endpoint: undefined,
+      onlyAvailablePositions: true,
+      selectionRef: 'cps_codes',
+      sort: 1200,
+      text: 'Include positions with handshakes',
+      title: 'Handshake',
+    },
+  };
+  const handshakeStatusOptions = uniqBy(handshakeStatus.data, 'code');
 
   // Local state inputs to push to redux state
   const currentInputs = {
