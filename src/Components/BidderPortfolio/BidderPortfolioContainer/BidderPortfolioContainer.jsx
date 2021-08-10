@@ -53,6 +53,8 @@ class BidderPortfolioContainer extends Component {
                pageSize={pageSize}
                onPageChange={this.onPageChange}
                forcePage={pageNumber}
+               marginPagesDisplayed={2}
+               pageRangeDisplayed={7}
              />
            </div>
         }

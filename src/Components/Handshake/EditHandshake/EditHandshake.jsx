@@ -40,7 +40,7 @@ const EditHandshake = props => {
 
   const calculateExpiration = () => {
     if (officialReveal && isFuture(new Date(officialReveal))) {
-      return new Date(officialReveal);
+      return add(new Date(officialReveal), { days: 1 });
     }
     return add(new Date(), { days: 1 });
   };
