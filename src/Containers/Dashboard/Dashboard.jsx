@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { notificationsFetchData } from 'actions/notifications';
 import { bidListFetchData, submitBid, toggleBidPosition } from 'actions/bidList';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
+import { get, includes } from 'lodash';
 import { BID_LIST, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION, FAVORITE_POSITIONS, NOTIFICATION_LIST, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
@@ -14,8 +15,10 @@ class DashboardContainer extends Component {
     this.props.fetchNotifications();
     this.props.fetchBidList();
     this.props.fetchFavorites();
-    this.props.fetchClassifications();
-    this.props.fetchUserClassifications(this.props.userProfile.id);
+    if (includes(get(this.props.userProfile, 'permission_groups', []), 'bidder')) {
+      this.props.fetchClassifications();
+      this.props.fetchUserClassifications(this.props.userProfile.id);
+    }
   }
 
   render() {
