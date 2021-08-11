@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isEqual, isNull, keys, orderBy } from 'lodash';
+import { get, isEqual, keys, orderBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -329,7 +329,7 @@ class PositionManagerBidders extends Component {
                 handshake={handshake}
                 positionID={props.id}
                 personID={m.emp_id}
-                disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
+                activePerdet={active_hs_perdet}
                 bidCycle={get(props, 'bidCycle', {})}
               />
             </PermissionsWrapper>
@@ -398,7 +398,7 @@ class PositionManagerBidders extends Component {
 
   render() {
     const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
-      hasBureauPermission } = this.props;
+      hasBureauPermission, bidCycle } = this.props;
     const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
     const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
@@ -492,6 +492,7 @@ class PositionManagerBidders extends Component {
                   :
                   <>
                     {/* eslint-disable no-nested-ternary */}
+                    {!get(bidCycle, 'handshake_allowed_date') && <Alert type="dark" title="Bureaus cannot offer handshakes for this cycle at this time" />}
                     {isLocked ?
                       hasBureauPermission ? shortListSection : <>
                         <Alert
@@ -523,7 +524,6 @@ class PositionManagerBidders extends Component {
                         onSelectOption={e => this.props.onFilter('handshake_code', e.target.value)}
                       />
                     </div>
-
                     <div className="list-toggle-container">
                       <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('unrankedVisible')}><FA name={unrankedVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
                       <h3>Candidates ({this.state.unranked.length})</h3>
@@ -596,6 +596,7 @@ class PositionManagerBidders extends Component {
 
 PositionManagerBidders.propTypes = {
   bids: PropTypes.arrayOf(PropTypes.shape({})),
+  bidCycle: PropTypes.shape({}),
   bidsIsLoading: PropTypes.bool,
   onSort: PropTypes.func,
   onFilter: PropTypes.func,
@@ -616,6 +617,7 @@ PositionManagerBidders.propTypes = {
 
 PositionManagerBidders.defaultProps = {
   bids: [],
+  bidCycle: {},
   bidsIsLoading: false,
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
