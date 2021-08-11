@@ -72,6 +72,8 @@ export function fetchClassifications() {
       .get('/fsbid/reference/classifications/')
       .then(({ data }) => {
         const data$ = uniqBy(data, 'code');
+        // eslint-disable-next-line no-console
+        console.log('current: data$', data$);
         batch(() => {
           dispatch(classificationsHasErrored(false));
           dispatch(classificationsIsLoading(false));
@@ -135,6 +137,8 @@ export function fetchUserClassifications(user_id) {
       })
       .catch(() => {
         batch(() => {
+          // eslint-disable-next-line no-console
+          console.log('current: catch for fetchUserClassifications');
           dispatch(userClassificationsHasErrored(true));
           dispatch(userClassificationsIsLoading(false));
         });

@@ -56,7 +56,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                     <div className="classifications-badges-text">
                       {c.text}
                     </div>
-                    <GlossaryTermTrigger className="classifications-glossary-link" icon="book" hideMissingTerm term={c.text} />
+                    <GlossaryTermTrigger className="classifications-glossary-link" icon="book" hideMissingTerm term={c.glossary_term} />
                     <InteractiveElement className="toggle-more classifications-row" onClick={() => updateShowMore(uniqueShowMore)}>
                       <FontAwesome
                         name={`chevron-${showMore[uniqueShowMore] ? 'down' : 'right'}`}

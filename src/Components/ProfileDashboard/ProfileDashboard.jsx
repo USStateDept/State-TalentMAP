@@ -43,6 +43,11 @@ const ProfileDashboard = ({
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
               const isBidder = () => includes(get(userProfile, 'permission_groups', []), 'bidder');
+              const favoritesContainer = () => (
+                <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                  <Favorites favorites={favoritePositions} />
+                </BoxShadow>
+              );
               let columns = !matches ? [3, 4, 5] : [6, 6, 12];
               if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
               return (
@@ -74,12 +79,7 @@ const ProfileDashboard = ({
                         <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                           <SavedSearches />
                         </BoxShadow>
-                        {
-                          isBidder() &&
-                          <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                            <Favorites favorites={favoritePositions} />
-                          </BoxShadow>
-                        }
+                        { isBidder() && favoritesContainer() }
                       </Column>
                       <Column
                         columns={columns[2]}
@@ -102,12 +102,7 @@ const ProfileDashboard = ({
                             </PermissionsWrapper>
                           )}
                         />
-                        {
-                          !isBidder() &&
-                          <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                            <Favorites favorites={favoritePositions} />
-                          </BoxShadow>
-                        }
+                        { !isBidder() && favoritesContainer() }
                         {
                           !userClassificationsHasErrored &&
                           <PermissionsWrapper permissions="bidder">

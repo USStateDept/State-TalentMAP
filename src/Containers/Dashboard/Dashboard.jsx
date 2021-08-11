@@ -1,10 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { userHasPermissions } from 'utilities';
 import { notificationsFetchData } from 'actions/notifications';
 import { bidListFetchData, submitBid, toggleBidPosition } from 'actions/bidList';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
-import { get, includes } from 'lodash';
+import { get } from 'lodash';
 import { BID_LIST, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION, FAVORITE_POSITIONS, NOTIFICATION_LIST, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
@@ -15,7 +16,7 @@ class DashboardContainer extends Component {
     this.props.fetchNotifications();
     this.props.fetchBidList();
     this.props.fetchFavorites();
-    if (includes(get(this.props.userProfile, 'permission_groups', []), 'bidder')) {
+    if (userHasPermissions(['bidder'], get(this.props.userProfile, 'permission_groups', []))) {
       this.props.fetchClassifications();
       this.props.fetchUserClassifications(this.props.userProfile.id);
     }
