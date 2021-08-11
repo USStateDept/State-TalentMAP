@@ -109,7 +109,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
                   <div className="classifications-badges-text">
                     {c.text}
                   </div>
-                  <GlossaryTermTrigger className="classifications-glossary-link" hideMissingTerm icon="book" term={c.text} />
+                  <GlossaryTermTrigger className="classifications-glossary-link" hideMissingTerm icon="book" term={c.glossary_term} />
                 </div>
               }
             </div>
