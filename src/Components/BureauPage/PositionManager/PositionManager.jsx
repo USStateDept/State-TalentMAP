@@ -89,29 +89,23 @@ const PositionManager = props => {
   const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
   const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
+  const fsbidHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
+  const fsbidHandshakeStatusOptions = uniqBy(fsbidHandshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
-  const handshakeStatus =
-  {
+
+  const tmHandshakeStatus = {
     data: [
-      { code: 'A', description: 'Handshake Accepted', isSelected: false },
-      { code: 'D', description: 'Handshake Declined', isSelected: false },
-      { code: 'O', description: 'Handshake Offered', isSelected: false },
-      { code: 'R', description: 'Handshake Revoked', isSelected: false },
-      { code: 'HS', description: 'Handshake Registered', isSelected: false },
-      { code: 'OP', description: 'No Handshake', isSelected: false },
+      { code: 'A', description: 'Accepted', isSelected: false },
+      { code: 'D', description: 'Declined', isSelected: false },
+      { code: 'O', description: 'Offered', isSelected: false },
+      { code: 'R', description: 'Revoked', isSelected: false },
     ],
-    dataAP: [],
     item: {
-      description: 'handshake',
-      endpoint: undefined,
-      onlyAvailablePositions: true,
-      selectionRef: 'cps_codes',
-      sort: 1200,
-      text: 'Include positions with handshakes',
-      title: 'Handshake',
+      selectionRef: 'lead_hs_status_code',
     },
   };
-  const handshakeStatusOptions = uniqBy(handshakeStatus.data, 'code');
+  const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
+  const handshakeStatusOptions = tmHandshakeStatusOptions.concat(fsbidHandshakeStatusOptions);
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -142,7 +136,8 @@ const PositionManager = props => {
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
-    [handshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(hsStatusObject => (get(hsStatusObject, 'code'))),
+    [fsbidHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(fsbidHSStatusObject => (get(fsbidHSStatusObject, 'code'))),
+    [tmHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
     ordering,
     page,
     limit,
@@ -472,7 +467,7 @@ const PositionManager = props => {
                     <div className="filter-div">
                       <div className="label">Handshake:</div>
                       <Picky
-                        placeholder="Select Handshake Status"
+                        placeholder="Select Handshake Status(es)"
                         value={selectedHandshakeStatus}
                         options={handshakeStatusOptions}
                         onChange={setSelectedHandshakeStatus}
