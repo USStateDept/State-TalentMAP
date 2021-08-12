@@ -2,6 +2,11 @@
 
   border-top: 1px solid $color-white;
 
+  h3 {
+    font-size: 15px;
+    font-weight: normal;
+  }
+
   .bidder-manager-search-container {
     background-color: $bg-blue-dark-1;
     padding: 12px 31px;
@@ -14,6 +19,8 @@
   }
 
   .available-bidders-stats {
+    padding-top: .1em;
+
     .statistics-section {
       background-color: $color-white;
       border: 2px solid $color-gray-light;
