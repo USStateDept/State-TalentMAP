@@ -198,7 +198,7 @@
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-plugin-ramdisk": "^0.1.8",
     "whatwg-fetch": "2.0.3",
-    "workbox-webpack-plugin": "^6.2.3",
+    "workbox-webpack-plugin": "^6.2.4",
     "yarn": "^1.22.11"
   },
   "scripts": {
