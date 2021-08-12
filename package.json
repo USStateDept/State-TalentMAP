@@ -185,7 +185,7 @@
     "sass-loader": "^10.1.1",
     "sinon": "^2.4.1",
     "style-loader": "2.0.0",
-    "supertest": "^6.1.4",
+    "supertest": "^6.1.5",
     "sw-precache-webpack-plugin": "^1.0.0",
     "thread-loader": "^3.0.4",
     "ts-jest": "24.3.0",
@@ -198,7 +198,7 @@
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-plugin-ramdisk": "^0.1.8",
     "whatwg-fetch": "2.0.3",
-    "workbox-webpack-plugin": "^6.2.3",
+    "workbox-webpack-plugin": "^6.2.4",
     "yarn": "^1.22.11"
   },
   "scripts": {
