@@ -23,7 +23,23 @@ class BidderPortfolioPage extends Component {
     this.state = {
       viewType: { value: 'card' },
       editType: { show: false },
+      q: '',
     };
+  }
+
+  queryParamUpdateText = (e) => {
+    const { q } = e;
+    this.props.queryParamUpdate(e);
+    this.setState({ q });
+  }
+
+  resetRefKeyword = () => {
+    const ref$ = get(this, 'searchRef.searchHeaderRef');
+    const ref$$ = get(ref$, 'searchBarRef');
+    if (ref$ && ref$$) {
+      ref$.onClear();
+      ref$$.clearSearch();
+    }
   }
 
   changeViewType = value => {
@@ -71,7 +87,10 @@ class BidderPortfolioPage extends Component {
     const disableLink = (cdosLength === 0 || total === 0);
     return (
       <div className={`bidder-portfolio-page ${viewTypeClass}`}>
-        <BidderPortfolioSearch onUpdate={queryParamUpdate} />
+        <BidderPortfolioSearch
+          onUpdate={this.queryParamUpdateText}
+          ref={(ref) => { this.searchRef = ref; }}
+        />
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
           <div className="usa-grid-full">
             <div className="usa-width-one-half">
@@ -97,6 +116,8 @@ class BidderPortfolioPage extends Component {
                 pageSize={pageSize}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
+                getKeyword={this.state.q}
+                resetKeyword={this.resetRefKeyword}
               />
             </div>
           }
