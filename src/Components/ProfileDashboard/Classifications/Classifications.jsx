@@ -16,6 +16,7 @@ const Classifications = props => {
     clientClassifications,
     updateUserClassifications,
     userId,
+    isPublic,
   } = props;
 
   const [editView, setEditView] = useState(false);
@@ -56,13 +57,13 @@ const Classifications = props => {
   };
 
   const useClassificationsEditor = () => checkFlag('flags.classifications');
-  const displayClassificationsEditor = useClassificationsEditor();
+  const displayClassificationsEditor = useClassificationsEditor() && isPublic;
 
   const classifications$ = orderClassifications(classifications);
 
   return (
     <div className="usa-grid-full profile-section-container updates-container">
-      <div className="usa-grid-full section-padded-inner-container">
+      <div className="section-padded-inner-container">
         <div className="usa-width-one-whole">
           <SectionTitle title="Bidder Classifications" icon="tasks" />
         </div>
@@ -73,6 +74,7 @@ const Classifications = props => {
             editView={editView}
             updateClassifications={handleInput}
             input={userInput}
+            isPublic={isPublic}
           />
         </div>
       </div>
@@ -113,12 +115,14 @@ Classifications.propTypes = {
   clientClassifications: CLIENT_CLASSIFICATIONS,
   updateUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  isPublic: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   updateUserClassifications: EMPTY_FUNCTION,
+  isPublic: false,
 };
 
 export const mapDispatchToProps = dispatch => ({
