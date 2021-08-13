@@ -65,15 +65,38 @@ jobs:
           name: Jest Test Coverage
           command: |
                     TEST=$(circleci tests glob "src/**/[a-bA-B0-9]*.test.{js,jsx}" "src/**/[c-jC-J]*.test.{js,jsx}" "src/**/[k-rK-R]*.test.{js,jsx}" "src/**/[s-zS-Z]*.test.{js,jsx}" | circleci tests split)
-                    yarn test $TEST -- --ci --reporters=default --reporters=jest-junit
+                    yarn test $TEST -- --ci --reporters=default --reporters=jest-junit --coverageReporters=lcov
           environment:
             JEST_JUNIT_OUTPUT_NAME: "reports/jest/test-results.xml"
-      - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
+      - run:
+          name: Code Climate Test Coverage
+          command: |
+            ./cc-test-reporter format-coverage -t lcov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
       - store_test_results:
           path: reports
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
+
+  upload-coverage:
+    <<: *default-docker-node
+
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          command: |
+            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
+
   site:
     <<: *default-docker-node
     steps:
@@ -231,6 +254,9 @@ workflows:
       #           - staging
       #           - master
       - yarn
+      - upload-coverage:
+          requires:
+            - yarn
       - site:
           requires:
             - yarn
