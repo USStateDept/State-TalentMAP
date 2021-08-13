@@ -196,7 +196,7 @@
     "webpack-dashboard": "^3.3.5",
     "webpack-dev-server": "^3.11.0",
     "webpack-manifest-plugin": "^2.2.0",
-    "webpack-plugin-ramdisk": "^0.1.8",
+    "webpack-plugin-ramdisk": "^0.2.0",
     "whatwg-fetch": "2.0.3",
     "workbox-webpack-plugin": "^6.2.4",
     "yarn": "^1.22.11"

@@ -14735,10 +14735,10 @@ webpack-merge@^4.2.2:
   dependencies:
     lodash "^4.17.15"
 
-webpack-plugin-ramdisk@^0.1.8:
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/webpack-plugin-ramdisk/-/webpack-plugin-ramdisk-0.1.8.tgz#f97db5f7c57a961baf7682872437b9f372ac28d4"
-  integrity sha512-JXIZZHKEeYA45yNPp5XDJ/VSt+j3yV2/zw5trF30I4lYcrWRnQ/45yKrmeu8dtPe4Wxm36os20XAtN6u1NAfqQ==
+webpack-plugin-ramdisk@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/webpack-plugin-ramdisk/-/webpack-plugin-ramdisk-0.2.0.tgz#8fb9c5dfd5343a7c9a2cdf6bf3a0aaddeaa00bbf"
+  integrity sha512-I5OTfDuaQdiZQUm19Ok/8oCBmYCGqFu8e2sY6ytGT9xehZQJXB6cqdf+rHUr98gzwhcC2O96Wuhs6BQTmOy2hg==
   dependencies:
     chalk "^4.1.0"
     execa "^4.0.3"
