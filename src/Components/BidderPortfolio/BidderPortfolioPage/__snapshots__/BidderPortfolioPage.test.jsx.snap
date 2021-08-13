@@ -41,8 +41,10 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         changeViewType={[Function]}
         defaultHandshake=""
         defaultOrdering=""
+        getKeyword=""
         pageSize={8}
         queryParamUpdate={[Function]}
+        resetKeyword={[Function]}
         viewType="card"
       />
     </div>
