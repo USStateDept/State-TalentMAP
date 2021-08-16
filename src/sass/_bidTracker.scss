@@ -284,64 +284,73 @@ $register-hide-icon: 95%;
   }
 
   .handshake-animation-container {
-      width: 300px;
-      background-color: yellow;
       margin-left: -50%;
-      .a, .b, .c {
+      .left-hand, .right-hand, .hs {
         display: inline;
         position: relative;
         font-size: 20px;
       }
-      .a {
-        float: left;
+      .left-hand {
+        left: -100px;
         transform: rotate(90deg);
-        //opacity: 0;
+        opacity: 0;
         color: green;
       }
-      .b {
-        float: right;
-        //opacity: 0;
+      .right-hand {
+        right: -173px;
+        opacity: 0;
         color: green;
         transform: rotate(-90deg) scaleX(-1);
       }
-    .idk {
-      border-radius: 50%;
-      background-color: $color-green-dark-opacity50;
-      width: 30px;
-      height: 30px;
-      margin: auto;
-      .c {
-        color: pink;
-        //color: $color-white;
+      .hs-container {
+        border-radius: 50%;
+        background-color: $color-green-dark-opacity50;
+        width: 36px;
+        height: 36px;
+        margin: auto;
+        display: inline-block;
+        .hs {
+          margin: 4px;
+          color: $color-white;
+        }
       }
-    }
-      .animate-a {
-        animation: example 2s linear;
+      .animate-left {
+        animation: left-animation 2s linear;
       }
-      .animate-b {
-        animation: example2 2s linear;
+      .animate-right {
+        animation: right-animation 2s linear;
       }
-      .animate-c {
-        animation: example3 4s linear;
+      .animate-hs {
+        animation: hs-animation 4s linear;
+      }
+      .temp-transparent {
+        animation: temp-transparent-animation 4s linear;
       }
 
-    @keyframes example {
-      0% {left:0px; top:0px; opacity: 100%;}
-      100% {left:140px; top:0px; opacity: 100%;}
+    @keyframes left-animation {
+      0% {left:-100px; opacity: 100%;}
+      100% {left:43px; opacity: 100%;}
     }
-    @keyframes example2 {
-      0% {left:260px; top:0px; opacity: 100%;}
-      100% {left:120px; top:0px; opacity: 100%;}
+    @keyframes right-animation {
+      0% {right:-173px; opacity: 100%;}
+      100% {right:-30px; opacity: 100%;}
     }
-    @keyframes example3 {
-      0% {opacity: 0%; color: green;}
-      49% {top:0px; opacity: 0%;}
-      50% {top:0px; opacity: 100%}
+    @keyframes hs-animation {
+      0% {opacity: 0%;}
+      49% {opacity: 0%;}
+      50% {top:10px; opacity: 100%; color: green;}
       65% {top:-10px;}
-      75% {top:10px;}
+      70% {top:10px;}
+      75% {top:-10px;}
+      80% {top:10px;}
       85% {top:-10px;}
-      95% {top:10px;}
+      90% {top:10px;}
+      95% {top:-10px;}
       100% {top:0px; color: green;}
+    }
+    @keyframes temp-transparent-animation {
+      0% {background-color: transparent;}
+      100% {background-color: transparent;}
     }
   }
 

@@ -27,10 +27,10 @@ const HandshakeAnimation = () => {
   return (
     <InteractiveElement onMouseOver={throttledEventHandler}>
       <div className="handshake-animation-container">
-        <FontAwesomeIcon className={`a ${animate ? 'animate-a' : ''}`} icon={faHandPaper} />
-        <FontAwesomeIcon className={`b ${animate ? 'animate-b' : ''}`} icon={faHandPaper} />
-        <div className="idk" >
-          <FontAwesomeIcon className={`c ${animate ? 'animate-c' : ''}`} icon={faHandshake} />
+        <FontAwesomeIcon className={`left-hand ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
+        <FontAwesomeIcon className={`right-hand ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
+        <div className={`hs-container ${animate ? 'temp-transparent' : ''}`} >
+          <FontAwesomeIcon className={`hs ${animate ? 'animate-hs' : ''}`} icon={faHandshake} />
         </div>
       </div>
     </InteractiveElement>
