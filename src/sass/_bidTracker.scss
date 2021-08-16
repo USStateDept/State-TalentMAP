@@ -283,6 +283,68 @@ $register-hide-icon: 95%;
     position: relative;
   }
 
+  .handshake-animation-container {
+      width: 300px;
+      background-color: yellow;
+      margin-left: -50%;
+      .a, .b, .c {
+        display: inline;
+        position: relative;
+        font-size: 20px;
+      }
+      .a {
+        float: left;
+        transform: rotate(90deg);
+        //opacity: 0;
+        color: green;
+      }
+      .b {
+        float: right;
+        //opacity: 0;
+        color: green;
+        transform: rotate(-90deg) scaleX(-1);
+      }
+    .idk {
+      border-radius: 50%;
+      background-color: $color-green-dark-opacity50;
+      width: 30px;
+      height: 30px;
+      margin: auto;
+      .c {
+        color: pink;
+        //color: $color-white;
+      }
+    }
+      .animate-a {
+        animation: example 2s linear;
+      }
+      .animate-b {
+        animation: example2 2s linear;
+      }
+      .animate-c {
+        animation: example3 4s linear;
+      }
+
+    @keyframes example {
+      0% {left:0px; top:0px; opacity: 100%;}
+      100% {left:140px; top:0px; opacity: 100%;}
+    }
+    @keyframes example2 {
+      0% {left:260px; top:0px; opacity: 100%;}
+      100% {left:120px; top:0px; opacity: 100%;}
+    }
+    @keyframes example3 {
+      0% {opacity: 0%; color: green;}
+      49% {top:0px; opacity: 0%;}
+      50% {top:0px; opacity: 100%}
+      65% {top:-10px;}
+      75% {top:10px;}
+      85% {top:-10px;}
+      95% {top:10px;}
+      100% {top:0px; color: green;}
+    }
+  }
+
   .fa-trash {
     color: $color-red;
     margin-right: .25em;

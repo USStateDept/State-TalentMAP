@@ -2,10 +2,12 @@ import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
 import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
+import { APPROVED_PROP, GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE, HAND_SHAKE_ACCEPTED_PROP, IN_PANEL_PROP } from 'Constants/BidData';
 import { checkFlag } from 'flags';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import ConfettiIcon from './ConfettiIcon';
+import HandshakeAnimation from './HandshakeAnimation';
 import { bidClassesFromCurrentStatus } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
@@ -27,6 +29,7 @@ const BidSteps = (props, context) => {
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
   const getIcon = (status) => {
+    const bidPropsAfterRegister = [APPROVED_PROP, IN_PANEL_PROP, HAND_SHAKE_ACCEPTED_PROP];
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
     const tooltipText = get(bidData[status.prop], 'tooltip.text');
     const icon = (
@@ -51,6 +54,16 @@ const BidSteps = (props, context) => {
         <ConfettiIcon colors={colors}>
           {icon}
         </ConfettiIcon>
+      );
+    }
+    if (includes(bidPropsAfterRegister, bid.status) &&
+      bidData[status.prop].title[0] === GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE()[0]) {
+    //  if we ONLY want to show the animation right after the step
+    // if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)) {
+      return (
+        <HandshakeAnimation>
+          {icon}
+        </HandshakeAnimation>
       );
     }
     return icon;
