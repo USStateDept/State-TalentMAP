@@ -99,6 +99,7 @@ const PositionManager = props => {
   const sorts = BUREAU_POSITION_SORT;
 
   const handshakeStatusOptions = [...tmHandshakeStatusOptions, ...fsbidHandshakeStatusOptions];
+  const selectedHandshakeStatus$ = [...selectedHandshakeStatus, ...selectedTmHandshakeStatus];
 
   console.log('tmhandshakeoptions', tmHandshakeStatusOptions);
   console.log('combined', handshakeStatusOptions);
@@ -134,7 +135,7 @@ const PositionManager = props => {
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
     [fsbidHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(fsbidHSStatusObject => (get(fsbidHSStatusObject, 'code'))),
-    [tmHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
+    [tmHandshakeStatus.item.selectionRef]: selectedTmHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
     ordering,
     page,
     limit,
@@ -477,7 +478,7 @@ const PositionManager = props => {
                       <div className="label">Handshake:</div>
                       <Picky
                         placeholder="Select Handshake Status(es)"
-                        value={selectedHandshakeStatus}
+                        value={selectedHandshakeStatus$}
                         options={handshakeStatusOptions}
                         onChange={setSelectedHandshakeStatus$}
                         numberDisplayed={2}
