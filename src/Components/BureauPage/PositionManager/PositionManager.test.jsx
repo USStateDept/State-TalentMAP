@@ -123,6 +123,26 @@ describe('BureauPage', () => {
             },
           ],
         },
+        {
+          item: { description: 'handshake' },
+          data: [
+            {
+              code: 'HS',
+              description: 'Has Handshake',
+              isSelected: false,
+            },
+          ],
+        },
+        {
+          item: { description: 'tmHandshake' },
+          data: [
+            {
+              code: 'A',
+              description: 'Accepted',
+              isSelected: false,
+            },
+          ],
+        },
       ],
     },
     bureauPermissions: [
@@ -140,3 +160,5 @@ describe('BureauPage', () => {
   });
 });
 
+        // { id: "01", code: "01", description: null, isSelected: false, custom_description: "01" }
+        // { code: "HS", description: "Has Handshake", isSelected: false }

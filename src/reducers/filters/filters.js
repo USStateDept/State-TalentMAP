@@ -666,7 +666,7 @@ const items =
         item: {
           title: 'Handshake 2',
           sort: 1300,
-          description: 'handshake-2',
+          description: 'tmHandshake',
           selectionRef: ENDPOINT_PARAMS.tmHandshake,
           text: 'Include positions with handshakes 2',
           onlyAvailablePositions: true,

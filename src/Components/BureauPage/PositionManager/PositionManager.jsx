@@ -93,7 +93,7 @@ const PositionManager = props => {
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
   const fsbidHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
   const fsbidHandshakeStatusOptions = uniqBy(fsbidHandshakeStatus.data, 'code');
-  const tmHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake-2');
+  const tmHandshakeStatus = bureauFilters$.find(f => f.item.description === 'tmHandshake');
   const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
 
