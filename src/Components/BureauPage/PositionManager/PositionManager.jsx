@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -100,9 +99,6 @@ const PositionManager = props => {
 
   const handshakeStatusOptions = [...tmHandshakeStatusOptions, ...fsbidHandshakeStatusOptions];
   const selectedHandshakeStatus$ = [...selectedHandshakeStatus, ...selectedTmHandshakeStatus];
-
-  console.log('tmhandshakeoptions', tmHandshakeStatusOptions);
-  console.log('combined', handshakeStatusOptions);
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -211,11 +207,7 @@ const PositionManager = props => {
   }
 
   const setSelectedHandshakeStatus$ = e => {
-    console.log(
-      e.filter(f => f.code === 'OP' || f.code === 'HS'),
-      e.filter(f => includes(['A', 'D', 'O', 'R'], f.code))
-    );
-    setSelectedHandshakeStatus(e.filter(f => f.code === 'OP' || f.code === 'HS'));
+    setSelectedHandshakeStatus(e.filter(f => includes(['OP', 'HS'], f.code)));
     setSelectedTmHandshakeStatus(e.filter(f => includes(['A', 'D', 'O', 'R'], f.code)));
   };
 
