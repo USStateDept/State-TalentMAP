@@ -62,6 +62,7 @@ class ResultsSearchHeader extends Component {
                   inputDisabled={searchBarDisabled}
                   showClear
                   onClear={this.onClear}
+                  ref={(ref) => { this.searchBarRef = ref; }}
                 />
               </div>
             </fieldset>

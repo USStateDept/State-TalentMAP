@@ -60,10 +60,9 @@
 }
 
 .classifications-row {
-  span {
-    float: right;
-    padding-top: 1em;
-  }
+  display: inline;
+  padding: 15px 15px 0 50px;
+  float: right;
 }
 
 .classifications-season-text {

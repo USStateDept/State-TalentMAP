@@ -140,6 +140,8 @@ class BidControls extends Component {
   };
 
   resetAllFilters = () => {
+    const { resetKeyword } = this.props;
+    resetKeyword();
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
@@ -168,12 +170,12 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize } = this.props;
+      defaultOrdering, pageSize, getKeyword } = this.props;
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayCDOSeasonFilter = useCDOSeasonFilter();
     const displayUnassignedFilter = useUnassignedFilter();
-    const showClear = !!pills.length;
+    const showClear = !!pills.length || getKeyword;
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!displayUnassignedFilter) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
@@ -272,6 +274,8 @@ BidControls.propTypes = {
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
+  getKeyword: PropTypes.string.isRequired,
+  resetKeyword: PropTypes.func.isRequired,
 };
 
 BidControls.defaultProps = {
