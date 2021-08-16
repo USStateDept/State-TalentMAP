@@ -125,15 +125,17 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             step-complete
           "
     icon={
-      <BidStepIcon
-        hasRescheduledTooltip={false}
-        isComplete={true}
-        isCurrent={false}
-        needsAction={false}
-        number={4}
-        tooltipText="\\"Handshake Registered\\" reflects the date your handshake was registered by the CDO. Next the GTM/CDA Assignment Officer for your onward post prepares your assignment for panel."
-        tooltipTitle="What is \\"Handshake Registered\\"?"
-      />
+      <HandshakeAnimation>
+        <BidStepIcon
+          hasRescheduledTooltip={false}
+          isComplete={true}
+          isCurrent={false}
+          needsAction={false}
+          number={4}
+          tooltipText="\\"Handshake Registered\\" reflects the date your handshake was registered by the CDO. Next the GTM/CDA Assignment Officer for your onward post prepares your assignment for panel."
+          tooltipTitle="What is \\"Handshake Registered\\"?"
+        />
+      </HandshakeAnimation>
     }
     key="4"
     tailContent={null}
