@@ -662,6 +662,22 @@ const items =
         ],
         dataAP: [],
       },
+      {
+        item: {
+          title: 'Handshake 2',
+          sort: 1300,
+          description: 'handshake-2',
+          selectionRef: 'lead_hs_status_code',
+          text: 'Include positions with handshakes 2',
+          onlyAvailablePositions: true,
+        },
+        data: [
+          { code: 'A', description: 'Accepted', isSelected: false },
+          { code: 'D', description: 'Declined', isSelected: false },
+          { code: 'O', description: 'Offered', isSelected: false },
+          { code: 'R', description: 'Revoked', isSelected: false },
+        ],
+      },
     ],
   };
 

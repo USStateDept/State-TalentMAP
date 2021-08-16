@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -5,7 +6,7 @@ import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sor
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import Picky from 'react-picky';
-import { flatten, get, has, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
+import { flatten, get, has, includes, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -65,6 +66,8 @@ const PositionManager = props => {
   const [clearFilters, setClearFilters] = useState(false);
   const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
     useState(userSelections.selectedHandshakeStatus || []);
+  const [selectedTmHandshakeStatus, setSelectedTmHandshakeStatus] =
+    useState(userSelections.selectedTmHandshakeStatus || []);
 
   // Pagination
   const prevPage = usePrevious(page);
@@ -91,21 +94,14 @@ const PositionManager = props => {
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
   const fsbidHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
   const fsbidHandshakeStatusOptions = uniqBy(fsbidHandshakeStatus.data, 'code');
+  const tmHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake-2');
+  const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
 
-  const tmHandshakeStatus = {
-    data: [
-      { code: 'A', description: 'Accepted', isSelected: false },
-      { code: 'D', description: 'Declined', isSelected: false },
-      { code: 'O', description: 'Offered', isSelected: false },
-      { code: 'R', description: 'Revoked', isSelected: false },
-    ],
-    item: {
-      selectionRef: 'lead_hs_status_code',
-    },
-  };
-  const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
-  const handshakeStatusOptions = tmHandshakeStatusOptions.concat(fsbidHandshakeStatusOptions);
+  const handshakeStatusOptions = [...tmHandshakeStatusOptions, ...fsbidHandshakeStatusOptions];
+
+  console.log('tmhandshakeoptions', tmHandshakeStatusOptions);
+  console.log('combined', handshakeStatusOptions);
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -121,6 +117,7 @@ const PositionManager = props => {
     selectedLanguages,
     selectedPostIndicators,
     selectedHandshakeStatus,
+    selectedTmHandshakeStatus,
     textSearch,
     textInput,
   };
@@ -174,6 +171,7 @@ const PositionManager = props => {
     selectedLanguages,
     selectedPostIndicators,
     selectedHandshakeStatus,
+    selectedTmHandshakeStatus,
     ordering,
     limit,
     textSearch,
@@ -210,6 +208,15 @@ const PositionManager = props => {
       />),
     );
   }
+
+  const setSelectedHandshakeStatus$ = e => {
+    console.log(
+      e.filter(f => f.code === 'OP' || f.code === 'HS'),
+      e.filter(f => includes(['A', 'D', 'O', 'R'], f.code))
+    );
+    setSelectedHandshakeStatus(e.filter(f => f.code === 'OP' || f.code === 'HS'));
+    setSelectedTmHandshakeStatus(e.filter(f => includes(['A', 'D', 'O', 'R'], f.code)));
+  };
 
   // Free Text Search
   function submitSearch(text) {
@@ -265,7 +272,7 @@ const PositionManager = props => {
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
     setTextSearch('');
-    setSelectedHandshakeStatus([]);
+    setSelectedHandshakeStatus$([]);
     setClearFilters(false);
   };
 
@@ -280,6 +287,7 @@ const PositionManager = props => {
       selectedLanguages,
       selectedPostIndicators,
       selectedHandshakeStatus,
+      selectedTmHandshakeStatus,
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
     if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
@@ -296,6 +304,7 @@ const PositionManager = props => {
     selectedLanguages,
     selectedPostIndicators,
     selectedHandshakeStatus,
+    selectedTmHandshakeStatus,
     textSearch,
     selectedBureaus,
   ]);
@@ -470,7 +479,7 @@ const PositionManager = props => {
                         placeholder="Select Handshake Status(es)"
                         value={selectedHandshakeStatus}
                         options={handshakeStatusOptions}
-                        onChange={setSelectedHandshakeStatus}
+                        onChange={setSelectedHandshakeStatus$}
                         numberDisplayed={2}
                         multiple
                         includeFilter
