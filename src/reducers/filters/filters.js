@@ -664,7 +664,7 @@ const items =
       },
       {
         item: {
-          title: 'Handshake 2',
+          title: 'TM Handshake',
           sort: 1300,
           description: 'tmHandshake',
           selectionRef: ENDPOINT_PARAMS.tmHandshake,
