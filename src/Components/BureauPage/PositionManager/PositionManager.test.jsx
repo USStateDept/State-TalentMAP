@@ -159,6 +159,3 @@ describe('BureauPage', () => {
     expect(wrapper).toBeDefined();
   });
 });
-
-        // { id: "01", code: "01", description: null, isSelected: false, custom_description: "01" }
-        // { code: "HS", description: "Has Handshake", isSelected: false }
