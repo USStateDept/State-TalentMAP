@@ -159,3 +159,4 @@ describe('BureauPage', () => {
     expect(wrapper).toBeDefined();
   });
 });
+
