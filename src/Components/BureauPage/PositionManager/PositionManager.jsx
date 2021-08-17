@@ -20,7 +20,6 @@ import SelectForm from 'Components/SelectForm';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { filtersFetchData } from 'actions/filters/filters';
 import FA from 'react-fontawesome';
-import StaticDevContent from 'Components/StaticDevContent';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 
@@ -465,25 +464,23 @@ const PositionManager = props => {
                       includeSelectAll
                     />
                   </div>
-                  <StaticDevContent>
-                    <div className="filter-div">
-                      <div className="label">Handshake:</div>
-                      <Picky
-                        placeholder="Select Handshake Status(es)"
-                        value={selectedHandshakeStatus$}
-                        options={handshakeStatusOptions}
-                        onChange={setSelectedHandshakeStatus$}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="description"
-                        includeSelectAll
-                      />
-                    </div>
-                  </StaticDevContent>
+                  <div className="filter-div">
+                    <div className="label">Handshake:</div>
+                    <Picky
+                      placeholder="Select Handshake Status(es)"
+                      value={selectedHandshakeStatus$}
+                      options={handshakeStatusOptions}
+                      onChange={setSelectedHandshakeStatus$}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
+                  </div>
                 </div>
               </div>
             </div>
