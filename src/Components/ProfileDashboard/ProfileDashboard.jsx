@@ -5,6 +5,7 @@ import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { checkFlag } from 'flags';
+import { get, includes } from 'lodash';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -26,7 +27,7 @@ const ProfileDashboard = ({
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
-  unregisterHandshake,
+  unregisterHandshake, userClassificationsHasErrored,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -41,6 +42,12 @@ const ProfileDashboard = ({
           </div>
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
+              const isBidder = () => includes(get(userProfile, 'permission_groups', []), 'bidder');
+              const favoritesContainer = () => (
+                <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                  <Favorites favorites={favoritePositions} />
+                </BoxShadow>
+              );
               let columns = !matches ? [3, 4, 5] : [6, 6, 12];
               if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
               return (
@@ -72,6 +79,7 @@ const ProfileDashboard = ({
                         <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                           <SavedSearches />
                         </BoxShadow>
+                        { isBidder() && favoritesContainer() }
                       </Column>
                       <Column
                         columns={columns[2]}
@@ -94,14 +102,25 @@ const ProfileDashboard = ({
                             </PermissionsWrapper>
                           )}
                         />
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                          <Favorites favorites={favoritePositions} />
-                        </BoxShadow>
+                        { !isBidder() && favoritesContainer() }
+                        {
+                          !userClassificationsHasErrored &&
+                          <PermissionsWrapper permissions="bidder">
+                            <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                              <Classifications
+                                classifications={classifications}
+                                clientClassifications={clientClassifications}
+                                userId={userProfile.perdet_seq_number}
+                                isPublic={isPublic}
+                              />
+                            </BoxShadow>
+                          </PermissionsWrapper>
+                        }
                       </Column>
                     </div>
                   }
                   {
-                    isPublic && showClassifications &&
+                    isPublic && showClassifications && !userClassificationsHasErrored &&
                     <Column
                       columns={columns[1]}
                       className="user-dashboard-section-container user-dashboard-column-2"
@@ -111,6 +130,7 @@ const ProfileDashboard = ({
                           classifications={classifications}
                           clientClassifications={clientClassifications}
                           userId={userProfile.perdet_seq_number}
+                          isPublic={isPublic}
                         />
                       </BoxShadow>
                     </Column>
@@ -170,6 +190,7 @@ ProfileDashboard.propTypes = {
   showClassifications: PropTypes.bool,
   showAssignmentHistory: PropTypes.bool,
   showSearchAsClient: PropTypes.bool,
+  userClassificationsHasErrored: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
@@ -191,6 +212,7 @@ ProfileDashboard.defaultProps = {
   showClassifications: true,
   showAssignmentHistory: true,
   showSearchAsClient: true,
+  userClassificationsHasErrored: false,
 };
 
 export default ProfileDashboard;

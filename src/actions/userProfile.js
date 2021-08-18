@@ -101,6 +101,7 @@ export function userProfileFetchData(bypass, cb) {
         const bureauPermissions = get(results, '[5].value.data', []);
         const orgPermissions = get(results, '[6].value.data', []);
         const account = get(results, '[7].value.data', {});
+
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
