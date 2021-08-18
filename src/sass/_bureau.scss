@@ -371,7 +371,8 @@
 }
 
 .tippy-popper {
-  .tippy-tooltip.deconflict-indicator-theme {
+  .tippy-tooltip.deconflict-indicator-theme,
+  .tippy-tooltip.has-other-handshake-indicator-theme {
     background-color: $color-white;
     color: $color-black;
     border: 2px solid $tm-gray;
@@ -394,6 +395,12 @@
     .tooltip-text {
       padding-left: 20px;
       max-width: 200px;
+    }
+  }
+
+  .tippy-tooltip.has-other-handshake-indicator-theme {
+    .deconflict-indicator-small {
+      color: $color-red;
     }
   }
 }
@@ -533,6 +540,11 @@
       font-size: 1.6rem;
       .deconflict-indicator {
         color: $tertiary-gold;
+        font-size: 29px;
+        padding-bottom: 10px;
+      }
+      .has-other-handshake-indicator {
+        color: $color-red;
         font-size: 29px;
       }
     }
