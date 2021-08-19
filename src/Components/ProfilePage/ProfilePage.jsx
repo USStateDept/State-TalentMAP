@@ -13,6 +13,7 @@ import ProfilePublic from 'Containers/ProfilePublic';
 import Administrator from 'Containers/Administrator';
 import Bureau from 'Containers/Bureau';
 import Cdo from 'Containers/Cdo';
+import Post from 'Containers/Post';
 import GLOSSARY_EDITOR_PERM from 'Constants/Permissions';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import Notifications from './Notifications';
@@ -49,6 +50,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/bureau" component={Bureau} />
           <Route path="/profile/ao" component={Bureau} />
           <Route path="/profile/cdo" component={Cdo} />
+          <Route path="/profile/post" component={Post} />
           <Flag
             name="flags.bidding"
             render={() => (
