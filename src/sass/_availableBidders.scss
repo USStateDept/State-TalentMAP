@@ -2,7 +2,7 @@
 
   border-top: 1px solid $color-white;
 
-  h3 {
+  h3:not(.usa-alert-heading) {
     font-size: 15px;
     font-weight: normal;
   }
