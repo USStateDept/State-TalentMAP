@@ -1183,6 +1183,9 @@ $register-hide-icon: 95%;
       div {
         flex: 1;
       }
+      div:first-of-type {
+        padding-right: 1em;
+      }
     }
   }
 }
