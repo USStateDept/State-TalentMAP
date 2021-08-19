@@ -1,9 +1,23 @@
-import PropTypes from 'prop-types';
 import { get } from 'lodash';
+// @ts-ignore
 import { isOnProxy } from 'utilities';
 import LinkButton from '../LinkButton';
 
-const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
+type URL = {
+  internal: string;
+  external: string;
+};
+
+export type Props = {
+  url: URL;
+  type: 'post' | 'post-data' | 'country';
+  label: React.ReactNode;
+  isButton: boolean;
+  altStyle: boolean;
+};
+
+const OBCUrl: React.FC<Props> = props => {
+  const { type = 'post', label = null, isButton = false, altStyle = false, url = {} } = props;
   let text; // link text value
   let url$ = get(url, 'internal');
 
@@ -38,22 +52,6 @@ const OBCUrl = ({ type, label, isButton, altStyle, url }) => {
   return (
     url$ ? el : null
   );
-};
-
-OBCUrl.propTypes = {
-  url: PropTypes.shape({ internal: PropTypes.string, external: PropTypes.string }),
-  type: PropTypes.oneOf(['post', 'post-data', 'country']),
-  label: PropTypes.node,
-  isButton: PropTypes.bool,
-  altStyle: PropTypes.bool,
-};
-
-OBCUrl.defaultProps = {
-  url: {},
-  type: 'post',
-  label: null,
-  isButton: false,
-  altStyle: false,
 };
 
 export default OBCUrl;

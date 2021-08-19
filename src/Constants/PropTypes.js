@@ -621,6 +621,7 @@ export const CLASSIFICATION = PropTypes.shape({
   code: PropTypes.string,
   text: PropTypes.string,
   seasons: PropTypes.arrayOf(PropTypes.object),
+  glossary_term: PropTypes.string,
 });
 
 export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);
