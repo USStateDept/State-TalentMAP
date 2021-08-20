@@ -202,7 +202,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         roles: [
           'superuser',
           'bureau_user',
-          'post_user',
         ],
       },
       checkFlag('flags.available_bidders') ?
@@ -212,7 +211,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           icon: 'users',
           roles: [
             'super_user',
-            'post_user',
+            'bureau_user',
           ],
         } : null,
     ],
