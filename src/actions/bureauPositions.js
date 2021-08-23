@@ -1,6 +1,6 @@
 import { downloadFromResponse } from 'utilities';
 import { batch } from 'react-redux';
-import { get, identity, isArray, isEmpty, pickBy } from 'lodash';
+import { get, identity, isArray, pickBy } from 'lodash';
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
 import { toastError } from './toast';
@@ -60,30 +60,26 @@ export function bureauPositionsFetchDataSuccess(results) {
   };
 }
 
-export function bureauPositionsFetchData(userQuery, bureauPerms, orgPerms) {
-  const userQuery$ = userQuery;
-
-  // Ensure the userQuery includes bureaus or orgs, based on perms
+export function bureauPositionsFetchData(userQuery, fromBureauMenu) {
+  // Ensure the userQuery includes bureaus or orgs, based on menu
   // - otherwise we risk querying unauthorized positions
-  if ((get(userQuery$, 'position__bureau__code__in', []).length < 1) && (get(userQuery$, 'position__org__code__in', []).length < 1)) {
+  if ((fromBureauMenu && (get(userQuery, 'position__bureau__code__in', []).length < 1)) ||
+    (!fromBureauMenu && (get(userQuery, 'position__org__code__in', []).length < 1))) {
     return (dispatch) => {
       batch(() => {
         dispatch(bureauPositionsHasErrored(true));
         dispatch(bureauPositionsIsLoading(false));
       });
     };
-  } else if (get(userQuery$, 'position__bureau__code__in', []).length < 1 && !isEmpty(bureauPerms)) {
-    userQuery$.position__bureau__code__in = bureauPerms.map(bureauObject => (get(bureauObject, 'code')));
-  } else if (get(userQuery$, 'position__org__code__in', []).length < 1 && !isEmpty(orgPerms)) {
-    userQuery$.position__org__code__in = orgPerms.map(orgObject => (get(orgObject, 'code')));
   }
 
-  // Combine defaults with given userQuery$
-  let q = pickBy(userQuery$, identity);
+  // Combine defaults with given userQuery
+  let q = pickBy(userQuery, identity);
   Object.keys(q).forEach(queryk => { if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); } });
   q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/?${q}`;
+
   return (dispatch) => {
     if (cancel) { cancel('cancel'); dispatch(bureauPositionsIsLoading(true)); }
     batch(() => {

@@ -16,7 +16,6 @@ import { scrollToTop } from 'utilities';
 import { usePrevious } from 'hooks';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import SelectForm from 'Components/SelectForm';
-import StaticDevContent from 'Components/StaticDevContent';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { filtersFetchData } from 'actions/filters/filters';
 import FA from 'react-fontawesome';
@@ -35,6 +34,8 @@ const PositionManager = props => {
     userSelections,
     isAO,
     orgPermissions,
+    fromBureauMenu,
+    fromPostMenu,
   } = props;
 
   const allBureaus = sortBy(get(bureauFilters.filters.find(f => f.item.description === 'region'), 'data', []).map(a =>
@@ -58,9 +59,9 @@ const PositionManager = props => {
   const [selectedPostIndicators, setSelectedPostIndicators] =
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
-    useState(userSelections.selectedBureaus || (get(bureauPermissions$, '[0]') ? [get(bureauPermissions$, '[0]')] : []));
+    useState(userSelections.selectedBureaus || (get(bureauPermissions$, '[0]' && fromBureauMenu) ? [get(bureauPermissions$, '[0]')] : []));
   const [selectedOrgs, setSelectedOrgs] =
-  useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]') ? [get(props, 'orgPermissions[0]')] : []));
+  useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]' && fromPostMenu) ? [get(props, 'orgPermissions[0]')] : []));
 
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
@@ -92,7 +93,6 @@ const PositionManager = props => {
   const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
   const sorts = BUREAU_POSITION_SORT;
-
   // Local state inputs to push to redux state
   const currentInputs = {
     page,
@@ -136,15 +136,15 @@ const PositionManager = props => {
   // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    props.fetchBureauPositions(query, bureauPermissions$, orgPermissions);
+    props.fetchBureauPositions(query, fromBureauMenu);
     props.saveSelections(currentInputs);
   }, []);
 
   // Rerender and action on user selections
   useEffect(() => {
     if (prevPage) {
-      if (!noBureausSelected || !noOrgsSelected) {
-        props.fetchBureauPositions(query, bureauPermissions$, orgPermissions);
+      if ((fromBureauMenu && !noBureausSelected) || (fromPostMenu && !noOrgsSelected)) {
+        props.fetchBureauPositions(query, fromBureauMenu);
       }
       props.saveSelections(currentInputs);
       setPage(1);
@@ -169,7 +169,7 @@ const PositionManager = props => {
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
-      props.fetchBureauPositions(query, bureauPermissions$, orgPermissions);
+      props.fetchBureauPositions(query, fromBureauMenu);
       props.saveSelections(currentInputs);
     }
   }, [page]);
@@ -227,8 +227,10 @@ const PositionManager = props => {
   const getOverlay = () => {
     if (bureauPositionsIsLoading) {
       return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
-    } else if (noBureausSelected && noOrgsSelected) {
-      return (<Alert type="error" title="No bureau/organization selected" messages={[{ body: 'Please select at least one bureau/organization filter.' }]} />);
+    } else if (noBureausSelected && fromBureauMenu) {
+      return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
+    } else if (noOrgsSelected && fromPostMenu) {
+      return (<Alert type="error" title="No organization selected" messages={[{ body: 'Please select at least one organization filter.' }]} />);
     } else if (bureauPositionsHasErrored) {
       return (<Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />);
     } else if (noResults) {
@@ -361,26 +363,30 @@ const PositionManager = props => {
                       labelKey="custom_description"
                     />
                   </div>
-                  <PermissionsWrapper permissions={['bureau_user']} minimum>
-                    <div className="filter-div">
-                      <div className="label">Bureau:</div>
-                      <Picky
-                        placeholder="Select Bureau(s)"
-                        value={selectedBureaus.filter(f => f)}
-                        options={bureauOptions}
-                        onChange={setSelectedBureaus}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="long_description"
-                        includeSelectAll
-                      />
-                    </div>
-                  </PermissionsWrapper>
-                  <StaticDevContent useWrapper={false}>
+                  {
+                    fromBureauMenu &&
+                    <PermissionsWrapper permissions={['bureau_user']}>
+                      <div className="filter-div">
+                        <div className="label">Bureau:</div>
+                        <Picky
+                          placeholder="Select Bureau(s)"
+                          value={selectedBureaus.filter(f => f)}
+                          options={bureauOptions}
+                          onChange={setSelectedBureaus}
+                          numberDisplayed={2}
+                          multiple
+                          includeFilter
+                          dropdownHeight={255}
+                          renderList={renderSelectionList}
+                          valueKey="code"
+                          labelKey="long_description"
+                          includeSelectAll
+                        />
+                      </div>
+                    </PermissionsWrapper>
+                  }
+                  {
+                    fromPostMenu &&
                     <PermissionsWrapper permissions={['post_user']}>
                       <div className="filter-div">
                         <div className="label">Organization:</div>
@@ -400,7 +406,7 @@ const PositionManager = props => {
                         />
                       </div>
                     </PermissionsWrapper>
-                  </StaticDevContent>
+                  }
                   <div className="filter-div">
                     <div className="label">Skill:</div>
                     <Picky
@@ -507,7 +513,8 @@ const PositionManager = props => {
                       <ExportButton
                         onClick={exportPositions}
                         isLoading={isLoading}
-                        disabled={noBureausSelected && noOrgsSelected}
+                        disabled={(fromBureauMenu && noBureausSelected) ||
+                        (fromPostMenu && noOrgsSelected)}
                       />
                     </div>
                   </div>
@@ -547,6 +554,8 @@ PositionManager.propTypes = {
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
   isAO: PropTypes.bool,
+  fromBureauMenu: PropTypes.bool,
+  fromPostMenu: PropTypes.bool,
 };
 
 PositionManager.defaultProps = {
@@ -560,6 +569,8 @@ PositionManager.defaultProps = {
   userSelections: {},
   showClear: false,
   isAO: false,
+  fromBureauMenu: false,
+  fromPostMenu: false,
 };
 
 const mapStateToProps = state => ({
@@ -575,8 +586,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query, bureauPerms, orgPerms) =>
-    dispatch(bureauPositionsFetchData(query, bureauPerms, orgPerms)),
+  fetchBureauPositions: (query, bureauMenu) =>
+    dispatch(bureauPositionsFetchData(query, bureauMenu)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),

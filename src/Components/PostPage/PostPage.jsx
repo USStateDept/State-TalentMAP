@@ -12,14 +12,15 @@ const PostPage = props => {
   // eslint-disable-next-line no-unused-vars
   const posManagerProps = {
     isPost: props.isPost,
+    fromPostMenu: true,
   };
 
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/post/dashboard" render={() => <Dashboard {...dashboardProps} />} />
-        <Route path="/profile/post/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/post/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
+        <Route path="/profile/post/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
       </Switch>
     </div>
   );
