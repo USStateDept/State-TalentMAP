@@ -5,7 +5,7 @@ import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sor
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import Picky from 'react-picky';
-import { flatten, get, has, includes, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
+import { flatten, get, has, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -96,8 +96,6 @@ const PositionManager = props => {
   const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
 
-  const handshakeStatusOptions = [...tmHandshakeStatusOptions, ...fsbidHandshakeStatusOptions];
-  const selectedHandshakeStatus$ = [...selectedHandshakeStatus, ...selectedTmHandshakeStatus];
 
   // Local state inputs to push to redux state
   const currentInputs = {
@@ -205,10 +203,6 @@ const PositionManager = props => {
     );
   }
 
-  const setSelectedHandshakeStatus$ = e => {
-    setSelectedHandshakeStatus(e.filter(f => includes(['OP', 'HS'], f.code)));
-    setSelectedTmHandshakeStatus(e.filter(f => includes(['A', 'D', 'O', 'R'], f.code)));
-  };
 
   // Free Text Search
   function submitSearch(text) {
@@ -264,7 +258,8 @@ const PositionManager = props => {
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
     setTextSearch('');
-    setSelectedHandshakeStatus$([]);
+    setSelectedHandshakeStatus([]);
+    setSelectedTmHandshakeStatus([]);
     setClearFilters(false);
   };
 
@@ -468,9 +463,26 @@ const PositionManager = props => {
                     <div className="label">Handshake:</div>
                     <Picky
                       placeholder="Select Handshake Status(es)"
-                      value={selectedHandshakeStatus$}
-                      options={handshakeStatusOptions}
-                      onChange={setSelectedHandshakeStatus$}
+                      value={selectedHandshakeStatus}
+                      options={fsbidHandshakeStatusOptions}
+                      onChange={setSelectedHandshakeStatus}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Handshake2:</div>
+                    <Picky
+                      placeholder="Select Handshake Status(es)"
+                      value={selectedTmHandshakeStatus}
+                      options={tmHandshakeStatusOptions}
+                      onChange={setSelectedTmHandshakeStatus}
                       numberDisplayed={2}
                       multiple
                       includeFilter
