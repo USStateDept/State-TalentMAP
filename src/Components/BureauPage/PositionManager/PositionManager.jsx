@@ -37,8 +37,6 @@ const PositionManager = props => {
     orgPermissions,
   } = props;
 
-  // bureauPermissions comes from the userProfile
-  // allBureaus are all the possible bureau filters
   const allBureaus = sortBy(get(bureauFilters.filters.find(f => f.item.description === 'region'), 'data', []).map(a =>
     pick(a, ['code', 'short_description', 'long_description']),
   ), [(b) => b.long_description]);
