@@ -4,21 +4,21 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import BureauPage from './BureauPage';
+import PostPage from './PostPage';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('BureauPage', () => {
+describe('PostPage', () => {
   it('mounts', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <BureauPage />
+      <PostPage />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
 
   it('is defined', () => {
-    const wrapper = shallow(<BureauPage />);
+    const wrapper = shallow(<PostPage />);
     expect(wrapper).toBeDefined();
   });
 });
