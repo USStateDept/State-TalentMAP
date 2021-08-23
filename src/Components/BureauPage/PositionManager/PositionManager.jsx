@@ -44,6 +44,9 @@ const PositionManager = props => {
 
   const bureauPermissions$ = isAO ? allBureaus : bureauPermissions;
 
+  const initialBureaus = (fromBureauMenu && get(bureauPermissions$, '[0]')) ? [get(bureauPermissions$, '[0]')] : [];
+  const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
+
   // Local state populating with defaults from previous user selections stored in redux
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
@@ -59,9 +62,9 @@ const PositionManager = props => {
   const [selectedPostIndicators, setSelectedPostIndicators] =
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
-    useState(userSelections.selectedBureaus || (get(bureauPermissions$, '[0]') && fromBureauMenu ? [get(bureauPermissions$, '[0]')] : []));
+    useState(fromBureauMenu ? (userSelections.selectedBureaus || initialBureaus) : []);
   const [selectedOrgs, setSelectedOrgs] =
-  useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]') && fromPostMenu ? [get(props, 'orgPermissions[0]')] : []));
+    useState(fromPostMenu ? (userSelections.selectedOrgs || initialOrgs) : []);
 
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
