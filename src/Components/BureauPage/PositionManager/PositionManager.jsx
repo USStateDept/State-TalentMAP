@@ -380,8 +380,6 @@ const PositionManager = props => {
                       />
                     </div>
                   </PermissionsWrapper>
-                  {/* Bureau and Organization dropdowns get exposed based on roles;
-                  however, dropdown options get rendered based on permissions */}
                   <StaticDevContent useWrapper={false}>
                     <PermissionsWrapper permissions={['post_user']}>
                       <div className="filter-div">
