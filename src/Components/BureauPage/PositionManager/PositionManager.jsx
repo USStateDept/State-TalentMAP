@@ -59,9 +59,9 @@ const PositionManager = props => {
   const [selectedPostIndicators, setSelectedPostIndicators] =
     useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
-    useState(userSelections.selectedBureaus || (get(bureauPermissions$, '[0]' && fromBureauMenu) ? [get(bureauPermissions$, '[0]')] : []));
+    useState(userSelections.selectedBureaus || (get(bureauPermissions$, '[0]') && fromBureauMenu ? [get(bureauPermissions$, '[0]')] : []));
   const [selectedOrgs, setSelectedOrgs] =
-  useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]' && fromPostMenu) ? [get(props, 'orgPermissions[0]')] : []));
+  useState(userSelections.selectedOrgs || (get(props, 'orgPermissions[0]') && fromPostMenu ? [get(props, 'orgPermissions[0]')] : []));
 
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
