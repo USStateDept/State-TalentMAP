@@ -459,7 +459,7 @@ const PositionManager = props => {
                       includeSelectAll
                     />
                   </div>
-                  <div className="handshake-filter-div">
+                  <div className="filter-div handshake-filter-div">
                     <div className="label">Handshake Registered:</div>
                     <Picky
                       placeholder="Select Handshake Status(es)"
@@ -476,7 +476,7 @@ const PositionManager = props => {
                       includeSelectAll
                     />
                   </div>
-                  <div className="handshake-filter-div">
+                  <div className="filter-div handshake-filter-div">
                     <div className="label">Handshake Offer:</div>
                     <Picky
                       placeholder="Select Handshake Status(es)"
