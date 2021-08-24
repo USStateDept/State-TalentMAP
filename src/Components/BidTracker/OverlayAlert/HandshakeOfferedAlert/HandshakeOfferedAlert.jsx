@@ -52,7 +52,7 @@ class HandshakeOfferedAlert extends Component {
       languages$ = languages.map(l => l.representation).join(', ');
     }
 
-    const acceptedOtherHandShakeText = acceptedOtherHandshake ? ', but another one has already been accepted. Only one offer may be accepted.' : '';
+    const acceptedOtherHandShakeText = acceptedOtherHandshake ? ', but another one within the same bid cycle has already been accepted.' : '';
 
     return (
       <div className="bid-tracker-alert-container--handshake-offered">
