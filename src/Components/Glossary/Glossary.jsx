@@ -8,6 +8,7 @@ import GlossaryListing from './GlossaryListing';
 import Spinner from '../Spinner';
 import BoxShadow from '../BoxShadow';
 import { GLOSSARY_ARRAY } from '../../Constants/PropTypes';
+import GlossaryExport from './GlossaryExport';
 
 const ID = 'glossary-click-container';
 const BYPASS_CLASS = 'bypass-glossary';
@@ -127,6 +128,7 @@ class GlossaryComponent extends Component {
                   changeText={this.changeText}
                   searchTextValue={searchText.value}
                 />
+                <GlossaryExport />
                 <div className="glossary-content">
                   <GlossaryListing glossaryItems={filteredGlossary} />
                 </div>
