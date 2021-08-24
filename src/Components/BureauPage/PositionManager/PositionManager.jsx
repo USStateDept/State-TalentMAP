@@ -462,7 +462,7 @@ const PositionManager = props => {
                   <div className="filter-div handshake-filter-div">
                     <div className="label">Handshake Registered:</div>
                     <Picky
-                      placeholder="Select Handshake Status(es)"
+                      placeholder="Select Handshake Register Status"
                       value={selectedHandshakeStatus}
                       options={fsbidHandshakeStatusOptions}
                       onChange={setSelectedHandshakeStatus}
@@ -479,7 +479,7 @@ const PositionManager = props => {
                   <div className="filter-div handshake-filter-div">
                     <div className="label">Handshake Offer:</div>
                     <Picky
-                      placeholder="Select Handshake Status(es)"
+                      placeholder="Select Handshake Offer Status"
                       value={selectedTmHandshakeStatus}
                       options={tmHandshakeStatusOptions}
                       onChange={setSelectedTmHandshakeStatus}
