@@ -662,6 +662,20 @@ const items =
         ],
         dataAP: [],
       },
+      {
+        item: {
+          title: 'Organization',
+          sort: 1300,
+          description: 'organization',
+          selectionRef: ENDPOINT_PARAMS.organization,
+          tryCache: true,
+          text: 'Choose Organization',
+          choices: [
+          ],
+        },
+        data: [
+        ],
+      },
     ],
   };
 

@@ -85,8 +85,8 @@ const PositionManager = props => {
   const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
   const bureauOptions = sortBy(bureauPermissions$, [(b) => b.long_description]);
-  const organizations = orgPermissions;
-  const organizationOptions = sortBy(organizations, [(o) => o.long_description]);
+  const orgs = bureauFilters$.find(f => f.item.description === 'organization');
+  const organizationOptions = sortBy(orgPermissions, [(o) => o.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
   const postOptions = uniqBy(sortBy(posts.data, [(p) => p.city]), 'code');
   const cycles = bureauFilters$.find(f => f.item.description === 'bidCycle');
@@ -122,7 +122,7 @@ const PositionManager = props => {
     [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
     [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
     [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    position__org__code__in: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
+    [orgs.item.selectionRef]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
