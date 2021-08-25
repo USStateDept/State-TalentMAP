@@ -228,18 +228,21 @@ const PositionManager = props => {
   // Overlay for error, info, and positionLoading state
   const noResults = !get(bureauPositions, 'results.length');
   const getOverlay = () => {
+    let overlay;
     if (bureauPositionsIsLoading) {
-      return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
+      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
     } else if (noBureausSelected && fromBureauMenu) {
-      return (<Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
+      overlay = <Alert type="error" title="No bureau selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />;
     } else if (noOrgsSelected && fromPostMenu) {
-      return (<Alert type="error" title="No organization selected" messages={[{ body: 'Please select at least one organization filter.' }]} />);
+      overlay = <Alert type="error" title="No organization selected" messages={[{ body: 'Please select at least one organization filter.' }]} />;
     } else if (bureauPositionsHasErrored) {
-      return (<Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />);
+      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
-      return (<Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />);
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else {
+      return false;
     }
-    return false;
+    return overlay;
   };
 
   // Resetting the filters

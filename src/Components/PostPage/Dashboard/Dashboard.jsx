@@ -54,11 +54,8 @@ const PostPage = (props) => {
     'Trinidad and Tobago', 'Iceland', 'Italy', 'Panama', 'Lithuania'];
 
   return (
-    <div
-      className={'usa-grid-full profile-content-inner-container bureau-page'}
-    >
-      {
-        !placeholderText &&
+    <div className="usa-grid-full profile-content-inner-container bureau-page">
+      { !placeholderText &&
           <Spinner type="homepage-position-results" size="big" />
       }
       <div className="usa-grid-full">
@@ -99,7 +96,7 @@ const PostPage = (props) => {
               </div>
               <div className="usa-width-three-fourths">
                 <div className="mainSelector">
-                  <FA name={'dot-circle-o'} />
+                  <FA name="dot-circle-o" />
                   <span>WHA (All positions)</span>
                 </div>
                 {countries.map((m) => {
