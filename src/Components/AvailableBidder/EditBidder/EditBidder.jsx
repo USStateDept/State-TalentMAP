@@ -213,6 +213,10 @@ const EditBidder = (props) => {
           />
         </div>
         <div>
+          <dt>Created:</dt>
+          <dd>{details.formattedCreated}</dd>
+        </div>
+        <div>
           <dt>Bureau Share:</dt>
           {
             status === 'OC' || status === 'UA' ?
@@ -244,7 +248,6 @@ const EditBidder = (props) => {
 
 EditBidder.propTypes = {
   sections: PropTypes.shape({}),
-  // Build out sections after connection with real data
   name: PropTypes.string,
   submitAction: PropTypes.func,
   bureaus: FILTER,
