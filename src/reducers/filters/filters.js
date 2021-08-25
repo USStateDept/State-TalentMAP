@@ -668,7 +668,7 @@ const items =
           sort: 1300,
           description: 'tmHandshake',
           selectionRef: ENDPOINT_PARAMS.tmHandshake,
-          text: 'Include positions with handshakes 2',
+          text: 'Include positions with TM handshakes',
           onlyAvailablePositions: true,
         },
         data: [
