@@ -81,7 +81,9 @@
     }
     
     .handshake-filter-div {
-      margin-right: 163px;
+      .label {
+        max-width: 115px;
+      }
     }
   }
 }
