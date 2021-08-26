@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
+import BidCycles from 'Containers/BidCycles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Dashboard from './Dashboard';
 import Logs from './Logs';
@@ -53,6 +54,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
         <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags {...featureFlagsProps} />} />
+        <Route path="/profile/administrator/cycles" render={() => <BidCycles />} />
       </Switch>
     </div>
   );

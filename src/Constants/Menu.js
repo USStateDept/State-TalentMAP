@@ -75,15 +75,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidder',
         ],
       } : null,
-      {
-        text: 'Bid Cycles',
-        route: '/profile/cycles/',
-        icon: 'hourglass-start',
-        roles: [
-          'superuser',
-          'bidcycle_admin',
-        ],
-      },
       checkFlag('flags.static_content') ?
         {
           text: 'Settings',
@@ -152,6 +143,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'flag',
         roles: [
           'superuser',
+        ],
+      },
+      {
+        text: 'Bid Cycles',
+        route: '/profile/administrator/cycles/',
+        icon: 'hourglass-start',
+        roles: [
+          'superuser',
+          'bidcycle_admin',
         ],
       },
       {
