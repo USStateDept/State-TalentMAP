@@ -22,6 +22,7 @@ import FA from 'react-fontawesome';
 import PositionManagerSearch from './PositionManagerSearch';
 import BureauResultsCard from '../BureauResultsCard';
 
+// eslint-disable-next-line complexity
 const PositionManager = props => {
   // Props
   const {
@@ -585,7 +586,11 @@ const PositionManager = props => {
                 <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
                   <div className="usa-grid-full position-list">
                     {bureauPositions.results.map((result) => (
-                      <BureauResultsCard result={result} key={result.id} />
+                      <BureauResultsCard
+                        result={result}
+                        key={result.id}
+                        fromPostMenu={fromPostMenu}
+                      />
                     ))}
                   </div>
                 </div>

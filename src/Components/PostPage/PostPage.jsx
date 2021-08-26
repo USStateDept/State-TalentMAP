@@ -9,7 +9,6 @@ const PostPage = props => {
     placeholderText: 'Post Dashboard',
   };
 
-  // eslint-disable-next-line no-unused-vars
   const posManagerProps = {
     isPost: props.isPost,
     fromPostMenu: true,
