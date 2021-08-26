@@ -123,6 +123,26 @@ describe('BureauPage', () => {
             },
           ],
         },
+        {
+          item: { description: 'handshake' },
+          data: [
+            {
+              code: 'HS',
+              description: 'Has Handshake',
+              isSelected: false,
+            },
+          ],
+        },
+        {
+          item: { description: 'tmHandshake' },
+          data: [
+            {
+              code: 'A',
+              description: 'Accepted',
+              isSelected: false,
+            },
+          ],
+        },
       ],
     },
     bureauPermissions: [

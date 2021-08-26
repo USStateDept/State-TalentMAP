@@ -86,7 +86,7 @@ class BureauResultsCard extends Component {
             <div>{detailsLink}</div>
             <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
-            <HandshakeStatus handshake={result.handshake} />
+            <HandshakeStatus handshake={result.lead_handshake} />
             {
               get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
             }
