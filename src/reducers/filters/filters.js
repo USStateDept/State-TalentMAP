@@ -676,9 +676,9 @@ const items =
           { code: 'D', description: 'Declined', isSelected: false },
           { code: 'O', description: 'Offered', isSelected: false },
           { code: 'R', description: 'Revoked', isSelected: false },
-          ],
+        ],
       },
-           {
+      {
         item: {
           title: 'Organization',
           sort: 1300,
@@ -689,8 +689,7 @@ const items =
           choices: [
           ],
         },
-        data: [
-        ],
+        data: [],
       },
     ],
   };
