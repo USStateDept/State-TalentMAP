@@ -84,7 +84,7 @@ class BureauResultsCard extends Component {
       <Row fluid className="bureau-results-card">
         <Row fluid>
           <Row fluid className="bureau-card--section bureau-card--header">
-            <div>{detailsLink}</div>:)
+            <div>{detailsLink}</div>
             <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
             <HandshakeStatus handshake={result.lead_handshake} />
