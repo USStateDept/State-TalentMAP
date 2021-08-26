@@ -24,6 +24,7 @@ export const ENDPOINT_PARAMS = {
   postIndicators: 'position__post_indicator__in',
   usCodes: 'position__us_codes__in',
   commuterPosts: 'position__cpn_codes__in',
+  tmHandshake: 'lead_hs_status_code',
 };
 
 export const ENDPOINT_PARAMS_TANDEM = {
