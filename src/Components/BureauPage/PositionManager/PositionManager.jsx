@@ -70,6 +70,10 @@ const PositionManager = props => {
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
   const [clearFilters, setClearFilters] = useState(false);
+  const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
+    useState(userSelections.selectedHandshakeStatus || []);
+  const [selectedTmHandshakeStatus, setSelectedTmHandshakeStatus] =
+    useState(userSelections.selectedTmHandshakeStatus || []);
 
   // Pagination
   const prevPage = usePrevious(page);
@@ -95,7 +99,13 @@ const PositionManager = props => {
   const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
   const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
   const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
+  const fsbidHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
+  const fsbidHandshakeStatusOptions = uniqBy(fsbidHandshakeStatus.data, 'code');
+  const tmHandshakeStatus = bureauFilters$.find(f => f.item.description === 'tmHandshake');
+  const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
+
+
   // Local state inputs to push to redux state
   const currentInputs = {
     page,
@@ -110,6 +120,8 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
+    selectedHandshakeStatus,
+    selectedTmHandshakeStatus,
     textSearch,
     textInput,
   };
@@ -126,6 +138,8 @@ const PositionManager = props => {
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
+    [fsbidHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(fsbidHSStatusObject => (get(fsbidHSStatusObject, 'code'))),
+    [tmHandshakeStatus.item.selectionRef]: selectedTmHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
     ordering,
     page,
     limit,
@@ -162,6 +176,8 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
+    selectedHandshakeStatus,
+    selectedTmHandshakeStatus,
     ordering,
     limit,
     textSearch,
@@ -198,6 +214,7 @@ const PositionManager = props => {
       />),
     );
   }
+
 
   // Free Text Search
   function submitSearch(text) {
@@ -258,6 +275,8 @@ const PositionManager = props => {
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
     setTextSearch('');
+    setSelectedHandshakeStatus([]);
+    setSelectedTmHandshakeStatus([]);
     setClearFilters(false);
   };
 
@@ -273,6 +292,8 @@ const PositionManager = props => {
       selectedLanguages,
       selectedPostIndicators,
       selectedOrgs.filter(f => get(f, 'code') !== defaultOrgCode),
+      selectedHandshakeStatus,
+      selectedTmHandshakeStatus,
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
     if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
@@ -288,6 +309,8 @@ const PositionManager = props => {
     selectedCycles,
     selectedLanguages,
     selectedPostIndicators,
+    selectedHandshakeStatus,
+    selectedTmHandshakeStatus,
     textSearch,
     selectedOrgs,
     selectedBureaus,
@@ -471,6 +494,40 @@ const PositionManager = props => {
                       value={selectedPostIndicators}
                       options={postIndicatorsOptions}
                       onChange={setSelectedPostIndicators}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div handshake-filter-div">
+                    <div className="label">Handshake Registered:</div>
+                    <Picky
+                      placeholder="Select Handshake Register Status"
+                      value={selectedHandshakeStatus}
+                      options={fsbidHandshakeStatusOptions}
+                      onChange={setSelectedHandshakeStatus}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div handshake-filter-div">
+                    <div className="label">Handshake Offer:</div>
+                    <Picky
+                      placeholder="Select Handshake Offer Status"
+                      value={selectedTmHandshakeStatus}
+                      options={tmHandshakeStatusOptions}
+                      onChange={setSelectedTmHandshakeStatus}
                       numberDisplayed={2}
                       multiple
                       includeFilter

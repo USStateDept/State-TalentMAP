@@ -143,6 +143,22 @@ describe('BureauPage', () => {
               code: '222210',
               long_description: 'TRANSPORTATION & TRAVEL MANAGEMENT DIVISION',
               short_description: 'A/LM/OPS/TTM',
+          item: { description: 'handshake' },
+          data: [
+            {
+              code: 'HS',
+              description: 'Has Handshake',
+              isSelected: false,
+            },
+          ],
+        },
+        {
+          item: { description: 'tmHandshake' },
+          data: [
+            {
+              code: 'A',
+              description: 'Accepted',
+              isSelected: false,
             },
           ],
         },
