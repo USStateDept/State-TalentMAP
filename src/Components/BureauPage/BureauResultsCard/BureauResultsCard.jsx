@@ -75,6 +75,9 @@ class BureauResultsCard extends Component {
       {
         'Last Updated': getResult(pos, 'description.date_updated') || NO_UPDATE_DATE,
       },
+      {
+        'Location': postShort,
+      },
     /* eslint-enable quote-props */
     ];
 
@@ -85,7 +88,6 @@ class BureauResultsCard extends Component {
         <Row fluid>
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
-            <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
             <HandshakeStatus handshake={result.lead_handshake} />
             {
@@ -101,6 +103,9 @@ class BureauResultsCard extends Component {
               get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
             }
             {renderBidCountMobile(stats)}
+          </Row>
+          <Row fluid className="bureau-card--section bureau-card--header">
+            <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
           </Row>
           <Row fluid className="bureau-card--section bureau-card--content">
             <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} className="bureau-definition" />
