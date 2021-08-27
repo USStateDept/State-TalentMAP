@@ -692,3 +692,56 @@ export const HANDSHAKE_DETAILS = PropTypes.shape({
   hs_date_expiration: PropTypes.string,
   hs_cdo_indicator: PropTypes.bool,
 });
+
+export const AB_DETAILS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  status: PropTypes.string,
+  oc_reason: PropTypes.string,
+  oc_bureau: PropTypes.string,
+  comments: PropTypes.string,
+  date_created: PropTypes.string,
+  update_date: PropTypes.string,
+  archived: PropTypes.bool,
+  is_shared: PropTypes.bool,
+  last_editing_user_id: PropTypes.number,
+  perdet_seq_num: PropTypes.number,
+});
+
+export const AVAILABLE_BIDDER_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  cdo: CDO_OBJECT,
+  name: PropTypes.string,
+  shortened_name: PropTypes.string,
+  initials: PropTypes.string,
+  perdet_seq_number: PropTypes.string,
+  grade: PropTypes.string,
+  skills: USER_SKILL_CODE_ARRAY,
+  employee_id: PropTypes.string,
+  pos_location: PropTypes.string,
+  classifications: CLIENT_CLASSIFICATIONS,
+  current_assignment: ASSIGNMENT_OBJECT,
+  languages: LANGUAGE_QUALIFICATIONS,
+  available_bidder_details: AB_DETAILS_OBJECT,
+});
+
+export const AB_EDIT_SECTIONS_OBJECT = PropTypes.shape({
+  name: PropTypes.element,
+  status: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  skill: PropTypes.element,
+  grade: PropTypes.string,
+  languages: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  ted: PropTypes.string,
+  current_post: PropTypes.string,
+  cdo: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  comments: PropTypes.string,
+});
+
+export const AB_EDIT_DETAILS_OBJECT = PropTypes.shape({
+  oc_bureau: PropTypes.string,
+  oc_reason: PropTypes.string,
+  status: PropTypes.string,
+  shared: PropTypes.bool,
+  languages: LANGUAGE_QUALIFICATIONS,
+  bidderBureau: PropTypes.string,
+  formattedCreated: PropTypes.string,
+});
