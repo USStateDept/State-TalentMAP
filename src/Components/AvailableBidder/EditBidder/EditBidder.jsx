@@ -1,8 +1,6 @@
-/* eslint-disable react/prop-types */
-// Remove after defining sections with real data
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
+import { AB_EDIT_DETAILS_OBJECT, AB_EDIT_SECTIONS_OBJECT, EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import { find, forEach, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
@@ -213,6 +211,10 @@ const EditBidder = (props) => {
           />
         </div>
         <div>
+          <dt>Created:</dt>
+          <dd>{details.formattedCreated}</dd>
+        </div>
+        <div>
           <dt>Bureau Share:</dt>
           {
             status === 'OC' || status === 'UA' ?
@@ -243,12 +245,11 @@ const EditBidder = (props) => {
 };
 
 EditBidder.propTypes = {
-  sections: PropTypes.shape({}),
-  // Build out sections after connection with real data
+  sections: AB_EDIT_SECTIONS_OBJECT,
   name: PropTypes.string,
   submitAction: PropTypes.func,
   bureaus: FILTER,
-  details: PropTypes.shape({}),
+  details: AB_EDIT_DETAILS_OBJECT,
 };
 
 EditBidder.defaultProps = {

@@ -18,6 +18,8 @@ plugins:
         enabled: false
       import/extensions:
         enabled: false
+      no-loops/no-loops:
+        enabled: false
     config:
       extensions:
       - .js

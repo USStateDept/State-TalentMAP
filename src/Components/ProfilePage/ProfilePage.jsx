@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Flag } from 'flag';
 import Settings from 'Components/Settings';
 import Dashboard from 'Containers/Dashboard/Dashboard';
-import BidCycles from 'Containers/BidCycles';
 import FavoritePositionsContainer from 'Containers/Favorites/Favorites';
 import GlossaryEditor from 'Containers/GlossaryEditor';
 import BidTracker from 'Containers/BidTracker';
@@ -32,7 +31,6 @@ const ProfilePage = ({ user, isLoading }) => (
         :
         <Switch>
           <Route path="/profile/dashboard" component={Dashboard} />
-          <Route path="/profile/cycles" component={BidCycles} />
           <Route path="/profile/favorites" component={FavoritePositionsContainer} />
           <Route path="/profile/searches" component={SavedSearchesWrapper} />
           <Route path="/profile/settings" component={Settings} />

@@ -78,14 +78,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Bid Tracker"
       />
       <withRouter(NavLink)
-        hidden={true}
-        iconName="hourglass-start"
-        key="Bid Cycles"
-        link="/profile/cycles/"
-        search=""
-        title="Bid Cycles"
-      />
-      <withRouter(NavLink)
         hidden={false}
         iconName="cogs"
         key="Settings"
@@ -147,6 +139,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/administrator/featureflags/"
         search=""
         title="Feature Flags"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="hourglass-start"
+        key="Bid Cycles"
+        link="/profile/administrator/cycles/"
+        search=""
+        title="Bid Cycles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -349,14 +349,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={false}
-        iconName="hourglass-start"
-        key="Bid Cycles"
-        link="/profile/cycles/"
-        search=""
-        title="Bid Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={false}
         iconName="cogs"
         key="Settings"
         link="/profile/settings/"
@@ -417,6 +409,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/featureflags/"
         search=""
         title="Feature Flags"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        iconName="hourglass-start"
+        key="Bid Cycles"
+        link="/profile/administrator/cycles/"
+        search=""
+        title="Bid Cycles"
       />
       <withRouter(NavLink)
         hidden={true}

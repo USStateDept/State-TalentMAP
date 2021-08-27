@@ -342,6 +342,7 @@ module.exports = {
     // the HTML & assets that are part of the Webpack build.
     new GenerateSW({
       // Config options, if needed.
+      maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
     }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical

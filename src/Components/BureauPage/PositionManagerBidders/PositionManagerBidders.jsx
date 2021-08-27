@@ -12,7 +12,7 @@ import { checkFlag } from 'flags';
 import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
 import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_LANGUAGE, NO_SKILL, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
-import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
+import { DECONFLICT_TOOLTIP_TEXT, OTHER_HANDSHAKE_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_FILTERS, BUREAU_BIDDER_SORT } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
@@ -263,6 +263,7 @@ class PositionManagerBidders extends Component {
     const deconflict = get(m, 'has_competing_rank');
     const handshake = get(m, 'handshake', {}) || {};
     const active_hs_perdet = get(m, 'active_handshake_perdet');
+    const hasAcceptedOtherOffer = get(m, 'has_accepted_other_offer');
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
@@ -274,19 +275,35 @@ class PositionManagerBidders extends Component {
               value={e}
             >{e + 1}</option>))}
         </select>,
-      Deconflict: deconflict ?
-        <Tooltip
-          html={getTooltipText(DECONFLICT_TOOLTIP_TEXT.title, DECONFLICT_TOOLTIP_TEXT.text)}
-          theme={'deconflict-indicator'}
-          arrow
-          tabIndex="0"
-          interactive
-          style={{ height: 'fit-content' }}
-          useContext
-        >
-          <FA name={'exclamation-triangle'} className={'deconflict-indicator'} />
-        </Tooltip>
-        : '',
+      Deconflict: (
+        <div className="alert-indicators">
+          {!!deconflict && <Tooltip
+            html={getTooltipText(DECONFLICT_TOOLTIP_TEXT.title, DECONFLICT_TOOLTIP_TEXT.text)}
+            theme={'deconflict-indicator'}
+            arrow
+            tabIndex="0"
+            interactive
+            style={{ height: 'fit-content' }}
+            useContext
+            position="right"
+          >
+            <FA name={'exclamation-triangle'} className={'deconflict-indicator'} />
+          </Tooltip>}
+          {!!hasAcceptedOtherOffer && <Tooltip
+            html={getTooltipText(OTHER_HANDSHAKE_TOOLTIP_TEXT.title,
+              OTHER_HANDSHAKE_TOOLTIP_TEXT.text)}
+            theme={'has-other-handshake-indicator'}
+            arrow
+            tabIndex="0"
+            interactive
+            style={{ height: 'fit-content' }}
+            useContext
+            position="right"
+          >
+            <FA name={'exclamation-triangle'} className={'has-other-handshake-indicator'} />
+          </Tooltip>}
+        </div>
+      ),
       Name: (<Link to={`/profile/public/${m.emp_id}/bureau`}>{get(m, 'name')}</Link>),
       SubmittedDate: formattedSubmitted,
       Skill: get(m, 'skill') || NO_SKILL,

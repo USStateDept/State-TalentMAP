@@ -6,7 +6,7 @@ import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities'
 import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
-  NO_BUREAU, NO_CDO, NO_COMMENTS, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
+  NO_BUREAU, NO_CDO, NO_COMMENTS, NO_DATE, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
   NO_LANGUAGES, NO_OC_REASON, NO_STATUS,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
@@ -15,7 +15,7 @@ import MailToButton from 'Components/MailToButton';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
-import { FILTER } from 'Constants/PropTypes';
+import { AVAILABLE_BIDDER_OBJECT, FILTER } from 'Constants/PropTypes';
 
 import SkillCodeList from '../../SkillCodeList';
 
@@ -37,6 +37,8 @@ const AvailableBidderRow = (props) => {
   const languages = get(bidder, 'languages') || [];
   const cdo = get(bidder, 'cdo', false);
   const bidderBureau = get(bidder, 'current_assignment.position.bureau_code');
+  const created = get(bidder, 'available_bidder_details.date_created');
+  const formattedCreated = created ? formatDate(created) : NO_DATE;
 
   const getStatus = () => {
     if (status === 'OC') {
@@ -146,7 +148,13 @@ const AvailableBidderRow = (props) => {
           sections={sections}
           submitAction={submitAction}
           bureaus={bureaus}
-          details={{ ocBureau, ocReason, status, shared, languages, bidderBureau }}
+          details={{ ocBureau,
+            ocReason,
+            status,
+            shared,
+            languages,
+            bidderBureau,
+            formattedCreated }}
         />
       ),
     });
@@ -236,8 +244,7 @@ const AvailableBidderRow = (props) => {
 };
 
 AvailableBidderRow.propTypes = {
-  bidder: PropTypes.shape({}),
-  // build out bidder proptype after connected with real data
+  bidder: AVAILABLE_BIDDER_OBJECT,
   CDOView: PropTypes.bool,
   isLoading: PropTypes.bool,
   isCDO: PropTypes.bool,
