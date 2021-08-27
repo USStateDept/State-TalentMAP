@@ -130,8 +130,7 @@ describe('BureauPage', () => {
             description: 'organization',
             tryCache: true,
             text: 'Choose Organization',
-            choices: [
-            ],
+            choices: [],
           },
           data: [
             {
@@ -143,6 +142,10 @@ describe('BureauPage', () => {
               code: '222210',
               long_description: 'TRANSPORTATION & TRAVEL MANAGEMENT DIVISION',
               short_description: 'A/LM/OPS/TTM',
+            },
+          ],
+        },
+        {
           item: { description: 'handshake' },
           data: [
             {
