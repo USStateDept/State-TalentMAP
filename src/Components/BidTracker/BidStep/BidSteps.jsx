@@ -62,9 +62,7 @@ const BidSteps = (props, context) => {
     //  if we ONLY want to show the animation right after the step
     // if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)) {
       return (
-        <HandshakeAnimation>
-          {icon}
-        </HandshakeAnimation>
+        <HandshakeAnimation />
       );
     }
     return icon;

@@ -11,6 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
+// eslint-disable-next-line no-unused-vars
 import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
@@ -19,6 +20,7 @@ import {
   NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
+import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
 
 class BureauResultsCard extends Component {
   constructor(props) {
@@ -36,6 +38,7 @@ class BureauResultsCard extends Component {
     const title = propOrDefault(pos, 'title');
     const position = getResult(pos, 'position_number', NO_POSITION_NUMBER);
     const languages = getResult(pos, 'languages', []);
+    const leadHandshake = getResult(result, 'lead_handshake', null);
     const hasShortList = getResult(result, 'has_short_list', false);
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
@@ -88,10 +91,16 @@ class BureauResultsCard extends Component {
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
-            <HandshakeStatus handshake={result.lead_handshake} />
             {
-              get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
+              get(stats, 'has_handshake_offered', false) ?
+                <HandshakeAnimation /> :
+                <HandshakeStatus handshake={leadHandshake} />
             }
+            {/* {
+               get(stats, 'has_handshake_offered', false) ?
+                 <Handshake isWide cutSide="both" className="ribbon-results-card" /> :
+                 <HandshakeStatus handshake={leadHandshake} />
+            } */}
             {
               get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }

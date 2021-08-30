@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useMemo, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandPaper, faHandshake } from '@fortawesome/free-solid-svg-icons';
@@ -35,13 +34,6 @@ const HandshakeAnimation = () => {
       </div>
     </InteractiveElement>
   );
-};
-
-
-HandshakeAnimation.propTypes = {
-};
-
-HandshakeAnimation.defaultProps = {
 };
 
 export default HandshakeAnimation;
