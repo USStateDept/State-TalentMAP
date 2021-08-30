@@ -57,7 +57,8 @@ const BidSteps = (props, context) => {
       );
     }
     if (includes(bidPropsAfterRegister, bid.status) &&
-      bidData[status.prop].title[0] === GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE()[0]) {
+      (bidData[status.prop].title[0] === GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE()[0])
+      && !condensedView) {
     //  if we ONLY want to show the animation right after the step
     // if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)) {
       return (
