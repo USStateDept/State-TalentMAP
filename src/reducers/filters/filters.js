@@ -633,7 +633,7 @@ const items =
       },
       {
         item: {
-          title: 'Handshake',
+          title: 'Handshake Registered',
           sort: 1200,
           description: 'handshake',
           selectionRef: ENDPOINT_PARAMS.handshake,
@@ -648,7 +648,7 @@ const items =
       },
       {
         item: {
-          title: 'Handshake',
+          title: 'Handshake Registered',
           sort: 1200,
           description: 'handshake-tandem',
           selectionRef: ENDPOINT_PARAMS_TANDEM.handshake,
