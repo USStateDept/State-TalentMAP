@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, ORG_PERMISSIONS, POSITION_SEARCH_RESULTS } from 'Constants/PropTypes';
 import Picky from 'react-picky';
-import { flatten, get, has, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
+import { flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -33,19 +33,12 @@ const PositionManager = props => {
     bureauPositionsIsLoading,
     bureauPositionsHasErrored,
     userSelections,
-    isAO,
     orgPermissions,
     fromBureauMenu,
     fromPostMenu,
   } = props;
 
-  const allBureaus = sortBy(get(bureauFilters.filters.find(f => f.item.description === 'region'), 'data', []).map(a =>
-    pick(a, ['code', 'short_description', 'long_description']),
-  ), [(b) => b.long_description]);
-
-  const bureauPermissions$ = isAO ? allBureaus : bureauPermissions;
-
-  const initialBureaus = (fromBureauMenu && get(bureauPermissions$, '[0]')) ? [get(bureauPermissions$, '[0]')] : [];
+  const initialBureaus = (fromBureauMenu && get(bureauPermissions, '[0]')) ? [get(bureauPermissions, '[0]')] : [];
   const initialOrgs = (fromPostMenu && get(props, 'orgPermissions[0]')) ? [get(props, 'orgPermissions[0]')] : [];
 
   // Local state populating with defaults from previous user selections stored in redux
@@ -89,7 +82,7 @@ const PositionManager = props => {
   const skills = bureauFilters$.find(f => f.item.description === 'skill');
   const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
-  const bureauOptions = sortBy(bureauPermissions$, [(b) => b.long_description]);
+  const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
   const orgs = bureauFilters$.find(f => f.item.description === 'organization');
   const organizationOptions = sortBy(orgPermissions, [(o) => o.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
@@ -271,7 +264,7 @@ const PositionManager = props => {
     setSelectedPosts([]);
     setSelectedTODs([]);
     setSelectedOrgs([props.orgPermissions[0]]);
-    setSelectedBureaus([bureauPermissions$[0]].filter(f => f));
+    setSelectedBureaus([bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
     setSelectedPostIndicators([]);
@@ -283,7 +276,7 @@ const PositionManager = props => {
 
   useEffect(() => {
     const defaultOrgCode = get(props, 'orgPermissions[0].code');
-    const defaultBureauCode = get(bureauPermissions$, '[0].code');
+    const defaultBureauCode = get(bureauPermissions, '[0].code');
     const filters = [
       selectedGrades,
       selectedSkills,
@@ -621,7 +614,6 @@ PositionManager.propTypes = {
   bureauPermissions: BUREAU_PERMISSIONS,
   orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
-  isAO: PropTypes.bool,
   fromBureauMenu: PropTypes.bool,
   fromPostMenu: PropTypes.bool,
 };
@@ -636,7 +628,6 @@ PositionManager.defaultProps = {
   orgPermissions: [],
   userSelections: {},
   showClear: false,
-  isAO: false,
   fromBureauMenu: false,
   fromPostMenu: false,
 };

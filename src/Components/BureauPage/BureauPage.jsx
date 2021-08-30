@@ -1,12 +1,11 @@
 import { Route, Switch } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
 
-const BureauPage = props => {
+const BureauPage = () => {
   const dashboardProps = {
     placeholderText: 'I am the Bureau Dashboard',
   };
@@ -16,7 +15,6 @@ const BureauPage = props => {
   };
 
   const posManagerProps = {
-    isAO: props.isAO,
     fromBureauMenu: true,
   };
 
@@ -31,14 +29,6 @@ const BureauPage = props => {
       </Switch>
     </div>
   );
-};
-
-BureauPage.propTypes = {
-  isAO: PropTypes.bool,
-};
-
-BureauPage.defaultProps = {
-  isAO: false,
 };
 
 export default BureauPage;

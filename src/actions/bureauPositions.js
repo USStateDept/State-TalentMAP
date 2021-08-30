@@ -60,7 +60,7 @@ export function bureauPositionsFetchDataSuccess(results) {
   };
 }
 
-export function bureauPositionsFetchData(userQuery, fromBureauMenu) {
+export function bureauPositionsFetchData(userQuery, fromBureauMenu = true) {
   // Ensure the userQuery includes bureaus or orgs, based on menu
   // - otherwise we risk querying unauthorized positions
   if ((fromBureauMenu && isEmpty(get(userQuery, 'position__bureau__code__in', []))) ||
