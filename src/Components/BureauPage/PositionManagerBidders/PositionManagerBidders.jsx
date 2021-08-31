@@ -25,6 +25,7 @@ import ShortListLock from '../ShortListLock';
 import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
+import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
 
 const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
@@ -335,9 +336,10 @@ class PositionManagerBidders extends Component {
               />
             }
           >
-            <HandshakeStatus
-              handshake={handshake}
-            />
+            <HandshakeAnimation isTwo />
+            {/* <HandshakeStatus */}
+            {/*  handshake={handshake} */}
+            {/* /> */}
           </PermissionsWrapper>
           {
             type !== 'unranked' &&

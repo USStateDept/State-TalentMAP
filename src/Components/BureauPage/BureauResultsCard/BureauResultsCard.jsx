@@ -92,16 +92,6 @@ class BureauResultsCard extends Component {
             <div>{detailsLink}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
             {
-              get(stats, 'has_handshake_offered', false) ?
-                <HandshakeAnimation /> :
-                <HandshakeStatus handshake={leadHandshake} />
-            }
-            {/* {
-               get(stats, 'has_handshake_offered', false) ?
-                 <Handshake isWide cutSide="both" className="ribbon-results-card" /> :
-                 <HandshakeStatus handshake={leadHandshake} />
-            } */}
-            {
               get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
@@ -109,6 +99,11 @@ class BureauResultsCard extends Component {
             }
             {
               get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
+            }
+            {
+              get(stats, 'has_handshake_offered', false) ?
+                <HandshakeAnimation isOne /> :
+                <HandshakeStatus handshake={leadHandshake} />
             }
             {renderBidCountMobile(stats)}
           </Row>
