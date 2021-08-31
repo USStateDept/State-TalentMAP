@@ -27,6 +27,7 @@
     "unassigned_filters": true,
     "classifications": true,
     "handshake_bidding": true,
-    "post_handshake": false
+    "post_handshake": false,
+    "post": false
   }
 }

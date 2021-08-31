@@ -173,7 +173,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     roles: [
       'superuser',
       'bureau_user',
-      'post_user',
     ],
     children: [
       checkFlag('flags.static_content') ?
@@ -203,7 +202,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         roles: [
           'superuser',
           'bureau_user',
-          'post_user',
         ],
       },
       checkFlag('flags.available_bidders') ?
@@ -218,9 +216,41 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   } : null,
+  checkFlag('flags.post') ? {
+    text: 'Post',
+    route: '/profile/post/dashboard/',
+    icon: 'building',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'post_user',
+    ],
+    children: [
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Dashboard',
+          route: '/profile/post/dashboard/',
+          icon: 'tachometer',
+          roles: [
+            'superuser',
+            'post_user',
+          ],
+        } : null,
+      {
+        text: 'Position Manager',
+        route: '/profile/post/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+          'post_user',
+        ],
+      },
+    ],
+  } : null,
   checkFlag('flags.ao') ? {
     text: 'AO',
-    route: '/profile/ao/positionmanager/',
+    route: '/profile/ao/dashboard/',
     icon: 'building-o',
     toggleMenuSection: true,
     expandedSection: true,
@@ -239,15 +269,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      {
-        text: 'Position Manager',
-        route: '/profile/ao/positionmanager',
-        icon: 'map-o',
-        roles: [
-          'ao_user',
-          'superuser',
-        ],
-      },
     ],
   } : null,
   {

@@ -124,6 +124,28 @@ describe('BureauPage', () => {
           ],
         },
         {
+          item: {
+            title: 'Organization',
+            sort: 1300,
+            description: 'organization',
+            tryCache: true,
+            text: 'Choose Organization',
+            choices: [],
+          },
+          data: [
+            {
+              code: '201000',
+              long_description: 'ASSISTANT SECRETARY FOR ADMINISTRATION',
+              short_description: 'A',
+            },
+            {
+              code: '222210',
+              long_description: 'TRANSPORTATION & TRAVEL MANAGEMENT DIVISION',
+              short_description: 'A/LM/OPS/TTM',
+            },
+          ],
+        },
+        {
           item: { description: 'handshake' },
           data: [
             {
