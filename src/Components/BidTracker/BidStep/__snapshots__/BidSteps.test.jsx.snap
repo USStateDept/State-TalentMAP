@@ -127,6 +127,8 @@ exports[`BidStepsComponent matches snapshot 1`] = `
     icon={
       <HandshakeAnimation
         isBidTracker={true}
+        isOne={false}
+        isTwo={false}
       />
     }
     key="4"
