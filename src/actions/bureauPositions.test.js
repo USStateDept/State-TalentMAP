@@ -14,7 +14,7 @@ describe('async actions', () => {
       url: '/fsbid/bureau/positions/?position__bureau__code__in=1%2C2', response: [200, {}],
     })); mock();
 
-    store.dispatch(actions.bureauPositionsFetchData({ position__bureau__code__in: [1, 2] }));
+    store.dispatch(actions.bureauPositionsFetchData({ position__bureau__code__in: [1, 2] }, true));
 
     expectMockWasCalled({ spy, cb: done });
   });
@@ -26,7 +26,7 @@ describe('async actions', () => {
       url: '/fsbid/bureau/positions/?position__bureau__code__in=1%2C2', response: [404, null],
     })); mock();
 
-    store.dispatch(actions.bureauPositionsFetchData({ position__bureau__code__in: [1, 2] }));
+    store.dispatch(actions.bureauPositionsFetchData({ position__bureau__code__in: [1, 2] }, true));
 
     expectMockWasCalled({ spy, cb: done });
   });

@@ -678,6 +678,19 @@ const items =
           { code: 'R', description: 'Revoked', isSelected: false },
         ],
       },
+      {
+        item: {
+          title: 'Organization',
+          sort: 1300,
+          description: 'organization',
+          selectionRef: ENDPOINT_PARAMS.organization,
+          tryCache: true,
+          text: 'Choose Organization',
+          choices: [
+          ],
+        },
+        data: [],
+      },
     ],
   };
 
