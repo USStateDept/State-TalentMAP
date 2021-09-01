@@ -19,8 +19,10 @@ import SavedSearches from './SavedSearches/SavedSearchesWrapper';
 import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
 import Classifications from './Classifications';
+import Languages from './Languages';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
+
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, isPublic,
@@ -120,46 +122,56 @@ const ProfileDashboard = ({
                     </div>
                   }
                   {
-                    isPublic && showClassifications && !userClassificationsHasErrored &&
-                    <Column
-                      columns={columns[1]}
-                      className="user-dashboard-section-container user-dashboard-column-2"
-                    >
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Classifications
-                          classifications={classifications}
-                          clientClassifications={clientClassifications}
-                          userId={userProfile.perdet_seq_number}
-                          isPublic={isPublic}
-                        />
-                      </BoxShadow>
-                    </Column>
-                  }
-                  {
-                    isPublic && (showAssignmentHistory || showBidTracker) &&
-                    <Column
-                      columns={columns[2]}
-                      className="user-dashboard-section-container user-dashboard-column-3"
-                    >
-                      {
-                        showBidTracker &&
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                          <BidList
-                            bids={bidList}
-                            isPublic={isPublic}
-                            registerHandshake={registerHandshake}
-                            unregisterHandshake={unregisterHandshake}
-                            userId={userProfile.perdet_seq_number}
+                    isPublic &&
+                    <>
+                      <Column
+                        columns={columns[1]}
+                        className="user-dashboard-section-container user-dashboard-column-2"
+                      >
+                        {
+                          showClassifications && !userClassificationsHasErrored &&
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                            <Classifications
+                              classifications={classifications}
+                              clientClassifications={clientClassifications}
+                              userId={userProfile.perdet_seq_number}
+                              isPublic={isPublic}
+                            />
+                          </BoxShadow>
+                        }
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                          <Languages
+                            languagesArray={userProfile.languages}
                           />
                         </BoxShadow>
-                      }
+                      </Column>
                       {
-                        showAssignmentHistory &&
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                          <Assignments assignments={userProfile.assignments} />
-                        </BoxShadow>
+                        (showAssignmentHistory || showBidTracker) &&
+                        <Column
+                          columns={columns[2]}
+                          className="user-dashboard-section-container user-dashboard-column-3"
+                        >
+                          {
+                            showBidTracker &&
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                            <BidList
+                              bids={bidList}
+                              isPublic={isPublic}
+                              registerHandshake={registerHandshake}
+                              unregisterHandshake={unregisterHandshake}
+                              userId={userProfile.perdet_seq_number}
+                            />
+                          </BoxShadow>
+                          }
+                          {
+                            showAssignmentHistory &&
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                            <Assignments assignments={userProfile.assignments} />
+                          </BoxShadow>
+                          }
+                        </Column>
                       }
-                    </Column>
+                    </>
                   }
                 </Row>
               );
