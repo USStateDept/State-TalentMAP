@@ -47,8 +47,14 @@ const HandshakeAnimation = ({ isBidTracker, isOne, isTwo }) => {
       }
       {isTwo &&
       <div className="handshake-animation-two-container">
-        <FontAwesomeIcon className={`left-hand-two ${animate ? 'animate-left-two' : ''}`} icon={faHandPaper} />
-        <FontAwesomeIcon className={`right-hand-two ${animate ? 'animate-right-two' : ''}`} icon={faHandPaper} />
+        <div className={`hi ${animate ? 'animate-hi' : ''}`} >
+          <FA className={`left-hand-two-a ${animate ? 'animate-left-two-a' : ''}`} name="hand-paper-o" />
+          <FontAwesomeIcon className={`left-hand-two-b ${animate ? 'animate-left-two-b' : ''}`} icon={faHandPaper} />
+        </div>
+        <div className={`hello ${animate ? 'animate-hello' : ''}`} >
+          <FA className={`right-hand-two-a ${animate ? 'animate-right-two-a' : ''}`} name="hand-paper-o" />
+          <FontAwesomeIcon className={`right-hand-two-b ${animate ? 'animate-right-two-b' : ''}`} icon={faHandPaper} />
+        </div>
         <FA className={`hs-two ${animate ? 'animate-hs-two' : ''}`} name="handshake-o" />
       </div>
       }

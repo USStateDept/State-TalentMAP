@@ -628,48 +628,112 @@
       flex-direction: column;
       align-items: center;
       .handshake-animation-two-container {
-        .left-hand-two, .right-hand-two, .hs-two {
+        display: flex;
+        .left-hand-two-a, .left-hand-two-b, .right-hand-two-a, .right-hand-two-b, .hs-two {
           display: inline;
           position: relative;
           font-size: 20px;
         }
-        .left-hand-two {
-          left: -2rem;
+        .hi {
+          background-color: green;
+          clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+          position: relative;
+          height: 25px;
+          width: 40px;
+          opacity: 0;
+        }
+        .hello {
+          background-color: green;
+          clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
+          position: relative;
+          height: 25px;
+          width: 40px;
+          right: -3rem;
+          opacity: 0;
+        }
+        .left-hand-two-a {
+          top: 2px;
+          left: 7px;
+          transform: rotate(90deg);
+          opacity: 0;
+          color: white;
+          position: absolute;
+        }
+        .right-hand-two-a {
+          top: 2px;
+          right: 8px;
+          transform: rotate(-90deg) scaleX(-1);
+          opacity: 0;
+          color: white;
+          position: absolute;
+        }
+        .left-hand-two-b {
+          top: 2px;
+          left: 7px;
           transform: rotate(90deg);
           opacity: 0;
           color: green;
+          position: absolute;
         }
-        .right-hand-two {
-          right: -4rem;
+        .right-hand-two-b {
+          top: 2px;
+          right: 8px;
           transform: rotate(-90deg) scaleX(-1);
           opacity: 0;
           color: green;
+          position: absolute;
         }
         .hs-two {
-          margin-top: 8px;
           color: green;
-          left: -2rem;
+          left: -4rem;
         }
-        .animate-left-two {
-          animation: left-animation-two 2s linear;
+        .animate-left-two-a {
+          animation: left-animation-two-a 2s linear;
         }
-        .animate-right-two {
-          animation: right-animation-two 2s linear;
+        .animate-right-two-a {
+          animation: right-animation-two-a 2s linear;
+        }
+        .animate-left-two-b {
+          animation: left-animation-two-b 4s linear;
+        }
+        .animate-right-two-b {
+          animation: right-animation-two-b 4s linear;
         }
         .animate-hs-two {
           animation: hs-animation-two 4s linear;
         }
-        .temp-transparent-two {
-          animation: temp-transparent-animation-two 4s linear;
+        .animate-hi {
+          animation: hs-animation-hi 4s linear;
+        }
+        .animate-hello {
+          animation: hs-animation-hello 4s linear;
         }
 
-        @keyframes left-animation-two {
-          0% {left:-2rem; opacity: 100%;}
-          100% {left:2rem; opacity: 100%;}
+        @keyframes left-animation-two-a {
+          0% {opacity: 100%;}
+          25% {opacity: 100%;}
+          100% {opacity: 0;}
         }
-        @keyframes right-animation-two {
-          0% {right:-4rem; opacity: 100%;}
-          100% {right:-1rem; opacity: 100%;}
+        @keyframes right-animation-two-a {
+          0% {opacity: 100%;}
+          25% {opacity: 100%;}
+          100% {opacity: 0;}
+        }
+        @keyframes left-animation-two-b {
+          0% {opacity: 0;}
+          25% {opacity: 0;}
+          40% {opacity: 100%;}
+          50% {opacity: 100%;}
+          51% {opacity: 0;}
+          100% {opacity: 0;}
+        }
+        @keyframes right-animation-two-b {
+          0% {opacity: 0;}
+          25% {opacity: 0;}
+          40% {opacity: 100%;}
+          50% {opacity: 100%;}
+          51% {opacity: 0;}
+          100% {opacity: 0;}
         }
         @keyframes hs-animation-two {
           0% {opacity: 0;}
@@ -682,11 +746,21 @@
           85% {top:-10px;}
           90% {top:10px;}
           95% {top:-10px;}
-          100% {top:0; opacity: 100%; color: black;}
+          100% {top:0; opacity: 100%; color: green;}
         }
-        @keyframes temp-transparent-animation-two {
-          0% {opacity: 0;}
-          100% {opacity: 0;}
+        @keyframes hs-animation-hi {
+          0% {background-color: green; opacity: 100%; left: 0;}
+          20% {background-color: green; left: 0;}
+          30% {background-color: transparent; left: 0;}
+          50% {left: 4rem; background-color: transparent; opacity: 100%;}
+          100% {left: 4rem; background-color: transparent; opacity: 100%;}
+        }
+        @keyframes hs-animation-hello {
+          0% {background-color: green; opacity: 100%; right: -3rem;}
+          20% {background-color: green; right: -3rem;}
+          30% {background-color: transparent; right: -3rem;}
+          50% {right: 1rem; background-color: transparent; opacity: 100%;}
+          100% {right: 1rem; background-color: transparent; opacity: 100%;}
         }
       }
 
