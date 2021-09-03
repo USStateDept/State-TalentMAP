@@ -105,7 +105,7 @@ const PositionDetailsItem = (props) => {
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
-        {renderHandshake(stats, position)}
+        {renderHandshake(stats)}
         {renderCriticalNeed()}
         {renderHardToFill(details)}
         {renderServiceNeedDifferential(details)}

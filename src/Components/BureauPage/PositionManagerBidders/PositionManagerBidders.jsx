@@ -265,6 +265,8 @@ class PositionManagerBidders extends Component {
     const handshake = get(m, 'handshake', {}) || {};
     const active_hs_perdet = get(m, 'active_handshake_perdet');
     const hasAcceptedOtherOffer = get(m, 'has_accepted_other_offer');
+    const bureauOBidderA = (get(handshake, 'hs_status_code') === 'handshake_offered')
+      && (get(handshake, 'bidder_hs_code') === 'handshake_accepted');
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
@@ -336,10 +338,10 @@ class PositionManagerBidders extends Component {
               />
             }
           >
-            <HandshakeAnimation isTwo />
-            {/* <HandshakeStatus */}
-            {/*  handshake={handshake} */}
-            {/* /> */}
+            { this.props.hasHsReg && bureauOBidderA ?
+              <HandshakeAnimation isTwo /> :
+              <HandshakeStatus handshake={handshake} />
+            }
           </PermissionsWrapper>
           {
             type !== 'unranked' &&
@@ -632,6 +634,7 @@ PositionManagerBidders.propTypes = {
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  hasHsReg: PropTypes.bool,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -649,6 +652,7 @@ PositionManagerBidders.defaultProps = {
   hasBureauPermission: false,
   hasPostPermission: false,
   classifications: [],
+  hasHsReg: false,
 };
 
 export default PositionManagerBidders;
