@@ -23,12 +23,13 @@ const HandshakeAnimation = ({ isBidTracker, isOne, isTwo }) => {
   }, [animate]);
 
   const throttledEventHandler = useMemo(
-    () => throttle(animateHands, 4000)
-    , [setAnimate]);
+    () => throttle(animateHands, 4000),
+    [setAnimate]);
 
   return (
-    <InteractiveElement onMouseOver={throttledEventHandler}>
+    <InteractiveElement onMouseOver={throttledEventHandler} onFocus={throttledEventHandler}>
       {isBidTracker &&
+      (
         <div className="handshake-animation-container">
           <FontAwesomeIcon className={`left-hand ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
           <FontAwesomeIcon className={`right-hand ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
@@ -36,27 +37,32 @@ const HandshakeAnimation = ({ isBidTracker, isOne, isTwo }) => {
             <FontAwesomeIcon className={`hs ${animate ? 'animate-hs' : ''}`} icon={faHandshake} />
           </div>
         </div>
+      )
       }
       {isOne &&
+      (
         <div className="handshake-animation-ribbon-container">
           <Handshake isWide cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} />
           <FontAwesomeIcon className={`left-hand-ribbon ${animate ? 'animate-left-ribbon' : ''}`} icon={faHandPaper} />
           <FontAwesomeIcon className={`right-hand-ribbon ${animate ? 'animate-right-ribbon' : ''}`} icon={faHandPaper} />
           <FA className={`hs-ribbon ${animate ? 'animate-hs-ribbon' : ''}`} name="handshake-o" />
         </div>
+      )
       }
       {isTwo &&
-      <div className="handshake-animation-two-container">
-        <div className={`hi ${animate ? 'animate-hi' : ''}`} >
-          <FA className={`left-hand-two-a ${animate ? 'animate-left-two-a' : ''}`} name="hand-paper-o" />
-          <FontAwesomeIcon className={`left-hand-two-b ${animate ? 'animate-left-two-b' : ''}`} icon={faHandPaper} />
+      (
+        <div className="handshake-animation-two-container">
+          <div className={`hi ${animate ? 'animate-hi' : ''}`} >
+            <FA className={`left-hand-two-a ${animate ? 'animate-left-two-a' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`left-hand-two-b ${animate ? 'animate-left-two-b' : ''}`} icon={faHandPaper} />
+          </div>
+          <div className={`hello ${animate ? 'animate-hello' : ''}`}>
+            <FA className={`right-hand-two-a ${animate ? 'animate-right-two-a' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`right-hand-two-b ${animate ? 'animate-right-two-b' : ''}`} icon={faHandPaper} />
+          </div>
+          <FA className={`hs-two ${animate ? 'animate-hs-two' : ''}`} name="handshake-o" />
         </div>
-        <div className={`hello ${animate ? 'animate-hello' : ''}`} >
-          <FA className={`right-hand-two-a ${animate ? 'animate-right-two-a' : ''}`} name="hand-paper-o" />
-          <FontAwesomeIcon className={`right-hand-two-b ${animate ? 'animate-right-two-b' : ''}`} icon={faHandPaper} />
-        </div>
-        <FA className={`hs-two ${animate ? 'animate-hs-two' : ''}`} name="handshake-o" />
-      </div>
+      )
       }
     </InteractiveElement>
   );
