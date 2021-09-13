@@ -67,7 +67,7 @@ export function userProfileFetchData(bypass, cb) {
      * create functions to fetch user's profile and permissions
      */
     // profile
-    const getUserAccount = () => api().get('/profile/');
+    const getUserAccount = () => api().get('/profile/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // permissions
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
