@@ -15,7 +15,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
@@ -311,7 +311,7 @@ class ResultsCard extends Component {
                       </StaticDevContent>
                     }
                     {
-                      get(result, 'isDifficultToStaff', false) && <HardToFill isWideResults className="ribbon-results-card" />
+                      get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWideResults className="ribbon-results-card" />
                     }
                     {
                       get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
