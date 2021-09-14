@@ -14858,10 +14858,10 @@ webidl-conversions@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
 
-webpack-dashboard@^3.3.5:
-  version "3.3.5"
-  resolved "https://registry.yarnpkg.com/webpack-dashboard/-/webpack-dashboard-3.3.5.tgz#e7caca98b309de451343bd9945f615178f475f1c"
-  integrity sha512-0/uQIsyWTOOoqdwDZjQoxQOyrTB9SGOh1VRuxHkp3DW8F8hzZN3H5EOudZuyvsJ+Uf1toBFKp9Y94cE3cG3ABg==
+webpack-dashboard@^3.3.6:
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/webpack-dashboard/-/webpack-dashboard-3.3.6.tgz#b2209293eff0902a1aab96a5b847855b3521a685"
+  integrity sha512-FhjpLGw5AkFj1IRPbdmqgoIINVn+xjMXCY8G9MaMAZORyom7lK9pVM6nFHNcp/zUF6jONjAIzBjm01K90jMEZw==
   dependencies:
     chalk "^4.1.1"
     commander "^8.0.0"
