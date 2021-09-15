@@ -11,7 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from 'Components/Ribbon';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
@@ -97,7 +97,7 @@ class BureauResultsCard extends Component {
               get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
             }
             {
-              get(result, 'isDifficultToStaff', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
+              get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWide cutSide="both" className="ribbon-results-card" />
             }
             {
               get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
