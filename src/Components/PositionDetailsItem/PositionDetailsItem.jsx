@@ -11,7 +11,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   getAccessiblePositionNumber,
@@ -45,8 +45,8 @@ export const renderCriticalNeed = () => (
   </StaticDevContent>
 );
 
-export const renderHardToFill = details => (
-  get(details, 'isDifficultToStaff', false) && <HardToFill cutSide="both" className="ribbon-position-details" />
+export const renderHistDiffToStaff = details => (
+  get(details, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className="ribbon-position-details" />
 );
 
 export const renderServiceNeedDifferential = details => (
@@ -107,7 +107,7 @@ const PositionDetailsItem = (props) => {
       <div className="handshake-offset-container">
         {renderHandshake(stats, position)}
         {renderCriticalNeed()}
-        {renderHardToFill(details)}
+        {renderHistDiffToStaff(details)}
         {renderServiceNeedDifferential(details)}
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
