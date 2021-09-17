@@ -19,7 +19,7 @@ import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
 import MediaQuery from '../MediaQuery';
 
 export const renderBidCounts = (compareArray, emptyArray) => (
@@ -329,7 +329,7 @@ class CompareList extends Component {
                                 }
                                 {
                                   get(c, 'isDifficultToStaff', false) &&
-                                  <HardToFill
+                                  <HistDiffToStaff
                                     shortName
                                     isWide={matches}
                                     showText={matches}
