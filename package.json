@@ -35,7 +35,7 @@
     "history": "^4.7.2",
     "imagediff": "^1.0.8",
     "immutable": "^3.8.2",
-    "jsoneditor": "^9.5.5",
+    "jsoneditor": "^9.5.6",
     "jsoneditor-react": "^3.1.1",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
@@ -104,7 +104,7 @@
     "react-styleguidist 11.1.7 requires node 14"
   ],
   "devDependencies": {
-    "@babel/cli": "^7.15.4",
+    "@babel/cli": "^7.15.7",
     "@babel/core": "^7.15.5",
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@babel/plugin-syntax-dynamic-import": "7.8.3",
@@ -127,7 +127,7 @@
     "@types/react-router-dom": "^5.1.9",
     "@types/shortid": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
+    "@typescript-eslint/parser": "^4.31.2",
     "autoprefixer": "^9.8.6",
     "axios-mock-adapter": "^1.20.0",
     "babel-cli": "^6.26.0",
