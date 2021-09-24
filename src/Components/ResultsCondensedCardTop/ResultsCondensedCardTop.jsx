@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
 import { Tooltip } from 'react-tippy';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
 import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getBidStatisticsObject, getPostName } from '../../utilities';
@@ -65,11 +65,11 @@ const ResultsCondensedCardTop = ({
         {
           isDifficultToStaff &&
           <Tooltip
-            title="Hard to fill"
+            title="Hist. Diff. to Staff"
             arrow
             offset={-60}
           >
-            <HardToFill showText={false} className="ribbon-condensed-card" />
+            <HistDiffToStaff showText={false} className="ribbon-condensed-card" />
           </Tooltip>
         }
         {
