@@ -367,7 +367,7 @@ class PositionManagerBidders extends Component {
     const tableRows = (
       <tr>
         {keys(sections).map(i => (
-          <td>{sections[i]}</td>
+          <td key={i}>{sections[i]}</td>
         ))}
       </tr>
     );
@@ -629,7 +629,7 @@ PositionManagerBidders.propTypes = {
     ordering: PropTypes.string,
   }),
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.id]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   isLocked: PropTypes.bool,
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
