@@ -210,19 +210,19 @@
       }
     }
   }
-  .handshake-animation-ribbon-container {
-    .left-hand-ribbon, .right-hand-ribbon, .hs-ribbon {
+  .handshake-animation-ribbon {
+    .left, .right, .hs-ribbon {
       display: inline;
       position: relative;
       font-size: 20px;
     }
-    .left-hand-ribbon {
+    .left {
       left: 7rem;
       transform: rotate(90deg);
       opacity: 0;
       color: $color-green;
     }
-    .right-hand-ribbon {
+    .right {
       right: -17rem;
       transform: rotate(-90deg) scaleX(-1);
       opacity: 0;
@@ -234,11 +234,11 @@
       opacity: 0;
       left: 9rem;
     }
-    .animate-left-ribbon {
-      animation: left-animation-ribbon 2s linear;
+    .animate-left {
+      animation: left-animation 2s linear;
     }
-    .animate-right-ribbon {
-      animation: right-animation-ribbon 2s linear;
+    .animate-right {
+      animation: right-animation 2s linear;
     }
     .animate-hs-ribbon {
       animation: hs-animation-ribbon 4s linear;
@@ -247,11 +247,11 @@
       animation: temp-transparent-animation-ribbon 4s linear;
     }
 
-    @keyframes left-animation-ribbon {
+    @keyframes left-animation {
       0% {left:7rem; opacity: 100%;}
       100% {left:13rem; opacity: 100%;}
     }
-    @keyframes right-animation-ribbon {
+    @keyframes right-animation {
       0% {right:-17rem; opacity: 100%;}
       100% {right:-11rem; opacity: 100%;}
     }
@@ -627,14 +627,14 @@
     td:last-of-type {
       flex-direction: column;
       align-items: center;
-      .handshake-animation-two-container {
+      .handshake-animation-bidder {
         display: flex;
-        .left-hand-two-a, .left-hand-two-b, .right-hand-two-a, .right-hand-two-b, .hs-two {
+        .left-initial, .left-secondary, .right-initial, .right-secondary, .hs-bidder {
           display: inline;
           position: relative;
           font-size: 20px;
         }
-        .hi {
+        .left {
           background-color: $color-green;
           clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
           position: relative;
@@ -642,7 +642,7 @@
           width: 40px;
           opacity: 0;
         }
-        .hello {
+        .right {
           background-color: $color-green;
           clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
           position: relative;
@@ -651,7 +651,7 @@
           right: -3rem;
           opacity: 0;
         }
-        .left-hand-two-a {
+        .left-initial {
           top: 2px;
           left: 7px;
           transform: rotate(90deg);
@@ -659,7 +659,7 @@
           color: white;
           position: absolute;
         }
-        .right-hand-two-a {
+        .right-initial {
           top: 2px;
           right: 6px;
           transform: rotate(-90deg) scaleX(-1);
@@ -667,7 +667,7 @@
           color: white;
           position: absolute;
         }
-        .left-hand-two-b {
+        .left-secondary {
           top: 2px;
           left: 7px;
           transform: rotate(90deg);
@@ -675,7 +675,7 @@
           color: $color-green;
           position: absolute;
         }
-        .right-hand-two-b {
+        .right-secondary {
           top: 2px;
           right: 8px;
           transform: rotate(-90deg) scaleX(-1);
@@ -683,43 +683,43 @@
           color: $color-green;
           position: absolute;
         }
-        .hs-two {
+        .hs-bidder {
           color: $color-green;
           left: -4rem;
         }
-        .animate-left-two-a {
-          animation: left-animation-two-a 2s linear;
+        .animate-left-initial {
+          animation: left-animation-initial 2s linear;
         }
-        .animate-right-two-a {
-          animation: right-animation-two-a 2s linear;
+        .animate-right-initial {
+          animation: right-animation-initial 2s linear;
         }
-        .animate-left-two-b {
-          animation: left-animation-two-b 4s linear;
+        .animate-left-secondary {
+          animation: left-animation-secondary 4s linear;
         }
-        .animate-right-two-b {
-          animation: right-animation-two-b 4s linear;
+        .animate-right-secondary {
+          animation: right-animation-secondary 4s linear;
         }
-        .animate-hs-two {
-          animation: hs-animation-two 4s linear;
+        .animate-hs-bidder {
+          animation: hs-animation-bidder 4s linear;
         }
-        .animate-hi {
-          animation: hs-animation-hi 4s linear;
+        .animate-left {
+          animation: hs-animation-left 4s linear;
         }
-        .animate-hello {
-          animation: hs-animation-hello 4s linear;
+        .animate-right {
+          animation: hs-animation-right 4s linear;
         }
 
-        @keyframes left-animation-two-a {
+        @keyframes left-animation-initial {
           0% {opacity: 100%;}
           25% {opacity: 100%;}
           100% {opacity: 0;}
         }
-        @keyframes right-animation-two-a {
+        @keyframes right-animation-initial {
           0% {opacity: 100%;}
           25% {opacity: 100%;}
           100% {opacity: 0;}
         }
-        @keyframes left-animation-two-b {
+        @keyframes left-animation-secondary {
           0% {opacity: 0;}
           25% {opacity: 0;}
           40% {opacity: 100%;}
@@ -727,7 +727,7 @@
           51% {opacity: 0;}
           100% {opacity: 0;}
         }
-        @keyframes right-animation-two-b {
+        @keyframes right-animation-secondary {
           0% {opacity: 0;}
           25% {opacity: 0;}
           40% {opacity: 100%;}
@@ -735,7 +735,7 @@
           51% {opacity: 0;}
           100% {opacity: 0;}
         }
-        @keyframes hs-animation-two {
+        @keyframes hs-animation-bidder {
           0% {opacity: 0;}
           49% {opacity: 0;}
           50% {top:10px; opacity: 100%; color: $color-green;}
@@ -748,14 +748,14 @@
           95% {top:-10px;}
           100% {top:0; opacity: 100%; color: $color-green;}
         }
-        @keyframes hs-animation-hi {
+        @keyframes hs-animation-left {
           0% {background-color: $color-green; opacity: 100%; left: 0;}
           20% {background-color: $color-green; left: 0;}
           30% {background-color: transparent; left: 0;}
           50% {left: 4rem; background-color: transparent; opacity: 100%;}
           100% {left: 4rem; background-color: transparent; opacity: 100%;}
         }
-        @keyframes hs-animation-hello {
+        @keyframes hs-animation-right {
           0% {background-color: $color-green; opacity: 100%; right: -3rem;}
           20% {background-color: $color-green; right: -3rem;}
           30% {background-color: transparent; right: -3rem;}

@@ -283,20 +283,20 @@ $register-hide-icon: 95%;
     position: relative;
   }
 
-  .handshake-animation-container {
+  .hs-animation-bidtracker {
     margin-left: -36px;
-    .left-hand, .right-hand, .hs {
+    .left, .right, .hs-bidtracker {
       display: inline;
       position: relative;
       font-size: 20px;
     }
-    .left-hand {
+    .left {
       left: -10rem;
       transform: rotate(90deg);
       opacity: 0;
       color: $color-green;
     }
-    .right-hand {
+    .right {
       right: -17rem;
       transform: rotate(-90deg) scaleX(-1);
       opacity: 0;
@@ -309,7 +309,7 @@ $register-hide-icon: 95%;
       height: 36px;
       margin: auto;
       display: inline-block;
-      .hs {
+      .hs-bidtracker {
         margin-top: 8px;
         color: $color-white;
       }
@@ -320,8 +320,8 @@ $register-hide-icon: 95%;
     .animate-right {
       animation: right-animation 2s linear;
     }
-    .animate-hs {
-      animation: hs-animation 4s linear;
+    .animate-hs-bidtracker {
+      animation: hs-animation-bidtracker 4s linear;
     }
     .temp-transparent {
       animation: temp-transparent-animation 4s linear;
@@ -359,7 +359,7 @@ $register-hide-icon: 95%;
       0% {right:-8rem; opacity: 100%;}
       100% {right:-3rem; opacity: 100%;}
     }
-    @keyframes hs-animation {
+    @keyframes hs-animation-bidtracker {
       0% {opacity: 0;}
       49% {opacity: 0;}
       50% {top:10px; opacity: 100%; color: $color-green;}
@@ -377,10 +377,10 @@ $register-hide-icon: 95%;
       100% {background-color: transparent;}
     }
     @media screen and (max-width: 1699px) {
-      .left-hand {
+      .left {
         left: -8rem;
       }
-      .right-hand {
+      .right {
         right: -15rem;
       }
       .animate-left {
@@ -391,10 +391,10 @@ $register-hide-icon: 95%;
       }
     }
     @media screen and (max-width: 1499px) {
-      .left-hand {
+      .left {
         left: -4rem;
       }
-      .right-hand {
+      .right {
         right: -11rem;
       }
       .animate-left {
@@ -405,10 +405,10 @@ $register-hide-icon: 95%;
       }
     }
     @media screen and (max-width: 1249px) {
-      .left-hand {
+      .left {
         left: -1rem;
       }
-      .right-hand {
+      .right {
         right: -8rem;
       }
       .animate-left {

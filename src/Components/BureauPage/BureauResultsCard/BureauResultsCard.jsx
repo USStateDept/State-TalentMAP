@@ -11,7 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from 'Components/Ribbon';
+import { CriticalNeed, HistDiffToStaff, ServiceNeedDifferential } from 'Components/Ribbon';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
@@ -102,7 +102,7 @@ class BureauResultsCard extends Component {
             }
             {
               get(stats, 'has_handshake_offered', false) ?
-                <HandshakeAnimation isOne /> :
+                <HandshakeAnimation isRibbon /> :
                 <HandshakeStatus handshake={leadHandshake} />
             }
             {renderBidCountMobile(stats)}

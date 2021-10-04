@@ -339,7 +339,7 @@ class PositionManagerBidders extends Component {
             }
           >
             { this.props.hasHsReg && bureauOBidderA ?
-              <HandshakeAnimation isTwo /> :
+              <HandshakeAnimation isBidder /> :
               <HandshakeStatus handshake={handshake} />
             }
           </PermissionsWrapper>

@@ -7,7 +7,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { Handshake } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 
-const HandshakeAnimation = ({ isBidTracker, isOne, isTwo }) => {
+const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
   const [animate, setAnimate] = useState(false);
 
   const animateHands = () => {
@@ -30,37 +30,39 @@ const HandshakeAnimation = ({ isBidTracker, isOne, isTwo }) => {
     <InteractiveElement onMouseOver={throttledEventHandler} onFocus={throttledEventHandler}>
       {isBidTracker &&
       (
-        <div className="handshake-animation-container">
-          <FontAwesomeIcon className={`left-hand ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
-          <FontAwesomeIcon className={`right-hand ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
+        <div className="hs-animation-bidtracker">
           <div className={`hs-container ${animate ? 'temp-transparent' : ''}`}>
-            <FontAwesomeIcon className={`hs ${animate ? 'animate-hs' : ''}`} icon={faHandshake} />
+            <FontAwesomeIcon className={`hs-bidtracker ${animate ? 'animate-hs-bidtracker' : ''}`} icon={faHandshake} />
           </div>
+          <FontAwesomeIcon className={`left ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
+          <FontAwesomeIcon className={`right ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
         </div>
       )
       }
-      {isOne &&
+      {isRibbon &&
       (
-        <div className="handshake-animation-ribbon-container">
+        <div className="handshake-animation-ribbon">
           <Handshake isWide cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} />
-          <FontAwesomeIcon className={`left-hand-ribbon ${animate ? 'animate-left-ribbon' : ''}`} icon={faHandPaper} />
-          <FontAwesomeIcon className={`right-hand-ribbon ${animate ? 'animate-right-ribbon' : ''}`} icon={faHandPaper} />
+          <FontAwesomeIcon className={`left ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
+          <FontAwesomeIcon className={`right ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
           <FA className={`hs-ribbon ${animate ? 'animate-hs-ribbon' : ''}`} name="handshake-o" />
+          <FA className="oc-icon" name="question-circle" />
         </div>
       )
       }
-      {isTwo &&
+      {isBidder &&
       (
-        <div className="handshake-animation-two-container">
-          <div className={`hi ${animate ? 'animate-hi' : ''}`} >
-            <FA className={`left-hand-two-a ${animate ? 'animate-left-two-a' : ''}`} name="hand-paper-o" />
-            <FontAwesomeIcon className={`left-hand-two-b ${animate ? 'animate-left-two-b' : ''}`} icon={faHandPaper} />
+        <div className="handshake-animation-bidder">
+          <div className={`left ${animate ? 'animate-left' : ''}`} >
+            <FA className={`left-initial ${animate ? 'animate-left-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`left-secondary ${animate ? 'animate-left-secondary' : ''}`} icon={faHandPaper} />
           </div>
-          <div className={`hello ${animate ? 'animate-hello' : ''}`}>
-            <FA className={`right-hand-two-a ${animate ? 'animate-right-two-a' : ''}`} name="hand-paper-o" />
-            <FontAwesomeIcon className={`right-hand-two-b ${animate ? 'animate-right-two-b' : ''}`} icon={faHandPaper} />
+          <div className={`right ${animate ? 'animate-right' : ''}`}>
+            <FA className={`right-initial ${animate ? 'animate-right-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`right-secondary ${animate ? 'animate-right-secondary' : ''}`} icon={faHandPaper} />
           </div>
-          <FA className={`hs-two ${animate ? 'animate-hs-two' : ''}`} name="handshake-o" />
+          <FA className={`hs-bidder ${animate ? 'animate-hs-bidder' : ''}`} name="handshake-o" />
+          <FA className="oc-icon" name="question-circle" />
         </div>
       )
       }
@@ -71,14 +73,14 @@ const HandshakeAnimation = ({ isBidTracker, isOne, isTwo }) => {
 
 HandshakeAnimation.propTypes = {
   isBidTracker: PropTypes.bool,
-  isOne: PropTypes.bool,
-  isTwo: PropTypes.bool,
+  isRibbon: PropTypes.bool,
+  isBidder: PropTypes.bool,
 };
 
 HandshakeAnimation.defaultProps = {
   isBidTracker: false,
-  isOne: false,
-  isTwo: false,
+  isRibbon: false,
+  isBidder: false,
 };
 
 export default HandshakeAnimation;
