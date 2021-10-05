@@ -2731,16 +2731,16 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
 
-autoprefixer@^9.8.7:
-  version "9.8.7"
-  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.7.tgz#e3c12de18a800af1a1a8155fbc01dc7de29ea184"
-  integrity sha512-7Hg99B1eTH5+LgmUBUSmov1Z3bsggQJS7v3IMGo6wcScnbRuvtMc871J9J+4bSbIqa9LSX/zypFXJ8sXHpMJeQ==
+autoprefixer@^9.8.8:
+  version "9.8.8"
+  resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-9.8.8.tgz#fd4bd4595385fa6f06599de749a4d5f7a474957a"
+  integrity sha512-eM9d/swFopRt5gdJ7jrpCwgvEMIayITpojhkkSMRsFHYuH5bkSQ4p/9qTEHtmNudUZh22Tehu7I6CxAW0IXTKA==
   dependencies:
     browserslist "^4.12.0"
     caniuse-lite "^1.0.30001109"
-    nanocolors "^0.2.8"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
+    picocolors "^0.2.1"
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
@@ -9861,11 +9861,6 @@ nan@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-1.2.0.tgz#9c4d63ce9e4f8e95de2d574e18f7925554a8a8ef"
 
-nanocolors@^0.2.8:
-  version "0.2.12"
-  resolved "https://registry.yarnpkg.com/nanocolors/-/nanocolors-0.2.12.tgz#4d05932e70116078673ea4cc6699a1c56cc77777"
-  integrity sha512-SFNdALvzW+rVlzqexid6epYdt8H9Zol7xDoQarioEFcFN0JHo4CYNztAxmtfgGTVRCmFlEOqqhBpoFGKqSAMug==
-
 nanoid@^2.1.0:
   version "2.1.6"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.6.tgz#0665418f692e54cf44f34d4010761f3240a03314"
@@ -10768,6 +10763,11 @@ performance-now@^0.2.0:
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+
+picocolors@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-0.2.1.tgz#570670f793646851d1ba135996962abad587859f"
+  integrity sha512-cMlDqaLEqfSaW8Z7N5Jw+lyIW869EzT73/F5lhtY9cLGoVxSXznfgfXMO0Z5K0o0Q2TkTXq+0KFsdnSe3jDViA==
 
 picomatch@^2.0.4:
   version "2.2.1"
