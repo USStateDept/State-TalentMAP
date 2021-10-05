@@ -21,7 +21,7 @@ const AvailableBidderStats = () => {
 
   const stats = get(biddersData, 'stats', {});
 
-  const statsSum = Object.values(get(stats, 'status', {})).reduce((a, b) => a + b, 0);
+  const statsSum = Object.values(get(stats, 'grade', {})).reduce((a, b) => a + b, 0);
 
   let data = [
     {
@@ -34,21 +34,21 @@ const AvailableBidderStats = () => {
       grade: [
         { name: 'Grade 01', key: '01', value: 0, color: '#112E51' },
         { name: 'Grade 02', key: '02', value: 0, color: '#205493' },
-        { name: 'Grade 03', key: '03', value: 0, color: '#112E51' },
-        { name: 'Grade 04', key: '04', value: 0, color: '#205493' },
-        { name: 'Grade 05', key: '05', value: 0, color: '#112E51' },
-        { name: 'Grade 06', key: '06', value: 0, color: '#205493' },
-        { name: 'Grade 07', key: '07', value: 0, color: '#112E51' },
-        { name: 'Grade 08', key: '08', value: 0, color: '#205493' },
-        { name: 'Multiple Grades Considered (00)', key: '00', value: 0, color: '#112E51' },
-        { name: 'MC Minister-Counserlor (MC)', key: 'MC', value: 0, color: '#205493' },
-        { name: 'OC Counselor (FE-OC)', key: 'OC', value: 0, color: '#112E51' },
-        { name: 'Office Manager (OM)', key: 'OM', value: 0, color: '#205493' },
+        { name: 'Grade 03', key: '03', value: 0, color: '#87BCDE' },
+        { name: 'Grade 04', key: '04', value: 0, color: '#805E73' },
+        { name: 'Grade 05', key: '05', value: 0, color: '#FFC09F' },
+        { name: 'Grade 06', key: '06', value: 0, color: '#DC0073' },
+        { name: 'Grade 07', key: '07', value: 0, color: '#02BFE7' },
+        { name: 'Grade 08', key: '08', value: 0, color: '#ADF7B6' },
+        { name: 'Multiple Grades Considered (00)', key: '00', value: 0, color: '#7BAC72' },
+        { name: 'MC Minister-Counserlor (MC)', key: 'MC', value: 0, color: '#F5B700' },
+        { name: 'OC Counselor (FE-OC)', key: 'OC', value: 0, color: '#04E762' },
+        { name: 'Office Manager (OM)', key: 'OM', value: 0, color: '#00A1E4' },
       ],
     },
   ];
 
-  data = data[0].status.map(m => ({ ...m, value: get(stats.status, m.key, 0) }));
+  data = data[0].grade.map(m => ({ ...m, value: get(stats.grade, m.key, 0) }));
 
   const data$ = data.map(m => {
     // handling division by zero
@@ -60,7 +60,6 @@ const AvailableBidderStats = () => {
   });
 
   const chartData$ = data$.filter(f => f.value > 0);
-
   const isNoBidders = !get(biddersData, 'results', []).length;
 
   const statOptions = [
@@ -167,7 +166,7 @@ const AvailableBidderStats = () => {
                 <div className="usa-grid-full flex">
                   <div className="usa-width-one-fourth legend-container">
                     <div className="usa-grid-full legend">
-                      <h4>Available Bidders Status Stats ({statsSum})</h4>
+                      <h4>Available Bidders Grade Stats ({statsSum})</h4>
                       {
                         data$.map(m => (
                           <div className="flex legend-item">
