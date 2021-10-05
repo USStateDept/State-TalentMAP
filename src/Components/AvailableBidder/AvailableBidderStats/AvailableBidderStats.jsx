@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -20,15 +21,9 @@ const AvailableBidderStats = () => {
 
   const stats = get(biddersData, 'stats', {});
 
-  const statsSum = Object.values(stats).reduce((a, b) => a + b, 0);
+  const statsSum = Object.values(get(stats, 'status', {})).reduce((a, b) => a + b, 0);
 
   let data = [
-    { name: 'Overcompliment (OC)', key: 'OC', value: 0, color: '#112E51' },
-    { name: 'Unassigned (UA)', key: 'UA', value: 0, color: '#205493' },
-    { name: 'In Transit (IT)', key: 'IT', value: 0, color: '#9BDAF1' },
-    { name: 'Absent without leave (AWOL)', key: 'AWOL', value: 0, color: '#02BFE7' },
-    { name: 'Grade 01', key: 'IT', value: 0, color: '#02BFE8' },
-    { name: 'Grade 02', key: 'OC', value: 0, color: '#02BFE9' },
     {
       status: [
         { name: 'Overcompliment (OC)', key: 'OC', value: 0, color: '#112E51' },
@@ -36,8 +31,6 @@ const AvailableBidderStats = () => {
         { name: 'In Transit (IT)', key: 'IT', value: 0, color: '#9BDAF1' },
         { name: 'Absent without leave (AWOL)', key: 'AWOL', value: 0, color: '#02BFE7' },
       ],
-    },
-    {
       grade: [
         { name: 'Grade 01', key: '01', value: 0, color: '#112E51' },
         { name: 'Grade 02', key: '02', value: 0, color: '#205493' },
@@ -55,7 +48,7 @@ const AvailableBidderStats = () => {
     },
   ];
 
-  data = data.map(m => ({ ...m, value: get(stats, m.key, 0) }));
+  data = data[0].status.map(m => ({ ...m, value: get(stats.status, m.key, 0) }));
 
   const data$ = data.map(m => {
     // handling division by zero
@@ -67,11 +60,6 @@ const AvailableBidderStats = () => {
   });
 
   const chartData$ = data$.filter(f => f.value > 0);
-  console.log('biddersData', biddersData);
-  console.log('stats', stats);
-  console.log('data', data);
-  console.log('data$', data$);
-  // console.log('chartdata', chartData$);
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
