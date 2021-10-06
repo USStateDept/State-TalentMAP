@@ -210,23 +210,62 @@
       }
     }
   }
-  .handshake-animation-ribbon {
-    .left, .right, .hs-ribbon {
+  .hs-animation-ribbon {
+    display: flex;
+    .left-initial, .left-secondary, .right-initial, .right-secondary, .hs-ribbon {
       display: inline;
       position: relative;
       font-size: 20px;
     }
     .left {
-      left: 7rem;
+      background-color: $color-green;
+      clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+      position: relative;
+      height: 25px;
+      width: 40px;
+      //opacity: 0;
+      left: 11rem;
+    }
+    .right {
+      background-color: $color-green;
+      clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
+      position: relative;
+      height: 25px;
+      width: 40px;
+      right: -17rem;
+      //opacity: 0;
+    }
+    .left-initial {
+      top: 2px;
+      left: 7px;
+      transform: rotate(90deg);
+      //opacity: 0;
+      color: white;
+      position: absolute;
+    }
+    .right-initial {
+      top: 2px;
+      right: 6px;
+      transform: rotate(-90deg) scaleX(-1);
+      //opacity: 0;
+      color: white;
+      position: absolute;
+    }
+    .left-secondary {
+      top: 2px;
+      left: 7px;
       transform: rotate(90deg);
       opacity: 0;
       color: $color-green;
+      position: absolute;
     }
-    .right {
-      right: -17rem;
+    .right-secondary {
+      top: 2px;
+      right: 8px;
       transform: rotate(-90deg) scaleX(-1);
       opacity: 0;
       color: $color-green;
+      position: absolute;
     }
     .hs-ribbon {
       margin-top: 8px;
@@ -234,26 +273,55 @@
       opacity: 0;
       left: 9rem;
     }
-    .animate-left {
-      animation: left-animation 2s linear;
+    .animate-left-initial {
+      animation: left-animation-initial 2s linear;
     }
-    .animate-right {
-      animation: right-animation 2s linear;
+    .animate-right-initial {
+      animation: right-animation-initial 2s linear;
+    }
+    .animate-left-secondary {
+      animation: left-animation-secondary 4s linear;
+    }
+    .animate-right-secondary {
+      animation: right-animation-secondary 4s linear;
     }
     .animate-hs-ribbon {
       animation: hs-animation-ribbon 4s linear;
     }
+    .animate-left {
+      animation: hs-animation-left-ribbon 4s linear;
+    }
+    .animate-right {
+      animation: hs-animation-right-ribbon 4s linear;
+    }
     .temp-transparent-ribbon {
       animation: temp-transparent-animation-ribbon 4s linear;
     }
-
-    @keyframes left-animation {
-      0% {left:7rem; opacity: 100%;}
-      100% {left:13rem; opacity: 100%;}
+    @keyframes left-animation-initial {
+      0% {opacity: 100%;}
+      25% {opacity: 100%;}
+      100% {opacity: 0;}
     }
-    @keyframes right-animation {
-      0% {right:-17rem; opacity: 100%;}
-      100% {right:-11rem; opacity: 100%;}
+    @keyframes right-animation-initial {
+      0% {opacity: 100%;}
+      25% {opacity: 100%;}
+      100% {opacity: 0;}
+    }
+    @keyframes left-animation-secondary {
+      0% {opacity: 0;}
+      25% {opacity: 0;}
+      40% {opacity: 100%;}
+      50% {opacity: 100%;}
+      51% {opacity: 0;}
+      100% {opacity: 0;}
+    }
+    @keyframes right-animation-secondary {
+      0% {opacity: 0;}
+      25% {opacity: 0;}
+      40% {opacity: 100%;}
+      50% {opacity: 100%;}
+      51% {opacity: 0;}
+      100% {opacity: 0;}
     }
     @keyframes hs-animation-ribbon {
       0% {opacity: 0;}
@@ -271,6 +339,20 @@
     @keyframes temp-transparent-animation-ribbon {
       0% {opacity: 0;}
       100% {opacity: 0;}
+    }
+    @keyframes hs-animation-left-ribbon {
+      0% {background-color: $color-green; opacity: 100%; left:11rem;}
+      20% {background-color: $color-green; left: 11rem;}
+      30% {background-color: transparent; left: 11rem;}
+      50% {left: 16rem; background-color: transparent; opacity: 100%;}
+      100% {left: 16rem; background-color: transparent; opacity: 100%;}
+    }
+    @keyframes hs-animation-right-ribbon {
+      0% {background-color: $color-green; opacity: 100%; right: -17rem;}
+      20% {background-color: $color-green; right: -17rem;}
+      30% {background-color: transparent; right: -17rem;}
+      50% {right: -12rem; background-color: transparent; opacity: 100%;}
+      100% {right: -12rem; background-color: transparent; opacity: 100%;}
     }
   }
 }
@@ -627,7 +709,7 @@
     td:last-of-type {
       flex-direction: column;
       align-items: center;
-      .handshake-animation-bidder {
+      .hs-animation-bidder {
         display: flex;
         .left-initial, .left-secondary, .right-initial, .right-secondary, .hs-bidder {
           display: inline;
@@ -703,10 +785,10 @@
           animation: hs-animation-bidder 4s linear;
         }
         .animate-left {
-          animation: hs-animation-left 4s linear;
+          animation: hs-animation-left-bidder 4s linear;
         }
         .animate-right {
-          animation: hs-animation-right 4s linear;
+          animation: hs-animation-right-bidder 4s linear;
         }
 
         @keyframes left-animation-initial {
@@ -748,14 +830,14 @@
           95% {top:-10px;}
           100% {top:0; opacity: 100%; color: $color-green;}
         }
-        @keyframes hs-animation-left {
+        @keyframes hs-animation-left-bidder {
           0% {background-color: $color-green; opacity: 100%; left: 0;}
           20% {background-color: $color-green; left: 0;}
           30% {background-color: transparent; left: 0;}
           50% {left: 4rem; background-color: transparent; opacity: 100%;}
           100% {left: 4rem; background-color: transparent; opacity: 100%;}
         }
-        @keyframes hs-animation-right {
+        @keyframes hs-animation-right-bidder {
           0% {background-color: $color-green; opacity: 100%; right: -3rem;}
           20% {background-color: $color-green; right: -3rem;}
           30% {background-color: transparent; right: -3rem;}

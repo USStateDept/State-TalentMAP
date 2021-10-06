@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useMemo, useState } from 'react';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -41,18 +42,24 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
       }
       {isRibbon &&
       (
-        <div className="handshake-animation-ribbon">
-          <Handshake isWide cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} />
-          <FontAwesomeIcon className={`left ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
-          <FontAwesomeIcon className={`right ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
+        <div className="hs-animation-ribbon">
+          <div className={`left ${animate ? 'animate-left' : ''}`} >
+            <FA className={`left-initial ${animate ? 'animate-left-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`left-secondary ${animate ? 'animate-left-secondary' : ''}`} icon={faHandPaper} />
+          </div>
+          <div className={`right ${animate ? 'animate-right' : ''}`}>
+            <FA className={`right-initial ${animate ? 'animate-right-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`right-secondary ${animate ? 'animate-right-secondary' : ''}`} icon={faHandPaper} />
+          </div>
           <FA className={`hs-ribbon ${animate ? 'animate-hs-ribbon' : ''}`} name="handshake-o" />
+          <Handshake isWide cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} />
           <FA className="oc-icon" name="question-circle" />
         </div>
       )
       }
       {isBidder &&
       (
-        <div className="handshake-animation-bidder">
+        <div className="hs-animation-bidder">
           <div className={`left ${animate ? 'animate-left' : ''}`} >
             <FA className={`left-initial ${animate ? 'animate-left-initial' : ''}`} name="hand-paper-o" />
             <FontAwesomeIcon className={`left-secondary ${animate ? 'animate-left-secondary' : ''}`} icon={faHandPaper} />
