@@ -31,11 +31,11 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
       {isBidTracker &&
       (
         <div className="hs-animation-bidtracker">
+          <FontAwesomeIcon className={`left ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
+          <FontAwesomeIcon className={`right ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
           <div className={`hs-container ${animate ? 'temp-transparent' : ''}`}>
             <FontAwesomeIcon className={`hs-bidtracker ${animate ? 'animate-hs-bidtracker' : ''}`} icon={faHandshake} />
           </div>
-          <FontAwesomeIcon className={`left ${animate ? 'animate-left' : ''}`} icon={faHandPaper} />
-          <FontAwesomeIcon className={`right ${animate ? 'animate-right' : ''}`} icon={faHandPaper} />
         </div>
       )
       }

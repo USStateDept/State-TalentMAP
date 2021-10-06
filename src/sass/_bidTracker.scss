@@ -315,10 +315,10 @@ $register-hide-icon: 95%;
       }
     }
     .animate-left {
-      animation: left-animation 2s linear;
+      animation: left-animation-bidtracker 2s linear;
     }
     .animate-right {
-      animation: right-animation 2s linear;
+      animation: right-animation-bidtracker 2s linear;
     }
     .animate-hs-bidtracker {
       animation: hs-animation-bidtracker 4s linear;
@@ -327,11 +327,11 @@ $register-hide-icon: 95%;
       animation: temp-transparent-animation 4s linear;
     }
 
-    @keyframes left-animation {
+    @keyframes left-animation-bidtracker {
       0% {left:-10rem; opacity: 100%;}
       100% {left:4rem; opacity: 100%;}
     }
-    @keyframes right-animation {
+    @keyframes right-animation-bidtracker {
       0% {right:-17rem; opacity: 100%;}
       100% {right:-3rem; opacity: 100%;}
     }
@@ -996,12 +996,12 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register {
-    margin-left: 0px;
+    margin-left: 0;
   }
 
   .bid-tracker-alert-container {
     top: 0;
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   .top-text {
@@ -1167,10 +1167,10 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register {
-    margin-left: 0%;
+    margin-left: 0;
 
     .bid-tracker-overlay-alert-content-container {
-      padding-right: 0px;
+      padding-right: 0;
     }
   }
 
@@ -1574,10 +1574,10 @@ $register-hide-icon: 95%;
 
 @media screen and (max-width: 1450px) {
   .bid-tracker-overlay-alert--register {
-    margin-left: 0%;
+    margin-left: 0;
 
     .bid-tracker-overlay-alert-content-container {
-      padding-right: 0%;
+      padding-right: 0;
     }
   }
 
