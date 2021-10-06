@@ -53,7 +53,6 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
           </div>
           <FA className={`hs-ribbon ${animate ? 'animate-hs-ribbon' : ''}`} name="handshake-o" />
           <Handshake isWide cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} />
-          <FA className="oc-icon" name="question-circle" />
         </div>
       )
       }
@@ -69,7 +68,6 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
             <FontAwesomeIcon className={`right-secondary ${animate ? 'animate-right-secondary' : ''}`} icon={faHandPaper} />
           </div>
           <FA className={`hs-bidder ${animate ? 'animate-hs-bidder' : ''}`} name="handshake-o" />
-          <FA className="oc-icon" name="question-circle" />
         </div>
       )
       }

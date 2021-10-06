@@ -222,8 +222,8 @@
       clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
       position: relative;
       height: 25px;
-      width: 40px;
-      //opacity: 0;
+      width: 0;
+      opacity: 0;
       left: 11rem;
     }
     .right {
@@ -231,9 +231,9 @@
       clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
       position: relative;
       height: 25px;
-      width: 40px;
+      width: 0;
       right: -17rem;
-      //opacity: 0;
+      opacity: 0;
     }
     .left-initial {
       top: 2px;
@@ -272,6 +272,7 @@
       color: $color-black;
       opacity: 0;
       left: 9rem;
+      width: 0;
     }
     .animate-left-initial {
       animation: left-animation-initial 2s linear;
@@ -324,7 +325,7 @@
       100% {opacity: 0;}
     }
     @keyframes hs-animation-ribbon {
-      0% {opacity: 0;}
+      0% {opacity: 0; width: 40px;}
       49% {opacity: 0;}
       50% {top:10px; opacity: 100%; color: $color-green;}
       65% {top:-10px;}
@@ -334,26 +335,31 @@
       85% {top:-10px;}
       90% {top:10px;}
       95% {top:-10px;}
-      100% {top:0; opacity: 100%; color: black;}
+      100% {top:0; opacity: 100%; color: black; width: 40px;}
     }
     @keyframes temp-transparent-animation-ribbon {
       0% {opacity: 0;}
       100% {opacity: 0;}
     }
     @keyframes hs-animation-left-ribbon {
-      0% {background-color: $color-green; opacity: 100%; left:11rem;}
+      0% {background-color: $color-green; opacity: 100%; left:11rem; width: 40px;}
       20% {background-color: $color-green; left: 11rem;}
       30% {background-color: transparent; left: 11rem;}
       50% {left: 16rem; background-color: transparent; opacity: 100%;}
-      100% {left: 16rem; background-color: transparent; opacity: 100%;}
+      100% {left: 16rem; background-color: transparent; opacity: 100%; width: 40px;}
     }
     @keyframes hs-animation-right-ribbon {
-      0% {background-color: $color-green; opacity: 100%; right: -17rem;}
+      0% {background-color: $color-green; opacity: 100%; right: -17rem; width: 40px;}
       20% {background-color: $color-green; right: -17rem;}
       30% {background-color: transparent; right: -17rem;}
       50% {right: -12rem; background-color: transparent; opacity: 100%;}
-      100% {right: -12rem; background-color: transparent; opacity: 100%;}
+      100% {right: -12rem; background-color: transparent; opacity: 100%; width: 40px;}
     }
+  }
+  .hs-status-info {
+    color: $blue-primary;
+    cursor: pointer;
+    margin-top: 4px;
   }
 }
 
@@ -845,7 +851,10 @@
           100% {right: 1rem; background-color: transparent; opacity: 100%;}
         }
       }
-
+      .hs-status-info {
+        color: $blue-primary;
+        cursor: pointer;
+      }
       .btn-hs-wrapper {
         display: flex;
         align-items: center;

@@ -102,7 +102,10 @@ class BureauResultsCard extends Component {
             }
             {
               get(stats, 'has_handshake_offered', false) ?
-                <HandshakeAnimation isRibbon /> :
+                <>
+                  <HandshakeAnimation isRibbon />
+                  <HandshakeStatus handshake={leadHandshake} infoIcon />
+                </> :
                 <HandshakeStatus handshake={leadHandshake} />
             }
             {renderBidCountMobile(stats)}

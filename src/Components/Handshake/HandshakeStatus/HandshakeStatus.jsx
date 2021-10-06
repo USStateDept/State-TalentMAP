@@ -95,24 +95,29 @@ const HandshakeStatus = props => {
         tabIndex="0"
         interactive
         useContext
-      >
-        <div className="hs-status-container">
-          <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
-            <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
-          </div>
-          <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
-            {
-              bidderStyle.bidderIcon === 'clock-o' ?
-                <span>
-                  <FA name={bidderStyle.bidderIcon} />
-                </span>
-                :
-                <span className="fa-flip-vertical">
-                  <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
-                </span>
-            }
-          </div>
-        </div>
+      >{
+          props.infoIcon ?
+            <FA className="hs-status-info" name="info-circle" />
+            :
+
+            <div className="hs-status-container">
+              <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
+                <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
+              </div>
+              <div className={`hs-status-bidder ${bidderStyle.bidder}`}>
+                {
+                  bidderStyle.bidderIcon === 'clock-o' ?
+                    <span>
+                      <FA name={bidderStyle.bidderIcon} />
+                    </span>
+                    :
+                    <span className="fa-flip-vertical">
+                      <FA name={`${bidderStyle.bidderIcon} fa-rotate-270`} />
+                    </span>
+                }
+              </div>
+            </div>
+        }
       </Tooltip>
     </>
   );
@@ -120,10 +125,12 @@ const HandshakeStatus = props => {
 
 HandshakeStatus.propTypes = {
   handshake: PropTypes.shape({}),
+  infoIcon: PropTypes.bool,
 };
 
 HandshakeStatus.defaultProps = {
   handshake: {},
+  infoIcon: false,
 };
 
 export default HandshakeStatus;
