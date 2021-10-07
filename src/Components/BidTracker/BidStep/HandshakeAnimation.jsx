@@ -43,11 +43,11 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
       (
         <div className="hs-animation-ribbon">
           <div className={`left ${animate ? 'animate-left' : ''}`} >
-            <FA className={`left-initial ${animate ? 'animate-left-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`left-initial ${animate ? 'animate-left-initial' : ''}`} icon={faHandPaper} />
             <FontAwesomeIcon className={`left-secondary ${animate ? 'animate-left-secondary' : ''}`} icon={faHandPaper} />
           </div>
           <div className={`right ${animate ? 'animate-right' : ''}`}>
-            <FA className={`right-initial ${animate ? 'animate-right-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`right-initial ${animate ? 'animate-right-initial' : ''}`} icon={faHandPaper} />
             <FontAwesomeIcon className={`right-secondary ${animate ? 'animate-right-secondary' : ''}`} icon={faHandPaper} />
           </div>
           <FA className={`hs-ribbon ${animate ? 'animate-hs-ribbon' : ''}`} name="handshake-o" />
@@ -59,11 +59,11 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
       (
         <div className="hs-animation-bidder">
           <div className={`left ${animate ? 'animate-left' : ''}`} >
-            <FA className={`left-initial ${animate ? 'animate-left-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`left-initial ${animate ? 'animate-left-initial' : ''}`} icon={faHandPaper} />
             <FontAwesomeIcon className={`left-secondary ${animate ? 'animate-left-secondary' : ''}`} icon={faHandPaper} />
           </div>
           <div className={`right ${animate ? 'animate-right' : ''}`}>
-            <FA className={`right-initial ${animate ? 'animate-right-initial' : ''}`} name="hand-paper-o" />
+            <FontAwesomeIcon className={`right-initial ${animate ? 'animate-right-initial' : ''}`} icon={faHandPaper} />
             <FontAwesomeIcon className={`right-secondary ${animate ? 'animate-right-secondary' : ''}`} icon={faHandPaper} />
           </div>
           <FA className={`hs-bidder ${animate ? 'animate-hs-bidder' : ''}`} name="handshake-o" />

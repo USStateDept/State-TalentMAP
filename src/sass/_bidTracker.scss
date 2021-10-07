@@ -294,13 +294,13 @@ $register-hide-icon: 95%;
       left: -10rem;
       transform: rotate(90deg);
       opacity: 0;
-      color: $color-green;
+      color: $tertiary-gold-lighter;
     }
     .right {
       right: -17rem;
       transform: rotate(-90deg) scaleX(-1);
       opacity: 0;
-      color: $color-green;
+      color: $tertiary-gold-lighter;
     }
     .hs-container {
       border-radius: 50%;
@@ -362,7 +362,7 @@ $register-hide-icon: 95%;
     @keyframes hs-animation-bidtracker {
       0% {opacity: 0;}
       49% {opacity: 0;}
-      50% {top:10px; opacity: 100%; color: $color-green;}
+      50% {top:10px; opacity: 100%; color: $tertiary-gold-lighter;}
       65% {top:-10px;}
       70% {top:10px;}
       75% {top:-10px;}
@@ -370,7 +370,7 @@ $register-hide-icon: 95%;
       85% {top:-10px;}
       90% {top:10px;}
       95% {top:-10px;}
-      100% {top:0; color: $color-green;}
+      100% {top:0; color: $tertiary-gold-lighter;}
     }
     @keyframes temp-transparent-animation {
       0% {background-color: transparent;}

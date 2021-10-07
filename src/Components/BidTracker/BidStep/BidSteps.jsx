@@ -3,7 +3,7 @@ import shortId from 'shortid';
 import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
 import {
-  APPROVED_PROP, GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE, HAND_SHAKE_ACCEPTED_PROP, IN_PANEL_PROP,
+  APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, IN_PANEL_PROP,
 } from 'Constants/BidData';
 import { checkFlag } from 'flags';
 import { get, includes } from 'lodash';
@@ -58,11 +58,8 @@ const BidSteps = (props, context) => {
         </ConfettiIcon>
       );
     }
-    if (includes(bidPropsAfterRegister, bid.status)
-      && (bidData[status.prop].title[0] === GET_HAND_SHAKE_COMPLETE_REGISTER_TITLE()[0])
+    if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)
       && !condensedView) {
-    //  if we ONLY want to show the animation right after the step
-    // if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)) {
       return (<HandshakeAnimation isBidTracker />);
     }
     return icon;
