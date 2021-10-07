@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useMemo, useState } from 'react';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,12 +7,8 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { Handshake } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 
-const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
+const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder, triggerAnimation }) => {
   const [animate, setAnimate] = useState(false);
-
-  const animateHands = () => {
-    setAnimate(true);
-  };
 
   useEffect(() => {
     if (animate) {
@@ -22,6 +17,16 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
       }, 4000);
     }
   }, [animate]);
+
+  const animateHands = () => {
+    setAnimate(true);
+  };
+
+  useEffect(() => {
+    if (triggerAnimation) {
+      animateHands();
+    }
+  }, [triggerAnimation]);
 
   const throttledEventHandler = useMemo(
     () => throttle(animateHands, 4000),
@@ -80,12 +85,14 @@ HandshakeAnimation.propTypes = {
   isBidTracker: PropTypes.bool,
   isRibbon: PropTypes.bool,
   isBidder: PropTypes.bool,
+  triggerAnimation: PropTypes.bool,
 };
 
 HandshakeAnimation.defaultProps = {
   isBidTracker: false,
   isRibbon: false,
   isBidder: false,
+  triggerAnimation: false,
 };
 
 export default HandshakeAnimation;
