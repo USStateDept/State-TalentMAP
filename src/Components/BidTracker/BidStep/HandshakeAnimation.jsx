@@ -7,7 +7,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { Handshake } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 
-const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder, triggerAnimation }) => {
+const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -21,12 +21,6 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder, triggerAnimation
   const animateHands = () => {
     setAnimate(true);
   };
-
-  useEffect(() => {
-    if (triggerAnimation) {
-      animateHands();
-    }
-  }, [triggerAnimation]);
 
   const throttledEventHandler = useMemo(
     () => throttle(animateHands, 4000),
@@ -85,14 +79,12 @@ HandshakeAnimation.propTypes = {
   isBidTracker: PropTypes.bool,
   isRibbon: PropTypes.bool,
   isBidder: PropTypes.bool,
-  triggerAnimation: PropTypes.bool,
 };
 
 HandshakeAnimation.defaultProps = {
   isBidTracker: false,
   isRibbon: false,
   isBidder: false,
-  triggerAnimation: false,
 };
 
 export default HandshakeAnimation;

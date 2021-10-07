@@ -18,7 +18,7 @@ import {
   NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
-import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
+import { POSITION_DETAILS } from 'Constants/PropTypes';
 import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
 
 class BureauResultsCard extends Component {
@@ -26,21 +26,11 @@ class BureauResultsCard extends Component {
     super(props);
     this.state = {
       showMore: false,
-      triggerAnimation: false,
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
-  animationCheck = (stats) => {
-    const { animationHasPlayed } = this.props;
-    if (get(stats, 'has_handshake_offered', false) && !animationHasPlayed) {
-      this.props.parentCallback();
-      this.setState({ triggerAnimation: true });
-    }
-  };
-
   render() {
-    const { showMore, triggerAnimation } = this.state;
+    const { showMore } = this.state;
     const { result, isProjectedVacancy, fromPostMenu } = this.props;
 
     const pos = result.position || result;
@@ -97,7 +87,7 @@ class BureauResultsCard extends Component {
     if (isProjectedVacancy) { delete sections[2].Posted; }
 
     return (
-      <Row fluid className="bureau-results-card" onMouseOver={() => this.animationCheck(stats)}>
+      <Row fluid className="bureau-results-card">
         <Row fluid>
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
@@ -114,7 +104,7 @@ class BureauResultsCard extends Component {
             {
               get(stats, 'has_handshake_offered', false) ?
                 <>
-                  <HandshakeAnimation isRibbon triggerAnimation={triggerAnimation} />
+                  <HandshakeAnimation isRibbon />
                   <HandshakeStatus handshake={leadHandshake} infoIcon />
                 </> :
                 <HandshakeStatus handshake={leadHandshake} />
@@ -154,15 +144,11 @@ BureauResultsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
   fromPostMenu: PropTypes.bool,
-  animationHasPlayed: PropTypes.bool,
-  parentCallback: PropTypes.func,
 };
 
 BureauResultsCard.defaultProps = {
   isProjectedVacancy: false,
   fromPostMenu: false,
-  animationHasPlayed: false,
-  parentCallback: EMPTY_FUNCTION,
 };
 
 export default BureauResultsCard;

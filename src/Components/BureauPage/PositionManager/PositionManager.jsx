@@ -68,8 +68,6 @@ const PositionManager = props => {
     useState(userSelections.selectedHandshakeStatus || []);
   const [selectedTmHandshakeStatus, setSelectedTmHandshakeStatus] =
     useState(userSelections.selectedTmHandshakeStatus || []);
-  // eslint-disable-next-line no-unused-vars
-  const [animationHasPlayed, setAnimationHasPlayed] = useState(false);
 
   // Pagination
   const prevPage = usePrevious(page);
@@ -311,10 +309,6 @@ const PositionManager = props => {
     selectedOrgs,
     selectedBureaus,
   ]);
-
-  const handleCallback = () => {
-    setAnimationHasPlayed(true);
-  };
 
   return (
     bureauFiltersIsLoading ?
@@ -590,8 +584,6 @@ const PositionManager = props => {
                         result={result}
                         key={result.id}
                         fromPostMenu={fromPostMenu}
-                        animationHasPlayed={animationHasPlayed}
-                        parentCallback={handleCallback}
                       />
                     ))}
                   </div>
