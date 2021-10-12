@@ -17,7 +17,9 @@ import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
 import HandshakeRegisterAlert from './HandshakeRegisterAlert';
 import DraftAlert from './DraftAlert';
+import HandshakeRegisterWithAnotherBidderAlert from './HandshakeRegisterWithAnotherBidderAlert';
 import { getBidIdUrl } from './helpers';
+import { showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
@@ -28,6 +30,7 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
+  const CLASS_REGISTER_WITH_ANOTHER_BIDDER = 'bid-tracker-overlay-alert--register-with-another-bidder';
 
   const position = get(bid, 'position_info.position') || {};
   const BID_TITLE = position.title ? `${position.title}${position.position_number ? ` (${position.position_number})` : ''}` : 'N/A';
@@ -134,7 +137,20 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
     togglePanelAlert(!overlayContent);
   }, []);
 
-  const isCollapsible$ = isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status'));
+  let showArrow = true;
+  if (get(bid, 'position_info.bid_statistics[0].has_handshake_offered') &&
+    showHandshakeRegsiterWithAnotherBidderOverlay(bid)) {
+    showArrow = false;
+    overlayClass = CLASS_REGISTER_WITH_ANOTHER_BIDDER;
+    overlayContent = (
+      <HandshakeRegisterWithAnotherBidderAlert
+        condensedView={condensedView}
+        bid={bid}
+      />);
+  }
+
+  const isCollapsible$ =
+    isCollapsible && includes([HAND_SHAKE_NEEDS_REGISTER_PROP, HAND_SHAKE_ACCEPTED_PROP], get(bid, 'status')) && showArrow;
   const rotate = collapseOverlay ? 'rotate(180deg)' : 'rotate(0)';
 
   return (

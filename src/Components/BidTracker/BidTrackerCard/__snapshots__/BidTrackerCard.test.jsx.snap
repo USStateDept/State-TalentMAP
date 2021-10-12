@@ -229,6 +229,7 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "user": "rehmant",
           }
         }
+        condensedView={false}
         declineBid={[Function]}
         deleteBid={[Function]}
         isCollapsible={true}
