@@ -76,7 +76,7 @@ CLIENTS_PAGE_SIZES.defaultSort = CLIENTS_PAGE_SIZES.options[1].value;
 
 export const BID_PORTFOLIO_SORTS = {
   options: [
-    { value: 'client_last_name,client_first_name', text: 'Last Name: A-Z' },
+    { value: 'client_last_name,client_first_name,client_middle_name', text: 'Last Name: A-Z' },
     { value: 'client_grade', text: 'Grade' },
     { value: 'client_skill', text: 'Skill' },
     { value: 'client_grade,client_skill', text: 'Grade & Skill' },
