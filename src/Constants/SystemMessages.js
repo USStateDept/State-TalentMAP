@@ -153,3 +153,5 @@ export const COMING_SOON = 'Coming Soon';
 
 export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications updated";
 export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";
+
+export const NO_NUMBER = '--';

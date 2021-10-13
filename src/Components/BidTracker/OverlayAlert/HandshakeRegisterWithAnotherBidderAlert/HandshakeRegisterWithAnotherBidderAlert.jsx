@@ -3,7 +3,7 @@ import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_SKILL } from 'Constants/SystemMessages';
 import { get } from 'lodash';
 
-const HandshakeRegisterAnotherClientAlert = ({ bid, condensedView }) => {
+const HandshakeRegisterWithAnotherBidderAlert = ({ bid, condensedView }) => {
   const position = get(bid, 'position_info.position');
   const positionTitle = get(position, 'title') || NO_POSITION_TITLE;
   const skillCode = get(position, 'skill') || NO_SKILL;
@@ -16,8 +16,8 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, condensedView }) => {
 
   const classes$ = classes.join(' ');
 
-  const overlayClasses = condensedView ?
-    ['register-submission-container', 'sub-submission-text'] : ['register-another-client-container', 'register-position-details'];
+  const overlayClasses = condensedView ? ['register-submission-container', 'sub-submission-text']
+    : ['register-with-another-bidder-container', 'register-position-details'];
 
   const overlayClasses$ = overlayClasses.join(' ');
 
@@ -45,17 +45,17 @@ const HandshakeRegisterAnotherClientAlert = ({ bid, condensedView }) => {
   );
 };
 
-HandshakeRegisterAnotherClientAlert.contextTypes = {
+HandshakeRegisterWithAnotherBidderAlert.contextTypes = {
   readOnly: PropTypes.bool,
 };
 
-HandshakeRegisterAnotherClientAlert.propTypes = {
+HandshakeRegisterWithAnotherBidderAlert.propTypes = {
   bid: BID_OBJECT.isRequired,
   condensedView: PropTypes.bool,
 };
 
-HandshakeRegisterAnotherClientAlert.defaultProps = {
+HandshakeRegisterWithAnotherBidderAlert.defaultProps = {
   condensedView: false,
 };
 
-export default HandshakeRegisterAnotherClientAlert;
+export default HandshakeRegisterWithAnotherBidderAlert;
