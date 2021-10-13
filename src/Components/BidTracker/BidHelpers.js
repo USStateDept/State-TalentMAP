@@ -1,3 +1,4 @@
+import { includes } from 'lodash';
 import {
   APPROVED_PROP,
   CLOSED_PROP,
@@ -17,7 +18,7 @@ import getConfig, { isTypeComplete } from './BidPhaseConfig/config';
 export function shouldShowAlert(bid, { condensedView = false }) {
   // TO-DO - Add APPROVED_PROP back in with meanginful information
   const alertStatusArray = [DRAFT_PROP, CLOSED_PROP, HAND_SHAKE_ACCEPTED_PROP,
-    HAND_SHAKE_DECLINED_PROP, DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP];
+    HAND_SHAKE_DECLINED_PROP, DECLINED_PROP, HAND_SHAKE_NEEDS_REGISTER_PROP, SUBMITTED_PROP];
 
   if (isTypeComplete()) {
     alertStatusArray.push(HAND_SHAKE_OFFERED_PROP);
@@ -72,3 +73,15 @@ export function getActionPermissions(status) {
 // but also information such as dates so that if we want,
 // we could dynamically render step titles within the function.
 export const bidClassesFromCurrentStatus = (bid = { status: 'draft' }) => getConfig()(bid);
+
+export function showHandshakeRegsiterWithAnotherBidderOverlay(bid) {
+  const bidStatusOptions = [
+    APPROVED_PROP,
+    CLOSED_PROP,
+    DRAFT_PROP,
+    HAND_SHAKE_ACCEPTED_PROP,
+    IN_PANEL_PROP,
+  ];
+  const showOverlay = !includes(bidStatusOptions, bid.status);
+  return showOverlay;
+}

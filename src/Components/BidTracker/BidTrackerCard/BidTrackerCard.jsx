@@ -7,14 +7,14 @@ import { get } from 'lodash';
 import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
-import { APPROVED_PROP, DRAFT_PROP, HAND_SHAKE_ACCEPTED_PROP } from 'Constants/BidData';
+import { APPROVED_PROP } from 'Constants/BidData';
 import { formatDate, formatIdSpacing, getTimeDistanceInWords } from 'utilities';
 import BidSteps from '../BidStep';
 import BidTrackerCardTop from '../BidTrackerCardTop';
 import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
-import { shouldShowAlert } from '../BidHelpers';
+import { shouldShowAlert, showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
 import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../../Ribbon';
 import MediaQuery from '../../MediaQuery';
 
@@ -58,12 +58,12 @@ class BidTrackerCard extends Component {
     // const questionText = get(BID_EXPLANATION_TEXT, `[${bid.status}]`);
     const { showPanelAlert } = this.state;
     const bidTakenFlag = (get(bid, 'position_info.bid_statistics[0].has_handshake_offered'))
-      && (bid.status !== HAND_SHAKE_ACCEPTED_PROP && bid.status !== DRAFT_PROP);
-    const bidTaken = bidTakenFlag ? ' bid-tracker-hs-another-client' : '';
+      && showHandshakeRegsiterWithAnotherBidderOverlay(bid);
+    const bidTaken = bidTakenFlag ? ' bid-tracker-register-with-another-bidder' : '';
     const bidStepsClass = ['usa-grid-full', 'padded-container-inner', 'bid-tracker-bid-steps-container', statusClass];
 
     if (bidTakenFlag) {
-      bidStepsClass.push('hs-another-client-bid-steps');
+      bidStepsClass.push('register-with-another-bidder-bid-steps');
     }
 
     const bidStepsClasses$ = bidStepsClass.join(' ');
@@ -136,6 +136,7 @@ class BidTrackerCard extends Component {
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
                   togglePanelAlert={this.togglePanelAlert}
+                  condensedView={condensedView}
                 />
             }
           </div>

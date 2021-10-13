@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HandshakeRegisterAnotherClientAlert matches snapshot 1`] = `
+exports[`HandshakeRegisterWithAnotherBidderAlert matches snapshot 1`] = `
 <div
   className="bid-tracker-alert-container bid-tracker-alert-container--register"
 >
@@ -13,7 +13,7 @@ exports[`HandshakeRegisterAnotherClientAlert matches snapshot 1`] = `
     }
   >
     <div
-      className="register-another-client-container register-position-details"
+      className="register-with-another-bidder-container register-position-details"
     >
       A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER:
       <div>
