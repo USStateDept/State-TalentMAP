@@ -12,7 +12,7 @@ describe('bidderPortfolio async actions', () => {
     store = mockStore({ results: [], bidderPortfolioSelectedCDOsToSearchBy: [{ hru_id: 1 }] });
 
     ({ mock, spy } = spyMockAdapter({
-      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name%2Cclient_first_name', response: [200, bidderListObject],
+      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name%2Cclient_first_name%2Cclient_middle_name', response: [200, bidderListObject],
     })); mock();
   });
 
@@ -50,7 +50,7 @@ describe('bidderPortfolio async actions', () => {
 
   it('handles failures when fetching data from the last query', (done) => {
     ({ mock, spy } = spyMockAdapter({
-      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name%2Cclient_first_name&q=failure', response: [404],
+      url: '/fsbid/client/?hru_id__in=1&ordering=client_last_name%2Cclient_first_name%2Cclient_middle_name&q=failure', response: [404],
     })); mock();
 
     store.dispatch(actions.bidderPortfolioFetchData({ q: 'failure' }));

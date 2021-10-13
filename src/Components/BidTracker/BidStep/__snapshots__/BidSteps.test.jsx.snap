@@ -21,6 +21,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -56,6 +57,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -91,6 +93,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -125,10 +128,15 @@ exports[`BidStepsComponent matches snapshot 1`] = `
             step-complete
           "
     icon={
-      <HandshakeAnimation
-        isBidTracker={true}
-        isOne={false}
-        isTwo={false}
+      <BidStepIcon
+        handshakeRegisterWithAnotherBidder={false}
+        hasRescheduledTooltip={false}
+        isComplete={true}
+        isCurrent={false}
+        needsAction={false}
+        number={4}
+        tooltipText="\\"Handshake Registered\\" reflects the date your handshake was registered by the CDO. Next the GTM/CDA Assignment Officer for your onward post prepares your assignment for panel."
+        tooltipTitle="What is \\"Handshake Registered\\"?"
       />
     }
     key="4"
@@ -157,6 +165,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -201,6 +210,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
         }
       >
         <BidStepIcon
+          handshakeRegisterWithAnotherBidder={false}
           hasRescheduledTooltip={false}
           isComplete={false}
           isCurrent={true}
