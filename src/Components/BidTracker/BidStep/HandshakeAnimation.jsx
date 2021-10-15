@@ -14,7 +14,7 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
     if (animate) {
       setTimeout(() => {
         setAnimate(false);
-      }, 4000);
+      }, 0);
     }
   }, [animate]);
 
@@ -23,7 +23,7 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
   };
 
   const throttledEventHandler = useMemo(
-    () => throttle(animateHands, 4000),
+    () => throttle(animateHands, 0),
     [setAnimate]);
 
   return (

@@ -34,8 +34,7 @@ describe('BidStepsComponent', () => {
   });
 
   it('3rd step classes match when status approved', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(<BidSteps bid={bid} getIcon={spy} />,
+    const wrapper = shallow(<BidSteps bid={bid} />,
       { context: { condensedView: true } },
     );
     expect(wrapper.at(0).childAt(3).find('.step-handshake-accepted').exists()).toBe(true);
@@ -44,8 +43,7 @@ describe('BidStepsComponent', () => {
 
 
   it('last step classes match when status closed', () => {
-    const spy = sinon.spy();
-    const wrapper = shallow(<BidSteps bid={bidClosed} getIcon={spy} />,
+    const wrapper = shallow(<BidSteps bid={bidClosed} />,
       { context: { condensedView: true } },
     );
     expect(wrapper.at(0).childAt(5).find('.step-approval').exists()).toBe(true);
