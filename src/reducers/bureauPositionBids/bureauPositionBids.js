@@ -97,3 +97,43 @@ export function bureauPositionBidsSetRanking(state = false, action) {
       return state;
   }
 }
+
+export function bidderRankingsHasErrored(state = new Set(), action) {
+  const newSet = new Set(state);
+  switch (action.type) {
+    case 'BIDDER_RANKINGS_HAS_ERRORED':
+      if (action.hasErrored.bool) {
+        newSet.add(action.hasErrored.id);
+        return newSet;
+      }
+      newSet.delete(action.hasErrored.id);
+      return newSet;
+    default:
+      return state;
+  }
+}
+export function bidderRankingsIsLoading(state = new Set(), action) {
+  const newSet = new Set(state);
+  switch (action.type) {
+    case 'BIDDER_RANKINGS_IS_LOADING':
+      if (action.isLoading.bool) {
+        newSet.add(action.isLoading.id);
+        return newSet;
+      }
+      newSet.delete(action.isLoading.id);
+      return newSet;
+    default:
+      return state;
+  }
+}
+export function bidderRankingFetchDataSuccess(state = {}, action) {
+  switch (action.type) {
+    case 'BIDDER_RANKING_FETCH_DATA_SUCCESS':
+      if (action.results.clearAll) {
+        return {};
+      }
+      return { ...state, [action.results.id]: action.results.data };
+    default:
+      return state;
+  }
+}

@@ -38,8 +38,21 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   background-color: $tertiary-success-lightest;
 }
 
+.ribbon-cn {
+  background-color: $ribbon-cn;
+}
+
+.ribbon-hds {
+  background-color: $ribbon-hds;
+}
+
+.ribbon-snd {
+  background-color: $tertiary-success-lighter;
+}
+
 .ribbon-outer-container-cut-left {
   box-shadow: 3px 4px 4px -4px $ribbon-shadow-color;
+  margin-bottom: 2px;
 }
 
 .ribbon-outer-container-cut-right {
@@ -71,14 +84,21 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 .ribbon-container {
   position: absolute;
   right: -1px;
+  top: calc(100% - 208px);
+  width: 170px;
+
+  .ribbon-snd {
+    font-size: 10px;
+    float: right;
+  }
 }
 
 .ribbon-results-card {
-  margin-bottom: 10px;
+  float: right;
 }
 
 .ribbon-condensed-card {
-  margin-bottom: 10px;
+  width: 35px;
 }
 
 .ribbon-wide {
@@ -91,4 +111,8 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   .ribbon-cut-right {
     padding-left: 1.5em;
   }
+}
+
+.ribbon-wide-results {
+  min-width: 163.05px;
 }

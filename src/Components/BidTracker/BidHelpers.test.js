@@ -3,13 +3,13 @@ import {
   CLOSED_PROP,
   DRAFT_PROP,
   HAND_SHAKE_ACCEPTED_PROP,
-  HAND_SHAKE_OFFERED_PROP,
   HAND_SHAKE_DECLINED_PROP,
-  PRE_PANEL_PROP,
+  HAND_SHAKE_OFFERED_PROP,
   IN_PANEL_PROP,
+  PRE_PANEL_PROP,
   SUBMITTED_PROP,
 } from '../../Constants/BidData';
-import { bidClassesFromCurrentStatus, shouldShowAlert, getActionPermissions } from './BidHelpers';
+import { bidClassesFromCurrentStatus, getActionPermissions, shouldShowAlert } from './BidHelpers';
 import bidListObject from '../../__mocks__/bidListObject';
 
 // Test that the result of each status prop is defined
@@ -48,15 +48,15 @@ describe('shouldShowAlert function', () => {
     expect(result).toBe(true);
   });
 
-  it('returns false for an invalid status but when is_paneling_today === true', () => {
+  xit('returns false for an invalid status but when is_paneling_today === true', () => {
     const result = shouldShowAlert(
-      { status: HAND_SHAKE_OFFERED_PROP, is_paneling_today: true },
+      { status: PRE_PANEL_PROP, is_paneling_today: true },
       {},
     );
     expect(result).toBe(false);
   });
 
-  it('returns false for an invalid status', () => {
+  it('returns false for a invalid status', () => {
     const result = shouldShowAlert({ status: SUBMITTED_PROP }, {});
     expect(result).toBe(false);
   });

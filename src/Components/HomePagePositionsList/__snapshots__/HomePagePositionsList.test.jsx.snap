@@ -16,9 +16,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -29,25 +26,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -65,9 +78,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -78,9 +88,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -117,9 +140,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -130,9 +150,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",
@@ -281,9 +315,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -294,25 +325,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -330,9 +377,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -343,9 +387,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -382,9 +439,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -395,9 +449,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",
@@ -546,9 +614,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -559,25 +624,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -595,9 +676,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -608,9 +686,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -647,9 +738,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -660,9 +748,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",
@@ -811,9 +913,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -824,25 +923,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -860,9 +975,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -873,9 +985,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -912,9 +1037,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -925,9 +1047,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",
@@ -1076,9 +1212,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1089,25 +1222,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -1125,9 +1274,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1138,9 +1284,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -1177,9 +1336,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1190,9 +1346,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",
@@ -1341,9 +1511,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1354,25 +1521,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -1390,9 +1573,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1403,9 +1583,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -1442,9 +1635,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1455,9 +1645,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",
@@ -1606,9 +1810,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
           Array [
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1619,25 +1820,41 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 3,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
-                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                "create_date": "2015-08-05",
-                "grade": "03",
-                "id": 11,
-                "position_number": "10035561",
-                "post": Object {
-                  "id": 199,
-                  "location": Object {
-                    "city": "Freetown",
-                    "code": "00A",
-                    "country": "Sierra Leone",
-                    "id": 103,
-                    "state": "",
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
                   },
+                ],
+                "bidcycle": Object {
+                  "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                 },
-                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                "title": "POLITICAL/ECONOMIC OFFICER",
-                "update_date": "2017-06-08",
+                "id": 11,
+                "position": Object {
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2015-08-05",
+                  "grade": "03",
+                  "position_number": "10035561",
+                  "post": Object {
+                    "id": 199,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                  "title": "POLITICAL/ECONOMIC OFFICER",
+                  "update_date": "2017-06-08",
+                },
               },
               "reviewer": Object {
                 "email": "woodwardw@state.gov",
@@ -1655,9 +1872,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1668,9 +1882,22 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 1,
               "in_panel_date": "2017-12-20",
               "is_priority": true,
-              "position": Object {
-                "id": 1,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "05",
@@ -1707,9 +1934,6 @@ exports[`HomePagePositionsList displays two rows 1`] = `
             },
             Object {
               "approved_date": "2017-12-20",
-              "bidcycle": Object {
-                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-              },
               "closed_date": "2017-12-20",
               "create_date": "2017-12-20",
               "declined_date": "2017-12-20",
@@ -1720,9 +1944,23 @@ exports[`HomePagePositionsList displays two rows 1`] = `
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
-              "position": Object {
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
                 "id": 79,
                 "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
                   "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
                   "create_date": "2006-09-20",
                   "grade": "04",

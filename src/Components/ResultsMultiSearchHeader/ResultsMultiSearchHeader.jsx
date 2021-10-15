@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { orderBy } from 'lodash';
-import { FILTER_ITEMS_ARRAY, USER_PROFILE, EMPTY_FUNCTION } from '../../Constants/PropTypes';
+import { EMPTY_FUNCTION, FILTER_ITEMS_ARRAY, USER_PROFILE } from '../../Constants/PropTypes';
 import { ENDPOINT_PARAMS } from '../../Constants/EndpointParams';
 import SearchBar from '../SearchBar/SearchBar';
 import SkillCodeFilter from '../HomePageFiltersSection/SkillCodeFilter';

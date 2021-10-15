@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
+import { BID_RESULTS, FAVORITE_POSITIONS_ARRAY, HOME_PAGE_CARD_TYPE, POSITION_DETAILS_ARRAY } from 'Constants/PropTypes';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import HomePagePositionsList from '../HomePagePositionsList';
 import Alert from '../Alert';
 import Spinner from '../Spinner';
-import { POSITION_DETAILS_ARRAY, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
 const propTypes = {
   title: PropTypes.string.isRequired,

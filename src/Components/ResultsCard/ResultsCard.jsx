@@ -5,8 +5,9 @@ import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
+import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
-import { Row, Column } from '../Layout';
+import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
 import Favorite from '../../Containers/Favorite';
 import MediaQueryWrapper from '../MediaQuery';
@@ -14,20 +15,20 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { Featured, Handshake } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import bannerImg from '../../assets/svg/card-flag.svg';
 
-import { formatDate, propOrDefault, getPostName, shortenString,
-  getDifferentialPercentage, getBidStatisticsObject } from '../../utilities';
+import { formatDate, getBidStatisticsObject, getDifferentialPercentage, getPostName,
+  propOrDefault, shortenString } from '../../utilities';
 
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY } from '../../Constants/PropTypes';
+import { FAVORITE_POSITIONS_ARRAY, POSITION_DETAILS } from '../../Constants/PropTypes';
 import {
-  NO_BUREAU, NO_BID_CYCLE, NO_GRADE, NO_POSITION_NUMBER,
-  NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_DATE, NO_USER_LISTED,
+  NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
+  NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
 export const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
@@ -302,14 +303,22 @@ class ResultsCard extends Component {
                 <Column columns="2">
                   <div className="ribbon-container">
                     {
-                      get(stats, 'has_handshake_offered', false) && <Handshake isWide className="ribbon-results-card" />
+                      get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className="ribbon-results-card" />
                     }
                     {
-                      get(result, 'position.is_highlighted') && <Featured isWide className="ribbon-results-card" />
+                      <StaticDevContent>
+                        <CriticalNeed isWideResults className="ribbon-results-card" />
+                      </StaticDevContent>
+                    }
+                    {
+                      get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWideResults className="ribbon-results-card" />
+                    }
+                    {
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
                     }
                     {
                       // conditional rendering occurs inside the container
-                      <InBidListContainer id={result.id} isWide className="ribbon-results-card" />
+                      <InBidListContainer id={result.id} isWideResults className="ribbon-results-card" />
                     }
                   </div>
                 </Column>

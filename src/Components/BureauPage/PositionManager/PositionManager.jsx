@@ -1,10 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { FILTERS_PARENT, POSITION_SEARCH_RESULTS, BUREAU_PERMISSIONS, ORG_PERMISSIONS, BUREAU_USER_SELECTIONS } from 'Constants/PropTypes';
+import { BUREAU_PERMISSIONS, BUREAU_USER_SELECTIONS, FILTERS_PARENT, POSITION_SEARCH_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
+import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import Picky from 'react-picky';
-import { get, sortBy, uniqBy, throttle, isEmpty, pick } from 'lodash';
+import { flatten, get, has, isEmpty, pick, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, downloadBureauPositionsData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Spinner from 'Components/Spinner';
 import ExportButton from 'Components/ExportButton';
@@ -12,11 +13,10 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
-import { scrollToTop } from 'utilities';
+import { scrollToTop, userHasSomePermissions } from 'utilities';
 import { usePrevious } from 'hooks';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import SelectForm from 'Components/SelectForm';
-import StaticDevContent from 'Components/StaticDevContent';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { filtersFetchData } from 'actions/filters/filters';
 import FA from 'react-fontawesome';
@@ -32,9 +32,9 @@ const PositionManager = props => {
     bureauFiltersIsLoading,
     bureauPositionsIsLoading,
     bureauPositionsHasErrored,
-    orgPermissions,
     userSelections,
     isAO,
+    userProfile,
   } = props;
 
   const bureauPermissions$ = sortBy(bureauFilters.filters.find(f => f.item.description === 'region').data.map(a =>
@@ -53,11 +53,11 @@ const PositionManager = props => {
   const [selectedCycles, setSelectedCycles] = useState(userSelections.selectedCycles || []);
   const [selectedLanguages, setSelectedLanguages] =
     useState(userSelections.selectedLanguages || []);
+  const [selectedPostIndicators, setSelectedPostIndicators] =
+    useState(userSelections.selectedPostIndicators || []);
   const [selectedBureaus, setSelectedBureaus] =
     useState(userSelections.selectedBureaus ||
-      isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]);
-  const [selectedOrgs, setSelectedOrgs] =
-    useState(userSelections.selectedOrgs || [props.orgPermissions[0]]);
+      (isAO ? [bureauPermissions$[0]] : [props.bureauPermissions[0]]));
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
@@ -78,14 +78,14 @@ const PositionManager = props => {
   const bureaus = bureauFilters$.find(f => f.item.description === 'region');
   const bureauOptions = sortBy(isAO ? bureauPermissions$ : bureauPermissions,
     [(b) => b.long_description]);
-  const organizations = orgPermissions;
-  const organizationOptions = sortBy(organizations, [(o) => o.long_description]);
   const posts = bureauFilters$.find(f => f.item.description === 'post');
   const postOptions = uniqBy(sortBy(posts.data, [(p) => p.city]), 'code');
   const cycles = bureauFilters$.find(f => f.item.description === 'bidCycle');
   const cycleOptions = uniqBy(sortBy(cycles.data, [(c) => c.custom_description]), 'custom_description');
   const languages = bureauFilters$.find(f => f.item.description === 'language');
   const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
+  const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
+  const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
   const sorts = BUREAU_POSITION_SORT;
 
   // Local state inputs to push to redux state
@@ -98,9 +98,9 @@ const PositionManager = props => {
     selectedPosts,
     selectedTODs,
     selectedBureaus,
-    selectedOrgs,
     selectedCycles,
     selectedLanguages,
+    selectedPostIndicators,
     textSearch,
     textInput,
   };
@@ -113,9 +113,9 @@ const PositionManager = props => {
     [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
     [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
     [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    org_code: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
     [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
     [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
+    [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
     ordering,
     page,
     limit,
@@ -123,21 +123,21 @@ const PositionManager = props => {
   };
 
   const noBureausSelected = selectedBureaus.filter(f => f).length < 1;
-  const noOrgsSelected = selectedOrgs.filter(f => f).length < 1;
+  const isBureauUser = userHasSomePermissions(['bureau_user', 'ao_user'], userProfile.permission_groups);
   const childRef = useRef();
 
   // Initial render
   useEffect(() => {
     props.fetchFilters(bureauFilters, {});
-    props.fetchBureauPositions(query);
+    props.fetchBureauPositions(query, isBureauUser);
     props.saveSelections(currentInputs);
   }, []);
 
   // Rerender and action on user selections
   useEffect(() => {
     if (prevPage) {
-      if (!noBureausSelected || !noOrgsSelected) {
-        props.fetchBureauPositions(query);
+      if (!isBureauUser || !noBureausSelected) {
+        props.fetchBureauPositions(query, isBureauUser);
       }
       props.saveSelections(currentInputs);
       setPage(1);
@@ -148,9 +148,9 @@ const PositionManager = props => {
     selectedPosts,
     selectedTODs,
     selectedBureaus,
-    selectedOrgs,
     selectedCycles,
     selectedLanguages,
+    selectedPostIndicators,
     ordering,
     limit,
     textSearch,
@@ -161,36 +161,29 @@ const PositionManager = props => {
   useEffect(() => {
     scrollToTop({ delay: 0, duration: 400 });
     if (prevPage) {
-      props.fetchBureauPositions(query);
+      props.fetchBureauPositions(query, isBureauUser);
       props.saveSelections(currentInputs);
     }
   }, [page]);
 
 
   function renderSelectionList({ items, selected, ...rest }) {
-    const getCodeSelected = item => !!selected.find(f => f.code === item.code);
-    const queryProp = get(items, '[0].custom_description', false) ? 'custom_description' : 'long_description';
+    let codeOrID = 'code';
+    // only Cycle needs to use 'id'
+    if (!has(items[0], 'code')) {
+      codeOrID = 'id';
+    }
+    const getSelected = item => !!selected.find(f => f[codeOrID] === item[codeOrID]);
+    let queryProp = 'description';
+    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
+    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
     return items.map(item =>
       (<ListItem
-        key={item.code}
+        key={item[codeOrID]}
         item={item}
         {...rest}
         queryProp={queryProp}
-        getIsSelected={getCodeSelected}
-      />),
-    );
-  }
-
-  function renderSelectionListById({ items, selected, ...rest }) {
-    const getIDSelected = item => !!selected.find(f => f.id === item.id);
-    const queryProp = get(items[0], 'custom_description', false) ? 'custom_description' : 'long_description';
-    return items.map(item =>
-      (<ListItem
-        key={item.id}
-        item={item}
-        {...rest}
-        queryProp={queryProp}
-        getIsSelected={getIDSelected}
+        getIsSelected={getSelected}
       />),
     );
   }
@@ -226,8 +219,8 @@ const PositionManager = props => {
   const getOverlay = () => {
     if (bureauPositionsIsLoading) {
       return (<Spinner type="bureau-results" class="homepage-position-results" size="big" />);
-    } else if (noBureausSelected && noOrgsSelected) {
-      return (<Alert type="error" title="No bureau/organization selected" messages={[{ body: 'Please select at least one bureau/organization filter.' }]} />);
+    } else if (isBureauUser && noBureausSelected) {
+      return (<Alert type="error" title="No bureaus selected" messages={[{ body: 'Please select at least one bureau filter.' }]} />);
     } else if (bureauPositionsHasErrored) {
       return (<Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />);
     } else if (noResults) {
@@ -243,17 +236,16 @@ const PositionManager = props => {
     setSelectedGrades([]);
     setSelectedPosts([]);
     setSelectedTODs([]);
-    setSelectedOrgs([props.orgPermissions[0]]);
     setSelectedBureaus(isAO ?
       [bureauPermissions$[0]].filter(f => f) : [props.bureauPermissions[0]].filter(f => f));
     setSelectedCycles([]);
     setSelectedLanguages([]);
+    setSelectedPostIndicators([]);
     setTextSearch('');
     setClearFilters(false);
   };
 
   useEffect(() => {
-    const defaultOrgCode = get(props, 'orgPermissions[0].code');
     const defaultBureauCode = isAO ? get(bureauPermissions$, '[0].code') : get(props, 'bureauPermissions[0].code');
     const filters = [
       selectedGrades,
@@ -262,10 +254,10 @@ const PositionManager = props => {
       selectedTODs,
       selectedCycles,
       selectedLanguages,
-      selectedOrgs.filter(f => get(f, 'code') !== defaultOrgCode),
+      selectedPostIndicators,
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
     ];
-    if (isEmpty(filters.flat()) && isEmpty(textSearch)) {
+    if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -277,8 +269,8 @@ const PositionManager = props => {
     selectedTODs,
     selectedCycles,
     selectedLanguages,
+    selectedPostIndicators,
     textSearch,
-    selectedOrgs,
     selectedBureaus,
   ]);
   return (
@@ -308,31 +300,64 @@ const PositionManager = props => {
                   </div>
                 </div>
                 <div className="usa-width-one-whole position-manager-filters results-dropdown">
-                  <div className="small-screen-stack position-manager-filters-inner">
+                  <div className="filter-div">
+                    <div className="label">Cycle:</div>
+                    <Picky
+                      placeholder="Select cycle(s)"
+                      value={selectedCycles}
+                      options={cycleOptions}
+                      onChange={setSelectedCycles}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="id"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">TOD:</div>
+                    <Picky
+                      placeholder="Select TOD(s)"
+                      value={selectedTODs}
+                      options={todOptions}
+                      onChange={setSelectedTODs}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="long_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Location:</div>
+                    <Picky
+                      placeholder="Select Location(s)"
+                      value={selectedPosts}
+                      options={postOptions}
+                      onChange={setSelectedPosts}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                    />
+                  </div>
+                  <PermissionsWrapper permissions={['bureau_user', 'ao_user']} minimum>
                     <div className="filter-div">
-                      <div className="label">Cycle:</div>
+                      <div className="label">Bureau:</div>
                       <Picky
-                        placeholder="Select cycle(s)"
-                        value={selectedCycles}
-                        options={cycleOptions}
-                        onChange={setSelectedCycles}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionListById}
-                        valueKey="id"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
-                    <div className="filter-div">
-                      <div className="label">TOD:</div>
-                      <Picky
-                        placeholder="Select TOD(s)"
-                        value={selectedTODs}
-                        options={todOptions}
-                        onChange={setSelectedTODs}
+                        placeholder="Select Bureau(s)"
+                        value={selectedBureaus.filter(f => f)}
+                        options={bureauOptions}
+                        onChange={setSelectedBureaus}
                         numberDisplayed={2}
                         multiple
                         includeFilter
@@ -343,113 +368,74 @@ const PositionManager = props => {
                         includeSelectAll
                       />
                     </div>
-                    <div className="filter-div">
-                      <div className="label">Location:</div>
-                      <Picky
-                        placeholder="Select Location(s)"
-                        value={selectedPosts}
-                        options={postOptions}
-                        onChange={setSelectedPosts}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                      />
-                    </div>
-                    <PermissionsWrapper permissions={['bureau_user', 'ao_user']} minimum>
-                      <div className="filter-div">
-                        <div className="label">Bureau:</div>
-                        <Picky
-                          placeholder="Select Bureau(s)"
-                          value={selectedBureaus.filter(f => f)}
-                          options={bureauOptions}
-                          onChange={setSelectedBureaus}
-                          numberDisplayed={2}
-                          multiple
-                          includeFilter
-                          dropdownHeight={255}
-                          renderList={renderSelectionList}
-                          valueKey="code"
-                          labelKey="long_description"
-                          includeSelectAll
-                        />
-                      </div>
-                    </PermissionsWrapper>
-                    <StaticDevContent useWrapper={false}>
-                      <PermissionsWrapper permissions={['post_user']}>
-                        <div className="filter-div">
-                          <div className="label">Organization:</div>
-                          <Picky
-                            placeholder="Select Organization(s)"
-                            value={selectedOrgs}
-                            options={organizationOptions}
-                            onChange={setSelectedOrgs}
-                            numberDisplayed={2}
-                            multiple
-                            includeFilter
-                            dropdownHeight={255}
-                            renderList={renderSelectionList}
-                            valueKey="code"
-                            labelKey="long_description"
-                            includeSelectAll
-                          />
-                        </div>
-                      </PermissionsWrapper>
-                    </StaticDevContent>
-                    <div className="filter-div">
-                      <div className="label">Skill:</div>
-                      <Picky
-                        placeholder="Select Skill(s)"
-                        value={selectedSkills}
-                        options={skillOptions}
-                        onChange={setSelectedSkills}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
-                    <div className="filter-div">
-                      <div className="label">Grade:</div>
-                      <Picky
-                        placeholder="Select Grade(s)"
-                        value={selectedGrades}
-                        options={gradeOptions}
-                        onChange={setSelectedGrades}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
-                    <div className="filter-div">
-                      <div className="label">Language:</div>
-                      <Picky
-                        placeholder="Select Language(s)"
-                        value={selectedLanguages}
-                        options={languageOptions}
-                        onChange={setSelectedLanguages}
-                        numberDisplayed={2}
-                        multiple
-                        includeFilter
-                        dropdownHeight={255}
-                        renderList={renderSelectionList}
-                        valueKey="code"
-                        labelKey="custom_description"
-                        includeSelectAll
-                      />
-                    </div>
+                  </PermissionsWrapper>
+                  <div className="filter-div">
+                    <div className="label">Skill:</div>
+                    <Picky
+                      placeholder="Select Skill(s)"
+                      value={selectedSkills}
+                      options={skillOptions}
+                      onChange={setSelectedSkills}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Grade:</div>
+                    <Picky
+                      placeholder="Select Grade(s)"
+                      value={selectedGrades}
+                      options={gradeOptions}
+                      onChange={setSelectedGrades}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Language:</div>
+                    <Picky
+                      placeholder="Select Language(s)"
+                      value={selectedLanguages}
+                      options={languageOptions}
+                      onChange={setSelectedLanguages}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Post Indicators:</div>
+                    <Picky
+                      placeholder="Select Post Indicator(s)"
+                      value={selectedPostIndicators}
+                      options={postIndicatorsOptions}
+                      onChange={setSelectedPostIndicators}
+                      numberDisplayed={2}
+                      multiple
+                      includeFilter
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
+                      includeSelectAll
+                    />
                   </div>
                 </div>
               </div>
@@ -489,7 +475,7 @@ const PositionManager = props => {
                       <ExportButton
                         onClick={exportPositions}
                         isLoading={isLoading}
-                        disabled={noBureausSelected && noOrgsSelected}
+                        disabled={isBureauUser && noBureausSelected}
                       />
                     </div>
                   </div>
@@ -526,9 +512,9 @@ PositionManager.propTypes = {
   bureauPositionsIsLoading: PropTypes.bool,
   bureauPositionsHasErrored: PropTypes.bool,
   bureauPermissions: BUREAU_PERMISSIONS,
-  orgPermissions: ORG_PERMISSIONS,
   userSelections: BUREAU_USER_SELECTIONS,
   isAO: PropTypes.bool,
+  userProfile: USER_PROFILE,
 };
 
 PositionManager.defaultProps = {
@@ -538,10 +524,10 @@ PositionManager.defaultProps = {
   bureauPositionsIsLoading: false,
   bureauPositionsHasErrored: false,
   bureauPermissions: [],
-  orgPermissions: [],
   userSelections: {},
   showClear: false,
   isAO: false,
+  userProfile: DEFAULT_USER_PROFILE,
 };
 
 const mapStateToProps = state => ({
@@ -552,12 +538,13 @@ const mapStateToProps = state => ({
   bureauFiltersHasErrored: state.filtersHasErrored,
   bureauFiltersIsLoading: state.filtersIsLoading,
   bureauPermissions: state.userProfile.bureau_permissions,
-  orgPermissions: state.userProfile.org_permissions,
   userSelections: state.bureauUserSelections,
+  userProfile: state.userProfile,
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query) => dispatch(bureauPositionsFetchData(query)),
+  fetchBureauPositions: (query, isBureauUser) =>
+    dispatch(bureauPositionsFetchData(query, isBureauUser)),
   fetchFilters: (items, queryParams, savedFilters) =>
     dispatch(filtersFetchData(items, queryParams, savedFilters)),
   saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),

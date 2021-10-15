@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Select from 'react-select';
 import { orderBy } from 'lodash';
 import { FILTERS } from '../../../Constants/PropTypes';
-import { wrapForMultiSelect, returnObjectsWherePropMatches } from '../../../utilities';
+import { returnObjectsWherePropMatches, wrapForMultiSelect } from '../../../utilities';
 
 const SKILL_CODE = 'code';
 const SKILL_DESCRIPTION = 'custom_description';

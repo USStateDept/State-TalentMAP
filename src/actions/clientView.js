@@ -1,8 +1,8 @@
 import { batch } from 'react-redux';
 import api from '../api';
-import { toastSuccess, toastError } from './toast';
+import { toastError, toastSuccess } from './toast';
 import { clientBidListFetchData } from './bidList';
-import { SET_CLIENT_SUCCESS, GET_CLIENT_SUCCESS_MESSAGE, SET_CLIENT_ERROR,
+import { GET_CLIENT_SUCCESS_MESSAGE, SET_CLIENT_ERROR, SET_CLIENT_SUCCESS,
   UNSET_CLIENT_SUCCESS, UNSET_CLIENT_SUCCESS_MESSAGE } from '../Constants/SystemMessages';
 
 export function setClientViewAs({ loadingId, client, isLoading, hasErrored }) {

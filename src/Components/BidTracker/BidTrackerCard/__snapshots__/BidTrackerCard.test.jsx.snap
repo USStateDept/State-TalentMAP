@@ -16,13 +16,16 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
   <div
     className="bid-tracker-inner-container"
   >
+    <MediaQueryWrapper
+      breakpoint="screenXlgMin"
+      widthType="min"
+    >
+      <Component />
+    </MediaQueryWrapper>
     <BidTrackerCardTop
       bid={
         Object {
           "approved_date": "2017-12-20",
-          "bidcycle": Object {
-            "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-          },
           "closed_date": "2017-12-20",
           "create_date": "2017-12-20",
           "declined_date": "2017-12-20",
@@ -33,25 +36,41 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
           "id": 3,
           "in_panel_date": "2017-12-20",
           "is_priority": false,
-          "position": Object {
-            "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-            "create_date": "2015-08-05",
-            "grade": "03",
-            "id": 11,
-            "position_number": "10035561",
-            "post": Object {
-              "id": 199,
-              "location": Object {
-                "city": "Freetown",
-                "code": "00A",
-                "country": "Sierra Leone",
-                "id": 103,
-                "state": "",
+          "position_info": Object {
+            "bid_statistics": Array [
+              Object {
+                "at_skill": 0,
+                "has_handshake_accepted": null,
+                "has_handshake_offered": false,
+                "id": null,
+                "in_grade": 0,
+                "in_grade_at_skill": 0,
+                "total_bids": 0,
               },
+            ],
+            "bidcycle": Object {
+              "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
             },
-            "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-            "title": "POLITICAL/ECONOMIC OFFICER",
-            "update_date": "2017-06-08",
+            "id": 11,
+            "position": Object {
+              "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+              "create_date": "2015-08-05",
+              "grade": "03",
+              "position_number": "10035561",
+              "post": Object {
+                "id": 199,
+                "location": Object {
+                  "city": "Freetown",
+                  "code": "00A",
+                  "country": "Sierra Leone",
+                  "id": 103,
+                  "state": "",
+                },
+              },
+              "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+              "title": "POLITICAL/ECONOMIC OFFICER",
+              "update_date": "2017-06-08",
+            },
           },
           "reviewer": Object {
             "email": "woodwardw@state.gov",
@@ -68,11 +87,10 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
           "user": "rehmant",
         }
       }
+      bidTakenFlag={false}
       deleteBid={[Function]}
       hideDelete={false}
-      questionText={Object {}}
       showBidCount={true}
-      showQuestion={true}
       useCDOView={false}
     />
     <div
@@ -82,9 +100,6 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         bid={
           Object {
             "approved_date": "2017-12-20",
-            "bidcycle": Object {
-              "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-            },
             "closed_date": "2017-12-20",
             "create_date": "2017-12-20",
             "declined_date": "2017-12-20",
@@ -95,25 +110,41 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "id": 3,
             "in_panel_date": "2017-12-20",
             "is_priority": false,
-            "position": Object {
-              "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-              "create_date": "2015-08-05",
-              "grade": "03",
-              "id": 11,
-              "position_number": "10035561",
-              "post": Object {
-                "id": 199,
-                "location": Object {
-                  "city": "Freetown",
-                  "code": "00A",
-                  "country": "Sierra Leone",
-                  "id": 103,
-                  "state": "",
+            "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
                 },
+              ],
+              "bidcycle": Object {
+                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
               },
-              "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-              "title": "POLITICAL/ECONOMIC OFFICER",
-              "update_date": "2017-06-08",
+              "id": 11,
+              "position": Object {
+                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                "create_date": "2015-08-05",
+                "grade": "03",
+                "position_number": "10035561",
+                "post": Object {
+                  "id": 199,
+                  "location": Object {
+                    "city": "Freetown",
+                    "code": "00A",
+                    "country": "Sierra Leone",
+                    "id": 103,
+                    "state": "",
+                  },
+                },
+                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                "title": "POLITICAL/ECONOMIC OFFICER",
+                "update_date": "2017-06-08",
+              },
             },
             "reviewer": Object {
               "email": "woodwardw@state.gov",
@@ -130,15 +161,13 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "user": "rehmant",
           }
         }
+        collapseOverlay={true}
       />
       <OverlayAlert
         acceptBid={[Function]}
         bid={
           Object {
             "approved_date": "2017-12-20",
-            "bidcycle": Object {
-              "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-            },
             "closed_date": "2017-12-20",
             "create_date": "2017-12-20",
             "declined_date": "2017-12-20",
@@ -149,25 +178,41 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
             "id": 3,
             "in_panel_date": "2017-12-20",
             "is_priority": false,
-            "position": Object {
-              "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-              "create_date": "2015-08-05",
-              "grade": "03",
-              "id": 11,
-              "position_number": "10035561",
-              "post": Object {
-                "id": 199,
-                "location": Object {
-                  "city": "Freetown",
-                  "code": "00A",
-                  "country": "Sierra Leone",
-                  "id": 103,
-                  "state": "",
+            "position_info": Object {
+              "bid_statistics": Array [
+                Object {
+                  "at_skill": 0,
+                  "has_handshake_accepted": null,
+                  "has_handshake_offered": false,
+                  "id": null,
+                  "in_grade": 0,
+                  "in_grade_at_skill": 0,
+                  "total_bids": 0,
                 },
+              ],
+              "bidcycle": Object {
+                "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
               },
-              "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-              "title": "POLITICAL/ECONOMIC OFFICER",
-              "update_date": "2017-06-08",
+              "id": 11,
+              "position": Object {
+                "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                "create_date": "2015-08-05",
+                "grade": "03",
+                "position_number": "10035561",
+                "post": Object {
+                  "id": 199,
+                  "location": Object {
+                    "city": "Freetown",
+                    "code": "00A",
+                    "country": "Sierra Leone",
+                    "id": 103,
+                    "state": "",
+                  },
+                },
+                "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                "title": "POLITICAL/ECONOMIC OFFICER",
+                "update_date": "2017-06-08",
+              },
             },
             "reviewer": Object {
               "email": "woodwardw@state.gov",
@@ -186,11 +231,14 @@ exports[`BidTrackerCardComponent matches snapshot 1`] = `
         }
         declineBid={[Function]}
         deleteBid={[Function]}
+        isCollapsible={true}
         registerHandshake={[Function]}
         submitBid={[Function]}
+        togglePanelAlert={[Function]}
         unregisterHandshake={[Function]}
         useCDOView={false}
         userId=""
+        userName="John"
       />
     </div>
   </div>

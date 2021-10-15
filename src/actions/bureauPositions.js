@@ -60,9 +60,10 @@ export function bureauPositionsFetchDataSuccess(results) {
   };
 }
 
-export function bureauPositionsFetchData(userQuery) {
-  // Ensure the userQuery includes a bureau - otherwise we risk querying unauthorized positions
-  if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
+export function bureauPositionsFetchData(userQuery, bureauUser) {
+  // If Bureau user, ensure the userQuery includes a bureau
+  // - otherwise we risk querying unauthorized positions
+  if (bureauUser && (get(userQuery, 'position__bureau__code__in', []).length < 1)) {
     return (dispatch) => {
       batch(() => {
         dispatch(bureauPositionsHasErrored(true));

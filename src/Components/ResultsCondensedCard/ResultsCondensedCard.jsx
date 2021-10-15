@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
+import { BID_RESULTS, FAVORITE_POSITIONS_ARRAY, HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from 'Constants/PropTypes';
 import ResultsCondensedCardTop from '../ResultsCondensedCardTop';
 import ResultsCondensedCardBottom from '../ResultsCondensedCardBottom';
 import ResultsCondensedCardFooter from '../ResultsCondensedCardFooter';
 import BoxShadow from '../BoxShadow';
-import { POSITION_DETAILS, FAVORITE_POSITIONS_ARRAY, BID_RESULTS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
 
 const ResultsCondensedCard = (
   {

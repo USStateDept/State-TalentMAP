@@ -1,11 +1,30 @@
 import querystring from 'query-string';
 import { CancelToken } from 'axios';
-import { get } from 'lodash';
+import { get, isEqual } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import api from '../api';
 import { toastError } from './toast';
 
 let cancelRanking;
+
+export function bidderRankingsErrored(bool, id) {
+  return {
+    type: 'BIDDER_RANKINGS_HAS_ERRORED',
+    hasErrored: { bool, id },
+  };
+}
+export function bidderRankingsLoading(bool, id) {
+  return {
+    type: 'BIDDER_RANKINGS_IS_LOADING',
+    isLoading: { bool, id },
+  };
+}
+export function bidderRankingsFetchSuccess(id, data, clearAll) {
+  return {
+    type: 'BIDDER_RANKING_FETCH_DATA_SUCCESS',
+    results: { id, data, clearAll },
+  };
+}
 
 export function bureauPositionBidsHasErrored(bool) {
   return {
@@ -118,7 +137,10 @@ export function bureauBidsAllFetchData(id, query) {
         dispatch(bureauPositionBidsAllHasErrored(false));
         dispatch(bureauPositionBidsAllIsLoading(false));
       })
-      .catch(() => {
+      .catch((err) => {
+        if (err.response.status === 403) {
+          dispatch(toastError('You do not have the bureau or organization permissions associated with this position. Bidders will be hidden.', 'Insufficient Permissions'));
+        }
         dispatch(bureauPositionBidsAllHasErrored(true));
         dispatch(bureauPositionBidsAllIsLoading(false));
       });
@@ -137,22 +159,26 @@ export function bureauBidsSetRanking(id, ranking = []) {
         }),
       })
       .then(() => {
-        api()
-          .post('/available_position/ranking/', ranking, {
-            cancelToken: new CancelToken((c) => {
-              cancelRanking = c;
-            }),
-          })
-          .then(({ data }) => data || [])
+        const prom = () => isEqual(ranking, []) ? Promise.resolve() :
+          api()
+            .post('/available_position/ranking/', ranking, {
+              cancelToken: new CancelToken((c) => {
+                cancelRanking = c;
+              }),
+            });
+
+        prom()
           .then(() => {
             dispatch(bureauPositionBidsSetRankingFetchDataSuccess(true));
             dispatch(bureauPositionBidsSetRankingHasErrored(false));
             dispatch(bureauPositionBidsSetRankingIsLoading(false));
           })
-          .catch(() => {
-            dispatch(bureauPositionBidsSetRankingHasErrored(true));
-            dispatch(bureauPositionBidsSetRankingIsLoading(false));
-            dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
+          .catch((err) => {
+            if (get(err, 'message') !== 'cancel') {
+              dispatch(bureauPositionBidsSetRankingHasErrored(true));
+              dispatch(bureauPositionBidsSetRankingIsLoading(false));
+              dispatch(toastError('Your changes were not saved. Please try again.', 'An error has occurred'));
+            }
           });
       })
       .catch((err) => {
@@ -193,8 +219,38 @@ export function downloadBidderData(id, query = {}) {
     .then((response) => {
       downloadFromResponse(response, 'TalentMap_position_bids');
     })
-    .catch(() => {
-      // eslint-disable-next-line global-require
-      require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+    .catch((err) => {
+      /* eslint-disable global-require */
+      if (err.response.status === 403) {
+        require('../store').store.dispatch(toastError('You do not have the bureau or organization permissions associated with this position.', 'Insufficient Permissions'));
+      } else {
+        require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
+      }
+      /* eslint-enable global-require */
     });
+}
+
+export function fetchBidderRankings(perdet, cp_id) {
+  const url = `/available_position/rankings/${perdet}/${cp_id}/`;
+  return (dispatch) => {
+    dispatch(bidderRankingsLoading(true, perdet));
+    dispatch(bidderRankingsErrored(false, perdet));
+    api().get(url)
+      .then(({ data }) => {
+        dispatch(bidderRankingsFetchSuccess(perdet, data));
+        dispatch(bidderRankingsErrored(false, perdet));
+        dispatch(bidderRankingsLoading(false, perdet));
+      })
+      .catch(() => {
+        dispatch(bidderRankingsFetchSuccess(perdet, {}));
+        dispatch(bidderRankingsErrored(true, perdet));
+        dispatch(bidderRankingsLoading(false, perdet));
+      });
+  };
+}
+
+export function clearBidderRankings() {
+  return (dispatch) => {
+    dispatch(bidderRankingsFetchSuccess(null, null, true));
+  };
 }

@@ -7,7 +7,7 @@ import Enum from 'enum';
 import bowser from 'bowser';
 import { setUserEmpId } from 'actions/userProfile';
 import { toastWarning } from 'actions/toast';
-import { fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect, fetchJWT } from 'utilities';
+import { fetchJWT, fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect } from 'utilities';
 import { checkFlag } from 'flags';
 import { staticFilters } from './reducers/filters/filters';
 import { logoutRequest } from './login/actions';

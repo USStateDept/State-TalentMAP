@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 
-const Ribbon = ({ type, className, icon, text, cutSide, containerProps, isWide, showText }) => (
+const Ribbon = ({ type, className, icon, text, cutSide, containerProps, isWide, showText,
+  isWideResults }) => (
   <div
-    className={`ribbon-outer-container ribbon-outer-container-cut-${cutSide} ${isWide ? 'ribbon-wide' : ''} ${className}`}
+    className={`ribbon-outer-container-cut-${cutSide} ${isWide ? 'ribbon-wide' : ''} ${isWideResults ? 'ribbon-wide-results' : ''} ${className}`}
     {...containerProps}
   >
     <div className={`ribbon ribbon-${type} ribbon-cut-${cutSide}`}>
@@ -22,10 +23,11 @@ Ribbon.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string,
   containerProps: PropTypes.shape({}),
-  type: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'success']),
+  type: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'success', 'cn', 'hds', 'snd']),
   cutSide: PropTypes.oneOf(['left', 'right', 'both']),
   isWide: PropTypes.bool,
   showText: PropTypes.bool,
+  isWideResults: PropTypes.bool,
 };
 
 Ribbon.defaultProps = {
@@ -37,6 +39,7 @@ Ribbon.defaultProps = {
   cutSide: 'left',
   isWide: false,
   showText: true,
+  isWideResults: false,
 };
 
 export default Ribbon;

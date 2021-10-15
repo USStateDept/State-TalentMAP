@@ -8,12 +8,18 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
     className="bid-tracker-title-content-container"
   >
     <BidTrackerCardTitle
-      bidCycle={
+      bidCycle="Demo BidCycle 2017-10-31 16:00:51.254762"
+      bidStatistics={
         Object {
-          "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+          "at_skill": 0,
+          "has_handshake_accepted": null,
+          "has_handshake_offered": false,
+          "id": null,
+          "in_grade": 0,
+          "in_grade_at_skill": 0,
+          "total_bids": 0,
         }
       }
-      bidStatistics={Object {}}
       id={11}
       positionNumber="10035561"
       post={
@@ -39,68 +45,6 @@ exports[`BidTrackerCardTopComponent matches snapshot 1`] = `
     <div
       className="bid-tracker-card-title-container-right"
     >
-      <div
-        className="bid-tracker-question-text-container"
-      >
-        <Tooltip
-          animateFill={true}
-          animation="shift"
-          arrow={true}
-          arrowSize="regular"
-          className=""
-          delay={0}
-          disabled={false}
-          distance={10}
-          duration={375}
-          followCursor={false}
-          hideDelay={0}
-          hideDuration={375}
-          hideOnClick={true}
-          html={
-            <span>
-              Your bid is likely in one of several steps in the process. 
-              <Link
-                className="tooltip-link"
-                replace={false}
-                to="/biddingProcess"
-              >
-                Learn more here.
-              </Link>
-            </span>
-          }
-          inertia={false}
-          interactive={true}
-          interactiveBorder={5}
-          multiple={false}
-          offset={0}
-          onHidden={[Function]}
-          onHide={[Function]}
-          onRequestClose={[Function]}
-          onShow={[Function]}
-          onShown={[Function]}
-          popperOptions={Object {}}
-          position="top"
-          size="regular"
-          sticky={false}
-          stickyDuration={200}
-          style={Object {}}
-          tabIndex="0"
-          tag="div"
-          theme="dark"
-          touchHold={false}
-          trigger="mouseenter focus"
-          unmountHTMLWhenHide={false}
-          useContext={true}
-          zIndex={9999}
-        >
-          <span>
-            <FontAwesome
-              name="question-circle"
-            />
-             Why is it taking so long?
-          </span>
-        </Tooltip>
-      </div>
       <div
         className="bid-tracker-actions-container"
       />

@@ -9,9 +9,10 @@ import OBCUrl from 'Components/OBCUrl';
 import Spinner from 'Components/Spinner';
 import { getPostName } from 'utilities';
 import { NO_POST } from 'Constants/SystemMessages';
-import { POSITION_DETAILS, EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { bureauBidsFetchData, bureauBidsAllFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, downloadBidderData } from 'actions/bureauPositionBids';
+import { CLASSIFICATIONS, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
+import { bureauBidsAllFetchData, bureauBidsFetchData, bureauBidsRankingFetchData, bureauBidsSetRanking, clearBidderRankings, downloadBidderData } from 'actions/bureauPositionBids';
 import { bureauPositionDetailsFetchData } from 'actions/bureauPositionDetails';
+import { fetchClassifications } from 'actions/classifications';
 import ExportButton from '../ExportButton';
 import PositionManagerBidders from '../PositionManagerBidders';
 
@@ -31,6 +32,8 @@ class PositionManagerDetails extends Component {
     this.getPositionBids();
     this.props.getPositionDetails(this.state.id);
     this.props.getBidsRanking(this.state.id);
+    this.props.getClassifications();
+    this.props.clearBidderRankingsData();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -79,14 +82,16 @@ class PositionManagerDetails extends Component {
   render() {
     const { id, hasLoaded, filters, ordering } = this.state;
     const { allBids, allBidsIsLoading, bids, bidsIsLoading, bureauPositionIsLoading,
-      bureauPosition, ranking, rankingIsLoading } = this.props;
+      bureauPosition, ranking, rankingIsLoading,
+      classifications, classificationsIsLoading } = this.props;
     const isProjectedVacancy = false;
     const isArchived = false;
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
     const title = get(bureauPosition, 'position.title');
     const filtersSelected = !!keys(filters).length;
     const filters$ = { ...filters, ordering };
-    const isLoading$ = bidsIsLoading || allBidsIsLoading || rankingIsLoading;
+    const isLoading$ = bidsIsLoading || allBidsIsLoading
+      || rankingIsLoading || classificationsIsLoading;
 
     return (
       <div className="usa-grid-full profile-content-container position-manager-details">
@@ -137,8 +142,10 @@ class PositionManagerDetails extends Component {
                       filters={filters$}
                       allBids={allBids}
                       isLocked={bureauPosition.is_locked}
+                      bidCycle={bureauPosition.bidcycle}
                       hasBureauPermission={bureauPosition.has_bureau_permission}
                       hasPostPermission={bureauPosition.has_post_permission}
+                      classifications={classifications}
                     />
                   </div>
                 </div>
@@ -164,6 +171,10 @@ PositionManagerDetails.propTypes = {
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
   allBidsIsLoading: PropTypes.bool,
   rankingIsLoading: PropTypes.bool,
+  getClassifications: PropTypes.func,
+  classifications: CLASSIFICATIONS,
+  classificationsIsLoading: PropTypes.bool,
+  clearBidderRankingsData: PropTypes.func,
 };
 
 PositionManagerDetails.defaultProps = {
@@ -180,6 +191,10 @@ PositionManagerDetails.defaultProps = {
   allBids: [],
   allBidsIsLoading: false,
   rankingIsLoading: false,
+  getClassifications: EMPTY_FUNCTION,
+  classifications: [],
+  classificationsIsLoading: true,
+  clearBidderRankingsData: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = (state) => ({
@@ -191,6 +206,8 @@ const mapStateToProps = (state) => ({
   allBids: state.bureauPositionBidsAll,
   allBidsIsLoading: state.bureauPositionBidsAllIsLoading,
   rankingIsLoading: state.bureauPositionBidsRankingIsLoading,
+  classifications: state.classifications,
+  classificationsIsLoading: state.classificationsIsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -200,6 +217,8 @@ export const mapDispatchToProps = dispatch => ({
   getPositionDetails: (id) => dispatch(bureauPositionDetailsFetchData(id)),
   downloadBidderData: (id, query) => dispatch(downloadBidderData(id, query)),
   setRanking: (id, ranking) => dispatch(bureauBidsSetRanking(id, ranking)),
+  getClassifications: () => dispatch(fetchClassifications()),
+  clearBidderRankingsData: () => dispatch(clearBidderRankings()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(PositionManagerDetails));

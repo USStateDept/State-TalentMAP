@@ -1,18 +1,17 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, find, orderBy, reverse } from 'lodash';
+import { find, get, orderBy, reverse } from 'lodash';
 import Alert from 'Components/Alert';
 import ExportButton from 'Components/ExportButton';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import SelectForm from 'Components/SelectForm';
 import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
 import { downloadBidlistData } from 'actions/bidList';
-import { BID_LIST, NOTIFICATION_LIST, USER_PROFILE } from '../../Constants/PropTypes';
+import { BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
 import BidStatusStats from './BidStatusStats';
 import ProfileSectionTitle from '../ProfileSectionTitle';
 import Spinner from '../Spinner';
-import NotificationsSection from './NotificationsSection';
 import ContactCDOButton from './ContactCDOButton';
 import BackButton from '../BackButton';
 
@@ -86,8 +85,7 @@ class BidTracker extends Component {
   render() {
     const { exportIsLoading, sortValue } = this.state;
     const { bidList, bidListIsLoading, bidListHasErrored, acceptBid,
-      declineBid, submitBid, deleteBid,
-      notifications, notificationsIsLoading, markBidTrackerNotification, userProfile,
+      declineBid, submitBid, deleteBid, userProfile,
       userProfileIsLoading, isPublic, useCDOView, registerHandshake,
       unregisterHandshake } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
@@ -108,14 +106,6 @@ class BidTracker extends Component {
           <BackButton />
           {isPublic && <SearchAsClientButton user={userProfile} />}
         </div>
-        {
-          !isPublic &&
-          <NotificationsSection
-            notifications={notifications}
-            notificationsIsLoading={notificationsIsLoading}
-            markBidTrackerNotification={markBidTrackerNotification}
-          />
-        }
         <div className="usa-grid-full">
           <div className="usa-width-one-half bid-tracker-greeting-container">
             <div className="usa-grid-full">
@@ -190,9 +180,6 @@ BidTracker.propTypes = {
   deleteBid: PropTypes.func.isRequired,
   registerHandshake: PropTypes.func.isRequired,
   unregisterHandshake: PropTypes.func.isRequired,
-  notifications: NOTIFICATION_LIST.isRequired,
-  notificationsIsLoading: PropTypes.bool.isRequired,
-  markBidTrackerNotification: PropTypes.func.isRequired,
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
   isPublic: PropTypes.bool,

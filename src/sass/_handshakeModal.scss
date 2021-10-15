@@ -1,0 +1,300 @@
+.react-calendar {
+  max-width: 100%;
+  background: white;
+  border: 1px solid #a0a096;
+  border-bottom: none;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.125em;
+}
+.react-calendar--doubleView {
+  width: 700px;
+}
+.react-calendar--doubleView .react-calendar__viewContainer {
+  display: flex;
+  margin: -0.5em;
+}
+.react-calendar--doubleView .react-calendar__viewContainer > * {
+  width: 50%;
+  margin: 0.5em;
+}
+.react-calendar,
+.react-calendar *,
+.react-calendar *:before,
+.react-calendar *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.react-calendar button {
+  margin: 0;
+  border: 0;
+  outline: none;
+  color: black;
+}
+.react-calendar button:enabled:hover {
+  cursor: pointer;
+  color: black;
+}
+.react-calendar__navigation {
+  height: 44px;
+  margin-bottom: 1em;
+}
+.react-calendar__navigation button {
+  color: black;
+  min-width: 44px;
+  background: none;
+}
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #e6e6e6;
+}
+.react-calendar__navigation button[disabled] {
+  color: #757575;
+  // background-color: #f0f0f0;
+  background-color: transparent;
+}
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.75em;
+}
+.react-calendar__month-view__weekdays__weekday {
+  padding: 0.5em;
+}
+.react-calendar__month-view__weekNumbers {
+  font-weight: bold;
+}
+.react-calendar__month-view__weekNumbers .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75em;
+  padding: calc(0.75em / 0.75) calc(0.5em / 0.75);
+}
+.react-calendar__month-view__days__day--weekend {
+  color: #d10000;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #757575;
+}
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+  padding: 2em 0.5em;
+}
+.react-calendar__tile {
+  max-width: 100%;
+  text-align: center;
+  padding: 0.75em 0.5em;
+  background: none;
+}
+.react-calendar__tile:disabled {
+  // background-color: #f0f0f0;
+  background-color: transparent;
+}
+.react-calendar__tile--hasActive {
+  background: #76baff;
+}
+
+.react-calendar__tile--hasActive:enabled:focus {
+  background: #a9d4ff;
+}
+.react-calendar__tile:enabled:focus,
+.react-calendar__tile--active,
+.react-calendar__tile--active:hover,
+.react-calendar__tile--active:enabled:focus {
+  background: #F6AB65;
+}
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile--active:enabled:hover {
+  outline: 2px dotted #F18319;
+  outline-offset: 3px;
+  
+}
+
+.react-calendar__tile--hasActive:enabled:hover,
+.react-calendar__tile:enabled {
+  background: transparent;
+  background-color: none;
+}
+
+.react-calendar--selectRange .react-calendar__tile--hover {
+  background-color: #e6e6e6;
+}
+.react-calender__tile--startDate {
+  background: #d4e0ee !important;
+}
+.react-calendar__tile--cycleTimeline:disabled,
+.react-calendar__tile--cycleTimeline,
+.react-calendar__tile--cycleTimeline button {
+  background-color: #cce6cc;
+}
+.react-calendar__tile--endDate {
+  background-color: #F7B578 !important;
+}
+.react-calendar__tile--endDate:focus {
+  outline: none;
+}
+
+.disabled {
+  .react-calendar__tile:enabled:hover,
+  .react-calendar__tile:enabled:focus,
+  .react-calendar__tile--active,
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: transparent;
+  }
+  .react-calender__tile--startDate {
+    background: #d4e0ee;
+  }
+  .react-calendar__tile--endDate {
+    background: $hs-expiration-orange;
+  }
+}
+  
+.bureau-hs-form {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid $color-blue-mariner;
+  padding-top: 20px;
+
+  form {
+    width: 440px;
+  }
+
+  .input-label {
+    display: flex;
+    margin-top: 1rem;
+  }
+
+  .calendar-legend {
+    display: flex;
+    justify-content: space-around;
+    font-size: small;
+    padding: 10px 0px;
+    border: 1px solid #a0a096;
+    border-top: none;
+
+    .cycle-key,
+    .offer-key,
+    .expire-key {
+      display: flex;
+
+      div:first-child {
+        width: 15px;
+        height: 15px;
+        margin-right: 5px;
+      }
+    }
+
+    .cycle-key {
+      padding-right: 15px;
+
+      div:first-child {
+        background-color: #cce6cc;
+      }
+    }
+    .offer-key {
+      padding-right: 15px;
+
+      div:first-child {
+        background-color: #d4e0ee;
+      }
+    }
+    .expire-key {
+      div:first-child {
+        background-color: $hs-expiration-orange;
+      }
+    }
+  }
+
+  .hs-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+
+    button {
+      margin-top: 7.5px;
+    }
+
+    button:first-child {
+      background: none;
+      color: $color-blue-mariner;
+
+    }
+  }
+}
+.date-time-inputs {
+  display: flex;
+  padding-bottom: 5px;
+
+  input:disabled {
+    background-color: $bg-gray-dark-3;
+  }
+
+  input:nth-child(2) {
+    width: 175px;
+  }
+
+  input:first-child {
+    width: 250px;
+    margin-right: 20px;
+  }
+  
+  input:first-child[disabled] {
+    background-color: $bg-gray-dark-3;
+  }
+}
+.hs-modal-time-picker {
+  align-items: center;
+  background-color: transparent;
+
+  .react-time-picker__wrapper {
+    width: 175px;
+  }
+
+  .react-time-picker__clear-button:hover svg {
+    stroke: white!important;
+    }
+    .react-time-picker__clock-button:hover svg {
+    stroke: white!important;
+    }
+
+  .react-time-picker__inputGroup {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  .react-time-picker__inputGroup__input {
+    min-width: 1.1em;
+    color: #212121;
+  }
+
+  .react-time-picker__inputGroup__input--hasLeadingZero {
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: -10px;
+  }
+
+  .react-time-picker__inputGroup__leadingZero,
+  .react-time-picker__inputGroup__amPm:disabled {
+    color: #212121;
+  }
+
+  .react-time-picker__inputGroup__hour {
+    text-align: right;
+  }
+}
+
+.react-time-picker--disabled {
+  background-color: transparent !important;
+  .react-time-picker__wrapper {
+    background-color: $bg-gray-dark-3;
+    .react-time-picker__inputGroup,
+    .react-time-picker__button {
+      background-color: $bg-gray-dark-3;
+    }
+  }
+}

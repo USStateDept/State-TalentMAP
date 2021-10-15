@@ -13,8 +13,7 @@ describe('DraftAlertComponent', () => {
 
   it('is defined', () => {
     const wrapper = shallow(
-      <DraftAlert {...props} />,
-    );
+      <DraftAlert {...props} />);
     expect(wrapper).toBeDefined();
   });
 
@@ -44,3 +43,4 @@ describe('DraftAlertComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
+

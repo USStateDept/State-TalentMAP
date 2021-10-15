@@ -1,5 +1,5 @@
-import { userProfile, userProfileHasErrored, userProfileIsLoading,
-  userProfileFavoritePositionIsLoading, userProfileFavoritePositionHasErrored } from './userProfile';
+import { userProfile, userProfileFavoritePositionHasErrored, userProfileFavoritePositionIsLoading,
+  userProfileHasErrored, userProfileIsLoading } from './userProfile';
 
 export default { userProfile,
   userProfileHasErrored,

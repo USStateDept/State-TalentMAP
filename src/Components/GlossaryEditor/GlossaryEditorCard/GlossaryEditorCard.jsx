@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { GLOSSARY_OBJECT, EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION, GLOSSARY_ERROR_OBJECT, GLOSSARY_OBJECT } from '../../../Constants/PropTypes';
 import TextEditor from '../../TextEditor';
 import InteractiveElement from '../../InteractiveElement';
 import GlossaryEditorCardBottom from '../GlossaryEditorCardBottom';

@@ -59,6 +59,27 @@
   }
 }
 
+.classifications-row {
+  span {
+    float: right;
+    padding-top: 1em;
+  }
+}
+
+.classifications-season-text {
+  padding-top: 10px;
+}
+
+.multiBidSeasonDropdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(165px, 1fr));
+  padding-left: 40px;
+}
+
+.multiBidSeason {
+    display: inline;
+  }
+
 .bidder-portfolio-stat-row {
   border: 1px solid $color-gray-light;
   display: flex;
@@ -205,7 +226,7 @@
   border-top: 8px solid $primary-blue;
   display: flex;
   flex-direction: column;
-  height: 331px;
+  height: 386px;
   margin-bottom: 25px;
   margin-left: 15px;
   margin-right: 25px;
@@ -329,9 +350,11 @@
     }
   }
 
-  &.client-badge-container--success > .client-badge > div > svg {
-    background-color: $color-green-dark;
-    color: $color-white;
+  &.client-badge-container--success {
+    svg {
+      background-color: $color-green-dark;
+      color: $color-white;
+    }
   }
 
   &.client-badge-container--warning > .client-badge > svg {
@@ -389,7 +412,7 @@ $cdo-search-container-padding: 10px;
   }
   .bid-cycle-picker-container {
     .picky {
-      width: 175px;
+      width: 185px;
     }
   }
   .unassigned-bidder-picker-container {

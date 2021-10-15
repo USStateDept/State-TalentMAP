@@ -2,6 +2,7 @@
 $card-width: 775px;
 $draft-icon-offset: 120px;
 $register-icon-offset: 44%;
+$register-hide-icon: 95%;
 
 .bid-tracker-page {
   position: relative;
@@ -127,6 +128,13 @@ $register-icon-offset: 44%;
   position: relative;
 }
 
+.bid-tracker-ribbon-container {
+  display: flex;
+  position: absolute;
+  right: 13px;
+  top: 50px;
+}
+
 .bid-tracker-overlay-alert {
   background: $color-gray;
   color: $color-white;
@@ -137,6 +145,14 @@ $register-icon-offset: 44%;
   position: absolute;
   top: 0;
   width: 100%;
+
+  .fa {
+    font-size: 25px;
+  }
+
+  .interactive-element {
+    margin: 10px 0px -35px 20px;
+  }
 
   .bid-tracker-overlay-alert-content-container {
     margin: 0 auto;
@@ -224,6 +240,10 @@ $register-icon-offset: 44%;
     padding-right: $register-icon-offset;
     width: 95%;
   }
+}
+
+.collapse-overlay {
+  margin-left: $register-hide-icon;
 }
 
 .bid-tracker-overlay-alert--register::after {
@@ -329,19 +349,14 @@ $register-icon-offset: 44%;
     float: right;
   }
 
-  .bid-tracker-question-text-container {
+  .bid-tracker-cdo-submitted-container {
     float: left;
     font-size: 13px;
     margin: 3px 20px 0 0;
 
     .fa {
-      margin-right: 5px;
-    }
-  }
-
-  .bid-tracker-cdo-submitted-container {
-    .fa {
       color: $blue-primary;
+      margin-right: 5px;
     }
   }
 
@@ -891,10 +906,6 @@ $register-icon-offset: 44%;
   .bid-tracker-card-title-outer-container-right {
     flex: 3;
 
-    .bid-tracker-question-text-container {
-      display: none;
-    }
-
     .remove-bid-link {
       display: initial;
     }
@@ -1025,6 +1036,7 @@ $register-icon-offset: 44%;
     }
   }
 
+
   .pending-line > .rc-steps-item-tail,
   .rc-steps-item-tail {
     &::after {
@@ -1039,6 +1051,7 @@ $register-icon-offset: 44%;
   .bid-tracker-overlay-alert--register::after {
     display: none;
   }
+
 
   .bid-tracker-bid-steps-container--handshakeaccepted {
     .step-in-panel {
@@ -1134,10 +1147,63 @@ $register-icon-offset: 44%;
 }
 
 .bid-tracker-alert-container--handshake-offered {
-  top: 30px;
+  padding: 10px 30px;
 
   button {
-    margin-right: 30px;
+    margin: 20px 30px 20px 0;
+  }
+  button:disabled {
+    opacity: 75%;
+  }
+  .left-side {
+    flex: 0.65;
+  }
+  .link-button-wrapper {
+    margin: auto;
+  }
+  .tm-button-no-box {
+    text-decoration: underline;
+  }
+  .right-side {
+    border-left: 1px solid $color-white;
+    text-align: left;
+    flex: 1;
+    padding-left: 25px;
+    margin-top: auto;
+    span {
+      font-weight: 500;
+    }
+    .hs-offered-date {
+      font-size: small;
+      text-align: right;
+    }
+    .flex {
+      div {
+        flex: 1;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .bid-tracker-alert-container--handshake-offered {
+    padding: 5px 15px;
+    button {
+      margin: 8px;
+    }
+    .right-half {
+      padding-left: 10px;
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .bid-tracker-alert-container--handshake-offered {
+    padding: 5px;
+    font-size: 14px;
+    button {
+      margin: 5px;
+    }
   }
 }
 
@@ -1375,4 +1441,8 @@ $register-icon-offset: 44%;
   .bid-tracker-overlay-alert--register::after {
     display: none;
   }
+}
+
+.bid-tracker-inner-container {
+  overflow: hidden;
 }

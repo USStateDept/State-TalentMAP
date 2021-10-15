@@ -5,8 +5,8 @@ import SelectForm from '../SelectForm';
 import Spinner from '../Spinner';
 import SavedSearchesList from './SavedSearchesList';
 import {
-  SAVED_SEARCH_PARENT_OBJECT,
   MAPPED_PARAM_ARRAY,
+  SAVED_SEARCH_PARENT_OBJECT,
 } from '../../Constants/PropTypes';
 import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
 import Nav from '../FavoritePositions/Nav';

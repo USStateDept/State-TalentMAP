@@ -5,6 +5,7 @@ exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
   className="usa-grid-full saved-search-alert"
 >
   <Alert
+    customClassName=""
     isAriaLive={true}
     isDivided={false}
     messages={

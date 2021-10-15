@@ -1,5 +1,5 @@
-import { propOrDefault, getPostName } from 'utilities';
-import { NO_POST, NO_SKILL, NO_GRADE } from 'Constants/SystemMessages';
+import { getPostName, propOrDefault } from 'utilities';
+import { NO_GRADE, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 
 const FavoriteContent = ({ position }) => (

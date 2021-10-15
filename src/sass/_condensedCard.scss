@@ -10,7 +10,7 @@ $condensed-card-data-padding: 15px 20px 9px;
   font-size: 16px;
   line-height: 19px;
   margin-bottom: $condensed-card-margin-bottom;
-  width: 350px;
+  width: 371px;
 
   .bid-count-container {
     display: flex;
@@ -117,11 +117,17 @@ $condensed-card-data-padding: 15px 20px 9px;
       }
     }
 
-    .ribbon-container {
+    .ribbon-container-condensed {
       position: absolute;
-      right: -1px;
-      top: calc(100% - 26px);
-      z-index: $ribbon-condensed-card-z;
+      right: -2px;
+      top: -1px;
+      z-index: $ribbon-condensed-card-z + 1;
+
+      .ribbon-cn, .ribbon-hds {
+        .fa {
+        margin-right: .2em;
+        }
+      }
     }
   }
 

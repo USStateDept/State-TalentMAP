@@ -25,6 +25,7 @@ exports[`NotificationRowComponent matches snapshot 1`] = `
       label="Mark notification"
       labelSrOnly={true}
       name=""
+      onChange={[Function]}
       onCheckBoxClick={[Function]}
       overrideLifecycle={false}
       small={false}

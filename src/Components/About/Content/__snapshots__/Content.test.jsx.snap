@@ -38,6 +38,7 @@ exports[`Content matches snapshot 1`] = `
       positions at the right time.
   </p>
   <Alert
+    customClassName=""
     isAriaLive={false}
     isDivided={false}
     messages={

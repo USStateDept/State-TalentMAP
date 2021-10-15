@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { Featured, Handshake } from '../Ribbon';
-import { POSITION_DETAILS, HOME_PAGE_CARD_TYPE } from '../../Constants/PropTypes';
+import StaticDevContent from 'Components/StaticDevContent';
+import { Tooltip } from 'react-tippy';
+import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
+import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
-import { getPostName, getBidStatisticsObject } from '../../utilities';
+import { getBidStatisticsObject, getPostName } from '../../utilities';
 
 const ResultsCondensedCardTop = ({
   position,
@@ -27,12 +29,63 @@ const ResultsCondensedCardTop = ({
   const p = position.position || position;
   const stats = getBidStatisticsObject(position.bid_statistics);
   const hasHandshake = get(stats, 'has_handshake_offered', false);
+  const isDifficultToStaff = get(position, 'isDifficultToStaff', false);
+  const isServiceNeedDifferential = get(position, 'isServiceNeedDifferential', false);
 
   const title = get(position, 'position.title', '');
 
   const titleHeader = <h3>{title}</h3>;
 
   const link = `/${isProjectedVacancy ? 'vacancy' : 'details'}/${position.id}${isTandem ? '?tandem=true' : ''}`;
+
+  const ribbons = (
+    <div className="post-ribbon-container">
+      <div className="ribbon-container-condensed">
+        {
+          hasHandshake &&
+          <Tooltip
+            title="Handshake"
+            arrow
+            offset={-60}
+          >
+            <Handshake showText={false} className="ribbon-condensed-card" />
+          </Tooltip>
+        }
+        {
+          <StaticDevContent>
+            <Tooltip
+              title="Critical need"
+              arrow
+              offset={-60}
+            >
+              <CriticalNeed showText={false} className="ribbon-condensed-card" />
+            </Tooltip>
+          </StaticDevContent>
+        }
+        {
+          isDifficultToStaff &&
+          <Tooltip
+            title="Hist. Diff. to Staff"
+            arrow
+            offset={-60}
+          >
+            <HistDiffToStaff showText={false} className="ribbon-condensed-card" />
+          </Tooltip>
+        }
+        {
+          isServiceNeedDifferential &&
+          <Tooltip
+            title="Service need differential"
+            arrow
+            offset={-100}
+          >
+            <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+          </Tooltip>
+        }
+      </div>
+
+    </div>
+  );
 
   const innerContent = (
     <div>
@@ -60,26 +113,21 @@ const ResultsCondensedCardTop = ({
             }
           </span></span>
         </div>
-        <div className="ribbon-container">
-          {
-            hasHandshake && <Handshake className="ribbon-condensed-card" />
-          }
-          {
-            get(position, 'position.is_highlighted') && <Featured className="ribbon-results-card" />
-          }
-        </div>
       </div>
     </div>
   );
 
   const containerProps = {
-    className: `usa-grid-full condensed-card-top ${cardTopClass} condensed-card-top--clickable`,
+    className: `usa-grid-full ${cardTopClass} condensed-card-top--clickable`,
   };
 
   return (
-    <Link to={link} {...containerProps} title="View details for this position">
-      {innerContent}
-    </Link>
+    <div className="condensed-card-top">
+      {ribbons}
+      <Link to={link} {...containerProps} title="View details for this position">
+        {innerContent}
+      </Link>
+    </div>
   );
 };
 

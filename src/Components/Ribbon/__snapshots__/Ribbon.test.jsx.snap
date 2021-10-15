@@ -2,7 +2,7 @@
 
 exports[`RibbonComponent matches snapshot 1`] = `
 <div
-  className="ribbon-outer-container ribbon-outer-container-cut-left  "
+  className="ribbon-outer-container-cut-left   "
 >
   <div
     className="ribbon ribbon-primary ribbon-cut-left"

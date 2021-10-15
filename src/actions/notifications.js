@@ -1,7 +1,12 @@
 import Q from 'q';
+import { CancelToken } from 'axios';
 import { subDays } from 'date-fns';
+import { get, isNull } from 'lodash';
 import api from '../api';
 import { hasValidToken } from '../utilities';
+import { handshakeOffered, handshakeRevoked } from '../actions/handshake';
+
+let cancelRanking;
 
 export function notificationsHasErrored(bool) {
   return {
@@ -104,10 +109,10 @@ export function unsetNotificationsCount() {
   };
 }
 
-export const getDateRange = () => {
+export const getDateRange = (toDate = 60) => {
   const today$ = new Date();
-  const past60days = subDays(today$, 60).toJSON();
-  return past60days;
+  const pastNumDays = subDays(today$, toDate).toJSON();
+  return pastNumDays;
 };
 
 export function notificationsCountFetchData(useDateRange = true) {
@@ -224,6 +229,46 @@ export function markNotifications({ ids = new Set(), markAsRead = false, shouldD
           dispatch(markNotificationsHasErrored(false));
           dispatch(markNotificationsIsLoading(false));
         }, 0);
+      });
+  };
+}
+
+export function handshakeNotificationsFetchData(limit = 15, page = 1, ordering = '-date_created', isRead = false) {
+  return (dispatch) => {
+    if (cancelRanking) { cancelRanking('cancel'); }
+    api().get(`/notification/?limit=${limit}&page=${page}&ordering=${ordering}&is_read=${isRead}&date_created__gte=${getDateRange(2)}&tags=handshake_bidder`, {
+      cancelToken: new CancelToken((c) => {
+        cancelRanking = c;
+      }),
+    })
+      .then(({ data }) => {
+        const data$ = get(data, 'results') || [];
+        const ids = data$.map(b => b.id);
+        // group by cp_id and sort on date_updated,
+        // so we only show the user the most recent notification per cp_id
+        const groupedNotifications = {};
+        data$.forEach(b => {
+          const currentID = b.meta.id;
+          if (Object.keys(groupedNotifications).includes(currentID)) {
+            groupedNotifications[currentID].push(b);
+          } else if (!isNull(currentID)) {
+            groupedNotifications[currentID] = [b];
+          }
+        });
+        const groupedIds = Object.keys(groupedNotifications);
+        groupedIds.forEach(id => {
+          groupedNotifications[id].sort((a, b) =>
+            new Date(b.date_updated) - new Date(a.date_updated));
+          const currentNotification = groupedNotifications[id][0];
+          if (get(currentNotification, 'meta.extended', false) || get(currentNotification, 'meta.accepted', false)) {
+            dispatch(handshakeOffered(currentNotification.owner, currentNotification.message,
+              { autoClose: false, draggable: false, closeOnClick: false }));
+          } else {
+            dispatch(handshakeRevoked(currentNotification.owner, currentNotification.message, 'hs-revoked-toast',
+              { autoClose: false, draggable: false, closeOnClick: false }));
+          }
+        });
+        dispatch(markNotifications({ ids, markAsRead: true }));
       });
   };
 }

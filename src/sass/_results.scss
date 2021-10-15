@@ -707,7 +707,7 @@ $results-container-width: 100% - $filter-container-width;
 
 .results-section-container {
   margin-top: 21px;
-  max-width: 1140px;
+  max-width: 1265px !important; // otherwise, card ribbons overlap the OBC link
   min-height: 500px;
 }
 
