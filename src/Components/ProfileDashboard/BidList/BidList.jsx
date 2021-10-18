@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { BID_RESULTS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import SectionTitle from '../SectionTitle';
@@ -47,8 +48,13 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
         </StaticDevContent>
         <div className="usa-grid-full section-padded-inner-container">
           <div className="usa-width-one-whole bid-tracker-title--condensed">
-            <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
-            <BidStatusStats bidList={bids} condensed />
+            <SkeletonTheme color="#0071BB" highlightColor="#fff">
+              {!isLoading ?
+                <>
+                  <SectionTitle title="Bid List" len={bids.length} icon="clipboard" />
+                  <BidStatusStats bidList={bids} condensed />
+                </> : <Skeleton width="20%" duration={1.8} />}
+            </SkeletonTheme>
           </div>
         </div>
         <div className="bid-list-container">
