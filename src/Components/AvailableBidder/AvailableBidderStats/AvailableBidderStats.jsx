@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
 import Picky from 'react-picky';
@@ -26,12 +26,12 @@ const AvailableBidderStats = () => {
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
   const stats = get(biddersData.stats, selectedStat, []);
-  const statsCount = get(biddersData.stats, 'Count', {})[selectedStat];
+  const statsSum = get(biddersData.stats, 'Sum', {})[selectedStat];
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
   return (
-    !availableBiddersIsLoading && !statsCount && !!isNoBidders ?
+    !availableBiddersIsLoading && !statsSum && !!isNoBidders ?
       null :
       <div className="usa-grid-full available-bidders-stats">
         <div className="usa-grid-full">
@@ -66,14 +66,14 @@ const AvailableBidderStats = () => {
                 !!availableBiddersIsLoading && <LoadingText />
               }
               {
-                !availableBiddersIsLoading && !statsCount && `There are no available bidders categorized by ${selectedStat}.`
+                !availableBiddersIsLoading && !statsSum && `There are no available bidders categorized by ${selectedStat}.`
               }
               {
-                !availableBiddersIsLoading && !!statsCount &&
+                !availableBiddersIsLoading && !!statsSum &&
                 <div className="usa-grid-full flex">
                   <div className="usa-width-one-fourth legend-container">
                     <div className="usa-grid-full legend">
-                      <h4>Available Bidders {selectedStat} Stats ({statsCount})</h4>
+                      <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
                       {
                         stats.map(m => (
                           <div className="flex legend-item">
@@ -81,8 +81,7 @@ const AvailableBidderStats = () => {
                               className="legend-square"
                               style={{ backgroundColor: m.color }}
                             />
-                            {/* may need to remove percent */}
-                            <div className="legend-text">{`(${m.value}) ${m.name} ${m.percent}`}</div>
+                            <div className="legend-text">{`(${m.value}) ${m.name}`}</div>
                           </div>
                         ))
                       }
@@ -104,6 +103,7 @@ const AvailableBidderStats = () => {
                           stats.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
                         }
                       </Pie>
+                      <Tooltip />
                     </PieChart>
                   </div>
                 </div>
