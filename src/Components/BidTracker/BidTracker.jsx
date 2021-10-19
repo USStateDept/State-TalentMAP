@@ -142,7 +142,7 @@ class BidTracker extends Component {
           {
             !isLoading && !bidListHasErrored &&
               <div className="usa-grid-full">
-                <BidStatusStats bidList={bidList.results} />
+                <BidStatusStats bidList={bidList.results} showTotal />
                 <BidTrackerCardList
                   bids={sortedBids}
                   acceptBid={acceptBid}
