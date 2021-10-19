@@ -46,6 +46,7 @@ const debouncedNetworkAlert = throttle(
   { leading: true, trailing: false },
 );
 
+// eslint-disable-next-line no-unused-vars
 const debouncedExpiredSessionAlert = throttle(
   // eslint-disable-next-line global-require
   () => require('./store').store.dispatch(toastWarning(
@@ -170,9 +171,11 @@ const api = () => {
     // We want to perform this on 302 to Microsoft, but CORS blocks visibility from axios,
     // so this is the closest we can get to capturing the session expiring.
     // https://github.com/axios/axios/issues/838#issuecomment-304033403
+    /* disable for now. TODO - handle cancelled requests also triggering this
     if (typeof error.response === 'undefined') {
       debouncedExpiredSessionAlert();
     }
+    */
 
     switch (propOrDefault(error, 'response.status')) {
       case 401: {

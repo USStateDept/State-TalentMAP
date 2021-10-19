@@ -9,7 +9,7 @@
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.15",
+    "@fortawesome/react-fontawesome": "^0.1.16",
     "@sweetalert/with-react": "^0.1.1",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.7.3",
@@ -201,7 +201,7 @@
     "webpack-plugin-ramdisk": "^0.2.0",
     "whatwg-fetch": "2.0.3",
     "workbox-webpack-plugin": "^6.3.0",
-    "yarn": "^1.22.15"
+    "yarn": "^1.22.17"
   },
   "scripts": {
     "start": "node scripts/start.js",
