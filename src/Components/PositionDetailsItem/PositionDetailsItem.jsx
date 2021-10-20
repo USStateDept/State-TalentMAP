@@ -86,6 +86,7 @@ const PositionDetailsItem = (props) => {
   const differentials = <Differentials {...diffProps} />;
 
   const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
+  const assignee = get(position, 'assignee') || NO_USER_LISTED;
   const cycle = get(position, 'latest_bidcycle.name', 'None Listed');
 
   const getPostedDate = () => {
@@ -145,6 +146,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title={isProjectedVacancy ? 'Bid Season' : 'Bid Cycle'} content={cycle} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
+            { isProjectedVacancy && <CondensedCardDataPoint title="Assignee" content={assignee} /> }
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
           </div>
         </div>
