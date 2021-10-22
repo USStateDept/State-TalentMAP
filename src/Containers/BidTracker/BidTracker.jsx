@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { get } from 'lodash';
+import { find, get } from 'lodash';
 import { acceptBid, bidListFetchData, declineBid,
   routeChangeResetState, submitBid, toggleBidPosition,
 } from 'actions/bidList';
@@ -19,13 +19,28 @@ import { ACCEPT_BID_HAS_ERRORED, ACCEPT_BID_SUCCESS, BID_LIST, BID_LIST_TOGGLE_H
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import BidTracker from 'Components/BidTracker';
 
+const STATUS = 'status';
+const CREATED = 'bidlist_create_date';
+const LOCATION = 'bidlist_location';
+const REVERSE_STATUS = '-status';
+// const TED = 'position.ted'; TODO - add
+
+const SORT_OPTIONS = [
+  { value: STATUS, text: 'Active Bids', defaultSort: true },
+  { value: REVERSE_STATUS, text: 'Inactive Bids' },
+  { value: CREATED, text: 'Creation date' },
+  { value: LOCATION, text: 'City name (A-Z)' },
+  // { value: TED, text: 'TED' }, TODO - add
+];
+
+const defaultSort = find(SORT_OPTIONS, f => f.defaultSort).value;
+
 class BidTrackerContainer extends Component {
   UNSAFE_componentWillMount() {
-    const { isPublic, match: { params: { id } } } = this.props;
-    if (isPublic) {
-      this.getPublicBidList(id);
-    } else {
-      this.getBidList();
+    this.getBidList$ = this.getBidList$.bind(this);
+    const { isPublic } = this.props;
+    this.getBidList$();
+    if (!isPublic) {
       this.props.fetchNotifications();
     }
     // reset the alert messages
@@ -42,12 +57,23 @@ class BidTrackerContainer extends Component {
     }
   }
 
-  getBidList() {
-    this.props.fetchBidList();
+  getBidList(sort) {
+    this.props.fetchBidList(sort);
   }
 
-  getPublicBidList(id) {
-    this.props.fetchUserData(id);
+  getPublicBidList(id, sort) {
+    this.props.fetchUserData(id, sort);
+  }
+
+  getBidList$(sort = defaultSort) {
+    const { isPublic } = this.props;
+    if (isPublic) {
+      const { match: { params: { id } } } = this.props;
+      this.getPublicBidList(id, sort);
+    } else {
+      this.getBidList(sort);
+      this.props.fetchNotifications();
+    }
   }
 
   // Scroll to the bid provided by route id.
@@ -134,6 +160,9 @@ class BidTrackerContainer extends Component {
         declineHandshakeHasErrored={declineHandshakeHasErrored}
         declineHandshakeIsLoading={declineHandshakeIsLoading}
         declineHandshakeSuccess={declineHandshakeSuccess}
+        sortOptions={SORT_OPTIONS}
+        onSortChange={this.getBidList$}
+        defaultSort={defaultSort}
       />
     );
   }
@@ -294,8 +323,8 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
   const isPublic = get(ownProps, 'isPublic');
   const id$ = get(ownProps, 'match.params.id');
   let config = {
-    fetchUserData: id => dispatch(userProfilePublicFetchData(id)),
-    fetchBidList: () => dispatch(bidListFetchData()),
+    fetchUserData: (id, sort) => dispatch(userProfilePublicFetchData(id, false, true, sort)),
+    fetchBidList: (sort) => dispatch(bidListFetchData(sort)),
     bidListRouteChangeResetState: () => dispatch(routeChangeResetState()),
     // Here, we only want the newest bidding-related notification.
     // We'll perform a client-side check to see if it's unread, as that's would be the only
