@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InBidListComponent matches snapshot 1`] = `
+<Ribbon
+  className=""
+  containerProps={Object {}}
+  cutSide="left"
+  icon="check"
+  isWide={false}
+  isWideResults={false}
+  showText={true}
+  text="In Bidlist"
+  type="success"
+/>
+`;

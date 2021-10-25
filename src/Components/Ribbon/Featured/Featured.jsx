@@ -10,9 +10,6 @@ const Featured = ({ featuredType, ...props }) => {
     case 'urgentVacancy':
       text = 'Urgent';
       break;
-    case 'hardToFill':
-      text = 'Hard to fill';
-      break;
     case 'featured':
     default:
       text = 'Featured';
@@ -24,7 +21,7 @@ const Featured = ({ featuredType, ...props }) => {
 };
 
 Featured.propTypes = {
-  featuredType: PropTypes.oneOf(['featured', 'volunteer', 'urgentVacancy', 'hardToFill']),
+  featuredType: PropTypes.oneOf(['featured', 'volunteer', 'urgentVacancy']),
 };
 
 Featured.defaultProps = {

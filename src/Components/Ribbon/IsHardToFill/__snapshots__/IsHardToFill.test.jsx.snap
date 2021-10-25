@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IsHardToFillComponent matches snapshot 1`] = `
+<Ribbon
+  className=""
+  containerProps={Object {}}
+  cutSide="left"
+  icon="star-half-o"
+  isWide={false}
+  isWideResults={false}
+  showText={true}
+  text="Hard to Fill"
+  type="htf"
+/>
+`;

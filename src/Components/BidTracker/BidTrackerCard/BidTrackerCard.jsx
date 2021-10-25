@@ -15,7 +15,7 @@ import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert, showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../../Ribbon';
 import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
@@ -100,6 +100,13 @@ class BidTrackerCard extends Component {
                 {
                   get(bid, 'position_info.isServiceNeedDifferential', false) &&
                   <ServiceNeedDifferential
+                    cutSide="both"
+                    shortName={!matches}
+                  />
+                }
+                {
+                  get(bid, 'position_info.isHardToFill', false) &&
+                  <IsHardToFill
                     cutSide="both"
                     shortName={!matches}
                   />

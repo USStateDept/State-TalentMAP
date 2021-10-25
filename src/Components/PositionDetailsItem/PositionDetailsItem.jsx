@@ -11,7 +11,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   getAccessiblePositionNumber,
@@ -35,22 +35,26 @@ import {
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
-export const renderHandshake = stats => (
-  get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
+export const renderHandshake = (stats, ribbonClass) => (
+  get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className={ribbonClass} />
 );
 
-export const renderCriticalNeed = () => (
+export const renderCriticalNeed = ribbonClass => (
   <StaticDevContent>
-    <CriticalNeed cutSide="both" className="ribbon-position-details" />
+    <CriticalNeed cutSide="both" className={ribbonClass} />
   </StaticDevContent>
 );
 
-export const renderHistDiffToStaff = details => (
-  get(details, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className="ribbon-position-details" />
+export const renderHistDiffToStaff = (details, ribbonClass) => (
+  get(details, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className={ribbonClass} />
 );
 
-export const renderServiceNeedDifferential = details => (
-  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
+export const renderServiceNeedDifferential = (details, ribbonClass) => (
+  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className={ribbonClass} />
+);
+
+export const renderIsHardToFill = (details, ribbonClass) => (
+  get(details, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} />
 );
 
 
@@ -71,6 +75,8 @@ const PositionDetailsItem = (props) => {
   } = props;
 
   const { position } = details;
+
+  const ribbonClass = 'ribbon-position-details';
 
   const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'ted');
@@ -105,10 +111,11 @@ const PositionDetailsItem = (props) => {
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
-        {renderHandshake(stats, position)}
-        {renderCriticalNeed()}
-        {renderHistDiffToStaff(details)}
-        {renderServiceNeedDifferential(details)}
+        {renderHandshake(stats, position, ribbonClass)}
+        {renderCriticalNeed(ribbonClass)}
+        {renderHistDiffToStaff(details, ribbonClass)}
+        {renderServiceNeedDifferential(details, ribbonClass)}
+        {renderIsHardToFill(details, ribbonClass)}
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>
