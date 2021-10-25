@@ -11,7 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { CriticalNeed, HistDiffToStaff, ServiceNeedDifferential } from 'Components/Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
@@ -20,6 +20,7 @@ import {
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
+import MediaQuery from '../../MediaQuery';
 
 class BureauResultsCard extends Component {
   constructor(props) {
@@ -84,6 +85,8 @@ class BureauResultsCard extends Component {
     /* eslint-enable quote-props */
     ];
 
+    const ribbonClass = 'ribbon-results-card';
+
     if (isProjectedVacancy) { delete sections[2].Posted; }
 
     return (
@@ -92,23 +95,33 @@ class BureauResultsCard extends Component {
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
-            {
-              get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
-            }
-            {
-              get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWide cutSide="both" className="ribbon-results-card" />
-            }
-            {
-              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
-            }
-            {
-              get(stats, 'has_handshake_offered', false) ?
+            <HandshakeStatus handshake={result.lead_handshake} />
+            <MediaQuery breakpoint="screenXlgMin" widthType="min">
+              {matches => (
                 <>
-                  <HandshakeAnimation isRibbon />
-                  <HandshakeStatus handshake={leadHandshake} infoIcon />
-                </> :
-                <HandshakeStatus handshake={leadHandshake} />
-            }
+                  {
+                    get(stats, 'has_handshake_offered', false) ?
+                      <>
+                        <HandshakeAnimation isRibbon />
+                      <HandshakeStatus handshake={leadHandshake} infoIcon />
+                      </> :
+                      <HandshakeStatus handshake={leadHandshake} />
+                  }
+                  {
+                    get(result, 'staticDevContentAlt', false) && <CriticalNeed cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(result, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(result, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                </>
+              )}
+            </MediaQuery>
             {renderBidCountMobile(stats)}
           </Row>
           <Row fluid className="bureau-card--section bureau-card--header">

@@ -165,6 +165,16 @@ describe('BureauPage', () => {
             },
           ],
         },
+        {
+          item: { description: 'hardToFill' },
+          data: [
+            {
+              code: 'Y',
+              description: 'Is Hard to Fill',
+              isSelected: false,
+            },
+          ],
+        },
       ],
     },
     bureauPermissions: [
