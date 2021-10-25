@@ -18,7 +18,7 @@ module.exports = {
   get screenMdMaxNum() { return this.screenLgMinNum - 1; },
   get 'screen-md-max'() { return `${this.screenMdMaxNum}px`; },
 
-  screenXlgMinNum: 1400,
+  screenXlgMinNum: 1600,
   get 'screen-xlg-min'() { return `${this.screenXlgMinNum}px`; },
 
   get screenLgMaxNum() { return this.screenXlgMinNum - 1; },

@@ -11,7 +11,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   getAccessiblePositionNumber,
@@ -35,22 +35,26 @@ import {
   NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
 
-export const renderHandshake = stats => (
-  get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className="ribbon-position-details" />
+export const renderHandshake = (stats, ribbonClass) => (
+  get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className={ribbonClass} />
 );
 
-export const renderCriticalNeed = () => (
+export const renderCriticalNeed = ribbonClass => (
   <StaticDevContent>
-    <CriticalNeed cutSide="both" className="ribbon-position-details" />
+    <CriticalNeed cutSide="both" className={ribbonClass} />
   </StaticDevContent>
 );
 
-export const renderHistDiffToStaff = details => (
-  get(details, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className="ribbon-position-details" />
+export const renderHistDiffToStaff = (details, ribbonClass) => (
+  get(details, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className={ribbonClass} />
 );
 
-export const renderServiceNeedDifferential = details => (
-  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className="ribbon-position-details" />
+export const renderServiceNeedDifferential = (details, ribbonClass) => (
+  get(details, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className={ribbonClass} />
+);
+
+export const renderIsHardToFill = (details, ribbonClass) => (
+  get(details, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} />
 );
 
 
@@ -72,6 +76,8 @@ const PositionDetailsItem = (props) => {
 
   const { position } = details;
 
+  const ribbonClass = 'ribbon-position-details';
+
   const isHighlightLoading = highlightPosition.loading;
   const tourEndDate = propOrDefault(details, 'ted');
   const formattedTourEndDate = tourEndDate ? formatDate(tourEndDate) : NO_END_DATE;
@@ -86,6 +92,7 @@ const PositionDetailsItem = (props) => {
   const differentials = <Differentials {...diffProps} />;
 
   const incumbent = get(position, 'current_assignment.user') || NO_USER_LISTED;
+  const assignee = get(position, 'assignee') || NO_USER_LISTED;
   const cycle = get(position, 'latest_bidcycle.name', 'None Listed');
 
   const getPostedDate = () => {
@@ -105,10 +112,11 @@ const PositionDetailsItem = (props) => {
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
-        {renderHandshake(stats, position)}
-        {renderCriticalNeed()}
-        {renderHistDiffToStaff(details)}
-        {renderServiceNeedDifferential(details)}
+        {renderHandshake(stats, position, ribbonClass)}
+        {renderCriticalNeed(ribbonClass)}
+        {renderHistDiffToStaff(details, ribbonClass)}
+        {renderServiceNeedDifferential(details, ribbonClass)}
+        {renderIsHardToFill(details, ribbonClass)}
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>
@@ -145,6 +153,7 @@ const PositionDetailsItem = (props) => {
             <CondensedCardDataPoint title={isProjectedVacancy ? 'Bid Season' : 'Bid Cycle'} content={cycle} />
             <CondensedCardDataPoint title="TED" content={formattedTourEndDate} />
             <CondensedCardDataPoint title="Incumbent" content={incumbent} />
+            { isProjectedVacancy && <CondensedCardDataPoint title="Assignee" content={assignee} /> }
             { !isProjectedVacancy && <CondensedCardDataPoint title="Posted" content={postedDate} />}
           </div>
         </div>
