@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HandshakeComponent matches snapshot 1`] = `
+<Ribbon
+  className=""
+  containerProps={Object {}}
+  cutSide="left"
+  icon="handshake-o"
+  isWide={false}
+  isWideResults={false}
+  showText={true}
+  text="Handshake"
+  type="primary"
+/>
+`;

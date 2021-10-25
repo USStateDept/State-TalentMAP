@@ -50,6 +50,10 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   background-color: $tertiary-success-lighter;
 }
 
+.ribbon-htf {
+  background-color: $color-purple-medium;
+}
+
 .ribbon-outer-container-cut-left {
   box-shadow: 3px 4px 4px -4px $ribbon-shadow-color;
   margin-bottom: 2px;
@@ -84,7 +88,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 .ribbon-container {
   position: absolute;
   right: -1px;
-  top: calc(100% - 208px);
+  top: calc(100% - 220px);
   width: 170px;
 
   .ribbon-snd {

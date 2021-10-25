@@ -59,15 +59,17 @@ const PositionManager = props => {
     useState(fromBureauMenu ? (userSelections.selectedBureaus || initialBureaus) : []);
   const [selectedOrgs, setSelectedOrgs] =
     useState(fromPostMenu ? (userSelections.selectedOrgs || initialOrgs) : []);
+  const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
+    useState(userSelections.selectedHandshakeStatus || []);
+  const [selectedTmHandshakeStatus, setSelectedTmHandshakeStatus] =
+    useState(userSelections.selectedTmHandshakeStatus || []);
+  const [selectedHardToFill, setSelectedHardToFill] =
+    useState(userSelections.selectedHardToFill || []);
 
   const [isLoading, setIsLoading] = useState(userSelections.isLoading || false);
   const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
   const [textInput, setTextInput] = useState(userSelections.textInput || '');
   const [clearFilters, setClearFilters] = useState(false);
-  const [selectedHandshakeStatus, setSelectedHandshakeStatus] =
-    useState(userSelections.selectedHandshakeStatus || []);
-  const [selectedTmHandshakeStatus, setSelectedTmHandshakeStatus] =
-    useState(userSelections.selectedTmHandshakeStatus || []);
 
   // Pagination
   const prevPage = usePrevious(page);
@@ -97,6 +99,8 @@ const PositionManager = props => {
   const fsbidHandshakeStatusOptions = uniqBy(fsbidHandshakeStatus.data, 'code');
   const tmHandshakeStatus = bureauFilters$.find(f => f.item.description === 'tmHandshake');
   const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
+  const hardToFill = bureauFilters$.find(f => f.item.description === 'hardToFill');
+  const hardToFillOptions = uniqBy(hardToFill.data, 'code');
   const sorts = BUREAU_POSITION_SORT;
 
 
@@ -116,6 +120,7 @@ const PositionManager = props => {
     selectedPostIndicators,
     selectedHandshakeStatus,
     selectedTmHandshakeStatus,
+    selectedHardToFill,
     textSearch,
     textInput,
   };
@@ -134,6 +139,7 @@ const PositionManager = props => {
     [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
     [fsbidHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(fsbidHSStatusObject => (get(fsbidHSStatusObject, 'code'))),
     [tmHandshakeStatus.item.selectionRef]: selectedTmHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
+    [hardToFill.item.selectionRef]: selectedHardToFill.map(htfObject => (get(htfObject, 'code'))),
     ordering,
     page,
     limit,
@@ -172,6 +178,7 @@ const PositionManager = props => {
     selectedPostIndicators,
     selectedHandshakeStatus,
     selectedTmHandshakeStatus,
+    selectedHardToFill,
     ordering,
     limit,
     textSearch,
@@ -271,6 +278,7 @@ const PositionManager = props => {
     setTextSearch('');
     setSelectedHandshakeStatus([]);
     setSelectedTmHandshakeStatus([]);
+    setSelectedHardToFill([]);
     setClearFilters(false);
   };
 
@@ -289,6 +297,7 @@ const PositionManager = props => {
       selectedHandshakeStatus,
       selectedTmHandshakeStatus,
       selectedBureaus.filter(f => get(f, 'code') !== defaultBureauCode),
+      selectedHardToFill,
     ];
     if (isEmpty(flatten(filters)) && isEmpty(textSearch)) {
       setClearFilters(false);
@@ -305,6 +314,7 @@ const PositionManager = props => {
     selectedPostIndicators,
     selectedHandshakeStatus,
     selectedTmHandshakeStatus,
+    selectedHardToFill,
     textSearch,
     selectedOrgs,
     selectedBureaus,
@@ -530,6 +540,21 @@ const PositionManager = props => {
                       valueKey="code"
                       labelKey="description"
                       includeSelectAll
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Hard to Fill:</div>
+                    <Picky
+                      placeholder="Select Hard to Fill"
+                      value={selectedHardToFill}
+                      options={hardToFillOptions}
+                      onChange={setSelectedHardToFill}
+                      numberDisplayed={2}
+                      multiple
+                      dropdownHeight={255}
+                      renderList={renderSelectionList}
+                      valueKey="code"
+                      labelKey="description"
                     />
                   </div>
                 </div>
