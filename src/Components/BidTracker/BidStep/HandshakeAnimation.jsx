@@ -1,30 +1,31 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHandPaper, faHandshake } from '@fortawesome/free-solid-svg-icons';
-import { throttle } from 'lodash';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Handshake } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 
 const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
-  const [animate, setAnimate] = useState(false);
-
-  useEffect(() => {
-    if (animate) {
-      setTimeout(() => {
-        setAnimate(false);
-      }, 0);
-    }
-  }, [animate]);
+  const [animate, setAnimate] = useState(true);
+  const [allowAnimate, setAllowAnimate] = useState(true);
 
   const animateHands = () => {
     setAnimate(true);
+    setTimeout(() => {
+      setAnimate(false);
+    }, 4000);
   };
 
-  const throttledEventHandler = useMemo(
-    () => throttle(animateHands, 0),
-    [setAnimate]);
+  const throttledEventHandler = () => {
+    if (allowAnimate) {
+      animateHands();
+      setAllowAnimate(false);
+      setTimeout(() => {
+        setAllowAnimate(true);
+      }, 5000);
+    }
+  };
 
   return (
     <InteractiveElement onMouseOver={throttledEventHandler} onFocus={throttledEventHandler}>
@@ -41,7 +42,7 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
       }
       {isRibbon &&
       (
-        <div className="hs-animation-ribbon">
+        <div className={`hs-animation-ribbon ${animate ? 'animate-hs-animation-ribbon' : ''}`}>
           <div className={`left ${animate ? 'animate-left' : ''}`} >
             <FontAwesomeIcon className={`left-initial ${animate ? 'animate-left-initial' : ''}`} icon={faHandPaper} />
             <FontAwesomeIcon className={`left-secondary ${animate ? 'animate-left-secondary' : ''}`} icon={faHandPaper} />
