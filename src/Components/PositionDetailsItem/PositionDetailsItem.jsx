@@ -111,11 +111,11 @@ const PositionDetailsItem = (props) => {
   return (
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
-        {renderHandshake(stats)}
-        {renderCriticalNeed()}
-        {renderHistDiffToStaff(details)}
-        {renderServiceNeedDifferential(details)}
-        {renderIsHardToFill(details)}
+        {renderHandshake(stats, position, ribbonClass)}
+        {renderCriticalNeed(ribbonClass)}
+        {renderHistDiffToStaff(details, ribbonClass)}
+        {renderServiceNeedDifferential(details, ribbonClass)}
+        {renderIsHardToFill(details, ribbonClass)}
       </div>
       <div className="usa-grid-full position-details-description-container positions-details-about-position">
         <div className={`usa-width-${hideContact ? 'one-whole' : 'two-thirds'} about-section-left`}>

@@ -6,7 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { Handshake } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 
-const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
+const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder, shortName }) => {
   const [animate, setAnimate] = useState(true);
   const [allowAnimate, setAllowAnimate] = useState(true);
 
@@ -52,7 +52,7 @@ const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder }) => {
             <FontAwesomeIcon className={`right-secondary ${animate ? 'animate-right-secondary' : ''}`} icon={faHandPaper} />
           </div>
           <FA className={`hs-ribbon ${animate ? 'animate-hs-ribbon' : ''}`} name="handshake-o" />
-          <Handshake isWide cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} />
+          <Handshake cutSide="both" className={`ribbon-results-card ${animate ? 'temp-transparent-ribbon' : ''}`} shortName={shortName} />
         </div>
       )
       }
@@ -80,12 +80,14 @@ HandshakeAnimation.propTypes = {
   isBidTracker: PropTypes.bool,
   isRibbon: PropTypes.bool,
   isBidder: PropTypes.bool,
+  shortName: PropTypes.bool,
 };
 
 HandshakeAnimation.defaultProps = {
   isBidTracker: false,
   isRibbon: false,
   isBidder: false,
+  shortName: false,
 };
 
 export default HandshakeAnimation;

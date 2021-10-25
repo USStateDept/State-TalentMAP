@@ -11,7 +11,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
+import { CriticalNeed, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
@@ -95,18 +95,9 @@ class BureauResultsCard extends Component {
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
-            <HandshakeStatus handshake={result.lead_handshake} />
             <MediaQuery breakpoint="screenXlgMin" widthType="min">
               {matches => (
                 <>
-                  {
-                    get(stats, 'has_handshake_offered', false) ?
-                      <>
-                        <HandshakeAnimation isRibbon />
-                      <HandshakeStatus handshake={leadHandshake} infoIcon />
-                      </> :
-                      <HandshakeStatus handshake={leadHandshake} />
-                  }
                   {
                     get(result, 'staticDevContentAlt', false) && <CriticalNeed cutSide="both" className={ribbonClass} shortName={!matches} />
                   }
@@ -118,6 +109,14 @@ class BureauResultsCard extends Component {
                   }
                   {
                     get(result, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(stats, 'has_handshake_offered', false) ?
+                      <>
+                        <HandshakeAnimation isRibbon shortName={!matches} />
+                        <HandshakeStatus handshake={leadHandshake} infoIcon />
+                      </> :
+                      <HandshakeStatus handshake={leadHandshake} />
                   }
                 </>
               )}
