@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { find, get, orderBy, reverse } from 'lodash';
+import { get } from 'lodash';
 import Alert from 'Components/Alert';
 import ExportButton from 'Components/ExportButton';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import SelectForm from 'Components/SelectForm';
-import { BID_STATUS_ORDER } from 'Constants/BidStatuses';
 import { downloadBidlistData } from 'actions/bidList';
 import { BID_LIST, USER_PROFILE } from '../../Constants/PropTypes';
 import BidTrackerCardList from './BidTrackerCardList';
@@ -15,65 +14,31 @@ import Spinner from '../Spinner';
 import ContactCDOButton from './ContactCDOButton';
 import BackButton from '../BackButton';
 
-const STATUS = 'status';
-const UPDATED = 'update_date';
-const LOCATION = 'position.post.location.city';
-const REVERSE_STATUS = '-status';
-// const TED = 'position.ted'; TODO - add
-
-const SORT_OPTIONS = [
-  { value: STATUS, text: 'Active Bids', defaultSort: true },
-  { value: REVERSE_STATUS, text: 'Inactive Bids' },
-  { value: UPDATED, text: 'Recently updated' },
-  { value: LOCATION, text: 'City name (A-Z)' },
-  // { value: TED, text: 'TED' }, TODO - add
-];
-
 class BidTracker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortValue: find(SORT_OPTIONS, f => f.defaultSort).value,
       exportIsLoading: false,
+      sortValue: props.defaultSort,
     };
   }
 
   onSelectOption = e => {
-    this.setState({ sortValue: get(e, 'target.value') });
+    const { onSortChange } = this.props;
+    const value = get(e, 'target.value');
+    this.setState({ sortValue: value });
+    onSortChange(value);
   };
 
   setIsLoading = exportIsLoading => {
     this.setState({ exportIsLoading });
   };
 
-  getSortedBids() {
-    const { sortValue } = this.state;
-    const results = get(this.props, 'bidList.results', []);
-    let results$ = [...results];
-    switch (sortValue) {
-      case UPDATED:
-        results$ = orderBy(results$, UPDATED);
-        break;
-      case LOCATION:
-        results$ = orderBy(results$, LOCATION);
-        break;
-      case STATUS:
-        results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`, -1));
-        results$ = reverse(results$);
-        break;
-      case REVERSE_STATUS:
-        results$ = orderBy(results$, e => get(BID_STATUS_ORDER, `${e.status}`));
-        break;
-      default:
-        results$ = results;
-    }
-    return results$;
-  }
-
   exportBidlistData = () => {
     const { isPublic, userProfile: { perdet_seq_number } } = this.props;
+    const { sortValue } = this.state;
     this.setIsLoading(true);
-    downloadBidlistData(isPublic, perdet_seq_number)
+    downloadBidlistData(isPublic, perdet_seq_number, sortValue)
       .then(() => {
         this.setIsLoading(false);
       })
@@ -87,7 +52,7 @@ class BidTracker extends Component {
     const { bidList, bidListIsLoading, bidListHasErrored, acceptBid,
       declineBid, submitBid, deleteBid, userProfile,
       userProfileIsLoading, isPublic, useCDOView, registerHandshake,
-      unregisterHandshake } = this.props;
+      unregisterHandshake, sortOptions } = this.props;
     const isLoading = bidListIsLoading || userProfileIsLoading;
     const title = isPublic && get(userProfile, 'name') && !userProfileIsLoading ?
       `${userProfile.name}'s Bid Tracker` : 'Bid Tracker';
@@ -99,7 +64,7 @@ class BidTracker extends Component {
 
     const cdoEmail = get(userProfile, 'cdo.email');
 
-    const sortedBids = this.getSortedBids();
+    const bids = get(this.props, 'bidList.results', []);
     return (
       <div className="usa-grid-full profile-content-inner-container bid-tracker-page">
         <div className="usa-grid-full bid-tracker-top-row">
@@ -126,7 +91,7 @@ class BidTracker extends Component {
             <SelectForm
               id="sort"
               label="Sort by:"
-              options={SORT_OPTIONS}
+              options={sortOptions}
               defaultSort={sortValue}
               onSelectOption={this.onSelectOption}
             />
@@ -142,9 +107,9 @@ class BidTracker extends Component {
           {
             !isLoading && !bidListHasErrored &&
               <div className="usa-grid-full">
-                <BidStatusStats bidList={bidList.results} />
+                <BidStatusStats bidList={bidList.results} showTotal />
                 <BidTrackerCardList
-                  bids={sortedBids}
+                  bids={bids}
                   acceptBid={acceptBid}
                   declineBid={declineBid}
                   submitBid={submitBid}
@@ -184,6 +149,15 @@ BidTracker.propTypes = {
   userProfileIsLoading: PropTypes.bool.isRequired,
   isPublic: PropTypes.bool,
   useCDOView: PropTypes.bool,
+  sortOptions: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      defaultSort: PropTypes.bool,
+    }),
+  ).isRequired,
+  onSortChange: PropTypes.func.isRequired,
+  defaultSort: PropTypes.string.isRequired,
 };
 
 BidTracker.defaultProps = {

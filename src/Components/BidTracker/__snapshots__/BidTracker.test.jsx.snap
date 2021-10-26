@@ -44,7 +44,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort="status"
+        defaultSort={null}
         disabled={false}
         emptyOptionText="- Select -"
         id="sort"
@@ -52,27 +52,6 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         label="Sort by:"
         labelSrOnly={false}
         onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "defaultSort": true,
-              "text": "Active Bids",
-              "value": "status",
-            },
-            Object {
-              "text": "Inactive Bids",
-              "value": "-status",
-            },
-            Object {
-              "text": "Recently updated",
-              "value": "update_date",
-            },
-            Object {
-              "text": "City name (A-Z)",
-              "value": "position.post.location.city",
-            },
-          ]
-        }
         transformValue={[Function]}
       />
     </div>
@@ -287,6 +266,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
           ]
         }
         condensed={false}
+        showTotal={true}
       />
       <BidTrackerCardList
         acceptBid={[Function]}
@@ -363,6 +343,68 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
               "handshake_accepted_date": "2017-12-20",
               "handshake_declined_date": "2017-12-20",
               "handshake_offered_date": "2017-12-20",
+              "id": 1,
+              "in_panel_date": "2017-12-20",
+              "is_priority": true,
+              "position_info": Object {
+                "bid_statistics": Array [
+                  Object {
+                    "at_skill": 0,
+                    "has_handshake_accepted": null,
+                    "has_handshake_offered": false,
+                    "id": null,
+                    "in_grade": 0,
+                    "in_grade_at_skill": 0,
+                    "total_bids": 0,
+                  },
+                ],
+                "position": Object {
+                  "bidcycle": Object {
+                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                  },
+                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                  "create_date": "2006-09-20",
+                  "grade": "05",
+                  "id": 1,
+                  "position_number": "00003026",
+                  "post": Object {
+                    "id": 235,
+                    "location": Object {
+                      "city": "Freetown",
+                      "code": "00A",
+                      "country": "Sierra Leone",
+                      "id": 103,
+                      "state": "",
+                    },
+                  },
+                  "skill": "OFFICE MANAGEMENT (9017)",
+                  "title": "OMS (COM)",
+                  "update_date": "2017-06-08",
+                },
+              },
+              "reviewer": Object {
+                "email": "woodwardw@state.gov",
+                "first_name": "Wendy",
+                "is_cdo": false,
+                "last_name": "Woodward",
+                "phone_number": "555-555-5555",
+                "username": "woodwardw",
+              },
+              "scheduled_panel_date": "2017-12-20",
+              "status": "closed",
+              "submitted_date": "2017-12-20",
+              "update_date": "2017-12-20",
+              "user": "rehmant",
+            },
+            Object {
+              "approved_date": "2017-12-20",
+              "closed_date": "2017-12-20",
+              "create_date": "2017-12-20",
+              "declined_date": "2017-12-20",
+              "draft_date": "2017-12-20",
+              "handshake_accepted_date": "2017-12-20",
+              "handshake_declined_date": "2017-12-20",
+              "handshake_offered_date": "2017-12-20",
               "id": 2,
               "in_panel_date": "2017-12-20",
               "is_priority": false,
@@ -400,68 +442,6 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
                   },
                   "skill": "SECURITY (2501)",
                   "title": "SPECIAL AGENT",
-                  "update_date": "2017-06-08",
-                },
-              },
-              "reviewer": Object {
-                "email": "woodwardw@state.gov",
-                "first_name": "Wendy",
-                "is_cdo": false,
-                "last_name": "Woodward",
-                "phone_number": "555-555-5555",
-                "username": "woodwardw",
-              },
-              "scheduled_panel_date": "2017-12-20",
-              "status": "closed",
-              "submitted_date": "2017-12-20",
-              "update_date": "2017-12-20",
-              "user": "rehmant",
-            },
-            Object {
-              "approved_date": "2017-12-20",
-              "closed_date": "2017-12-20",
-              "create_date": "2017-12-20",
-              "declined_date": "2017-12-20",
-              "draft_date": "2017-12-20",
-              "handshake_accepted_date": "2017-12-20",
-              "handshake_declined_date": "2017-12-20",
-              "handshake_offered_date": "2017-12-20",
-              "id": 1,
-              "in_panel_date": "2017-12-20",
-              "is_priority": true,
-              "position_info": Object {
-                "bid_statistics": Array [
-                  Object {
-                    "at_skill": 0,
-                    "has_handshake_accepted": null,
-                    "has_handshake_offered": false,
-                    "id": null,
-                    "in_grade": 0,
-                    "in_grade_at_skill": 0,
-                    "total_bids": 0,
-                  },
-                ],
-                "position": Object {
-                  "bidcycle": Object {
-                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-                  },
-                  "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                  "create_date": "2006-09-20",
-                  "grade": "05",
-                  "id": 1,
-                  "position_number": "00003026",
-                  "post": Object {
-                    "id": 235,
-                    "location": Object {
-                      "city": "Freetown",
-                      "code": "00A",
-                      "country": "Sierra Leone",
-                      "id": 103,
-                      "state": "",
-                    },
-                  },
-                  "skill": "OFFICE MANAGEMENT (9017)",
-                  "title": "OMS (COM)",
                   "update_date": "2017-06-08",
                 },
               },
@@ -628,7 +608,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort="status"
+        defaultSort={null}
         disabled={false}
         emptyOptionText="- Select -"
         id="sort"
@@ -636,27 +616,6 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
         label="Sort by:"
         labelSrOnly={false}
         onSelectOption={[Function]}
-        options={
-          Array [
-            Object {
-              "defaultSort": true,
-              "text": "Active Bids",
-              "value": "status",
-            },
-            Object {
-              "text": "Inactive Bids",
-              "value": "-status",
-            },
-            Object {
-              "text": "Recently updated",
-              "value": "update_date",
-            },
-            Object {
-              "text": "City name (A-Z)",
-              "value": "position.post.location.city",
-            },
-          ]
-        }
         transformValue={[Function]}
       />
     </div>
