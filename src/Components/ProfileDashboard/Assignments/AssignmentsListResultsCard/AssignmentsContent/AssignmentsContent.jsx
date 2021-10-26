@@ -2,8 +2,11 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { NO_LANGUAGES, NO_POSITION_NUMBER, NO_POST, NO_SKILL } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { checkFlag } from 'flags';
 import { formatDate, getPostName } from '../../../../../utilities';
 import StartEnd from '../../../PositionInformation/StartEnd';
+
+const getUseAssignmentDetails = () => checkFlag('flags.assignment_details');
 
 const AssignmentsContent = ({ assignment }) => (
   <div className="usa-grid-full bid-content-container">
@@ -18,7 +21,7 @@ const AssignmentsContent = ({ assignment }) => (
             `(${get(assignment, 'position.position_number')}) ` : NO_POSITION_NUMBER
         }
       </span>
-      <Link to={`/archived/${get(assignment, 'position.position_number')}`}>View Position</Link>
+      { getUseAssignmentDetails() && <Link to={`/archived/${get(assignment, 'position.position_number')}`}>View Position</Link> }
     </div>
     <div>
       <span className="bid-list-card-title-post">Location: </span>
