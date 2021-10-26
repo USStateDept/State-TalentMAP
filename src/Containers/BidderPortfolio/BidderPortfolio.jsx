@@ -179,7 +179,7 @@ BidderPortfolio.propTypes = {
   defaultSort: PropTypes.string,
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
-  availableBiddersIdsLoading: PropTypes.bool.isRequired,
+  availableBiddersIdsLoading: PropTypes.bool,
 };
 
 BidderPortfolio.defaultProps = {
@@ -202,6 +202,7 @@ BidderPortfolio.defaultProps = {
   defaultSort: '',
   fetchAvailableBidders: EMPTY_FUNCTION,
   selectedUnassigned: [],
+  availableBiddersIdsLoading: false,
 };
 
 const mapStateToProps = state => ({
