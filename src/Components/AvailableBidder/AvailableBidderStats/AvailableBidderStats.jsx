@@ -72,8 +72,8 @@ const AvailableBidderStats = () => {
                 !availableBiddersIsLoading && !!statsSum &&
                 <div className="usa-grid-full flex">
                   <div className="usa-width-one-fourth legend-container">
+                    <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
                     <div className="usa-grid-full legend">
-                      <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
                       {
                         stats.map(m => (
                           <div className="flex legend-item">

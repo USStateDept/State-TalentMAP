@@ -36,8 +36,15 @@
     }
 
     .legend {
-      margin-top: 2em;
+      margin-top: 1em;
+      display: flex;
+      flex-flow: column wrap;
+      height: calc(100vh - 750px);
     }
+
+    // .legend div:nth-child(n+9) {
+    //   margin-top: 3em;
+    // }
 
     .legend-item {
       margin-top: 1em;
@@ -49,8 +56,7 @@
     }
 
     .legend-text {
-       margin: auto;
-       margin-left: 1.5em;
+       margin: auto .8em auto .8em;
     }
 
     .chart-container {
