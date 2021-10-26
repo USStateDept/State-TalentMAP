@@ -163,7 +163,13 @@ class ResultsCard extends Component {
     /* eslint-enable quote-props */
     ];
 
-    if (isProjectedVacancy) { delete sections[2].Posted; }
+    if (isProjectedVacancy) {
+      delete sections[2].Posted;
+      sections[1] = {
+        ...sections[1],
+        Assignee: getResult(pos, 'assignee', NO_USER_LISTED),
+      };
+    }
 
     options.favorite = {
       compareArray: [],
