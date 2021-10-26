@@ -73,7 +73,7 @@ class PositionTitle extends Component {
                 <div className="usa-width-one-half header-title-container">
                   <div className="position-details-header-title">
                     {isProjectedVacancy && <span>Projected Vacancy</span>}
-                    {isArchived && <span>Filled Position</span>}
+                    {isArchived && <span>Historical Position</span>}
                     <h1>{details.title}</h1>
                   </div>
                   <div className="post-title">
