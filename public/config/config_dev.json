@@ -28,7 +28,6 @@
     "classifications": true,
     "handshake_bidding": true,
     "post_handshake": false,
-    "post": false,
-    "assignment_details": false
+    "post": false
   }
 }
