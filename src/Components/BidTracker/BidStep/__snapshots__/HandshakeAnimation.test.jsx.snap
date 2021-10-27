@@ -12,7 +12,7 @@ exports[`HandshakeAnimationComponent matches snapshot 1`] = `
   >
     <FontAwesomeIcon
       border={false}
-      className="left animate-left"
+      className="left "
       fixedWidth={false}
       flip={null}
       icon={
@@ -43,7 +43,7 @@ exports[`HandshakeAnimationComponent matches snapshot 1`] = `
     />
     <FontAwesomeIcon
       border={false}
-      className="right animate-right"
+      className="right "
       fixedWidth={false}
       flip={null}
       icon={
@@ -73,11 +73,11 @@ exports[`HandshakeAnimationComponent matches snapshot 1`] = `
       transform={null}
     />
     <div
-      className="hs-container temp-transparent"
+      className="hs-container "
     >
       <FontAwesomeIcon
         border={false}
-        className="hs-bidtracker animate-hs-bidtracker"
+        className="hs-bidtracker "
         fixedWidth={false}
         flip={null}
         icon={
