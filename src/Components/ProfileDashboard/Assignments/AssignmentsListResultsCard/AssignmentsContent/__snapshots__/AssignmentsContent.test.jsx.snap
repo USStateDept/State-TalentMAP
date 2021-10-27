@@ -25,12 +25,6 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     >
       (58348065) 
     </span>
-    <Link
-      replace={false}
-      to="/archived/undefined"
-    >
-      View Position
-    </Link>
   </div>
   <div>
     <span
