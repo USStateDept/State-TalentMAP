@@ -7,7 +7,7 @@ import { Handshake } from 'Components/Ribbon';
 import PropTypes from 'prop-types';
 
 const HandshakeAnimation = ({ isBidTracker, isRibbon, isBidder, shortName }) => {
-  const [animate, setAnimate] = useState(true);
+  const [animate, setAnimate] = useState(false);
   const [allowAnimate, setAllowAnimate] = useState(true);
 
   const animateHands = () => {
