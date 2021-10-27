@@ -15,7 +15,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
@@ -163,7 +163,13 @@ class ResultsCard extends Component {
     /* eslint-enable quote-props */
     ];
 
-    if (isProjectedVacancy) { delete sections[2].Posted; }
+    if (isProjectedVacancy) {
+      delete sections[2].Posted;
+      sections[1] = {
+        ...sections[1],
+        Assignee: getResult(pos, 'assignee', NO_USER_LISTED),
+      };
+    }
 
     options.favorite = {
       compareArray: [],
@@ -202,7 +208,6 @@ class ResultsCard extends Component {
       />
     );
 
-
     const cardClassArray = ['results-card'];
     if (isProjectedVacancy) cardClassArray.push('results-card--secondary');
     if (isTandem) cardClassArray.push('results-card--tandem');
@@ -210,6 +215,8 @@ class ResultsCard extends Component {
     if (isGroupEnd) cardClassArray.push('results-card--group-end');
     if (isNew) cardClassArray.push('results-card--new');
     const cardClass = cardClassArray.join(' ');
+
+    const ribbonClass = 'ribbon-results-card';
 
     const headingTop =
       !isTandem ?
@@ -303,22 +310,25 @@ class ResultsCard extends Component {
                 <Column columns="2">
                   <div className="ribbon-container">
                     {
-                      get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className="ribbon-results-card" />
+                      get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className={ribbonClass} />
                     }
                     {
                       <StaticDevContent>
-                        <CriticalNeed isWideResults className="ribbon-results-card" />
+                        <CriticalNeed isWideResults className={ribbonClass} />
                       </StaticDevContent>
                     }
                     {
-                      get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWideResults className="ribbon-results-card" />
+                      get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWideResults className={ribbonClass} />
                     }
                     {
-                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className={ribbonClass} />
+                    }
+                    {
+                      get(result, 'isHardToFill', false) && <IsHardToFill isWideResults className={ribbonClass} />
                     }
                     {
                       // conditional rendering occurs inside the container
-                      <InBidListContainer id={result.id} isWideResults className="ribbon-results-card" />
+                      <InBidListContainer id={result.id} isWideResults className={ribbonClass} />
                     }
                   </div>
                 </Column>

@@ -8,7 +8,7 @@ import { fetchClassifications } from 'actions/classifications';
 import { BID_PORTFOLIO_FILTERS_TYPE, BID_PORTFOLIO_SORTS_TYPE, CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import { bidderPortfolioCDOsFetchData, bidderPortfolioCountsFetchData,
   bidderPortfolioFetchData } from 'actions/bidderPortfolio';
-import { availableBiddersFetchData } from 'actions/availableBidders';
+import { availableBiddersIds } from 'actions/availableBidders';
 import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from 'Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
@@ -28,6 +28,7 @@ class BidderPortfolio extends Component {
       defaultKeyword: { value: '' },
       hasHandshake: { value: props.defaultHandshakeFilter },
       ordering: { value: props.defaultSort },
+      bidderIdsHasLoaded: false,
     };
   }
   // Fetch bidder list and bidder statistics.
@@ -53,6 +54,11 @@ class BidderPortfolio extends Component {
       }, () => {
         this.getBidderPortfolio();
         this.props.fetchBidderPortfolioCounts();
+      });
+    }
+    if (this.props.availableBiddersIdsLoading && !nextProps.availableBiddersIdsLoading) {
+      this.setState({
+        bidderIdsHasLoaded: true,
       });
     }
   }
@@ -121,11 +127,12 @@ class BidderPortfolio extends Component {
 
   render() {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
-      bidderPortfolioCounts, bidderPortfolioCountsIsLoading,
+      bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
-    const { limit, page, hasHandshake, ordering } = this.state;
-    const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading) && cdos.length;
+    const { limit, page, hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
+    const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
+      || (availableBiddersIdsLoading && !bidderIdsHasLoaded)) && cdos.length;
     return (
       <div>
         <BidderPortfolioPage
@@ -172,6 +179,7 @@ BidderPortfolio.propTypes = {
   defaultSort: PropTypes.string,
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
+  availableBiddersIdsLoading: PropTypes.bool,
 };
 
 BidderPortfolio.defaultProps = {
@@ -194,6 +202,7 @@ BidderPortfolio.defaultProps = {
   defaultSort: '',
   fetchAvailableBidders: EMPTY_FUNCTION,
   selectedUnassigned: [],
+  availableBiddersIdsLoading: false,
 };
 
 const mapStateToProps = state => ({
@@ -214,6 +223,7 @@ const mapStateToProps = state => ({
   defaultHandshakeFilter: get(state, `sortPreferences.${BID_PORTFOLIO_FILTERS_TYPE}.defaultSort`, BID_PORTFOLIO_FILTERS_TYPE.defaultSort),
   defaultSort: get(state, `sortPreferences.${BID_PORTFOLIO_SORTS_TYPE}.defaultSort`, BID_PORTFOLIO_SORTS_TYPE.defaultSort),
   selectedUnassigned: state.bidderPortfolioSelectedUnassigned,
+  availableBiddersIdsLoading: state.availableBiddersIdsLoading,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -221,7 +231,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolioCounts: () => dispatch(bidderPortfolioCountsFetchData()),
   fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
   fetchClassifications: () => dispatch(fetchClassifications()),
-  fetchAvailableBidders: () => dispatch(availableBiddersFetchData()),
+  fetchAvailableBidders: () => dispatch(availableBiddersIds()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));

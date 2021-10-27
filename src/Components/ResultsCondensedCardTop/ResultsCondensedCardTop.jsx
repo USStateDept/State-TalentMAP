@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import StaticDevContent from 'Components/StaticDevContent';
 import { Tooltip } from 'react-tippy';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
+import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getBidStatisticsObject, getPostName } from '../../utilities';
@@ -31,10 +31,12 @@ const ResultsCondensedCardTop = ({
   const hasHandshake = get(stats, 'has_handshake_offered', false);
   const isDifficultToStaff = get(position, 'isDifficultToStaff', false);
   const isServiceNeedDifferential = get(position, 'isServiceNeedDifferential', false);
+  const isHardToFill = get(position, 'isHardToFill', false);
 
   const title = get(position, 'position.title', '');
 
   const titleHeader = <h3>{title}</h3>;
+  const ribbonClass = 'ribbon-condensed-card';
 
   const link = `/${isProjectedVacancy ? 'vacancy' : 'details'}/${position.id}${isTandem ? '?tandem=true' : ''}`;
 
@@ -48,7 +50,7 @@ const ResultsCondensedCardTop = ({
             arrow
             offset={-60}
           >
-            <Handshake showText={false} className="ribbon-condensed-card" />
+            <Handshake showText={false} className={ribbonClass} />
           </Tooltip>
         }
         {
@@ -58,7 +60,7 @@ const ResultsCondensedCardTop = ({
               arrow
               offset={-60}
             >
-              <CriticalNeed showText={false} className="ribbon-condensed-card" />
+              <CriticalNeed showText={false} className={ribbonClass} />
             </Tooltip>
           </StaticDevContent>
         }
@@ -69,7 +71,7 @@ const ResultsCondensedCardTop = ({
             arrow
             offset={-60}
           >
-            <HistDiffToStaff showText={false} className="ribbon-condensed-card" />
+            <HistDiffToStaff showText={false} className={ribbonClass} />
           </Tooltip>
         }
         {
@@ -79,7 +81,17 @@ const ResultsCondensedCardTop = ({
             arrow
             offset={-100}
           >
-            <ServiceNeedDifferential showText={false} className="ribbon-condensed-card" />
+            <ServiceNeedDifferential showText={false} className={ribbonClass} />
+          </Tooltip>
+        }
+        {
+          isHardToFill &&
+          <Tooltip
+            title="Hard to Fill"
+            arrow
+            offset={-150}
+          >
+            <IsHardToFill showText={false} className={ribbonClass} />
           </Tooltip>
         }
       </div>
