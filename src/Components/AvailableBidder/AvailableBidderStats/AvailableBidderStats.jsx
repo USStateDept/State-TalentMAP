@@ -5,6 +5,7 @@ import FA from 'react-fontawesome';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
+import { getAvatarColor } from 'utilities';
 import Picky from 'react-picky';
 import { Row } from '../../Layout';
 
@@ -27,6 +28,15 @@ const AvailableBidderStats = () => {
 
   const stats = get(biddersData.stats, selectedStat, []);
   const statsSum = get(biddersData.stats, 'Sum', {})[selectedStat];
+
+  // adding colors
+  const stats$ = stats.map(m => {
+    const color = getAvatarColor((m.name)).backgroundColor;
+    return {
+      ...m,
+      color,
+    };
+  });
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
@@ -75,7 +85,7 @@ const AvailableBidderStats = () => {
                     <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
                     <div className="usa-grid-full legend">
                       {
-                        stats.map(m => (
+                        stats$.map(m => (
                           <div className="flex legend-item">
                             <div
                               className="legend-square"
@@ -90,7 +100,7 @@ const AvailableBidderStats = () => {
                   <div className="usa-width-one-third chart-container">
                     <PieChart width={400} height={400}>
                       <Pie
-                        data={stats}
+                        data={stats$}
                         cx={200}
                         cy={200}
                         labelLine={false}
@@ -100,7 +110,7 @@ const AvailableBidderStats = () => {
                       >
                         {
                         // eslint-disable-next-line react/no-array-index-key
-                          stats.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
+                          stats$.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
                         }
                       </Pie>
                       <Tooltip />
