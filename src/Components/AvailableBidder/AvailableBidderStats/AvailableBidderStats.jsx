@@ -31,7 +31,7 @@ const AvailableBidderStats = () => {
 
   // adding colors
   const stats$ = stats.map(m => {
-    const color = getAvatarColor((m.name)).backgroundColor;
+    const color = getAvatarColor((m.name), 6000).backgroundColor;
     return {
       ...m,
       color,
