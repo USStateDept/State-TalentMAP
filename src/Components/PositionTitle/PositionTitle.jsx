@@ -20,8 +20,9 @@ const useBidding = () => checkFlag('flags.bidding');
 class PositionTitle extends Component {
   getIsAvailableToBid = () => {
     const { details } = this.props;
+    const status = get(details, 'status', '');
     const availability = get(details, 'availability.availability');
-    const availableToBid = isNull(availability) || !!availability;
+    const availableToBid = (isNull(availability) || !!availability) && (status !== 'FP');
     return availableToBid;
   };
 
@@ -41,8 +42,9 @@ class PositionTitle extends Component {
   };
 
   render() {
-    const { details, isProjectedVacancy, isArchived, userProfile } = this.props;
+    const { details, isProjectedVacancy, userProfile } = this.props;
     const { isClient, isTandemTwo } = this.context;
+    const isFilled = details.status === 'FP';
     const OBCUrl$ = propOrDefault(details, 'post.post_overview_url');
     const availablilityText = get(details, 'availability.reason') ?
       `${details.availability.reason}${CANNOT_BID_SUFFIX}` : CANNOT_BID_DEFAULT;
@@ -73,7 +75,7 @@ class PositionTitle extends Component {
                 <div className="usa-width-one-half header-title-container">
                   <div className="position-details-header-title">
                     {isProjectedVacancy && <span>Projected Vacancy</span>}
-                    {isArchived && <span>Historical Position</span>}
+                    {isFilled && <span>Filled Position</span>}
                     <h1>{details.title}</h1>
                   </div>
                   <div className="post-title">
@@ -83,7 +85,7 @@ class PositionTitle extends Component {
                 </div>
                 <div className="usa-width-one-half title-actions-section">
                   {
-                    !isClient && !isArchived &&
+                    !isClient && !isFilled &&
                     <Favorite
                       refKey={details.cpId}
                       compareArray={$compareArray}
@@ -106,7 +108,7 @@ class PositionTitle extends Component {
         </div>
         <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
           {
-            !availableToBid && !isProjectedVacancy && !isArchived &&
+            !availableToBid && !isProjectedVacancy &&
             <Flag
               name="flags.bidding"
               render={() => (
@@ -126,7 +128,7 @@ class PositionTitle extends Component {
             />
           }
           {
-            !isProjectedVacancy && !isArchived && !isTandemTwo &&
+            !isProjectedVacancy && !isTandemTwo &&
             <Flag
               name="flags.bidding"
               render={this.renderBidListButton}
@@ -148,14 +150,12 @@ PositionTitle.propTypes = {
   bidList: BID_LIST.isRequired,
   userProfile: USER_PROFILE,
   isProjectedVacancy: PropTypes.bool,
-  isArchived: PropTypes.bool,
 };
 
 PositionTitle.defaultProps = {
   details: null,
   userProfile: {},
   isProjectedVacancy: false,
-  isArchived: false,
 };
 
 
