@@ -53,7 +53,6 @@ class PositionDetails extends Component {
       onHighlight,
       userProfileIsLoading,
       isProjectedVacancy,
-      isArchived,
     } = this.props;
 
     const isReady = details.id && userProfile.id && !isLoading && !hasErrored;
@@ -86,7 +85,6 @@ class PositionDetails extends Component {
             resetDescriptionEditMessages={resetDescriptionEditMessages}
             userProfile={userProfile}
             isProjectedVacancy={isProjectedVacancy}
-            isArchived={isArchived}
           />
           <PositionDetailsItem
             details={details}
@@ -98,7 +96,6 @@ class PositionDetails extends Component {
             highlightPosition={highlightPosition}
             onHighlight={onHighlight}
             isProjectedVacancy={isProjectedVacancy}
-            isArchived={isArchived}
           />
           <hr />
           <Row className="position-details-description-container padded-main-content" fluid>
@@ -135,7 +132,6 @@ PositionDetails.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
-  isArchived: PropTypes.bool,
   isClient: PropTypes.bool,
 };
 
@@ -151,7 +147,6 @@ PositionDetails.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
-  isArchived: false,
   isClient: false,
 };
 

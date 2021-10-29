@@ -69,7 +69,6 @@ const PositionDetailsItem = (props) => {
     highlightPosition,
     onHighlight,
     isProjectedVacancy,
-    isArchived,
     hideHeader,
     hideContact,
   } = props;
@@ -171,7 +170,8 @@ const PositionDetailsItem = (props) => {
               isProjectedVacancy={isProjectedVacancy}
             />
             {
-              !isProjectedVacancy && !isArchived &&
+              // To-Do: Audit this
+              !isProjectedVacancy &&
               <ServiceNeededToggle
                 userProfile={userProfile}
                 position={details}
