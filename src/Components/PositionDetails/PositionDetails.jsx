@@ -75,6 +75,7 @@ class PositionDetails extends Component {
             details={{
               ...position,
               cpId: details.id,
+              status: details.status_code,
               availability: get(details, 'availability', {}),
               bidStatistics: get(details, 'bid_statistics', [{}]),
             }}
@@ -101,7 +102,7 @@ class PositionDetails extends Component {
           />
           <hr />
           <Row className="position-details-description-container padded-main-content" fluid>
-            { !isProjectedVacancy && !isArchived && <PositionSimilarPositions id={details.id} /> }
+            { !isProjectedVacancy && <PositionSimilarPositions id={details.id} /> }
           </Row>
         </div>}
         {isLoading$ && <Spinner type="position-details" size="big" />}
