@@ -85,7 +85,7 @@ class PositionManagerDetails extends Component {
       bureauPosition, ranking, rankingIsLoading,
       classifications, classificationsIsLoading } = this.props;
     const isProjectedVacancy = false;
-    const isArchived = false;
+    const isFilled = get(bureauPosition, 'status_code') === 'FP';
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
     const title = get(bureauPosition, 'position.title');
     const filtersSelected = !!keys(filters).length;
@@ -116,7 +116,7 @@ class PositionManagerDetails extends Component {
                   <div className="usa-grid-full header-title-container padded-main-content">
                     <div className="position-details-header-title">
                       {isProjectedVacancy && <span>Projected Vacancy</span>}
-                      {isArchived && <span>Filled Position</span>}
+                      {isFilled && <span>Filled Position</span>}
                       <h1>{title}</h1>
                     </div>
                     <div className="post-title">
