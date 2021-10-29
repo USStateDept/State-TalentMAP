@@ -51,14 +51,11 @@ class Position extends Component {
     };
   }
   UNSAFE_componentWillMount() {
-    const { isArchived, isProjectedVacancy } = this.props;
+    const { isProjectedVacancy } = this.props;
     const id = get(this.props, 'match.params.id');
     let type;
     if (!this.props.isAuthorized()) {
       this.props.onNavigateTo(LOGIN_REDIRECT);
-    } else if (isArchived) {
-      this.getUPDetails(id);
-      type = POSITION_VIEW_TYPES.FP.value;
     } else if (isProjectedVacancy) {
       this.getPVDetails(id);
       type = POSITION_VIEW_TYPES.PV.value;
@@ -116,7 +113,6 @@ class Position extends Component {
       highlightPosition,
       onHighlight,
       isProjectedVacancy,
-      isArchived,
       client,
       clientIsLoading,
       clientHasErrored,
@@ -151,7 +147,6 @@ class Position extends Component {
           highlightPosition={highlightPosition}
           onHighlight={onHighlight}
           isProjectedVacancy={isProjectedVacancy}
-          isArchived={isArchived}
           isClient={isClient}
         />
         {/* Use a component to run our Permission check and then call a function to fetch stats */}
@@ -202,7 +197,6 @@ Position.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
-  isArchived: PropTypes.bool,
   client: BIDDER_OBJECT,
   clientIsLoading: PropTypes.bool,
   clientHasErrored: PropTypes.bool,
@@ -233,7 +227,6 @@ Position.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
-  isArchived: false,
   client: {},
   clientIsLoading: false,
   clientHasErrored: false,
