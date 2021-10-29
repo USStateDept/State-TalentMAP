@@ -19,7 +19,7 @@ const AssignmentsContent = ({ assignment }) => (
             `(${get(assignment, 'position.position_number')}) ` : NO_POSITION_NUMBER
         }
       </span>
-      {/* <Link to={`/archived/${get(assignment, 'position_id')}`}>View Position</Link> */}
+      {/* <Link to={`/archived/${get(assignment, 'position.position_id')}`}>View Position</Link> */}
     </div>
     <div>
       <span className="bid-list-card-title-post">Location: </span>
