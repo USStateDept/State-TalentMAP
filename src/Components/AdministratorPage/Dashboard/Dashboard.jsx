@@ -57,7 +57,7 @@ const AdministratorPage = (props) => {
                         <h3>Editable Content Areas</h3>
                         <Column className="content-link-container">
                           {getLink('/', 'Header')}
-                          {getLink('/about', 'About')}
+                          {getLink('/help', 'Help')}
                           {getLink('/results', 'Featured Positions')}
                           {getLink('/profile/glossaryeditor/', 'Glossary')}
                         </Column>

@@ -313,6 +313,143 @@ $register-hide-icon: 95%;
     position: relative;
   }
 
+  .hs-animation-bidtracker {
+    margin-left: -36px;
+    .left, .right, .hs-bidtracker {
+      display: inline;
+      position: relative;
+      font-size: 20px;
+    }
+    .left {
+      left: -10rem;
+      transform: rotate(90deg);
+      opacity: 0;
+      color: $tertiary-gold-lighter;
+    }
+    .right {
+      right: -17rem;
+      transform: rotate(-90deg) scaleX(-1);
+      opacity: 0;
+      color: $tertiary-gold-lighter;
+    }
+    .hs-container {
+      border-radius: 50%;
+      background-color: $color-green-dark-opacity50;
+      width: 36px;
+      height: 36px;
+      margin: auto;
+      display: inline-block;
+      .hs-bidtracker {
+        margin-top: 8px;
+        color: $color-white;
+      }
+    }
+    .animate-left {
+      animation: left-animation-bidtracker 2s linear;
+    }
+    .animate-right {
+      animation: right-animation-bidtracker 2s linear;
+    }
+    .animate-hs-bidtracker {
+      animation: hs-animation-bidtracker 4s linear;
+    }
+    .temp-transparent {
+      animation: temp-transparent-animation 4s linear;
+    }
+
+    @keyframes left-animation-bidtracker {
+      0% {left:-10rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-bidtracker {
+      0% {right:-17rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes left-animation-max-1699 {
+      0% {left:-8rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-max-1699 {
+      0% {right:-15rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes left-animation-max-1499 {
+      0% {left:-4rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-max-1499 {
+      0% {right:-11rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes left-animation-max-1249 {
+      0% {left:-1rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-max-1249 {
+      0% {right:-8rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes hs-animation-bidtracker {
+      0% {opacity: 0;}
+      49% {opacity: 0;}
+      50% {top:10px; opacity: 100%; color: $tertiary-gold-lighter;}
+      65% {top:-10px;}
+      70% {top:10px;}
+      75% {top:-10px;}
+      80% {top:10px;}
+      85% {top:-10px;}
+      90% {top:10px;}
+      95% {top:-10px;}
+      100% {top:0; color: $tertiary-gold-lighter;}
+    }
+    @keyframes temp-transparent-animation {
+      0% {background-color: transparent;}
+      100% {background-color: transparent;}
+    }
+    @media screen and (max-width: 1699px) {
+      .left {
+        left: -8rem;
+      }
+      .right {
+        right: -15rem;
+      }
+      .animate-left {
+        animation: left-animation-max-1699 2s linear;
+      }
+      .animate-right {
+        animation: right-animation-max-1699 2s linear;
+      }
+    }
+    @media screen and (max-width: 1499px) {
+      .left {
+        left: -4rem;
+      }
+      .right {
+        right: -11rem;
+      }
+      .animate-left {
+        animation: left-animation-max-1499 2s linear;
+      }
+      .animate-right {
+        animation: right-animation-max-1499 2s linear;
+      }
+    }
+    @media screen and (max-width: 1249px) {
+      .left {
+        left: -1rem;
+      }
+      .right {
+        right: -8rem;
+      }
+      .animate-left {
+        animation: left-animation-max-1249 2s linear;
+      }
+      .animate-right {
+        animation: right-animation-max-1249 2s linear;
+      }
+    }
+  }
+
   .fa-trash {
     color: $color-red;
     margin-right: .25em;
@@ -914,12 +1051,12 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register {
-    margin-left: 0px;
+    margin-left: 0;
   }
 
   .bid-tracker-alert-container {
     top: 0;
-    margin-top: 0px;
+    margin-top: 0;
   }
 
   .top-text {
@@ -1085,10 +1222,10 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register {
-    margin-left: 0%;
+    margin-left: 0;
 
     .bid-tracker-overlay-alert-content-container {
-      padding-right: 0px;
+      padding-right: 0;
     }
   }
 
@@ -1509,10 +1646,10 @@ $register-hide-icon: 95%;
 
 @media screen and (max-width: 1450px) {
   .bid-tracker-overlay-alert--register {
-    margin-left: 0%;
+    margin-left: 0;
 
     .bid-tracker-overlay-alert-content-container {
-      padding-right: 0%;
+      padding-right: 0;
     }
   }
 
