@@ -319,6 +319,7 @@ const PositionManager = props => {
     selectedOrgs,
     selectedBureaus,
   ]);
+
   return (
     bureauFiltersIsLoading ?
       <Spinner type="bureau-filters" size="small" /> :
