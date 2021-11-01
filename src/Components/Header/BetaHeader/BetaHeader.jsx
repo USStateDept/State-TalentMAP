@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FontAwesome from 'react-fontawesome';
+// import FontAwesome from 'react-fontawesome';
 // import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { get } from 'lodash';
 import PermissionsWrapper from '../../../Containers/PermissionsWrapper';
@@ -74,7 +74,6 @@ class BetaHeader extends Component {
           {
             !editorVisible &&
               <div className="loader">
-                <FontAwesome name="gears" />
                 {/* <SkeletonTheme color="#FAD980" highlightColor="#FDEFCC">
                   {!isLoading ? data : <Skeleton width="50%" duration={1.8} />}
            </SkeletonTheme> */}
@@ -88,12 +87,6 @@ class BetaHeader extends Component {
               </div>
           }
           {
-            !isLoading && !editorVisible &&
-              <PermissionsWrapper permissions="superuser">
-                <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
-              </PermissionsWrapper>
-          }
-          {
             editorVisible &&
               <TextEditor
                 initialText={data}
@@ -102,15 +95,24 @@ class BetaHeader extends Component {
                 submitProps={{ id: SUBMIT_BUTTON_ID }}
               />
           }
+          {
+            !isLoading && !editorVisible &&
+            <PermissionsWrapper permissions="superuser">
+              <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
+            </PermissionsWrapper>
+          }
         </div>
-        <button
-          className="banner-toggle-button"
-          onClick={() => {
-            this.setState({ headerDropdownVisible: !this.state.headerDropdownVisible }, () => {
-              console.log(this.state.headerDropdownVisible);
-            });
-          }}
-        ><span>{bannerDataLength}</span>{bannerText}</button>
+        {
+          bannerDataLength > 1 &&
+            <button
+              className="banner-toggle-button"
+              onClick={() => {
+                this.setState({ headerDropdownVisible: !this.state.headerDropdownVisible }, () => {
+                });
+              }}
+            ><span>{bannerDataLength}</span>{bannerText}</button>
+            // may need to add arrow font awesome
+        }
       </div>
     );
     return (
