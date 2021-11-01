@@ -64,7 +64,7 @@ class BetaHeader extends Component {
     const bannerData = headerDropdownVisible ?
       splitByLineBreakData : [splitByLineBreakData[0]];
 
-    const bannerDataLength = splitByLineBreakData(data).length;
+    const bannerDataLength = splitByLineBreakData.length;
 
     const header = (
       <div className="usa-banner tm-beta-header">
@@ -101,12 +101,14 @@ class BetaHeader extends Component {
               />
           }
         </div>
-        <button onClick={() => {
-          this.setState({ headerDropdownVisible: !this.state.headerDropdownVisible }, () => {
-            console.log(this.state.headerDropdownVisible);
-          });
-        }}
-        >{bannerDataLength} - click</button>
+        <button
+          className="banner-toggle-button"
+          onClick={() => {
+            this.setState({ headerDropdownVisible: !this.state.headerDropdownVisible }, () => {
+              console.log(this.state.headerDropdownVisible);
+            });
+          }}
+        ><span>{bannerDataLength}</span> - click</button>
       </div>
     );
     return (

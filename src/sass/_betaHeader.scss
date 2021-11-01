@@ -36,8 +36,34 @@
 
   .header-row {
     padding-bottom: 1em;
-    border-bottom: 0.5px solid black;
+    border-top: 0.5px solid black;
     width: 100%;
     display: block !important;
+  }
+  
+  .header-row:first-of-type {
+    border-top: none;
+  }
+
+  .banner-toggle-button {
+    margin-left: 50%;
+    position: relative;
+    bottom: -30px;
+    z-index: 1000;
+    border-radius: 20px;
+    background-color: #fdf0cc;
+    color: black;
+    border: 3px solid #7d6d40;
+    padding-top: 7px;
+    padding-bottom: 7px;
+  }
+
+  >span {
+    display: inline-block;
+    background-color: red;
+    padding: 2px;
+    border-radius: 50%;
+    height: 1.5em;
+    width: 1.5em;
   }
 }
