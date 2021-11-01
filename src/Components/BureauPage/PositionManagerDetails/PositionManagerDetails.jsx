@@ -88,6 +88,7 @@ class PositionManagerDetails extends Component {
     const isArchived = false;
     const OBCUrl$ = get(bureauPosition, 'position.post.post_overview_url');
     const title = get(bureauPosition, 'position.title');
+    const hasHsReg = get(bureauPosition, 'bid_statistics[0].has_handshake_offered') || false;
     const filtersSelected = !!keys(filters).length;
     const filters$ = { ...filters, ordering };
     const isLoading$ = bidsIsLoading || allBidsIsLoading
@@ -146,6 +147,7 @@ class PositionManagerDetails extends Component {
                       hasBureauPermission={bureauPosition.has_bureau_permission}
                       hasPostPermission={bureauPosition.has_post_permission}
                       classifications={classifications}
+                      hasHsReg={hasHsReg}
                     />
                   </div>
                 </div>
