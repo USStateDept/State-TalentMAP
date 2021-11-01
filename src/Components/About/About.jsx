@@ -48,7 +48,7 @@ class About extends Component {
                 }
                 {
                   !isLoading && hasErrored &&
-                  <Alert type="error" title="Error loading About page" messages={[{ body: 'Please try again.' }]} />
+                  <Alert type="error" title="Error loading Help page" messages={[{ body: 'Please try again.' }]} />
                 }
                 {
                   !isLoading &&
