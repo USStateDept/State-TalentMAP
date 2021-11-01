@@ -66,6 +66,8 @@ class BetaHeader extends Component {
 
     const bannerDataLength = splitByLineBreakData.length;
 
+    const bannerText = headerDropdownVisible ? 'Hide alerts' : 'Show alerts';
+
     const header = (
       <div className="usa-banner tm-beta-header">
         <div className="usa-grid usa-banner-inner padded-main-content">
@@ -108,7 +110,7 @@ class BetaHeader extends Component {
               console.log(this.state.headerDropdownVisible);
             });
           }}
-        ><span>{bannerDataLength}</span> - click</button>
+        ><span>{bannerDataLength}</span>{bannerText}</button>
       </div>
     );
     return (
