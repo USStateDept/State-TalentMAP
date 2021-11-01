@@ -9,7 +9,7 @@ const routesArray = [
   { path: '/archived/:id', componentName: 'Position', pageTitle: 'Archived Position details', props: { isArchived: true } },
   { path: '/compare/:ids', key: 'compareID', componentName: 'Compare', pageTitle: 'Compare Positions' },
   { path: '/compare', key: 'compareNoID', componentName: 'Compare', pageTitle: 'Compare Positions' },
-  { path: '/about', exact: true, componentName: 'About', pageTitle: 'About' },
+  { path: '/help', exact: true, componentName: 'About', pageTitle: 'About' },
   { path: '/tokenValidation', componentName: 'TokenValidation', pageTitle: 'Token Validation' },
   { path: '/loginRedirect', componentName: 'LoginRedirect', pageTitle: 'Login Redirect' },
   { path: '/biddingProcess', componentName: 'Faq', pageTitle: 'Bidding Process' },
