@@ -37,9 +37,9 @@ exports[`Footer Component matches snapshot 1`] = `
               <Link
                 className="usa-footer-primary-link"
                 replace={false}
-                to="/about"
+                to="/help"
               >
-                About
+                Help
               </Link>
             </li>
           </ul>
