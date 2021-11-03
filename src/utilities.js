@@ -880,4 +880,4 @@ export const useCloseSwalOnUnmount = () =>
     return null;
   }, []);
 
-export const splitByLineBreak = text => text.split('\n\n\n');
+export const splitByLineBreak = text => (text || '').split('\n\n\n');
