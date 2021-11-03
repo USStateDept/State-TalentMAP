@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import FontAwesome from 'react-fontawesome';
-// import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import FA from 'react-fontawesome';
 import { get } from 'lodash';
 import PermissionsWrapper from '../../../Containers/PermissionsWrapper';
 import EditContentButton from '../../EditContentButton';
@@ -74,9 +73,6 @@ class BetaHeader extends Component {
           {
             !editorVisible &&
               <div className="loader">
-                {/* <SkeletonTheme color="#FAD980" highlightColor="#FDEFCC">
-                  {!isLoading ? data : <Skeleton width="50%" duration={1.8} />}
-           </SkeletonTheme> */}
                 {
                   bannerData.map(m => (
                     <div className="header-row">
@@ -104,14 +100,14 @@ class BetaHeader extends Component {
         </div>
         {
           bannerDataLength > 1 &&
+          <div className="banner-toggle-container">
             <button
               className="banner-toggle-button"
               onClick={() => {
-                this.setState({ headerDropdownVisible: !this.state.headerDropdownVisible }, () => {
-                });
+                this.setState({ headerDropdownVisible: !headerDropdownVisible });
               }}
-            ><span>{bannerDataLength}</span>{bannerText}</button>
-            // may need to add arrow font awesome
+            ><span>{bannerDataLength}</span>{bannerText} <FA name={`chevron-${headerDropdownVisible ? 'up' : 'down'}`} /></button>
+          </div>
         }
       </div>
     );

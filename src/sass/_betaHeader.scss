@@ -1,6 +1,6 @@
 .tm-beta-header {
   background-color: $tertiary-gold-lighter;
-  padding: .5em 0;
+  padding: .5em 0 0 0;
 
   .fa {
     margin-right: 1em;
@@ -38,7 +38,7 @@
 
   .header-row {
     padding-bottom: 1em;
-    border-top: 0.5px solid black;
+    border-top: 0.5px solid #c8ae66;
     width: 100%;
     display: block !important;
   }
@@ -48,13 +48,20 @@
   }
 
   .header-row:not(:first-of-type) {
-    padding-top: 5px; // padding's do not match
+    padding-top: 1em; // padding's do not match
+  }
+
+  .banner-toggle-container {
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    position: relative;
   }
 
   .banner-toggle-button {
-    margin: 0 0 0 50%;
-    position: relative;
-    bottom: -24px;
+    margin: 0;
+    position: absolute;
+    bottom: -19px;
     z-index: 1000;
     border-radius: 20px;
     background-color: #fdf0cc;
@@ -63,8 +70,24 @@
     padding-top: 7px;
     padding-bottom: 7px;
 
-    > span {
-      background-color: rgb(190, 42, 36);
+    &:hover {
+      background-color: #e1c373;
+    }
+
+    &:active {
+      background-color: #c8ae66;
+    }
+
+    .fa {
+      bottom: 1px;
+      font-size: .8em;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    > span:not(.fa) {
+      background-color: $secondary-dark;
       display: inline-block;
       padding: 0 0.6rem;
       border-radius: 1.6rem;
