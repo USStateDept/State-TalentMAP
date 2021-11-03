@@ -81,7 +81,7 @@ const AvailableBidderStats = () => {
               {
                 !availableBiddersIsLoading && !!statsSum &&
                 <div className="usa-grid-full flex">
-                  <div className="usa-width-one-fourth legend-container">
+                  <div className="legend-container">
                     <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
                     <div className="usa-grid-full legend">
                       {
@@ -97,7 +97,7 @@ const AvailableBidderStats = () => {
                       }
                     </div>
                   </div>
-                  <div className="usa-width-one-third chart-container">
+                  <div className="chart-container">
                     <PieChart width={400} height={400}>
                       <Pie
                         data={stats$}
