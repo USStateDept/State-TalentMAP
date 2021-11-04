@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
+import shortid from 'shortid';
 import PermissionsWrapper from '../../../Containers/PermissionsWrapper';
 import EditContentButton from '../../EditContentButton';
 import TextEditor from '../../TextEditor';
@@ -75,7 +76,7 @@ class BetaHeader extends Component {
               <div className="loader">
                 {
                   bannerData.map(m => (
-                    <div className="header-row">
+                    <div className="header-row" key={shortid.generate()}>
                       {m}
                     </div>
                   ))

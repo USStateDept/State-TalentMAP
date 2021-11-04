@@ -100,6 +100,16 @@ describe('BetaHeader', () => {
     expect(wrapper.find('button').text()).toBe('2Hide alerts <FontAwesome />');
   });
 
+  it('displays the correct button text when the button is clicked', () => {
+    const data = 'test\n\n\ntest';
+    const wrapper = shallow(
+      <BetaHeader.WrappedComponent data={data} />,
+    );
+    expect(wrapper.find('button').text()).toBe('2Show alerts <FontAwesome />');
+    wrapper.find('button').simulate('click');
+    expect(wrapper.find('button').text()).toBe('2Hide alerts <FontAwesome />');
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(
       <BetaHeader.WrappedComponent />,
