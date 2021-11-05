@@ -38,9 +38,10 @@
     }
 
     .legend {
-      display: flex;
+      display: inline-grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(9, auto);
       flex-flow: column wrap;
-      height: 400px;
     }
 
     .legend-item {
