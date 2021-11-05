@@ -37,10 +37,17 @@
       }
     }
 
-    .legend {
+    .legend-small {
       display: inline-grid;
       grid-auto-flow: column;
       grid-template-rows: repeat(9, auto);
+      flex-flow: column wrap;
+    }
+    
+    .legend-large {
+      display: inline-grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(25, auto);
       flex-flow: column wrap;
     }
 
@@ -58,7 +65,7 @@
     }
 
     .chart-container {
-      // margin-right: auto;
+      margin-right: auto;
 
       > div {
         margin-left: auto;

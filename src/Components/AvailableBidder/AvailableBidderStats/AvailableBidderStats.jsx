@@ -11,7 +11,7 @@ import { Row } from '../../Layout';
 
 const AvailableBidderStats = () => {
   const [showMore, setShowMore] = useState(false);
-  const [selectedStat, setSelectedStat] = useState('Status');
+  const [selectedStat, setSelectedStat] = useState('Post');
 
   const statOptions = [
     'Bureau',
@@ -37,6 +37,8 @@ const AvailableBidderStats = () => {
       color,
     };
   });
+
+  const legendClass = stats$.length > 40 ? 'legend-large' : 'legend-small';
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
@@ -65,7 +67,6 @@ const AvailableBidderStats = () => {
                     options={statOptions}
                     onChange={setSelectedStat}
                     multiple
-                    includeFilter
                     dropdownHeight={255}
                     valueKey="code"
                     labelKey="custom_description"
@@ -83,7 +84,7 @@ const AvailableBidderStats = () => {
                 <div className="usa-grid-full flex">
                   <div className="legend-container">
                     <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
-                    <div className="usa-grid-full legend">
+                    <div className={`usa-grid-full ${legendClass}`}>
                       {
                         stats$.map(m => (
                           <div className="flex legend-item">
