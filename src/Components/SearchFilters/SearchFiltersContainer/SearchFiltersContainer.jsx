@@ -63,6 +63,7 @@ class SearchFiltersContainer extends Component {
         projectedVacancy: value,
         ordering: 'ted',
         cps_codes: null,
+        htf_indicator: null,
       };
     }
     this.props.queryParamUpdate(config);
