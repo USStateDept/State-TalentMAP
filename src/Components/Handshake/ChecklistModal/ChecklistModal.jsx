@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
-import { useState } from 'react';
 import { useCloseSwalOnUnmount } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import CheckBox from 'Components/CheckBox';
 
 const ChecklistModal = props => {
-  const { checkList, submitBtnText, cancelBtnText, onSubmit, rowDivider, titleDivider } = props;
-  const [allChecked, setAllChecked] = useState(false);
+  const { checkList, submitBtnText, cancelBtnText,
+    onSubmit, rowDivider, titleDivider, onCheck } = props;
 
   useCloseSwalOnUnmount();
 
@@ -20,23 +20,44 @@ const ChecklistModal = props => {
     onSubmit();
   };
 
-  // const onCheck = (e) => {
-  // };
+  const checkboxClicked = (e, id) => {
+    onCheck(e, id);
+  };
 
-  const renderContent = () => checkList.map(c => (
-    <div className={`a ${rowDivider ? 'row-divider' : ''}`}>
-      <div className="b">
-        <input
-          type="checkbox"
-          value={c.checked}
-          checked={c.checked}
-          // onChange={e => this.onCheck(e)}
-        />
-      </div>
-      <div className="c">
-        {c.text}
-      </div>
-    </div>));
+  const renderContent = () => checkList.map(c => {
+    if (onCheck) {
+      return (
+        <div className={`row ${rowDivider ? 'row-divider' : ''}`}>
+          <div className="checkbox">
+            <CheckBox
+              label="check"
+              id={c.id}
+              value={c.checked}
+              labelSrOnly
+              onCheckBoxClick={e => checkboxClicked(c.id, e)}
+            />
+          </div>
+          <div className="text">
+            {c.text}
+          </div>
+        </div>);
+    }
+
+    return (
+      <div className={`row ${rowDivider ? 'row-divider' : ''}`}>
+        <div className="checkbox">
+          <CheckBox
+            label="check"
+            id={c.id}
+            value={c.checked}
+            labelSrOnly
+          />
+        </div>
+        <div className="text">
+          {c.text}
+        </div>
+      </div>);
+  });
 
   return (
     <div className="checklist-modal">
@@ -47,7 +68,6 @@ const ChecklistModal = props => {
             <button onClick={cancel}>{cancelBtnText}</button>
             <button
               onClick={submit}
-              // disabled={!notAllTrue}
             >
               {submitBtnText}
             </button>
@@ -65,6 +85,7 @@ ChecklistModal.propTypes = {
   submitBtnText: PropTypes.string,
   cancelBtnText: PropTypes.string,
   onSubmit: PropTypes.func,
+  onCheck: PropTypes.func,
 };
 
 ChecklistModal.defaultProps = {
@@ -74,6 +95,7 @@ ChecklistModal.defaultProps = {
   submitBtnText: 'Submit',
   cancelBtnText: 'Cancel',
   onSubmit: EMPTY_FUNCTION,
+  onCheck: EMPTY_FUNCTION,
 };
 
 export default ChecklistModal;

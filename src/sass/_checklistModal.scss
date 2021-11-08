@@ -1,30 +1,12 @@
 .checklist-modal {
-  .a {
+  .row {
     display: flex;
     padding: 10px;
-    .b {
-      //padding: 10px;
+    .checkbox {
       flex: 15%;
       position: relative;
-      input {
-        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAJCAQAAACssQXfAAAAiklEQVR4AT3PNUFGARAA4MO1AFRgQVrgTEgNXBZ0Z0aLQI0XANf594932LlLROjQHgmhM9mVwlhkMJO/4S7noMjghKEIPcmuUNNyGpa8uzUcYdA1qjjJ+ntwY8Q16jiIBCte0fSmUUr2Mio3W/BJqwQt2xHaZFhXhBnPqFr7D6eRKVMereeIv5++AKLreD06aLBkAAAAAElFTkSuQmCC);
-        background-position: 50%;
-        border-radius: 2px;
-        border: none;
-        height: 1.25em;
-        width: 1.25em;
-        background-repeat: no-repeat;
-        background-color: #0071bc;
-        box-shadow: 0 0 0 1px #0071bc;
-        top: 50%;
-        left: 50%;
-        margin: -0.625em;
-      }
-      input[type=checkbox]:checked {
-        background-color: red!important;
-      }
     }
-    .c {
+    .text {
       padding: 10px;
       text-align: justify;
       flex: 85%;

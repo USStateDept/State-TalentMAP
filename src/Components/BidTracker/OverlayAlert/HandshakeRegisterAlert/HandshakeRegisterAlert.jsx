@@ -42,10 +42,7 @@ class HandshakeRegisterAlert extends Component {
     const buttonText = isUnregister ? 'Undo Register Handshake' : 'Register Handshake';
 
     // eslint-disable-next-line max-len
-    const HS_REGISTER_CHECKLIST$ = HS_REGISTER_CHECKLIST.map(z => ({ text: z, checked: false }));
-
-    // eslint-disable-next-line no-console
-    console.log(HS_REGISTER_CHECKLIST$);
+    const HS_REGISTER_CHECKLIST$ = HS_REGISTER_CHECKLIST.map((z, i) => ({ text: z, checked: false, id: `id-${i}` }));
 
     const hsRegisterModal = () => {
       swal({
