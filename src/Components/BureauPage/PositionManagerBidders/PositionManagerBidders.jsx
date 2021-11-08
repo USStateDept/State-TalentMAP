@@ -25,6 +25,7 @@ import ShortListLock from '../ShortListLock';
 import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
+import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
 
 const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
@@ -262,8 +263,12 @@ class PositionManagerBidders extends Component {
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
     const handshake = get(m, 'handshake', {}) || {};
+    const handshakeRegisteredDate = get(m, 'handshake_registered_date');
+    const handshakeRegistered = get(m, 'handshake_registered') === 'Y';
     const active_hs_perdet = get(m, 'active_handshake_perdet');
     const hasAcceptedOtherOffer = get(m, 'has_accepted_other_offer');
+    const bureauOBidderA = (get(handshake, 'hs_status_code') === 'handshake_offered')
+      && (get(handshake, 'bidder_hs_code') === 'handshake_accepted');
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
@@ -335,9 +340,20 @@ class PositionManagerBidders extends Component {
               />
             }
           >
-            <HandshakeStatus
-              handshake={handshake}
-            />
+            { this.props.hasHsReg && bureauOBidderA ?
+              <>
+                <HandshakeAnimation isBidder />
+                <HandshakeStatus
+                  handshake={handshake}
+                  handshakeRegistered={handshakeRegistered}
+                  handshakeRegisteredDate={handshakeRegisteredDate}
+                  infoIcon
+                />
+              </> :
+              <HandshakeStatus
+                handshake={handshake}
+              />
+            }
           </PermissionsWrapper>
           {
             type !== 'unranked' &&
@@ -630,6 +646,7 @@ PositionManagerBidders.propTypes = {
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  hasHsReg: PropTypes.bool,
 };
 
 PositionManagerBidders.defaultProps = {
@@ -647,6 +664,7 @@ PositionManagerBidders.defaultProps = {
   hasBureauPermission: false,
   hasPostPermission: false,
   classifications: [],
+  hasHsReg: false,
 };
 
 export default PositionManagerBidders;

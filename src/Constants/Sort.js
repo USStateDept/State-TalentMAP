@@ -19,7 +19,7 @@ const POSITION_SEARCH_SORTS$ = {
 };
 
 POSITION_SEARCH_SORTS$.defaultSort = POSITION_SEARCH_SORTS$.options.find(o =>
-  o.value === 'ted',
+  o.value === '-posted_date',
 ).value;
 
 export const POSITION_SEARCH_SORTS = POSITION_SEARCH_SORTS$;
