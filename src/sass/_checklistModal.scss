@@ -5,6 +5,9 @@
     .checkbox {
       flex: 15%;
       position: relative;
+      label {
+        margin-top: 15px;
+      }
     }
     .text {
       padding: 10px;
