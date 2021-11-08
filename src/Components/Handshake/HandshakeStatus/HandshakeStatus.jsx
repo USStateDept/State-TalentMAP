@@ -72,22 +72,28 @@ const HandshakeStatus = props => {
 
   const bureauStyle = styling[hs_status_code] || styling.default;
   const bidderStyle = styling[bidder_hs_code] || styling[isExpired ? 'handshake_expired' : 'default'];
+  const { handshakeRegisteredDate, handshakeRegistered } = props;
 
   return (
     <>
       <Tooltip
         html={
-          <div className="status-tooltip-wrapper">
-            <div>
-              <span className="title">Bureau: <span className="status-name">{bureauStyle.tooltip}</span></span>
-
-              <span className="text"> {bureauStyle.date ? formatDate(bureauStyle.date) : ''}</span>
+          <div>
+            <div className="status-tooltip-wrapper">
+              <div>
+                <span className="title">Bureau: <span className="status-name">{bureauStyle.tooltip}</span></span>
+                {bureauStyle.date ? formatDate(bureauStyle.date) : ''}
+              </div>
+              <div>
+                <span className="title">Bidder: <span className="status-name">{bidderStyle.tooltip}</span></span>
+                {bidderStyle.date ? formatDate(bidderStyle.date) : ''}
+              </div>
             </div>
-            <div>
-              <span className="title">Bidder: <span className="status-name">{bidderStyle.tooltip}</span></span>
-
-              <span className="text"> {bidderStyle.date ? formatDate(bidderStyle.date) : ''}</span>
+            {handshakeRegisteredDate && handshakeRegistered &&
+            <div className="hs-registered">
+              <span className="title">Handshake Registered: </span>{formatDate(handshakeRegisteredDate)}
             </div>
+            }
           </div>
         }
         theme="hs-status"
@@ -95,11 +101,11 @@ const HandshakeStatus = props => {
         tabIndex="0"
         interactive
         useContext
-      >{
+      >
+        {
           props.infoIcon ?
             <FA className="hs-status-info" name="info-circle" />
             :
-
             <div className="hs-status-container">
               <div className={`hs-status-bureau ${bureauStyle.bureau}`}>
                 <FA name={`${bureauStyle.bureauIcon} fa-rotate-90`} />
@@ -125,11 +131,15 @@ const HandshakeStatus = props => {
 
 HandshakeStatus.propTypes = {
   handshake: PropTypes.shape({}),
+  handshakeRegisteredDate: PropTypes.string,
+  handshakeRegistered: PropTypes.bool,
   infoIcon: PropTypes.bool,
 };
 
 HandshakeStatus.defaultProps = {
   handshake: {},
+  handshakeRegisteredDate: '',
+  handshakeRegistered: false,
   infoIcon: false,
 };
 
