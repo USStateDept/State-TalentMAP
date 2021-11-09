@@ -26,7 +26,7 @@ const AvailableBidderStats = () => {
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const stats = get(biddersData.stats, selectedStat, []);
+  const stats = get(biddersData.stats, selectedStat) || [];
   const statsSum = get(biddersData.stats, 'Sum', {})[selectedStat];
 
   // adding colors
@@ -60,7 +60,7 @@ const AvailableBidderStats = () => {
             <div className="usa-grid-full section statistics-section">
               {
                 <div className="filter-div">
-                  <div className="label">Chart Stats:</div>
+                  <div className="label">Chart Statistics:</div>
                   <Picky
                     placeholder="Select Stats"
                     value={selectedStat}
@@ -83,7 +83,7 @@ const AvailableBidderStats = () => {
                 !availableBiddersIsLoading && !!statsSum &&
                 <div className="usa-grid-full flex">
                   <div className="legend-container">
-                    <h4>Available Bidders {selectedStat} Stats ({statsSum})</h4>
+                    <h4>Available Bidders {selectedStat} Statistics ({statsSum})</h4>
                     <div className={`usa-grid-full ${legendClass}`}>
                       {
                         stats$.map(m => (
