@@ -22,12 +22,12 @@
   }
 
   .editor {
-    height: 80px;
+    height: 200px;
     padding: 8px;
   }
 
   .public-DraftEditor-content {
-    height: 62px;
+    height: 180px;
     min-height: 62px;
   }
 
@@ -38,7 +38,7 @@
 
   .header-row {
     padding-bottom: 1em;
-    border-top: 0.5px solid #c8ae66;
+    border-top: 0.5px solid $tertiary-gold-dark;
     width: 100%;
     display: block !important;
   }
@@ -64,18 +64,18 @@
     bottom: -19px;
     z-index: 1000;
     border-radius: 20px;
-    background-color: #fdf0cc;
+    background-color: $tertiary-gold-lightest;
     color: black;
-    border: 3px solid #7d6d40;
+    border: 3px solid $tertiary-gold-darker;
     padding-top: 7px;
     padding-bottom: 7px;
 
     &:hover {
-      background-color: #e1c373;
+      background-color: $tertiary-gold-dark;
     }
 
     &:active {
-      background-color: #c8ae66;
+      background-color: $tertiary-gold-darker;
     }
 
     .fa {
