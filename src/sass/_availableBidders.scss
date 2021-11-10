@@ -32,11 +32,23 @@
     }
 
     .legend-container {
-      margin-left: auto;
+      h4 {
+        margin: 20px 0 0;
+      }
     }
 
-    .legend {
-      margin-top: 2em;
+    .legend-small {
+      display: inline-grid;
+      flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(9, auto);
+    }
+    
+    .legend-large {
+      display: inline-grid;
+      flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(25, auto);
     }
 
     .legend-item {
@@ -49,8 +61,7 @@
     }
 
     .legend-text {
-       margin: auto;
-       margin-left: 1.5em;
+       margin: auto .8em;
     }
 
     .chart-container {
