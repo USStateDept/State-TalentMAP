@@ -879,3 +879,5 @@ export const useCloseSwalOnUnmount = () =>
     } catch { return null; }
     return null;
   }, []);
+
+export const splitByLineBreak = text => (text || '').split('\n\n\n');
