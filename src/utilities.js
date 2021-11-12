@@ -814,9 +814,9 @@ export const getContrastYIQ = hexcolor => {
 
 // Supply a user's full name
 // Returns background color and text color
-export const getAvatarColor = str => {
+export const getAvatarColor = (str, hashAdjuster = 0) => {
   if (str) {
-    let hash = 0;
+    let hash = Math.floor(Math.random() * hashAdjuster);
     [...str].forEach((s, i) => {
       if (i) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
@@ -879,3 +879,5 @@ export const useCloseSwalOnUnmount = () =>
     } catch { return null; }
     return null;
   }, []);
+
+export const splitByLineBreak = text => (text || '').split('\n\n\n');
