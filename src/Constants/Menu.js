@@ -303,6 +303,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
+      checkFlag('flags.agenda_search') ?
+        {
+          text: 'Employee Agenda Search',
+          route: '/profile/cdo/employeeagendasearch',
+          icon: 'users',
+          roles: [
+            'cdo',
+          ],
+        } : null,
     ],
   },
 ].filter(x => x));
