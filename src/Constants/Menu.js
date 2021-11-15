@@ -269,6 +269,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.agenda_search') ?
+        {
+          text: 'user-circle-o',
+          route: '/profile/ao/employeeagendasearch',
+          icon: 'user-circle-o',
+          roles: [
+            'ao_user',
+            'superuser',
+          ],
+        } : null,
     ],
   } : null,
   {
@@ -307,7 +317,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Employee Agenda Search',
           route: '/profile/cdo/employeeagendasearch',
-          icon: 'users',
+          icon: 'user-circle-o',
           roles: [
             'cdo',
           ],
