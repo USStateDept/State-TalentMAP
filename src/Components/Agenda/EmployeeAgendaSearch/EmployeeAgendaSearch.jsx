@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import BidderPortfolioSearch from '../../../Components/BidderPortfolio/BidderPortfolioSearch';
+import BidderPortfolioSearch from '../../BidderPortfolio/BidderPortfolioSearch';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 
 const EmployeeAgendaSearch = ({ isCDO }) => {

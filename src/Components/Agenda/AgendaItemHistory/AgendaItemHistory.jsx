@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import BidderPortfolioSearch from '../../../Components/BidderPortfolio/BidderPortfolioSearch';
+import BidderPortfolioSearch from '../../BidderPortfolio/BidderPortfolioSearch';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ExportLink from '../../BidderPortfolio/ExportLink';
 import BackButton from '../../BackButton';
