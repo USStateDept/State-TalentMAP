@@ -3,7 +3,6 @@ import { get } from 'lodash';
 import Differentials from 'Components/Differentials';
 import BidCount from 'Components/BidCount';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
-import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import LanguageList from '../../Components/LanguageList/LanguageList';
 import CondensedCardDataPoint from '../CondensedCardData/CondensedCardDataPoint';
@@ -11,7 +10,7 @@ import PositionDetailsDescription from './PositionDetailsDescription';
 import PositionDetailsContact from './PositionDetailsContact';
 import ServiceNeededToggle from './ServiceNeededToggle';
 import GlossaryTermTrigger from '../GlossaryTermTrigger';
-import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import {
   formatDate,
   getAccessiblePositionNumber,
@@ -37,12 +36,6 @@ import {
 
 export const renderHandshake = (stats, ribbonClass) => (
   get(stats, 'has_handshake_offered', false) && <Handshake cutSide="both" className={ribbonClass} />
-);
-
-export const renderCriticalNeed = ribbonClass => (
-  <StaticDevContent>
-    <CriticalNeed cutSide="both" className={ribbonClass} />
-  </StaticDevContent>
 );
 
 export const renderHistDiffToStaff = (details, ribbonClass) => (
@@ -113,7 +106,6 @@ const PositionDetailsItem = (props) => {
     <div className="usa-grid-full padded-main-content position-details-outer-container">
       <div className="handshake-offset-container">
         {renderHandshake(stats, position, ribbonClass)}
-        {renderCriticalNeed(ribbonClass)}
         {renderHistDiffToStaff(details, ribbonClass)}
         {renderServiceNeedDifferential(details, ribbonClass)}
         {renderIsHardToFill(details, ribbonClass)}

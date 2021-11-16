@@ -4,7 +4,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import StaticDevContent from 'Components/StaticDevContent';
 import { BID_OBJECT, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { APPROVED_PROP } from 'Constants/BidData';
@@ -15,7 +14,7 @@ import OverlayAlert from '../OverlayAlert';
 import BoxShadow from '../../BoxShadow';
 import BidCount from '../../BidCount';
 import { shouldShowAlert, showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
-import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../../Ribbon';
 import MediaQuery from '../../MediaQuery';
 
 class BidTrackerCard extends Component {
@@ -81,14 +80,6 @@ class BidTrackerCard extends Component {
                     cutSide="both"
                     shortName={!matches}
                   />
-                }
-                {
-                  <StaticDevContent>
-                    <CriticalNeed
-                      cutSide="both"
-                      shortName={!matches}
-                    />
-                  </StaticDevContent>
                 }
                 {
                   get(bid, 'position_info.isDifficultToStaff', false) &&
