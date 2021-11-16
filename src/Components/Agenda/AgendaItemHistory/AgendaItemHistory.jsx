@@ -13,7 +13,7 @@ const AgendaItemHistory = () => {
     <div>
       <div className="bidder-portfolio-page card-view">
         <div className="usa-grid-full results-search-bar-container">
-          <ProfileSectionTitle title="Last, First - Agenda Item History" icon="user-circle-o" />
+          <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
           <BidderPortfolioSearch />
         </div>
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
