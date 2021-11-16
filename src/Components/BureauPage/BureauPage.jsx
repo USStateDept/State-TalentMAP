@@ -4,8 +4,8 @@ import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
-import EmployeeAgendaSearch from '../../Components/EmployeeAgendaSearch/EmployeeAgendaSearch';
-import AgendaItemHistory from '../../Components/EmployeeAgendaSearch/AgendaItemHistory';
+import EmployeeAgendaSearch from '../../Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
+import AgendaItemHistory from '../../Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 
 const BureauPage = () => {
   const dashboardProps = {

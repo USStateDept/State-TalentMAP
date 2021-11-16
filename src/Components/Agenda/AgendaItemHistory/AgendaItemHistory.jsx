@@ -1,4 +1,4 @@
-import BackButton from '../BackButton';
+import BackButton from '../../BackButton';
 
 const AgendaItemHistory = () => (
   <div>
