@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import StaticDevContent from 'Components/StaticDevContent';
 import { Tooltip } from 'react-tippy';
-import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import { HOME_PAGE_CARD_TYPE, POSITION_DETAILS } from '../../Constants/PropTypes';
 import { NO_POST } from '../../Constants/SystemMessages';
 import { getBidStatisticsObject, getPostName } from '../../utilities';
@@ -52,17 +51,6 @@ const ResultsCondensedCardTop = ({
           >
             <Handshake showText={false} className={ribbonClass} />
           </Tooltip>
-        }
-        {
-          <StaticDevContent>
-            <Tooltip
-              title="Critical need"
-              arrow
-              offset={-60}
-            >
-              <CriticalNeed showText={false} className={ribbonClass} />
-            </Tooltip>
-          </StaticDevContent>
         }
         {
           isDifficultToStaff &&

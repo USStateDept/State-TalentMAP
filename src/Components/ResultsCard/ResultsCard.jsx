@@ -5,7 +5,6 @@ import { get, isNull, isNumber } from 'lodash';
 import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
-import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -15,7 +14,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { CriticalNeed, Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
@@ -311,11 +310,6 @@ class ResultsCard extends Component {
                   <div className="ribbon-container">
                     {
                       get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className={ribbonClass} />
-                    }
-                    {
-                      <StaticDevContent>
-                        <CriticalNeed isWideResults className={ribbonClass} />
-                      </StaticDevContent>
                     }
                     {
                       get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWideResults className={ribbonClass} />
