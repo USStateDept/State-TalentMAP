@@ -28,17 +28,12 @@ exports[`HandshakeRegisterAlert matches snapshot 1`] = `
       <div
         className="usa-grid-full register-submission-buttons-container"
       >
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          type="div"
+        <MediaQueryWrapper
+          breakpoint="screenXlgMin"
+          widthType="min"
         >
-          <button
-            className="tm-button-transparent tm-button-submit-bid"
-          >
-            Register Handshake
-          </button>
-        </InteractiveElement>
+          <Component />
+        </MediaQueryWrapper>
       </div>
     </div>
     <div

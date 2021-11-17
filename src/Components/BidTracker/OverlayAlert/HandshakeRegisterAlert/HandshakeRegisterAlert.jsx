@@ -8,7 +8,6 @@ import swal from '@sweetalert/with-react';
 import ChecklistModal from 'Components/Handshake/ChecklistModal/ChecklistModal';
 import HS_REGISTER_CHECKLIST from 'Constants/RegisterChecklist';
 import { checkFlag } from 'flags';
-import MediaQuery from '../../../MediaQuery';
 
 const useRegisterChecklist = () => checkFlag('flags.register_checklist');
 
@@ -21,7 +20,9 @@ class HandshakeRegisterAlert extends Component {
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position_info.id);
-    swal.close();
+    if (useRegisterChecklist()) {
+      swal.close();
+    }
   };
 
   onUnregisterHandshake = () => {
@@ -51,11 +52,11 @@ class HandshakeRegisterAlert extends Component {
 
     const HS_REGISTER_CHECKLIST$ = HS_REGISTER_CHECKLIST.map((z, i) => ({ text: z, checked: false, id: `id-${i}` }));
 
-    const hsRegisterModal = (match) => {
+    const hsRegisterModal = () => {
       swal({
         title: 'Register Handshake Checklist:',
         button: false,
-        className: `${match ? 'modal-1300' : ''}`,
+        className: 'modal-1300',
         content: (
           <ChecklistModal
             onSubmit={this.onRegisterHandshake}
@@ -93,18 +94,12 @@ class HandshakeRegisterAlert extends Component {
               }
               {
                 !isUnregister && useRegisterChecklist() &&
-                <MediaQuery breakpoint="screenXlgMin" widthType="min">
-                  {matches => (
-                    <>
-                      <button
-                        className="tm-button-transparent tm-button-submit-bid"
-                        onClick={hsRegisterModal(matches)}
-                      >
-                        {buttonText}
-                      </button>
-                    </>
-                  )}
-                </MediaQuery>
+                  <button
+                    className="tm-button-transparent tm-button-submit-bid"
+                    onClick={hsRegisterModal}
+                  >
+                    {buttonText}
+                  </button>
               }
               {
                 !isUnregister && !useRegisterChecklist() &&
