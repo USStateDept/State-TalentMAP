@@ -3,7 +3,7 @@
 exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
 <div>
   <div
-    className="bidder-portfolio-page card-view"
+    className="bidder-portfolio-page profile-content-inner-container"
   >
     <div
       className="usa-grid-full results-search-bar-container"
@@ -31,15 +31,10 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
             />
           </div>
           <div
-            style={
-              Object {
-                "display": "flex",
-                "justifyContent": "flex-end",
-              }
-            }
+            className="export-button"
           >
             <Connect(ExportLink)
-              disabled={false}
+              disabled={true}
             />
           </div>
         </div>
