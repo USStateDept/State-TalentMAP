@@ -7,12 +7,16 @@ import { closeSwalOnUnmount, formatDate, getPostName } from 'utilities';
 import swal from '@sweetalert/with-react';
 import ChecklistModal from 'Components/Handshake/ChecklistModal/ChecklistModal';
 import HS_REGISTER_CHECKLIST from 'Constants/RegisterChecklist';
+import { checkFlag } from 'flags';
 import MediaQuery from '../../../MediaQuery';
+
+const useRegisterChecklist = () => checkFlag('flags.register_checklist');
 
 class HandshakeRegisterAlert extends Component {
   componentWillUnmount() {
     closeSwalOnUnmount();
   }
+
 
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
@@ -79,14 +83,16 @@ class HandshakeRegisterAlert extends Component {
               {mainText}
             </div>
             <div className="usa-grid-full register-submission-buttons-container">
-              { isUnregister ?
-                <button
-                  className="tm-button-transparent tm-button-submit-bid"
-                  onClick={this.onUnregisterHandshake}
-                >
-                  {buttonText}
-                </button>
-                :
+              {isUnregister &&
+              <button
+                className="tm-button-transparent tm-button-submit-bid"
+                onClick={this.onUnregisterHandshake}
+              >
+                {buttonText}
+              </button>
+              }
+              {
+                !isUnregister && useRegisterChecklist() &&
                 <MediaQuery breakpoint="screenXlgMin" widthType="min">
                   {matches => (
                     <>
@@ -99,6 +105,15 @@ class HandshakeRegisterAlert extends Component {
                     </>
                   )}
                 </MediaQuery>
+              }
+              {
+                !isUnregister && !useRegisterChecklist() &&
+                <button
+                  className="tm-button-transparent tm-button-submit-bid"
+                  onClick={this.onRegisterHandshake}
+                >
+                  {buttonText}
+                </button>
               }
             </div>
           </div>
