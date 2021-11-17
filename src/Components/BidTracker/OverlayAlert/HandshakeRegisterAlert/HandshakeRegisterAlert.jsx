@@ -9,7 +9,7 @@ import ChecklistModal from 'Components/Handshake/ChecklistModal/ChecklistModal';
 import HS_REGISTER_CHECKLIST from 'Constants/RegisterChecklist';
 import { checkFlag } from 'flags';
 
-const useRegisterChecklist = () => checkFlag('flags.register_checklist');
+const useRegisterChecklist = () => checkFlag('flags.register_checklist') && !this.props.isUnregister;
 
 class HandshakeRegisterAlert extends Component {
   componentWillUnmount() {
