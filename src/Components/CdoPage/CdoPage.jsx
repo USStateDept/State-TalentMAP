@@ -10,7 +10,7 @@ const CdoPage = () => (
       <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO />} />
       <Route path="/profile/cdo/bidderportfolio" render={() => <BidderPortfolio />} />
       <Route path="/profile/cdo/employeeagendasearch" render={() => <EmployeeAgendaSearch isCDO />} />
-      <Route path="/profile/cdo/agendaitemhistory/perdet" render={() => <AgendaItemHistory />} />
+      <Route path="/profile/cdo/agendaitemhistory/:id" render={() => <AgendaItemHistory />} />
     </Switch>
   </div>
 );

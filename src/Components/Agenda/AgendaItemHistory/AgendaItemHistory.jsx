@@ -6,12 +6,12 @@ import BackButton from '../../BackButton';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 
 const AgendaItemHistory = () => {
-  const [viewType, setViewType] = useState('true');
+  const [viewType, setViewType] = useState(true);
   const view = viewType ? 'card' : 'row';
 
   return (
     <div>
-      <div className="bidder-portfolio-page card-view">
+      <div className="bidder-portfolio-page profile-content-inner-container">
         <div className="usa-grid-full results-search-bar-container">
           <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
           <BidderPortfolioSearch />
@@ -23,7 +23,7 @@ const AgendaItemHistory = () => {
               <div>
                 <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
               </div>
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <div className="export-button">
                 <ExportLink disabled />
               </div>
             </div>
