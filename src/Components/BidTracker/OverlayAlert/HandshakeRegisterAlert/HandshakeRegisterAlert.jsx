@@ -17,10 +17,10 @@ class HandshakeRegisterAlert extends Component {
   }
 
 
-  onRegisterHandshake = () => {
+  onRegisterHandshake = (closeModal) => {
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position_info.id);
-    if (useRegisterChecklist()) {
+    if (closeModal) {
       swal.close();
     }
   };
@@ -52,20 +52,25 @@ class HandshakeRegisterAlert extends Component {
 
     const HS_REGISTER_CHECKLIST$ = HS_REGISTER_CHECKLIST.map((z, i) => ({ text: z, checked: false, id: `id-${i}` }));
 
+    // eslint-disable-next-line consistent-return
     const hsRegisterModal = () => {
-      swal({
-        title: 'Register Handshake Checklist:',
-        button: false,
-        className: 'modal-1300',
-        content: (
-          <ChecklistModal
-            onSubmit={this.onRegisterHandshake}
-            submitBtnText={buttonText}
-            checkList={HS_REGISTER_CHECKLIST$}
-            rowDivider
-          />
-        ),
-      });
+      if (!useRegisterChecklist()) {
+        this.onRegisterHandshake(false);
+      } else {
+        return swal({
+          title: 'Register Handshake Checklist:',
+          button: false,
+          className: 'modal-1300',
+          content: (
+            <ChecklistModal
+              onSubmit={this.onRegisterHandshake(true)}
+              submitBtnText={buttonText}
+              checkList={HS_REGISTER_CHECKLIST$}
+              rowDivider
+            />
+          ),
+        });
+      }
     };
 
     const classes = [
@@ -93,22 +98,13 @@ class HandshakeRegisterAlert extends Component {
               </button>
               }
               {
-                !isUnregister && useRegisterChecklist() &&
+                !isUnregister &&
                   <button
                     className="tm-button-transparent tm-button-submit-bid"
                     onClick={hsRegisterModal}
                   >
                     {buttonText}
                   </button>
-              }
-              {
-                !isUnregister && !useRegisterChecklist() &&
-                <button
-                  className="tm-button-transparent tm-button-submit-bid"
-                  onClick={this.onRegisterHandshake}
-                >
-                  {buttonText}
-                </button>
               }
             </div>
           </div>
