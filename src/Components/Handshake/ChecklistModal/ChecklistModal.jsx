@@ -1,14 +1,11 @@
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
-import { useCloseSwalOnUnmount } from 'utilities';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from 'Components/CheckBox';
 
 const ChecklistModal = props => {
   const { checkList, submitBtnText, cancelBtnText,
     onSubmit, rowDivider, titleDivider, onCheck } = props;
-
-  useCloseSwalOnUnmount();
 
   const cancel = (e) => {
     e.preventDefault();
@@ -81,7 +78,7 @@ const ChecklistModal = props => {
 ChecklistModal.propTypes = {
   rowDivider: PropTypes.bool,
   titleDivider: PropTypes.bool,
-  checkList: PropTypes.shape({}),
+  checkList: PropTypes.arrayOf(PropTypes.string),
   submitBtnText: PropTypes.string,
   cancelBtnText: PropTypes.string,
   onSubmit: PropTypes.func,
@@ -91,7 +88,7 @@ ChecklistModal.propTypes = {
 ChecklistModal.defaultProps = {
   rowDivider: false,
   titleDivider: true,
-  checkList: {},
+  checkList: [],
   submitBtnText: 'Submit',
   cancelBtnText: 'Cancel',
   onSubmit: EMPTY_FUNCTION,

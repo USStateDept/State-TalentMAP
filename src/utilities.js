@@ -880,4 +880,11 @@ export const useCloseSwalOnUnmount = () =>
     return null;
   }, []);
 
+export const closeSwalOnUnmount = () => {
+  try {
+    swal.close();
+  } catch { return null; }
+  return null;
+};
+
 export const splitByLineBreak = text => (text || '').split('\n\n\n');

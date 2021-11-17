@@ -1,9 +1,11 @@
 .checklist-modal {
+  height: 65vh;
+  overflow-y: auto;
   .row {
     display: flex;
     padding: 10px;
     .checkbox {
-      flex: 15%;
+      flex: 5%;
       position: relative;
       label {
         margin-top: 15px;
@@ -11,8 +13,8 @@
     }
     .text {
       padding: 10px;
-      text-align: justify;
-      flex: 85%;
+      text-align: left;
+      flex: 95%;
     }
   }
   .row-divider:not(:first-child) {

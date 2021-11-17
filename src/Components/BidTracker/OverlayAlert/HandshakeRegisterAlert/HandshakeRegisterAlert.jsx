@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { get } from 'lodash';
-import { formatDate, getPostName } from 'utilities';
+import { closeSwalOnUnmount, formatDate, getPostName } from 'utilities';
 import swal from '@sweetalert/with-react';
-import InteractiveElement from 'Components/InteractiveElement';
 import ChecklistModal from 'Components/Handshake/ChecklistModal/ChecklistModal';
 import HS_REGISTER_CHECKLIST from 'Constants/RegisterChecklist';
+import MediaQuery from '../../../MediaQuery';
 
 class HandshakeRegisterAlert extends Component {
+  componentWillUnmount() {
+    closeSwalOnUnmount();
+  }
+
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position_info.id);
@@ -41,13 +45,13 @@ class HandshakeRegisterAlert extends Component {
 
     const buttonText = isUnregister ? 'Undo Register Handshake' : 'Register Handshake';
 
-    // eslint-disable-next-line max-len
     const HS_REGISTER_CHECKLIST$ = HS_REGISTER_CHECKLIST.map((z, i) => ({ text: z, checked: false, id: `id-${i}` }));
 
-    const hsRegisterModal = () => {
+    const hsRegisterModal = (match) => {
       swal({
-        title: 'BEFORE entering/registering a HS:',
+        title: 'Register Handshake Checklist:',
         button: false,
+        className: `${match ? 'modal-1300' : ''}`,
         content: (
           <ChecklistModal
             onSubmit={this.onRegisterHandshake}
@@ -83,13 +87,18 @@ class HandshakeRegisterAlert extends Component {
                   {buttonText}
                 </button>
                 :
-                <InteractiveElement onClick={hsRegisterModal}>
-                  <button
-                    className="tm-button-transparent tm-button-submit-bid"
-                  >
-                    {buttonText}
-                  </button>
-                </InteractiveElement>
+                <MediaQuery breakpoint="screenXlgMin" widthType="min">
+                  {matches => (
+                    <>
+                      <button
+                        className="tm-button-transparent tm-button-submit-bid"
+                        onClick={hsRegisterModal(matches)}
+                      >
+                        {buttonText}
+                      </button>
+                    </>
+                  )}
+                </MediaQuery>
               }
             </div>
           </div>
