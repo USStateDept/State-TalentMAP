@@ -260,10 +260,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="user-circle-o"
-        key="Employee Agenda Search"
+        key="Employee Agendas"
         link="/profile/ao/employeeagendasearch"
         search=""
-        title="Employee Agenda Search"
+        title="Employee Agendas"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -299,10 +299,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="user-circle-o"
-        key="Employee Agenda Search"
+        key="Employee Agendas"
         link="/profile/cdo/employeeagendasearch"
         search=""
-        title="Employee Agenda Search"
+        title="Employee Agendas"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -569,10 +569,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="user-circle-o"
-        key="Employee Agenda Search"
+        key="Employee Agendas"
         link="/profile/ao/employeeagendasearch"
         search=""
-        title="Employee Agenda Search"
+        title="Employee Agendas"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -608,10 +608,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="user-circle-o"
-        key="Employee Agenda Search"
+        key="Employee Agendas"
         link="/profile/cdo/employeeagendasearch"
         search=""
-        title="Employee Agenda Search"
+        title="Employee Agendas"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>

@@ -3,7 +3,7 @@
 exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
 <div>
   <div
-    className="bidder-portfolio-page card-view"
+    className="bidder-portfolio-page profile-content-inner-container"
   >
     <div
       className="usa-grid-full results-search-bar-container"
@@ -37,7 +37,7 @@ exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
 exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
 <div>
   <div
-    className="bidder-portfolio-page card-view"
+    className="bidder-portfolio-page profile-content-inner-container"
   >
     <div
       className="usa-grid-full results-search-bar-container"
