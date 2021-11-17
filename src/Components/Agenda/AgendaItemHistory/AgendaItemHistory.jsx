@@ -24,7 +24,7 @@ const AgendaItemHistory = () => {
                 <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
               </div>
               <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <ExportLink disabled={false} />
+                <ExportLink disabled />
               </div>
             </div>
           </div>
