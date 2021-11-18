@@ -81,20 +81,23 @@ class HandshakeRegisterAlert extends Component {
               {mainText}
             </div>
             <div className="usa-grid-full register-submission-buttons-container">
-              {isUnregister ?
-                <button
-                  className="tm-button-transparent tm-button-submit-bid"
-                  onClick={this.onUnregisterHandshake}
-                >
-                  {buttonText}
-                </button>
-                :
-                <button
-                  className="tm-button-transparent tm-button-submit-bid"
-                  onClick={useRegisterChecklist() ? hsRegisterModal : this.onRegisterHandshake}
-                >
-                  {buttonText}
-                </button>
+              {isUnregister
+                ?
+                (
+                  <button
+                    className="tm-button-transparent tm-button-submit-bid"
+                    onClick={this.onUnregisterHandshake}
+                  >
+                    {buttonText}
+                  </button>
+                ) : (
+                  <button
+                    className="tm-button-transparent tm-button-submit-bid"
+                    onClick={useRegisterChecklist() ? hsRegisterModal : this.onRegisterHandshake}
+                  >
+                    {buttonText}
+                  </button>
+                )
               }
             </div>
           </div>

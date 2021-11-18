@@ -5,7 +5,8 @@ import CheckBox from 'Components/CheckBox';
 
 const ChecklistModal = props => {
   const { checkList, submitBtnText, cancelBtnText,
-    onSubmit, rowDivider, titleDivider, onCheck } = props;
+    onSubmit, rowDivider, titleDivider, onCheck
+  } = props;
 
   const cancel = (e) => {
     e.preventDefault();
@@ -62,12 +63,8 @@ const ChecklistModal = props => {
         <div>
           {renderContent()}
           <div className="checklist-modal-buttons-container">
-            <button onClick={cancel}>{cancelBtnText}</button>
-            <button
-              onClick={submit}
-            >
-              {submitBtnText}
-            </button>
+            <button type="button" onClick={cancel}>{cancelBtnText}</button>
+            <button type="button" onClick={submit}>{submitBtnText}</button>
           </div>
         </div>
       </form>
