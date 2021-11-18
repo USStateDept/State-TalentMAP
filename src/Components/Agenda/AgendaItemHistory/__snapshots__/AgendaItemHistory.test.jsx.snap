@@ -3,16 +3,16 @@
 exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
 <div>
   <div
-    className="bidder-portfolio-page profile-content-inner-container"
+    className="bidder-portfolio-page"
   >
+    <BidderPortfolioSearch />
     <div
-      className="usa-grid-full results-search-bar-container"
+      className="usa-grid-full profile-content-inner-container"
     >
       <ProfileSectionTitle
         icon="user-circle-o"
         title="Last Name, First Name - Agenda Item History"
       />
-      <BidderPortfolioSearch />
     </div>
     <div
       className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
@@ -24,18 +24,37 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           className="usa-width-one-whole portfolio-sort-container results-dropdown"
         >
           <Connect(withRouter(BackButton)) />
-          <div>
-            <ResultsViewBy
-              initial="card"
-              onClick={[Function]}
-            />
-          </div>
           <div
-            className="export-button"
+            className="usa-width-one-whole results-dropdown bureau-controls-container"
           >
-            <Connect(ExportLink)
-              disabled={true}
-            />
+            <button
+              style={
+                Object {
+                  "float": "left",
+                }
+              }
+            >
+              Create
+            </button>
+            <div
+              className="bureau-controls-right"
+            >
+              <div
+                className="bureau-results-controls"
+              >
+                <ResultsViewBy
+                  initial="card"
+                  onClick={[Function]}
+                />
+              </div>
+              <div
+                className="export-button-container"
+              >
+                <Connect(ExportLink)
+                  disabled={true}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
