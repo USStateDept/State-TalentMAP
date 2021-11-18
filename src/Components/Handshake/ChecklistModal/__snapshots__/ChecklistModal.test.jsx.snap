@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ChecklistModal matches snapshot 1`] = `
+<div
+  className="checklist-modal"
+>
+  <form
+    className="title-divider"
+  >
+    <div>
+      <div
+        className="checklist-modal-buttons-container"
+      >
+        <button
+          onClick={[Function]}
+        >
+          Cancel
+        </button>
+        <button
+          onClick={[Function]}
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+`;
