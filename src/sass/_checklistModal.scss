@@ -2,19 +2,19 @@
   height: 65vh;
   overflow-y: auto;
   .row {
-    display: flex;
-    padding: 10px;
+    position: relative;
+    padding: 10px 10px 10px 0;
     .checkbox {
-      flex: 5%;
-      position: relative;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
       label {
-        margin-top: 15px;
+        margin-top: 0;
       }
     }
     .text {
-      padding: 10px;
+      padding: 10px 10px 10px 50px;
       text-align: left;
-      flex: 95%;
     }
   }
   .row-divider:not(:first-child) {
