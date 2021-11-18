@@ -8,10 +8,10 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   return (
     <div>
-      <div className="bidder-portfolio-page profile-content-inner-container">
-        <div className="usa-grid-full results-search-bar-container">
+      <div className="bidder-portfolio-page">
+        <BidderPortfolioSearch />
+        <div className="usa-grid-full profile-content-inner-container">
           <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />
-          <BidderPortfolioSearch />
         </div>
         <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
           <div className="usa-grid-full">
