@@ -20,11 +20,16 @@ const AgendaItemHistory = () => {
           <div className="usa-grid-full">
             <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
               <BackButton />
-              <div>
-                <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
-              </div>
-              <div className="export-button">
-                <ExportLink disabled />
+              <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+                <button style={{ float: 'left' }}>Create</button>
+                <div className="bureau-controls-right">
+                  <div className="bureau-results-controls">
+                    <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
+                  </div>
+                  <div className="export-button-container">
+                    <ExportLink disabled />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
