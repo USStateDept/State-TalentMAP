@@ -28,11 +28,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
             className="usa-width-one-whole results-dropdown bureau-controls-container"
           >
             <button
-              style={
-                Object {
-                  "float": "left",
-                }
-              }
+              className="create-button"
             >
               Create
             </button>
