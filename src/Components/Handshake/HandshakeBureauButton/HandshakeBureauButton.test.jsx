@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import sinon from 'sinon';
 import toJSON from 'enzyme-to-json';
+import ChecklistModal from './ChecklistModal';
 import CheckBox from 'Components/CheckBox';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import ChecklistModal from './ChecklistModal';
 
 describe('ChecklistModal', () => {
   const props = {

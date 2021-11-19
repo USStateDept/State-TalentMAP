@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import swal from '@sweetalert/with-react';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from 'Components/CheckBox';
@@ -24,7 +25,7 @@ const ChecklistModal = props => {
   };
 
   const renderContent = () => checkList.map(c => {
-    if (onCheck) {
+    if (!isEqual(onCheck, EMPTY_FUNCTION)) {
       return (
         <div className={`row ${rowDivider ? 'row-divider' : ''}`}>
           <div className="checkbox">
