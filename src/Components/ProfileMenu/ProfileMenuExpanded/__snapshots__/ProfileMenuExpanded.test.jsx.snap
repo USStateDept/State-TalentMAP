@@ -257,6 +257,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search=""
         title="Dashboard"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="user-circle-o"
+        key="Employee Agendas"
+        link="/profile/ao/employeeagendasearch"
+        search=""
+        title="Employee Agendas"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -287,6 +295,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/cdo/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="user-circle-o"
+        key="Employee Agendas"
+        link="/profile/cdo/employeeagendasearch"
+        search=""
+        title="Employee Agendas"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -550,6 +566,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         search=""
         title="Dashboard"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="user-circle-o"
+        key="Employee Agendas"
+        link="/profile/ao/employeeagendasearch"
+        search=""
+        title="Employee Agendas"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -580,6 +604,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/cdo/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="user-circle-o"
+        key="Employee Agendas"
+        link="/profile/cdo/employeeagendasearch"
+        search=""
+        title="Employee Agendas"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>

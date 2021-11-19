@@ -269,6 +269,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.agenda_search') ?
+        {
+          text: 'Employee Agendas',
+          route: '/profile/ao/employeeagendasearch',
+          icon: 'user-circle-o',
+          roles: [
+            'ao_user',
+            'superuser',
+          ],
+        } : null,
     ],
   } : null,
   {
@@ -299,6 +309,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Available Bidders',
           route: '/profile/cdo/availablebidders',
           icon: 'users',
+          roles: [
+            'cdo',
+          ],
+        } : null,
+      checkFlag('flags.agenda_search') ?
+        {
+          text: 'Employee Agendas',
+          route: '/profile/cdo/employeeagendasearch',
+          icon: 'user-circle-o',
           roles: [
             'cdo',
           ],
