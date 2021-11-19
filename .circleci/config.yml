@@ -46,7 +46,7 @@ jobs:
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
   yarn:
     <<: *default-docker-node
-    parallelism: 4
+    parallelism: 8
     steps:
       - checkout
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -64,7 +64,7 @@ jobs:
       - run:
           name: Jest Test Coverage
           command: |
-                    TEST=$(circleci tests glob "src/**/[a-bA-B0-9]*.test.{js,jsx}" "src/**/[c-jC-J]*.test.{js,jsx}" "src/**/[k-rK-R]*.test.{js,jsx}" "src/**/[s-zS-Z]*.test.{js,jsx}" | circleci tests split)
+                    TEST=$(circleci tests glob "src/**/[a-aA-A0-9]*.test.{js,jsx}" "src/**/[b-bB-B0-9]*.test.{js,jsx}" "src/**/[c-fC-f]*.test.{js,jsx}" "src/**/[g-jG-J]*.test.{js,jsx}" "src/**/[k-mK-M]*.test.{js,jsx}" "src/**/[n-rN-R]*.test.{js,jsx}" "src/**/[s-uS-U]*.test.{js,jsx}" "src/**/[v-zV-Z]*.test.{js,jsx}" | circleci tests split)
                     yarn test $TEST -- --ci --reporters=default --reporters=jest-junit --coverageReporters=lcov
           environment:
             JEST_JUNIT_OUTPUT_NAME: "reports/jest/test-results.xml"
