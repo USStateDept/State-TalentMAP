@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
+import SelectForm from 'Components/SelectForm';
 import BidderPortfolioSearch from '../../BidderPortfolio/BidderPortfolioSearch';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ExportLink from '../../BidderPortfolio/ExportLink';
@@ -9,6 +11,7 @@ const AgendaItemHistory = () => {
   const [viewType, setViewType] = useState(true);
   const [item, setItem] = useState(true);
   const view = viewType ? 'card' : 'row';
+  const sorts = AGENDA_ITEM_HISTORY_FILTERS;
 
   // will need to be updated
   // with the create functionality
@@ -32,6 +35,14 @@ const AgendaItemHistory = () => {
                 <div className="bureau-controls-right">
                   <div className="bureau-results-controls">
                     <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
+                    <SelectForm
+                      // id="position-manager-num-results"
+                      options={sorts.options}
+                      label="Sort by:"
+                      // defaultSort={ordering}
+                      // onSelectOption={value => setOrdering(value.target.value)}
+                      // disabled={bureauPositionsIsLoading}
+                    />
                     <ExportLink disabled />
                   </div>
                 </div>
