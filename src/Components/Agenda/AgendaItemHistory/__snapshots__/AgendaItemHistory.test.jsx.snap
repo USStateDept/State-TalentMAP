@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
+<div>
+  <div
+    className="bidder-portfolio-page"
+  >
+    <BidderPortfolioSearch />
+    <div
+      className="usa-grid-full profile-content-inner-container"
+    >
+      <ProfileSectionTitle
+        icon="user-circle-o"
+        title="Last Name, First Name - Agenda Item History"
+      />
+    </div>
+    <div
+      className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <div
+          className="usa-width-one-whole portfolio-sort-container results-dropdown"
+        >
+          <Connect(withRouter(BackButton)) />
+          <div
+            className="usa-width-one-whole results-dropdown bureau-controls-container"
+          >
+            <button
+              className="create-item-button"
+              onClick={[Function]}
+            >
+              Create
+            </button>
+            <div
+              className="bureau-controls-right"
+            >
+              <div
+                className="bureau-results-controls"
+              >
+                <ResultsViewBy
+                  initial="card"
+                  onClick={[Function]}
+                />
+                <Connect(ExportLink)
+                  disabled={true}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
