@@ -10,9 +10,7 @@ describe('ChecklistModal', () => {
     checkList: ['a', 'b', 'c'],
     rowDivider: true,
     titleDivider: true,
-    onCheck: () => {
-      const str = "i'm not empty";
-    },
+    onCheck: () => null,
   };
 
   it('is defined', () => {
@@ -20,18 +18,14 @@ describe('ChecklistModal', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can call cancel', () => {
+  it('calls cancel', () => {
     const wrapper = shallow(<ChecklistModal
       {...props}
     />);
-    try {
-      expect(wrapper.find('.checklist-modal-buttons-container').find('button').at(0).simulate('click', { preventDefault: () => {} })).not.toThrow();
-    } catch {
-      expect(wrapper).toBeDefined();
-    }
+    expect(wrapper.find('.checklist-modal-buttons-container').find('button').at(0).simulate('click', { preventDefault: () => {} })).toBeDefined();
   });
 
-  it('can call submit', () => {
+  it('calls submit', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<ChecklistModal
       {...props}

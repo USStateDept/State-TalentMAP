@@ -12,7 +12,12 @@ const ChecklistModal = props => {
 
   const cancel = (e) => {
     e.preventDefault();
-    swal.close();
+    try {
+      swal.close();
+    } catch {
+      return null;
+    }
+    return null;
   };
 
   const submit = (e) => {
