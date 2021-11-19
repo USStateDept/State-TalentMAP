@@ -78,7 +78,7 @@ jobs:
           paths:
             - codeclimate.*.json
       - run:
-          command: cp reports/jest/test-results.xml ~/junit/junit.xml 
+          command: cp reports/jest/test-results.xml ~/junit/junit.xml
           when: always
       - store_test_results:
           path: reports
