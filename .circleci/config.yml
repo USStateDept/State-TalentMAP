@@ -46,7 +46,7 @@ jobs:
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
   yarn:
     <<: *default-docker-node
-    parallelism: 8
+    parallelism: 16
     steps:
       - checkout
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
