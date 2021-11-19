@@ -29,6 +29,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           >
             <button
               className="create-item-button"
+              onClick={[Function]}
             >
               Create
             </button>

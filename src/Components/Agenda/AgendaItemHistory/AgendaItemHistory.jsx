@@ -7,7 +7,14 @@ import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 
 const AgendaItemHistory = () => {
   const [viewType, setViewType] = useState(true);
+  const [item, setItem] = useState(true);
   const view = viewType ? 'card' : 'row';
+
+  // will need to be updated
+  // with the create functionality
+  const createItem = () => {
+    setItem(!item);
+  };
 
   return (
     <div>
@@ -21,7 +28,7 @@ const AgendaItemHistory = () => {
             <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
               <BackButton />
               <div className="usa-width-one-whole results-dropdown bureau-controls-container">
-                <button className="create-item-button">Create</button>
+                <button className="create-item-button" onClick={createItem}>Create</button>
                 <div className="bureau-controls-right">
                   <div className="bureau-results-controls">
                     <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
