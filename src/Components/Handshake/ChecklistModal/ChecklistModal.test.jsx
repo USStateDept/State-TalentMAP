@@ -41,6 +41,16 @@ describe('ChecklistModal', () => {
     sinon.assert.calledOnce(spy);
   });
 
+  it('calls function on onCheckBoxClick', () => {
+    const spy = sinon.spy();
+    const wrapper = shallow(<ChecklistModal
+      {...props}
+      onCheck={spy}
+    />);
+    wrapper.find('CheckBox').at(0).props().onCheckBoxClick();
+    sinon.assert.calledOnce(spy);
+  });
+
   it('properly render row and title dividers when true', () => {
     const wrapper = shallow(<ChecklistModal
       {...props}
