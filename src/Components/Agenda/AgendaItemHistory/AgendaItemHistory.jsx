@@ -9,12 +9,6 @@ const AgendaItemHistory = () => {
   const [viewType, setViewType] = useState(true);
   const view = viewType ? 'card' : 'row';
 
-  // for button code climate fix
-  const [item, setItem] = useState(true);
-  const createItem = () => {
-    setItem(!item);
-  };
-
   return (
     <div>
       <div className="bidder-portfolio-page">
@@ -27,7 +21,7 @@ const AgendaItemHistory = () => {
             <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
               <BackButton />
               <div className="usa-width-one-whole results-dropdown bureau-controls-container">
-                <button className="create-item-button" onClick={() => createItem()}>Create</button>
+                <button className="create-item-button">Create</button>
                 <div className="bureau-controls-right">
                   <div className="bureau-results-controls">
                     <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
