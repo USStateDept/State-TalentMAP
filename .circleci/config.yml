@@ -78,7 +78,7 @@ jobs:
           paths:
             - codeclimate.*.json
       - run:
-          command: cp junit.xml ~/junit/
+          command: cp /home/circleci/project/junit.xml ~/junit/
           when: always
       - store_test_results:
           path: reports
