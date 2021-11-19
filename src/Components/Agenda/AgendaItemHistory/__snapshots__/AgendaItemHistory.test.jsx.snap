@@ -28,7 +28,8 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
             className="usa-width-one-whole results-dropdown bureau-controls-container"
           >
             <button
-              className="create-button"
+              className="create-item-button"
+              onClick={[Function]}
             >
               Create
             </button>
@@ -42,10 +43,6 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
                   initial="card"
                   onClick={[Function]}
                 />
-              </div>
-              <div
-                className="export-button-container"
-              >
                 <Connect(ExportLink)
                   disabled={true}
                 />
