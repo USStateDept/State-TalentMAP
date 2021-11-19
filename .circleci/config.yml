@@ -77,6 +77,9 @@ jobs:
           root: coverage
           paths:
             - codeclimate.*.json
+      - run:
+          command: cp junit.xml ~/junit/
+          when: always
       - store_test_results:
           path: reports
       - store_test_results:
