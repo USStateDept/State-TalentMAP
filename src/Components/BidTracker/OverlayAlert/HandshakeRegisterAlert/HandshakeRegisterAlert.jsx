@@ -82,8 +82,7 @@ class HandshakeRegisterAlert extends Component {
             </div>
             <div className="usa-grid-full register-submission-buttons-container">
               {isUnregister
-                ?
-                (
+                ? (
                   <button
                     className="tm-button-transparent tm-button-submit-bid"
                     onClick={this.onUnregisterHandshake}

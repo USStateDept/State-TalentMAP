@@ -13,11 +13,13 @@ exports[`ChecklistModal matches snapshot 1`] = `
       >
         <button
           onClick={[Function]}
+          type="button"
         >
           Cancel
         </button>
         <button
           onClick={[Function]}
+          type="button"
         >
           Submit
         </button>

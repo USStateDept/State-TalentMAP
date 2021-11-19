@@ -4,8 +4,9 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import CheckBox from 'Components/CheckBox';
 
 const ChecklistModal = props => {
-  const { checkList, submitBtnText, cancelBtnText,
-    onSubmit, rowDivider, titleDivider, onCheck
+  const {
+    checkList, submitBtnText, cancelBtnText,
+    onSubmit, rowDivider, titleDivider, onCheck,
   } = props;
 
   const cancel = (e) => {
