@@ -125,7 +125,7 @@
     "@types/react-dom": "^17.0.10",
     "@types/react-fontawesome": "^1.6.5",
     "@types/react-responsive": "^8.0.4",
-    "@types/react-router-dom": "^5.3.1",
+    "@types/react-router-dom": "^5.3.2",
     "@types/shortid": "^0.0.29",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
