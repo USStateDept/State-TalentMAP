@@ -184,12 +184,12 @@ export const BUREAU_BIDDER_FILTERS = {
 };
 
 export const AGENDA_ITEM_HISTORY_FILTERS = {
-  // values tbd based on what WS returns
+  // values tbd, subject to what WS returns
   options: [
     { value: 'status', text: 'Agenda Status' }, // TBD, need to establish sort hierarchy
-    { value: '-panel_date', text: 'Panel date: Most Recent' }, // does most recent = earliest or latest
-    { value: 'panel_date', text: 'Panel date: Oldest' }, // does oldest = earliest or latest
-    { value: '-updated_date', text: 'Updated date: Most Recent' },
-    { value: 'updated_date', text: 'Updated date: Oldest' },
+    { value: '-panel_date', text: 'Panel date: Latest' }, // does most recent = earliest or latest
+    { value: 'panel_date', text: 'Panel date: Earliest' }, // does oldest = earliest or latest
+    { value: '-updated_date', text: 'Updated date: Latest' },
+    { value: 'updated_date', text: 'Updated date: Earliest' },
   ],
 };

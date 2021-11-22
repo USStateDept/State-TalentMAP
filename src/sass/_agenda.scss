@@ -6,3 +6,56 @@
 .create-item-button {
   float: left;
 }
+
+.employee-agenda-page {
+  border-top: 1px solid #FFFFFF;
+
+  .bidder-portfolio-search-container {
+    background-color: $bg-blue-dark-1;
+    padding: 12px 31px;
+  }
+
+  .results-search-bar-container {
+    max-width: unset;
+    padding: 0;
+  }
+
+  .search-submit-button {
+    margin-top: 13px;
+  }
+}
+
+.agenda-controls-container {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 15px;
+
+  div:first-child {
+    padding-left: 35px;
+  }
+}
+
+.agenda-controls-right {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  padding-right: 35px;
+}
+
+.agenda-results-controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  padding: 0px 35px;
+
+  div:first-child {
+    margin-right: 10px;
+  }
+
+  div {
+    display: flex;
+    align-items: baseline;
+  }
+}

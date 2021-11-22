@@ -15,33 +15,32 @@ const AgendaItemHistory = () => {
 
   // will need to be updated
   // with the create functionality
+  // functionality will be done in the card ticket
   const createItem = () => {
     setItem(!item);
   };
 
   return (
     <div>
-      <div className="bidder-portfolio-page">
+      <div className="employee-agenda-page">
         <BidderPortfolioSearch />
         <div className="usa-grid-full profile-content-inner-container">
           <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
         </div>
-        <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
+        <div className="usa-grid-full profile-content-inner-container">
           <div className="usa-grid-full">
-            <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
+            <div className="usa-width-one-whole">
               <BackButton />
-              <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+              <div className="usa-width-one-whole results-dropdown agenda-controls-container">
                 <button className="create-item-button" onClick={createItem}>Create</button>
-                <div className="bureau-controls-right">
-                  <div className="bureau-results-controls">
+                <div className="agenda-controls-right">
+                  <div className="agenda-results-controls">
                     <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
+                    {/* still needs to be intergrated into */}
                     <SelectForm
-                      // id="position-manager-num-results"
+                      id="agenda-item-history-results"
                       options={sorts.options}
                       label="Sort by:"
-                      // defaultSort={ordering}
-                      // onSelectOption={value => setOrdering(value.target.value)}
-                      // disabled={bureauPositionsIsLoading}
                     />
                     <ExportLink disabled />
                   </div>
