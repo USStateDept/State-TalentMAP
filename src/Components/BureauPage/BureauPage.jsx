@@ -4,6 +4,8 @@ import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
+import EmployeeAgendaSearch from '../../Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
+import AgendaItemHistory from '../../Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 
 const BureauPage = () => {
   const dashboardProps = {
@@ -21,6 +23,8 @@ const BureauPage = () => {
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
+        <Route path="/profile/ao/employeeagendasearch" render={() => <EmployeeAgendaSearch />} />
+        <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />

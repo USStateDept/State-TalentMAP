@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
+<div>
+  <div
+    className="bidder-portfolio-page"
+  >
+    <BidderPortfolioSearch />
+    <div
+      className="usa-grid-full profile-content-inner-container"
+    >
+      <ProfileSectionTitle
+        icon="user-circle-o"
+        title="Employee Agenda Search"
+      />
+    </div>
+    <div
+      className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <h4>
+          <Link
+            replace={false}
+            to="/profile/cdo/agendaitemhistory/perdet"
+          >
+            View Employee History
+          </Link>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
+<div>
+  <div
+    className="bidder-portfolio-page"
+  >
+    <BidderPortfolioSearch />
+    <div
+      className="usa-grid-full profile-content-inner-container"
+    >
+      <ProfileSectionTitle
+        icon="user-circle-o"
+        title="Employee Agenda Search"
+      />
+    </div>
+    <div
+      className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+    >
+      <div
+        className="usa-grid-full"
+      >
+        <h4>
+          <Link
+            replace={false}
+            to="/profile/ao/agendaitemhistory/perdet"
+          >
+            View Employee History
+          </Link>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -28,6 +28,7 @@
     "classifications": true,
     "handshake_bidding": true,
     "post_handshake": false,
-    "post": false
+    "post": false,
+    "agenda_search": true
   }
 }
