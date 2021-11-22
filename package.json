@@ -53,7 +53,7 @@
     "react-calendar": "^3.5.0",
     "react-copy-to-clipboard": "^5.0.4",
     "react-countup": "3.0.3",
-    "react-datepicker": "^4.2.1",
+    "react-datepicker": "^4.3.0",
     "react-day-picker": "^7.4.8",
     "react-dom": "^16.14.0",
     "react-dom-confetti": "^0.2.0",
