@@ -194,22 +194,23 @@ $tm-focus-outline-offset-default: 3px;
 //* z-index
 //*
 // we'll use this section to keep track of and order them
-$autosuggest-suggestions-container-open-z: 20;
+$glossary-z: 20000;
 $dropdown-content-z: 15000;
 $feedback-z: 11000;
-$feedback-button-z: 10000;
-$scrollbar-z: 0;
 $skill-code-dropdown-z: 10500;
+$back-to-top-z: 10200;
+$feedback-button-z: 10000;
+$client-header-z: 9001;
+$banner-toggle-z: 150;
 $spinner-z: 100;
 $bureau-spinner-z: 98;
-$toggle-button-z: 5;
+$autosuggest-suggestions-container-open-z: 20;
 $ribbon-z: 10;
-$back-to-top-z: 10200;
-$glossary-z: 20000;
+$toggle-button-z: 5;
 $glossary-close-z: 1;
 $ribbon-condensed-card-z: 1;
 $condensed-card-top-z: 1;
-$client-header-z: 9001;
+$scrollbar-z: 0;
 
 //**
 //* Images

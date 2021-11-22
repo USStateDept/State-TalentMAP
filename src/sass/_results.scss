@@ -991,3 +991,16 @@ $results-container-width: 100% - $filter-container-width;
   position: relative;
   top: 1px;
 }
+
+.tutorial-button {
+  bottom: 5px;
+  color: $primary-blue;
+  font-size: 2em;
+  left: 10px;
+  position: fixed;
+
+  > span {
+    border-radius: 100%;
+    box-shadow: 0 0 90px 5px $primary-blue;
+  }
+}
