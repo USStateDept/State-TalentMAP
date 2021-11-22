@@ -3,28 +3,6 @@
   justify-content: flex-end;
 }
 
-.create-item-button {
-  float: left;
-}
-
-.employee-agenda-page {
-  border-top: 1px solid $color-white;
-
-  .bidder-portfolio-search-container {
-    background-color: $bg-blue-dark-1;
-    padding: 12px 31px;
-  }
-
-  .results-search-bar-container {
-    max-width: unset;
-    padding: 0;
-  }
-
-  .search-submit-button {
-    margin-top: 13px;
-  }
-}
-
 .agenda-controls-container {
   align-items: baseline;
   display: flex;
