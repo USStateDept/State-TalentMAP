@@ -872,19 +872,16 @@ export function getCustomLocation(loc, org) {
   return x;
 }
 
-export const useCloseSwalOnUnmount = () =>
-  useEffect(() => () => {
-    try {
-      swal.close();
-    } catch { return null; }
-    return null;
-  }, []);
-
-export const closeSwalOnUnmount = () => {
+export const closeSwal = () => {
   try {
     swal.close();
   } catch { return null; }
   return null;
 };
+
+export const useCloseSwalOnUnmount = () =>
+  useEffect(() => () => {
+    closeSwal();
+  }, []);
 
 export const splitByLineBreak = text => (text || '').split('\n\n\n');

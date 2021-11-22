@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { get } from 'lodash';
-import { closeSwalOnUnmount, formatDate, getPostName } from 'utilities';
+import { closeSwal, formatDate, getPostName } from 'utilities';
 import swal from '@sweetalert/with-react';
 import ChecklistModal from 'Components/Handshake/ChecklistModal/ChecklistModal';
 import HS_REGISTER_CHECKLIST from 'Constants/RegisterChecklist';
@@ -13,7 +13,7 @@ const useRegisterChecklist = () => checkFlag('flags.register_checklist');
 
 class HandshakeRegisterAlert extends Component {
   componentWillUnmount() {
-    closeSwalOnUnmount();
+    closeSwal();
   }
 
   onRegisterHandshake = () => {
