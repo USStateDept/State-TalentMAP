@@ -62,7 +62,7 @@
     margin: 0;
     position: absolute;
     bottom: -19px;
-    z-index: 1000;
+    z-index: $banner-toggle-z;
     border-radius: 20px;
     background-color: $tertiary-gold-lightest;
     color: black;
