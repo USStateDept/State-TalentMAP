@@ -8,7 +8,7 @@
 }
 
 .employee-agenda-page {
-  border-top: 1px solid #FFFFFF;
+  border-top: 1px solid $color-white;
 
   .bidder-portfolio-search-container {
     background-color: $bg-blue-dark-1;
@@ -26,8 +26,8 @@
 }
 
 .agenda-controls-container {
-  display: flex;
   align-items: baseline;
+  display: flex;
   justify-content: space-between;
   padding-top: 15px;
 
@@ -37,8 +37,8 @@
 }
 
 .agenda-controls-right {
-  display: flex;
   align-items: baseline;
+  display: flex;
   justify-content: center;
   padding-right: 35px;
 }
@@ -48,14 +48,14 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 10px;
-  padding: 0px 35px;
+  padding: 0 35px;
 
   div:first-child {
     margin-right: 10px;
   }
 
   div {
-    display: flex;
     align-items: baseline;
+    display: flex;
   }
 }
