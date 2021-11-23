@@ -19,20 +19,22 @@ const AgendaItemHistory = () => {
       <div className="usa-grid-full profile-content-inner-container">
         <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
         <BackButton />
-        <div className="usa-width-one-whole results-dropdown agenda-controls-container">
-          For Pagination Results
-          <div className="agenda-results-controls">
-            <button className="usa-button-secondary">
-              Create Agenda Item
-            </button>
-            <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
-            {/* still needs to be intergrated into */}
-            <SelectForm
-              id="agenda-item-history-results"
-              options={sorts.options}
-              label="Sort by:"
-            />
-            <ExportLink disabled />
+        <div className="usa-grid-full portfolio-controls">
+          <div className="usa-width-one-whole results-dropdown agenda-controls-container">
+            For Pagination Results
+            <div className="agenda-results-controls">
+              <button className="usa-button-secondary">
+                Create Agenda Item
+              </button>
+              <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
+              {/* still needs to be intergrated into */}
+              <SelectForm
+                id="agenda-item-history-results"
+                options={sorts.options}
+                label="Sort by:"
+              />
+              <ExportLink disabled />
+            </div>
           </div>
         </div>
         <div className="ai-history-cards-container">
