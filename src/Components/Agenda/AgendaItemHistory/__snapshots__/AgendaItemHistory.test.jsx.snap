@@ -9,73 +9,57 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
       icon="user-circle-o"
       title="Last Name, First Name - Agenda Item History"
     />
-  </div>
-  <div
-    className="usa-grid-full profile-content-inner-container"
-  >
+    <Connect(withRouter(BackButton)) />
     <div
-      className="usa-grid-full"
+      className="usa-width-one-whole results-dropdown agenda-controls-container"
     >
+      For Pagination Results
       <div
-        className="usa-width-one-whole"
+        className="agenda-results-controls"
       >
-        <Connect(withRouter(BackButton)) />
-        <div
-          className="usa-width-one-whole results-dropdown agenda-controls-container"
-        >
-          For Pagination Results
-          <div
-            className="agenda-controls-right"
-          >
-            <div
-              className="agenda-results-controls"
-            >
-              <ResultsViewBy
-                initial="card"
-                onClick={[Function]}
-              />
-              <SelectForm
-                className="select-offset select-black"
-                defaultSort={null}
-                disabled={false}
-                emptyOptionText="- Select -"
-                id="agenda-item-history-results"
-                includeFirstEmptyOption={false}
-                label="Sort by:"
-                labelSrOnly={false}
-                onSelectOption={[Function]}
-                options={
-                  Array [
-                    Object {
-                      "text": "Agenda Status",
-                      "value": "status",
-                    },
-                    Object {
-                      "text": "Panel date: Latest",
-                      "value": "-panel_date",
-                    },
-                    Object {
-                      "text": "Panel date: Earliest",
-                      "value": "panel_date",
-                    },
-                    Object {
-                      "text": "Updated date: Latest",
-                      "value": "-updated_date",
-                    },
-                    Object {
-                      "text": "Updated date: Earliest",
-                      "value": "updated_date",
-                    },
-                  ]
-                }
-                transformValue={[Function]}
-              />
-              <Connect(ExportLink)
-                disabled={true}
-              />
-            </div>
-          </div>
-        </div>
+        <ResultsViewBy
+          initial="card"
+          onClick={[Function]}
+        />
+        <SelectForm
+          className="select-offset select-black"
+          defaultSort={null}
+          disabled={false}
+          emptyOptionText="- Select -"
+          id="agenda-item-history-results"
+          includeFirstEmptyOption={false}
+          label="Sort by:"
+          labelSrOnly={false}
+          onSelectOption={[Function]}
+          options={
+            Array [
+              Object {
+                "text": "Agenda Status",
+                "value": "status",
+              },
+              Object {
+                "text": "Panel date: Latest",
+                "value": "-panel_date",
+              },
+              Object {
+                "text": "Panel date: Earliest",
+                "value": "panel_date",
+              },
+              Object {
+                "text": "Updated date: Latest",
+                "value": "-updated_date",
+              },
+              Object {
+                "text": "Updated date: Earliest",
+                "value": "updated_date",
+              },
+            ]
+          }
+          transformValue={[Function]}
+        />
+        <Connect(ExportLink)
+          disabled={true}
+        />
       </div>
     </div>
   </div>
