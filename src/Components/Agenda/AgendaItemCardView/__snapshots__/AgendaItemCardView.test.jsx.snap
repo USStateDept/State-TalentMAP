@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemCardView Component matches snapshot 1`] = `
+<div>
+  in AgendaItemCardView
+</div>
+`;

@@ -1,8 +1,136 @@
-.export-button-container {
-  display: flex;
-  justify-content: flex-end;
-}
+.agenda-item-history-container {
+  .agenda-controls-container {
+    align-items: baseline;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
 
-.create-item-button {
-  float: left;
+    .agenda-results-controls {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      padding: 0 35px;
+
+      div:first-child {
+        margin-right: 10px;
+      }
+
+      div {
+        align-items: baseline;
+        display: flex;
+      }
+    }
+  }
+
+  .ai-history-cards-container {
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .ai-history-card {
+      background-color: $color-white;
+      display: flex;
+      border-radius: 20px;
+      flex-direction: column;
+      box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
+      height: 250px;
+      width: 350px;
+      margin: 25px 15px;
+      padding: 15px;
+
+      .ai-history-card-title {
+        display: flex;
+        justify-content: space-evenly;
+        font-weight: bold;
+
+        .arrow {
+          align-items: center;
+          display: flex;
+          .arrow-tail {
+            height: 4px;
+            width: 10px;
+            background-color: $color-black;
+            margin: 3px;
+          }
+          .arrow-right {
+            width: 0;
+            height: 0;
+            margin: -3px;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid $color-black;
+          }
+        }
+      }
+
+      .ai-history-card-status-date {
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+
+        .ai-history-card-pill {
+          color: $color-white;
+        }
+
+        .ai-history-card-panel-date {
+          font-size: small;
+        }
+      }
+
+      .ai-history-card-legs {
+        table {
+          margin: 0px;
+
+          td {
+            padding: 0;
+            border: none;
+          }
+          th {
+            display: flex;
+            border: none;
+            justify-content: space-between;
+            padding: .5rem 1rem;
+          }
+          .d {
+            color: #a9a9a9;
+            font-size: small;
+          }
+          .e {
+            text-align: center;
+          }
+          dt {
+            font-weight: bold;
+          }
+          dd {
+            margin: 0 10px;
+          }
+          tr:not(:first-child) {
+            td:last-of-type {
+              border-left: 1px solid #a9a9a9 !important;
+            }
+          }
+        }
+      }
+
+      .ai-history-card-footer {
+        text-align: right;
+      }
+    }
+
+    .a {
+      display: flex;
+      flex-direction: column;
+      height: 250px;
+      width: 350px;
+      margin: 25px 15px;
+      padding: 15px;
+
+      .plusIcon {
+        font-size: 100px;
+        color: #102e51;
+        margin: auto;
+      }
+    }
+  }
 }

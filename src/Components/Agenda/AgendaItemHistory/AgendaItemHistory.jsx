@@ -1,43 +1,55 @@
 import { useState } from 'react';
-import BidderPortfolioSearch from '../../BidderPortfolio/BidderPortfolioSearch';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
+import BackButton from 'Components/BackButton';
+import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
+import SelectForm from 'Components/SelectForm';
+import AgendaItemCardView from '../AgendaItemCardView';
+import AgendaItemRowView from '../AgendaItemRowView';
 import ExportLink from '../../BidderPortfolio/ExportLink';
-import BackButton from '../../BackButton';
+import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 
 const AgendaItemHistory = () => {
-  const [viewType, setViewType] = useState(true);
-  const [item, setItem] = useState(true);
-  const view = viewType ? 'card' : 'row';
-
-  // will need to be updated
-  // with the create functionality
-  const createItem = () => {
-    setItem(!item);
-  };
+  const [cardView, setCardView] = useState(true);
+  const view = cardView ? 'card' : 'row';
+  const fakeArr = [2, 3, 4, 2, 7, 3, 4, 7, 1, 1, 2, 3, 4, 5, 6, 1, 3, 2, 3, 2, 2, 3];
+  const sorts = AGENDA_ITEM_HISTORY_FILTERS;
 
   return (
-    <div>
-      <div className="bidder-portfolio-page">
-        <BidderPortfolioSearch />
-        <div className="usa-grid-full profile-content-inner-container">
-          <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
-        </div>
-        <div className="usa-grid-full bidder-portfolio-container profile-content-inner-container">
-          <div className="usa-grid-full">
-            <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
-              <BackButton />
-              <div className="usa-width-one-whole results-dropdown bureau-controls-container">
-                <button className="create-item-button" onClick={createItem}>Create</button>
-                <div className="bureau-controls-right">
-                  <div className="bureau-results-controls">
-                    <ResultsViewBy initial={view} onClick={() => setViewType(!viewType)} />
-                    <ExportLink disabled />
-                  </div>
-                </div>
-              </div>
-            </div>
+    <div className="agenda-item-history-container">
+      <div className="usa-grid-full profile-content-inner-container">
+        <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
+        <BackButton />
+        <div className="usa-width-one-whole results-dropdown agenda-controls-container">
+          For Pagination Results
+          <div className="agenda-results-controls">
+            <button className="usa-button-secondary">
+              Create Agenda Item
+            </button>
+            <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
+            {/* still needs to be intergrated into */}
+            <SelectForm
+              id="agenda-item-history-results"
+              options={sorts.options}
+              label="Sort by:"
+            />
+            <ExportLink disabled />
           </div>
+        </div>
+        <div className="ai-history-cards-container">
+          {
+            cardView &&
+              <AgendaItemCardView adder />
+          }
+          {
+            cardView ?
+              fakeArr.map(result => (
+                <AgendaItemCardView result={result} />
+              ))
+              :
+              fakeArr.map(result => (
+                <AgendaItemRowView result={result} />
+              ))
+          }
         </div>
       </div>
     </div>
