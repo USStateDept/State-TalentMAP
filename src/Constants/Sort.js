@@ -186,9 +186,9 @@ export const BUREAU_BIDDER_FILTERS = {
 export const AGENDA_ITEM_HISTORY_FILTERS = {
   // values tbd, subject to what WS returns
   options: [
-    { value: 'status', text: 'Agenda Status' }, // TBD, need to establish sort hierarchy
-    { value: '-panel_date', text: 'Panel date: Latest' }, // does most recent = earliest or latest
-    { value: 'panel_date', text: 'Panel date: Earliest' }, // does oldest = earliest or latest
+    { value: 'status', text: 'Agenda Status' },
+    { value: '-panel_date', text: 'Panel date: Latest' },
+    { value: 'panel_date', text: 'Panel date: Earliest' },
     { value: '-updated_date', text: 'Updated date: Latest' },
     { value: 'updated_date', text: 'Updated date: Earliest' },
   ],
