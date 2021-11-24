@@ -24,14 +24,13 @@
   }
 
   .ai-history-cards-container {
-    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
 
     .ai-history-card {
       background-color: $color-white;
       display: flex;
-      border-radius: 20px;
+      border-radius: 10px;
       flex-direction: column;
       box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
       height: 250px;

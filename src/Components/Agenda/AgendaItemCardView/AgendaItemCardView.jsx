@@ -2,9 +2,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
+import { shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
-import { format, isDate } from 'date-fns-v2';
-import { shortenString } from '../../../utilities';
+import AgendaItemLegs from '../AgendaItemLegs';
 
 const AgendaItemCardView = props => {
   const {
@@ -14,8 +14,32 @@ const AgendaItemCardView = props => {
   // eslint-disable-next-line no-unused-vars
   const [fake, setFake] = useState(true);
   const fD = {
-    currentPosition: 'PUBLIC DIPLOMACY sdkjbkjshdfb jdshf ',
-    onwardPosition: 'INFO MANAGENT ksdbkjhsdb jhsd f',
+    legs: [
+      {
+        position: 'PUBLIC DIPLOMACY sdkjbkjshdfb jdshf ',
+        org: 'PARIS lorem ipsum lorem ipsum',
+        eta: '1/15/18',
+        ted: '9/5/20',
+      },
+      {
+        position: 'two',
+        org: 'BELGRADE lorem ipsum lorem ipsum',
+        eta: '9/22/20',
+        ted: '12/17/22',
+      },
+      {
+        position: 'another',
+        org: 'PARIS lorem ipsum lorem ipsum',
+        eta: '1/15/18',
+        ted: '9/5/20',
+      },
+      {
+        position: 'INFO MANAGENT ksdbkjhsdb jhsd f',
+        org: 'BELGRADE lorem ipsum lorem ipsum',
+        eta: '9/22/20',
+        ted: '12/17/22',
+      },
+    ],
     pillColors: [
       '#227c9dff',
       '#17c3b2ff',
@@ -33,26 +57,16 @@ const AgendaItemCardView = props => {
       'Approved',
       'Withdrawn'],
     panelDate: '8/3/2021',
-    currentOrg: 'PARIS lorem ipsum lorem ipsum',
-    onwardOrg: 'BELGRADE lorem ipsum lorem ipsum',
-    currentEta: '1/15/18',
-    onwardEta: '9/22/20',
-    currentTed: '9/5/20',
-    onwardTed: '12/17/22',
   };
   const randomColor = fD.pillColors[Math.floor(Math.random() * fD.pillColors.length)];
   const randomStat = fD.pillStats[Math.floor(Math.random() * fD.pillStats.length)];
 
 
-  const curPos = shortenString(get(fD, 'currentPosition'), 15);
-  const onWrdPos = shortenString(get(fD, 'onwardPosition'), 15);
-  const curOrg = shortenString(get(fD, 'currentOrg'), 12);
-  const onWrdOrg = shortenString(get(fD, 'onwardOrg'), 12);
-  const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
-
+  const curPos = shortenString(get(fD, 'legs[0].position'), 15);
+  const onWrdPos = shortenString(get(fD, 'legs[3].position'), 15);
 
   // eslint-disable-next-line no-console
-  const fakeClick = () => { console.log('so fake'); };
+  const fakeClick = () => { console.log('so fake, fd.legs', fD.legs); };
   return (
     <>
       {
@@ -89,68 +103,7 @@ const AgendaItemCardView = props => {
                   Panel Date: {fD.panelDate}
               </div>
             </div>
-            <div className="ai-history-card-legs">
-              <table className="c">
-                <tbody >
-                  <tr>
-                    <td>
-                      <FA name="building-o" />
-                    </td>
-                    <th>
-                      <dt>Org</dt>
-                    </th>
-                    <td>
-                      <dd>{curOrg}</dd>
-                    </td>
-                    <td>
-                      <dd>{onWrdOrg}</dd>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <FA name="paper-plane-o" />
-                    </td>
-                    <th>
-                      <dt>ETA</dt>
-                    </th>
-                    <td>
-                      <dd>{formatDate(fD.currentEta)}</dd>
-                    </td>
-                    <td>
-                      <dd>{formatDate(fD.onwardEta)}</dd>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td />
-                    <td />
-                    <td className="d">
-                      <dd>
-                        <FA name="arrow-down" />
-                      </dd>
-                    </td>
-                    <td className="d">
-                      <dd>
-                        <FA name="arrow-down" />
-                      </dd>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <FA name="clock-o" />
-                    </td>
-                    <th>
-                      <dt>TED/SEP</dt>
-                    </th>
-                    <td>
-                      <dd>{formatDate(fD.currentTed)}</dd>
-                    </td>
-                    <td>
-                      <dd>{formatDate(fD.onwardTed)}</dd>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            <AgendaItemLegs fakeData={fD.legs} />
             <div className="ai-history-card-footer">
               <InteractiveElement onClick={() => fakeClick()}>
                 <FA name="pencil" />
