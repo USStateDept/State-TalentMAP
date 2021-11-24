@@ -7,6 +7,7 @@ import AgendaItemRowView from '../AgendaItemRowView';
 import ExportLink from '../../BidderPortfolio/ExportLink';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
+import ScrollUpButton from '../../ScrollUpButton';
 
 const AgendaItemHistory = () => {
   const [cardView, setCardView] = useState(false);
@@ -48,6 +49,7 @@ const AgendaItemHistory = () => {
                 <AgendaItemRowView result={result} />
               ))
           }
+          <ScrollUpButton />
         </div>
       </div>
     </div>

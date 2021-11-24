@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { get } from 'lodash';
 import InteractiveElement from 'Components/InteractiveElement';
+import { format, isDate } from 'date-fns-v2';
+import { shortenString } from '../../../utilities';
 
 const AgendaItemCardView = props => {
   const {
@@ -11,8 +14,8 @@ const AgendaItemCardView = props => {
   // eslint-disable-next-line no-unused-vars
   const [fake, setFake] = useState(true);
   const fD = {
-    currentPosition: 'Public Diplomacy',
-    onwardPosition: 'INFO MANAGENT',
+    currentPosition: 'PUBLIC DIPLOMACY sdkjbkjshdfb jdshf ',
+    onwardPosition: 'INFO MANAGENT ksdbkjhsdb jhsd f',
     pillColors: [
       '#227c9dff',
       '#17c3b2ff',
@@ -30,9 +33,23 @@ const AgendaItemCardView = props => {
       'Approved',
       'Withdrawn'],
     panelDate: '8/3/2021',
+    currentOrg: 'PARIS lorem ipsum lorem ipsum',
+    onwardOrg: 'BELGRADE lorem ipsum lorem ipsum',
+    currentEta: '1/15/18',
+    onwardEta: '9/22/20',
+    currentTed: '9/5/20',
+    onwardTed: '12/17/22',
   };
   const randomColor = fD.pillColors[Math.floor(Math.random() * fD.pillColors.length)];
   const randomStat = fD.pillStats[Math.floor(Math.random() * fD.pillStats.length)];
+
+
+  const curPos = shortenString(get(fD, 'currentPosition'), 15);
+  const onWrdPos = shortenString(get(fD, 'onwardPosition'), 15);
+  const curOrg = shortenString(get(fD, 'currentOrg'), 12);
+  const onWrdOrg = shortenString(get(fD, 'onwardOrg'), 12);
+  const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
+
 
   // eslint-disable-next-line no-console
   const fakeClick = () => { console.log('so fake'); };
@@ -55,14 +72,14 @@ const AgendaItemCardView = props => {
           <div className="ai-history-card">
             <div className="ai-history-card-title">
               {/* eslint-disable-next-line react/no-unescaped-entities */}
-              {fD.currentPosition}
+              {curPos}
               <div className="arrow">
                 <div className="arrow-tail" />
                 {result}
                 <div className="arrow-tail" />
                 <div className="arrow-right" />
               </div>
-              {fD.onwardPosition}
+              {onWrdPos}
             </div>
             <div className="ai-history-card-status-date">
               <div className="pill ai-history-card-pill" style={{ backgroundColor: randomColor }}>
@@ -83,10 +100,10 @@ const AgendaItemCardView = props => {
                       <dt>Org</dt>
                     </th>
                     <td>
-                      <dd>Paris</dd>
+                      <dd>{curOrg}</dd>
                     </td>
                     <td>
-                      <dd>Belgrade</dd>
+                      <dd>{onWrdOrg}</dd>
                     </td>
                   </tr>
                   <tr>
@@ -97,10 +114,10 @@ const AgendaItemCardView = props => {
                       <dt>ETA</dt>
                     </th>
                     <td>
-                      <dd>9/18</dd>
+                      <dd>{formatDate(fD.currentEta)}</dd>
                     </td>
                     <td>
-                      <dd>9/20</dd>
+                      <dd>{formatDate(fD.onwardEta)}</dd>
                     </td>
                   </tr>
                   <tr>
@@ -125,10 +142,10 @@ const AgendaItemCardView = props => {
                       <dt>TED/SEP</dt>
                     </th>
                     <td>
-                      <dd>9/20</dd>
+                      <dd>{formatDate(fD.currentTed)}</dd>
                     </td>
                     <td>
-                      <dd>9/22</dd>
+                      <dd>{formatDate(fD.onwardTed)}</dd>
                     </td>
                   </tr>
                 </tbody>
