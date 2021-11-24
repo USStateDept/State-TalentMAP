@@ -40,7 +40,7 @@ const AgendaItemCardView = props => {
     <>
       {
         adder &&
-          <div className="a">
+          <div className="ai-history-card a">
             <div className="plusIcon">
               {/* <FA name="plus" /> */}
               {/* <FA name="plus-square" /> */}
@@ -135,7 +135,9 @@ const AgendaItemCardView = props => {
               </table>
             </div>
             <div className="ai-history-card-footer">
-              <FA name="pencil" />
+              <InteractiveElement onClick={() => fakeClick()}>
+                <FA name="pencil" />
+              </InteractiveElement>
             </div>
           </div>
       }

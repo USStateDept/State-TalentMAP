@@ -9,23 +9,19 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 
 const AgendaItemHistory = () => {
-  const [cardView, setCardView] = useState(true);
-  const view = cardView ? 'card' : 'row';
+  const [cardView, setCardView] = useState(false);
+  const view = cardView ? 'card' : 'grid';
   const fakeArr = [2, 3, 4, 2, 7, 3, 4, 7, 1, 1, 2, 3, 4, 5, 6, 1, 3, 2, 3, 2, 2, 3];
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
 
   return (
     <div className="agenda-item-history-container">
       <div className="usa-grid-full profile-content-inner-container">
-        <ProfileSectionTitle title="Last Name, First Name - Agenda Item History" icon="user-circle-o" />
+        <ProfileSectionTitle title="Rehman, Tarek - Agenda Item History" icon="user-circle-o" />
         <BackButton />
         <div className="usa-grid-full portfolio-controls">
           <div className="usa-width-one-whole results-dropdown agenda-controls-container">
-            For Pagination Results
             <div className="agenda-results-controls">
-              <button className="usa-button-secondary">
-                Create Agenda Item
-              </button>
               <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
               {/* still needs to be intergrated into */}
               <SelectForm

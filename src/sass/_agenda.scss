@@ -2,7 +2,7 @@
   .agenda-controls-container {
     align-items: baseline;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     padding-top: 15px;
 
     .agenda-results-controls {
@@ -24,7 +24,7 @@
   }
 
   .ai-history-cards-container {
-    margin-top: 100px;
+    margin-top: 50px;
     display: flex;
     flex-wrap: wrap;
 
@@ -38,6 +38,7 @@
       width: 350px;
       margin: 25px 15px;
       padding: 15px;
+      position: relative;
 
       .ai-history-card-title {
         display: flex;
@@ -67,6 +68,7 @@
       .ai-history-card-status-date {
         display: flex;
         justify-content: space-between;
+        align-items: center;
         margin: 10px;
 
         .ai-history-card-pill {
@@ -115,21 +117,31 @@
 
       .ai-history-card-footer {
         text-align: right;
+        bottom: 5px;
+        right: 5px;
+        position: absolute;
+        span {
+          font-size: 18px;
+          color: #102e51;
+        }
+        span:hover {
+          color: #1a4a82;
+          font-size: 20px;
+        }
       }
     }
 
     .a {
-      display: flex;
-      flex-direction: column;
-      height: 250px;
-      width: 350px;
-      margin: 25px 15px;
-      padding: 15px;
+      border: 1px dashed #102e51;
 
       .plusIcon {
         font-size: 100px;
         color: #102e51;
         margin: auto;
+      }
+      .plusIcon:hover {
+        font-size: 110px;
+        color: #1a4a82;
       }
     }
   }
