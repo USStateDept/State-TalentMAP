@@ -9,7 +9,7 @@ import AgendaItemLegs from '../AgendaItemLegs';
 const AgendaItemCardView = props => {
   const {
     result,
-    adder,
+    isFirst,
   } = props;
   // eslint-disable-next-line no-unused-vars
   const [fake, setFake] = useState(true);
@@ -66,50 +66,49 @@ const AgendaItemCardView = props => {
   const onWrdPos = shortenString(get(fD, 'legs[3].position'), 15);
 
   // eslint-disable-next-line no-console
-  const fakeClick = () => { console.log('so fake, fd.legs', fD.legs); };
+  const createAI = () => { console.log('placeholder create AI'); };
   return (
     <>
       {
-        adder &&
+        isFirst &&
           <div className="ai-history-card a">
             <div className="plusIcon">
               {/* <FA name="plus" /> */}
               {/* <FA name="plus-square" /> */}
-              <InteractiveElement onClick={() => fakeClick()}>
+              <InteractiveElement onClick={() => createAI()}>
                 <FA name="plus-circle" />
               </InteractiveElement>
             </div>
           </div>
       }
       {
-        !adder &&
-          <div className="ai-history-card">
-            <div className="ai-history-card-title">
-              {/* eslint-disable-next-line react/no-unescaped-entities */}
-              {curPos}
-              <div className="arrow">
-                <div className="arrow-tail" />
-                {result}
-                <div className="arrow-tail" />
-                <div className="arrow-right" />
-              </div>
-              {onWrdPos}
+        <div className="ai-history-card">
+          <div className="ai-history-card-title">
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
+            {curPos}
+            <div className="arrow">
+              <div className="arrow-tail" />
+              {result}
+              <div className="arrow-tail" />
+              <div className="arrow-right" />
             </div>
-            <div className="ai-history-card-status-date">
-              <div className="pill ai-history-card-pill" style={{ backgroundColor: randomColor }}>
-                {randomStat}
-              </div>
-              <div className="ai-history-card-panel-date">
-                  Panel Date: {fD.panelDate}
-              </div>
+            {onWrdPos}
+          </div>
+          <div className="ai-history-card-status-date">
+            <div className="pill ai-history-card-pill" style={{ backgroundColor: randomColor }}>
+              {randomStat}
             </div>
-            <AgendaItemLegs fakeData={fD.legs} />
-            <div className="ai-history-card-footer">
-              <InteractiveElement onClick={() => fakeClick()}>
-                <FA name="pencil" />
-              </InteractiveElement>
+            <div className="ai-history-card-panel-date">
+                Panel Date: {fD.panelDate}
             </div>
           </div>
+          <AgendaItemLegs fakeData={fD.legs} />
+          <div className="ai-history-card-footer">
+            <InteractiveElement onClick={() => createAI()}>
+              <FA name="pencil" />
+            </InteractiveElement>
+          </div>
+        </div>
       }
     </>
   );
@@ -118,13 +117,13 @@ const AgendaItemCardView = props => {
 
 AgendaItemCardView.propTypes = {
   result: PropTypes.number,
-  adder: PropTypes.bool,
+  isFirst: PropTypes.bool,
 };
 
 
 AgendaItemCardView.defaultProps = {
   result: 1,
-  adder: false,
+  isFirst: false,
 };
 
 export default AgendaItemCardView;

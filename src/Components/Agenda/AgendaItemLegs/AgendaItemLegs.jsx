@@ -11,8 +11,6 @@ const AgendaItemLegs = props => {
   } = props;
   // eslint-disable-next-line no-unused-vars
   const [fake, setFake] = useState(true);
-  // eslint-disable-next-line no-console
-  console.log('current: fakeData', fakeData);
   const curOrg = shortenString(get(fakeData[0], 'org'), 12);
   const onWrdOrg = shortenString(get(fakeData[3], 'org'), 12);
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';

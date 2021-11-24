@@ -2,8 +2,9 @@ import { useState } from 'react';
 import BackButton from 'Components/BackButton';
 import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
-import AgendaItemCardView from '../AgendaItemCardView';
-import AgendaItemRowView from '../AgendaItemRowView';
+import { isEqual } from 'lodash';
+import AgendaItemCard from '../AgendaItemCard';
+import AgendaItemRow from '../AgendaItemRow';
 import ExportLink from '../../BidderPortfolio/ExportLink';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
@@ -36,17 +37,13 @@ const AgendaItemHistory = () => {
         </div>
         <div className="ai-history-cards-container">
           {
-            cardView &&
-              <AgendaItemCardView adder />
-          }
-          {
             cardView ?
-              fakeArr.map(result => (
-                <AgendaItemCardView result={result} />
+              fakeArr.map((result, i) => (
+                <AgendaItemCard result={result} isFirst={isEqual(i, 0)} />
               ))
               :
-              fakeArr.map(result => (
-                <AgendaItemRowView result={result} />
+              fakeArr.map((result, i) => (
+                <AgendaItemRow result={result} isFirst={isEqual(i, 0)} />
               ))
           }
           <ScrollUpButton />

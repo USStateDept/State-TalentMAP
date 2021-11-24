@@ -1,15 +1,15 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import AgendaItemRowView from './AgendaItemRowView';
+import AgendaItemRow from './AgendaItemRow';
 
-describe('AgendaItemRowView Component', () => {
+describe('AgendaItemRow Component', () => {
   it('is defined', () => {
-    const wrapper = shallow(<AgendaItemRowView />);
+    const wrapper = shallow(<AgendaItemRow />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<AgendaItemRowView />);
+    const wrapper = shallow(<AgendaItemRow />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
