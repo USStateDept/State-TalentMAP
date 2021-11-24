@@ -35,19 +35,27 @@ const AgendaItemHistory = () => {
             </div>
           </div>
         </div>
-        <div className="ai-history-cards-container">
-          {
-            cardView ?
-              fakeArr.map((result, i) => (
-                <AgendaItemCard result={result} isFirst={isEqual(i, 0)} />
-              ))
-              :
+        {
+          cardView &&
+            <div className="ai-history-cards-container">
+              {
+                fakeArr.map((result, i) => (
+                  <AgendaItemCard result={result} isFirst={isEqual(i, 0)} />
+                ))
+              }
+            </div>
+        }
+        {
+          !cardView &&
+          <div className="ai-history-rows-container">
+            {
               fakeArr.map((result, i) => (
                 <AgendaItemRow result={result} isFirst={isEqual(i, 0)} />
               ))
-          }
-          <ScrollUpButton />
-        </div>
+            }
+          </div>
+        }
+        <ScrollUpButton />
       </div>
     </div>
   );

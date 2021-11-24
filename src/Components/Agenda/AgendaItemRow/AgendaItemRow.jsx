@@ -11,12 +11,10 @@ const AgendaItemRow = props => {
 
   return (
     <div>
-      in AgendaItemRow {result}
+      result: {result}
       {
-        isFirst ?
-          ':)'
-          :
-          ':('
+        isFirst &&
+          ' FirstCard'
       }
     </div>
   );

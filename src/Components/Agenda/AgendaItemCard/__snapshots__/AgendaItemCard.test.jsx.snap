@@ -32,11 +32,11 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
         className="pill ai-history-card-pill"
         style={
           Object {
-            "backgroundColor": "#17c3b2ff",
+            "backgroundColor": "#227c9dff",
           }
         }
       >
-        Approved
+        Disapproved
       </div>
       <div
         className="ai-history-card-panel-date"

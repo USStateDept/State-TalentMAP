@@ -1,57 +1,165 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
-<div>
+<div
+  className="agenda-item-history-container"
+>
   <div
-    className="bidder-portfolio-page"
+    className="usa-grid-full profile-content-inner-container"
   >
-    <BidderPortfolioSearch />
+    <ProfileSectionTitle
+      icon="user-circle-o"
+      title="Rehman, Tarek - Agenda Item History"
+    />
+    <Connect(withRouter(BackButton)) />
     <div
-      className="usa-grid-full profile-content-inner-container"
-    >
-      <ProfileSectionTitle
-        icon="user-circle-o"
-        title="Last Name, First Name - Agenda Item History"
-      />
-    </div>
-    <div
-      className="usa-grid-full bidder-portfolio-container profile-content-inner-container"
+      className="usa-grid-full portfolio-controls"
     >
       <div
-        className="usa-grid-full"
+        className="usa-width-one-whole results-dropdown agenda-controls-container"
       >
         <div
-          className="usa-width-one-whole portfolio-sort-container results-dropdown"
+          className="agenda-results-controls"
         >
-          <Connect(withRouter(BackButton)) />
-          <div
-            className="usa-width-one-whole results-dropdown bureau-controls-container"
-          >
-            <button
-              className="create-item-button"
-              onClick={[Function]}
-            >
-              Create
-            </button>
-            <div
-              className="bureau-controls-right"
-            >
-              <div
-                className="bureau-results-controls"
-              >
-                <ResultsViewBy
-                  initial="card"
-                  onClick={[Function]}
-                />
-                <Connect(ExportLink)
-                  disabled={true}
-                />
-              </div>
-            </div>
-          </div>
+          <ResultsViewBy
+            initial="grid"
+            onClick={[Function]}
+          />
+          <SelectForm
+            className="select-offset select-black"
+            defaultSort={null}
+            disabled={false}
+            emptyOptionText="- Select -"
+            id="agenda-item-history-results"
+            includeFirstEmptyOption={false}
+            label="Sort by:"
+            labelSrOnly={false}
+            onSelectOption={[Function]}
+            options={
+              Array [
+                Object {
+                  "text": "Agenda Status",
+                  "value": "status",
+                },
+                Object {
+                  "text": "Panel date: Latest",
+                  "value": "-panel_date",
+                },
+                Object {
+                  "text": "Panel date: Earliest",
+                  "value": "panel_date",
+                },
+                Object {
+                  "text": "Updated date: Latest",
+                  "value": "-updated_date",
+                },
+                Object {
+                  "text": "Updated date: Earliest",
+                  "value": "updated_date",
+                },
+              ]
+            }
+            transformValue={[Function]}
+          />
+          <Connect(ExportLink)
+            disabled={true}
+          />
         </div>
       </div>
     </div>
+    <div
+      className="ai-history-rows-container"
+    >
+      <AgendaItemRow
+        isFirst={true}
+        result={2}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={3}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={4}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={2}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={7}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={3}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={4}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={7}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={1}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={1}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={2}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={3}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={4}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={5}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={6}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={1}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={3}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={2}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={3}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={2}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={2}
+      />
+      <AgendaItemRow
+        isFirst={false}
+        result={3}
+      />
+    </div>
+    <ScrollUpButton />
   </div>
 </div>
 `;

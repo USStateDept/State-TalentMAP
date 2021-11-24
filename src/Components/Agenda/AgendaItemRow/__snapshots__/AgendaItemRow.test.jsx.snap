@@ -2,7 +2,7 @@
 
 exports[`AgendaItemRow Component matches snapshot 1`] = `
 <div>
-  in AgendaItemRow 
+  result: 
   1
 </div>
 `;
