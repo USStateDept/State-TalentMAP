@@ -1215,10 +1215,10 @@
     pirates "^4.0.0"
     source-map-support "^0.5.16"
 
-"@babel/runtime-corejs2@^7.15.4":
-  version "7.15.4"
-  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.15.4.tgz#dda5554d18e2ebd4e374e73708590e72e1e674f7"
-  integrity sha512-TmuTI+n5HsMesW6Ah2WjvBwix9fBMXwbMxQV3c0ETLAzlmwN4OeRVbYMYwp9P4LEOlAxwGKdd9e8pMiLMAg/Mg==
+"@babel/runtime-corejs2@^7.16.3":
+  version "7.16.3"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs2/-/runtime-corejs2-7.16.3.tgz#26064188b2cb843121a58b6343b68812bfb94b88"
+  integrity sha512-VrmNH31CEUoR7kIel005qFMVUJpJm1VxfM7YUzVVc2jrxHCi/I6lBEJuqAcP9u9nEzmTD2RnSPhzfdupcSbnPQ==
   dependencies:
     core-js "^2.6.5"
     regenerator-runtime "^0.13.4"
