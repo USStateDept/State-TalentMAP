@@ -113,7 +113,7 @@
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
     "@babel/register": "^7.15.3",
-    "@babel/runtime-corejs2": "^7.15.4",
+    "@babel/runtime-corejs2": "^7.16.3",
     "@epegzz/sass-vars-loader": "^6.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "pmmmwh/react-refresh-webpack-plugin#main",
     "@types/axios": "^0.14.0",
