@@ -160,6 +160,7 @@ const ProfileDashboard = ({
                               registerHandshake={registerHandshake}
                               unregisterHandshake={unregisterHandshake}
                               userId={userProfile.perdet_seq_number}
+                              deleteBid={deleteBid}
                             />
                           </BoxShadow>
                           }
