@@ -17,7 +17,7 @@
     "body-parser": "^1.18.2",
     "bowser": "^2.11.0",
     "bunyan": "^1.8.15",
-    "connected-react-router": "^6.9.1",
+    "connected-react-router": "^6.9.2",
     "core-js": "^2.6.11",
     "css-box-shadow": "^1.0.0-3",
     "darkreader": "^4.7.15",
