@@ -15,7 +15,6 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
     <div
       className="usa-grid-full portfolio-controls"
     >
-      For Pagination Results
       <div
         className="usa-width-one-whole results-dropdown agenda-controls-container"
       >
@@ -73,91 +72,69 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
     >
       <AgendaItemRow
         isFirst={true}
-        result={2}
       />
       <AgendaItemRow
         isFirst={false}
-        result={3}
       />
       <AgendaItemRow
         isFirst={false}
-        result={4}
       />
       <AgendaItemRow
         isFirst={false}
-        result={2}
       />
       <AgendaItemRow
         isFirst={false}
-        result={7}
       />
       <AgendaItemRow
         isFirst={false}
-        result={3}
       />
       <AgendaItemRow
         isFirst={false}
-        result={4}
       />
       <AgendaItemRow
         isFirst={false}
-        result={7}
       />
       <AgendaItemRow
         isFirst={false}
-        result={1}
       />
       <AgendaItemRow
         isFirst={false}
-        result={1}
       />
       <AgendaItemRow
         isFirst={false}
-        result={2}
       />
       <AgendaItemRow
         isFirst={false}
-        result={3}
       />
       <AgendaItemRow
         isFirst={false}
-        result={4}
       />
       <AgendaItemRow
         isFirst={false}
-        result={5}
       />
       <AgendaItemRow
         isFirst={false}
-        result={6}
       />
       <AgendaItemRow
         isFirst={false}
-        result={1}
       />
       <AgendaItemRow
         isFirst={false}
-        result={3}
       />
       <AgendaItemRow
         isFirst={false}
-        result={2}
       />
       <AgendaItemRow
         isFirst={false}
-        result={3}
       />
       <AgendaItemRow
         isFirst={false}
-        result={2}
       />
       <AgendaItemRow
         isFirst={false}
-        result={2}
       />
       <AgendaItemRow
         isFirst={false}
-        result={3}
       />
     </div>
     <ScrollUpButton />
