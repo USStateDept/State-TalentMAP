@@ -1,79 +1,123 @@
+/* eslint-disable */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { get } from 'lodash';
+import { filter, get, keys } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 
 const AgendaItemLegs = props => {
   const {
-    fakeData,
+    fakeLegs,
+    isCard,
   } = props;
   // eslint-disable-next-line no-unused-vars
   const [fake, setFake] = useState(true);
-  const curOrg = shortenString(get(fakeData[0], 'org'), 12);
-  const onWrdOrg = shortenString(get(fakeData[3], 'org'), 12);
+  // working assumption: by the time fakeLegs hits this
+  // component its structure is already 2 legs for card and all for row
+  const formatStr = (d) => shortenString(d, 12);
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
+
+  const getData = (key, helperFunc) => (
+      <>
+      {
+        fakeLegs.map((leg) => <td>
+          <dd>{helperFunc(leg[key])}</dd>
+        </td>)
+      }
+      </>
+  );
+
+  const getArrows = () => (
+    <>
+      {
+        fakeLegs.map(() => <td className="d">
+          <dd>
+            <FA name="arrow-down" />
+          </dd>
+        </td>)
+      }
+    </>
+  );
+
+  const tableData = [
+    {
+      icon: 'building-o',
+      title: 'Org',
+      content: (getData('org', formatStr)),
+      cardView: true,
+    },
+    {
+      icon: 'paper-plane-o',
+      title: 'ETA',
+      content: (getData('eta', formatDate)),
+      cardView: true,
+    },
+    {
+      icon: '',
+      title: '',
+      content: (getArrows()),
+      cardView: true,
+    },
+    {
+      icon: 'clock-o',
+      title: 'TED',
+      content: (getData('ted', formatDate)),
+      cardView: true,
+    },
+    {
+      icon: 'hourglass-end',
+      title: 'TOD',
+      cardView: false,
+    },
+    {
+      icon: 'university',
+      title: 'Grade',
+      cardView: false,
+    },
+    {
+      icon: 'book',
+      title: 'Position Title',
+      cardView: false,
+    },
+    {
+      icon: '',
+      title: 'Position Number',
+      cardView: false,
+    },
+    {
+      icon: 'check-circle',
+      title: 'Action',
+      cardView: false,
+    },
+    {
+      icon: 'plane',
+      title: 'Travel',
+      cardView: false,
+    },
+  ];
+
+  const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
+
   return (
     <div className="ai-history-card-legs">
       <table className="c">
         <tbody >
-          <tr>
-            <td>
-              <FA name="building-o" />
-            </td>
-            <th>
-              <dt>Org</dt>
-            </th>
-            <td>
-              <dd>{curOrg}</dd>
-            </td>
-            <td>
-              <dd>{onWrdOrg}</dd>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <FA name="paper-plane-o" />
-            </td>
-            <th>
-              <dt>ETA</dt>
-            </th>
-            <td>
-              <dd>{formatDate(fakeData[0].eta)}</dd>
-            </td>
-            <td>
-              <dd>{formatDate(fakeData[3].eta)}</dd>
-            </td>
-          </tr>
-          <tr>
-            <td />
-            <td />
-            <td className="d">
-              <dd>
-                <FA name="arrow-down" />
-              </dd>
-            </td>
-            <td className="d">
-              <dd>
-                <FA name="arrow-down" />
-              </dd>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <FA name="clock-o" />
-            </td>
-            <th>
-              <dt>TED/SEP</dt>
-            </th>
-            <td>
-              <dd>{formatDate(fakeData[0].ted)}</dd>
-            </td>
-            <td>
-              <dd>{formatDate(fakeData[3].ted)}</dd>
-            </td>
-          </tr>
+          {
+            tableData$.map(tr => {
+              return (
+                <tr>
+                  <td>
+                    <FA name={tr.icon} />
+                  </td>
+                  <th>
+                    <dt>{tr.title}</dt>
+                  </th>
+                  {tr.content}
+              </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     </div>
@@ -81,12 +125,14 @@ const AgendaItemLegs = props => {
 };
 
 AgendaItemLegs.propTypes = {
-  fakeData: PropTypes.arrayOf(PropTypes.shape({})),
+  fakeLegs: PropTypes.arrayOf(PropTypes.shape({})),
+  isCard: PropTypes.Boolean,
 };
 
 
 AgendaItemLegs.defaultProps = {
-  fakeData: [],
+  fakeLegs: [],
+  isCard: false,
 };
 
 export default AgendaItemLegs;

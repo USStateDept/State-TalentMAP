@@ -6,7 +6,7 @@ import { shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-const AgendaItemCardView = props => {
+const AgendaItemCard = props => {
   const {
     result,
     isFirst,
@@ -18,26 +18,26 @@ const AgendaItemCardView = props => {
       {
         position: 'PUBLIC DIPLOMACY sdkjbkjshdfb jdshf ',
         org: 'PARIS lorem ipsum lorem ipsum',
-        eta: '1/15/18',
-        ted: '9/5/20',
+        eta: '1/15/16',
+        ted: '9/5/18',
       },
-      {
-        position: 'two',
-        org: 'BELGRADE lorem ipsum lorem ipsum',
-        eta: '9/22/20',
-        ted: '12/17/22',
-      },
-      {
-        position: 'another',
-        org: 'PARIS lorem ipsum lorem ipsum',
-        eta: '1/15/18',
-        ted: '9/5/20',
-      },
+      // {
+      //   position: 'two',
+      //   org: 'BELGRADE lorem ipsum lorem ipsum',
+      //   eta: '9/22/18',
+      //   ted: '12/17/20',
+      // },
+      // {
+      //   position: 'another',
+      //   org: 'PARIS lorem ipsum lorem ipsum',
+      //   eta: '3/15/20',
+      //   ted: '9/5/22',
+      // },
       {
         position: 'INFO MANAGENT ksdbkjhsdb jhsd f',
         org: 'BELGRADE lorem ipsum lorem ipsum',
-        eta: '9/22/20',
-        ted: '12/17/22',
+        eta: '6/22/22',
+        ted: '12/17/24',
       },
     ],
     pillColors: [
@@ -63,7 +63,7 @@ const AgendaItemCardView = props => {
 
 
   const curPos = shortenString(get(fD, 'legs[0].position'), 15);
-  const onWrdPos = shortenString(get(fD, 'legs[3].position'), 15);
+  const onWrdPos = shortenString(get(fD, 'legs[1].position'), 15);
 
   // eslint-disable-next-line no-console
   const createAI = () => { console.log('placeholder create AI'); };
@@ -73,8 +73,6 @@ const AgendaItemCardView = props => {
         isFirst &&
           <div className="ai-history-card a">
             <div className="plusIcon">
-              {/* <FA name="plus" /> */}
-              {/* <FA name="plus-square" /> */}
               <InteractiveElement onClick={() => createAI()}>
                 <FA name="plus-circle" />
               </InteractiveElement>
@@ -102,7 +100,7 @@ const AgendaItemCardView = props => {
                 Panel Date: {fD.panelDate}
             </div>
           </div>
-          <AgendaItemLegs fakeData={fD.legs} />
+          <AgendaItemLegs fakeLegs={fD.legs} isCard />
           <div className="ai-history-card-footer">
             <InteractiveElement onClick={() => createAI()}>
               <FA name="pencil" />
@@ -115,15 +113,15 @@ const AgendaItemCardView = props => {
 };
 
 
-AgendaItemCardView.propTypes = {
+AgendaItemCard.propTypes = {
   result: PropTypes.number,
   isFirst: PropTypes.bool,
 };
 
 
-AgendaItemCardView.defaultProps = {
+AgendaItemCard.defaultProps = {
   result: 1,
   isFirst: false,
 };
 
-export default AgendaItemCardView;
+export default AgendaItemCard;

@@ -32,11 +32,11 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
         className="pill ai-history-card-pill"
         style={
           Object {
-            "backgroundColor": "#227c9dff",
+            "backgroundColor": "#E08A00",
           }
         }
       >
-        Disapproved
+        Approved
       </div>
       <div
         className="ai-history-card-panel-date"
@@ -46,7 +46,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
       </div>
     </div>
     <AgendaItemLegs
-      fakeData={
+      fakeLegs={
         Array [
           Object {
             "eta": "1/15/18",
@@ -74,6 +74,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
           },
         ]
       }
+      isCard={true}
     />
     <div
       className="ai-history-card-footer"
