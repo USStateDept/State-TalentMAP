@@ -21,18 +21,6 @@ const AgendaItemCard = props => {
         eta: '1/15/16',
         ted: '9/5/18',
       },
-      // {
-      //   position: 'two',
-      //   org: 'BELGRADE lorem ipsum lorem ipsum',
-      //   eta: '9/22/18',
-      //   ted: '12/17/20',
-      // },
-      // {
-      //   position: 'another',
-      //   org: 'PARIS lorem ipsum lorem ipsum',
-      //   eta: '3/15/20',
-      //   ted: '9/5/22',
-      // },
       {
         position: 'INFO MANAGENT ksdbkjhsdb jhsd f',
         org: 'BELGRADE lorem ipsum lorem ipsum',
@@ -67,11 +55,13 @@ const AgendaItemCard = props => {
 
   // eslint-disable-next-line no-console
   const createAI = () => { console.log('placeholder create AI'); };
+  // eslint-disable-next-line no-console
+  const editAI = () => { console.log('placeholder create AI'); };
   return (
     <>
       {
         isFirst &&
-          <div className="ai-history-card a">
+          <div className="ai-history-card first-card">
             <div className="plusIcon">
               <InteractiveElement onClick={() => createAI()}>
                 <FA name="plus-circle" />
@@ -101,8 +91,8 @@ const AgendaItemCard = props => {
             </div>
           </div>
           <AgendaItemLegs fakeLegs={fD.legs} isCard />
-          <div className="ai-history-card-footer">
-            <InteractiveElement onClick={() => createAI()}>
+          <div className="ai-history-footer">
+            <InteractiveElement onClick={() => editAI()}>
               <FA name="pencil" />
             </InteractiveElement>
           </div>

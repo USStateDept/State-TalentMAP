@@ -25,7 +25,6 @@ const AgendaItemHistory = () => {
           <div className="usa-width-one-whole results-dropdown agenda-controls-container">
             <div className="agenda-results-controls">
               <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
-              {/* still needs to be intergrated into */}
               <SelectForm
                 id="agenda-item-history-results"
                 options={sorts.options}
@@ -50,7 +49,7 @@ const AgendaItemHistory = () => {
           <div className="ai-history-rows-container">
             {
               fakeArr.map((result, i) => (
-                <AgendaItemRow result={result} isFirst={isEqual(i, 0)} />
+                <AgendaItemRow isFirst={isEqual(i, 0)} />
               ))
             }
           </div>

@@ -133,7 +133,7 @@
       }
     }
 
-    .a {
+    .first-card {
       border: 1px dashed #102e51;
 
       .plusIcon {
@@ -149,6 +149,106 @@
   }
 
   .ai-history-rows-container {
-    background-color: #66339933;
+      .ai-history-row {
+      background-color: $color-white;
+      border-radius: 10px;
+      box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
+      margin: 20px 15px;
+      padding: 15px;
+      position: relative;
+
+      //  candidate for row/card agnostic, if row view oked
+      .ai-history-row-status-date {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 10px;
+
+        .ai-history-row-pill {
+          color: $color-white;
+        }
+
+        .ai-history-row-panel-date {
+          font-size: large;
+        }
+      }
+
+        //  candidate for row/card agnostic, if row view oked
+      .ai-history-card-legs {
+        table {
+          margin: 0px;
+
+          td {
+            padding: 0;
+            border: none;
+          }
+          th {
+            display: flex;
+            border: none;
+            justify-content: space-between;
+          }
+          .d {
+            color: #a9a9a9;
+            font-size: small;
+            span {
+              margin-left: 15px;
+            }
+          }
+          .e {
+            text-align: center;
+          }
+          dt {
+            font-weight: bold;
+          }
+          dd {
+            margin: 0 10px;
+          }
+          tr:hover {
+            th, td {
+              background-color: $color-gray-lightest;
+            }
+          }
+          // exclude arrow row
+          tr:hover:nth-child(5) {
+            th, td {
+              background-color: transparent;
+            }
+          }
+          td:nth-child(n+2) {
+            border-left: 1px solid $color-gray-lighter;
+          }
+        }
+      }
+    }
+
+    .first-row {
+      border: 1px dashed #102e51;
+      display: flex;
+      height: 100px;
+      padding: 5px;
+      .plusIcon {
+        font-size: 75px;
+        color: #102e51;
+        margin: auto;
+      }
+      .plusIcon:hover {
+        font-size: 80px;
+        color: #1a4a82;
+      }
+    }
+  }
+  .ai-history-footer {
+    text-align: right;
+    bottom: 5px;
+    right: 5px;
+    position: absolute;
+    span {
+      font-size: 18px;
+      color: #102e51;
+    }
+    span:hover {
+      color: #1a4a82;
+      font-size: 20px;
+    }
   }
 }

@@ -1,8 +1,7 @@
-/* eslint-disable */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter, get, keys } from 'lodash';
+import { filter } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 
@@ -15,32 +14,51 @@ const AgendaItemLegs = props => {
   const [fake, setFake] = useState(true);
   // working assumption: by the time fakeLegs hits this
   // component its structure is already 2 legs for card and all for row
-  const formatStr = (d) => shortenString(d, 12);
+  const strLimit = isCard ? 12 : 50;
+  const formatStr = (d) => shortenString(d, strLimit);
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
 
   const getData = (key, helperFunc) => (
-      <>
+    <>
       {
-        fakeLegs.map((leg) => <td>
-          <dd>{helperFunc(leg[key])}</dd>
-        </td>)
+        fakeLegs.map((leg) => (<td>
+          {
+            helperFunc ?
+              <dd>{helperFunc(leg[key])}</dd>
+              :
+              <dd>{leg[key]}</dd>
+
+          }
+        </td>))
       }
-      </>
+    </>
   );
 
   const getArrows = () => (
     <>
       {
-        fakeLegs.map(() => <td className="d">
+        fakeLegs.map(() => (<td className="d">
           <dd>
             <FA name="arrow-down" />
           </dd>
-        </td>)
+        </td>))
       }
     </>
   );
 
   const tableData = [
+    {
+      icon: '',
+      title: 'Position Title',
+      content: (getData('position', formatStr)),
+      cardView: false,
+    },
+    {
+      icon: '',
+      title: 'Position Number',
+      content: (getData('posNum')),
+      cardView: false,
+    },
     {
       icon: 'building-o',
       title: 'Org',
@@ -66,33 +84,27 @@ const AgendaItemLegs = props => {
       cardView: true,
     },
     {
-      icon: 'hourglass-end',
+      icon: '',
       title: 'TOD',
-      cardView: false,
-    },
-    {
-      icon: 'university',
-      title: 'Grade',
-      cardView: false,
-    },
-    {
-      icon: 'book',
-      title: 'Position Title',
+      content: (getData('tod')),
       cardView: false,
     },
     {
       icon: '',
-      title: 'Position Number',
+      title: 'Grade',
+      content: (getData('grade')),
       cardView: false,
     },
     {
-      icon: 'check-circle',
+      icon: '',
       title: 'Action',
+      content: (getData('action')),
       cardView: false,
     },
     {
-      icon: 'plane',
+      icon: '',
       title: 'Travel',
+      content: (getData('travel')),
       cardView: false,
     },
   ];
@@ -101,22 +113,20 @@ const AgendaItemLegs = props => {
 
   return (
     <div className="ai-history-card-legs">
-      <table className="c">
+      <table>
         <tbody >
           {
-            tableData$.map(tr => {
-              return (
-                <tr>
-                  <td>
-                    <FA name={tr.icon} />
-                  </td>
-                  <th>
-                    <dt>{tr.title}</dt>
-                  </th>
-                  {tr.content}
+            tableData$.map(tr => (
+              <tr>
+                <td>
+                  <FA name={tr.icon} />
+                </td>
+                <th>
+                  <dt>{tr.title}</dt>
+                </th>
+                {tr.content}
               </tr>
-              );
-            })
+            ))
           }
         </tbody>
       </table>
