@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
@@ -10,48 +9,23 @@ const AgendaItemCard = props => {
   const {
     result,
     isFirst,
+    fakeData,
   } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [fake, setFake] = useState(true);
-  const fD = {
-    legs: [
-      {
-        position: 'PUBLIC DIPLOMACY sdkjbkjshdfb jdshf ',
-        org: 'PARIS lorem ipsum lorem ipsum',
-        eta: '1/15/16',
-        ted: '9/5/18',
-      },
-      {
-        position: 'INFO MANAGENT ksdbkjhsdb jhsd f',
-        org: 'BELGRADE lorem ipsum lorem ipsum',
-        eta: '6/22/22',
-        ted: '12/17/24',
-      },
-    ],
-    pillColors: [
-      '#227c9dff',
-      '#17c3b2ff',
-      '#E08A00',
-      '#2d6e0eff',
-      '#ed2038ff',
-      '#6421a2ff',
-      '#BA70FF'],
-    pillStats: [
-      'Withdrawn',
-      'Approved',
-      'Withdrawn',
-      'Withdrawn',
-      'Disapproved',
-      'Approved',
-      'Withdrawn'],
-    panelDate: '8/3/2021',
+
+  const pillColors = {
+    Withdrawn: '#227c9dff',
+    Disapproved: '#17c3b2ff',
+    Approved: '#2d6e0eff',
+    Deferred: '#E08A00',
+    Removed: '#ed2038ff',
+    Paused: '#6421a2ff',
+    Cancelled: '#BA70FF',
   };
-  const randomColor = fD.pillColors[Math.floor(Math.random() * fD.pillColors.length)];
-  const randomStat = fD.pillStats[Math.floor(Math.random() * fD.pillStats.length)];
 
+  fakeData.status =
+    Object.keys(pillColors)[Math.floor(Math.random() * Object.keys(pillColors).length)];
 
-  const curPos = shortenString(get(fD, 'legs[0].position'), 15);
-  const onWrdPos = shortenString(get(fD, 'legs[1].position'), 15);
+  const formatStr = (a) => shortenString(a, 15);
 
   // eslint-disable-next-line no-console
   const createAI = () => { console.log('placeholder create AI'); };
@@ -73,24 +47,24 @@ const AgendaItemCard = props => {
         <div className="ai-history-card">
           <div className="ai-history-card-title">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
-            {curPos}
+            { formatStr(get(fakeData, 'legs[0].position')) }
             <div className="arrow">
               <div className="arrow-tail" />
               {result}
               <div className="arrow-tail" />
               <div className="arrow-right" />
             </div>
-            {onWrdPos}
+            { formatStr(get(fakeData, 'legs[1].position')) }
           </div>
           <div className="ai-history-card-status-date">
-            <div className="pill ai-history-card-pill" style={{ backgroundColor: randomColor }}>
-              {randomStat}
+            <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status')] }}>
+              {fakeData.status}
             </div>
             <div className="ai-history-card-panel-date">
-                Panel Date: {fD.panelDate}
+              Panel Date: {fakeData.panelDate}
             </div>
           </div>
-          <AgendaItemLegs fakeLegs={fD.legs} isCard />
+          <AgendaItemLegs fakeLegs={fakeData.legs} isCard />
           <div className="ai-history-footer">
             <InteractiveElement onClick={() => editAI()}>
               <FA name="pencil" />
@@ -106,12 +80,14 @@ const AgendaItemCard = props => {
 AgendaItemCard.propTypes = {
   result: PropTypes.number,
   isFirst: PropTypes.bool,
+  fakeData: PropTypes.shape({}),
 };
 
 
 AgendaItemCard.defaultProps = {
   result: 1,
   isFirst: false,
+  fakeData: {},
 };
 
 export default AgendaItemCard;

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
 import { filter } from 'lodash';
@@ -10,11 +9,8 @@ const AgendaItemLegs = props => {
     fakeLegs,
     isCard,
   } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [fake, setFake] = useState(true);
-  // working assumption: by the time fakeLegs hits this
-  // component its structure is already 2 legs for card and all for row
-  const strLimit = isCard ? 12 : 50;
+
+  const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
 
