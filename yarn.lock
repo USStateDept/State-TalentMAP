@@ -4190,10 +4190,6 @@ core-js-pure@^3.8.1:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.15.2.tgz#c8e0874822705f3385d3197af9348f7c9ae2e3ce"
   integrity sha512-D42L7RYh1J2grW8ttxoY1+17Y4wXZeKe7uyplAI3FkNQyI5OgBIAjUfFiTPfL1rs0qLpxaabITNbjKl1Sp82tA==
 
-core-js@^0.8.3:
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-0.8.4.tgz#c22665f1e0d1b9c3c5e1b08dabd1f108695e4fcf"
-
 core-js@^1.0.0:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
@@ -4203,9 +4199,10 @@ core-js@^2.4.0, core-js@^2.4.1, core-js@^2.5.0, core-js@^2.5.3, core-js@^2.6.10,
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
-core-js@^3.6.4, core-js@^3.6.5:
-  version "3.8.0"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.8.0.tgz#0fc2d4941cadf80538b030648bb64d230b4da0ce"
+core-js@^3.19.0, core-js@^3.6.4, core-js@^3.6.5:
+  version "3.19.3"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.19.3.tgz#6df8142a996337503019ff3235a7022d7cdf4559"
+  integrity sha512-LeLBMgEGSsG7giquSzvgBrTS7V5UL6ks3eQlUSbN8dJStlLFiRzUm5iqsRyzUB8carhfKjkJ2vzKqE6z1Vga9g==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -9698,11 +9695,12 @@ mobius1-selectr@^2.4.13:
   version "2.4.13"
   resolved "https://registry.yarnpkg.com/mobius1-selectr/-/mobius1-selectr-2.4.13.tgz#0019dfd9f984840d6e40f70683ab3ec78ce3b5df"
 
-mock-local-storage@^1.1.17:
-  version "1.1.17"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.17.tgz#13325dad4e3b696374c2984fa8af33941f54239e"
+mock-local-storage@^1.1.19:
+  version "1.1.19"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.19.tgz#baf00a0b7f1991871fdf9bb51932b9ab3a257c34"
+  integrity sha512-YwTEsgWqFw6uRBvhKScanKwfSIpjING50y9UaHb6BGfsdlFY3Zumdnf8RLBvHRVkLh31+G2WEz0xNeYhd5f5fA==
   dependencies:
-    core-js "^0.8.3"
+    core-js "^3.19.0"
     global "^4.3.2"
 
 module-deps@^4.0.8:
@@ -14205,10 +14203,10 @@ typescript@^3.5.3:
   version "3.8.3"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
 
-typescript@^4.4.4:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
-  integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
+typescript@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.5.2.tgz#8ac1fba9f52256fdb06fb89e4122fa6a346c2998"
+  integrity sha512-5BlMof9H1yGt0P8/WF+wPNw6GfctgGjXp5hkblpyT+8rkASSmkUKMXrxR0Xg8ThVCi/JnHQiKXeBaEwCeQwMFw==
 
 ua-parser-js@^0.7.18:
   version "0.7.28"
