@@ -23,6 +23,7 @@
 }
 
 .agenda-item-history-container {
+
   .agenda-controls-container {
     justify-content: flex-end;
   }
@@ -95,15 +96,12 @@
             border: none;
             padding: .5rem 1rem;
           }
-          .d {
+          .arrow {
             color: #a9a9a9;
             font-size: small;
             span {
               margin-left: 15px;
             }
-          }
-          .e {
-            text-align: center;
           }
           dt {
             font-weight: bold;
@@ -134,7 +132,11 @@
         }
       }
     }
-
+    @media screen and (max-width: 1400px) {
+      .ai-history-card {
+        margin: 10px;
+      }
+    }
     .first-card {
       border: 1px dashed #102e51;
 
@@ -151,7 +153,7 @@
   }
 
   .ai-history-rows-container {
-      .ai-history-row {
+    .ai-history-row {
       background-color: $color-white;
       border-radius: 10px;
       box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
@@ -173,6 +175,11 @@
         .ai-history-row-panel-date {
           font-size: large;
         }
+        @media screen and (max-width: 1600px) {
+          .ai-history-row-panel-date {
+            font-size: medium;
+          }
+        }
       }
 
         //  candidate for row/card agnostic, if row view oked
@@ -190,15 +197,12 @@
             padding: .5rem 1rem;
             max-width: 80px;
           }
-          .d {
+          .arrow {
             color: #a9a9a9;
             font-size: small;
             span {
               margin-left: 15px;
             }
-          }
-          .e {
-            text-align: center;
           }
           dt {
             font-weight: bold;
@@ -223,6 +227,11 @@
         }
       }
     }
+    @media screen and (max-width: 1400px) {
+      .ai-history-row {
+        margin: 20px 0;
+      }
+    }
 
     .first-row {
       border: 1px dashed #102e51;
@@ -240,6 +249,7 @@
       }
     }
   }
+
   .ai-history-footer {
     text-align: right;
     bottom: 5px;
@@ -254,4 +264,15 @@
       font-size: 20px;
     }
   }
+
+  @media screen and (max-width: 1400px) {
+    .profile-content-inner-container {
+      padding: 20px 0;
+
+      .hello-greeting {
+        padding-left: 35px;
+      }
+    }
+  }
+
 }

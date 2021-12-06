@@ -6,7 +6,7 @@ exports[`AgendaItemRow Component matches snapshot 1`] = `
     className="ai-history-row"
     style={
       Object {
-        "borderLeft": "20px solid #E08A00",
+        "borderLeft": "15px solid #6421a2ff",
       }
     }
   >
@@ -17,68 +17,20 @@ exports[`AgendaItemRow Component matches snapshot 1`] = `
         className="pill ai-history-row-pill"
         style={
           Object {
-            "backgroundColor": "#E08A00",
+            "backgroundColor": "#6421a2ff",
           }
         }
       >
-        Disapproved
+        Paused
       </div>
       <div
         className="ai-history-row-panel-date"
       >
         Panel Date: 
-        8/3/2021
       </div>
     </div>
     <AgendaItemLegs
-      fakeLegs={
-        Array [
-          Object {
-            "action": "Reassign",
-            "eta": "6/22/22",
-            "grade": "02",
-            "org": "BELGRADE lorem ipsum lorem ipsum",
-            "posNum": "D1023589",
-            "position": "INFO MANAGENT",
-            "ted": "12/17/24",
-            "tod": "2YRR",
-            "travel": "Post to USHL",
-          },
-          Object {
-            "action": "Reassign",
-            "eta": "1/15/16",
-            "grade": "02",
-            "org": "PARIS lorem ipsum lorem ipsum",
-            "posNum": "D1023589",
-            "position": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sapien purus, fermentum ac fringilla faucibus, pretium ac mi. Nam placerat molestie semper. Maecenas consectetur, massa quis hendrerit euismod, erat urna mattis risus, id rhoncus leo nisl eu arcu. Sed ac lacinia enim, vel porttito",
-            "ted": "9/5/18",
-            "tod": "2YRR",
-            "travel": "Post to USHL",
-          },
-          Object {
-            "action": "Reassign",
-            "eta": "9/22/18",
-            "grade": "02",
-            "org": "BELGRADE lorem ipsum lorem ipsum",
-            "posNum": "D1023589",
-            "position": "DEPUTY REGIONAL SECURITY OFFIC",
-            "ted": "12/17/20",
-            "tod": "2YRR",
-            "travel": "Post to USHL",
-          },
-          Object {
-            "action": "Reassign",
-            "eta": "3/15/20",
-            "grade": "02",
-            "org": "PARIS lorem ipsum lorem ipsum",
-            "posNum": "D1023589",
-            "position": "INFORMATION TECHNOLOGY MANAGEM",
-            "ted": "9/5/22",
-            "tod": "2YRR",
-            "travel": "Post to USHL",
-          },
-        ]
-      }
+      fakeLegs={Array []}
       isCard={false}
     />
     <div

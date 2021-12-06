@@ -33,7 +33,7 @@ const AgendaItemLegs = props => {
   const getArrows = () => (
     <>
       {
-        fakeLegs.map(() => (<td className="d">
+        fakeLegs.map(() => (<td className="arrow">
           <dd>
             <FA name="arrow-down" />
           </dd>

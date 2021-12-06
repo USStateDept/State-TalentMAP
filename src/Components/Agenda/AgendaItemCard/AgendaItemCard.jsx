@@ -58,7 +58,7 @@ const AgendaItemCard = props => {
           </div>
           <div className="ai-history-card-status-date">
             <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status')] }}>
-              {fakeData.status}
+              {get(fakeData, 'status', '')}
             </div>
             <div className="ai-history-card-panel-date">
               Panel Date: {fakeData.panelDate}

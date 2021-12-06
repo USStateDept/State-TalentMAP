@@ -40,10 +40,10 @@ const AgendaItemRow = props => {
         </div>
       }
       {
-        <div className="ai-history-row" style={{ borderLeft: `20px solid ${pillColors[get(fakeData, 'status')]}` }}>
+        <div className="ai-history-row" style={{ borderLeft: `15px solid ${pillColors[get(fakeData, 'status')]}` }}>
           <div className="ai-history-row-status-date">
             <div className="pill ai-history-row-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status')] }}>
-              {fakeData.status}
+              {get(fakeData, 'status', '')}
             </div>
             <div className="ai-history-row-panel-date">
               Panel Date: {fakeData.panelDate}
