@@ -1,8 +1,23 @@
-.export-button-container {
+.agenda-controls-container {
+  align-items: baseline;
   display: flex;
-  justify-content: flex-end;
-}
+  justify-content: space-between;
+  padding-top: 15px;
 
-.create-item-button {
-  float: left;
+  .agenda-results-controls {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding: 0 35px;
+
+    div:first-child {
+      margin-right: 10px;
+    }
+
+    div {
+      align-items: baseline;
+      display: flex;
+    }
+  }
 }
