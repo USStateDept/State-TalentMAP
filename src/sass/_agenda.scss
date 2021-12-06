@@ -92,9 +92,7 @@
             border: none;
           }
           th {
-            display: flex;
             border: none;
-            justify-content: space-between;
             padding: .5rem 1rem;
           }
           .d {
@@ -180,16 +178,17 @@
         //  candidate for row/card agnostic, if row view oked
       .ai-history-card-legs {
         table {
-          margin: 0px;
+          margin: 0;
 
           td {
             padding: 0;
             border: none;
+            max-width: 300px;
           }
           th {
-            display: flex;
             border: none;
-            justify-content: space-between;
+            padding: .5rem 1rem;
+            max-width: 80px;
           }
           .d {
             color: #a9a9a9;
