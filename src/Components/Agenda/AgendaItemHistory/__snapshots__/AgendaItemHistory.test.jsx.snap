@@ -157,6 +157,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={true}
+        key="1"
       />
       <AgendaItemRow
         fakeData={
@@ -245,6 +246,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="2"
       />
       <AgendaItemRow
         fakeData={
@@ -333,6 +335,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="3"
       />
       <AgendaItemRow
         fakeData={
@@ -421,6 +424,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="4"
       />
       <AgendaItemRow
         fakeData={
@@ -509,6 +513,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="5"
       />
       <AgendaItemRow
         fakeData={
@@ -597,6 +602,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="6"
       />
       <AgendaItemRow
         fakeData={
@@ -685,6 +691,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="7"
       />
       <AgendaItemRow
         fakeData={
@@ -773,6 +780,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="8"
       />
       <AgendaItemRow
         fakeData={
@@ -861,6 +869,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="9"
       />
       <AgendaItemRow
         fakeData={
@@ -949,6 +958,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="10"
       />
       <AgendaItemRow
         fakeData={
@@ -1037,6 +1047,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="11"
       />
       <AgendaItemRow
         fakeData={
@@ -1125,6 +1136,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="12"
       />
       <AgendaItemRow
         fakeData={
@@ -1213,6 +1225,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="13"
       />
       <AgendaItemRow
         fakeData={
@@ -1301,6 +1314,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="14"
       />
       <AgendaItemRow
         fakeData={
@@ -1389,6 +1403,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="15"
       />
       <AgendaItemRow
         fakeData={
@@ -1477,6 +1492,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="16"
       />
       <AgendaItemRow
         fakeData={
@@ -1565,6 +1581,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="17"
       />
       <AgendaItemRow
         fakeData={
@@ -1653,6 +1670,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="18"
       />
       <AgendaItemRow
         fakeData={
@@ -1741,6 +1759,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="19"
       />
       <AgendaItemRow
         fakeData={
@@ -1829,6 +1848,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="20"
       />
       <AgendaItemRow
         fakeData={
@@ -1917,6 +1937,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="21"
       />
       <AgendaItemRow
         fakeData={
@@ -2005,6 +2026,7 @@ exports[`AgendaItemHistoryComponent matches snapshot 1`] = `
           }
         }
         isFirst={false}
+        key="22"
       />
     </div>
     <ScrollUpButton />
