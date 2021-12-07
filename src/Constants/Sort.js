@@ -182,3 +182,14 @@ export const BUREAU_BIDDER_FILTERS = {
     { value: 'OP', text: 'No Handshake' },
   ],
 };
+
+export const AGENDA_ITEM_HISTORY_FILTERS = {
+  // values tbd, subject to what WS returns
+  options: [
+    { value: 'status', text: 'Agenda Status' },
+    { value: '-panel_date', text: 'Panel date: Latest' },
+    { value: 'panel_date', text: 'Panel date: Earliest' },
+    { value: '-updated_date', text: 'Updated date: Latest' },
+    { value: 'updated_date', text: 'Updated date: Earliest' },
+  ],
+};
