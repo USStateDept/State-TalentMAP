@@ -46,7 +46,7 @@ const AgendaItemCard = props => {
       }
       {
         <div className="ai-history-card">
-          <div className="ai-history-card-title">
+          <h3 className="ai-history-card-title">
             {/* eslint-disable-next-line react/no-unescaped-entities */}
             { formatStr(get(fakeData, 'legs[0].position')) }
             <div className="arrow">
@@ -56,7 +56,7 @@ const AgendaItemCard = props => {
               <div className="arrow-right" />
             </div>
             { formatStr(get(fakeData, 'legs[1].position')) }
-          </div>
+          </h3>
           <div className="ai-history-card-status-date">
             <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status')] }}>
               {get(fakeData, 'status', '')}

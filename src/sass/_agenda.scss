@@ -46,8 +46,11 @@
 
       .ai-history-card-title {
         display: flex;
+        font-family: 'Roboto';
+        font-size: 1.6rem;
         font-weight: bold;
         justify-content: space-evenly;
+        margin: 0;
 
         .arrow {
           align-items: center;
