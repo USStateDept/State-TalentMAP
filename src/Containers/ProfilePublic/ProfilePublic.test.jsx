@@ -41,6 +41,7 @@ describe('mapDispatchToProps', () => {
   const config = {
     fetchData: [1],
     onNavigateTo: ['/results'],
+    deleteBid: [12],
   };
   testDispatchFunctions(mapDispatchToProps, config);
 });
