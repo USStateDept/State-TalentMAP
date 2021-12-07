@@ -39,7 +39,7 @@ const AgendaItemCard = props => {
         isFirst &&
           <div className="ai-history-card first-card">
             <div className="plusIcon">
-              <InteractiveElement onClick={createAI()}>
+              <InteractiveElement title="Create Agenda" onClick={createAI()}>
                 <FA name="plus-circle" />
               </InteractiveElement>
             </div>
@@ -68,7 +68,7 @@ const AgendaItemCard = props => {
           </div>
           <AgendaItemLegs fakeLegs={fakeData.legs} isCard />
           <div className="ai-history-footer">
-            <InteractiveElement onClick={editAI()}>
+            <InteractiveElement title="Edit Agenda" onClick={editAI()}>
               <FA name="pencil" />
             </InteractiveElement>
           </div>

@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import BackButton from 'Components/BackButton';
 import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
+import shortid from 'shortid';
 import SelectForm from 'Components/SelectForm';
-import { isEqual, slice } from 'lodash';
+import { slice } from 'lodash';
 import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
 import ExportLink from '../../BidderPortfolio/ExportLink';
@@ -131,8 +132,9 @@ const AgendaItemHistory = () => {
               {
                 fakeArr.map((result, i) => (
                   <AgendaItemCard
+                    key={shortid.generate()}
                     result={result}
-                    isFirst={isEqual(i, 0)}
+                    isFirst={i === 0}
                     fakeData={agendaItemDataCards()}
                   />
                 ))
@@ -144,7 +146,11 @@ const AgendaItemHistory = () => {
           <div className="ai-history-rows-container">
             {
               fakeArr.map((result, i) => (
-                <AgendaItemRow isFirst={isEqual(i, 0)} fakeData={agendaItemData} />
+                <AgendaItemRow
+                  key={shortid.generate()}
+                  isFirst={i === 0}
+                  fakeData={agendaItemData}
+                />
               ))
             }
           </div>

@@ -35,7 +35,7 @@ const AgendaItemRow = props => {
         isFirst &&
         <div className="ai-history-row first-row">
           <div className="plusIcon">
-            <InteractiveElement onClick={createAI()}>
+            <InteractiveElement title="Create Agenda" onClick={createAI()}>
               <FA name="plus-circle" />
             </InteractiveElement>
           </div>
@@ -53,7 +53,7 @@ const AgendaItemRow = props => {
           </div>
           <AgendaItemLegs fakeLegs={fakeData.legs} />
           <div className="ai-history-footer">
-            <InteractiveElement onClick={editAI()}>
+            <InteractiveElement title="Edit Agenda" onClick={editAI()}>
               <FA name="pencil" />
             </InteractiveElement>
           </div>
