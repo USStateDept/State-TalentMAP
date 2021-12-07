@@ -11,6 +11,7 @@ import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { CLASSIFICATIONS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { registerHandshake, unregisterHandshake } from 'actions/handshake';
+import { toggleBidPosition } from 'actions/bidList';
 
 class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {
@@ -38,6 +39,7 @@ class ProfilePublic extends Component {
       classificationsHasErrored,
       registerHandshakePosition,
       unregisterHandshakePosition,
+      deleteBid,
     } = this.props;
     const { bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
@@ -66,6 +68,7 @@ class ProfilePublic extends Component {
           clientClassifications={clientClassifications}
           registerHandshake={registerHandshakePosition}
           unregisterHandshake={unregisterHandshakePosition}
+          deleteBid={deleteBid}
           isPublic
           {...props}
         />
@@ -84,6 +87,7 @@ ProfilePublic.propTypes = {
   classifications: CLASSIFICATIONS,
   registerHandshakePosition: PropTypes.func,
   unregisterHandshakePosition: PropTypes.func,
+  deleteBid: PropTypes.func,
 };
 
 ProfilePublic.defaultProps = {
@@ -97,6 +101,7 @@ ProfilePublic.defaultProps = {
   classifications: [],
   registerHandshakePosition: EMPTY_FUNCTION,
   unregisterHandshakePosition: EMPTY_FUNCTION,
+  deleteBid: EMPTY_FUNCTION,
 };
 
 ProfilePublic.contextTypes = {
@@ -121,6 +126,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     fetchClassifications: () => dispatch(fetchClassifications()),
     registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
     unregisterHandshakePosition: id => dispatch(unregisterHandshake(id, id$)),
+    deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
   };
   return config;
 };
