@@ -19,6 +19,7 @@ const AgendaItemRow = props => {
     Removed: '#ed2038ff',
     Paused: '#6421a2ff',
     Cancelled: '#BA70FF',
+    Default: '#513C2C',
   };
 
   fakeData.status =
@@ -34,17 +35,17 @@ const AgendaItemRow = props => {
         isFirst &&
         <div className="ai-history-row first-row">
           <div className="plusIcon">
-            <InteractiveElement onClick={() => createAI()}>
+            <InteractiveElement onClick={createAI()}>
               <FA name="plus-circle" />
             </InteractiveElement>
           </div>
         </div>
       }
       {
-        <div className="ai-history-row" style={{ borderLeft: `15px solid ${pillColors[get(fakeData, 'status')]}` }}>
+        <div className="ai-history-row" style={{ borderLeftColor: pillColors[get(fakeData, 'status') || 'Default'] }}>
           <div className="ai-history-row-status-date">
-            <div className="pill ai-history-row-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status')] }}>
-              {get(fakeData, 'status', '')}
+            <div className="pill ai-history-row-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status') || 'Default'] }}>
+              {get(fakeData, 'status') || 'Default'}
             </div>
             <div className="ai-history-row-panel-date">
               Panel Date: {fakeData.panelDate}
@@ -52,7 +53,7 @@ const AgendaItemRow = props => {
           </div>
           <AgendaItemLegs fakeLegs={fakeData.legs} />
           <div className="ai-history-footer">
-            <InteractiveElement onClick={() => editAI()}>
+            <InteractiveElement onClick={editAI()}>
               <FA name="pencil" />
             </InteractiveElement>
           </div>

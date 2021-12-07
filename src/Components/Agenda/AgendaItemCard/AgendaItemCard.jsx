@@ -21,6 +21,7 @@ const AgendaItemCard = props => {
     Removed: '#ed2038ff',
     Paused: '#6421a2ff',
     Cancelled: '#BA70FF',
+    Default: '#513C2C',
   };
 
   fakeData.status =
@@ -38,7 +39,7 @@ const AgendaItemCard = props => {
         isFirst &&
           <div className="ai-history-card first-card">
             <div className="plusIcon">
-              <InteractiveElement onClick={() => createAI()}>
+              <InteractiveElement onClick={createAI()}>
                 <FA name="plus-circle" />
               </InteractiveElement>
             </div>
@@ -58,8 +59,8 @@ const AgendaItemCard = props => {
             { formatStr(get(fakeData, 'legs[1].position')) }
           </h3>
           <div className="ai-history-card-status-date">
-            <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status')] }}>
-              {get(fakeData, 'status', '')}
+            <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(fakeData, 'status') || 'Default'] }}>
+              {get(fakeData, 'status') || 'Default'}
             </div>
             <div className="ai-history-card-panel-date">
               Panel Date: {fakeData.panelDate}
@@ -67,7 +68,7 @@ const AgendaItemCard = props => {
           </div>
           <AgendaItemLegs fakeLegs={fakeData.legs} isCard />
           <div className="ai-history-footer">
-            <InteractiveElement onClick={() => editAI()}>
+            <InteractiveElement onClick={editAI()}>
               <FA name="pencil" />
             </InteractiveElement>
           </div>
