@@ -752,3 +752,21 @@ export const AB_EDIT_DETAILS_OBJECT = PropTypes.shape({
   bidderBureau: PropTypes.string,
   formattedCreated: PropTypes.string,
 });
+
+export const TEMP_FAKE_LEGS = PropTypes.shape({
+  position: PropTypes.string,
+  org: PropTypes.string,
+  eta: PropTypes.string,
+  ted: PropTypes.string,
+  tod: PropTypes.string,
+  grade: PropTypes.string,
+  posNum: PropTypes.string,
+  action: PropTypes.string,
+  travel: PropTypes.string,
+});
+
+export const TEMP_FAKE_DATA = PropTypes.shape({
+  status: PropTypes.string,
+  legs: PropTypes.arrayOf(TEMP_FAKE_LEGS),
+  panelDate: PropTypes.string,
+});
