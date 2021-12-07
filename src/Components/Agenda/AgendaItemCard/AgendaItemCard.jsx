@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
 import { shortenString } from 'utilities';
+import { TEMP_FAKE_DATA } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
 
@@ -80,7 +81,7 @@ const AgendaItemCard = props => {
 AgendaItemCard.propTypes = {
   result: PropTypes.number,
   isFirst: PropTypes.bool,
-  fakeData: PropTypes.shape({}),
+  fakeData: TEMP_FAKE_DATA,
 };
 
 

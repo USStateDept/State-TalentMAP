@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
+import { TEMP_FAKE_DATA } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
 
@@ -63,7 +64,7 @@ const AgendaItemRow = props => {
 
 AgendaItemRow.propTypes = {
   isFirst: PropTypes.bool,
-  fakeData: PropTypes.shape({}),
+  fakeData: TEMP_FAKE_DATA,
 };
 
 
