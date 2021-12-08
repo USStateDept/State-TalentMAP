@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemCard Component matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="ai-history-card"
+  >
+    <div
+      className="ai-history-card-title"
+    >
+      <div
+        className="arrow"
+      >
+        <div
+          className="arrow-tail"
+        />
+        1
+        <div
+          className="arrow-tail"
+        />
+        <div
+          className="arrow-right"
+        />
+      </div>
+    </div>
+    <div
+      className="ai-history-card-status-date"
+    >
+      <div
+        className="pill ai-history-card-pill"
+        style={
+          Object {
+            "backgroundColor": "#ed2038ff",
+          }
+        }
+      >
+        Removed
+      </div>
+      <div
+        className="ai-history-card-panel-date"
+      >
+        Panel Date: 
+      </div>
+    </div>
+    <AgendaItemLegs
+      fakeLegs={Array []}
+      isCard={true}
+    />
+    <div
+      className="ai-history-footer"
+    >
+      <InteractiveElement
+        className=""
+        onClick={[Function]}
+        type="div"
+      >
+        <FontAwesome
+          name="pencil"
+        />
+      </InteractiveElement>
+    </div>
+  </div>
+</Fragment>
+`;

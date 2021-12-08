@@ -21,3 +21,534 @@
     }
   }
 }
+
+
+.employee-agenda-card {
+  display: flex;
+  flex-wrap: wrap;
+
+  .employee-agenda-stat-card {
+    border-top: 11px solid $primary-blue;
+    display: flex;
+    flex-direction: column;
+    height: 350px;
+    margin-bottom: 25px;
+    margin-left: 15px;
+    margin-right: 25px;
+    width: 335px;
+
+    a {
+      display: inline-block;
+    }
+
+    h3 {
+      font-family: inherit;
+      font-size: 1.6rem;
+      margin: 0 5px 0 0;
+    }
+
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      margin-left: 5px;
+    }
+
+    .employee-agenda-card-inner {
+      padding: 16px;
+
+      .employee-agenda-card-top {
+        position: relative;
+
+        .employee-ribbon-container {
+          display: flex;
+
+          .ribbon-container-condensed {
+            position: absolute;
+            right: -16px;
+            top: -17px;
+            z-index: 2;
+          }
+        }
+      }
+
+      .employee-agenda-card-data-point-top {
+        margin-bottom: 4rem;
+        margin-top: .5rem;
+      }
+    }
+
+    .employee-card-data-point {
+      align-items: center;
+      display: flex;
+      margin-bottom: 5px;
+
+      .fa {
+        padding-right: 6px;
+      }
+
+      .org-fa-arrow {
+        padding: 0 9px;
+      }
+    }
+
+    .employee-agenda-card-bottom {
+      border-top: 1px solid $color-gray-lighter;
+      margin-top: -10px;
+
+      > div {
+        display: flex;
+        padding: 10px 16px 0;
+      }
+
+      .button-container {
+        margin-top: 1.1rem;
+      }
+    }
+  }
+}
+
+// IE11 fix for input text not displaying
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .employee-agenda-card {
+    max-width: calc(100vw - 260px);
+  }
+}
+
+.view-agenda-item-container {
+  margin-right: 2rem;
+
+  .view-agenda-item-button {
+    background-color: $color-white;
+    border: 1px solid $blue-primary;
+    border-radius: 3px;
+    color: $blue-primary;
+    margin: auto;
+    padding-bottom: 13px;
+    padding-top: 14px;
+    text-align: center;
+    width: 130px;
+  }
+
+  .view-agenda-item-button:hover {
+    border-color: $primary-blue-darker;
+    color: $primary-blue-darker;
+  }
+}
+
+.create-ai-box-container {
+
+  .create-ai-box-button {
+    background-color: $blue-primary;
+    border: 1px solid $blue-primary;
+    border-radius: 3px;
+    color: $color-white;
+    font-size: 1.5rem;
+    line-height: 37px;
+    margin: auto;
+    padding: 3px;
+    text-align: center;
+    width: 150px;
+  }
+
+  .create-ai-box-button:hover {
+    background-color: $primary-blue-darker;
+  }
+}
+
+.employee-agenda-row {
+  margin-top: 1rem;
+
+  .employee-agenda-stat-row {
+    border: 1px solid $color-gray-light;
+    border-left: 11px solid $primary-blue;
+    box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
+    margin-bottom: 1rem;
+    margin-left: 0;
+    padding: 15px 20px;
+    position: relative;
+
+    .initials-circle-container {
+      position: absolute;
+      margin: 0;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      top: 50%;
+
+      .initials-circle {
+        background: $primary-blue;
+        border-radius: 50%;
+        color: $color-white;
+        font-size: 37px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        width: 90px;
+      }
+    }
+
+    .employee-agenda-row-name {
+      font-size: 1.2em;
+      line-height: 1.3em;
+      margin: 8px 0 .3rem 15rem;
+
+      a {
+        font-size: .9em;
+        font-weight: bold;
+        margin-left: 15px;
+      }
+    }
+
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      margin-left: 5px;
+    }
+
+    .button-container {
+      display: flex;
+      float: right;
+    }
+
+    .employee-agenda-row-data-container {
+      margin-left: 15rem;
+
+      .employee-agenda-row-data-points {
+        display: inline-grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(3, auto);
+        margin-left: 1.5rem;
+
+        .employee-agenda-row-data-point {
+          align-items: center;
+          display: flex;
+          margin: 0 8rem .5rem 0;
+
+          @media screen and (max-width: 1650px) {
+            margin-right: 2rem;
+          }
+
+          .fa {
+            padding-right: 6px;
+          }
+
+          .org-fa-arrow {
+            padding: 0 9px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.agenda-item-history-container {
+
+  .agenda-controls-container {
+    justify-content: flex-end;
+  }
+
+  .ai-history-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    .ai-history-card {
+      background-color: $color-white;
+      border-radius: 10px;
+      box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
+      display: flex;
+      flex-direction: column;
+      height: 250px;
+      margin: 25px 15px;
+      padding: 15px;
+      position: relative;
+      width: 350px;
+
+      .ai-history-card-title {
+        display: flex;
+        font-family: 'Roboto';
+        font-size: 1.6rem;
+        font-weight: bold;
+        justify-content: space-evenly;
+        margin: 0;
+
+        .arrow {
+          align-items: center;
+          display: flex;
+
+          .arrow-tail {
+            background-color: $color-black;
+            height: 4px;
+            margin: 3px;
+            width: 10px;
+          }
+
+          .arrow-right {
+            border-bottom: 6px solid transparent;
+            border-left: 8px solid $color-black;
+            border-top: 6px solid transparent;
+            height: 0;
+            margin: -3px;
+            width: 0;
+          }
+
+        }
+
+      }
+
+      .ai-history-card-status-date {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 10px;
+
+        .ai-history-card-pill {
+          color: $color-white;
+        }
+
+        .ai-history-card-panel-date {
+          font-size: small;
+        }
+
+      }
+
+      .ai-history-card-legs {
+
+        table {
+          margin: 0px;
+
+          td {
+            border: none;
+            padding: 0;
+          }
+
+          th {
+            border: none;
+            padding: .5rem 1rem;
+          }
+
+          .arrow {
+            color: $bg-gray-dark-2;
+            font-size: small;
+
+            span {
+              margin-left: 15px;
+            }
+
+          }
+
+          dt {
+            font-weight: bold;
+          }
+
+          dd {
+            margin: 0 10px;
+          }
+
+          tr:not(:first-child) {
+
+            td:last-of-type {
+              border-left: 1px solid $bg-gray-dark-2 !important;
+            }
+
+          }
+
+        }
+      }
+
+      .ai-history-card-footer {
+        bottom: 5px;
+        position: absolute;
+        right: 5px;
+        text-align: right;
+
+        span {
+          color: $bg-blue-dark-0;
+          font-size: 18px;
+        }
+
+        span:hover {
+          color: $tertiary-cool-blue;
+          font-size: 20px;
+        }
+
+      }
+    }
+    @media screen and (max-width: 1400px) {
+
+      .ai-history-card {
+        margin: 10px;
+      }
+
+    }
+
+    .first-card {
+      border: 1px dashed $bg-blue-dark-0;
+
+      .plusIcon {
+        color: $bg-blue-dark-0;
+        font-size: 100px;
+        margin: auto;
+      }
+
+      .plusIcon:hover {
+        color: $tertiary-cool-blue;
+        font-size: 110px;
+      }
+
+    }
+  }
+
+  .ai-history-rows-container {
+    .ai-history-row {
+      background-color: $color-white;
+      border-left: 15px solid $color-white;
+      border-radius: 10px;
+      box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
+      margin: 20px 15px;
+      padding: 15px;
+      position: relative;
+
+      //  candidate for row/card agnostic, if row view oked
+      .ai-history-row-status-date {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 10px 10px 10px 25px;
+
+        .ai-history-row-pill {
+          color: $color-white;
+        }
+
+        .ai-history-row-panel-date {
+          font-size: large;
+        }
+
+        @media screen and (max-width: 1600px) {
+          .ai-history-row-panel-date {
+            font-size: medium;
+          }
+        }
+      }
+
+        //  candidate for row/card agnostic, if row view oked
+      .ai-history-card-legs {
+        table {
+          margin: 0;
+
+          td {
+            border: none;
+            max-width: 300px;
+            padding: 0;
+          }
+
+          th {
+            border: none;
+            padding: .5rem 1rem;
+            max-width: 80px;
+          }
+
+          .arrow {
+            color: $bg-gray-dark-2;
+            font-size: small;
+
+            span {
+              margin-left: 15px;
+            }
+
+          }
+
+          dt {
+            font-weight: bold;
+          }
+
+          dd {
+            margin: 0 10px;
+          }
+
+          tr:hover {
+
+            th, td {
+              background-color: $color-gray-lightest;
+            }
+
+          }
+          // exclude arrow row
+          tr:hover:nth-child(5) {
+
+            th, td {
+              background-color: transparent;
+            }
+
+          }
+
+          td:nth-child(n+2) {
+            border-left: 1px solid $color-gray-lighter;
+          }
+
+        }
+      }
+
+    }
+    @media screen and (max-width: 1400px) {
+
+      .ai-history-row {
+        margin: 20px 0;
+      }
+
+    }
+
+    .first-row {
+      border: 1px dashed $bg-blue-dark-0;
+      display: flex;
+      height: 100px;
+      padding: 5px;
+
+      .plusIcon {
+        color: $bg-blue-dark-0;
+        font-size: 75px;
+        margin: auto;
+      }
+
+      .plusIcon:hover {
+        color: $tertiary-cool-blue;
+        font-size: 80px;
+      }
+
+    }
+
+  }
+
+  .ai-history-footer {
+    bottom: 5px;
+    position: absolute;
+    right: 5px;
+    text-align: right;
+
+    span {
+      color: $bg-blue-dark-0;
+      font-size: 18px;
+    }
+
+    span:hover {
+      color: $tertiary-cool-blue;
+      font-size: 20px;
+    }
+
+  }
+
+  @media screen and (max-width: 1400px) {
+
+    .profile-content-inner-container {
+      padding: 20px 0;
+
+      .button-back-link, .hello-greeting {
+        margin-left: 35px;
+      }
+
+    }
+
+  }
+}
