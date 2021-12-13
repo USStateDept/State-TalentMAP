@@ -1,14 +1,16 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import DELEGATE_ROLES from 'Constants/DelegateRoles';
+import FA from 'react-fontawesome';
+import { get, isNil, omit, pull } from 'lodash';
 import { getUsers } from 'actions/userRoles';
+import DELEGATE_ROLES from 'Constants/DelegateRoles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { get, isNil, omit } from 'lodash';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
-import Spinner from '../../Spinner';
-import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
-import TotalResults from '../../TotalResults';
+import SearchBar from 'Components/SearchBar/SearchBar';
+import CheckBox from 'Components/CheckBox';
+import TotalResults from 'Components/TotalResults';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
 import UserRow from './UserRow';
 
 class UserRoles extends Component {
@@ -17,12 +19,28 @@ class UserRoles extends Component {
     this.state = {
       page: 1,
       range: 100,
+      sort: 'last_name',
+      filters: [],
     };
   }
 
   onPageChange = ({ page }) => {
     this.setState({ page });
     this.props.updateUsers(page);
+  };
+
+  filterByPermission = (clicked, permission) => {
+    const { page, range, sort, filters } = this.state;
+    const stateFilters = filters;
+
+    if (clicked) {
+      stateFilters.push(permission);
+    } else {
+      pull(stateFilters, permission);
+    }
+
+    this.setState({ filters: stateFilters });
+    this.props.updateUsers(page, range, sort, stateFilters.join());
   };
 
   render() {
@@ -34,8 +52,30 @@ class UserRoles extends Component {
       modifyPermissionIsLoading,
       tableStats,
     } = this.props;
-    const { page, range } = this.state;
+    const { page, range, sort, filters } = this.state;
     const usersSuccess = !usersIsLoading && !usersHasErrored;
+
+    const submitText = () => {
+      // eslint-disable-next-line no-console
+      console.log('current: submitText ');
+    };
+    const onClear = () => {
+      // eslint-disable-next-line no-console
+      console.log('current: clearText');
+    };
+
+    const onSortTable = (sortType) => {
+      let sortType$;
+      if (sortType === sort) {
+        sortType$ = `-${sort}`;
+      } else if (`-${sortType}` === sort) {
+        sortType$ = '';
+      } else {
+        sortType$ = sortType;
+      }
+      this.setState({ sort: sortType$ });
+      this.props.updateUsers(page, range, sortType$, filters.join());
+    };
 
     // copying id from tableStats to group_id in DELEGATE_ROLES$
     const getDelegateRoles = () => {
@@ -54,14 +94,52 @@ class UserRoles extends Component {
       return omit(roles, removeRoles);
     };
 
+    const sortArrow = (sortType) => {
+      let direction;
+
+      switch (sort) {
+        case sortType:
+          direction = 'up';
+          break;
+        case `-${sortType}`:
+          direction = 'down';
+          break;
+        default:
+          direction = 'default';
+      }
+
+      if (direction === 'default') {
+        return (
+          <div className="delegate-role-header-sort-hidden">
+            {
+              <FA name="long-arrow-up" />
+            }
+          </div>
+        );
+      }
+
+      return (
+        <div className="delegate-role-header-sort">
+          {
+            <FA name={`long-arrow-${direction}`} />
+          }
+        </div>
+      );
+    };
+
     const DELEGATE_ROLES$ = getDelegateRoles();
 
-    const thArray = [];
-    Object.keys(DELEGATE_ROLES$).forEach(m => (
-      thArray.push(
-        <th key={get(DELEGATE_ROLES$, `${m}.group_name`)}>{get(DELEGATE_ROLES$, `${m}.title`)}</th>,
-      )
-    ));
+    const getFilters = () => (
+      Object.keys(DELEGATE_ROLES$).map(m => (
+        <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
+          <CheckBox
+            id={`${get(DELEGATE_ROLES$, `${m}.group_name`)}`}
+            value={m.group_id}
+            onCheckBoxClick={e => this.filterByPermission(e, get(DELEGATE_ROLES$, `${m}.group_id`))}
+          />
+        </th>
+      ),
+      ));
 
     const userRows = usersList.map(m => (
       <UserRow
@@ -71,58 +149,81 @@ class UserRoles extends Component {
         name={`${m.last_name}, ${m.first_name}`}
         permissionGroups={m.groups}
         delegateRoles={DELEGATE_ROLES$}
+        isLoading={usersIsLoading}
       />
     ),
     );
 
     return (
       <div
-        className={`usa-grid-full profile-content-inner-container administrator-page
-        ${(usersIsLoading) ? 'results-loading' : ''}`}
+        className="usa-grid-full profile-content-inner-container administrator-page"
       >
-        {
-          usersIsLoading &&
-            <div>
-              <Spinner type="homepage-position-results" size="big" />
-            </div>
-        }
         <div className="usa-grid-full">
           <ProfileSectionTitle title="User Roles" icon="users" />
         </div>
         {
           usersSuccess &&
-          <div>
-            <div className="usa-grid-full searches-top-section selectUsers" />
-            <div className="usa-grid-full total-results">
-              <TotalResults total={totalUsers} pageNumber={page} pageSize={range} />
-            </div>
-            <div className="usa-grid-full">
-              {
-                usersSuccess &&
-                <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
-                  <thead>
-                    <tr>
-                      <th>userName</th>
-                      <th>Last, First</th>
-                      {thArray}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {userRows}
-                  </tbody>
-                </table>
-              }
-            </div>
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                totalResults={totalUsers}
-                pageSize={range}
-                onPageChange={this.onPageChange}
-                forcePage={page}
-              />
-            </div>
+          <div className="usa-grid-full total-results">
+            <TotalResults total={totalUsers} pageNumber={page} pageSize={range} />
           </div>
         }
+        <div className="usa-grid-full">
+          <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
+            <thead>
+              <tr>
+                <th key="username" className="delegate-role-header" onClick={() => onSortTable('username')}>userName {sortArrow('username')}</th>
+                <th className="delegate-role-header" onClick={() => onSortTable('last_name')}>Last, First {sortArrow('last_name')}</th>
+                {
+                  Object.keys(DELEGATE_ROLES$).map(m => (
+                    <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
+                      {get(DELEGATE_ROLES$, `${m}.title`)}
+                    </th>
+                  ))
+                }
+              </tr>
+              <tr className="filter-row">
+                <th>
+                  <SearchBar
+                    id="userR-username-search-field"
+                    labelSrOnly
+                    noButton
+                    onChangeText={submitText}
+                    onClear={onClear}
+                    placeholder="Search by Username"
+                    showClear
+                    submitText="Search"
+                    type="small"
+                  />
+                </th>
+                <th>
+                  <SearchBar
+                    id="userR-name-search-field"
+                    labelSrOnly
+                    noButton
+                    onChangeText={submitText}
+                    onClear={onClear}
+                    placeholder="Search by Last, First"
+                    showClear
+                    submitText="Search"
+                    type="small"
+                  />
+                </th>
+                {getFilters()}
+              </tr>
+            </thead>
+            <tbody>
+              {userRows}
+            </tbody>
+          </table>
+        </div>
+        <div className="usa-grid-full react-paginate">
+          <PaginationWrapper
+            totalResults={totalUsers}
+            pageSize={range}
+            onPageChange={this.onPageChange}
+            forcePage={page}
+          />
+        </div>
       </div>
     );
   }
@@ -170,7 +271,7 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  updateUsers: (page, limit) => dispatch(getUsers(page, limit)),
+  updateUsers: (page, limit, sort, filter) => dispatch(getUsers(page, limit, sort, filter)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRoles);
