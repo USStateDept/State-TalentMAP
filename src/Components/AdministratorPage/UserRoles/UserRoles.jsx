@@ -21,6 +21,8 @@ class UserRoles extends Component {
       range: 100,
       sort: 'last_name',
       filters: [],
+      q_username: '',
+      q_name: '',
     };
   }
 
