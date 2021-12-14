@@ -26,23 +26,20 @@ class UserRoles extends Component {
     };
   }
 
+  // eslint-disable-next-line react/sort-comp
+  callUpdateUsers = () => {
+    const { page, range, sort, filters, q_username, q_name } = this.state;
+    this.props.updateUsers(page, range, sort, filters.join(), q_username, q_name);
+  };
+
   onPageChange = ({ page }) => {
-    this.setState({ page });
-    this.props.updateUsers(page);
+    this.setState({ page }, this.callUpdateUsers);
   };
 
   filterByPermission = (clicked, permission) => {
-    const { page, range, sort, filters } = this.state;
-    const stateFilters = filters;
-
-    if (clicked) {
-      stateFilters.push(permission);
-    } else {
-      pull(stateFilters, permission);
-    }
-
-    this.setState({ filters: stateFilters });
-    this.props.updateUsers(page, range, sort, stateFilters.join());
+    let stateFilters = this.state.filters;
+    stateFilters = clicked ? stateFilters.push(permission) : pull(stateFilters, permission);
+    this.setState({ filters: stateFilters }, this.callUpdateUsers);
   };
 
   render() {
@@ -54,16 +51,20 @@ class UserRoles extends Component {
       modifyPermissionIsLoading,
       tableStats,
     } = this.props;
-    const { page, range, sort, filters } = this.state;
+    const { page, range, sort } = this.state;
     const usersSuccess = !usersIsLoading && !usersHasErrored;
 
-    const submitText = () => {
-      // eslint-disable-next-line no-console
-      console.log('current: submitText ');
+    const changeText = (e, id) => {
+      this.setState({ [id]: e.target.value });
     };
-    const onClear = () => {
-      // eslint-disable-next-line no-console
-      console.log('current: clearText');
+
+    const submitText = (e) => {
+      e.preventDefault();
+      this.callUpdateUsers();
+    };
+
+    const clearText = (e, id) => {
+      this.setState({ [id]: '' }, this.callUpdateUsers);
     };
 
     const onSortTable = (sortType) => {
@@ -75,8 +76,7 @@ class UserRoles extends Component {
       } else {
         sortType$ = sortType;
       }
-      this.setState({ sort: sortType$ });
-      this.props.updateUsers(page, range, sortType$, filters.join());
+      this.setState({ sort: sortType$ }, this.callUpdateUsers);
     };
 
     // copying id from tableStats to group_id in DELEGATE_ROLES$
@@ -186,11 +186,12 @@ class UserRoles extends Component {
               <tr className="filter-row">
                 <th>
                   <SearchBar
-                    id="userR-username-search-field"
+                    id="username-search-field"
                     labelSrOnly
                     noButton
-                    onChangeText={submitText}
-                    onClear={onClear}
+                    onChangeText={e => changeText(e, 'q_username')}
+                    onSubmitSearch={e => submitText(e, 'q_username')}
+                    onClear={e => clearText(e, 'q_username')}
                     placeholder="Search by Username"
                     showClear
                     submitText="Search"
@@ -199,11 +200,12 @@ class UserRoles extends Component {
                 </th>
                 <th>
                   <SearchBar
-                    id="userR-name-search-field"
+                    id="name-search-field"
                     labelSrOnly
                     noButton
-                    onChangeText={submitText}
-                    onClear={onClear}
+                    onChangeText={e => changeText(e, 'q_name')}
+                    onSubmitSearch={e => submitText(e, 'q_name')}
+                    onClear={e => clearText(e, 'q_name')}
                     placeholder="Search by Last, First"
                     showClear
                     submitText="Search"
@@ -273,7 +275,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  updateUsers: (page, limit, sort, filter) => dispatch(getUsers(page, limit, sort, filter)),
+  updateUsers: (page, range, sort, filters, q_username, q_name) =>
+    dispatch(getUsers(page, range, sort, filters, q_username, q_name)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRoles);

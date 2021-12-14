@@ -23,12 +23,10 @@ export function usersSuccess(results) {
   };
 }
 
-export function getUsers(page = 1, limit = 100, sort, filter) {
+export function getUsers(page = 1, limit = 100, sort, filters, q_username, q_name) {
+  const qString = queryString.stringify({ page, limit, sort, filters, q_username, q_name });
   // eslint-disable-next-line no-console
-  // console.log('current: page, limit, sort, filter', page, limit, sort, filter);
-  const qString = queryString.stringify({ page, limit, sort, filter });
-  // eslint-disable-next-line no-console
-  // console.log('current: qString', qString);
+  console.log('current: getUsers: qString', qString);
   const fullURL = `permission/user/all/?${qString}`;
   return (dispatch) => {
     dispatch(usersIsLoading(true));
