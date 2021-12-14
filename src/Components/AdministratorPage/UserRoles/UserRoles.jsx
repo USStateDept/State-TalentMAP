@@ -37,8 +37,12 @@ class UserRoles extends Component {
   };
 
   filterByPermission = (clicked, permission) => {
-    let stateFilters = this.state.filters;
-    stateFilters = clicked ? stateFilters.push(permission) : pull(stateFilters, permission);
+    const stateFilters = this.state.filters;
+    if (clicked) {
+      stateFilters.push(permission);
+    } else {
+      pull(stateFilters, permission);
+    }
     this.setState({ filters: stateFilters }, this.callUpdateUsers);
   };
 
