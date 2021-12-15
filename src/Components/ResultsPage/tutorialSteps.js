@@ -2,6 +2,7 @@ import { getAssetPath } from 'utilities';
 
 const viewPositionText = 'To view more information about a position and add it to your bid list, click "View position". To submit a bid, you will need go to your Bid Tracker.';
 const addToBidListGif = getAssetPath('/assets/img/add_to_bid_list.gif');
+const submitBidGif = getAssetPath('/assets/img/submit_bid.gif');
 
 const steps = [
   {
@@ -40,6 +41,11 @@ const steps = [
   {
     target: '.results-card-title-link > a',
     content: <div><div>{viewPositionText}</div><img alt="add to bid list gif" src={addToBidListGif} /></div>,
+    hideCloseButton: true,
+  },
+  {
+    target: '.results-card-title-link > a',
+    content: <div><div>Submitting a bid on the Bid Tracker</div><img alt="submit bid gif" src={submitBidGif} /></div>,
     hideCloseButton: true,
   },
   {
