@@ -1,4 +1,4 @@
-import { getAssetPath } from '../../utilities';
+import { getAssetPath } from 'utilities';
 
 const viewPositionText = 'To view more information about a position and add it to your bid list, click "View position". To submit a bid, you will need go to your Bid Tracker.';
 const addToBidListGif = getAssetPath('/assets/img/add_to_bid_list.gif');
