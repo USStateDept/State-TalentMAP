@@ -24,9 +24,10 @@ export function usersSuccess(results) {
 }
 
 export function getUsers(page = 1, limit = 100, sort, filters, q_username, q_name) {
-  const qString = queryString.stringify({ page, limit, sort, filters, q_username, q_name });
-  // eslint-disable-next-line no-console
-  console.log('current: getUsers: qString', qString);
+  const params = { page, limit, sort, filters, q_username, q_name };
+  // eslint-disable-next-line no-unused-vars
+  const params$ = Object.fromEntries(Object.entries(params).filter(([k, v]) => Boolean(v)));
+  const qString = queryString.stringify(params$);
   const fullURL = `permission/user/all/?${qString}`;
   return (dispatch) => {
     dispatch(usersIsLoading(true));
