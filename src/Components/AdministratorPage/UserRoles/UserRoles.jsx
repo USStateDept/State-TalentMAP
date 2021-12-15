@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { get, isNil, omit, pull } from 'lodash';
+import { get, isNil, omit, pull, replace } from 'lodash';
 import shortid from 'shortid';
 import { getUsers } from 'actions/userRoles';
 import DELEGATE_ROLES from 'Constants/DelegateRoles';
@@ -101,38 +101,13 @@ class UserRoles extends Component {
       return omit(roles, removeRoles);
     };
 
-    const sortArrow = (sortType) => {
-      let direction;
-
-      switch (sort) {
-        case sortType:
-          direction = 'up';
-          break;
-        case `-${sortType}`:
-          direction = 'down';
-          break;
-        default:
-          direction = 'default';
-      }
-
-      if (direction === 'default') {
-        return (
-          <div className="delegate-role-header-sort-hidden">
-            {
-              <FA name="long-arrow-up" />
-            }
-          </div>
-        );
-      }
-
-      return (
-        <div className="delegate-role-header-sort">
-          {
-            <FA name={`long-arrow-${direction}`} />
-          }
-        </div>
-      );
-    };
+    const sortArrow = (sortType) => (
+      <div className={`delegate-role-header-sort${sortType === replace(sort, '-', '') ? '' : '-hidden'}`}>
+        {
+          <FA name={`long-arrow-${get(sort, [0], '') === '-' ? 'down' : 'up'}`} />
+        }
+      </div>
+    );
 
     const DELEGATE_ROLES$ = getDelegateRoles();
 
