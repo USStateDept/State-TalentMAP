@@ -1,3 +1,8 @@
+import { getAssetPath } from '../../utilities';
+
+const viewPositionText = 'To view more information about a position and add it to your bid list, click "View position". To submit a bid, you will need go to your Bid Tracker.';
+const addToBidListGif = getAssetPath('/assets/img/add_to_bid_list.gif');
+
 const steps = [
   {
     target: '.results-section-container',
@@ -34,7 +39,12 @@ const steps = [
   },
   {
     target: '.results-card-title-link > a',
-    content: 'To view more information about a position and add it to your bid list, click "View position"',
+    content: <div><div>{viewPositionText}</div><img alt="add to bid list gif" src={addToBidListGif} /></div>,
+    hideCloseButton: true,
+  },
+  {
+    target: '.tutorial-help-link',
+    content: 'Click the "Help" link to email the TalentMAP team any questions.',
     hideCloseButton: true,
   },
 ];
