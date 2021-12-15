@@ -49,10 +49,11 @@ const steps = [
   },
   {
     target: '.results-card-title-link > a',
-    content: <div>
-      <div>Submitting a bid on the Bid Tracker</div>
-      <img alt="submit bid gif" src={submitBidGif} />
-    </div>,
+    content:
+      <div>
+        <div>Submitting a bid on the Bid Tracker</div>
+        <img alt="submit bid gif" src={submitBidGif} />
+      </div>,
     hideCloseButton: true,
   },
   {
