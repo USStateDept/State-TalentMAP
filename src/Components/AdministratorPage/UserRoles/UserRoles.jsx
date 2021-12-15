@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get, isNil, omit, pull } from 'lodash';
+import shortid from 'shortid';
 import { getUsers } from 'actions/userRoles';
 import DELEGATE_ROLES from 'Constants/DelegateRoles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -147,7 +148,14 @@ class UserRoles extends Component {
       ),
       ));
 
-    const userRows = usersList.map(m => (
+    // eslint-disable-next-line no-unused-vars
+    const userRows = usersIsLoading ? [...new Array(10)].map(m => (
+      <UserRow
+        key={shortid.generate()}
+        isLoading={usersIsLoading}
+      />
+    ),
+    ) : usersList.map(m => (
       <UserRow
         key={m.id}
         userID={m.id}
