@@ -103,25 +103,11 @@ class UserRoles extends Component {
 
     const sortArrow = (sortType) => (
       <div className={`delegate-role-header-sort${sortType === replace(sort, '-', '') ? '' : '-hidden'}`}>
-        {
-          <FA name={`long-arrow-${get(sort, [0], '') === '-' ? 'down' : 'up'}`} />
-        }
+        <FA name={`long-arrow-${get(sort, [0], '') === '-' ? 'down' : 'up'}`} />
       </div>
     );
 
     const DELEGATE_ROLES$ = getDelegateRoles();
-
-    const getFilters = () => (
-      Object.keys(DELEGATE_ROLES$).map(m => (
-        <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
-          <CheckBox
-            id={`${get(DELEGATE_ROLES$, `${m}.group_name`)}`}
-            value={m.group_id}
-            onCheckBoxClick={e => this.filterByPermission(e, get(DELEGATE_ROLES$, `${m}.group_id`))}
-          />
-        </th>
-      ),
-      ));
 
     // eslint-disable-next-line no-unused-vars
     const userRows = usersIsLoading ? [...new Array(10)].map(m => (
@@ -160,46 +146,58 @@ class UserRoles extends Component {
           <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
             <thead>
               <tr>
-                <th key="username" className="delegate-role-header" onClick={() => onSortTable('username')}>userName {sortArrow('username')}</th>
-                <th className="delegate-role-header" onClick={() => onSortTable('last_name')}>Last, First {sortArrow('last_name')}</th>
+                <th key="username" className="delegate-role-header">
+                  <div role="button" tabIndex={0} onClick={() => onSortTable('username')}>
+                    userName {sortArrow('username')}
+                  </div>
+                  <div className="filter-row">
+                    <SearchBar
+                      id="username-search-field"
+                      labelSrOnly
+                      noButton
+                      onChangeText={e => changeText(e, 'q_username')}
+                      onSubmitSearch={e => submitText(e, 'q_username')}
+                      onClear={e => clearText(e, 'q_username')}
+                      placeholder="Search by Username"
+                      showClear
+                      submitText="Search"
+                      type="small"
+                    />
+                  </div>
+                </th>
+                <th className="delegate-role-header">
+                  <div role="button" tabIndex={0} onClick={() => onSortTable('last_name')}>
+                    Last, First {sortArrow('last_name')}
+                  </div>
+                  <div className="filter-row">
+                    <SearchBar
+                      id="name-search-field"
+                      labelSrOnly
+                      noButton
+                      onChangeText={e => changeText(e, 'q_name')}
+                      onSubmitSearch={e => submitText(e, 'q_name')}
+                      onClear={e => clearText(e, 'q_name')}
+                      placeholder="Search by Last, First"
+                      showClear
+                      submitText="Search"
+                      type="small"
+                    />
+                  </div>
+                </th>
                 {
                   Object.keys(DELEGATE_ROLES$).map(m => (
                     <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
                       {get(DELEGATE_ROLES$, `${m}.title`)}
+                      <div className="filter-row">
+                        <CheckBox
+                          id={`${get(DELEGATE_ROLES$, `${m}.group_name`)}`}
+                          value={m.group_id}
+                          onCheckBoxClick={e => this.filterByPermission(e, get(DELEGATE_ROLES$, `${m}.group_id`))}
+                        />
+                      </div>
                     </th>
                   ))
                 }
-              </tr>
-              <tr className="filter-row">
-                <th>
-                  <SearchBar
-                    id="username-search-field"
-                    labelSrOnly
-                    noButton
-                    onChangeText={e => changeText(e, 'q_username')}
-                    onSubmitSearch={e => submitText(e, 'q_username')}
-                    onClear={e => clearText(e, 'q_username')}
-                    placeholder="Search by Username"
-                    showClear
-                    submitText="Search"
-                    type="small"
-                  />
-                </th>
-                <th>
-                  <SearchBar
-                    id="name-search-field"
-                    labelSrOnly
-                    noButton
-                    onChangeText={e => changeText(e, 'q_name')}
-                    onSubmitSearch={e => submitText(e, 'q_name')}
-                    onClear={e => clearText(e, 'q_name')}
-                    placeholder="Search by Last, First"
-                    showClear
-                    submitText="Search"
-                    type="small"
-                  />
-                </th>
-                {getFilters()}
               </tr>
             </thead>
             <tbody>
