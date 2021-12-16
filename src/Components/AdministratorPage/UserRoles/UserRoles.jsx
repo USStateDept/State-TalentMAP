@@ -47,175 +47,176 @@ class UserRoles extends Component {
     this.setState({ filters: stateFilters }, this.callUpdateUsers);
   };
 
-  render() {
-    const {
-      totalUsers,
-      usersList,
-      usersIsLoading,
-      usersHasErrored,
-      modifyPermissionIsLoading,
-      tableStats,
-    } = this.props;
-    const { page, range, sort } = this.state;
-    const usersSuccess = !usersIsLoading && !usersHasErrored;
+  changeText = (e, id) => {
+    this.setState({ [id]: e.target.value });
+  };
 
-    const changeText = (e, id) => {
-      this.setState({ [id]: e.target.value });
-    };
+  submitText = (e) => {
+    e.preventDefault();
+    this.callUpdateUsers();
+  };
 
-    const submitText = (e) => {
-      e.preventDefault();
-      this.callUpdateUsers();
-    };
+   clearText = (e, id) => {
+     this.setState({ [id]: '' }, this.callUpdateUsers);
+   };
 
-    const clearText = (e, id) => {
-      this.setState({ [id]: '' }, this.callUpdateUsers);
-    };
+   onSortTable = (sortType) => {
+     const { sort } = this.state;
+     let sortType$;
+     if (sortType === sort) {
+       sortType$ = `-${sort}`;
+     } else if (`-${sortType}` === sort) {
+       sortType$ = '';
+     } else {
+       sortType$ = sortType;
+     }
+     this.setState({ sort: sortType$ }, this.callUpdateUsers);
+   };
 
-    const onSortTable = (sortType) => {
-      let sortType$;
-      if (sortType === sort) {
-        sortType$ = `-${sort}`;
-      } else if (`-${sortType}` === sort) {
-        sortType$ = '';
-      } else {
-        sortType$ = sortType;
-      }
-      this.setState({ sort: sortType$ }, this.callUpdateUsers);
-    };
+   render() {
+     const {
+       totalUsers,
+       usersList,
+       usersIsLoading,
+       usersHasErrored,
+       modifyPermissionIsLoading,
+       tableStats,
+     } = this.props;
+     const { page, range, sort } = this.state;
+     const usersSuccess = !usersIsLoading && !usersHasErrored;
 
-    // copying id from tableStats to group_id in DELEGATE_ROLES$
-    const getDelegateRoles = () => {
-      const roles = { ...DELEGATE_ROLES };
-      tableStats.forEach((m) => {
-        const roleGroup = get(roles, `${m.name}`);
-        if (roleGroup) { roles[m.name].group_id = m.id; }
-      });
-      // remove role if did not match with tableStats(no id in roles)
-      const removeRoles = [];
-      Object.keys(roles).forEach((role) => {
-        if (isNil(get(roles, `${role}.group_id`))) {
-          removeRoles.push(role);
-        }
-      });
-      return omit(roles, removeRoles);
-    };
+     // copying id from tableStats to group_id in DELEGATE_ROLES$
+     const getDelegateRoles = () => {
+       const roles = { ...DELEGATE_ROLES };
+       tableStats.forEach((m) => {
+         const roleGroup = get(roles, `${m.name}`);
+         if (roleGroup) { roles[m.name].group_id = m.id; }
+       });
+       // remove role if did not match with tableStats(no id in roles)
+       const removeRoles = [];
+       Object.keys(roles).forEach((role) => {
+         if (isNil(get(roles, `${role}.group_id`))) {
+           removeRoles.push(role);
+         }
+       });
+       return omit(roles, removeRoles);
+     };
 
-    const sortArrow = (sortType) => (
-      <div className={`delegate-role-header-sort${sortType === replace(sort, '-', '') ? '' : '-hidden'}`}>
-        <FA name={`long-arrow-${get(sort, [0], '') === '-' ? 'down' : 'up'}`} />
-      </div>
-    );
+     const sortArrow = (sortType) => (
+       <div className={`delegate-role-header-sort${sortType === replace(sort, '-', '') ? '' : '-hidden'}`}>
+         <FA name={`long-arrow-${get(sort, [0], '') === '-' ? 'down' : 'up'}`} />
+       </div>
+     );
 
-    const DELEGATE_ROLES$ = getDelegateRoles();
+     const DELEGATE_ROLES$ = getDelegateRoles();
 
-    // eslint-disable-next-line no-unused-vars
-    const userRows = usersIsLoading ? [...new Array(10)].map(m => (
-      <UserRow
-        key={shortid.generate()}
-        isLoading={usersIsLoading}
-      />
-    ),
-    ) : usersList.map(m => (
-      <UserRow
-        key={m.id}
-        userID={m.id}
-        username={m.username}
-        name={`${m.last_name}, ${m.first_name}`}
-        permissionGroups={m.groups}
-        delegateRoles={DELEGATE_ROLES$}
-        isLoading={usersIsLoading}
-      />
-    ),
-    );
+     // eslint-disable-next-line no-unused-vars
+     const userRows = usersIsLoading ? [...new Array(10)].map(m => (
+       <UserRow
+         key={shortid.generate()}
+         isLoading={usersIsLoading}
+       />
+     ),
+     ) : usersList.map(m => (
+       <UserRow
+         key={m.id}
+         userID={m.id}
+         username={m.username}
+         name={`${m.last_name}, ${m.first_name}`}
+         permissionGroups={m.groups}
+         delegateRoles={DELEGATE_ROLES$}
+         isLoading={usersIsLoading}
+       />
+     ),
+     );
 
-    return (
-      <div
-        className="usa-grid-full profile-content-inner-container administrator-page"
-      >
-        <div className="usa-grid-full">
-          <ProfileSectionTitle title="User Roles" icon="users" />
-        </div>
-        {
-          usersSuccess &&
+     return (
+       <div
+         className="usa-grid-full profile-content-inner-container administrator-page"
+       >
+         <div className="usa-grid-full">
+           <ProfileSectionTitle title="User Roles" icon="users" />
+         </div>
+         {
+           usersSuccess &&
           <div className="usa-grid-full total-results">
             <TotalResults total={totalUsers} pageNumber={page} pageSize={range} />
           </div>
-        }
-        <div className="usa-grid-full">
-          <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
-            <thead>
-              <tr>
-                <th key="username" className="delegate-role-header">
-                  <div role="button" tabIndex={0} onClick={() => onSortTable('username')}>
+         }
+         <div className="usa-grid-full">
+           <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
+             <thead>
+               <tr>
+                 <th key="username" className="delegate-role-header">
+                   <div role="button" tabIndex={0} onClick={() => this.onSortTable('username')}>
                     userName {sortArrow('username')}
-                  </div>
-                  <div className="filter-row">
-                    <SearchBar
-                      id="username-search-field"
-                      labelSrOnly
-                      noButton
-                      onChangeText={e => changeText(e, 'q_username')}
-                      onSubmitSearch={e => submitText(e, 'q_username')}
-                      onClear={e => clearText(e, 'q_username')}
-                      placeholder="Search by Username"
-                      showClear
-                      submitText="Search"
-                      type="small"
-                    />
-                  </div>
-                </th>
-                <th className="delegate-role-header">
-                  <div role="button" tabIndex={0} onClick={() => onSortTable('last_name')}>
+                   </div>
+                   <div className="filter-row">
+                     <SearchBar
+                       id="username-search-field"
+                       labelSrOnly
+                       noButton
+                       onChangeText={e => this.changeText(e, 'q_username')}
+                       onSubmitSearch={e => this.submitText(e, 'q_username')}
+                       onClear={e => this.clearText(e, 'q_username')}
+                       placeholder="Search by Username"
+                       showClear
+                       submitText="Search"
+                       type="small"
+                     />
+                   </div>
+                 </th>
+                 <th className="delegate-role-header">
+                   <div role="button" tabIndex={0} onClick={() => this.onSortTable('last_name')}>
                     Last, First {sortArrow('last_name')}
-                  </div>
-                  <div className="filter-row">
-                    <SearchBar
-                      id="name-search-field"
-                      labelSrOnly
-                      noButton
-                      onChangeText={e => changeText(e, 'q_name')}
-                      onSubmitSearch={e => submitText(e, 'q_name')}
-                      onClear={e => clearText(e, 'q_name')}
-                      placeholder="Search by Last, First"
-                      showClear
-                      submitText="Search"
-                      type="small"
-                    />
-                  </div>
-                </th>
-                {
-                  Object.keys(DELEGATE_ROLES$).map(m => (
-                    <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
-                      {get(DELEGATE_ROLES$, `${m}.title`)}
-                      <div className="filter-row">
-                        <CheckBox
-                          id={`${get(DELEGATE_ROLES$, `${m}.group_name`)}`}
-                          value={m.group_id}
-                          onCheckBoxClick={e => this.filterByPermission(e, get(DELEGATE_ROLES$, `${m}.group_id`))}
-                        />
-                      </div>
-                    </th>
-                  ))
-                }
-              </tr>
-            </thead>
-            <tbody>
-              {userRows}
-            </tbody>
-          </table>
-        </div>
-        <div className="usa-grid-full react-paginate">
-          <PaginationWrapper
-            totalResults={totalUsers}
-            pageSize={range}
-            onPageChange={this.onPageChange}
-            forcePage={page}
-          />
-        </div>
-      </div>
-    );
-  }
+                   </div>
+                   <div className="filter-row">
+                     <SearchBar
+                       id="name-search-field"
+                       labelSrOnly
+                       noButton
+                       onChangeText={e => this.changeText(e, 'q_name')}
+                       onSubmitSearch={e => this.submitText(e, 'q_name')}
+                       onClear={e => this.clearText(e, 'q_name')}
+                       placeholder="Search by Last, First"
+                       showClear
+                       submitText="Search"
+                       type="small"
+                     />
+                   </div>
+                 </th>
+                 {
+                   Object.keys(DELEGATE_ROLES$).map(m => (
+                     <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
+                       {get(DELEGATE_ROLES$, `${m}.title`)}
+                       <div className="filter-row">
+                         <CheckBox
+                           id={`${get(DELEGATE_ROLES$, `${m}.group_name`)}`}
+                           value={m.group_id}
+                           onCheckBoxClick={e => this.filterByPermission(e, get(DELEGATE_ROLES$, `${m}.group_id`))}
+                         />
+                       </div>
+                     </th>
+                   ))
+                 }
+               </tr>
+             </thead>
+             <tbody>
+               {userRows}
+             </tbody>
+           </table>
+         </div>
+         <div className="usa-grid-full react-paginate">
+           <PaginationWrapper
+             totalResults={totalUsers}
+             pageSize={range}
+             onPageChange={this.onPageChange}
+             forcePage={page}
+           />
+         </div>
+       </div>
+     );
+   }
 }
 
 UserRoles.propTypes = {
