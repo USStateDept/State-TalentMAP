@@ -123,7 +123,7 @@ class BidderPortfolioPage extends Component {
           }
           <div className={`usa-grid-full bidder-portfolio-listing ${loadingClass}`}>
             {
-              !isLoading && !hideControls &&
+              !isLoading && !hideControls && !bidderPortfolioHasErrored &&
                 <div className="total-results-container">
                   <TotalResults
                     total={get(bidderPortfolio, 'count')}
@@ -150,6 +150,7 @@ class BidderPortfolioPage extends Component {
                     isLoading={bidderPortfolioIsLoading}
                     cdosLength={cdosLength}
                     hideControls={hideControls}
+                    hasErrored={bidderPortfolioHasErrored}
                   />
                 </ErrorBoundary>
             }
