@@ -366,28 +366,28 @@
         text-align:center;
 
       }
+    }
 
-      .filter-row {
-        border-bottom: 1px solid $bg-blue-dark-1;
+    .filter-row {
+      border-bottom: 1px solid $bg-blue-dark-1;
 
-        div {
-          background-color: $color-white;
-          height: 3.3rem;
-          margin-top: 10px;
-          min-width: 130px;
+      div {
+        background-color: $color-white;
+        height: 3.3rem;
+        margin-top: 10px;
+        min-width: 130px;
 
-          label {
-            padding-top: .7rem;
-          }
+        label {
+          padding-top: .7rem;
         }
-        input {
-          border: none;
-          width: calc(100% - 1.5rem);
-        }
-        .text-input-wrapper > span {
-          right: 5px;
-          top: 7px;
-        }
+      }
+      input {
+        border: none;
+        width: calc(100% - 1.5rem);
+      }
+      .text-input-wrapper > span {
+        right: 5px;
+        top: 7px;
       }
     }
 

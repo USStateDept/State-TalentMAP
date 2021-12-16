@@ -45,20 +45,22 @@ class UserRow extends Component {
     return (
       <>
         {
-          isLoading
-            ?
-            (<tr>
-              <td><Skeleton /></td>
-              <td><Skeleton /></td>
-              <td><Skeleton /></td>
-              <td><Skeleton /></td>
-            </tr>)
-            :
-            (<tr>
-              <td>{username}</td>
-              <td>{name}</td>
-              {tdArray}
-            </tr>)
+          isLoading ?
+            (
+              <tr>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+              </tr>
+            ) :
+            (
+              <tr>
+                <td>{username}</td>
+                <td>{name}</td>
+                {tdArray}
+              </tr>
+            )
         }
       </>
     );
