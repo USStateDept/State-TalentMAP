@@ -42,14 +42,14 @@ class UserRoles extends Component {
   };
 
   filterByPermission = (clicked, permission) => {
-    const { filters: stateFilters } = this.state;
-    
+    const filters = [...this.state.filters];
+
     if (clicked) {
-      stateFilters.push(permission);
+      filters.push(permission);
     } else {
-      pull(stateFilters, permission);
+      pull(filters, permission);
     }
-    this.setState({ filters: stateFilters }, this.callUpdateUsers);
+    this.setState({ filters }, this.callUpdateUsers);
   };
 
   changeText = (e, id) => {
