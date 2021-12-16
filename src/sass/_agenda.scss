@@ -33,8 +33,7 @@
     flex-direction: column;
     height: 350px;
     margin-bottom: 25px;
-    margin-left: 15px;
-    margin-right: 25px;
+    margin-right: 40px;
     width: 335px;
 
     a {
@@ -488,6 +487,29 @@
             border-left: 1px solid $color-gray-lighter;
           }
 
+        }
+
+        .remarks-container {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 25px;
+
+          .remarks-text {
+            float: left;
+            font-size: 1.1em;
+            margin-right: .7rem;
+            margin-top: 3px;
+          }
+
+          .remarks-pill {
+            border-radius: 12px;
+            color: $color-white;
+            display: inline;
+            font-size: .8em;
+            margin-bottom: 1rem;
+            margin-right: 1.5rem;
+            padding: .5em;
+          }
         }
       }
 

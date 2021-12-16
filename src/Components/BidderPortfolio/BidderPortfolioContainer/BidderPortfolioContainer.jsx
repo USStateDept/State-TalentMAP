@@ -20,7 +20,7 @@ class BidderPortfolioContainer extends Component {
 
   render() {
     const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
-      cdosLength, hideControls, classifications } = this.props;
+      cdosLength, hideControls, classifications, hasErrored } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     const showNoCdosAlert = !cdosLength;
     const showEdit$ = showEdit && !hideControls;
@@ -28,7 +28,7 @@ class BidderPortfolioContainer extends Component {
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
-          !showNoCdosAlert &&
+          !showNoCdosAlert && !hasErrored &&
           (
             showListView ?
               <BidderPortfolioGridList
@@ -46,7 +46,7 @@ class BidderPortfolioContainer extends Component {
         }
         {
           // if there's no results, don't show pagination
-          !noResults && !showNoCdosAlert &&
+          !noResults && !showNoCdosAlert && !hasErrored &&
            <div className="usa-grid-full react-paginate">
              <PaginationWrapper
                totalResults={bidderPortfolio.count}
@@ -59,15 +59,21 @@ class BidderPortfolioContainer extends Component {
            </div>
         }
         {
-          showNoCdosAlert &&
+          showNoCdosAlert && !hasErrored &&
           <div className="usa-width-two-thirds">
             <Alert title="You have not selected any CDOs" messages={[{ body: 'Please select at least one CDO from the "Proxy CDO View" filter above.' }]} />
           </div>
         }
         {
-          noResults && !isLoading && !showNoCdosAlert &&
+          noResults && !isLoading && !showNoCdosAlert && !hasErrored &&
           <div className="usa-width-two-thirds">
             <Alert title="You have no clients within this search criteria." messages={[{ body: 'Try removing filters or using another bid status tab.' }]} />
+          </div>
+        }
+        {
+          !isLoading && hasErrored &&
+          <div className="usa-width-two-thirds">
+            <Alert title="An error has occurred" messages={[{ body: 'Try performing another search' }]} type="error" />
           </div>
         }
       </div>
@@ -86,6 +92,7 @@ BidderPortfolioContainer.propTypes = {
   isLoading: PropTypes.bool,
   cdosLength: PropTypes.number,
   hideControls: PropTypes.bool,
+  hasErrored: PropTypes.bool,
 };
 
 BidderPortfolioContainer.defaultProps = {
@@ -95,6 +102,7 @@ BidderPortfolioContainer.defaultProps = {
   isLoading: false,
   cdosLength: 0,
   hideControls: false,
+  hasErrored: false,
 };
 
 export default BidderPortfolioContainer;
