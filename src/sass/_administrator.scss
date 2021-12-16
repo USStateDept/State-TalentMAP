@@ -338,10 +338,10 @@
         position: sticky;
         top: 0;
       }
-        .delegate-role-header:nth-of-type(-n + 2) {
-          min-width: 200px;
-        }
-        .delegate-role-header {
+      .delegate-role-header:nth-of-type(-n + 2) {
+        min-width: 200px;
+      }
+      .delegate-role-header {
         cursor: pointer;
 
         .delegate-role-header-sort-hidden {
@@ -362,7 +362,7 @@
       th {
         background-color: $bg-blue-dark-1;
         color: $color-white;
-        padding: 15px 0 0 0;
+        padding: 15px 0 0;
         text-align:center;
 
       }
@@ -371,8 +371,8 @@
         border-bottom: 1px solid $bg-blue-dark-1;
 
         div {
-          height: 3.3rem;
           background-color: $color-white;
+          height: 3.3rem;
           margin-top: 10px;
           min-width: 130px;
 

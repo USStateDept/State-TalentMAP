@@ -2,7 +2,9 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { get, isNil, omit, pull, replace } from 'lodash';
+import {
+  get, isNil, omit, pull, replace,
+} from 'lodash';
 import shortid from 'shortid';
 import { getUsers } from 'actions/userRoles';
 import DELEGATE_ROLES from 'Constants/DelegateRoles';
@@ -29,7 +31,9 @@ class UserRoles extends Component {
 
   // eslint-disable-next-line react/sort-comp
   callUpdateUsers = () => {
-    const { page, range, sort, filters, q_username, q_name } = this.state;
+    const {
+      page, range, sort, filters, q_username, q_name,
+    } = this.state;
     this.props.updateUsers(page, range, sort, filters.join(), q_username, q_name);
   };
 
@@ -149,7 +153,8 @@ class UserRoles extends Component {
                <tr>
                  <th key="username" className="delegate-role-header">
                    <div role="button" tabIndex={0} onClick={() => this.onSortTable('username')}>
-                    userName {sortArrow('username')}
+                    userName
+                     {sortArrow('username')}
                    </div>
                    <div className="filter-row">
                      <SearchBar
@@ -168,7 +173,8 @@ class UserRoles extends Component {
                  </th>
                  <th className="delegate-role-header">
                    <div role="button" tabIndex={0} onClick={() => this.onSortTable('last_name')}>
-                    Last, First {sortArrow('last_name')}
+                    Last, First
+                     {sortArrow('last_name')}
                    </div>
                    <div className="filter-row">
                      <SearchBar
@@ -187,7 +193,7 @@ class UserRoles extends Component {
                  </th>
                  {
                    Object.keys(DELEGATE_ROLES$).map(m => (
-                     <th key={get(DELEGATE_ROLES$, `${m}.group_name`)} >
+                     <th key={get(DELEGATE_ROLES$, `${m}.group_name`)}>
                        {get(DELEGATE_ROLES$, `${m}.title`)}
                        <div className="filter-row">
                          <CheckBox
