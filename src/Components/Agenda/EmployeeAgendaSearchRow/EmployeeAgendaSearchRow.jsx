@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import LinkButton from 'Components/LinkButton';
-import { BIDDER_OBJECT } from 'Constants/PropTypes'; // for dummy data purposes only
 import { get } from 'lodash';
 
 const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
@@ -83,11 +82,12 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
 
 EmployeeAgendaSearchRow.propTypes = {
   isCDO: PropTypes.bool,
-  result: BIDDER_OBJECT.isRequired,
+  result: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
   isCDO: false,
+  result: [],
 };
 
 export default EmployeeAgendaSearchRow;

@@ -3,6 +3,7 @@ import { shortenString } from 'utilities';
 import { filter } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
+import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
   const {
@@ -107,6 +108,34 @@ const AgendaItemLegs = props => {
 
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
+  const fakeRemarks = [
+    {
+      text: 'Opts for SND',
+      color: '#F07011',
+      key: 1,
+    },
+    {
+      text: 'Decline SND',
+      color: '#F07011',
+      key: 2,
+    },
+    {
+      text: 'Tandem, No Issues',
+      color: '#4BB6CF',
+      key: 3,
+    },
+    {
+      text: 'High Differential Post',
+      color: '#6E2CC9',
+      key: 4,
+    },
+    {
+      text: 'Early Handshake',
+      color: '#E62CD5',
+      key: 5,
+    },
+  ];
+
   return (
     <div className="ai-history-card-legs">
       <table>
@@ -126,6 +155,17 @@ const AgendaItemLegs = props => {
           }
         </tbody>
       </table>
+      {
+        !isCard &&
+        <div className="remarks-container">
+          <div className="remarks-text">Remarks:</div>
+          {
+            fakeRemarks.map(fakeRemark => (
+              <RemarksPill key={fakeRemark.key} {...fakeRemark} />
+            ))
+          }
+        </div>
+      }
     </div>
   );
 };

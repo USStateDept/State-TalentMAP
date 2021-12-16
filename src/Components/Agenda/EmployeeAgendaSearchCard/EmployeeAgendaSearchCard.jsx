@@ -5,7 +5,6 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { BIDDER_OBJECT } from 'Constants/PropTypes'; // for dummy data purposes only
 import { get } from 'lodash';
 import BoxShadow from '../../BoxShadow';
 
@@ -103,11 +102,12 @@ const EmployeeAgendaSearchCard = ({ isCDO, result }) => {
 
 EmployeeAgendaSearchCard.propTypes = {
   isCDO: PropTypes.bool,
-  result: BIDDER_OBJECT.isRequired,
+  result: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 EmployeeAgendaSearchCard.defaultProps = {
   isCDO: false,
+  result: [],
 };
 
 export default EmployeeAgendaSearchCard;

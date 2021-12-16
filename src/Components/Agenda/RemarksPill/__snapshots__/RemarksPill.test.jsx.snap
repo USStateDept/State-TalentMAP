@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemarksPill matches snapshot 1`] = `
+<div
+  className="remarks-pill"
+  style={
+    Object {
+      "backgroundColor": "",
+    }
+  }
+/>
+`;
+
+exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
+<div
+  className="remarks-pill"
+  style={
+    Object {
+      "backgroundColor": "#F07011",
+    }
+  }
+>
+  Opts for SND
+</div>
+`;
