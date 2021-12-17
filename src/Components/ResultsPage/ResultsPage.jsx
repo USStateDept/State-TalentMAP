@@ -134,6 +134,7 @@ class Results extends Component {
                 primaryColor: '#0071BC',
               },
             }}
+            locale={{ skip: 'Exit' }}
           />
           <ResultsContainer
             results={results}
