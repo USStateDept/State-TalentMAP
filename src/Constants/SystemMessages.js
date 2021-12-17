@@ -101,6 +101,7 @@ export const UPDATED_SAVED_SEARCH_SUCCESS = name => SavedSearchSuccess({ name, i
 export const DELETE_SAVED_SEARCH_SUCCESS = 'Successfully deleted the selected search';
 export const DELETE_SAVED_SEARCH_ERROR = 'An error occurred trying to delete this search.';
 
+export const CANNOT_BID_FILLED_POSITION = 'This position is already filled and not available to bid on.';
 export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
 export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;
 
