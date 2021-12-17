@@ -162,7 +162,6 @@ const PositionDetailsItem = (props) => {
               isProjectedVacancy={isProjectedVacancy}
             />
             {
-              // To-Do: Audit this
               !isProjectedVacancy &&
               <ServiceNeededToggle
                 userProfile={userProfile}
