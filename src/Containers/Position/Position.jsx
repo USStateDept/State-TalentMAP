@@ -78,10 +78,6 @@ class Position extends Component {
     this.props.fetchPVData(id);
   }
 
-  getUPDetails(id) {
-    this.props.fetchUPData(id);
-  }
-
   editDescriptionContent = content => {
     this.props.editDescriptionContent(this.props.positionDetails.description.id, content);
   };
@@ -174,7 +170,6 @@ Position.propTypes = {
   location: ROUTER_LOCATION_OBJECT,
   fetchData: PropTypes.func,
   fetchPVData: PropTypes.func,
-  fetchUPData: PropTypes.func,
   hasErrored: PropTypes.bool,
   isLoading: PropTypes.bool,
   positionDetails: POSITION_DETAILS,
@@ -207,7 +202,6 @@ Position.defaultProps = {
   positionDetails: {},
   fetchData: EMPTY_FUNCTION,
   fetchPVData: EMPTY_FUNCTION,
-  fetchUPData: EMPTY_FUNCTION,
   hasErrored: false,
   isLoading: true,
   userProfile: {},
@@ -263,7 +257,6 @@ const mapStateToProps = (state, ownProps) => ({
 export const mapDispatchToProps = dispatch => ({
   fetchData: id => dispatch(positionDetailsFetchData(id)),
   fetchPVData: id => dispatch(positionDetailsFetchData(id, true)),
-  fetchUPData: id => dispatch(positionDetailsFetchData(id, false, true)),
   onNavigateTo: dest => dispatch(push(dest)),
   fetchBidList: () => dispatch(bidListFetchData()),
   editDescriptionContent: (id, content) => dispatch(editDescriptionContent(id, content)),
