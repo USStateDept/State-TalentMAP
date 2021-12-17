@@ -62,7 +62,6 @@ const PositionDetailsItem = (props) => {
     highlightPosition,
     onHighlight,
     isProjectedVacancy,
-    isArchived,
     hideHeader,
     hideContact,
   } = props;
@@ -163,7 +162,7 @@ const PositionDetailsItem = (props) => {
               isProjectedVacancy={isProjectedVacancy}
             />
             {
-              !isProjectedVacancy && !isArchived &&
+              !isProjectedVacancy &&
               <ServiceNeededToggle
                 userProfile={userProfile}
                 position={details}
@@ -188,7 +187,6 @@ PositionDetailsItem.propTypes = {
   highlightPosition: HIGHLIGHT_POSITION,
   onHighlight: PropTypes.func.isRequired,
   isProjectedVacancy: PropTypes.bool,
-  isArchived: PropTypes.bool,
   hideHeader: PropTypes.bool,
   hideContact: PropTypes.bool,
 };
@@ -199,7 +197,6 @@ PositionDetailsItem.defaultProps = {
   highlightPosition: DEFAULT_HIGHLIGHT_POSITION,
   onHighlight: EMPTY_FUNCTION,
   isProjectedVacancy: false,
-  isArchived: false,
   hideHeader: false,
   hideContact: false,
 };

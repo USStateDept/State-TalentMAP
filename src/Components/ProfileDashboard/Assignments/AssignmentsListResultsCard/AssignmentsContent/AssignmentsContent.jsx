@@ -5,6 +5,7 @@ import { POSITION_DETAILS } from 'Constants/PropTypes';
 import { formatDate, getPostName } from '../../../../../utilities';
 import StartEnd from '../../../PositionInformation/StartEnd';
 
+
 const AssignmentsContent = ({ assignment }) => (
   <div className="usa-grid-full bid-content-container">
     <div className="bid-list-card-title-lg">

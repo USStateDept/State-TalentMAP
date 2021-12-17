@@ -708,7 +708,6 @@ export const AB_DETAILS_OBJECT = PropTypes.shape({
   comments: PropTypes.string,
   date_created: PropTypes.string,
   update_date: PropTypes.string,
-  archived: PropTypes.bool,
   is_shared: PropTypes.bool,
   last_editing_user_id: PropTypes.number,
   perdet_seq_num: PropTypes.number,
