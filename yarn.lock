@@ -8764,10 +8764,10 @@ json5@^1.0.1:
   dependencies:
     minimist "^1.2.0"
 
-jsoneditor-react@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/jsoneditor-react/-/jsoneditor-react-3.1.1.tgz#30c4c0a7c38b2bb1c1cd030c38b7f2990ffe7ffe"
-  integrity sha512-7cl2PXfqoOFpGX9mO7d445EpGJGUlk8/AwWgKZiOMh3kPHBduSo6cIIUQrWVqX3pDBjM7z+map+rD1RXyl6FcA==
+jsoneditor-react@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/jsoneditor-react/-/jsoneditor-react-3.1.2.tgz#bc36356ac5ecb0d8f88d49a5ccbeecdd7f996164"
+  integrity sha512-XqU8BMdIhrlS5HUnn7rGhgZw315bdJGQrf6NG5UH40FSw2xNirQrxnM05aeAplHkp8FNkzN2WX0tfvEWdl2UUA==
   dependencies:
     prop-types "^15.7.2"
 
