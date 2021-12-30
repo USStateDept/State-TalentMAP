@@ -28,7 +28,8 @@ class DashboardContainer extends Component {
       favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
       deleteBid, classifications, classificationsIsLoading, userClassificationsHasErrored,
       userClassificationsIsLoading, userClassifications } = this.props;
-    const allFavorites = favoritePositions.favorites.concat(favoritePositions.favoritesPV);
+    const allFavorites = (favoritePositions.favorites || [])
+      .concat(favoritePositions.favoritesPV || []);
     return (
       <ProfileDashboard
         userProfile={userProfile}

@@ -4,9 +4,8 @@ import RemarksPill from './RemarksPill';
 
 describe('RemarksPill', () => {
   const props = {
-    text: 'Opts for SND',
+    title: 'Opts for SND',
     color: '#F07011',
-    key: 1,
   };
 
   it('is defined', () => {
@@ -26,6 +25,6 @@ describe('RemarksPill', () => {
 
   it('displays a remark', () => {
     const wrapper = shallow(<RemarksPill {...props} />);
-    expect(wrapper.find('div').text()).toBe(props.text);
+    expect(wrapper.find('div').text()).toBe(props.title);
   });
 });

@@ -1,16 +1,21 @@
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter } from 'lodash';
+import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
   const {
-    fakeLegs,
+    legs,
+    remarks,
     isCard,
   } = props;
 
+  let legs$ = legs;
+  if (isCard && legs.length > 2) {
+    legs$ = [take(legs)[0], takeRight(legs)[0]];
+  }
   const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
@@ -18,7 +23,7 @@ const AgendaItemLegs = props => {
   const getData = (key, helperFunc) => (
     <>
       {
-        fakeLegs.map((leg) => (<td>
+        legs$.map((leg) => (<td>
           {
             helperFunc ?
               <dd>{helperFunc(leg[key])}</dd>
@@ -34,7 +39,7 @@ const AgendaItemLegs = props => {
   const getArrows = () => (
     <>
       {
-        fakeLegs.map(() => (<td className="arrow">
+        legs$.map(() => (<td className="arrow">
           <dd>
             <FA name="arrow-down" />
           </dd>
@@ -47,13 +52,13 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'Position Title',
-      content: (getData('position', formatStr)),
+      content: (getData('pos_title', formatStr)),
       cardView: false,
     },
     {
       icon: '',
       title: 'Position Number',
-      content: (getData('posNum')),
+      content: (getData('pos_num')),
       cardView: false,
     },
     {
@@ -108,38 +113,10 @@ const AgendaItemLegs = props => {
 
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
-  const fakeRemarks = [
-    {
-      text: 'Opts for SND',
-      color: '#F07011',
-      key: 1,
-    },
-    {
-      text: 'Decline SND',
-      color: '#F07011',
-      key: 2,
-    },
-    {
-      text: 'Tandem, No Issues',
-      color: '#4BB6CF',
-      key: 3,
-    },
-    {
-      text: 'High Differential Post',
-      color: '#6E2CC9',
-      key: 4,
-    },
-    {
-      text: 'Early Handshake',
-      color: '#E62CD5',
-      key: 5,
-    },
-  ];
-
   return (
     <div className="ai-history-card-legs">
       <table>
-        <tbody >
+        <tbody>
           {
             tableData$.map(tr => (
               <tr>
@@ -160,8 +137,8 @@ const AgendaItemLegs = props => {
         <div className="remarks-container">
           <div className="remarks-text">Remarks:</div>
           {
-            fakeRemarks.map(fakeRemark => (
-              <RemarksPill key={fakeRemark.key} {...fakeRemark} />
+            remarks.map(remark => (
+              <RemarksPill key={remark.title} {...remark} />
             ))
           }
         </div>
@@ -171,13 +148,15 @@ const AgendaItemLegs = props => {
 };
 
 AgendaItemLegs.propTypes = {
-  fakeLegs: PropTypes.arrayOf(PropTypes.shape({})),
-  isCard: PropTypes.Boolean,
+  legs: PropTypes.arrayOf(PropTypes.shape({})),
+  remarks: PropTypes.arrayOf(PropTypes.shape({})),
+  isCard: PropTypes.bool,
 };
 
 
 AgendaItemLegs.defaultProps = {
-  fakeLegs: [],
+  legs: [],
+  remarks: [],
   isCard: false,
 };
 

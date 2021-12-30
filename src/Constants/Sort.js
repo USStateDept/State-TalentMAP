@@ -186,10 +186,12 @@ export const BUREAU_BIDDER_FILTERS = {
 export const AGENDA_ITEM_HISTORY_FILTERS = {
   // values tbd, subject to what WS returns
   options: [
-    { value: 'status', text: 'Agenda Status' },
-    { value: '-panel_date', text: 'Panel date: Latest' },
-    { value: 'panel_date', text: 'Panel date: Earliest' },
-    { value: '-updated_date', text: 'Updated date: Latest' },
-    { value: 'updated_date', text: 'Updated date: Earliest' },
+    { value: '-agenda_id', text: 'Created date: Latest' },
+    { value: 'agenda_id', text: 'Created date: Earliest' },
+    { value: 'agenda_status', text: 'Agenda Status' },
+    // { value: '-panel_date', text: 'Panel date: Latest' },
+    // { value: 'panel_date', text: 'Panel date: Earliest' },
   ],
 };
+
+AGENDA_ITEM_HISTORY_FILTERS.defaultSort = AGENDA_ITEM_HISTORY_FILTERS.options[0].value;

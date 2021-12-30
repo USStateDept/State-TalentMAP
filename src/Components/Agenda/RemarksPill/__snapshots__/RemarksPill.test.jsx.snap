@@ -5,7 +5,7 @@ exports[`RemarksPill matches snapshot 1`] = `
   className="remarks-pill"
   style={
     Object {
-      "backgroundColor": "",
+      "backgroundColor": "#0071bc",
     }
   }
 />
@@ -16,7 +16,7 @@ exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
   className="remarks-pill"
   style={
     Object {
-      "backgroundColor": "#F07011",
+      "backgroundColor": "#0071bc",
     }
   }
 >
