@@ -117,7 +117,7 @@ jobs:
       - run: yarn install --pure-lockfile
       - run:
           name: Build site
-          command: yarn build
+          command: FAST_BUILD=1 && yarn build
       - run:
           name: Zip artifact
           command: zip talentmap.zip -r build/*

@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
-import { fetchJWT } from 'utilities';
+import { fetchJWT, getAssetPath } from 'utilities';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 
 // Import styles
 import '@react-pdf-viewer/core/lib/styles/index.css';
 import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
-const ChecklistModal = props => {
+const EmployeeProfileModal = props => {
   const { url } = props;
 
   const cancel = (e) => {
@@ -26,7 +26,7 @@ const ChecklistModal = props => {
   return (
     <div className="checklist-modal">
       <div>
-        <Worker workerUrl="/static/js/bundle.worker.js">
+        <Worker workerUrl={getAssetPath('/static/js/pdf.worker.js')}>
           {/* <Viewer fileUrl={this.state.data} />; */}
           <Viewer
             fileUrl={url}
@@ -43,12 +43,12 @@ const ChecklistModal = props => {
   );
 };
 
-ChecklistModal.propTypes = {
+EmployeeProfileModal.propTypes = {
   url: PropTypes.string,
 };
 
-ChecklistModal.defaultProps = {
+EmployeeProfileModal.defaultProps = {
   url: '',
 };
 
-export default ChecklistModal;
+export default EmployeeProfileModal;
