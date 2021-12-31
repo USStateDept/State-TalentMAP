@@ -4,24 +4,29 @@ import { get } from 'lodash';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
+import swal from '@sweetalert/with-react';
+
 import { NO_GRADE } from 'Constants/SystemMessages';
 import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
-import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
+import { downloadPdfStream, fetchJWT, getBrowser, isOnProxy } from 'utilities';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import EditProfile from '../EditProfile';
 import Avatar from '../../../Avatar';
 import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
+import EmployeeProfileModal from './EmployeeProfileModal';
 
 class UserProfileGeneralInformation extends Component {
   constructor(props) {
     super(props);
+    this.getEmployeeProfile = this.getEmployeeProfile.bind(this);
     this.state = {
       isLoading: false,
       hasErrored: false,
+      data: null,
     };
   }
   getEmployeeProfile = () => {
@@ -61,6 +66,30 @@ class UserProfileGeneralInformation extends Component {
     const userSkills = get(userProfile, 'employee_info.skills');
     const userID = get(userProfile, 'employee_id');
 
+    let url$ = get(userProfile, 'employee_profile_url.internal');
+    if (isOnProxy()) {
+      url$ = get(userProfile, 'employee_profile_url.external');
+    }
+
+    const openPdf = () => {
+      const browser = getBrowser();
+      if (browser.name === 'Internet Explorer' && browser.version.startsWith('11')) {
+        this.getEmployeeProfile();
+      } else {
+        return swal({
+          title: 'Employee Profile Report:',
+          button: false,
+          className: 'modal-1300',
+          content: (
+            <EmployeeProfileModal
+              url={url$}
+            />
+          ),
+        });
+      }
+      return null;
+    };
+
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
@@ -78,7 +107,7 @@ class UserProfileGeneralInformation extends Component {
                 <InformationDataPoint
                   content={
                     <InteractiveElement
-                      onClick={this.getEmployeeProfile}
+                      onClick={openPdf}
                       type="a"
                       title="Download Employee Profile PDF"
                     >

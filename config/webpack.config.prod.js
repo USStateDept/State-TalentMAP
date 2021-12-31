@@ -70,7 +70,7 @@ module.exports = {
   devtool: FAST_BUILD ? undefined : 'source-map',
   // In production, we only want to load the polyfills and the app code.
   // Polyfills should always be first to avoid IE11 issues.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: { main: [require.resolve('./polyfills'), paths.appIndexJs], 'pdf.worker': path.join(__dirname, '../node_modules/pdfjs-dist/build/pdf.worker.js'), },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -305,6 +305,12 @@ module.exports = {
       template: paths.loginHtml,
       filename: 'login.html'
     }),
+    new webpack.NormalModuleReplacementPlugin(
+      /^pdfjs-dist$/,
+      resource => {
+          resource.request = path.join(__dirname, '../node_modules/pdfjs-dist/webpack');
+      },
+    ),
     // Webpack plugin that runs typescript type checker on a separate process.
 		new ForkTsCheckerWebpackPlugin({
 			// block webpack's emit to wait for type checker/linter and to add errors to the webpack's compilation

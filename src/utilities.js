@@ -682,6 +682,8 @@ export const scrollToGlossaryTerm = (term) => {
 
 export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
 
+export const getBrowser = () => Bowser.getParser(window.navigator.userAgent).getBrowser();
+
 // Convert values used in aria-* attributes to 'true'/'false' string.
 // Perform a string check, if for some reason the value was already a string.
 // https://github.com/cerner/terra-core/wiki/React-16-Migration-Guide#noted-changes
