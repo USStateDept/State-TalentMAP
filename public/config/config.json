@@ -1,8 +1,8 @@
 {
   "api_config": {
-    "baseURL": "http://192.168.1.239:8000/api/v1"
+    "baseURL": "http://localhost:8000/api/v1"
   },
-  "hrAuthUrl": "http://192.168.1.239:3333/Authorize?sAppCircuitID=32",
+  "hrAuthUrl": "http://localhost:3333/Authorize?sAppCircuitID=32",
   "flags": {
     "bidding": true,
     "static_content": true,
