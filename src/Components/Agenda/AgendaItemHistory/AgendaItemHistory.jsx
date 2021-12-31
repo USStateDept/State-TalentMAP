@@ -5,14 +5,14 @@ import SelectForm from 'Components/SelectForm';
 import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import { aihFetchData } from 'actions/agendaItemHistory';
+import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
 import { fetchClient } from 'actions/client';
 import { useMount, usePrevious } from 'hooks';
+import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
-import ExportLink from '../../BidderPortfolio/ExportLink';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
@@ -25,6 +25,8 @@ const AgendaItemHistory = (props) => {
   const [sort, setSort] = useState(sorts.defaultSort);
   const [client, setClient] = useState('');
   const [clientIsLoading, setClientIsLoading] = useState(false);
+  const [clientHasErrored, setClientHasErrored] = useState(false);
+  const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
 
   const aih = useSelector(state => state.aih);
@@ -40,14 +42,31 @@ const AgendaItemHistory = (props) => {
 
   const prevSort = usePrevious(sort);
 
+  const exportAgendaItem = () => {
+    setExportIsLoading(true);
+    agendaItemHistoryExport(id, sort)
+      .then(() => {
+        setExportIsLoading(false);
+        // downloadFromResponse(res);
+      })
+      .catch(() => {
+        setExportIsLoading(false);
+      });
+  };
+
   const getClient = () => {
     setClientIsLoading(true);
+    setClientHasErrored(false);
     Promise.all([fetchClient(id)])
       .then((res) => {
         setClient(get(res, '[0].name'));
+        setClientHasErrored(false);
         setClientIsLoading(false);
       })
-      .catch(() => setClientIsLoading(false));
+      .catch(() => {
+        setClientHasErrored(true);
+        setClientIsLoading(false);
+      });
   };
 
   useMount(() => {
@@ -66,7 +85,7 @@ const AgendaItemHistory = (props) => {
   if (client) {
     title = `${client}'s ${title}`;
   }
-  if (clientIsLoading) {
+  if (clientIsLoading || clientHasErrored) {
     title = '';
   }
 
@@ -86,7 +105,12 @@ const AgendaItemHistory = (props) => {
                 defaultSort={sort}
                 onSelectOption={e => setSort(get(e, 'target.value'))}
               />
-              <ExportLink disabled />
+              <div className="export-button-container">
+                <ExportButton
+                  onClick={exportAgendaItem}
+                  isLoading={exportIsLoading}
+                />
+              </div>
             </div>
           </div>
         </div>
