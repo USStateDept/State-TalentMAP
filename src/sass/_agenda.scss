@@ -479,6 +479,7 @@
         margin: 10px;
 
         .ai-history-card-pill {
+          background-color: $color-black;
           color: $color-white;
         }
 
@@ -578,7 +579,7 @@
   .ai-history-rows-container {
     .ai-history-row {
       background-color: $color-white;
-      border-left: 15px solid $color-white;
+      border-left: 15px solid $color-black;
       border-radius: 10px;
       box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
       margin: 20px 15px;
@@ -593,6 +594,7 @@
         margin: 10px 10px 10px 25px;
 
         .ai-history-row-pill {
+          background-color: $color-black;
           color: $color-white;
         }
 
