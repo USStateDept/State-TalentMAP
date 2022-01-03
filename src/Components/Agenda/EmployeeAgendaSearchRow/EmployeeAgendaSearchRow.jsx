@@ -1,23 +1,28 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import LinkButton from 'Components/LinkButton';
 import { get } from 'lodash';
+import { format, isDate } from 'date-fns-v2';
 
 const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
   // will need to update during integration
-  const agendaStatus = get(result, 'agendaStatus') || 'None listed';
-  const author = get(result, 'author') || 'None listed';
-  const bidder = get(result, 'bidder') || 'None listed';
-  const cdo = get(result, 'cdo') || 'None listed';
-  const currentPost = get(result, 'currentPost') || 'None listed';
-  const futurePost = get(result, 'futurePost') || 'None listed';
-  const initials = get(result, 'initials') || '';
-  const panelDate = get(result, 'panelDate') || 'None listed';
-  const ted = get(result, 'ted') || 'None listed';
+  const { person, currentAssignment } = result;
+  const agendaStatus = get(result, 'agendaStatus') || 'Coming soon';
+  const author = get(result, 'author') || 'Coming soon';
+  const bidder = get(person, 'fullName') || 'None listed';
+  const cdo = get(result, 'cdo') || 'Coming soon';
+  const currentPost = get(currentAssignment, 'orgDescription') || 'None listed';
+  const futurePost = get(result, 'futurePost') || 'Coming soon';
+  const initials = get(person, 'initials') || '';
+  const panelDate = get(result, 'panelDate') || 'Coming soon';
+  const ted = get(currentAssignment, 'TED') || '';
   const userRole = isCDO ? 'cdo' : 'ao';
-  const useCDOBidding = () => checkFlag('flags.cdo_bidding');
+  const perdet = get(person, 'perdet', '');
+  const hideCreate = true;
+  const employeeID = get(person, 'employeeID', '');
+
+  const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : 'None listed';
 
   return (
     <div className="usa-grid-full employee-agenda-stat-row">
@@ -27,7 +32,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
         </div>
       </div>
       <div className="employee-agenda-row-name">
-        <Link to="/profile/public/6">{bidder}</Link>
+        <Link to={`/profile/public/${perdet}`}>{bidder} {`(${employeeID})`}</Link>
       </div>
       <div className="employee-agenda-row-data-container">
         <div className="employee-agenda-row-data-points">
@@ -42,7 +47,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
           <div className="employee-agenda-row-data-point">
             <FA name="clock-o" />
             <dt>TED:</dt>
-            <dd>{ted}</dd>
+            <dd>{ted ? formatDate(ted) : 'None listed'}</dd>
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="user-o" />
@@ -65,16 +70,18 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
             <dd>{agendaStatus}</dd>
           </div>
         </div>
-        {
-          useCDOBidding() &&
-            <div className="button-container">
-              <div className="view-agenda-item-container">
-                <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/perdet`}>View History</LinkButton>
-              </div>
-              <div className="create-ai-box-container">
+        <div className="button-container">
+          <div className="view-agenda-item-container">
+            <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
+          </div>
+          <div className="create-ai-box-container">
+            {
+              !hideCreate &&
                 <LinkButton className="create-ai-box-button" toLink="#">Create Agenda Item</LinkButton>
-              </div>
-            </div>}
+            }
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -82,12 +89,12 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
 
 EmployeeAgendaSearchRow.propTypes = {
   isCDO: PropTypes.bool,
-  result: PropTypes.arrayOf(PropTypes.shape({})),
+  result: PropTypes.PropTypes.shape({ person: {}, currentAssignment: {} }),
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
   isCDO: false,
-  result: [],
+  result: {},
 };
 
 export default EmployeeAgendaSearchRow;

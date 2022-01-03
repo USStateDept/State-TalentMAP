@@ -58,6 +58,7 @@ import hs from './handshake2';
 import handshake from './handshake';
 import agendaItemHistory from './agendaItemHistory';
 // TODO: remove handshake2 after PR 1494 merged (bc handshake2 will be moved to handshake.js)
+import agendaEmployees from './agendaEmployees';
 
 export default (history) => combineReducers({
   ...results,
@@ -112,6 +113,7 @@ export default (history) => combineReducers({
   ...cdo,
   ...hs,
   ...handshake,
+  ...agendaEmployees,
   ...agendaItemHistory,
   router: connectRouter(history),
   client,

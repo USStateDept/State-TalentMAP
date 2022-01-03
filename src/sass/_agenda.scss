@@ -1,27 +1,190 @@
-.agenda-controls-container {
-  align-items: baseline;
-  display: flex;
-  justify-content: space-between;
-  padding-top: 15px;
-
-  .agenda-results-controls {
-    align-items: center;
+.empl-search-page {
+  .section {
+    background-color: $color-white;
+    border: 3px solid $tm-gray;
+    box-shadow: rgba(0, 0, 0, .15) 3px 2px 10px 1px;
     display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    padding: 0 35px;
+    flex-direction: column;
+    margin-bottom: 1em;
+    min-height: 200px;
+    padding: 25px;
+  }
 
-    div:first-child {
-      margin-right: 10px;
+  .padded-section {
+    padding: 25px;
+  }
+
+  .no-padding {
+    padding: 0;
+  }
+  .align-middle {
+    margin: auto;
+    text-align: center;
+  }
+
+  .all-inline {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .mainSelector {
+    font-size: 2.5rem;
+    margin: 0 0 20px -30px;
+  }
+
+  .usa-width-one-sixth {
+    margin-bottom: 10px;
+  }
+
+  .empl-search-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    padding: 20px 35px;
+  }
+
+  .filterby-container {
+    margin-top: 20px;
+    .filterby-label {
+      float: left;
+      font-size: 20px;
+      margin-bottom: 10px;
+      width: 115px;
     }
-
-    div {
-      align-items: baseline;
+    .filterby-clear {
+      font-weight: bold;
+      .fa-times {
+        color: $color-red;
+        margin-right: 5px;
+      }
+    }
+  }
+  .empl-search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    .filter-div {
+      align-items: center;
       display: flex;
+      margin-right: 10px;
+      .label {
+        margin-right: 10px;
+        min-width: 115px;
+        text-align: end;
+      }
+      .picky {
+        color: $color-black;
+        width: 240px;
+      }
+    }
+    .split-filter-div {
+      .picky {
+        width: 120px;
+      }
+      .picky:nth-child(3) {
+        .picky__dropdown {
+          margin-left: -120px;
+        }
+      }
+      .picky__dropdown {
+        width: 240px;
+      }
+    }
+    .handshake-filter-div {
+      .label {
+        max-width: 115px;
+      }
+    }
+    input {
+      display: inline;
+    }
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 1.5rem;
+      height: 28px;
+      width: 240px;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+      }
+      .react-daterange-picker__inputGroup {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+    }
+    @media screen and (max-width: $screen-md-max) {
+      .react-daterange-picker {
+        margin-left: 25px;
+      }
     }
   }
 }
 
+.empl-search-lower-section {
+  padding: 0 35px 20px;
+  position: relative;
+
+  .tm-spinner {
+    top: 0;
+  }
+}
+
+.empl-search-controls-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 35px;
+  padding-top: 15px;
+  .usa-alert-info {
+    left: 40%;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+}
+
+.empl-search-pagination-controls {
+  padding-left: 35px;
+}
+
+.empl-search-results-controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 35px;
+
+  div:first-child {
+    margin-right: 10px;
+  }
+
+  div {
+    align-items: baseline;
+    display: flex;
+  }
+}
+
+.empl-search-controls-right {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-right: 35px;
+
+  .results-viewby-container {
+    min-width: 120px;
+  }
+}
+
+.empl-search-page-size {
+  margin-left: 20px;
+}
+
+.empl-search-controls {
+  padding-left: 35px;
+}
 
 .employee-agenda-card {
   display: flex;
@@ -247,6 +410,14 @@
 
   .agenda-controls-container {
     justify-content: flex-end;
+
+    .agenda-results-controls {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      padding: 0 35px;
+    }
   }
 
   .ai-history-cards-container {

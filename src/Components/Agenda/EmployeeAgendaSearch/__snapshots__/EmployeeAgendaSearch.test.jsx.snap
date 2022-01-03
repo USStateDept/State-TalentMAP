@@ -1,329 +1,67 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
-<div
-  className="usa-grid-full profile-content-inner-container"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <ProfileSectionTitle
-    icon="user-circle-o"
-    title="Employee Agenda Search"
-  />
-  <button
-    onClick={[Function]}
-  >
-    row view
-  </button>
-  <div
-    className="employee-agenda-card"
-  >
-    <EmployeeAgendaSearchCard
+  <MemoryRouter>
+    <EmployeeAgendaSearch
       isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Abella, Hewett S",
-          "bidder": "Townpost, Jenny Y",
-          "cdo": "Shadtrach, Leah",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": true,
-          "hs_status": "Accepted",
-          "initials": "JT",
-          "panelDate": "12/25/2021",
-          "ted": "04/2022",
-        }
-      }
     />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Crackel, Pooh M",
-          "bidder": "Rehman, Tarek A",
-          "cdo": "Shadtrach, Leah",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Offered",
-          "initials": "TR",
-          "panelDate": "12/25/2021",
-          "ted": "04/2025",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Graham, Aubrey D",
-          "bidder": "Bayliss, Jaye Y",
-          "cdo": "NA",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Extended",
-          "initials": "JB",
-          "panelDate": "12/25/2021",
-          "ted": "09/2023",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Tinman, Chanda R",
-          "bidder": "Malpass, Izzy A",
-          "cdo": "MacMaster, Massimiliano M",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": true,
-          "hs_status": "Accepted",
-          "initials": "IM",
-          "panelDate": "12/25/2021",
-          "ted": "11/2022",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Lempel, Mandie B",
-          "bidder": "Jikovsky, Lelia D",
-          "cdo": "Peters, Jeremy W",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Accepted",
-          "initials": "LG",
-          "panelDate": "12/25/2021",
-          "ted": "07/2024",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Swift, Taylor A",
-          "bidder": "Jessep, Des D",
-          "cdo": "NA",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Offered",
-          "initials": "DJ",
-          "panelDate": "12/25/2021",
-          "ted": "09/2023",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Hallworth, Terrence L",
-          "bidder": "Franies, Normie G",
-          "cdo": "Alesi, Reina W",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Extended",
-          "initials": "NF",
-          "panelDate": "12/25/2021",
-          "ted": "03/2023",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={true}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Fronsek, Ahmad M",
-          "bidder": "Drakes, Price P",
-          "cdo": "Ranns, Natty L",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": true,
-          "hs_status": "Accepted",
-          "initials": "PD",
-          "panelDate": "12/25/2021",
-          "ted": "06/2023",
-        }
-      }
-    />
-  </div>
-</div>
+  </MemoryRouter>
+</ContextProvider>
 `;
 
 exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
-<div
-  className="usa-grid-full profile-content-inner-container"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "onStateChange": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <ProfileSectionTitle
-    icon="user-circle-o"
-    title="Employee Agenda Search"
-  />
-  <button
-    onClick={[Function]}
-  >
-    row view
-  </button>
-  <div
-    className="employee-agenda-card"
-  >
-    <EmployeeAgendaSearchCard
+  <MemoryRouter>
+    <EmployeeAgendaSearch
       isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Abella, Hewett S",
-          "bidder": "Townpost, Jenny Y",
-          "cdo": "Shadtrach, Leah",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": true,
-          "hs_status": "Accepted",
-          "initials": "JT",
-          "panelDate": "12/25/2021",
-          "ted": "04/2022",
-        }
-      }
     />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Crackel, Pooh M",
-          "bidder": "Rehman, Tarek A",
-          "cdo": "Shadtrach, Leah",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Offered",
-          "initials": "TR",
-          "panelDate": "12/25/2021",
-          "ted": "04/2025",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Graham, Aubrey D",
-          "bidder": "Bayliss, Jaye Y",
-          "cdo": "NA",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Extended",
-          "initials": "JB",
-          "panelDate": "12/25/2021",
-          "ted": "09/2023",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Tinman, Chanda R",
-          "bidder": "Malpass, Izzy A",
-          "cdo": "MacMaster, Massimiliano M",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": true,
-          "hs_status": "Accepted",
-          "initials": "IM",
-          "panelDate": "12/25/2021",
-          "ted": "11/2022",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Lempel, Mandie B",
-          "bidder": "Jikovsky, Lelia D",
-          "cdo": "Peters, Jeremy W",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Accepted",
-          "initials": "LG",
-          "panelDate": "12/25/2021",
-          "ted": "07/2024",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Swift, Taylor A",
-          "bidder": "Jessep, Des D",
-          "cdo": "NA",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Offered",
-          "initials": "DJ",
-          "panelDate": "12/25/2021",
-          "ted": "09/2023",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Hallworth, Terrence L",
-          "bidder": "Franies, Normie G",
-          "cdo": "Alesi, Reina W",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": false,
-          "hs_status": "Extended",
-          "initials": "NF",
-          "panelDate": "12/25/2021",
-          "ted": "03/2023",
-        }
-      }
-    />
-    <EmployeeAgendaSearchCard
-      isCDO={false}
-      result={
-        Object {
-          "agendaStatus": "Complete",
-          "author": "Fronsek, Ahmad M",
-          "bidder": "Drakes, Price P",
-          "cdo": "Ranns, Natty L",
-          "currentPost": "Paris (EUR)",
-          "futurePost": "Djbouti (AF)",
-          "hs_accepted": true,
-          "hs_status": "Accepted",
-          "initials": "PD",
-          "panelDate": "12/25/2021",
-          "ted": "06/2023",
-        }
-      }
-    />
-  </div>
-</div>
+  </MemoryRouter>
+</ContextProvider>
 `;

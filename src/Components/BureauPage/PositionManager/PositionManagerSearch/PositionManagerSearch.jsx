@@ -37,7 +37,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
     <form className="usa-grid-full">
       <fieldset className="usa-width-five-sixths">
         <div className="usa-width-one-whole search-results-inputs search-keyword">
-          <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
+          <legend className="usa-grid-full homepage-search-legend">{props.label}</legend>
           <SearchBar
             id="bureau-search-keyword-field"
             defaultValue={props.textSearch || props.defaultValue}
@@ -47,7 +47,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
             noForm
             onChangeText={changeText}
             onClear={onClear}
-            placeholder="Type keywords here"
+            placeholder={props.placeHolder}
             showClear
             submitText="Search"
             type="medium"
@@ -70,6 +70,8 @@ PositionManagerSearch.propTypes = {
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,
   textSearch: PropTypes.string,
+  label: PropTypes.string,
+  placeHolder: PropTypes.string,
 };
 
 PositionManagerSearch.defaultProps = {
@@ -77,6 +79,8 @@ PositionManagerSearch.defaultProps = {
   onChange: EMPTY_FUNCTION,
   defaultValue: '',
   textSearch: '',
+  label: '',
+  placeHolder: 'Type keywords here',
 };
 
 export default PositionManagerSearch;

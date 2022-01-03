@@ -16,9 +16,11 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
   >
     <Link
       replace={false}
-      to="/profile/public/6"
+      to="/profile/public/"
     >
       None listed
+       
+      ()
     </Link>
   </div>
   <div
@@ -42,7 +44,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
             className="org-fa-arrow"
             name="long-arrow-right"
           />
-          None listed
+          Coming soon
         </dd>
       </div>
       <div
@@ -68,7 +70,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           CDO:
         </dt>
         <dd>
-          None listed
+          Coming soon
         </dd>
       </div>
       <div
@@ -81,7 +83,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Author:
         </dt>
         <dd>
-          None listed
+          Coming soon
         </dd>
       </div>
       <div
@@ -94,7 +96,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Panel Meeting Date:
         </dt>
         <dd>
-          None listed
+          Coming soon
         </dd>
       </div>
       <div
@@ -107,7 +109,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Agenda Status:
         </dt>
         <dd>
-          None listed
+          Coming soon
         </dd>
       </div>
     </div>
@@ -119,21 +121,14 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
       >
         <LinkButton
           className="view-agenda-item-button"
-          toLink="/profile/ao/agendaitemhistory/perdet"
+          toLink="/profile/ao/agendaitemhistory/"
         >
           View History
         </LinkButton>
       </div>
       <div
         className="create-ai-box-container"
-      >
-        <LinkButton
-          className="create-ai-box-button"
-          toLink="#"
-        >
-          Create Agenda Item
-        </LinkButton>
-      </div>
+      />
     </div>
   </div>
 </div>

@@ -6,7 +6,6 @@ import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { fetchClient } from 'actions/client';
 import { useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
@@ -23,9 +22,10 @@ const AgendaItemHistory = (props) => {
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
-  const [client, setClient] = useState('');
-  const [clientIsLoading, setClientIsLoading] = useState(false);
-  const [clientHasErrored, setClientHasErrored] = useState(false);
+
+  // To-do - get client name. Can't get person using their perdet
+  const [client, setClient] = useState(''); // eslint-disable-line
+
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
 
@@ -43,35 +43,20 @@ const AgendaItemHistory = (props) => {
   const prevSort = usePrevious(sort);
 
   const exportAgendaItem = () => {
-    setExportIsLoading(true);
-    agendaItemHistoryExport(id, sort)
-      .then(() => {
-        setExportIsLoading(false);
-        // downloadFromResponse(res);
-      })
-      .catch(() => {
-        setExportIsLoading(false);
-      });
-  };
-
-  const getClient = () => {
-    setClientIsLoading(true);
-    setClientHasErrored(false);
-    Promise.all([fetchClient(id)])
-      .then((res) => {
-        setClient(get(res, '[0].name'));
-        setClientHasErrored(false);
-        setClientIsLoading(false);
-      })
-      .catch(() => {
-        setClientHasErrored(true);
-        setClientIsLoading(false);
-      });
+    if (!exportIsLoading) {
+      setExportIsLoading(true);
+      agendaItemHistoryExport(id, sort)
+        .then(() => {
+          setExportIsLoading(false);
+        })
+        .catch(() => {
+          setExportIsLoading(false);
+        });
+    }
   };
 
   useMount(() => {
     getData();
-    getClient();
   });
 
   useEffect(() => {
@@ -80,14 +65,13 @@ const AgendaItemHistory = (props) => {
     }
   }, [sort]);
 
-  const isLoading$ = isLoading || clientIsLoading;
+  const isLoading$ = isLoading;
   let title = 'Agenda Item History';
   if (client) {
     title = `${client}'s ${title}`;
   }
-  if (clientIsLoading || clientHasErrored) {
-    title = '';
-  }
+
+  const exportDisabled = (aih || []).length <= 0;
 
   return (
     <div className="agenda-item-history-container">
@@ -109,6 +93,7 @@ const AgendaItemHistory = (props) => {
                 <ExportButton
                   onClick={exportAgendaItem}
                   isLoading={exportIsLoading}
+                  disabled={exportDisabled}
                 />
               </div>
             </div>
