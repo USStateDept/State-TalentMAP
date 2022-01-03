@@ -32,7 +32,11 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
         </div>
       </div>
       <div className="employee-agenda-row-name">
-        <Link to={`/profile/public/${perdet}`}>{bidder} {`(${employeeID})`}</Link>
+        {
+          isCDO ?
+            <Link to={`/profile/public/${perdet}`}>{bidder} ({employeeID})</Link> :
+            <div className="row-name">{bidder} ({employeeID})</div>
+        }
       </div>
       <div className="employee-agenda-row-data-container">
         <div className="employee-agenda-row-data-points">
