@@ -417,7 +417,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                 isHidden={isLoading || agendaEmployeesIsLoading}
               />
               <div className="empl-search-controls-right">
-                <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
+                <ResultsViewBy initial={view} onClick={e => setCardView(e === 'card')} />
                 {
                   !hideFilters &&
                   <div className="empl-search-results-controls">

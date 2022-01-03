@@ -81,7 +81,7 @@ const AgendaItemHistory = (props) => {
         <div className="usa-grid-full portfolio-controls">
           <div className="usa-width-one-whole results-dropdown agenda-controls-container">
             <div className="agenda-results-controls">
-              <ResultsViewBy initial={view} onClick={() => setCardView(!cardView)} />
+              <ResultsViewBy initial={view} onClick={e => setCardView(e === 'card')} />
               <SelectForm
                 id="agenda-item-history-results"
                 options={sorts.options}
