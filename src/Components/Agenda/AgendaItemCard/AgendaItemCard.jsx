@@ -56,14 +56,14 @@ const AgendaItemCard = props => {
       {
         <div className="ai-history-card">
           <h3 className="ai-history-card-title">
-            { formatStr(get(legs$, '[0].pos_title')) }
+            { formatStr(get(legs$, '[0].pos_title') || 'N/A') }
             <div className="arrow">
               <div className="arrow-tail" />
               {legsLength}
               <div className="arrow-tail" />
               <div className="arrow-right" />
             </div>
-            { formatStr(get(legs$, '[1].pos_title')) }
+            { formatStr(get(legs$, '[1].pos_title') || 'N/A') }
           </h3>
           <div className="ai-history-card-status-date">
             <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(agenda, 'status') || 'Default'] }}>

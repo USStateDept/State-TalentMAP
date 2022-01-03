@@ -18,7 +18,9 @@ const AgendaItemLegs = props => {
   }
   const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
-  const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
+
+  // TO-DO - better date checking. isDate() with null or bad string not guaranteed to work.
+  const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
 
   const getData = (key, helperFunc) => (
     <>
