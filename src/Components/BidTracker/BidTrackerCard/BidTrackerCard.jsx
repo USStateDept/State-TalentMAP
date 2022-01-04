@@ -134,7 +134,6 @@ class BidTrackerCard extends Component {
                   useCDOView={useCDOView}
                   isCollapsible={isCollapsible}
                   togglePanelAlert={this.togglePanelAlert}
-                  condensedView={condensedView}
                 />
             }
           </div>
