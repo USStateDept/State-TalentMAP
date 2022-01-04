@@ -31,6 +31,6 @@
     "post": false,
     "register_checklist": true,
     "agenda_search": true,
-    "agenda_filters": false
+    "agenda_filters": true
   }
 }
