@@ -28,12 +28,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
     </div>
     <div>
       <h3>
-        <Link
-          replace={false}
-          to="/profile/public/"
-        >
-          None listed
-        </Link>
+        None listed
       </h3>
     </div>
     <div
