@@ -5,6 +5,7 @@ import { formatDate, shortenString } from 'utilities';
 // import { TEMP_FAKE_DATA } from 'Constants/PropTypes'; TODO - update
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
+import { pillColors } from '../Constants';
 
 const AgendaItemCard = props => {
   const {
@@ -23,17 +24,6 @@ const AgendaItemCard = props => {
       legsLength = 0;
     }
   }
-
-  const pillColors = {
-    Withdrawn: '#227c9dff',
-    Disapproved: '#17c3b2ff',
-    Approved: '#2d6e0eff',
-    Deferred: '#E08A00',
-    Removed: '#ed2038ff',
-    Paused: '#6421a2ff',
-    Cancelled: '#BA70FF',
-    Default: '#513C2C',
-  };
 
   const formatStr = (a) => shortenString(a, 15);
 

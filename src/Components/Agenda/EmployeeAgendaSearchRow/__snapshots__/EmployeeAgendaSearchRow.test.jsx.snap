@@ -14,14 +14,13 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
   <div
     className="employee-agenda-row-name"
   >
-    <Link
-      replace={false}
-      to="/profile/public/"
+    <div
+      className="row-name"
     >
       None listed
-       
-      ()
-    </Link>
+       (
+      )
+    </div>
   </div>
   <div
     className="employee-agenda-row-data-container"

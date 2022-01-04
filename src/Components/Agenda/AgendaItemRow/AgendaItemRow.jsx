@@ -4,6 +4,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import AgendaItemLegs from '../AgendaItemLegs';
+import { pillColors } from '../Constants';
 
 const AgendaItemRow = props => {
   const {
@@ -11,17 +12,6 @@ const AgendaItemRow = props => {
     agenda,
     showEdit,
   } = props;
-
-  const pillColors = {
-    Withdrawn: '#227c9dff',
-    Disapproved: '#17c3b2ff',
-    Approved: '#2d6e0eff',
-    Deferred: '#E08A00',
-    Removed: '#ed2038ff',
-    Paused: '#6421a2ff',
-    Cancelled: '#BA70FF',
-    Default: '#513C2C',
-  };
 
   // eslint-disable-next-line no-console
   const createAI = () => { console.log('placeholder create AI'); };
