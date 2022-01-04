@@ -20,6 +20,7 @@ import SelectForm from 'Components/SelectForm';
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
+import { checkFlag } from 'flags';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSearchRow';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
@@ -45,7 +46,8 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   const filters = get(filterData, 'filters', []);
 
-  const hideFilters = true;
+  const useEmployeeAgendaFilters = () => checkFlag('flags.agenda_filters');
+  const displayEmployeeAgendaFilters = useEmployeeAgendaFilters();
 
   const bureaus = filters.find(f => f.item.description === 'region');
   const bureauOptions = uniqBy(sortBy(get(bureaus, 'data', []), [(b) => b.long_description]), 'long_description');
@@ -264,7 +266,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                   placeHolder="Search using Employee ID or Name here"
                 />
                 {
-                  !hideFilters &&
+                  displayEmployeeAgendaFilters &&
                   <>
                     <div className="filterby-container">
                       <div className="filterby-label">Filter by:</div>
@@ -419,7 +421,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
               <div className="empl-search-controls-right">
                 <ResultsViewBy initial={view} onClick={e => setCardView(e === 'card')} />
                 {
-                  !hideFilters &&
+                  displayEmployeeAgendaFilters &&
                   <div className="empl-search-results-controls">
                     <SelectForm
                       id="empl-search-num-results"
@@ -474,7 +476,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                 </div>
                 <div className="usa-grid-full react-paginate empl-search-pagination-controls">
                   {
-                    !hideFilters &&
+                    displayEmployeeAgendaFilters &&
                     <PaginationWrapper
                       pageSize={limit}
                       onPageChange={p => setPage(p.page)}
