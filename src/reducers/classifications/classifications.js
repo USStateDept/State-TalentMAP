@@ -42,3 +42,30 @@ export function updateClassificationsIsLoading(state = false, action) {
       return state;
   }
 }
+
+export function userClassificationsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'USER_CLASSIFICATIONS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function userClassificationsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'USER_CLASSIFICATIONS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+
+export function userClassifications(state = [], action) {
+  switch (action.type) {
+    case 'USER_CLASSIFICATIONS_SUCCESS':
+      return action.classifications;
+    default:
+      return state;
+  }
+}

@@ -633,7 +633,7 @@ const items =
       },
       {
         item: {
-          title: 'Handshake',
+          title: 'Handshake Registered',
           sort: 1200,
           description: 'handshake',
           selectionRef: ENDPOINT_PARAMS.handshake,
@@ -648,7 +648,7 @@ const items =
       },
       {
         item: {
-          title: 'Handshake',
+          title: 'Handshake Registered',
           sort: 1200,
           description: 'handshake-tandem',
           selectionRef: ENDPOINT_PARAMS_TANDEM.handshake,
@@ -661,6 +661,66 @@ const items =
           { code: 'OP', description: 'No Handshake' },
         ],
         dataAP: [],
+      },
+      {
+        item: {
+          title: 'TM Handshake',
+          sort: 1300,
+          description: 'tmHandshake',
+          selectionRef: ENDPOINT_PARAMS.tmHandshake,
+          text: 'Include positions with TM handshakes',
+          onlyAvailablePositions: true,
+        },
+        data: [
+          { code: 'A', description: 'Accepted', isSelected: false },
+          { code: 'D', description: 'Declined', isSelected: false },
+          { code: 'O', description: 'Offered', isSelected: false },
+          { code: 'R', description: 'Revoked', isSelected: false },
+        ],
+      },
+      {
+        item: {
+          title: 'Organization',
+          sort: 1300,
+          description: 'organization',
+          selectionRef: ENDPOINT_PARAMS.organization,
+          tryCache: true,
+          text: 'Choose Organization',
+          choices: [
+          ],
+        },
+        data: [],
+      },
+      {
+        item: {
+          title: 'Hard to Fill',
+          sort: 1400,
+          description: 'hardToFill',
+          selectionRef: ENDPOINT_PARAMS.hardToFill,
+          text: 'Include Hard to Fill Positions',
+          onlyAvailablePositions: true,
+          choices: [
+          ],
+        },
+        data: [
+          { code: 'Y', description: 'Hard to Fill' },
+          { code: 'N', description: 'Not Hard to Fill' },
+        ],
+      },
+      {
+        item: {
+          title: 'Hard to Fill',
+          sort: 1400,
+          description: 'hardToFill-tandem',
+          selectionRef: ENDPOINT_PARAMS_TANDEM.hardToFill,
+          text: 'Include Hard to Fill Positions',
+          isTandem: true,
+          onlyAvailablePositions: true,
+        },
+        data: [
+          { code: 'Y', description: 'Hard to Fill' },
+          { code: 'N', description: 'Not Hard to Fill' },
+        ],
       },
     ],
   };

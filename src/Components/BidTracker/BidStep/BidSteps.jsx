@@ -2,11 +2,15 @@ import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
 import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
+import {
+  APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, IN_PANEL_PROP,
+} from 'Constants/BidData';
 import { checkFlag } from 'flags';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import ConfettiIcon from './ConfettiIcon';
-import { bidClassesFromCurrentStatus } from '../BidHelpers';
+import HandshakeAnimation from './HandshakeAnimation';
+import { bidClassesFromCurrentStatus, showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
 import BidPreparingIcon from './BidStepIcon/BidPreparingIcon';
@@ -26,7 +30,10 @@ const BidSteps = (props, context) => {
   const { bid, collapseOverlay } = props;
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
+  const handshakeRegisterWithAnotherBidder = get(bid, 'position_info.bid_statistics[0].has_handshake_offered')
+    && showHandshakeRegsiterWithAnotherBidderOverlay(bid);
   const getIcon = (status) => {
+    const bidPropsAfterRegister = [APPROVED_PROP, IN_PANEL_PROP, HAND_SHAKE_ACCEPTED_PROP];
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
     const tooltipText = get(bidData[status.prop], 'tooltip.text');
     const icon = (
@@ -38,6 +45,7 @@ const BidSteps = (props, context) => {
         hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
         tooltipTitle={tooltipTitle}
         tooltipText={tooltipText}
+        handshakeRegisterWithAnotherBidder={handshakeRegisterWithAnotherBidder}
       />
     );
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
@@ -52,6 +60,10 @@ const BidSteps = (props, context) => {
           {icon}
         </ConfettiIcon>
       );
+    }
+    if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)
+      && !condensedView) {
+      return (<HandshakeAnimation isBidTracker />);
     }
     return icon;
   };

@@ -166,7 +166,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
             Array [
               Object {
                 "text": "Last Name: A-Z",
-                "value": "client_last_name,client_first_name",
+                "value": "client_last_name,client_first_name,client_middle_name",
               },
               Object {
                 "text": "Grade",
@@ -372,7 +372,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
             Array [
               Object {
                 "text": "Last Name: A-Z",
-                "value": "client_last_name,client_first_name",
+                "value": "client_last_name,client_first_name,client_middle_name",
               },
               Object {
                 "text": "Grade",

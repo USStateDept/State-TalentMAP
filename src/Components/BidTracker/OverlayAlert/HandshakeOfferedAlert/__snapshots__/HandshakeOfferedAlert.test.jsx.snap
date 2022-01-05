@@ -15,6 +15,7 @@ exports[`HandshakeOfferedAlertComponent matches snapshot 1`] = `
       </div>
       <button
         className="tm-button-transparent"
+        disabled={false}
         onClick={[Function]}
       >
         <FontAwesomeIcon

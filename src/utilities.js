@@ -655,6 +655,13 @@ export const mapDuplicates = (data = [], propToCheck = 'custom_description') => 
   return p$;
 });
 
+
+export const termInGlossary = (term) => {
+  // id formatting used for glossary accordion buttons
+  const id = `${formatIdSpacing(term)}-button`;
+  return document.getElementById(id) !== null;
+};
+
 // scroll to a specific glossary term
 export const scrollToGlossaryTerm = (term) => {
   // id formatting used for glossary accordion buttons
@@ -674,6 +681,8 @@ export const scrollToGlossaryTerm = (term) => {
 };
 
 export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+export const getBrowser = () => Bowser.getParser(window.navigator.userAgent).getBrowser();
 
 // Convert values used in aria-* attributes to 'true'/'false' string.
 // Perform a string check, if for some reason the value was already a string.
@@ -807,9 +816,9 @@ export const getContrastYIQ = hexcolor => {
 
 // Supply a user's full name
 // Returns background color and text color
-export const getAvatarColor = str => {
+export const getAvatarColor = (str, hashAdjuster = 0) => {
   if (str) {
-    let hash = 0;
+    let hash = Math.floor(Math.random() * hashAdjuster);
     [...str].forEach((s, i) => {
       if (i) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
@@ -865,10 +874,16 @@ export function getCustomLocation(loc, org) {
   return x;
 }
 
+export const closeSwal = () => {
+  try {
+    swal.close();
+  } catch { return null; }
+  return null;
+};
+
 export const useCloseSwalOnUnmount = () =>
   useEffect(() => () => {
-    try {
-      swal.close();
-    } catch { return null; }
-    return null;
+    closeSwal();
   }, []);
+
+export const splitByLineBreak = text => (text || '').split('\n\n\n');

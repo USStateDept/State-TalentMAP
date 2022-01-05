@@ -10,7 +10,6 @@ import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
 import COMPARE_LIMIT from 'Constants/Compare';
 import { NO_BUREAU, NO_DATE, NO_GRADE, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY } from 'Constants/SystemMessages';
 import { formatDate, getAccessiblePositionNumber, getPostName, propOrDefault } from 'utilities';
-import StaticDevContent from 'Components/StaticDevContent';
 import BackButton from '../BackButton';
 import Spinner from '../Spinner';
 import LanguageList from '../LanguageList/LanguageList';
@@ -19,7 +18,7 @@ import Favorite from '../../Containers/Favorite';
 import CompareCheck from '../CompareCheck';
 import BidListButton from '../../Containers/BidListButton';
 import PermissionsWrapper from '../../Containers/PermissionsWrapper';
-import { CriticalNeed, Handshake, HistDiffToStaff, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import MediaQuery from '../MediaQuery';
 
 export const renderBidCounts = (compareArray, emptyArray) => (
@@ -319,15 +318,6 @@ class CompareList extends Component {
                                   />
                                 }
                                 {
-                                  <StaticDevContent>
-                                    <CriticalNeed
-                                      shortName
-                                      isWide={matches}
-                                      showText={matches}
-                                    />
-                                  </StaticDevContent>
-                                }
-                                {
                                   get(c, 'isDifficultToStaff', false) &&
                                   <HistDiffToStaff
                                     shortName
@@ -338,6 +328,14 @@ class CompareList extends Component {
                                 {
                                   get(c, 'isServiceNeedDifferential', false) &&
                                   <ServiceNeedDifferential
+                                    shortName
+                                    isWide={matches}
+                                    showText={matches}
+                                  />
+                                }
+                                {
+                                  get(c, 'isHardToFill', false) &&
+                                  <IsHardToFill
                                     shortName
                                     isWide={matches}
                                     showText={matches}

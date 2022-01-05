@@ -19,7 +19,7 @@ const POSITION_SEARCH_SORTS$ = {
 };
 
 POSITION_SEARCH_SORTS$.defaultSort = POSITION_SEARCH_SORTS$.options.find(o =>
-  o.value === 'ted',
+  o.value === '-posted_date',
 ).value;
 
 export const POSITION_SEARCH_SORTS = POSITION_SEARCH_SORTS$;
@@ -76,7 +76,7 @@ CLIENTS_PAGE_SIZES.defaultSort = CLIENTS_PAGE_SIZES.options[1].value;
 
 export const BID_PORTFOLIO_SORTS = {
   options: [
-    { value: 'client_last_name,client_first_name', text: 'Last Name: A-Z' },
+    { value: 'client_last_name,client_first_name,client_middle_name', text: 'Last Name: A-Z' },
     { value: 'client_grade', text: 'Grade' },
     { value: 'client_skill', text: 'Skill' },
     { value: 'client_grade,client_skill', text: 'Grade & Skill' },
@@ -182,3 +182,16 @@ export const BUREAU_BIDDER_FILTERS = {
     { value: 'OP', text: 'No Handshake' },
   ],
 };
+
+export const AGENDA_ITEM_HISTORY_FILTERS = {
+  // values tbd, subject to what WS returns
+  options: [
+    { value: '-agenda_id', text: 'Created date: Latest' },
+    { value: 'agenda_id', text: 'Created date: Earliest' },
+    { value: 'agenda_status', text: 'Agenda Status' },
+    // { value: '-panel_date', text: 'Panel date: Latest' },
+    // { value: 'panel_date', text: 'Panel date: Earliest' },
+  ],
+};
+
+AGENDA_ITEM_HISTORY_FILTERS.defaultSort = AGENDA_ITEM_HISTORY_FILTERS.options[0].value;

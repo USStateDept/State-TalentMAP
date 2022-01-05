@@ -19,7 +19,7 @@ const Footer = () => (
                 <Link className="usa-footer-primary-link" to="/">Home</Link>
               </li>
               <li className="usa-width-one-sixth usa-footer-primary-content">
-                <Link className="usa-footer-primary-link" to="/about">About</Link>
+                <Link className="usa-footer-primary-link tutorial-help-link" to="/help">Help</Link>
               </li>
             </ul>
           </nav>

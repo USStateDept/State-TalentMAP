@@ -1,15 +1,15 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FontAwesome from 'react-fontawesome';
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import FA from 'react-fontawesome';
 import { get } from 'lodash';
+import shortid from 'shortid';
 import PermissionsWrapper from '../../../Containers/PermissionsWrapper';
 import EditContentButton from '../../EditContentButton';
 import TextEditor from '../../TextEditor';
 import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 import { homeBannerContentFetchData, homeBannerContentPatchData } from '../../../actions/homeBannerContent';
-import { focusById, userHasPermissions } from '../../../utilities';
+import { focusById, splitByLineBreak, userHasPermissions } from '../../../utilities';
 
 const EDIT_BUTTON_ID = 'edit-home-content';
 const SUBMIT_BUTTON_ID = 'submit-home-content';
@@ -19,6 +19,7 @@ class BetaHeader extends Component {
     super(props);
     this.state = {
       editorVisible: false,
+      headerDropdownVisible: false,
     };
   }
 
@@ -53,12 +54,19 @@ class BetaHeader extends Component {
 
   render() {
     const { data, isLoading, userProfile } = this.props;
-    const { editorVisible } = this.state;
+    const { editorVisible, headerDropdownVisible } = this.state;
     const permissionsNeeded = ['superuser'];
     const userPermissions = get(userProfile, 'permission_groups', []);
     const hasPermissions = userHasPermissions(permissionsNeeded, userPermissions);
 
     const shouldDisplayHeader = data || hasPermissions;
+    const splitByLineBreakData = splitByLineBreak(data);
+    const bannerData = headerDropdownVisible ?
+      splitByLineBreakData : [splitByLineBreakData[0]];
+
+    const bannerDataLength = splitByLineBreakData.length;
+
+    const bannerText = headerDropdownVisible ? 'Hide alerts' : 'Show alerts';
 
     const header = (
       <div className="usa-banner tm-beta-header">
@@ -66,17 +74,14 @@ class BetaHeader extends Component {
           {
             !editorVisible &&
               <div className="loader">
-                <FontAwesome name="gears" />
-                <SkeletonTheme color="#FAD980" highlightColor="#FDEFCC">
-                  {!isLoading ? data : <Skeleton width="50%" duration={1.8} />}
-                </SkeletonTheme>
+                {
+                  bannerData.map(m => (
+                    <div className="header-row" key={shortid.generate()}>
+                      {m}
+                    </div>
+                  ))
+                }
               </div>
-          }
-          {
-            !isLoading && !editorVisible &&
-              <PermissionsWrapper permissions="superuser">
-                <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
-              </PermissionsWrapper>
           }
           {
             editorVisible &&
@@ -87,7 +92,24 @@ class BetaHeader extends Component {
                 submitProps={{ id: SUBMIT_BUTTON_ID }}
               />
           }
+          {
+            !isLoading && !editorVisible &&
+            <PermissionsWrapper permissions="superuser">
+              <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
+            </PermissionsWrapper>
+          }
         </div>
+        {
+          bannerDataLength > 1 &&
+          <div className="banner-toggle-container">
+            <button
+              className="banner-toggle-button"
+              onClick={() => {
+                this.setState({ headerDropdownVisible: !headerDropdownVisible });
+              }}
+            ><span>{bannerDataLength}</span>{bannerText} <FA name={`chevron-${headerDropdownVisible ? 'up' : 'down'}`} /></button>
+          </div>
+        }
       </div>
     );
     return (

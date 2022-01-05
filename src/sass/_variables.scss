@@ -31,6 +31,8 @@ $secondary-light: #E59393;
 $secondary-lightest: #F9DEDE;
 
 // Tertiary
+$tertiary-gold-darker: #7D6D40;
+$tertiary-gold-dark: #C8AE66;
 $tertiary-gold: #FDB81E;
 $tertiary-gold-light: #F9C642;
 $tertiary-gold-lighter: $var-tertiary-gold-lighter;
@@ -109,6 +111,7 @@ $color-cornflower-blue: #DDE4EF;
 $color-blue-chill: #117C8D;
 $color-blue-mariner: #2E72B7;
 $color-purple: #4e499b;
+$color-purple-medium: #E4E3F2;
 $color-purple-light: #F2F2F8;
 
 $tm-dark-blue: $bg-blue-dark-1;
@@ -120,7 +123,6 @@ $tm-navy-dark: $blue-primary-darkest;
 
 //**
 //* Ribbon Colors
-$ribbon-cn: #EDA176 ;
 $ribbon-hds: #89C1F2;
 
 //**
@@ -192,22 +194,23 @@ $tm-focus-outline-offset-default: 3px;
 //* z-index
 //*
 // we'll use this section to keep track of and order them
-$autosuggest-suggestions-container-open-z: 20;
+$glossary-z: 20000;
 $dropdown-content-z: 15000;
 $feedback-z: 11000;
-$feedback-button-z: 10000;
-$scrollbar-z: 0;
 $skill-code-dropdown-z: 10500;
-$spinner-z: 100;
-$bureau-spinner-z: 98;
-$toggle-button-z: 5;
-$ribbon-z: 10;
 $back-to-top-z: 10200;
-$glossary-z: 20000;
+$feedback-button-z: 10000;
+$client-header-z: 9001;
+$banner-toggle-z: 100;
+$spinner-z: 99;
+$bureau-spinner-z: 98;
+$autosuggest-suggestions-container-open-z: 20;
+$ribbon-z: 10;
+$toggle-button-z: 5;
 $glossary-close-z: 1;
 $ribbon-condensed-card-z: 1;
 $condensed-card-top-z: 1;
-$client-header-z: 9001;
+$scrollbar-z: 0;
 
 //**
 //* Images
@@ -219,5 +222,5 @@ $angle-down-black: url('#{$asset-path}assets/img/angle-down-black.svg');
 // other variables
 //
 $button-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
-$bg-hs-another-client: #dbdbdb;
-$bg-overlay-hs-another-client: #636363;
+$bg-register-with-another-bidder: #dbdbdb;
+$bg-overlay-register-with-another-bidder: #636363;

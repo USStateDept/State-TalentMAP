@@ -46,6 +46,20 @@ const debouncedNetworkAlert = throttle(
   { leading: true, trailing: false },
 );
 
+// eslint-disable-next-line no-unused-vars
+const debouncedExpiredSessionAlert = throttle(
+  // eslint-disable-next-line global-require
+  () => require('./store').store.dispatch(toastWarning(
+    'Your session has expired or you are offline. Try refreshing the page or checking your network connectivity.',
+    'Network Error',
+    'network-error',
+    true,
+    { position: 'bottom-center', autoClose: 6500 },
+  )),
+  10000,
+  { leading: true, trailing: false },
+);
+
 // Request paths that we want cached. In case they fail, an older response can be used.
 const pathsToCache = [
   ...staticFilters.filters.filter(f => f.item.tryCache).map(m => m.item.endpoint)
@@ -154,6 +168,15 @@ const api = () => {
   });
 
   api$.interceptors.response.use(response => response, (error) => {
+    // We want to perform this on 302 to Microsoft, but CORS blocks visibility from axios,
+    // so this is the closest we can get to capturing the session expiring.
+    // https://github.com/axios/axios/issues/838#issuecomment-304033403
+    /* disable for now. TODO - handle cancelled requests also triggering this
+    if (typeof error.response === 'undefined') {
+      debouncedExpiredSessionAlert();
+    }
+    */
+
     switch (propOrDefault(error, 'response.status')) {
       case 401: {
       // Due to timing of import store before history is created, importing store here causes

@@ -1,14 +1,13 @@
-import * as React from 'react';
+import { Component } from 'react';
 import { isEqual, map } from 'lodash';
-
-const shortid = require('shortid');
+import shortid from 'shortid';
 
 type Message = {
   body: React.ReactNode;
 };
 
-type Props = {
-  type: "info" | "warning" | "error" | "success" | "dark";
+type DefaultProps = {
+  type: 'info' | 'warning' | 'error' | 'success' | 'dark';
   // should be one of the USWDS alert types - https://standards.usa.gov/components/alerts/
   title?: string;
   messages: Array<Message>;
@@ -17,8 +16,10 @@ type Props = {
   customClassName?: string;
 };
 
-class Alert extends React.Component<Props> {
-  static defaultProps: Props = {
+type Props = DefaultProps;
+
+class Alert extends Component<Props> {
+  static defaultProps: DefaultProps = {
     type: 'info',
     title: '',
     messages: [{

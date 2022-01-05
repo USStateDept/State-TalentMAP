@@ -1,13 +1,14 @@
 .tm-beta-header {
   background-color: $tertiary-gold-lighter;
-  padding: .5em 0;
+  padding: .5em 0 0 0;
 
   .fa {
     margin-right: 1em;
   }
 
   .loader {
-    display: inline;
+    display: inline-block;
+    width: 100%;
 
     > div {
       display: inline;
@@ -21,16 +22,80 @@
   }
 
   .editor {
-    height: 80px;
+    height: 200px;
     padding: 8px;
   }
 
   .public-DraftEditor-content {
-    height: 62px;
+    height: 180px;
     min-height: 62px;
   }
 
   .description-edit {
     margin-left: 5px;
+    margin-bottom: 5px;
+  }
+
+  .header-row {
+    padding-bottom: 1em;
+    border-top: 0.5px solid $tertiary-gold-dark;
+    width: 100%;
+    display: block !important;
+  }
+
+  .header-row:first-of-type {
+    border-top: none;
+  }
+
+  .header-row:not(:first-of-type) {
+    padding-top: 1em; // padding's do not match
+  }
+
+  .banner-toggle-container {
+    display: flex;
+    height: 10px;
+    justify-content: center;
+    position: relative;
+  }
+
+  .banner-toggle-button {
+    margin: 0;
+    position: absolute;
+    bottom: -19px;
+    z-index: $banner-toggle-z;
+    border-radius: 20px;
+    background-color: $tertiary-gold-lightest;
+    color: black;
+    border: 3px solid $tertiary-gold-darker;
+    padding-top: 7px;
+    padding-bottom: 7px;
+
+    &:hover {
+      background-color: $tertiary-gold-dark;
+    }
+
+    &:active {
+      background-color: $tertiary-gold-darker;
+    }
+
+    .fa {
+      bottom: 1px;
+      font-size: .8em;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    > span:not(.fa) {
+      background-color: $secondary-dark;
+      display: inline-block;
+      padding: 0 0.6rem;
+      border-radius: 1.6rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      line-height: 1.8rem;
+      color: white;
+      margin-right: 7px;
+    }
   }
 }

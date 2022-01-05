@@ -8,8 +8,10 @@ import GlossaryListing from './GlossaryListing';
 import Spinner from '../Spinner';
 import BoxShadow from '../BoxShadow';
 import { GLOSSARY_ARRAY } from '../../Constants/PropTypes';
+import GlossaryExport from './GlossaryExport';
 
 const ID = 'glossary-click-container';
+const BYPASS_CLASS = 'bypass-glossary';
 
 const fuseOptions = {
   shouldSort: false,
@@ -65,7 +67,8 @@ class GlossaryComponent extends Component {
 
   handleOutsideClick = e => {
     const { visible } = this.props;
-    if (visible && !document.getElementById(ID).contains(e.target)) {
+    if (visible && !document.getElementById(ID).contains(e.target)
+      && (e.target.id !== BYPASS_CLASS)) {
       this.toggleVisibility();
     }
   };
@@ -125,6 +128,7 @@ class GlossaryComponent extends Component {
                   changeText={this.changeText}
                   searchTextValue={searchText.value}
                 />
+                <GlossaryExport />
                 <div className="glossary-content">
                   <GlossaryListing glossaryItems={filteredGlossary} />
                 </div>

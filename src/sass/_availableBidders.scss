@@ -2,6 +2,11 @@
 
   border-top: 1px solid $color-white;
 
+  h3:not(.usa-alert-heading) {
+    font-size: 15px;
+    font-weight: normal;
+  }
+
   .bidder-manager-search-container {
     background-color: $bg-blue-dark-1;
     padding: 12px 31px;
@@ -14,6 +19,8 @@
   }
 
   .available-bidders-stats {
+    padding-top: .1em;
+
     .statistics-section {
       background-color: $color-white;
       border: 2px solid $color-gray-light;
@@ -25,11 +32,23 @@
     }
 
     .legend-container {
-      margin-left: auto;
+      h4 {
+        margin: 20px 0 0;
+      }
     }
 
-    .legend {
-      margin-top: 2em;
+    .legend-small {
+      display: inline-grid;
+      flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(9, auto);
+    }
+    
+    .legend-large {
+      display: inline-grid;
+      flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(25, auto);
     }
 
     .legend-item {
@@ -42,8 +61,7 @@
     }
 
     .legend-text {
-       margin: auto;
-       margin-left: 1.5em;
+       margin: auto .8em;
     }
 
     .chart-container {
@@ -235,7 +253,7 @@
     align-items: baseline;
   }
   // for the Share Bureau icon
-  div:nth-child(13) {
+  div:nth-child(14) {
     justify-content: flex-start;
   }
 
