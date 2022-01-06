@@ -15,11 +15,11 @@ const AvailableBidderStats = () => {
 
   const statOptions = [
     'Bureau',
+    'CDO',
     'Grade',
     'Post',
     'Skill',
     'Status',
-    'TED',
   ];
 
   // App state
