@@ -42,6 +42,9 @@ const AvailableBidderStats = () => {
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
+  const isGradeOrSkill = selectedStat === 'Grade' || selectedStat === 'Skill';
+  const percentTextStyle = isGradeOrSkill ? 'percent-text-skill-grade' : 'percent-text-no-skill-grade';
+
   return (
     !availableBiddersIsLoading && !statsSum && !!isNoBidders ?
       null :
@@ -92,7 +95,12 @@ const AvailableBidderStats = () => {
                               className="legend-square"
                               style={{ backgroundColor: m.color }}
                             />
-                            <div className="legend-text">{`(${m.value}) ${m.name} ${m.percent}`}</div>
+                            <div className="legend-text">
+                              {`(${m.value}) ${m.name}`}
+                              <span className={`${percentTextStyle}`}>
+                                {`${m.percent}`}
+                              </span>
+                            </div>
                           </div>
                         ))
                       }
