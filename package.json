@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "8.0.0",
+  "version": "8.0.1",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.16.0",
@@ -38,7 +38,7 @@
     "history": "^4.7.2",
     "imagediff": "^1.0.8",
     "immutable": "^3.8.2",
-    "jsoneditor": "^9.5.7",
+    "jsoneditor": "^9.5.11",
     "jsoneditor-react": "^3.1.2",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
