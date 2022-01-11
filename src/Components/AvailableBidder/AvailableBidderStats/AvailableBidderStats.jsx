@@ -17,6 +17,7 @@ const AvailableBidderStats = () => {
     'Bureau',
     'CDO',
     'Grade',
+    'OC Bureau',
     'Post',
     'Skill',
     'Status',
