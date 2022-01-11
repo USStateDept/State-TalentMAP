@@ -1995,10 +1995,10 @@
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
 
-"@types/react-responsive@^8.0.4":
-  version "8.0.4"
-  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.4.tgz#13fe66fcecc23eb96d14ffcb90abdcee81d3619e"
-  integrity sha512-/IrXSbm5aeSvtAD2vFGgPpQsHRQEJ2eWr6EdPEBPlTvad/qJYjXZax4CfOi5xCM5fjq/xpNW3WIHwKOrcdIGcA==
+"@types/react-responsive@^8.0.5":
+  version "8.0.5"
+  resolved "https://registry.yarnpkg.com/@types/react-responsive/-/react-responsive-8.0.5.tgz#77769862d2a0711434feb972be08e3e6c334440a"
+  integrity sha512-k3gQJgI87oP5IrVZe//3LKJFnAeFaqqWmmtl5eoYL2H3HqFcIhUaE30kRK1CsW3DHdojZxcVj4ZNc2ClsEu2PA==
   dependencies:
     "@types/react" "*"
 
