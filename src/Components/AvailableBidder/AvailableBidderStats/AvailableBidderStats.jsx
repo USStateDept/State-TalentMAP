@@ -17,7 +17,7 @@ const AvailableBidderStats = () => {
     'Bureau',
     'CDO',
     'Grade',
-    'OC Bureau', // may need to be remove, will follow up with product owners
+    'OC Bureau', // may need to remove, will follow up with product owners
     'Post',
     'Skill',
     'Status',
