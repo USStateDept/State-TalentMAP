@@ -17,6 +17,7 @@ import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import ExportButton from 'Components/ExportButton';
 import SelectForm from 'Components/SelectForm';
+import { AGENDA_EMPLOYEES_PAGE_SIZES } from 'Constants/Sort';
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
@@ -25,7 +26,6 @@ import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgenda
 import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSearchRow';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
-
 
 const EmployeeAgendaSearch = ({ isCDO }) => {
   const childRef = useRef();
@@ -62,7 +62,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   // Pagination
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(50);
+  const [limit, setLimit] = useState(get(userSelections, 'limit', 50));
   const [ordering, setOrdering] = useState('Name');
   // Filters
   const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState([]);
@@ -86,6 +86,8 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   const count = agendaEmployees ? agendaEmployees.length : 0;
 
   const view = cardView ? 'card' : 'grid';
+
+  const pageSizes = AGENDA_EMPLOYEES_PAGE_SIZES;
 
   const query = {
     // Pagination
@@ -433,7 +435,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                     />
                     <SelectForm
                       id="empl-search-num-results"
-                      options={[]}
+                      options={pageSizes.options}
                       label="Results:"
                       defaultSort={limit}
                       onSelectOption={value => setLimit(value.target.value)}

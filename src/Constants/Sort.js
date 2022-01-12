@@ -74,6 +74,18 @@ export const CLIENTS_PAGE_SIZES = {
 
 CLIENTS_PAGE_SIZES.defaultSort = CLIENTS_PAGE_SIZES.options[1].value;
 
+export const AGENDA_EMPLOYEES_PAGE_SIZES = {
+  options: [
+    { value: 5, text: '5' },
+    { value: 10, text: '10' },
+    { value: 25, text: '25' },
+    { value: 50, text: '50' },
+    { value: 250, text: '250' },
+  ],
+};
+
+AGENDA_EMPLOYEES_PAGE_SIZES.defaultSort = AGENDA_EMPLOYEES_PAGE_SIZES.options[1].value;
+
 export const BID_PORTFOLIO_SORTS = {
   options: [
     { value: 'client_last_name,client_first_name,client_middle_name', text: 'Last Name: A-Z' },
