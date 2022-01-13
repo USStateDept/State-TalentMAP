@@ -195,3 +195,14 @@ export const AGENDA_ITEM_HISTORY_FILTERS = {
 };
 
 AGENDA_ITEM_HISTORY_FILTERS.defaultSort = AGENDA_ITEM_HISTORY_FILTERS.options[0].value;
+
+export const AGENDA_EMPLOYEES_SORT = {
+  options: [
+    { value: 'agenda_employee_fullname', text: 'Full Name' },
+    { value: 'agenda_employee_firstname', text: 'First Name' },
+    { value: 'agenda_employee_lastname', text: 'Last Name' },
+    { value: 'agenda_employee_id', text: 'Employee ID' },
+  ],
+};
+
+AGENDA_EMPLOYEES_SORT.defaultSort = AGENDA_EMPLOYEES_SORT.options[0].value;

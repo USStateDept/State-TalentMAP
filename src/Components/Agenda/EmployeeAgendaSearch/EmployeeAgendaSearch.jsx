@@ -17,6 +17,7 @@ import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import ExportButton from 'Components/ExportButton';
 import SelectForm from 'Components/SelectForm';
+import { AGENDA_EMPLOYEES_SORT } from 'Constants/Sort';
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
@@ -63,7 +64,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   // Pagination
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(50);
-  const [ordering, setOrdering] = useState('Name');
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering', AGENDA_EMPLOYEES_SORT.defaultSort));
   // Filters
   const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState([]);
   const [selectedOngoingBureaus, setSelectedOngoingBureaus] = useState([]);
@@ -86,6 +87,8 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   const count = agendaEmployees ? agendaEmployees.length : 0;
 
   const view = cardView ? 'card' : 'grid';
+
+  const sorts = AGENDA_EMPLOYEES_SORT;
 
   const query = {
     // Pagination
@@ -425,7 +428,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                   <div className="empl-search-results-controls">
                     <SelectForm
                       id="empl-search-num-results"
-                      options={[]}
+                      options={sorts.options}
                       label="Sort by:"
                       defaultSort={ordering}
                       onSelectOption={value => setOrdering(value.target.value)}
