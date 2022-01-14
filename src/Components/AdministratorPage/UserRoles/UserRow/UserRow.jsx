@@ -52,6 +52,7 @@ class UserRow extends Component {
                 <td><Skeleton /></td>
                 <td><Skeleton /></td>
                 <td><Skeleton /></td>
+                <td><Skeleton /></td>
               </tr>
             ) :
             (

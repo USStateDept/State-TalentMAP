@@ -340,9 +340,14 @@
       }
       .delegate-role-header:nth-of-type(-n + 2) {
         min-width: 200px;
+        text-align: left;
       }
       .delegate-role-header {
         cursor: pointer;
+
+        .header-text {
+          padding-left: 10px;
+        }
 
         .delegate-role-header-sort-hidden {
           display: inline;
@@ -363,13 +368,21 @@
         background-color: $bg-blue-dark-1;
         color: $color-white;
         padding: 15px 0 0;
-        text-align:center;
+        text-align: center;
+      }
 
+      th:nth-of-type(5) {
+        .filter-row {
+          div {
+            min-width: 150px;
+          }
+        }
       }
     }
 
     .filter-row {
       border-bottom: 1px solid $bg-blue-dark-1;
+      text-align: center;
 
       div {
         background-color: $color-white;
@@ -404,6 +417,14 @@
 
     td:active {
       cursor: grabbing;
+    }
+    tr {
+      td {
+        text-align: left;
+      }
+      .delegateRoleCell {
+        text-align: center;
+      }
     }
     tr:nth-child(odd) {
       td {

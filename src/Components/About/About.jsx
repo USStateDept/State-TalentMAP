@@ -55,7 +55,7 @@ class About extends Component {
                   <div className={`${matches ? 'usa-width-one-half' : 'usa-width-three-fourths'} about-content`}>
                     {
                       !editorVisible &&
-                        <PermissionsWrapper permissions={['superuser', 'aboutpage_editor']} minimum>
+                        <PermissionsWrapper permissions={['superuser', 'helppage_editor']} minimum>
                           <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
                         </PermissionsWrapper>
                     }
