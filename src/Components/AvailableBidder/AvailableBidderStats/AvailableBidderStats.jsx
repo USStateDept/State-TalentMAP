@@ -27,8 +27,8 @@ const AvailableBidderStats = () => {
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const stats = get(biddersData.stats, selectedStat) || [];
-  const statsSum = get(biddersData.stats, 'Sum', {})[selectedStat];
+  const stats = get(biddersData, 'stats', {})[selectedStat] || [];
+  const statsSum = get(biddersData, 'stats.Sum', {})[selectedStat];
 
   // adding colors
   const stats$ = stats.map(m => {
