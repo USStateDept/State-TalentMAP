@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -43,7 +43,7 @@ const AvailableBidderStats = () => {
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
-  const isGradeOrSkill = selectedStat === 'Grade' || selectedStat === 'Skill';
+  const isGradeOrSkill = includes(['Grade', 'Skill'], selectedStat);
   const percentTextStyle = isGradeOrSkill ? 'percent-text-skill-grade' : 'percent-text-no-skill-grade';
 
   return (
