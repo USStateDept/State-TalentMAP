@@ -11,7 +11,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'permission/group/?name__in=superuser%2Cglossary_editors%2Caboutpage_editor', response: [200, {}],
+      url: 'permission/group/?name__in=superuser%2Cglossary_editors%2Chelppage_editor', response: [200, {}],
     })); mock();
 
     store.dispatch(actions.getTableStats());
@@ -23,7 +23,7 @@ describe('async actions', () => {
     const store = mockStore({});
 
     ({ mock, spy } = spyMockAdapter({
-      url: 'permission/group/?name__in=superuser%2Cglossary_editors%2Caboutpage_editor', response: [404, null],
+      url: 'permission/group/?name__in=superuser%2Cglossary_editors%2Chelppage_editor', response: [404, null],
     })); mock();
 
     store.dispatch(actions.getTableStats());

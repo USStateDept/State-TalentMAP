@@ -153,8 +153,8 @@ class UserRoles extends Component {
              <thead>
                <tr>
                  <th key="username" className="delegate-role-header">
-                   <div role="button" tabIndex={0} onClick={() => this.onSortTable('username')}>
-                    userName
+                   <div className="header-text" role="button" tabIndex={0} onClick={() => this.onSortTable('username')}>
+                    Username
                      {sortArrow('username')}
                    </div>
                    <div className="filter-row">
@@ -173,7 +173,7 @@ class UserRoles extends Component {
                    </div>
                  </th>
                  <th className="delegate-role-header">
-                   <div role="button" tabIndex={0} onClick={() => this.onSortTable('last_name')}>
+                   <div className="header-text" role="button" tabIndex={0} onClick={() => this.onSortTable('last_name')}>
                     Last, First
                      {sortArrow('last_name')}
                    </div>
