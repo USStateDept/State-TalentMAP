@@ -408,7 +408,7 @@
       border: none;
       border-left: 1px solid $bg-gray-medium-0;
       padding: 10px;
-      text-align: center;
+      text-align: left;
     }
 
     td:nth-child(1) {
@@ -419,9 +419,6 @@
       cursor: grabbing;
     }
     tr {
-      td {
-        text-align: left;
-      }
       .delegateRoleCell {
         text-align: center;
       }

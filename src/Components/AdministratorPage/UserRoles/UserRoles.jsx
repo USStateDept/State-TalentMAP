@@ -154,7 +154,7 @@ class UserRoles extends Component {
                <tr>
                  <th key="username" className="delegate-role-header">
                    <div className="header-text" role="button" tabIndex={0} onClick={() => this.onSortTable('username')}>
-                    User Name
+                    Username
                      {sortArrow('username')}
                    </div>
                    <div className="filter-row">
@@ -165,7 +165,7 @@ class UserRoles extends Component {
                        onChangeText={e => this.changeText(e, 'q_username')}
                        onSubmitSearch={e => this.submitText(e, 'q_username')}
                        onClear={e => this.clearText(e, 'q_username')}
-                       placeholder="Search by User Name"
+                       placeholder="Search by Username"
                        showClear
                        submitText="Search"
                        type="small"
