@@ -13,7 +13,7 @@ describe('UserRow', () => {
     delegateRoles: {
       superuser: { title: 'Super User', group_id: 1, group_name: 'superuser' },
       glossary_editors: { title: 'Glossary Editor', group_id: 2, group_name: 'glossary_editors' },
-      aboutpage_editor: { title: 'About Page Editor', group_id: 3, group_name: 'aboutpage_editor' },
+      helppage_editor: { title: 'Help Page Editor', group_id: 3, group_name: 'helppage_editor' },
     },
     modifyPermission: () => [],
     updatePermission: () => [],
@@ -73,7 +73,7 @@ describe('UserRow', () => {
     // expect(wrapper.find('td').at(2).props().children.id).toBe('0-superuser');
     expect(wrapper.find('CheckBox').at(0)).toBe('0-superuser');
     // expect(wrapper.find('CheckBox').at(1).props().children.id).toBe('0-glossary_editors');
-    // expect(wrapper.find('CheckBox').at(2).props().children.id).toBe('0-aboutpage_editor');
+    // expect(wrapper.find('CheckBox').at(2).props().children.id).toBe('0-helppage_editor');
   });
 
   it('matches snapshot', () => {

@@ -51,14 +51,14 @@ exports[`UserRow matches snapshot 1`] = `
     </td>
     <td
       className="delegateRoleCell"
-      key="aboutpage_editor"
+      key="helppage_editor"
     >
       <CheckBox
         checkboxProps={Object {}}
         className=""
         disabled={false}
-        id="0-aboutpage_editor"
-        label="Toggle aboutpage_editor permission."
+        id="0-helppage_editor"
+        label="Toggle helppage_editor permission."
         labelSrOnly={true}
         name=""
         onChange={[Function]}
