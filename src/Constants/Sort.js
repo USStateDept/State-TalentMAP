@@ -74,6 +74,18 @@ export const CLIENTS_PAGE_SIZES = {
 
 CLIENTS_PAGE_SIZES.defaultSort = CLIENTS_PAGE_SIZES.options[1].value;
 
+export const AGENDA_EMPLOYEES_PAGE_SIZES = {
+  options: [
+    { value: 5, text: '5' },
+    { value: 10, text: '10' },
+    { value: 25, text: '25' },
+    { value: 50, text: '50' },
+    { value: 250, text: '250' },
+  ],
+};
+
+AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize = AGENDA_EMPLOYEES_PAGE_SIZES.options[3].value;
+
 export const BID_PORTFOLIO_SORTS = {
   options: [
     { value: 'client_last_name,client_first_name,client_middle_name', text: 'Last Name: A-Z' },
@@ -195,3 +207,14 @@ export const AGENDA_ITEM_HISTORY_FILTERS = {
 };
 
 AGENDA_ITEM_HISTORY_FILTERS.defaultSort = AGENDA_ITEM_HISTORY_FILTERS.options[0].value;
+
+export const AGENDA_EMPLOYEES_SORT = {
+  options: [
+    { value: 'agenda_employee_fullname', text: 'Full Name' },
+    { value: 'agenda_employee_firstname', text: 'First Name' },
+    { value: 'agenda_employee_lastname', text: 'Last Name' },
+    { value: 'agenda_employee_id', text: 'Employee ID' },
+  ],
+};
+
+AGENDA_EMPLOYEES_SORT.defaultSort = AGENDA_EMPLOYEES_SORT.options[0].value;

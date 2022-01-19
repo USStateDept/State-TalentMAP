@@ -5,9 +5,10 @@ import memoize from 'memoize-one';
 import { get, throttle } from 'lodash';
 import Enum from 'enum';
 import bowser from 'bowser';
+import { hoursToMilliseconds } from 'date-fns-v2';
 import { setUserEmpId } from 'actions/userProfile';
 import { toastWarning } from 'actions/toast';
-import { fetchJWT, fetchUserToken, hasValidToken, propOrDefault, redirectToLoginRedirect } from 'utilities';
+import { fetchJWT, fetchUserToken, hasValidToken, isOnProxy, propOrDefault, redirectToLoginRedirect } from 'utilities';
 import { checkFlag } from 'flags';
 import { staticFilters } from './reducers/filters/filters';
 import { logoutRequest } from './login/actions';
@@ -23,6 +24,12 @@ const interceptorCounts = {
 
 const browser = bowser.getParser(window.navigator.userAgent);
 const isIE = browser.satisfies({ 'internet explorer': '<=11' });
+
+let sessionExpired = false;
+let hasShownAlert = false;
+setTimeout(() => {
+  sessionExpired = true;
+}, hoursToMilliseconds(1));
 
 // Make sure the user isn't spammed with redirects
 const debouncedLogout = throttle(
@@ -50,11 +57,11 @@ const debouncedNetworkAlert = throttle(
 const debouncedExpiredSessionAlert = throttle(
   // eslint-disable-next-line global-require
   () => require('./store').store.dispatch(toastWarning(
-    'Your session has expired or you are offline. Try refreshing the page or checking your network connectivity.',
-    'Network Error',
+    'Your Go Browser session may have expired. Try refreshing the page if you are encountering issues.',
+    'Network Session',
     'network-error',
     true,
-    { position: 'bottom-center', autoClose: 6500 },
+    { position: 'bottom-center', autoClose: false },
   )),
   10000,
   { leading: true, trailing: false },
@@ -171,11 +178,10 @@ const api = () => {
     // We want to perform this on 302 to Microsoft, but CORS blocks visibility from axios,
     // so this is the closest we can get to capturing the session expiring.
     // https://github.com/axios/axios/issues/838#issuecomment-304033403
-    /* disable for now. TODO - handle cancelled requests also triggering this
-    if (typeof error.response === 'undefined') {
+    if (typeof error.response === 'undefined' && isOnProxy() && sessionExpired && !hasShownAlert) {
       debouncedExpiredSessionAlert();
+      hasShownAlert = true;
     }
-    */
 
     switch (propOrDefault(error, 'response.status')) {
       case 401: {
