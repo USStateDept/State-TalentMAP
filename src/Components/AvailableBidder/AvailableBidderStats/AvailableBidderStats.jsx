@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
-import { getAvatarColor } from 'utilities';
+import { getAvatarColor, sortGrades } from 'utilities';
 import Picky from 'react-picky';
 import { Row } from '../../Layout';
 
@@ -29,9 +29,15 @@ const AvailableBidderStats = () => {
 
   const stats = get(biddersData, 'stats', {})[selectedStat] || [];
   const statsSum = get(biddersData, 'stats.Sum', {})[selectedStat] || 0;
+  const grades = get(biddersData, 'stats.Grade', []) || [];
+
+  const grades$ = grades.map(grade => ({ ...grade, code: grade.name }));
+  grades$.sort(sortGrades);
+
+  const stat = selectedStat === 'Grade' ? grades$ : stats;
 
   // adding colors
-  const stats$ = stats.map(m => {
+  const stats$ = stat.map(m => {
     const color = getAvatarColor((m.name), 6000).backgroundColor;
     return {
       ...m,
