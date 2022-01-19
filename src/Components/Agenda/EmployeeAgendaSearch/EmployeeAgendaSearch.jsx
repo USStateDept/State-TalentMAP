@@ -62,7 +62,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   // Pagination
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(get(userSelections, 'limit', 50));
+  const [limit, setLimit] = useState(get(userSelections, 'limit', AGENDA_EMPLOYEES_PAGE_SIZES.defaultSort));
   const [ordering, setOrdering] = useState('Name');
   // Filters
   const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState([]);
