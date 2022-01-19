@@ -25,7 +25,7 @@
     "css-box-shadow": "^1.0.0-3",
     "darkreader": "^4.7.15",
     "date-fns": "^1.29.0",
-    "date-fns-v2": "npm:date-fns@^2.15.0",
+    "date-fns-v2": "npm:date-fns@^2.28.0",
     "draft-js": "^0.10.4",
     "draft-js-plugins-editor": "^2.1.1",
     "enum": "^2.5.0",
