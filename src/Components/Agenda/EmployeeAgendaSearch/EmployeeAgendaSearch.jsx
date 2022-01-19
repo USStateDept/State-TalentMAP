@@ -17,7 +17,7 @@ import TotalResults from 'Components/TotalResults';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import ExportButton from 'Components/ExportButton';
 import SelectForm from 'Components/SelectForm';
-import { AGENDA_EMPLOYEES_PAGE_SIZES } from 'Constants/Sort';
+import { AGENDA_EMPLOYEES_PAGE_SIZES, AGENDA_EMPLOYEES_SORT } from 'Constants/Sort';
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
@@ -63,7 +63,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   // Pagination
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(get(userSelections, 'limit', AGENDA_EMPLOYEES_PAGE_SIZES.defaultSort));
-  const [ordering, setOrdering] = useState('Name');
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering', AGENDA_EMPLOYEES_SORT.defaultSort));
   // Filters
   const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState([]);
   const [selectedOngoingBureaus, setSelectedOngoingBureaus] = useState([]);
@@ -88,6 +88,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   const view = cardView ? 'card' : 'grid';
 
   const pageSizes = AGENDA_EMPLOYEES_PAGE_SIZES;
+  const sorts = AGENDA_EMPLOYEES_SORT;
 
   const query = {
     // Pagination
@@ -427,7 +428,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                   <div className="empl-search-results-controls">
                     <SelectForm
                       id="empl-search-num-results"
-                      options={[]}
+                      options={sorts.options}
                       label="Sort by:"
                       defaultSort={ordering}
                       onSelectOption={value => setOrdering(value.target.value)}
