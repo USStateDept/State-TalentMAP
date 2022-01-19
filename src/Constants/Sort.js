@@ -84,7 +84,7 @@ export const AGENDA_EMPLOYEES_PAGE_SIZES = {
   ],
 };
 
-AGENDA_EMPLOYEES_PAGE_SIZES.defaultSort = AGENDA_EMPLOYEES_PAGE_SIZES.options[3].value;
+AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize = AGENDA_EMPLOYEES_PAGE_SIZES.options[3].value;
 
 export const BID_PORTFOLIO_SORTS = {
   options: [
