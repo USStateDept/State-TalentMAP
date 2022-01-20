@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { clone, get, take, takeRight } from 'lodash';
+import { Tooltip } from 'react-tippy';
 import { formatDate, shortenString } from 'utilities';
 // import { TEMP_FAKE_DATA } from 'Constants/PropTypes'; TODO - update
 import InteractiveElement from 'Components/InteractiveElement';
@@ -31,6 +32,8 @@ const AgendaItemCard = props => {
   const createAI = () => { console.log('placeholder create AI'); };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
+  const pillColor = pillColors[get(agenda, 'status') || 'Default'];
+
   return (
     <>
       {
@@ -56,9 +59,14 @@ const AgendaItemCard = props => {
             { formatStr(get(legs$, '[1].pos_title') || 'N/A') }
           </h3>
           <div className="ai-history-card-status-date">
-            <div className="pill ai-history-card-pill" style={{ backgroundColor: pillColors[get(agenda, 'status') || 'Default'] }}>
-              {get(agenda, 'status') || 'Default'}
-            </div>
+            <Tooltip
+              title={get(agenda, 'status') || 'Default'}
+              arrow
+              offset={-50}
+              tabIndex="0"
+            >
+              <div className="ai-history-card-status" style={{ backgroundColor: pillColor, color: pillColor }} />
+            </Tooltip>
             <div className="ai-history-card-panel-date">
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
