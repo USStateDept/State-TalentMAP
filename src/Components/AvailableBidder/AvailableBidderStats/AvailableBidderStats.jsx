@@ -27,17 +27,17 @@ const AvailableBidderStats = () => {
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const stats = get(biddersData, 'stats', {})[selectedStat] || [];
+  let stats = get(biddersData, 'stats', {})[selectedStat] || [];
   const statsSum = get(biddersData, 'stats.Sum', {})[selectedStat] || 0;
-  const grades = get(biddersData, 'stats.Grade', []) || [];
 
-  const grades$ = grades.map(grade => ({ ...grade, code: grade.name }));
-  grades$.sort(sortGrades);
-
-  const stat = selectedStat === 'Grade' ? grades$ : stats;
+  // sorting grades to maintain consistency across the site
+  if (selectedStat === 'Grade') {
+    stats = stats.map(grade => ({ ...grade, code: grade.name }));
+    stats.sort(sortGrades);
+  }
 
   // adding colors
-  const stats$ = stat.map(m => {
+  const stats$ = stats.map(m => {
     const color = getAvatarColor((m.name), 6000).backgroundColor;
     return {
       ...m,
