@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import {
-  get, isNil, omit, pull, replace,
+  get, isNil, pull, replace,
 } from 'lodash';
 import shortid from 'shortid';
 import { getUsers } from 'actions/userRoles';
@@ -97,14 +97,7 @@ class UserRoles extends Component {
          const roleGroup = get(roles, `${m.name}`);
          if (roleGroup) { roles[m.name].group_id = m.id; }
        });
-       // remove role if did not match with tableStats(no id in roles)
-       const removeRoles = [];
-       Object.keys(roles).forEach((role) => {
-         if (isNil(get(roles, `${role}.group_id`))) {
-           removeRoles.push(role);
-         }
-       });
-       return omit(roles, removeRoles);
+       return roles;
      };
 
      const sortArrow = (sortType) => (
