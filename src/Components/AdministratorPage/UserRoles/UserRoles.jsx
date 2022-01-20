@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import {
-  get, isNil, pull, replace,
+  get, pull, replace,
 } from 'lodash';
 import shortid from 'shortid';
 import { getUsers } from 'actions/userRoles';
