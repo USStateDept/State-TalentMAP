@@ -46,7 +46,7 @@
     "memoize-one": "^5.2.1",
     "numeral": "^2.0.6",
     "pdfjs-dist": "2.6.347",
-    "pem": "^1.14.3",
+    "pem": "1.14.3",
     "prop-types": "^15.6.0",
     "q": "^1.5.1",
     "query-string": "5.1.1",
