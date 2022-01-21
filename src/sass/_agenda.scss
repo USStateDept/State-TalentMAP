@@ -478,9 +478,11 @@
         justify-content: space-between;
         margin: 10px;
 
-        .ai-history-card-pill {
+        .ai-history-card-status {
           background-color: $color-black;
           color: $color-white;
+          border-radius: 50%;
+          padding: 10px;
         }
 
         .ai-history-card-panel-date {
@@ -586,21 +588,31 @@
       padding: 15px;
       position: relative;
 
-      //  candidate for row/card agnostic, if row view oked
-      .ai-history-row-status-date {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        margin: 10px 10px 10px 25px;
-
-        .ai-history-row-pill {
+      .ai-history-row-status {
+        position: absolute;
+        top: 0;
+        left: -2px;
+        .status-tag {
           background-color: $color-black;
           color: $color-white;
+          display: inline;
+          padding: 5px 20px;
         }
+        .poly-slash {
+          background-color: $color-black;
+          clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
+          color: $color-black;
+          display: inline-block;
+          margin-left: -3px;
+          padding: 5px 0;
+          width: 30px;
+        }
+      }
 
-        .ai-history-row-panel-date {
-          font-size: large;
-        }
+      .ai-history-row-panel-date {
+        display: flex;
+        justify-content: flex-end;
+        font-size: large;
 
         @media screen and (max-width: 1600px) {
           .ai-history-row-panel-date {
@@ -609,7 +621,6 @@
         }
       }
 
-        //  candidate for row/card agnostic, if row view oked
       .ai-history-card-legs {
         table {
           margin: 0;
@@ -669,7 +680,7 @@
         .remarks-container {
           display: flex;
           flex-wrap: wrap;
-          margin: 25px;
+          margin: 15px;
 
           .remarks-text {
             float: left;

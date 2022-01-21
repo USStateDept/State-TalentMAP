@@ -8,7 +8,7 @@ import { pillColors } from '../Constants';
 
 const AgendaItemRow = props => {
   const {
-    isFirst,
+    isCreate,
     agenda,
     showEdit,
   } = props;
@@ -17,10 +17,11 @@ const AgendaItemRow = props => {
   const createAI = () => { console.log('placeholder create AI'); };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
+  const pillColor = pillColors[get(agenda, 'status') || 'Default'];
   return (
     <>
       {
-        isFirst &&
+        isCreate &&
         <div className="ai-history-row first-row">
           <div className="plusIcon">
             <InteractiveElement title="Create Agenda" onClick={createAI()}>
@@ -30,14 +31,15 @@ const AgendaItemRow = props => {
         </div>
       }
       {
-        <div className="ai-history-row" style={{ borderLeftColor: pillColors[get(agenda, 'status') || 'Default'] }}>
-          <div className="ai-history-row-status-date">
-            <div className="pill ai-history-row-pill" style={{ backgroundColor: pillColors[get(agenda, 'status') || 'Default'] }}>
+        <div className="ai-history-row" style={{ borderLeftColor: pillColor }}>
+          <div className="ai-history-row-status">
+            <div className="status-tag" style={{ backgroundColor: pillColor }}>
               {get(agenda, 'status') || 'Default'}
             </div>
-            <div className="ai-history-row-panel-date">
-              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
-            </div>
+            <div className="poly-slash" style={{ backgroundColor: pillColor, color: pillColor }} >_</div>
+          </div>
+          <div className="ai-history-row-panel-date">
+            Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
           </div>
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
@@ -55,7 +57,7 @@ const AgendaItemRow = props => {
 };
 
 AgendaItemRow.propTypes = {
-  isFirst: PropTypes.bool,
+  isCreate: PropTypes.bool,
   agenda: PropTypes.shape({
     id: PropTypes.number,
     remarks: PropTypes.arrayOf(
@@ -90,7 +92,7 @@ AgendaItemRow.propTypes = {
 
 
 AgendaItemRow.defaultProps = {
-  isFirst: false,
+  isCreate: false,
   agenda: {},
   showEdit: false,
 };
