@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
-import { getAvatarColor } from 'utilities';
+import { getAvatarColor, sortGrades } from 'utilities';
 import Picky from 'react-picky';
 import { Row } from '../../Layout';
 
@@ -15,19 +15,26 @@ const AvailableBidderStats = () => {
 
   const statOptions = [
     'Bureau',
+    'CDO',
     'Grade',
+    'OC Bureau',
     'Post',
     'Skill',
     'Status',
-    'TED',
   ];
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const stats = get(biddersData.stats, selectedStat) || [];
-  const statsSum = get(biddersData.stats, 'Sum', {})[selectedStat];
+  let stats = get(biddersData, 'stats', {})[selectedStat] || [];
+  const statsSum = get(biddersData, 'stats.Sum', {})[selectedStat] || 0;
+
+  // sorting grades to maintain consistency across the site
+  if (selectedStat === 'Grade') {
+    stats = stats.map(grade => ({ ...grade, code: grade.name }));
+    stats.sort(sortGrades);
+  }
 
   // adding colors
   const stats$ = stats.map(m => {
@@ -92,7 +99,12 @@ const AvailableBidderStats = () => {
                               className="legend-square"
                               style={{ backgroundColor: m.color }}
                             />
-                            <div className="legend-text">{`(${m.value}) ${m.name} ${m.percent}`}</div>
+                            <div className="legend-text">
+                              {`(${m.value}) ${m.name}`}
+                              <span className="percent-text">
+                                {`${m.percent}`}
+                              </span>
+                            </div>
                           </div>
                         ))
                       }
