@@ -32,7 +32,8 @@ const AgendaItemCard = props => {
   const createAI = () => { console.log('placeholder create AI'); };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
-  const pillColor = pillColors[get(agenda, 'status') || 'Default'];
+  const status = get(agenda, 'status') || 'Default';
+  const pillColor = pillColors[status];
 
   return (
     <>
@@ -60,7 +61,7 @@ const AgendaItemCard = props => {
           </h3>
           <div className="ai-history-card-status-date">
             <Tooltip
-              title={get(agenda, 'status') || 'Default'}
+              title={status}
               arrow
               offset={-50}
               tabIndex="0"
