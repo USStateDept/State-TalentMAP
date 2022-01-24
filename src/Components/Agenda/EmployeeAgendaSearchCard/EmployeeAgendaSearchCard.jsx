@@ -22,7 +22,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result }) => {
   const ted = get(currentAssignment, 'TED') || '';
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
-  const hideCreate = true;
   const employeeID = get(person, 'employeeID', '');
 
   const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : 'None listed';
@@ -98,9 +97,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result }) => {
             <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
           </div>
           <div className="create-ai-box-container">
-            {!hideCreate &&
-              <LinkButton className="create-ai-box-button" toLink="#">Create Agenda Item</LinkButton>
-            }
+            <LinkButton className="create-ai-box-button" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
           </div>
         </div>
       </div>

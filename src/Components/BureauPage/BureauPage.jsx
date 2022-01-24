@@ -6,6 +6,7 @@ import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
 import EmployeeAgendaSearch from '../../Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
 import AgendaItemHistory from '../../Components/Agenda/AgendaItemHistory/AgendaItemHistory';
+import AgendaItemMaintenanceContainer from '../../Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 
 const BureauPage = () => {
   const dashboardProps = {
@@ -25,6 +26,7 @@ const BureauPage = () => {
       <Switch>
         <Route path="/profile/ao/employeeagenda" render={() => <EmployeeAgendaSearch />} />
         <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory />} />
+        <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
