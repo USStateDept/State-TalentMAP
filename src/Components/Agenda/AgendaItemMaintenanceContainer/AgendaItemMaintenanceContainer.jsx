@@ -1,11 +1,16 @@
 import BackButton from '../../BackButton';
 
 const AgendaItemMaintenanceContainer = () => (
-  <div>
+  <div className="agenda-item-maintenace-container">
     <BackButton />
-    <h1>
-        Agenda Item Maintenance
-    </h1>
+    <div>
+      <div className="maintenance-container-left">
+        Left Maintenance Container
+      </div>
+      <div className="maintenance-container-right">
+        Right Maintenance Container
+      </div>
+    </div>
   </div>
 );
 

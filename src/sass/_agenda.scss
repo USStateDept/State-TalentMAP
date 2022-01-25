@@ -751,3 +751,22 @@
 
   }
 }
+
+.agenda-item-maintenace-container {
+  margin: 10px;
+
+  .maintenance-container-left {
+    background-color: $color-white;
+    float: left;
+    height: 500px;
+    width: 50%;
+  }
+
+  .maintenance-container-right {
+    background-color: $color-white;
+    float: left;
+    height: 500px;
+    margin-left: 20px;
+    width: 48%;
+  }
+}
