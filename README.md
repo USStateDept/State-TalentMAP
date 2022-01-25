@@ -85,14 +85,14 @@ See the [create-react-app](https://github.com/facebookincubator/create-react-app
 
 The front end application is Dockerized and available in a `docker-compose` stack with the API.  Setup and more available [here](DOCKER.md).
 
-## Deploying
-
-There is a brief deployment guide [here](deploy/DEPLOY.md) that discusses deployment up the front end application.  For more thorough intructions, including the API, checkout out the [wiki](https://github.com/USStateDept/State-TalentMAP/wiki/Deployment-Guide).
-
 ## Node.js
 
 Use NVM to manage different Node.js versions. Here's a link to the GitHub repo (https://github.com/nvm-sh/nvm) where you can find a curl command under "Installing and Updating"
 to install NVM.
+
+## Deploying
+
+There is a brief deployment guide [here](deploy/DEPLOY.md) that discusses deployment up the front end application.  For more thorough intructions, including the API, checkout out the [wiki](https://github.com/USStateDept/State-TalentMAP/wiki/Deployment-Guide).
 
 ## Accessibility
 
