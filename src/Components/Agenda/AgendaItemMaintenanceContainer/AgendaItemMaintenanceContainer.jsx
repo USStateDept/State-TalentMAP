@@ -16,20 +16,23 @@ const AgendaItemMaintenanceContainer = () => {
   return (
     <div className="agenda-item-maintenace-container">
       <BackButton />
-      <div>
+      <div className="ai-maintenance-containers">
         <div className={`maintenance-container-left${expandContainer ? '' : '-expanded'}`}>
           Left Maintenance Container
-          <InteractiveElement onClick={toggleExpand}>
-            <Tooltip
-              title={expandContainer ? 'Expand container' : 'Collapse container'}
-              arrow
-            >
-              <FontAwesome
-                style={{ transform: rotate, transition: 'all 0.65s linear' }}
-                name="arrow-circle-left"
-              />
-            </Tooltip>
-          </InteractiveElement>
+          <div className="expand-arrow">
+            <InteractiveElement onClick={toggleExpand}>
+              <Tooltip
+                title={expandContainer ? 'Expand container' : 'Collapse container'}
+                arrow
+              >
+                <FontAwesome
+                  style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                  name="arrow-circle-left"
+                  size="lg"
+                />
+              </Tooltip>
+            </InteractiveElement>
+          </div>
         </div>
         {
           expandContainer &&
