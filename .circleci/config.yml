@@ -47,6 +47,7 @@ jobs:
   yarn:
     <<: *default-docker-node
     parallelism: 16
+    resource_class: large
     steps:
       - checkout
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -109,6 +110,7 @@ jobs:
     # use machine executor to get 7.5gb instead of 4gb RAM and avoid "Exited with code exit status 137" memory error
     machine:
       image: ubuntu-2004:202111-02
+    resource_class: large
     steps:
       - checkout
       - run:
