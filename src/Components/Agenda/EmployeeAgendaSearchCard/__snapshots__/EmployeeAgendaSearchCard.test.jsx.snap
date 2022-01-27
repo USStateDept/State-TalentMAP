@@ -148,7 +148,14 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
       </div>
       <div
         className="create-ai-box-container"
-      />
+      >
+        <LinkButton
+          className="create-ai-box-button"
+          toLink="/profile/ao/createagendaitem/"
+        >
+          Create Agenda Item
+        </LinkButton>
+      </div>
     </div>
   </div>
 </BoxShadow>
