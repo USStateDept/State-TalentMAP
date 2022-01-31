@@ -746,7 +746,10 @@
       color: $tertiary-cool-blue;
       font-size: 20px;
     }
+  }
 
+  .button-back-link {
+    margin: 15px 0 0 0;
   }
 
   @media screen and (max-width: 1400px) {
@@ -759,64 +762,6 @@
       }
 
     }
-
   }
 }
 
-.agenda-item-maintenace-container {
-  margin: 10px;
-  
-  .expand-arrow {
-    float: right;
-    position: relative;
-    top: 46%;
-  }
-
-  .maintenance-container-left {
-    background-color: $color-white;
-    float: left;
-    height: 500px;
-    width: 50%;
-  }
-
-  .maintenance-container-left-expanded {
-    background-color: $color-white;
-    float: left;
-    height: 500px;
-    width: 99%;
-  }
-
-  .maintenance-container-right {
-    background-color: $color-white;
-    float: left;
-    height: 500px;
-    margin-left: 20px;
-    width: 48%;
-  }
-}
-
-@media screen and (max-width: 1650px) {
-  .ai-maintenance-containers {
-    display: grid;
-    
-    .maintenance-container-left {
-      background-color: $color-white;
-      float: left;
-      height: 500px;
-      width: 99%;
-
-      .expand-arrow {
-        display: none;
-      }
-    }
-    
-    .maintenance-container-right {
-      background-color: $color-white;
-      float: left;
-      height: 500px;
-      margin-left: 0;
-      margin-top: 20px;
-      width: 99%
-    }
-  }
-}

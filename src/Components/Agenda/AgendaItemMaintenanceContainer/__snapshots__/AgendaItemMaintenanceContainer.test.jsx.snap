@@ -2,7 +2,7 @@
 
 exports[`AgendaItemMaintenanceContainerComponent matches snapshot 1`] = `
 <div
-  className="agenda-item-maintenace-container"
+  className="agenda-item-maintenance-container"
 >
   <Connect(withRouter(BackButton)) />
   <div
@@ -53,7 +53,7 @@ exports[`AgendaItemMaintenanceContainerComponent matches snapshot 1`] = `
             style={Object {}}
             tag="div"
             theme="dark"
-            title="Expand container"
+            title="Collapse Research"
             touchHold={false}
             trigger="mouseenter focus"
             unmountHTMLWhenHide={false}
@@ -76,7 +76,7 @@ exports[`AgendaItemMaintenanceContainerComponent matches snapshot 1`] = `
     <div
       className="maintenance-container-right"
     >
-      Right Maintenance Container
+      <AgendaItemResearchPane />
     </div>
   </div>
 </div>

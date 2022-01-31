@@ -1,0 +1,34 @@
+.navTabs {
+  .menu-style {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
+    .tab {
+      text-align: center;
+      padding: 5px 10px;
+      font-size: 13px;
+      background-color: $bg-gray-medium-4;
+      border-top: 3px solid $bg-gray-medium-4;
+    }
+    .tab-active {
+      background-color: $color-white;
+      border-top: 3px solid $dos-blue;
+      color: $dos-blue;
+    }
+    .tab:hover:not(.tab-active) {
+      color: $color-black;
+      background-color: $bg-gray-medium-2;
+      border-top: 3px solid $bg-gray-medium-2;
+      cursor: pointer;
+    }
+  }
+
+  .dd-style {
+    select {
+      font-size: 13px;
+      padding: 5px 10px 5px;
+    }
+  }
+  .dd-style-center {
+    margin: auto;
+  }
+}

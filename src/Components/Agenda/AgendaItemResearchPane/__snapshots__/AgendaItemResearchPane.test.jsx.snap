@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaResearchPane Component matches snapshot 1`] = `
+<div
+  className="ai-research-pane"
+>
+  <MediaQueryWrapper
+    breakpoint="screenSmMax"
+    widthType="max"
+  >
+    <Component />
+  </MediaQueryWrapper>
+</div>
+`;
