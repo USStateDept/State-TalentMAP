@@ -26,8 +26,15 @@
     float: left;
     height: 500px;
     margin-left: 20px;
+    overflow-y: scroll;
     width: 48%;
   }
+
+  .ai-research-content {
+    padding-top: 1em;
+    position: relative;
+  }
+
   @media screen and (max-width: 1650px) {
     .ai-maintenance-containers {
       display: grid;
@@ -53,6 +60,10 @@
   .ai-research-pane {
     background-color: $color-white;
     padding: 20px;
+
+    .bid-content-container > div:last-child > div {
+      display: inline;
+    }
   }
   .hidden {
     display: none!important;

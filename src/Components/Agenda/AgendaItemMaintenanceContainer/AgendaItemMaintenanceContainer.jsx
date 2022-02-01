@@ -2,10 +2,12 @@ import { useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
+import { withRouter } from 'react-router';
+import { get } from 'lodash';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import BackButton from '../../BackButton';
 
-const AgendaItemMaintenanceContainer = () => {
+const AgendaItemMaintenanceContainer = (props) => {
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
 
   function toggleExpand() {
@@ -13,6 +15,8 @@ const AgendaItemMaintenanceContainer = () => {
   }
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
+
+  const id = get(props, 'match.params.id'); // client's perdet
 
   return (
     <div className="agenda-item-maintenance-container">
@@ -36,11 +40,11 @@ const AgendaItemMaintenanceContainer = () => {
           </div>
         </div>
         <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
-          <AgendaItemResearchPane />
+          <AgendaItemResearchPane perdet={id} />
         </div>
       </div>
     </div>
   );
 };
 
-export default AgendaItemMaintenanceContainer;
+export default withRouter(AgendaItemMaintenanceContainer);

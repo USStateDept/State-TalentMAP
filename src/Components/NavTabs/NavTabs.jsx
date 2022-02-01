@@ -14,7 +14,7 @@ const NavTabs = props => {
     tabs,
   } = props;
 
-  const [menuItem, setMenuItem] = useState(get(tabs, '[0].value') || '');
+  const [menuItem, setMenuItem] = useState(props.value || get(tabs, '[0].value') || '');
 
   useEffect(() => {
     passNavValue(menuItem);
@@ -53,7 +53,7 @@ NavTabs.propTypes = {
   ddStyle: PropTypes.shape({}),
   passNavValue: PropTypes.func,
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
-
+  value: PropTypes.string, // default value
 };
 
 
@@ -63,6 +63,7 @@ NavTabs.defaultProps = {
   ddStyle: { width: '180px' },
   passNavValue: EMPTY_FUNCTION,
   tabs: [],
+  value: '',
 };
 
 export default NavTabs;
