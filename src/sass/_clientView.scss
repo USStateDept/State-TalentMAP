@@ -1,6 +1,6 @@
 .client-header-sticky-container {
   position: relative;
-  z-index: auto;
+  z-index: $client-header-z;
 }
 
 .client-header {
