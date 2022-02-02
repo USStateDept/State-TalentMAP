@@ -2,27 +2,32 @@ import { useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
+import { withRouter } from 'react-router';
+import { get } from 'lodash';
+import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import BackButton from '../../BackButton';
 
-const AgendaItemMaintenanceContainer = () => {
-  const [expandContainer, setExpandContainer] = useState(true);
+const AgendaItemMaintenanceContainer = (props) => {
+  const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
 
   function toggleExpand() {
-    setExpandContainer(!expandContainer);
+    setLegsContainerExpanded(!legsContainerExpanded);
   }
 
-  const rotate = expandContainer ? 'rotate(-180deg)' : 'rotate(0)';
+  const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
+
+  const id = get(props, 'match.params.id'); // client's perdet
 
   return (
-    <div className="agenda-item-maintenace-container">
+    <div className="agenda-item-maintenance-container">
       <BackButton />
       <div className="ai-maintenance-containers">
-        <div className={`maintenance-container-left${expandContainer ? '' : '-expanded'}`}>
+        <div className={`maintenance-container-left${legsContainerExpanded ? '-expanded' : ''}`}>
           Left Maintenance Container
           <div className="expand-arrow">
             <InteractiveElement onClick={toggleExpand}>
               <Tooltip
-                title={expandContainer ? 'Expand container' : 'Collapse container'}
+                title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
                 arrow
               >
                 <FontAwesome
@@ -34,15 +39,12 @@ const AgendaItemMaintenanceContainer = () => {
             </InteractiveElement>
           </div>
         </div>
-        {
-          expandContainer &&
-          <div className="maintenance-container-right">
-            Right Maintenance Container
-          </div>
-        }
+        <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
+          <AgendaItemResearchPane perdet={id} />
+        </div>
       </div>
     </div>
   );
 };
 
-export default AgendaItemMaintenanceContainer;
+export default withRouter(AgendaItemMaintenanceContainer);

@@ -1245,10 +1245,10 @@
     "@babel/helper-validator-option" "^7.16.7"
     "@babel/plugin-transform-typescript" "^7.16.7"
 
-"@babel/register@^7.16.0":
-  version "7.16.0"
-  resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.16.0.tgz#f5d2aa14df37cf7146b9759f7c53818360f24ec6"
-  integrity sha512-lzl4yfs0zVXnooeLE0AAfYaT7F3SPA8yB2Bj4W1BiZwLbMS3MZH35ZvCWSRHvneUugwuM+Wsnrj7h0F7UmU3NQ==
+"@babel/register@^7.16.9":
+  version "7.16.9"
+  resolved "https://registry.yarnpkg.com/@babel/register/-/register-7.16.9.tgz#fcfb23cfdd9ad95c9771e58183de83b513857806"
+  integrity sha512-jJ72wcghdRIlENfvALcyODhNoGE5j75cYHdC+aQMh6cU/P86tiiXTp9XYZct1UxUMo/4+BgQRyNZEGx0KWGS+g==
   dependencies:
     clone-deep "^4.0.1"
     find-cache-dir "^2.0.0"
@@ -11631,10 +11631,10 @@ react-date-picker@^8.3.3:
     react-fit "^1.0.3"
     update-input-width "^1.2.2"
 
-react-datepicker@^4.3.0:
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-4.3.0.tgz#f2e2fc652b7ed3c231663d858da4a3c67f470784"
-  integrity sha512-cg+gp4YnPcZc6iZ0+v7VuRgcFG22KL7izHYrCxXeSLOn5VGkyxTfcu5qA/cGIsngurCt/u0NtgVTlHB1Fwap1g==
+react-datepicker@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/react-datepicker/-/react-datepicker-4.6.0.tgz#10fc7c5b9c72df5c3e29712d559cb3fe73fd9f62"
+  integrity sha512-JGSQnQSQYUkS7zvSaZuyHv5lxp3wMrN7GXV0VA0E9Ax9fL3Bb6E1pSXjL6C3WoeuV8dt/mItQfRkPpRGCrl/OA==
   dependencies:
     "@popperjs/core" "^2.9.2"
     classnames "^2.2.6"
