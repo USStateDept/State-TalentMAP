@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AssignmentHistory Component matches snapshot 1`] = `
+<div
+  className="favorites-list-container"
+>
+  <BorderedList
+    contentArray={
+      Array [
+        <FavoritesListResultsCard
+          assignment={
+            Object {
+              "end_date": "10-10-2018",
+              "estimated_end_date": "10-10-2018",
+              "position": Object {
+                "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+                "position_number": "58348065",
+                "post": Object {
+                  "location": Object {
+                    "city": "Washington",
+                    "code": "500",
+                    "country": "United States",
+                    "id": 4,
+                    "state": "DC",
+                  },
+                },
+                "skill": "CONSTRUCTION ENGINEERING (6218)",
+                "title": "PROJECT DIRECTOR",
+              },
+              "start_date": "10-10-2016",
+            }
+          }
+          condensedView={true}
+          parentClassName="parent-list-container"
+        />,
+      ]
+    }
+  />
+</div>
+`;
