@@ -9956,10 +9956,10 @@ mobius1-selectr@^2.4.13:
   version "2.4.13"
   resolved "https://registry.yarnpkg.com/mobius1-selectr/-/mobius1-selectr-2.4.13.tgz#0019dfd9f984840d6e40f70683ab3ec78ce3b5df"
 
-mock-local-storage@^1.1.19:
-  version "1.1.19"
-  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.19.tgz#baf00a0b7f1991871fdf9bb51932b9ab3a257c34"
-  integrity sha512-YwTEsgWqFw6uRBvhKScanKwfSIpjING50y9UaHb6BGfsdlFY3Zumdnf8RLBvHRVkLh31+G2WEz0xNeYhd5f5fA==
+mock-local-storage@^1.1.20:
+  version "1.1.20"
+  resolved "https://registry.yarnpkg.com/mock-local-storage/-/mock-local-storage-1.1.20.tgz#9642db1cee1110dfa241ef9972940f9d8044d9c5"
+  integrity sha512-JsV1bVnHA0lhdoGeJDBrOtC1X8j2ZJ5ZttoyZMp3cZCgbnh2MuQaQGpHwfwha+Jczhmd40lOmzYmBKExvsbBaA==
   dependencies:
     core-js "^3.19.0"
     global "^4.3.2"
