@@ -68,4 +68,22 @@
   .hidden {
     display: none!important;
   }
+
+  .data-point-container {
+    margin-bottom: 10px;
+  }
+
+  .data-point-title {
+    color: $color-black;
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+
+  .language-details > span {
+    border-left: 1px solid $bg-gray-medium-1;
+    float: inherit;
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+
 }
