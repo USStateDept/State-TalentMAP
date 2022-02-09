@@ -86,4 +86,75 @@
     padding-left: 10px;
   }
 
+  .frequent-positions-table {
+
+    font-size: .9em;
+
+    td {
+      border: 0;
+      margin: auto;
+    }
+
+    table {
+      width: 100%;
+    }
+
+    tr {
+      display: flex;
+    }
+
+    tr > *:nth-child(1) {
+      flex: 1
+    }
+    tr > *:nth-child(2) {
+      flex: 6
+    }
+    tr > *:nth-child(3) {
+      flex: 6
+    }
+    tr > *:nth-child(4) {
+      flex: 12
+    }
+
+    tbody > tr {
+      border: 2px solid $bg-gray-dark-1;
+      border-top: 0px;
+    }
+
+    tbody > tr {
+      > td:first-of-type {
+        position: relative;
+        .fa {
+          color: $color-blue-hover;
+          font-size: 1.4em;
+          left: 30%;
+          position: relative;
+        }
+      }
+    }
+
+    tbody > tr:nth-child(even){
+      $bg: $bg-gray-medium-2;
+      background-color: $bg;
+      td {
+        background-color: $bg;
+      }
+    }
+
+    tbody > tr:nth-child(odd){
+      $bg: $color-white;
+      background-color: $bg;
+      td {
+        background-color: $bg;
+      }
+    }
+
+    th {
+      background-color: $dos-blue;
+      border: 0;
+      color: $color-white;
+      font-weight: bold;
+    }
+  }
+
 }

@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FrequentPositionsComponent matches snapshot 1`] = `
+<div
+  className="frequent-positions-table"
+>
+  <table>
+    <thead>
+      <tr>
+        <th
+          key=""
+        />
+        <th
+          key="Organization"
+        >
+          Organization
+        </th>
+        <th
+          key="Position Number"
+        >
+          Position Number
+        </th>
+        <th
+          key="Position Title"
+        >
+          Position Title
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <InteractiveElement
+            className=""
+            onClick={[Function]}
+            title="Add to Agenda Item"
+            type="div"
+          >
+            <FontAwesome
+              name="plus-circle"
+            />
+          </InteractiveElement>
+        </td>
+        <td>
+          AF
+        </td>
+        <td>
+          010101010
+        </td>
+        <td>
+          Information Technology Spec
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

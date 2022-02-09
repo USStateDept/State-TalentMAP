@@ -8,7 +8,23 @@ import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
 import AssignmentHistory from './AssignmentHistory';
+import FrequentPositions from './FrequentPositions';
 import api from '../../../api';
+
+/* TODO replace with real data */
+let positions = [
+  { org: 'ORG NAME',
+    position_number: '0000000000',
+    position_title: 'ECONOMIC OFFICER LONGER NAME HERE (' },
+  { org: 'A',
+    position_number: '0000100000',
+    position_title: 'ECONOMIC OFFICER' },
+  { org: 'ORG NAME',
+    position_number: '0000000000',
+    position_title: 'TRAINING' },
+];
+positions = [...positions, ...positions, ...positions, ...positions];
+/* end TODO */
 
 const ASGH = 'asgh';
 const FP = 'fp';
@@ -36,6 +52,12 @@ const AgendaItemResearchPane = props => {
   const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
   const assignments = get(data, 'data.assignments') || [];
   const languages = get(data, 'data.languages') || [];
+
+  const onFPClick = pos => {
+    // TODO - do something with this
+    // eslint-disable-next-line
+    console.log(pos);
+  };
 
   return (
     <div className="ai-research-pane">
@@ -69,6 +91,13 @@ const AgendaItemResearchPane = props => {
             <Languages
               languagesArray={languages}
               useWrapper={false}
+            />
+        }
+        {
+          selectedNav === FP && !loading && !error &&
+            <FrequentPositions
+              positions={positions}
+              onClick={onFPClick}
             />
         }
       </div>
