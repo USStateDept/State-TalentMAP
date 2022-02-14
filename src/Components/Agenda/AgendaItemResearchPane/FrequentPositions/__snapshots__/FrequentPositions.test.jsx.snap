@@ -4,6 +4,25 @@ exports[`FrequentPositionsComponent matches snapshot 1`] = `
 <div
   className="frequent-positions-table"
 >
+  <FieldSet
+    className="glossary-fieldset"
+    legend="Enter a keyword to search"
+    legendSrOnly={true}
+  >
+    <TextInput
+      changeText={[Function]}
+      inputProps={
+        Object {
+          "autoComplete": "off",
+        }
+      }
+      label=""
+      labelMessage=""
+      labelSrOnly={true}
+      placeholder="Search for Frequent Positions"
+      value=""
+    />
+  </FieldSet>
   <table>
     <thead>
       <tr>

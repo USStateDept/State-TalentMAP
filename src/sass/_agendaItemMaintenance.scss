@@ -70,6 +70,10 @@
     background-color: $color-white;
     padding: 20px;
 
+    input {
+      border-radius: 5px;
+    }
+
     .bid-content-container > div:last-child > div {
       display: inline;
     }
