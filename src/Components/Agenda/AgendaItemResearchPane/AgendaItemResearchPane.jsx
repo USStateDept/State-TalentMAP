@@ -90,7 +90,7 @@ const AgendaItemResearchPane = props => {
           selectedNav === L && !loading && !error &&
             <Languages
               languagesArray={languages}
-              useWrapper={false}
+              useWrapper
             />
         }
         {
