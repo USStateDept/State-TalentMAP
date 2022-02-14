@@ -33,6 +33,15 @@
   .ai-research-content {
     padding-top: 1em;
     position: relative;
+
+    .dashboard-section-title {
+      margin-bottom: 1em;
+    }
+
+    h2 {
+      display: inline;
+      font-size: 1.1em;
+    }
   }
 
   @media screen and (max-width: 1650px) {
