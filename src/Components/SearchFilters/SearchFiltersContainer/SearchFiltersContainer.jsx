@@ -453,15 +453,17 @@ class SearchFiltersContainer extends Component {
             }
           />
         </div>
-        {
-          useTandem() &&
-          <ToggleButton
-            labelTextRight="Tandem Search"
-            checked={tandemIsSelected}
-            onChange={this.onTandemSearchClick}
-            onColor={colorBlueChill}
-          />
-        }
+        <div className="tandem-toggle-button-container">
+          {
+            useTandem() &&
+            <ToggleButton
+              labelTextRight="Tandem Search"
+              checked={tandemIsSelected}
+              onChange={this.onTandemSearchClick}
+              onColor={colorBlueChill}
+            />
+          }
+        </div>
       </div>
     );
   }
