@@ -8,24 +8,29 @@ const steps = [
   {
     target: '.results-section-container',
     disableBeacon: true,
-    content: 'Welcome to the TalentMAP position search! Click "Next" for a quick tutorial on how to use this page. Click "Skip" to leave this tutorial.',
+    content: 'Welcome to the TalentMAP position search! Click "Next" for a quick tutorial on how to use this page. Click "Exit" to leave this tutorial.',
     isFixed: true,
     placement: 'top-end',
     hideCloseButton: true,
   },
   {
     target: '.filter-container',
-    content: 'Use filters to narrow down your results. Note that you can switch to a Projected Vacancy or Tandem search.',
+    content: 'Use filters to narrow down your results. Note that you can switch to a Projected Vacancy search.',
+    hideCloseButton: true,
+  },
+  {
+    target: '.tandem-toggle-button-container',
+    content: 'Additionally, you can switch to a Tandem search.',
     hideCloseButton: true,
   },
   {
     target: '.results-controls',
-    content: 'You can also sort results, change the page size, and export or save your search',
+    content: 'You can sort results, change the number of results displayed, and export or save your search',
     hideCloseButton: true,
   },
   {
     target: '.hover-description',
-    content: 'Hover over the bottom of a card to view its capsule description',
+    content: 'Hover over the bottom of a Position Card to view its description',
     hideCloseButton: true,
   },
   {
