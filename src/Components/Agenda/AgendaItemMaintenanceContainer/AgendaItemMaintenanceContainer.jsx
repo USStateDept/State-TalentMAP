@@ -5,7 +5,7 @@ import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
-import BackButton from '../../BackButton';
+import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
@@ -20,10 +20,9 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   return (
     <div className="agenda-item-maintenance-container">
-      <BackButton />
       <div className="ai-maintenance-containers">
         <div className={`maintenance-container-left${legsContainerExpanded ? '-expanded' : ''}`}>
-          Left Maintenance Container
+          <AgendaItemMaintenancePane leftExpanded={legsContainerExpanded} />
           <div className="expand-arrow">
             <InteractiveElement onClick={toggleExpand}>
               <Tooltip

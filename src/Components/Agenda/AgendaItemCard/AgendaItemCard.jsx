@@ -72,7 +72,7 @@ const AgendaItemCard = props => {
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
           </div>
-          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} isCard />
+          <AgendaItemLegs legs={agenda.legs} isCard />
           {
             showEdit &&
             <div className="ai-history-footer">
