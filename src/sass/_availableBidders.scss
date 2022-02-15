@@ -405,3 +405,44 @@
 .no-comments {
   color: $color-gray-light;
 }
+
+.tippy-popper {
+  .tippy-tooltip.ab-row-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .ab-row-tooltip-wrapper {
+      display: flex;
+      padding-bottom: 10px;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .ab-row-tooltip-data {
+        font-weight: 400;
+        font-style: italic;
+      }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+.comments-icon {
+  color: $color-dodger-blue;
+}
