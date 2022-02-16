@@ -427,6 +427,51 @@
       padding-left: 5px;
     }
   }
+
+  .tippy-tooltip.ab-row-theme, .tippy-tooltip.step-letters-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .ab-row-tooltip-wrapper, .step-letter-tooltip-wrapper {
+      display: flex;
+      padding-bottom: 10px;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .ab-row-tooltip-data, .step-letter-date {
+        font-weight: 400;
+        font-style: italic;
+      }
+    }
+
+    .step-letter-tooltip-wrapper {
+      div:first-child {
+        padding-right: 10px;
+        border-right: 1px solid $color-gray-light;
+      }
+      div:nth-child(2) {
+        padding-left: 10px;
+      }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
 
 .oc-icon {
@@ -457,85 +502,6 @@
 
 .no-comments {
   color: $color-gray-light;
-}
-
-.tippy-popper {
-  // TODO - consolidate these two classes
-  .tippy-tooltip.ab-row-theme {
-    background-color: $color-white;
-    color: $color-black;
-    border: 2px solid $tm-gray;
-    font-size: 14px;
-    font-family: Roboto;
-    padding: 15px;
-    text-align: left;
-    box-shadow: $tm-gray 3px 14px 29px;
-    .arrow-regular {
-      border: none;
-    }
-    .ab-row-tooltip-wrapper {
-      display: flex;
-      padding-bottom: 10px;
-      div {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .title {
-        font-size: 16px;
-        font-weight: bold;
-      }
-      .ab-row-tooltip-data {
-        font-weight: 400;
-        font-style: italic;
-      }
-    }
-    .title {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
-  .tippy-tooltip.step-letters-theme {
-    background-color: $color-white;
-    color: $color-black;
-    border: 2px solid $tm-gray;
-    font-size: 14px;
-    font-family: Roboto;
-    padding: 15px;
-    text-align: left;
-    box-shadow: $tm-gray 3px 14px 29px;
-    .arrow-regular {
-      border: none;
-    }
-    .step-letter-tooltip-wrapper {
-      display: flex;
-      padding-bottom: 10px;
-      div {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      div:first-child {
-        padding-right: 10px;
-        border-right: 1px solid $color-gray-light;
-      }
-      div:nth-child(2) {
-        padding-left: 10px;
-      }
-      .title {
-        font-size: 16px;
-        font-weight: bold;
-      }
-      .step-letter-date {
-        font-weight: 400;
-        font-style: italic;
-      }
-    }
-    .title {
-      font-size: 16px;
-      font-weight: bold;
-    }
-  }
 }
 
 .step-letter-clear-icon {
