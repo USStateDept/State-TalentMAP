@@ -3,7 +3,7 @@ import 'core-js/shim'; // included < Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, includes, some } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
@@ -38,8 +38,10 @@ export const init = (config) => {
     Accept: 'application/json',
   };
 
-  // Only needed for local development
-  if (isPersonaAuth()) { headers.tmusrname = localStorage.getItem('tmusrname'); }
+  // Only needed for local/demo development. Only pass header if localhost or metaphase environment
+  if (isPersonaAuth() && some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el))) {
+    headers.tmusrname = localStorage.getItem('tmusrname');
+  }
 
   if (auth) {
     renderLoading();
