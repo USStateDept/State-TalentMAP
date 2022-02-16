@@ -40,8 +40,21 @@ const AvailableBidderRow = (props) => {
   const bidderBureau = get(bidder, 'current_assignment.position.bureau_code');
   const created = get(bidder, 'available_bidder_details.date_created');
   const formattedCreated = created ? formatDate(created) : NO_DATE;
-  const comments = get(bidder, 'available_bidder_details.comments') || NO_COMMENTS;
+  const stepLetterOne = get(bidder, 'available_bidder_details.step_letter_one');
+  const formattedStepLetterOne = stepLetterOne ? formatDate(stepLetterOne, 'M/D/YY') : NO_DATE;
+  const stepLetterTwo = get(bidder, 'available_bidder_details.step_letter_two');
+  const formattedStepLetterTwo = stepLetterTwo ? formatDate(stepLetterTwo, 'M/D/YY') : NO_DATE;
+  const stepLetters = {
+    letter_one: formattedStepLetterOne,
+    letter_two: formattedStepLetterTwo,
+  };
 
+  const noStepLettersIconStyling = formattedStepLetterOne === NO_DATE ? 'no-step-letters-icon' : '';
+  const stepLetterOneIconStyling = (formattedStepLetterOne !== NO_DATE)
+    && (formattedStepLetterTwo === NO_DATE) ? 'one-step-letter-icon' : '';
+  const stepLettersOneAndTwoIconStyling = (formattedStepLetterOne !== NO_DATE)
+    && (formattedStepLetterTwo !== NO_DATE) ? 'both-step-letters-icon' : '';
+  const comments = get(bidder, 'available_bidder_details.comments') || NO_COMMENTS;
   const getStatus = () => {
     if (status === 'OC') {
       return (
@@ -104,6 +117,32 @@ const AvailableBidderRow = (props) => {
     <MailToButton email={get(cdo, 'email')} textBefore={`${get(cdo, 'first_name[0]')}. ${get(cdo, 'last_name')}`} />
   );
 
+  const stepLettersToolTip =
+    (<Tooltip
+      html={
+        <div>
+          <div className="step-letter-tooltip-wrapper">
+            <div>
+              <span className="title">Letter 1: <span className="step-letter-date">{stepLetters.letter_one}</span></span>
+            </div>
+            <div>
+              <span className="title">Letter 2: <span className="step-letter-date">{stepLetters.letter_two}</span></span>
+            </div>
+          </div>
+        </div>
+      }
+      theme="step-letters"
+      arrow
+      tabIndex="0"
+      interactive
+      useContext
+    >
+      <FA
+        name="envelope-square"
+        className={`fa-2x ${noStepLettersIconStyling} ${stepLetterOneIconStyling} ${stepLettersOneAndTwoIconStyling}`}
+      />
+    </Tooltip>);
+
   const tedToolTip =
     (<Tooltip
       html={
@@ -144,13 +183,13 @@ const AvailableBidderRow = (props) => {
       <FA name="comments" className="fa-lg comments-icon" />
     </Tooltip>) : comments;
 
-
   const getSections = (isModal = false) => {
     const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
     return isCDO ? {
       name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
       status: getStatus(),
+      step_letters: stepLettersToolTip,
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
       grade: get(bidder, 'grade') || NO_GRADE,
       languages: languages.length ? getLanguages() : NO_LANGUAGES,
@@ -203,7 +242,9 @@ const AvailableBidderRow = (props) => {
             shared,
             languages,
             bidderBureau,
-            formattedCreated }}
+            formattedCreated,
+            stepLetterOne,
+            stepLetterTwo }}
         />
       ),
     });

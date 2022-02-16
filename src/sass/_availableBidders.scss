@@ -43,7 +43,7 @@
       grid-auto-flow: column;
       grid-template-rows: repeat(9, auto);
     }
-    
+
     .legend-large {
       display: inline-grid;
       flex-flow: column wrap;
@@ -120,7 +120,7 @@
     margin: 0;
     width: 100%;
     border: 1px solid $dos-blue;
-    
+
     thead {
       tr {
         th {
@@ -128,7 +128,7 @@
           color: $color-white;
           background-color: $dos-blue;
           // Position sticky not supported on ie11
-          // Position sticky has partial support on browsers (Must target th; not thead) 
+          // Position sticky has partial support on browsers (Must target th; not thead)
           position: -webkit-sticky;
           position: sticky;
           top: 0;
@@ -175,6 +175,15 @@
           // font-size: 13px;
         }
       }
+    }
+    .no-step-letters-icon {
+      color: $color-gray-light;
+    }
+    .one-step-letter-icon {
+      color: #f7b578
+    }
+    .both-step-letters-icon {
+      color: $color-red;
     }
   }
 }
@@ -252,9 +261,10 @@
     background: none;
   }
 
-  div {
+  // styling for step letter date picker
+  div:not(.react-datepicker-wrapper, .react-datepicker-wrapper div,
+   .react-datepicker__tab-loop, .react-datepicker__tab-loop div) {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
   }
   // for the Share Bureau icon
@@ -279,6 +289,48 @@
   .select-error {
     border-color: $alert-red;
     box-shadow: 0px 0px 0px 2px $alert-red;
+  }
+
+  .react-datepicker {
+    font-size: 1em;
+  }
+
+  .react-datepicker__header {
+    padding-top: 0.8em;
+  }
+
+  .react-datepicker__month {
+    margin: 0.4em 1em;
+  }
+
+  .react-datepicker__day-name, .react-datepicker__day {
+    width: 1.9em;
+    line-height: 1.9em;
+    margin: 0.166em;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1em;
+  }
+
+  .react-datepicker__navigation {
+    top: .5em;
+    line-height: 1.7em;
+    border: 0.45em solid transparent;
+  }
+
+  .react-datepicker__navigation--previous {
+    border-right-color: #ccc;
+    left: 1em;
+  }
+
+  .react-datepicker__navigation--next {
+    border-left-color: #ccc;
+    right: 1em;
+  }
+
+  .react-datepicker__navigation {
+    border: none;
   }
 }
 
@@ -322,7 +374,8 @@
   }
 }
 
-#ocReason:disabled, #ocBureau:disabled {
+#ocReason:disabled, #ocBureau:disabled,
+#stepLetterOne:disabled, #stepLetterTwo:disabled {
   background: darkgrey;
 }
 
@@ -407,6 +460,7 @@
 }
 
 .tippy-popper {
+  // TODO - consolidate these two classes
   .tippy-tooltip.ab-row-theme {
     background-color: $color-white;
     color: $color-black;
@@ -440,6 +494,59 @@
       font-size: 16px;
       font-weight: bold;
     }
+  }
+  .tippy-tooltip.step-letters-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .step-letter-tooltip-wrapper {
+      display: flex;
+      padding-bottom: 10px;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      div:first-child {
+        padding-right: 10px;
+        border-right: 1px solid $color-gray-light;
+      }
+      div:nth-child(2) {
+        padding-left: 10px;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .step-letter-date {
+        font-weight: 400;
+        font-style: italic;
+      }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+}
+
+.step-letter-clear-icon {
+  margin-left: 5px;
+
+  .active {
+    color: $alert-red;
+  }
+
+  .inactive {
+    color: $color-gray-light;
   }
 }
 

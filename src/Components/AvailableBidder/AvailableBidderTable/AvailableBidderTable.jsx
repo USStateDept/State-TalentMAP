@@ -58,6 +58,7 @@ const AvailableBidderTable = props => {
   const tableHeaders = isCDO ? [
     'Name',
     'Status',
+    'Step Letters',
     'Skill',
     'Grade',
     'Languages',
@@ -149,7 +150,7 @@ const AvailableBidderTable = props => {
               <tr>
                 {
                   tableHeaders.map(item => (
-                    item !== 'Languages' && item !== 'Comments' ?
+                    item !== 'Languages' && item !== 'Comments' && item !== 'Step Letters' ?
                       <th
                         key={item}
                         scope="col"

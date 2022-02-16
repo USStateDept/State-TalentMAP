@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AB_EDIT_DETAILS_OBJECT, AB_EDIT_SECTIONS_OBJECT, EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
-import { find, forEach, uniqBy } from 'lodash';
+import { find, forEach, get, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import InteractiveElement from 'Components/InteractiveElement';
+import DatePicker from 'react-datepicker';
 
+// eslint-disable-next-line complexity
 const EditBidder = (props) => {
   const { name, sections, submitAction, bureaus, details } = props;
   const [status, setStatus] = useState(details.status);
@@ -14,7 +16,12 @@ const EditBidder = (props) => {
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
   const [shared, setShared] = useState(details.shared);
-  const { languages, bidderBureau } = details;
+  const { bidderBureau } = details;
+  const languages = get(details, 'languages') || [];
+  const stepLetterOneDate = get(details, 'stepLetterOne') === null ? null : new Date(get(details, 'stepLetterOne'));
+  const stepLetterTwoDate = get(details, 'stepLetterTwo') === null ? null : new Date(get(details, 'stepLetterTwo'));
+  const [stepLetterOne, setStepLetterOne] = useState(stepLetterOneDate);
+  const [stepLetterTwo, setStepLetterTwo] = useState(stepLetterTwoDate);
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
 
@@ -40,6 +47,8 @@ const EditBidder = (props) => {
       status,
       comments: comment || '',
       is_shared: shared,
+      step_letter_one: stepLetterOne,
+      step_letter_two: stepLetterTwo,
     };
 
     // Remap unmodified local defaults from None Listed to empty string for patch
@@ -83,7 +92,30 @@ const EditBidder = (props) => {
   const ocSelected = status === 'OC';
   const ocReasonError = ocSelected && !ocReason;
   const ocBureauError = ocSelected && !ocBureau;
-  const submitDisabled = ocReasonError || ocBureauError;
+  const stepLetterOneFlag = stepLetterOne === null;
+  const stepLetterTwoFlag = stepLetterTwo === null;
+  const stepLetterOneError = stepLetterOneFlag && !stepLetterTwoFlag;
+  const stepLetterTwoError = ((!stepLetterTwoFlag) && ((stepLetterOne) > (stepLetterTwo)));
+  const stepLetterOneClearIconInactive = ((stepLetterOneFlag) ||
+    ((!stepLetterOneFlag) && (!stepLetterTwoFlag)));
+  const submitDisabled = ocReasonError || ocBureauError ||
+    stepLetterOneError || stepLetterTwoError;
+
+  const updateStepLetterOne = (date) => {
+    setStepLetterOne(date);
+  };
+
+  const updateStepLetterTwo = (date) => {
+    setStepLetterTwo(date);
+  };
+
+  const clearStepLetterOneDate = () => {
+    setStepLetterOne(null);
+  };
+
+  const clearStepLetterTwoDate = () => {
+    setStepLetterTwo(null);
+  };
 
   return (
     <div>
@@ -173,6 +205,61 @@ const EditBidder = (props) => {
                 ))
             }
           </select>
+        </div>
+        <div>
+          <dt>*Step Letter 1:</dt>
+          <DatePicker
+            selected={stepLetterOne}
+            onChange={updateStepLetterOne}
+            dateFormat="MMMM d, yyyy"
+            className={stepLetterOneError ? 'select-error' : ''}
+          />
+          {stepLetterOneClearIconInactive &&
+            <div className="step-letter-clear-icon">
+              <FA name="times-circle fa-lg inactive" />
+            </div>
+          }
+          {!stepLetterOneFlag && stepLetterTwoFlag &&
+            <div className="step-letter-clear-icon">
+              <InteractiveElement
+                onClick={clearStepLetterOneDate}
+              >
+                <FA name="times-circle fa-lg active" />
+              </InteractiveElement>
+            </div>
+          }
+        </div>
+        <div>
+          <dt>*Step Letter 2:</dt>
+          {stepLetterOneFlag ?
+            <select
+              id="stepLetterTwo"
+              disabled={stepLetterOneFlag}
+            >
+              <option value="">None listed</option>
+            </select>
+            :
+            <DatePicker
+              selected={stepLetterTwo}
+              onChange={updateStepLetterTwo}
+              dateFormat="MMMM d, yyyy"
+              className={stepLetterTwoError ? 'select-error' : ''}
+              minDate={stepLetterOne}
+            />
+          }
+          {stepLetterTwoFlag ?
+            <div className="step-letter-clear-icon">
+              <FA name="times-circle fa-lg inactive" />
+            </div>
+            :
+            <div className="step-letter-clear-icon">
+              <InteractiveElement
+                onClick={clearStepLetterTwoDate}
+              >
+                <FA name="times-circle fa-lg active" />
+              </InteractiveElement>
+            </div>
+          }
         </div>
         <div>
           <dt>Skill:</dt>
