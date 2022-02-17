@@ -54,7 +54,7 @@ const AgendaItemCard = props => {
             <div className="poly-slash" style={{ backgroundColor: pillColor, color: pillColor }} >_</div>
           </div>
           {
-            !showEdit &&
+            showEdit &&
             <div className="ai-history-edit">
               <InteractiveElement title="Edit Agenda" onClick={editAI()}>
                 <FA name="pencil" />

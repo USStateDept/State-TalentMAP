@@ -43,7 +43,7 @@ const AgendaItemRow = props => {
           </div>
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
-            !showEdit &&
+            showEdit &&
             <div className="ai-history-edit">
               <InteractiveElement title="Edit Agenda" onClick={editAI()}>
                 <FA name="pencil" />
