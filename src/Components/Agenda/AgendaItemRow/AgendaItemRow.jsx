@@ -17,7 +17,7 @@ const AgendaItemRow = props => {
   const createAI = () => { console.log('placeholder create AI'); };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
-  const pillColor = pillColors[get(agenda, 'status') || 'Default'];
+  const pillColor = pillColors[get(agenda, 'status_full') || 'Default'];
   return (
     <>
       {
@@ -32,9 +32,9 @@ const AgendaItemRow = props => {
       }
       {
         <div className="ai-history-row" style={{ borderLeftColor: pillColor }}>
-          <div className="ai-history-row-status">
+          <div className="ai-history-status">
             <div className="status-tag" style={{ backgroundColor: pillColor }}>
-              {get(agenda, 'status') || 'Default'}
+              {get(agenda, 'status_full') || 'Default'}
             </div>
             <div className="poly-slash" style={{ backgroundColor: pillColor, color: pillColor }} >_</div>
           </div>
@@ -43,8 +43,8 @@ const AgendaItemRow = props => {
           </div>
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
-            showEdit &&
-            <div className="ai-history-footer">
+            !showEdit &&
+            <div className="ai-history-edit">
               <InteractiveElement title="Edit Agenda" onClick={editAI()}>
                 <FA name="pencil" />
               </InteractiveElement>

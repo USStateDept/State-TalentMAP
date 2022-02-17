@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { clone, get, take, takeRight } from 'lodash';
-import { Tooltip } from 'react-tippy';
 import { formatDate, shortenString } from 'utilities';
-// import { TEMP_FAKE_DATA } from 'Constants/PropTypes'; TODO - update
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
 import { pillColors } from '../Constants';
@@ -32,8 +30,8 @@ const AgendaItemCard = props => {
   const createAI = () => { console.log('placeholder create AI'); };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
-  const status = get(agenda, 'status') || 'Default';
-  const pillColor = pillColors[status];
+  const status_full = get(agenda, 'status_full') || 'Default';
+  const pillColor = pillColors[status_full];
 
   return (
     <>
@@ -48,7 +46,21 @@ const AgendaItemCard = props => {
           </div>
       }
       {
-        <div className="ai-history-card">
+        <div className="ai-history-card" style={{ borderLeftColor: pillColor }}>
+          <div className="ai-history-status">
+            <div className="status-tag" style={{ backgroundColor: pillColor }}>
+              {get(agenda, 'status_full') || 'Default'}
+            </div>
+            <div className="poly-slash" style={{ backgroundColor: pillColor, color: pillColor }} >_</div>
+          </div>
+          {
+            !showEdit &&
+            <div className="ai-history-edit">
+              <InteractiveElement title="Edit Agenda" onClick={editAI()}>
+                <FA name="pencil" />
+              </InteractiveElement>
+            </div>
+          }
           <h3 className="ai-history-card-title">
             { formatStr(get(legs$, '[0].pos_title') || 'N/A') }
             <div className="arrow">
@@ -59,28 +71,10 @@ const AgendaItemCard = props => {
             </div>
             { formatStr(get(legs$, '[1].pos_title') || 'N/A') }
           </h3>
-          <div className="ai-history-card-status-date">
-            <Tooltip
-              title={status}
-              arrow
-              offset={-50}
-              tabIndex="0"
-            >
-              <div className="ai-history-card-status" style={{ backgroundColor: pillColor, color: pillColor }} />
-            </Tooltip>
-            <div className="ai-history-card-panel-date">
-              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
-            </div>
-          </div>
           <AgendaItemLegs legs={agenda.legs} isCard />
-          {
-            showEdit &&
-            <div className="ai-history-footer">
-              <InteractiveElement title="Edit Agenda" onClick={editAI()}>
-                <FA name="pencil" />
-              </InteractiveElement>
-            </div>
-          }
+          <div className="ai-history-card-date">
+            Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+          </div>
         </div>
       }
     </>
