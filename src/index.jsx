@@ -34,19 +34,23 @@ export const init = (config) => {
 
   const auth = get(config, 'hrAuthUrl');
 
+  // Only pass tmusrname header if localhost or metaphase environment
+  const isDev = some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el));
+  const withCredentials = !isDev;
+
   const headers = {
     Accept: 'application/json',
   };
 
-  // Only needed for local/demo development. Only pass header if localhost or metaphase environment
-  if (isPersonaAuth() && some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el))) {
+  // Only needed for local/demo development.
+  if (isPersonaAuth() && isDev) {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
   if (auth) {
     renderLoading();
     axios
-      .get(auth, { headers })
+      .get(auth, { withCredentials, headers })
       .then((response) => {
         sessionStorage.setItem('jwt', response.data);
         render();
