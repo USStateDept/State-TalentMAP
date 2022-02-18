@@ -24,8 +24,8 @@ const BureauPage = () => {
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
-        <Route path="/profile/ao/employeeagenda" render={() => <EmployeeAgendaSearch />} />
-        <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory />} />
+        <Route path="/profile/ao/employeeagenda" render={() => <EmployeeAgendaSearch isCDO={false} />} />
+        <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO={false} />} />
         <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
