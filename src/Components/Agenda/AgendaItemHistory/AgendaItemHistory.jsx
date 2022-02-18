@@ -19,6 +19,7 @@ import ScrollUpButton from '../../ScrollUpButton';
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
   const id = get(props, 'match.params.id'); // client's perdet
+  const isCDO = get(props, 'isCDO');
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
@@ -121,7 +122,8 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemCard
                         key={result.id}
                         agenda={result}
-                        /* use isCreate prop in future */
+                        isCreate
+                        isCDO={isCDO}
                       />
                     ))
                   }
@@ -135,7 +137,8 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemRow
                         key={result.id}
                         agenda={result}
-                        /* use isCreate prop in future */
+                        isCreate
+                        isCDO={isCDO}
                       />
                     ))
                   }

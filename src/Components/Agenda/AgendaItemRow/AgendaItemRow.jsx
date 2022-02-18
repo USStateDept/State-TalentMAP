@@ -11,10 +11,19 @@ const AgendaItemRow = props => {
     isCreate,
     agenda,
     showEdit,
+    // eslint-disable-next-line no-unused-vars
+    isCDO,
   } = props;
 
-  // eslint-disable-next-line no-console
-  const createAI = () => { console.log('placeholder create AI'); };
+  // const userRole = isCDO ? 'cdo' : 'ao';
+  // const perdet = get(agenda, 'perdet');
+
+  const createAI = (e) => {
+    // eslint-disable-next-line no-console
+    console.log('placeholder create AI');
+    e.preventDefault();
+    // hisotry.push{`/profile/${userRole}/createagendaitem/${perdet}`}
+  };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
   const pillColor = pillColors[get(agenda, 'status') || 'Default'];
@@ -24,7 +33,7 @@ const AgendaItemRow = props => {
         isCreate &&
         <div className="ai-history-row first-row">
           <div className="plusIcon">
-            <InteractiveElement title="Create Agenda" onClick={createAI()}>
+            <InteractiveElement title="Create Agenda" onClick={createAI}>
               <FA name="plus-circle" />
             </InteractiveElement>
           </div>
@@ -88,6 +97,7 @@ AgendaItemRow.propTypes = {
     creator_name: PropTypes.number,
   }),
   showEdit: PropTypes.bool,
+  isCDO: PropTypes.bool,
 };
 
 
@@ -95,6 +105,7 @@ AgendaItemRow.defaultProps = {
   isCreate: false,
   agenda: {},
   showEdit: false,
+  isCDO: false,
 };
 
 export default AgendaItemRow;
