@@ -28,10 +28,7 @@ const AgendaItemRow = props => {
         <div className="ai-history-row first-row">
           <div className="plusIcon">
             <InteractiveElement title="Create Agenda">
-              <Link
-                className="create-ai-plus-icon"
-                to={`/profile/${userRole}/createagendaitem/${perdet}`}
-              >
+              <Link className="create-ai-plus-icon" to={`/profile/${userRole}/createagendaitem/${perdet}`}>
                 <FA name="plus-circle" />
               </Link>
             </InteractiveElement>
