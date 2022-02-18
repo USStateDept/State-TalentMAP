@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { clone, get, take, takeRight } from 'lodash';
 import { Tooltip } from 'react-tippy';
@@ -13,7 +14,6 @@ const AgendaItemCard = props => {
     isCreate,
     agenda,
     showEdit,
-    // eslint-disable-next-line no-unused-vars
     isCDO,
   } = props;
 
@@ -30,15 +30,9 @@ const AgendaItemCard = props => {
 
   const formatStr = (a) => shortenString(a, 15);
 
-  // const userRole = isCDO ? 'cdo' : 'ao';
-  // const perdet = get(agenda, 'perdet');
+  const userRole = isCDO ? 'cdo' : 'ao';
+  const perdet = get(agenda, 'perdet');
 
-  const createAI = (e) => {
-    // eslint-disable-next-line no-console
-    console.log('placeholder create AI');
-    e.preventDefault();
-    // hisotry.push{`/profile/${userRole}/createagendaitem/${perdet}`}
-  };
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
   const status = get(agenda, 'status') || 'Default';
@@ -50,8 +44,13 @@ const AgendaItemCard = props => {
         isCreate &&
           <div className="ai-history-card first-card">
             <div className="plusIcon">
-              <InteractiveElement title="Create Agenda" onClick={createAI}>
-                <FA name="plus-circle" />
+              <InteractiveElement title="Create Agenda">
+                <Link
+                  className="create-ai-plus-icon"
+                  to={`/profile/${userRole}/createagendaitem/${perdet}`}
+                >
+                  <FA name="plus-circle" />
+                </Link>
               </InteractiveElement>
             </div>
           </div>
