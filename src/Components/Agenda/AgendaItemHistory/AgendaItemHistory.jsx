@@ -118,11 +118,11 @@ const AgendaItemHistory = (props) => {
                 cardView &&
                 <div className="ai-history-cards-container">
                   {
-                    aih.map((result) => (
+                    aih.map((result, i) => (
                       <AgendaItemCard
                         key={result.id}
                         agenda={result}
-                        isCreate={aih.indexOf(result) === 0}
+                        isCreate={i === 0}
                         isCDO={isCDO}
                       />
                     ))
@@ -133,11 +133,11 @@ const AgendaItemHistory = (props) => {
                 !cardView &&
                 <div className="ai-history-rows-container">
                   {
-                    aih.map((result) => (
+                    aih.map((result, i) => (
                       <AgendaItemRow
                         key={result.id}
                         agenda={result}
-                        isCreate={aih.indexOf(result) === 0}
+                        isCreate={i === 0}
                         isCDO={isCDO}
                       />
                     ))
