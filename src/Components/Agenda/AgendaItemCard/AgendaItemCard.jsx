@@ -24,7 +24,24 @@ const AgendaItemCard = props => {
     }
   }
 
-  const formatStr = (a) => shortenString(a, 15);
+  const renderTitles = () => {
+    let capAt = 13;
+    const title1 = get(legs$, '[0].pos_title') || 'N/A';
+    const title2 = get(legs$, '[0].pos_title') || 'N/A';
+    const t1L = title1.length;
+    const t2L = title2.length;
+    // does either have chars to give up and does either want them
+    if ((t1L < 13 || t2L < 13) && (t1L > 13 || t2L > 13)) {
+      if (t1L > t2L) {
+        capAt += (13 - t2L);
+      } else {
+        capAt += (13 - t1L);
+      }
+    }
+    return [shortenString(title1, capAt), shortenString(title2, capAt)];
+  };
+
+  const titles = renderTitles();
 
   // eslint-disable-next-line no-console
   const createAI = () => { console.log('placeholder create AI'); };
@@ -62,14 +79,14 @@ const AgendaItemCard = props => {
             </div>
           }
           <h3 className="ai-history-card-title">
-            { formatStr(get(legs$, '[0].pos_title') || 'N/A') }
+            { titles[0] }
             <div className="arrow">
               <div className="arrow-tail" />
               {legsLength}
               <div className="arrow-tail" />
               <div className="arrow-right" />
             </div>
-            { formatStr(get(legs$, '[1].pos_title') || 'N/A') }
+            { titles[1] }
           </h3>
           <AgendaItemLegs legs={agenda.legs} isCard />
           <div className="ai-history-card-date">
