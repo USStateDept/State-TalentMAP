@@ -122,7 +122,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemCard
                         key={result.id}
                         agenda={result}
-                        isCreate
+                        isCreate={aih.indexOf(result) === 0}
                         isCDO={isCDO}
                       />
                     ))
@@ -137,7 +137,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemRow
                         key={result.id}
                         agenda={result}
-                        isCreate
+                        isCreate={aih.indexOf(result) === 0}
                         isCDO={isCDO}
                       />
                     ))

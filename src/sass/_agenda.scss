@@ -553,10 +553,6 @@
 
       }
 
-      .create-ai-plus-icon {
-        color: inherit;
-        text-decoration: inherit;
-      }
     }
     @media screen and (max-width: 1400px) {
 
@@ -684,10 +680,6 @@
 
       }
 
-      .create-ai-plus-icon {
-        color: inherit;
-        text-decoration: inherit;
-      }
     }
 
     @media screen and (max-width: 1400px) {
@@ -738,6 +730,10 @@
 
   .button-back-link {
     margin: 15px 0 0 0;
+  }
+
+  .create-ai-link {
+    color: inherit;
   }
 
   @media screen and (max-width: 1400px) {
