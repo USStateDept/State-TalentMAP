@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -11,10 +12,12 @@ const AgendaItemRow = props => {
     isCreate,
     agenda,
     showEdit,
+    isCDO,
   } = props;
 
-  // eslint-disable-next-line no-console
-  const createAI = () => { console.log('placeholder create AI'); };
+  const userRole = isCDO ? 'cdo' : 'ao';
+  const perdet = get(agenda, 'perdet');
+
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
   const pillColor = pillColors[get(agenda, 'status_full') || 'Default'];
@@ -24,8 +27,10 @@ const AgendaItemRow = props => {
         isCreate &&
         <div className="ai-history-row first-row">
           <div className="plusIcon">
-            <InteractiveElement title="Create Agenda" onClick={createAI()}>
-              <FA name="plus-circle" />
+            <InteractiveElement title="Create Agenda">
+              <Link className="create-ai-link" to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+                <FA name="plus-circle" />
+              </Link>
             </InteractiveElement>
           </div>
         </div>
@@ -88,6 +93,7 @@ AgendaItemRow.propTypes = {
     creator_name: PropTypes.number,
   }),
   showEdit: PropTypes.bool,
+  isCDO: PropTypes.bool,
 };
 
 
@@ -95,6 +101,7 @@ AgendaItemRow.defaultProps = {
   isCreate: false,
   agenda: {},
   showEdit: false,
+  isCDO: false,
 };
 
 export default AgendaItemRow;
