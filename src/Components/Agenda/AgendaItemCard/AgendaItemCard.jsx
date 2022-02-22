@@ -29,7 +29,7 @@ const AgendaItemCard = props => {
   const renderTitles = () => {
     let capAt = 13;
     const title1 = get(legs$, '[0].pos_title') || 'N/A';
-    const title2 = get(legs$, '[0].pos_title') || 'N/A';
+    const title2 = get(legs$, '[1].pos_title') || 'N/A';
     const t1L = title1.length;
     const t2L = title2.length;
     // does either have chars to give up and does either want them
