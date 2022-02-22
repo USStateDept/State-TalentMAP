@@ -430,6 +430,7 @@
 
     .ai-history-card {
       background-color: $color-white;
+      border-left: 10px solid $color-black;
       border-radius: 10px;
       box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
       display: flex;
@@ -440,13 +441,24 @@
       position: relative;
       width: 350px;
 
+      .status-tag {
+        padding: 3px 20px;
+      }
+      .poly-slash {
+        padding: 3px 0;
+      }
+
+      .ai-history-edit {
+        top: 5px;
+      }
+
       .ai-history-card-title {
         display: flex;
         font-family: 'Roboto';
         font-size: 1.6rem;
         font-weight: bold;
-        justify-content: space-evenly;
-        margin: 0;
+        justify-content: space-between;
+        margin: 30px 0 0 0;
 
         .arrow {
           align-items: center;
@@ -472,23 +484,11 @@
 
       }
 
-      .ai-history-card-status-date {
-        align-items: center;
-        display: flex;
-        justify-content: space-between;
-        margin: 10px;
-
-        .ai-history-card-status {
-          background-color: $color-black;
-          color: $color-white;
-          border-radius: 50%;
-          padding: 10px;
-        }
-
-        .ai-history-card-panel-date {
-          font-size: small;
-        }
-
+      .ai-history-card-date {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        font-size: small;
       }
 
       .ai-history-card-legs {
@@ -579,6 +579,26 @@
     }
   }
 
+  .ai-history-status {
+    position: absolute;
+    top: 0;
+    left: -2px;
+    .status-tag {
+      background-color: $color-black;
+      color: $color-white;
+      display: inline;
+    }
+    .poly-slash {
+      background-color: $color-black;
+      clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
+      color: $color-black;
+      display: inline-block;
+      margin-left: -3px;
+      width: 30px;
+    }
+  }
+
+
   .ai-history-rows-container {
     .ai-history-row {
       background-color: $color-white;
@@ -589,25 +609,11 @@
       padding: 15px;
       position: relative;
 
-      .ai-history-row-status {
-        position: absolute;
-        top: 0;
-        left: -2px;
-        .status-tag {
-          background-color: $color-black;
-          color: $color-white;
-          display: inline;
-          padding: 5px 20px;
-        }
-        .poly-slash {
-          background-color: $color-black;
-          clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
-          color: $color-black;
-          display: inline-block;
-          margin-left: -3px;
-          padding: 5px 0;
-          width: 30px;
-        }
+      .status-tag {
+        padding: 5px 20px;
+      }
+      .poly-slash {
+        padding: 5px 0;
       }
 
       .ai-history-row-panel-date {
@@ -709,10 +715,12 @@
 
     }
 
+    .ai-history-edit {
+      bottom: 5px;
+    }
   }
 
-  .ai-history-footer {
-    bottom: 5px;
+  .ai-history-edit {
     position: absolute;
     right: 5px;
     text-align: right;

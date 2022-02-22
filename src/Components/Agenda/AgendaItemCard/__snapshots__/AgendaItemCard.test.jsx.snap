@@ -4,17 +4,48 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
 <Fragment>
   <div
     className="ai-history-card"
+    style={
+      Object {
+        "borderLeftColor": "#513C2C",
+      }
+    }
   >
     <div
+      className="ai-history-status"
+    >
+      <div
+        className="status-tag"
+        style={
+          Object {
+            "backgroundColor": "#513C2C",
+          }
+        }
+      >
+        Default
+      </div>
+      <div
+        className="poly-slash"
+        style={
+          Object {
+            "backgroundColor": "#513C2C",
+            "color": "#513C2C",
+          }
+        }
+      >
+        _
+      </div>
+    </div>
+    <h3
       className="ai-history-card-title"
     >
+      N/A
       <div
         className="arrow"
       >
         <div
           className="arrow-tail"
         />
-        1
+        0
         <div
           className="arrow-tail"
         />
@@ -22,42 +53,18 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
           className="arrow-right"
         />
       </div>
-    </div>
-    <div
-      className="ai-history-card-status-date"
-    >
-      <div
-        className="pill ai-history-card-pill"
-        style={
-          Object {
-            "backgroundColor": "#ed2038ff",
-          }
-        }
-      >
-        Removed
-      </div>
-      <div
-        className="ai-history-card-panel-date"
-      >
-        Panel Date: 
-      </div>
-    </div>
+      N/A
+    </h3>
     <AgendaItemLegs
-      fakeLegs={Array []}
       isCard={true}
+      legs={Array []}
+      remarks={Array []}
     />
     <div
-      className="ai-history-footer"
+      className="ai-history-card-date"
     >
-      <InteractiveElement
-        className=""
-        onClick={[Function]}
-        type="div"
-      >
-        <FontAwesome
-          name="pencil"
-        />
-      </InteractiveElement>
+      Panel Date: 
+      N/A
     </div>
   </div>
 </Fragment>
