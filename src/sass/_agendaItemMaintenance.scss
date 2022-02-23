@@ -3,8 +3,7 @@
 
   .expand-arrow {
     float: right;
-    position: relative;
-    top: 46%;
+    margin-right: -20px;
   }
 
   .maintenance-container-left {
@@ -48,7 +47,9 @@
     .ai-maintenance-containers {
       display: grid;
 
-      .maintenance-container-left {
+      .maintenance-container-left, 
+      .maintenance-container-left-expanded {
+        float: left;
         height: 500px;
         width: 99%;
 
@@ -62,6 +63,10 @@
         margin-left: 0;
         margin-top: 20px;
         width: 99%
+      }
+
+      .hidden {
+        display: block !important;
       }
     }
   }
