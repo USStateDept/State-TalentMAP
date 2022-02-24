@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { checkFlag } from 'flags';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBidderExport, availableBiddersFetchData } from 'actions/availableBidders';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -15,6 +16,7 @@ import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
 import { useMount, usePrevious } from 'hooks';
 
+const useStepLetter = () => checkFlag('flags.step_letters');
 
 const AvailableBidderTable = props => {
   // CDO or Bureau version
@@ -55,10 +57,10 @@ const AvailableBidderTable = props => {
     }
   }, [sort]);
 
-  const tableHeaders = isCDO ? [
+  let tableHeaders = isCDO ? [
     'Name',
     'Status',
-    'Step Letters',
+    isCDO && useStepLetter() ? 'Step Letters' : undefined,
     'Skill',
     'Grade',
     'Languages',
@@ -75,6 +77,8 @@ const AvailableBidderTable = props => {
     'Post',
     'CDO',
   ];
+
+  tableHeaders = tableHeaders.filter(f => f);
 
   const getSortIcon = (header) => {
     if (header === sort) {
