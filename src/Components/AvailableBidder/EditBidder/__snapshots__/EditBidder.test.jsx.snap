@@ -135,8 +135,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
         previousYearButtonLabel="Previous Year"
         readOnly={false}
         renderDayContents={[Function]}
-        selected={Date { NaN }}
-        selectsDisabledDaysInRange={false}
+        selected={null}
         shouldCloseOnSelect={true}
         showFourColumnMonthYearPicker={false}
         showFullMonthYearPicker={false}
@@ -167,75 +166,22 @@ exports[`EditBidders Component matches snapshot 1`] = `
       <dt>
         *Step Letter 2:
       </dt>
-      <r
-        allowSameDay={false}
-        className=""
-        customTimeInput={null}
-        dateFormat="MMMM d, yyyy"
-        dateFormatCalendar="LLLL yyyy"
-        disabled={false}
-        disabledKeyboardNavigation={false}
-        dropdownMode="scroll"
-        enableTabLoop={true}
-        excludeScrollbar={true}
-        focusSelectedMonth={false}
-        minDate={Date { NaN }}
-        monthsShown={1}
-        nextMonthAriaLabel="Next Month"
-        nextMonthButtonLabel="Next Month"
-        nextYearAriaLabel="Next Year"
-        nextYearButtonLabel="Next Year"
-        onBlur={[Function]}
-        onCalendarClose={[Function]}
-        onCalendarOpen={[Function]}
-        onChange={[Function]}
-        onClickOutside={[Function]}
-        onFocus={[Function]}
-        onInputClick={[Function]}
-        onInputError={[Function]}
-        onKeyDown={[Function]}
-        onMonthChange={[Function]}
-        onSelect={[Function]}
-        onYearChange={[Function]}
-        preventOpenOnFocus={false}
-        previousMonthAriaLabel="Previous Month"
-        previousMonthButtonLabel="Previous Month"
-        previousYearAriaLabel="Previous Year"
-        previousYearButtonLabel="Previous Year"
-        readOnly={false}
-        renderDayContents={[Function]}
-        selected={Date { NaN }}
-        selectsDisabledDaysInRange={false}
-        shouldCloseOnSelect={true}
-        showFourColumnMonthYearPicker={false}
-        showFullMonthYearPicker={false}
-        showMonthYearPicker={false}
-        showPopperArrow={true}
-        showPreviousMonths={false}
-        showQuarterYearPicker={false}
-        showTimeInput={false}
-        showTimeSelect={false}
-        showTwoColumnMonthYearPicker={false}
-        showYearPicker={false}
-        strictParsing={false}
-        timeCaption="Time"
-        timeInputLabel="Time"
-        timeIntervals={30}
-        withPortal={false}
-        yearItemNumber={12}
-      />
+      <select
+        disabled={true}
+        id="stepLetterTwo"
+      >
+        <option
+          value=""
+        >
+          None listed
+        </option>
+      </select>
       <div
         className="step-letter-clear-icon"
       >
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          type="div"
-        >
-          <FontAwesome
-            name="times-circle fa-lg active"
-          />
-        </InteractiveElement>
+        <FontAwesome
+          name="times-circle fa-lg inactive"
+        />
       </div>
     </div>
     <div>
