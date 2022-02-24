@@ -136,6 +136,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
         readOnly={false}
         renderDayContents={[Function]}
         selected={null}
+        selectsDisabledDaysInRange={false}
         shouldCloseOnSelect={true}
         showFourColumnMonthYearPicker={false}
         showFullMonthYearPicker={false}
