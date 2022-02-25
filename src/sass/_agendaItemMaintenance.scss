@@ -3,13 +3,14 @@
 
   .expand-arrow {
     float: right;
-    margin-right: -20px;
+    margin: -10px 5px 0px;
   }
 
   .maintenance-container-left {
     background-color: $color-white;
     float: left;
     height: 500px;
+    overflow-y: scroll;
     width: 50%;
   }
 
@@ -17,6 +18,7 @@
     background-color: $color-white;
     float: left;
     height: 500px;
+    overflow-y: scroll;
     width: 99%;
   }
 
@@ -43,7 +45,7 @@
     }
   }
 
-  @media screen and (max-width: 1650px) {
+  @media screen and (max-width: 1600px) {
     .ai-maintenance-containers {
       display: grid;
 
@@ -65,9 +67,6 @@
         width: 99%
       }
 
-      .hidden {
-        display: block !important;
-      }
     }
   }
 

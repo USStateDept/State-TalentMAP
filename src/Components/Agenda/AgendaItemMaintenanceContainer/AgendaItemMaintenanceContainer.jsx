@@ -4,6 +4,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
+import MediaQuery from 'Components/MediaQuery';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 
@@ -41,6 +42,13 @@ const AgendaItemMaintenanceContainer = (props) => {
         <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
           <AgendaItemResearchPane perdet={id} />
         </div>
+        {legsContainerExpanded &&
+          <MediaQuery breakpoint="screenXlgMin" widthType="max">
+            <div className="maintenance-container-right">
+              <AgendaItemResearchPane perdet={id} />
+            </div>
+          </MediaQuery>
+        }
       </div>
     </div>
   );
