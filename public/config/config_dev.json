@@ -28,9 +28,10 @@
     "classifications": true,
     "handshake_bidding": true,
     "post_handshake": false,
-    "post": false,
+    "post": true,
     "register_checklist": true,
     "agenda_search": true,
-    "agenda_filters": true
+    "agenda_filters": true,
+    "step_letters": true
   }
 }

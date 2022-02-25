@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import { checkFlag } from 'flags';
 import { AB_EDIT_DETAILS_OBJECT, AB_EDIT_SECTIONS_OBJECT, EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import { find, forEach, get, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
@@ -7,6 +8,8 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import InteractiveElement from 'Components/InteractiveElement';
 import DatePicker from 'react-datepicker';
+
+const useStepLetter = () => checkFlag('flags.step_letters');
 
 // eslint-disable-next-line complexity
 const EditBidder = (props) => {
@@ -206,61 +209,66 @@ const EditBidder = (props) => {
             }
           </select>
         </div>
-        <div>
-          <dt>*Step Letter 1:</dt>
-          <DatePicker
-            selected={stepLetterOne}
-            onChange={updateStepLetterOne}
-            dateFormat="MMMM d, yyyy"
-            className={stepLetterOneError ? 'select-error' : ''}
-          />
-          {stepLetterOneClearIconInactive &&
-            <div className="step-letter-clear-icon">
-              <FA name="times-circle fa-lg inactive" />
+        {
+          useStepLetter() &&
+          <>
+            <div>
+              <dt>*Step Letter 1:</dt>
+              <DatePicker
+                selected={stepLetterOne}
+                onChange={updateStepLetterOne}
+                dateFormat="MMMM d, yyyy"
+                className={stepLetterOneError ? 'select-error' : ''}
+              />
+              {stepLetterOneClearIconInactive &&
+              <div className="step-letter-clear-icon">
+                <FA name="times-circle fa-lg inactive" />
+              </div>
+              }
+              {!stepLetterOneFlag && stepLetterTwoFlag &&
+              <div className="step-letter-clear-icon">
+                <InteractiveElement
+                  onClick={clearStepLetterOneDate}
+                >
+                  <FA name="times-circle fa-lg active" />
+                </InteractiveElement>
+              </div>
+              }
             </div>
-          }
-          {!stepLetterOneFlag && stepLetterTwoFlag &&
-            <div className="step-letter-clear-icon">
-              <InteractiveElement
-                onClick={clearStepLetterOneDate}
-              >
-                <FA name="times-circle fa-lg active" />
-              </InteractiveElement>
+            <div>
+              <dt>*Step Letter 2:</dt>
+              {stepLetterOneFlag ?
+                <select
+                  id="stepLetterTwo"
+                  disabled={stepLetterOneFlag}
+                >
+                  <option value="">None listed</option>
+                </select>
+                :
+                <DatePicker
+                  selected={stepLetterTwo}
+                  onChange={updateStepLetterTwo}
+                  dateFormat="MMMM d, yyyy"
+                  className={stepLetterTwoError ? 'select-error' : ''}
+                  minDate={stepLetterOne}
+                />
+              }
+              {stepLetterTwoFlag ?
+                <div className="step-letter-clear-icon">
+                  <FA name="times-circle fa-lg inactive" />
+                </div>
+                :
+                <div className="step-letter-clear-icon">
+                  <InteractiveElement
+                    onClick={clearStepLetterTwoDate}
+                  >
+                    <FA name="times-circle fa-lg active" />
+                  </InteractiveElement>
+                </div>
+              }
             </div>
-          }
-        </div>
-        <div>
-          <dt>*Step Letter 2:</dt>
-          {stepLetterOneFlag ?
-            <select
-              id="stepLetterTwo"
-              disabled={stepLetterOneFlag}
-            >
-              <option value="">None listed</option>
-            </select>
-            :
-            <DatePicker
-              selected={stepLetterTwo}
-              onChange={updateStepLetterTwo}
-              dateFormat="MMMM d, yyyy"
-              className={stepLetterTwoError ? 'select-error' : ''}
-              minDate={stepLetterOne}
-            />
-          }
-          {stepLetterTwoFlag ?
-            <div className="step-letter-clear-icon">
-              <FA name="times-circle fa-lg inactive" />
-            </div>
-            :
-            <div className="step-letter-clear-icon">
-              <InteractiveElement
-                onClick={clearStepLetterTwoDate}
-              >
-                <FA name="times-circle fa-lg active" />
-              </InteractiveElement>
-            </div>
-          }
-        </div>
+          </>
+        }
         <div>
           <dt>Skill:</dt>
           <dd>{sections.skill}</dd>
