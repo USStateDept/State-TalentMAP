@@ -1,5 +1,14 @@
-.agenda-item-maintenance-container {
+.ai-maintenance-container {
   margin: 10px;
+  // overflow: hidden;
+  // position: relative;
+  // width: 100%;
+
+  .testHeight {
+    height: 1500px;
+    border: 1px solid red;
+    background-color: blue;
+  }
 
   .expand-arrow {
     float: right;
@@ -9,7 +18,7 @@
   .maintenance-container-left {
     background-color: $color-white;
     float: left;
-    min-height: calc(100vh - 100px);
+    height: 100vh;
     overflow-y: scroll;
     width: 50%;
   }
@@ -17,7 +26,7 @@
   .maintenance-container-left-expanded {
     background-color: $color-white;
     float: left;
-    min-height: calc(100vh - 100px);
+    height: 100vh;
     overflow-y: scroll;
     width: 99%;
   }
@@ -25,7 +34,7 @@
   .maintenance-container-right {
     background-color: $color-white;
     float: left;
-    min-height: calc(100vh - 100px);
+    height: 100vh;
     margin-left: 20px;
     overflow-y: scroll;
     width: 48%;
@@ -46,13 +55,17 @@
   }
 
   @media screen and (max-width: 1600px) {
-    .ai-maintenance-containers {
+    .ai-maintenance-container {
       display: grid;
+      margin: 10px;
+      // overflow: hidden;
+      // position: relative;
+      // width: 100%;
 
       .maintenance-container-left, 
       .maintenance-container-left-expanded {
         float: left;
-        min-height: calc(100vh - 100px);
+        height: 100vh;
         width: 99%;
 
         .expand-arrow {
@@ -61,7 +74,7 @@
       }
 
       .maintenance-container-right {
-        min-height: calc(100vh - 100px);
+        height: 100vh;
         margin-left: 0;
         margin-top: 20px;
         width: 99%

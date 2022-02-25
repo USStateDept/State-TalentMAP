@@ -20,36 +20,34 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
 
   return (
-    <div className="agenda-item-maintenance-container">
-      <div className="ai-maintenance-containers">
-        <div className={`maintenance-container-left${legsContainerExpanded ? '-expanded' : ''}`}>
-          <AgendaItemMaintenancePane leftExpanded={legsContainerExpanded} />
-          <div className="expand-arrow">
-            <InteractiveElement onClick={toggleExpand}>
-              <Tooltip
-                title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
-                arrow
-              >
-                <FontAwesome
-                  style={{ transform: rotate, transition: 'all 0.65s linear' }}
-                  name="arrow-circle-left"
-                  size="lg"
-                />
-              </Tooltip>
-            </InteractiveElement>
-          </div>
+    <div className="ai-maintenance-container">
+      <div className={`maintenance-container-left${legsContainerExpanded ? '-expanded' : ''}`}>
+        <AgendaItemMaintenancePane leftExpanded={legsContainerExpanded} />
+        <div className="expand-arrow">
+          <InteractiveElement onClick={toggleExpand}>
+            <Tooltip
+              title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
+              arrow
+            >
+              <FontAwesome
+                style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                name="arrow-circle-left"
+                size="lg"
+              />
+            </Tooltip>
+          </InteractiveElement>
         </div>
-        <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
-          <AgendaItemResearchPane perdet={id} />
-        </div>
-        {legsContainerExpanded &&
+      </div>
+      <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
+        <AgendaItemResearchPane perdet={id} />
+      </div>
+      {legsContainerExpanded &&
           <MediaQuery breakpoint="screenXlgMin" widthType="max">
             <div className="maintenance-container-right">
               <AgendaItemResearchPane perdet={id} />
             </div>
           </MediaQuery>
-        }
-      </div>
+      }
     </div>
   );
 };
