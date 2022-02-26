@@ -23,8 +23,7 @@ let positions = [
     position_number: '0000000000',
     position_title: 'TRAINING' },
 ];
-// eslint-disable-next-line max-len
-positions = [...positions, ...positions, ...positions, ...positions, ...positions, ...positions, ...positions, ...positions];
+positions = [...positions, ...positions, ...positions, ...positions];
 /* end TODO */
 
 const ASGH = 'asgh';
