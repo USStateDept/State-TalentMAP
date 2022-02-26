@@ -35,259 +35,271 @@
     overflow-y: scroll;
     width: 48%;
   }
+}
 
-  .ai-research-content {
-    padding-top: 1em;
-    position: relative;
+.ai-maintenance-container-stacked {
+  margin: 10px;
 
-    .dashboard-section-title {
-      margin-bottom: 1em;
-    }
-
-    h2 {
-      display: inline;
-      font-size: 1.1em;
-    }
+  .testHeight {
+    height: 1500px;
+    border: 1px solid red;
+    background-color: blue;
   }
 
-  // // @media screen and (max-width: 1600px) {
-    /*
-    need to add stacked to ai main container but don't replace
-    need to change vh to 50
-    likely need an lstacked for vh change
-    */ 
-    // .ai-maintenance-container-stacked {
-    //   display: grid; // no display flex from above
-    // should be "display: block"
-    // }
+  .expand-arrow {
+    align-self: center;
+  }
 
-    // .maintenance-container-left-stacked, 
-    // .maintenance-container-left-expanded-stacked {
-    //   float: left;
-    //   height: 98vh;
-    //   width: 99%;
-    // }
-
-    .rstacked {
-      border: 2px solid black; // double check this visually
-      height: 50vh; // double check this
-      margin-left: 0;
-      margin-top: 20px;
-      width: 99%
-    }
-
-  // }
-  // }
-
-  .ai-research-pane {
+  .maintenance-container-left {
     background-color: $color-white;
-    padding: 20px;
+    float: left;
+    height: 98vh;
+    overflow-y: scroll;
+    width: 50%;
+  }
 
-    input {
-      border-radius: 5px;
+  .maintenance-container-left-expanded {
+    background-color: $color-white;
+    float: left;
+    height: 98vh;
+    overflow-y: scroll;
+    width: 99%;
+  }
+
+  .maintenance-container-right {
+    background-color: $color-white;
+    border: 2px solid black; // double check this visually
+    float: left;
+    height: 50vh; // double check this
+    margin-left: 0;
+    margin-top: 20px;
+    overflow-y: scroll;
+    width: 99%; // double check this
+  }
+}
+
+.ai-research-content {
+  padding-top: 1em;
+  position: relative;
+
+  .dashboard-section-title {
+    margin-bottom: 1em;
+  }
+
+  h2 {
+    display: inline;
+    font-size: 1.1em;
+  }
+}
+
+.ai-research-pane {
+  background-color: $color-white;
+  padding: 20px;
+
+  input {
+    border-radius: 5px;
+  }
+
+  .bid-content-container > div:last-child > div {
+    display: inline;
+  }
+}
+.hidden {
+  display: none!important;
+}
+
+.data-point-container {
+  margin-bottom: 10px;
+}
+
+.data-point-title {
+  color: $color-black;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.language-details > span {
+  border-left: 1px solid $bg-gray-medium-1;
+  float: inherit;
+  margin-left: 10px;
+  padding-left: 10px;
+}
+
+.frequent-positions-table {
+
+  font-size: .9em;
+
+  td {
+    border: 0;
+    margin: auto;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  tr {
+    display: flex;
+  }
+
+  tr > *:nth-child(1) {
+    flex: 1
+  }
+  tr > *:nth-child(2) {
+    flex: 6
+  }
+  tr > *:nth-child(3) {
+    flex: 6
+  }
+  tr > *:nth-child(4) {
+    flex: 12
+  }
+
+  tbody > tr {
+    border: 2px solid $bg-gray-dark-1;
+    border-top: 0px;
+  }
+
+  tbody > tr {
+    > td:first-of-type {
+      position: relative;
+      .fa {
+        color: $color-blue-hover;
+        font-size: 1.4em;
+        left: 30%;
+        position: relative;
+      }
     }
+  }
 
-    .bid-content-container > div:last-child > div {
-      display: inline;
+  tbody > tr:nth-child(even){
+    $bg: $bg-gray-medium-2;
+    background-color: $bg;
+    td {
+      background-color: $bg;
     }
   }
-  .hidden {
-    display: none!important;
+
+  tbody > tr:nth-child(odd){
+    $bg: $color-white;
+    background-color: $bg;
+    td {
+      background-color: $bg;
+    }
   }
 
-  .data-point-container {
-    margin-bottom: 10px;
-  }
-
-  .data-point-title {
-    color: $color-black;
-    font-size: 1.6rem;
+  th {
+    background-color: $dos-blue;
+    border: 0;
+    color: $color-white;
     font-weight: bold;
   }
+}
 
-  .language-details > span {
-    border-left: 1px solid $bg-gray-medium-1;
-    float: inherit;
-    margin-left: 10px;
-    padding-left: 10px;
-  }
+.ai-maintenance-pane {
+  .ai-maintenance-header {
+    background-color: $bg-gray-medium-4;
 
-  .frequent-positions-table {
-
-    font-size: .9em;
-
-    td {
-      border: 0;
-      margin: auto;
+    .usa-form:not(.remarks, .corrections) {
+      max-width: 36rem;
     }
 
-    table {
-      width: 100%;
+    .half-width {
+      width: 51% !important;
     }
 
-    tr {
-      display: flex;
-    }
-
-    tr > *:nth-child(1) {
-      flex: 1
-    }
-    tr > *:nth-child(2) {
-      flex: 6
-    }
-    tr > *:nth-child(3) {
-      flex: 6
-    }
-    tr > *:nth-child(4) {
-      flex: 12
-    }
-
-    tbody > tr {
-      border: 2px solid $bg-gray-dark-1;
-      border-top: 0px;
-    }
-
-    tbody > tr {
-      > td:first-of-type {
-        position: relative;
-        .fa {
-          color: $color-blue-hover;
-          font-size: 1.4em;
-          left: 30%;
-          position: relative;
-        }
-      }
-    }
-
-    tbody > tr:nth-child(even){
-      $bg: $bg-gray-medium-2;
-      background-color: $bg;
-      td {
-        background-color: $bg;
-      }
-    }
-
-    tbody > tr:nth-child(odd){
-      $bg: $color-white;
-      background-color: $bg;
-      td {
-        background-color: $bg;
-      }
-    }
-
-    th {
-      background-color: $dos-blue;
-      border: 0;
-      color: $color-white;
+    label {
       font-weight: bold;
+      margin: 10px 10px;
+      text-align: end;
     }
-  }
 
-  .ai-maintenance-pane {
-    .ai-maintenance-header {
-      background-color: $bg-gray-medium-4;
+    .back-save-btns-container {
+      padding-top: 2.5rem;
+      min-height: 70px;
+      width: 95%;
 
-      .usa-form:not(.remarks, .corrections) {
-        max-width: 36rem;
+      button {
+        margin: 0!important;
       }
 
-      .half-width {
-        width: 51% !important;
+      .save-ai-btn {
+        border: 1px solid $primary-blue;
+        border-radius: 5px;
+        color: $primary-blue;
+        background-color: $color-white;
+        display: inline-block;
+        padding: 10px 20px;
+        float: right;
+        font-size: 1.4rem;
       }
+      .save-ai-btn:hover {
+        border-color: $primary-blue-darkest;
+        color: $primary-blue-darkest;
+      }
+    }
+
+    .corrections, .remarks {
+      max-width: fit-content;
+      margin: 10px;
 
       label {
-        font-weight: bold;
-        margin: 10px 10px;
-        text-align: end;
+        display: inline;
+        margin: 0 10px 0 0;
       }
-
-      .back-save-btns-container {
-        padding-top: 2.5rem;
-        min-height: 70px;
-        width: 95%;
-
-        button {
-          margin: 0!important;
-        }
-
-        .save-ai-btn {
-          border: 1px solid $primary-blue;
-          border-radius: 5px;
-          color: $primary-blue;
-          background-color: $color-white;
-          display: inline-block;
-          padding: 10px 20px;
-          float: right;
-          font-size: 1.4rem;
-        }
-        .save-ai-btn:hover {
-          border-color: $primary-blue-darkest;
-          color: $primary-blue-darkest;
-        }
+      div:not(.remarks-pill) {
+        display: inline;
       }
+      .remarks-pill {
+        display: inline-block;
+      }
+    }
 
-      .corrections, .remarks {
+    .ai-maintenance-header-dd {
+      margin-right: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 94%;
+
+      #ai-maintenance-dd-asg {
         max-width: fit-content;
-        margin: 10px;
-
-        label {
-          display: inline;
-          margin: 0 10px 0 0;
-        }
-        div:not(.remarks-pill) {
-          display: inline;
-        }
-        .remarks-pill {
-          display: inline-block;
-        }
+        margin-left: -10px;
       }
 
-      .ai-maintenance-header-dd {
-        margin-right: 10px;
+      #add-pos-num-input {
+        background-color: $color-white;
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        height: 28px;
+        padding: 0 30px 0 5px;
+        max-width: 150px;
+        font-size: 13px;
+      }
+      #add-pos-num-icon {
+        color: $primary-blue;
+        margin-left: -25px;
+        position: relative;
+        top: 1px
+      }
+      #add-pos-num-icon:hover {
+        color: $primary-blue-darkest;
+      }
+
+      div {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 94%;
+        flex: 70%;
+        align-items: baseline;
+      }
 
-        #ai-maintenance-dd-asg {
-          max-width: fit-content;
-          margin-left: -10px;
-        }
-
-        #add-pos-num-input {
-          background-color: $color-white;
-          border: 1px solid $bg-gray-dark-2;
-          border-radius: 3px;
-          height: 28px;
-          padding: 0 30px 0 5px;
-          max-width: 150px;
-          font-size: 13px;
-        }
-        #add-pos-num-icon {
-          color: $primary-blue;
-          margin-left: -25px;
-          position: relative;
-          top: 1px
-        }
-        #add-pos-num-icon:hover {
-          color: $primary-blue-darkest;
-        }
-
-        div {
-          display: flex;
-          flex: 70%;
-          align-items: baseline;
-        }
-
-        select {
-          border: 1px solid $bg-gray-dark-2;
-          border-radius: 3px;
-          font-size: 0.8em;
-          height: 28px;
-          padding: 0 23px 0 5px;
-          text-overflow: ellipsis;
-          max-width: 150px;
-        }
+      select {
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        font-size: 0.8em;
+        height: 28px;
+        padding: 0 23px 0 5px;
+        text-overflow: ellipsis;
+        max-width: 150px;
       }
     }
   }
