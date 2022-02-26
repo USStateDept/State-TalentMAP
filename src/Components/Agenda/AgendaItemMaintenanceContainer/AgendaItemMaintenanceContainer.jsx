@@ -21,33 +21,35 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   return (
     <div className="ai-maintenance-container">
-      <div className={`maintenance-container-left${legsContainerExpanded ? '-expanded' : ''}`}>
-        <AgendaItemMaintenancePane leftExpanded={legsContainerExpanded} />
-        <div className="expand-arrow">
-          <InteractiveElement onClick={toggleExpand}>
-            <Tooltip
-              title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
-              arrow
-            >
-              <FontAwesome
-                style={{ transform: rotate, transition: 'all 0.65s linear' }}
-                name="arrow-circle-left"
-                size="lg"
-              />
-            </Tooltip>
-          </InteractiveElement>
-        </div>
-      </div>
-      <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
-        <AgendaItemResearchPane perdet={id} />
-      </div>
-      {legsContainerExpanded &&
-          <MediaQuery breakpoint="screenXlgMin" widthType="max">
-            <div className="maintenance-container-right">
+      <MediaQuery breakpoint="screenXlgMin" widthType="max">
+        {matches => (
+          <>
+            <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+              <AgendaItemMaintenancePane leftExpanded={(legsContainerExpanded || matches)} />
+            </div>
+            <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
+              <InteractiveElement onClick={toggleExpand}>
+                <Tooltip
+                  title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
+                  arrow
+                >
+                  <FontAwesome
+                    style={{ transform: rotate, transition: 'all 0.65s linear' }}
+                    name="arrow-circle-left"
+                    size="lg"
+                  />
+                </Tooltip>
+              </InteractiveElement>
+            </div>
+            <div className={`maintenance-container-right${matches ? ' rstacked' : ''} ${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane perdet={id} />
             </div>
-          </MediaQuery>
-      }
+          </>
+        )}
+      </MediaQuery>
+      {/* stack when screen screenXlgMinNum is true
+        if !legsContainerExpanded show right container
+       */}
     </div>
   );
 };

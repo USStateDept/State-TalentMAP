@@ -124,6 +124,7 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
         </div>
       </div>
+      <div className="testHeight" />
     </div>
   );
 };

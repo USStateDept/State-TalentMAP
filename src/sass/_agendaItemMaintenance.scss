@@ -1,8 +1,6 @@
 .ai-maintenance-container {
   margin: 10px;
-  // overflow: hidden;
-  // position: relative;
-  // width: 100%;
+  display: flex;
 
   .testHeight {
     height: 1500px;
@@ -11,14 +9,13 @@
   }
 
   .expand-arrow {
-    float: right;
-    margin: -10px 5px 0px;
+    align-self: center;
   }
 
   .maintenance-container-left {
     background-color: $color-white;
     float: left;
-    height: 100vh;
+    height: 98vh;
     overflow-y: scroll;
     width: 50%;
   }
@@ -26,7 +23,7 @@
   .maintenance-container-left-expanded {
     background-color: $color-white;
     float: left;
-    height: 100vh;
+    height: 98vh;
     overflow-y: scroll;
     width: 99%;
   }
@@ -34,8 +31,7 @@
   .maintenance-container-right {
     background-color: $color-white;
     float: left;
-    height: 100vh;
-    margin-left: 20px;
+    height: 98vh;
     overflow-y: scroll;
     width: 48%;
   }
@@ -54,34 +50,34 @@
     }
   }
 
-  @media screen and (max-width: 1600px) {
-    .ai-maintenance-container {
-      display: grid;
-      margin: 10px;
-      // overflow: hidden;
-      // position: relative;
-      // width: 100%;
+  // // @media screen and (max-width: 1600px) {
+    /*
+    need to add stacked to ai main container but don't replace
+    need to change vh to 50
+    likely need an lstacked for vh change
+    */ 
+    // .ai-maintenance-container-stacked {
+    //   display: grid; // no display flex from above
+    // should be "display: block"
+    // }
 
-      .maintenance-container-left, 
-      .maintenance-container-left-expanded {
-        float: left;
-        height: 100vh;
-        width: 99%;
+    // .maintenance-container-left-stacked, 
+    // .maintenance-container-left-expanded-stacked {
+    //   float: left;
+    //   height: 98vh;
+    //   width: 99%;
+    // }
 
-        .expand-arrow {
-          display: none;
-        }
-      }
-
-      .maintenance-container-right {
-        height: 100vh;
-        margin-left: 0;
-        margin-top: 20px;
-        width: 99%
-      }
-
+    .rstacked {
+      border: 2px solid black; // double check this visually
+      height: 50vh; // double check this
+      margin-left: 0;
+      margin-top: 20px;
+      width: 99%
     }
-  }
+
+  // }
+  // }
 
   .ai-research-pane {
     background-color: $color-white;
