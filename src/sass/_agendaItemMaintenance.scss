@@ -34,18 +34,6 @@
 .ai-maintenance-container-stacked {
   margin: 10px;
 
-  .expand-arrow {
-    align-self: center;
-  }
-
-  .maintenance-container-left {
-    background-color: $color-white;
-    float: left;
-    height: 98vh;
-    overflow-y: scroll;
-    width: 50%;
-  }
-
   .maintenance-container-left-expanded {
     background-color: $color-white;
     float: left;
@@ -56,13 +44,12 @@
 
   .maintenance-container-right {
     background-color: $color-white;
-    border: 2px solid black; // double check this visually
+    border: 1px solid black;
     float: left;
-    height: 50vh; // double check this
-    margin-left: 0;
+    height: 98vh;
     margin-top: 20px;
     overflow-y: scroll;
-    width: 99%; // double check this
+    width: 99%;
   }
 }
 
