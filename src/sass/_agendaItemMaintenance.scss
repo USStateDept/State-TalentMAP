@@ -38,7 +38,7 @@
     .dashboard-section-title {
       margin-bottom: 1em;
     }
-    
+
     h2 {
       display: inline;
       font-size: 1.1em;
@@ -48,11 +48,11 @@
   .ai-research-pane {
     background-color: $color-white;
     padding: 20px;
-    
+
     input {
       border-radius: 5px;
     }
-    
+
     .bid-content-container > div:last-child > div {
       display: inline;
     }
@@ -61,11 +61,11 @@
   .hidden {
     display: none!important;
   }
-  
+
   .data-point-container {
     margin-bottom: 10px;
   }
-  
+
   .data-point-title {
     color: $color-black;
     font-size: 1.6rem;
@@ -78,11 +78,11 @@
     margin-left: 10px;
     padding-left: 10px;
   }
-  
+
   .frequent-positions-table {
-    
+
     font-size: .9em;
-    
+
     td {
       border: 0;
       margin: auto;
@@ -264,7 +264,7 @@
   display: block !important;
 
   .maintenance-container-right {
-    border-top: 2px solid black;
+    border-top: 2px solid $color-black;
     margin-top: 20px;
     width: 99%;
   }
