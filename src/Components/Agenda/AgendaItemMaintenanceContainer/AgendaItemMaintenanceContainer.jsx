@@ -22,7 +22,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   return (
     <MediaQuery breakpoint="screenXlgMin" widthType="max">
       {matches => (
-        <div className={`ai-maintenance-container${matches ? '-stacked' : ''}`}>
+        <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
           <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
             <AgendaItemMaintenancePane leftExpanded={(legsContainerExpanded || matches)} />
           </div>
