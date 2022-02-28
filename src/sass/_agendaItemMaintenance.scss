@@ -1,31 +1,32 @@
-.agenda-item-maintenance-container {
+.ai-maintenance-container {
   margin: 10px;
+  display: flex;
+  padding-bottom: 15px;
 
   .expand-arrow {
-    float: right;
-    position: relative;
-    top: 46%;
+    align-self: center;
   }
 
   .maintenance-container-left {
     background-color: $color-white;
     float: left;
-    height: 500px;
+    height: 98vh;
+    overflow-y: scroll;
     width: 50%;
   }
 
   .maintenance-container-left-expanded {
     background-color: $color-white;
     float: left;
-    height: 500px;
+    height: 98vh;
+    overflow-y: scroll;
     width: 99%;
   }
 
   .maintenance-container-right {
     background-color: $color-white;
     float: left;
-    height: 500px;
-    margin-left: 20px;
+    height: 98vh;
     overflow-y: scroll;
     width: 48%;
   }
@@ -43,29 +44,7 @@
       font-size: 1.1em;
     }
   }
-
-  @media screen and (max-width: 1650px) {
-    .ai-maintenance-containers {
-      display: grid;
-
-      .maintenance-container-left {
-        height: 500px;
-        width: 99%;
-
-        .expand-arrow {
-          display: none;
-        }
-      }
-
-      .maintenance-container-right {
-        height: 500px;
-        margin-left: 0;
-        margin-top: 20px;
-        width: 99%
-      }
-    }
-  }
-
+  
   .ai-research-pane {
     background-color: $color-white;
     padding: 20px;
@@ -78,6 +57,7 @@
       display: inline;
     }
   }
+  
   .hidden {
     display: none!important;
   }
@@ -277,5 +257,15 @@
         }
       }
     }
+  }
+}
+
+.stacked {
+  display: block;
+
+  .maintenance-container-right {
+    border-top: 2px solid $color-black;
+    margin-top: 20px;
+    width: 99%;
   }
 }

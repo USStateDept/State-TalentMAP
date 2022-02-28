@@ -4,6 +4,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
+import MediaQuery from 'Components/MediaQuery';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 
@@ -19,11 +20,13 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
 
   return (
-    <div className="agenda-item-maintenance-container">
-      <div className="ai-maintenance-containers">
-        <div className={`maintenance-container-left${legsContainerExpanded ? '-expanded' : ''}`}>
-          <AgendaItemMaintenancePane leftExpanded={legsContainerExpanded} />
-          <div className="expand-arrow">
+    <MediaQuery breakpoint="screenXlgMin" widthType="max">
+      {matches => (
+        <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
+          <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+            <AgendaItemMaintenancePane leftExpanded={(legsContainerExpanded || matches)} />
+          </div>
+          <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
             <InteractiveElement onClick={toggleExpand}>
               <Tooltip
                 title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
@@ -37,12 +40,12 @@ const AgendaItemMaintenanceContainer = (props) => {
               </Tooltip>
             </InteractiveElement>
           </div>
+          <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
+            <AgendaItemResearchPane perdet={id} />
+          </div>
         </div>
-        <div className={`maintenance-container-right${legsContainerExpanded ? ' hidden' : ''}`}>
-          <AgendaItemResearchPane perdet={id} />
-        </div>
-      </div>
-    </div>
+      )}
+    </MediaQuery>
   );
 };
 
