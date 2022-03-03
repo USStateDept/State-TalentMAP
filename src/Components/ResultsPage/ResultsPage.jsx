@@ -132,6 +132,7 @@ class Results extends Component {
             styles={{
               options: {
                 primaryColor: '#0071BC',
+                zIndex: 1000,
               },
             }}
             locale={{ skip: 'Exit', last: 'Exit' }}
