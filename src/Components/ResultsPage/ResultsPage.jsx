@@ -108,35 +108,38 @@ class Results extends Component {
         }
         <div className="usa-grid-full results-section-container">
           <MediaQuery breakpoint="screenMdMin" widthType="min">
-            {matches => matches ? filterContainer : shouldShowMobileFilter && filterContainer}
+            {matches => matches ?
+              <>
+                {filterContainer}
+                <InteractiveElement
+                  onClick={this.handleTutorialButtonClick}
+                  className="tutorial-button"
+                  title="Display tutorial"
+                >
+                  <FA name="question-circle" />
+                </InteractiveElement>
+                <Joyride
+                  steps={steps}
+                  continuous
+                  scrollToFirstStep
+                  showProgress
+                  showSkipButton
+                  run={this.state.run}
+                  disableOverlayClose
+                  disableCloseOnEsc
+                  hideCloseButton
+                  scrollOffset={300}
+                  callback={this.handleJoyrideCallback}
+                  styles={{
+                    options: {
+                      primaryColor: '#0071BC',
+                      zIndex: 1000,
+                    },
+                  }}
+                  locale={{ skip: 'Exit', last: 'Exit' }}
+                /></> : <>{shouldShowMobileFilter && filterContainer}</>
+            }
           </MediaQuery>
-          <InteractiveElement
-            onClick={this.handleTutorialButtonClick}
-            className="tutorial-button"
-            title="Display tutorial"
-          >
-            <FA name="question-circle" />
-          </InteractiveElement>
-          <Joyride
-            steps={steps}
-            continuous
-            scrollToFirstStep
-            showProgress
-            showSkipButton
-            run={this.state.run}
-            disableOverlayClose
-            disableCloseOnEsc
-            hideCloseButton
-            scrollOffset={300}
-            callback={this.handleJoyrideCallback}
-            styles={{
-              options: {
-                primaryColor: '#0071BC',
-                zIndex: 1000,
-              },
-            }}
-            locale={{ skip: 'Exit', last: 'Exit' }}
-          />
           <ResultsContainer
             results={results}
             isLoading={isLoading}
