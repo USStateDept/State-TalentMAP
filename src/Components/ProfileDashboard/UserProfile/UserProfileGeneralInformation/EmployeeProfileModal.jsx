@@ -3,6 +3,8 @@ import swal from '@sweetalert/with-react';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { fetchJWT, getAssetPath } from 'utilities';
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
+import FA from 'react-fontawesome';
+import InteractiveElement from 'Components/InteractiveElement';
 
 // Import styles
 import '@react-pdf-viewer/core/lib/styles/index.css';
@@ -24,19 +26,18 @@ const EmployeeProfileModal = props => {
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
   return (
-    <div className="checklist-modal">
-      <div>
-        <Worker workerUrl={getAssetPath('/static/js/pdf.worker.js')}>
-          {/* <Viewer fileUrl={this.state.data} />; */}
-          <Viewer
-            fileUrl={url}
-            httpHeaders={{ JWTAuthorization: fetchJWT() }}
-            withCredentials
-            plugins={[defaultLayoutPluginInstance]}
-          />
-        </Worker>
-        <div className="checklist-modal-buttons-container">
-          <button type="button" onClick={cancel}>Close</button>
+    <div>
+      <InteractiveElement className="modal-close-icon" onClick={cancel}><FA name="times" /></InteractiveElement>
+      <div className="checklist-modal talentmap-swal-modal">
+        <div>
+          <Worker workerUrl={getAssetPath('/static/js/pdf.worker.js')}>
+            <Viewer
+              fileUrl={url}
+              httpHeaders={{ JWTAuthorization: fetchJWT() }}
+              withCredentials
+              plugins={[defaultLayoutPluginInstance]}
+            />
+          </Worker>
         </div>
       </div>
     </div>
