@@ -47,7 +47,7 @@ const EditBidder = (props) => {
     const userInputs = {
       oc_bureau: ocBureau || '',
       oc_reason: ocReason || '',
-      status,
+      status: status || '',
       comments: comment || '',
       is_shared: shared,
       step_letter_one: stepLetterOne,
