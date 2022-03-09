@@ -3,6 +3,8 @@ import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
+import InteractiveElement from 'Components/InteractiveElement';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
@@ -10,6 +12,9 @@ const AgendaItemLegs = props => {
     legs,
     remarks,
     isCard,
+    hideRemarks,
+    showCloseButton,
+    onClose,
   } = props;
 
   let legs$ = legs;
@@ -22,18 +27,31 @@ const AgendaItemLegs = props => {
   // TO-DO - better date checking. isDate() with null or bad string not guaranteed to work.
   const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
 
+  const onClose$ = leg => {
+    console.log(leg); // eslint-disable-line
+    onClose(leg);
+  };
+
   const getData = (key, helperFunc) => (
     <>
       {
-        legs$.map((leg) => (<td>
-          {
-            helperFunc ?
-              <dd>{helperFunc(leg[key])}</dd>
-              :
-              <dd>{leg[key]}</dd>
+        legs$.map((leg, i) => {
+          const showClose = showCloseButton && key === 'pos_title' && i > 0;
+          return (<td>
+            {/* first leg cannot be removed */}
+            {showClose &&
+            <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
+              <FA name="times" />
+            </InteractiveElement>}
+            {
+              helperFunc ?
+                <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
+                :
+                <dd>{leg[key]}</dd>
 
-          }
-        </td>))
+            }
+          </td>);
+        })
       }
     </>
   );
@@ -135,7 +153,7 @@ const AgendaItemLegs = props => {
         </tbody>
       </table>
       {
-        !isCard &&
+        !isCard && !hideRemarks &&
         <div className="remarks-container">
           <div className="remarks-text">Remarks:</div>
           {
@@ -153,13 +171,18 @@ AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   remarks: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
+  hideRemarks: PropTypes.bool,
+  showCloseButton: PropTypes.bool,
+  onClose: PropTypes.func,
 };
-
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   remarks: [],
   isCard: false,
+  hideRemarks: false,
+  showCloseButton: false,
+  onClose: EMPTY_FUNCTION,
 };
 
 export default AgendaItemLegs;

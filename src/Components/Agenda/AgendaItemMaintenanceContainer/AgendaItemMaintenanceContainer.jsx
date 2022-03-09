@@ -7,6 +7,7 @@ import { get } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
+import AgendaItemTimeline from '../AgendaItemTimeline';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
@@ -25,6 +26,7 @@ const AgendaItemMaintenanceContainer = (props) => {
         <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
           <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
             <AgendaItemMaintenancePane leftExpanded={(legsContainerExpanded || matches)} />
+            <AgendaItemTimeline />
           </div>
           <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
             <InteractiveElement onClick={toggleExpand}>
