@@ -44,7 +44,7 @@
       font-size: 1.1em;
     }
   }
-  
+
   .ai-research-pane {
     background-color: $color-white;
     padding: 20px;
@@ -57,7 +57,7 @@
       display: inline;
     }
   }
-  
+
   .hidden {
     display: none!important;
   }
@@ -256,6 +256,33 @@
           max-width: 150px;
         }
       }
+    }
+  }
+
+  .ai-timeline-pane {
+    margin: 10px;
+  }
+
+  .agenda-item-history-container {
+    td {
+      position: relative;
+    }
+
+    .ai-history-row {
+      border-left: none;
+      border-radius: 0;
+      box-shadow: none;
+      padding: .5em 0 0;
+    }
+
+    .remove-leg-button {
+      position: absolute;
+      right: 6px;
+      top: 0;
+    }
+
+    .ai-history-row {
+      overflow-x: scroll;
     }
   }
 }
