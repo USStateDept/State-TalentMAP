@@ -8,7 +8,8 @@ describe('AgendaItemTimeline Component', () => {
     expect(wrapper).toBeDefined();
   });
 
-  // snapshot test will fail as long as legs are randomly generated
+  // snapshot test will fail as long as legs are randomly generated.
+  // TODO - add back in once integrated
   xit('matches snapshot', () => {
     const wrapper = shallow(<AgendaItemTimeline />);
     expect(toJSON(wrapper)).toMatchSnapshot();
