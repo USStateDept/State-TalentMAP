@@ -12,6 +12,17 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
     />
   </div>
   <div
+    className="employee-agenda-card-top"
+  >
+    <div
+      className="employee-ribbon-container"
+    >
+      <div
+        className="ribbon-container-condensed"
+      />
+    </div>
+  </div>
+  <div
     className="employee-agenda-row-name"
   >
     <div
@@ -19,6 +30,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
     >
       None listed
        (
+      None listed
       )
     </div>
   </div>
@@ -43,7 +55,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
             className="org-fa-arrow"
             name="long-arrow-right"
           />
-          Coming soon
+          None listed
         </dd>
       </div>
       <div
@@ -69,20 +81,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           CDO:
         </dt>
         <dd>
-          Coming soon
-        </dd>
-      </div>
-      <div
-        className="employee-agenda-row-data-point"
-      >
-        <FontAwesome
-          name="pencil-square"
-        />
-        <dt>
-          Author:
-        </dt>
-        <dd>
-          Coming soon
+          None listed
         </dd>
       </div>
       <div
@@ -95,7 +94,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Panel Meeting Date:
         </dt>
         <dd>
-          Coming soon
+          None listed
         </dd>
       </div>
       <div
@@ -108,7 +107,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Agenda Status:
         </dt>
         <dd>
-          Coming soon
+          None listed
         </dd>
       </div>
     </div>

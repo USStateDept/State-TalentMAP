@@ -8,6 +8,11 @@ describe('AgendaItemMaintenanceContainerComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
+  it('is defined when there is a route id', () => {
+    const wrapper = shallow(<AgendaItemMaintenanceContainer match={{ params: { id: 1 } }} />);
+    expect(wrapper).toBeDefined();
+  });
+
   it('matches snapshot', () => {
     const wrapper = shallow(<AgendaItemMaintenanceContainer />);
     expect(toJSON(wrapper)).toMatchSnapshot();

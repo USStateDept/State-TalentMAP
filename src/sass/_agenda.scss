@@ -67,7 +67,7 @@
       margin-right: 10px;
       .label {
         margin-right: 10px;
-        min-width: 115px;
+        min-width: 90px;
         text-align: end;
       }
       .picky {
@@ -95,6 +95,9 @@
     }
     input {
       display: inline;
+    }
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
     }
     .react-daterange-picker {
       align-items: center;
@@ -194,7 +197,7 @@
     border-top: 11px solid $primary-blue;
     display: flex;
     flex-direction: column;
-    height: 350px;
+    height: 335px;
     margin-bottom: 25px;
     margin-right: 40px;
     width: 335px;
@@ -321,6 +324,11 @@
 
 .employee-agenda-row {
   margin-top: 1rem;
+
+  .employee-ribbon-container {
+    float: right;
+    width: auto;
+  }
 
   .employee-agenda-stat-row {
     border: 1px solid $color-gray-light;

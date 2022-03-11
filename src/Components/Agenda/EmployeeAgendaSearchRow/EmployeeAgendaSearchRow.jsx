@@ -1,33 +1,43 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
+import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get } from 'lodash';
-import { format, isDate } from 'date-fns-v2';
+import { formatDate } from 'utilities';
+import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
+const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
   // will need to update during integration
-  const { person, currentAssignment } = result;
-  const agendaStatus = get(result, 'agendaStatus') || 'Coming soon';
-  const author = get(result, 'author') || 'Coming soon';
-  const bidder = get(person, 'fullName') || 'None listed';
-  const cdo = get(result, 'cdo') || 'Coming soon';
-  const currentPost = get(currentAssignment, 'orgDescription') || 'None listed';
-  const futurePost = get(result, 'futurePost') || 'Coming soon';
+  const { person, currentAssignment, hsAssignment, agenda } = result;
+  const agendaStatus = get(agenda, 'status') || FALLBACK;
+  // const author = get(result, 'author') || 'Coming soon';
+  const bidder = get(person, 'fullName') || FALLBACK;
+  const cdo = get(person, 'cdo.name') || FALLBACK;
+  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const initials = get(person, 'initials') || '';
-  const panelDate = get(result, 'panelDate') || 'Coming soon';
-  const ted = get(currentAssignment, 'TED') || '';
-  const userRole = isCDO ? 'cdo' : 'ao';
+  const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
+  const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
+  const ted = get(currentAssignment, 'TED') ? formatDate(currentAssignment.TED) : FALLBACK;
   const perdet = get(person, 'perdet', '');
-  const employeeID = get(person, 'employeeID', '');
-
-  const formatDate = (d) => isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : 'None listed';
+  const userRole = isCDO ? 'cdo' : 'ao';
+  const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
   return (
     <div className="usa-grid-full employee-agenda-stat-row">
       <div className="initials-circle-container">
         <div className="initials-circle">
           {initials}
+        </div>
+      </div>
+      <div className="employee-agenda-card-top">
+        <div className="employee-ribbon-container">
+          <div className="ribbon-container-condensed">
+            {showHandshakeIcon &&
+                <Handshake />
+            }
+          </div>
         </div>
       </div>
       <div className="employee-agenda-row-name">
@@ -50,18 +60,21 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
           <div className="employee-agenda-row-data-point">
             <FA name="clock-o" />
             <dt>TED:</dt>
-            <dd>{ted ? formatDate(ted) : 'None listed'}</dd>
+            <dd>{ted}</dd>
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="user-o" />
             <dt>CDO:</dt>
             <dd>{cdo}</dd>
           </div>
-          <div className="employee-agenda-row-data-point">
+          {/*
+            // TODO - do we want to include and/or filter by Author?
+            <div className="employee-agenda-row-data-point">
             <FA name="pencil-square" />
             <dt>Author:</dt>
             <dd>{author}</dd>
           </div>
+          */}
           <div className="employee-agenda-row-data-point">
             <FA name="calendar-o" />
             <dt>Panel Meeting Date:</dt>
@@ -77,9 +90,12 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
           <div className="view-agenda-item-container">
             <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
           </div>
-          <div className="create-ai-box-container">
-            <LinkButton className="create-ai-box-button" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
-          </div>
+          {
+            !!showCreate &&
+            <div className="create-ai-box-container">
+              <LinkButton className="create-ai-box-button" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
+            </div>
+          }
         </div>
 
       </div>
@@ -89,12 +105,23 @@ const EmployeeAgendaSearchRow = ({ isCDO, result }) => {
 
 EmployeeAgendaSearchRow.propTypes = {
   isCDO: PropTypes.bool,
-  result: PropTypes.PropTypes.shape({ person: {}, currentAssignment: {} }),
+  result: PropTypes.PropTypes.shape({
+    person: PropTypes.shape({}),
+    currentAssignment: PropTypes.shape({
+      TED: PropTypes.string,
+    }),
+    hsAssignment: PropTypes.shape({}),
+    agenda: PropTypes.shape({
+      panelDate: PropTypes.string,
+    }),
+  }),
+  showCreate: PropTypes.bool,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
   isCDO: false,
   result: {},
+  showCreate: true,
 };
 
 export default EmployeeAgendaSearchRow;

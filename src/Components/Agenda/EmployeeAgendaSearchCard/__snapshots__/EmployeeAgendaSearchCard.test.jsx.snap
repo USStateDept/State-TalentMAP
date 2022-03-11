@@ -43,7 +43,9 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         <dt>
           ID:
         </dt>
-        <dd />
+        <dd>
+          None listed
+        </dd>
       </div>
       <div
         className="employee-card-data-point"
@@ -60,7 +62,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
             className="org-fa-arrow"
             name="long-arrow-right"
           />
-          Coming soon
+          None listed
         </dd>
       </div>
       <div
@@ -86,22 +88,9 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
           CDO:
         </dt>
         <dd>
-          Coming soon
+          None listed
         </dd>
       </div>
-    </div>
-    <div
-      className="employee-card-data-point"
-    >
-      <FontAwesome
-        name="pencil-square"
-      />
-      <dt>
-        Author:
-      </dt>
-      <dd>
-        Coming soon
-      </dd>
     </div>
     <div
       className="employee-card-data-point"
@@ -113,7 +102,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         Panel Meeting Date:
       </dt>
       <dd>
-        Coming soon
+        None listed
       </dd>
     </div>
     <div
@@ -126,7 +115,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         Agenda Status:
       </dt>
       <dd>
-        Coming soon
+        None listed
       </dd>
     </div>
   </div>

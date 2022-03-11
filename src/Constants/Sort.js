@@ -84,7 +84,7 @@ export const AGENDA_EMPLOYEES_PAGE_SIZES = {
   ],
 };
 
-AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize = AGENDA_EMPLOYEES_PAGE_SIZES.options[3].value;
+AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize = AGENDA_EMPLOYEES_PAGE_SIZES.options[2].value;
 
 export const BID_PORTFOLIO_SORTS = {
   options: [
@@ -210,10 +210,13 @@ AGENDA_ITEM_HISTORY_FILTERS.defaultSort = AGENDA_ITEM_HISTORY_FILTERS.options[0]
 
 export const AGENDA_EMPLOYEES_SORT = {
   options: [
-    { value: 'agenda_employee_fullname', text: 'Full Name' },
-    { value: 'agenda_employee_firstname', text: 'First Name' },
-    { value: 'agenda_employee_lastname', text: 'Last Name' },
+    { value: 'agenda_employee_fullname', text: 'Full Name: A-Z' },
+    { value: '-agenda_employee_fullname', text: 'Full Name: Z-A' },
     { value: 'agenda_employee_id', text: 'Employee ID' },
+    { value: '-agenda_employee_panel_date', text: 'Panel Meeting Date: Most Recent' },
+    { value: 'agenda_employee_panel_date', text: 'Panel Meeting Date: Oldest' },
+    { value: '-agenda_employee_ted', text: 'TED: Most Recent' },
+    { value: 'agenda_employee_ted', text: 'TED: Oldest' },
   ],
 };
 

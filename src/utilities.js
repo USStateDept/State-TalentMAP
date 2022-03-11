@@ -644,13 +644,17 @@ export const paginate = (array, pageSize, pageNumber) => {
 
 // Looks for duplicates in a data set by property, and adds a "hasDuplicateDescription" property
 // to any objects that are duplicates.
-export const mapDuplicates = (data = [], propToCheck = 'custom_description') => data.slice().map((p) => {
-  const p$ = { ...p };
+export const mapDuplicates = (data = [], propToCheck = 'custom_description', transformFunc) => data.slice().map((p) => {
+  let p$ = { ...p };
   const matching = data.filter(f =>
     f[propToCheck] === p$[propToCheck],
   ) || [];
   if (matching.length >= 2) {
     p$.hasDuplicateDescription = true;
+    if (isFunction(transformFunc)) {
+      transformFunc = e => ({ ...e, name: e.code ? `${e.name} (${e.code})` : e.name }); // eslint-disable-line
+      p$ = transformFunc(p$);
+    }
   }
   return p$;
 });

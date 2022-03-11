@@ -24,7 +24,6 @@ export function aihFetchDataSuccess(data) {
   };
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function agendaItemHistoryExport(perdet = '', ordering = '') {
   return api()
     .get(`/fsbid/agenda/agenda_items/export/?perdet=${perdet}&ordering=${ordering}`)

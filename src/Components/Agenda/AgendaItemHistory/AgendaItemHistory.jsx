@@ -10,16 +10,20 @@ import { useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
+import { checkFlag } from 'flags';
 import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
+const useCreateAI = () => checkFlag('flags.create_agenda_item');
+
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
+  const createAI = useCreateAI();
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
@@ -122,7 +126,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemCard
                         key={result.id}
                         agenda={result}
-                        isCreate={i === 0}
+                        isCreate={createAI && i === 0}
                         isCDO={isCDO}
                       />
                     ))
@@ -137,7 +141,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemRow
                         key={result.id}
                         agenda={result}
-                        isCreate={i === 0}
+                        isCreate={createAI && i === 0}
                         isCDO={isCDO}
                       />
                     ))
