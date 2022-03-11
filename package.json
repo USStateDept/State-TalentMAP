@@ -13,7 +13,7 @@
     "@react-pdf-viewer/core": "2.11.0",
     "@react-pdf-viewer/default-layout": "^2.11.0",
     "@sweetalert/with-react": "^0.1.1",
-    "@wojtekmaj/react-daterange-picker": "^3.3.2",
+    "@wojtekmaj/react-daterange-picker": "^3.4.0",
     "axios": "^0.18.1",
     "axios-cache-adapter": "^2.7.3",
     "babel-plugin-lodash": "^3.3.4",

@@ -2385,17 +2385,17 @@
   resolved "https://registry.yarnpkg.com/@wojtekmaj/date-utils/-/date-utils-1.0.3.tgz#2dcfd92881425c5923e429c2aec86fb3609032a1"
   integrity sha512-1VPkkTBk07gMR1fjpBtse4G+oJqpmE+0gUFB0dg3VIL7qJmUVaBoD/vlzMm/jNeOPfvlmerl1lpnsZyBUFIRuw==
 
-"@wojtekmaj/react-daterange-picker@^3.3.2":
-  version "3.3.2"
-  resolved "https://registry.yarnpkg.com/@wojtekmaj/react-daterange-picker/-/react-daterange-picker-3.3.2.tgz#fc1a0b71e02bc9850e1a787f4c13c3b82018664f"
-  integrity sha512-/6e9oh+5NO5Jo2eRx5ybO6WodDwSpuQNVrlsHzjCEzWgpLKUXEQR64ci73/KOVNXOy+sMyDW+0CxDTIzhWqm8g==
+"@wojtekmaj/react-daterange-picker@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@wojtekmaj/react-daterange-picker/-/react-daterange-picker-3.4.0.tgz#bd85e980b16200f6066895961c518a327a830f3a"
+  integrity sha512-2ONcCSx10YP3+EOfg+1YrOO+Taa0iBdvfOJ5n8ZDW6fwS+9eyzYwWfRfPk78F2xZ7T7CR41ApBQlqM/2DT2Brw==
   dependencies:
     make-event-props "^1.1.0"
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
     react-calendar "^3.3.1"
-    react-date-picker "^8.3.3"
-    react-fit "^1.0.3"
+    react-date-picker "^8.4.0"
+    react-fit "^1.4.0"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -11637,10 +11637,10 @@ react-countup@3.0.3:
   dependencies:
     countup.js "^1.9.3"
 
-react-date-picker@^8.3.3:
-  version "8.3.6"
-  resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-8.3.6.tgz#446142bee5691aea66a2bac53313357aca561cd4"
-  integrity sha512-c1rThf0jSKROoSGLpUEPtcC8VE+XoVgqxh+ng9aLYQvjDMGWQBgoat6Qrj8nRVzvCPpdXV4jqiCB3z2vVVuseA==
+react-date-picker@^8.4.0:
+  version "8.4.0"
+  resolved "https://registry.yarnpkg.com/react-date-picker/-/react-date-picker-8.4.0.tgz#2d166bbaa59b08ec8686f671fde553458d19f8c8"
+  integrity sha512-zocntugDUyiHmV2Nq1qnsk4kDQuhBLUsDTz7akfIEJ0jVX925w0K5Ai5oZzWFNQOzXL/ITxafmDMuSbzlpBt/A==
   dependencies:
     "@types/react-calendar" "^3.0.0"
     "@wojtekmaj/date-utils" "^1.0.3"
@@ -11650,7 +11650,7 @@ react-date-picker@^8.3.3:
     merge-refs "^1.0.0"
     prop-types "^15.6.0"
     react-calendar "^3.3.1"
-    react-fit "^1.0.3"
+    react-fit "^1.4.0"
     update-input-width "^1.2.2"
 
 react-datepicker@^4.6.0:
@@ -11788,13 +11788,14 @@ react-fast-compare@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-3.2.0.tgz#641a9da81b6a6320f270e89724fb45a0b39e43bb"
   integrity sha512-rtGImPZ0YyLrscKI9xTpV8psd6I8VAtjKCzQDlzyDvqJA8XOW78TXYQwNRNd8g8JZnDu8q9Fu/1v4HPAVwVdHA==
 
-react-fit@^1.0.3:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/react-fit/-/react-fit-1.3.1.tgz#850cb5d554fdfa4b27891f62a9d290d3e7eda57b"
-  integrity sha512-MmVk/SXyVbxiz9peAeD7fWxFdGLoy/sCxte01M3w74regPIVkLqc2yT0wUAGRd1MNP1fQ40MqYKNBLpbK/aI1w==
+react-fit@^1.0.3, react-fit@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-fit/-/react-fit-1.4.0.tgz#6b6e3c75215561cc3cfb9854a6811b4347628666"
+  integrity sha512-cf9sFKbr1rlTB9fNIKE5Uy4NCMUOqrX2mdJ69V4RtmV4KubPdtnbIP1tEar16GXaToCRr7I7c9d2wkTNk9TV5g==
   dependencies:
     detect-element-overflow "^1.2.0"
     prop-types "^15.6.0"
+    tiny-warning "^1.0.0"
 
 react-floater@^0.7.3:
   version "0.7.3"
