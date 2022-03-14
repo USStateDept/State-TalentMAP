@@ -474,6 +474,8 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                       onPageChange={p => setPage(p.page)}
                       forcePage={page}
                       totalResults={count}
+                      marginPagesDisplayed={4}
+                      pageRangeDisplayed={3}
                     />
                   }
                 </div>
