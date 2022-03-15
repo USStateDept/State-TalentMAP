@@ -369,6 +369,11 @@
     }
   }
 
+  textarea {
+    // make sure this matches minRows in TextareaAutosize component
+    height: 110px;
+  }
+
   input select textarea {
     width: 75%;
   }
@@ -455,6 +460,7 @@
       .ab-row-tooltip-data, .step-letter-date {
         font-weight: 400;
         font-style: italic;
+        white-space: break-spaces;
       }
     }
 

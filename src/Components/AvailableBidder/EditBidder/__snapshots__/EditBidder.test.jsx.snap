@@ -227,11 +227,13 @@ exports[`EditBidders Component matches snapshot 1`] = `
       >
         *Comment:
       </label>
-      <input
+      <ForwardRef(TextareaAutosize)
+        maxRows={4}
+        maxlength="255"
+        minRows={4}
         name="comment"
         onChange={[Function]}
         placeholder="None listed"
-        type="text"
       />
     </div>
     <div>

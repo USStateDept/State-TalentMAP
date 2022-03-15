@@ -8,6 +8,7 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import InteractiveElement from 'Components/InteractiveElement';
 import DatePicker from 'react-datepicker';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const useStepLetter = () => checkFlag('flags.step_letters');
 
@@ -297,8 +298,11 @@ const EditBidder = (props) => {
         </div>
         <div>
           <label htmlFor="comment">*Comment:</label>
-          <input
-            type="text"
+          <TextareaAutosize
+            /* make sure this matches height in _availableBidders.scss */
+            maxRows={4}
+            minRows={4}
+            maxlength="255"
             name="comment"
             placeholder="None listed"
             defaultValue={comment === 'None listed' ? '' : comment}
