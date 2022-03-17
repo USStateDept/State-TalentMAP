@@ -372,6 +372,8 @@
   textarea {
     // make sure this matches minRows in TextareaAutosize component
     height: 110px;
+    min-height: 50px;
+    min-width: 100px;
   }
 
   input select textarea {
