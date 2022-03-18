@@ -26,7 +26,7 @@ const BureauPage = () => {
       <Switch>
         <Route path="/profile/ao/employeeagenda" render={() => <EmployeeAgendaSearch isCDO={false} />} />
         <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO={false} />} />
-        <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer />} />
+        <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO={false} />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
