@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: size-label
         uses: "pascalgn/size-label-action@v0.4.3"
+        if: ${{ github.actor != 'dependabot[bot]' }} # Skip the action if the PR was created by Dependabot.
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
         with:
