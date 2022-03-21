@@ -201,7 +201,7 @@
     "typescript": "^4.5.5",
     "url-loader": "^4.1.0",
     "webpack": "^4.46.0",
-    "webpack-dashboard": "^3.3.6",
+    "webpack-dashboard": "^3.3.7",
     "webpack-dev-server": "^3.11.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-plugin-ramdisk": "^0.2.0",
