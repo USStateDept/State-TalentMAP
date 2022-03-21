@@ -13,6 +13,7 @@ const AgendaItemCard = props => {
     agenda,
     showEdit,
     isCDO,
+    perdet,
   } = props;
 
   const legs = get(agenda, 'legs') || [];
@@ -46,7 +47,7 @@ const AgendaItemCard = props => {
   const titles = renderTitles();
 
   const userRole = isCDO ? 'cdo' : 'ao';
-  const perdet = get(agenda, 'perdet');
+  const perdet$ = perdet || get(agenda, 'perdet');
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
@@ -60,7 +61,7 @@ const AgendaItemCard = props => {
           <div className="ai-history-card first-card">
             <div className="plusIcon">
               <InteractiveElement title="Create Agenda">
-                <Link className="create-ai-link" to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+                <Link className="create-ai-link" to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
                   <FA name="plus-circle" />
                 </Link>
               </InteractiveElement>
@@ -68,6 +69,7 @@ const AgendaItemCard = props => {
           </div>
       }
       {
+        !isCreate &&
         <div className="ai-history-card" style={{ borderLeftColor: pillColor }}>
           <div className="ai-history-status">
             <div className="status-tag" style={{ backgroundColor: pillColor }}>
@@ -137,6 +139,7 @@ AgendaItemCard.propTypes = {
   }),
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
+  perdet: PropTypes.number,
 };
 
 
@@ -145,6 +148,7 @@ AgendaItemCard.defaultProps = {
   agenda: {},
   showEdit: false,
   isCDO: false,
+  perdet: null,
 };
 
 export default AgendaItemCard;
