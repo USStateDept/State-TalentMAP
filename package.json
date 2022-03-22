@@ -29,7 +29,7 @@
     "draft-js": "^0.10.4",
     "draft-js-plugins-editor": "^2.1.1",
     "enum": "^2.5.0",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "flag": "^3.0.0-1",
     "flat": "^4.1.0",
     "font-awesome": "^4.7.0",
