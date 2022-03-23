@@ -118,7 +118,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "^7.16.7",
     "@babel/register": "^7.17.0",
-    "@babel/runtime-corejs2": "^7.16.7",
+    "@babel/runtime-corejs2": "^7.17.8",
     "@epegzz/sass-vars-loader": "^6.1.0",
     "@pmmmwh/react-refresh-webpack-plugin": "pmmmwh/react-refresh-webpack-plugin#main",
     "@types/axios": "^0.14.0",
@@ -140,7 +140,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10",
     "babel-jest": "^25.4.0",
-    "babel-loader": "^8.2.3",
+    "babel-loader": "^8.2.4",
     "babel-preset-react-app": "9.1.0",
     "bundlesize": "^0.18.1",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
@@ -208,7 +208,7 @@
     "whatwg-fetch": "2.0.3",
     "workbox-webpack-plugin": "^6.4.2",
     "worker-loader": "^3.0.8",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.18"
   },
   "scripts": {
     "start": "node scripts/start.js",
