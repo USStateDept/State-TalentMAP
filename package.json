@@ -208,7 +208,7 @@
     "whatwg-fetch": "2.0.3",
     "workbox-webpack-plugin": "^6.4.2",
     "worker-loader": "^3.0.8",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.18"
   },
   "scripts": {
     "start": "node scripts/start.js",
