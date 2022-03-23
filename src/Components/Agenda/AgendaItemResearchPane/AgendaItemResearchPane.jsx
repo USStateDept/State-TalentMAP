@@ -51,7 +51,7 @@ const AgendaItemResearchPane = props => {
   // assignments
   const { data, error, loading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
 
-  const assignments = get(data, 'data.results') || [];
+  const assignments = get(data, 'data') || [];
   const languages = get(data, 'data.languages') || [];
 
   const onFPClick = pos => {
