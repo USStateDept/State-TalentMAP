@@ -140,7 +140,7 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10",
     "babel-jest": "^25.4.0",
-    "babel-loader": "^8.2.3",
+    "babel-loader": "^8.2.4",
     "babel-preset-react-app": "9.1.0",
     "bundlesize": "^0.18.1",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
