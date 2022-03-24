@@ -124,7 +124,7 @@
     "@types/axios": "^0.14.0",
     "@types/date-fns": "^2.6.0",
     "@types/jest": "^26.0.24",
-    "@types/lodash": "^4.14.178",
+    "@types/lodash": "^4.14.180",
     "@types/node": "^16.4.12",
     "@types/react": "^17.0.16",
     "@types/react-dom": "^17.0.14",
