@@ -23,7 +23,8 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, CDOView, isLoading, isCDO, bureaus } = props;
+  const { bidder, CDOView, isLoading, isCDO, isAO, bureaus } = props;
+  const isCDOorAO = (isCDO || isAO);
 
   useCloseSwalOnUnmount();
 
@@ -188,8 +189,8 @@ const AvailableBidderRow = (props) => {
   const getSections = (isModal = false) => {
     const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
-    return isCDO ? omit({
-      name: (<Link to={`/profile/public/${id}`}>{name}</Link>),
+    return isCDOorAO ? omit({
+      name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
       status: getStatus(),
       step_letters: stepLettersToolTip,
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
@@ -274,8 +275,8 @@ const AvailableBidderRow = (props) => {
         })
       }
       {
-        isLoading && isCDO ? <td><Skeleton /></td> :
-          isCDO &&
+        isLoading && isCDOorAO ? <td><Skeleton /></td> :
+          isCDOorAO &&
           <td>
             <div className="ab-action-buttons">
               <Tooltip
@@ -340,6 +341,7 @@ AvailableBidderRow.propTypes = {
   CDOView: PropTypes.bool,
   isLoading: PropTypes.bool,
   isCDO: PropTypes.bool,
+  isAO: PropTypes.bool,
   bureaus: FILTER,
 };
 
@@ -348,6 +350,7 @@ AvailableBidderRow.defaultProps = {
   CDOView: false,
   isLoading: false,
   isCDO: false,
+  isAO: false,
   bureaus: [],
 };
 
