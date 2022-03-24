@@ -61,19 +61,23 @@ exports[`EditBidders Component matches snapshot 1`] = `
       >
         *OC Reason:
       </label>
-      <select
-        aria-describedby=""
-        className=""
-        disabled={true}
-        id="ocReason"
-        onChange={[Function]}
+      <span
+        className="oc-validation-container"
       >
-        <option
-          value=""
+        <select
+          aria-describedby=""
+          className=""
+          disabled={true}
+          id="ocReason"
+          onChange={[Function]}
         >
-          None listed
-        </option>
-      </select>
+          <option
+            value=""
+          >
+            None listed
+          </option>
+        </select>
+      </span>
     </div>
     <div>
       <label
@@ -81,80 +85,88 @@ exports[`EditBidders Component matches snapshot 1`] = `
       >
         *OC Bureau:
       </label>
-      <select
-        aria-describedby=""
-        className=""
-        disabled={true}
-        id="ocBureau"
-        onChange={[Function]}
+      <span
+        className="oc-validation-container"
       >
-        <option
-          value=""
+        <select
+          aria-describedby=""
+          className=""
+          disabled={true}
+          id="ocBureau"
+          onChange={[Function]}
         >
-          None listed
-        </option>
-      </select>
+          <option
+            value=""
+          >
+            None listed
+          </option>
+        </select>
+      </span>
     </div>
     <div>
       <dt>
         *Step Letter 1:
       </dt>
-      <r
-        allowSameDay={false}
-        className=""
-        customTimeInput={null}
-        dateFormat="MMMM d, yyyy"
-        dateFormatCalendar="LLLL yyyy"
-        disabled={false}
-        disabledKeyboardNavigation={false}
-        dropdownMode="scroll"
-        enableTabLoop={true}
-        excludeScrollbar={true}
-        focusSelectedMonth={false}
-        monthsShown={1}
-        nextMonthAriaLabel="Next Month"
-        nextMonthButtonLabel="Next Month"
-        nextYearAriaLabel="Next Year"
-        nextYearButtonLabel="Next Year"
-        onBlur={[Function]}
-        onCalendarClose={[Function]}
-        onCalendarOpen={[Function]}
-        onChange={[Function]}
-        onClickOutside={[Function]}
-        onFocus={[Function]}
-        onInputClick={[Function]}
-        onInputError={[Function]}
-        onKeyDown={[Function]}
-        onMonthChange={[Function]}
-        onSelect={[Function]}
-        onYearChange={[Function]}
-        preventOpenOnFocus={false}
-        previousMonthAriaLabel="Previous Month"
-        previousMonthButtonLabel="Previous Month"
-        previousYearAriaLabel="Previous Year"
-        previousYearButtonLabel="Previous Year"
-        readOnly={false}
-        renderDayContents={[Function]}
-        selected={null}
-        selectsDisabledDaysInRange={false}
-        shouldCloseOnSelect={true}
-        showFourColumnMonthYearPicker={false}
-        showFullMonthYearPicker={false}
-        showMonthYearPicker={false}
-        showPopperArrow={true}
-        showPreviousMonths={false}
-        showQuarterYearPicker={false}
-        showTimeInput={false}
-        showTimeSelect={false}
-        showTwoColumnMonthYearPicker={false}
-        showYearPicker={false}
-        strictParsing={false}
-        timeCaption="Time"
-        timeInputLabel="Time"
-        timeIntervals={30}
-        withPortal={false}
-        yearItemNumber={12}
-      />
+      <span
+        className="date-picker-validation-container"
+      >
+        <r
+          allowSameDay={false}
+          className=""
+          customTimeInput={null}
+          dateFormat="MMMM d, yyyy"
+          dateFormatCalendar="LLLL yyyy"
+          disabled={false}
+          disabledKeyboardNavigation={false}
+          dropdownMode="scroll"
+          enableTabLoop={true}
+          excludeScrollbar={true}
+          focusSelectedMonth={false}
+          monthsShown={1}
+          nextMonthAriaLabel="Next Month"
+          nextMonthButtonLabel="Next Month"
+          nextYearAriaLabel="Next Year"
+          nextYearButtonLabel="Next Year"
+          onBlur={[Function]}
+          onCalendarClose={[Function]}
+          onCalendarOpen={[Function]}
+          onChange={[Function]}
+          onClickOutside={[Function]}
+          onFocus={[Function]}
+          onInputClick={[Function]}
+          onInputError={[Function]}
+          onKeyDown={[Function]}
+          onMonthChange={[Function]}
+          onSelect={[Function]}
+          onYearChange={[Function]}
+          preventOpenOnFocus={false}
+          previousMonthAriaLabel="Previous Month"
+          previousMonthButtonLabel="Previous Month"
+          previousYearAriaLabel="Previous Year"
+          previousYearButtonLabel="Previous Year"
+          readOnly={false}
+          renderDayContents={[Function]}
+          selected={null}
+          selectsDisabledDaysInRange={false}
+          shouldCloseOnSelect={true}
+          showFourColumnMonthYearPicker={false}
+          showFullMonthYearPicker={false}
+          showMonthYearPicker={false}
+          showPopperArrow={true}
+          showPreviousMonths={false}
+          showQuarterYearPicker={false}
+          showTimeInput={false}
+          showTimeSelect={false}
+          showTwoColumnMonthYearPicker={false}
+          showYearPicker={false}
+          strictParsing={false}
+          timeCaption="Time"
+          timeInputLabel="Time"
+          timeIntervals={30}
+          withPortal={false}
+          yearItemNumber={12}
+        />
+      </span>
       <div
         className="step-letter-clear-icon"
       >
@@ -167,16 +179,20 @@ exports[`EditBidders Component matches snapshot 1`] = `
       <dt>
         *Step Letter 2:
       </dt>
-      <select
-        disabled={true}
-        id="stepLetterTwo"
+      <span
+        className="date-picker-validation-container"
       >
-        <option
-          value=""
+        <select
+          disabled={true}
+          id="stepLetterTwo"
         >
-          None listed
-        </option>
-      </select>
+          <option
+            value=""
+          >
+            None listed
+          </option>
+        </select>
+      </span>
       <div
         className="step-letter-clear-icon"
       >
