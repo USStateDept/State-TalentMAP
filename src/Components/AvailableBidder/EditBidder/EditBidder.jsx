@@ -9,8 +9,11 @@ import { Tooltip } from 'react-tippy';
 import InteractiveElement from 'Components/InteractiveElement';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
+import { format } from 'date-fns-v2';
 
 const useStepLetter = () => checkFlag('flags.step_letters');
+
+const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidder = (props) => {
@@ -99,11 +102,22 @@ const EditBidder = (props) => {
   const stepLetterOneFlag = stepLetterOne === null;
   const stepLetterTwoFlag = stepLetterTwo === null;
   const stepLetterOneError = stepLetterOneFlag && !stepLetterTwoFlag;
-  const stepLetterTwoError = ((!stepLetterTwoFlag) && ((stepLetterOne) > (stepLetterTwo)));
-  const stepLetterOneClearIconInactive = ((stepLetterOneFlag) ||
-    ((!stepLetterOneFlag) && (!stepLetterTwoFlag)));
+  const stepLetterTwoError = !stepLetterTwoFlag && stepLetterOne > stepLetterTwo;
+  const stepLetterOneClearIconInactive = stepLetterOneFlag ||
+    (!stepLetterOneFlag && !stepLetterTwoFlag);
   const submitDisabled = ocReasonError || ocBureauError ||
     stepLetterOneError || stepLetterTwoError;
+
+  const stepLetterTwoFormatted = stepLetterTwo ? format(stepLetterTwo, DATE_FORMAT) : 'None listed';
+
+  const getStepLetterOneErrorText = () => {
+    if (stepLetterOneError) {
+      return 'You must delete Step Letter 2 or add back a Step Letter 1 date before saving.';
+    }
+    return null;
+  };
+
+  const stepLetterOneErrorText = getStepLetterOneErrorText();
 
   const updateStepLetterOne = (date) => {
     setStepLetterOne(date);
@@ -165,62 +179,64 @@ const EditBidder = (props) => {
               Required
             </span>
           }
-          <select
-            id="ocReason"
-            className={ocReasonError ? 'select-error' : ''}
-            defaultValue={ocReason}
-            onChange={(e) => setOCReason(e.target.value)}
-            disabled={status !== 'OC'}
-            aria-describedby={ocReasonError ? 'ocReason-error' : ''}
-            value={ocReason}
-          >
-            <option value="">None listed</option>
-            {
-              (status === 'OC') &&
-              reasons.map(r => (
-                <option key={r} value={r}>{r}</option>
-              ))
-            }
-          </select>
+          <span className="oc-validation-container">
+            <select
+              id="ocReason"
+              className={ocReasonError ? 'select-error' : ''}
+              defaultValue={ocReason}
+              onChange={(e) => setOCReason(e.target.value)}
+              disabled={status !== 'OC'}
+              aria-describedby={ocReasonError ? 'ocReason-error' : ''}
+              value={ocReason}
+            >
+              <option value="">None listed</option>
+              {
+                (status === 'OC') &&
+                reasons.map(r => (
+                  <option key={r} value={r}>{r}</option>
+                ))
+              }
+            </select>
+            {!!ocReasonError && <span className="usa-input-error-message" role="alert">OC Reason is required.</span>}
+          </span>
         </div>
         <div>
           <label htmlFor="ocBureau">*OC Bureau:</label>
-          {
-            // for accessibility only
-            ocBureauError &&
-            <span className="usa-sr-only" id="ocBureau-error" role="alert">
-              Required
-            </span>
-          }
-          <select
-            id="ocBureau"
-            className={ocBureauError ? 'select-error' : ''}
-            defaultValue={ocBureau}
-            onChange={(e) => setOCBureau(e.target.value)}
-            disabled={status !== 'OC'}
-            aria-describedby={ocReasonError ? 'ocBureau-error' : ''}
-            value={ocBureau}
-          >
-            <option value="">None listed</option>
-            {
-              (status === 'OC') &&
-                bureauOptions.map(o => (
-                  <option key={o.id} value={o.short_description}>{o.custom_description}</option>
-                ))
-            }
-          </select>
+          <span className="oc-validation-container">
+            <select
+              id="ocBureau"
+              className={ocBureauError ? 'select-error' : ''}
+              defaultValue={ocBureau}
+              onChange={(e) => setOCBureau(e.target.value)}
+              disabled={status !== 'OC'}
+              aria-describedby={ocReasonError ? 'ocBureau-error' : ''}
+              value={ocBureau}
+            >
+              <option value="">None listed</option>
+              {
+                (status === 'OC') &&
+                  bureauOptions.map(o => (
+                    <option key={o.id} value={o.short_description}>{o.custom_description}</option>
+                  ))
+              }
+            </select>
+            {!!ocBureauError && <span className="usa-input-error-message" role="alert">OC Bureau is required.</span>}
+          </span>
         </div>
         {
           useStepLetter() &&
           <>
             <div>
               <dt>*Step Letter 1:</dt>
-              <DatePicker
-                selected={stepLetterOne}
-                onChange={updateStepLetterOne}
-                dateFormat="MMMM d, yyyy"
-                className={stepLetterOneError ? 'select-error' : ''}
-              />
+              <span className="date-picker-validation-container">
+                <DatePicker
+                  selected={stepLetterOne}
+                  onChange={updateStepLetterOne}
+                  dateFormat={DATE_FORMAT}
+                  className={stepLetterOneError ? 'select-error' : ''}
+                />
+                {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
+              </span>
               {stepLetterOneClearIconInactive &&
               <div className="step-letter-clear-icon">
                 <FA name="times-circle fa-lg inactive" />
@@ -238,22 +254,24 @@ const EditBidder = (props) => {
             </div>
             <div>
               <dt>*Step Letter 2:</dt>
-              {stepLetterOneFlag ?
-                <select
-                  id="stepLetterTwo"
-                  disabled={stepLetterOneFlag}
-                >
-                  <option value="">None listed</option>
-                </select>
-                :
-                <DatePicker
-                  selected={stepLetterTwo}
-                  onChange={updateStepLetterTwo}
-                  dateFormat="MMMM d, yyyy"
-                  className={stepLetterTwoError ? 'select-error' : ''}
-                  minDate={stepLetterOne}
-                />
-              }
+              <span className="date-picker-validation-container">
+                {stepLetterOneFlag ?
+                  <select
+                    id="stepLetterTwo"
+                    disabled={stepLetterOneFlag}
+                  >
+                    <option value="">{stepLetterTwoFormatted}</option>
+                  </select>
+                  :
+                  <DatePicker
+                    selected={stepLetterTwo}
+                    onChange={updateStepLetterTwo}
+                    dateFormat={DATE_FORMAT}
+                    className={stepLetterTwoError ? 'select-error' : ''}
+                    minDate={stepLetterOne}
+                  />
+                }
+              </span>
               {stepLetterTwoFlag ?
                 <div className="step-letter-clear-icon">
                   <FA name="times-circle fa-lg inactive" />

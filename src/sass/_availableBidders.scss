@@ -291,6 +291,15 @@
     box-shadow: 0px 0px 0px 2px $alert-red;
   }
 
+  .date-picker-validation-container,
+  .oc-validation-container {
+    width: 100%;
+  }
+
+  .usa-input-error-message {
+    text-align: left;
+  }
+
   .react-datepicker {
     font-size: 1em;
   }
