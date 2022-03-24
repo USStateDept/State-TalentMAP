@@ -13,10 +13,11 @@ const AgendaItemRow = props => {
     agenda,
     showEdit,
     isCDO,
+    perdet,
   } = props;
 
   const userRole = isCDO ? 'cdo' : 'ao';
-  const perdet = get(agenda, 'perdet');
+  const perdet$ = perdet || get(agenda, 'perdet');
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
@@ -28,7 +29,7 @@ const AgendaItemRow = props => {
         <div className="ai-history-row first-row">
           <div className="plusIcon">
             <InteractiveElement title="Create Agenda">
-              <Link className="create-ai-link" to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+              <Link className="create-ai-link" to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
                 <FA name="plus-circle" />
               </Link>
             </InteractiveElement>
@@ -36,6 +37,7 @@ const AgendaItemRow = props => {
         </div>
       }
       {
+        !isCreate &&
         <div className="ai-history-row" style={{ borderLeftColor: pillColor }}>
           <div className="ai-history-status">
             <div className="status-tag" style={{ backgroundColor: pillColor }}>
@@ -94,6 +96,7 @@ AgendaItemRow.propTypes = {
   }),
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
+  perdet: PropTypes.number,
 };
 
 
@@ -102,6 +105,7 @@ AgendaItemRow.defaultProps = {
   agenda: {},
   showEdit: false,
   isCDO: false,
+  perdet: null,
 };
 
 export default AgendaItemRow;

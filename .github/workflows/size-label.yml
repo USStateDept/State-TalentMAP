@@ -1,0 +1,24 @@
+name: size-label
+on:
+  pull_request:
+    branches-ignore:
+      - 'dependabot/*'
+jobs:
+  size-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: size-label
+        uses: "pascalgn/size-label-action@v0.4.3"
+        if: ${{ github.actor != 'dependabot[bot]' }} # Skip the action if the PR was created by Dependabot.
+        env:
+          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          sizes: >
+            {
+              "0": "XS",
+              "20": "S",
+              "60": "M",
+              "140": "L",
+              "400": "XL",
+              "1000": "XXL"
+            }

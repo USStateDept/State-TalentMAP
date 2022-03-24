@@ -116,17 +116,24 @@ const AgendaItemHistory = (props) => {
           <div className="ai-history-cards-container"><Alert type="error" title="Error loading agenda history" messages={[{ body: 'Please try again.' }]} /></div>
         }
         {
-          !isLoading$ && !hasErrored && (aih || []).length > 0 &&
+          !isLoading$ && !hasErrored &&
             <>
               {
                 cardView &&
                 <div className="ai-history-cards-container">
                   {
-                    aih.map((result, i) => (
+                    createAI &&
+                      <AgendaItemCard
+                        isCreate
+                        isCDO={isCDO}
+                        perdet={id}
+                      />
+                  }
+                  {
+                    aih.map(result => (
                       <AgendaItemCard
                         key={result.id}
                         agenda={result}
-                        isCreate={createAI && i === 0}
                         isCDO={isCDO}
                       />
                     ))
@@ -137,11 +144,18 @@ const AgendaItemHistory = (props) => {
                 !cardView &&
                 <div className="ai-history-rows-container">
                   {
-                    aih.map((result, i) => (
+                    createAI &&
+                      <AgendaItemRow
+                        isCreate
+                        isCDO={isCDO}
+                        perdet={id}
+                      />
+                  }
+                  {
+                    aih.map(result => (
                       <AgendaItemRow
                         key={result.id}
                         agenda={result}
-                        isCreate={createAI && i === 0}
                         isCDO={isCDO}
                       />
                     ))
