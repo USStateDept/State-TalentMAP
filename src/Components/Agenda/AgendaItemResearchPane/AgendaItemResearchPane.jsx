@@ -50,7 +50,7 @@ const AgendaItemResearchPane = props => {
 
   // assignments
   // need to update once fully integrated
-  const { data, error, loading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
+  const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   const client_data = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
 
   const assignments = get(data, 'data') || [];
