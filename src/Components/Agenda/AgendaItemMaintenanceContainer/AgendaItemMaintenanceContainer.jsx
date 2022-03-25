@@ -27,7 +27,10 @@ const AgendaItemMaintenanceContainer = (props) => {
     researchPaneRef.current.setSelectedNav(tabID);
   };
 
-  const openRemarksResearchTab = () => updateResearchPaneTab(RemarksGlossaryTabID);
+  const openRemarksResearchTab = () => {
+    setLegsContainerExpanded(false);
+    updateResearchPaneTab(RemarksGlossaryTabID);
+  };
 
   return (
     <MediaQuery breakpoint="screenXlgMin" widthType="max">
