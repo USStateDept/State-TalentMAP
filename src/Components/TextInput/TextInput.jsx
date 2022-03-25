@@ -26,7 +26,8 @@ const TextInput = props => {
     }
   }, [props.value]);
 
-  const { id, labelSrOnly, type, label, labelMessage, placeholder, inputProps } = props;
+  const { id, labelSrOnly, type, label, labelMessage, placeholder, inputProps,
+    containerProps, customContainerClass } = props;
   let labelClass;
   // set the input class based on "type" prop
   let inputClass;
@@ -59,7 +60,7 @@ const TextInput = props => {
     null;
 
   return (
-    <div className={`usa-grid-full ${parentClass}`}>
+    <div className={`usa-grid-full ${parentClass} ${customContainerClass}`} {...containerProps}>
       <label htmlFor={id} className={labelSrOnly ? 'usa-sr-only' : ''}>{label}</label>
       <input
         id={id}
@@ -86,6 +87,8 @@ TextInput.propTypes = {
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
   inputProps: PropTypes.shape({}),
+  containerProps: PropTypes.shape({}),
+  customContainerClass: PropTypes.string,
 };
 
 TextInput.defaultProps = {
@@ -97,6 +100,8 @@ TextInput.defaultProps = {
   value: null,
   placeholder: '',
   inputProps: {},
+  containerProps: {},
+  customContainerClass: '',
 };
 
 export default TextInput;

@@ -11,6 +11,8 @@ exports[`FrequentPositionsComponent matches snapshot 1`] = `
   >
     <TextInput
       changeText={[Function]}
+      containerProps={Object {}}
+      customContainerClass=""
       inputProps={
         Object {
           "autoComplete": "off",

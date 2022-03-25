@@ -12,6 +12,8 @@ exports[`SaveNewSearchDialogComponent matches snapshot 1`] = `
   >
     <TextInput
       changeText={[Function]}
+      containerProps={Object {}}
+      customContainerClass=""
       id="saved-search"
       inputProps={Object {}}
       label="Name"

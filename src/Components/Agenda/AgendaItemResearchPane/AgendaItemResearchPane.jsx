@@ -9,6 +9,7 @@ import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
+import RemarksGlossary from './RemarksGlossary';
 import api from '../../../api';
 
 /* TODO replace with real data */
@@ -102,6 +103,10 @@ const AgendaItemResearchPane = props => {
               positions={positions}
               onClick={onFPClick}
             />
+        }
+        {
+          selectedNav === RG && !loading && !error &&
+            <RemarksGlossary />
         }
       </div>
     </div>
