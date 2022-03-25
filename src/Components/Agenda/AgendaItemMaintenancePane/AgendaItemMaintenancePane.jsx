@@ -6,9 +6,12 @@ import PropTypes from 'prop-types';
 import SelectForm from 'Components/SelectForm';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import RemarksPill from '../RemarksPill';
 
 const AgendaItemMaintenancePane = (props) => {
+
+  const { onAddRemarksClick } = props;
 
   const leftExpanded = get(props, 'leftExpanded');
 
@@ -106,7 +109,7 @@ const AgendaItemMaintenancePane = (props) => {
         <div className="usa-form remarks">
           <label>Remarks:</label>
           <div className="remarks-container">
-            <InteractiveElement onClick={saveAI} type="span" role="button" className="save-ai-btn"
+            <InteractiveElement onClick={onAddRemarksClick} type="span" role="button" className="save-ai-btn"
                                 title="Add remark" id='add-remark'>
               <FA name="plus" />
             </InteractiveElement>
@@ -130,10 +133,12 @@ const AgendaItemMaintenancePane = (props) => {
 
 AgendaItemMaintenancePane.propTypes = {
   leftExpanded: PropTypes.bool,
+  onAddRemarksClick: PropTypes.func,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
   leftExpanded: false,
+  onAddRemarksClick: EMPTY_FUNCTION,
 };
 
 export default AgendaItemMaintenancePane;

@@ -300,3 +300,98 @@
     width: 99%;
   }
 }
+
+.remarks-glossary-container {
+  ul {
+    list-style: none;
+    padding-left: 0;
+    font-size: 13px;
+  }
+
+  li {
+    display: flex;
+    padding: 2px 0;
+  }
+
+  li > * {
+    display: inline;
+  }
+
+  li:nth-child(even){
+    $bg: $bg-gray-medium-2;
+    background-color: $bg;
+  }
+
+  li:nth-child(odd){
+    $bg: $color-white;
+    background-color: $bg;
+  }
+
+  .fa {
+    font-size: 1.5em;
+    margin-top: 2px;
+  }
+
+  .fa-minus-circle {
+    color: $color-red;
+  }
+
+  .fa-plus-circle {
+    color: $tertiary-success;
+  }
+
+  .remarks-input-container {
+    margin-right: 0;
+    min-width: 100px;
+    max-width: 40%;
+    width: 100%;
+
+    input {
+      height: 10px;
+      font-size: 13px;
+      line-height: normal;
+      max-width: initial;
+      margin: 0;
+    }
+  }
+
+  .remark-text {
+    position: relative;
+    margin: auto 0 auto 7px;
+  }
+
+  $remarks: (
+    "A": #1E600B,
+    "B": #4372C4,
+    "C": #3700AD,
+    "D": #012E16,
+    "E": #6F4F0B,
+    "G": #015E7A,
+    "I": #5D1EE6,
+    "L": #4F4A3F,
+    "M": #89471A,
+    "N": #003EBD,
+    "O": #0E6138,
+    "P": #3F0F10,
+    "R": #00102F,
+    "S": #8D5500,
+    "T": #446228,
+    "W": $color-cornflower-blue // need to update this one
+    );
+
+  .remark-category {
+    background-color: $color-cornflower-blue;
+    color: $color-white;
+    border-radius: 5px;
+    padding: .5em;
+    font-size: 13px;
+    display: flex;
+  }
+
+  @each $remark-id, $color in $remarks {
+    .remark-category--#{$remark-id} {
+      background-color: $color;
+      color: $color-white;
+    }
+  }
+}

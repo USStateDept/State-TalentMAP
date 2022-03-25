@@ -8,6 +8,8 @@ exports[`GlossaryComponent matches snapshot 1`] = `
 >
   <TextInput
     changeText={[Function]}
+    containerProps={Object {}}
+    customContainerClass=""
     id="glossary-search"
     inputProps={
       Object {

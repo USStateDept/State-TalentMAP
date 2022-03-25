@@ -4,7 +4,7 @@ import AvailableBidderTable from '../AvailableBidderTable';
 import AvailableBidderStats from '../AvailableBidderStats';
 
 
-const AvailableBidderContainer = ({ isCDO }) => (
+const AvailableBidderContainer = ({ isCDO, isAO }) => (
   <div className="position-manager-details bidder-manager-page">
     <div className={'usa-grid-full profile-content-inner-container'}>
       <div className="usa-grid-full">
@@ -18,7 +18,7 @@ const AvailableBidderContainer = ({ isCDO }) => (
       }
       <div className="usa-width-one-whole">
         <div className="usa-grid-full">
-          <AvailableBidderTable isCDO={isCDO} />
+          <AvailableBidderTable isCDO={isCDO} isAO={isAO} />
         </div>
       </div>
     </div>
@@ -27,10 +27,12 @@ const AvailableBidderContainer = ({ isCDO }) => (
 
 AvailableBidderContainer.propTypes = {
   isCDO: PropTypes.bool,
+  isAO: PropTypes.bool,
 };
 
 AvailableBidderContainer.defaultProps = {
   isCDO: false,
+  isAO: false,
 };
 
 export default AvailableBidderContainer;
