@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
 import NavTabs from 'Components/NavTabs';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
@@ -27,13 +27,13 @@ let positions = [
 positions = [...positions, ...positions, ...positions, ...positions];
 /* end TODO */
 
-const ASGH = 'asgh';
-const FP = 'fp';
-const L = 'l';
-const RG = 'RG';
-const TP = 'TP';
-const AO = 'AO';
-const AA = 'AA';
+export const ASGH = 'asgh';
+export const FP = 'fp';
+export const L = 'l';
+export const RG = 'RG';
+export const TP = 'TP';
+export const AO = 'AO';
+export const AA = 'AA';
 const tabs = [
   { text: 'Assignment History', value: ASGH },
   { text: 'Frequent Positions', value: FP },
@@ -44,7 +44,9 @@ const tabs = [
   { text: 'another another', value: AA },
 ];
 
-const AgendaItemResearchPane = props => {
+const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
+  const navTabRef = useRef();
+
   const { perdet } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
@@ -63,6 +65,12 @@ const AgendaItemResearchPane = props => {
     console.log(pos);
   };
 
+  useImperativeHandle(ref, () => ({
+    setSelectedNav: e => {
+      navTabRef.current.setSelectedNav(e);
+    },
+  }));
+
   return (
     <div className="ai-research-pane">
       <MediaQuery breakpoint="screenSmMax" widthType="max">
@@ -71,7 +79,8 @@ const AgendaItemResearchPane = props => {
             passNavValue={setSelectedNav}
             tabs={tabs}
             collapseToDd={matches}
-            value={tabs[0].value}
+            value={selectedNav}
+            ref={navTabRef}
           />
         )}
       </MediaQuery>
@@ -111,7 +120,7 @@ const AgendaItemResearchPane = props => {
       </div>
     </div>
   );
-};
+});
 
 AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,

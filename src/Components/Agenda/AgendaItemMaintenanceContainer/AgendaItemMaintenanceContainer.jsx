@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
@@ -8,8 +8,11 @@ import MediaQuery from 'Components/MediaQuery';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
+import { RG as RemarksGlossaryTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
 const AgendaItemMaintenanceContainer = (props) => {
+  const researchPaneRef = useRef();
+
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
 
   function toggleExpand() {
@@ -20,12 +23,21 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const id = get(props, 'match.params.id'); // client's perdet
 
+  const updateResearchPaneTab = tabID => {
+    researchPaneRef.current.setSelectedNav(tabID);
+  };
+
+  const openRemarksResearchTab = () => updateResearchPaneTab(RemarksGlossaryTabID);
+
   return (
     <MediaQuery breakpoint="screenXlgMin" widthType="max">
       {matches => (
         <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
           <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
-            <AgendaItemMaintenancePane leftExpanded={(legsContainerExpanded || matches)} />
+            <AgendaItemMaintenancePane
+              leftExpanded={(legsContainerExpanded || matches)}
+              onAddRemarksClick={openRemarksResearchTab}
+            />
             <AgendaItemTimeline />
           </div>
           <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
@@ -43,7 +55,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             </InteractiveElement>
           </div>
           <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
-            <AgendaItemResearchPane perdet={id} />
+            <AgendaItemResearchPane perdet={id} ref={researchPaneRef} />
           </div>
         </div>
       )}
