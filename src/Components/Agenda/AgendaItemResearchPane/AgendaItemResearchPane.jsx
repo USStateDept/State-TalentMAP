@@ -49,9 +49,12 @@ const AgendaItemResearchPane = props => {
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
 
   // assignments
-  const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
-  const assignments = get(data, 'data.assignments') || [];
-  const languages = get(data, 'data.languages') || [];
+  // need to update once fully integrated
+  const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
+  const client_data = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
+
+  const assignments = get(data, 'data') || [];
+  const languages = get(client_data, 'data.data.languages') || [];
 
   const onFPClick = pos => {
     // TODO - do something with this
