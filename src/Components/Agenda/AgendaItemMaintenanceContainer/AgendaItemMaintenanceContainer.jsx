@@ -64,33 +64,6 @@ const AgendaItemMaintenanceContainer = (props) => {
               {title}
             </div> }
         </div>
-        <MediaQuery breakpoint="screenXlgMin" widthType="max">
-          {matches => (
-            <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
-              <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
-                <AgendaItemMaintenancePane leftExpanded={(legsContainerExpanded || matches)} />
-                <AgendaItemTimeline />
-              </div>
-              <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
-                <InteractiveElement onClick={toggleExpand}>
-                  <Tooltip
-                    title={legsContainerExpanded ? 'Expand Research' : 'Collapse Research'}
-                    arrow
-                  >
-                    <FontAwesome
-                      style={{ transform: rotate, transition: 'all 0.65s linear' }}
-                      name="arrow-circle-left"
-                      size="lg"
-                    />
-                  </Tooltip>
-                </InteractiveElement>
-              </div>
-              <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
-                <AgendaItemResearchPane perdet={id} />
-              </div>
-            </div>
-          )}
-        </MediaQuery>
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
