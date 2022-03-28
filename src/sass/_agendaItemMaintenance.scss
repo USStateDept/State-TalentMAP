@@ -1,3 +1,25 @@
+.aim-container-header {
+  background-color: $tm-navy-dark;
+
+  a {
+    text-decoration: none;
+  }
+
+  .aim-container-title {
+    color: $color-white;
+    font-size: 1.2em;
+    padding: 14px;
+
+    .fa {
+      padding-right: 10px;
+    }
+
+    .aim-title {
+      border-bottom: 1px solid white;
+    }
+  }
+}
+
 .ai-maintenance-container {
   margin: 10px;
   display: flex;
