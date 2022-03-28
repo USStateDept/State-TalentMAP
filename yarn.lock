@@ -1402,6 +1402,11 @@
   dependencies:
     prop-types "^15.7.2"
 
+"@gilbarbara/deep-equal@^0.1.0":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@gilbarbara/deep-equal/-/deep-equal-0.1.1.tgz#91c8f291da6bf7e21cdbfb585fb072d59963acf3"
+  integrity sha512-SjSBspHXlclODLtSoPIQwBhfeBjncC05NlNoFELJ6xZQkyYDJsVCcs7+f+etHR2cYPbHLjnh1C06lQlCbMEWEA==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.0.0.tgz#10602de5570baea82f8afbfa2630b24e7a8cfe5b"
@@ -11899,10 +11904,10 @@ react-is@^17.0.1, react-is@^17.0.2:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-joyride@^2.3.2:
-  version "2.3.2"
-  resolved "https://registry.yarnpkg.com/react-joyride/-/react-joyride-2.3.2.tgz#7a5407b9032ab399c3c624ab21e60ddd40c12d56"
-  integrity sha512-MPYvHdxF/ylBZXJkKzyR3nTd+jydPeTKVwQDg8y7Ctl5H0UPgvF3uCzfieyJqE/JnK2wJU4QcjkontqBU1g7Xg==
+react-joyride@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/react-joyride/-/react-joyride-2.4.0.tgz#273a99fea4804a48155e7cc7bae308dcbc8cb725"
+  integrity sha512-U0uDFspaAEZucsvYpEIEPnoWD0QwTFk06IgIlinmTDPHgoS+V0q16w1+JqHeEKkR8Q79DWEeBIJYMvCJ7jT2EQ==
   dependencies:
     deep-diff "^1.0.2"
     deepmerge "^4.2.2"
@@ -11913,7 +11918,7 @@ react-joyride@^2.3.2:
     react-is "^16.13.1"
     scroll "^3.0.1"
     scrollparent "^2.0.1"
-    tree-changes "^0.7.1"
+    tree-changes "^0.9.0"
 
 react-keyboard-time-input@^2.1.1:
   version "2.1.1"
@@ -14438,12 +14443,12 @@ tree-changes@^0.5.1:
     deep-diff "^1.0.2"
     nested-property "1.0.1"
 
-tree-changes@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/tree-changes/-/tree-changes-0.7.1.tgz#fa8810cbe417e80b9a42c4b018f934c7ad8fa156"
-  integrity sha512-sPIt8PKDi0OQTglr7lsetcB9DU19Ls/ZgFSjFvK6DWJGisAn4sOxtjpmQfuqjexQE4UU9U53LNmataL1kRJ3Uw==
+tree-changes@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/tree-changes/-/tree-changes-0.9.0.tgz#5dabc013f0f02d3f7f764596369adb35bf1b208a"
+  integrity sha512-k1lOWtcWfPzCyx45W3KsYkwNGf4DfnVb5VHV8/Shs8pr9bqhzjaIHgAnIyu9mydbYmluOVSgj2gdSOnIp+If3A==
   dependencies:
-    fast-deep-equal "^3.1.3"
+    "@gilbarbara/deep-equal" "^0.1.0"
     is-lite "^0.8.1"
 
 trim-newlines@^1.0.0:
