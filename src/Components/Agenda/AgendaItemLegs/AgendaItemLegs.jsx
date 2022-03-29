@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
@@ -5,6 +6,7 @@ import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import DatePicker from 'react-datepicker';
 import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
@@ -68,6 +70,43 @@ const AgendaItemLegs = props => {
     </>
   );
 
+  const [calendar, setCalendar] = useState(false);
+  const [tedCalendar, setTEDCalendar] = useState(new Date());
+  const openCalendar = () => {
+    setCalendar(true);
+  };
+
+  const closeCalendar = () => {
+    setCalendar(false);
+  };
+
+  const updateTED = (date) => {
+    setTEDCalendar(date);
+  };
+
+  const DATE_FORMAT = 'MMMM d, yyyy';
+  const ted$ = (
+    <div>
+      {getData('ted', formatDate)}
+      <FA name="calendar" onClick={openCalendar}>
+        {calendar &&
+          <div>
+            <DatePicker
+              selected={tedCalendar}
+              onChange={updateTED}
+              dateFormat={DATE_FORMAT}
+            />
+          </div>
+        }
+      </FA>
+      {calendar &&
+        <div>
+          <button onClick={closeCalendar}>Close</button>
+        </div>
+      }
+    </div>
+  );
+
   const tableData = [
     {
       icon: '',
@@ -102,7 +141,7 @@ const AgendaItemLegs = props => {
     {
       icon: 'clock-o',
       title: 'TED',
-      content: (getData('ted', formatDate)),
+      content: ted$,
       cardView: true,
     },
     {
