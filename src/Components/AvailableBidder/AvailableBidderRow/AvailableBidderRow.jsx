@@ -23,7 +23,7 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, CDOView, isLoading, isCDO, isAO, bureaus } = props;
+  const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus } = props;
   const isCDOorAO = (isCDO || isAO);
 
   useCloseSwalOnUnmount();
@@ -201,7 +201,7 @@ const AvailableBidderRow = (props) => {
       cdo: cdo ? getCDO() : NO_CDO,
       comments: comments$,
     }, useStepLetter() ? [] : ['step_letters']) : {
-      name: (<Link to={`/profile/public/${id}/bureau`}>{name}</Link>),
+      name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
       grade: get(bidder, 'grade') || NO_GRADE,
       languages: languages ? getLanguages() : NO_LANGUAGES,
@@ -342,6 +342,7 @@ AvailableBidderRow.propTypes = {
   isLoading: PropTypes.bool,
   isCDO: PropTypes.bool,
   isAO: PropTypes.bool,
+  isPost: PropTypes.bool,
   bureaus: FILTER,
 };
 
@@ -351,6 +352,7 @@ AvailableBidderRow.defaultProps = {
   isLoading: false,
   isCDO: false,
   isAO: false,
+  isPost: false,
   bureaus: [],
 };
 

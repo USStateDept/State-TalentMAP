@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
 import Dashboard from './Dashboard';
 import PositionManager from '../BureauPage/PositionManager';
 import PositionManagerDetails from '../BureauPage/PositionManagerDetails';
@@ -20,6 +21,7 @@ const PostPage = props => {
         <Route path="/profile/post/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/post/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/post/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
+        <Route path="/profile/post/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isPost />} />
       </Switch>
     </div>
   );

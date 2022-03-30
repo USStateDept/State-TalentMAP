@@ -17,8 +17,10 @@ class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isBureauView();
-    this.props.fetchData(id, !isBureauView);
-    if (!this.isBureauView()) {
+    const isPostView = this.isPostView();
+    const postOrAO = isBureauView || isPostView;
+    this.props.fetchData(id, !postOrAO);
+    if (!postOrAO) {
       this.props.fetchClassifications();
     }
   }
@@ -27,6 +29,11 @@ class ProfilePublic extends Component {
     const viewType = get(this.props, 'match.params.viewType');
     const isBureauView = viewType === 'bureau';
     return isBureauView;
+  }
+
+  isPostView = () => {
+    const viewType = get(this.props, 'match.params.viewType');
+    return viewType === 'post';
   }
 
   render() {
@@ -46,6 +53,7 @@ class ProfilePublic extends Component {
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
     const isBureauView = this.isBureauView();
+    const isPostView = this.isPostView();
     let props = {};
     if (isBureauView) {
       props = {
@@ -54,6 +62,16 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
+      };
+    }
+    if (isPostView) {
+      props = {
+        ...props,
+        showBidTracker: false,
+        showAssignmentHistory: false,
+        showClassifications: false,
+        showSearchAsClient: false,
+        showLanguages: false,
       };
     }
     return (
