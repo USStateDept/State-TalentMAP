@@ -18,9 +18,9 @@ class ProfilePublic extends Component {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isBureauView();
     const isPostView = this.isPostView();
-    const postOrAO = isBureauView || isPostView;
-    this.props.fetchData(id, !postOrAO);
-    if (!postOrAO) {
+    const bureauOrPost = isBureauView || isPostView;
+    this.props.fetchData(id, !bureauOrPost);
+    if (!bureauOrPost) {
       this.props.fetchClassifications();
     }
   }
