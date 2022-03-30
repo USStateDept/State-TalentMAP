@@ -7,6 +7,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import DatePicker from 'react-datepicker';
+import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
 import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
@@ -34,23 +35,83 @@ const AgendaItemLegs = props => {
     onClose(leg);
   };
 
+  const [calendar, setCalendar] = useState(false);
+  const [tedCalendar, setTEDCalendar] = useState(new Date());
+  const DATE_FORMAT = 'MMMM d, yyyy';
+
+  const openCalendar = () => {
+    setCalendar(true);
+  };
+
+  const closeCalendar = () => {
+    setCalendar(false);
+  };
+
+  const updateTEDCalendar = (date) => {
+    setTEDCalendar(date);
+  };
+
   const getData = (key, helperFunc) => (
     <>
       {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
+          const editDropdown = key === 'tod';
+          const editCalendar = key === 'ted';
           return (<td>
             {/* first leg cannot be removed */}
             {showClose &&
             <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
               <FA name="times" />
             </InteractiveElement>}
+            {/* need to update logic for dropdown and calendar */}
             {
-              helperFunc ?
+              (helperFunc && (!editDropdown)) &&
                 <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
-                :
-                <dd>{leg[key]}</dd>
-
+            }
+            {
+              (!helperFunc && (!editDropdown)) &&
+              <dd>{leg[key]}</dd>
+            }
+            {editCalendar &&
+              <div>
+                {helperFunc(leg[key])}
+                <FA name="calendar" onClick={openCalendar}>
+                  {calendar &&
+                    <div>
+                      <DatePicker
+                        selected={tedCalendar}
+                        onChange={updateTEDCalendar}
+                        dateFormat={DATE_FORMAT}
+                      />
+                    </div>
+                  }
+                </FA>
+                {calendar &&
+                  <div>
+                    <button onClick={closeCalendar}>Close</button>
+                  </div>
+                }
+              </div> }
+            {
+              editDropdown &&
+              <Dropdown
+                className="account-dropdown"
+                removeElement
+              >
+                <DropdownTrigger href="/#">
+                  {
+                    <span className="account-dropdown--name" id="account-username">{leg[key]}</span>
+                  }
+                </DropdownTrigger>
+                <div>
+                  <DropdownContent>
+                    <div className="account-dropdown--identity account-dropdown--segment">
+                      <div>{leg[key]}</div>
+                    </div>
+                  </DropdownContent>
+                </div>
+              </Dropdown>
             }
           </td>);
         })
@@ -68,43 +129,6 @@ const AgendaItemLegs = props => {
         </td>))
       }
     </>
-  );
-
-  const [calendar, setCalendar] = useState(false);
-  const [tedCalendar, setTEDCalendar] = useState(new Date());
-  const openCalendar = () => {
-    setCalendar(true);
-  };
-
-  const closeCalendar = () => {
-    setCalendar(false);
-  };
-
-  const updateTED = (date) => {
-    setTEDCalendar(date);
-  };
-
-  const DATE_FORMAT = 'MMMM d, yyyy';
-  const ted$ = (
-    <div>
-      {getData('ted', formatDate)}
-      <FA name="calendar" onClick={openCalendar}>
-        {calendar &&
-          <div>
-            <DatePicker
-              selected={tedCalendar}
-              onChange={updateTED}
-              dateFormat={DATE_FORMAT}
-            />
-          </div>
-        }
-      </FA>
-      {calendar &&
-        <div>
-          <button onClick={closeCalendar}>Close</button>
-        </div>
-      }
-    </div>
   );
 
   const tableData = [
@@ -141,7 +165,7 @@ const AgendaItemLegs = props => {
     {
       icon: 'clock-o',
       title: 'TED',
-      content: ted$,
+      content: getData('ted', formatDate),
       cardView: true,
     },
     {
