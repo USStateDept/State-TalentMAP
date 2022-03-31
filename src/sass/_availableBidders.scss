@@ -135,7 +135,7 @@
           border: none;
           border-bottom: 1px solid $dos-blue;
         }
-        th:last-child {
+        th:nth-of-type(#{$abl-actions-td}) {
           color: $color-black;
           background-color: $tm-white-smoke-light;
         }
@@ -204,8 +204,7 @@
 }
 
 .ab-inactive {
-  // td(10) is the action buttons column which should never be grayed out
-  td:not(:nth-of-type(10)) {
+  td:not(:nth-of-type(#{$abl-actions-td})) {
     color: #a9acaf;
     background-color: #cacbce;
     a {
@@ -215,12 +214,13 @@
 }
 
 .ab-active {
-  // td(2) is the status column, and td(9) is the comment column
-  td:nth-of-type(2), td:nth-of-type(9) {
-    color: #a9acaf;
-    background-color: #cacbce;
-    a {
+  @each $td-info in $abl-gray-config {
+    td:nth-of-type(#{nth($td-info, 2)}) {
       color: #a9acaf;
+      background-color: #cacbce;
+      a {
+        color: #a9acaf;
+      }
     }
   }
 }
