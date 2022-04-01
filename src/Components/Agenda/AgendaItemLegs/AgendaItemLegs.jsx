@@ -56,28 +56,29 @@ const AgendaItemLegs = props => {
       {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
-          const editDropdown = key === 'tod';
+          const editDropdown = (key === 'tod' || key === 'action' || key === 'travel');
           const editCalendar = key === 'ted';
+          const helperFuncToggle = !!helperFunc;
           return (<td>
             {/* first leg cannot be removed */}
             {showClose &&
             <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
               <FA name="times" />
             </InteractiveElement>}
-            {/* need to update logic for dropdown and calendar */}
             {
-              (helperFunc && (!editDropdown)) &&
+              (helperFunc && (!editDropdown && !editCalendar)) &&
                 <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
             }
             {
-              (!helperFunc && (!editDropdown)) &&
+              (!helperFuncToggle && (!editDropdown)) &&
               <dd>{leg[key]}</dd>
             }
-            {editCalendar &&
-              <div>
-                {helperFunc(leg[key])}
-                <FA name="calendar" onClick={openCalendar}>
-                  {calendar &&
+            {
+              editCalendar &&
+                <div className="tod-calendar-container">
+                  {helperFunc(leg[key])}
+                  <FA name="calendar" onClick={openCalendar}>
+                    {calendar &&
                     <div>
                       <DatePicker
                         selected={tedCalendar}
@@ -85,21 +86,22 @@ const AgendaItemLegs = props => {
                         dateFormat={DATE_FORMAT}
                       />
                     </div>
-                  }
-                </FA>
-                {calendar &&
+                    }
+                  </FA>
+                  {calendar &&
                   <div>
                     <button onClick={closeCalendar}>Close</button>
                   </div>
-                }
-              </div> }
+                  }
+                </div>
+            }
             {
               editDropdown &&
               <Dropdown
                 className="account-dropdown"
                 removeElement
               >
-                <DropdownTrigger href="/#">
+                <DropdownTrigger href="/#" className="ai-legs-dropdown">
                   {
                     <span className="account-dropdown--name" id="account-username">{leg[key]}</span>
                   }
