@@ -312,16 +312,21 @@
     padding-left: 5px
   }
 
-  .ai-legs-dropdown {
-    padding-top: .7em;
-  }
-
   .tod-calendar-container {
     padding-left: .7em;
     
     .fa {
       padding-left: 5px;
     }
+  }
+
+  .ai-legs-dropdown {
+    padding-top: .7em;
+  }
+
+  .account-dropdown--segment:hover {
+    background: $blue-primary;
+    color: $color-white !important;
   }
 }
 
