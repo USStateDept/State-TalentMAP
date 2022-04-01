@@ -318,6 +318,20 @@
     .fa {
       padding-left: 5px;
     }
+
+    .fa-calendar-container {
+      display: inline;
+    }
+
+    .close-calendar {
+      .fa {
+        color: $alert-red;
+      }
+    }
+
+    .react-datepicker__input-container {
+      width: 70%;
+    }
   }
 
   .ai-legs-dropdown {

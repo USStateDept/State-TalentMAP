@@ -79,7 +79,7 @@ const AgendaItemLegs = props => {
                   {helperFunc(leg[key])}
                   <FA name="calendar" onClick={openCalendar}>
                     {calendar &&
-                    <div>
+                    <div className="fa-calendar-container">
                       <DatePicker
                         selected={tedCalendar}
                         onChange={updateTEDCalendar}
@@ -89,9 +89,9 @@ const AgendaItemLegs = props => {
                     }
                   </FA>
                   {calendar &&
-                  <div>
-                    <button onClick={closeCalendar}>Close</button>
-                  </div>
+                    <InteractiveElement className="close-calendar" onClick={closeCalendar}>
+                      <FA name="times" />
+                    </InteractiveElement>
                   }
                 </div>
             }
