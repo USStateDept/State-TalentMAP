@@ -226,3 +226,13 @@ $angle-down-black: url('#{$asset-path}assets/img/angle-down-black.svg');
 $button-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
 $bg-register-with-another-bidder: #dbdbdb;
 $bg-overlay-register-with-another-bidder: #636363;
+
+//**
+//* Available Bidders
+//*
+$abl-actions-td: 11;
+$abl-gray-config: (
+  "Status": 2,
+  "Step Letter": 3,
+  "Comments": 10
+);
