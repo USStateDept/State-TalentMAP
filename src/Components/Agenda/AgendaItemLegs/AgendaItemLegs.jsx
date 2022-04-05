@@ -6,7 +6,7 @@ import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import DatePicker from 'react-datepicker';
+import Calendar from 'react-calendar';
 import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
 import RemarksPill from '../RemarksPill';
 
@@ -37,7 +37,6 @@ const AgendaItemLegs = props => {
 
   const [calendar, setCalendar] = useState(false);
   const [tedCalendar, setTEDCalendar] = useState(new Date());
-  const DATE_FORMAT = 'MMMM d, yyyy';
 
   const openCalendar = () => {
     setCalendar(true);
@@ -80,10 +79,10 @@ const AgendaItemLegs = props => {
                   <FA name="calendar" onClick={openCalendar}>
                     {calendar &&
                     <div className="fa-calendar-container">
-                      <DatePicker
-                        selected={tedCalendar}
+                      <Calendar
+                        className="ted-react-calendar"
                         onChange={updateTEDCalendar}
-                        dateFormat={DATE_FORMAT}
+                        selected={tedCalendar}
                       />
                     </div>
                     }

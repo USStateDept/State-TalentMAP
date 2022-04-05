@@ -321,6 +321,29 @@
 
     .fa-calendar-container {
       display: inline;
+      .ted-react-calendar {
+        display: inline-block;
+        font-size: 0.9rem;
+        width: 210px;
+
+        .react-calendar__navigation {
+          margin-bottom: 0em;
+
+          button {
+            font-size: 1.2rem;
+            min-width: 40px;
+          }
+
+          .react-calendar__month-view__weekdays {
+            font-size: .9em;
+          }
+        }
+      }
+      .react-calendar__month-view__days {
+        button {
+          padding: 2px 0 10px 0;
+        }
+      }
     }
 
     .close-calendar {
@@ -329,9 +352,6 @@
       }
     }
 
-    .react-datepicker__input-container {
-      width: 70%;
-    }
   }
 
   .ai-legs-dropdown {
