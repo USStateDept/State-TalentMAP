@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
@@ -20,6 +21,8 @@ const AgendaItemLegs = props => {
     onClose,
   } = props;
 
+  const calendarID = 'aim-ted-calendar';
+
   let legs$ = legs;
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
@@ -35,20 +38,35 @@ const AgendaItemLegs = props => {
     onClose(leg);
   };
 
-  const [calendar, setCalendar] = useState(false);
   const [tedCalendar, setTEDCalendar] = useState(new Date());
-
-  const openCalendar = () => {
-    setCalendar(true);
-  };
-
-  const closeCalendar = () => {
-    setCalendar(false);
-  };
 
   const updateTEDCalendar = (date) => {
     setTEDCalendar(date);
   };
+
+  const [calendarHidden, setCalendarHidden] = useState({});
+  const toggleCalendar = (id, val) => {
+    const calendarHidden$ = { ...calendarHidden };
+    calendarHidden$[id] = val;
+    setCalendarHidden(calendarHidden$);
+  };
+
+  const handleOutsideClick = e => {
+    setTimeout(() => {
+      const showCalendar = Object.keys(calendarHidden).map(m => calendarHidden[m]);
+      const isOpen = showCalendar.some(a => a);
+      // foreach inside if
+      // checking calendar id
+      if (isOpen && document.getElementById(calendarID) &&
+        !document.getElementById(calendarID).contains(e.target)) {
+        // need to figure out what i is
+        // toggleCalendar(i, false);
+        setCalendarHidden({}); // setting to a specific ID instead of empty
+      }
+    }); // need to fix on close
+  };
+
+  window.addEventListener('click', handleOutsideClick);
 
   const getData = (key, helperFunc) => (
     <>
@@ -74,23 +92,18 @@ const AgendaItemLegs = props => {
             }
             {
               editCalendar &&
-                <div className="tod-calendar-container">
+                <div className="tod-calendar-container" id={`${calendarID}`}>
                   {helperFunc(leg[key])}
-                  <FA name="calendar" onClick={openCalendar}>
-                    {calendar &&
-                    <div className="fa-calendar-container">
-                      <Calendar
-                        className="ted-react-calendar"
-                        onChange={updateTEDCalendar}
-                        selected={tedCalendar}
-                      />
-                    </div>
-                    }
-                  </FA>
-                  {calendar &&
-                    <InteractiveElement className="close-calendar" onClick={closeCalendar}>
-                      <FA name="times" />
-                    </InteractiveElement>
+                  <FA name="calendar" onClick={() => toggleCalendar(i, true)} />
+                  {calendarHidden[i] &&
+                  <div className="fa-calendar-container">
+                    <Calendar
+                      className="ted-react-calendar"
+                      onChange={updateTEDCalendar}
+                      onClickDay={() => toggleCalendar(i, false)}
+                      selected={tedCalendar}
+                    />
+                  </div>
                   }
                 </div>
             }

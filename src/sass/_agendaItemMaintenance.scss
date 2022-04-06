@@ -321,10 +321,14 @@
 
     .fa-calendar-container {
       display: inline;
+      position: absolute;
+
       .ted-react-calendar {
         display: inline-block;
         font-size: 0.9rem;
+        position: relative;
         width: 210px;
+        z-index: 1;
 
         .react-calendar__navigation {
           margin-bottom: 0em;
