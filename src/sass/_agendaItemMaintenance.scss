@@ -321,7 +321,9 @@
 
     .fa-calendar-container {
       display: inline;
+      padding-left: 10px;
       position: absolute;
+      top: -40px;
 
       .ted-react-calendar {
         display: inline-block;

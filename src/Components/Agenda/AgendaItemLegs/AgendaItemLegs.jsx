@@ -1,5 +1,4 @@
-/* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
@@ -45,28 +44,42 @@ const AgendaItemLegs = props => {
   };
 
   const [calendarHidden, setCalendarHidden] = useState({});
-  const toggleCalendar = (id, val) => {
+  const calendarHiddenRef = useRef(calendarHidden);
+
+  const setCalendarHiddenRef = data => {
+    calendarHiddenRef.current = data;
+    setCalendarHidden(data);
+  };
+
+  const toggleCalendar = (id, val, shouldReset = true) => {
+    if (shouldReset) { setCalendarHiddenRef({}); }
     const calendarHidden$ = { ...calendarHidden };
     calendarHidden$[id] = val;
-    setCalendarHidden(calendarHidden$);
+    setCalendarHiddenRef(calendarHidden$);
   };
 
-  const handleOutsideClick = e => {
-    setTimeout(() => {
-      const showCalendar = Object.keys(calendarHidden).map(m => calendarHidden[m]);
-      const isOpen = showCalendar.some(a => a);
-      // foreach inside if
-      // checking calendar id
-      if (isOpen && document.getElementById(calendarID) &&
-        !document.getElementById(calendarID).contains(e.target)) {
-        // need to figure out what i is
-        // toggleCalendar(i, false);
-        setCalendarHidden({}); // setting to a specific ID instead of empty
+  const handleOutsideClick = useCallback((e) => {
+    const calendarHidden$ = { ...calendarHiddenRef };
+    // eslint-disable-next-line no-loops/no-loops
+    for (let i = 0; i < legs$.length; i += 1) {
+      if (e.target.id !== `${calendarID}-${i}` && document.getElementById(`${calendarID}-${i}`) &&
+        !document.getElementById(`${calendarID}-${i}`).contains(e.target)) {
+        console.log('for handle and i', calendarHiddenRef, i);
+        // toggleCalendar(i, false, false);
+        calendarHidden$[i] = false;
+      } else {
+        calendarHidden$[i] = true;
       }
-    }); // need to fix on close
-  };
+    }
+    setCalendarHiddenRef(calendarHidden$);
+  }, []);
 
-  window.addEventListener('click', handleOutsideClick);
+  useEffect(() => {
+    window.addEventListener('click', e => handleOutsideClick(e));
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
 
   const getData = (key, helperFunc) => (
     <>
@@ -92,11 +105,11 @@ const AgendaItemLegs = props => {
             }
             {
               editCalendar &&
-                <div className="tod-calendar-container" id={`${calendarID}`}>
+                <div className="tod-calendar-container" id={`${calendarID}-${i}`}>
                   {helperFunc(leg[key])}
                   <FA name="calendar" onClick={() => toggleCalendar(i, true)} />
                   {calendarHidden[i] &&
-                  <div className="fa-calendar-container">
+                  <div className="fa-calendar-container" id={`${calendarID}-${i}-cal`}>
                     <Calendar
                       className="ted-react-calendar"
                       onChange={updateTEDCalendar}
