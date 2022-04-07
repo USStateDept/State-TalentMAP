@@ -10,7 +10,6 @@ import { useDataLoader } from 'hooks';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
-// import ProfileSectionTitle from '../../ProfileSectionTitle';
 import { RG as RemarksGlossaryTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 import api from '../../../api';
 

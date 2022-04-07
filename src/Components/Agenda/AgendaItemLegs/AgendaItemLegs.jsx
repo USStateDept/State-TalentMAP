@@ -190,7 +190,7 @@ const AgendaItemLegs = props => {
     {
       icon: 'clock-o',
       title: 'TED',
-      content: getData('ted', formatDate),
+      content: (getData('ted', formatDate)),
       cardView: true,
     },
     {
