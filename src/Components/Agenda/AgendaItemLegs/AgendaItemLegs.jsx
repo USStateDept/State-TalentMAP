@@ -86,8 +86,9 @@ const AgendaItemLegs = props => {
       {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
-          const editDropdown = (key === 'tod' || key === 'action' || key === 'travel');
-          const editCalendar = key === 'ted';
+          const isFirstLeg = i === 0;
+          const editDropdown = (!isFirstLeg && (key === 'tod' || key === 'action' || key === 'travel'));
+          const editCalendar = (!isFirstLeg && (key === 'ted'));
           const helperFuncToggle = !!helperFunc;
           return (<td>
             {/* first leg cannot be removed */}
