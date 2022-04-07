@@ -60,17 +60,14 @@ const AgendaItemLegs = props => {
 
   const handleOutsideClick = useCallback((e) => {
     const calendarHidden$ = { ...calendarHiddenRef };
-    // eslint-disable-next-line no-loops/no-loops
-    for (let i = 0; i < legs$.length; i += 1) {
+    legs$.forEach((leg, i) => {
       if (e.target.id !== `${calendarID}-${i}` && document.getElementById(`${calendarID}-${i}`) &&
         !document.getElementById(`${calendarID}-${i}`).contains(e.target)) {
-        console.log('for handle and i', calendarHiddenRef, i);
-        // toggleCalendar(i, false, false);
         calendarHidden$[i] = false;
       } else {
         calendarHidden$[i] = true;
       }
-    }
+    });
     setCalendarHiddenRef(calendarHidden$);
   }, []);
 

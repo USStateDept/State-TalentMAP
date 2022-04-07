@@ -1,8 +1,7 @@
-import { sampleSize, shuffle } from 'lodash';
 import AgendaItemLegs from '../AgendaItemLegs';
 
 const AgendaItemTimeline = () => {
-  let FAKE_LEGS = [
+  const FAKE_LEGS = [
     {
       id: 11158,
       pos_title: 'SPECIAL AGENT',
@@ -98,9 +97,6 @@ const AgendaItemTimeline = () => {
       travel: null,
     },
   ];
-
-  FAKE_LEGS = shuffle(sampleSize(
-    FAKE_LEGS, Math.floor(Math.random() * (FAKE_LEGS.length - 1)) + 1));
 
   return (
     <div className="agenda-item-history-container ai-timeline-pane">
