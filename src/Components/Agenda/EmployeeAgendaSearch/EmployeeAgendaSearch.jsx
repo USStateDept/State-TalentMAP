@@ -19,6 +19,7 @@ import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
 import { checkFlag } from 'flags';
+import { usePrevious } from 'hooks';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSearchRow';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
@@ -55,21 +56,24 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   const isLoading = agendaEmployeesFiltersIsLoading;
 
   // Pagination
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(get(userSelections, 'page') || 1);
   const [limit, setLimit] = useState(get(userSelections, 'limit', AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize));
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering', AGENDA_EMPLOYEES_SORT.defaultSort));
   // Filters
-  const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState([]);
-  const [selectedOngoingBureaus, setSelectedOngoingBureaus] = useState([]);
-  const [selectedCDOs, setSelectedCDOs] = useState([]);
+  const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState(get(userSelections, 'selectedCurrentBureaus') || []);
+  const [selectedOngoingBureaus, setSelectedOngoingBureaus] = useState(get(userSelections, 'selectedOngoingBureaus') || []);
+  const [selectedCDOs, setSelectedCDOs] = useState(get(userSelections, 'selectedCDOs') || []);
   // To-Do: Fake creator data
-  const [selectedHandshakeStatus, setSelectedHandshakeStatus] = useState([]);
-  const [selectedCurrentPosts, setSelectedCurrentPosts] = useState([]);
-  const [selectedOngoingPosts, setSelectedOngoingPosts] = useState([]);
-  const [selectedTED, setSelectedTED] = useState(null);
+  const [selectedHandshakeStatus, setSelectedHandshakeStatus] = useState(get(userSelections, 'selectedHandshakeStatus') || []);
+  const [selectedCurrentPosts, setSelectedCurrentPosts] = useState(get(userSelections, 'selectedCurrentPosts') || []);
+  const [selectedOngoingPosts, setSelectedOngoingPosts] = useState(get(userSelections, 'selectedOngoingPosts') || []);
+  const [selectedTED, setSelectedTED] = useState(get(userSelections, 'selectedTED') || null);
   // Free Text
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput', ''));
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch', ''));
+
+  const prevPage = usePrevious(page);
+
   // Controls
   const [cardView, setCardView] = useState(get(userSelections, 'cardView', true));
   const [clearFilters, setClearFilters] = useState(false);
@@ -149,11 +153,13 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
       setPage(1);
     }
     dispatch(agendaEmployeesFetchData(getQuery()));
-    dispatch(saveAgendaEmployeesSelections(getCurrentInputs));
+    dispatch(saveAgendaEmployeesSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
-    fetchAndSet(true);
+    if (prevPage) {
+      fetchAndSet(true);
+    }
   }, [
     limit,
     ordering,
@@ -174,7 +180,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   ]);
 
   useEffect(() => {
-    dispatch(saveAgendaEmployeesSelections(getCurrentInputs));
+    dispatch(saveAgendaEmployeesSelections(getCurrentInputs()));
   }, [cardView]);
 
   function submitSearch(text) {
