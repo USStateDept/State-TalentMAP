@@ -71,7 +71,6 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
-        showLanguages: false,
       };
     }
     return (
