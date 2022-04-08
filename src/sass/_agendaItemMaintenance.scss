@@ -43,6 +43,12 @@
       display: inline;
       font-size: 1.1em;
     }
+
+    #aim-classifications {
+      .classifications-client-badges-container {
+        max-height: initial;
+      }
+    }
   }
 
   .ai-research-pane {
