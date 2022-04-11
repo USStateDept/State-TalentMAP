@@ -31,10 +31,9 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
   const getTextInputValue = key => get(textInputs, key) || '';
 
   const remarks$ = remarks;
-  const remarkCategories$ = remarkCategories;
 
-  let remarkCategories$$ = uniqBy(remarkCategories$, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
-  remarkCategories$$ = orderBy(remarkCategories$$, 'desc_text');
+  let remarkCategories$ = uniqBy(remarkCategories, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
+  remarkCategories$ = orderBy(remarkCategories$, 'desc_text');
 
   const onRemarkClick$ = remark => {
     const textInputValue = getTextInputValue(remark.seq_num);
@@ -48,7 +47,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
-      {remarkCategories$$.map(category => {
+      {remarkCategories$.map(category => {
         const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
         return (
           <div key={category.code}>
