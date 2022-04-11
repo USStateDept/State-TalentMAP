@@ -3,17 +3,18 @@ import { get, has, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-import TextInput from 'Components/TextInput';
+// import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
   const [textInputs, setTextInputs] = useState({});
 
-  const setTextInput = (key, value) => {
-    const textInputs$ = { ...textInputs };
-    textInputs$[key] = value;
-    setTextInputs(textInputs$);
-  };
+  // still need indicator to come through for input
+  // const setTextInput = (key, value) => {
+  //   const textInputs$ = { ...textInputs };
+  //   textInputs$[key] = value;
+  //   setTextInputs(textInputs$);
+  // };
 
   const setTextInputBulk = (remarksArr = []) => {
     const textInputs$ = {};
@@ -54,7 +55,8 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
             <div className={`remark-category remark-category--${category.code}`}>{category.desc_text}</div>
             <ul>
               {remarksInCategory.map(r => {
-                const hasTextInput = has(r, 'text');
+                // still need indicator to come through for input
+                // const hasTextInput = has(r, 'text');
                 const faProps = {
                   name: r.isActive ? 'minus-circle' : 'plus-circle',
                 };
@@ -64,7 +66,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
                       <FA {...faProps} />
                     </InteractiveElement>
                     <span className="remark-text">{r.short_desc_text}</span>
-                    {
+                    {/* {
                       hasTextInput &&
                       <TextInput
                         value={getTextInputValue(r.seq_num)}
@@ -72,7 +74,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
                         customContainerClass="remarks-input-container"
                         inputProps={{ autoComplete: 'off' }}
                       />
-                    }
+                    } */}
                   </li>
                 );
               })}

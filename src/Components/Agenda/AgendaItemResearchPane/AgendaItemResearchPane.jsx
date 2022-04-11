@@ -60,8 +60,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
 
   const assignments = get(data, 'data') || [];
   const languages = get(client_data, 'data.data.languages') || [];
-  const remarks$ = get(remarks, 'data.data.results') || [];
-  const remarksCategories$ = get(remarksCategories, 'data.data.results') || [];
+  const remarks_data = get(remarks, 'data.data.results') || [];
+  const remarksCategories_data = get(remarksCategories, 'data.data.results') || [];
 
   const onFPClick = pos => {
     // TODO - do something with this
@@ -120,8 +120,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
         {
           selectedNav === RG && !loading && !error &&
             <RemarksGlossary
-              remarks={remarks$}
-              remarksCategories={remarksCategories$}
+              remarks={remarks_data}
+              remarksCategories={remarksCategories_data}
             />
         }
       </div>
