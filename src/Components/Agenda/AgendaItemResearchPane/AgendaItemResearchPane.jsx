@@ -56,12 +56,12 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
   const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   const client_data = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
   const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
-  const remarksCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
+  const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(data, 'data') || [];
   const languages = get(client_data, 'data.data.languages') || [];
   const remarks_data = get(remarks, 'data.data.results') || [];
-  const remarksCategories_data = get(remarksCategories, 'data.data.results') || [];
+  const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
 
   const onFPClick = pos => {
     // TODO - do something with this
@@ -121,7 +121,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
           selectedNav === RG && !loading && !error &&
             <RemarksGlossary
               remarks={remarks_data}
-              remarksCategories={remarksCategories_data}
+              remarkCategories={remarkCategories_data}
             />
         }
       </div>

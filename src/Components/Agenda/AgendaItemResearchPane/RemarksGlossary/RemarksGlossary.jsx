@@ -6,7 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 // import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
-const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
+const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
   const [textInputs, setTextInputs] = useState({});
 
   // still need indicator to come through for input
@@ -31,10 +31,10 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
   const getTextInputValue = key => get(textInputs, key) || '';
 
   const remarks$ = remarks;
-  const remarksCategories$ = remarksCategories;
+  const remarkCategories$ = remarkCategories;
 
-  let remarksCategories$$ = uniqBy(remarksCategories$, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
-  remarksCategories$$ = orderBy(remarksCategories$$, 'desc_text');
+  let remarkCategories$$ = uniqBy(remarkCategories$, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
+  remarkCategories$$ = orderBy(remarkCategories$$, 'desc_text');
 
   const onRemarkClick$ = remark => {
     const textInputValue = getTextInputValue(remark.seq_num);
@@ -48,7 +48,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
-      {remarksCategories$$.map(category => {
+      {remarkCategories$$.map(category => {
         const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
         return (
           <div key={category.code}>
@@ -89,13 +89,13 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
 RemarksGlossary.propTypes = {
   onRemarkClick: PropTypes.func,
   remarks: PropTypes.arrayOf(PropTypes.shape({})),
-  remarksCategories: PropTypes.arrayOf(PropTypes.shape({})),
+  remarkCategories: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 RemarksGlossary.defaultProps = {
   onRemarkClick: EMPTY_FUNCTION,
   remarks: [],
-  remarksCategories: [],
+  remarkCategories: [],
 };
 
 export default RemarksGlossary;
