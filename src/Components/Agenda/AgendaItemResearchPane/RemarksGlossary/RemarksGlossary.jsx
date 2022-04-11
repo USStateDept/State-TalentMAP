@@ -88,7 +88,17 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
 
 RemarksGlossary.propTypes = {
   onRemarkClick: PropTypes.func,
-  remarks: PropTypes.arrayOf(PropTypes.shape({})),
+  remarks: PropTypes.arrayOf(
+    PropTypes.shape({
+      seq_num: PropTypes.number,
+      rc_code: PropTypes.string,
+      order_num: PropTypes.number,
+      short_desc_text: PropTypes.string,
+      mutually_exclusive_ind: PropTypes.string,
+      text: PropTypes.string,
+      active_ind: PropTypes.string,
+    }),
+  ),
   remarkCategories: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
