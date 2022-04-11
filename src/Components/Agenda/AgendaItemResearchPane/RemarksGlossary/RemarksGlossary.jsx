@@ -5,6 +5,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import Fuse from 'fuse.js';
 
 const RemarksGlossary = ({ onRemarkClick, remarks }) => {
   const [textInputs, setTextInputs] = useState({});
@@ -29,9 +30,31 @@ const RemarksGlossary = ({ onRemarkClick, remarks }) => {
 
   const getTextInputValue = key => get(textInputs, key) || '';
 
-  const remarks$ = remarks;
+  const [remarks$, setRemarks$] = useState(remarks);
 
-  let remarksCategories = uniqBy(remarks$, 'rmrkrccode').map(({ rmrkrccode, rcdesctext }) => ({ rmrkrccode, rcdesctext }));
+  const fuseOptions = {
+    shouldSort: false,
+    findAllMatches: true,
+    tokenize: true,
+    includeScore: false,
+    threshold: 0.25,
+    location: 0,
+    distance: 100,
+    maxPatternLength: 32,
+    minMatchCharLength: 1,
+    keys: [
+      'rmrktext',
+    ],
+  };
+
+  const fuse$ = new Fuse(remarks, fuseOptions);
+
+  const search = a => setRemarks$(fuse$.search(a));
+  const [term, setTerm] = useState('');
+
+  const remarks$$ = term ? remarks$ : remarks;
+
+  let remarksCategories = uniqBy(remarks$$, 'rmrkrccode').map(({ rmrkrccode, rcdesctext }) => ({ rmrkrccode, rcdesctext }));
   remarksCategories = orderBy(remarksCategories, 'rcdesctext');
 
   const onRemarkClick$ = remark => {
@@ -46,36 +69,47 @@ const RemarksGlossary = ({ onRemarkClick, remarks }) => {
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
+      <TextInput
+        changeText={e => { search(e); setTerm(e); }}
+        value={term}
+        labelSrOnly
+        placeholder="Search for Remarks"
+        inputProps={{
+          autoComplete: 'off',
+        }}
+      />
       {remarksCategories.map(category => {
-        const remarksInCategory = orderBy(remarks$.filter(f => f.rmrkrccode === category.rmrkrccode), 'rmrkordernum');
+        const remarksInCategory = orderBy(remarks$$.filter(f => f.rmrkrccode === category.rmrkrccode), 'rmrkordernum');
         return (
-          <div key={category.rmrkrccode}>
-            <div className={`remark-category remark-category--${category.rmrkrccode}`}>{category.rcdesctext}</div>
-            <ul>
-              {remarksInCategory.map(r => {
-                const hasTextInput = has(r, 'textInputValue');
-                const faProps = {
-                  name: r.isActive ? 'minus-circle' : 'plus-circle',
-                };
-                return (
-                  <li key={r.rmrkseqnum}>
-                    <InteractiveElement onClick={() => onRemarkClick$(r)}>
-                      <FA {...faProps} />
-                    </InteractiveElement>
-                    <span className="remark-text">{r.rmrktext}</span>
-                    {
-                      hasTextInput &&
-                      <TextInput
-                        value={getTextInputValue(r.rmrkseqnum)}
-                        changeText={v => setTextInput(r.rmrkseqnum, v)}
-                        customContainerClass="remarks-input-container"
-                        inputProps={{ autoComplete: 'off' }}
-                      />
-                    }
-                  </li>
-                );
-              })}
-            </ul>
+          <div>
+            <div key={category.rmrkrccode}>
+              <div className={`remark-category remark-category--${category.rmrkrccode}`}>{category.rcdesctext}</div>
+              <ul>
+                {remarksInCategory.map(r => {
+                  const hasTextInput = has(r, 'textInputValue');
+                  const faProps = {
+                    name: r.isActive ? 'minus-circle' : 'plus-circle',
+                  };
+                  return (
+                    <li key={r.rmrkseqnum}>
+                      <InteractiveElement onClick={() => onRemarkClick$(r)}>
+                        <FA {...faProps} />
+                      </InteractiveElement>
+                      <span className="remark-text">{r.rmrktext}</span>
+                      {
+                        hasTextInput &&
+                        <TextInput
+                          value={getTextInputValue(r.rmrkseqnum)}
+                          changeText={v => setTextInput(r.rmrkseqnum, v)}
+                          customContainerClass="remarks-input-container"
+                          inputProps={{ autoComplete: 'off' }}
+                        />
+                      }
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           </div>
         );
       })}

@@ -351,6 +351,13 @@
     }
   }
 
+  .remarks-categories-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+    justify-content: space-between;
+  }
+
   .remark-text {
     position: relative;
     margin: auto 0 auto 7px;
