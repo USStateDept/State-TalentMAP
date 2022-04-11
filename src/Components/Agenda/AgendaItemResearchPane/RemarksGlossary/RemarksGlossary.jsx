@@ -65,7 +65,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarksCategories }) => {
                     <InteractiveElement onClick={() => onRemarkClick$(r)}>
                       <FA {...faProps} />
                     </InteractiveElement>
-                    <span className="remark-text">{r.short_desc_text}</span>
+                    <span className="remark-text">{r.text}</span>
                     {/* {
                       hasTextInput &&
                       <TextInput
