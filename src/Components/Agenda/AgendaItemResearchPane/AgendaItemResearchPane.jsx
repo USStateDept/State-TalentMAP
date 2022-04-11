@@ -63,9 +63,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
   // need to update once fully integrated
   const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   const client_data = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
+  const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(data, 'data') || [];
   const languages = get(client_data, 'data.data.languages') || [];
+  const remarks_data = get(remarks, 'data.data.results') || [];
+  const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
 
   const onFPClick = pos => {
     // TODO - do something with this
@@ -134,7 +138,10 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
         }
         {
           selectedNav === RG && !loading && !error &&
-            <RemarksGlossary />
+            <RemarksGlossary
+              remarks={remarks_data}
+              remarkCategories={remarkCategories_data}
+            />
         }
       </div>
     </div>
