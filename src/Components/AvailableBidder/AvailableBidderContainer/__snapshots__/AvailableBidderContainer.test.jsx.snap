@@ -30,6 +30,7 @@ exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
           bidders={Array []}
           isAO={false}
           isCDO={true}
+          isPost={false}
           onFilter={[Function]}
           onSort={[Function]}
         />
@@ -64,6 +65,7 @@ exports[`AvailableBidderContainerComponent matches snapshot when not CDO 1`] = `
           bidders={Array []}
           isAO={false}
           isCDO={false}
+          isPost={false}
           onFilter={[Function]}
           onSort={[Function]}
         />

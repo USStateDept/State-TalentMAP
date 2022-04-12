@@ -246,15 +246,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
-      {
-        text: 'Available Bidders',
-        route: '/profile/post/availablebidders',
-        icon: 'users',
-        roles: [
-          'superuser',
-          'post_user',
-        ],
-      },
+      checkFlag('flags.available_bidders') ?
+        {
+          text: 'Available Bidders',
+          route: '/profile/post/availablebidders',
+          icon: 'users',
+          roles: [
+            'superuser',
+            'post_user',
+          ],
+        } : null,
     ],
   } : null,
   checkFlag('flags.ao') ? {
