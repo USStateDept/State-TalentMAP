@@ -8,11 +8,11 @@ import Spinner from 'Components/Spinner';
 import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
+import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
 import Classifications from './Classifications';
-import { fetchClassifications, fetchUserClassifications } from '../../../actions/classifications';
 import api from '../../../api';
 
 /* TODO replace with real data */
@@ -57,7 +57,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
   const classifications = useSelector(state => state.classifications);
   const clientClassifications = useSelector(state => state.userClassifications);
 
-  const classificationsProps = { classifications, clientClassifications, isPublic: true };
+  const classificationsProps = { classifications, clientClassifications };
 
   // assignments
   // need to update once fully integrated

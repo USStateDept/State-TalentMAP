@@ -6,6 +6,7 @@ const RemarksGlossary = ({ classifications, clientClassifications }) => (
     <Classifications
       classifications={classifications}
       clientClassifications={clientClassifications}
+      hideTitle
     />
   </div>
 );
