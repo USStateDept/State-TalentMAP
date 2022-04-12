@@ -21,7 +21,7 @@ const PostPage = props => {
         <Route path="/profile/post/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/post/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/post/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
-        <Route path="/profile/post/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
+        <Route path="/profile/post/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isPost />} />
       </Switch>
     </div>
   );

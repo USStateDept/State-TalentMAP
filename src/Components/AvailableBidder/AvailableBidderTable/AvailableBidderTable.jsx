@@ -19,8 +19,7 @@ import { useMount, usePrevious } from 'hooks';
 const useStepLetter = () => checkFlag('flags.step_letters');
 
 const AvailableBidderTable = props => {
-  // CDO or Bureau version
-  const { isCDO, isAO } = props;
+  const { isCDO, isAO, isPost } = props;
   const isCDOorAO = (isCDO || isAO);
 
   // Local state
@@ -97,7 +96,7 @@ const AvailableBidderTable = props => {
 
   let title = '';
   if (isCDOorAO) {
-    title = cdoView ? 'Internal CDA View' : 'External Bureau View';
+    title = cdoView ? 'Internal CDA View' : 'External Bureau/Post View';
   }
 
   const getTitleCount = () => {
@@ -191,7 +190,7 @@ const AvailableBidderTable = props => {
                           }
                           labelTextRight={
                             <Tooltip
-                              title="Bureau View"
+                              title="Bureau/Post View"
                               arrow
                               offset={-95}
                               position="top-end"
@@ -223,6 +222,7 @@ const AvailableBidderTable = props => {
                     CDOView={cdoView}
                     isCDO={isCDO}
                     isAO={isAO}
+                    isPost={isPost}
                     isLoading={isLoading}
                     bureaus={bureaus}
                   />
@@ -238,6 +238,7 @@ const AvailableBidderTable = props => {
 AvailableBidderTable.propTypes = {
   isCDO: PropTypes.bool,
   isAO: PropTypes.bool,
+  isPost: PropTypes.bool,
 };
 
 AvailableBidderTable.defaultProps = {
@@ -246,6 +247,7 @@ AvailableBidderTable.defaultProps = {
   onFilter: EMPTY_FUNCTION,
   isCDO: false,
   isAO: false,
+  isPost: false,
 };
 
 export default AvailableBidderTable;
