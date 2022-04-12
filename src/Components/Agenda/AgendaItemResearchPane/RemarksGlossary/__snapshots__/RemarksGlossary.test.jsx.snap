@@ -3,5 +3,24 @@
 exports[`RemarksGlossary Component matches snapshot 1`] = `
 <div
   className="usa-grid-full remarks-glossary-container"
-/>
+>
+  <TextInput
+    changeText={[Function]}
+    containerProps={Object {}}
+    customContainerClass=""
+    inputProps={
+      Object {
+        "autoComplete": "off",
+      }
+    }
+    label=""
+    labelMessage=""
+    labelSrOnly={true}
+    placeholder="Search for Remarks"
+    value=""
+  />
+  <div
+    className="remarks-glossary-container"
+  />
+</div>
 `;
