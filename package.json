@@ -78,7 +78,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.2.2",
     "react-router-scroll-4": "^1.0.0-beta.2",
-    "react-scroll": "^1.8.6",
+    "react-scroll": "^1.8.7",
     "react-scroll-up-button": "^1.6.4",
     "react-scrollbar": "^0.5.6",
     "react-select": "^1.1.0",
