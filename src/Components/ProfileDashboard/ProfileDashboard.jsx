@@ -29,7 +29,7 @@ const ProfileDashboard = ({
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
-  unregisterHandshake, userClassificationsHasErrored,
+  unregisterHandshake, userClassificationsHasErrored, showLanguages,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -122,7 +122,7 @@ const ProfileDashboard = ({
                     </div>
                   }
                   {
-                    isPublic &&
+                    isPublic && (showClassifications || showLanguages) &&
                     <>
                       <Column
                         columns={columns[1]}
@@ -139,11 +139,14 @@ const ProfileDashboard = ({
                             />
                           </BoxShadow>
                         }
-                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                          <Languages
-                            languagesArray={userProfile.languages}
-                          />
-                        </BoxShadow>
+                        {
+                          showLanguages &&
+                            <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                              <Languages
+                                languagesArray={userProfile.languages}
+                              />
+                            </BoxShadow>
+                        }
                       </Column>
                       {
                         (showAssignmentHistory || showBidTracker) &&
@@ -204,6 +207,7 @@ ProfileDashboard.propTypes = {
   showAssignmentHistory: PropTypes.bool,
   showSearchAsClient: PropTypes.bool,
   userClassificationsHasErrored: PropTypes.bool,
+  showLanguages: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
@@ -226,6 +230,7 @@ ProfileDashboard.defaultProps = {
   showAssignmentHistory: true,
   showSearchAsClient: true,
   userClassificationsHasErrored: false,
+  showLanguages: true,
 };
 
 export default ProfileDashboard;
