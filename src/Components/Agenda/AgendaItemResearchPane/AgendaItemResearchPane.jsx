@@ -1,4 +1,5 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import NavTabs from 'Components/NavTabs';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
@@ -7,9 +8,11 @@ import Spinner from 'Components/Spinner';
 import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
+import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
+import Classifications from './Classifications';
 import api from '../../../api';
 
 /* TODO replace with real data */
@@ -46,10 +49,15 @@ const tabs = [
 
 const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
   const navTabRef = useRef();
+  const dispatch = useDispatch();
 
   const { perdet } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
+  const classifications = useSelector(state => state.classifications);
+  const clientClassifications = useSelector(state => state.userClassifications);
+
+  const classificationsProps = { classifications, clientClassifications };
 
   // assignments
   // need to update once fully integrated
@@ -74,6 +82,11 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
       navTabRef.current.setSelectedNav(e);
     },
   }));
+
+  useEffect(() => {
+    dispatch(fetchClassifications());
+    dispatch(fetchUserClassifications(perdet));
+  });
 
   return (
     <div className="ai-research-pane">
@@ -116,6 +129,12 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
               positions={positions}
               onClick={onFPClick}
             />
+        }
+        {
+          selectedNav === TP && !loading && !error &&
+          <div id="aim-classifications"> {/* needed for css specificity */}
+            <Classifications {...classificationsProps} />
+          </div>
         }
         {
           selectedNav === RG && !loading && !error &&

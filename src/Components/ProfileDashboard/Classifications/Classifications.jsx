@@ -17,6 +17,7 @@ const Classifications = props => {
     updateUserClassifications,
     userId,
     isPublic,
+    hideTitle,
   } = props;
 
   const [editView, setEditView] = useState(false);
@@ -64,9 +65,12 @@ const Classifications = props => {
   return (
     <div className="usa-grid-full profile-section-container updates-container">
       <div className="section-padded-inner-container">
-        <div className="usa-width-one-whole">
-          <SectionTitle title="Bidder Classifications" icon="tasks" />
-        </div>
+        {
+          !hideTitle &&
+          <div className="usa-width-one-whole">
+            <SectionTitle title="Bidder Classifications" icon="tasks" />
+          </div>
+        }
         <div className="usa-width-one-whole">
           <CheckboxList
             list={classifications$}
@@ -116,6 +120,7 @@ Classifications.propTypes = {
   updateUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   isPublic: PropTypes.bool,
+  hideTitle: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
@@ -123,6 +128,7 @@ Classifications.defaultProps = {
   clientClassifications: [],
   updateUserClassifications: EMPTY_FUNCTION,
   isPublic: false,
+  hideTitle: false,
 };
 
 export const mapDispatchToProps = dispatch => ({
