@@ -94,11 +94,11 @@ const AgendaItemLegs = props => {
               <FA name="times" />
             </InteractiveElement>}
             {
-              (helperFunc && (!editDropdown && !editCalendar)) &&
+              helperFunc && !editDropdown && !editCalendar &&
                 <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
             }
             {
-              (!helperFuncToggle && (!editDropdown)) &&
+              !helperFuncToggle && !editDropdown &&
               <dd>{leg[key]}</dd>
             }
             {
