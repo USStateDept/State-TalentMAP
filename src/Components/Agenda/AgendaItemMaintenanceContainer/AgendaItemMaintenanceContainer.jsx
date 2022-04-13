@@ -27,8 +27,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const title = get(data, 'data.shortened_name') ?
-    `${data.data.shortened_name} (Panel and Agenda Item Maintenance)` : 'Panel and Agenda Item Maintenance';
+  const bidder = get(data, 'data.shortened_name') || '';
+  const title = 'Agenda Item Maintenace';
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -43,25 +43,27 @@ const AgendaItemMaintenanceContainer = (props) => {
     <>
       <div>
         <div className="aim-container-header">
-          {isCDO ?
-            <Link to={`/profile/public/${id}`}>
-              <div className="aim-container-title">
-                <FontAwesome
-                  name="calendar"
-                  size="lg"
-                />
-                <span className="aim-title">
-                  {title}
-                </span>
-              </div>
-            </Link> :
-            <div className="aim-container-title">
-              <FontAwesome
-                name="calendar"
-                size="lg"
-              />
-              {title}
-            </div> }
+          <div className="aim-container-title">
+            <FontAwesome
+              name="calendar"
+              size="lg"
+            />
+            {title}
+            {isCDO ?
+              <span className="aim-title-dash">
+                -
+                <Link to={`/profile/public/${id}`}>
+                  <span className="aim-title">
+                    {` ${bidder}`}
+                  </span>
+                </Link>
+              </span>
+              :
+              <span>
+                {` - ${bidder}`}
+              </span>
+            }
+          </div>
         </div>
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">

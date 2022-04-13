@@ -15,7 +15,12 @@
     }
 
     .aim-title {
+      color: $color-white;
       border-bottom: 2px solid white;
+    }
+
+    .aim-title-dash {
+      padding-left: 5px;
     }
   }
 }
