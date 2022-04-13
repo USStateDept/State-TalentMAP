@@ -86,7 +86,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
   useEffect(() => {
     dispatch(fetchClassifications());
     dispatch(fetchUserClassifications(perdet));
-  });
+  }, []);
 
   return (
     <div className="ai-research-pane">
