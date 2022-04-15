@@ -392,6 +392,10 @@
     }
   }
 
+  .account-dropdown--segment {
+    cursor: pointer;
+  }
+
   .account-dropdown--segment:hover {
     background: $blue-primary;
     color: $color-white !important;
