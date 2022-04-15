@@ -126,7 +126,9 @@ const AgendaItemLegs = props => {
               >
                 <DropdownTrigger href="/#" className="ai-legs-dropdown">
                   {
-                    <span className="account-dropdown--name" id="account-username">{leg[key]}</span>
+                    <span className="account-dropdown--name" id="account-username">{leg[key]}
+                      <span className="account-dropdown-spacing">__</span>
+                    </span>
                   }
                 </DropdownTrigger>
                 <div>

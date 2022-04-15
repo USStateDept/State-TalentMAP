@@ -377,6 +377,21 @@
     padding-top: .7em;
   }
 
+  .dropdown__trigger::after {
+    font-size: 1.6rem !important;
+    vertical-align: baseline !important;
+    margin: 0 !important;
+  }
+
+  .account-dropdown--name {
+    vertical-align: baseline;
+
+    .account-dropdown-spacing {
+      color: $color-white;
+      vertical-align: baseline;
+    }
+  }
+
   .account-dropdown--segment:hover {
     background: $blue-primary;
     color: $color-white !important;
