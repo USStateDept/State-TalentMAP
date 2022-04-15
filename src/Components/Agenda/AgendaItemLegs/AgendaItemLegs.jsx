@@ -103,7 +103,7 @@ const AgendaItemLegs = props => {
             }
             {
               editCalendar &&
-                <div className="tod-calendar-container" id={`${calendarID}-${i}`}>
+                <div className="ted-calendar-container" id={`${calendarID}-${i}`}>
                   {helperFunc(leg[key])}
                   <FA name="calendar" onClick={() => toggleCalendar(i, true)} />
                   {calendarHidden[i] &&
@@ -131,13 +131,11 @@ const AgendaItemLegs = props => {
                     </span>
                   }
                 </DropdownTrigger>
-                <div>
-                  <DropdownContent>
-                    <div className="account-dropdown--identity account-dropdown--segment">
-                      <div>{leg[key]}</div>
-                    </div>
-                  </DropdownContent>
-                </div>
+                <DropdownContent>
+                  <div className="account-dropdown--identity account-dropdown--segment">
+                    <div>{leg[key]}</div>
+                  </div>
+                </DropdownContent>
               </Dropdown>
             }
           </td>);
