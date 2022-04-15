@@ -40,30 +40,28 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   return (
-    <>
-      <div>
-        <div className="aim-container-header">
-          <div className="aim-container-title">
-            <FontAwesome
-              name="user-circle-o"
-              size="lg"
-            />
-            {title}
-            {isCDO ?
-              <span className="aim-title-dash">
+    <div>
+      <div className="aim-header-container">
+        <div className="aim-title-container">
+          <FontAwesome
+            name="user-circle-o"
+            size="lg"
+          />
+          {title}
+          {isCDO ?
+            <span className="aim-title-dash">
                 -
-                <Link to={`/profile/public/${id}`}>
-                  <span className="aim-title">
-                    {` ${bidder}`}
-                  </span>
-                </Link>
-              </span>
-              :
-              <span>
-                {` - ${bidder}`}
-              </span>
-            }
-          </div>
+              <Link to={`/profile/public/${id}`}>
+                <span className="aim-title">
+                  {` ${bidder}`}
+                </span>
+              </Link>
+            </span>
+            :
+            <span>
+              {` - ${bidder}`}
+            </span>
+          }
         </div>
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
@@ -96,7 +94,7 @@ const AgendaItemMaintenanceContainer = (props) => {
           </div>
         )}
       </MediaQuery>
-    </>
+    </div>
   );
 };
 
