@@ -110,6 +110,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
           !loading && error &&
             <Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />
         }
+        {/* headers should always be hidden in the nav view */}
         {
           selectedNav === ASGH && !loading && !error &&
             <AssignmentHistory
@@ -121,6 +122,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
             <Languages
               languagesArray={languages}
               useWrapper
+              showHeader={false}
             />
         }
         {

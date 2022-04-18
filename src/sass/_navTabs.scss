@@ -1,4 +1,8 @@
 .navTabs {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   .menu-style {
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
