@@ -1,40 +1,49 @@
-/* eslint-disable */
 import { useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
-import { get, has } from 'lodash';
+import { filter, get } from 'lodash';
 import PropTypes from 'prop-types';
+import { useDataLoader } from 'hooks';
 import SelectForm from 'Components/SelectForm';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import RemarksPill from '../RemarksPill';
+import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
-
-  const { onAddRemarksClick } = props;
+  const { onAddRemarksClick, perdet } = props;
 
   const leftExpanded = get(props, 'leftExpanded');
 
   const aiStatuses = [
-    {text: "Approved", value: 'A'},
-    {text: "Deferred - Proposed Position", value: 'C'},
-    {text: "Disapproved", value: 'D'},
-    {text: "Deferred", value: 'F'},
-    {text: "Held", value: 'H'},
-    {text: "Move to ML/ID", value: 'M'},
-    {text: "Not Ready", value: 'N'},
-    {text: "Out of Order", value: 'O'},
-    {text: "PIP", value: 'P'},
-    {text: "Ready", value: 'R'},
-    {text: "Withdrawn", value: 'W'}
+    { text: 'Approved', value: 'A' },
+    { text: 'Deferred - Proposed Position', value: 'C' },
+    { text: 'Disapproved', value: 'D' },
+    { text: 'Deferred', value: 'F' },
+    { text: 'Held', value: 'H' },
+    { text: 'Move to ML/ID', value: 'M' },
+    { text: 'Not Ready', value: 'N' },
+    { text: 'Out of Order', value: 'O' },
+    { text: 'PIP', value: 'P' },
+    { text: 'Ready', value: 'R' },
+    { text: 'Withdrawn', value: 'W' },
   ];
 
-  const asg = [
-    {text: "Employee Assignment Separations, and Bids", value: 'A'},
-  ];
+  const defaultText = 'Coming Soon';
+  // eslint-disable-next-line no-unused-vars
+  const { data, error, loading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${perdet}/`);
+  let asg = get(data, 'data') || [];
+  asg = asg.map(a => ({
+    ...a,
+    text: `${a.name || defaultText} '${a.status || defaultText}' in ${a.org || defaultText} -
+     ${a.pos_title || defaultText} (${a.pos_num || defaultText})`,
+  }));
+
+  // eslint-disable-next-line no-unused-vars
+  const [asgSepBid, setAsgSepBid] = useState(filter(asg, ['status', 'EF']));
   const [selectedAIStatus, setAIStatus] = useState('A');
 
-  const remarks = [{"title":"Critical Need Position","type":null},{"title":"High Differential Post","type":null},{"title":"Reassignment at post","type":null},{"title":"SND Post","type":null},{"title":"Continues SND eligibility","type":null},{"title":"Creator(s):Townpost, Jenny","type":"person"},{"title":"Modifier(s):WoodwardWA","type":"person"},{"title":"CDO: Rehman, Tarek S","type":"person"}];
+  const remarks = [{ title: 'Critical Need Position', type: null }, { title: 'High Differential Post', type: null }, { title: 'Reassignment at post', type: null }, { title: 'SND Post', type: null }, { title: 'Continues SND eligibility', type: null }, { title: 'Creator(s):Townpost, Jenny', type: 'person' }, { title: 'Modifier(s):WoodwardWA', type: 'person' }, { title: 'CDO: Rehman, Tarek S', type: 'person' }];
 
   const saveAI = () => {
     // eslint-disable-next-line
@@ -52,18 +61,20 @@ const AgendaItemMaintenancePane = (props) => {
       <div className="ai-maintenance-header">
         <div className={`back-save-btns-container ${leftExpanded ? ' half-width' : ''}`}>
           <BackButton />
-          <button className='save-ai-btn' onClick={saveAI}>
+          <button className="save-ai-btn" onClick={saveAI}>
             Save Agenda Item
           </button>
         </div>
         <div className={`ai-maintenance-header-dd ${leftExpanded ? ' half-width' : ''}`} >
-          <SelectForm
-            id="ai-maintenance-dd-asg"
-            options={asg}
-            defaultSort={asg[0]}
-            onSelectOption={value => setAIStatus(value.target.value)}
-            // disabled
-          />
+          {
+            !loading && !error &&
+              <SelectForm
+                id="ai-maintenance-dd-asg"
+                options={asg}
+                defaultSort={asg[0]}
+                onSelectOption={value => setAsgSepBid(value.target.pos_num)}
+              />
+          }
           <SelectForm
             id="ai-maintenance-status"
             options={aiStatuses}
@@ -74,18 +85,23 @@ const AgendaItemMaintenancePane = (props) => {
           />
           <form onSubmit={addPos}>
             <div className="usa-form">
-              <label>Add Position Number:</label>
-                <input
-                  id='add-pos-num-input'
-                  value={'1234578'}
-                  onChange={value => setAIStatus(value.target.value)}
-                  type="add"
-                  name="add"
-                  // disabled
-                />
-              <InteractiveElement onClick={addPos} type="span" role="button"
-                title="Add position" id='add-pos-num-icon'>
-                  <FA name="plus" />
+              <label htmlFor="position number">Add Position Number:</label>
+              <input
+                id="add-pos-num-input"
+                value={'1234578'}
+                onChange={value => setAIStatus(value.target.value)}
+                type="add"
+                name="add"
+                // disabled
+              />
+              <InteractiveElement
+                onClick={addPos}
+                type="span"
+                role="button"
+                title="Add position"
+                id="add-pos-num-icon"
+              >
+                <FA name="plus" />
               </InteractiveElement>
             </div>
           </form>
@@ -107,10 +123,16 @@ const AgendaItemMaintenancePane = (props) => {
           />
         </div>
         <div className="usa-form remarks">
-          <label>Remarks:</label>
+          <label htmlFor="remarks">Remarks:</label>
           <div className="remarks-container">
-            <InteractiveElement onClick={onAddRemarksClick} type="span" role="button" className="save-ai-btn"
-                                title="Add remark" id='add-remark'>
+            <InteractiveElement
+              onClick={onAddRemarksClick}
+              type="span"
+              role="button"
+              className="save-ai-btn"
+              title="Add remark"
+              id="add-remark"
+            >
               <FA name="plus" />
             </InteractiveElement>
             {
@@ -121,9 +143,11 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
         </div>
         <div className="usa-form corrections">
-          <label>Corrections:</label>
+          <label htmlFor="corrections">Corrections:</label>
           <div>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia commodo. Sed consequat porttitor lacus id aliquam. Praesent et tortor ut erat varius pharetra. Nunc imperdiet metus nec ipsum interdum rutrum.
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat
+            et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia
           </div>
         </div>
       </div>
@@ -134,6 +158,7 @@ const AgendaItemMaintenancePane = (props) => {
 AgendaItemMaintenancePane.propTypes = {
   leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
+  perdet: PropTypes.string.isRequired,
 };
 
 AgendaItemMaintenancePane.defaultProps = {

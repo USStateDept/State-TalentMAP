@@ -43,8 +43,6 @@ const tabs = [
   { text: 'Languages', value: L },
   { text: 'Remarks Glossary', value: RG },
   { text: 'Classifications', value: TP },
-  { text: 'another one', value: AO },
-  { text: 'another another', value: AA },
 ];
 
 const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {

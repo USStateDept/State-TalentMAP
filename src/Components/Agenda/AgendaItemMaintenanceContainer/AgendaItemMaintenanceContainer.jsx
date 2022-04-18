@@ -71,6 +71,7 @@ const AgendaItemMaintenanceContainer = (props) => {
               <AgendaItemMaintenancePane
                 leftExpanded={(legsContainerExpanded || matches)}
                 onAddRemarksClick={openRemarksResearchTab}
+                perdet={id}
               />
               <AgendaItemTimeline />
             </div>
