@@ -32,12 +32,10 @@ const AgendaItemMaintenancePane = (props) => {
   const defaultText = 'Coming Soon';
   // eslint-disable-next-line no-unused-vars
   const { data, error, loading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${perdet}/`);
-  let asg = get(data, 'data') || [];
-  asg = asg.map(a => ({
-    ...a,
-    text: `${a.name || defaultText} '${a.status || defaultText}' in ${a.org || defaultText} -
-     ${a.pos_title || defaultText} (${a.pos_num || defaultText})`,
-  }));
+  // eslint-disable-next-line no-unused-vars
+  const { statusData, statusError, statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
+
+  const asg = get(data, 'data') || [];
 
   // eslint-disable-next-line no-unused-vars
   const [asgSepBid, setAsgSepBid] = useState(filter(asg, ['status', 'EF']));
@@ -68,12 +66,22 @@ const AgendaItemMaintenancePane = (props) => {
         <div className={`ai-maintenance-header-dd ${leftExpanded ? ' half-width' : ''}`} >
           {
             !loading && !error &&
-              <SelectForm
+              <select
                 id="ai-maintenance-dd-asg"
-                options={asg}
-                defaultSort={asg[0]}
-                onSelectOption={value => setAsgSepBid(value.target.pos_num)}
-              />
+                defaultValue={asg}
+                onChange={(e) => setAsgSepBid(get(e, 'target.pos_num'))}
+                value={asg}
+              >
+                <option selected hidden>Employee Assignments, Separations, and Bids</option>
+                {
+                  asg.map(a => (
+                    <option key={a.pos_num} value={a.pos_num}>
+                      {/* eslint-disable-next-line react/no-unescaped-entities,max-len */}
+                      {a.name || defaultText} '{a.status || defaultText}' in {a.org || defaultText} - {a.pos_title || defaultText}({a.pos_num || defaultText})
+                    </option>
+                  ))
+                }
+              </select>
           }
           <SelectForm
             id="ai-maintenance-status"
