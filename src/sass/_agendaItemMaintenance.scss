@@ -189,6 +189,7 @@
 
   .ai-maintenance-header {
     background-color: $bg-gray-medium-4;
+    padding-bottom: 20px;
 
     .usa-form:not(.remarks, .corrections) {
       max-width: 36rem;
@@ -254,7 +255,7 @@
 
       #ai-maintenance-dd-asgSepBids {
         max-width: fit-content;
-        //margin-left: 10px;
+        margin-left: 10px;
       }
 
       #add-pos-num-input {
@@ -280,6 +281,7 @@
         display: flex;
         flex: 70%;
         align-items: baseline;
+        max-width: 36rem;
       }
 
       select {
@@ -287,9 +289,9 @@
         border-radius: 3px;
         font-size: 0.8em;
         height: 28px;
-        padding: 0 23px 0 5px;
+        padding: 0 28px 0 5px;
         text-overflow: ellipsis;
-        max-width: 150px;
+        max-width: fit-content;
       }
     }
   }
