@@ -83,14 +83,19 @@ const AgendaItemMaintenancePane = (props) => {
                 }
               </select>
           }
-          <SelectForm
+          <label htmlFor="ai-maintenance-status">Status:</label>
+          <select
             id="ai-maintenance-status"
-            options={aiStatuses}
-            label="Status:"
-            defaultSort={selectedAIStatus}
-            onSelectOption={value => setAIStatus(value.target.value)}
-            disabled={false}
-          />
+            defaultValue={selectedAIStatus}
+            onChange={(e) => setAIStatus(get(e, 'target.value'))}
+            value={selectedAIStatus}
+          >
+            {
+              aiStatuses.map(a => (
+                <option key={a.value} value={a.value}>{a.text}</option>
+              ))
+            }
+          </select>
           <form onSubmit={addPos}>
             <div className="usa-form">
               <label htmlFor="position number">Add Position Number:</label>
