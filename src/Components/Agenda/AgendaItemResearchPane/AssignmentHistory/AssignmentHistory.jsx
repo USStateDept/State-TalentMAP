@@ -2,7 +2,7 @@ import { BID_RESULTS } from 'Constants/PropTypes';
 import BorderedList from 'Components/BorderedList';
 import AssignmentsListResultsCard from 'Components/ProfileDashboard/Assignments/AssignmentsListResultsCard';
 
-const AgendaItemResearchPane = (props) => {
+const AssignmentHistory = (props) => {
   const { assignments } = props;
   const positionArray = [];
   assignments.forEach(assignment => (
@@ -29,12 +29,12 @@ const AgendaItemResearchPane = (props) => {
   );
 };
 
-AgendaItemResearchPane.propTypes = {
+AssignmentHistory.propTypes = {
   assignments: BID_RESULTS.isRequired,
 };
 
-AgendaItemResearchPane.defaultProps = {
+AssignmentHistory.defaultProps = {
   assignments: [],
 };
 
-export default AgendaItemResearchPane;
+export default AssignmentHistory;
