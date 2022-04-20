@@ -23,7 +23,7 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus } = props;
+  const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus, sort } = props;
   const isCDOorAO = (isCDO || isAO);
 
   useCloseSwalOnUnmount();
@@ -250,6 +250,7 @@ const AvailableBidderRow = (props) => {
             formattedCreated,
             stepLetterOne,
             stepLetterTwo }}
+          sort={sort}
         />
       ),
     });
@@ -346,6 +347,7 @@ AvailableBidderRow.propTypes = {
   isAO: PropTypes.bool,
   isPost: PropTypes.bool,
   bureaus: FILTER,
+  sort: PropTypes.string,
 };
 
 AvailableBidderRow.defaultProps = {
@@ -356,6 +358,7 @@ AvailableBidderRow.defaultProps = {
   isAO: false,
   isPost: false,
   bureaus: [],
+  sort: 'Name',
 };
 
 export default AvailableBidderRow;

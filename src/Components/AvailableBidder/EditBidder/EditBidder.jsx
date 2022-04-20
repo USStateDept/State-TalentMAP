@@ -17,7 +17,7 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidder = (props) => {
-  const { name, sections, submitAction, bureaus, details } = props;
+  const { name, sections, submitAction, bureaus, details, sort } = props;
   const [status, setStatus] = useState(details.status);
   const [comment, setComment] = useState(sections.comments);
   const [ocReason, setOCReason] = useState(details.ocReason);
@@ -31,6 +31,7 @@ const EditBidder = (props) => {
   const [stepLetterTwo, setStepLetterTwo] = useState(stepLetterTwoDate);
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
+  console.log('sort edit bidder', sort);
 
   // To Do: Move these to the DB/Django backend after more user feedback
   const reasons = [
@@ -367,6 +368,7 @@ EditBidder.propTypes = {
   submitAction: PropTypes.func,
   bureaus: FILTER,
   details: AB_EDIT_DETAILS_OBJECT,
+  sort: PropTypes.string,
 };
 
 EditBidder.defaultProps = {
@@ -375,6 +377,7 @@ EditBidder.defaultProps = {
   submitAction: EMPTY_FUNCTION,
   bureaus: [],
   details: {},
+  sort: 'Name',
 };
 
 export default EditBidder;

@@ -25,7 +25,7 @@ const AvailableBidderTable = props => {
   // Local state
   // Toggle view state within CDO version
   const [cdoView, setCdoView] = useState(true);
-  const [sort, setSort] = useState('Name');
+  const [sort, setSort] = useState('Grade');
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
   // App state
@@ -41,7 +41,9 @@ const AvailableBidderTable = props => {
 
   const bidders = isLoading ? [...new Array(10)] : get(biddersData, 'results', []);
 
+  console.log('original sort', sort);
   const prevSort = usePrevious(sort);
+  console.log('prev sort', prevSort);
 
   // Actions
   const dispatch = useDispatch();
@@ -225,6 +227,7 @@ const AvailableBidderTable = props => {
                     isPost={isPost}
                     isLoading={isLoading}
                     bureaus={bureaus}
+                    sort={sort}
                   />
                 ))
               }

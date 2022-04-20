@@ -122,6 +122,7 @@ export function availableBiddersIds() {
 }
 
 export function availableBiddersFetchData(isCDO, sortType = 'Name') {
+  console.log('abl fetchdata url', `${isCDO ? 'cdo' : 'bureau'}/availablebidders/?ordering=${sortType}`);
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));
