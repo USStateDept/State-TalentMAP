@@ -6,7 +6,7 @@ import SectionTitle from '../SectionTitle';
 import InformationDataPoint from '../InformationDataPoint';
 
 const Languages = props => {
-  const { languagesArray, useWrapper } = props;
+  const { languagesArray, useWrapper, showHeader } = props;
   const languagesArray$ = languagesArray || [];
 
   const getTestDate = (langObj) => {
@@ -47,7 +47,9 @@ const Languages = props => {
       <div className="usa-grid-full profile-section-container languages-container">
         <div className="usa-grid-full section-padded-inner-container">
           <div className="usa-width-one-whole">
-            <SectionTitle title="Language History" len={languagesArray$.length} icon="language" />
+            {showHeader &&
+              <SectionTitle title="Language History" len={languagesArray$.length} icon="language" />
+            }
           </div>
           {content}
         </div>
@@ -78,11 +80,13 @@ Languages.propTypes = {
     ),
   ),
   useWrapper: PropTypes.bool,
+  showHeader: PropTypes.bool,
 };
 
 Languages.defaultProps = {
   languagesArray: [],
   useWrapper: true,
+  showHeader: true,
 };
 
 export default Languages;
