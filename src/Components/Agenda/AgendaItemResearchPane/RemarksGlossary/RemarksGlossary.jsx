@@ -5,10 +5,12 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+// import Scroll from 'react-scroll';
 import Fuse from 'fuse.js';
 
 const RemarksGlossary = ({ onRemarkClick, remarks }) => {
   const [textInputs, setTextInputs] = useState({});
+  // const categoryRef = useRef();
 
   const setTextInput = (key, value) => {
     const textInputs$ = { ...textInputs };
@@ -57,10 +59,19 @@ const RemarksGlossary = ({ onRemarkClick, remarks }) => {
   let remarksCategories = uniqBy(remarks$$, 'rmrkrccode').map(({ rmrkrccode, rcdesctext }) => ({ rmrkrccode, rcdesctext }));
   remarksCategories = orderBy(remarksCategories, 'rcdesctext');
 
+  // const categoriesList = remarksCategories.map(a => <li key={a.rcdesctext}>{a.rcdesctext}</li>);
+
   const onRemarkClick$ = remark => {
     const textInputValue = getTextInputValue(remark.rmrkseqnum);
     const remark$ = { ...remark, textInputValue };
     onRemarkClick(remark$);
+  };
+
+  const processClick = remark => {
+    console.log(remark);
+    const el = document.getElementById(`remark-category-${remark.rmrkrccode}`);
+    console.log(el);
+    el.scrollIntoView();
   };
 
   useEffect(() => {
@@ -78,12 +89,16 @@ const RemarksGlossary = ({ onRemarkClick, remarks }) => {
           autoComplete: 'off',
         }}
       />
+      <div className="usa-grid-full remarks-categories-container">
+        {remarksCategories.map(a => (
+          <a tabIndex={0} role="button" onClick={() => processClick(a)}>{a.rcdesctext}</a>))}
+      </div>
       {remarksCategories.map(category => {
         const remarksInCategory = orderBy(remarks$$.filter(f => f.rmrkrccode === category.rmrkrccode), 'rmrkordernum');
         return (
           <div>
             <div key={category.rmrkrccode}>
-              <div className={`remark-category remark-category--${category.rmrkrccode}`}>{category.rcdesctext}</div>
+              <div id={`remark-category-${category.rmrkrccode}`} className={`remark-category remark-category--${category.rmrkrccode}`}>{category.rcdesctext}</div>
               <ul>
                 {remarksInCategory.map(r => {
                   const hasTextInput = has(r, 'textInputValue');
