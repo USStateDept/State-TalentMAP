@@ -24,7 +24,7 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 const AvailableBidderRow = (props) => {
   const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus, sort } = props;
-  const isCDOorAO = (isCDO || isAO);
+  const isInternal = (isCDO || isAO);
 
   useCloseSwalOnUnmount();
 
@@ -191,7 +191,7 @@ const AvailableBidderRow = (props) => {
     // $abl-actions-td and $abl-gray-config variables
     const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
-    return isCDOorAO ? omit({
+    return isInternal ? omit({
       name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
       status: getStatus(),
       step_letters: stepLettersToolTip,
@@ -226,7 +226,6 @@ const AvailableBidderRow = (props) => {
   const dispatch = useDispatch();
 
   const submitAction = (userInputs) => {
-    // persisitng sort
     dispatch(availableBidderEditData(id, userInputs, sort));
     swal.close();
   };
@@ -278,8 +277,8 @@ const AvailableBidderRow = (props) => {
         })
       }
       {
-        isLoading && isCDOorAO ? <td><Skeleton /></td> :
-          isCDOorAO &&
+        isLoading && isInternal ? <td><Skeleton /></td> :
+          isInternal &&
           <td>
             <div className="ab-action-buttons">
               <Tooltip
