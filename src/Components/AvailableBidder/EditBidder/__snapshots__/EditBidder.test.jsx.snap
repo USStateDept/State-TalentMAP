@@ -9,7 +9,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
       className="detail"
     >
       <span>
-        * Internal CDO field only, not shared with Bureaus
+        * Internal CDA field only, not shared with External CDA
       </span>
     </div>
     <div>
@@ -260,7 +260,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
     </div>
     <div>
       <dt>
-        Bureau Share:
+        External Share:
       </dt>
       <Tooltip
         animateFill={true}
@@ -305,7 +305,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
         style={Object {}}
         tag="div"
         theme="dark"
-        title="Status must be UA or OC to share with bureau"
+        title="Status must be UA or OC to share with External CDA"
         touchHold={false}
         trigger="mouseenter focus"
         unmountHTMLWhenHide={false}

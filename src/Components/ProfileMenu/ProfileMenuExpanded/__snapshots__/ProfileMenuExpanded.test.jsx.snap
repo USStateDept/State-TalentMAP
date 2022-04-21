@@ -269,7 +269,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         hidden={true}
         iconName="user-circle-o"
         key="Employee Agendas"
-        link="/profile/ao/employeeagenda"
+        link="/profile/ao/employeeagendas"
         search=""
         title="Employee Agendas"
       />
@@ -316,7 +316,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         hidden={true}
         iconName="user-circle-o"
         key="Employee Agendas"
-        link="/profile/cdo/employeeagenda"
+        link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
       />
@@ -594,7 +594,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         hidden={true}
         iconName="user-circle-o"
         key="Employee Agendas"
-        link="/profile/ao/employeeagenda"
+        link="/profile/ao/employeeagendas"
         search=""
         title="Employee Agendas"
       />
@@ -641,7 +641,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         hidden={true}
         iconName="user-circle-o"
         key="Employee Agendas"
-        link="/profile/cdo/employeeagenda"
+        link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
       />

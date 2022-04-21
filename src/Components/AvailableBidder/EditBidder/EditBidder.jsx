@@ -139,7 +139,7 @@ const EditBidder = (props) => {
     <div>
       <form className="available-bidder-form">
         <div className="detail">
-          <span>* Internal CDO field only, not shared with Bureaus</span>
+          <span>* Internal CDA field only, not shared with External CDA</span>
         </div>
         <div>
           <dt>Client Name:</dt>
@@ -332,11 +332,11 @@ const EditBidder = (props) => {
           <dd>{details.formattedCreated}</dd>
         </div>
         <div>
-          <dt>Bureau Share:</dt>
+          <dt>External Share:</dt>
           {
             status === 'OC' || status === 'UA' ?
               <Tooltip
-                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                title={shared ? 'Unshare with External CDA' : 'Share with External CDA'}
                 {...commonTooltipProps}
               >
                 <InteractiveElement
@@ -347,7 +347,7 @@ const EditBidder = (props) => {
               </Tooltip>
               :
               <Tooltip
-                title={'Status must be UA or OC to share with bureau'}
+                title={'Status must be UA or OC to share with External CDA'}
                 {...commonTooltipProps}
               >
                 <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
