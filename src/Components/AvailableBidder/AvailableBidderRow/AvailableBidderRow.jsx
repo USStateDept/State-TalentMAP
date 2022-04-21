@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import { get, keys, omit } from 'lodash';
 import { checkFlag } from 'flags';
 import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities';
-import { availableBidderEditData, availableBiddersFetchData, availableBiddersToggleUser } from 'actions/availableBidders';
+import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
   NO_BUREAU, NO_CDO, NO_COMMENTS, NO_DATE, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
@@ -226,13 +226,9 @@ const AvailableBidderRow = (props) => {
   const dispatch = useDispatch();
 
   const submitAction = (userInputs) => {
+    // persisitng sort
     dispatch(availableBidderEditData(id, userInputs, sort));
     swal.close();
-  };
-
-  // persisitng sort
-  const fetchData = (isExternalorInteralView, sortType) => {
-    dispatch(availableBiddersFetchData(isExternalorInteralView, sortType));
   };
 
   // See sweet alert library docs
@@ -255,9 +251,6 @@ const AvailableBidderRow = (props) => {
             formattedCreated,
             stepLetterOne,
             stepLetterTwo }}
-          isCDOorAO={isCDOorAO}
-          fetchData={fetchData}
-          sort={sort}
         />
       ),
     });
@@ -303,7 +296,7 @@ const AvailableBidderRow = (props) => {
               {
                 status === 'OC' || status === 'UA' ?
                   <Tooltip
-                    title={shared ? 'Unshare with External CDA View' : 'Share with External CDA View'}
+                    title={shared ? 'Unshare with External CDA' : 'Share with External CDA'}
                     arrow
                     offset={-95}
                     position="top-end"
@@ -319,7 +312,7 @@ const AvailableBidderRow = (props) => {
                   </Tooltip>
                   :
                   <Tooltip
-                    title={'Status must be UA or OC to share with External CDA View'}
+                    title={'Status must be UA or OC to share with External CDA'}
                     arrow
                     offset={-95}
                     position="top-end"

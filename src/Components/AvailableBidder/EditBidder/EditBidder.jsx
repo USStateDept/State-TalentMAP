@@ -17,7 +17,7 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidder = (props) => {
-  const { name, sections, submitAction, bureaus, details, isCDOorAO, fetchData, sort } = props;
+  const { name, sections, submitAction, bureaus, details } = props;
   const [status, setStatus] = useState(details.status);
   const [comment, setComment] = useState(sections.comments);
   const [ocReason, setOCReason] = useState(details.ocReason);
@@ -62,9 +62,6 @@ const EditBidder = (props) => {
     forEach(userInputs, (v, k) => {
       if (v === 'None listed') userInputs[k] = '';
     });
-
-    // persisitng sort
-    fetchData(isCDOorAO, sort);
 
     submitAction(userInputs);
   };
@@ -142,7 +139,7 @@ const EditBidder = (props) => {
     <div>
       <form className="available-bidder-form">
         <div className="detail">
-          <span>* Internal CDA View field only, not shared with External CDA View</span>
+          <span>* Internal CDA field only, not shared with External CDA</span>
         </div>
         <div>
           <dt>Client Name:</dt>
@@ -339,7 +336,7 @@ const EditBidder = (props) => {
           {
             status === 'OC' || status === 'UA' ?
               <Tooltip
-                title={shared ? 'Unshare with External CDA View' : 'Share with External CDA View'}
+                title={shared ? 'Unshare with External CDA' : 'Share with External CDA'}
                 {...commonTooltipProps}
               >
                 <InteractiveElement
@@ -350,7 +347,7 @@ const EditBidder = (props) => {
               </Tooltip>
               :
               <Tooltip
-                title={'Status must be UA or OC to share with External CDA View'}
+                title={'Status must be UA or OC to share with External CDA'}
                 {...commonTooltipProps}
               >
                 <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
@@ -370,9 +367,6 @@ EditBidder.propTypes = {
   submitAction: PropTypes.func,
   bureaus: FILTER,
   details: AB_EDIT_DETAILS_OBJECT,
-  isCDOorAO: PropTypes.bool,
-  fetchData: PropTypes.func,
-  sort: PropTypes.string,
 };
 
 EditBidder.defaultProps = {
@@ -381,9 +375,6 @@ EditBidder.defaultProps = {
   submitAction: EMPTY_FUNCTION,
   bureaus: [],
   details: {},
-  isCDOorAO: false,
-  fetchData: EMPTY_FUNCTION,
-  sort: 'Name',
 };
 
 export default EditBidder;
