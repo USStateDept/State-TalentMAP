@@ -25,7 +25,7 @@ const AvailableBidderTable = props => {
   // Local state
   // Toggle view state within CDO version
   const [cdoView, setCdoView] = useState(true);
-  const [sort, setSort] = useState('Grade');
+  const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
   // App state
@@ -41,9 +41,7 @@ const AvailableBidderTable = props => {
 
   const bidders = isLoading ? [...new Array(10)] : get(biddersData, 'results', []);
 
-  console.log('original sort', sort);
   const prevSort = usePrevious(sort);
-  console.log('prev sort', prevSort);
 
   // Actions
   const dispatch = useDispatch();
@@ -98,7 +96,7 @@ const AvailableBidderTable = props => {
 
   let title = '';
   if (isCDOorAO) {
-    title = cdoView ? 'Internal CDA View' : 'External Bureau/Post View';
+    title = cdoView ? 'Internal CDA View' : 'External CDA View';
   }
 
   const getTitleCount = () => {
@@ -181,7 +179,7 @@ const AvailableBidderTable = props => {
                         <ToggleButton
                           labelTextLeft={
                             <Tooltip
-                              title="CDO View"
+                              title="Internal CDA View"
                               arrow
                               offset={-95}
                               position="top-end"
@@ -192,7 +190,7 @@ const AvailableBidderTable = props => {
                           }
                           labelTextRight={
                             <Tooltip
-                              title="Bureau/Post View"
+                              title="External CDA View"
                               arrow
                               offset={-95}
                               position="top-end"

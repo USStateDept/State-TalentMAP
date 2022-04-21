@@ -122,7 +122,6 @@ export function availableBiddersIds() {
 }
 
 export function availableBiddersFetchData(isCDO, sortType = 'Name') {
-  console.log('abl fetchdata url', `${isCDO ? 'cdo' : 'bureau'}/availablebidders/?ordering=${sortType}`);
   return (dispatch) => {
     batch(() => {
       dispatch(availableBiddersFetchDataLoading(true));
@@ -154,7 +153,7 @@ export function availableBiddersFetchData(isCDO, sortType = 'Name') {
   };
 }
 
-export function availableBiddersToggleUser(id, remove, refresh = false) {
+export function availableBiddersToggleUser(id, remove, refresh = false, sortType = 'Name') {
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
@@ -178,7 +177,7 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
           dispatch(availableBiddersToggleUserIsLoading(false));
           dispatch(availableBiddersIds());
           if (refresh) {
-            dispatch(availableBiddersFetchData(true));
+            dispatch(availableBiddersFetchData(true, sortType));
           }
         });
       })
@@ -195,7 +194,7 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
   };
 }
 
-export function availableBidderEditData(id, data) {
+export function availableBidderEditData(id, data, sortType = 'Name') {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBidderEditDataLoading(true));
@@ -211,7 +210,7 @@ export function availableBidderEditData(id, data) {
           dispatch(availableBidderEditDataLoading(false));
           dispatch(availableBidderEditDataSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(availableBiddersFetchData(true));
+          dispatch(availableBiddersFetchData(true, sortType));
         });
       })
       .catch((err) => {

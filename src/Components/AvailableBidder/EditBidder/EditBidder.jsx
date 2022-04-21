@@ -17,7 +17,7 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidder = (props) => {
-  const { name, sections, submitAction, bureaus, details, sort } = props;
+  const { name, sections, submitAction, bureaus, details, isCDOorAO, fetchData, sort } = props;
   const [status, setStatus] = useState(details.status);
   const [comment, setComment] = useState(sections.comments);
   const [ocReason, setOCReason] = useState(details.ocReason);
@@ -31,7 +31,6 @@ const EditBidder = (props) => {
   const [stepLetterTwo, setStepLetterTwo] = useState(stepLetterTwoDate);
 
   const bureauOptions = uniqBy(bureaus.data, 'code');
-  console.log('sort edit bidder', sort);
 
   // To Do: Move these to the DB/Django backend after more user feedback
   const reasons = [
@@ -63,6 +62,9 @@ const EditBidder = (props) => {
     forEach(userInputs, (v, k) => {
       if (v === 'None listed') userInputs[k] = '';
     });
+
+    // persisitng sort
+    fetchData(isCDOorAO, sort);
 
     submitAction(userInputs);
   };
@@ -140,7 +142,7 @@ const EditBidder = (props) => {
     <div>
       <form className="available-bidder-form">
         <div className="detail">
-          <span>* Internal CDO field only, not shared with Bureaus</span>
+          <span>* Internal CDA View field only, not shared with External CDA View</span>
         </div>
         <div>
           <dt>Client Name:</dt>
@@ -333,11 +335,11 @@ const EditBidder = (props) => {
           <dd>{details.formattedCreated}</dd>
         </div>
         <div>
-          <dt>Bureau Share:</dt>
+          <dt>External Share:</dt>
           {
             status === 'OC' || status === 'UA' ?
               <Tooltip
-                title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                title={shared ? 'Unshare with External CDA View' : 'Share with External CDA View'}
                 {...commonTooltipProps}
               >
                 <InteractiveElement
@@ -348,7 +350,7 @@ const EditBidder = (props) => {
               </Tooltip>
               :
               <Tooltip
-                title={'Status must be UA or OC to share with bureau'}
+                title={'Status must be UA or OC to share with External CDA View'}
                 {...commonTooltipProps}
               >
                 <dd className="ab-action-buttons"><FA name="lock" className="fa-lg" /></dd>
@@ -368,6 +370,8 @@ EditBidder.propTypes = {
   submitAction: PropTypes.func,
   bureaus: FILTER,
   details: AB_EDIT_DETAILS_OBJECT,
+  isCDOorAO: PropTypes.bool,
+  fetchData: PropTypes.func,
   sort: PropTypes.string,
 };
 
@@ -377,6 +381,8 @@ EditBidder.defaultProps = {
   submitAction: EMPTY_FUNCTION,
   bureaus: [],
   details: {},
+  isCDOorAO: false,
+  fetchData: EMPTY_FUNCTION,
   sort: 'Name',
 };
 

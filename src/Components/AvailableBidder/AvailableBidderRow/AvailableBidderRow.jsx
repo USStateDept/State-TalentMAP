@@ -4,7 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import { get, keys, omit } from 'lodash';
 import { checkFlag } from 'flags';
 import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities';
-import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
+import { availableBidderEditData, availableBiddersFetchData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
   NO_BUREAU, NO_CDO, NO_COMMENTS, NO_DATE, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
@@ -226,8 +226,13 @@ const AvailableBidderRow = (props) => {
   const dispatch = useDispatch();
 
   const submitAction = (userInputs) => {
-    dispatch(availableBidderEditData(id, userInputs));
+    dispatch(availableBidderEditData(id, userInputs, sort));
     swal.close();
+  };
+
+  // persisitng sort
+  const fetchData = (isExternalorInteralView, sortType) => {
+    dispatch(availableBiddersFetchData(isExternalorInteralView, sortType));
   };
 
   // See sweet alert library docs
@@ -250,6 +255,8 @@ const AvailableBidderRow = (props) => {
             formattedCreated,
             stepLetterOne,
             stepLetterTwo }}
+          isCDOorAO={isCDOorAO}
+          fetchData={fetchData}
           sort={sort}
         />
       ),
@@ -296,21 +303,23 @@ const AvailableBidderRow = (props) => {
               {
                 status === 'OC' || status === 'UA' ?
                   <Tooltip
-                    title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                    title={shared ? 'Unshare with External CDA View' : 'Share with External CDA View'}
                     arrow
                     offset={-95}
                     position="top-end"
                     tabIndex="0"
                   >
                     <InteractiveElement
-                      onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
+                      onClick={() =>
+                        dispatch(availableBidderEditData(id, { is_shared: !shared }, sort))
+                      }
                     >
                       <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
                     </InteractiveElement>
                   </Tooltip>
                   :
                   <Tooltip
-                    title={'Status must be UA or OC to share with bureau'}
+                    title={'Status must be UA or OC to share with External CDA View'}
                     arrow
                     offset={-95}
                     position="top-end"
@@ -327,7 +336,7 @@ const AvailableBidderRow = (props) => {
                 tabIndex="0"
               >
                 <InteractiveElement
-                  onClick={() => dispatch(availableBiddersToggleUser(id, true, true))}
+                  onClick={() => dispatch(availableBiddersToggleUser(id, true, true, sort))}
                 >
                   <FA name="trash-o" className="fa-lg" />
                 </InteractiveElement>
