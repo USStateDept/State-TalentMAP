@@ -1,3 +1,4 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
@@ -5,6 +6,8 @@ import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import Calendar from 'react-calendar';
+import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
 import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
@@ -16,6 +19,8 @@ const AgendaItemLegs = props => {
     showCloseButton,
     onClose,
   } = props;
+
+  const calendarID = 'aim-ted-calendar';
 
   let legs$ = legs;
   if (isCard && legs.length > 2) {
@@ -32,11 +37,56 @@ const AgendaItemLegs = props => {
     onClose(leg);
   };
 
+  const [tedCalendar, setTEDCalendar] = useState(new Date());
+
+  const updateTEDCalendar = (date) => {
+    setTEDCalendar(date);
+  };
+
+  const [calendarHidden, setCalendarHidden] = useState({});
+  const calendarHiddenRef = useRef(calendarHidden);
+
+  const setCalendarHiddenRef = data => {
+    calendarHiddenRef.current = data;
+    setCalendarHidden(data);
+  };
+
+  const toggleCalendar = (id, val, shouldReset = true) => {
+    if (shouldReset) { setCalendarHiddenRef({}); }
+    const calendarHidden$ = { ...calendarHidden };
+    calendarHidden$[id] = val;
+    setCalendarHiddenRef(calendarHidden$);
+  };
+
+  const handleOutsideClick = useCallback((e) => {
+    const calendarHidden$ = { ...calendarHiddenRef };
+    legs$.forEach((leg, i) => {
+      if (e.target.id !== `${calendarID}-${i}` && document.getElementById(`${calendarID}-${i}`) &&
+        !document.getElementById(`${calendarID}-${i}`).contains(e.target)) {
+        calendarHidden$[i] = false;
+      } else {
+        calendarHidden$[i] = true;
+      }
+    });
+    setCalendarHiddenRef(calendarHidden$);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('click', e => handleOutsideClick(e));
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
+
   const getData = (key, helperFunc) => (
     <>
       {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
+          const isFirstLeg = i === 0;
+          const editDropdown = (!isFirstLeg && (key === 'tod' || key === 'action' || key === 'travel'));
+          const editCalendar = (!isFirstLeg && (key === 'ted'));
+          const helperFuncToggle = !!helperFunc;
           return (<td>
             {/* first leg cannot be removed */}
             {showClose &&
@@ -44,11 +94,49 @@ const AgendaItemLegs = props => {
               <FA name="times" />
             </InteractiveElement>}
             {
-              helperFunc ?
+              helperFunc && !editDropdown && !editCalendar &&
                 <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
-                :
-                <dd>{leg[key]}</dd>
-
+            }
+            {
+              !helperFuncToggle && !editDropdown &&
+              <dd>{leg[key]}</dd>
+            }
+            {
+              editCalendar &&
+                <div className="ted-calendar-container" id={`${calendarID}-${i}`}>
+                  {helperFunc(leg[key])}
+                  <FA name="calendar" onClick={() => toggleCalendar(i, true)} />
+                  {calendarHidden[i] &&
+                  <div className="fa-calendar-container" id={`${calendarID}-${i}-cal`}>
+                    <Calendar
+                      className="ted-react-calendar"
+                      onChange={updateTEDCalendar}
+                      onClickDay={() => toggleCalendar(i, false)}
+                      selected={tedCalendar}
+                    />
+                  </div>
+                  }
+                </div>
+            }
+            {
+              editDropdown &&
+              <Dropdown
+                className="account-dropdown"
+                removeElement
+              >
+                <DropdownTrigger href="/#" className="ai-legs-dropdown">
+                  {
+                    <span className="account-dropdown--name" id="account-username">{leg[key]}
+                      <span className="account-dropdown-spacing">__</span>
+                    </span>
+                  }
+                </DropdownTrigger>
+                <DropdownContent>
+                  <div className="account-dropdown--identity account-dropdown--segment">
+                    <div>{leg[key]}</div>
+                  </div>
+                </DropdownContent>
+              </Dropdown>
             }
           </td>);
         })

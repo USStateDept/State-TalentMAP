@@ -1,13 +1,19 @@
 .navTabs {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1;
   .menu-style {
+    background-color: $bg-gray-medium-4;
+    border-bottom: 3px solid $color-black;
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(150px, 1fr));
     .tab {
-      text-align: center;
-      padding: 5px 10px;
-      font-size: 13px;
       background-color: $bg-gray-medium-4;
       border-top: 3px solid $bg-gray-medium-4;
+      font-size: 13px;
+      padding: 5px 10px;
+      text-align: center;
     }
     .tab-active {
       background-color: $color-white;
