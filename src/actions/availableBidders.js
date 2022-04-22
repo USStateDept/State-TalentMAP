@@ -232,9 +232,9 @@ export function availableBidderEditData(id, data, sortType = 'Name') {
   };
 }
 
-export function availableBidderExport(cdo, isSort = 'Name') {
+export function availableBidderExport(isInternalCDAExport, isSort = 'Name') {
   return api()
-    .get(`${cdo ? '/cdo' : '/bureau'}/availablebidders/export/?ordering=${isSort}`)
+    .get(`${isInternalCDAExport ? '/cdo' : '/bureau'}/availablebidders/export/?ordering=${isSort}`)
     .then((response) => {
       downloadFromResponse(response, `Available_Bidders_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });
