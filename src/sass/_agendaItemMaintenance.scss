@@ -324,12 +324,12 @@
   }
 
   a {
-    padding-left: 5px
+    padding: 10px
   }
 
   .ted-calendar-container {
     padding-left: .7em;
-    
+
     .fa {
       cursor: pointer;
       padding-left: 5px;
@@ -412,8 +412,16 @@
 .remarks-categories-container {
   display: flex;
   flex-direction: row;
-  padding: 10px 0;
+  flex-wrap: wrap;
+  margin: 10px 10px 30px 10px;
   justify-content: space-between;
+}
+
+.remarks-categories-container a {
+  min-width: 200px;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .remarks-glossary-container {
