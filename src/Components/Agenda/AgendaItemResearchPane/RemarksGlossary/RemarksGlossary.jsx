@@ -58,8 +58,6 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
   let remarkCategories$ = uniqBy(remarkCategories, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
   remarkCategories$ = orderBy(remarkCategories$, 'desc_text');
 
-  // const categoriesList = remarksCategories.map(a => <li key={a.rcdesctext}>{a.rcdesctext}</li>);
-
   const onRemarkClick$ = remark => {
     const textInputValue = getTextInputValue(remark.seq_num);
     const remark$ = { ...remark, textInputValue };
@@ -67,9 +65,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
   };
 
   const processClick = remark => {
-    console.log(remark);
     const el = document.getElementById(`remark-category-${remark.code}`);
-    console.log(el);
     el.scrollIntoView();
   };
 
