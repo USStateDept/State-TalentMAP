@@ -23,7 +23,7 @@ const AvailableBidderTable = props => {
   const isInternalCDA = (isCDO || isAO);
 
   // Local state
-  // Toggle view state within CDO version
+  // Toggle view state within Internal CDA version
   const [internalCDAView, setInternalCDAView] = useState(true);
   const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
@@ -176,7 +176,7 @@ const AvailableBidderTable = props => {
                 {
                   isInternalCDA &&
                     <th>
-                      <div className="bureau-view-toggle">
+                      <div className="external-internal-view-toggle">
                         <ToggleButton
                           labelTextLeft={
                             <Tooltip
