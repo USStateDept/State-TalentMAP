@@ -96,7 +96,7 @@ const AvailableBidderTable = props => {
 
   let title = '';
   if (isCDOorAO) {
-    title = cdoView ? 'Internal CDA View' : 'External Bureau/Post View';
+    title = cdoView ? 'Internal CDA View' : 'External CDA View';
   }
 
   const getTitleCount = () => {
@@ -179,7 +179,7 @@ const AvailableBidderTable = props => {
                         <ToggleButton
                           labelTextLeft={
                             <Tooltip
-                              title="CDO View"
+                              title="Internal CDA View"
                               arrow
                               offset={-95}
                               position="top-end"
@@ -190,7 +190,7 @@ const AvailableBidderTable = props => {
                           }
                           labelTextRight={
                             <Tooltip
-                              title="Bureau/Post View"
+                              title="External CDA View"
                               arrow
                               offset={-95}
                               position="top-end"
@@ -225,6 +225,7 @@ const AvailableBidderTable = props => {
                     isPost={isPost}
                     isLoading={isLoading}
                     bureaus={bureaus}
+                    sort={sort}
                   />
                 ))
               }

@@ -23,8 +23,8 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus } = props;
-  const isCDOorAO = (isCDO || isAO);
+  const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus, sort } = props;
+  const isInternal = (isCDO || isAO);
 
   useCloseSwalOnUnmount();
 
@@ -191,7 +191,7 @@ const AvailableBidderRow = (props) => {
     // $abl-actions-td and $abl-gray-config variables
     const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
-    return isCDOorAO ? omit({
+    return isInternal ? omit({
       name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
       status: getStatus(),
       step_letters: stepLettersToolTip,
@@ -226,7 +226,7 @@ const AvailableBidderRow = (props) => {
   const dispatch = useDispatch();
 
   const submitAction = (userInputs) => {
-    dispatch(availableBidderEditData(id, userInputs));
+    dispatch(availableBidderEditData(id, userInputs, sort));
     swal.close();
   };
 
@@ -277,8 +277,8 @@ const AvailableBidderRow = (props) => {
         })
       }
       {
-        isLoading && isCDOorAO ? <td><Skeleton /></td> :
-          isCDOorAO &&
+        isLoading && isInternal ? <td><Skeleton /></td> :
+          isInternal &&
           <td>
             <div className="ab-action-buttons">
               <Tooltip
@@ -295,21 +295,23 @@ const AvailableBidderRow = (props) => {
               {
                 status === 'OC' || status === 'UA' ?
                   <Tooltip
-                    title={shared ? 'Unshare with Bureaus' : 'Share with Bureaus'}
+                    title={shared ? 'Unshare with External CDA' : 'Share with External CDA'}
                     arrow
                     offset={-95}
                     position="top-end"
                     tabIndex="0"
                   >
                     <InteractiveElement
-                      onClick={() => dispatch(availableBidderEditData(id, { is_shared: !shared }))}
+                      onClick={() =>
+                        dispatch(availableBidderEditData(id, { is_shared: !shared }, sort))
+                      }
                     >
                       <FA name={shared ? 'building' : 'building-o'} className="fa-lg" />
                     </InteractiveElement>
                   </Tooltip>
                   :
                   <Tooltip
-                    title={'Status must be UA or OC to share with bureau'}
+                    title={'Status must be UA or OC to share with External CDA'}
                     arrow
                     offset={-95}
                     position="top-end"
@@ -326,7 +328,7 @@ const AvailableBidderRow = (props) => {
                 tabIndex="0"
               >
                 <InteractiveElement
-                  onClick={() => dispatch(availableBiddersToggleUser(id, true, true))}
+                  onClick={() => dispatch(availableBiddersToggleUser(id, true, true, sort))}
                 >
                   <FA name="trash-o" className="fa-lg" />
                 </InteractiveElement>
@@ -346,6 +348,7 @@ AvailableBidderRow.propTypes = {
   isAO: PropTypes.bool,
   isPost: PropTypes.bool,
   bureaus: FILTER,
+  sort: PropTypes.string,
 };
 
 AvailableBidderRow.defaultProps = {
@@ -356,6 +359,7 @@ AvailableBidderRow.defaultProps = {
   isAO: false,
   isPost: false,
   bureaus: [],
+  sort: 'Name',
 };
 
 export default AvailableBidderRow;
