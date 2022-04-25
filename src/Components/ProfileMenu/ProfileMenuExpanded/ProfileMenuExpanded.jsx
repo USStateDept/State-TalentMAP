@@ -73,7 +73,14 @@ const ProfileMenuExpanded = (props) => {
       <NavLinksContainer>
         {
           getProfileMenuSort.map((item) => {
-            const subitems = (sortBy(item.children, [(i) => i.text]) || []);
+            const subitems = filter(item.children, { text: 'Dashboard' });
+            const subitems$ = sortBy(remove(item.children,
+              menu => menu.text !== 'Dashboard'), [(menu) => menu.text.toLowerCase()],
+            );
+
+            subitems$.forEach((i) => {
+              subitems.push(i);
+            });
             return subitems.length ? (
               <NavLink key={item.text} {...getProps(item, roles, props$)}>
                 {

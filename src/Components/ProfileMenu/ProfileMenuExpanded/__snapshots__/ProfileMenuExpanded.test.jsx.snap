@@ -38,20 +38,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={true}
-        iconName="clipboard"
-        key="Bid Tracker"
-        link="/profile/bidtracker/"
-        search=""
-        title="Bid Tracker"
-      />
-      <withRouter(NavLink)
         hidden={false}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="clipboard"
+        key="Bid Tracker"
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
       />
       <withRouter(NavLink)
         hidden={false}
@@ -102,19 +102,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="hourglass-start"
-        key="Bid Cycles"
-        link="/profile/administrator/cycles/"
-        search=""
-        title="Bid Cycles"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="hourglass-start"
+        key="Bid Cycles"
+        link="/profile/administrator/cycles/"
+        search=""
+        title="Bid Cycles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -173,19 +173,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/ao/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/ao/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/ao/availablebidders"
+        search=""
+        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -212,19 +212,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/bureau/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/bureau/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/bureau/availablebidders"
+        search=""
+        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -298,19 +298,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/post/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/post/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/post/availablebidders"
+        search=""
+        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -363,20 +363,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={true}
-        iconName="clipboard"
-        key="Bid Tracker"
-        link="/profile/bidtracker/"
-        search=""
-        title="Bid Tracker"
-      />
-      <withRouter(NavLink)
         hidden={false}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/dashboard"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="clipboard"
+        key="Bid Tracker"
+        link="/profile/bidtracker/"
+        search=""
+        title="Bid Tracker"
       />
       <withRouter(NavLink)
         hidden={false}
@@ -426,20 +426,20 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       toggleMenuSection={[Function]}
     >
       <withRouter(NavLink)
-        hidden={false}
-        iconName="hourglass-start"
-        key="Bid Cycles"
-        link="/profile/administrator/cycles/"
-        search=""
-        title="Bid Cycles"
-      />
-      <withRouter(NavLink)
         hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/administrator/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={false}
+        iconName="hourglass-start"
+        key="Bid Cycles"
+        link="/profile/administrator/cycles/"
+        search=""
+        title="Bid Cycles"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -498,19 +498,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/ao/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/ao/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/ao/availablebidders"
+        search=""
+        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -537,19 +537,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/bureau/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/bureau/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/bureau/availablebidders"
+        search=""
+        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -623,19 +623,19 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/post/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="tachometer"
         key="Dashboard"
         link="/profile/post/dashboard/"
         search=""
         title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/post/availablebidders"
+        search=""
+        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
