@@ -24,6 +24,8 @@ import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgenda
 import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSearchRow';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
+import ScrollUpButton from '../../ScrollUpButton';
+
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
@@ -436,6 +438,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                     disabled={exportDisabled}
                   />
                 </div>
+                <ScrollUpButton />
               </div>
             </div>
           }
