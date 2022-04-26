@@ -256,7 +256,7 @@ const AvailableBidderRow = (props) => {
   };
 
   const getTRClass = () => {
-    if (internalViewToggle) {
+    if (internalViewToggle || !isInternalCDA) {
       return '';
     } else if (shared) {
       return 'ab-active';

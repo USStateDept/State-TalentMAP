@@ -23,7 +23,7 @@ const AvailableBidderTable = props => {
 
   // Local state
   // Toggle view state within Internal CDA version
-  const [internalViewToggle, setInternalViewToggle] = useState(true);
+  const [internalViewToggle, setInternalViewToggle] = useState(isInternalCDA);
   const [internalCDAView, setInternalCDAView] = useState(isInternalCDA);
   const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
@@ -150,7 +150,7 @@ const AvailableBidderTable = props => {
               onClick={exportBidders}
               isLoading={exportIsLoading}
               disabled={!bidders.length}
-              text={internalViewToggle ? 'Export' : 'Export External View'}
+              text={internalViewToggle || !isInternalCDA ? 'Export' : 'Export External View'}
             />
           </div>
         </div>
@@ -206,7 +206,6 @@ const AvailableBidderTable = props => {
                             </Tooltip>
                           }
                           checked={!internalViewToggle}
-                          // onChange={() => setInternalViewToggle(!internalViewToggle)}
                           onChange={() => internalCDAExportToggle()}
                           onColor="#888888"
                           offColor="#888888"
