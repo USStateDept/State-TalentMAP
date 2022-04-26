@@ -410,18 +410,20 @@
 }
 
 .remarks-categories-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   flex-direction: row;
   flex-wrap: wrap;
   margin: 10px 10px 30px 10px;
   justify-content: space-between;
-}
 
-.remarks-categories-container a {
-  min-width: 200px;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
+  a {
+    min-width: 200px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
 }
 
 .remarks-glossary-container {
