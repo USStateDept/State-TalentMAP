@@ -23,7 +23,8 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, internalCDAView, isLoading, isAO, isPost, isInternalCDA, bureaus, sort } = props;
+  const { bidder, internalViewToggle, isLoading, isAO, isPost,
+    isInternalCDA, bureaus, sort } = props;
 
   useCloseSwalOnUnmount();
 
@@ -255,7 +256,7 @@ const AvailableBidderRow = (props) => {
   };
 
   const getTRClass = () => {
-    if (internalCDAView) {
+    if (internalViewToggle) {
       return '';
     } else if (shared) {
       return 'ab-active';
@@ -341,7 +342,7 @@ const AvailableBidderRow = (props) => {
 
 AvailableBidderRow.propTypes = {
   bidder: AVAILABLE_BIDDER_OBJECT,
-  internalCDAView: PropTypes.bool,
+  internalViewToggle: PropTypes.bool,
   isLoading: PropTypes.bool,
   isAO: PropTypes.bool,
   isPost: PropTypes.bool,
@@ -352,7 +353,7 @@ AvailableBidderRow.propTypes = {
 
 AvailableBidderRow.defaultProps = {
   bidder: {},
-  internalCDAView: false,
+  internalViewToggle: false,
   isLoading: false,
   isAO: false,
   isPost: false,
