@@ -53,14 +53,11 @@ const ProfileMenuExpanded = (props) => {
     expandedSection: props.expandedSection,
   };
 
-  const getProfileMenuSort = filter(GET_PROFILE_MENU(), { text: 'Profile' });
-  const getProfileMenuSort$ = sortBy(remove(GET_PROFILE_MENU(),
+  const getProfileMenuSort = sortBy(remove(GET_PROFILE_MENU(),
     menu => menu.text !== 'Profile'), [(menu) => menu.text.toLowerCase()],
   );
 
-  getProfileMenuSort$.forEach((item) => {
-    getProfileMenuSort.push(item);
-  });
+  getProfileMenuSort.unshift(filter(GET_PROFILE_MENU(), { text: 'Profile' })[0] || {});
 
   return (
     <div className="usa-grid-full profile-menu">
@@ -73,14 +70,11 @@ const ProfileMenuExpanded = (props) => {
       <NavLinksContainer>
         {
           getProfileMenuSort.map((item) => {
-            const subitems = filter(item.children, { text: 'Dashboard' });
-            const subitems$ = sortBy(remove(item.children,
+            const subitems = sortBy(remove(item.children,
               menu => menu.text !== 'Dashboard'), [(menu) => menu.text.toLowerCase()],
             );
 
-            subitems$.forEach((i) => {
-              subitems.push(i);
-            });
+            subitems.unshift(filter(item.children, { text: 'Dashboard' })[0] || {});
             return subitems.length ? (
               <NavLink key={item.text} {...getProps(item, roles, props$)}>
                 {
