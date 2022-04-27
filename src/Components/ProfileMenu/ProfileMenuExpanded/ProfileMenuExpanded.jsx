@@ -58,7 +58,6 @@ const ProfileMenuExpanded = (props) => {
   );
 
   getProfileMenuSort.unshift(filter(GET_PROFILE_MENU(), { text: 'Profile' })[0] || {});
-
   return (
     <div className="usa-grid-full profile-menu">
       <div className="menu-title">
