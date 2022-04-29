@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { get, intersection } from 'lodash';
+import { filter, get, intersection, remove, sortBy } from 'lodash';
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
 
@@ -53,6 +53,12 @@ const ProfileMenuExpanded = (props) => {
     expandedSection: props.expandedSection,
   };
 
+  let getProfileMenuSort = filter(GET_PROFILE_MENU(), { text: 'Profile' });
+  const getProfileMenuSort$ = sortBy(remove(GET_PROFILE_MENU(),
+    menu => menu.text !== 'Profile'), [(menu) => menu.text.toLowerCase()],
+  );
+
+  getProfileMenuSort = [...getProfileMenuSort, ...getProfileMenuSort$];
   return (
     <div className="usa-grid-full profile-menu">
       <div className="menu-title">
@@ -63,8 +69,13 @@ const ProfileMenuExpanded = (props) => {
       </div>
       <NavLinksContainer>
         {
-          GET_PROFILE_MENU().map((item) => {
-            const subitems = (item.children || []);
+          getProfileMenuSort.map((item) => {
+            let subitems = filter(item.children, { text: 'Dashboard' });
+            const subitems$ = sortBy(remove(item.children,
+              menu => menu.text !== 'Dashboard'), [(menu) => menu.text.toLowerCase()],
+            );
+
+            subitems = [...subitems, ...subitems$];
             return subitems.length ? (
               <NavLink key={item.text} {...getProps(item, roles, props$)}>
                 {
