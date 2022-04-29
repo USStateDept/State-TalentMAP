@@ -13,7 +13,7 @@ const AvailableBidderContainer = ({ isCDO, isAO, isPost }) => {
           <ProfileSectionTitle title="Available Bidders" icon="users" />
         </div>
         {
-          (isInternalCDA) &&
+          isInternalCDA &&
         <div className="usa-grid-full">
           <AvailableBidderStats />
         </div>
