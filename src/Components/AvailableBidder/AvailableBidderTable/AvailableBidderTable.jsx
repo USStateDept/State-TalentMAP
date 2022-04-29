@@ -19,12 +19,12 @@ import { useMount, usePrevious } from 'hooks';
 const useStepLetter = () => checkFlag('flags.step_letters');
 
 const AvailableBidderTable = props => {
-  const { isCDO, isAO, isPost } = props;
-  const isCDOorAO = (isCDO || isAO);
+  const { isInternalCDA, isAO, isPost } = props;
 
   // Local state
-  // Toggle view state within CDO version
-  const [cdoView, setCdoView] = useState(true);
+  // Toggle view state within Internal CDA version
+  const [internalViewToggle, setInternalViewToggle] = useState(isInternalCDA);
+  const [internalCDAView, setInternalCDAView] = useState(isInternalCDA);
   const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
@@ -47,20 +47,20 @@ const AvailableBidderTable = props => {
   const dispatch = useDispatch();
 
   useMount(() => {
-    dispatch(availableBiddersFetchData(isCDOorAO, sort));
+    dispatch(availableBiddersFetchData(isInternalCDA, sort));
     dispatch(filtersFetchData(filterData, {}));
   });
 
   useEffect(() => {
     if (prevSort && sort && sort !== prevSort) {
-      dispatch(availableBiddersFetchData(isCDOorAO, sort));
+      dispatch(availableBiddersFetchData(isInternalCDA, sort));
     }
   }, [sort]);
 
-  let tableHeaders = isCDOorAO ? [
+  let tableHeaders = isInternalCDA ? [
     'Name',
     'Status',
-    isCDOorAO && useStepLetter() ? 'Step Letters' : undefined,
+    isInternalCDA && useStepLetter() ? 'Step Letters' : undefined,
     'Skill',
     'Grade',
     'Languages',
@@ -95,15 +95,15 @@ const AvailableBidderTable = props => {
   );
 
   let title = '';
-  if (isCDOorAO) {
-    title = cdoView ? 'Internal CDA View' : 'External CDA View';
+  if (isInternalCDA) {
+    title = internalViewToggle ? 'Internal CDA View' : 'External CDA View';
   }
 
   const getTitleCount = () => {
     let bidderCountTitle = '';
     if (!isLoading) {
-      if (isCDOorAO) {
-        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => get(b, 'available_bidder_details.is_shared')).length})`;
+      if (isInternalCDA) {
+        bidderCountTitle = internalViewToggle ? `(${bidders.length})` : `(${bidders.filter(b => get(b, 'available_bidder_details.is_shared')).length})`;
       } else {
         bidderCountTitle = `Shared Available Bidders (${bidders.length})`;
       }
@@ -111,10 +111,15 @@ const AvailableBidderTable = props => {
     return bidderCountTitle;
   };
 
+  const internalCDAExportToggle = () => {
+    setInternalViewToggle(!internalViewToggle);
+    setInternalCDAView(!internalCDAView);
+  };
+
   const exportBidders = () => {
     if (!isLoading) {
       setExportIsLoading(true);
-      availableBidderExport(isCDOorAO, sort)
+      availableBidderExport(internalCDAView, sort)
         .then(() => {
           setExportIsLoading(false);
         })
@@ -130,7 +135,7 @@ const AvailableBidderTable = props => {
         <Alert
           title="Available Bidders List is Empty"
           messages={[{
-            body: isCDOorAO ?
+            body: isInternalCDA ?
               'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
               'Please wait for CDOs to share available bidders.',
           }]}
@@ -145,6 +150,7 @@ const AvailableBidderTable = props => {
               onClick={exportBidders}
               isLoading={exportIsLoading}
               disabled={!bidders.length}
+              text={internalViewToggle || !isInternalCDA ? 'Export' : 'Export External View'}
             />
           </div>
         </div>
@@ -173,9 +179,9 @@ const AvailableBidderTable = props => {
                   ))
                 }
                 {
-                  isCDOorAO &&
+                  isInternalCDA &&
                     <th>
-                      <div className="bureau-view-toggle">
+                      <div className="external-view-toggle">
                         <ToggleButton
                           labelTextLeft={
                             <Tooltip
@@ -185,7 +191,7 @@ const AvailableBidderTable = props => {
                               position="top-end"
                               tabIndex="0"
                             >
-                              <FA name="street-view" className={`fa-lg ${cdoView ? 'active' : ''}`} />
+                              <FA name="street-view" className={`fa-lg ${internalViewToggle ? 'active' : ''}`} />
                             </Tooltip>
                           }
                           labelTextRight={
@@ -196,11 +202,11 @@ const AvailableBidderTable = props => {
                               position="top-end"
                               tabIndex="0"
                             >
-                              <FA name="building" className={`fa-lg ${!cdoView ? 'active' : ''}`} />
+                              <FA name="building" className={`fa-lg ${!internalViewToggle ? 'active' : ''}`} />
                             </Tooltip>
                           }
-                          checked={!cdoView}
-                          onChange={() => setCdoView(!cdoView)}
+                          checked={!internalViewToggle}
+                          onChange={() => internalCDAExportToggle()}
                           onColor="#888888"
                           offColor="#888888"
                           onHandleColor="#FFFFFF"
@@ -219,9 +225,9 @@ const AvailableBidderTable = props => {
                   <AvailableBidderRow
                     key={shortid.generate()}
                     bidder={bidder}
-                    CDOView={cdoView}
-                    isCDO={isCDO}
+                    internalViewToggle={internalViewToggle}
                     isAO={isAO}
+                    isInternalCDA={isInternalCDA}
                     isPost={isPost}
                     isLoading={isLoading}
                     bureaus={bureaus}
@@ -237,7 +243,7 @@ const AvailableBidderTable = props => {
 };
 
 AvailableBidderTable.propTypes = {
-  isCDO: PropTypes.bool,
+  isInternalCDA: PropTypes.bool,
   isAO: PropTypes.bool,
   isPost: PropTypes.bool,
 };
@@ -246,7 +252,7 @@ AvailableBidderTable.defaultProps = {
   bidders: [],
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
-  isCDO: false,
+  isInternalCDA: false,
   isAO: false,
   isPost: false,
 };
