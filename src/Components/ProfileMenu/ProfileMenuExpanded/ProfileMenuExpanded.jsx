@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { filter, get, intersection, remove, sortBy } from 'lodash';
+import { filter, get, intersection, lowercase, remove, sortBy } from 'lodash';
+import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from 'Constants/DefaultProps';
+import { PROFILE_MENU_SECTION_EXPANDED } from 'Constants/PropTypes';
+import { GET_PROFILE_MENU } from 'Constants/Menu';
+
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
-
-import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../../Constants/DefaultProps';
-import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
-import { GET_PROFILE_MENU } from '../../../Constants/Menu';
 
 function isHidden(options, roles) {
   let doesNotHaveRoles = false;
@@ -55,7 +55,7 @@ const ProfileMenuExpanded = (props) => {
 
   let getProfileMenuSort = filter(GET_PROFILE_MENU(), { text: 'Profile' });
   const getProfileMenuSort$ = sortBy(remove(GET_PROFILE_MENU(),
-    menu => menu.text !== 'Profile'), [(menu) => menu.text.toLowerCase()],
+    menu => get(menu, 'text') !== 'Profile'), [(menu) => lowercase(get(menu, 'text'))],
   );
 
   getProfileMenuSort = [...getProfileMenuSort, ...getProfileMenuSort$];
@@ -72,7 +72,7 @@ const ProfileMenuExpanded = (props) => {
           getProfileMenuSort.map((item) => {
             let subitems = filter(item.children, { text: 'Dashboard' });
             const subitems$ = sortBy(remove(item.children,
-              menu => menu.text !== 'Dashboard'), [(menu) => menu.text.toLowerCase()],
+              menu => get(menu, 'text') !== 'Dashboard'), [(menu) => lowercase(get(menu, 'text'))],
             );
 
             subitems = [...subitems, ...subitems$];
