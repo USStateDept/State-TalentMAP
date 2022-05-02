@@ -23,8 +23,8 @@ const useStepLetter = () => checkFlag('flags.step_letters');
 
 
 const AvailableBidderRow = (props) => {
-  const { bidder, CDOView, isLoading, isCDO, isAO, isPost, bureaus, sort } = props;
-  const isInternal = (isCDO || isAO);
+  const { bidder, internalViewToggle, isLoading, isAO, isPost,
+    isInternalCDA, bureaus, sort } = props;
 
   useCloseSwalOnUnmount();
 
@@ -191,7 +191,7 @@ const AvailableBidderRow = (props) => {
     // $abl-actions-td and $abl-gray-config variables
     const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
-    return isInternal ? omit({
+    return isInternalCDA ? omit({
       name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
       status: getStatus(),
       step_letters: stepLettersToolTip,
@@ -256,7 +256,7 @@ const AvailableBidderRow = (props) => {
   };
 
   const getTRClass = () => {
-    if (CDOView) {
+    if (internalViewToggle || !isInternalCDA) {
       return '';
     } else if (shared) {
       return 'ab-active';
@@ -277,8 +277,8 @@ const AvailableBidderRow = (props) => {
         })
       }
       {
-        isLoading && isInternal ? <td><Skeleton /></td> :
-          isInternal &&
+        isLoading && isInternalCDA ? <td><Skeleton /></td> :
+          isInternalCDA &&
           <td>
             <div className="ab-action-buttons">
               <Tooltip
@@ -342,22 +342,22 @@ const AvailableBidderRow = (props) => {
 
 AvailableBidderRow.propTypes = {
   bidder: AVAILABLE_BIDDER_OBJECT,
-  CDOView: PropTypes.bool,
+  internalViewToggle: PropTypes.bool,
   isLoading: PropTypes.bool,
-  isCDO: PropTypes.bool,
   isAO: PropTypes.bool,
   isPost: PropTypes.bool,
+  isInternalCDA: PropTypes.bool,
   bureaus: FILTER,
   sort: PropTypes.string,
 };
 
 AvailableBidderRow.defaultProps = {
   bidder: {},
-  CDOView: false,
+  internalViewToggle: false,
   isLoading: false,
-  isCDO: false,
   isAO: false,
   isPost: false,
+  isInternalCDA: false,
   bureaus: [],
   sort: 'Name',
 };
