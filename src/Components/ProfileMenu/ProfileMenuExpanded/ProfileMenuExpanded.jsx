@@ -55,7 +55,7 @@ const ProfileMenuExpanded = (props) => {
 
   let getProfileMenuSort = filter(GET_PROFILE_MENU(), { text: 'Profile' });
   const getProfileMenuSort$ = sortBy(remove(GET_PROFILE_MENU(),
-    menu => menu.text !== 'Profile'), [(menu) => lowercase(get(menu, 'text'))],
+    menu => get(menu, 'text') !== 'Profile'), [(menu) => lowercase(get(menu, 'text'))],
   );
 
   getProfileMenuSort = [...getProfileMenuSort, ...getProfileMenuSort$];
@@ -72,7 +72,7 @@ const ProfileMenuExpanded = (props) => {
           getProfileMenuSort.map((item) => {
             let subitems = filter(item.children, { text: 'Dashboard' });
             const subitems$ = sortBy(remove(item.children,
-              menu => menu.text !== 'Dashboard'), [(menu) => menu.text.toLowerCase()],
+              menu => get(menu, 'text') !== 'Dashboard'), [(menu) => lowercase(get(menu, 'text'))],
             );
 
             subitems = [...subitems, ...subitems$];
