@@ -6,7 +6,7 @@ import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { useMount, usePrevious } from 'hooks';
+import { useDataLoader, useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
@@ -16,6 +16,7 @@ import AgendaItemRow from '../AgendaItemRow';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
+import api from '../../../api';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
@@ -29,7 +30,9 @@ const AgendaItemHistory = (props) => {
   const [sort, setSort] = useState(sorts.defaultSort);
 
   // To-do - get client name. Can't get person using their perdet
-  const [client, setClient] = useState(''); // eslint-disable-line
+  // const [client, setClient] = useState(''); // eslint-disable-line
+  const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const client = get(data, 'data.shortened_name') || '';
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
@@ -149,6 +152,7 @@ const AgendaItemHistory = (props) => {
                         isCreate
                         isCDO={isCDO}
                         perdet={id}
+                        isAIHView
                       />
                   }
                   {
@@ -157,6 +161,7 @@ const AgendaItemHistory = (props) => {
                         key={result.id}
                         agenda={result}
                         isCDO={isCDO}
+                        isAIHView
                       />
                     ))
                   }
