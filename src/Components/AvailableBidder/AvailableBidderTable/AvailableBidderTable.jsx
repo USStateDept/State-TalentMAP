@@ -113,7 +113,7 @@ const AvailableBidderTable = props => {
   const exportBidders = () => {
     if (!isLoading) {
       setExportIsLoading(true);
-      availableBidderExport(isInternalCDA && !internalViewToggle, sort)
+      availableBidderExport(isInternalCDA && internalViewToggle, sort)
         .then(() => {
           setExportIsLoading(false);
         })
