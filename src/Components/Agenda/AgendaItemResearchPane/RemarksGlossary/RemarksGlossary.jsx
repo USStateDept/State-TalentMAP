@@ -87,7 +87,7 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
       <div className="remarks-glossary-container">
         <div className="usa-grid-full remarks-categories-container">
           {remarkCategories$.map(a => (
-            <a className="remarks-category-container a" tabIndex={0} role="button" onClick={() => processClick(a)}>{a.desc_text}</a>))}
+            <a tabIndex={0} role="button" onClick={() => processClick(a)}>{a.desc_text}</a>))}
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
