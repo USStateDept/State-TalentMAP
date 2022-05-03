@@ -518,6 +518,7 @@
     .remark-category--#{$remark-id} {
       background-color: $color;
       color: $color-white;
+      scroll-margin-top: 55px;
     }
   }
 }
