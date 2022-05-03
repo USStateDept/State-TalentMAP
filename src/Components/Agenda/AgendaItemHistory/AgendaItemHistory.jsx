@@ -5,15 +5,16 @@ import SelectForm from 'Components/SelectForm';
 import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
 import { useDataLoader, useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { checkFlag } from 'flags';
+import FontAwesome from 'react-fontawesome';
 import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 import api from '../../../api';
@@ -30,7 +31,6 @@ const AgendaItemHistory = (props) => {
   const [sort, setSort] = useState(sorts.defaultSort);
 
   // To-do - get client name. Can't get person using their perdet
-  // const [client, setClient] = useState(''); // eslint-disable-line
   const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
   const client = get(data, 'data.shortened_name') || '';
 
@@ -74,17 +74,36 @@ const AgendaItemHistory = (props) => {
   }, [sort]);
 
   const isLoading$ = isLoading;
-  let title = 'Agenda Item History';
-  if (client) {
-    title = `${client}'s ${title}`;
-  }
+  const title = 'Agenda Item History';
 
   const exportDisabled = (aih || []).length <= 0;
 
   return (
     <div className="agenda-item-history-container">
+      <div className="aih-header-container">
+        <div className="aih-title-container">
+          <FontAwesome
+            name="user-circle-o"
+            size="lg"
+          />
+          {title}
+          {isCDO ?
+            <span className="aih-title-dash">
+              -
+              <Link to={`/profile/public/${id}`}>
+                <span className="aih-title">
+                  {` ${client}`}
+                </span>
+              </Link>
+            </span>
+            :
+            <span>
+              {` - ${client}`}
+            </span>
+          }
+        </div>
+      </div>
       <div className="usa-grid-full profile-content-inner-container">
-        <ProfileSectionTitle title={title} icon="user-circle-o" />
         <BackButton />
         <div className="usa-grid-full portfolio-controls">
           <div className="usa-width-one-whole results-dropdown agenda-controls-container">

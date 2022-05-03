@@ -27,7 +27,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const bidder = get(data, 'data.shortened_name') || '';
+  const client = get(data, 'data.shortened_name') || '';
   const title = 'Agenda Item Maintenance';
 
   const updateResearchPaneTab = tabID => {
@@ -53,13 +53,13 @@ const AgendaItemMaintenanceContainer = (props) => {
                 -
               <Link to={`/profile/public/${id}`}>
                 <span className="aim-title">
-                  {` ${bidder}`}
+                  {` ${client}`}
                 </span>
               </Link>
             </span>
             :
             <span>
-              {` - ${bidder}`}
+              {` - ${client}`}
             </span>
           }
         </div>
