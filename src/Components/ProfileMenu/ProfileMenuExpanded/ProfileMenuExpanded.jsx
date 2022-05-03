@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
-import { get, intersection } from 'lodash';
+import { filter, get, intersection, lowerCase, remove, sortBy } from 'lodash';
+import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from 'Constants/DefaultProps';
+import { PROFILE_MENU_SECTION_EXPANDED } from 'Constants/PropTypes';
+import { GET_PROFILE_MENU } from 'Constants/Menu';
+
 import NavLinksContainer from '../NavLinksContainer';
 import NavLink from '../NavLink';
-
-import { PROFILE_MENU_SECTION_EXPANDED_OBJECT } from '../../../Constants/DefaultProps';
-import { PROFILE_MENU_SECTION_EXPANDED } from '../../../Constants/PropTypes';
-import { GET_PROFILE_MENU } from '../../../Constants/Menu';
 
 function isHidden(options, roles) {
   let doesNotHaveRoles = false;
@@ -53,6 +53,12 @@ const ProfileMenuExpanded = (props) => {
     expandedSection: props.expandedSection,
   };
 
+  let getProfileMenuSort = filter(GET_PROFILE_MENU(), { text: 'Profile' });
+  const getProfileMenuSort$ = sortBy(remove(GET_PROFILE_MENU(),
+    menu => get(menu, 'text') !== 'Profile'), [(menu) => lowerCase(get(menu, 'text'))],
+  );
+
+  getProfileMenuSort = [...getProfileMenuSort, ...getProfileMenuSort$];
   return (
     <div className="usa-grid-full profile-menu">
       <div className="menu-title">
@@ -63,8 +69,13 @@ const ProfileMenuExpanded = (props) => {
       </div>
       <NavLinksContainer>
         {
-          GET_PROFILE_MENU().map((item) => {
-            const subitems = (item.children || []);
+          getProfileMenuSort.map((item) => {
+            let subitems = filter(item.children, { text: 'Dashboard' });
+            const subitems$ = sortBy(remove(item.children,
+              menu => get(menu, 'text') !== 'Dashboard'), [(menu) => lowerCase(get(menu, 'text'))],
+            );
+
+            subitems = [...subitems, ...subitems$];
             return subitems.length ? (
               <NavLink key={item.text} {...getProps(item, roles, props$)}>
                 {
