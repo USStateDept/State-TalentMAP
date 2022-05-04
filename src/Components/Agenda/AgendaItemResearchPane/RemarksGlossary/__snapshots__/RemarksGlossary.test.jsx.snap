@@ -21,6 +21,10 @@ exports[`RemarksGlossary Component matches snapshot 1`] = `
   />
   <div
     className="remarks-glossary-container"
-  />
+  >
+    <div
+      className="usa-grid-full remarks-categories-container"
+    />
+  </div>
 </div>
 `;
