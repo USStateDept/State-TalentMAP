@@ -64,6 +64,11 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
     onRemarkClick(remark$);
   };
 
+  const processClick = remark => {
+    const el = document.getElementById(`remark-category-${remark.code}`);
+    el.scrollIntoView();
+  };
+
   useEffect(() => {
     setTextInputBulk(remarks);
   }, [remarks]);
@@ -80,11 +85,15 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
         }}
       />
       <div className="remarks-glossary-container">
+        <div className="usa-grid-full remarks-categories-container">
+          {remarkCategories$.map(a => (
+            <a tabIndex={0} role="button" onClick={() => processClick(a)}>{a.desc_text}</a>))}
+        </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
           return (
             <div key={category.code}>
-              <div className={`remark-category remark-category--${category.code}`}>{category.desc_text}</div>
+              <div id={`remark-category-${category.code}`} className={`remark-category remark-category--${category.code}`}>{category.desc_text}</div>
               <ul>
                 {remarksInCategory.map(r => {
                 // still need indicator to come through for input
