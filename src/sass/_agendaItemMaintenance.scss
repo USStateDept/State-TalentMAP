@@ -518,7 +518,12 @@
     .remark-category--#{$remark-id} {
       background-color: $color;
       color: $color-white;
-      scroll-margin-top: 55px;
+      scroll-margin-top: 60px;
+    }
+    @media screen and (max-width: 1600px) {
+      .remark-category--#{$remark-id} {
+        scroll-margin-top: 32px;
+      }
     }
   }
 }
