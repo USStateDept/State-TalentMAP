@@ -57,6 +57,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
     </h3>
     <AgendaItemLegs
       hideRemarks={false}
+      isAIHView={false}
       isCard={true}
       legs={Array []}
       onClose={[Function]}
