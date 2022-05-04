@@ -9,8 +9,10 @@ import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
 import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
+import AddToInternalListButton from '../AddToInternalListButton';
 
 const useCDOBidding = () => checkFlag('flags.cdo_bidding');
+const useAvailableBidders = () => checkFlag('flags.available_bidders');
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
@@ -59,7 +61,12 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         {
           !showEdit && useCDOBidding() &&
           <div className="button-container">
-            <SearchAsClientButton user={userProfile} />
+            <div className="search-as-client-button-row">
+              <SearchAsClientButton user={userProfile} />
+            </div>
+            <div className="add-to-abl-button-row">
+              { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }
+            </div>
           </div>
         }
         {
