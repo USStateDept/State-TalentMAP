@@ -215,21 +215,16 @@
       margin-bottom: 0;
     }
 
+    > button {
+      width: 150px;
+    }
+
     .link-button-wrapper {
       margin-right: 10px;
     }
 
-    .search-as-client-button-row {
+    .search-as-client-button {
       margin-right: 2rem;
-
-      .search-as-client-button {
-        float: right;
-        width: 150px
-      }
-    }
-
-    .add-to-abl-button-row {
-      width: 125px;
     }
   }
 }

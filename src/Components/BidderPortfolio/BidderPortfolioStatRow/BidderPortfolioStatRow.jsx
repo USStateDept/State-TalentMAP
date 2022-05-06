@@ -61,12 +61,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         {
           !showEdit && useCDOBidding() &&
           <div className="button-container">
-            <div className="search-as-client-button-row">
-              <SearchAsClientButton user={userProfile} />
-            </div>
-            <div className="add-to-abl-button-row">
-              { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }
-            </div>
+            <SearchAsClientButton user={userProfile} />
+            { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }
           </div>
         }
         {
