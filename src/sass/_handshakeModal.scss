@@ -168,6 +168,12 @@
     margin-top: 1rem;
   }
 
+  .calendar-wrapper {
+    .react-calendar {
+      width: 450px;
+    }
+  }
+
   .calendar-legend {
     display: flex;
     justify-content: space-around;
