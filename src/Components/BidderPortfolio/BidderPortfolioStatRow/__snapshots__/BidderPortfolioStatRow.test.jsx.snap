@@ -101,64 +101,11 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
     <div
       className="button-container"
     >
-      <div
-        className="search-as-client-button-row"
-      >
-        <Connect(withRouter(SearchAsClientButton))
-          user={
-            Object {
-              "assignments": Array [
-                Object {
-                  "arrival_date": null,
-                  "bid_approval_date": "1975-01-01T00:00:00Z",
-                  "combined_differential": 0,
-                  "create_date": "2018-01-12T15:11:37.521934Z",
-                  "curtailment_reason": null,
-                  "end_date": null,
-                  "estimated_end_date": "2019-01-12T00:00:00Z",
-                  "id": 5,
-                  "is_domestic": false,
-                  "position": Object {
-                    "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
-                    "position_number": "58312265",
-                    "post": Object {
-                      "location": Object {
-                        "city": "Freetown",
-                        "code": "00A",
-                        "country": "Sierra Leone",
-                        "id": 103,
-                        "state": "",
-                      },
-                    },
-                    "skill": "CONSTRUCTION ENGINEERING (6218)",
-                    "title": "PROJECT DIRECTOR",
-                  },
-                  "service_duration": null,
-                  "standard_tod_months": 0,
-                  "start_date": "2018-01-12T00:00:00Z",
-                  "status": "active",
-                  "tour_of_duty": "1 YR (3 R & R)",
-                  "update_date": "2018-01-12T15:12:01.013500Z",
-                  "user": "Kara Batisak",
-                },
-              ],
-              "bid_statistics": Array [
-                Object {
-                  "approved": 0,
-                  "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
-                  "closed": 0,
-                  "declined": 0,
-                  "draft": 5,
-                  "handshake_accepted": 0,
-                  "handshake_declined": 0,
-                  "handshake_offered": 3,
-                  "id": 1,
-                  "in_panel": 0,
-                  "submitted": 2,
-                  "user": "Kara Batisak",
-                },
-              ],
-              "current_assignment": Object {
+      <Connect(withRouter(SearchAsClientButton))
+        user={
+          Object {
+            "assignments": Array [
+              Object {
                 "arrival_date": null,
                 "bid_approval_date": "1975-01-01T00:00:00Z",
                 "combined_differential": 0,
@@ -191,35 +138,80 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
                 "update_date": "2018-01-12T15:12:01.013500Z",
                 "user": "Kara Batisak",
               },
-              "grade": "01",
-              "id": 5,
-              "is_cdo": false,
-              "language_qualifications": Array [],
-              "primary_nationality": "United States",
-              "secondary_nationality": null,
-              "skills": Array [
-                Object {
-                  "code": "6218",
-                  "cone": null,
-                  "description": "CONSTRUCTION ENGINEERING",
-                  "id": 63,
-                },
-              ],
-              "user": Object {
-                "email": "batisak@state.gov",
-                "first_name": "Kara",
-                "last_name": "Batisak",
-                "username": "batisak",
+            ],
+            "bid_statistics": Array [
+              Object {
+                "approved": 0,
+                "bidcycle": "Demo BidCycle 2018-01-12 15:11:38.004793",
+                "closed": 0,
+                "declined": 0,
+                "draft": 5,
+                "handshake_accepted": 0,
+                "handshake_declined": 0,
+                "handshake_offered": 3,
+                "id": 1,
+                "in_panel": 0,
+                "submitted": 2,
+                "user": "Kara Batisak",
               },
-            }
+            ],
+            "current_assignment": Object {
+              "arrival_date": null,
+              "bid_approval_date": "1975-01-01T00:00:00Z",
+              "combined_differential": 0,
+              "create_date": "2018-01-12T15:11:37.521934Z",
+              "curtailment_reason": null,
+              "end_date": null,
+              "estimated_end_date": "2019-01-12T00:00:00Z",
+              "id": 5,
+              "is_domestic": false,
+              "position": Object {
+                "bureau": "(WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS",
+                "position_number": "58312265",
+                "post": Object {
+                  "location": Object {
+                    "city": "Freetown",
+                    "code": "00A",
+                    "country": "Sierra Leone",
+                    "id": 103,
+                    "state": "",
+                  },
+                },
+                "skill": "CONSTRUCTION ENGINEERING (6218)",
+                "title": "PROJECT DIRECTOR",
+              },
+              "service_duration": null,
+              "standard_tod_months": 0,
+              "start_date": "2018-01-12T00:00:00Z",
+              "status": "active",
+              "tour_of_duty": "1 YR (3 R & R)",
+              "update_date": "2018-01-12T15:12:01.013500Z",
+              "user": "Kara Batisak",
+            },
+            "grade": "01",
+            "id": 5,
+            "is_cdo": false,
+            "language_qualifications": Array [],
+            "primary_nationality": "United States",
+            "secondary_nationality": null,
+            "skills": Array [
+              Object {
+                "code": "6218",
+                "cone": null,
+                "description": "CONSTRUCTION ENGINEERING",
+                "id": 63,
+              },
+            ],
+            "user": Object {
+              "email": "batisak@state.gov",
+              "first_name": "Kara",
+              "last_name": "Batisak",
+              "username": "batisak",
+            },
           }
-        />
-      </div>
-      <div
-        className="add-to-abl-button-row"
-      >
-        <Connect(AddToInternalListButton) />
-      </div>
+        }
+      />
+      <Connect(AddToInternalListButton) />
     </div>
   </div>
 </div>
