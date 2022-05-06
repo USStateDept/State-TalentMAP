@@ -30,9 +30,8 @@ const AgendaItemHistory = (props) => {
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
 
-  // To-do - get client name. Can't get person using their perdet
   const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const client = get(data, 'data.shortened_name') || '';
+  const client = get(data, 'data.name') || '';
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
@@ -53,7 +52,7 @@ const AgendaItemHistory = (props) => {
   const exportAgendaItem = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(id, sort)
+      agendaItemHistoryExport(id, sort, client)
         .then(() => {
           setExportIsLoading(false);
         })
@@ -74,34 +73,31 @@ const AgendaItemHistory = (props) => {
   }, [sort]);
 
   const isLoading$ = isLoading;
-  const title = 'Agenda Item History';
 
   const exportDisabled = (aih || []).length <= 0;
 
   return (
     <div className="agenda-item-history-container">
       <div className="aih-header-container">
-        <div className="aih-title-container">
-          <FontAwesome
-            name="user-circle-o"
-            size="lg"
-          />
-          {title}
-          {isCDO ?
-            <span className="aih-title-dash">
+        <FontAwesome
+          name="user-circle-o"
+          size="lg"
+        />
+        Agenda Item History
+        {isCDO ?
+          <span className="aih-title-dash">
               -
-              <Link to={`/profile/public/${id}`}>
-                <span className="aih-title">
-                  {` ${client}`}
-                </span>
-              </Link>
-            </span>
-            :
-            <span>
-              {` - ${client}`}
-            </span>
-          }
-        </div>
+            <Link to={`/profile/public/${id}`}>
+              <span className="aih-title">
+                {` ${client}`}
+              </span>
+            </Link>
+          </span>
+          :
+          <span>
+            {` - ${client}`}
+          </span>
+        }
       </div>
       <div className="usa-grid-full profile-content-inner-container">
         <BackButton />
@@ -149,6 +145,7 @@ const AgendaItemHistory = (props) => {
                         isCreate
                         isCDO={isCDO}
                         perdet={id}
+                        isAIHView
                       />
                   }
                   {
@@ -157,6 +154,7 @@ const AgendaItemHistory = (props) => {
                         key={result.id}
                         agenda={result}
                         isCDO={isCDO}
+                        isAIHView
                       />
                     ))
                   }

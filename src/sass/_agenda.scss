@@ -417,30 +417,27 @@
 .agenda-item-history-container {
 
   .aih-header-container {
-    padding: 10px 0 0 20px;
+    color: $color-black;
+    font-family: 'Merriweather';
+    font-size: 1em;
+    margin-left: 15px;
+    padding: 20px 0 0 20px;
   
     a {
       text-decoration: none;
     }
-  
-    .aih-title-container {
+
+    .fa {
+      padding-right: 10px;
+    }
+
+    .aih-title {
+      border-bottom: 2px solid $color-black;
       color: $color-black;
-      font-family: 'Merriweather';
-      font-size: 1em;
-      padding: 15px 15px 0px 15px;
-  
-      .fa {
-        padding-right: 10px;
-      }
-  
-      .aih-title {
-        border-bottom: 2px solid $color-black;
-        color: $color-black;
-      }
-  
-      .aih-title-dash {
-        padding-left: 5px;
-      }
+    }
+
+    .aih-title-dash {
+      padding-left: 5px;
     }
   }
 

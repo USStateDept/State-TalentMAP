@@ -27,8 +27,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const client = get(data, 'data.shortened_name') || '';
-  const title = 'Agenda Item Maintenance';
+  const client = get(data, 'data.name') || '';
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -47,7 +46,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             name="user-circle-o"
             size="lg"
           />
-          {title}
+          Agenda Item Maintenance
           {isCDO ?
             <span className="aim-title-dash">
                 -
