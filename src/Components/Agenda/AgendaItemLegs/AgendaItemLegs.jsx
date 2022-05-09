@@ -18,6 +18,7 @@ const AgendaItemLegs = props => {
     hideRemarks,
     showCloseButton,
     onClose,
+    isAIHView,
   } = props;
 
   const calendarID = 'aim-ted-calendar';
@@ -84,8 +85,8 @@ const AgendaItemLegs = props => {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
           const isFirstLeg = i === 0;
-          const editDropdown = (!isFirstLeg && (key === 'tod' || key === 'action' || key === 'travel'));
-          const editCalendar = (!isFirstLeg && (key === 'ted'));
+          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'tod' || key === 'action' || key === 'travel'));
+          const editCalendar = (!isFirstLeg && !isAIHView && (key === 'ted'));
           const helperFuncToggle = !!helperFunc;
           return (<td>
             {/* first leg cannot be removed */}
@@ -262,6 +263,7 @@ AgendaItemLegs.propTypes = {
   hideRemarks: PropTypes.bool,
   showCloseButton: PropTypes.bool,
   onClose: PropTypes.func,
+  isAIHView: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
@@ -271,6 +273,7 @@ AgendaItemLegs.defaultProps = {
   hideRemarks: false,
   showCloseButton: false,
   onClose: EMPTY_FUNCTION,
+  isAIHView: false,
 };
 
 export default AgendaItemLegs;

@@ -98,10 +98,7 @@ class ResultsCondensedCardBottom extends Component {
                 page={page}
               />
             }
-            <Flag
-              name="flags.bidding"
-              render={this.renderBidListButton}
-            />
+            {this.renderBidListButton()}
             {
               showCompareButton && !isProjectedVacancy &&
               <CompareCheck as="div" refKey={position.cpId} />
