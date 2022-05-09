@@ -416,6 +416,31 @@
 
 .agenda-item-history-container {
 
+  .aih-header-container {
+    color: $color-black;
+    font-family: 'Merriweather';
+    font-size: 1em;
+    margin-left: 15px;
+    padding: 20px 0 0 20px;
+  
+    a {
+      text-decoration: none;
+    }
+
+    .fa {
+      padding-right: 10px;
+    }
+
+    .aih-title {
+      border-bottom: 2px solid $color-black;
+      color: $color-black;
+    }
+
+    .aih-title-dash {
+      padding-left: 5px;
+    }
+  }
+
   .agenda-controls-container {
     justify-content: flex-end;
 
