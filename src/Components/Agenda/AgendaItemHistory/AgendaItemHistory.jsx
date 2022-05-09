@@ -52,7 +52,7 @@ const AgendaItemHistory = (props) => {
   const exportAgendaItem = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(id, sort, client)
+      agendaItemHistoryExport(id, sort, client.replaceAll(' ', '_'))
         .then(() => {
           setExportIsLoading(false);
         })
@@ -145,7 +145,6 @@ const AgendaItemHistory = (props) => {
                         isCreate
                         isCDO={isCDO}
                         perdet={id}
-                        isAIHView
                       />
                   }
                   {
@@ -169,7 +168,6 @@ const AgendaItemHistory = (props) => {
                         isCreate
                         isCDO={isCDO}
                         perdet={id}
-                        isAIHView
                       />
                   }
                   {
