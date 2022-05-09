@@ -120,7 +120,7 @@ class PositionTitle extends Component {
             </div>
           }
           {
-            !isProjectedVacancy && !isTandemTwo && this.renderBidListButton
+            !isProjectedVacancy && !isTandemTwo && this.renderBidListButton()
           }
         </div>
       </div>
