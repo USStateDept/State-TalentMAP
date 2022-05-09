@@ -362,7 +362,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="id"
                       labelKey="custom_description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div">
@@ -379,7 +378,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="long_description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div">
@@ -415,7 +413,6 @@ const PositionManager = props => {
                           renderList={renderSelectionList}
                           valueKey="code"
                           labelKey="long_description"
-                          includeSelectAll
                         />
                       </div>
                     </PermissionsWrapper>
@@ -437,7 +434,6 @@ const PositionManager = props => {
                           renderList={renderSelectionList}
                           valueKey="code"
                           labelKey="long_description"
-                          includeSelectAll
                         />
                       </div>
                     </PermissionsWrapper>
@@ -456,7 +452,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="custom_description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div">
@@ -473,7 +468,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="custom_description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div">
@@ -490,7 +484,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="custom_description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div">
@@ -507,7 +500,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div handshake-filter-div">
@@ -524,7 +516,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div handshake-filter-div">
@@ -541,7 +532,6 @@ const PositionManager = props => {
                       renderList={renderSelectionList}
                       valueKey="code"
                       labelKey="description"
-                      includeSelectAll
                     />
                   </div>
                   <div className="filter-div">
