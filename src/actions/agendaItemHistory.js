@@ -24,11 +24,11 @@ export function aihFetchDataSuccess(data) {
   };
 }
 
-export function agendaItemHistoryExport(perdet = '', ordering = '') {
+export function agendaItemHistoryExport(perdet = '', ordering = '', client = '') {
   return api()
-    .get(`/fsbid/agenda/agenda_items/export/?perdet=${perdet}&ordering=${ordering}`)
+    .get(`/fsbid/agenda/agenda_items/export/?perdet=${perdet}&ordering=${ordering}&client=${client}`)
     .then((response) => {
-      downloadFromResponse(response, `Agenda_Item_History_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+      downloadFromResponse(response, `Agenda_Item_History_${client}_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });
 }
 

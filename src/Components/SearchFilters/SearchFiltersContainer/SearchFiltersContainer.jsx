@@ -2,6 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, indexOf, remove, sortBy } from 'lodash';
 import ToggleButton from 'Components/ToggleButton';
+import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from 'Constants/PropTypes';
+import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from 'Constants/EndpointParams';
 import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
@@ -13,9 +15,7 @@ import SkillFilter from '../SkillFilter';
 import LanguageFilter from '../LanguageFilter';
 import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import TandemSelectionFilter from '../TandemSelectionFilter';
-import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from '../../../Constants/PropTypes';
 import { getPostName, mapDuplicates, propOrDefault, propSort, sortGrades, sortTods } from '../../../utilities';
-import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from '../../../Constants/EndpointParams';
 import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
 const usePostIndicators = () => checkFlag('flags.indicators');
@@ -101,9 +101,9 @@ class SearchFiltersContainer extends Component {
     const filters$ = filters
       .filter((f) => {
         if (isProjectedVacancy) {
-          return f.item.onlyProjectedVacancy || !f.item.onlyAvailablePositions;
+          return get(f, 'item.onlyProjectedVacancy') || !get(f, 'item.onlyAvailablePositions');
         }
-        return f.item.onlyAvailablePositions || !f.item.onlyProjectedVacancy;
+        return get(f, 'item.onlyAvailablePositions') || !get(f, 'item.onlyProjectedVacancy');
       });
 
     // Get our boolean filter names.
@@ -183,7 +183,7 @@ class SearchFiltersContainer extends Component {
       get(toggleFiltersMap.get('projectedVacancy'), 'data') : null;
     const tandemFilter = sortedToggleNames.length ?
       get(toggleFiltersMap.get('tandem-toggle'), 'data') : null;
-    const tandemIsSelected = tandemFilter ? tandemFilter.find(f => f.code === 'tandem').isSelected : false;
+    const tandemIsSelected = tandemFilter ? get(tandemFilter.find(f => f.code === 'tandem'), 'isSelected') : false;
 
     // post should come before TOD
     multiSelectFilterNames.splice(indexOf(multiSelectFilterNames, 'tod'), 0, 'post');
@@ -205,45 +205,45 @@ class SearchFiltersContainer extends Component {
       ]
         .forEach(arr => {
           const suffix = arr[2] || '';
-          if (arr[0].indexOf(f.item.description) > -1) {
+          if (arr[0].indexOf(get(f, 'item.description')) > -1) {
             // extra handling for skill
-            if (f.item.description === `skill${suffix}` && f.data) {
+            if (get(f, 'item.description') === `skill${suffix}` && get(f, 'data')) {
               get(f, 'data', []).sort(propSort('description'));
-            } else if (f.item.description === `grade${suffix}` && f.data) {
+            } else if (get(f, 'item.description') === `grade${suffix}` && get(f, 'data')) {
               get(f, 'data', []).sort(sortGrades);
-            } else if (f.item.description === `language${suffix}` && f.data) {
+            } else if (get(f, 'item.description') === `language${suffix}` && get(f, 'data')) {
               // Push the "NONE" code choice to the bottom. We're already sorting
               // data, and this is readable, so the next line is eslint-disabled.
               // eslint-disable-next-line
               f.data = sortBy(f.data, item => item.code === COMMON_PROPERTIES.NULL_LANGUAGE ? -1 : 0);
-            } else if (f.item.description === `tod${suffix}` && f.data) {
+            } else if (get(f, 'item.description') === `tod${suffix}` && f.data) {
               // eslint-disable-next-line no-param-reassign
-              f.data = sortTods(f.data);
+              f.data = sortTods(get(f, 'data') || []);
             }
             // add to Map
-            arr[1].set(f.item.description, f);
+            arr[1].set(get(f, 'item.description'), f);
           }
         });
     });
     // special handling for functional bureau
-    const functionalBureaus = filters$.slice().find(f => f.item.description === 'functionalRegion');
-    const functionalBureausTandem = filters$.slice().find(f => f.item.description === 'functionalRegion-tandem');
+    const functionalBureaus = filters$.slice().find(f => get(f, 'item.description') === 'functionalRegion');
+    const functionalBureausTandem = filters$.slice().find(f => get(f, 'item.description') === 'functionalRegion-tandem');
 
     // special handling for is_domestic filter
-    const domesticFilter = (filters$ || []).find(f => f.item.description === 'domestic');
-    const overseasFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'false');
-    const domesticFilterData = propOrDefault(domesticFilter, 'data', []).find(d => d.code === 'true');
+    const domesticFilter = (filters$ || []).find(f => get(f, 'item.description') === 'domestic');
+    const overseasFilterData = propOrDefault(domesticFilter, 'data', []).find(d => get(d, 'code') === 'false');
+    const domesticFilterData = propOrDefault(domesticFilter, 'data', []).find(d => get(d, 'code') === 'true');
     const overseasIsSelected = propOrDefault(overseasFilterData, 'isSelected', false);
     const domesticIsSelected = propOrDefault(domesticFilterData, 'isSelected', false);
 
     // commuter posts
-    const commuterPosts = (filters$ || []).find(f => f.item.description === 'commuterPosts');
+    const commuterPosts = (filters$ || []).find(f => get(f, 'item.description') === 'commuterPosts');
 
     // get skill cones
-    const skillCones = (filters$ || []).find(f => f.item.description === 'skillCone');
+    const skillCones = (filters$ || []).find(f => get(f, 'item.description') === 'skillCone');
 
     // get language groups
-    const languageGroups = (filters$ || []).find(f => f.item.description === 'languageGroup');
+    const languageGroups = (filters$ || []).find(f => get(f, 'item.description') === 'languageGroup');
 
     // adding filters based on multiSelectFilterNames
     const sortedFilters = [];
@@ -334,8 +334,7 @@ class SearchFiltersContainer extends Component {
             return null;
           default: {
             const getQueryProperty = () => {
-              if (type === 'post' || type === 'bidCycle' || type === 'bidSeason' ||
-              type === 'bidCycle-tandem' || type === 'bidSeason-tandem') {
+              if (includes(['post', 'bidCycle', 'bidSeason', 'bidCycle-tandem', 'bidSeason-tandem'], type)) {
                 return '_id';
               }
               return 'code';
