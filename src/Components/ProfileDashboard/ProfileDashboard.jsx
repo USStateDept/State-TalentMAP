@@ -4,7 +4,6 @@ import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
   EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, NOTIFICATION_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
-import { checkFlag } from 'flags';
 import { get, includes } from 'lodash';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
@@ -37,7 +36,7 @@ const ProfileDashboard = ({
         <div className="usa-grid-full">
           <div className="usa-grid-full dashboard-top-section">
             { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-            { isPublic && showSearchAsClient && 
+            { isPublic && showSearchAsClient &&
               <SearchAsClientButton user={userProfile} />
             }
           </div>

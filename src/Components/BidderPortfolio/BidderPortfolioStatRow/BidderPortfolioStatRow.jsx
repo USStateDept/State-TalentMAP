@@ -58,7 +58,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           </div>
         }
         {
-          !showEdit && 
+          !showEdit &&
           <div className="button-container">
             <SearchAsClientButton user={userProfile} />
             { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }
