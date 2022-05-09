@@ -75,14 +75,56 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
   <div
     className="offset-bid-button-container"
   >
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
-    />
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
-    />
+    <div
+      className="unavailable-tooltip"
+    >
+      <Tooltip
+        animateFill={true}
+        animation="shift"
+        arrow={true}
+        arrowSize="regular"
+        className=""
+        delay={0}
+        disabled={false}
+        distance={10}
+        duration={375}
+        followCursor={false}
+        hideDelay={0}
+        hideDuration={375}
+        hideOnClick={true}
+        html={null}
+        inertia={false}
+        interactive={false}
+        interactiveBorder={2}
+        multiple={false}
+        offset={0}
+        onHidden={[Function]}
+        onHide={[Function]}
+        onRequestClose={[Function]}
+        onShow={[Function]}
+        onShown={[Function]}
+        popperOptions={Object {}}
+        position="bottom"
+        size="regular"
+        sticky={false}
+        stickyDuration={200}
+        style={Object {}}
+        tabIndex="0"
+        tag="div"
+        theme="light"
+        title="This position is not available to bid on, but can be favorited for the future."
+        touchHold={false}
+        trigger="mouseenter focus"
+        unmountHTMLWhenHide={false}
+        zIndex={9999}
+      >
+        <FontAwesome
+          name="question-circle"
+        />
+        Why can't I add this position to my bid list?
+      </Tooltip>
+    </div>
+    <Component />
   </div>
 </div>
 `;
@@ -155,14 +197,56 @@ exports[`PositionTitleComponent matches snapshot when context.client === true 1`
   <div
     className="offset-bid-button-container"
   >
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
-    />
-    <Flag
-      name="flags.bidding"
-      render={[Function]}
-    />
+    <div
+      className="unavailable-tooltip"
+    >
+      <Tooltip
+        animateFill={true}
+        animation="shift"
+        arrow={true}
+        arrowSize="regular"
+        className=""
+        delay={0}
+        disabled={false}
+        distance={10}
+        duration={375}
+        followCursor={false}
+        hideDelay={0}
+        hideDuration={375}
+        hideOnClick={true}
+        html={null}
+        inertia={false}
+        interactive={false}
+        interactiveBorder={2}
+        multiple={false}
+        offset={0}
+        onHidden={[Function]}
+        onHide={[Function]}
+        onRequestClose={[Function]}
+        onShow={[Function]}
+        onShown={[Function]}
+        popperOptions={Object {}}
+        position="bottom"
+        size="regular"
+        sticky={false}
+        stickyDuration={200}
+        style={Object {}}
+        tabIndex="0"
+        tag="div"
+        theme="light"
+        title="This position is not available to bid on, but can be favorited for the future."
+        touchHold={false}
+        trigger="mouseenter focus"
+        unmountHTMLWhenHide={false}
+        zIndex={9999}
+      >
+        <FontAwesome
+          name="question-circle"
+        />
+        Why can't I add this position to my bid list?
+      </Tooltip>
+    </div>
+    <Component />
   </div>
 </div>
 `;
