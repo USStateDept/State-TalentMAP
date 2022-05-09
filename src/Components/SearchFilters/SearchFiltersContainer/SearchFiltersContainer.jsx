@@ -18,7 +18,6 @@ import TandemSelectionFilter from '../TandemSelectionFilter';
 import { getPostName, mapDuplicates, propOrDefault, propSort, sortGrades, sortTods } from '../../../utilities';
 import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
-const useBidding = () => checkFlag('flags.bidding');
 const usePostIndicators = () => checkFlag('flags.indicators');
 const useTandem = () => checkFlag('flags.tandem');
 const useUS = () => checkFlag('flags.us_codes');
@@ -111,9 +110,7 @@ class SearchFiltersContainer extends Component {
     // We use the "description" property because these are less likely
     // to change (they're not UI elements).
     const sortedBooleanNames = [];
-    // show the 'Available' filter,
-    // but only if flags.bidding === true
-    if (useBidding() && !isProjectedVacancy) {
+    if (!isProjectedVacancy) {
       sortedBooleanNames.push('available');
     }
 
