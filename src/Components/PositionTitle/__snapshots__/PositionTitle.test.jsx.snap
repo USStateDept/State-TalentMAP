@@ -124,7 +124,14 @@ exports[`PositionTitleComponent matches snapshot 1`] = `
         Why can't I add this position to my bid list?
       </Tooltip>
     </div>
-    <Component />
+    <Connect(PermissionsWrapper)
+      permissions="bidder"
+    >
+      <Connect(BidListButtonContainer)
+        compareArray={Array []}
+        disabled={true}
+      />
+    </Connect(PermissionsWrapper)>
   </div>
 </div>
 `;
@@ -246,7 +253,14 @@ exports[`PositionTitleComponent matches snapshot when context.client === true 1`
         Why can't I add this position to my bid list?
       </Tooltip>
     </div>
-    <Component />
+    <Connect(PermissionsWrapper)
+      permissions={Array []}
+    >
+      <Connect(BidListButtonContainer)
+        compareArray={Array []}
+        disabled={true}
+      />
+    </Connect(PermissionsWrapper)>
   </div>
 </div>
 `;
