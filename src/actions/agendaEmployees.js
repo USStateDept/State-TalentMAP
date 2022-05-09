@@ -143,7 +143,7 @@ export function agendaEmployeesFiltersFetchData() {
     );
     Q.allSettled(queryProms)
       .then((results) => {
-        const successCount = results.filter(r => r.state === 'fulfilled' && r.value).length || 0;
+        const successCount = results.filter(r => get(r, 'state') === 'fulfilled' && get(r, 'value')).length || 0;
         const queryPromsLen = queryProms.length || 0;
         const countDiff = queryPromsLen - successCount;
         if (countDiff > 0) {
@@ -159,7 +159,7 @@ export function agendaEmployeesFiltersFetchData() {
           const filters = {
             currentBureaus, handshakeBureaus, currentOrganizations, handshakeOrganizations,
           };
-          const transformFunction = e => ({ ...e, name: e.code ? `${e.name} (${e.code})` : e.name });
+          const transformFunction = e => ({ ...e, name: get(e, 'code') ? `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name') });
           keys(filters).forEach(k => {
             filters[k] = mapDuplicates(filters[k], 'name', transformFunction);
             filters[k] = orderBy(filters[k], 'name');

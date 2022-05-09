@@ -77,30 +77,30 @@ const PositionManager = props => {
 
   // Relevant filter objects from mega filter state: bureauFilters.filters
   const bureauFilters$ = bureauFilters.filters;
-  const tods = bureauFilters$.find(f => f.item.description === 'tod');
-  const todOptions = uniqBy(tods.data, 'code');
-  const grades = bureauFilters$.find(f => f.item.description === 'grade');
-  const gradeOptions = uniqBy(grades.data, 'code');
-  const skills = bureauFilters$.find(f => f.item.description === 'skill');
-  const skillOptions = uniqBy(sortBy(skills.data, [(s) => s.description]), 'code');
-  const bureaus = bureauFilters$.find(f => f.item.description === 'region');
+  const tods = bureauFilters$.find(f => get(f, 'item.description') === 'tod');
+  const todOptions = uniqBy(get(tods, 'data'), 'code');
+  const grades = bureauFilters$.find(f => get(f, 'item.description') === 'grade');
+  const gradeOptions = uniqBy(get(grades, 'data'), 'code');
+  const skills = bureauFilters$.find(f => get(f, 'item.description') === 'skill');
+  const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  const bureaus = bureauFilters$.find(f => get(f, 'item.description') === 'region');
   const bureauOptions = sortBy(bureauPermissions, [(b) => b.long_description]);
-  const orgs = bureauFilters$.find(f => f.item.description === 'organization');
+  const orgs = bureauFilters$.find(f => get(f, 'item.description') === 'organization');
   const organizationOptions = sortBy(orgPermissions, [(o) => o.long_description]);
-  const posts = bureauFilters$.find(f => f.item.description === 'post');
-  const postOptions = uniqBy(sortBy(posts.data, [(p) => p.city]), 'code');
-  const cycles = bureauFilters$.find(f => f.item.description === 'bidCycle');
-  const cycleOptions = uniqBy(sortBy(cycles.data, [(c) => c.custom_description]), 'custom_description');
-  const languages = bureauFilters$.find(f => f.item.description === 'language');
-  const languageOptions = uniqBy(sortBy(languages.data, [(c) => c.custom_description]), 'custom_description');
-  const postIndicators = bureauFilters$.find(f => f.item.description === 'postIndicators');
-  const postIndicatorsOptions = sortBy(postIndicators.data, [(c) => c.description]);
-  const fsbidHandshakeStatus = bureauFilters$.find(f => f.item.description === 'handshake');
-  const fsbidHandshakeStatusOptions = uniqBy(fsbidHandshakeStatus.data, 'code');
-  const tmHandshakeStatus = bureauFilters$.find(f => f.item.description === 'tmHandshake');
-  const tmHandshakeStatusOptions = uniqBy(tmHandshakeStatus.data, 'code');
-  const hardToFill = bureauFilters$.find(f => f.item.description === 'hardToFill');
-  const hardToFillOptions = uniqBy(hardToFill.data, 'code');
+  const posts = bureauFilters$.find(f => get(f, 'item.description') === 'post');
+  const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
+  const cycles = bureauFilters$.find(f => get(f, 'item.description') === 'bidCycle');
+  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const languages = bureauFilters$.find(f => get(f, 'item.description') === 'language');
+  const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const postIndicators = bureauFilters$.find(f => get(f, 'item.description') === 'postIndicators');
+  const postIndicatorsOptions = sortBy(get(postIndicators, 'data'), [(c) => c.description]);
+  const fsbidHandshakeStatus = bureauFilters$.find(f => get(f, 'item.description') === 'handshake');
+  const fsbidHandshakeStatusOptions = uniqBy(get(fsbidHandshakeStatus, 'data'), 'code');
+  const tmHandshakeStatus = bureauFilters$.find(f => get(f, 'item.description') === 'tmHandshake');
+  const tmHandshakeStatusOptions = uniqBy(get(tmHandshakeStatus, 'data'), 'code');
+  const hardToFill = bureauFilters$.find(f => get(f, 'item.description') === 'hardToFill');
+  const hardToFillOptions = uniqBy(get(hardToFill, 'data'), 'code');
   const sorts = BUREAU_POSITION_SORT;
 
 
@@ -128,18 +128,18 @@ const PositionManager = props => {
   // Query is passed to action which stringifies
   // key and values into sensible request url
   const query = {
-    [grades.item.selectionRef]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
-    [skills.item.selectionRef]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
-    [posts.item.selectionRef]: selectedPosts.map(postObject => (get(postObject, 'code'))),
-    [tods.item.selectionRef]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
-    [bureaus.item.selectionRef]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [orgs.item.selectionRef]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
-    [cycles.item.selectionRef]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
-    [languages.item.selectionRef]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
-    [postIndicators.item.selectionRef]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
-    [fsbidHandshakeStatus.item.selectionRef]: selectedHandshakeStatus.map(fsbidHSStatusObject => (get(fsbidHSStatusObject, 'code'))),
-    [tmHandshakeStatus.item.selectionRef]: selectedTmHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
-    [hardToFill.item.selectionRef]: selectedHardToFill.map(htfObject => (get(htfObject, 'code'))),
+    [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
+    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    [get(posts, 'item.selectionRef')]: selectedPosts.map(postObject => (get(postObject, 'code'))),
+    [get(tods, 'item.selectionRef')]: selectedTODs.map(tedObject => (get(tedObject, 'code'))),
+    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    [get(orgs, 'item.selectionRef')]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
+    [get(cycles, 'item.selectionRef')]: selectedCycles.map(cycleObject => (get(cycleObject, 'id'))),
+    [get(languages, 'item.selectionRef')]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
+    [get(postIndicators, 'item.selectionRef')]: selectedPostIndicators.map(postIndObject => (get(postIndObject, 'code'))),
+    [get(fsbidHandshakeStatus, 'item.selectionRef')]: selectedHandshakeStatus.map(fsbidHSStatusObject => (get(fsbidHSStatusObject, 'code'))),
+    [get(tmHandshakeStatus, 'item.selectionRef')]: selectedTmHandshakeStatus.map(tmHSStatusObject => (get(tmHSStatusObject, 'code'))),
+    [get(hardToFill, 'item.selectionRef')]: selectedHardToFill.map(htfObject => (get(htfObject, 'code'))),
     ordering,
     page,
     limit,
