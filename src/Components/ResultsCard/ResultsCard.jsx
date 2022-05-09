@@ -334,11 +334,7 @@ class ResultsCard extends Component {
                       <Favorite {...options.favorite} />
                   }
                   {
-                    isClient && !isProjectedVacancy &&
-                      <Flag
-                        name="flags.bidding"
-                        render={renderBidListButton}
-                      />
+                    isClient && !isProjectedVacancy && renderBidListButton()
                   }
                   {!isProjectedVacancy && !isClient && <CompareCheck {...options.compare} />}
                 </Column>

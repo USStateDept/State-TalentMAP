@@ -15,7 +15,6 @@ import { checkFlag } from 'flags';
 import OBCUrl from '../OBCUrl';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
-const useBidding = () => checkFlag('flags.bidding');
 
 class PositionTitle extends Component {
   getIsAvailableToBid = () => {
@@ -106,33 +105,24 @@ class PositionTitle extends Component {
             src={seal}
           />
         </div>
-        <div className={useBidding() ? 'offset-bid-button-container' : 'offset-bid-button-container-no-button'}>
+        <div className="offset-bid-button-container">
           {
             !availableToBid && !isProjectedVacancy &&
-            <Flag
-              name="flags.bidding"
-              render={() => (
-                <div className="unavailable-tooltip">
-                  <Tooltip
-                    title={isFilled ? CANNOT_BID_FILLED_POSITION : availablilityText}
-                    arrow
-                    position="bottom"
-                    tabIndex="0"
-                    theme="light"
-                  >
-                    <FontAwesome name="question-circle" />
-                    {'Why can\'t I add this position to my bid list?'}
-                  </Tooltip>
-                </div>
-              )}
-            />
+            <div className="unavailable-tooltip">
+              <Tooltip
+                title={isFilled ? CANNOT_BID_FILLED_POSITION : availablilityText}
+                arrow
+                position="bottom"
+                tabIndex="0"
+                theme="light"
+              >
+                <FontAwesome name="question-circle" />
+                {'Why can\'t I add this position to my bid list?'}
+              </Tooltip>
+            </div>
           }
           {
-            !isProjectedVacancy && !isTandemTwo &&
-            <Flag
-              name="flags.bidding"
-              render={this.renderBidListButton}
-            />
+            !isProjectedVacancy && !isTandemTwo && this.renderBidListButton
           }
         </div>
       </div>
