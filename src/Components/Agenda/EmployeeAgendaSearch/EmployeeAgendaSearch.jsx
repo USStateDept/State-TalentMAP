@@ -59,8 +59,8 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   // Pagination
   const [page, setPage] = useState(get(userSelections, 'page') || 1);
-  const [limit, setLimit] = useState(get(userSelections, 'limit', AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize));
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering', AGENDA_EMPLOYEES_SORT.defaultSort));
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || AGENDA_EMPLOYEES_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || AGENDA_EMPLOYEES_SORT.defaultSort);
   // Filters
   const [selectedCurrentBureaus, setSelectedCurrentBureaus] = useState(get(userSelections, 'selectedCurrentBureaus') || []);
   const [selectedOngoingBureaus, setSelectedOngoingBureaus] = useState(get(userSelections, 'selectedOngoingBureaus') || []);
@@ -71,8 +71,8 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   const [selectedOngoingPosts, setSelectedOngoingPosts] = useState(get(userSelections, 'selectedOngoingPosts') || []);
   const [selectedTED, setSelectedTED] = useState(get(userSelections, 'selectedTED') || null);
   // Free Text
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput', ''));
-  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch', ''));
+  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
+  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
   const prevPage = usePrevious(page);
 
