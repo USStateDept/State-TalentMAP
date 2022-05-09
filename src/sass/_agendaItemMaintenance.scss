@@ -409,6 +409,24 @@
   }
 }
 
+.remarks-categories-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 10px 10px 30px 10px;
+  justify-content: space-between;
+
+  a {
+    min-width: 200px;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px
+  }
+
+}
+
 .remarks-glossary-container {
   ul {
     list-style: none;
@@ -500,6 +518,12 @@
     .remark-category--#{$remark-id} {
       background-color: $color;
       color: $color-white;
+      scroll-margin-top: 60px;
+    }
+    @media screen and (max-width: 1600px) {
+      .remark-category--#{$remark-id} {
+        scroll-margin-top: 32px;
+      }
     }
   }
 }

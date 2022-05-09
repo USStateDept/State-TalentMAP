@@ -204,6 +204,10 @@
     justify-content: flex-end;
     margin-top: 0;
 
+    @media screen and (max-width: 1260px) {
+      justify-content: center;
+    }
+
     > span {
       margin-right: 10px;
     }
@@ -215,8 +219,16 @@
       margin-bottom: 0;
     }
 
+    > button {
+      width: 150px;
+    }
+
     .link-button-wrapper {
       margin-right: 10px;
+    }
+
+    .search-as-client-button {
+      margin-right: 2rem;
     }
   }
 }
