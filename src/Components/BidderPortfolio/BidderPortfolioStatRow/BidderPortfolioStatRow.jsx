@@ -11,7 +11,6 @@ import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 const useAvailableBidders = () => checkFlag('flags.available_bidders');
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
@@ -59,7 +58,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           </div>
         }
         {
-          !showEdit && useCDOBidding() &&
+          !showEdit && 
           <div className="button-container">
             <SearchAsClientButton user={userProfile} />
             { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }

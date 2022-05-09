@@ -21,8 +21,6 @@ import BoxShadow from '../BoxShadow';
 import Classifications from './Classifications';
 import Languages from './Languages';
 
-const useCDOBidding = () => checkFlag('flags.cdo_bidding');
-
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, isPublic,
@@ -39,8 +37,9 @@ const ProfileDashboard = ({
         <div className="usa-grid-full">
           <div className="usa-grid-full dashboard-top-section">
             { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-            { isPublic && showSearchAsClient && useCDOBidding() &&
-              <SearchAsClientButton user={userProfile} /> }
+            { isPublic && showSearchAsClient && 
+              <SearchAsClientButton user={userProfile} />
+            }
           </div>
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
