@@ -4,14 +4,12 @@ import { Helmet } from 'react-helmet';
 import { get, isNull } from 'lodash';
 import FontAwesome from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
-import { Flag } from 'flag';
 import BidListButton from 'Containers/BidListButton';
 import Favorite from 'Containers/Favorite';
 import { BID_LIST, POSITION_DETAILS, USER_PROFILE } from 'Constants/PropTypes';
 import { CANNOT_BID_DEFAULT, CANNOT_BID_FILLED_POSITION, CANNOT_BID_SUFFIX, NO_POST } from 'Constants/SystemMessages';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import { getAssetPath, getPostName, propOrDefault } from 'utilities';
-import { checkFlag } from 'flags';
 import OBCUrl from '../OBCUrl';
 
 const seal = getAssetPath('/assets/img/us-flag.jpg');
