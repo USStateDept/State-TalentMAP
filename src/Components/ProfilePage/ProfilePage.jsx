@@ -1,6 +1,5 @@
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Flag } from 'flag';
 import Settings from 'Components/Settings';
 import Dashboard from 'Containers/Dashboard/Dashboard';
 import FavoritePositionsContainer from 'Containers/Favorites/Favorites';
@@ -49,12 +48,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/ao" component={Bureau} />
           <Route path="/profile/cdo" component={Cdo} />
           <Route path="/profile/post" component={Post} />
-          <Flag
-            name="flags.bidding"
-            render={() => (
-              <Route path="/profile/bidtracker" component={BidTracker} />
-            )}
-          />
+          <Route path="/profile/bidtracker" component={BidTracker} />
         </Switch>
       }
     </div>

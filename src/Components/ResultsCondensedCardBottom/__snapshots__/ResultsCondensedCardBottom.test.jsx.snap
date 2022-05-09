@@ -126,10 +126,6 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
         useButtonClassSecondary={false}
         useLongText={true}
       />
-      <Flag
-        name="flags.bidding"
-        render={[Function]}
-      />
     </div>
   </div>
 </div>
@@ -235,12 +231,7 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot when context.isCli
     />
     <div
       className="usa-grid-full condensed-card-buttons-section"
-    >
-      <Flag
-        name="flags.bidding"
-        render={[Function]}
-      />
-    </div>
+    />
   </div>
 </div>
 `;
@@ -371,10 +362,14 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
         useButtonClassSecondary={false}
         useLongText={true}
       />
-      <Flag
-        name="flags.bidding"
-        render={[Function]}
-      />
+      <Connect(PermissionsWrapper)
+        permissions="bidder"
+      >
+        <Connect(BidListButtonContainer)
+          disabled={true}
+          id={1}
+        />
+      </Connect(PermissionsWrapper)>
     </div>
   </div>
 </div>

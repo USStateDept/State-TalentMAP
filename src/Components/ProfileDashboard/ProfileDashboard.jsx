@@ -85,23 +85,18 @@ const ProfileDashboard = ({
                         columns={columns[2]}
                         className="user-dashboard-section-container user-dashboard-column-3"
                       >
-                        <Flag
-                          name="flags.bidding"
-                          render={() => (
-                            <PermissionsWrapper permissions="bidder">
-                              <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
-                                <BidList
-                                  bids={bidList}
-                                  showMoreLink={!isPublic}
-                                  submitBidPosition={submitBidPosition}
-                                  deleteBid={deleteBid}
-                                  isLoading={bidListIsLoading}
-                                  registerHandshake={registerHandshake}
-                                />
-                              </BoxShadow>
-                            </PermissionsWrapper>
-                          )}
-                        />
+                        <PermissionsWrapper permissions="bidder">
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
+                            <BidList
+                              bids={bidList}
+                              showMoreLink={!isPublic}
+                              submitBidPosition={submitBidPosition}
+                              deleteBid={deleteBid}
+                              isLoading={bidListIsLoading}
+                              registerHandshake={registerHandshake}
+                            />
+                          </BoxShadow>
+                        </PermissionsWrapper>
                         { !isBidder() && favoritesContainer() }
                         {
                           !userClassificationsHasErrored &&
