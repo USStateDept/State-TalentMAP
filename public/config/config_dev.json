@@ -5,7 +5,6 @@
   "hrAuthUrl": "https://mockfsbid.metaphasedev.com/Authorize?sAppCircuitID=32",
   "flags": {
     "static_content": true,
-    "personalization": true,
     "persona_auth": true,
     "client_counts": false,
     "cdo_season_filter": true,
