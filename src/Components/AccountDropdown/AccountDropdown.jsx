@@ -4,12 +4,10 @@ import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdow
 import PropTypes from 'prop-types';
 import { compact, get, values } from 'lodash';
 import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
-import { checkFlag } from 'flags';
 import { getBrowserName } from 'utilities';
 import Avatar from '../Avatar';
 import DarkModeToggle from './DarkModeToggle';
 
-const getUseDarkMode = () => checkFlag('flags.personalization');
 
 const browserHandler = () => {
   switch (getBrowserName()) {
@@ -80,10 +78,7 @@ export class AccountDropdown extends Component {
               <strong>{displayName}</strong>
             </div>
             <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/profile/dashboard" onClick={this.hideDropdown}>Dashboard</Link>
-            {
-              getUseDarkMode() ?
-                browserHandler() : null
-            }
+            {browserHandler()}
             <Link className="account-dropdown--identity account-dropdown--segment account-dropdown-link" to="/logout" onClick={this.logout}>Logout</Link>
           </DropdownContent>
         </div>
