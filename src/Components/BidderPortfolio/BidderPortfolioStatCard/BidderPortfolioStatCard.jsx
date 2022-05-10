@@ -10,7 +10,6 @@ import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 const useAvailableBidders = () => checkFlag('flags.available_bidders');
 
 const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
@@ -56,11 +55,10 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
             classifications={classifications}
           />
         </div>
-        {useCDOBidding() &&
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <SearchAsClientButton user={userProfile} />
           { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }
-        </div>}
+        </div>
       </div>
     </BoxShadow>
   );
