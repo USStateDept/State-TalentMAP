@@ -103,24 +103,22 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'glossary_editors',
     ],
     children: [
-      checkFlag('flags.data_sync_admin') ?
-        {
-          text: 'Dashboard',
-          route: '/profile/administrator/dashboard/',
-          icon: 'tachometer',
-          roles: [
-            'superuser',
-          ],
-        } : null,
-      checkFlag('flags.data_sync_admin') ?
-        {
-          text: 'Logs',
-          route: '/profile/administrator/logs/',
-          icon: 'sitemap',
-          roles: [
-            'superuser',
-          ],
-        } : null,
+      {
+        text: 'Dashboard',
+        route: '/profile/administrator/dashboard/',
+        icon: 'tachometer',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Logs',
+        route: '/profile/administrator/logs/',
+        icon: 'sitemap',
+        roles: [
+          'superuser',
+        ],
+      },
       {
         text: 'Statistics',
         route: '/profile/administrator/stats/',
