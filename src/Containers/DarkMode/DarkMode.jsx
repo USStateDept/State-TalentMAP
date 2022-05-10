@@ -5,13 +5,11 @@ import {
   disable as disableDarkMode,
   enable as enableDarkMode,
 } from 'darkreader';
-import { checkFlag } from '../../flags';
 import { getBrowserName } from '../../utilities';
 
-const getUseDarkMode = () => checkFlag('flags.personalization');
 
 const setMode = (value) => {
-  if (!value || !getUseDarkMode()) {
+  if (!value) {
     disableDarkMode();
   } else {
     enableDarkMode({
