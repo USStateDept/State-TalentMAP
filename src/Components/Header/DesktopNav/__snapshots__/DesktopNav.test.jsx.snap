@@ -134,11 +134,7 @@ exports[`DesktopNav matches snapshot when logged in 1`] = `
         className="header-nav-link"
       >
         <span>
-          <Flag
-            name="flags.notifications"
-          >
-            <NotificationsPopover />
-          </Flag>
+          <NotificationsPopover />
           <div
             className="icon-alert-container glossary-link-container"
           >

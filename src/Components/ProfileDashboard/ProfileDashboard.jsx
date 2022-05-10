@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types';
-import { Flag } from 'flag';
 import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
   EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, NOTIFICATION_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
-import { checkFlag } from 'flags';
 import { get, includes } from 'lodash';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
@@ -20,8 +18,6 @@ import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
 import Classifications from './Classifications';
 import Languages from './Languages';
-
-const useCDOBidding = () => checkFlag('flags.cdo_bidding');
 
 
 const ProfileDashboard = ({
@@ -39,8 +35,9 @@ const ProfileDashboard = ({
         <div className="usa-grid-full">
           <div className="usa-grid-full dashboard-top-section">
             { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-            { isPublic && showSearchAsClient && useCDOBidding() &&
-              <SearchAsClientButton user={userProfile} /> }
+            { isPublic && showSearchAsClient &&
+              <SearchAsClientButton user={userProfile} />
+            }
           </div>
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
@@ -73,11 +70,9 @@ const ProfileDashboard = ({
                         columns={columns[1]}
                         className={'user-dashboard-section-container user-dashboard-column-2'}
                       >
-                        <Flag name="flags.notifications">
-                          <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
-                            <Notifications notifications={notifications} />
-                          </BoxShadow>
-                        </Flag>
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
+                          <Notifications notifications={notifications} />
+                        </BoxShadow>
                         <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                           <SavedSearches />
                         </BoxShadow>
