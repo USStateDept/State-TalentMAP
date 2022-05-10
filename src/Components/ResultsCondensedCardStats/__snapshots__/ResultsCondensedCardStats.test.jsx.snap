@@ -7,7 +7,8 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full condensed-card-statistics-inner"
   >
-    <BidCountFeatureFlagWrapper
+    <BidCount
+      altStyle={false}
       bidStatistics={
         Object {
           "at_skill": 5,
@@ -16,7 +17,10 @@ exports[`ResultsCondensedCardStatsComponent matches snapshot 1`] = `
           "total_bids": 5,
         }
       }
+      hideLabel={false}
+      isCondensed={false}
       isTandemTwo={false}
+      label="Bid Count:"
     />
   </div>
 </div>
