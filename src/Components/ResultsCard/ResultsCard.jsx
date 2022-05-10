@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull, isNumber } from 'lodash';
-import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
@@ -264,11 +263,7 @@ class ResultsCard extends Component {
                     <h3>{title}</h3>: {post}
                     {detailsLink}
                     {
-                      !isProjectedVacancy &&
-                      <Flag
-                        name="flags.bid_count"
-                        render={() => renderBidCountMobile(stats)}
-                      />
+                      !isProjectedVacancy && renderBidCountMobile(stats)
                     }
                   </Row>
                   :
@@ -282,11 +277,7 @@ class ResultsCard extends Component {
                       </Column>
                     </Column>
                     {
-                      !isProjectedVacancy &&
-                      <Flag
-                        name="flags.bid_count"
-                        render={() => renderBidCount(stats)}
-                      />
+                      !isProjectedVacancy && renderBidCount(stats)
                     }
                   </Row>
               }
