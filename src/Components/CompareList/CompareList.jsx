@@ -164,10 +164,7 @@ class CompareList extends Component {
                         emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
                       }
                     </tr>
-                    <Flag
-                      name="flags.bid_count"
-                      render={() => renderBidCounts(compareArray, emptyArray)}
-                    />
+                    {renderBidCounts(compareArray, emptyArray)}
                     <tr>
                       <th scope="row">
                         Location

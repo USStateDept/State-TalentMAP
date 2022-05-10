@@ -55,11 +55,13 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
         toggleEditor={[Function]}
       />
     </div>
-    <BidCountFeatureFlagWrapper
+    <BidCount
       altStyle={true}
       bidStatistics={Object {}}
       hideLabel={true}
       isCondensed={true}
+      isTandemTwo={false}
+      label="Bid Count:"
     />
   </div>
   <div
