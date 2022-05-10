@@ -401,7 +401,7 @@
 
 .stacked {
   display: block;
-  width: 80%;
+  width: 70%;
 
   .maintenance-container-right {
     border-top: 2px solid $color-black;
@@ -422,9 +422,15 @@
   }
 }
 
-@media screen and (min-width: 1150px) and (max-width: 1366px) {
+@media screen and (min-width: 1201px) and (max-width: 1366px) {
   .stacked {
-    width: 85%;
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1200px) {
+  .stacked {
+    width: 77%;
   }
 }
 
