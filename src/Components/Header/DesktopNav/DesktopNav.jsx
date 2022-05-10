@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { Flag } from 'flag';
 import { USER_PROFILE } from '../../../Constants/PropTypes';
 import NotificationsPopover from '../NotificationsPopover';
 import GlossaryIcon from '../GlossaryIcon';
@@ -36,9 +35,7 @@ const DesktopNav = ({
           {
             isLoggedIn &&
               <span>
-                <Flag name="flags.notifications">
-                  <NotificationsPopover />
-                </Flag>
+                <NotificationsPopover />
                 <div className="icon-alert-container glossary-link-container">
                   <GlossaryIcon />
                 </div>
