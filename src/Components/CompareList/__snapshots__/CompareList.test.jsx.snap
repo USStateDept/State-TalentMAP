@@ -223,25 +223,43 @@ exports[`CompareListComponent matches snapshot 1`] = `
               key="15"
             />
           </tr>
-          <Flag
-            name="flags.bid_count"
-            render={[Function]}
-          />
           <tr>
             <th
               scope="row"
             >
-              Location
+              Bid Count
             </th>
             <td
               key="16"
             >
-              Freetown, Sierra Leone
+              <span
+                className="bid-stats"
+              >
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={Object {}}
+                  hideLabel={true}
+                  isCondensed={false}
+                  isTandemTwo={false}
+                  label="Bid Count"
+                />
+              </span>
             </td>
             <td
               key="17"
             >
-              Chicago, IL
+              <span
+                className="bid-stats"
+              >
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={Object {}}
+                  hideLabel={true}
+                  isCondensed={false}
+                  isTandemTwo={false}
+                  label="Bid Count"
+                />
+              </span>
             </td>
             <td
               className="empty"
@@ -260,17 +278,17 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              TED
+              Location
             </th>
             <td
               key="21"
             >
-              None listed
+              Freetown, Sierra Leone
             </td>
             <td
               key="22"
             >
-              None listed
+              Chicago, IL
             </td>
             <td
               className="empty"
@@ -289,7 +307,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Skill
+              TED
             </th>
             <td
               key="26"
@@ -299,7 +317,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td
               key="27"
             >
-              SECURITY (2501)
+              None listed
             </td>
             <td
               className="empty"
@@ -318,17 +336,17 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Grade
+              Skill
             </th>
             <td
               key="31"
             >
-              06
+              None listed
             </td>
             <td
               key="32"
             >
-              04
+              SECURITY (2501)
             </td>
             <td
               className="empty"
@@ -347,17 +365,17 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Bureau
+              Grade
             </th>
             <td
               key="36"
             >
-              None listed
+              06
             </td>
             <td
               key="37"
             >
-              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
+              04
             </td>
             <td
               className="empty"
@@ -376,7 +394,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Tour of duty
+              Bureau
             </th>
             <td
               key="41"
@@ -386,7 +404,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td
               key="42"
             >
-              2 YRS (2 R & R)
+              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
             <td
               className="empty"
@@ -405,10 +423,39 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Language
+              Tour of duty
             </th>
             <td
               key="46"
+            >
+              None listed
+            </td>
+            <td
+              key="47"
+            >
+              2 YRS (2 R & R)
+            </td>
+            <td
+              className="empty"
+              key="48"
+            />
+            <td
+              className="empty"
+              key="49"
+            />
+            <td
+              className="empty"
+              key="50"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Language
+            </th>
+            <td
+              key="51"
             >
               <LanguageList
                 languages={Array []}
@@ -416,7 +463,7 @@ exports[`CompareListComponent matches snapshot 1`] = `
               />
             </td>
             <td
-              key="47"
+              key="52"
             >
               <LanguageList
                 languages={
@@ -442,43 +489,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </td>
             <td
               className="empty"
-              key="48"
-            />
-            <td
-              className="empty"
-              key="49"
-            />
-            <td
-              className="empty"
-              key="50"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Post differential | Danger Pay
-            </th>
-            <td
-              key="51"
-            >
-              <DefinitionList
-                dangerPay={0}
-                obcUrl={Object {}}
-                postDifferential={30}
-              />
-            </td>
-            <td
-              key="52"
-            >
-              <DefinitionList
-                dangerPay={15}
-                obcUrl={Object {}}
-                postDifferential={20}
-              />
-            </td>
-            <td
-              className="empty"
               key="53"
             />
             <td
@@ -494,30 +504,24 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <th
               scope="row"
             >
-              Favorite
+              Post differential | Danger Pay
             </th>
             <td
               key="56"
             >
-              <Connect(FavoriteContainer)
-                compareArray={Array []}
-                hasBorder={true}
-                refKey={1}
-                refresh={true}
-                useButtonClass={true}
-                useButtonClassSecondary={true}
+              <DefinitionList
+                dangerPay={0}
+                obcUrl={Object {}}
+                postDifferential={30}
               />
             </td>
             <td
               key="57"
             >
-              <Connect(FavoriteContainer)
-                compareArray={Array []}
-                hasBorder={true}
-                refKey={2}
-                refresh={true}
-                useButtonClass={true}
-                useButtonClassSecondary={true}
+              <DefinitionList
+                dangerPay={15}
+                obcUrl={Object {}}
+                postDifferential={20}
               />
             </td>
             <td
@@ -531,6 +535,49 @@ exports[`CompareListComponent matches snapshot 1`] = `
             <td
               className="empty"
               key="60"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Favorite
+            </th>
+            <td
+              key="61"
+            >
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={1}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td
+              key="62"
+            >
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={2}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td
+              className="empty"
+              key="63"
+            />
+            <td
+              className="empty"
+              key="64"
+            />
+            <td
+              className="empty"
+              key="65"
             />
           </tr>
           <Flag
@@ -555,15 +602,15 @@ exports[`CompareListComponent matches snapshot 1`] = `
             </MediaQueryWrapper>
             <td
               className="empty"
-              key="61"
+              key="66"
             />
             <td
               className="empty"
-              key="62"
+              key="67"
             />
             <td
               className="empty"
-              key="63"
+              key="68"
             />
           </tr>
         </tbody>
@@ -821,25 +868,43 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               key="15"
             />
           </tr>
-          <Flag
-            name="flags.bid_count"
-            render={[Function]}
-          />
           <tr>
             <th
               scope="row"
             >
-              Location
+              Bid Count
             </th>
             <td
               key="16"
             >
-              Freetown, Sierra Leone
+              <span
+                className="bid-stats"
+              >
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={Object {}}
+                  hideLabel={true}
+                  isCondensed={false}
+                  isTandemTwo={false}
+                  label="Bid Count"
+                />
+              </span>
             </td>
             <td
               key="17"
             >
-              Chicago, IL
+              <span
+                className="bid-stats"
+              >
+                <BidCount
+                  altStyle={true}
+                  bidStatistics={Object {}}
+                  hideLabel={true}
+                  isCondensed={false}
+                  isTandemTwo={false}
+                  label="Bid Count"
+                />
+              </span>
             </td>
             <td
               className="empty"
@@ -858,17 +923,17 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              TED
+              Location
             </th>
             <td
               key="21"
             >
-              None listed
+              Freetown, Sierra Leone
             </td>
             <td
               key="22"
             >
-              None listed
+              Chicago, IL
             </td>
             <td
               className="empty"
@@ -887,7 +952,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Skill
+              TED
             </th>
             <td
               key="26"
@@ -897,7 +962,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td
               key="27"
             >
-              SECURITY (2501)
+              None listed
             </td>
             <td
               className="empty"
@@ -916,17 +981,17 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Grade
+              Skill
             </th>
             <td
               key="31"
             >
-              06
+              None listed
             </td>
             <td
               key="32"
             >
-              04
+              SECURITY (2501)
             </td>
             <td
               className="empty"
@@ -945,17 +1010,17 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Bureau
+              Grade
             </th>
             <td
               key="36"
             >
-              None listed
+              06
             </td>
             <td
               key="37"
             >
-              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
+              04
             </td>
             <td
               className="empty"
@@ -974,7 +1039,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Tour of duty
+              Bureau
             </th>
             <td
               key="41"
@@ -984,7 +1049,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td
               key="42"
             >
-              2 YRS (2 R & R)
+              (WHA) BUREAU OF WESTERN HEMISPHERIC AFFAIRS
             </td>
             <td
               className="empty"
@@ -1003,10 +1068,39 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Language
+              Tour of duty
             </th>
             <td
               key="46"
+            >
+              None listed
+            </td>
+            <td
+              key="47"
+            >
+              2 YRS (2 R & R)
+            </td>
+            <td
+              className="empty"
+              key="48"
+            />
+            <td
+              className="empty"
+              key="49"
+            />
+            <td
+              className="empty"
+              key="50"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Language
+            </th>
+            <td
+              key="51"
             >
               <LanguageList
                 languages={Array []}
@@ -1014,7 +1108,7 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               />
             </td>
             <td
-              key="47"
+              key="52"
             >
               <LanguageList
                 languages={
@@ -1040,43 +1134,6 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </td>
             <td
               className="empty"
-              key="48"
-            />
-            <td
-              className="empty"
-              key="49"
-            />
-            <td
-              className="empty"
-              key="50"
-            />
-          </tr>
-          <tr>
-            <th
-              scope="row"
-            >
-              Post differential | Danger Pay
-            </th>
-            <td
-              key="51"
-            >
-              <DefinitionList
-                dangerPay={0}
-                obcUrl={Object {}}
-                postDifferential={30}
-              />
-            </td>
-            <td
-              key="52"
-            >
-              <DefinitionList
-                dangerPay={15}
-                obcUrl={Object {}}
-                postDifferential={20}
-              />
-            </td>
-            <td
-              className="empty"
               key="53"
             />
             <td
@@ -1092,30 +1149,24 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <th
               scope="row"
             >
-              Favorite
+              Post differential | Danger Pay
             </th>
             <td
               key="56"
             >
-              <Connect(FavoriteContainer)
-                compareArray={Array []}
-                hasBorder={true}
-                refKey={1}
-                refresh={true}
-                useButtonClass={true}
-                useButtonClassSecondary={true}
+              <DefinitionList
+                dangerPay={0}
+                obcUrl={Object {}}
+                postDifferential={30}
               />
             </td>
             <td
               key="57"
             >
-              <Connect(FavoriteContainer)
-                compareArray={Array []}
-                hasBorder={true}
-                refKey={2}
-                refresh={true}
-                useButtonClass={true}
-                useButtonClassSecondary={true}
+              <DefinitionList
+                dangerPay={15}
+                obcUrl={Object {}}
+                postDifferential={20}
               />
             </td>
             <td
@@ -1129,6 +1180,49 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             <td
               className="empty"
               key="60"
+            />
+          </tr>
+          <tr>
+            <th
+              scope="row"
+            >
+              Favorite
+            </th>
+            <td
+              key="61"
+            >
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={1}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td
+              key="62"
+            >
+              <Connect(FavoriteContainer)
+                compareArray={Array []}
+                hasBorder={true}
+                refKey={2}
+                refresh={true}
+                useButtonClass={true}
+                useButtonClassSecondary={true}
+              />
+            </td>
+            <td
+              className="empty"
+              key="63"
+            />
+            <td
+              className="empty"
+              key="64"
+            />
+            <td
+              className="empty"
+              key="65"
             />
           </tr>
           <Flag
@@ -1153,15 +1247,15 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
             </MediaQueryWrapper>
             <td
               className="empty"
-              key="61"
+              key="66"
             />
             <td
               className="empty"
-              key="62"
+              key="67"
             />
             <td
               className="empty"
-              key="63"
+              key="68"
             />
           </tr>
         </tbody>
