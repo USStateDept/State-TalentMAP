@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@cmsgov/design-system-core": "^1.18.0",
-    "axios": "^0.17.1",
+    "axios": "^0.21.2",
     "babel-plugin-lodash": "^3.3.2",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
