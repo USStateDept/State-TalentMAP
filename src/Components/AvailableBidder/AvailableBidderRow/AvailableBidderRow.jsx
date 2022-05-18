@@ -166,6 +166,8 @@ const AvailableBidderRow = (props) => {
       {formattedTed}
     </Tooltip>);
 
+  const updatedOn = get(bidder, 'available_bidder_details.update_date');
+
   const commentsToolTip = comments !== NO_COMMENTS ?
     (<Tooltip
       html={
@@ -201,6 +203,7 @@ const AvailableBidderRow = (props) => {
       ted: ted$,
       current_post: currentPost,
       cdo: cdo ? getCDO() : NO_CDO,
+      updated_on: formatDate(updatedOn),
       comments: comments$,
     }, useStepLetter() ? [] : ['step_letters']) : {
       name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),

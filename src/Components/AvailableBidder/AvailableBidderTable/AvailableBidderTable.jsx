@@ -66,6 +66,7 @@ const AvailableBidderTable = props => {
     'TED',
     'Post',
     'CDO',
+    'Updated On',
     'Comments',
   ] : [
     'Name',
