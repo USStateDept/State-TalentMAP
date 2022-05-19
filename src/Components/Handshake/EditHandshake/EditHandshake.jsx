@@ -80,7 +80,8 @@ const EditHandshake = props => {
   };
 
   const readOnly = currentlyOffered || infoOnly;
-  const userInputError = isNil(expirationTime) || isPast(validateExpiration());
+  const userInputError = isNil(expirationTime) || isPast(validateExpiration())
+    || beforeReveal(validateExpiration());
 
 
   const cancel = (e) => {
