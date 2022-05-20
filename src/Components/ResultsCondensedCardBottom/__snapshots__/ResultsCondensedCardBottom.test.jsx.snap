@@ -7,9 +7,20 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full condensed-card-bottom"
   >
-    <Flag
-      name="flags.bid_count"
-      render={[Function]}
+    <ResultsCondensedCardStats
+      bidStatisticsArray={
+        Array [
+          Object {
+            "at_skill": 0,
+            "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+            "id": 6,
+            "in_grade": 0,
+            "in_grade_at_skill": 0,
+            "total_bids": 2,
+          },
+        ]
+      }
+      isTandemTwo={false}
     />
     <CondensedCardData
       position={
@@ -138,9 +149,20 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot when context.isCli
   <div
     className="usa-grid-full condensed-card-bottom"
   >
-    <Flag
-      name="flags.bid_count"
-      render={[Function]}
+    <ResultsCondensedCardStats
+      bidStatisticsArray={
+        Array [
+          Object {
+            "at_skill": 0,
+            "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+            "id": 6,
+            "in_grade": 0,
+            "in_grade_at_skill": 0,
+            "total_bids": 2,
+          },
+        ]
+      }
+      isTandemTwo={false}
     />
     <CondensedCardData
       position={
@@ -243,9 +265,20 @@ exports[`ResultsCondensedCardBottomComponent matches snapshot with bidlist butto
   <div
     className="usa-grid-full condensed-card-bottom"
   >
-    <Flag
-      name="flags.bid_count"
-      render={[Function]}
+    <ResultsCondensedCardStats
+      bidStatisticsArray={
+        Array [
+          Object {
+            "at_skill": 0,
+            "bidcycle": "Demo BidCycle 2018-03-13 15:51:10.980576+00:00",
+            "id": 6,
+            "in_grade": 0,
+            "in_grade_at_skill": 0,
+            "total_bids": 2,
+          },
+        ]
+      }
+      isTandemTwo={false}
     />
     <CondensedCardData
       position={
