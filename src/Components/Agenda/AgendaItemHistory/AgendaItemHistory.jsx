@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import BackButton from 'Components/BackButton';
 import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
-import { get } from 'lodash';
+import { filter, get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
+import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
 import { useDataLoader, useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
@@ -30,8 +31,11 @@ const AgendaItemHistory = (props) => {
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
 
-  const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const client = get(data, 'data.name') || '';
+  const agendaEmployees = useDataLoader(api().get, '/fsbid/agenda_employees/');
+  const agendaEmployees$ = get(agendaEmployees, 'data.data.results') || [];
+
+  const clientData = filter(agendaEmployees$, { person: { perdet: Number(id) } });
+  const client = get(clientData[0], 'person.fullName') || [];
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
@@ -39,12 +43,18 @@ const AgendaItemHistory = (props) => {
   const aih = useSelector(state => state.aih);
   const isLoading = useSelector(state => state.aihIsLoading);
   const hasErrored = useSelector(state => state.aihHasErrored);
+  const employeesProfileHasErrored =
+    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
 
   // Actions
   const dispatch = useDispatch();
 
   const getData = () => {
     dispatch(aihFetchData(id, sort));
+  };
+
+  const getEmployeesProfile = () => {
+    dispatch(agendaEmployeesFetchProfile(id));
   };
 
   const prevSort = usePrevious(sort);
@@ -64,6 +74,7 @@ const AgendaItemHistory = (props) => {
 
   useMount(() => {
     getData();
+    getEmployeesProfile();
   });
 
   useEffect(() => {
@@ -84,7 +95,7 @@ const AgendaItemHistory = (props) => {
           size="lg"
         />
         Agenda Item History
-        {isCDO ?
+        {(isCDO && !employeesProfileHasErrored) ?
           <span className="aih-title-dash">
               -
             <Link to={`/profile/public/${id}`}>

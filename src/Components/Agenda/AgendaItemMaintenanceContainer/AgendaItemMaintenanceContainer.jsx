@@ -6,7 +6,9 @@ import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import { Link } from 'react-router-dom';
-import { useDataLoader } from 'hooks';
+import { useDataLoader, useMount } from 'hooks';
+import { useDispatch, useSelector } from 'react-redux';
+import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
@@ -38,6 +40,20 @@ const AgendaItemMaintenanceContainer = (props) => {
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
 
+  const employeesProfileHasErrored =
+    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
+
+  // Actions
+  const dispatch = useDispatch();
+
+  const getEmployeesProfile = () => {
+    dispatch(agendaEmployeesFetchProfile(id));
+  };
+
+  useMount(() => {
+    getEmployeesProfile();
+  });
+
   return (
     <div>
       <div className="aim-header-container">
@@ -47,7 +63,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             size="lg"
           />
           Agenda Item Maintenance
-          {isCDO ?
+          {(isCDO && !employeesProfileHasErrored) ?
             <span className="aim-title-dash">
                 -
               <Link to={`/profile/public/${id}`}>

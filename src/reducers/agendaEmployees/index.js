@@ -2,6 +2,7 @@ import {
   agendaEmployees,
   agendaEmployeesFetchDataErrored,
   agendaEmployeesFetchDataLoading,
+  agendaEmployeesFetchProfileHasErrored,
   agendaEmployeesFilters,
   agendaEmployeesFiltersFetchDataErrored,
   agendaEmployeesFiltersFetchDataLoading,
@@ -12,9 +13,10 @@ export default {
   agendaEmployees,
   agendaEmployeesFetchDataErrored,
   agendaEmployeesFetchDataLoading,
-  agendaEmployeesSelections,
+  agendaEmployeesFetchProfileHasErrored,
   agendaEmployeesFilters,
   agendaEmployeesFiltersFetchDataErrored,
   agendaEmployeesFiltersFetchDataLoading,
+  agendaEmployeesSelections,
 };
 

@@ -56,3 +56,12 @@ export function agendaEmployeesFilters(state = {}, action) {
       return state;
   }
 }
+
+export function agendaEmployeesFetchProfileHasErrored(state = true, action) {
+  switch (action.type) {
+    case 'AGENDA_EMPLOYEES_FETCH_PROFILE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
