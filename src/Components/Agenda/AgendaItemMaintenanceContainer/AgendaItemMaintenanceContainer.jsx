@@ -63,7 +63,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             size="lg"
           />
           Agenda Item Maintenance
-          {(isCDO && !employeesProfileHasErrored) ?
+          {isCDO && !employeesProfileHasErrored ?
             <span className="aim-title-dash">
                 -
               <Link to={`/profile/public/${id}`}>

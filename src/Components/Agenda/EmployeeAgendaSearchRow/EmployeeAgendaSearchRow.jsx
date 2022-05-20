@@ -5,6 +5,9 @@ import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
+import { useDispatch, useSelector } from 'react-redux';
+import { useMount } from 'hooks';
+import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
@@ -24,6 +27,20 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
+  const employeesProfileHasErrored =
+    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
+
+  // Actions
+  const dispatch = useDispatch();
+
+  const getEmployeesProfile = () => {
+    dispatch(agendaEmployeesFetchProfile(perdet));
+  };
+
+  useMount(() => {
+    getEmployeesProfile();
+  });
+
   return (
     <div className="usa-grid-full employee-agenda-stat-row">
       <div className="initials-circle-container">
@@ -42,7 +59,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
       </div>
       <div className="employee-agenda-row-name">
         {
-          isCDO ?
+          isCDO && !employeesProfileHasErrored ?
             <Link to={`/profile/public/${perdet}`}>{bidder} ({employeeID})</Link> :
             <div className="row-name">{bidder} ({employeeID})</div>
         }

@@ -95,7 +95,7 @@ const AgendaItemHistory = (props) => {
           size="lg"
         />
         Agenda Item History
-        {(isCDO && !employeesProfileHasErrored) ?
+        {isCDO && !employeesProfileHasErrored ?
           <span className="aih-title-dash">
               -
             <Link to={`/profile/public/${id}`}>

@@ -63,7 +63,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
         </div>
         <div>
           <h3>
-            {(isCDO && !employeesProfileHasErrored) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
+            {isCDO && !employeesProfileHasErrored ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">
