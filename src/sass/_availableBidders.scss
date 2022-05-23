@@ -120,6 +120,7 @@
     margin: 0;
     width: 100%;
     border: 1px solid $dos-blue;
+    overflow-x: auto;
 
     thead {
       tr {
@@ -185,6 +186,16 @@
     .both-step-letters-icon {
       color: $color-red;
     }
+  }
+  @media screen and (min-width: 1099px) and (max-width: 1199px) {
+    width: 79%;
+    margin-left: 0;
+    overflow-x: auto;
+  }
+  @media screen and (min-width: 1200px) and (max-width: 1315px) {
+    width: 87%;
+    margin-left: 0;
+    overflow-x: auto;
   }
 }
 

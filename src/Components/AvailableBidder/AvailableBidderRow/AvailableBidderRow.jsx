@@ -166,7 +166,30 @@ const AvailableBidderRow = (props) => {
       {formattedTed}
     </Tooltip>);
 
+  // Formatting and setting the "Updated On" column
   const updatedOn = get(bidder, 'available_bidder_details.update_date');
+  const updatedTooltip = formatDate(updatedOn);
+  const formattedUpdateDate = formatDate(updatedOn, 'MM/YYYY');
+
+  const updateTooltip =
+  (<Tooltip
+    html={
+      <div>
+        <div className="ab-row-tooltip-wrapper">
+          <div>
+            <span className="title">Last Updated On: <span className="ab-row-tooltip-data">{updatedTooltip}</span></span>
+          </div>
+        </div>
+      </div>
+    }
+    theme="ab-row"
+    arrow
+    tabIndex="0"
+    interactive
+    useContext
+  >
+    {formattedUpdateDate}
+  </Tooltip>);
 
   const commentsToolTip = comments !== NO_COMMENTS ?
     (<Tooltip
@@ -203,7 +226,7 @@ const AvailableBidderRow = (props) => {
       ted: ted$,
       current_post: currentPost,
       cdo: cdo ? getCDO() : NO_CDO,
-      updated_on: formatDate(updatedOn),
+      updated_on: updateTooltip,
       comments: comments$,
     }, useStepLetter() ? [] : ['step_letters']) : {
       name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),
