@@ -4,19 +4,36 @@ import { filter } from 'lodash';
 const POSITION_SEARCH_SORTS$ = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
-    { value: 'position__title', text: 'Position title: A-Z' },
-    { value: '-position__grade', text: 'Grade: Low to high' }, // sort by grade "ranking"
-    { value: '-position__bureau', text: 'Bureau: A-Z' }, // numbers first, then A-Z
-    { value: '-posted_date', text: 'Posted date: Most recent', availableOnly: true }, // sort by soonest posted_date
-    { value: 'posted_date', text: 'Posted date: Oldest', availableOnly: true }, // sort by oldest posted_date
-    { value: 'ted', text: 'TED: Soonest' },
-    { value: '-ted', text: 'TED: Latest' },
-    { value: 'position__position_number', text: 'Position number: Low to high' }, // numbers first, then A-Z
-    { value: '-position__post__has_service_needs_differential', text: 'Featured positions', availableOnly: true }, // sort by service needs first
+    { value: '-posted_date', text: 'Posted Date: Most Recent', availableOnly: true }, // sort by soonest posted_date
+    { value: 'posted_date', text: 'Posted Date: Oldest', availableOnly: true }, // sort by oldest posted_date
+    { value: 'position__title', text: 'Position Title: A-Z' },
+    { value: '-position__title', text: 'Position Title: Z-A' },
+    { value: '-position__grade', text: 'Grade: Low to High' }, // sort by grade "ranking"
+    { value: 'position__grade', text: 'Grade: High to Low' }, // sort by grade "ranking"
+    { value: 'position__bureau', text: 'Bureau: A-Z' }, // numbers first, then A-Z
+    { value: '-position__bureau', text: 'Bureau: Z-A' }, // numbers first, then Z-A
     { value: 'location_city', text: 'Location: A-Z', nonTandemOnly: true },
     { value: '-location_city', text: 'Location: Z-A', nonTandemOnly: true },
+    { value: 'ted', text: 'TED: Most Recent' },
+    { value: '-ted', text: 'TED: Oldest' },
+    { value: 'position__position_number', text: 'Position Number: Low to High' }, // numbers first, then A-Z
+    { value: '-position__position_number', text: 'Position Number: High to Low' }, // numbers first, then Z-A
   ],
 };
+// Posted Date: Most Recent
+// Posted Date: Oldest
+// Position Title: A - Z
+// Position Title: Z - A
+// Grade: Low to High
+// Grade: High to Low
+// Bureau: A - Z
+// Bureau: Z - A
+// Location: A - Z
+// Location: Z - A
+// TED: Most Recent
+// TED: Oldest
+// Position Number: Low to High
+// Position Number: High to Low
 
 POSITION_SEARCH_SORTS$.defaultSort = POSITION_SEARCH_SORTS$.options.find(o =>
   o.value === '-posted_date',
