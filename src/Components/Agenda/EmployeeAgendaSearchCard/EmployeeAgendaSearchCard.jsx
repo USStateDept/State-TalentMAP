@@ -4,12 +4,9 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMount } from 'hooks';
-import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
 
 export const FALLBACK = 'None listed';
 
@@ -29,19 +26,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
-  const employeesProfileHasErrored =
-    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
-
-  // Actions
-  const dispatch = useDispatch();
-
-  const getEmployeesProfile = () => {
-    dispatch(agendaEmployeesFetchProfile(perdet));
-  };
-
-  useMount(() => {
-    getEmployeesProfile();
-  });
+  // handles error where some employees have no Profile
+  const employeeHasCDO = isNull(get(person, 'cdo'));
 
   return (
     <BoxShadow className="employee-agenda-stat-card">
@@ -63,7 +49,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
         </div>
         <div>
           <h3>
-            {isCDO && !employeesProfileHasErrored ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
+            {isCDO && !employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">
