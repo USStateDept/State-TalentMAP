@@ -5,9 +5,6 @@ import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNull } from 'lodash';
 import { formatDate } from 'utilities';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMount } from 'hooks';
-import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
