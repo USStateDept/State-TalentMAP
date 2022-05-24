@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { get } from 'lodash';
+import { get, isNull } from 'lodash';
 import { formatDate } from 'utilities';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMount } from 'hooks';
@@ -27,19 +27,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
-  const employeesProfileHasErrored =
-    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
-
-  // Actions
-  const dispatch = useDispatch();
-
-  const getEmployeesProfile = () => {
-    dispatch(agendaEmployeesFetchProfile(perdet));
-  };
-
-  useMount(() => {
-    getEmployeesProfile();
-  });
+  // handles error where some employees have no Profile
+  const employeeHasCDO = isNull(get(person, 'cdo'));
 
   return (
     <div className="usa-grid-full employee-agenda-stat-row">
@@ -59,7 +48,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
       </div>
       <div className="employee-agenda-row-name">
         {
-          isCDO && !employeesProfileHasErrored ?
+          isCDO && !employeeHasCDO ?
             <Link to={`/profile/public/${perdet}`}>{bidder} ({employeeID})</Link> :
             <div className="row-name">{bidder} ({employeeID})</div>
         }

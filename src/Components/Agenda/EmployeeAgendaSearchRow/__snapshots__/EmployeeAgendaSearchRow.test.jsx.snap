@@ -1,3 +1,140 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `undefined`;
+exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
+<div
+  className="usa-grid-full employee-agenda-stat-row"
+>
+  <div
+    className="initials-circle-container"
+  >
+    <div
+      className="initials-circle"
+    />
+  </div>
+  <div
+    className="employee-agenda-card-top"
+  >
+    <div
+      className="employee-ribbon-container"
+    >
+      <div
+        className="ribbon-container-condensed"
+      />
+    </div>
+  </div>
+  <div
+    className="employee-agenda-row-name"
+  >
+    <div
+      className="row-name"
+    >
+      None listed
+       (
+      None listed
+      )
+    </div>
+  </div>
+  <div
+    className="employee-agenda-row-data-container"
+  >
+    <div
+      className="employee-agenda-row-data-points"
+    >
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="building-o"
+        />
+        <dt>
+          Org:
+        </dt>
+        <dd>
+          None listed
+          <FontAwesome
+            className="org-fa-arrow"
+            name="long-arrow-right"
+          />
+          None listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="clock-o"
+        />
+        <dt>
+          TED:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="user-o"
+        />
+        <dt>
+          CDO:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="calendar-o"
+        />
+        <dt>
+          Panel Meeting Date:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="sticky-note-o"
+        />
+        <dt>
+          Agenda Status:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+    </div>
+    <div
+      className="button-container"
+    >
+      <div
+        className="view-agenda-item-container"
+      >
+        <LinkButton
+          className="view-agenda-item-button"
+          toLink="/profile/ao/agendaitemhistory/"
+        >
+          View History
+        </LinkButton>
+      </div>
+      <div
+        className="create-ai-box-container"
+      >
+        <LinkButton
+          className="create-ai-box-button"
+          toLink="/profile/ao/createagendaitem/"
+        >
+          Create Agenda Item
+        </LinkButton>
+      </div>
+    </div>
+  </div>
+</div>
+`;
