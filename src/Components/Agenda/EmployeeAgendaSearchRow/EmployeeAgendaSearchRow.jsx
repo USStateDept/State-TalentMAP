@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { get, isNull } from 'lodash';
+import { get, isNil } from 'lodash';
 import { formatDate } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
@@ -25,7 +25,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
   // handles error where some employees have no Profile
-  const employeeHasCDO = !isNull(get(person, 'cdo'));
+  const employeeHasCDO = !isNil(get(person, 'cdo'));
 
   return (
     <div className="usa-grid-full employee-agenda-stat-row">

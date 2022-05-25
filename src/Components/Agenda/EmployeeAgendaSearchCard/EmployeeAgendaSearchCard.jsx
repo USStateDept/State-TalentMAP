@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { get, isNull } from 'lodash';
+import { get, isNil } from 'lodash';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
 
@@ -27,7 +27,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
   // handles error where some employees have no Profile
-  const employeeHasCDO = !isNull(get(person, 'cdo'));
+  const employeeHasCDO = !isNil(get(person, 'cdo'));
 
   return (
     <BoxShadow className="employee-agenda-stat-card">
