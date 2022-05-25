@@ -25,7 +25,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
   // handles error where some employees have no Profile
-  const employeeHasCDO = isNull(get(person, 'cdo'));
+  const employeeHasCDO = !isNull(get(person, 'cdo'));
 
   return (
     <div className="usa-grid-full employee-agenda-stat-row">
@@ -45,7 +45,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
       </div>
       <div className="employee-agenda-row-name">
         {
-          isCDO && !employeeHasCDO ?
+          isCDO && employeeHasCDO ?
             <Link to={`/profile/public/${perdet}`}>{bidder} ({employeeID})</Link> :
             <div className="row-name">{bidder} ({employeeID})</div>
         }

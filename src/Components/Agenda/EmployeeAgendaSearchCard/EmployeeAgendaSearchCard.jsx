@@ -27,7 +27,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
   // handles error where some employees have no Profile
-  const employeeHasCDO = isNull(get(person, 'cdo'));
+  const employeeHasCDO = !isNull(get(person, 'cdo'));
 
   return (
     <BoxShadow className="employee-agenda-stat-card">
@@ -49,7 +49,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
         </div>
         <div>
           <h3>
-            {isCDO && !employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
+            {isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">
