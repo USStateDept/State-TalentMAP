@@ -205,6 +205,9 @@
   align-items: baseline;
   .export-button-container {
     button {
+      position: absolute;
+      right: 50px;
+      top: 100px;
       display: inline;
     }
   }
