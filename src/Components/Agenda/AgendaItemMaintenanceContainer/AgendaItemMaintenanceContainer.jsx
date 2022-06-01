@@ -3,12 +3,12 @@ import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import { Link } from 'react-router-dom';
 import { useDataLoader, useMount } from 'hooks';
-import { useDispatch, useSelector } from 'react-redux';
-import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
+import { useDispatch } from 'react-redux';
+import { agendaEmployeesEmployeeFetchData } from 'actions/agendaEmployees';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
@@ -28,8 +28,13 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
-  const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const client = get(data, 'data.name') || '';
+
+  const agendaEmployee = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}/`);
+  const employee = get(agendaEmployee, 'data.data.results', {})[0] || {};
+  const employeeName = get(employee, 'person.fullName') || '';
+
+  // handles error where some employees have no Profile
+  const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -40,14 +45,11 @@ const AgendaItemMaintenanceContainer = (props) => {
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
 
-  const employeesProfileHasErrored =
-    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
-
   // Actions
   const dispatch = useDispatch();
 
   const getEmployeesProfile = () => {
-    dispatch(agendaEmployeesFetchProfile(id));
+    dispatch(agendaEmployeesEmployeeFetchData(id));
   };
 
   useMount(() => {
@@ -63,18 +65,18 @@ const AgendaItemMaintenanceContainer = (props) => {
             size="lg"
           />
           Agenda Item Maintenance
-          {isCDO && !employeesProfileHasErrored ?
+          {isCDO && employeeHasCDO ?
             <span className="aim-title-dash">
                 -
               <Link to={`/profile/public/${id}`}>
                 <span className="aim-title">
-                  {` ${client}`}
+                  {` ${employeeName}`}
                 </span>
               </Link>
             </span>
             :
             <span>
-              {` - ${client}`}
+              {` - ${employeeName}`}
             </span>
           }
         </div>

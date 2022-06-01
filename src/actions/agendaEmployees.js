@@ -120,6 +120,24 @@ export function agendaEmployeesFetchData(query = {}) {
   };
 }
 
+export function agendaEmployeesEmployeeFetchData(perdet) {
+  return (dispatch) => {
+    const q = convertQueryToString({ limit: 1 });
+    const endpoint = `/fsbid/agenda_employees/employee/${perdet}/`;
+    const ep = `${endpoint}?${q}`;
+    api()
+      .get(ep)
+      .then(() => {
+        dispatch(agendaEmployeesFetchDataErrored(false));
+        dispatch(agendaEmployeesFetchDataLoading(false));
+      })
+      .catch(() => {
+        dispatch(agendaEmployeesFetchDataErrored(true));
+        dispatch(agendaEmployeesFetchDataLoading(false));
+      });
+  };
+}
+
 export function agendaEmployeesSelectionsSaveSuccess(result) {
   return {
     type: 'AGENDA_EMPLOYEES_SELECTIONS_SAVE_SUCCESS',

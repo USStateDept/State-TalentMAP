@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import BackButton from 'Components/BackButton';
 import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
-import { filter, get } from 'lodash';
+import { get, isNil } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { agendaEmployeesFetchProfile } from 'actions/agendaEmployees';
+import { agendaEmployeesEmployeeFetchData } from 'actions/agendaEmployees';
 import { useDataLoader, useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
@@ -31,11 +31,12 @@ const AgendaItemHistory = (props) => {
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
 
-  const agendaEmployees = useDataLoader(api().get, '/fsbid/agenda_employees/');
-  const agendaEmployees$ = get(agendaEmployees, 'data.data.results') || [];
+  const agendaEmployee = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}/`);
+  const employee = get(agendaEmployee, 'data.data.results', {})[0] || {};
+  const employeeName = get(employee, 'person.fullName') || '';
 
-  const clientData = filter(agendaEmployees$, { person: { perdet: Number(id) } });
-  const client = get(clientData[0], 'person.fullName') || [];
+  // handles error where some employees have no Profile
+  const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
@@ -43,8 +44,6 @@ const AgendaItemHistory = (props) => {
   const aih = useSelector(state => state.aih);
   const isLoading = useSelector(state => state.aihIsLoading);
   const hasErrored = useSelector(state => state.aihHasErrored);
-  const employeesProfileHasErrored =
-    useSelector(state => state.agendaEmployeesFetchProfileHasErrored);
 
   // Actions
   const dispatch = useDispatch();
@@ -54,7 +53,7 @@ const AgendaItemHistory = (props) => {
   };
 
   const getEmployeesProfile = () => {
-    dispatch(agendaEmployeesFetchProfile(id));
+    dispatch(agendaEmployeesEmployeeFetchData(id));
   };
 
   const prevSort = usePrevious(sort);
@@ -62,7 +61,7 @@ const AgendaItemHistory = (props) => {
   const exportAgendaItem = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(id, sort, client.replaceAll(' ', '_'))
+      agendaItemHistoryExport(id, sort, employeeName.replaceAll(' ', '_'))
         .then(() => {
           setExportIsLoading(false);
         })
@@ -95,18 +94,18 @@ const AgendaItemHistory = (props) => {
           size="lg"
         />
         Agenda Item History
-        {isCDO && !employeesProfileHasErrored ?
+        {isCDO && employeeHasCDO ?
           <span className="aih-title-dash">
               -
             <Link to={`/profile/public/${id}`}>
               <span className="aih-title">
-                {` ${client}`}
+                {` ${employeeName}`}
               </span>
             </Link>
           </span>
           :
           <span>
-            {` - ${client}`}
+            {` - ${employeeName}`}
           </span>
         }
       </div>
