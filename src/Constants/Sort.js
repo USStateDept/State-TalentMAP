@@ -5,15 +5,15 @@ const POSITION_SEARCH_SORTS$ = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
     { value: '-position__post__has_service_needs_differential', text: 'Featured Positions', availableOnly: true }, // sort by service needs first
-    { value: '-posted_date', text: 'Posted Date: Most Recent', availableOnly: true }, // sort by soonest posted_date
+    { value: '-posted_date', text: 'Posted Date: Most Recent', availableOnly: true }, // sort by most recent posted_date
     { value: 'posted_date', text: 'Posted Date: Oldest', availableOnly: true }, // sort by oldest posted_date
     { value: 'position__bureau', text: 'Bureau: A-Z' }, // numbers first, then A-Z
-    { value: '-position__bureau', text: 'Bureau: Z-A' }, // numbers first, then Z-A
+    { value: '-position__bureau', text: 'Bureau: Z-A' },
     { value: '-position__grade', text: 'Grade: Low to High' }, // sort by grade "ranking"
     { value: 'position__grade', text: 'Grade: High to Low' }, // sort by grade "ranking"
     { value: 'location_city', text: 'Location: A-Z', nonTandemOnly: true },
     { value: '-location_city', text: 'Location: Z-A', nonTandemOnly: true },
-    { value: 'position__position_number', text: 'Position Number: Low to High' }, // numbers first, then A-Z
+    { value: 'position__position_number', text: 'Position Number: Low to High' },
     { value: '-position__position_number', text: 'Position Number: High to Low' }, // numbers first, then Z-A
     { value: 'position__title', text: 'Position Title: A-Z' },
     { value: '-position__title', text: 'Position Title: Z-A' },
@@ -33,9 +33,6 @@ export const POSITION_SEARCH_SORTS_DYNAMIC = {
   options: [
     ...POSITION_SEARCH_SORTS.options.map((m) => {
       const obj = { ...m };
-      if (obj.value === '-position__bureau') {
-        obj.value = 'position__bureau';
-      }
       return obj;
     }),
   ],
