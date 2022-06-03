@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get, isNull } from 'lodash';
-import { Flag } from 'flag';
 import { FAVORITE_POSITIONS_ARRAY, POSITION_DETAILS } from 'Constants/PropTypes';
 import CondensedCardData from '../CondensedCardData';
 import Favorite from '../../Containers/Favorite';
@@ -17,12 +16,9 @@ class ResultsCondensedCardBottom extends Component {
     const pos = position.position || position;
     const stats = getBidStatisticsObject(position.bid_statistics || pos.bid_statistics);
     return showBidCount ?
-      <Flag
-        name="flags.bid_count"
-        render={() => (<ResultsCondensedCardStats
-          bidStatisticsArray={[stats]}
-          isTandemTwo={isTandem}
-        />)}
+      <ResultsCondensedCardStats
+        bidStatisticsArray={[stats]}
+        isTandemTwo={isTandem}
       />
       :
       null;
@@ -74,10 +70,7 @@ class ResultsCondensedCardBottom extends Component {
     return (
       <div className={`condensed-card-bottom-container ${isTandem ? 'condensed-card-bottom-container--tandem-two' : ''}`}>
         <div className="usa-grid-full condensed-card-bottom">
-          <Flag
-            name="flags.bid_count"
-            render={this.renderStats}
-          />
+          {this.renderStats()}
           <CondensedCardData position={position} />
           <div className="usa-grid-full condensed-card-buttons-section">
             {
@@ -98,10 +91,7 @@ class ResultsCondensedCardBottom extends Component {
                 page={page}
               />
             }
-            <Flag
-              name="flags.bidding"
-              render={this.renderBidListButton}
-            />
+            {this.renderBidListButton()}
             {
               showCompareButton && !isProjectedVacancy &&
               <CompareCheck as="div" refKey={position.cpId} />

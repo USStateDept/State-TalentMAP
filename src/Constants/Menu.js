@@ -67,14 +67,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         route: '/profile/searches/',
         icon: 'clock-o',
       },
-      checkFlag('flags.bidding') ? {
+      {
         text: 'Bid Tracker',
         route: '/profile/bidtracker/',
         icon: 'clipboard',
         roles: [
           'bidder',
         ],
-      } : null,
+      },
       checkFlag('flags.static_content') ?
         {
           text: 'Settings',
@@ -103,24 +103,22 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'glossary_editors',
     ],
     children: [
-      checkFlag('flags.data_sync_admin') ?
-        {
-          text: 'Dashboard',
-          route: '/profile/administrator/dashboard/',
-          icon: 'tachometer',
-          roles: [
-            'superuser',
-          ],
-        } : null,
-      checkFlag('flags.data_sync_admin') ?
-        {
-          text: 'Logs',
-          route: '/profile/administrator/logs/',
-          icon: 'sitemap',
-          roles: [
-            'superuser',
-          ],
-        } : null,
+      {
+        text: 'Dashboard',
+        route: '/profile/administrator/dashboard/',
+        icon: 'tachometer',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Logs',
+        route: '/profile/administrator/logs/',
+        icon: 'sitemap',
+        roles: [
+          'superuser',
+        ],
+      },
       {
         text: 'Statistics',
         route: '/profile/administrator/stats/',

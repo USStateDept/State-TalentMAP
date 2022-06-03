@@ -15,8 +15,8 @@
     }
 
     .aim-title {
+      border-bottom: 2px solid $color-white;
       color: $color-white;
-      border-bottom: 2px solid white;
     }
 
     .aim-title-dash {
@@ -319,7 +319,7 @@
     }
 
     .ai-history-row {
-      overflow-x: scroll;
+      overflow-x: auto;
     }
   }
 
@@ -401,11 +401,36 @@
 
 .stacked {
   display: block;
+  width: 70%;
 
   .maintenance-container-right {
     border-top: 2px solid $color-black;
     margin-top: 20px;
     width: 99%;
+  }
+}
+
+@media screen and (min-width: 1441px) and (max-width: 1600px) {
+  .stacked {
+    width: 99%;
+  }
+}
+
+@media screen and (min-width: 1367px) and (max-width: 1440px) {
+  .stacked {
+    width: 95%;
+  }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1366px) {
+  .stacked {
+    width: 90%;
+  }
+}
+
+@media screen and (min-width: 1100px) and (max-width: 1200px) {
+  .stacked {
+    width: 77%;
   }
 }
 

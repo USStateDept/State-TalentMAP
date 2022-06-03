@@ -5,17 +5,19 @@ import SelectForm from 'Components/SelectForm';
 import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { useMount, usePrevious } from 'hooks';
+import { useDataLoader, useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import { checkFlag } from 'flags';
+import FontAwesome from 'react-fontawesome';
 import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
+import api from '../../../api';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
@@ -28,8 +30,8 @@ const AgendaItemHistory = (props) => {
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
 
-  // To-do - get client name. Can't get person using their perdet
-  const [client, setClient] = useState(''); // eslint-disable-line
+  const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const client = get(data, 'data.name') || '';
 
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
@@ -50,7 +52,7 @@ const AgendaItemHistory = (props) => {
   const exportAgendaItem = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(id, sort)
+      agendaItemHistoryExport(id, sort, client.replaceAll(' ', '_'))
         .then(() => {
           setExportIsLoading(false);
         })
@@ -71,17 +73,33 @@ const AgendaItemHistory = (props) => {
   }, [sort]);
 
   const isLoading$ = isLoading;
-  let title = 'Agenda Item History';
-  if (client) {
-    title = `${client}'s ${title}`;
-  }
 
   const exportDisabled = (aih || []).length <= 0;
 
   return (
     <div className="agenda-item-history-container">
+      <div className="aih-header-container">
+        <FontAwesome
+          name="user-circle-o"
+          size="lg"
+        />
+        Agenda Item History
+        {isCDO ?
+          <span className="aih-title-dash">
+              -
+            <Link to={`/profile/public/${id}`}>
+              <span className="aih-title">
+                {` ${client}`}
+              </span>
+            </Link>
+          </span>
+          :
+          <span>
+            {` - ${client}`}
+          </span>
+        }
+      </div>
       <div className="usa-grid-full profile-content-inner-container">
-        <ProfileSectionTitle title={title} icon="user-circle-o" />
         <BackButton />
         <div className="usa-grid-full portfolio-controls">
           <div className="usa-width-one-whole results-dropdown agenda-controls-container">
@@ -135,6 +153,7 @@ const AgendaItemHistory = (props) => {
                         key={result.id}
                         agenda={result}
                         isCDO={isCDO}
+                        isAIHView
                       />
                     ))
                   }
@@ -157,6 +176,7 @@ const AgendaItemHistory = (props) => {
                         key={result.id}
                         agenda={result}
                         isCDO={isCDO}
+                        isAIHView
                       />
                     ))
                   }
