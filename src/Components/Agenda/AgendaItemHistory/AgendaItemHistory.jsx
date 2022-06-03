@@ -8,7 +8,7 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
 import { agendaEmployeesEmployeeFetchData } from 'actions/agendaEmployees';
-import { useDataLoader, useMount, usePrevious } from 'hooks';
+import { useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
@@ -18,7 +18,6 @@ import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
-import api from '../../../api';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
@@ -31,19 +30,20 @@ const AgendaItemHistory = (props) => {
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
 
-  const agendaEmployee = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}/`);
-  const employee = get(agendaEmployee, 'data.data.results', {})[0] || {};
+  const [exportIsLoading, setExportIsLoading] = useState(false);
+  const view = cardView ? 'card' : 'grid';
+
+  const aihResults = useSelector(state => state.aih);
+  const isLoading = useSelector(state => state.aihIsLoading);
+  const hasErrored = useSelector(state => state.aihHasErrored);
+
+  const aih = get(aihResults, 'results.results') || [];
+
+  const employee = get(aihResults, 'employee.results', {})[0] || [];
   const employeeName = get(employee, 'person.fullName') || '';
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
-
-  const [exportIsLoading, setExportIsLoading] = useState(false);
-  const view = cardView ? 'card' : 'grid';
-
-  const aih = useSelector(state => state.aih);
-  const isLoading = useSelector(state => state.aihIsLoading);
-  const hasErrored = useSelector(state => state.aihHasErrored);
 
   // Actions
   const dispatch = useDispatch();
