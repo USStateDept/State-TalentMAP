@@ -79,6 +79,7 @@ class BidTrackerCard extends Component {
                   <Handshake
                     cutSide="both"
                     shortName={!matches}
+                    type="hs-with-another-bidder"
                   />
                 }
                 {

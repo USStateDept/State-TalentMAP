@@ -23,7 +23,7 @@ Ribbon.propTypes = {
   icon: PropTypes.string,
   text: PropTypes.string,
   containerProps: PropTypes.shape({}),
-  type: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'success', 'hds', 'snd', 'htf']),
+  type: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'success', 'hds', 'snd', 'htf', 'hs-with-another-bidder']),
   cutSide: PropTypes.oneOf(['left', 'right', 'both']),
   isWide: PropTypes.bool,
   showText: PropTypes.bool,
