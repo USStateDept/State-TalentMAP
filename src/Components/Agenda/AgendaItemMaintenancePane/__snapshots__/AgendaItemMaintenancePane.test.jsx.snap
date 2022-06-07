@@ -3,11 +3,5 @@
 exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
 <div
   className="ai-maintenance-header"
->
-  <Spinner
-    size="small"
-    style={Object {}}
-    type="left-pane"
-  />
-</div>
+/>
 `;
