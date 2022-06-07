@@ -166,10 +166,8 @@ const AvailableBidderRow = (props) => {
       {formattedTed}
     </Tooltip>);
 
-  // Formatting and setting the "Updated On" column
   const updatedOn = get(bidder, 'available_bidder_details.update_date');
   const updatedTooltip = formatDate(updatedOn);
-  const formattedUpdateDate = formatDate(updatedOn, 'MM/YYYY');
 
   const updateTooltip =
   (<Tooltip
@@ -188,7 +186,7 @@ const AvailableBidderRow = (props) => {
     interactive
     useContext
   >
-    {formattedUpdateDate}
+    {formatDate(updatedOn, 'MM/YYYY')}
   </Tooltip>);
 
   const commentsToolTip = comments !== NO_COMMENTS ?
