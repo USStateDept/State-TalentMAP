@@ -26,58 +26,46 @@ exports[`SelectForm matches snapshot 1`] = `
       Sort option
     </option>
     <option
-      key="position__title"
-      value="position__title"
+      key="-position__post__has_service_needs_differential"
+      value="-position__post__has_service_needs_differential"
     >
-      Position title: A-Z
-    </option>
-    <option
-      key="-position__grade"
-      value="-position__grade"
-    >
-      Grade: Low to high
-    </option>
-    <option
-      key="-position__bureau"
-      value="-position__bureau"
-    >
-      Bureau: A-Z
+      Featured Positions
     </option>
     <option
       key="-posted_date"
       value="-posted_date"
     >
-      Posted date: Most recent
+      Posted Date: Most Recent
     </option>
     <option
       key="posted_date"
       value="posted_date"
     >
-      Posted date: Oldest
+      Posted Date: Oldest
     </option>
     <option
-      key="ted"
-      value="ted"
+      key="position__bureau"
+      value="position__bureau"
     >
-      TED: Soonest
+      Bureau: A-Z
     </option>
     <option
-      key="-ted"
-      value="-ted"
+      key="-position__bureau"
+      value="-position__bureau"
     >
-      TED: Latest
+      Bureau: Z-A
     </option>
     <option
-      key="position__position_number"
-      value="position__position_number"
+      key="-position__grade"
+      value="-position__grade"
     >
-      Position number: Low to high
+      Grade: Low to High
     </option>
     <option
-      key="-position__post__has_service_needs_differential"
-      value="-position__post__has_service_needs_differential"
+      key="position__grade"
+      value="position__grade"
     >
-      Featured positions
+      Grade: High to Low
     </option>
     <option
       key="location_city"
@@ -90,6 +78,42 @@ exports[`SelectForm matches snapshot 1`] = `
       value="-location_city"
     >
       Location: Z-A
+    </option>
+    <option
+      key="position__position_number"
+      value="position__position_number"
+    >
+      Position Number: Low to High
+    </option>
+    <option
+      key="-position__position_number"
+      value="-position__position_number"
+    >
+      Position Number: High to Low
+    </option>
+    <option
+      key="position__title"
+      value="position__title"
+    >
+      Position Title: A-Z
+    </option>
+    <option
+      key="-position__title"
+      value="-position__title"
+    >
+      Position Title: Z-A
+    </option>
+    <option
+      key="ted"
+      value="ted"
+    >
+      TED: Most Recent
+    </option>
+    <option
+      key="-ted"
+      value="-ted"
+    >
+      TED: Oldest
     </option>
   </select>
 </div>
@@ -121,58 +145,46 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       Sort option
     </option>
     <option
-      key="position__title"
-      value="position__title"
+      key="-position__post__has_service_needs_differential"
+      value="-position__post__has_service_needs_differential"
     >
-      Position title: A-Z
-    </option>
-    <option
-      key="-position__grade"
-      value="-position__grade"
-    >
-      Grade: Low to high
-    </option>
-    <option
-      key="-position__bureau"
-      value="-position__bureau"
-    >
-      Bureau: A-Z
+      Featured Positions
     </option>
     <option
       key="-posted_date"
       value="-posted_date"
     >
-      Posted date: Most recent
+      Posted Date: Most Recent
     </option>
     <option
       key="posted_date"
       value="posted_date"
     >
-      Posted date: Oldest
+      Posted Date: Oldest
     </option>
     <option
-      key="ted"
-      value="ted"
+      key="position__bureau"
+      value="position__bureau"
     >
-      TED: Soonest
+      Bureau: A-Z
     </option>
     <option
-      key="-ted"
-      value="-ted"
+      key="-position__bureau"
+      value="-position__bureau"
     >
-      TED: Latest
+      Bureau: Z-A
     </option>
     <option
-      key="position__position_number"
-      value="position__position_number"
+      key="-position__grade"
+      value="-position__grade"
     >
-      Position number: Low to high
+      Grade: Low to High
     </option>
     <option
-      key="-position__post__has_service_needs_differential"
-      value="-position__post__has_service_needs_differential"
+      key="position__grade"
+      value="position__grade"
     >
-      Featured positions
+      Grade: High to Low
     </option>
     <option
       key="location_city"
@@ -185,6 +197,42 @@ exports[`SelectForm matches snapshot when disabled 1`] = `
       value="-location_city"
     >
       Location: Z-A
+    </option>
+    <option
+      key="position__position_number"
+      value="position__position_number"
+    >
+      Position Number: Low to High
+    </option>
+    <option
+      key="-position__position_number"
+      value="-position__position_number"
+    >
+      Position Number: High to Low
+    </option>
+    <option
+      key="position__title"
+      value="position__title"
+    >
+      Position Title: A-Z
+    </option>
+    <option
+      key="-position__title"
+      value="-position__title"
+    >
+      Position Title: Z-A
+    </option>
+    <option
+      key="ted"
+      value="ted"
+    >
+      TED: Most Recent
+    </option>
+    <option
+      key="-ted"
+      value="-ted"
+    >
+      TED: Oldest
     </option>
   </select>
 </div>
