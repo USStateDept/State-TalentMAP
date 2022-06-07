@@ -51,13 +51,6 @@ export function agendaEmployeesFiltersFetchDataSuccess(results) {
   };
 }
 
-export function agendaEmployeesFetchProfileHasErrored(bool) {
-  return {
-    type: 'AGENDA_EMPLOYEES_FETCH_PROFILE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
 const convertQueryToString = query => {
   let q = pickBy(query, identity);
   Object.keys(q).forEach(queryk => {
@@ -116,24 +109,6 @@ export function agendaEmployeesFetchData(query = {}) {
             dispatch(agendaEmployeesFetchDataLoading(false));
           });
         }
-      });
-  };
-}
-
-export function agendaEmployeesEmployeeFetchData(perdet) {
-  return (dispatch) => {
-    const q = convertQueryToString({ limit: 1 });
-    const endpoint = `/fsbid/agenda_employees/employee/${perdet}/`;
-    const ep = `${endpoint}?${q}`;
-    api()
-      .get(ep)
-      .then(() => {
-        dispatch(agendaEmployeesFetchDataErrored(false));
-        dispatch(agendaEmployeesFetchDataLoading(false));
-      })
-      .catch(() => {
-        dispatch(agendaEmployeesFetchDataErrored(true));
-        dispatch(agendaEmployeesFetchDataLoading(false));
       });
   };
 }
@@ -201,20 +176,6 @@ export function agendaEmployeesFiltersFetchData() {
           dispatch(agendaEmployeesFiltersFetchDataErrored(true));
           dispatch(agendaEmployeesFiltersFetchDataLoading(false));
         });
-      });
-  };
-}
-
-export function agendaEmployeesFetchProfile(id) {
-  const url = `/fsbid/client/${id}/`;
-  return (dispatch) => {
-    api()
-      .get(url)
-      .then(() => {
-        dispatch(agendaEmployeesFetchProfileHasErrored(false));
-      })
-      .catch(() => {
-        dispatch(agendaEmployeesFetchProfileHasErrored(true));
       });
   };
 }

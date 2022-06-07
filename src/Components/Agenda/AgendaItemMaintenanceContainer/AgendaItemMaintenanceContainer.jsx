@@ -6,14 +6,10 @@ import { withRouter } from 'react-router';
 import { get, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import { Link } from 'react-router-dom';
-import { useDataLoader, useMount } from 'hooks';
-import { useDispatch } from 'react-redux';
-import { agendaEmployeesEmployeeFetchData } from 'actions/agendaEmployees';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
 import { RG as RemarksGlossaryTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
-import api from '../../../api';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const researchPaneRef = useRef();
@@ -29,12 +25,9 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
 
-  const agendaEmployee = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}/`);
-  const employee = get(agendaEmployee, 'data.data.results', {})[0] || {};
-  const employeeName = get(employee, 'person.fullName') || '';
-
-  // handles error where some employees have no Profile
-  const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
+  // need to update once further integration is done
+  const employeeName = 'Employee Name Placeholder';
+  const employeeHasCDO = !isNil(get(employeeName, 'person.cdo'));
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -44,17 +37,6 @@ const AgendaItemMaintenanceContainer = (props) => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
-
-  // Actions
-  const dispatch = useDispatch();
-
-  const getEmployeesProfile = () => {
-    dispatch(agendaEmployeesEmployeeFetchData(id));
-  };
-
-  useMount(() => {
-    getEmployeesProfile();
-  });
 
   return (
     <div>

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { agendaEmployeesEmployeeFetchData } from 'actions/agendaEmployees';
 import { useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
@@ -39,10 +38,9 @@ const AgendaItemHistory = (props) => {
 
   const aih = get(aihResults, 'results.results') || [];
 
-  const employee = get(aihResults, 'employee.results', {})[0] || [];
+  const employee = get(aihResults, 'employee.results', [])[0] || [];
   const employeeName = get(employee, 'person.fullName') || '';
 
-  // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
 
   // Actions
@@ -50,10 +48,6 @@ const AgendaItemHistory = (props) => {
 
   const getData = () => {
     dispatch(aihFetchData(id, sort));
-  };
-
-  const getEmployeesProfile = () => {
-    dispatch(agendaEmployeesEmployeeFetchData(id));
   };
 
   const prevSort = usePrevious(sort);
@@ -73,7 +67,6 @@ const AgendaItemHistory = (props) => {
 
   useMount(() => {
     getData();
-    getEmployeesProfile();
   });
 
   useEffect(() => {
