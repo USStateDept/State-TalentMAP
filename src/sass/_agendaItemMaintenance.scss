@@ -40,6 +40,13 @@
     height: 98vh;
     overflow-y: scroll;
     width: 50%;
+
+    .tm-spinner-left-pane {
+      left: 35%;
+      position: absolute;
+      top: 40%;
+    }
+
   }
 
   .maintenance-container-left-expanded {
@@ -48,6 +55,12 @@
     height: 98vh;
     overflow-y: scroll;
     width: 99%;
+
+    .tm-spinner-left-pane {
+      left: 55%;
+      position: absolute;
+      top: 40%;
+    }
   }
 
   .maintenance-container-right {
@@ -190,12 +203,6 @@
   .ai-maintenance-header {
     background-color: $bg-gray-medium-4;
     padding-bottom: 20px;
-
-    .tm-spinner-left-pane {
-      left: 35%;
-      position: absolute;
-      top: 40%;
-    }
 
     .usa-form:not(.remarks, .corrections) {
       max-width: 36rem;

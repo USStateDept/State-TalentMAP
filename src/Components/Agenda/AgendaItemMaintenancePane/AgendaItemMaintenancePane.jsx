@@ -1,10 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader } from 'hooks';
 import BackButton from 'Components/BackButton';
-import Spinner from 'Components/Spinner';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
@@ -12,7 +11,7 @@ import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
-  const { onAddRemarksClick, perdet } = props;
+  const { onAddRemarksClick, perdet, setParentState, unitedLoading } = props;
 
   const leftExpanded = get(props, 'leftExpanded');
 
@@ -23,8 +22,13 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
 
-  const leftPaneLoading = includes([asgSepBidLoading,
-    statusLoading, panelCatLoading, panelDatesLoading], true);
+  useEffect(() => {
+    setParentState(includes([asgSepBidLoading,
+      statusLoading, panelCatLoading, panelDatesLoading], true));
+  }, [asgSepBidLoading,
+    statusLoading,
+    panelCatLoading,
+    panelDatesLoading]);
 
   const asgSepBids = get(asgSepBidData, 'data') || [];
   const statuses = get(statusData, 'data.results') || [];
@@ -52,146 +56,144 @@ const AgendaItemMaintenancePane = (props) => {
 
   return (
     <div className="ai-maintenance-header">
-      {
-        leftPaneLoading ?
-          <Spinner type="left-pane" size="small" /> :
-          <>
-            <div className={`back-save-btns-container ${leftExpanded ? ' half-width' : ''}`}>
-              <BackButton />
-              <button className="save-ai-btn" onClick={saveAI}>
-                Save Agenda Item
-              </button>
-            </div>
-            <div className={`ai-maintenance-header-dd ${leftExpanded ? ' half-width' : ''}`}>
-              {
-                !asgSepBidLoading && !asgSepBidError &&
-                    <select
-                      id="ai-maintenance-dd-asgSepBids"
-                      defaultValue={asgSepBids}
-                      onChange={(e) => setAsgSepBid(get(e, 'target.pos_num'))}
-                      value={asgSepBid}
-                    >
-                      <option selected hidden>
-                            Employee Assignments, Separations, and Bids
+      { !unitedLoading &&
+        <>
+          <div className={`back-save-btns-container ${leftExpanded ? ' half-width' : ''}`}>
+            <BackButton />
+            <button className="save-ai-btn" onClick={saveAI}>
+              Save Agenda Item
+            </button>
+          </div>
+          <div className={`ai-maintenance-header-dd ${leftExpanded ? ' half-width' : ''}`}>
+            {
+              !asgSepBidLoading && !asgSepBidError &&
+                <select
+                  id="ai-maintenance-dd-asgSepBids"
+                  defaultValue={asgSepBids}
+                  onChange={(e) => setAsgSepBid(get(e, 'target.pos_num'))}
+                  value={asgSepBid}
+                >
+                  <option selected hidden>
+                    Employee Assignments, Separations, and Bids
+                  </option>
+                  {
+                    asgSepBids.map(a => (
+                      <option key={a.pos_num} value={a.pos_num}>
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                        {a.name || defaultText} '{a.status || defaultText}'
+                          in {a.org || defaultText} -
+                        {a.pos_title || defaultText}({a.pos_num || defaultText})
                       </option>
-                      {
-                        asgSepBids.map(a => (
-                          <option key={a.pos_num} value={a.pos_num}>
-                            {/* eslint-disable-next-line react/no-unescaped-entities */}
-                            {a.name || defaultText} '{a.status || defaultText}'
-                                    in {a.org || defaultText} -
-                            {a.pos_title || defaultText}({a.pos_num || defaultText})
-                          </option>
-                        ))
-                      }
-                    </select>
-              }
+                    ))
+                  }
+                </select>
+            }
+            {
+              !statusLoading && !statusError &&
+                <div>
+                  <label htmlFor="ai-maintenance-status">Status:</label>
+                  <select
+                    id="ai-maintenance-status"
+                    defaultValue={selectedStatus}
+                    onChange={(e) => setStatus(get(e, 'target.value'))}
+                    value={selectedStatus}
+                  >
+                    {
+                      statuses.map(a => (
+                        <option key={a.code} value={a.code}>{a.desc_text}</option>
+                      ))
+                    }
+                  </select>
+                </div>
+            }
+            <div>
+              <label htmlFor="position number">Add Position Number:</label>
+              <input
+                id="add-pos-num-input"
+                name="add"
+                onChange={value => setPositionNumber(value.target.value)}
+                type="add"
+                value={selectedPositionNumber}
+              />
+              <InteractiveElement
+                id="add-pos-num-icon"
+                onClick={addPositionNum}
+                role="button"
+                title="Add position"
+                type="span"
+              >
+                <FA name="plus" />
+              </InteractiveElement>
+            </div>
+            {
+              !panelCatLoading && !panelCatError &&
+                <div>
+                  <label htmlFor="ai-maintenance-status">Report Category:</label>
+                  <select
+                    id="ai-maintenance-category"
+                    defaultValue={selectedPanelCat}
+                    onChange={(e) => setPanelCat(get(e, 'target.mic_code'))}
+                    value={selectedPanelCat}
+                  >
+                    {
+                      panelCategories.map(a => (
+                        <option value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
+                      ))
+                    }
+                  </select>
+                </div>
+            }
+            {
+              !panelDatesLoading && !panelDatesError &&
+                <div>
+                  <label htmlFor="ai-maintenance-date">Panel Date:</label>
+                  <select
+                    id="ai-maintenance-status"
+                    defaultValue={selectedPanelDate}
+                    onChange={(e) => setPanelDate(get(e, 'target.pm_seq_num'))}
+                    value={selectedPanelDate}
+                  >
+                    {
+                      panelDates.map(a => (
+                        <option
+                          key={get(a, 'pm_seq_num')}
+                          value={get(a, 'pm_seq_num')}
+                        >{get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}</option>
+                      ))
+                    }
+                  </select>
+                </div>
+            }
+          </div>
+          <div className="usa-form remarks">
+            <label htmlFor="remarks">Remarks:</label>
+            <div className="remarks-container">
+              <InteractiveElement
+                onClick={onAddRemarksClick}
+                type="span"
+                role="button"
+                className="save-ai-btn"
+                title="Add remark"
+                id="add-remark"
+              >
+                <FA name="plus" />
+              </InteractiveElement>
               {
-                !statusLoading && !statusError &&
-                    <div>
-                      <label htmlFor="ai-maintenance-status">Status:</label>
-                      <select
-                        id="ai-maintenance-status"
-                        defaultValue={selectedStatus}
-                        onChange={(e) => setStatus(get(e, 'target.value'))}
-                        value={selectedStatus}
-                      >
-                        {
-                          statuses.map(a => (
-                            <option key={a.code} value={a.code}>{a.desc_text}</option>
-                          ))
-                        }
-                      </select>
-                    </div>
-              }
-              <div>
-                <label htmlFor="position number">Add Position Number:</label>
-                <input
-                  id="add-pos-num-input"
-                  name="add"
-                  onChange={value => setPositionNumber(value.target.value)}
-                  type="add"
-                  value={selectedPositionNumber}
-                />
-                <InteractiveElement
-                  id="add-pos-num-icon"
-                  onClick={addPositionNum}
-                  role="button"
-                  title="Add position"
-                  type="span"
-                >
-                  <FA name="plus" />
-                </InteractiveElement>
-              </div>
-              {
-                !panelCatLoading && !panelCatError &&
-                    <div>
-                      <label htmlFor="ai-maintenance-status">Report Category:</label>
-                      <select
-                        id="ai-maintenance-category"
-                        defaultValue={selectedPanelCat}
-                        onChange={(e) => setPanelCat(get(e, 'target.mic_code'))}
-                        value={selectedPanelCat}
-                      >
-                        {
-                          panelCategories.map(a => (
-                            <option value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
-                          ))
-                        }
-                      </select>
-                    </div>
-              }
-              {
-                !panelDatesLoading && !panelDatesError &&
-                    <div>
-                      <label htmlFor="ai-maintenance-date">Panel Date:</label>
-                      <select
-                        id="ai-maintenance-status"
-                        defaultValue={selectedPanelDate}
-                        onChange={(e) => setPanelDate(get(e, 'target.pm_seq_num'))}
-                        value={selectedPanelDate}
-                      >
-                        {
-                          panelDates.map(a => (
-                            <option
-                              key={get(a, 'pm_seq_num')}
-                              value={get(a, 'pm_seq_num')}
-                            >{get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}</option>
-                          ))
-                        }
-                      </select>
-                    </div>
+                remarks.map(remark => (
+                  <RemarksPill isEditable key={remark.title} {...remark} />
+                ))
               }
             </div>
-            <div className="usa-form remarks">
-              <label htmlFor="remarks">Remarks:</label>
-              <div className="remarks-container">
-                <InteractiveElement
-                  onClick={onAddRemarksClick}
-                  type="span"
-                  role="button"
-                  className="save-ai-btn"
-                  title="Add remark"
-                  id="add-remark"
-                >
-                  <FA name="plus" />
-                </InteractiveElement>
-                {
-                  remarks.map(remark => (
-                    <RemarksPill isEditable key={remark.title} {...remark} />
-                  ))
-                }
-              </div>
+          </div>
+          <div className="usa-form corrections">
+            <label htmlFor="corrections">Corrections:</label>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat
+              et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia
             </div>
-            <div className="usa-form corrections">
-              <label htmlFor="corrections">Corrections:</label>
-              <div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat
-                et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia
-              </div>
-            </div>
-          </>
+          </div>
+        </>
       }
     </div>
   );
@@ -201,11 +203,15 @@ AgendaItemMaintenancePane.propTypes = {
   leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
   perdet: PropTypes.string.isRequired,
+  setParentState: PropTypes.func,
+  unitedLoading: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
   leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
+  setParentState: EMPTY_FUNCTION,
+  unitedLoading: true,
 };
 
 export default AgendaItemMaintenancePane;

@@ -1,10 +1,11 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import { get } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
+import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { useDataLoader } from 'hooks';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
@@ -17,6 +18,9 @@ const AgendaItemMaintenanceContainer = (props) => {
   const researchPaneRef = useRef();
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
+  const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
+  const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
+  const [spinner, setSpinner] = useState(true);
 
   function toggleExpand() {
     setLegsContainerExpanded(!legsContainerExpanded);
@@ -37,6 +41,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
+
+  useEffect(() => {
+    if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
+      setSpinner(false);
+    }
+  }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
 
   return (
     <div>
@@ -67,12 +77,21 @@ const AgendaItemMaintenanceContainer = (props) => {
         {matches => (
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+              {
+                spinner &&
+                  <Spinner type="left-pane" size="small" />
+              }
               <AgendaItemMaintenancePane
                 leftExpanded={(legsContainerExpanded || matches)}
                 onAddRemarksClick={openRemarksResearchTab}
                 perdet={id}
+                unitedLoading={spinner}
+                setParentState={setAgendaItemMaintenancePaneLoading}
               />
-              <AgendaItemTimeline />
+              <AgendaItemTimeline
+                unitedLoading={spinner}
+                setParentState={setAgendaItemTimelineLoading}
+              />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
               <InteractiveElement onClick={toggleExpand}>
