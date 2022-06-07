@@ -38,7 +38,7 @@ const AgendaItemHistory = (props) => {
 
   const aih = get(aihResults, 'results.results') || [];
 
-  const employee = get(aihResults, 'employee.results', [])[0] || [];
+  const employee = get(aihResults, 'employee.results', [])[0] || {};
   const employeeName = get(employee, 'person.fullName') || '';
 
   const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
