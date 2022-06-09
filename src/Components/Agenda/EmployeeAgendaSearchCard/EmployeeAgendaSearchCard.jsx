@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
 
@@ -26,6 +26,9 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
 
+  // handles error where some employees have no Profile
+  const employeeHasCDO = !isNil(get(person, 'cdo'));
+
   return (
     <BoxShadow className="employee-agenda-stat-card">
       <div className="employee-agenda-card-inner">
@@ -46,7 +49,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
         </div>
         <div>
           <h3>
-            { isCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
+            {isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">

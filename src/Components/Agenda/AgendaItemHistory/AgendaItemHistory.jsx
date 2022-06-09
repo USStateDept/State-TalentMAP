@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import BackButton from 'Components/BackButton';
 import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { useDataLoader, useMount, usePrevious } from 'hooks';
+import { useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
@@ -17,7 +17,6 @@ import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
-import api from '../../../api';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
@@ -30,15 +29,19 @@ const AgendaItemHistory = (props) => {
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
 
-  const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const client = get(data, 'data.name') || '';
-
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const view = cardView ? 'card' : 'grid';
 
-  const aih = useSelector(state => state.aih);
+  const aihResults = useSelector(state => state.aih);
   const isLoading = useSelector(state => state.aihIsLoading);
   const hasErrored = useSelector(state => state.aihHasErrored);
+
+  const aih = get(aihResults, 'results.results') || [];
+
+  const employee = get(aihResults, 'employee.results', [])[0] || {};
+  const employeeName = get(employee, 'person.fullName') || '';
+
+  const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
 
   // Actions
   const dispatch = useDispatch();
@@ -52,7 +55,7 @@ const AgendaItemHistory = (props) => {
   const exportAgendaItem = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(id, sort, client.replaceAll(' ', '_'))
+      agendaItemHistoryExport(id, sort, employeeName.replaceAll(' ', '_'))
         .then(() => {
           setExportIsLoading(false);
         })
@@ -84,18 +87,18 @@ const AgendaItemHistory = (props) => {
           size="lg"
         />
         Agenda Item History
-        {isCDO ?
+        {isCDO && employeeHasCDO ?
           <span className="aih-title-dash">
               -
             <Link to={`/profile/public/${id}`}>
               <span className="aih-title">
-                {` ${client}`}
+                {` ${employeeName}`}
               </span>
             </Link>
           </span>
           :
           <span>
-            {` - ${client}`}
+            {` - ${employeeName}`}
           </span>
         }
       </div>

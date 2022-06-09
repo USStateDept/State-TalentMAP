@@ -12,9 +12,9 @@ export default {
   agendaEmployees,
   agendaEmployeesFetchDataErrored,
   agendaEmployeesFetchDataLoading,
-  agendaEmployeesSelections,
   agendaEmployeesFilters,
   agendaEmployeesFiltersFetchDataErrored,
   agendaEmployeesFiltersFetchDataLoading,
+  agendaEmployeesSelections,
 };
 
