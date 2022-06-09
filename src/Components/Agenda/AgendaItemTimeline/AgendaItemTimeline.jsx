@@ -1,6 +1,9 @@
+import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-const AgendaItemTimeline = () => {
+const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
   const FAKE_LEGS = [
     {
       id: 11158,
@@ -98,14 +101,39 @@ const AgendaItemTimeline = () => {
     },
   ];
 
+  // eslint-disable-next-line no-unused-vars
+  const [localLoading, setLocalLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLocalLoading(false);
+      setParentState(false);
+    }, '9000');
+  }, []);
+
   return (
     <div className="agenda-item-history-container ai-timeline-pane">
-      <div className="ai-history-rows-container">
-        <div className="ai-history-row">
-          <AgendaItemLegs hideRemarks legs={FAKE_LEGS} showCloseButton />
-        </div>
-      </div>
+      {
+        !unitedLoading &&
+          <>
+            <div className="ai-history-rows-container">
+              <div className="ai-history-row">
+                <AgendaItemLegs hideRemarks legs={FAKE_LEGS} showCloseButton />
+              </div>
+            </div>
+          </>
+      }
     </div>);
+};
+
+AgendaItemTimeline.propTypes = {
+  unitedLoading: PropTypes.bool,
+  setParentState: PropTypes.func,
+};
+
+AgendaItemTimeline.defaultProps = {
+  unitedLoading: true,
+  setParentState: EMPTY_FUNCTION,
 };
 
 export default AgendaItemTimeline;

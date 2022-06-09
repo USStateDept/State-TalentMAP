@@ -83,43 +83,35 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
                 "value": "",
               },
               Object {
-                "text": "Position title: A-Z",
-                "value": "position__title",
+                "availableOnly": true,
+                "text": "Featured Positions",
+                "value": "-position__post__has_service_needs_differential",
               },
               Object {
-                "text": "Grade: Low to high",
-                "value": "-position__grade",
+                "availableOnly": true,
+                "text": "Posted Date: Most Recent",
+                "value": "-posted_date",
+              },
+              Object {
+                "availableOnly": true,
+                "text": "Posted Date: Oldest",
+                "value": "posted_date",
               },
               Object {
                 "text": "Bureau: A-Z",
                 "value": "position__bureau",
               },
               Object {
-                "availableOnly": true,
-                "text": "Posted date: Most recent",
-                "value": "-posted_date",
+                "text": "Bureau: Z-A",
+                "value": "-position__bureau",
               },
               Object {
-                "availableOnly": true,
-                "text": "Posted date: Oldest",
-                "value": "posted_date",
+                "text": "Grade: Low to High",
+                "value": "-position__grade",
               },
               Object {
-                "text": "TED: Soonest",
-                "value": "ted",
-              },
-              Object {
-                "text": "TED: Latest",
-                "value": "-ted",
-              },
-              Object {
-                "text": "Position number: Low to high",
-                "value": "position__position_number",
-              },
-              Object {
-                "availableOnly": true,
-                "text": "Featured positions",
-                "value": "-position__post__has_service_needs_differential",
+                "text": "Grade: High to Low",
+                "value": "position__grade",
               },
               Object {
                 "nonTandemOnly": true,
@@ -130,6 +122,30 @@ exports[`FavoritePositionsComponent matches snapshot 1`] = `
                 "nonTandemOnly": true,
                 "text": "Location: Z-A",
                 "value": "-location_city",
+              },
+              Object {
+                "text": "Position Number: Low to High",
+                "value": "position__position_number",
+              },
+              Object {
+                "text": "Position Number: High to Low",
+                "value": "-position__position_number",
+              },
+              Object {
+                "text": "Position Title: A-Z",
+                "value": "position__title",
+              },
+              Object {
+                "text": "Position Title: Z-A",
+                "value": "-position__title",
+              },
+              Object {
+                "text": "TED: Most Recent",
+                "value": "ted",
+              },
+              Object {
+                "text": "TED: Oldest",
+                "value": "-ted",
               },
             ]
           }

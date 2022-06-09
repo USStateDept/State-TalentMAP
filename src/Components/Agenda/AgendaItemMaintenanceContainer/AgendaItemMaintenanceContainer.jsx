@@ -1,22 +1,24 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
-import { get } from 'lodash';
+import { get, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
+import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { useDataLoader } from 'hooks';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
 import { RG as RemarksGlossaryTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
-import api from '../../../api';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const researchPaneRef = useRef();
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
+  const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
+  const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
+  const [spinner, setSpinner] = useState(true);
 
   function toggleExpand() {
     setLegsContainerExpanded(!legsContainerExpanded);
@@ -26,8 +28,10 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
-  const { data } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const client = get(data, 'data.name') || '';
+
+  // need to update once further integration is done
+  const employeeName = 'Employee Name Placeholder';
+  const employeeHasCDO = !isNil(get(employeeName, 'person.cdo'));
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -38,6 +42,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
 
+  useEffect(() => {
+    if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
+      setSpinner(false);
+    }
+  }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
+
   return (
     <div>
       <div className="aim-header-container">
@@ -47,18 +57,18 @@ const AgendaItemMaintenanceContainer = (props) => {
             size="lg"
           />
           Agenda Item Maintenance
-          {isCDO ?
+          {isCDO && employeeHasCDO ?
             <span className="aim-title-dash">
                 -
               <Link to={`/profile/public/${id}`}>
                 <span className="aim-title">
-                  {` ${client}`}
+                  {` ${employeeName}`}
                 </span>
               </Link>
             </span>
             :
             <span>
-              {` - ${client}`}
+              {` - ${employeeName}`}
             </span>
           }
         </div>
@@ -67,11 +77,21 @@ const AgendaItemMaintenanceContainer = (props) => {
         {matches => (
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
+              {
+                spinner &&
+                  <Spinner type="left-pane" size="small" />
+              }
               <AgendaItemMaintenancePane
                 leftExpanded={(legsContainerExpanded || matches)}
                 onAddRemarksClick={openRemarksResearchTab}
+                perdet={id}
+                unitedLoading={spinner}
+                setParentState={setAgendaItemMaintenancePaneLoading}
               />
-              <AgendaItemTimeline />
+              <AgendaItemTimeline
+                unitedLoading={spinner}
+                setParentState={setAgendaItemTimelineLoading}
+              />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
               <InteractiveElement onClick={toggleExpand}>

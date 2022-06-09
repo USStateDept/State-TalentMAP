@@ -40,6 +40,13 @@
     height: 98vh;
     overflow-y: scroll;
     width: 50%;
+
+    .tm-spinner-left-pane {
+      left: 35%;
+      position: absolute;
+      top: 40%;
+    }
+
   }
 
   .maintenance-container-left-expanded {
@@ -48,6 +55,12 @@
     height: 98vh;
     overflow-y: scroll;
     width: 99%;
+
+    .tm-spinner-left-pane {
+      left: 55%;
+      position: absolute;
+      top: 40%;
+    }
   }
 
   .maintenance-container-right {
@@ -187,111 +200,111 @@
     }
   }
 
-  .ai-maintenance-pane {
-    .ai-maintenance-header {
-      background-color: $bg-gray-medium-4;
+  .ai-maintenance-header {
+    background-color: $bg-gray-medium-4;
+    padding-bottom: 20px;
 
-      .usa-form:not(.remarks, .corrections) {
+    .usa-form:not(.remarks, .corrections) {
+      max-width: 36rem;
+    }
+
+    .half-width {
+      width: 51% !important;
+    }
+
+    label {
+      font-weight: bold;
+      margin: 10px 10px;
+      text-align: end;
+    }
+
+    .back-save-btns-container {
+      padding-top: 2.5rem;
+      min-height: 70px;
+      width: 95%;
+
+      button {
+        margin: 0!important;
+      }
+
+      .save-ai-btn {
+        border: 1px solid $primary-blue;
+        border-radius: 5px;
+        color: $primary-blue;
+        background-color: $color-white;
+        display: inline-block;
+        padding: 10px 20px;
+        float: right;
+        font-size: 1.4rem;
+      }
+      .save-ai-btn:hover {
+        border-color: $primary-blue-darkest;
+        color: $primary-blue-darkest;
+      }
+    }
+
+    .corrections, .remarks {
+      max-width: fit-content;
+      margin: 10px;
+
+      label {
+        display: inline;
+        margin: 0 10px 0 0;
+      }
+      div:not(.remarks-pill) {
+        display: inline;
+      }
+      .remarks-pill {
+        display: inline-block;
+      }
+    }
+
+    .ai-maintenance-header-dd {
+      margin-right: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      width: 94%;
+
+      #ai-maintenance-dd-asgSepBids {
+        max-width: fit-content;
+        margin-left: 10px;
+      }
+
+      #add-pos-num-input {
+        background-color: $color-white;
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        height: 28px;
+        padding: 0 30px 0 5px;
+        max-width: 150px;
+        font-size: 13px;
+      }
+      #add-pos-num-icon {
+        color: $primary-blue;
+        margin-left: -25px;
+        position: relative;
+        top: 1px
+      }
+      #add-pos-num-icon:hover {
+        color: $primary-blue-darkest;
+      }
+
+      div {
+        display: flex;
+        flex: 70%;
+        align-items: baseline;
         max-width: 36rem;
       }
 
-      .half-width {
-        width: 51% !important;
-      }
-
-      label {
-        font-weight: bold;
-        margin: 10px 10px;
-        text-align: end;
-      }
-
-      .back-save-btns-container {
-        padding-top: 2.5rem;
-        min-height: 70px;
-        width: 95%;
-
-        button {
-          margin: 0!important;
-        }
-
-        .save-ai-btn {
-          border: 1px solid $primary-blue;
-          border-radius: 5px;
-          color: $primary-blue;
-          background-color: $color-white;
-          display: inline-block;
-          padding: 10px 20px;
-          float: right;
-          font-size: 1.4rem;
-        }
-        .save-ai-btn:hover {
-          border-color: $primary-blue-darkest;
-          color: $primary-blue-darkest;
-        }
-      }
-
-      .corrections, .remarks {
+      select {
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        font-size: 0.8em;
+        height: 28px;
+        padding: 0 28px 0 5px;
+        text-overflow: ellipsis;
         max-width: fit-content;
-        margin: 10px;
-
-        label {
-          display: inline;
-          margin: 0 10px 0 0;
-        }
-        div:not(.remarks-pill) {
-          display: inline;
-        }
-        .remarks-pill {
-          display: inline-block;
-        }
-      }
-
-      .ai-maintenance-header-dd {
-        margin-right: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        width: 94%;
-
-        #ai-maintenance-dd-asg {
-          max-width: fit-content;
-          margin-left: -10px;
-        }
-
-        #add-pos-num-input {
-          background-color: $color-white;
-          border: 1px solid $bg-gray-dark-2;
-          border-radius: 3px;
-          height: 28px;
-          padding: 0 30px 0 5px;
-          max-width: 150px;
-          font-size: 13px;
-        }
-        #add-pos-num-icon {
-          color: $primary-blue;
-          margin-left: -25px;
-          position: relative;
-          top: 1px
-        }
-        #add-pos-num-icon:hover {
-          color: $primary-blue-darkest;
-        }
-
-        div {
-          display: flex;
-          flex: 70%;
-          align-items: baseline;
-        }
-
-        select {
-          border: 1px solid $bg-gray-dark-2;
-          border-radius: 3px;
-          font-size: 0.8em;
-          height: 28px;
-          padding: 0 23px 0 5px;
-          text-overflow: ellipsis;
-          max-width: 150px;
-        }
       }
     }
   }

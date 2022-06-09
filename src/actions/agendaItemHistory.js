@@ -45,7 +45,7 @@ export function aihFetchData(perdet = '', ordering = '') {
         .get(`/fsbid/agenda/agenda_items/?perdet=${perdet}&ordering=${ordering}`, { cancelToken: new CancelToken((c) => {
           cancel = c;
         }) })
-        .then(({ data }) => data.results || [])
+        .then(({ data }) => data || [])
         .then((data$) => {
           dispatch(aihFetchDataSuccess(data$));
           dispatch(aihHasErrored(false));
