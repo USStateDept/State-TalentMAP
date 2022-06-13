@@ -195,7 +195,7 @@ const AvailableBidderRow = (props) => {
         <div>
           <div className="ab-row-tooltip-wrapper">
             <div>
-              <span className="title">Comments: <span className="ab-row-tooltip-data">{comments}</span></span>
+              <span className="title">Notes: <span className="ab-row-tooltip-data">{comments}</span></span>
             </div>
           </div>
         </div>
