@@ -140,7 +140,8 @@ const AvailableBidderTable = props => {
       <>
         <div className="ab-table-title-row">
           <h3>{title} {getTitleCount()}</h3>
-          <div className={`export-button-container${isInternalCDA ? '' : '-external'}`}>
+          {/* Internal View do this good job */}
+          <div className={isInternalCDA ? 'export-button-container' : ''}>
             <ExportButton
               onClick={exportBidders}
               isLoading={exportIsLoading}
