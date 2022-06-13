@@ -23,7 +23,7 @@ const AvailableBidderTable = props => {
 
   // Local state
   // Toggle view state within Internal CDA version
-  const [internalViewToggle, setInternalViewToggle] = useState(true);
+  const [internalViewToggle, setInternalViewToggle] = useState(isInternalCDA);
   const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
