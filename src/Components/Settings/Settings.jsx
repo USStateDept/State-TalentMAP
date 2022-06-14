@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import { fetchJWT, fetchUserToken } from 'utilities';
+// mport api from '../../api';
 
 class RadioList extends Component {
   constructor(props) {
@@ -19,6 +20,14 @@ class RadioList extends Component {
       token, jwt,
     };
     return JSON.stringify(json, undefined, 2);
+  }
+
+  fetchUserInfo = () => {
+    // get role here
+    // const getBureauPermissions = () => api().get('/fsbid/employee/bureau_permissions/');
+    // const getOrgPermissions = () => api().get('/fsbid/employee/org_permissions/');
+
+    // i think this is where promise stuff goes
   }
 
   render() {
@@ -48,6 +57,30 @@ class RadioList extends Component {
             <button>Copy to clipboard</button>
           </CopyToClipboard>
           {this.state.copied ? <span>Copied!</span> : null}
+        </div>
+        <div>
+          Roles
+          <div>
+            Role 1
+            Role 2
+            Role 3
+          </div>
+        </div>
+        <div>
+          Bureau Permissions
+          <div>
+            Permission 1
+            Permission 2
+            Permission 3
+          </div>
+        </div>
+        <div>
+          Org Permissions
+          <div>
+            Permission 1
+            Permission 2
+            Permission 3
+          </div>
         </div>
       </div>
     );
