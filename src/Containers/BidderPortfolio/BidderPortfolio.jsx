@@ -13,9 +13,6 @@ import { BIDDER_LIST, BIDDER_PORTFOLIO_COUNTS, CLASSIFICATIONS, EMPTY_FUNCTION }
 import { BIDDER_PORTFOLIO_PARAM_OBJECTS } from 'Constants/EndpointParams';
 import queryParamUpdate from '../queryParams';
 import BidderPortfolioPage from '../../Components/BidderPortfolio/BidderPortfolioPage';
-import { checkFlag } from '../../flags';
-
-const getUseClientCounts = () => checkFlag('flags.client_counts');
 
 class BidderPortfolio extends Component {
   constructor(props) {
@@ -35,9 +32,6 @@ class BidderPortfolio extends Component {
   UNSAFE_componentWillMount() {
     if (get(this.props, 'cdos', []).length) {
       this.getBidderPortfolio();
-      if (getUseClientCounts()) {
-        this.props.fetchBidderPortfolioCounts();
-      }
     }
     this.props.fetchBidderPortfolioCDOs();
     this.props.fetchClassifications();
