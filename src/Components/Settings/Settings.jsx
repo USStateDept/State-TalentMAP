@@ -45,7 +45,7 @@ const RadioList = () => {
         </pre>
         <CopyToClipboard
           text={getTokens()}
-          onCopy={setCopied(true)}
+          onCopy={() => setCopied(true)}
         >
           <button>Copy to clipboard</button>
         </CopyToClipboard>
