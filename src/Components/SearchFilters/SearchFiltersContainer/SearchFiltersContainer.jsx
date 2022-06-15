@@ -19,7 +19,6 @@ import { getPostName, mapDuplicates, propOrDefault, propSort, sortGrades, sortTo
 import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
 const usePostIndicators = () => checkFlag('flags.indicators');
-const useTandem = () => checkFlag('flags.tandem');
 const useUS = () => checkFlag('flags.us_codes');
 
 class SearchFiltersContainer extends Component {
@@ -451,7 +450,6 @@ class SearchFiltersContainer extends Component {
         </div>
         <div className="tandem-toggle-button-container">
           {
-            useTandem() &&
             <ToggleButton
               labelTextRight="Tandem Search"
               checked={tandemIsSelected}
