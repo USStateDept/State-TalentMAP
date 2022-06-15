@@ -267,31 +267,6 @@ $register-hide-icon: 95%;
   }
 }
 
-.bid-tracker-overlay-alert--register-with-another-bidder {
-  background: $bg-overlay-register-with-another-bidder;
-  margin-left: 44%;
-  position: absolute;
-  right: 0;
-  width: 56%;
-
-  .bid-tracker-overlay-alert-content-container {
-    width: 90%;
-  }
-}
-
-.bid-tracker-overlay-alert--register-with-another-bidder::after {
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid $bg-register-with-another-bidder;
-  border-top: 10px solid transparent;
-  clear: both;
-  content: '';
-  height: 0;
-  left: 0;
-  position: absolute;
-  top: 43px;
-  width: 0;
-}
-
 .bid-tracker-overlay-alert--register-with-another-bidder:hover {
   opacity: 50%;
   .register-with-another-bidder-container {
@@ -1016,6 +991,15 @@ $register-hide-icon: 95%;
     }
   }
 
+  .sub-submission-text-with-another-bidder {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    padding-left: 1%;
+    text-align: left;
+  }
+
   // fix in IE11
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
     .bid-count-list {
@@ -1229,10 +1213,6 @@ $register-hide-icon: 95%;
     }
   }
 
-  .bid-tracker-overlay-alert--register-with-another-bidder {
-    margin-left: 0%;
-  }
-
   .pending-line > .rc-steps-item-tail,
   .rc-steps-item-tail {
     &::after {
@@ -1245,10 +1225,6 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register::after {
-    display: none;
-  }
-
-  .bid-tracker-overlay-alert--register-with-another-bidder::after {
     display: none;
   }
 
@@ -1465,6 +1441,16 @@ $register-hide-icon: 95%;
   }
 }
 
+.bid-tracker-alert-container--register-with-another-bidder {
+  margin-top: 35px;
+  top: 0;
+
+  .register-with-another-bidder-position-details {
+      padding-left: 27%;
+      text-align: left;
+    }
+}
+
 .bid-tracker-alert-container--register {
   margin-top: 35px;
   top: 0;
@@ -1483,10 +1469,6 @@ $register-hide-icon: 95%;
 
   .register-submission-container {
     border-right: 1px solid $color-white;
-  }
-
-  .register-with-another-bidder-container {
-    border-left: 1px solid $color-white;
   }
 
   .register-submission-buttons-container {
@@ -1660,25 +1642,8 @@ $register-hide-icon: 95%;
   .collapse-overlay {
     margin-left: $register-hide-icon;
   }
-
-  .bid-tracker-overlay-alert--register-with-another-bidder {
-    margin-left: 0%;
-    width: 100%;
-
-    .bid-tracker-overlay-alert-content-container {
-      padding-right: 0%;
-    }
-  }
-
-  .bid-tracker-overlay-alert--register-with-another-bidder::after {
-    display: none;
-  }
 }
 
 .bid-tracker-inner-container {
   overflow: hidden;
-}
-
-.bid-tracker-register-with-another-bidder {
-  background: $bg-register-with-another-bidder;
 }

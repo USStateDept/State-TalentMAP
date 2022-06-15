@@ -11,13 +11,13 @@ const HandshakeRegisterWithAnotherBidderAlert = ({ bid, condensedView }) => {
 
   const classes = [
     'bid-tracker-alert-container',
-    'bid-tracker-alert-container--register',
+    'bid-tracker-alert-container--register-with-another-bidder',
   ];
 
   const classes$ = classes.join(' ');
 
-  const overlayClasses = condensedView ? ['register-submission-container', 'sub-submission-text']
-    : ['register-with-another-bidder-container', 'register-position-details'];
+  const overlayClasses = condensedView ? ['register-submission-container', 'sub-submission-text-with-another-bidder']
+    : ['register-with-another-bidder-container', 'register-with-another-bidder-position-details'];
 
   const overlayClasses$ = overlayClasses.join(' ');
 
@@ -25,7 +25,7 @@ const HandshakeRegisterWithAnotherBidderAlert = ({ bid, condensedView }) => {
 
   return (
     <div className={classes$}>
-      <div className="usa-grid-full" style={{ display: 'flex' }}>
+      <div className="usa-grid-full">
         <div className={overlayClasses$}>
           {text}
           <div>
