@@ -6,7 +6,6 @@
   "flags": {
     "static_content": true,
     "persona_auth": true,
-    "tandem": true,
     "bureau": true,
     "indicators": true,
     "us_codes": true,
