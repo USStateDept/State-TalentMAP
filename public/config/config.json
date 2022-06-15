@@ -6,7 +6,6 @@
   "flags": {
     "static_content": true,
     "persona_auth": true,
-    "cdo_season_filter": true,
     "bidding_tips": true,
     "bid_stats": false,
     "client_profiles": true,
