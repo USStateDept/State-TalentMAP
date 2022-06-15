@@ -66,7 +66,8 @@ const AvailableBidderTable = props => {
     'TED',
     'Post',
     'CDO',
-    'Comments',
+    'Updated',
+    'Notes',
   ] : [
     'Name',
     'Skill',
@@ -136,10 +137,10 @@ const AvailableBidderTable = props => {
         />
       </div>
       :
-      <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
+      <>
         <div className="ab-table-title-row">
           <h3>{title} {getTitleCount()}</h3>
-          <div className="export-button-container">
+          <div className={isInternalCDA ? 'export-button-container' : ''}>
             <ExportButton
               onClick={exportBidders}
               isLoading={exportIsLoading}
@@ -148,91 +149,93 @@ const AvailableBidderTable = props => {
             />
           </div>
         </div>
-        {
-          <table className="bidder-manager-bidders">
-            <thead>
-              <tr>
+        <div className={`usa-width-one-whole bidder-manager-bidders ${isInternalCDA ? 'internal ' : ''}ab-lower-section`}>
+          {
+            <table>
+              <thead>
+                <tr>
+                  {
+                    tableHeaders.map(item => (
+                      item !== 'Languages' && item !== 'Notes' && item !== 'Step Letters' ?
+                        <th
+                          key={item}
+                          scope="col"
+                        >
+                          <InteractiveElement onClick={() => handleSort(item)}>
+                            {item} <FA name={getSortIcon(item)} />
+                          </InteractiveElement>
+                        </th>
+                        :
+                        <th
+                          key={item}
+                          scope="col"
+                        >
+                          {item}
+                        </th>
+                    ))
+                  }
+                  {
+                    isInternalCDA &&
+                      <th>
+                        <div className="external-view-toggle">
+                          <ToggleButton
+                            labelTextLeft={
+                              <Tooltip
+                                title="Internal CDA View"
+                                arrow
+                                offset={-95}
+                                position="top-end"
+                                tabIndex="0"
+                              >
+                                <FA name="street-view" className={`fa-lg ${internalViewToggle ? 'active' : ''}`} />
+                              </Tooltip>
+                            }
+                            labelTextRight={
+                              <Tooltip
+                                title="External CDA View"
+                                arrow
+                                offset={-95}
+                                position="top-end"
+                                tabIndex="0"
+                              >
+                                <FA name="building" className={`fa-lg ${!internalViewToggle ? 'active' : ''}`} />
+                              </Tooltip>
+                            }
+                            checked={!internalViewToggle}
+                            onChange={() => setInternalViewToggle(!internalViewToggle)}
+                            onColor="#888888"
+                            offColor="#888888"
+                            onHandleColor="#FFFFFF"
+                            offHandleColor="#FFFFFF"
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                          />
+                        </div>
+                      </th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
                 {
-                  tableHeaders.map(item => (
-                    item !== 'Languages' && item !== 'Comments' && item !== 'Step Letters' ?
-                      <th
-                        key={item}
-                        scope="col"
-                      >
-                        <InteractiveElement onClick={() => handleSort(item)}>
-                          {item} <FA name={getSortIcon(item)} />
-                        </InteractiveElement>
-                      </th>
-                      :
-                      <th
-                        key={item}
-                        scope="col"
-                      >
-                        {item}
-                      </th>
+                  bidders.map(bidder => (
+                    <AvailableBidderRow
+                      key={shortid.generate()}
+                      bidder={bidder}
+                      internalViewToggle={internalViewToggle}
+                      isAO={isAO}
+                      isInternalCDA={isInternalCDA}
+                      isPost={isPost}
+                      isLoading={isLoading}
+                      bureaus={bureaus}
+                      sort={sort}
+                    />
                   ))
                 }
-                {
-                  isInternalCDA &&
-                    <th>
-                      <div className="external-view-toggle">
-                        <ToggleButton
-                          labelTextLeft={
-                            <Tooltip
-                              title="Internal CDA View"
-                              arrow
-                              offset={-95}
-                              position="top-end"
-                              tabIndex="0"
-                            >
-                              <FA name="street-view" className={`fa-lg ${internalViewToggle ? 'active' : ''}`} />
-                            </Tooltip>
-                          }
-                          labelTextRight={
-                            <Tooltip
-                              title="External CDA View"
-                              arrow
-                              offset={-95}
-                              position="top-end"
-                              tabIndex="0"
-                            >
-                              <FA name="building" className={`fa-lg ${!internalViewToggle ? 'active' : ''}`} />
-                            </Tooltip>
-                          }
-                          checked={!internalViewToggle}
-                          onChange={() => setInternalViewToggle(!internalViewToggle)}
-                          onColor="#888888"
-                          offColor="#888888"
-                          onHandleColor="#FFFFFF"
-                          offHandleColor="#FFFFFF"
-                          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        />
-                      </div>
-                    </th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              {
-                bidders.map(bidder => (
-                  <AvailableBidderRow
-                    key={shortid.generate()}
-                    bidder={bidder}
-                    internalViewToggle={internalViewToggle}
-                    isAO={isAO}
-                    isInternalCDA={isInternalCDA}
-                    isPost={isPost}
-                    isLoading={isLoading}
-                    bureaus={bureaus}
-                    sort={sort}
-                  />
-                ))
-              }
-            </tbody>
-          </table>
-        }
-      </div>
+              </tbody>
+            </table>
+          }
+        </div>
+      </>
   );
 };
 

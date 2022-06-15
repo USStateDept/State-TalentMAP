@@ -228,9 +228,10 @@ $button-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
 //**
 //* Available Bidders
 //*
-$abl-actions-td: 11;
+$abl-actions-td: 12;
 $abl-gray-config: (
   "Status": 2,
   "Step Letter": 3,
-  "Comments": 10
+  "Updated On": 10,
+  "Notes": 11
 );
