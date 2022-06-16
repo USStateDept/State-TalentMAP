@@ -1070,3 +1070,14 @@ $padding-no-border: $total-padding - $border;
 .saved-search-list-container {
   min-height: 260px;
 }
+
+.permissions-table {
+  border-collapse: separate;
+  border-spacing: 0 .5em;
+  width: 40%;
+
+  .header {
+    font-weight: bold;
+    text-align: center;
+  }
+}

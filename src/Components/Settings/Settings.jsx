@@ -21,7 +21,10 @@ const RadioList = () => {
     return JSON.stringify(json, undefined, 2);
   };
 
-  const user = useSelector(state => state.userProfile);
+  // const user = useSelector(state => state.userProfile);
+  const roles = useSelector(state => state.userProfile.permission_groups);
+  const bureauPermissions = useSelector(state => state.userProfile.bureau_permissions);
+  const orgPermissions = useSelector(state => state.userProfile.org_permissions);
   // const { userProfile } = this.props;
   // const name = get(userProfile, 'user.first_name');
 
@@ -34,9 +37,12 @@ const RadioList = () => {
       </div>
       <div className="usa-grid-full">
         <p>
-          Use this page to copy your auth tokens for troubleshooting. Click the button below to
-          copy your auth token to your clipboard. Do not share this for any reason besides
-          troubleshooting by the TalentMAP or Help Desk teams.
+          Please find below a list of roles and permissions that you have been
+          assigned which will be used to help the
+          TalentMAP team and Help Desk troubleshoot any issues that you may experience when
+          using TalentMAP. If you do encounter an issue, please notify the Help Desk or the
+          TalentMAP team with a screenshot of the error you are receiving as well as your
+          roles, bureau permissions, and organization permissions.
         </p>
         <pre style={{ width: 500 }}>
           <span style={{ backgroundColor: 'white' }}>
@@ -52,27 +58,65 @@ const RadioList = () => {
         {copied ? <span>Copied!</span> : null}
       </div>
       <div>
-        Roles
-        <div>
-          {user.permission_groups}
-        </div>
-      </div>
-      {/* <div>
-        Bureau Permissions
-        <div>
-          Permission 1
-          Permission 2
-          Permission 3
-        </div>
+        <table className="permissions-table">
+          <tbody>
+            <th className="permissions-table header">
+              Roles
+            </th>
+            <tr>
+              <ul>
+                {
+                  roles.map(role => (
+                    <li>
+                      {role}
+                    </li>
+                  ))
+                }
+              </ul>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div>
-        Org Permissions
-        <div>
-          Permission 1
-          Permission 2
-          Permission 3
-        </div>
-      </div> */}
+        <table className="permissions-table">
+          <tbody>
+            <th className="permissions-table header">
+              Bureau Permissions
+            </th>
+            <tr>
+              <ul>
+                {
+                  bureauPermissions.map(item => (
+                    <li>
+                      {item.long_description}
+                    </li>
+                  ))
+                }
+              </ul>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <table className="permissions-table">
+          <tbody>
+            <th className="permissions-table header">
+              Organization Permissions
+            </th>
+            <tr>
+              <ul>
+                {
+                  orgPermissions.map(item => (
+                    <li>
+                      {item.long_description}
+                    </li>
+                  ))
+                }
+              </ul>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
