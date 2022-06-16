@@ -1,16 +1,11 @@
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import { fetchJWT, fetchUserToken } from 'utilities';
-// import { get } from 'lodash';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-// import PropTypes from 'prop-types';
-// import { USER_PROFILE } from '../../Constants/PropTypes';
-// mport api from '../../api';
 
 const RadioList = () => {
   const [copied, setCopied] = useState(false);
-  // const [value, setValue] = useState('');
 
   const getTokens = () => {
     const token = fetchUserToken();
@@ -21,12 +16,9 @@ const RadioList = () => {
     return JSON.stringify(json, undefined, 2);
   };
 
-  // const user = useSelector(state => state.userProfile);
   const roles = useSelector(state => state.userProfile.permission_groups);
   const bureauPermissions = useSelector(state => state.userProfile.bureau_permissions);
   const orgPermissions = useSelector(state => state.userProfile.org_permissions);
-  // const { userProfile } = this.props;
-  // const name = get(userProfile, 'user.first_name');
 
   return (
     <div className="usa-grid-full favorite-positions-container profile-content-inner-container">
