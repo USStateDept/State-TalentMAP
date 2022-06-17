@@ -83,15 +83,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   },
-  checkFlag('flags.bid_stats') ?
-    {
-      text: 'Statistics',
-      icon: 'pie-chart',
-      route: '/profile/statistics',
-      roles: [
-        'cdo',
-      ],
-    } : null,
   {
     text: 'Administrator',
     route: '/profile/administrator/',
