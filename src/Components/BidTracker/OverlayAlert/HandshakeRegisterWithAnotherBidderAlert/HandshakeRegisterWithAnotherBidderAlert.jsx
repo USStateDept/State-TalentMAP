@@ -17,7 +17,7 @@ const HandshakeRegisterWithAnotherBidderAlert = ({ bid, condensedView }) => {
   const classes$ = classes.join(' ');
 
   const overlayClasses = condensedView ? ['register-submission-container', 'sub-submission-text-with-another-bidder']
-    : ['register-with-another-bidder-container', 'register-with-another-bidder-position-details'];
+    : ['top-text', 'register-with-another-bidder-position-details'];
 
   const overlayClasses$ = overlayClasses.join(' ');
 

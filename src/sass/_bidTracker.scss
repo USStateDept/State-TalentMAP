@@ -267,13 +267,6 @@ $register-hide-icon: 95%;
   }
 }
 
-.bid-tracker-overlay-alert--register-with-another-bidder:hover {
-  opacity: 50%;
-  .register-with-another-bidder-container {
-    display: none;
-  }
-}
-
 .bid-tracker {
 
   background: $color-white;
