@@ -25,7 +25,11 @@ exports[`SettingsComponent matches snapshot 1`] = `
   }
 >
   <MemoryRouter>
-    <RadioList />
+    <RadioList
+      bureau_permissions={Array []}
+      org_permissions={Array []}
+      roles={Array []}
+    />
   </MemoryRouter>
 </ContextProvider>
 `;

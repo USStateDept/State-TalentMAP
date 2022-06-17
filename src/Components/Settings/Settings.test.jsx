@@ -10,11 +10,16 @@ const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
 describe('SettingsComponent', () => {
+  const props = {
+    roles: [],
+    bureau_permissions: [],
+    org_permissions: [],
+  };
   it('is defined', () => {
     const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <Settings />
+          <Settings {...props} />
         </MemoryRouter>
       </Provider>,
     );
@@ -25,7 +30,7 @@ describe('SettingsComponent', () => {
     const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <Settings />
+          <Settings {...props} />
         </MemoryRouter>
       </Provider>,
     );
