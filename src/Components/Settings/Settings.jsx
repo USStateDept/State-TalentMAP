@@ -66,12 +66,6 @@ const RadioList = () => {
                 }
               </ul>
             </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <table className="permissions-table">
-          <tbody>
             <th className="permissions-table header">
               Bureau Permissions
             </th>
@@ -86,12 +80,6 @@ const RadioList = () => {
                 }
               </ul>
             </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <table className="permissions-table">
-          <tbody>
             <th className="permissions-table header">
               Organization Permissions
             </th>
