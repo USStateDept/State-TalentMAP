@@ -7,12 +7,11 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
   <div
     className="stat-card-data-point stat-card-data-point--name"
   >
-    N/A
     <Link
       replace={false}
       to="/profile/public/undefined"
     >
-      View Profile
+      None listed
     </Link>
   </div>
   <div>
