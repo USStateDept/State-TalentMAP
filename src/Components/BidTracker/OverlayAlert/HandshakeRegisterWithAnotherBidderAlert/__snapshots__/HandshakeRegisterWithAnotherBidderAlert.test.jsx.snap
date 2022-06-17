@@ -8,7 +8,7 @@ exports[`HandshakeRegisterWithAnotherBidderAlert matches snapshot 1`] = `
     className="usa-grid-full"
   >
     <div
-      className="register-with-another-bidder-container register-with-another-bidder-position-details"
+      className="top-text register-with-another-bidder-position-details"
     >
       A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER:
       <div>
