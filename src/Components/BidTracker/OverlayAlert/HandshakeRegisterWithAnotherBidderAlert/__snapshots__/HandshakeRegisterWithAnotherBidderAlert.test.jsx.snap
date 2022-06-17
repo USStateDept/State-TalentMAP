@@ -2,18 +2,13 @@
 
 exports[`HandshakeRegisterWithAnotherBidderAlert matches snapshot 1`] = `
 <div
-  className="bid-tracker-alert-container bid-tracker-alert-container--register"
+  className="bid-tracker-alert-container bid-tracker-alert-container--register-with-another-bidder"
 >
   <div
     className="usa-grid-full"
-    style={
-      Object {
-        "display": "flex",
-      }
-    }
   >
     <div
-      className="register-with-another-bidder-container register-position-details"
+      className="top-text register-with-another-bidder-position-details"
     >
       A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER:
       <div>
