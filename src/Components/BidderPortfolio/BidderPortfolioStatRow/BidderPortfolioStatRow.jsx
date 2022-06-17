@@ -20,11 +20,11 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const id = get(userProfile, 'employee_id');
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
+  const bidder = get(userProfile, 'shortened_name') || 'None listed';
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
-        {get(userProfile, 'name', 'N/A')}
-        <Link to={`/profile/public/${perdet}`}>View Profile</Link>
+        <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
       </div>
       <div>
         <div>
