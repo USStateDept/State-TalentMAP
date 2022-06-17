@@ -54,9 +54,6 @@ class BidderPortfolioPage extends Component {
       bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
       classificationsIsLoading,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
-    // Here we just want to check that the 'all_clients' prop exists,
-    // because we want the nav section to appear
-    // even when we reload the counts.
     const navDataIsLoading = false;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
