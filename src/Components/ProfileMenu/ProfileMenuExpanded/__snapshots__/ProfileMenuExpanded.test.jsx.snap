@@ -267,6 +267,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="address-book"
+        key="Client Profiles"
+        link="/profile/cdo/bidderportfolio"
+        search="?type=all"
+        title="Client Profiles"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="user-circle-o"
         key="Employee Agendas"
         link="/profile/cdo/employeeagendas"
@@ -581,6 +589,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/cdo/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="address-book"
+        key="Client Profiles"
+        link="/profile/cdo/bidderportfolio"
+        search="?type=all"
+        title="Client Profiles"
       />
       <withRouter(NavLink)
         hidden={true}
