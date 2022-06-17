@@ -17,7 +17,6 @@ import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
 
-const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 const useUnassignedFilter = () => checkFlag('flags.unassigned_filters');
 
 export function renderList({ items, selected, ...rest }) {
@@ -173,7 +172,6 @@ class BidControls extends Component {
       defaultOrdering, pageSize, getKeyword } = this.props;
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
-    const displayCDOSeasonFilter = useCDOSeasonFilter();
     const displayUnassignedFilter = useUnassignedFilter();
     const showClear = !!pills.length || getKeyword;
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
@@ -190,7 +188,6 @@ class BidControls extends Component {
               cdoPills={proxyCdos}
             />
           </div>
-          {displayCDOSeasonFilter &&
           <div className="portfolio-sort-container-contents small-screen-stack">
             <SelectForm
               id="num-clients"
@@ -247,7 +244,7 @@ class BidControls extends Component {
                 defaultSort={defaultOrdering}
               />
             </PreferenceWrapper>
-          </div>}
+          </div>
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
