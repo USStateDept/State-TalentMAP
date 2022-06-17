@@ -950,6 +950,7 @@ $register-hide-icon: 95%;
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
+    text-align: left;
 
     button {
       flex: 1;
@@ -970,6 +971,7 @@ $register-hide-icon: 95%;
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
+    text-align: left;
 
     button {
       flex: 1;
@@ -984,14 +986,6 @@ $register-hide-icon: 95%;
     }
   }
 
-  .sub-submission-text-with-another-bidder {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: center;
-    padding-left: 1%;
-    text-align: left;
-  }
 
   // fix in IE11
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
