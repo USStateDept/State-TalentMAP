@@ -1,58 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SettingsComponent matches snapshot 1`] = `
-<div
-  className="usa-grid-full favorite-positions-container profile-content-inner-container"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <div
-    className="usa-grid-full favorites-top-section"
-  >
-    <div
-      className="favorites-title-container"
-    >
-      <ProfileSectionTitle
-        icon="cogs"
-        title="Settings"
-      />
-    </div>
-  </div>
-  <div
-    className="usa-grid-full"
-  >
-    <p>
-      Use this page to copy your auth tokens for troubleshooting. Click the button below to copy your auth token to your clipboard. Do not share this for any reason besides troubleshooting by the TalentMAP or Help Desk teams.
-    </p>
-    <pre
-      style={
-        Object {
-          "width": 500,
-        }
-      }
-    >
-      <span
-        style={
-          Object {
-            "backgroundColor": "white",
-          }
-        }
-      >
-        {
-  "token": null,
-  "jwt": null
-}
-      </span>
-    </pre>
-    <CopyToClipboard
-      onCopy={[Function]}
-      text="{
-  \\"token\\": null,
-  \\"jwt\\": null
-}"
-    >
-      <button>
-        Copy to clipboard
-      </button>
-    </CopyToClipboard>
-  </div>
-</div>
+  <MemoryRouter>
+    <RadioList
+      bureau_permissions={Array []}
+      org_permissions={Array []}
+      roles={Array []}
+    />
+  </MemoryRouter>
+</ContextProvider>
 `;
