@@ -54,11 +54,10 @@ class BidderPortfolioPage extends Component {
       bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
       classificationsIsLoading,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
-    const navDataIsLoading = false;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
-    const isLoading = bidderPortfolioIsLoadingNotErrored || navDataIsLoading;
+    const isLoading = bidderPortfolioIsLoadingNotErrored;
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
 
@@ -93,7 +92,6 @@ class BidderPortfolioPage extends Component {
             </div>
           </div>
           {
-            !navDataIsLoading &&
             <div>
               <BidControls
                 queryParamUpdate={queryParamUpdate}
