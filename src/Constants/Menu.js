@@ -83,15 +83,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   },
-  checkFlag('flags.bid_stats') ?
-    {
-      text: 'Statistics',
-      icon: 'pie-chart',
-      route: '/profile/statistics',
-      roles: [
-        'cdo',
-      ],
-    } : null,
   {
     text: 'Administrator',
     route: '/profile/administrator/',
@@ -310,18 +301,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'cdo',
     ],
     children: [
-      checkFlag('flags.client_profiles') ?
-        {
-          text: 'Client Profiles', // aka Bidder Portfolio
-          route: '/profile/cdo/bidderportfolio',
-          icon: 'address-book',
-          roles: [
-            'cdo',
-          ],
-          params: {
-            type: 'all',
-          },
-        } : null,
+      {
+        text: 'Client Profiles', // aka Bidder Portfolio
+        route: '/profile/cdo/bidderportfolio',
+        icon: 'address-book',
+        roles: [
+          'cdo',
+        ],
+        params: {
+          type: 'all',
+        },
+      },
       checkFlag('flags.available_bidders') ?
         {
           text: 'Available Bidders',
