@@ -19,14 +19,14 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const id = get(userProfile, 'employee_id');
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
+  const bidder = get(userProfile, 'shortened_name') || 'None listed';
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
         <div>
           <h3>
-            {get(userProfile, 'shortened_name', 'N/A')}
+            <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
           </h3>
-          <Link to={`/profile/public/${perdet}`}>View Profile</Link>
         </div>
         <div className="stat-card-data-point">
           <dt>Employee ID:</dt><dd>{id}</dd>
