@@ -204,53 +204,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         }
       }
       hidden={true}
-      iconName="building"
-      key="Bureau"
-      search=""
-      title="Bureau"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/bureau/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/bureau/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Manager"
-        link="/profile/bureau/positionmanager"
-        search=""
-        title="Position Manager"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="bar-chart"
-        key="Statistics"
-        link="/profile/bureau/stats/"
-        search=""
-        title="Statistics"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
       iconName="street-view"
       key="CDO"
       search=""
@@ -519,53 +472,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/ao/employeeagendas"
         search=""
         title="Employee Agendas"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="building"
-      key="Bureau"
-      search=""
-      title="Bureau"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/bureau/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/bureau/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Manager"
-        link="/profile/bureau/positionmanager"
-        search=""
-        title="Position Manager"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="bar-chart"
-        key="Statistics"
-        link="/profile/bureau/stats/"
-        search=""
-        title="Statistics"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
