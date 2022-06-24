@@ -173,14 +173,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/cdo/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/cdo/bidderportfolio"
@@ -217,14 +209,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/post/dashboard/"
         search=""
         title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/post/availablebidders"
-        search=""
-        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -412,14 +396,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/cdo/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="address-book"
         key="Client Profiles"
         link="/profile/cdo/bidderportfolio"
@@ -456,14 +432,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/post/dashboard/"
         search=""
         title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/post/availablebidders"
-        search=""
-        title="Available Bidders"
       />
       <withRouter(NavLink)
         hidden={true}
