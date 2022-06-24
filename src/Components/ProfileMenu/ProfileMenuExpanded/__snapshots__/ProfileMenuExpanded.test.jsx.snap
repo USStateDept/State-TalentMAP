@@ -165,45 +165,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         }
       }
       hidden={true}
-      iconName="building-o"
-      key="AO"
-      search=""
-      title="AO"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/ao/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/ao/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="user-circle-o"
-        key="Employee Agendas"
-        link="/profile/ao/employeeagendas"
-        search=""
-        title="Employee Agendas"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
       iconName="street-view"
       key="CDO"
       search=""
@@ -433,45 +394,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/userroles/"
         search=""
         title="User Roles"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="building-o"
-      key="AO"
-      search=""
-      title="AO"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/ao/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="users"
-        key="Available Bidders"
-        link="/profile/ao/availablebidders"
-        search=""
-        title="Available Bidders"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="user-circle-o"
-        key="Employee Agendas"
-        link="/profile/ao/employeeagendas"
-        search=""
-        title="Employee Agendas"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
