@@ -188,37 +188,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         title="Employee Agendas"
       />
     </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="building"
-      key="Post"
-      search=""
-      title="Post"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/post/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Manager"
-        link="/profile/post/positionmanager"
-        search=""
-        title="Position Manager"
-      />
-    </withRouter(NavLink)>
   </NavLinksContainer>
 </div>
 `;
@@ -409,37 +378,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
-      />
-    </withRouter(NavLink)>
-    <withRouter(NavLink)
-      expandedSection={
-        Object {
-          "display": false,
-          "title": "",
-        }
-      }
-      hidden={true}
-      iconName="building"
-      key="Post"
-      search=""
-      title="Post"
-      toggleMenuSection={[Function]}
-    >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/post/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="map"
-        key="Position Manager"
-        link="/profile/post/positionmanager"
-        search=""
-        title="Position Manager"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
