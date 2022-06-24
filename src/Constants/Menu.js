@@ -205,7 +205,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   } : null,
-  checkFlag('flags.post') ? {
+  {
     text: 'Post',
     route: '/profile/post/dashboard/',
     icon: 'building',
@@ -246,7 +246,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           ],
         } : null,
     ],
-  } : null,
+  },
   checkFlag('flags.ao') ? {
     text: 'AO',
     route: '/profile/ao/dashboard/',
