@@ -7,7 +7,6 @@
     "static_content": true,
     "persona_auth": true,
     "unassigned_filters": true,
-    "classifications": true,
     "handshake_bidding": true,
     "post_handshake": false,
     "post": true,
