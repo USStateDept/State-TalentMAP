@@ -210,7 +210,6 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
           }
         }
       />
-      <Connect(AddToInternalListButton) />
     </div>
   </div>
 </div>
