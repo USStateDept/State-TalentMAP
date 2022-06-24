@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
-import { get, keys, omit } from 'lodash';
-import { checkFlag } from 'flags';
+import { get, keys } from 'lodash';
 import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities';
 import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
@@ -18,9 +17,6 @@ import { Tooltip } from 'react-tippy';
 import swal from '@sweetalert/with-react';
 import { AVAILABLE_BIDDER_OBJECT, FILTER } from 'Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';
-
-const useStepLetter = () => checkFlag('flags.step_letters');
-
 
 const AvailableBidderRow = (props) => {
   const { bidder, internalViewToggle, isLoading, isAO, isPost,
@@ -214,7 +210,7 @@ const AvailableBidderRow = (props) => {
     // $abl-actions-td and $abl-gray-config variables
     const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
-    return isInternalCDA ? omit({
+    return isInternalCDA ? {
       name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
       status: getStatus(),
       step_letters: stepLettersToolTip,
@@ -226,7 +222,7 @@ const AvailableBidderRow = (props) => {
       cdo: cdo ? getCDO() : NO_CDO,
       updated_on: updateTooltip,
       comments: comments$,
-    }, useStepLetter() ? [] : ['step_letters']) : {
+    } : {
       name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
       grade: get(bidder, 'grade') || NO_GRADE,
