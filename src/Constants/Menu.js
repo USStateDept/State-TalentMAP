@@ -193,16 +193,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      checkFlag('flags.available_bidders') ?
-        {
-          text: 'Available Bidders',
-          route: '/profile/bureau/availablebidders',
-          icon: 'users',
-          roles: [
-            'super_user',
-            'bureau_user',
-          ],
-        } : null,
+      {
+        text: 'Available Bidders',
+        route: '/profile/bureau/availablebidders',
+        icon: 'users',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
     ],
   },
   {
@@ -235,19 +234,18 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'post_user',
         ],
       },
-      checkFlag('flags.available_bidders') ?
-        {
-          text: 'Available Bidders',
-          route: '/profile/post/availablebidders',
-          icon: 'users',
-          roles: [
-            'superuser',
-            'post_user',
-          ],
-        } : null,
+      {
+        text: 'Available Bidders',
+        route: '/profile/post/availablebidders',
+        icon: 'users',
+        roles: [
+          'superuser',
+          'post_user',
+        ],
+      },
     ],
   },
-  checkFlag('flags.ao') ? {
+  {
     text: 'AO',
     route: '/profile/ao/dashboard/',
     icon: 'building-o',
@@ -278,18 +276,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      checkFlag('flags.available_bidders') ?
-        {
-          text: 'Available Bidders',
-          route: '/profile/ao/availablebidders',
-          icon: 'users',
-          roles: [
-            'ao_user',
-            'superuser',
-          ],
-        } : null,
+      {
+        text: 'Available Bidders',
+        route: '/profile/ao/availablebidders',
+        icon: 'users',
+        roles: [
+          'ao_user',
+          'superuser',
+        ],
+      },
     ],
-  } : null,
+  },
   {
     text: 'CDO',
     route: '/profile/cdo/bidderportfolio',
@@ -312,15 +309,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           type: 'all',
         },
       },
-      checkFlag('flags.available_bidders') ?
-        {
-          text: 'Available Bidders',
-          route: '/profile/cdo/availablebidders',
-          icon: 'users',
-          roles: [
-            'cdo',
-          ],
-        } : null,
+      {
+        text: 'Available Bidders',
+        route: '/profile/cdo/availablebidders',
+        icon: 'users',
+        roles: [
+          'cdo',
+        ],
+      },
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employee Agendas',
