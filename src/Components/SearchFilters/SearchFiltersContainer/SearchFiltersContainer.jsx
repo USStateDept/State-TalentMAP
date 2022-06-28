@@ -18,7 +18,6 @@ import TandemSelectionFilter from '../TandemSelectionFilter';
 import { getPostName, mapDuplicates, propOrDefault, propSort, sortGrades, sortTods } from '../../../utilities';
 import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
-const usePostIndicators = () => checkFlag('flags.indicators');
 const useUS = () => checkFlag('flags.us_codes');
 
 class SearchFiltersContainer extends Component {
@@ -142,11 +141,6 @@ class SearchFiltersContainer extends Component {
       'hardToFill'];
     const multiSelectFilterNamesTandem2 = ['bidSeason-tandem', 'bidCycle-tandem', 'skill-tandem', 'grade-tandem',
       'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem', 'hardToFill-tandem'];
-
-    if (!usePostIndicators()) {
-      remove(multiSelectFilterNames, f => f === 'postIndicators');
-      remove(multiSelectFilterNamesTandemCommon, f => f === 'postIndicators');
-    }
 
     if (!useUS()) {
       remove(multiSelectFilterNames, f => f === 'unaccompaniedStatus');
