@@ -245,7 +245,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   } : null,
-  checkFlag('flags.ao') ? {
+  {
     text: 'AO',
     route: '/profile/ao/dashboard/',
     icon: 'building-o',
@@ -286,7 +286,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
     ],
-  } : null,
+  },
   {
     text: 'CDO',
     route: '/profile/cdo/bidderportfolio',
