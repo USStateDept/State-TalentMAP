@@ -1,6 +1,5 @@
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
-import { checkFlag } from 'flags';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
@@ -9,8 +8,6 @@ import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
-
-const useAvailableBidders = () => checkFlag('flags.available_bidders');
 
 const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
@@ -57,7 +54,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
         </div>
         <div className="button-container" style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <SearchAsClientButton user={userProfile} />
-          { useAvailableBidders() && <AddToInternalListButton refKey={perdet} /> }
+          <AddToInternalListButton refKey={perdet} />
         </div>
       </div>
     </BoxShadow>
