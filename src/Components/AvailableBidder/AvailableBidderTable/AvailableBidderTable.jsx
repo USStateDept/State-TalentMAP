@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkFlag } from 'flags';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBidderExport, availableBiddersFetchData } from 'actions/availableBidders';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -15,8 +14,6 @@ import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
 import { useMount, usePrevious } from 'hooks';
-
-const useStepLetter = () => checkFlag('flags.step_letters');
 
 const AvailableBidderTable = props => {
   const { isInternalCDA, isAO, isPost } = props;
@@ -59,7 +56,7 @@ const AvailableBidderTable = props => {
   let tableHeaders = isInternalCDA ? [
     'Name',
     'Status',
-    isInternalCDA && useStepLetter() ? 'Step Letters' : undefined,
+    isInternalCDA ? 'Step Letters' : undefined,
     'Skill',
     'Grade',
     'Languages',
