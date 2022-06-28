@@ -204,7 +204,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           ],
         } : null,
     ],
-  } : null,
+  },
   {
     text: 'Post',
     route: '/profile/post/dashboard/',
