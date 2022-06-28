@@ -1,10 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, includes, indexOf, remove, sortBy } from 'lodash';
+import { get, includes, indexOf, sortBy } from 'lodash';
 import ToggleButton from 'Components/ToggleButton';
 import { FILTER_ITEMS_ARRAY, POST_DETAILS_ARRAY } from 'Constants/PropTypes';
 import { COMMON_PROPERTIES, ENDPOINT_PARAMS } from 'Constants/EndpointParams';
-import { checkFlag } from '../../../flags';
 import MultiSelectFilterContainer from '../MultiSelectFilterContainer/MultiSelectFilterContainer';
 import MultiSelectFilter from '../MultiSelectFilter/MultiSelectFilter';
 import BooleanFilterContainer from '../BooleanFilterContainer/BooleanFilterContainer';
@@ -17,9 +16,6 @@ import ProjectedVacancyFilter from '../ProjectedVacancyFilter';
 import TandemSelectionFilter from '../TandemSelectionFilter';
 import { getPostName, mapDuplicates, propOrDefault, propSort, sortGrades, sortTods } from '../../../utilities';
 import { colorBlueChill } from '../../../sass/sass-vars/variables';
-
-const usePostIndicators = () => checkFlag('flags.indicators');
-const useUS = () => checkFlag('flags.us_codes');
 
 class SearchFiltersContainer extends Component {
   constructor(props) {
@@ -142,16 +138,6 @@ class SearchFiltersContainer extends Component {
       'hardToFill'];
     const multiSelectFilterNamesTandem2 = ['bidSeason-tandem', 'bidCycle-tandem', 'skill-tandem', 'grade-tandem',
       'region-tandem', 'tod-tandem', 'language-tandem', 'handshake-tandem', 'hardToFill-tandem'];
-
-    if (!usePostIndicators()) {
-      remove(multiSelectFilterNames, f => f === 'postIndicators');
-      remove(multiSelectFilterNamesTandemCommon, f => f === 'postIndicators');
-    }
-
-    if (!useUS()) {
-      remove(multiSelectFilterNames, f => f === 'unaccompaniedStatus');
-      remove(multiSelectFilterNamesTandemCommon, f => f === 'unaccompaniedStatus');
-    }
 
     const blackList = []; // don't create accordions for these
 
