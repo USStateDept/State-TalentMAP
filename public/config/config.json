@@ -6,20 +6,12 @@
   "flags": {
     "static_content": true,
     "persona_auth": true,
-    "bureau": true,
-    "indicators": true,
-    "us_codes": true,
-    "ao": true,
-    "available_bidders": true,
     "unassigned_filters": true,
-    "classifications": true,
     "handshake_bidding": true,
     "post_handshake": false,
-    "post": true,
     "register_checklist": true,
     "agenda_search": true,
     "agenda_filters": true,
-    "step_letters": true,
     "create_agenda_item": true
   }
 }
