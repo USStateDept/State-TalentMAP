@@ -165,12 +165,106 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         }
       }
       hidden={true}
+      iconName="building-o"
+      key="AO"
+      search=""
+      title="AO"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/ao/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/ao/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="user-circle-o"
+        key="Employee Agendas"
+        link="/profile/ao/employeeagendas"
+        search=""
+        title="Employee Agendas"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building"
+      key="Bureau"
+      search=""
+      title="Bureau"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/bureau/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/bureau/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="map"
+        key="Position Manager"
+        link="/profile/bureau/positionmanager"
+        search=""
+        title="Position Manager"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="bar-chart"
+        key="Statistics"
+        link="/profile/bureau/stats/"
+        search=""
+        title="Statistics"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
       iconName="street-view"
       key="CDO"
       search=""
       title="CDO"
       toggleMenuSection={[Function]}
     >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/cdo/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
       <withRouter(NavLink)
         hidden={true}
         iconName="address-book"
@@ -186,6 +280,45 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building"
+      key="Post"
+      search=""
+      title="Post"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/post/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/post/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="map"
+        key="Position Manager"
+        link="/profile/post/positionmanager"
+        search=""
+        title="Position Manager"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -357,12 +490,106 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         }
       }
       hidden={true}
+      iconName="building-o"
+      key="AO"
+      search=""
+      title="AO"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/ao/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/ao/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="user-circle-o"
+        key="Employee Agendas"
+        link="/profile/ao/employeeagendas"
+        search=""
+        title="Employee Agendas"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building"
+      key="Bureau"
+      search=""
+      title="Bureau"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/bureau/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/bureau/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="map"
+        key="Position Manager"
+        link="/profile/bureau/positionmanager"
+        search=""
+        title="Position Manager"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="bar-chart"
+        key="Statistics"
+        link="/profile/bureau/stats/"
+        search=""
+        title="Statistics"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
       iconName="street-view"
       key="CDO"
       search=""
       title="CDO"
       toggleMenuSection={[Function]}
     >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/cdo/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
       <withRouter(NavLink)
         hidden={true}
         iconName="address-book"
@@ -378,6 +605,45 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building"
+      key="Post"
+      search=""
+      title="Post"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="tachometer"
+        key="Dashboard"
+        link="/profile/post/dashboard/"
+        search=""
+        title="Dashboard"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="users"
+        key="Available Bidders"
+        link="/profile/post/availablebidders"
+        search=""
+        title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="map"
+        key="Position Manager"
+        link="/profile/post/positionmanager"
+        search=""
+        title="Position Manager"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
