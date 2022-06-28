@@ -153,7 +153,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   },
-  checkFlag('flags.bureau') ? {
+  {
     text: 'Bureau',
     route: '/profile/bureau/positionmanager/',
     icon: 'building',
