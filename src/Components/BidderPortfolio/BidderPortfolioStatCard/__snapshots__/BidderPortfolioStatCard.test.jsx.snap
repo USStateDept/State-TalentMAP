@@ -229,6 +229,7 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
           }
         }
       />
+      <Connect(AddToInternalListButton) />
     </div>
   </div>
 </BoxShadow>
