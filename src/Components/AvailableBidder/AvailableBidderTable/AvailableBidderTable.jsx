@@ -39,7 +39,7 @@ const AvailableBidderTable = props => {
       {
         body: isInternalCDA ?
           'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
-          'Please wait for CDOs to share available bidders.',
+          'Please wait for Internal CDAs to share available bidders.',
       } : {
         body: 'Please try again.',
       },
