@@ -107,10 +107,7 @@ const ResultsCondensedCardTop = ({
       <div className="usa-grid-full post-ribbon-container">
         <div className="post-container">
           <span><span className="title">Location:</span> <span className="data">
-            {
-              isProjectedVacancy ?
-                (p.organization || NO_POST) : getPostName(p.post, NO_POST)
-            }
+            { getPostName(p.post, NO_POST) }
           </span></span>
         </div>
       </div>
