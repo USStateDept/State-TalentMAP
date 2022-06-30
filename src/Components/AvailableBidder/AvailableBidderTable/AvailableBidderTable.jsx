@@ -27,10 +27,23 @@ const AvailableBidderTable = props => {
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+  const availableBiddersHasErrored = useSelector(state => state.availableBiddersFetchDataErrored);
   const filtersIsLoading = useSelector(state => state.filtersIsLoading);
   const filterData = useSelector(state => state.filters);
 
   const isLoading = availableBiddersIsLoading || filtersIsLoading;
+  const hasErrored = availableBiddersHasErrored;
+
+  const messagesBody = [
+    !hasErrored ?
+      {
+        body: isInternalCDA ?
+          'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
+          'Please wait for CDOs to share available bidders.',
+      } : {
+        body: 'Please try again.',
+      },
+  ];
 
 
   const bureaus = (get(filterData, 'filters') || []).find(f => f.item.description === 'region');
@@ -125,12 +138,9 @@ const AvailableBidderTable = props => {
     !bidders.length && !isLoading ?
       <div className="usa-width-two-thirds">
         <Alert
-          title="Available Bidders List is Empty"
-          messages={[{
-            body: isInternalCDA ?
-              'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
-              'Please wait for CDOs to share available bidders.',
-          }]}
+          type={!hasErrored ? 'info' : 'error'}
+          title={!hasErrored ? 'Available Bidders List is Empty' : 'Error loading Available Bidders List'}
+          messages={messagesBody}
         />
       </div>
       :
