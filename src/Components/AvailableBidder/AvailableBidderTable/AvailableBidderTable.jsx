@@ -35,7 +35,7 @@ const AvailableBidderTable = props => {
   const hasErrored = availableBiddersHasErrored;
 
   const alertTitle = !hasErrored ? 'Available Bidders List is Empty' : 'Error loading Available Bidders List';
-  const messagesBody = [
+  const alertBody = [
     !hasErrored ?
       {
         body: isInternalCDA ?
@@ -140,7 +140,7 @@ const AvailableBidderTable = props => {
       <div className="usa-width-two-thirds">
         <Alert
           title={alertTitle}
-          messages={messagesBody}
+          messages={alertBody}
         />
       </div>
       :
@@ -248,7 +248,7 @@ const AvailableBidderTable = props => {
             <Alert
               type={'error'}
               title={alertTitle}
-              messages={messagesBody}
+              messages={alertBody}
             />
           </div>
         }
