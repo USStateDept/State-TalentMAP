@@ -34,6 +34,7 @@ const AvailableBidderTable = props => {
   const isLoading = availableBiddersIsLoading || filtersIsLoading;
   const hasErrored = availableBiddersHasErrored;
 
+  const alertTitle = !hasErrored ? 'Available Bidders List is Empty' : 'Error loading Available Bidders List';
   const messagesBody = [
     !hasErrored ?
       {
@@ -135,11 +136,10 @@ const AvailableBidderTable = props => {
   };
 
   return (
-    !bidders.length && !isLoading ?
+    !bidders.length && !isLoading && !hasErrored ?
       <div className="usa-width-two-thirds">
         <Alert
-          type={!hasErrored ? 'info' : 'error'}
-          title={!hasErrored ? 'Available Bidders List is Empty' : 'Error loading Available Bidders List'}
+          title={alertTitle}
           messages={messagesBody}
         />
       </div>
@@ -242,6 +242,16 @@ const AvailableBidderTable = props => {
             </table>
           }
         </div>
+        {
+          hasErrored &&
+          <div className="usa-width-one-whole">
+            <Alert
+              type={'error'}
+              title={alertTitle}
+              messages={messagesBody}
+            />
+          </div>
+        }
       </>
   );
 };
