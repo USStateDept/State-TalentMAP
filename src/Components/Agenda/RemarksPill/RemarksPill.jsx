@@ -1,29 +1,34 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 const RemarksPill = props => {
   // TODO - make use of colors?
-  const { color, title, isEditable } = props; // eslint-disable-line
+  const { /* color, */ remark, isEditable, updateSelection } = props;
+
+
   return (
     <div className="remarks-pill" style={{ backgroundColor: '#0071bc' }}>
-      {title}
+      {remark.text}
       { isEditable &&
-        <FA name="times" />
+        <FA name="times" onClick={() => updateSelection(remark)} />
       }
     </div>
   );
 };
 
 RemarksPill.propTypes = {
-  title: PropTypes.string,
-  color: PropTypes.string,
+  remark: PropTypes.string,
+  // color: PropTypes.string,
   isEditable: PropTypes.bool,
+  updateSelection: PropTypes.func,
 };
 
 RemarksPill.defaultProps = {
-  title: '',
-  color: '#513C2C',
+  remark: '',
+  // color: '#513C2C',
   isEditable: false,
+  updateSelection: EMPTY_FUNCTION,
 };
 
 export default RemarksPill;

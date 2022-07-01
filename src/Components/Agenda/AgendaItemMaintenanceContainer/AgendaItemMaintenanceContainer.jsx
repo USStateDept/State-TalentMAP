@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
-import { get, isNil } from 'lodash';
+import { findIndex, get, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,22 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
   const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
   const [spinner, setSpinner] = useState(true);
+
+  const userRemarks = [];
+  const [userSelection, setUserSelection] = useState(userRemarks);
+
+
+  const updateSelection = (remark) => {
+    const userSelection$ = [...userSelection];
+    const index = findIndex(userSelection$, { seq_num: remark.seq_num });
+    if (index < 0) {
+      userSelection$.push(remark);
+      setUserSelection(userSelection$);
+    } else {
+      userSelection$.splice(index, 1);
+      setUserSelection(userSelection$);
+    }
+  };
 
   function toggleExpand() {
     setLegsContainerExpanded(!legsContainerExpanded);
@@ -87,6 +103,8 @@ const AgendaItemMaintenanceContainer = (props) => {
                 perdet={id}
                 unitedLoading={spinner}
                 setParentState={setAgendaItemMaintenancePaneLoading}
+                updateSelection={updateSelection}
+                userSelection={userSelection}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}
@@ -108,7 +126,12 @@ const AgendaItemMaintenanceContainer = (props) => {
               </InteractiveElement>
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
-              <AgendaItemResearchPane perdet={id} ref={researchPaneRef} />
+              <AgendaItemResearchPane
+                perdet={id}
+                ref={researchPaneRef}
+                userSelection={userSelection}
+                updateSelection={updateSelection}
+              />
             </div>
           </div>
         )}

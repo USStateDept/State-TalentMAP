@@ -14,6 +14,7 @@ import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
 import Classifications from './Classifications';
 import api from '../../../api';
+import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 /* TODO replace with real data */
 let positions = [
@@ -45,11 +46,11 @@ const tabs = [
   { text: 'Classifications', value: TP },
 ];
 
-const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
+const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: [], updateSelection: '' }, ref) => {
   const navTabRef = useRef();
   const dispatch = useDispatch();
 
-  const { perdet } = props;
+  const { perdet, userSelection, updateSelection } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -141,6 +142,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
             <RemarksGlossary
               remarks={remarks_data}
               remarkCategories={remarkCategories_data}
+              userSelection={userSelection}
+              updateSelection={updateSelection}
             />
         }
       </div>
@@ -150,6 +153,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
 
 AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,
+  userSelection: PropTypes.arrayOf(PropTypes.number),
+  updateSelection: PropTypes.func,
+};
+
+AgendaItemResearchPane.defaultProps = {
+  userSelection: [],
+  updateSelection: EMPTY_FUNCTION,
 };
 
 export default AgendaItemResearchPane;

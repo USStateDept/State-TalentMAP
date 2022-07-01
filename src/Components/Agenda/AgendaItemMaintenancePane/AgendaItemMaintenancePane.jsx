@@ -11,9 +11,8 @@ import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
-  const { onAddRemarksClick, perdet, setParentState, unitedLoading } = props;
-
-  const leftExpanded = get(props, 'leftExpanded');
+  const { onAddRemarksClick, perdet, setParentState } = props;
+  const { unitedLoading, userSelection, leftExpanded, updateSelection } = props;
 
   const defaultText = 'Coming Soon';
 
@@ -40,8 +39,6 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPositionNumber, setPositionNumber] = useState();
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
   const [selectedPanelDate, setPanelDate] = useState();
-
-  const remarks = [{ title: 'Critical Need Position', type: null }, { title: 'High Differential Post', type: null }, { title: 'Reassignment at post', type: null }, { title: 'SND Post', type: null }, { title: 'Continues SND eligibility', type: null }, { title: 'Creator(s):Townpost, Jenny', type: 'person' }, { title: 'Modifier(s):WoodwardWA', type: 'person' }, { title: 'CDO: Rehman, Tarek S', type: 'person' }];
 
   const saveAI = () => {
     // eslint-disable-next-line
@@ -179,8 +176,13 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
               {
-                remarks.map(remark => (
-                  <RemarksPill isEditable key={remark.title} {...remark} />
+                userSelection.map(remark => (
+                  <RemarksPill
+                    isEditable
+                    remark={remark}
+                    key={remark.text}
+                    updateSelection={updateSelection}
+                  />
                 ))
               }
             </div>
@@ -205,6 +207,8 @@ AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
   setParentState: PropTypes.func,
   unitedLoading: PropTypes.bool,
+  userSelection: PropTypes.arrayOf(PropTypes.number),
+  updateSelection: PropTypes.func,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -212,6 +216,9 @@ AgendaItemMaintenancePane.defaultProps = {
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentState: EMPTY_FUNCTION,
   unitedLoading: true,
+  userSelection: [],
+  addToSelection: EMPTY_FUNCTION,
+  updateSelection: EMPTY_FUNCTION,
 };
 
 export default AgendaItemMaintenancePane;

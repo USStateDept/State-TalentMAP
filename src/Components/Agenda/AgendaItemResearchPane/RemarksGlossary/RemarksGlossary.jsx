@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { get, has, isEqual, orderBy, uniqBy } from 'lodash';
+import { findIndex, get, has, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -7,7 +7,7 @@ import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Fuse from 'fuse.js';
 
-const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
+const RemarksGlossary = ({ remarks, remarkCategories, userSelection, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
 
   // still need indicator to come through for input
@@ -58,12 +58,6 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
   let remarkCategories$ = uniqBy(remarkCategories, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
   remarkCategories$ = orderBy(remarkCategories$, 'desc_text');
 
-  const onRemarkClick$ = remark => {
-    const textInputValue = getTextInputValue(remark.seq_num);
-    const remark$ = { ...remark, textInputValue };
-    onRemarkClick(remark$);
-  };
-
   const processClick = remark => {
     const el = document.getElementById(`remark-category-${remark.code}`);
     el.scrollIntoView();
@@ -98,13 +92,10 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
                 {remarksInCategory.map(r => {
                 // still need indicator to come through for input
                   const hasTextInput = false;
-                  const faProps = {
-                    name: r.isActive ? 'minus-circle' : 'plus-circle',
-                  };
                   return (
                     <li key={r.seq_num}>
-                      <InteractiveElement onClick={() => onRemarkClick$(r)}>
-                        <FA {...faProps} />
+                      <InteractiveElement onClick={() => updateSelection(r)}>
+                        <FA name={findIndex(userSelection, { seq_num: r.seq_num }) >= 0 ? 'minus-circle' : 'plus-circle'} />
                       </InteractiveElement>
                       <span className="remark-text">{r.text}</span>
                       {
@@ -129,7 +120,8 @@ const RemarksGlossary = ({ onRemarkClick, remarks, remarkCategories }) => {
 };
 
 RemarksGlossary.propTypes = {
-  onRemarkClick: PropTypes.func,
+  // onRemarkClick: PropTypes.func,
+  userSelection: PropTypes.arrayOf(PropTypes.number),
   remarks: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -142,12 +134,15 @@ RemarksGlossary.propTypes = {
     }),
   ),
   remarkCategories: PropTypes.arrayOf(PropTypes.shape({})),
+  updateSelection: PropTypes.func,
 };
 
 RemarksGlossary.defaultProps = {
-  onRemarkClick: EMPTY_FUNCTION,
+  // onRemarkClick: EMPTY_FUNCTION,
+  userSelection: [],
   remarks: [],
   remarkCategories: [],
+  updateSelection: EMPTY_FUNCTION,
 };
 
 export default RemarksGlossary;
