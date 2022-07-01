@@ -1,14 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+/* eslint-disable */
+import {formatDate, useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
+import { filter, get, take, takeRight } from 'lodash'; // eslint-disable-line
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Calendar from 'react-calendar';
-import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
+import { useDataLoader } from 'hooks';
 import RemarksPill from '../RemarksPill';
+import api from '../../../api';
 
 const AgendaItemLegs = props => {
   const {
@@ -22,6 +24,15 @@ const AgendaItemLegs = props => {
   } = props;
 
   const calendarID = 'aim-ted-calendar';
+
+  const { data: legATData, error: legATError, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  const { data: travelFData, error: travelFError, loading: travelFLoading } = useDataLoader(api().get, '/fsbid/reference/travelfunctions/');
+
+  const legActionTypes = get(legATData, 'data.results') || [];
+  const travelFunctions = get(travelFData, 'data.results') || [];
+  console.log('current: legActionTypes', legActionTypes);
+  console.log('current: travelFunctions', travelFunctions);
+  const [selectedPanelDate, setPanelDate] = useState();
 
   let legs$ = legs;
   if (isCard && legs.length > 2) {
@@ -79,13 +90,13 @@ const AgendaItemLegs = props => {
     };
   }, [handleOutsideClick]);
 
-  const getData = (key, helperFunc) => (
+  const getData = (key, helperFunc, data) => (
     <>
       {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
           const isFirstLeg = i === 0;
-          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'tod' || key === 'action' || key === 'travel'));
+          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'dropdown'));
           const editCalendar = (!isFirstLeg && !isAIHView && (key === 'ted'));
           const helperFuncToggle = !!helperFunc;
           return (<td>
@@ -121,23 +132,18 @@ const AgendaItemLegs = props => {
             }
             {
               editDropdown &&
-              <Dropdown
-                className="account-dropdown"
-                removeElement
-              >
-                <DropdownTrigger href="/#" className="ai-legs-dropdown">
+                <select
+                    className="elsa"
+                    defaultValue={selectedPanelDate}
+                    onChange={(e) => setPanelDate(get(e, 'target.value'))}
+                    value={selectedPanelDate}
+                >
                   {
-                    <span className="account-dropdown--name" id="account-username">{leg[key]}
-                      <span className="account-dropdown-spacing">__</span>
-                    </span>
+                    data.map(a => (
+                      <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, 'abbr_desc_text')}</option>
+                    ))
                   }
-                </DropdownTrigger>
-                <DropdownContent>
-                  <div className="account-dropdown--identity account-dropdown--segment">
-                    <div>{leg[key]}</div>
-                  </div>
-                </DropdownContent>
-              </Dropdown>
+                </select>
             }
           </td>);
         })
@@ -197,7 +203,7 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'TOD',
-      content: (getData('tod')),
+      content: (getData('dropdown', null, legActionTypes)),
       cardView: false,
     },
     {
@@ -209,13 +215,13 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'Action',
-      content: (getData('action')),
+      content: (getData('dropdown', null, legActionTypes)),
       cardView: false,
     },
     {
       icon: '',
       title: 'Travel',
-      content: (getData('travel')),
+      content: (getData('dropdown', null, travelFunctions)),
       cardView: false,
     },
   ];
