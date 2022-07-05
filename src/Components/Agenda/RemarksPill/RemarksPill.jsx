@@ -18,13 +18,23 @@ const RemarksPill = props => {
 };
 
 RemarksPill.propTypes = {
-  remark: PropTypes.string,
+  remark: PropTypes.arrayOf(
+    PropTypes.shape({
+      seq_num: PropTypes.number,
+      rc_code: PropTypes.string,
+      order_num: PropTypes.number,
+      short_desc_text: PropTypes.string,
+      mutually_exclusive_ind: PropTypes.string,
+      text: PropTypes.string,
+      active_ind: PropTypes.string,
+    }),
+  ),
   isEditable: PropTypes.bool,
   updateSelection: PropTypes.func,
 };
 
 RemarksPill.defaultProps = {
-  remark: '',
+  remark: [],
   isEditable: false,
   updateSelection: EMPTY_FUNCTION,
 };
