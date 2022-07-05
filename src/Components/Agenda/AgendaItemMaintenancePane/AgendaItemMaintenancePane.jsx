@@ -11,8 +11,15 @@ import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
-  const { onAddRemarksClick, perdet, setParentState } = props;
-  const { unitedLoading, userSelections, leftExpanded, updateSelection } = props;
+  const {
+    onAddRemarksClick,
+    perdet,
+    setParentState,
+    unitedLoading,
+    userSelections,
+    leftExpanded,
+    updateSelection,
+  } = props;
 
   const defaultText = 'Coming Soon';
 
