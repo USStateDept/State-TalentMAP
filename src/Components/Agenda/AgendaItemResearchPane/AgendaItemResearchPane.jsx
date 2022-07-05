@@ -9,6 +9,7 @@ import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
@@ -45,11 +46,11 @@ const tabs = [
   { text: 'Classifications', value: TP },
 ];
 
-const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
+const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: [], updateSelection: '' }, ref) => {
   const navTabRef = useRef();
   const dispatch = useDispatch();
 
-  const { perdet } = props;
+  const { perdet, userSelections, updateSelection } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -141,6 +142,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
             <RemarksGlossary
               remarks={remarks_data}
               remarkCategories={remarkCategories_data}
+              userSelections={userSelections}
+              updateSelection={updateSelection}
             />
         }
       </div>
@@ -150,6 +153,23 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '' }, ref) => {
 
 AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,
+  userSelections: PropTypes.arrayOf(
+    PropTypes.shape({
+      seq_num: PropTypes.number,
+      rc_code: PropTypes.string,
+      order_num: PropTypes.number,
+      short_desc_text: PropTypes.string,
+      mutually_exclusive_ind: PropTypes.string,
+      text: PropTypes.string,
+      active_ind: PropTypes.string,
+    }),
+  ),
+  updateSelection: PropTypes.func,
+};
+
+AgendaItemResearchPane.defaultProps = {
+  userSelections: [],
+  updateSelection: EMPTY_FUNCTION,
 };
 
 export default AgendaItemResearchPane;

@@ -20,6 +20,6 @@ exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
     }
   }
 >
-  Opts for SND
+  Potential recognized by last promo board
 </div>
 `;

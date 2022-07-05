@@ -4,8 +4,15 @@ import RemarksPill from './RemarksPill';
 
 describe('RemarksPill', () => {
   const props = {
-    title: 'Opts for SND',
-    color: '#F07011',
+    remark: {
+      active_ind: 'Y',
+      mutually_exclusive_ind: 'N',
+      order_num: 7,
+      rc_code: 'B',
+      seq_num: 2,
+      short_desc_text: 'Promo Bd Recognized',
+      text: 'Potential recognized by last promo board',
+    },
   };
 
   it('is defined', () => {
@@ -25,6 +32,6 @@ describe('RemarksPill', () => {
 
   it('displays a remark', () => {
     const wrapper = shallow(<RemarksPill {...props} />);
-    expect(wrapper.find('div').text()).toBe(props.title);
+    expect(wrapper.find('div').text()).toBe(props.remark.text);
   });
 });
