@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { checkFlag } from 'flags';
 import { AB_EDIT_DETAILS_OBJECT, AB_EDIT_SECTIONS_OBJECT, EMPTY_FUNCTION, FILTER } from 'Constants/PropTypes';
 import { find, forEach, get, uniqBy } from 'lodash';
 import swal from '@sweetalert/with-react';
@@ -10,8 +9,6 @@ import InteractiveElement from 'Components/InteractiveElement';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
 import { format } from 'date-fns-v2';
-
-const useStepLetter = () => checkFlag('flags.step_letters');
 
 const DATE_FORMAT = 'MMMM d, yyyy';
 
@@ -224,7 +221,6 @@ const EditBidder = (props) => {
           </span>
         </div>
         {
-          useStepLetter() &&
           <>
             <div>
               <dt>*Step Letter 1:</dt>

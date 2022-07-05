@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { checkFlag } from 'flags';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { availableBidderExport, availableBiddersFetchData } from 'actions/availableBidders';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -16,8 +15,6 @@ import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
 import { useMount, usePrevious } from 'hooks';
 
-const useStepLetter = () => checkFlag('flags.step_letters');
-
 const AvailableBidderTable = props => {
   const { isInternalCDA, isAO, isPost } = props;
 
@@ -30,10 +27,24 @@ const AvailableBidderTable = props => {
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+  const availableBiddersHasErrored = useSelector(state => state.availableBiddersFetchDataErrored);
   const filtersIsLoading = useSelector(state => state.filtersIsLoading);
   const filterData = useSelector(state => state.filters);
 
   const isLoading = availableBiddersIsLoading || filtersIsLoading;
+  const hasErrored = availableBiddersHasErrored;
+
+  const alertTitle = !hasErrored ? 'Available Bidders List is Empty' : 'Error loading Available Bidders List';
+  const alertBody = [
+    !hasErrored ?
+      {
+        body: isInternalCDA ?
+          'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
+          'Please wait for Internal CDAs to share available bidders.',
+      } : {
+        body: 'Please try again.',
+      },
+  ];
 
 
   const bureaus = (get(filterData, 'filters') || []).find(f => f.item.description === 'region');
@@ -59,7 +70,7 @@ const AvailableBidderTable = props => {
   let tableHeaders = isInternalCDA ? [
     'Name',
     'Status',
-    isInternalCDA && useStepLetter() ? 'Step Letters' : undefined,
+    isInternalCDA ? 'Step Letters' : undefined,
     'Skill',
     'Grade',
     'Languages',
@@ -125,15 +136,11 @@ const AvailableBidderTable = props => {
   };
 
   return (
-    !bidders.length && !isLoading ?
+    !bidders.length && !isLoading && !hasErrored ?
       <div className="usa-width-two-thirds">
         <Alert
-          title="Available Bidders List is Empty"
-          messages={[{
-            body: isInternalCDA ?
-              'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
-              'Please wait for CDOs to share available bidders.',
-          }]}
+          title={alertTitle}
+          messages={alertBody}
         />
       </div>
       :
@@ -141,12 +148,16 @@ const AvailableBidderTable = props => {
         <div className="ab-table-title-row">
           <h3>{title} {getTitleCount()}</h3>
           <div className={isInternalCDA ? 'export-button-container' : ''}>
-            <ExportButton
-              onClick={exportBidders}
-              isLoading={exportIsLoading}
-              disabled={!bidders.length}
-              text={internalViewToggle || !isInternalCDA ? 'Export' : 'Export External View'}
-            />
+            {
+              !hasErrored &&
+              <ExportButton
+                onClick={exportBidders}
+                isLoading={exportIsLoading}
+                disabled={!bidders.length}
+                text={internalViewToggle || !isInternalCDA ? 'Export' : 'Export External View'}
+              />
+
+            }
           </div>
         </div>
         <div className={`usa-width-one-whole bidder-manager-bidders ${isInternalCDA ? 'internal ' : ''}ab-lower-section`}>
@@ -235,6 +246,16 @@ const AvailableBidderTable = props => {
             </table>
           }
         </div>
+        {
+          hasErrored &&
+          <div className="usa-width-one-whole">
+            <Alert
+              type={'error'}
+              title={alertTitle}
+              messages={alertBody}
+            />
+          </div>
+        }
       </>
   );
 };

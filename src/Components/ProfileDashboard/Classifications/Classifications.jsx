@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { updateClassifications } from 'actions/classifications';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { orderClassifications } from 'Components/BidderPortfolio/helpers';
-import { checkFlag } from 'flags';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 
@@ -57,9 +56,6 @@ const Classifications = props => {
     }
   };
 
-  const useClassificationsEditor = () => checkFlag('flags.classifications');
-  const displayClassificationsEditor = useClassificationsEditor() && isPublic;
-
   const classifications$ = orderClassifications(classifications);
 
   return (
@@ -83,7 +79,7 @@ const Classifications = props => {
         </div>
       </div>
       {
-        !editView && displayClassificationsEditor &&
+        !editView && isPublic &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
