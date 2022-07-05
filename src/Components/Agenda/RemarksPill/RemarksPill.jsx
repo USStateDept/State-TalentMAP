@@ -34,7 +34,7 @@ RemarksPill.propTypes = {
 };
 
 RemarksPill.defaultProps = {
-  remark: [],
+  remark: {},
   isEditable: false,
   updateSelection: EMPTY_FUNCTION,
 };
