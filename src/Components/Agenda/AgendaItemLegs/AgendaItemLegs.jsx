@@ -25,14 +25,22 @@ const AgendaItemLegs = props => {
 
   const calendarID = 'aim-ted-calendar';
 
+  const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/tourofduties/');
   const { data: legATData, error: legATError, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
   const { data: travelFData, error: travelFError, loading: travelFLoading } = useDataLoader(api().get, '/fsbid/reference/travelfunctions/');
 
+  const TODs = get(todData, 'data') || [];
   const legActionTypes = get(legATData, 'data.results') || [];
   const travelFunctions = get(travelFData, 'data.results') || [];
-  console.log('current: legActionTypes', legActionTypes);
-  console.log('current: travelFunctions', travelFunctions);
+
   const [selectedPanelDate, setPanelDate] = useState();
+  const [selectedTOD, setTOD] = useState();
+  const [selectedAction, setAction] = useState();
+  const [selectedTravel, setTravel] = useState();
+
+  const todMetaData = {dropdown: 'tod', defaultValue: selectedTOD, key: 'code', value: 'code', text: 'short_description'}
+  const actionMetadata = {dropdown: 'action', defaultValue: selectedAction, key: 'code', value: 'code', text: 'abbr_desc_text'};
+  const travelMetaData = {dropdown: 'travel', defaultValue: selectedTravel, key: 'code', value: 'code', text: 'abbr_desc_text'};
 
   let legs$ = legs;
   if (isCard && legs.length > 2) {
@@ -47,6 +55,20 @@ const AgendaItemLegs = props => {
   const onClose$ = leg => {
     console.log(leg); // eslint-disable-line
     onClose(leg);
+  };
+
+  const onDropdownUpdate = (value, data) => {
+    switch(data) {
+      case 'tod':
+        setTOD(value);
+        break;
+      case 'action':
+        setAction(value);
+        break;
+      case 'travel':
+        setTravel(value);
+        break;
+    }
   };
 
   const [tedCalendar, setTEDCalendar] = useState(new Date());
@@ -90,7 +112,7 @@ const AgendaItemLegs = props => {
     };
   }, [handleOutsideClick]);
 
-  const getData = (key, helperFunc, data) => (
+  const getData = (key, helperFunc, data, dropdownMeta) => (
     <>
       {
         legs$.map((leg, i) => {
@@ -134,13 +156,13 @@ const AgendaItemLegs = props => {
               editDropdown &&
                 <select
                     className="elsa"
-                    defaultValue={selectedPanelDate}
-                    onChange={(e) => setPanelDate(get(e, 'target.value'))}
-                    value={selectedPanelDate}
+                    defaultValue={get(dropdownMeta, 'defaultValue')}
+                    onChange={(e) => helperFunc(get(e, 'target.value'), get(dropdownMeta, 'dropdown'))}
+                    value={get(dropdownMeta, 'defaultValue')}
                 >
                   {
-                    data.map(a => (
-                      <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, 'abbr_desc_text')}</option>
+                    data.map(a =>(
+                      <option key={get(a, get(dropdownMeta, 'key'))} value={get(a, get(dropdownMeta, 'code'))}>{get(a, get(dropdownMeta, 'text'))}</option>
                     ))
                   }
                 </select>
@@ -203,7 +225,7 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'TOD',
-      content: (getData('dropdown', null, legActionTypes)),
+      content: (getData('dropdown', onDropdownUpdate, TODs, todMetaData)),
       cardView: false,
     },
     {
@@ -215,13 +237,13 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'Action',
-      content: (getData('dropdown', null, legActionTypes)),
+      content: (getData('dropdown', onDropdownUpdate, legActionTypes, actionMetadata)),
       cardView: false,
     },
     {
       icon: '',
       title: 'Travel',
-      content: (getData('dropdown', null, travelFunctions)),
+      content: (getData('dropdown', onDropdownUpdate, travelFunctions, travelMetaData)),
       cardView: false,
     },
   ];
