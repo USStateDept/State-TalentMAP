@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { findIndex, get, has, isEqual, orderBy, uniqBy } from 'lodash';
+import { find, get, has, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -95,7 +95,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
                   return (
                     <li key={r.seq_num}>
                       <InteractiveElement onClick={() => updateSelection(r)}>
-                        <FA name={findIndex(userSelections, { seq_num: r.seq_num }) >= 0 ? 'minus-circle' : 'plus-circle'} />
+                        <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
                       </InteractiveElement>
                       <span className="remark-text">{r.text}</span>
                       {
@@ -120,7 +120,17 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 };
 
 RemarksGlossary.propTypes = {
-  userSelections: PropTypes.arrayOf(PropTypes.number),
+  userSelections: PropTypes.arrayOf(
+    PropTypes.shape({
+      seq_num: PropTypes.number,
+      rc_code: PropTypes.string,
+      order_num: PropTypes.number,
+      short_desc_text: PropTypes.string,
+      mutually_exclusive_ind: PropTypes.string,
+      text: PropTypes.string,
+      active_ind: PropTypes.string,
+    }),
+  ),
   remarks: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,

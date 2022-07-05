@@ -187,7 +187,7 @@ const AgendaItemMaintenancePane = (props) => {
                   <RemarksPill
                     isEditable
                     remark={remark}
-                    key={remark.text}
+                    key={remark.seq_num}
                     updateSelection={updateSelection}
                   />
                 ))
