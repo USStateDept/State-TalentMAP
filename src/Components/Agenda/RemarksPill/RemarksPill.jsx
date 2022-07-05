@@ -4,7 +4,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
   // TODO - make use of colors?
-  const { /* color, */ remark, isEditable, updateSelection } = props;
+  const { remark, isEditable, updateSelection } = props;
 
 
   return (
@@ -19,14 +19,12 @@ const RemarksPill = props => {
 
 RemarksPill.propTypes = {
   remark: PropTypes.string,
-  // color: PropTypes.string,
   isEditable: PropTypes.bool,
   updateSelection: PropTypes.func,
 };
 
 RemarksPill.defaultProps = {
   remark: '',
-  // color: '#513C2C',
   isEditable: false,
   updateSelection: EMPTY_FUNCTION,
 };
