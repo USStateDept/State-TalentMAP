@@ -159,7 +159,7 @@ const AgendaItemLegs = props => {
             {
               editDropdown &&
                 <select
-                  className="elsa"
+                  className="leg-dropdown"
                   defaultValue={get(dropdownMeta, 'defaultValue')}
                   onChange={(e) => helperFunc(get(e, 'target.value'), get(dropdownMeta, 'dropdown'))}
                   value={get(dropdownMeta, 'defaultValue')}
