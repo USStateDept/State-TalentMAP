@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
   // TODO - make use of colors?

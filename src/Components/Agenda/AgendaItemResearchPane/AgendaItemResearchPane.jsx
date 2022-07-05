@@ -9,12 +9,12 @@ import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
 import Classifications from './Classifications';
 import api from '../../../api';
-import { EMPTY_FUNCTION } from '../../../Constants/PropTypes';
 
 /* TODO replace with real data */
 let positions = [
