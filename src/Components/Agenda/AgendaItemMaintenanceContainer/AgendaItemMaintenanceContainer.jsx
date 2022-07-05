@@ -21,17 +21,17 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [spinner, setSpinner] = useState(true);
 
   const userRemarks = [];
-  const [userSelection, setUserSelection] = useState(userRemarks);
+  const [userSelections, setUserSelections] = useState(userRemarks);
 
 
   const updateSelection = (remark) => {
-    const userSelection$ = [...userSelection];
+    const userSelection$ = [...userSelections];
     const found = find(userSelection$, { seq_num: remark.seq_num });
     if (!found) {
       userSelection$.push(remark);
-      setUserSelection(userSelection$);
+      setUserSelections(userSelection$);
     } else {
-      setUserSelection(filter(userSelection$, (r) => r.seq_num !== remark.seq_num));
+      setUserSelections(filter(userSelection$, (r) => r.seq_num !== remark.seq_num));
     }
   };
 
@@ -103,7 +103,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 unitedLoading={spinner}
                 setParentState={setAgendaItemMaintenancePaneLoading}
                 updateSelection={updateSelection}
-                userSelection={userSelection}
+                userSelections={userSelections}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}
@@ -128,7 +128,7 @@ const AgendaItemMaintenanceContainer = (props) => {
               <AgendaItemResearchPane
                 perdet={id}
                 ref={researchPaneRef}
-                userSelection={userSelection}
+                userSelections={userSelections}
                 updateSelection={updateSelection}
               />
             </div>

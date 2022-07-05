@@ -7,7 +7,7 @@ import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Fuse from 'fuse.js';
 
-const RemarksGlossary = ({ remarks, remarkCategories, userSelection, updateSelection }) => {
+const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
 
   // still need indicator to come through for input
@@ -95,7 +95,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelection, updateSelec
                   return (
                     <li key={r.seq_num}>
                       <InteractiveElement onClick={() => updateSelection(r)}>
-                        <FA name={findIndex(userSelection, { seq_num: r.seq_num }) >= 0 ? 'minus-circle' : 'plus-circle'} />
+                        <FA name={findIndex(userSelections, { seq_num: r.seq_num }) >= 0 ? 'minus-circle' : 'plus-circle'} />
                       </InteractiveElement>
                       <span className="remark-text">{r.text}</span>
                       {
@@ -120,8 +120,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelection, updateSelec
 };
 
 RemarksGlossary.propTypes = {
-  // onRemarkClick: PropTypes.func,
-  userSelection: PropTypes.arrayOf(PropTypes.number),
+  userSelections: PropTypes.arrayOf(PropTypes.number),
   remarks: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -138,8 +137,7 @@ RemarksGlossary.propTypes = {
 };
 
 RemarksGlossary.defaultProps = {
-  // onRemarkClick: EMPTY_FUNCTION,
-  userSelection: [],
+  userSelections: [],
   remarks: [],
   remarkCategories: [],
   updateSelection: EMPTY_FUNCTION,

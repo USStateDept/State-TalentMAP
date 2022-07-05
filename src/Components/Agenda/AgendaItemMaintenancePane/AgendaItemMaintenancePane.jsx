@@ -12,7 +12,7 @@ import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
   const { onAddRemarksClick, perdet, setParentState } = props;
-  const { unitedLoading, userSelection, leftExpanded, updateSelection } = props;
+  const { unitedLoading, userSelections, leftExpanded, updateSelection } = props;
 
   const defaultText = 'Coming Soon';
 
@@ -176,7 +176,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
               {
-                userSelection.map(remark => (
+                userSelections.map(remark => (
                   <RemarksPill
                     isEditable
                     remark={remark}
@@ -207,7 +207,17 @@ AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
   setParentState: PropTypes.func,
   unitedLoading: PropTypes.bool,
-  userSelection: PropTypes.arrayOf(PropTypes.number),
+  userSelections: PropTypes.arrayOf(
+    PropTypes.shape({
+      seq_num: PropTypes.number,
+      rc_code: PropTypes.string,
+      order_num: PropTypes.number,
+      short_desc_text: PropTypes.string,
+      mutually_exclusive_ind: PropTypes.string,
+      text: PropTypes.string,
+      active_ind: PropTypes.string,
+    }),
+  ),
   updateSelection: PropTypes.func,
 };
 
@@ -216,7 +226,7 @@ AgendaItemMaintenancePane.defaultProps = {
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentState: EMPTY_FUNCTION,
   unitedLoading: true,
-  userSelection: [],
+  userSelections: [],
   addToSelection: EMPTY_FUNCTION,
   updateSelection: EMPTY_FUNCTION,
 };

@@ -50,7 +50,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: 
   const navTabRef = useRef();
   const dispatch = useDispatch();
 
-  const { perdet, userSelection, updateSelection } = props;
+  const { perdet, userSelections, updateSelection } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -142,7 +142,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: 
             <RemarksGlossary
               remarks={remarks_data}
               remarkCategories={remarkCategories_data}
-              userSelection={userSelection}
+              userSelections={userSelections}
               updateSelection={updateSelection}
             />
         }
@@ -153,12 +153,22 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: 
 
 AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,
-  userSelection: PropTypes.arrayOf(PropTypes.number),
+  userSelections: PropTypes.arrayOf(
+    PropTypes.shape({
+      seq_num: PropTypes.number,
+      rc_code: PropTypes.string,
+      order_num: PropTypes.number,
+      short_desc_text: PropTypes.string,
+      mutually_exclusive_ind: PropTypes.string,
+      text: PropTypes.string,
+      active_ind: PropTypes.string,
+    }),
+  ),
   updateSelection: PropTypes.func,
 };
 
 AgendaItemResearchPane.defaultProps = {
-  userSelection: [],
+  userSelections: [],
   updateSelection: EMPTY_FUNCTION,
 };
 
