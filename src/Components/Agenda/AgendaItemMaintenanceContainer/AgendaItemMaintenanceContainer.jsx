@@ -3,7 +3,7 @@ import FontAwesome from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
-import { findIndex, get, isNil } from 'lodash';
+import { filter, find, get, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -26,13 +26,12 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const updateSelection = (remark) => {
     const userSelection$ = [...userSelection];
-    const index = findIndex(userSelection$, { seq_num: remark.seq_num });
-    if (index < 0) {
+    const found = find(userSelection$, { seq_num: remark.seq_num });
+    if (!found) {
       userSelection$.push(remark);
       setUserSelection(userSelection$);
     } else {
-      userSelection$.splice(index, 1);
-      setUserSelection(userSelection$);
+      setUserSelection(filter(userSelection$, (r) => r.seq_num !== remark.seq_num));
     }
   };
 
