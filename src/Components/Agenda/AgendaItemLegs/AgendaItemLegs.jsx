@@ -1,5 +1,4 @@
-/* eslint-disable */
-import {formatDate, useCallback, useEffect, useRef, useState} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
 import { filter, get, take, takeRight } from 'lodash'; // eslint-disable-line
@@ -25,22 +24,26 @@ const AgendaItemLegs = props => {
 
   const calendarID = 'aim-ted-calendar';
 
+  // eslint-disable-next-line no-unused-vars
   const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/tourofduties/');
+  // eslint-disable-next-line no-unused-vars
   const { data: legATData, error: legATError, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  // eslint-disable-next-line no-unused-vars
   const { data: travelFData, error: travelFError, loading: travelFLoading } = useDataLoader(api().get, '/fsbid/reference/travelfunctions/');
 
   const TODs = get(todData, 'data') || [];
   const legActionTypes = get(legATData, 'data.results') || [];
   const travelFunctions = get(travelFData, 'data.results') || [];
 
+  // eslint-disable-next-line no-unused-vars
   const [selectedPanelDate, setPanelDate] = useState();
   const [selectedTOD, setTOD] = useState();
   const [selectedAction, setAction] = useState();
   const [selectedTravel, setTravel] = useState();
 
-  const todMetaData = {dropdown: 'tod', defaultValue: selectedTOD, key: 'code', value: 'code', text: 'short_description'}
-  const actionMetadata = {dropdown: 'action', defaultValue: selectedAction, key: 'code', value: 'code', text: 'abbr_desc_text'};
-  const travelMetaData = {dropdown: 'travel', defaultValue: selectedTravel, key: 'code', value: 'code', text: 'abbr_desc_text'};
+  const todMetaData = { dropdown: 'tod', defaultValue: selectedTOD, key: 'code', value: 'code', text: 'short_description' };
+  const actionMetadata = { dropdown: 'action', defaultValue: selectedAction, key: 'code', value: 'code', text: 'abbr_desc_text' };
+  const travelMetaData = { dropdown: 'travel', defaultValue: selectedTravel, key: 'code', value: 'code', text: 'abbr_desc_text' };
 
   let legs$ = legs;
   if (isCard && legs.length > 2) {
@@ -58,7 +61,8 @@ const AgendaItemLegs = props => {
   };
 
   const onDropdownUpdate = (value, data) => {
-    switch(data) {
+    // eslint-disable-next-line default-case
+    switch (data) {
       case 'tod':
         setTOD(value);
         break;
@@ -155,13 +159,13 @@ const AgendaItemLegs = props => {
             {
               editDropdown &&
                 <select
-                    className="elsa"
-                    defaultValue={get(dropdownMeta, 'defaultValue')}
-                    onChange={(e) => helperFunc(get(e, 'target.value'), get(dropdownMeta, 'dropdown'))}
-                    value={get(dropdownMeta, 'defaultValue')}
+                  className="elsa"
+                  defaultValue={get(dropdownMeta, 'defaultValue')}
+                  onChange={(e) => helperFunc(get(e, 'target.value'), get(dropdownMeta, 'dropdown'))}
+                  value={get(dropdownMeta, 'defaultValue')}
                 >
                   {
-                    data.map(a =>(
+                    data.map(a => (
                       <option key={get(a, get(dropdownMeta, 'key'))} value={get(a, get(dropdownMeta, 'code'))}>{get(a, get(dropdownMeta, 'text'))}</option>
                     ))
                   }
