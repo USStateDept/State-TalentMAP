@@ -35,8 +35,6 @@ const AgendaItemLegs = props => {
   const legActionTypes = get(legATData, 'data.results') || [];
   const travelFunctions = get(travelFData, 'data.results') || [];
 
-  // eslint-disable-next-line no-unused-vars
-  const [selectedPanelDate, setPanelDate] = useState();
   const [selectedTOD, setTOD] = useState();
   const [selectedAction, setAction] = useState();
   const [selectedTravel, setTravel] = useState();
