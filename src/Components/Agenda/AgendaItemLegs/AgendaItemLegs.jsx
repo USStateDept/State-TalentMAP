@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter, get, take, takeRight } from 'lodash'; // eslint-disable-line
+import { filter, get, includes, take, takeRight } from 'lodash'; // eslint-disable-line
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Calendar from 'react-calendar';
 import { useDataLoader } from 'hooks';
+import Spinner from 'Components/Spinner';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
@@ -34,6 +35,7 @@ const AgendaItemLegs = props => {
   const TODs = get(todData, 'data') || [];
   const legActionTypes = get(legATData, 'data.results') || [];
   const travelFunctions = get(travelFData, 'data.results') || [];
+  const legsLoading = includes([TODLoading, legATLoading, travelFLoading], true);
 
   const [selectedTOD, setTOD] = useState();
   const [selectedAction, setAction] = useState();
@@ -254,23 +256,28 @@ const AgendaItemLegs = props => {
 
   return (
     <div className="ai-history-card-legs">
-      <table>
-        <tbody>
-          {
-            tableData$.map(tr => (
-              <tr>
-                <td>
-                  <FA name={tr.icon} />
-                </td>
-                <th>
-                  <dt>{tr.title}</dt>
-                </th>
-                {tr.content}
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+      {
+        legsLoading ?
+          <Spinner type="legs" size="small" />
+          :
+          <table>
+            <tbody>
+              {
+                tableData$.map(tr => (
+                  <tr>
+                    <td>
+                      <FA name={tr.icon} />
+                    </td>
+                    <th>
+                      <dt>{tr.title}</dt>
+                    </th>
+                    {tr.content}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+      }
       {
         !isCard && !hideRemarks &&
         <div className="remarks-container">

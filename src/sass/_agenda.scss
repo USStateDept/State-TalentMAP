@@ -422,7 +422,7 @@
     font-size: 1em;
     margin-left: 15px;
     padding: 20px 0 0 20px;
-  
+
     a {
       text-decoration: none;
     }
@@ -663,6 +663,14 @@
       }
 
       .ai-history-card-legs {
+        min-height: 300px;
+
+        .tm-spinner-legs {
+          left: 45%;
+          position: absolute;
+          top: 40%;
+        }
+
         table {
           margin: 0;
 
