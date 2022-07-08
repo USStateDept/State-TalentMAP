@@ -4,9 +4,12 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const text = isCDO ? 'yes' : 'no';
   return (
     <h1>
-        Panel Meeting Search
+      Panel Meeting Search Page
       <div>
-          isCDO: {text}
+        Headers/Filters TBD
+      </div>
+      <div>
+        isCDO: {text}
       </div>
     </h1>
   );
