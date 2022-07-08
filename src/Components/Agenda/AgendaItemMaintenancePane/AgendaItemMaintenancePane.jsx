@@ -41,11 +41,15 @@ const AgendaItemMaintenancePane = (props) => {
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
 
+  const panelDatesML = filter(panelDates, (p) => p.pmt_code === 'ML');
+  const panelDatesID = filter(panelDates, (p) => p.pmt_code === 'ID');
+
   const [asgSepBid, setAsgSepBid] = useState(filter(asgSepBids, ['status', 'EF']));
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
   const [selectedPositionNumber, setPositionNumber] = useState();
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
-  const [selectedPanelDate, setPanelDate] = useState();
+  const [selectedPanelMLDate, setPanelMLDate] = useState();
+  const [selectedPanelIDDate, setPanelIDDate] = useState();
 
   const saveAI = () => {
     // eslint-disable-next-line
@@ -56,6 +60,16 @@ const AgendaItemMaintenancePane = (props) => {
   const addPositionNum = () => {
     // send off request
     setPositionNumber('');
+  };
+
+  const setDate = (seq_num, isML = true) => {
+    if (isML) {
+      setPanelIDDate('');
+      setPanelMLDate(seq_num);
+    } else {
+      setPanelMLDate('');
+      setPanelIDDate(seq_num);
+    }
   };
 
   return (
@@ -153,12 +167,27 @@ const AgendaItemMaintenancePane = (props) => {
                   <label htmlFor="ai-maintenance-date">Panel Date:</label>
                   <select
                     id="ai-maintenance-status"
-                    defaultValue={selectedPanelDate}
-                    onChange={(e) => setPanelDate(get(e, 'target.pm_seq_num'))}
-                    value={selectedPanelDate}
+                    onChange={(e) => setDate(get(e, 'target.value'), true)}
+                    value={selectedPanelMLDate}
                   >
+                    {<option>Panel Dates - ML</option>}
                     {
-                      panelDates.map(a => (
+                      panelDatesML.map(a => (
+                        <option
+                          key={get(a, 'pm_seq_num')}
+                          value={get(a, 'pm_seq_num')}
+                        >{get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}</option>
+                      ))
+                    }
+                  </select>
+                  <select
+                    id="ai-maintenance-status"
+                    onChange={(e) => setDate(get(e, 'target.value'), false)}
+                    value={selectedPanelIDDate}
+                  >
+                    {<option>Panel Dates - ID</option>}
+                    {
+                      panelDatesID.map(a => (
                         <option
                           key={get(a, 'pm_seq_num')}
                           value={get(a, 'pm_seq_num')}
