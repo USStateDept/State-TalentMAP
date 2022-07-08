@@ -276,15 +276,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      {
-        text: 'Panel Meetings',
-        route: '/profile/ao/panelmeetings',
-        icon: 'comment',
-        roles: [
-          'ao_user',
-          'superuser',
-        ],
-      },
+      checkFlag('flags.panel_search') ?
+        {
+          text: 'Panel Meetings',
+          route: '/profile/ao/panelmeetings',
+          icon: 'comment',
+          roles: [
+            'ao_user',
+            'superuser',
+          ],
+        } : null,
       {
         text: 'Available Bidders',
         route: '/profile/ao/availablebidders',
@@ -335,14 +336,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
-      {
-        text: 'Panel Meetings',
-        route: '/profile/cdo/panelmeetings',
-        icon: 'comment',
-        roles: [
-          'cdo',
-        ],
-      },
+      checkFlag('flags.panel_search') ?
+        {
+          text: 'Panel Meetings',
+          route: '/profile/cdo/panelmeetings',
+          icon: 'comment',
+          roles: [
+            'cdo',
+          ],
+        } : null,
     ],
   },
 ].filter(x => x));
