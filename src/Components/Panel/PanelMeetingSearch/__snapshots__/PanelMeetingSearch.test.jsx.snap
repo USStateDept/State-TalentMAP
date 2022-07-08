@@ -2,7 +2,10 @@
 
 exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
 <h1>
-  Panel Meeting Search
+  Panel Meeting Search Page
+  <div>
+    Headers/Filters TBD
+  </div>
   <div>
     isCDO: 
     yes
@@ -12,7 +15,10 @@ exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
 
 exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
 <h1>
-  Panel Meeting Search
+  Panel Meeting Search Page
+  <div>
+    Headers/Filters TBD
+  </div>
   <div>
     isCDO: 
     no
