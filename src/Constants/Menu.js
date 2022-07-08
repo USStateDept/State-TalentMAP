@@ -277,6 +277,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           ],
         } : null,
       {
+        text: 'Panel Meetings',
+        route: '/profile/ao/panelmeetings',
+        icon: 'comment',
+        roles: [
+          'ao_user',
+          'superuser',
+        ],
+      },
+      {
         text: 'Available Bidders',
         route: '/profile/ao/availablebidders',
         icon: 'users',
@@ -326,6 +335,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'cdo',
           ],
         } : null,
+      {
+        text: 'Panel Meetings',
+        route: '/profile/cdo/panelmeetings',
+        icon: 'comment',
+        roles: [
+          'cdo',
+        ],
+      },
     ],
   },
 ].filter(x => x));

@@ -1,12 +1,13 @@
 import { Route, Switch } from 'react-router-dom';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
+import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
+import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
+import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
+import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
-import EmployeeAgendaSearch from '../../Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
-import AgendaItemHistory from '../../Components/Agenda/AgendaItemHistory/AgendaItemHistory';
-import AgendaItemMaintenanceContainer from '../../Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 
 const BureauPage = () => {
   const dashboardProps = {
@@ -27,6 +28,7 @@ const BureauPage = () => {
         <Route path="/profile/ao/employeeagendas" render={() => <EmployeeAgendaSearch isCDO={false} />} />
         <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO={false} />} />
         <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO={false} />} />
+        <Route path="/profile/ao/panelmeetings" render={() => <PanelMeetingSearch isCDO={false} />} />
         <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
