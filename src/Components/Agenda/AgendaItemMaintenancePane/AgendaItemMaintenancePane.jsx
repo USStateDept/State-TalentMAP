@@ -62,7 +62,7 @@ const AgendaItemMaintenancePane = (props) => {
     setPositionNumber('');
   };
 
-  const setDate = (seq_num, isML = true) => {
+  const setDate = (seq_num, isML) => {
     if (isML) {
       setPanelIDDate('');
       setPanelMLDate(seq_num);
@@ -176,7 +176,9 @@ const AgendaItemMaintenancePane = (props) => {
                         <option
                           key={get(a, 'pm_seq_num')}
                           value={get(a, 'pm_seq_num')}
-                        >{get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}</option>
+                        >
+                          {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                        </option>
                       ))
                     }
                   </select>
@@ -191,7 +193,9 @@ const AgendaItemMaintenancePane = (props) => {
                         <option
                           key={get(a, 'pm_seq_num')}
                           value={get(a, 'pm_seq_num')}
-                        >{get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}</option>
+                        >
+                          {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                        </option>
                       ))
                     }
                   </select>
