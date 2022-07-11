@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
+import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';

@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
@@ -7,10 +8,13 @@ import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
+import { aihAddLeg } from 'actions/agendaItemMaintenancePane';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
+  const dispatch = useDispatch();
+
   const {
     onAddRemarksClick,
     perdet,
@@ -54,6 +58,12 @@ const AgendaItemMaintenancePane = (props) => {
 
   // special handling for position number
   const addPositionNum = () => {
+    // eslint-disable-next-line no-console
+    console.log('current: selectedPositionNumber', selectedPositionNumber);
+    const aiseqnum = 12345;
+    if (selectedPositionNumber) {
+      dispatch(aihAddLeg(selectedPositionNumber, aiseqnum));
+    }
     // send off request
     setPositionNumber('');
   };
