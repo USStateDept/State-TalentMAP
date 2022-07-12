@@ -12,6 +12,7 @@
     "register_checklist": true,
     "agenda_search": true,
     "agenda_filters": true,
-    "create_agenda_item": true
+    "create_agenda_item": true,
+    "panel_search": true
   }
 }
