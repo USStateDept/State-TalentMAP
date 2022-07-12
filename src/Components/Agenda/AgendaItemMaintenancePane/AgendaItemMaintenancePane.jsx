@@ -170,7 +170,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
                   >
-                    {<option>Panel Dates - ML</option>}
+                    <option>Panel Dates - ML</option>
                     {
                       panelDatesML.map(a => (
                         <option
@@ -187,7 +187,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
                   >
-                    {<option>Panel Dates - ID</option>}
+                    <option>Panel Dates - ID</option>
                     {
                       panelDatesID.map(a => (
                         <option
