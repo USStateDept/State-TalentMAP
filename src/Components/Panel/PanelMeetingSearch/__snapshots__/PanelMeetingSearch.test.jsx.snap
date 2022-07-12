@@ -8,7 +8,7 @@ exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
   </div>
   <div>
     isCDO: 
-    yes
+    yes CDO
   </div>
 </h1>
 `;
@@ -21,7 +21,7 @@ exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
   </div>
   <div>
     isCDO: 
-    no
+    no AO
   </div>
 </h1>
 `;

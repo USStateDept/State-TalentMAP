@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const PanelMeetingSearch = ({ isCDO }) => {
-  const text = isCDO ? 'yes' : 'no';
+  const text = isCDO ? 'yes CDO' : 'no AO';
   return (
     <h1>
       Panel Meeting Search Page

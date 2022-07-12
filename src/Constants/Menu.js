@@ -334,6 +334,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           icon: 'user-circle-o',
           roles: [
             'cdo',
+            'superuser',
           ],
         } : null,
       checkFlag('flags.panel_search') ?
@@ -343,6 +344,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           icon: 'comment',
           roles: [
             'cdo',
+            'superuser',
           ],
         } : null,
     ],
