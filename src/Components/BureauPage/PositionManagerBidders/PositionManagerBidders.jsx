@@ -543,7 +543,7 @@ class PositionManagerBidders extends Component {
                       <SelectForm
                         id="sort"
                         label="Sort by:"
-                        defaultSort={filters.ordering || ''}
+                        defaultSort={filters.ordering || 'bidder_grade'}
                         options={BUREAU_BIDDER_SORT.options}
                         disabled={false}
                         onSelectOption={e => this.props.onSort(e.target.value)}
