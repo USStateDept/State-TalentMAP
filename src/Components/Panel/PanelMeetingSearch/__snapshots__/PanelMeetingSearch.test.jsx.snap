@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
+<div>
+  Panel Meeting Search Page
+  <div>
+    Headers/Filters TBD
+  </div>
+  <div>
+    isCDO: 
+    yes CDO
+  </div>
+</div>
+`;
+
+exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
+<div>
+  Panel Meeting Search Page
+  <div>
+    Headers/Filters TBD
+  </div>
+  <div>
+    isCDO: 
+    no AO
+  </div>
+</div>
+`;
