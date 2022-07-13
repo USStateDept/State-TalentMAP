@@ -272,13 +272,19 @@
       }
 
       #add-pos-num-input {
-        background-color: $color-white;
-        border: 1px solid $bg-gray-dark-2;
         border-radius: 3px;
         height: 28px;
         padding: 0 30px 0 5px;
         max-width: 150px;
         font-size: 13px;
+      }
+      .input-default {
+        background-color: $color-white;
+        border: 1px solid $bg-gray-dark-2;
+      }
+      .input-error {
+        background-color: $color-red-lightest;
+        border: 1px solid $color-red;
       }
       #add-pos-num-icon {
         color: $primary-blue;

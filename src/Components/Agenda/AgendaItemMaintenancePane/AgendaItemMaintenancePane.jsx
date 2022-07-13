@@ -54,6 +54,7 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
   const [selectedPanelMLDate, setPanelMLDate] = useState();
   const [selectedPanelIDDate, setPanelIDDate] = useState();
+  const [tempError, setTempError] = useState(false);
 
   const saveAI = () => {
     // eslint-disable-next-line
@@ -62,14 +63,19 @@ const AgendaItemMaintenancePane = (props) => {
 
   // special handling for position number
   const addPositionNum = () => {
-    // eslint-disable-next-line no-console
-    console.log('current: selectedPositionNumber', selectedPositionNumber);
-    const aiseqnum = 12345;
+    setTempError(false);
     if (selectedPositionNumber) {
-      dispatch(aihAddLeg(selectedPositionNumber, aiseqnum));
+      const aiseqnum = 12345;
+      // eslint-disable-next-line no-console
+      console.log('current: selectedPositionNumber', selectedPositionNumber);
+      if (selectedPositionNumber === '1234') {
+        setTempError(true);
+      } else {
+        dispatch(aihAddLeg(selectedPositionNumber, aiseqnum));
+        // send off request
+        setPositionNumber('');
+      }
     }
-    // send off request
-    setPositionNumber('');
   };
 
   const setDate = (seq_num, isML) => {
@@ -139,6 +145,7 @@ const AgendaItemMaintenancePane = (props) => {
               <input
                 id="add-pos-num-input"
                 name="add"
+                className={tempError ? 'input-error' : 'input-default'}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
