@@ -140,6 +140,7 @@ const AgendaItemMaintenancePane = (props) => {
                 id="add-pos-num-input"
                 name="add"
                 onChange={value => setPositionNumber(value.target.value)}
+                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
                 value={selectedPositionNumber}
               />
