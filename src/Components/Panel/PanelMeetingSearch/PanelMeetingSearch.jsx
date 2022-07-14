@@ -22,6 +22,16 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
 
+  const panelMeetingTypesOptions = [
+    { description: 'ID', code: 'ID' },
+    { description: 'ML', code: 'ML' },
+  ];
+
+  const panelMeetingStatusOptions = [
+    { description: 'Initiated', code: 'initiated' },
+    { description: 'Addendum', code: 'addendum' },
+    { description: 'Post Panel', code: 'post_panel' },
+  ];
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
     const getSelected = item => !!selected.find(f => f.code === item.code);
@@ -45,18 +55,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     includeSelectAll: true,
   };
 
-  const panelMeetingTypesOptions = [
-    { description: 'ID', code: 'ID' },
-    { description: 'ML', code: 'ML' },
-  ];
-
-  const panelMeetingStatusOptions = [
-    { description: 'Initiated', code: 'initiated' },
-    { description: 'Addendum', code: 'addendum' },
-    { description: 'Post Panel', code: 'post_panel' },
-  ];
-
-
   const fetchAndSet = () => {
     const filters = [
       selectedMeetingType,
@@ -77,7 +75,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     selectedMeetingDate,
     selectedMeetingStatus,
   ]);
-
 
   const resetFilters = () => {
     setSelectedMeetingType([]);
