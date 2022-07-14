@@ -1,15 +1,15 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { get, has } from 'lodash';
+import { filter, flatten, get, has, isEmpty } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 
+// eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
   const childRef = useRef();
 
@@ -17,7 +17,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const displayPanelMeetingFilters = usePanelMeetingFilters();
 
   // TO-DO: complete integration based off of WS data
-  const [selectedlMeetingType, setSelectedMeetingType] = useState([]);
+  const [selectedMeetingType, setSelectedMeetingType] = useState([]);
   const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
@@ -67,10 +67,32 @@ const PanelMeetingSearch = ({ isCDO }) => {
   ];
 
 
+  const fetchAndSet = () => {
+    const filters = [
+      selectedMeetingType,
+      selectedMeetingDate,
+      selectedMeetingStatus,
+    ];
+    if (isEmpty(filter(flatten(filters)))) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    selectedMeetingType,
+    selectedMeetingDate,
+    selectedMeetingStatus,
+  ]);
+
+
   const resetFilters = () => {
     setSelectedMeetingType([]);
-    setSelectedMeetingStatus([]);
     setSelectedMeetingDate(null);
+    setSelectedMeetingStatus([]);
     childRef.current.clearText();
     setClearFilters(false);
   };
@@ -110,7 +132,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Meeting Type"
-                  value={selectedlMeetingType}
+                  value={selectedMeetingType}
                   options={panelMeetingTypesOptions}
                   onChange={setSelectedMeetingType}
                   valueKey="code"
