@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { filter, flatten, get, has, isEmpty } from 'lodash';
+import { filter, flatten, isEmpty } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -24,23 +24,13 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
-    let codeOrID = 'code';
-    // only Cycle needs to use 'id'
-    if (!has(items[0], 'code')) {
-      codeOrID = 'id';
-    }
-    const getSelected = item => !!selected.find(f => f[codeOrID] === item[codeOrID]);
-    let queryProp = 'description';
-    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
-    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    else if (get(items, '[0].description', false)) queryProp = 'description';
-    else queryProp = 'name';
+    const getSelected = item => !!selected.find(f => f.code === item.code);
     return items.map(item =>
       (<ListItem
-        key={item[codeOrID]}
+        key={item.code}
         item={item}
         {...rest}
-        queryProp={queryProp}
+        queryProp={'description'}
         getIsSelected={getSelected}
       />),
     );
