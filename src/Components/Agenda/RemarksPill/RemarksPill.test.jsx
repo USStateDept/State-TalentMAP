@@ -41,7 +41,6 @@ describe('RemarksPill', () => {
   it('shows an x when a remark isEditable', () => {
     const wrapper = shallow(<RemarksPill {...props} />);
     const expected = `${props.remark.text}<FontAwesome />`;
-    // console.log(toJSON(wrapper.find('div').find('remarks-pill')));
     expect(wrapper.find('div').text()).toBe(expected);
   });
 });
