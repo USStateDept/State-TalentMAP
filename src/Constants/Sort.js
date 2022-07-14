@@ -176,15 +176,13 @@ export const BUREAU_POSITION_SORT = {
 
 export const BUREAU_BIDDER_SORT = {
   options: [
-    { value: '', text: 'Sort option', disabled: true },
-    { value: 'bidder_grade', text: "Bidder's Grade" },
-    { value: 'bidder_skill', text: "Bidder's Skill" },
+    { value: 'bidder_bid_submitted_date', text: 'Bid Submitted Date' },
     { value: 'bidder_hs', text: 'Handshake' },
     { value: 'bidder_ted', text: 'TED' },
+    { value: 'bidder_grade', text: "Bidder's Grade" },
     { value: 'bidder_langauge', text: "Bidder's Langauge" },
     { value: 'bidder_name', text: "Bidder's Name" },
-    { value: 'bidder_bid_submitted_date', text: 'Bid Submitted Date' },
-    // What order do we want these in?
+    { value: 'bidder_skill', text: "Bidder's Skill" },
   ],
 };
 

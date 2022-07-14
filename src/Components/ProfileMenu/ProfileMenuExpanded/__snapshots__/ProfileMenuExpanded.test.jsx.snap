@@ -195,6 +195,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search=""
         title="Employee Agendas"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="comment"
+        key="Panel Meetings"
+        link="/profile/ao/panelmeetings"
+        search=""
+        title="Panel Meetings"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -280,6 +288,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="comment"
+        key="Panel Meetings"
+        link="/profile/cdo/panelmeetings"
+        search=""
+        title="Panel Meetings"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -520,6 +536,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         search=""
         title="Employee Agendas"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="comment"
+        key="Panel Meetings"
+        link="/profile/ao/panelmeetings"
+        search=""
+        title="Panel Meetings"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -605,6 +629,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/cdo/employeeagendas"
         search=""
         title="Employee Agendas"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="comment"
+        key="Panel Meetings"
+        link="/profile/cdo/panelmeetings"
+        search=""
+        title="Panel Meetings"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)

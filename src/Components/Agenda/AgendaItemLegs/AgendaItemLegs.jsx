@@ -1,14 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter, take, takeRight } from 'lodash'; // eslint-disable-line
+import { filter, get, includes, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Calendar from 'react-calendar';
-import Dropdown, { DropdownContent, DropdownTrigger } from 'react-simple-dropdown';
+import { useDataLoader } from 'hooks';
+import Spinner from 'Components/Spinner';
 import RemarksPill from '../RemarksPill';
+import api from '../../../api';
 
 const AgendaItemLegs = props => {
   const {
@@ -23,6 +25,26 @@ const AgendaItemLegs = props => {
 
   const calendarID = 'aim-ted-calendar';
 
+  // eslint-disable-next-line no-unused-vars
+  const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/tourofduties/');
+  // eslint-disable-next-line no-unused-vars
+  const { data: legATData, error: legATError, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  // eslint-disable-next-line no-unused-vars
+  const { data: travelFData, error: travelFError, loading: travelFLoading } = useDataLoader(api().get, '/fsbid/reference/travelfunctions/');
+
+  const TODs = get(todData, 'data') || [];
+  const legActionTypes = get(legATData, 'data.results') || [];
+  const travelFunctions = get(travelFData, 'data.results') || [];
+  const legsLoading = includes([TODLoading, legATLoading, travelFLoading], true);
+
+  const [selectedTOD, setTOD] = useState();
+  const [selectedAction, setAction] = useState();
+  const [selectedTravel, setTravel] = useState();
+
+  const todMetaData = { dropdown: 'tod', defaultValue: selectedTOD, key: 'code', value: 'code', text: 'short_description' };
+  const actionMetadata = { dropdown: 'action', defaultValue: selectedAction, key: 'code', value: 'code', text: 'abbr_desc_text' };
+  const travelMetaData = { dropdown: 'travel', defaultValue: selectedTravel, key: 'code', value: 'code', text: 'abbr_desc_text' };
+
   let legs$ = legs;
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
@@ -36,6 +58,21 @@ const AgendaItemLegs = props => {
   const onClose$ = leg => {
     console.log(leg); // eslint-disable-line
     onClose(leg);
+  };
+
+  const onDropdownUpdate = (value, data) => {
+    // eslint-disable-next-line default-case
+    switch (data) {
+      case 'tod':
+        setTOD(value);
+        break;
+      case 'action':
+        setAction(value);
+        break;
+      case 'travel':
+        setTravel(value);
+        break;
+    }
   };
 
   const [tedCalendar, setTEDCalendar] = useState(new Date());
@@ -79,13 +116,13 @@ const AgendaItemLegs = props => {
     };
   }, [handleOutsideClick]);
 
-  const getData = (key, helperFunc) => (
+  const getData = (key, helperFunc, data, dropdownMeta) => (
     <>
       {
         legs$.map((leg, i) => {
           const showClose = showCloseButton && key === 'pos_title' && i > 0;
           const isFirstLeg = i === 0;
-          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'tod' || key === 'action' || key === 'travel'));
+          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'dropdown'));
           const editCalendar = (!isFirstLeg && !isAIHView && (key === 'ted'));
           const helperFuncToggle = !!helperFunc;
           return (<td>
@@ -121,23 +158,18 @@ const AgendaItemLegs = props => {
             }
             {
               editDropdown &&
-              <Dropdown
-                className="account-dropdown"
-                removeElement
-              >
-                <DropdownTrigger href="/#" className="ai-legs-dropdown">
+                <select
+                  className="leg-dropdown"
+                  defaultValue={get(dropdownMeta, 'defaultValue')}
+                  onChange={(e) => helperFunc(get(e, 'target.value'), get(dropdownMeta, 'dropdown'))}
+                  value={get(dropdownMeta, 'defaultValue')}
+                >
                   {
-                    <span className="account-dropdown--name" id="account-username">{leg[key]}
-                      <span className="account-dropdown-spacing">__</span>
-                    </span>
+                    data.map(a => (
+                      <option key={get(a, get(dropdownMeta, 'key'))} value={get(a, get(dropdownMeta, 'code'))}>{get(a, get(dropdownMeta, 'text'))}</option>
+                    ))
                   }
-                </DropdownTrigger>
-                <DropdownContent>
-                  <div className="account-dropdown--identity account-dropdown--segment">
-                    <div>{leg[key]}</div>
-                  </div>
-                </DropdownContent>
-              </Dropdown>
+                </select>
             }
           </td>);
         })
@@ -197,7 +229,7 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'TOD',
-      content: (getData('tod')),
+      content: (getData('dropdown', onDropdownUpdate, TODs, todMetaData)),
       cardView: false,
     },
     {
@@ -209,13 +241,13 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'Action',
-      content: (getData('action')),
+      content: (getData('dropdown', onDropdownUpdate, legActionTypes, actionMetadata)),
       cardView: false,
     },
     {
       icon: '',
       title: 'Travel',
-      content: (getData('travel')),
+      content: (getData('dropdown', onDropdownUpdate, travelFunctions, travelMetaData)),
       cardView: false,
     },
   ];
@@ -224,23 +256,28 @@ const AgendaItemLegs = props => {
 
   return (
     <div className="ai-history-card-legs">
-      <table>
-        <tbody>
-          {
-            tableData$.map(tr => (
-              <tr>
-                <td>
-                  <FA name={tr.icon} />
-                </td>
-                <th>
-                  <dt>{tr.title}</dt>
-                </th>
-                {tr.content}
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
+      {
+        legsLoading ?
+          <Spinner type="legs" size="small" />
+          :
+          <table>
+            <tbody>
+              {
+                tableData$.map(tr => (
+                  <tr>
+                    <td>
+                      <FA name={tr.icon} />
+                    </td>
+                    <th>
+                      <dt>{tr.title}</dt>
+                    </th>
+                    {tr.content}
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+      }
       {
         !isCard && !hideRemarks &&
         <div className="remarks-container">
