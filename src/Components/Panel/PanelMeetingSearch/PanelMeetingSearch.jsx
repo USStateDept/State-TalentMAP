@@ -18,9 +18,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
   // const text = isCDO ? 'yes CDO' : 'no AO';
 
   // TO-DO: complete integration based off of WS data
-  const [panelMeetingType, setPanelMeetingType] = useState([]);
-  const [panelMeetingDate, setPanelMeetingDate] = useState(null);
-  const [panelMeetingStatus, setPanelMeetingStatus] = useState([]);
+  const [selectedlMeetingType, setSelectedMeetingType] = useState([]);
+  const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
+  const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
 
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
@@ -60,9 +60,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
 
   const resetFilters = () => {
-    // setPanelMeetingType([]);
-    // setPanelMeetingStatus([]);
-    // setSelectedTED(null);
+    // setSelectedMeetingType([]);
+    // setSelectedMeetingStatus([]);
+    // setSelectedMeetingDate(null);
     childRef.current.clearText();
     setClearFilters(false);
   };
@@ -112,10 +112,10 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 <div className="label">Type:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Panel Meeting Type"
-                  value={panelMeetingType}
+                  placeholder="Select Meeting Type"
+                  value={selectedlMeetingType}
                   options={panelMeetingTypesOptions}
-                  onChange={setPanelMeetingType}
+                  onChange={setSelectedMeetingType}
                   valueKey="code"
                   labelKey="description"
                   // disabled={isLoading}
@@ -124,8 +124,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
               <div className="filter-div">
                 <div className="label">Meeting Date:</div>
                 <DateRangePicker
-                  onChange={setPanelMeetingDate}
-                  value={panelMeetingDate}
+                  onChange={setSelectedMeetingDate}
+                  value={selectedMeetingDate}
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
@@ -136,10 +136,10 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 <div className="label">Status:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Panel Meeting Status"
-                  value={panelMeetingStatus}
+                  placeholder="Select Meeting Status"
+                  value={selectedMeetingStatus}
                   options={panelMeetingStatusOptions}
-                  onChange={setPanelMeetingStatus}
+                  onChange={setSelectedMeetingStatus}
                   valueKey="code"
                   labelKey="description"
                   // disabled={isLoading}
