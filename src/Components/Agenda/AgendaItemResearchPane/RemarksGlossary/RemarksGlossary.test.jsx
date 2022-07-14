@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import { find as lodashFind } from 'lodash';
+import { find as _find } from 'lodash';
 import toJSON from 'enzyme-to-json';
 import RemarksGlossary from './RemarksGlossary';
 
@@ -65,8 +65,9 @@ describe('RemarksGlossary Component', () => {
       />);
     const liText = wrapper.find('li').map(
       child => ({ seq_num: child.first().key(),
-        icon: child.children().first().children().first().props().name }));
-    const renderedUserRemark = lodashFind(liText, { icon: 'minus-circle' });
+        icon: child.children().first().children().first()
+          .props().name }));
+    const renderedUserRemark = _find(liText, { icon: 'minus-circle' });
     expect(Number(renderedUserRemark.seq_num)).toBe(userSelections[0].seq_num);
   });
 });

@@ -32,8 +32,7 @@ describe('AgendaItemMaintenanceContainerComponent', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  // Baseline test for future functionality
-  xit('', () => {
+  xit('displays the correct header', () => {
     const wrapper = shallow(
       <AgendaItemMaintenanceContainer.WrappedComponent
         userSelections={userSelections}
