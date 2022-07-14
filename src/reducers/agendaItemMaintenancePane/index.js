@@ -1,3 +1,3 @@
-import { aihAddLegErrored, aihAddLegLoading, aihAddLegSuccess } from './agendaItemMaintenancePane';
+import { aiCreateErrored, aiCreateLoading, aiCreateSuccess } from './agendaItemMaintenancePane';
 
-export default { aihAddLegErrored, aihAddLegLoading, aihAddLegSuccess };
+export default { aiCreateErrored, aiCreateLoading, aiCreateSuccess };

@@ -8,7 +8,7 @@ import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
-import { aihAddLeg } from 'actions/agendaItemMaintenancePane';
+import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
@@ -71,7 +71,7 @@ const AgendaItemMaintenancePane = (props) => {
       if (selectedPositionNumber === '1234') {
         setTempError(true);
       } else {
-        dispatch(aihAddLeg(selectedPositionNumber, aiseqnum));
+        dispatch(aiCreate(selectedPositionNumber, aiseqnum));
         // send off request
         setPositionNumber('');
       }

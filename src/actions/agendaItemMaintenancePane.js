@@ -4,49 +4,50 @@ import api from '../api';
 
 let cancel;
 
-export function aihAddLegErrored(bool) {
+export function aiCreateErrored(bool) {
   return {
-    type: 'AIH_ADD_LEG_HAS_ERRORED',
+    type: 'AI_CREATE_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-export function aihAddLegLoading(bool) {
+export function aiCreateLoading(bool) {
   return {
-    type: 'AIH_ADD_LEG_IS_LOADING',
+    type: 'AI_CREATE_IS_LOADING',
     isLoading: bool,
   };
 }
-export function aihAddLegSuccess(data) {
+export function aiCreateSuccess(data) {
   return {
-    type: 'AIH_ADD_LEG_SUCCESS',
+    type: 'AI_CREATE_SUCCESS',
     data,
   };
 }
 
-export function aihAddLeg(pos_num = '', ai_seq = '') {
+// eslint-disable-next-line no-unused-vars
+export function aiCreate(post_body) {
   // eslint-disable-next-line no-console
   console.log('current in action file');
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
-    dispatch(aihAddLegErrored(false));
-    dispatch(aihAddLegLoading(true));
+    dispatch(aiCreateErrored(false));
+    dispatch(aiCreateLoading(true));
     api()
-      .put(`/fsbid/agenda/agenda_items/${ai_seq}/add_leg/?position__position_number__in=${pos_num}&q=`, { cancelToken: new CancelToken((c) => {
+      .post('/fsbid/agenda/agenda_items/&q=', { cancelToken: new CancelToken((c) => {
         cancel = c;
       }) })
       .then(({ data }) => data || [])
       .then((data$) => {
-        dispatch(aihAddLegSuccess(data$));
-        dispatch(aihAddLegErrored(false));
-        dispatch(aihAddLegLoading(false));
+        dispatch(aiCreateSuccess(data$));
+        dispatch(aiCreateErrored(false));
+        dispatch(aiCreateLoading(false));
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
-          dispatch(aihAddLegErrored(false));
-          dispatch(aihAddLegLoading(true));
+          dispatch(aiCreateErrored(false));
+          dispatch(aiCreateLoading(true));
         } else {
-          dispatch(aihAddLegErrored(true));
-          dispatch(aihAddLegLoading(false));
+          dispatch(aiCreateErrored(true));
+          dispatch(aiCreateLoading(false));
         }
       });
   };
