@@ -15,12 +15,12 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const usePanelMeetingFilters = () => checkFlag('flags.panel_filters');
   const displayPanelMeetingFilters = usePanelMeetingFilters();
-  // const text = isCDO ? 'yes CDO' : 'no AO';
 
   // TO-DO: complete integration based off of WS data
   const [selectedlMeetingType, setSelectedMeetingType] = useState([]);
   const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
+  const [clearFilters, setClearFilters] = useState(false);
 
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
@@ -55,19 +55,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     includeSelectAll: true,
   };
 
-  // Controls
-  const [clearFilters, setClearFilters] = useState(false);
-
-
-  const resetFilters = () => {
-    // setSelectedMeetingType([]);
-    // setSelectedMeetingStatus([]);
-    // setSelectedMeetingDate(null);
-    childRef.current.clearText();
-    setClearFilters(false);
-  };
-
-
   const panelMeetingTypesOptions = [
     { description: 'ID', code: 'ID' },
     { description: 'ML', code: 'ML' },
@@ -79,6 +66,15 @@ const PanelMeetingSearch = ({ isCDO }) => {
     { description: 'Post Panel', code: 'post_panel' },
   ];
 
+
+  const resetFilters = () => {
+    setSelectedMeetingType([]);
+    setSelectedMeetingStatus([]);
+    setSelectedMeetingDate(null);
+    childRef.current.clearText();
+    setClearFilters(false);
+  };
+
   return (
     <div>
       <div className="empl-search-page">
@@ -87,6 +83,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
             <div className="usa-grid-full results-search-bar-container">
               <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
               <PositionManagerSearch
+                // submitSearch={submitSearch}
                 // onChange={setTextInputThrottled}
                 ref={childRef}
                 // textSearch={textSearch}
