@@ -25,14 +25,15 @@ export function aiCreateSuccess(data) {
 
 // eslint-disable-next-line no-unused-vars
 export function aiCreate(post_body) {
-  // eslint-disable-next-line no-console
-  console.log('current in action file');
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
     api()
-      .post('/fsbid/agenda/agenda_items/&q=', { cancelToken: new CancelToken((c) => {
+      // .post('/fsbid/agenda/agenda_items/&q=', { cancelToken: new CancelToken((c) => {
+      //   cancel = c;
+      // }) })
+      .get('/fsbid/reference/cycles/', { cancelToken: new CancelToken((c) => {
         cancel = c;
       }) })
       .then(({ data }) => data || [])

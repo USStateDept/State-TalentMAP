@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
@@ -9,6 +9,7 @@ import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { aiCreate } from 'actions/agendaItemMaintenancePane';
+import { resultsFetchData } from 'actions/results';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
@@ -31,6 +32,10 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
+
+  const pos_results = useSelector(state => state.results);
+  const pos_results_loading = useSelector(state => state.resultsIsLoading);
+  const pos_results_errored = useSelector(state => state.resultsHasErrored);
 
   useEffect(() => {
     setParentState(includes([asgSepBidLoading,
@@ -72,6 +77,7 @@ const AgendaItemMaintenancePane = (props) => {
         setTempError(true);
       } else {
         dispatch(aiCreate(selectedPositionNumber, aiseqnum));
+        dispatch(resultsFetchData(`limit=50&page=1&position__position_number__in=${selectedPositionNumber}`));
         // send off request
         setPositionNumber('');
       }
