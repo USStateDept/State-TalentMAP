@@ -86,9 +86,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   return (
     <div>
-      <div className="empl-search-page">
-        <div className="usa-grid-full empl-search-upper-section">
-          <div className="results-search-bar padded-main-content results-single-search homepage-offset">
+      <div className="panel-meeting-search-page">
+        <div className="panel-meeting-search-upper-section">
+          <div className="results-search-bar results-single-search">
             <div className="usa-grid-full results-search-bar-container">
               <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
               <PositionManagerSearch
@@ -113,8 +113,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 }
               </div>
             </div>
-            <div className="usa-width-one-whole empl-search-filters results-dropdown">
-              <div className="filter-div handshake-filter-div">
+            <div className="usa-width-one-whole panel-meeting-search-filters">
+              <div className="filter-div">
                 <div className="label">Type:</div>
                 <Picky
                   {...pickyProps}
@@ -128,7 +128,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Meeting Date:</div>
+                <div className="label label-date">Meeting Date:</div>
                 <DateRangePicker
                   onChange={setSelectedMeetingDate}
                   value={selectedMeetingDate}
