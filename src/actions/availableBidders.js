@@ -241,7 +241,7 @@ export function availableBidderExport(isInternalCDAView, isSort = 'Name') {
     });
 }
 
-// Will move following functions to new Panel Meetings action file when it is created
+// Move following functions to new Panel Meetings Action file when it is created
 
 const convertQueryToString = query => {
   let q = pickBy(query, identity);

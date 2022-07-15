@@ -3,14 +3,14 @@ import SelectForm from 'Components/SelectForm';
 import { PANEL_MEETINGS_PAGE_SIZES, PANEL_MEETINGS_SORT } from 'Constants/Sort';
 import ExportButton from 'Components/ExportButton';
 import { useState } from 'react';
-import { panelMeetingsExport } from 'actions/availableBidders';
+import { panelMeetingsExport } from 'actions/availableBidders'; // Replace with correct Action file later
 
 const PanelMeetingSearch = ({ isCDO }) => {
   const text = isCDO ? 'yes CDO' : 'no AO';
   // const exportDisabled = true;
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSort);
+  const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
   const sorts = PANEL_MEETINGS_SORT;
@@ -43,7 +43,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
       <div className="panel-results-controls-right">
         <div className="panel-results-controls">
           <SelectForm
-            id="panel-search-num-results"
+            className="panel-results-select"
+            id="panel-search-results-sort"
             options={sorts.options}
             label="Sort by:"
             defaultSort={ordering}
@@ -51,6 +52,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
             // disabled={isLoading}
           />
           <SelectForm
+            className="panel-results-select"
             id="panel-search-num-results"
             options={pageSizes.options}
             label="Results:"

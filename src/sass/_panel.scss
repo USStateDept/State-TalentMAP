@@ -1,8 +1,7 @@
 .panel-results-controls {
-    align-items: center;
+    align-items: baseline;
     display: flex;
     justify-content: flex-end;
-    padding: 0 0px;
 
     div:first-child {
         margin-right: 10px;
@@ -11,6 +10,11 @@
     div {
         align-items: baseline;
         display: flex;
+
+        label {
+            min-width: 6rem;
+        }
+
     }
 }
 
@@ -19,20 +23,9 @@
     display: flex;
     justify-content: right;
     padding-right: 15px;
-
-    .results-viewby-container {
-        min-width: 120px;
-    }
 }
 
-// .panel-results-controls {
-//     align-items: baseline;
-//     display: flex;
-//     justify-content: right;
-//     padding-right: 35px;
-//     margin-right: 50px;
-
-//     .results-viewby-container {
-//       min-width: 120px;
-//     }
-// }
+.panel-results-select {
+    height: 38px;
+    font-size: small;
+}
