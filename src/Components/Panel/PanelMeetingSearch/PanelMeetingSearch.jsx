@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
@@ -12,15 +13,45 @@ import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/List
 // eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
   const childRef = useRef();
+  // const dispatch = useDispatch();
+
+  // const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
+  // const panelMeetingsFiltersIsLoading = useSelector(state =>
+  //   state.panelMeetingsFiltersFetchDataLoading);
+
+  // const panelMeetings$ = useSelector(state => state.panelMeetings);
+  // const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  // const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
+  // const userSelections = useSelector(state => state.panelMeetingsSelections);
+
+  // const panelMeetings = get(panelMeetings$, 'results', []);
 
   const usePanelMeetingFilters = () => checkFlag('flags.panel_filters');
   const displayPanelMeetingFilters = usePanelMeetingFilters();
+
+  // const isLoading = panelMeetingsFiltersIsLoading;
 
   // TO-DO: complete integration based off of WS data
   const [selectedMeetingType, setSelectedMeetingType] = useState([]);
   const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
+
+  // const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
+  // const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
+
+  // const prevPage = usePrevious(page);
+
+  // function submitSearch(text) {
+  //   setTextSearch(text);
+  // }
+
+  // const throttledTextInput = () =>
+  //   throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
+
+  // const setTextInputThrottled = (q) => {
+  //   throttledTextInput(q);
+  // };
 
   const panelMeetingTypesOptions = [
     { description: 'ID', code: 'ID' },
@@ -80,6 +111,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     setSelectedMeetingType([]);
     setSelectedMeetingDate(null);
     setSelectedMeetingStatus([]);
+    // setTextSearch('');
     childRef.current.clearText();
     setClearFilters(false);
   };
