@@ -56,7 +56,7 @@ describe('RemarksGlossary Component', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays a minus sign when a remark is selected', () => {
+  it('displays the correct icon based on user selection', () => {
     const wrapper = shallow(
       <RemarksGlossary
         remarkCategories={remarkCategories}
@@ -68,6 +68,8 @@ describe('RemarksGlossary Component', () => {
         icon: child.children().first().children().first()
           .props().name }));
     const renderedUserRemark = _find(liText, { icon: 'minus-circle' });
+    const unselectedRemark = _find(liText, { icon: 'plus-circle' });
     expect(Number(renderedUserRemark.seq_num)).toBe(userSelections[0].seq_num);
+    expect(Number(unselectedRemark.seq_num)).toBe(remarks[1].seq_num);
   });
 });

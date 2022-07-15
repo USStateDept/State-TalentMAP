@@ -17,6 +17,20 @@ describe('RemarksPill', () => {
     userSelection: () => {},
   };
 
+  const props2 = {
+    remark: {
+      active_ind: 'Y',
+      mutually_exclusive_ind: 'N',
+      order_num: 7,
+      rc_code: 'B',
+      seq_num: 2,
+      short_desc_text: 'Promo Bd Recognized',
+      text: 'Potential recognized by last promo board',
+    },
+    isEditable: false,
+    userSelection: () => {},
+  };
+
   it('is defined', () => {
     const wrapper = shallow(<RemarksPill />);
     expect(wrapper).toBeDefined();
@@ -32,15 +46,15 @@ describe('RemarksPill', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays a remark', () => {
+  it('displays an editable remark', () => {
     const wrapper = shallow(<RemarksPill {...props} />);
     const expected = `${props.remark.text}<FontAwesome />`;
     expect(wrapper.find('div').text()).toBe(expected);
   });
 
-  it('shows an x when a remark isEditable', () => {
-    const wrapper = shallow(<RemarksPill {...props} />);
-    const expected = `${props.remark.text}<FontAwesome />`;
+  it('displays an un-editable remark', () => {
+    const wrapper = shallow(<RemarksPill {...props2} />);
+    const expected = `${props.remark.text}`;
     expect(wrapper.find('div').text()).toBe(expected);
   });
 });
