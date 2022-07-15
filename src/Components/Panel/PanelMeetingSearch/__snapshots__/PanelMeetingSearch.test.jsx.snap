@@ -2,26 +2,356 @@
 
 exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
 <div>
-  Panel Meeting Search Page
-  <div>
-    Headers/Filters TBD
-  </div>
-  <div>
-    isCDO: 
-    yes CDO
+  <div
+    className="panel-meeting-search-page"
+  >
+    <div
+      className="panel-meeting-search-upper-section"
+    >
+      <div
+        className="results-search-bar results-single-search"
+      >
+        <div
+          className="usa-grid-full results-search-bar-container"
+        >
+          <ProfileSectionTitle
+            icon="comment"
+            title="Panel Meeting Search"
+          />
+          <ForwardRef
+            defaultValue=""
+            label="Search for a Panel Meeting"
+            onChange={[Function]}
+            placeHolder="Search using Panel Meeting Type, Date, or Status here"
+            submitSearch={[Function]}
+            textSearch=""
+          />
+          <div
+            className="filterby-container"
+          >
+            <div
+              className="filterby-label"
+            >
+              Filter by:
+            </div>
+            <div
+              className="filterby-clear"
+            />
+          </div>
+          <div
+            className="usa-width-one-whole panel-meeting-search-filters"
+          >
+            <div
+              className="filter-div"
+            >
+              <div
+                className="label"
+              >
+                Type:
+              </div>
+              <r
+                dropdownHeight={255}
+                filterDebounce={150}
+                id="picky"
+                includeFilter={true}
+                includeSelectAll={true}
+                keepOpen={true}
+                labelKey="description"
+                multiple={true}
+                numberDisplayed={2}
+                onChange={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "code": "ID",
+                      "description": "ID",
+                    },
+                    Object {
+                      "code": "ML",
+                      "description": "ML",
+                    },
+                  ]
+                }
+                placeholder="Select Meeting Type"
+                renderList={[Function]}
+                selectAllMode="default"
+                selectAllText="Select all"
+                tabIndex={0}
+                value={Array []}
+                valueKey="code"
+              />
+            </div>
+            <div
+              className="filter-div"
+            >
+              <div
+                className="label label-date"
+              >
+                Meeting Date:
+              </div>
+              <DateRangePicker
+                calendarIcon={null}
+                clearIcon={
+                  <svg
+                    className="react-daterange-picker__clear-button__icon react-daterange-picker__button__icon"
+                    height={19}
+                    stroke="black"
+                    strokeWidth={2}
+                    viewBox="0 0 19 19"
+                    width={19}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="4"
+                      x2="15"
+                      y1="4"
+                      y2="15"
+                    />
+                    <line
+                      x1="15"
+                      x2="4"
+                      y1="4"
+                      y2="15"
+                    />
+                  </svg>
+                }
+                closeCalendar={true}
+                isOpen={null}
+                maxDetail="month"
+                name="daterange"
+                onChange={[Function]}
+                openCalendarOnFocus={true}
+                rangeDivider="–"
+                showLeadingZeros={true}
+                value={null}
+              />
+            </div>
+            <div
+              className="filter-div"
+            >
+              <div
+                className="label"
+              >
+                Status:
+              </div>
+              <r
+                dropdownHeight={255}
+                filterDebounce={150}
+                id="picky"
+                includeFilter={true}
+                includeSelectAll={true}
+                keepOpen={true}
+                labelKey="description"
+                multiple={true}
+                numberDisplayed={2}
+                onChange={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "code": "initiated",
+                      "description": "Initiated",
+                    },
+                    Object {
+                      "code": "addendum",
+                      "description": "Addendum",
+                    },
+                    Object {
+                      "code": "post_panel",
+                      "description": "Post Panel",
+                    },
+                  ]
+                }
+                placeholder="Select Meeting Status"
+                renderList={[Function]}
+                selectAllMode="default"
+                selectAllText="Select all"
+                tabIndex={0}
+                value={Array []}
+                valueKey="code"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
 
 exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
 <div>
-  Panel Meeting Search Page
-  <div>
-    Headers/Filters TBD
-  </div>
-  <div>
-    isCDO: 
-    no AO
+  <div
+    className="panel-meeting-search-page"
+  >
+    <div
+      className="panel-meeting-search-upper-section"
+    >
+      <div
+        className="results-search-bar results-single-search"
+      >
+        <div
+          className="usa-grid-full results-search-bar-container"
+        >
+          <ProfileSectionTitle
+            icon="comment"
+            title="Panel Meeting Search"
+          />
+          <ForwardRef
+            defaultValue=""
+            label="Search for a Panel Meeting"
+            onChange={[Function]}
+            placeHolder="Search using Panel Meeting Type, Date, or Status here"
+            submitSearch={[Function]}
+            textSearch=""
+          />
+          <div
+            className="filterby-container"
+          >
+            <div
+              className="filterby-label"
+            >
+              Filter by:
+            </div>
+            <div
+              className="filterby-clear"
+            />
+          </div>
+          <div
+            className="usa-width-one-whole panel-meeting-search-filters"
+          >
+            <div
+              className="filter-div"
+            >
+              <div
+                className="label"
+              >
+                Type:
+              </div>
+              <r
+                dropdownHeight={255}
+                filterDebounce={150}
+                id="picky"
+                includeFilter={true}
+                includeSelectAll={true}
+                keepOpen={true}
+                labelKey="description"
+                multiple={true}
+                numberDisplayed={2}
+                onChange={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "code": "ID",
+                      "description": "ID",
+                    },
+                    Object {
+                      "code": "ML",
+                      "description": "ML",
+                    },
+                  ]
+                }
+                placeholder="Select Meeting Type"
+                renderList={[Function]}
+                selectAllMode="default"
+                selectAllText="Select all"
+                tabIndex={0}
+                value={Array []}
+                valueKey="code"
+              />
+            </div>
+            <div
+              className="filter-div"
+            >
+              <div
+                className="label label-date"
+              >
+                Meeting Date:
+              </div>
+              <DateRangePicker
+                calendarIcon={null}
+                clearIcon={
+                  <svg
+                    className="react-daterange-picker__clear-button__icon react-daterange-picker__button__icon"
+                    height={19}
+                    stroke="black"
+                    strokeWidth={2}
+                    viewBox="0 0 19 19"
+                    width={19}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <line
+                      x1="4"
+                      x2="15"
+                      y1="4"
+                      y2="15"
+                    />
+                    <line
+                      x1="15"
+                      x2="4"
+                      y1="4"
+                      y2="15"
+                    />
+                  </svg>
+                }
+                closeCalendar={true}
+                isOpen={null}
+                maxDetail="month"
+                name="daterange"
+                onChange={[Function]}
+                openCalendarOnFocus={true}
+                rangeDivider="–"
+                showLeadingZeros={true}
+                value={null}
+              />
+            </div>
+            <div
+              className="filter-div"
+            >
+              <div
+                className="label"
+              >
+                Status:
+              </div>
+              <r
+                dropdownHeight={255}
+                filterDebounce={150}
+                id="picky"
+                includeFilter={true}
+                includeSelectAll={true}
+                keepOpen={true}
+                labelKey="description"
+                multiple={true}
+                numberDisplayed={2}
+                onChange={[Function]}
+                options={
+                  Array [
+                    Object {
+                      "code": "initiated",
+                      "description": "Initiated",
+                    },
+                    Object {
+                      "code": "addendum",
+                      "description": "Addendum",
+                    },
+                    Object {
+                      "code": "post_panel",
+                      "description": "Post Panel",
+                    },
+                  ]
+                }
+                placeholder="Select Meeting Status"
+                renderList={[Function]}
+                selectAllMode="default"
+                selectAllText="Select all"
+                tabIndex={0}
+                value={Array []}
+                valueKey="code"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
