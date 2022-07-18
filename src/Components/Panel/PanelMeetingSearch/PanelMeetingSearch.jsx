@@ -90,7 +90,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
               <PositionManagerSearch
                 ref={childRef}
                 label="Search for a Panel Meeting"
-                placeHolder="Search using Panel Meeting Type, Date, or Status here"
+                placeHolder="Search using Panel ID"
               />
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
