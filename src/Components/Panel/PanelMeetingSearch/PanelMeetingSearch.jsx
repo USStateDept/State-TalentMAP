@@ -105,6 +105,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     selectedMeetingType,
     selectedMeetingDate,
     selectedMeetingStatus,
+    // textSearch,
   ]);
 
   const resetFilters = () => {
