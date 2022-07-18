@@ -100,10 +100,12 @@ const AvailableBidderTable = props => {
     return 'sort';
   };
 
-  const handleSort = (header) => (
+  const handleSort = (header) => {
+    let header$ = header;
+    header$ = header$.replace('Updated', 'Update');
     // Dynamically set the sort asc or desc('-')
-    header === sort ? setSort(`-${header}`) : setSort(header)
-  );
+    return header$ === sort ? setSort(`-${header$}`) : setSort(header$);
+  };
 
   let title = '';
   if (isInternalCDA) {
