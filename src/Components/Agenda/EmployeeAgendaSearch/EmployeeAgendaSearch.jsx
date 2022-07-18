@@ -50,9 +50,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   const agendaEmployees = get(agendaEmployees$, 'results', []);
 
-  const useEmployeeAgendaFilters = () => checkFlag('flags.agenda_filters');
-  const displayEmployeeAgendaFilters = useEmployeeAgendaFilters();
-
   const fsbidHandshakeStatusOptions = [{ description: 'Handshake', code: 'Y' }, { description: 'No Handshake', code: 'N' }];
 
   const isLoading = agendaEmployeesFiltersIsLoading;
@@ -293,7 +290,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                   placeHolder="Search using Employee ID or Name here"
                 />
                 {
-                  displayEmployeeAgendaFilters &&
                   <>
                     <div className="filterby-container">
                       <div className="filterby-label">Filter by:</div>
@@ -411,7 +407,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
               <div className="empl-search-controls-right">
                 <ResultsViewBy initial={view} onClick={e => setCardView(e === 'card')} />
                 {
-                  displayEmployeeAgendaFilters &&
                   <div className="empl-search-results-controls">
                     <SelectForm
                       id="empl-search-num-results"
@@ -477,7 +472,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                 </div>
                 <div className="usa-grid-full react-paginate empl-search-pagination-controls">
                   {
-                    displayEmployeeAgendaFilters &&
                     <PaginationWrapper
                       pageSize={limit}
                       onPageChange={p => setPage(p.page)}

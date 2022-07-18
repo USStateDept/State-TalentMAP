@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
-import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, isEmpty } from 'lodash';
@@ -25,9 +24,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
   // const userSelections = useSelector(state => state.panelMeetingsSelections);
 
   // const panelMeetings = get(panelMeetings$, 'results', []);
-
-  const usePanelMeetingFilters = () => checkFlag('flags.panel_filters');
-  const displayPanelMeetingFilters = usePanelMeetingFilters();
 
   // const isLoading = panelMeetingsFiltersIsLoading;
 
@@ -133,59 +129,58 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 placeHolder="Search using Panel Meeting Type, Date, or Status here"
               />
               {
-                displayPanelMeetingFilters &&
-          <>
-            <div className="filterby-container">
-              <div className="filterby-label">Filter by:</div>
-              <div className="filterby-clear">
-                {clearFilters &&
+                <>
+                  <div className="filterby-container">
+                    <div className="filterby-label">Filter by:</div>
+                    <div className="filterby-clear">
+                      {clearFilters &&
                   <button className="unstyled-button" onClick={resetFilters}>
                     <FA name="times" />
                     Clear Filters
                   </button>
-                }
-              </div>
-            </div>
-            <div className="usa-width-one-whole panel-meeting-search-filters">
-              <div className="filter-div">
-                <div className="label">Type:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Meeting Type"
-                  value={selectedMeetingType}
-                  options={panelMeetingTypesOptions}
-                  onChange={setSelectedMeetingType}
-                  valueKey="code"
-                  labelKey="description"
-                  // disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label label-date">Meeting Date:</div>
-                <DateRangePicker
-                  onChange={setSelectedMeetingDate}
-                  value={selectedMeetingDate}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  showLeadingZeros
-                  // disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Status:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Meeting Status"
-                  value={selectedMeetingStatus}
-                  options={panelMeetingStatusOptions}
-                  onChange={setSelectedMeetingStatus}
-                  valueKey="code"
-                  labelKey="description"
-                  // disabled={isLoading}
-                />
-              </div>
-            </div>
-          </>
+                      }
+                    </div>
+                  </div>
+                  <div className="usa-width-one-whole panel-meeting-search-filters">
+                    <div className="filter-div">
+                      <div className="label">Type:</div>
+                      <Picky
+                        {...pickyProps}
+                        placeholder="Select Meeting Type"
+                        value={selectedMeetingType}
+                        options={panelMeetingTypesOptions}
+                        onChange={setSelectedMeetingType}
+                        valueKey="code"
+                        labelKey="description"
+                        // disabled={isLoading}
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label label-date">Meeting Date:</div>
+                      <DateRangePicker
+                        onChange={setSelectedMeetingDate}
+                        value={selectedMeetingDate}
+                        maxDetail="month"
+                        calendarIcon={null}
+                        showLeadingZeros
+                        // disabled={isLoading}
+                      />
+                    </div>
+                    <div className="filter-div">
+                      <div className="label">Status:</div>
+                      <Picky
+                        {...pickyProps}
+                        placeholder="Select Meeting Status"
+                        value={selectedMeetingStatus}
+                        options={panelMeetingStatusOptions}
+                        onChange={setSelectedMeetingStatus}
+                        valueKey="code"
+                        labelKey="description"
+                        // disabled={isLoading}
+                      />
+                    </div>
+                  </div>
+                </>
               }
             </div>
           </div>
