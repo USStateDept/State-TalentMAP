@@ -1,6 +1,5 @@
 import { batch } from 'react-redux';
-import { get, identity, isArray, isString, keys, orderBy, pickBy } from 'lodash';
-import { stringify } from 'query-string';
+import { get, keys, orderBy } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
 import Q from 'q';
