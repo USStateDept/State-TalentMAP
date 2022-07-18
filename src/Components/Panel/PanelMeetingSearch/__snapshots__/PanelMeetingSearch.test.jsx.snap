@@ -22,7 +22,7 @@ exports[`EmployeeAgendaSearchComponent matches snapshot when CDO 1`] = `
             defaultValue=""
             label="Search for a Panel Meeting"
             onChange={[Function]}
-            placeHolder="Search using Panel Meeting Type, Date, or Status here"
+            placeHolder="Search using Panel ID"
             submitSearch={[Function]}
             textSearch=""
           />
@@ -200,7 +200,7 @@ exports[`EmployeeAgendaSearchComponent matches snapshot when not CDO 1`] = `
             defaultValue=""
             label="Search for a Panel Meeting"
             onChange={[Function]}
-            placeHolder="Search using Panel Meeting Type, Date, or Status here"
+            placeHolder="Search using Panel ID"
             submitSearch={[Function]}
             textSearch=""
           />
