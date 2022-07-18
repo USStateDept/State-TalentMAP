@@ -293,10 +293,10 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                            <button className="unstyled-button" onClick={resetFilters}>
-                              <FA name="times" />
-                                  Clear Filters
-                            </button>
+                      <button className="unstyled-button" onClick={resetFilters}>
+                        <FA name="times" />
+                        Clear Filters
+                      </button>
                     }
                   </div>
                 </div>
@@ -311,7 +311,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                       onChange={setSelectedCurrentPosts}
                       valueKey="code"
                       labelKey="name"
-
                       // set to false because there are close to 1000, creates very long URL
                       includeSelectAll={false}
                     />
@@ -323,7 +322,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                       onChange={setSelectedOngoingPosts}
                       valueKey="code"
                       labelKey="name"
-
                       // set to false because there are close to 1000, creates very long URL
                       includeSelectAll={false}
                     />
@@ -402,26 +400,24 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
               />
               <div className="empl-search-controls-right">
                 <ResultsViewBy initial={view} onClick={e => setCardView(e === 'card')} />
-                {
-                  <div className="empl-search-results-controls">
-                    <SelectForm
-                      id="empl-search-num-results"
-                      options={sorts.options}
-                      label="Sort by:"
-                      defaultSort={ordering}
-                      onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={isLoading}
-                    />
-                    <SelectForm
-                      id="empl-search-num-results"
-                      options={pageSizes.options}
-                      label="Results:"
-                      defaultSort={limit}
-                      onSelectOption={value => setLimit(value.target.value)}
-                      disabled={isLoading}
-                    />
-                  </div>
-                }
+                <div className="empl-search-results-controls">
+                  <SelectForm
+                    id="empl-search-num-results"
+                    options={sorts.options}
+                    label="Sort by:"
+                    defaultSort={ordering}
+                    onSelectOption={value => setOrdering(value.target.value)}
+                    disabled={isLoading}
+                  />
+                  <SelectForm
+                    id="empl-search-num-results"
+                    options={pageSizes.options}
+                    label="Results:"
+                    defaultSort={limit}
+                    onSelectOption={value => setLimit(value.target.value)}
+                    disabled={isLoading}
+                  />
+                </div>
                 <div className="export-button-container">
                   <ExportButton
                     onClick={exportAgendaEmployees}
@@ -467,16 +463,14 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                   }
                 </div>
                 <div className="usa-grid-full react-paginate empl-search-pagination-controls">
-                  {
-                    <PaginationWrapper
-                      pageSize={limit}
-                      onPageChange={p => setPage(p.page)}
-                      forcePage={page}
-                      totalResults={count}
-                      marginPagesDisplayed={4}
-                      pageRangeDisplayed={3}
-                    />
-                  }
+                  <PaginationWrapper
+                    pageSize={limit}
+                    onPageChange={p => setPage(p.page)}
+                    forcePage={page}
+                    totalResults={count}
+                    marginPagesDisplayed={4}
+                    pageRangeDisplayed={3}
+                  />
                 </div>
               </>
           }
