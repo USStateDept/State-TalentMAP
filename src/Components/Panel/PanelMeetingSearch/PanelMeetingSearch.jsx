@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, isEmpty } from 'lodash';
@@ -12,42 +11,12 @@ import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/List
 // eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
   const childRef = useRef();
-  // const dispatch = useDispatch();
 
-  // const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
-  // const panelMeetingsFiltersIsLoading = useSelector(state =>
-  //   state.panelMeetingsFiltersFetchDataLoading);
-
-  // const panelMeetings$ = useSelector(state => state.panelMeetings);
-  // const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
-  // const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
-  // const userSelections = useSelector(state => state.panelMeetingsSelections);
-
-  // const panelMeetings = get(panelMeetings$, 'results', []);
-
-  // const isLoading = panelMeetingsFiltersIsLoading;
-
-  // TO-DO: complete integration based off of WS data
+  // TO-DO: complete integration based off of BE/WS data
   const [selectedMeetingType, setSelectedMeetingType] = useState([]);
   const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
-
-  // const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
-  // const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
-
-  // const prevPage = usePrevious(page);
-
-  // function submitSearch(text) {
-  //   setTextSearch(text);
-  // }
-
-  // const throttledTextInput = () =>
-  //   throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  // const setTextInputThrottled = (q) => {
-  //   throttledTextInput(q);
-  // };
 
   const panelMeetingTypesOptions = [
     { description: 'ID', code: 'ID' },
@@ -101,14 +70,12 @@ const PanelMeetingSearch = ({ isCDO }) => {
     selectedMeetingType,
     selectedMeetingDate,
     selectedMeetingStatus,
-    // textSearch,
   ]);
 
   const resetFilters = () => {
     setSelectedMeetingType([]);
     setSelectedMeetingDate(null);
     setSelectedMeetingStatus([]);
-    // setTextSearch('');
     childRef.current.clearText();
     setClearFilters(false);
   };
@@ -121,10 +88,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
             <div className="usa-grid-full results-search-bar-container">
               <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
               <PositionManagerSearch
-                // submitSearch={submitSearch}
-                // onChange={setTextInputThrottled}
                 ref={childRef}
-                // textSearch={textSearch}
                 label="Search for a Panel Meeting"
                 placeHolder="Search using Panel Meeting Type, Date, or Status here"
               />
@@ -150,7 +114,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     onChange={setSelectedMeetingType}
                     valueKey="code"
                     labelKey="description"
-                    // disabled={isLoading}
                   />
                 </div>
                 <div className="filter-div">
@@ -161,7 +124,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     maxDetail="month"
                     calendarIcon={null}
                     showLeadingZeros
-                    // disabled={isLoading}
                   />
                 </div>
                 <div className="filter-div">
@@ -174,7 +136,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     onChange={setSelectedMeetingStatus}
                     valueKey="code"
                     labelKey="description"
-                    // disabled={isLoading}
                   />
                 </div>
               </div>
