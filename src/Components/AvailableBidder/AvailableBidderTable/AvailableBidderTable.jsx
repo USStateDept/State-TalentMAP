@@ -101,9 +101,9 @@ const AvailableBidderTable = props => {
   };
 
   const handleSort = (header) => {
-    // Dynamically set the sort asc or desc('-')
     let header$ = header;
     header$ = header$.replace('Updated', 'Update');
+    // Dynamically set the sort asc or desc('-')
     return header$ === sort ? setSort(`-${header$}`) : setSort(header$);
   };
 
