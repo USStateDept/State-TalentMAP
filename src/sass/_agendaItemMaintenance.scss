@@ -278,6 +278,20 @@
         max-width: 150px;
         font-size: 13px;
       }
+
+      .loading-animation {
+        //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
+        background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 70%, white 70% 100%) right;
+        //background: linear-gradient(135deg, white 0%, $primary-alt-light 50%, white 100%) right;
+        background-size: 400%;
+        animation: loadingAnimation 3s infinite linear;
+      }
+
+      @keyframes loadingAnimation {
+        0% { background-position: right; }
+        100% { background-position: left; }
+      }
+
       .input-default {
         background-color: $color-white;
         border: 1px solid $bg-gray-dark-2;

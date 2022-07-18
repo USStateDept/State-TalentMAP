@@ -3,12 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
-import { useDataLoader } from 'hooks';
+import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
-import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { resultsFetchData } from 'actions/results';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
@@ -35,15 +34,6 @@ const AgendaItemMaintenancePane = (props) => {
 
   const pos_results = useSelector(state => state.results);
   const pos_results_loading = useSelector(state => state.resultsIsLoading);
-  const pos_results_errored = useSelector(state => state.resultsHasErrored);
-
-  useEffect(() => {
-    setParentState(includes([asgSepBidLoading,
-      statusLoading, panelCatLoading, panelDatesLoading], true));
-  }, [asgSepBidLoading,
-    statusLoading,
-    panelCatLoading,
-    panelDatesLoading]);
 
   const asgSepBids = get(asgSepBidData, 'data') || [];
   const statuses = get(statusData, 'data.results') || [];
@@ -55,11 +45,31 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(filter(asgSepBids, ['status', 'EF']));
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
+
   const [selectedPositionNumber, setPositionNumber] = useState();
+  const [posNumError, setPosNumError] = useState(false);
+
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
   const [selectedPanelMLDate, setPanelMLDate] = useState();
   const [selectedPanelIDDate, setPanelIDDate] = useState();
-  const [tempError, setTempError] = useState(false);
+
+  useEffect(() => {
+    setParentState(includes([asgSepBidLoading,
+      statusLoading, panelCatLoading, panelDatesLoading], true));
+  }, [asgSepBidLoading,
+    statusLoading,
+    panelCatLoading,
+    panelDatesLoading]);
+
+  useDidMountEffect(() => {
+    const pos = get(pos_results, 'results[0]');
+
+    if (pos === undefined) {
+      setPosNumError(true);
+    } else {
+      setPositionNumber('');
+    }
+  }, [pos_results]);
 
   const saveAI = () => {
     // eslint-disable-next-line
@@ -68,19 +78,9 @@ const AgendaItemMaintenancePane = (props) => {
 
   // special handling for position number
   const addPositionNum = () => {
-    setTempError(false);
+    setPosNumError(false);
     if (selectedPositionNumber) {
-      const aiseqnum = 12345;
-      // eslint-disable-next-line no-console
-      console.log('current: selectedPositionNumber', selectedPositionNumber);
-      if (selectedPositionNumber === '1234') {
-        setTempError(true);
-      } else {
-        dispatch(aiCreate(selectedPositionNumber, aiseqnum));
-        dispatch(resultsFetchData(`limit=50&page=1&position__position_number__in=${selectedPositionNumber}`));
-        // send off request
-        setPositionNumber('');
-      }
+      dispatch(resultsFetchData(`limit=50&page=1&position__position_number__in=${selectedPositionNumber}`));
     }
   };
 
@@ -151,7 +151,7 @@ const AgendaItemMaintenancePane = (props) => {
               <input
                 id="add-pos-num-input"
                 name="add"
-                className={tempError ? 'input-error' : 'input-default'}
+                className={`${posNumError ? 'input-error' : 'input-default'} ${pos_results_loading ? 'loading-animation' : ''}`}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
