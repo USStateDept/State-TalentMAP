@@ -53,22 +53,9 @@ export function panelMeetingsFiltersFetchDataSuccess(results) {
   };
 }
 
-const convertQueryToString = query => {
-  let q = pickBy(query, identity);
-  Object.keys(q).forEach(queryk => {
-    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
-    if (isString(q[queryk]) && !q[queryk]) {
-      q[queryk] = undefined;
-    }
-  });
-  q = stringify(q);
-  return q;
-};
-
 export function panelMeetingsExport(query = {}) {
-  const q = convertQueryToString(query);
   const endpoint = '/fsbid/panel_meetings/export/';
-  const ep = `${endpoint}?${q}`;
+  const ep = `${endpoint}?${query}`;
   return api()
     .get(ep)
     .then((response) => {
@@ -83,9 +70,8 @@ export function panelMeetingsFetchData(query = {}) {
       dispatch(panelMeetingsFetchDataLoading(true));
       dispatch(panelMeetingsFetchDataErrored(false));
     });
-    const q = convertQueryToString(query);
     const endpoint = '/fsbid/panel_meetings/';
-    const ep = `${endpoint}?${q}`;
+    const ep = `${endpoint}?${query}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => {
         cancelPanelMeetings = c;
