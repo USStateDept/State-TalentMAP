@@ -12,6 +12,10 @@
     div {
         align-items: baseline;
         display: flex;
+
+        label {
+            margin-right: 5px;
+        }
     }
 }
 
@@ -21,7 +25,7 @@
     background-position-x: calc(100% - 8px);
     border: 1px solid $bg-gray-dark-2;
     border-radius: 3px;
-    font-size: 0.8em;
+    font-size: 0.9em;
     height: 28px;
     overflow: hidden;
     padding: 0 1.5em 0 0.7em;
