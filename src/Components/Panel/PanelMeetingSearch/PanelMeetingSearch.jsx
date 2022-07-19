@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -54,8 +54,17 @@ const PanelMeetingSearch = ({ isCDO }) => {
     'pmd-end': isDate(get(selectedMeetingDate, '[1]')) ? startOfDay(get(selectedMeetingDate, '[1]')).toJSON() : '',
   });
 
+  const getCurrentInputs = () => ({
+    limit,
+    ordering,
+    selectedMeetingType,
+    selectedMeetingStatus,
+    selectedMeetingDate,
+  });
+
   useEffect(() => {
     dispatch(panelMeetingsFetchData(getQuery()));
+    dispatch(savePanelMeetingsSelections(getCurrentInputs()));
   }, []);
 
   useEffect(() => {
@@ -74,6 +83,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
       setClearFilters(true);
     }
     dispatch(panelMeetingsFetchData(getQuery()));
+    dispatch(savePanelMeetingsSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
