@@ -7,7 +7,6 @@ import { panelMeetingsExport } from 'actions/availableBidders'; // Replace with 
 
 const PanelMeetingSearch = ({ isCDO }) => {
   const text = isCDO ? 'yes CDO' : 'no AO';
-  // const exportDisabled = true;
   const [exportIsLoading, setExportIsLoading] = useState(false);
   const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);
@@ -40,33 +39,28 @@ const PanelMeetingSearch = ({ isCDO }) => {
         Headers/Filters TBD
         isCDO: {text}
       </div>
-      <div className="panel-results-controls-right">
-        <div className="panel-results-controls">
-          <SelectForm
-            className="panel-results-select"
-            id="panel-search-results-sort"
-            options={sorts.options}
-            label="Sort by:"
-            defaultSort={ordering}
-            onSelectOption={value => setOrdering(value.target.value)}
-            // disabled={isLoading}
+      <div className="panel-results-controls">
+        <SelectForm
+          className="panel-results-select"
+          id="panel-search-results-sort"
+          options={sorts.options}
+          label="Sort by:"
+          defaultSort={ordering}
+          onSelectOption={value => setOrdering(value.target.value)}
+        />
+        <SelectForm
+          className="panel-results-select"
+          id="panel-search-num-results"
+          options={pageSizes.options}
+          label="Results:"
+          defaultSort={limit}
+          onSelectOption={value => setLimit(value.target.value)}
+        />
+        <div className="export-button-container">
+          <ExportButton
+            onClick={exportPanelMeetings}
+            isLoading={exportIsLoading}
           />
-          <SelectForm
-            className="panel-results-select"
-            id="panel-search-num-results"
-            options={pageSizes.options}
-            label="Results:"
-            defaultSort={limit}
-            onSelectOption={value => setLimit(value.target.value)}
-            // disabled={isLoading}
-          />
-          <div className="export-button-container">
-            <ExportButton
-              onClick={exportPanelMeetings}
-              isLoading={exportIsLoading}
-              // disabled={exportDisabled}
-            />
-          </div>
         </div>
       </div>
     </div>
