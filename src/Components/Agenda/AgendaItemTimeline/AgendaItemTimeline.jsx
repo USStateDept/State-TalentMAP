@@ -35,6 +35,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
 
   const pos_results = useSelector(state => state.results);
   const pos_results_loading = useSelector(state => state.resultsIsLoading);
+  const pos_results_errored = useSelector(state => state.resultsHasErrored);
 
   const [selectedLegs, setLegs] = useState(FAKE_LEGS);
 
@@ -47,7 +48,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   }, []);
 
   useEffect(() => {
-    if (!pos_results_loading) {
+    if (!pos_results_loading && !pos_results_errored) {
       const pos = get(pos_results, 'results[0]');
       if (pos) {
         const legs = [...selectedLegs];

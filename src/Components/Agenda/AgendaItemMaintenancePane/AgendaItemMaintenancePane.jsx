@@ -34,6 +34,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   const pos_results = useSelector(state => state.results);
   const pos_results_loading = useSelector(state => state.resultsIsLoading);
+  const pos_results_errored = useSelector(state => state.resultsHasErrored);
 
   const asgSepBids = get(asgSepBidData, 'data') || [];
   const statuses = get(statusData, 'data.results') || [];
@@ -62,12 +63,14 @@ const AgendaItemMaintenancePane = (props) => {
     panelDatesLoading]);
 
   useDidMountEffect(() => {
-    const pos = get(pos_results, 'results[0]');
-
-    if (pos === undefined) {
-      setPosNumError(true);
+    if (!pos_results_errored) {
+      if (get(pos_results, 'results').length < 1) {
+        setPosNumError(true);
+      } else {
+        setPositionNumber('');
+      }
     } else {
-      setPositionNumber('');
+      setPosNumError(true);
     }
   }, [pos_results]);
 

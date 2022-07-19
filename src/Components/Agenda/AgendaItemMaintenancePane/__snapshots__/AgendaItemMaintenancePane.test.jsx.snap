@@ -24,7 +24,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
           "entries": Array [
             Object {
               "hash": "",
-              "key": "jpyl26",
+              "key": "ujgd49",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -38,7 +38,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
           "listen": [Function],
           "location": Object {
             "hash": "",
-            "key": "jpyl26",
+            "key": "ujgd49",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -53,7 +53,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
         leftExpanded={false}
         onAddRemarksClick={[Function]}
         perdet="2"
-        setParentState={[Function]}
+        setParentLoadingState={[Function]}
         unitedLoading={false}
         updateSelection={[Function]}
         userSelections={
@@ -89,7 +89,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
                         "entries": Array [
                           Object {
                             "hash": "",
-                            "key": "jpyl26",
+                            "key": "ujgd49",
                             "pathname": "/",
                             "search": "",
                             "state": undefined,
@@ -103,7 +103,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
                         "listen": [Function],
                         "location": Object {
                           "hash": "",
-                          "key": "jpyl26",
+                          "key": "ujgd49",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -116,7 +116,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
                     location={
                       Object {
                         "hash": "",
-                        "key": "jpyl26",
+                        "key": "ujgd49",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
