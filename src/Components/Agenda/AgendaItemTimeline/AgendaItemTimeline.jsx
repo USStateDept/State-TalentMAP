@@ -50,7 +50,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
     if (!pos_results_loading) {
       const pos = get(pos_results, 'results[0]');
       if (pos) {
-        const legs = selectedLegs;
+        const legs = [...selectedLegs];
         const pos$ = {
           id: get(pos, 'position.id'),
           pos_title: get(pos, 'position.title'),
