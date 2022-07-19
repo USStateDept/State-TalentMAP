@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   const FAKE_LEGS = [
     {
       id: 11158,
@@ -27,89 +29,46 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
       action: 'Extend',
       travel: null,
     },
-    {
-      id: 41387,
-      pos_title: 'OMS (DCM)',
-      pos_num: '00180000',
-      org: 'INR',
-      eta: '2020-08-05T00:00:00.000Z',
-      ted: '2024-04-05T00:00:00.000Z',
-      tod: '2 YRS (2 R & R)',
-      grade: 'MC',
-      action: 'Reappoint',
-      travel: null,
-    },
-    {
-      id: 41387,
-      pos_title: 'SPECIAL AGENT',
-      pos_num: 'S8828901',
-      org: 'S/CPR',
-      eta: '2024-05-05T00:00:00.000Z',
-      ted: '2026-03-05T00:00:00.000Z',
-      tod: 'OTHER',
-      grade: '07',
-      action: 'Curtail',
-      travel: null,
-    },
-    {
-      id: 41387,
-      pos_title: 'SPECIAL AGENT',
-      pos_num: '57159000',
-      org: 'FSI',
-      eta: '2026-04-05T00:00:00.000Z',
-      ted: '2029-11-05T00:00:00.000Z',
-      tod: '18 MOS',
-      grade: 'OM',
-      action: 'Correction',
-      travel: null,
-    },
-    {
-      id: 41387,
-      pos_title: 'SPECIAL AGENT',
-      pos_num: '57159000',
-      org: 'FSI',
-      eta: '2029-12-05T00:00:00.000Z',
-      ted: '2030-11-05T00:00:00.000Z',
-      tod: '2 YRS/HLRT/2 YRS',
-      grade: 'OM',
-      action: 'Reassign',
-      travel: null,
-    },
-    {
-      id: 41388,
-      pos_title: 'ECONOMIC OFFICER',
-      pos_num: '57159001',
-      org: 'WHA',
-      eta: '2030-12-05T00:00:00.000Z',
-      ted: '2031-11-05T00:00:00.000Z',
-      tod: '2 YRS/HLRT/2 YRS',
-      grade: 'O5',
-      action: 'Reassign',
-      travel: null,
-    },
-    {
-      id: 41387,
-      pos_title: 'RESIGNATION',
-      pos_num: 'N/A',
-      org: 'INR',
-      eta: '2031-12-05T00:00:00.000Z',
-      ted: '2034-11-05T00:00:00.000Z',
-      tod: '3 YRS/TRANSFER',
-      grade: 'MC',
-      action: 'Resign',
-      travel: null,
-    },
   ];
-
   // eslint-disable-next-line no-unused-vars
   const [localLoading, setLocalLoading] = useState(true);
+
+  const pos_results = useSelector(state => state.results);
+  const pos_results_loading = useSelector(state => state.resultsIsLoading);
+  const pos_results_errored = useSelector(state => state.resultsHasErrored);
+
+  const [selectedLegs, setLegs] = useState(FAKE_LEGS);
+
 
   useEffect(() => {
     setTimeout(() => {
       setLocalLoading(false);
-      setParentState(false);
+      setParentLoadingState(false);
     }, '9000');
   }, []);
+
+  useEffect(() => {
+    if (!pos_results_loading && !pos_results_errored) {
+      const pos = get(pos_results, 'results[0]');
+      if (pos) {
+        const legs = [...selectedLegs];
+        const pos$ = {
+          id: get(pos, 'position.id'),
+          pos_title: get(pos, 'position.title'),
+          pos_num: get(pos, 'position.position_number'),
+          org: get(pos, 'position.organization'),
+          eta: '2019-05-05T00:00:00.000Z',
+          ted: '2020-07-05T00:00:00.000Z',
+          tod: get(pos, 'position.tour_of_duty'),
+          grade: get(pos, 'position.grade'),
+          action: null,
+          travel: null,
+        };
+        legs.push(pos$);
+        setLegs(legs);
+      }
+    }
+  }, [pos_results_loading]);
 
   return (
     <div className="agenda-item-history-container ai-timeline-pane">
@@ -118,7 +77,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
           <>
             <div className="ai-history-rows-container">
               <div className="ai-history-row">
-                <AgendaItemLegs hideRemarks legs={FAKE_LEGS} showCloseButton />
+                <AgendaItemLegs hideRemarks legs={selectedLegs} showCloseButton />
               </div>
             </div>
           </>
@@ -128,12 +87,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
 
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
-  setParentState: PropTypes.func,
+  setParentLoadingState: PropTypes.func,
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
-  setParentState: EMPTY_FUNCTION,
+  setParentLoadingState: EMPTY_FUNCTION,
 };
 
 export default AgendaItemTimeline;
