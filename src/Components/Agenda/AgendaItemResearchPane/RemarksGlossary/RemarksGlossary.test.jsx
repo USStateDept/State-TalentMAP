@@ -67,9 +67,9 @@ describe('RemarksGlossary Component', () => {
       child => ({ seq_num: child.first().key(),
         icon: child.children().first().children().first()
           .props().name }));
-    const renderedUserRemark = _find(liText, { icon: 'minus-circle' });
-    const unselectedRemark = _find(liText, { icon: 'plus-circle' });
-    expect(Number(renderedUserRemark.seq_num)).toBe(userSelections[0].seq_num);
-    expect(Number(unselectedRemark.seq_num)).toBe(remarks[1].seq_num);
+    const renderedUserRemark = _find(liText, { seq_num: '2' });
+    const unselectedRemark = _find(liText, { seq_num: '3' });
+    expect(renderedUserRemark.icon).toBe('minus-circle');
+    expect(unselectedRemark.icon).toBe('plus-circle');
   });
 });
