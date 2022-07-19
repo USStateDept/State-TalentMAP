@@ -85,8 +85,9 @@ export function panelMeetingsFetchData(query = {}) {
       dispatch(panelMeetingsFetchDataLoading(true));
       dispatch(panelMeetingsFetchDataErrored(false));
     });
+    const q = convertQueryToString(query);
     const endpoint = '/fsbid/panel_meetings/';
-    const ep = `${endpoint}?${query}`;
+    const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => {
         cancelPanelMeetings = c;
