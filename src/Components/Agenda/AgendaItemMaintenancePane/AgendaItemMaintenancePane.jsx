@@ -1,20 +1,24 @@
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
 import { filter, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
-import { useDataLoader } from 'hooks';
+import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
+import { resultsFetchData } from 'actions/results';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
+  const dispatch = useDispatch();
+
   const {
     onAddRemarksClick,
     perdet,
-    setParentState,
+    setParentLoadingState,
     unitedLoading,
     userSelections,
     leftExpanded,
@@ -28,13 +32,9 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
 
-  useEffect(() => {
-    setParentState(includes([asgSepBidLoading,
-      statusLoading, panelCatLoading, panelDatesLoading], true));
-  }, [asgSepBidLoading,
-    statusLoading,
-    panelCatLoading,
-    panelDatesLoading]);
+  const pos_results = useSelector(state => state.results);
+  const pos_results_loading = useSelector(state => state.resultsIsLoading);
+  const pos_results_errored = useSelector(state => state.resultsHasErrored);
 
   const asgSepBids = get(asgSepBidData, 'data') || [];
   const statuses = get(statusData, 'data.results') || [];
@@ -46,10 +46,33 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(filter(asgSepBids, ['status', 'EF']));
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
+
   const [selectedPositionNumber, setPositionNumber] = useState();
+  const [posNumError, setPosNumError] = useState(false);
+
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
   const [selectedPanelMLDate, setPanelMLDate] = useState();
   const [selectedPanelIDDate, setPanelIDDate] = useState();
+
+  useEffect(() => {
+    setParentLoadingState(includes([asgSepBidLoading,
+      statusLoading, panelCatLoading, panelDatesLoading], true));
+  }, [asgSepBidLoading,
+    statusLoading,
+    panelCatLoading,
+    panelDatesLoading]);
+
+  useDidMountEffect(() => {
+    if (!pos_results_errored) {
+      if (!get(pos_results, 'results').length) {
+        setPosNumError(true);
+      } else {
+        setPositionNumber('');
+      }
+    } else {
+      setPosNumError(true);
+    }
+  }, [pos_results]);
 
   const saveAI = () => {
     // eslint-disable-next-line
@@ -58,8 +81,10 @@ const AgendaItemMaintenancePane = (props) => {
 
   // special handling for position number
   const addPositionNum = () => {
-    // send off request
-    setPositionNumber('');
+    setPosNumError(false);
+    if (selectedPositionNumber) {
+      dispatch(resultsFetchData(`limit=50&page=1&position__position_number__in=${selectedPositionNumber}`));
+    }
   };
 
   const setDate = (seq_num, isML) => {
@@ -129,7 +154,9 @@ const AgendaItemMaintenancePane = (props) => {
               <input
                 id="add-pos-num-input"
                 name="add"
+                className={`${posNumError ? 'input-error' : 'input-default'} ${pos_results_loading ? 'loading-animation' : ''}`}
                 onChange={value => setPositionNumber(value.target.value)}
+                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
                 value={selectedPositionNumber}
               />
@@ -245,7 +272,7 @@ AgendaItemMaintenancePane.propTypes = {
   leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
   perdet: PropTypes.string.isRequired,
-  setParentState: PropTypes.func,
+  setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
@@ -264,7 +291,7 @@ AgendaItemMaintenancePane.propTypes = {
 AgendaItemMaintenancePane.defaultProps = {
   leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
-  setParentState: EMPTY_FUNCTION,
+  setParentLoadingState: EMPTY_FUNCTION,
   unitedLoading: true,
   userSelections: [],
   addToSelection: EMPTY_FUNCTION,

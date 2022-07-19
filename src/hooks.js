@@ -16,6 +16,17 @@ export function useUnmount(fn, { hook = useEffect } = {}) {
   hook(() => fn, []);
 }
 
+export function useDidMountEffect(fn, deps) {
+  const didMount = useRef(false);
+  useEffect(() => {
+    if (didMount.current) {
+      fn();
+    } else {
+      didMount.current = true;
+    }
+  }, deps);
+}
+
 export default function useUpdate(fn, { hook = useEffect } = {}) {
   const mounting = useRef(true);
   hook(() => {
