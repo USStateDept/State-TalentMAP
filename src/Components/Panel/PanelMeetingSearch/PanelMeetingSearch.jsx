@@ -5,13 +5,14 @@ import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { panelMeetingsExport, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import SelectForm from 'Components/SelectForm';
 import { PANEL_MEETINGS_PAGE_SIZES, PANEL_MEETINGS_SORT } from 'Constants/Sort';
 import ExportButton from 'Components/ExportButton';
+import { isDate, startOfDay } from 'date-fns-v2';
 
 // eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -25,22 +26,37 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
+  const panelMeetings$ = useSelector(state => state.panelMeetings);
+  const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
+  const panelMeetingsFiltersIsLoading = useSelector(state =>
+    state.panelMeetingsFiltersFetchDataLoading);
+
+  const panelMeetings = get(panelMeetings$, 'results', []);
+
+  const isLoading = panelMeetingsFiltersIsLoading;
+  const exportDisabled = (panelMeetings || []).length <= 0;
+
   const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
   const sorts = PANEL_MEETINGS_SORT;
 
-  const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
-  const panelMeetingsFiltersIsLoading = useSelector(state =>
-    state.panelMeetingsFiltersFetchDataLoading);
-
-  const isLoading = panelMeetingsFiltersIsLoading;
-
   const getQuery = () => ({
     limit,
     ordering,
+    // User Filters
+    panelMeetingsTypes: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
+    panelMeetingsStatus: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
+
+    // need to set to beginning of the day to avoid timezone issues
+    'pmd-start': isDate(get(selectedMeetingDate, '[0]')) ? startOfDay(get(selectedMeetingDate, '[0]')).toJSON() : '',
+    'pmd-end': isDate(get(selectedMeetingDate, '[1]')) ? startOfDay(get(selectedMeetingDate, '[1]')).toJSON() : '',
   });
+
+  useEffect(() => {
+    dispatch(panelMeetingsFetchData(getQuery()));
+  }, []);
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
@@ -57,6 +73,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
+    dispatch(panelMeetingsFetchData(getQuery()));
   };
 
   useEffect(() => {
@@ -196,6 +213,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
             <ExportButton
               onClick={exportPanelMeetings}
               isLoading={exportIsLoading}
+              disabled={exportDisabled}
             />
           </div>
         </div>

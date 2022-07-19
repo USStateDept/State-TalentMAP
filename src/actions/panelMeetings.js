@@ -74,7 +74,7 @@ export function panelMeetingsExport(query = {}) {
   return api()
     .get(ep)
     .then((response) => {
-      downloadFromResponse(response, `Panel_Meetings${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+      downloadFromResponse(response, `Panel_Meetings_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });
 }
 
