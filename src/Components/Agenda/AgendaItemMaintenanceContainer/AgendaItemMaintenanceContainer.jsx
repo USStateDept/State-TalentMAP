@@ -101,13 +101,13 @@ const AgendaItemMaintenanceContainer = (props) => {
                 onAddRemarksClick={openRemarksResearchTab}
                 perdet={id}
                 unitedLoading={spinner}
-                setParentState={setAgendaItemMaintenancePaneLoading}
+                setParentLoadingState={setAgendaItemMaintenancePaneLoading}
                 updateSelection={updateSelection}
                 userSelections={userSelections}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}
-                setParentState={setAgendaItemTimelineLoading}
+                setParentLoadingState={setAgendaItemTimelineLoading}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>

@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   const FAKE_LEGS = [
     {
       id: 11158,
@@ -33,18 +33,19 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
 
   const pos_results = useSelector(state => state.results);
   const pos_results_loading = useSelector(state => state.resultsIsLoading);
+  const pos_results_errored = useSelector(state => state.resultsHasErrored);
 
   const [selectedLegs, setLegs] = useState(FAKE_LEGS);
 
   useEffect(() => {
-    setParentState(pos_results_loading);
+    setParentLoadingState(pos_results_loading);
   }, [pos_results_loading]);
 
   useEffect(() => {
-    if (!pos_results_loading) {
+    if (!pos_results_loading && !pos_results_errored) {
       const pos = get(pos_results, 'results[0]');
       if (pos) {
-        const legs = selectedLegs;
+        const legs = [...selectedLegs];
         const expression = /\(([^)]+)\)/;
         const regex = new RegExp(expression);
         const pos$ = {
@@ -89,12 +90,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
 
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
-  setParentState: PropTypes.func,
+  setParentLoadingState: PropTypes.func,
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
-  setParentState: EMPTY_FUNCTION,
+  setParentLoadingState: EMPTY_FUNCTION,
 };
 
 export default AgendaItemTimeline;
