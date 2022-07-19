@@ -45,12 +45,15 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
       const pos = get(pos_results, 'results[0]');
       if (pos) {
         const legs = selectedLegs;
+        const expression = /\(([^)]+)\)/;
+        const regex = new RegExp(expression);
         const pos$ = {
           id: get(pos, 'id'),
           // id: get(pos, 'position.id'),
           pos_title: get(pos, 'position.title'),
           pos_num: get(pos, 'position.position_number'),
-          org: get(pos, 'position.organization'),
+          org: get(pos, 'position.organization').match(regex)[1],
+          // org: get(pos, 'position.organization'),
           eta: '2019-05-05T00:00:00.000Z',
           ted: '2020-07-05T00:00:00.000Z',
           tod: get(pos, 'position.tour_of_duty'),
