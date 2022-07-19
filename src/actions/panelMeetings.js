@@ -54,15 +54,8 @@ export function panelMeetingsFiltersFetchDataSuccess(results) {
   };
 }
 
-export function panelMeetingsExport(query = {}) {
-  const endpoint = '/fsbid/panel_meetings/export/';
-  const ep = `${endpoint}?${query}`;
-  return api()
-    .get(ep)
-    .then((response) => {
-      downloadFromResponse(response, `Panel_Meetings_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
-    });
-}
+// put convertquery string from Patrick's PR here
+// put export func from Patrick's PR here
 
 export function panelMeetingsFetchData(query = {}) {
   return (dispatch) => {
