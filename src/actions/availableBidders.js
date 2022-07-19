@@ -1,5 +1,5 @@
 import { batch } from 'react-redux';
-import { get } from 'lodash';
+import { get, identity, isArray, isString, pickBy } from 'lodash';
 import { ADD_TO_INTERNAL_LIST_ERROR, ADD_TO_INTERNAL_LIST_SUCCESS,
   ADD_TO_INTERNAL_LIST_SUCCESS_TITLE, GENERIC_SUCCESS,
   INTERNAL_LIST_ERROR_TITLE, REMOVE_FROM_INTERNAL_LIST_ERROR,
@@ -9,6 +9,7 @@ import { ADD_TO_INTERNAL_LIST_ERROR, ADD_TO_INTERNAL_LIST_SUCCESS,
   UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import { downloadFromResponse, formatDate } from 'utilities';
+import { stringify } from 'query-string';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
@@ -237,5 +238,30 @@ export function availableBidderExport(isInternalCDAView, isSort = 'Name') {
     .get(`${isInternalCDAView ? '/cdo' : '/bureau'}/availablebidders/export/?ordering=${isSort}`)
     .then((response) => {
       downloadFromResponse(response, `Available_Bidders_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+    });
+}
+
+// Move following functions to new Panel Meetings Action file when it is created
+
+const convertQueryToString = query => {
+  let q = pickBy(query, identity);
+  Object.keys(q).forEach(queryk => {
+    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
+    if (isString(q[queryk]) && !q[queryk]) {
+      q[queryk] = undefined;
+    }
+  });
+  q = stringify(q);
+  return q;
+};
+
+export function panelMeetingsExport(query = {}) {
+  const q = convertQueryToString(query);
+  const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
+  const ep = `${endpoint}?${q}`;
+  return api()
+    .get(ep)
+    .then((response) => {
+      downloadFromResponse(response, `Panel_Meetings${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });
 }

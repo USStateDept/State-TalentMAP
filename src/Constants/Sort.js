@@ -220,3 +220,26 @@ export const AGENDA_EMPLOYEES_SORT = {
 };
 
 AGENDA_EMPLOYEES_SORT.defaultSort = AGENDA_EMPLOYEES_SORT.options[0].value;
+
+export const PANEL_MEETINGS_SORT = {
+  options: [
+    { value: 'meeting_date', text: 'Meeting Date Asc.' },
+    { value: '-meeting_date', text: 'Meeting Date Desc.' },
+    { value: 'meeting_status', text: 'Meeting Status A-Z' },
+    { value: '-meeting_status', text: 'Meeting Status Z-A' },
+  ],
+};
+
+PANEL_MEETINGS_SORT.defaultSort = PANEL_MEETINGS_SORT.options[0].value;
+
+export const PANEL_MEETINGS_PAGE_SIZES = {
+  options: [
+    { value: 5, text: '5' },
+    { value: 10, text: '10' },
+    { value: 25, text: '25' },
+    { value: 50, text: '50' },
+    { value: 100, text: '100' },
+  ],
+};
+
+PANEL_MEETINGS_PAGE_SIZES.defaultSize = PANEL_MEETINGS_PAGE_SIZES.options[2].value;
