@@ -21,5 +21,9 @@ exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
   }
 >
   Potential recognized by last promo board
+  <FontAwesome
+    name="times"
+    onClick={[Function]}
+  />
 </div>
 `;

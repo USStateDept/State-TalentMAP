@@ -13,6 +13,8 @@ describe('RemarksPill', () => {
       short_desc_text: 'Promo Bd Recognized',
       text: 'Potential recognized by last promo board',
     },
+    isEditable: true,
+    userSelection: () => {},
   };
 
   it('is defined', () => {
@@ -30,8 +32,15 @@ describe('RemarksPill', () => {
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
-  it('displays a remark', () => {
+  it('displays an editable remark', () => {
     const wrapper = shallow(<RemarksPill {...props} />);
-    expect(wrapper.find('div').text()).toBe(props.remark.text);
+    const expected = `${props.remark.text}<FontAwesome />`;
+    expect(wrapper.find('div').text()).toBe(expected);
+  });
+
+  it('displays an un-editable remark', () => {
+    const wrapper = shallow(<RemarksPill {...props} isEditable={false} />);
+    const expected = `${props.remark.text}`;
+    expect(wrapper.find('div').text()).toBe(expected);
   });
 });
