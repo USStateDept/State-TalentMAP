@@ -1,6 +1,6 @@
 import toJSON from 'enzyme-to-json';
 import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { MemoryRouter } from 'react-router-dom';
@@ -27,7 +27,7 @@ describe('AgendaItemMaintenancePane Component', () => {
   };
 
   it('is defined', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
           <AgendaItemMaintenancePane {...props} perdet={'2'} />
@@ -38,11 +38,9 @@ describe('AgendaItemMaintenancePane Component', () => {
   });
 
   it('matches snapshot', () => {
-    const wrapper = mount(
+    const wrapper = shallow(
       <Provider store={mockStore({})}>
-        <MemoryRouter>
-          <AgendaItemMaintenancePane {...props} perdet={'2'} />
-        </MemoryRouter>
+        <AgendaItemMaintenancePane {...props} perdet={'2'} />
       </Provider>,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();

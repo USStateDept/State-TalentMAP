@@ -30,8 +30,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
       travel: null,
     },
   ];
-  // eslint-disable-next-line no-unused-vars
-  const [localLoading, setLocalLoading] = useState(true);
 
   const pos_results = useSelector(state => state.results);
   const pos_results_loading = useSelector(state => state.resultsIsLoading);
@@ -39,24 +37,24 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
 
   const [selectedLegs, setLegs] = useState(FAKE_LEGS);
 
-
   useEffect(() => {
-    setTimeout(() => {
-      setLocalLoading(false);
-      setParentLoadingState(false);
-    }, '9000');
-  }, []);
+    setParentLoadingState(pos_results_loading);
+  }, [pos_results_loading]);
 
   useEffect(() => {
     if (!pos_results_loading && !pos_results_errored) {
       const pos = get(pos_results, 'results[0]');
       if (pos) {
         const legs = [...selectedLegs];
+        const expression = /\(([^)]+)\)/;
+        const regex = new RegExp(expression);
         const pos$ = {
-          id: get(pos, 'position.id'),
+          id: get(pos, 'id'),
+          // id: get(pos, 'position.id'),
           pos_title: get(pos, 'position.title'),
           pos_num: get(pos, 'position.position_number'),
-          org: get(pos, 'position.organization'),
+          org: get(pos, 'position.organization').match(regex)[1],
+          // org: get(pos, 'position.organization'),
           eta: '2019-05-05T00:00:00.000Z',
           ted: '2020-07-05T00:00:00.000Z',
           tod: get(pos, 'position.tour_of_duty'),
@@ -70,6 +68,11 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
     }
   }, [pos_results_loading]);
 
+  const onClose = leg => {
+    const legs$ = selectedLegs.filter(l => l.id !== leg.id);
+    setLegs(legs$);
+  };
+
   return (
     <div className="agenda-item-history-container ai-timeline-pane">
       {
@@ -77,7 +80,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
           <>
             <div className="ai-history-rows-container">
               <div className="ai-history-row">
-                <AgendaItemLegs hideRemarks legs={selectedLegs} showCloseButton />
+                <AgendaItemLegs onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
               </div>
             </div>
           </>
