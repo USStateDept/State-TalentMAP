@@ -34,7 +34,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
 
-  const panelMeetings = get(panelMeetings$, 'results', []);
+  const panelMeetings = get(panelMeetings$, 'results') || [];
 
   const isLoading = panelMeetingsFiltersIsLoading;
   const exportDisabled = panelMeetings.length <= 0;

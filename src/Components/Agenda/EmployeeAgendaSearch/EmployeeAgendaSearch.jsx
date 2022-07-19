@@ -48,7 +48,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
   const agendaEmployeesHasErrored = useSelector(state => state.agendaEmployeesFetchDataErrored);
   const userSelections = useSelector(state => state.agendaEmployeesSelections);
 
-  const agendaEmployees = get(agendaEmployees$, 'results', []);
+  const agendaEmployees = get(agendaEmployees$, 'results') || [];
 
   const fsbidHandshakeStatusOptions = [{ description: 'Handshake', code: 'Y' }, { description: 'No Handshake', code: 'N' }];
 
@@ -270,7 +270,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   const overlay = getOverlay();
 
-  const exportDisabled = (agendaEmployees || []).length <= 0;
+  const exportDisabled = agendaEmployees.length <= 0;
 
   return (
     isLoading ?
