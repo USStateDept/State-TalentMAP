@@ -1,21 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
-<Provider
-  store={
+<ContextProvider
+  value={
     Object {
-      "clearActions": [Function],
-      "dispatch": [Function],
-      "getActions": [Function],
-      "getState": [Function],
-      "replaceReducer": [Function],
-      "subscribe": [Function],
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
     }
   }
 >
-  <MemoryRouter>
-    <Router
-      history={
+  <AgendaItemMaintenancePane
+    addToSelection={[Function]}
+    leftExpanded={false}
+    onAddRemarksClick={[Function]}
+    perdet="2"
+    setParentLoadingState={[Function]}
+    unitedLoading={false}
+    updateSelection={[Function]}
+    userSelections={
+      Array [
         Object {
           "action": "POP",
           "block": [Function],
