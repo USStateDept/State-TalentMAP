@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+/* eslint-disable no-unused-vars */
 import { batch } from 'react-redux';
 import { get, keys, orderBy } from 'lodash';
 import { CancelToken } from 'axios';
@@ -112,53 +114,71 @@ export function savePanelMeetingsSelections(queryObject) {
 }
 
 export function panelMeetingsFiltersFetchData() {
+  const filters = {
+    panelMeetingsTypesOptions: [
+      { description: 'ID', code: 'ID' },
+      { description: 'ML', code: 'ML' },
+    ],
+    panelMeetingsStatusOptions: [
+      { description: 'Initiated', code: 'initiated' },
+      { description: 'Addendum', code: 'addendum' },
+      { description: 'Post Panel', code: 'post_panel' },
+    ],
+  };
   return (dispatch) => {
     batch(() => {
-      dispatch(panelMeetingsFiltersFetchDataLoading(true));
-      dispatch(panelMeetingsFiltersFetchDataErrored(false));
+      dispatch(panelMeetingsFiltersFetchDataSuccess(filters));
+      dispatch(panelMeetingsFiltersFetchDataLoading(false));
     });
-    const ep = [
-      '/fsbid/panel_meetings/reference/type/',
-      '/fsbid/panel_meetings/reference/status/',
-    ];
-    const queryProms = ep.map(url =>
-      api().get(url)
-        .then((r) => r)
-        .catch((e) => e),
-    );
-    Q.allSettled(queryProms)
-      .then((results) => {
-        const successCount = results.filter(r => get(r, 'state') === 'fulfilled' && get(r, 'value')).length || 0;
-        const queryPromsLen = queryProms.length || 0;
-        const countDiff = queryPromsLen - successCount;
-        if (countDiff > 0) {
-          batch(() => {
-            dispatch(panelMeetingsFiltersFetchDataErrored(true));
-            dispatch(panelMeetingsFiltersFetchDataLoading(false));
-          });
-        } else {
-          const type = get(results, '[0].value.data', []);
-          const status = get(results, '[1].value.data', []);
-          const filters = {
-            type, status,
-          };
-          const transformFunction = e => ({ ...e, name: get(e, 'code') ? `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name') });
-          keys(filters).forEach(k => {
-            filters[k] = mapDuplicates(filters[k], 'name', transformFunction);
-            filters[k] = orderBy(filters[k], 'name');
-          });
-          batch(() => {
-            dispatch(panelMeetingsFiltersFetchDataSuccess(filters));
-            dispatch(panelMeetingsFiltersFetchDataErrored(false));
-            dispatch(panelMeetingsFiltersFetchDataLoading(false));
-          });
-        }
-      })
-      .catch(() => {
-        batch(() => {
-          dispatch(panelMeetingsFiltersFetchDataErrored(true));
-          dispatch(panelMeetingsFiltersFetchDataLoading(false));
-        });
-      });
   };
+  // TO-DO: integrate below with BE/WS data
+  // return (dispatch) => {
+  //   batch(() => {
+  //     dispatch(panelMeetingsFiltersFetchDataLoading(true));
+  //     dispatch(panelMeetingsFiltersFetchDataErrored(false));
+  //   });
+  //   const ep = [
+  //     '/fsbid/panel_meetings/reference/type/',
+  //     '/fsbid/panel_meetings/reference/status/',
+  //   ];
+  //   const queryProms = ep.map(url =>
+  //     api().get(url)
+  //       .then((r) => r)
+  //       .catch((e) => e),
+  //   );
+  //   Q.allSettled(queryProms)
+  //     .then((results) => {
+  //       const successCount = results.filter(r => get(r, 'state') === 'fulfilled' && get(r, 'value')).length || 0;
+  //       const queryPromsLen = queryProms.length || 0;
+  //       const countDiff = queryPromsLen - successCount;
+  //       if (countDiff > 0) {
+  //         batch(() => {
+  //           dispatch(panelMeetingsFiltersFetchDataErrored(true));
+  //           dispatch(panelMeetingsFiltersFetchDataLoading(false));
+  //         });
+  //       } else {
+  //         const type = get(results, '[0].value.data', []);
+  //         const status = get(results, '[1].value.data', []);
+  //         const filters = {
+  //           type, status,
+  //         };
+  //         const transformFunction = e => ({ ...e, name: get(e, 'code') ? `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name') });
+  //         keys(filters).forEach(k => {
+  //           filters[k] = mapDuplicates(filters[k], 'name', transformFunction);
+  //           filters[k] = orderBy(filters[k], 'name');
+  //         });
+  //         batch(() => {
+  //           dispatch(panelMeetingsFiltersFetchDataSuccess(filters));
+  //           dispatch(panelMeetingsFiltersFetchDataErrored(false));
+  //           dispatch(panelMeetingsFiltersFetchDataLoading(false));
+  //         });
+  //       }
+  //     })
+  //     .catch(() => {
+  //       batch(() => {
+  //         dispatch(panelMeetingsFiltersFetchDataErrored(true));
+  //         dispatch(panelMeetingsFiltersFetchDataLoading(false));
+  //       });
+  //     });
+  // };
 }

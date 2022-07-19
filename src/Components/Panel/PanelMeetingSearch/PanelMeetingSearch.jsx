@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { filter, flatten, isEmpty } from 'lodash';
+import { filter, flatten, get, isEmpty } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+import { panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -11,6 +13,7 @@ import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/List
 // eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
   const childRef = useRef();
+  const dispatch = useDispatch();
 
   // TO-DO: complete integration based off of BE/WS data
   const [selectedMeetingType, setSelectedMeetingType] = useState([]);
@@ -18,16 +21,36 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
 
-  const panelMeetingTypesOptions = [
-    { description: 'ID', code: 'ID' },
-    { description: 'ML', code: 'ML' },
-  ];
+  const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
+  const panelMeetingsFiltersIsLoading = useSelector(state =>
+    state.panelMeetingsFiltersFetchDataLoading);
 
-  const panelMeetingStatusOptions = [
-    { description: 'Initiated', code: 'initiated' },
-    { description: 'Addendum', code: 'addendum' },
-    { description: 'Post Panel', code: 'post_panel' },
-  ];
+  const isLoading = panelMeetingsFiltersIsLoading;
+
+  useEffect(() => {
+    dispatch(panelMeetingsFiltersFetchData());
+  }, []);
+
+  const fetchAndSet = () => {
+    const filters = [
+      selectedMeetingType,
+      selectedMeetingDate,
+      selectedMeetingStatus,
+    ];
+    if (isEmpty(filter(flatten(filters)))) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    selectedMeetingType,
+    selectedMeetingDate,
+    selectedMeetingStatus,
+  ]);
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
     const getSelected = item => !!selected.find(f => f.code === item.code);
@@ -50,27 +73,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     renderList: renderSelectionList,
     includeSelectAll: true,
   };
-
-  const fetchAndSet = () => {
-    const filters = [
-      selectedMeetingType,
-      selectedMeetingDate,
-      selectedMeetingStatus,
-    ];
-    if (isEmpty(filter(flatten(filters)))) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-  };
-
-  useEffect(() => {
-    fetchAndSet();
-  }, [
-    selectedMeetingType,
-    selectedMeetingDate,
-    selectedMeetingStatus,
-  ]);
 
   const resetFilters = () => {
     setSelectedMeetingType([]);
@@ -110,10 +112,11 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     {...pickyProps}
                     placeholder="Select Meeting Type"
                     value={selectedMeetingType}
-                    options={panelMeetingTypesOptions}
+                    options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
                     onChange={setSelectedMeetingType}
                     valueKey="code"
                     labelKey="description"
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="filter-div">
@@ -124,6 +127,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     maxDetail="month"
                     calendarIcon={null}
                     showLeadingZeros
+                    disabled={isLoading}
                   />
                 </div>
                 <div className="filter-div">
@@ -132,10 +136,11 @@ const PanelMeetingSearch = ({ isCDO }) => {
                     {...pickyProps}
                     placeholder="Select Meeting Status"
                     value={selectedMeetingStatus}
-                    options={panelMeetingStatusOptions}
+                    options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
                     onChange={setSelectedMeetingStatus}
                     valueKey="code"
                     labelKey="description"
+                    disabled={isLoading}
                   />
                 </div>
               </div>
