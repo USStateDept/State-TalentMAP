@@ -1,3 +1,285 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `undefined`;
+exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
+<Provider
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+>
+  <MemoryRouter>
+    <Router
+      history={
+        Object {
+          "action": "POP",
+          "block": [Function],
+          "canGo": [Function],
+          "createHref": [Function],
+          "entries": Array [
+            Object {
+              "hash": "",
+              "key": "jpyl26",
+              "pathname": "/",
+              "search": "",
+              "state": undefined,
+            },
+          ],
+          "go": [Function],
+          "goBack": [Function],
+          "goForward": [Function],
+          "index": 0,
+          "length": 1,
+          "listen": [Function],
+          "location": Object {
+            "hash": "",
+            "key": "jpyl26",
+            "pathname": "/",
+            "search": "",
+            "state": undefined,
+          },
+          "push": [Function],
+          "replace": [Function],
+        }
+      }
+    >
+      <AgendaItemMaintenancePane
+        addToSelection={[Function]}
+        leftExpanded={false}
+        onAddRemarksClick={[Function]}
+        perdet="2"
+        setParentState={[Function]}
+        unitedLoading={false}
+        updateSelection={[Function]}
+        userSelections={
+          Array [
+            Object {
+              "active_ind": "Y",
+              "mutually_exclusive_ind": "N",
+              "order_num": 7,
+              "rc_code": "B",
+              "seq_num": 2,
+              "short_desc_text": "Promo Bd Recognized",
+              "text": "Potential recognized by last promo board",
+            },
+          ]
+        }
+      >
+        <div
+          className="ai-maintenance-header"
+        >
+          <div
+            className="back-save-btns-container "
+          >
+            <Connect(withRouter(BackButton))>
+              <withRouter(BackButton)>
+                <Route>
+                  <BackButton
+                    history={
+                      Object {
+                        "action": "POP",
+                        "block": [Function],
+                        "canGo": [Function],
+                        "createHref": [Function],
+                        "entries": Array [
+                          Object {
+                            "hash": "",
+                            "key": "jpyl26",
+                            "pathname": "/",
+                            "search": "",
+                            "state": undefined,
+                          },
+                        ],
+                        "go": [Function],
+                        "goBack": [Function],
+                        "goForward": [Function],
+                        "index": 0,
+                        "length": 1,
+                        "listen": [Function],
+                        "location": Object {
+                          "hash": "",
+                          "key": "jpyl26",
+                          "pathname": "/",
+                          "search": "",
+                          "state": undefined,
+                        },
+                        "push": [Function],
+                        "replace": [Function],
+                      }
+                    }
+                    ignoreCurrentPath={false}
+                    location={
+                      Object {
+                        "hash": "",
+                        "key": "jpyl26",
+                        "pathname": "/",
+                        "search": "",
+                        "state": undefined,
+                      }
+                    }
+                    match={
+                      Object {
+                        "isExact": true,
+                        "params": Object {},
+                        "path": "/",
+                        "url": "/",
+                      }
+                    }
+                    routerLocations={Array []}
+                  />
+                </Route>
+              </withRouter(BackButton)>
+            </Connect(withRouter(BackButton))>
+            <button
+              className="save-ai-btn"
+              onClick={[Function]}
+            >
+              Save Agenda Item
+            </button>
+          </div>
+          <div
+            className="ai-maintenance-header-dd "
+          >
+            <div>
+              <label
+                htmlFor="position number"
+              >
+                Add Position Number:
+              </label>
+              <input
+                className="input-default "
+                id="add-pos-num-input"
+                name="add"
+                onChange={[Function]}
+                onKeyPress={[Function]}
+                type="add"
+              />
+              <InteractiveElement
+                className=""
+                id="add-pos-num-icon"
+                onClick={[Function]}
+                role="button"
+                title="Add position"
+                type="span"
+              >
+                <span
+                  className="interactive-element"
+                  id="add-pos-num-icon"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex="0"
+                  title="Add position"
+                >
+                  <FontAwesome
+                    name="plus"
+                  >
+                    <span
+                      aria-hidden={true}
+                      className="fa fa-plus"
+                    />
+                  </FontAwesome>
+                </span>
+              </InteractiveElement>
+            </div>
+          </div>
+          <div
+            className="usa-form remarks"
+          >
+            <label
+              htmlFor="remarks"
+            >
+              Remarks:
+            </label>
+            <div
+              className="remarks-container"
+            >
+              <InteractiveElement
+                className="save-ai-btn"
+                id="add-remark"
+                onClick={[Function]}
+                role="button"
+                title="Add remark"
+                type="span"
+              >
+                <span
+                  className="interactive-element save-ai-btn"
+                  id="add-remark"
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  role="button"
+                  tabIndex="0"
+                  title="Add remark"
+                >
+                  <FontAwesome
+                    name="plus"
+                  >
+                    <span
+                      aria-hidden={true}
+                      className="fa fa-plus"
+                    />
+                  </FontAwesome>
+                </span>
+              </InteractiveElement>
+              <RemarksPill
+                isEditable={true}
+                key="2"
+                remark={
+                  Object {
+                    "active_ind": "Y",
+                    "mutually_exclusive_ind": "N",
+                    "order_num": 7,
+                    "rc_code": "B",
+                    "seq_num": 2,
+                    "short_desc_text": "Promo Bd Recognized",
+                    "text": "Potential recognized by last promo board",
+                  }
+                }
+                updateSelection={[Function]}
+              >
+                <div
+                  className="remarks-pill"
+                  style={
+                    Object {
+                      "backgroundColor": "#0071bc",
+                    }
+                  }
+                >
+                  Potential recognized by last promo board
+                  <FontAwesome
+                    name="times"
+                    onClick={[Function]}
+                  >
+                    <span
+                      aria-hidden={true}
+                      className="fa fa-times"
+                      onClick={[Function]}
+                    />
+                  </FontAwesome>
+                </div>
+              </RemarksPill>
+            </div>
+          </div>
+          <div
+            className="usa-form corrections"
+          >
+            <label
+              htmlFor="corrections"
+            >
+              Corrections:
+            </label>
+            <div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia
+            </div>
+          </div>
+        </div>
+      </AgendaItemMaintenancePane>
+    </Router>
+  </MemoryRouter>
+</Provider>
+`;

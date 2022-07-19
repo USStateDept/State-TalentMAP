@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import TestUtils from 'react-dom/test-utils';
 import { MemoryRouter } from 'react-router-dom';
 import AgendaItemMaintenancePane from './AgendaItemMaintenancePane';
 
@@ -28,18 +27,22 @@ describe('AgendaItemMaintenancePane Component', () => {
   };
 
   it('is defined', () => {
-    const wrapper = TestUtils.renderIntoDocument(
+    const wrapper = mount(
       <Provider store={mockStore({})}>
-        <AgendaItemMaintenancePane perdet={'2'} />
+        <MemoryRouter>
+          <AgendaItemMaintenancePane {...props} perdet={'2'} />
+        </MemoryRouter>
       </Provider>,
     );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = TestUtils.renderIntoDocument(
+    const wrapper = mount(
       <Provider store={mockStore({})}>
-        <AgendaItemMaintenancePane perdet={'2'} />
+        <MemoryRouter>
+          <AgendaItemMaintenancePane {...props} perdet={'2'} />
+        </MemoryRouter>
       </Provider>,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
