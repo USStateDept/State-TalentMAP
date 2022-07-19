@@ -6,10 +6,10 @@
     }
 
     .filterby-container {
+        display: flex;
         margin-top: 20px;
 
         .filterby-label {
-            float: left;
             font-size: 20px;
             margin-bottom: 10px;
             width: 115px;
