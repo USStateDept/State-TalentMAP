@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { filter, flatten, get, isEmpty } from 'lodash';
+import { filter, flatten, get, isEmpty, throttle } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
@@ -13,6 +13,7 @@ import SelectForm from 'Components/SelectForm';
 import { PANEL_MEETINGS_PAGE_SIZES, PANEL_MEETINGS_SORT } from 'Constants/Sort';
 import ExportButton from 'Components/ExportButton';
 import { isDate, startOfDay } from 'date-fns-v2';
+import Spinner from 'Components/Spinner';
 
 // eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -25,6 +26,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
+  const [textInput, setTextInput] = useState('');
+  const [textSearch, setTextSearch] = useState('');
 
   const panelMeetings$ = useSelector(state => state.panelMeetings);
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
@@ -52,6 +55,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
     // need to set to beginning of the day to avoid timezone issues
     'pmd-start': isDate(get(selectedMeetingDate, '[0]')) ? startOfDay(get(selectedMeetingDate, '[0]')).toJSON() : '',
     'pmd-end': isDate(get(selectedMeetingDate, '[1]')) ? startOfDay(get(selectedMeetingDate, '[1]')).toJSON() : '',
+
+    // Free Text
+    q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
@@ -60,6 +66,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
     selectedMeetingType,
     selectedMeetingStatus,
     selectedMeetingDate,
+    textInput,
+    textSearch,
   });
 
   useEffect(() => {
@@ -77,7 +85,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
       selectedMeetingDate,
       selectedMeetingStatus,
     ];
-    if (isEmpty(filter(flatten(filters)))) {
+    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -89,10 +97,24 @@ const PanelMeetingSearch = ({ isCDO }) => {
   useEffect(() => {
     fetchAndSet();
   }, [
+    limit,
+    ordering,
     selectedMeetingType,
     selectedMeetingDate,
     selectedMeetingStatus,
+    textSearch,
   ]);
+
+  function submitSearch(text) {
+    setTextSearch(text);
+  }
+
+  const throttledTextInput = () =>
+    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
+
+  const setTextInputThrottled = (q) => {
+    throttledTextInput(q);
+  };
 
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
@@ -133,102 +155,107 @@ const PanelMeetingSearch = ({ isCDO }) => {
     setSelectedMeetingType([]);
     setSelectedMeetingDate(null);
     setSelectedMeetingStatus([]);
+    setTextSearch('');
     childRef.current.clearText();
     setClearFilters(false);
   };
 
   return (
-    <div>
-      <div className="panel-meeting-search-page">
-        <div className="panel-meeting-search-upper-section">
-          <div className="results-search-bar results-single-search">
-            <div className="usa-grid-full results-search-bar-container">
-              <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
-              <PositionManagerSearch
-                ref={childRef}
-                label="Search for a Panel Meeting"
-                placeHolder="Search using Panel ID"
-              />
-              <div className="filterby-container">
-                <div className="filterby-label">Filter by:</div>
-                <div className="filterby-clear">
-                  {clearFilters &&
+    isLoading ?
+      <Spinner type="bureau-filters" size="small" /> :
+      <>
+        <div className="panel-meeting-search-page">
+          <div className="panel-meeting-search-upper-section">
+            <div className="results-search-bar results-single-search">
+              <div className="usa-grid-full results-search-bar-container">
+                <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
+                <PositionManagerSearch
+                  submitSearch={submitSearch}
+                  onChange={setTextInputThrottled}
+                  ref={childRef}
+                  label="Search for a Panel Meeting"
+                  placeHolder="Search using Panel ID"
+                />
+                <div className="filterby-container">
+                  <div className="filterby-label">Filter by:</div>
+                  <div className="filterby-clear">
+                    {clearFilters &&
                   <button className="unstyled-button" onClick={resetFilters}>
                     <FA name="times" />
                     Clear Filters
                   </button>
-                  }
+                    }
+                  </div>
                 </div>
-              </div>
-              <div className="usa-width-one-whole panel-meeting-search-filters">
-                <div className="filter-div">
-                  <div className="label">Type:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Meeting Type"
-                    value={selectedMeetingType}
-                    options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
-                    onChange={setSelectedMeetingType}
-                    valueKey="code"
-                    labelKey="description"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label label-date">Meeting Date:</div>
-                  <DateRangePicker
-                    onChange={setSelectedMeetingDate}
-                    value={selectedMeetingDate}
-                    maxDetail="month"
-                    calendarIcon={null}
-                    showLeadingZeros
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Status:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Meeting Status"
-                    value={selectedMeetingStatus}
-                    options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
-                    onChange={setSelectedMeetingStatus}
-                    valueKey="code"
-                    labelKey="description"
-                    disabled={isLoading}
-                  />
+                <div className="usa-width-one-whole panel-meeting-search-filters">
+                  <div className="filter-div">
+                    <div className="label">Type:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Meeting Type"
+                      value={selectedMeetingType}
+                      options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
+                      onChange={setSelectedMeetingType}
+                      valueKey="code"
+                      labelKey="description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label label-date">Meeting Date:</div>
+                    <DateRangePicker
+                      onChange={setSelectedMeetingDate}
+                      value={selectedMeetingDate}
+                      maxDetail="month"
+                      calendarIcon={null}
+                      showLeadingZeros
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Status:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Meeting Status"
+                      value={selectedMeetingStatus}
+                      options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
+                      onChange={setSelectedMeetingStatus}
+                      valueKey="code"
+                      labelKey="description"
+                      disabled={isLoading}
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="panel-results-controls">
-          <SelectForm
-            className="panel-results-select"
-            id="panel-search-results-sort"
-            options={sorts.options}
-            label="Sort by:"
-            defaultSort={ordering}
-            onSelectOption={value => setOrdering(value.target.value)}
-          />
-          <SelectForm
-            className="panel-results-select"
-            id="panel-search-num-results"
-            options={pageSizes.options}
-            label="Results:"
-            defaultSort={limit}
-            onSelectOption={value => setLimit(value.target.value)}
-          />
-          <div className="export-button-container">
-            <ExportButton
-              onClick={exportPanelMeetings}
-              isLoading={exportIsLoading}
-              disabled={exportDisabled}
+          <div className="panel-results-controls">
+            <SelectForm
+              className="panel-results-select"
+              id="panel-search-results-sort"
+              options={sorts.options}
+              label="Sort by:"
+              defaultSort={ordering}
+              onSelectOption={value => setOrdering(value.target.value)}
             />
+            <SelectForm
+              className="panel-results-select"
+              id="panel-search-num-results"
+              options={pageSizes.options}
+              label="Results:"
+              defaultSort={limit}
+              onSelectOption={value => setLimit(value.target.value)}
+            />
+            <div className="export-button-container">
+              <ExportButton
+                onClick={exportPanelMeetings}
+                isLoading={exportIsLoading}
+                disabled={exportDisabled}
+              />
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      </>
   );
 };
 
