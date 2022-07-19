@@ -64,7 +64,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   useDidMountEffect(() => {
     if (!pos_results_errored) {
-      if (get(pos_results, 'results').length < 1) {
+      if (!get(pos_results, 'results').length) {
         setPosNumError(true);
       } else {
         setPositionNumber('');
