@@ -30,8 +30,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
       travel: null,
     },
   ];
-  // eslint-disable-next-line no-unused-vars
-  const [localLoading, setLocalLoading] = useState(true);
 
   const pos_results = useSelector(state => state.results);
   const pos_results_loading = useSelector(state => state.resultsIsLoading);
@@ -39,11 +37,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
   const [selectedLegs, setLegs] = useState(FAKE_LEGS);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLocalLoading(false);
-      setParentState(false);
-    }, '9000');
-  }, []);
+    setParentState(pos_results_loading);
+  }, [pos_results_loading]);
 
   useEffect(() => {
     if (!pos_results_loading) {
