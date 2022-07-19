@@ -20,27 +20,29 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  // TO-DO: complete integration based off of BE/WS data
-  const [selectedMeetingType, setSelectedMeetingType] = useState([]);
-  const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
-  const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
-  const [clearFilters, setClearFilters] = useState(false);
-  const [exportIsLoading, setExportIsLoading] = useState(false);
-  const [textInput, setTextInput] = useState('');
-  const [textSearch, setTextSearch] = useState('');
-
   const panelMeetings$ = useSelector(state => state.panelMeetings);
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
+  const userSelections = useSelector(state => state.panelMeetingsSelections);
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
+  // TO-DO: complete integration based off of BE/WS data
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
+
+  const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
+  const [selectedMeetingDate, setSelectedMeetingDate] = useState(get(userSelections, 'selectedMeetingDate') || null);
+  const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
+  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
+  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
+
+  const [clearFilters, setClearFilters] = useState(false);
+  const [exportIsLoading, setExportIsLoading] = useState(false);
+
   const isLoading = panelMeetingsFiltersIsLoading;
   const exportDisabled = !panelMeetings.length;
-
-  const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
   const sorts = PANEL_MEETINGS_SORT;
@@ -72,10 +74,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   useEffect(() => {
     dispatch(panelMeetingsFetchData(getQuery()));
-    dispatch(savePanelMeetingsSelections(getCurrentInputs()));
-  }, []);
-
-  useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
   }, []);
 
@@ -173,6 +171,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
                   ref={childRef}
+                  textSearch={textSearch}
                   label="Search for a Panel Meeting"
                   placeHolder="Search using Panel ID"
                 />
