@@ -311,7 +311,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                       onChange={setSelectedCurrentPosts}
                       valueKey="code"
                       labelKey="name"
-                      // set to false because there are close to 1000, creates very long URL
                       includeSelectAll={false}
                     />
                     <Picky
@@ -322,7 +321,6 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                       onChange={setSelectedOngoingPosts}
                       valueKey="code"
                       labelKey="name"
-                      // set to false because there are close to 1000, creates very long URL
                       includeSelectAll={false}
                     />
                   </div>

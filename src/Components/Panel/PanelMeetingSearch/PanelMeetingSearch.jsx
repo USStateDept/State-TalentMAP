@@ -5,15 +5,13 @@ import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { panelMeetingsExport, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import SelectForm from 'Components/SelectForm';
 import { PANEL_MEETINGS_PAGE_SIZES, PANEL_MEETINGS_SORT } from 'Constants/Sort';
 import ExportButton from 'Components/ExportButton';
-import { useState } from 'react';
-import { panelMeetingsExport } from 'actions/availableBidders'; // Replace with correct Action file later
 
 // eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -25,12 +23,24 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [selectedMeetingDate, setSelectedMeetingDate] = useState(null);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
+  const [exportIsLoading, setExportIsLoading] = useState(false);
+
+  const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);
+
+  const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
+  const sorts = PANEL_MEETINGS_SORT;
 
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
 
   const isLoading = panelMeetingsFiltersIsLoading;
+
+  const getQuery = () => ({
+    limit,
+    ordering,
+  });
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
@@ -56,6 +66,19 @@ const PanelMeetingSearch = ({ isCDO }) => {
     selectedMeetingDate,
     selectedMeetingStatus,
   ]);
+
+  const exportPanelMeetings = () => {
+    if (!exportIsLoading) {
+      setExportIsLoading(true);
+      panelMeetingsExport(getQuery())
+        .then(() => {
+          setExportIsLoading(false);
+        })
+        .catch(() => {
+          setExportIsLoading(false);
+        });
+    }
+  };
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
     const getSelected = item => !!selected.find(f => f.code === item.code);
@@ -152,61 +175,29 @@ const PanelMeetingSearch = ({ isCDO }) => {
             </div>
           </div>
         </div>
-  const text = isCDO ? 'yes CDO' : 'no AO';
-  const [exportIsLoading, setExportIsLoading] = useState(false);
-  const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);
-
-  const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
-  const sorts = PANEL_MEETINGS_SORT;
-
-  const getQuery = () => ({
-    limit,
-    ordering,
-  });
-
-  const exportPanelMeetings = () => {
-    if (!exportIsLoading) {
-      setExportIsLoading(true);
-      panelMeetingsExport(getQuery())
-        .then(() => {
-          setExportIsLoading(false);
-        })
-        .catch(() => {
-          setExportIsLoading(false);
-        });
-    }
-  };
-
-  return (
-    <div>
-      Panel Meeting Search Page
-      <div>
-        Headers/Filters TBD
-        isCDO: {text}
-      </div>
-      <div className="panel-results-controls">
-        <SelectForm
-          className="panel-results-select"
-          id="panel-search-results-sort"
-          options={sorts.options}
-          label="Sort by:"
-          defaultSort={ordering}
-          onSelectOption={value => setOrdering(value.target.value)}
-        />
-        <SelectForm
-          className="panel-results-select"
-          id="panel-search-num-results"
-          options={pageSizes.options}
-          label="Results:"
-          defaultSort={limit}
-          onSelectOption={value => setLimit(value.target.value)}
-        />
-        <div className="export-button-container">
-          <ExportButton
-            onClick={exportPanelMeetings}
-            isLoading={exportIsLoading}
+        <div className="panel-results-controls">
+          <SelectForm
+            className="panel-results-select"
+            id="panel-search-results-sort"
+            options={sorts.options}
+            label="Sort by:"
+            defaultSort={ordering}
+            onSelectOption={value => setOrdering(value.target.value)}
           />
+          <SelectForm
+            className="panel-results-select"
+            id="panel-search-num-results"
+            options={pageSizes.options}
+            label="Results:"
+            defaultSort={limit}
+            onSelectOption={value => setLimit(value.target.value)}
+          />
+          <div className="export-button-container">
+            <ExportButton
+              onClick={exportPanelMeetings}
+              isLoading={exportIsLoading}
+            />
+          </div>
         </div>
       </div>
     </div>

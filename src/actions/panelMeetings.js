@@ -1,10 +1,11 @@
 /* eslint-disable max-len */
 /* eslint-disable no-unused-vars */
 import { batch } from 'react-redux';
-import { get, keys, orderBy } from 'lodash';
+import { get, identity, isArray, isString, pickBy } from 'lodash';
 import { CancelToken } from 'axios';
 import { downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
 import Q from 'q';
+import { stringify } from 'query-string';
 import api from '../api';
 
 // TO-DO: Update the naming/functionality in this file
@@ -54,8 +55,28 @@ export function panelMeetingsFiltersFetchDataSuccess(results) {
   };
 }
 
-// put convertquery string from Patrick's PR here
-// put export func from Patrick's PR here
+const convertQueryToString = query => {
+  let q = pickBy(query, identity);
+  Object.keys(q).forEach(queryk => {
+    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
+    if (isString(q[queryk]) && !q[queryk]) {
+      q[queryk] = undefined;
+    }
+  });
+  q = stringify(q);
+  return q;
+};
+
+export function panelMeetingsExport(query = {}) {
+  const q = convertQueryToString(query);
+  const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
+  const ep = `${endpoint}?${q}`;
+  return api()
+    .get(ep)
+    .then((response) => {
+      downloadFromResponse(response, `Panel_Meetings${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+    });
+}
 
 export function panelMeetingsFetchData(query = {}) {
   return (dispatch) => {
