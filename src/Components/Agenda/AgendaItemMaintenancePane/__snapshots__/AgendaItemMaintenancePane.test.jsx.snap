@@ -24,7 +24,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
           "entries": Array [
             Object {
               "hash": "",
-              "key": "eh6do0",
+              "key": "d2wgy6",
               "pathname": "/",
               "search": "",
               "state": undefined,
@@ -38,7 +38,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
           "listen": [Function],
           "location": Object {
             "hash": "",
-            "key": "eh6do0",
+            "key": "d2wgy6",
             "pathname": "/",
             "search": "",
             "state": undefined,
@@ -89,7 +89,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
                         "entries": Array [
                           Object {
                             "hash": "",
-                            "key": "eh6do0",
+                            "key": "d2wgy6",
                             "pathname": "/",
                             "search": "",
                             "state": undefined,
@@ -103,7 +103,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
                         "listen": [Function],
                         "location": Object {
                           "hash": "",
-                          "key": "eh6do0",
+                          "key": "d2wgy6",
                           "pathname": "/",
                           "search": "",
                           "state": undefined,
@@ -116,7 +116,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
                     location={
                       Object {
                         "hash": "",
-                        "key": "eh6do0",
+                        "key": "d2wgy6",
                         "pathname": "/",
                         "search": "",
                         "state": undefined,
