@@ -56,7 +56,6 @@ const AgendaItemLegs = props => {
   const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
 
   const onClose$ = leg => {
-    console.log(leg); // eslint-disable-line
     onClose(leg);
   };
 

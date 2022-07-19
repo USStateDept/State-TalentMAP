@@ -38,7 +38,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
 
   const [selectedLegs, setLegs] = useState(FAKE_LEGS);
 
-
   useEffect(() => {
     setTimeout(() => {
       setLocalLoading(false);
@@ -52,7 +51,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
       if (pos) {
         const legs = selectedLegs;
         const pos$ = {
-          id: get(pos, 'position.id'),
+          id: get(pos, 'id'),
+          // id: get(pos, 'position.id'),
           pos_title: get(pos, 'position.title'),
           pos_num: get(pos, 'position.position_number'),
           org: get(pos, 'position.organization'),
@@ -69,6 +69,11 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
     }
   }, [pos_results_loading]);
 
+  const onClose = leg => {
+    const legs$ = selectedLegs.filter(l => l.id !== leg.id);
+    setLegs(legs$);
+  };
+
   return (
     <div className="agenda-item-history-container ai-timeline-pane">
       {
@@ -76,7 +81,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
           <>
             <div className="ai-history-rows-container">
               <div className="ai-history-row">
-                <AgendaItemLegs hideRemarks legs={selectedLegs} showCloseButton />
+                <AgendaItemLegs onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
               </div>
             </div>
           </>
