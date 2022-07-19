@@ -37,7 +37,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
   const isLoading = panelMeetingsFiltersIsLoading;
-  const exportDisabled = panelMeetings.length <= 0;
+  const exportDisabled = !panelMeetings.length;
 
   const [limit, setLimit] = useState(PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(PANEL_MEETINGS_SORT.defaultSort);

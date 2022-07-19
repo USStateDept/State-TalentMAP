@@ -270,7 +270,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
   const overlay = getOverlay();
 
-  const exportDisabled = agendaEmployees.length <= 0;
+  const exportDisabled = !agendaEmployees.length;
 
   return (
     isLoading ?
