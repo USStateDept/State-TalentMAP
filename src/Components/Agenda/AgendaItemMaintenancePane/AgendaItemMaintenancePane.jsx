@@ -18,7 +18,7 @@ const AgendaItemMaintenancePane = (props) => {
   const {
     onAddRemarksClick,
     perdet,
-    setParentState,
+    setParentLoadingState,
     unitedLoading,
     userSelections,
     leftExpanded,
@@ -54,7 +54,7 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPanelIDDate, setPanelIDDate] = useState();
 
   useEffect(() => {
-    setParentState(includes([asgSepBidLoading,
+    setParentLoadingState(includes([asgSepBidLoading,
       statusLoading, panelCatLoading, panelDatesLoading], true));
   }, [asgSepBidLoading,
     statusLoading,
@@ -269,7 +269,7 @@ AgendaItemMaintenancePane.propTypes = {
   leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
   perdet: PropTypes.string.isRequired,
-  setParentState: PropTypes.func,
+  setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
@@ -288,7 +288,7 @@ AgendaItemMaintenancePane.propTypes = {
 AgendaItemMaintenancePane.defaultProps = {
   leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
-  setParentState: EMPTY_FUNCTION,
+  setParentLoadingState: EMPTY_FUNCTION,
   unitedLoading: true,
   userSelections: [],
   addToSelection: EMPTY_FUNCTION,

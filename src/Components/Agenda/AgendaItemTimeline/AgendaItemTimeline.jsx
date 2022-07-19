@@ -5,7 +5,7 @@ import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   const FAKE_LEGS = [
     {
       id: 11158,
@@ -42,7 +42,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
   useEffect(() => {
     setTimeout(() => {
       setLocalLoading(false);
-      setParentState(false);
+      setParentLoadingState(false);
     }, '9000');
   }, []);
 
@@ -86,12 +86,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentState }) => {
 
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
-  setParentState: PropTypes.func,
+  setParentLoadingState: PropTypes.func,
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
-  setParentState: EMPTY_FUNCTION,
+  setParentLoadingState: EMPTY_FUNCTION,
 };
 
 export default AgendaItemTimeline;
