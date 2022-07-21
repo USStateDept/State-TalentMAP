@@ -8,7 +8,7 @@ import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
-import { resultsFetchData } from 'actions/results';
+import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
@@ -83,7 +83,7 @@ const AgendaItemMaintenancePane = (props) => {
   const addPositionNum = () => {
     setPosNumError(false);
     if (selectedPositionNumber) {
-      dispatch(resultsFetchData(`limit=50&page=1&position__position_number__in=${selectedPositionNumber}`));
+      dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
     }
   };
 
