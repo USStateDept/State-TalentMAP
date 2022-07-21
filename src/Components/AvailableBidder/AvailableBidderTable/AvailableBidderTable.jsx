@@ -92,9 +92,11 @@ const AvailableBidderTable = props => {
   tableHeaders = tableHeaders.filter(f => f);
 
   const getSortIcon = (header) => {
-    if (header === sort) {
+    let header$ = header;
+    header$ = header$.replace('Updated', 'Update');
+    if (header$ === sort) {
       return 'sort-asc';
-    } else if (`-${header}` === sort) {
+    } else if (`-${header$}` === sort) {
       return 'sort-desc';
     }
     return 'sort';
