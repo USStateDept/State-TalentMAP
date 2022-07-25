@@ -74,16 +74,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   };
 
   return (
-    <div className="agenda-item-history-container ai-timeline-pane">
+    <div className="ai-timeline-pane">
       {
         !unitedLoading &&
-          <>
-            <div className="ai-history-rows-container">
-              <div className="ai-history-row">
-                <AgendaItemLegs onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
-              </div>
-            </div>
-          </>
+          <div className="aim-legs-row">
+            <AgendaItemLegs onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
+          </div>
       }
     </div>);
 };

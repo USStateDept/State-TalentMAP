@@ -32,13 +32,14 @@
 
   .expand-arrow {
     align-self: center;
+    color: $dos-blue;
   }
 
   .maintenance-container-left {
-    background-color: $color-white;
     float: left;
     height: 98vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+    padding: 0 10px 20px 0;
     width: 50%;
 
     .tm-spinner-left-pane {
@@ -50,10 +51,10 @@
   }
 
   .maintenance-container-left-expanded {
-    background-color: $color-white;
     float: left;
     height: 98vh;
-    overflow-y: scroll;
+    overflow-y: auto;
+    padding: 0 10px 20px 0;
     width: 99%;
 
     .tm-spinner-left-pane {
@@ -201,7 +202,7 @@
   }
 
   .ai-maintenance-header {
-    background-color: $bg-gray-medium-4;
+    background-color: $tm-white-smoke-light;
     padding-bottom: 20px;
 
     .usa-form:not(.remarks, .corrections) {
@@ -330,19 +331,87 @@
   }
 
   .ai-timeline-pane {
-    margin: 10px;
-  }
+    background-color: $color-white;
+    border-top: 2px solid gray;
+    border-bottom: 2px solid gray;
 
-  .agenda-item-history-container {
-    td {
-      position: relative;
-    }
-
-    .ai-history-row {
+    .aim-legs-row {
       border-left: none;
       border-radius: 0;
       box-shadow: none;
-      padding: .5em 0 0;
+      margin: 0;
+      padding: 20px 30px;
+      overflow-x: auto;
+
+      .aim-legs {
+        min-height: 300px;
+
+        .tm-spinner-legs {
+          left: 45%;
+          position: absolute;
+          top: 40%;
+        }
+
+        table {
+          margin-top: 0;
+          margin-bottom: 30px;
+
+          td {
+            border: none;
+            max-width: 300px;
+            padding: 0;
+            position: relative;
+          }
+
+          th {
+            border: none;
+            padding: .5rem 1rem;
+            max-width: 80px;
+          }
+
+          .arrow {
+            color: $bg-gray-dark-2;
+            font-size: small;
+
+            span {
+              margin-left: 15px;
+            }
+
+          }
+
+          dt {
+            font-weight: bold;
+          }
+
+          dd {
+            margin: 0 10px;
+          }
+
+          tr:hover {
+
+            th, td {
+              background-color: $color-gray-lightest;
+            }
+
+          }
+          // exclude arrow row
+          tr:hover:nth-child(5) {
+
+            th, td {
+              background-color: transparent;
+            }
+
+          }
+
+          td:nth-child(n+2) {
+            border-left: 1px solid $color-gray-lighter;
+            padding-right: 10px;
+          }
+
+        }
+
+      }
+
     }
 
     .remove-leg-button {
@@ -351,8 +420,8 @@
       top: 0;
     }
 
-    .ai-history-row {
-      overflow-x: auto;
+    .remove-leg-button:hover {
+      color: red;
     }
   }
 
