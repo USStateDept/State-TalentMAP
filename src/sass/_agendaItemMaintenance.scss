@@ -32,7 +32,7 @@
 
   .expand-arrow {
     align-self: center;
-    color: $dos-blue;
+    color: $primary-blue;
   }
 
   .maintenance-container-left {
@@ -68,7 +68,9 @@
     background-color: $color-white;
     float: left;
     height: 98vh;
-    overflow-y: scroll;
+    margin-left: 20px;
+    margin-right: 10px;
+    overflow-y: auto;
     width: 48%;
   }
 
@@ -77,8 +79,9 @@
   }
 
   .ai-research-content {
-    padding-top: 1em;
+    padding: 20px;
     position: relative;
+    background-color: $color-white;
 
     .dashboard-section-title {
       margin-bottom: 1em;
@@ -97,9 +100,6 @@
   }
 
   .ai-research-pane {
-    background-color: $color-white;
-    padding: 20px;
-
     input {
       border-radius: 5px;
     }
@@ -494,7 +494,7 @@
   .maintenance-container-right {
     border-top: 2px solid $color-black;
     margin-top: 20px;
-    width: 99%;
+    width: 98%;
   }
 }
 
