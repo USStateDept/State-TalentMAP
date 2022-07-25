@@ -32,9 +32,9 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
 
-  const pos_results = useSelector(state => state.results);
-  const pos_results_loading = useSelector(state => state.resultsIsLoading);
-  const pos_results_errored = useSelector(state => state.resultsHasErrored);
+  const pos_results = useSelector(state => state.positions);
+  const pos_results_loading = useSelector(state => state.positionsIsLoading);
+  const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
   const asgSepBids = get(asgSepBidData, 'data') || [];
   const statuses = get(statusData, 'data.results') || [];
@@ -63,16 +63,14 @@ const AgendaItemMaintenancePane = (props) => {
     panelDatesLoading]);
 
   useDidMountEffect(() => {
-    if (!pos_results_errored) {
-      if (!get(pos_results, 'results').length) {
-        setPosNumError(true);
-      } else {
-        setPositionNumber('');
-      }
-    } else {
+    setPositionNumber('');
+  }, [pos_results]);
+
+  useDidMountEffect(() => {
+    if (pos_results_errored) {
       setPosNumError(true);
     }
-  }, [pos_results]);
+  }, [pos_results_errored]);
 
   const saveAI = () => {
     // eslint-disable-next-line

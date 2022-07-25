@@ -14,10 +14,10 @@ export function positionsIsLoading(bool) {
   };
 }
 
-export function positionsFetchDataSuccess(count) {
+export function positionsFetchDataSuccess(data) {
   return {
     type: 'POSITIONS_SUCCESS',
-    count,
+    data,
   };
 }
 
@@ -28,13 +28,11 @@ export function positionsFetchData(query) {
     const prefix = '/fsbid/positions';
     api().get(`${prefix}/?${query}`)
       .then((response) => {
-        const { count } = response.data;
         dispatch(positionsHasErrored(false));
         dispatch(positionsIsLoading(false));
-        dispatch(positionsFetchDataSuccess(count));
+        dispatch(positionsFetchDataSuccess(response.data));
       })
       .catch(() => {
-        // TODO update
         dispatch(positionsHasErrored(true));
         dispatch(positionsIsLoading(false));
       });

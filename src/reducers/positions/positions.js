@@ -16,8 +16,8 @@ export function positionsIsLoading(state = false, action) {
 }
 export function positions(state = {}, action) {
   switch (action.type) {
-    case 'POSITIONS_FETCH_DATA_SUCCESS':
-      return action.results;
+    case 'POSITIONS_SUCCESS':
+      return action.data;
     default:
       return state;
   }

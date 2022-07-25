@@ -9,7 +9,7 @@ describe('reducers', () => {
     expect(reducers.positionsIsLoading(false, { type: 'POSITIONS_IS_LOADING', isLoading: true })).toBe(true);
   });
 
-  it('can set reducer POSITIONS_FETCH_DATA_SUCCESS', () => {
-    expect(reducers.positions([], { type: 'POSITIONS_FETCH_DATA_SUCCESS', results: true })).toBe(true);
+  it('can set reducer POSITIONS_SUCCESS', () => {
+    expect(reducers.positions([], { type: 'POSITIONS_SUCCESS', data: true })).toBe(true);
   });
 });
