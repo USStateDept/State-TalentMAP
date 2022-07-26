@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import AgendaItemLegs from '../AgendaItemLegs';
+import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   const FAKE_LEGS = [
@@ -78,7 +78,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
       {
         !unitedLoading &&
           <div className="aim-legs-row">
-            <AgendaItemLegs onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
+            <AgendaItemLegsForm onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
           </div>
       }
     </div>);
