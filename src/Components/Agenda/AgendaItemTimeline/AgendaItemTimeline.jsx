@@ -53,7 +53,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
           org: get(pos, 'organization'),
           eta: '2019-05-05T00:00:00.000Z',
           ted: '2020-07-05T00:00:00.000Z',
-          tod: get('position.tour_of_duty'),
+          tod: '2 Years',
           grade: get(pos, 'grade'),
           action: null,
           travel: null,
