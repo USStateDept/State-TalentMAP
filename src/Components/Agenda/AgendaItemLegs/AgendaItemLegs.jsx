@@ -4,8 +4,6 @@ import { shortenString } from 'utilities';
 import { filter, get, includes, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
-import InteractiveElement from 'Components/InteractiveElement';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Calendar from 'react-calendar';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
@@ -17,10 +15,6 @@ const AgendaItemLegs = props => {
     legs,
     remarks,
     isCard,
-    hideRemarks,
-    showCloseButton,
-    onClose,
-    isAIHView,
   } = props;
 
   const calendarID = 'aim-ted-calendar';
@@ -54,10 +48,6 @@ const AgendaItemLegs = props => {
 
   // TO-DO - better date checking. isDate() with null or bad string not guaranteed to work.
   const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
-
-  const onClose$ = leg => {
-    onClose(leg);
-  };
 
   const onDropdownUpdate = (value, data) => {
     // eslint-disable-next-line default-case
@@ -119,20 +109,14 @@ const AgendaItemLegs = props => {
     <>
       {
         legs$.map((leg, i) => {
-          const showClose = showCloseButton && key === 'pos_title' && i > 0;
           const isFirstLeg = i === 0;
-          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'dropdown'));
-          const editCalendar = (!isFirstLeg && !isAIHView && (key === 'ted'));
+          const editDropdown = (!isFirstLeg && (key === 'dropdown'));
+          const editCalendar = (!isFirstLeg && (key === 'ted'));
           const helperFuncToggle = !!helperFunc;
           return (<td>
-            {/* first leg cannot be removed */}
-            {showClose &&
-            <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
-              <FA name="times" />
-            </InteractiveElement>}
             {
               helperFunc && !editDropdown && !editCalendar &&
-                <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
+                <dd>{helperFunc(leg[key])}</dd>
             }
             {
               !helperFuncToggle && !editDropdown &&
@@ -254,7 +238,7 @@ const AgendaItemLegs = props => {
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
-    <div className={`${isAIHView ? 'ai-history-card-legs' : 'aim-legs'}`}>
+    <div className="ai-history-card-legs">
       {
         legsLoading ?
           <Spinner type="legs" size="small" />
@@ -278,7 +262,7 @@ const AgendaItemLegs = props => {
           </table>
       }
       {
-        !isCard && !hideRemarks &&
+        !isCard &&
         <div className="remarks-container">
           <div className="remarks-text">Remarks:</div>
           {
@@ -296,20 +280,12 @@ AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   remarks: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
-  hideRemarks: PropTypes.bool,
-  showCloseButton: PropTypes.bool,
-  onClose: PropTypes.func,
-  isAIHView: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   remarks: [],
   isCard: false,
-  hideRemarks: false,
-  showCloseButton: false,
-  onClose: EMPTY_FUNCTION,
-  isAIHView: false,
 };
 
 export default AgendaItemLegs;

@@ -14,7 +14,6 @@ const AgendaItemCard = props => {
     showEdit,
     isCDO,
     perdet,
-    isAIHView,
   } = props;
 
   const legs = get(agenda, 'legs') || [];
@@ -96,7 +95,7 @@ const AgendaItemCard = props => {
             </div>
             { titles[1] }
           </h3>
-          <AgendaItemLegs legs={agenda.legs} isCard isAIHView={isAIHView} />
+          <AgendaItemLegs legs={agenda.legs} isCard />
           <div className="ai-history-card-date">
             Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
           </div>
@@ -141,7 +140,6 @@ AgendaItemCard.propTypes = {
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
-  isAIHView: PropTypes.bool,
 };
 
 
@@ -151,7 +149,6 @@ AgendaItemCard.defaultProps = {
   showEdit: false,
   isCDO: false,
   perdet: null,
-  isAIHView: true,
 };
 
 export default AgendaItemCard;
