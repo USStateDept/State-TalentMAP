@@ -40,7 +40,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
     >
       N/A
       <div
-        className="arrow"
+        className="title-arrow"
       >
         <div
           className="arrow-tail"
