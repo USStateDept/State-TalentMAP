@@ -74,7 +74,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
       {
         !unitedLoading &&
           <div className="aim-legs-row">
-            <AgendaItemLegsForm onClose={onClose} hideRemarks legs={selectedLegs} showCloseButton />
+            <AgendaItemLegsForm onClose={onClose} legs={selectedLegs} />
           </div>
       }
     </div>);
