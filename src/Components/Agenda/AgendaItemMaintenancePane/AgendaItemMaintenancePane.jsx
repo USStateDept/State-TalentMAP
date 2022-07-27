@@ -9,6 +9,7 @@ import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { resultsFetchData } from 'actions/results';
+import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
@@ -74,9 +75,22 @@ const AgendaItemMaintenancePane = (props) => {
     }
   }, [pos_results]);
 
-  const saveAI = () => {
-    // eslint-disable-next-line
-    console.log('save AI');
+  const submitAction = (userInputs) => {
+    dispatch(aiCreate(userInputs));
+  };
+
+  const saveAI = (e) => {
+    e.preventDefault();
+    const userInputs = {
+      selectedPanelMLDate: selectedPanelMLDate || '',
+      selectedPanelIDDAte: selectedPanelIDDate || '',
+      userSelections: userSelections || [],
+      selectedStatus: selectedStatus || '',
+      asgSepBid: asgSepBid || '',
+      selectedPanelCat: selectedPanelCat || '',
+    };
+
+    submitAction(userInputs);
   };
 
   // special handling for position number

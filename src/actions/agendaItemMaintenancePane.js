@@ -1,5 +1,11 @@
 import { get } from 'lodash';
 import { CancelToken } from 'axios';
+import { batch } from 'react-redux';
+import { UPDATE_AVAILABLE_BIDDER_ERROR,
+  UPDATE_AVAILABLE_BIDDER_ERROR_TITLE, UPDATE_AVAILABLE_BIDDER_SUCCESS,
+  UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE,
+} from 'Constants/SystemMessages';
+import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
 let cancel;
@@ -37,16 +43,24 @@ export function aiCreate(post_body) {
         cancel = c;
       }) })
       .then(({ data }) => data || [])
-      .then((data$) => {
-        dispatch(aiCreateSuccess(data$));
-        dispatch(aiCreateErrored(false));
-        dispatch(aiCreateLoading(false));
+      .then(() => {
+        const toastTitle = UPDATE_AVAILABLE_BIDDER_SUCCESS_TITLE;
+        const toastMessage = UPDATE_AVAILABLE_BIDDER_SUCCESS;
+        batch(() => {
+          dispatch(aiCreateErrored(false));
+          dispatch(aiCreateLoading(true));
+          dispatch(aiCreateSuccess(post_body));
+          dispatch(toastSuccess(toastMessage, toastTitle));
+        });
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
           dispatch(aiCreateErrored(false));
           dispatch(aiCreateLoading(true));
         } else {
+          const toastTitle = UPDATE_AVAILABLE_BIDDER_ERROR_TITLE;
+          const toastMessage = UPDATE_AVAILABLE_BIDDER_ERROR;
+          dispatch(toastError(toastMessage, toastTitle));
           dispatch(aiCreateErrored(true));
           dispatch(aiCreateLoading(false));
         }
