@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
-import { filter, get, includes, take, takeRight } from 'lodash';
+import { get, includes } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -9,18 +9,12 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Calendar from 'react-calendar';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
-import RemarksPill from '../RemarksPill';
 import api from '../../../api';
 
 const AgendaItemLegsForm = props => {
   const {
     legs,
-    remarks,
-    isCard,
-    hideRemarks,
-    showCloseButton,
     onClose,
-    isAIHView,
   } = props;
 
   const calendarID = 'aim-ted-calendar';
@@ -45,12 +39,9 @@ const AgendaItemLegsForm = props => {
   const actionMetadata = { dropdown: 'action', defaultValue: selectedAction, key: 'code', value: 'code', text: 'abbr_desc_text' };
   const travelMetaData = { dropdown: 'travel', defaultValue: selectedTravel, key: 'code', value: 'code', text: 'abbr_desc_text' };
 
-  let legs$ = legs;
-  if (isCard && legs.length > 2) {
-    legs$ = [take(legs)[0], takeRight(legs)[0]];
-  }
-  const strLimit = isCard ? 15 : 50;
-  const formatStr = (d) => shortenString(d, strLimit);
+  const legs$ = legs;
+
+  const formatStr = (d) => shortenString(d, 50);
 
   // TO-DO - better date checking. isDate() with null or bad string not guaranteed to work.
   const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
@@ -119,24 +110,26 @@ const AgendaItemLegsForm = props => {
     <>
       {
         legs$.map((leg, i) => {
-          const showClose = showCloseButton && key === 'pos_title' && i > 0;
+          const showClose = key === 'pos_title' && i > 0;
           const isFirstLeg = i === 0;
-          const editDropdown = (!isFirstLeg && !isAIHView && (key === 'dropdown'));
-          const editCalendar = (!isFirstLeg && !isAIHView && (key === 'ted'));
+          const editDropdown = (!isFirstLeg && (key === 'dropdown'));
+          const editCalendar = (!isFirstLeg && (key === 'ted'));
           const helperFuncToggle = !!helperFunc;
           return (<td>
             {/* first leg cannot be removed */}
-            {showClose &&
-            <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
-              <FA name="times" />
-            </InteractiveElement>}
+            {
+              showClose &&
+                <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
+                  <FA name="times" />
+                </InteractiveElement>
+            }
             {
               helperFunc && !editDropdown && !editCalendar &&
                 <dd className={showClose ? 'dd-close-padding' : ''}>{helperFunc(leg[key])}</dd>
             }
             {
               !helperFuncToggle && !editDropdown &&
-              <dd>{leg[key]}</dd>
+                <dd>{leg[key]}</dd>
             }
             {
               editCalendar &&
@@ -251,10 +244,8 @@ const AgendaItemLegsForm = props => {
     },
   ];
 
-  const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
-
   return (
-    <div className={`${isAIHView ? 'ai-history-card-legs' : 'aim-legs'}`}>
+    <div className="aim-legs">
       {
         legsLoading ?
           <Spinner type="legs" size="small" />
@@ -262,7 +253,7 @@ const AgendaItemLegsForm = props => {
           <table>
             <tbody>
               {
-                tableData$.map(tr => (
+                tableData.map(tr => (
                   <tr>
                     <td>
                       <FA name={tr.icon} />
@@ -278,39 +269,18 @@ const AgendaItemLegsForm = props => {
           </table>
       }
       very nice very nice
-      {
-        !isCard && !hideRemarks &&
-        <div className="remarks-container">
-          <div className="remarks-text">Remarks:</div>
-          {
-            remarks.map(remark => (
-              <RemarksPill key={remark.title} {...remark} />
-            ))
-          }
-        </div>
-      }
     </div>
   );
 };
 
 AgendaItemLegsForm.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
-  remarks: PropTypes.arrayOf(PropTypes.shape({})),
-  isCard: PropTypes.bool,
-  hideRemarks: PropTypes.bool,
-  showCloseButton: PropTypes.bool,
   onClose: PropTypes.func,
-  isAIHView: PropTypes.bool,
 };
 
 AgendaItemLegsForm.defaultProps = {
   legs: [],
-  remarks: [],
-  isCard: false,
-  hideRemarks: false,
-  showCloseButton: false,
   onClose: EMPTY_FUNCTION,
-  isAIHView: false,
 };
 
 export default AgendaItemLegsForm;
