@@ -452,6 +452,79 @@
 
       }
 
+
+    .aim-legs-row {
+      padding: 20px 30px;
+      overflow-x: auto;
+
+      .aim-legs {
+        min-height: 300px;
+
+        .tm-spinner-legs {
+          left: 45%;
+          position: absolute;
+          top: 40%;
+        }
+
+        table {
+          margin-top: 0;
+          margin-bottom: 30px;
+
+          td {
+            border: none;
+            max-width: 300px;
+            padding: 0;
+            position: relative;
+          }
+
+          th {
+            border: none;
+            padding: .5rem 1rem;
+            max-width: 80px;
+          }
+
+          .arrow {
+            color: $bg-gray-dark-2;
+            font-size: small;
+
+            span {
+              margin-left: 15px;
+            }
+
+          }
+
+          dt {
+            font-weight: bold;
+          }
+
+          dd {
+            margin: 0 10px;
+          }
+
+          tr:hover {
+
+            th, td {
+              background-color: $color-gray-lightest;
+            }
+
+          }
+          // exclude arrow row
+          tr:hover:nth-child(5) {
+
+            th, td {
+              background-color: transparent;
+            }
+
+          }
+
+          td:nth-child(n+2) {
+            border-left: 1px solid $color-gray-lighter;
+            padding-right: 10px;
+          }
+
+        }
+
+      }
     }
 
     .remove-leg-button {
@@ -529,10 +602,12 @@
 
 .stacked {
   display: block;
-  width: 70%;
+
+  .maintenance-container-left-expanded {
+    border-bottom: 3px solid $color-black;
+  }
 
   .maintenance-container-right {
-    border-top: 2px solid $color-black;
     margin-top: 20px;
     width: 98%;
   }
