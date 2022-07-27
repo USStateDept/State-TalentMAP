@@ -87,7 +87,7 @@ const AgendaItemCard = props => {
           }
           <h3 className="ai-history-card-title">
             { titles[0] }
-            <div className="arrow">
+            <div className="title-arrow">
               <div className="arrow-tail" />
               {legsLength}
               <div className="arrow-tail" />
