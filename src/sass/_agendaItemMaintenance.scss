@@ -336,10 +336,6 @@
     border-bottom: 2px solid gray;
 
     .aim-legs-row {
-      border-left: none;
-      border-radius: 0;
-      box-shadow: none;
-      margin: 0;
       padding: 20px 30px;
       overflow-x: auto;
 
@@ -489,10 +485,12 @@
 
 .stacked {
   display: block;
-  width: 70%;
+
+  .maintenance-container-left-expanded {
+    border-bottom: 3px solid $color-black;
+  }
 
   .maintenance-container-right {
-    border-top: 2px solid $color-black;
     margin-top: 20px;
     width: 98%;
   }
