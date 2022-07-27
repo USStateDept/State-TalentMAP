@@ -367,15 +367,6 @@
     display: flex;
     flex-wrap: wrap;
     margin: 15px;
-    #add-remark {
-      color: $primary-blue;
-      font-size: 20px;
-      margin: 0 10px 0 -15px;
-    }
-
-    #add-remark:hover {
-      color: $primary-blue-darkest;
-    }
 
     .remarks-text {
       float: left;
@@ -392,13 +383,6 @@
       margin-bottom: 1rem;
       margin-right: 1.5rem;
       padding: .5em;
-
-      .fa-times {
-        margin-left: 10px;
-      }
-      .fa-times:hover {
-        cursor: pointer;
-      }
     }
   }
 
