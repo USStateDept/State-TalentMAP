@@ -3,17 +3,5 @@
 exports[`NavTabsComponent matches snapshot 1`] = `
 <div
   className="navTabs"
->
-  <div
-    className="menu-style"
-  />
-  <div
-    className="dd-style dd-style-center "
-    style={
-      Object {
-        "width": "180px",
-      }
-    }
-  />
-</div>
+/>
 `;

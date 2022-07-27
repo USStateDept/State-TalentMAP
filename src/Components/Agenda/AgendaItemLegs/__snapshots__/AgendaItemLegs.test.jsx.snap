@@ -2,7 +2,7 @@
 
 exports[`AgendaItemLegs Component matches snapshot 1`] = `
 <div
-  className="aim-legs"
+  className="ai-history-card-legs"
 >
   <table>
     <tbody>
