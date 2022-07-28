@@ -2,7 +2,7 @@
 
 exports[`AgendaItemLegs Component matches snapshot 1`] = `
 <div
-  className="ai-history-card-legs"
+  className="aim-legs"
 >
   <Spinner
     size="small"
