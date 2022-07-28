@@ -70,14 +70,9 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   };
 
   return (
-    <div className="ai-timeline-pane">
-      {
-        !unitedLoading &&
-          <div className="aim-legs-row">
-            <AgendaItemLegsForm onClose={onClose} legs={selectedLegs} />
-          </div>
-      }
-    </div>);
+    !unitedLoading &&
+      <AgendaItemLegsForm onClose={onClose} legs={selectedLegs} />
+  );
 };
 
 AgendaItemTimeline.propTypes = {
