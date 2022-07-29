@@ -1,12 +1,11 @@
-/* eslint-disable no-unused-vars */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes } from 'lodash';
-import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
 import AgendaLeg from '../AgendaLeg';
+import Alert from '../../Alert';
 import api from '../../../api';
 
 const AgendaItemLegsForm = props => {
@@ -32,40 +31,24 @@ const AgendaItemLegsForm = props => {
   };
 
   const legHeaderData = [
-    {
-      title: 'Position Title',
-    },
-    {
-      title: 'Position Number',
-    },
-    {
-      title: 'Grade',
-    },
-    {
-      title: 'Language',
-    },
-    {
-      icon: 'building-o',
-      title: 'Org',
-    },
-    {
-      icon: 'paper-plane-o',
-      title: 'ETA',
-    },
-    {
-      icon: 'clock-o',
-      title: 'TED',
-    },
-    {
-      title: 'TOD',
-    },
-    {
-      title: 'Action',
-    },
-    {
-      title: 'Travel',
-    },
+    'Position Title',
+    'Position Number',
+    'Grade',
+    'Language',
+    'Org',
+    'ETA',
+    '',
+    'TED',
+    'TOD',
+    'Action',
+    'Travel',
   ];
+
+  const [numLegs, setNumLegs] = useState(0);
+
+  useEffect(() => {
+    setNumLegs(legs.length);
+  }, [legs]);
 
   return (
     <>
@@ -74,18 +57,29 @@ const AgendaItemLegsForm = props => {
           <Spinner type="legs" size="small" />
       }
       {
-        !legsLoading &&
+        !numLegs &&
+        <Alert type="info" title="No Agenda Item Legs" />
+      }
+      {
+        !legsLoading && numLegs &&
           <div className="legs-form-container">
             {
-              legHeaderData.map((h, i) => (
-                <div className={`grid-col-1 grid-row-${i + 1}`}>
-                  {h.title}
+              legHeaderData.map((title, i) => (
+                <div className={`grid-col-1 grid-row-${i + 2}`}>
+                  {title}
                 </div>
               ))
             }
             {
-              legs.map((tr, i) => (
-                <AgendaLeg leg={tr} legNum={i + 2} />
+              legs.map((leg, i) => (
+                <AgendaLeg
+                  leg={leg}
+                  legNum={i + 2}
+                  TODs={TODs}
+                  legActionTypes={legActionTypes}
+                  travelFunctions={travelFunctions}
+                  onClose={onClose$}
+                />
               ))
             }
           </div>

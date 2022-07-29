@@ -1,27 +1,45 @@
 .legs-form-container {
   //background-color: #ffadad;
   background-color: $color-white;
-  border-top: 2px solid gray;
-  border-bottom: 2px solid gray;
+  border: 2px solid $color-gray-light;
+  padding: 0 10px 20px 10px;
   overflow-x: auto;
   display: grid;
-  grid-template-columns: 80px repeat(10, auto);
-  gap: 10px;
+  grid-template-columns: 90px repeat(10, auto);
+  align-items: center;
 
   .grid-col-1 {
     font-weight: bold;
+    border: none!important;
+    padding: 0 10px!important;
+  }
+  .grid-row-1 {
+    font-weight: bold;
+    border: none!important;
+    padding: 5px!important;
   }
 
-  $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ];
+  $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
 
 
   @each $num in $cols-rows {
     .grid-col-#{$num} {
       grid-column: $num;
+      border-left: 1px solid $color-gray-lighter;
     }
     .grid-row-#{$num} {
       grid-row: $num;
+      padding: 10px;
     }
+  }
+
+
+  .remove-leg-button {
+    float: right;
+  }
+
+  .remove-leg-button:hover {
+    color: red;
   }
 }
 
@@ -35,26 +53,18 @@
 
 
 
-.ted-calendar-container {
-  padding-left: .7em;
-
   .fa {
     cursor: pointer;
     padding-left: 5px;
   }
 
-  .fa-calendar-container {
+  .ted-calendar-container {
     display: inline;
     padding-left: 10px;
-    position: absolute;
-    top: -5em;
+    position: relative;
 
     .ted-react-calendar {
-      display: inline-block;
-      font-size: 1.5rem;
-      position: relative;
       width: 280px;
-      z-index: 1;
 
       .react-calendar__navigation {
         background-color: $bg-gray-medium-3;
@@ -78,7 +88,6 @@
       font-size: .8em;
     }
   }
-}
 
 .leg-dropdown {
   background-image: none;
@@ -108,16 +117,6 @@
   padding: 20px 30px;
   overflow-x: auto;
 
-}
-
-.remove-leg-button {
-  position: absolute;
-  right: 6px;
-  top: 0;
-}
-
-.remove-leg-button:hover {
-  color: red;
 }
 
 
@@ -154,7 +153,7 @@ tr:hover {
 }
 
 .tm-spinner-legs {
-  left: 45%;
+  left: 35%;
   position: absolute;
-  top: 40%;
+  top: 60%;
 }
