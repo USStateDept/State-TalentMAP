@@ -620,22 +620,6 @@ $register-hide-icon: 95%;
     border-color: $color-green-dark;
   }
 
-  // .register-with-another-bidder-icon {
-  //   span:nth-of-type(1),
-  //   span:nth-of-type(2),
-  //   span:nth-of-type(3),
-  //   span:nth-of-type(4) {
-  //     animation: none;
-  //     background: $color-green-dark-opacity50;
-  //     border-color: $color-green-dark-opacity50;
-  //   }
-  // }
-
-  // .register-with-another-bidder-number-icon-is-current-no-action {
-  //   background: $color-green-dark-opacity50;
-  //   border-color: $color-green-dark-opacity50;
-  // }
-
   .number-icon-is-current-no-action {
     background: $blue-primary;
     border-color: $blue-primary;
@@ -1078,7 +1062,7 @@ $register-hide-icon: 95%;
   .step-in-panel {
     .rc-steps-item-content {
       .step-title-main-text {
-        left: -2px;
+        left: -12px;
       }
     }
   }
@@ -1226,13 +1210,6 @@ $register-hide-icon: 95%;
       }
     }
   }
-
-  // .register-with-another-bidder-bid-steps {
-  //   .register-with-another-bidder-icon {
-  //     background: $color-green-dark-opacity50;
-  //     border-color: $color-green-dark-opacity50;
-  //   }
-  // }
 
   &.bid-tracker--priority-exists.bid-tracker--is-not-priority,
   &.bid-tracker--priority-exists.bid-tracker--is-priority {
