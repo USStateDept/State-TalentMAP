@@ -1092,6 +1092,10 @@ $register-hide-icon: 95%;
       position: absolute;
       text-align: center;
     }
+    
+    .hs-needs-registered {
+      left: -15px;
+    }
   }
 
   .step-approval {

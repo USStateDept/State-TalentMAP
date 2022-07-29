@@ -12,7 +12,7 @@ const assignClasses = (isComplete, needsAction, isCurrent, handshakeRegisterWith
   }
 
   if (!needsAction && isCurrent) {
-    classes.push(handshakeRegisterWithAnotherBidder? '' : 'number-icon-is-current-no-action')
+    classes.push(handshakeRegisterWithAnotherBidder ? '' : 'number-icon-is-current-no-action')
   }
 
   if (needsAction && isCurrent) {
