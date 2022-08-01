@@ -112,14 +112,14 @@ const ProfileDashboard = ({
                     </div>
                   }
                   {
-                    isPublic && (showClassifications || showLanguages) &&
+                    // isPublic && (showClassifications || showLanguages) &&
                     <>
                       <Column
                         columns={columns[1]}
                         className="user-dashboard-section-container user-dashboard-column-2"
                       >
                         {
-                          showClassifications && !userClassificationsHasErrored &&
+                          isPublic && showClassifications && !userClassificationsHasErrored &&
                           <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                             <Classifications
                               classifications={classifications}
@@ -145,7 +145,7 @@ const ProfileDashboard = ({
                           className="user-dashboard-section-container user-dashboard-column-3"
                         >
                           {
-                            showBidTracker &&
+                            isPublic && showBidTracker &&
                           <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
                             <BidList
                               bids={bidList}
@@ -158,7 +158,7 @@ const ProfileDashboard = ({
                           </BoxShadow>
                           }
                           {
-                            showAssignmentHistory &&
+                            (isPublic || showAssignmentHistory) &&
                           <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                             <Assignments assignments={userProfile.assignments} />
                           </BoxShadow>

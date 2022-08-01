@@ -49,14 +49,18 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
     const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/?ordering=${bidSort}`);
 
     const proms = [getUserAccount()];
+    // console.log(proms);
     if (includeBids) proms.push(getUserBids());
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
     // might add in the future
     axios.all(proms)
       .then(axios.spread((acct, bids) => {
+        // console.log(acct);
+        // console.log(bids);
         // form the userProfile object
         const acct$ = get(acct, 'data', {});
+        // console.log(acct$);
         if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
