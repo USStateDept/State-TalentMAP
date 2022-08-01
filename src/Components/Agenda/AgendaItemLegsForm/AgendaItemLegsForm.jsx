@@ -12,6 +12,7 @@ const AgendaItemLegsForm = props => {
   const {
     legs,
     onClose,
+    updateLeg,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
@@ -28,6 +29,10 @@ const AgendaItemLegsForm = props => {
 
   const onClose$ = leg => {
     onClose(leg);
+  };
+
+  const updateLeg$ = leg => {
+    updateLeg(leg);
   };
 
   const legHeaderData = [
@@ -79,6 +84,7 @@ const AgendaItemLegsForm = props => {
                   legActionTypes={legActionTypes}
                   travelFunctions={travelFunctions}
                   onClose={onClose$}
+                  updateLeg={updateLeg$}
                 />
               ))
             }

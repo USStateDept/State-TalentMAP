@@ -73,9 +73,14 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
     setLegs(legs$);
   };
 
+  const updateLeg = leg => {
+    // eslint-disable-next-line no-console
+    console.log('current: leg', leg);
+  };
+
   return (
     !unitedLoading &&
-      <AgendaItemLegsForm onClose={onClose} legs={selectedLegs} />
+      <AgendaItemLegsForm onClose={onClose} legs={selectedLegs} updateLeg={updateLeg} />
   );
 };
 

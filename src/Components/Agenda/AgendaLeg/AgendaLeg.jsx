@@ -11,6 +11,7 @@ const AgendaLeg = props => {
   const {
     leg,
     legNum,
+    updateLeg,
     onClose,
     TODs,
     legActionTypes,
@@ -33,6 +34,7 @@ const AgendaLeg = props => {
   }, [TED, TOD, action, travel]);
 
   const updateDropdown = (dropdown, value) => {
+    updateLeg(leg);
     // eslint-disable-next-line default-case
     switch (dropdown) {
       case 'ted':
@@ -162,11 +164,13 @@ AgendaLeg.propTypes = {
   legActionTypes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   travelFunctions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClose: PropTypes.func.isRequired,
+  updateLeg: PropTypes.func.isRequired,
 };
 
 AgendaLeg.defaultProps = {
   leg: {},
   onClose: EMPTY_FUNCTION,
+  updateLeg: EMPTY_FUNCTION,
 };
 
 export default AgendaLeg;
