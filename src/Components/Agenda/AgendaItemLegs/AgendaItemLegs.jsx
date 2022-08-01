@@ -254,7 +254,7 @@ const AgendaItemLegs = props => {
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
-    <div className="ai-history-card-legs">
+    <div className={`${isAIHView ? 'ai-history-card-legs' : 'aim-legs'}`}>
       {
         legsLoading ?
           <Spinner type="legs" size="small" />
