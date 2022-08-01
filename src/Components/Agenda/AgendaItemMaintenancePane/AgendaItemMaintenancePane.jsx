@@ -8,7 +8,6 @@ import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
-import { resultsFetchData } from 'actions/results';
 import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
@@ -87,6 +86,7 @@ const AgendaItemMaintenancePane = (props) => {
       selectedStatus: selectedStatus || '',
       asgSepBid: asgSepBid || '',
       selectedPanelCat: selectedPanelCat || '',
+      selectedPositionNumber: selectedPositionNumber || '',
     };
 
     submitAction(userInputs);
