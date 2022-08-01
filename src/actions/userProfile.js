@@ -44,6 +44,18 @@ const assignment =
     },
   ];
 
+const language =
+  [
+    {
+      code: 'GG',
+      language: 'Georgian',
+      test_date: '2003-05-28T04:00:00Z',
+      speaking_score: '2+',
+      reading_score: '2',
+      custom_description: 'Georgian 2+/2',
+    },
+  ];
+
 export function userProfileHasErrored(bool) {
   return {
     type: 'USER_PROFILE_HAS_ERRORED',
@@ -137,6 +149,7 @@ export function userProfileFetchData(bypass, cb) {
         const orgPermissions = get(results, '[6].value.data', []);
         const account = get(results, '[7].value.data', {});
         const userAssignments = assignment;
+        const userLanguages = language;
         // console.log(getUserAccount());
         // const acct$ = get(acct, 'data', {});
         // console.log(acct$);
@@ -155,6 +168,7 @@ export function userProfileFetchData(bypass, cb) {
           bureau_permissions: bureauPermissions,
           org_permissions: orgPermissions,
           assignments: userAssignments,
+          languages: userLanguages,
         };
 
         if (!bypass) {
@@ -229,7 +243,7 @@ export function userProfileFetchData(bypass, cb) {
 }
 
 // Toggling a favorite position:
-// We want to be explicit by having a "remove" param,
+// We want to be explicit by having a 'remove' param,
 // so that the visual indicator for the user's action always aligns
 // what we're actually doing.
 // We also want to refresh their favorites, in case they made changes on another page.

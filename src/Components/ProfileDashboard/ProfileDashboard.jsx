@@ -62,6 +62,14 @@ const ProfileDashboard = ({
                         isPublic={isPublic}
                       />
                     </BoxShadow>
+                    {
+                      showLanguages &&
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                          <Languages
+                            languagesArray={userProfile.languages}
+                          />
+                        </BoxShadow>
+                    }
                   </Column>
                   {
                     !isPublic &&
@@ -77,6 +85,12 @@ const ProfileDashboard = ({
                           <SavedSearches />
                         </BoxShadow>
                         { isBidder() && favoritesContainer() }
+                        {
+                          (isPublic || showAssignmentHistory) &&
+                          <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                            <Assignments assignments={userProfile.assignments} />
+                          </BoxShadow>
+                        }
                       </Column>
                       <Column
                         columns={columns[2]}
@@ -129,14 +143,6 @@ const ProfileDashboard = ({
                             />
                           </BoxShadow>
                         }
-                        {
-                          showLanguages &&
-                            <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                              <Languages
-                                languagesArray={userProfile.languages}
-                              />
-                            </BoxShadow>
-                        }
                       </Column>
                       {
                         (showAssignmentHistory || showBidTracker) &&
@@ -155,12 +161,6 @@ const ProfileDashboard = ({
                               userId={userProfile.perdet_seq_number}
                               deleteBid={deleteBid}
                             />
-                          </BoxShadow>
-                          }
-                          {
-                            (isPublic || showAssignmentHistory) &&
-                          <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                            <Assignments assignments={userProfile.assignments} />
                           </BoxShadow>
                           }
                         </Column>

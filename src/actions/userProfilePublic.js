@@ -60,7 +60,7 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
         // console.log(bids);
         // form the userProfile object
         const acct$ = get(acct, 'data', {});
-        // console.log(acct$);
+        console.log(acct$);
         if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
