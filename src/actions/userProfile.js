@@ -115,6 +115,7 @@ export function userProfileFetchData(bypass, cb) {
     // profile
     const getUserAccount = () => api().get('/profile/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // const getAssignments = () => api().get();
+
     // permissions
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
@@ -150,11 +151,6 @@ export function userProfileFetchData(bypass, cb) {
         const account = get(results, '[7].value.data', {});
         const userAssignments = assignment;
         const userLanguages = language;
-        // console.log(getUserAccount());
-        // const acct$ = get(acct, 'data', {});
-        // console.log(acct$);
-        // const acct$$ = get(acct$, 'assignments');
-        // console.log(acct$$);
 
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,

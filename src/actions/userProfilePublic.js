@@ -49,7 +49,6 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
     const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/?ordering=${bidSort}`);
 
     const proms = [getUserAccount()];
-    // console.log(proms);
     if (includeBids) proms.push(getUserBids());
 
     // use api' Promise.all to fetch the profile, assignments and any other requests we
