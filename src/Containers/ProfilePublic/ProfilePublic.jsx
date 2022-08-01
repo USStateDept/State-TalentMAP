@@ -73,8 +73,7 @@ class ProfilePublic extends Component {
         showSearchAsClient: false,
       };
     }
-    // console.log(userProfile);
-    // console.log(userProfile.assignments);
+
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />

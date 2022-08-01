@@ -56,11 +56,8 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
     // might add in the future
     axios.all(proms)
       .then(axios.spread((acct, bids) => {
-        // console.log(acct);
-        // console.log(bids);
         // form the userProfile object
         const acct$ = get(acct, 'data', {});
-        console.log(acct$);
         if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
