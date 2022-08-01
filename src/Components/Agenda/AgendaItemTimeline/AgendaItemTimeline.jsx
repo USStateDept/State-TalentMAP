@@ -2,13 +2,14 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
+import shortid from 'shortid';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   const FAKE_LEGS = [
     {
-      id: 11158,
+      ail_seq_num: shortid.generate(),
       pos_title: 'SPECIAL AGENT',
       pos_num: '57159000',
       org: 'FSI',
@@ -18,7 +19,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
       grade: 'OM',
     },
     {
-      id: 41387,
+      ail_seq_num: shortid.generate(),
       pos_title: 'REGIONAL SECURITY OFFICER',
       pos_num: '57019000',
       org: 'A',
@@ -46,14 +47,17 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
       const pos = pos_results;
       if (pos) {
         const legs = [...selectedLegs];
+        // TODO: waiting for updates to generic pos EP to pull in eta, language
+        // and possibly others
         const pos$ = {
-          id: get(pos, 'id'),
+          ail_seq_num: shortid.generate(),
           pos_title: get(pos, 'title'),
           pos_num: get(pos, 'position_number'),
           org: get(pos, 'organization'),
           eta: '2019-05-05T00:00:00.000Z',
-          ted: '2020-07-05T00:00:00.000Z',
-          tod: '2 Years',
+          ted: null,
+          language: 'FR 3/2, SP 1/1+, RS 0+/0+',
+          tod: null,
           grade: get(pos, 'grade'),
           action: null,
           travel: null,
@@ -62,10 +66,10 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
         setLegs(legs);
       }
     }
-  }, [pos_results_loading]);
+  }, [pos_results]);
 
   const onClose = leg => {
-    const legs$ = selectedLegs.filter(l => l.id !== leg.id);
+    const legs$ = selectedLegs.filter(l => l.ail_seq_num !== leg.ail_seq_num);
     setLegs(legs$);
   };
 
