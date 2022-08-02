@@ -88,7 +88,6 @@ const AgendaItemMaintenancePane = (props) => {
       selectedPanelCat: selectedPanelCat || '',
       selectedPositionNumber: selectedPositionNumber || '',
     };
-    console.log(userInputs);
 
     submitAction(userInputs);
   };
