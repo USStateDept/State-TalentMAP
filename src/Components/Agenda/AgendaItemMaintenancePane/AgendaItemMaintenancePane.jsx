@@ -24,6 +24,7 @@ const AgendaItemMaintenancePane = (props) => {
     userSelections,
     leftExpanded,
     updateSelection,
+    numLegs,
   } = props;
 
   const defaultText = 'Coming Soon';
@@ -50,10 +51,13 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [selectedPositionNumber, setPositionNumber] = useState();
   const [posNumError, setPosNumError] = useState(false);
+  const [inputClass, setInputClass] = useState('input-default');
 
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
   const [selectedPanelMLDate, setPanelMLDate] = useState();
   const [selectedPanelIDDate, setPanelIDDate] = useState();
+
+  const legLimit = numLegs >= 10;
 
   useEffect(() => {
     setParentLoadingState(includes([asgSepBidLoading,
@@ -72,6 +76,18 @@ const AgendaItemMaintenancePane = (props) => {
       setPosNumError(true);
     }
   }, [pos_results_errored]);
+
+  useEffect(() => {
+    if (legLimit) {
+      setInputClass('input-disabled');
+    } else if (pos_results_loading) {
+      setInputClass('loading-animation');
+    } else if (posNumError) {
+      setInputClass('input-error');
+    } else {
+      setInputClass('input-default');
+    }
+  }, [numLegs, pos_results_loading, posNumError]);
 
   const submitAction = (userInputs) => {
     dispatch(aiCreate(userInputs));
@@ -94,9 +110,11 @@ const AgendaItemMaintenancePane = (props) => {
 
   // special handling for position number
   const addPositionNum = () => {
-    setPosNumError(false);
-    if (selectedPositionNumber) {
-      dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
+    if (!legLimit) {
+      setPosNumError(false);
+      if (selectedPositionNumber) {
+        dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
+      }
     }
   };
 
@@ -167,14 +185,15 @@ const AgendaItemMaintenancePane = (props) => {
               <input
                 id="add-pos-num-input"
                 name="add"
-                className={`${posNumError ? 'input-error' : 'input-default'} ${pos_results_loading ? 'loading-animation' : ''}`}
+                className={inputClass}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
                 value={selectedPositionNumber}
+                disabled={legLimit}
               />
               <InteractiveElement
-                id="add-pos-num-icon"
+                id={`add-pos-num-icon${legLimit ? '-disabled' : ''}`}
                 onClick={addPositionNum}
                 role="button"
                 title="Add position"
@@ -299,6 +318,7 @@ AgendaItemMaintenancePane.propTypes = {
     }),
   ),
   updateSelection: PropTypes.func,
+  numLegs: PropTypes.number,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -309,6 +329,7 @@ AgendaItemMaintenancePane.defaultProps = {
   userSelections: [],
   addToSelection: EMPTY_FUNCTION,
   updateSelection: EMPTY_FUNCTION,
+  numLegs: 0,
 };
 
 export default AgendaItemMaintenancePane;

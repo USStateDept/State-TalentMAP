@@ -181,6 +181,10 @@
         background-color: $color-red-lightest;
         border: 1px solid $color-red;
       }
+      .input-disabled {
+        background-color: $color-gray-lighter;
+        border: 1px solid $color-gray-light;
+      }
 
       #add-pos-num-icon {
         color: $primary-blue;
@@ -191,6 +195,20 @@
 
       #add-pos-num-icon:hover {
         color: $primary-blue-darkest;
+      }
+
+      #add-pos-num-icon-disabled {
+        color: $color-gray;
+        margin-left: -25px;
+        position: relative;
+        top: 1px;
+        .fa {
+          cursor: not-allowed;
+        }
+      }
+
+      #add-pos-num-icon-disabled:hover {
+        cursor: not-allowed;
       }
 
       div {
