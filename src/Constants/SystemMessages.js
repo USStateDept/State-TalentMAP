@@ -158,3 +158,8 @@ export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications updated"
 export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";
 
 export const NO_NUMBER = '--';
+
+export const UPDATE_AGENDA_ITEM_SUCCESS_TITLE = 'Agenda Item Saved';
+export const UPDATE_AGENDA_ITEM_SUCCESS = 'This Agenda Item has been saved successfully.';
+export const UPDATE_AGENDA_ITEM_ERROR_TITLE = 'Agenda Item Error';
+export const UPDATE_AGENDA_ITEM_ERROR = 'There was an issue attempting to save this Agenda Item. Please try again.';
