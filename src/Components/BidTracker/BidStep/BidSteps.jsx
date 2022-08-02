@@ -30,6 +30,7 @@ const BidSteps = (props, context) => {
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
   const handshakeRegisterWithAnotherBidder = get(bid, 'position_info.bid_statistics[0].has_handshake_offered')
     && showHandshakeRegsiterWithAnotherBidderOverlay(bid);
+  const handshakeNeedsRegistered = get(bid, 'status') === 'handshake_needs_registered';
   const getIcon = (status) => {
     const bidPropsAfterRegister = [APPROVED_PROP, IN_PANEL_PROP, HAND_SHAKE_ACCEPTED_PROP];
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
@@ -81,7 +82,7 @@ const BidSteps = (props, context) => {
           `}
             title={
               <div>
-                <div className="step-title-main-text">{bidData[status.prop].title}</div>
+                <div className={`step-title-main-text${handshakeNeedsRegistered ? ' hs-needs-registered' : ''}`}>{bidData[status.prop].title}</div>
                 <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
               </div>
             }

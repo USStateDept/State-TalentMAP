@@ -11,18 +11,12 @@ const assignClasses = (isComplete, needsAction, isCurrent, handshakeRegisterWith
     classes.push('number-icon-incomplete');
   }
 
-  if (!needsAction && isCurrent && handshakeRegisterWithAnotherBidder) {
-    classes.push('register-with-another-bidder-number-icon-is-current-no-action');
-  } else if (!needsAction && isCurrent) {
-    classes.push('number-icon-is-current-no-action')
+  if (!needsAction && isCurrent) {
+    classes.push(handshakeRegisterWithAnotherBidder ? '' : 'number-icon-is-current-no-action')
   }
 
   if (needsAction && isCurrent) {
     classes.push('number-icon-needs-action');
-  }
-
-  if (handshakeRegisterWithAnotherBidder) {
-    classes.push('register-with-another-bidder-icon')
   }
   return classes.join(' ');
 };
