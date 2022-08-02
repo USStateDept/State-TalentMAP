@@ -73,6 +73,7 @@ class ProfilePublic extends Component {
         showSearchAsClient: false,
       };
     }
+
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />
