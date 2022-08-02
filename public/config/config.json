@@ -13,6 +13,7 @@
     "agenda_search": true,
     "create_agenda_item": true,
     "panel_search": true,
-    "profile_languages": true
+    "profile_languages": true,
+    "profile_assignments": true
   }
 }

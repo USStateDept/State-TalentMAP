@@ -13,6 +13,7 @@ import { fetchClassifications, fetchUserClassifications } from 'actions/classifi
 import { checkFlag } from '../../flags';
 
 const showLanguages = () => checkFlag('flags.profile_languages');
+const showAssignments = () => checkFlag('flags.profile_assignments');
 
 class DashboardContainer extends Component {
   UNSAFE_componentWillMount() {
@@ -52,6 +53,7 @@ class DashboardContainer extends Component {
         userClassificationsHasErrored={userClassificationsHasErrored}
         showClassifications
         showLanguages={showLanguages()}
+        showAssignments={showAssignments()}
       />
     );
   }
