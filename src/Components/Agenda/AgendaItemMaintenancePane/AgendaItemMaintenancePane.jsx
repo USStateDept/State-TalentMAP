@@ -8,6 +8,7 @@ import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
+import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
@@ -72,9 +73,23 @@ const AgendaItemMaintenancePane = (props) => {
     }
   }, [pos_results_errored]);
 
-  const saveAI = () => {
-    // eslint-disable-next-line
-    console.log('save AI');
+  const submitAction = (userInputs) => {
+    dispatch(aiCreate(userInputs));
+  };
+
+  const saveAI = (e) => {
+    e.preventDefault();
+    const userInputs = {
+      selectedPanelMLDate: selectedPanelMLDate || '',
+      selectedPanelIDDAte: selectedPanelIDDate || '',
+      userSelections: userSelections || [],
+      selectedStatus: selectedStatus || '',
+      asgSepBid: asgSepBid || '',
+      selectedPanelCat: selectedPanelCat || '',
+      selectedPositionNumber: selectedPositionNumber || '',
+    };
+
+    submitAction(userInputs);
   };
 
   // special handling for position number
@@ -111,7 +126,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <select
                   id="ai-maintenance-dd-asgSepBids"
                   defaultValue={asgSepBids}
-                  onChange={(e) => setAsgSepBid(get(e, 'target.pos_num'))}
+                  onChange={(e) => setAsgSepBid(get(e, 'target.value'))}
                   value={asgSepBid}
                 >
                   <option selected hidden>
@@ -175,7 +190,7 @@ const AgendaItemMaintenancePane = (props) => {
                   <select
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
-                    onChange={(e) => setPanelCat(get(e, 'target.mic_code'))}
+                    onChange={(e) => setPanelCat(get(e, 'target.value'))}
                     value={selectedPanelCat}
                   >
                     {
