@@ -34,22 +34,6 @@ exports[`UserProfileContactInformationComponent matches snapshot 1`] = `
       title="Office number"
       titleOnBottom={false}
     />
-    <Connect(StaticDevContent)>
-      <InformationDataPoint
-        className=""
-        content={
-          <a
-            href="tel:+240-331-7189"
-            rel="nofollow"
-          >
-            +240-331-7189
-          </a>
-        }
-        sideBySide={false}
-        title="Personal contact number"
-        titleOnBottom={false}
-      />
-    </Connect(StaticDevContent)>
     <InformationDataPoint
       className=""
       content="1234 Apple St. NW Washington, DC 20010"
