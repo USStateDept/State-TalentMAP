@@ -13,5 +13,7 @@
     "register_checklist": true,
     "static_content": true,
     "unassigned_filters": true
+    "profile_languages": true,
+    "profile_assignments": true
   }
 }

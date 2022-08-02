@@ -224,6 +224,8 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         date: HAND_SHAKE_ACCEPTED_DATE,
         title: HAND_SHAKE_NEEDS_REGISTER_TITLE,
         needsAction: false,
+        isComplete: false,
+        isCurrent: true,
         isPendingLine: true,
         hasBidPreparingTooltip: false,
         number: HAND_SHAKE_ACCEPTED_NUMBER,

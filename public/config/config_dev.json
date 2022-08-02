@@ -11,7 +11,16 @@
     "persona_auth": true,
     "post_handshake": false,
     "register_checklist": true,
+    "agenda_search": true,
+    "create_agenda_item": true,
+    "handshake_bidding": true,
+    "panel_search": true,
+    "persona_auth": true,
+    "post_handshake": false,
+    "register_checklist": true,
     "static_content": true,
     "unassigned_filters": true
+    "profile_languages": true,
+    "profile_assignments": true
   }
 }
