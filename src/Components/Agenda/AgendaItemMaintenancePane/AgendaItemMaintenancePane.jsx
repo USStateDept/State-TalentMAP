@@ -88,6 +88,7 @@ const AgendaItemMaintenancePane = (props) => {
       selectedPanelCat: selectedPanelCat || '',
       selectedPositionNumber: selectedPositionNumber || '',
     };
+    console.log(userInputs);
 
     submitAction(userInputs);
   };
@@ -126,7 +127,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <select
                   id="ai-maintenance-dd-asgSepBids"
                   defaultValue={asgSepBids}
-                  onChange={(e) => setAsgSepBid(get(e, 'target.pos_num'))}
+                  onChange={(e) => setAsgSepBid(get(e, 'target.value'))}
                   value={asgSepBid}
                 >
                   <option selected hidden>
@@ -190,7 +191,7 @@ const AgendaItemMaintenancePane = (props) => {
                   <select
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
-                    onChange={(e) => setPanelCat(get(e, 'target.mic_code'))}
+                    onChange={(e) => setPanelCat(get(e, 'target.value'))}
                     value={selectedPanelCat}
                   >
                     {
