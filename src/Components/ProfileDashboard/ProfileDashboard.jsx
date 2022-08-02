@@ -105,7 +105,7 @@ const ProfileDashboard = ({
                     className="user-dashboard-section-container user-dashboard-column-3"
                   >
                     {
-                      (!isPublic && showBidTracker) &&
+                      (!isPublic) &&
                       <PermissionsWrapper permissions="bidder">
                         <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
                           <BidList
@@ -119,6 +119,7 @@ const ProfileDashboard = ({
                         </BoxShadow>
                       </PermissionsWrapper>
                     }
+                    { !isPublic && !isBidder() && favoritesContainer() }
                     {
                       !isPublic && !userClassificationsHasErrored &&
                       <PermissionsWrapper permissions="bidder">
