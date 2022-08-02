@@ -309,7 +309,7 @@
   .assignments-section {
     .favorites-list-container {
       max-height: 410px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
     .start-end {
