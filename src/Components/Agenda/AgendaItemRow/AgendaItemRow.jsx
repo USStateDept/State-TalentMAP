@@ -14,7 +14,6 @@ const AgendaItemRow = props => {
     showEdit,
     isCDO,
     perdet,
-    isAIHView,
   } = props;
 
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -49,7 +48,7 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
           </div>
-          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} isAIHView={isAIHView} />
+          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
             showEdit &&
             <div className="ai-history-edit">
@@ -98,7 +97,6 @@ AgendaItemRow.propTypes = {
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
-  isAIHView: PropTypes.bool,
 };
 
 
@@ -108,7 +106,6 @@ AgendaItemRow.defaultProps = {
   showEdit: false,
   isCDO: false,
   perdet: null,
-  isAIHView: true,
 };
 
 export default AgendaItemRow;

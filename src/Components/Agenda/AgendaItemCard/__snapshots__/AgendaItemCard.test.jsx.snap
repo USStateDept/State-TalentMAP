@@ -40,7 +40,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
     >
       N/A
       <div
-        className="arrow"
+        className="title-arrow"
       >
         <div
           className="arrow-tail"
@@ -56,13 +56,9 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
       N/A
     </h3>
     <AgendaItemLegs
-      hideRemarks={false}
-      isAIHView={true}
       isCard={true}
       legs={Array []}
-      onClose={[Function]}
       remarks={Array []}
-      showCloseButton={false}
     />
     <div
       className="ai-history-card-date"

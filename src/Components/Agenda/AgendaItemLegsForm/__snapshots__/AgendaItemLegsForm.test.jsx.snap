@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemLegs Component matches snapshot 1`] = `
+<Fragment>
+  <Spinner
+    size="small"
+    style={Object {}}
+    type="legs"
+  />
+  <Alert
+    customClassName=""
+    isAriaLive={false}
+    isDivided={false}
+    messages={
+      Array [
+        Object {
+          "body": "",
+        },
+      ]
+    }
+    title="No Agenda Item Legs"
+    type="info"
+  />
+</Fragment>
+`;

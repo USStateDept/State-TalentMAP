@@ -8,7 +8,6 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 const NavTabs = forwardRef((props, ref) => {
   const {
     collapseToDd,
-    ddCenter,
     ddStyle,
     passNavValue,
     tabs,
@@ -33,35 +32,32 @@ const NavTabs = forwardRef((props, ref) => {
   }));
 
   return (
-    <div className="navTabs">
-      <div className="menu-style">
-        {
-          !collapseToDd &&
-          tabs.map(tab => (
-            <InteractiveElement onClick={() => setMenuItem(tab.value)} id={`${tab.value}-tab-container`}>
-              <div className={`tab ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} `} id={tab.value}> {tab.text} </div>
-            </InteractiveElement>
-          ))
-        }
-      </div>
-      <div className={`dd-style ${ddCenter ? 'dd-style-center' : ''} `} style={ddStyle}>
-        {
-          collapseToDd &&
-          <SelectForm
-            id="navTabs-dd"
-            options={tabs}
-            defaultSort={menuItem}
-            onSelectOption={e => setMenuItem(e.target.value)}
-          />
-        }
-      </div>
+    <div className={`${!collapseToDd ? 'navTabs' : 'navDropdown'}`}>
+      {
+        !collapseToDd &&
+        tabs.map(tab => (
+          <InteractiveElement onClick={() => setMenuItem(tab.value)} id={`${tab.value}-tab-container`}>
+            <div className={`tab ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} `} id={tab.value}> {tab.text} </div>
+          </InteractiveElement>
+        ))
+      }
+      {
+        collapseToDd &&
+          <div className="dd-style" style={ddStyle}>
+            <SelectForm
+              id="navTabs-dd"
+              options={tabs}
+              defaultSort={menuItem}
+              onSelectOption={e => setMenuItem(e.target.value)}
+            />
+          </div>
+      }
     </div>
   );
 });
 
 NavTabs.propTypes = {
   collapseToDd: PropTypes.bool,
-  ddCenter: PropTypes.bool,
   ddStyle: PropTypes.shape({}),
   passNavValue: PropTypes.func,
   tabs: PropTypes.arrayOf(PropTypes.string).isRequired,

@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaLeg Component matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="grid-col-3 grid-row-1"
+  >
+    <InteractiveElement
+      className="remove-leg-button"
+      onClick={[Function]}
+      title="Remove leg"
+      type="div"
+    >
+      <FontAwesome
+        name="times"
+      />
+    </InteractiveElement>
+  </div>
+  <div
+    className="grid-col-3 grid-row-2"
+  >
+    <div>
+      REGIONAL SECURITY OFFICER
+    </div>
+  </div>
+  <div
+    className="grid-col-3 grid-row-3"
+  >
+    <div>
+      57019000
+    </div>
+  </div>
+  <div
+    className="grid-col-3 grid-row-4"
+  >
+    <div>
+      00
+    </div>
+  </div>
+  <div
+    className="grid-col-3 grid-row-5"
+  >
+    <div />
+  </div>
+  <div
+    className="grid-col-3 grid-row-6"
+  >
+    <div>
+      A
+    </div>
+  </div>
+  <div
+    className="grid-col-3 grid-row-7"
+  >
+    <div>
+      05/04/19
+    </div>
+  </div>
+  <div
+    className="grid-col-3 grid-row-8"
+  >
+    <div
+      className="arrow"
+    >
+      <FontAwesome
+        name="arrow-down"
+      />
+    </div>
+  </div>
+  <div
+    className="grid-col-3 grid-row-9"
+  >
+    08/02/22
+    <FontAwesome
+      name="calendar"
+      onClick={[Function]}
+      style={
+        Object {
+          "color": "black",
+        }
+      }
+    />
+  </div>
+  <div
+    className="grid-col-3 grid-row-10"
+  >
+    <select
+      className="leg-dropdown"
+    >
+      <option />
+      <option />
+    </select>
+  </div>
+  <div
+    className="grid-col-3 grid-row-11"
+  >
+    <select
+      className="leg-dropdown"
+    >
+      <option />
+      <option />
+    </select>
+  </div>
+  <div
+    className="grid-col-3 grid-row-12"
+  >
+    <select
+      className="leg-dropdown"
+    >
+      <option />
+      <option />
+    </select>
+  </div>
+</Fragment>
+`;

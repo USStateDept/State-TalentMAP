@@ -126,7 +126,7 @@ const AgendaItemHistory = (props) => {
           </div>
         </div>
         {
-          isLoading$ && !hasErrored && <div className="ai-history-cards-container"><Spinner type="homepage-position-results" size="big" /></div>
+          isLoading$ && !hasErrored && <div className="ai-history-cards-container"><Spinner type="agenda-item-history" size="big" /></div>
         }
         {
           !isLoading$ && !hasErrored && (aih || []).length < 1 &&
