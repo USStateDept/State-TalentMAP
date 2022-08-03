@@ -16,7 +16,7 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 const EditBidder = (props) => {
   const { name, sections, submitAction, bureaus, details } = props;
   const [status, setStatus] = useState(details.status);
-  const [comment, setComment] = useState(sections.comments);
+  const [note, setNote] = useState(sections.notes);
   const [ocReason, setOCReason] = useState(details.ocReason);
   const [ocBureau, setOCBureau] = useState(details.ocBureau);
   const [shared, setShared] = useState(details.shared);
@@ -49,7 +49,7 @@ const EditBidder = (props) => {
       oc_bureau: ocBureau || '',
       oc_reason: ocReason || '',
       status: status || '',
-      comments: comment || '',
+      notes: note || '',
       is_shared: shared,
       step_letter_one: stepLetterOne,
       step_letter_two: stepLetterTwo,
@@ -311,16 +311,16 @@ const EditBidder = (props) => {
           <dd>{sections.cdo}</dd>
         </div>
         <div>
-          <label htmlFor="comment">*Comment:</label>
+          <label htmlFor="note">*Notes:</label>
           <TextareaAutosize
             /* make sure this matches height in _availableBidders.scss */
             maxRows={4}
             minRows={4}
             maxlength="255"
-            name="comment"
+            name="note"
             placeholder="None listed"
-            defaultValue={comment === 'None listed' ? '' : comment}
-            onChange={(e) => setComment(e.target.value)}
+            defaultValue={note === 'None listed' ? '' : note}
+            onChange={(e) => setNote(e.target.value)}
           />
         </div>
         <div>
