@@ -183,17 +183,16 @@ const AgendaItemMaintenancePane = (props) => {
             <div>
               <label htmlFor="position number">Add Position Number:</label>
               <input
-                id="add-pos-num-input"
                 name="add"
-                className={inputClass}
+                className={`add-pos-num-input ${inputClass}`}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
-                value={selectedPositionNumber}
+                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
                 disabled={legLimit}
               />
               <InteractiveElement
-                id={`add-pos-num-icon${legLimit ? '-disabled' : ''}`}
+                className={`add-pos-num-icon ${legLimit ? 'icon-disabled' : ''}`}
                 onClick={addPositionNum}
                 role="button"
                 title="Add position"
