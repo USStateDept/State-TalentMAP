@@ -318,8 +318,8 @@ const EditBidder = (props) => {
             minRows={4}
             maxlength="255"
             name="note"
-            placeholder="None listed"
-            defaultValue={note === 'None listed' ? '' : note}
+            placeholder="No Notes"
+            defaultValue={note === 'None' ? '' : note}
             onChange={(e) => setNote(e.target.value)}
           />
         </div>

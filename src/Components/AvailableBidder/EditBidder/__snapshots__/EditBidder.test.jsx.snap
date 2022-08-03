@@ -249,7 +249,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
         minRows={4}
         name="note"
         onChange={[Function]}
-        placeholder="None listed"
+        placeholder="No Notes"
       />
     </div>
     <div>
