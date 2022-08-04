@@ -239,17 +239,17 @@ exports[`EditBidders Component matches snapshot 1`] = `
     </div>
     <div>
       <label
-        htmlFor="comment"
+        htmlFor="note"
       >
-        *Comment:
+        *Notes:
       </label>
       <ForwardRef(TextareaAutosize)
         maxRows={4}
         maxlength="255"
         minRows={4}
-        name="comment"
+        name="note"
         onChange={[Function]}
-        placeholder="None listed"
+        placeholder="No Notes"
       />
     </div>
     <div>
