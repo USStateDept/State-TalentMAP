@@ -6,8 +6,8 @@ import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities'
 import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
 import {
-  NO_BUREAU, NO_CDO, NO_COMMENTS, NO_DATE, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
-  NO_LANGUAGES, NO_NUMBER, NO_OC_REASON, NO_STATUS,
+  NO_BUREAU, NO_CDO, NO_DATE, NO_END_DATE, NO_GRADE, NO_LANGUAGE,
+  NO_LANGUAGES, NO_NOTES, NO_NUMBER, NO_OC_REASON, NO_STATUS,
 } from 'Constants/SystemMessages';
 import EditBidder from 'Components/AvailableBidder/EditBidder';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -53,7 +53,7 @@ const AvailableBidderRow = (props) => {
     && (formattedStepLetterTwo === NO_DATE) ? 'one-step-letter-icon' : '';
   const stepLettersOneAndTwoIconStyling = (formattedStepLetterOne !== NO_DATE)
     && (formattedStepLetterTwo !== NO_DATE) ? 'both-step-letters-icon' : '';
-  const comments = get(bidder, 'available_bidder_details.comments') || NO_COMMENTS;
+  const notes = get(bidder, 'available_bidder_details.comments') || NO_NOTES;
   const getStatus = () => {
     if (status === 'OC') {
       return (
@@ -185,13 +185,13 @@ const AvailableBidderRow = (props) => {
     {formatDate(updatedOn, 'MM/YYYY')}
   </Tooltip>);
 
-  const commentsToolTip = comments !== NO_COMMENTS ?
+  const notesToolTip = notes !== NO_NOTES ?
     (<Tooltip
       html={
         <div>
           <div className="ab-row-tooltip-wrapper">
             <div>
-              <span className="title">Notes: <span className="ab-row-tooltip-data">{comments}</span></span>
+              <span className="title">Notes: <span className="ab-row-tooltip-data">{notes}</span></span>
             </div>
           </div>
         </div>
@@ -203,12 +203,12 @@ const AvailableBidderRow = (props) => {
       useContext
     >
       <FA name="comments" className="fa-lg comments-icon" />
-    </Tooltip>) : comments;
+    </Tooltip>) : notes;
 
   const getSections = (isModal = false) => {
     // when adding/removing columns, make sure to update the
     // $abl-actions-td and $abl-gray-config variables
-    const comments$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_COMMENTS : commentsToolTip;
+    const notes$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_NOTES : notesToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
     return isInternalCDA ? {
       name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
@@ -221,7 +221,7 @@ const AvailableBidderRow = (props) => {
       current_post: currentPost,
       cdo: cdo ? getCDO() : NO_CDO,
       updated_on: updateTooltip,
-      comments: comments$,
+      notes: notes$,
     } : {
       name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
@@ -288,8 +288,8 @@ const AvailableBidderRow = (props) => {
     <tr className={getTRClass()}>
       {
         keys(rowSections).map(i => {
-          if (i === 'comments' && rowSections[i] === NO_COMMENTS) {
-            return (<td key={i}><text aria-disabled="true" className="no-comments">{rowSections[i]}</text></td>);
+          if (i === 'notes' && rowSections[i] === NO_NOTES) {
+            return (<td key={i}><text aria-disabled="true" className="no-notes">{rowSections[i]}</text></td>);
           }
           return (
             <td key={i}>{rowSections[i]}</td>
