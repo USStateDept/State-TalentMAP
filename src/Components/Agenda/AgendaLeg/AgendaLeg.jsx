@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable no-console */
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
@@ -24,54 +25,33 @@ const AgendaLeg = props => {
   };
 
   const [calendarHidden, setCalendarHidden] = useState(true);
-  const [TED, setTED] = useState(get(leg, 'ted'));
-  const [TOD, setTOD] = useState(get(leg, 'tod'));
-  const [action, setAction] = useState(get(leg, 'action'));
-  const [travel, setTravel] = useState(get(leg, 'travel'));
-
-  useEffect(() => {
-  //  call parent and update leg to populate down the changes
-  }, [TED, TOD, action, travel]);
 
   const updateDropdown = (dropdown, value) => {
-    updateLeg(leg);
-    // eslint-disable-next-line default-case
-    switch (dropdown) {
-      case 'ted':
-        setTED(value);
-        setCalendarHidden(true);
-        break;
-      case 'TOD':
-        setTOD(value);
-        break;
-      case 'action':
-        setAction(value);
-        break;
-      case 'travel':
-        setTravel(value);
-        break;
+    updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
+    if (dropdown === 'ted') {
+      setCalendarHidden(true);
     }
   };
 
   const getDropdown = (key, data, text) => (
     <select
       className="leg-dropdown"
-      defaultValue={key}
+      defaultValue={get(leg, key)}
       onChange={(e) => updateDropdown(key, e.target.value)}
     >
       {
         data.map(a => (
-          <option key={get(a, key)} value={get(a, 'code')}>{get(a, text)}</option>
+          <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
         ))
       }
     </select>
   );
 
-  const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/dd/yy') : '';
+  const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
   const getCalendar = () => (
     <>
-      {formatDate(TED)}
+      {formatDate(get(leg, 'ted'))}
       <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
       {
         !calendarHidden &&
@@ -79,7 +59,6 @@ const AgendaLeg = props => {
               <Calendar
                 className="ted-react-calendar"
                 onChange={(e) => updateDropdown('ted', e)}
-                selected={TED}
               />
             </div>
       }
@@ -127,7 +106,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown('TOD', TODs, 'short_description')),
+      content: (getDropdown('tod', TODs, 'short_description')),
     },
     {
       title: 'Action',

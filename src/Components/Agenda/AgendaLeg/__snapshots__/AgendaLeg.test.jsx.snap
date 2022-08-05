@@ -53,7 +53,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     className="grid-col-3 grid-row-7"
   >
     <div>
-      05/04/19
+      2019-05-05T00:00:00.000Z
     </div>
   </div>
   <div
@@ -70,7 +70,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   <div
     className="grid-col-3 grid-row-9"
   >
-    08/03/22
+    2020-07-05T00:00:00.000Z
     <FontAwesome
       name="calendar"
       onClick={[Function]}
@@ -86,7 +86,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
-      defaultValue="TOD"
+      defaultValue="1 YEAR"
       onChange={[Function]}
     >
       <option />
@@ -98,7 +98,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
-      defaultValue="action"
+      defaultValue="Extend"
       onChange={[Function]}
     >
       <option />
@@ -110,7 +110,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
-      defaultValue="travel"
+      defaultValue={null}
       onChange={[Function]}
     >
       <option />

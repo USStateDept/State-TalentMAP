@@ -31,8 +31,8 @@ const AgendaItemLegsForm = props => {
     onClose(leg);
   };
 
-  const updateLeg$ = leg => {
-    updateLeg(leg);
+  const updateLeg$ = (legID, dropdown, value) => {
+    updateLeg(legID, dropdown, value);
   };
 
   const legHeaderData = [
@@ -97,11 +97,13 @@ const AgendaItemLegsForm = props => {
 AgendaItemLegsForm.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
+  updateLeg: PropTypes.func,
 };
 
 AgendaItemLegsForm.defaultProps = {
   legs: [],
   onClose: EMPTY_FUNCTION,
+  updateLeg: EMPTY_FUNCTION,
 };
 
 export default AgendaItemLegsForm;
