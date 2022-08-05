@@ -105,7 +105,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 setParentLoadingState={setAgendaItemMaintenancePaneLoading}
                 updateSelection={updateSelection}
                 userSelections={userSelections}
-                numLegs={legCount}
+                legCount={legCount}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}

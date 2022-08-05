@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';

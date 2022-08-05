@@ -24,7 +24,7 @@ const AgendaItemMaintenancePane = (props) => {
     userSelections,
     leftExpanded,
     updateSelection,
-    numLegs,
+    legCount,
   } = props;
 
   const defaultText = 'Coming Soon';
@@ -57,7 +57,7 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPanelMLDate, setPanelMLDate] = useState();
   const [selectedPanelIDDate, setPanelIDDate] = useState();
 
-  const legLimit = numLegs >= 10;
+  const legLimit = legCount >= 10;
 
   useEffect(() => {
     setParentLoadingState(includes([asgSepBidLoading,
@@ -87,7 +87,7 @@ const AgendaItemMaintenancePane = (props) => {
     } else {
       setInputClass('input-default');
     }
-  }, [numLegs, pos_results_loading, posNumError]);
+  }, [legCount, pos_results_loading, posNumError]);
 
   const submitAction = (userInputs) => {
     dispatch(aiCreate(userInputs));
@@ -317,7 +317,7 @@ AgendaItemMaintenancePane.propTypes = {
     }),
   ),
   updateSelection: PropTypes.func,
-  numLegs: PropTypes.number,
+  legCount: PropTypes.number,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -328,7 +328,7 @@ AgendaItemMaintenancePane.defaultProps = {
   userSelections: [],
   addToSelection: EMPTY_FUNCTION,
   updateSelection: EMPTY_FUNCTION,
-  numLegs: 0,
+  legCount: 0,
 };
 
 export default AgendaItemMaintenancePane;
