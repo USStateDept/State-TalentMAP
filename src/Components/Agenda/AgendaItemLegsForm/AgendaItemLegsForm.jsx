@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -49,12 +48,6 @@ const AgendaItemLegsForm = props => {
     'Travel',
   ];
 
-  const [numLegs, setNumLegs] = useState(0);
-
-  useEffect(() => {
-    setNumLegs(legs.length);
-  }, [legs]);
-
   return (
     <>
       {
@@ -62,11 +55,11 @@ const AgendaItemLegsForm = props => {
           <Spinner type="legs" size="small" />
       }
       {
-        !numLegs &&
+        legs.length === 0 &&
         <Alert type="info" title="No Agenda Item Legs" />
       }
       {
-        !legsLoading && numLegs &&
+        !legsLoading && (legs.length > 0) &&
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
