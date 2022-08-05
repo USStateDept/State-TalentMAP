@@ -27,7 +27,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
   <AgendaItemMaintenancePane
     addToSelection={[Function]}
     leftExpanded={false}
-    numLegs={0}
+    legCount={0}
     onAddRemarksClick={[Function]}
     perdet="2"
     setParentLoadingState={[Function]}
