@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
 import shortid from 'shortid';
+import { useDidMountEffect } from 'hooks';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
@@ -21,7 +22,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegCou
     updateLegCount(legs.length);
   }, [legs]);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     if (!pos_results_loading && !pos_results_errored) {
       if (pos_results) {
         const legs$ = [...legs];
