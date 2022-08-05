@@ -6,7 +6,7 @@ import shortid from 'shortid';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegCount }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -16,6 +16,10 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
   useEffect(() => {
     setParentLoadingState(pos_results_loading);
   }, [pos_results_loading]);
+
+  useEffect(() => {
+    updateLegCount(legs.length);
+  }, [legs]);
 
   useEffect(() => {
     if (!pos_results_loading && !pos_results_errored) {
@@ -62,11 +66,13 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
   setParentLoadingState: PropTypes.func,
+  updateLegCount: PropTypes.func,
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
   setParentLoadingState: EMPTY_FUNCTION,
+  updateLegCount: EMPTY_FUNCTION,
 };
 
 export default AgendaItemTimeline;
