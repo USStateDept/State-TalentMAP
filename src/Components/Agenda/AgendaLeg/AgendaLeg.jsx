@@ -39,6 +39,9 @@ const AgendaLeg = props => {
       defaultValue={get(leg, key)}
       onChange={(e) => updateDropdown(key, e.target.value)}
     >
+      <option selected key={null} value={''}>
+        Keep Unselected
+      </option>
       {
         data.map(a => (
           <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
