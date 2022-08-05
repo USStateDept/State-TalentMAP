@@ -89,6 +89,13 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       defaultValue="1 YEAR"
       onChange={[Function]}
     >
+      <option
+        key="null"
+        selected={true}
+        value=""
+      >
+        Keep Unselected
+      </option>
       <option />
       <option />
     </select>
@@ -101,6 +108,13 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       defaultValue="Extend"
       onChange={[Function]}
     >
+      <option
+        key="null"
+        selected={true}
+        value=""
+      >
+        Keep Unselected
+      </option>
       <option />
       <option />
     </select>
@@ -113,6 +127,13 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       defaultValue={null}
       onChange={[Function]}
     >
+      <option
+        key="null"
+        selected={true}
+        value=""
+      >
+        Keep Unselected
+      </option>
       <option />
       <option />
     </select>
