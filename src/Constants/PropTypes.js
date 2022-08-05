@@ -705,7 +705,7 @@ export const AB_DETAILS_OBJECT = PropTypes.shape({
   status: PropTypes.string,
   oc_reason: PropTypes.string,
   oc_bureau: PropTypes.string,
-  comments: PropTypes.string,
+  notes: PropTypes.string,
   date_created: PropTypes.string,
   update_date: PropTypes.string,
   is_shared: PropTypes.bool,
@@ -739,7 +739,7 @@ export const AB_EDIT_SECTIONS_OBJECT = PropTypes.shape({
   ted: PropTypes.string,
   current_post: PropTypes.string,
   cdo: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
-  comments: PropTypes.string,
+  notes: PropTypes.string,
 });
 
 export const AB_EDIT_DETAILS_OBJECT = PropTypes.shape({
