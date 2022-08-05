@@ -8,7 +8,7 @@ const RemarksPill = props => {
 
 
   return (
-    <div className="remarks-pill" style={{ backgroundColor: '#0071bc' }}>
+    <div className={`remarks-pill remark-category--${remark.rc_code}`}>
       {remark.text}
       { isEditable &&
         <FA name="times" onClick={() => updateSelection(remark)} />

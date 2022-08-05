@@ -18,6 +18,7 @@ const AgendaItemRow = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+  console.log('agenda remark', agenda);
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };

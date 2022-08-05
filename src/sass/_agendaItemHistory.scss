@@ -384,6 +384,34 @@
       margin-right: 1.5rem;
       padding: .5em;
     }
+    
+    $remarks: (
+      "A": #1E600B,
+      "B": #4372C4,
+      "C": #3700AD,
+      "D": #012E16,
+      "E": #6F4F0B,
+      "G": #015E7A,
+      "I": #5D1EE6,
+      "L": #4F4A3F,
+      "M": #89471A,
+      "N": #003EBD,
+      "O": #0E6138,
+      "P": #3F0F10,
+      "R": #00102F,
+      "S": #8D5500,
+      "T": #446228,
+      "W": $color-cornflower-blue // need to update this one
+    );
+
+    @each $remark-id,
+    $color in $remarks {
+      .remark-category--#{$remark-id} {
+        background-color: $color;
+        color: $color-white;
+        scroll-margin-top: 60px;
+      }
+    }
   }
   
   @media screen and (max-width: 1400px) {
