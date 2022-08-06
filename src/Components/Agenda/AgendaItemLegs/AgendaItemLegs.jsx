@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
@@ -9,7 +8,6 @@ import RemarksPill from '../RemarksPill';
 const AgendaItemLegs = props => {
   const {
     legs,
-    remarks,
     isCard,
   } = props;
 
@@ -164,8 +162,6 @@ const AgendaItemLegs = props => {
     },
   ];
 
-  // console.log('ail remarks', remarks);
-
   return (
     <div className="ai-history-card-legs">
       <table>
@@ -202,7 +198,6 @@ const AgendaItemLegs = props => {
 
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
-  remarks: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
 };
 

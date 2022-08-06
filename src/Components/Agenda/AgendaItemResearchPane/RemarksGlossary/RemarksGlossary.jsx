@@ -9,7 +9,6 @@ import Fuse from 'fuse.js';
 
 const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
-  console.log('remarks gloss', remarks);
 
   // still need indicator to come through for input
   const setTextInput = (key, value) => {

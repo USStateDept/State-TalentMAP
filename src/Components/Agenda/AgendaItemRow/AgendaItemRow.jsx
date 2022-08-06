@@ -18,7 +18,6 @@ const AgendaItemRow = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
-  console.log('agenda remark', agenda);
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
@@ -49,7 +48,7 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
           </div>
-          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
+          <AgendaItemLegs legs={agenda.legs} />
           {
             showEdit &&
             <div className="ai-history-edit">
