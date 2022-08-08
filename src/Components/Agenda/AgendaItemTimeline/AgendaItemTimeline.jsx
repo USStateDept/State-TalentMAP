@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import shortid from 'shortid';
 import { useDidMountEffect } from 'hooks';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -47,23 +47,25 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, 
   }, [pos_results]);
 
   useEffect(() => {
-    const legs$ = [...legs];
-    // TODO: waiting for updates to generic pos EP to pull in eta, language
-    // and possibly others
-    legs$.push({
-      ail_seq_num: shortid.generate(),
-      pos_title: get(asgSepBid, 'pos_title'),
-      pos_num: get(asgSepBid, 'pos_num'),
-      org: get(asgSepBid, 'org'),
-      eta: 'Coming Soon',
-      ted: null,
-      language: 'Coming Soon',
-      tod: null,
-      grade: get(asgSepBid, 'grade'),
-      action: null,
-      travel: null,
-    });
-    setLegs(legs$);
+    if (!isEmpty(asgSepBid)) {
+      const legs$ = [...legs];
+      // TODO: waiting for updates to generic pos EP to pull in eta, language
+      // and possibly others
+      legs$.push({
+        ail_seq_num: shortid.generate(),
+        pos_title: get(asgSepBid, 'pos_title'),
+        pos_num: get(asgSepBid, 'pos_num'),
+        org: get(asgSepBid, 'org'),
+        eta: 'Coming Soon',
+        ted: null,
+        language: 'Coming Soon',
+        tod: null,
+        grade: get(asgSepBid, 'grade'),
+        action: null,
+        travel: null,
+      });
+      setLegs(legs$);
+    }
   }, [asgSepBid]);
 
   const onClose = leg => {

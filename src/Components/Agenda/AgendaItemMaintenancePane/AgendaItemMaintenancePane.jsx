@@ -112,6 +112,7 @@ const AgendaItemMaintenancePane = (props) => {
     sendAsgSepBid(find(asgSepBids, { pos_num: k }));
     setTimeout(() => {
       setAsgSepBid('');
+      sendAsgSepBid({});
       setAsgSepBidSelectClass('');
     }, 2000);
   };
