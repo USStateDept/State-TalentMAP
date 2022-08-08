@@ -151,13 +151,17 @@ const AgendaItemMaintenancePane = (props) => {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
                   id="ai-maintenance-dd-asgSepBids"
-                  className={`${asgSepBidSelectClass}`}
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
-                  value={asgSepBid}
+                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                  disabled={legLimit}
                 >
                   <option selected value={''}>
                     Employee Assignments, Separations, and Bids
+                  </option>
+                  <option hidden value={'legLimit'}>
+                    Leg Limit of 10 Reached
                   </option>
                   {
                     asgSepBids.map(a => (
