@@ -7,7 +7,7 @@ import { useDidMountEffect } from 'hooks';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, asgSepBid }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -46,6 +46,26 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs }
     }
   }, [pos_results]);
 
+  useEffect(() => {
+    const legs$ = [...legs];
+    // TODO: waiting for updates to generic pos EP to pull in eta, language
+    // and possibly others
+    legs$.push({
+      ail_seq_num: shortid.generate(),
+      pos_title: get(asgSepBid, 'pos_title'),
+      pos_num: get(asgSepBid, 'pos_num'),
+      org: get(asgSepBid, 'org'),
+      eta: 'Coming Soon',
+      ted: null,
+      language: 'Coming Soon',
+      tod: null,
+      grade: get(asgSepBid, 'grade'),
+      action: null,
+      travel: null,
+    });
+    setLegs(legs$);
+  }, [asgSepBid]);
+
   const onClose = leg => {
     const legs$ = legs.filter(l => l.ail_seq_num !== leg.ail_seq_num);
     setLegs(legs$);
@@ -68,12 +88,14 @@ AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
   setParentLoadingState: PropTypes.func,
   updateLegs: PropTypes.func,
+  asgSepBid: PropTypes.shape({}),
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
   setParentLoadingState: EMPTY_FUNCTION,
   updateLegs: EMPTY_FUNCTION,
+  asgSepBid: {},
 };
 
 export default AgendaItemTimeline;

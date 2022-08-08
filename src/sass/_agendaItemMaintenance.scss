@@ -147,7 +147,14 @@
         margin-left: 10px;
       }
 
+      .asg-animation {
+        animation: asgAnimation 2s;
+      }
 
+      @keyframes asgAnimation {
+        0%   {background-color: $primary-alt-light;}
+        100% {background-color: white;}
+      }
 
       .loading-animation {
         //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
