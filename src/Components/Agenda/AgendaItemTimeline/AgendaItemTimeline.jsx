@@ -7,7 +7,7 @@ import { useDidMountEffect } from 'hooks';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegCount }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -19,7 +19,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegCou
   }, [pos_results_loading]);
 
   useEffect(() => {
-    updateLegCount(legs.length);
+    updateLegs(legs);
   }, [legs]);
 
   useDidMountEffect(() => {
@@ -67,13 +67,13 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegCou
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
   setParentLoadingState: PropTypes.func,
-  updateLegCount: PropTypes.func,
+  updateLegs: PropTypes.func,
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
   setParentLoadingState: EMPTY_FUNCTION,
-  updateLegCount: EMPTY_FUNCTION,
+  updateLegs: EMPTY_FUNCTION,
 };
 
 export default AgendaItemTimeline;

@@ -18,7 +18,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
   const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
-  const [legCount, setLegCount] = useState(0);
+  const [legs, setLegs] = useState([]);
   const [spinner, setSpinner] = useState(true);
 
   const userRemarks = [];
@@ -105,12 +105,12 @@ const AgendaItemMaintenanceContainer = (props) => {
                 setParentLoadingState={setAgendaItemMaintenancePaneLoading}
                 updateSelection={updateSelection}
                 userSelections={userSelections}
-                legCount={legCount}
+                legCount={legs.length}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}
                 setParentLoadingState={setAgendaItemTimelineLoading}
-                updateLegCount={setLegCount}
+                updateLegs={setLegs}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
