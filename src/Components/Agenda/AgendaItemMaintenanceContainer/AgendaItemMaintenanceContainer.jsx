@@ -40,7 +40,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    dispatch(aiCreate(maintenanceInfo));
+    dispatch(aiCreate(maintenanceInfo, legs));
   };
 
   function toggleExpand() {
