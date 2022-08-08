@@ -8,7 +8,6 @@ import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
-import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
@@ -21,10 +20,12 @@ const AgendaItemMaintenancePane = (props) => {
     perdet,
     setParentLoadingState,
     unitedLoading,
-    userSelections,
+    userRemarks,
     leftExpanded,
     updateSelection,
+    sendMaintenancePaneInfo,
     legCount,
+    saveAI,
   } = props;
 
   const defaultText = 'Coming Soon';
@@ -89,24 +90,21 @@ const AgendaItemMaintenancePane = (props) => {
     }
   }, [legCount, pos_results_loading, posNumError]);
 
-  const submitAction = (userInputs) => {
-    dispatch(aiCreate(userInputs));
-  };
-
-  const saveAI = (e) => {
-    e.preventDefault();
-    const userInputs = {
+  useEffect(() => {
+    sendMaintenancePaneInfo({
       selectedPanelMLDate: selectedPanelMLDate || '',
       selectedPanelIDDAte: selectedPanelIDDate || '',
-      userSelections: userSelections || [],
+      Remarks: userRemarks || [],
       selectedStatus: selectedStatus || '',
       asgSepBid: asgSepBid || '',
       selectedPanelCat: selectedPanelCat || '',
-      selectedPositionNumber: selectedPositionNumber || '',
-    };
-
-    submitAction(userInputs);
-  };
+    });
+  }, [selectedPanelMLDate,
+    selectedPanelIDDate,
+    userRemarks,
+    selectedStatus,
+    asgSepBid,
+    selectedPanelCat]);
 
   // special handling for position number
   const addPositionNum = () => {
@@ -274,7 +272,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
               {
-                userSelections.map(remark => (
+                userRemarks.map(remark => (
                   <RemarksPill
                     isEditable
                     remark={remark}
@@ -305,7 +303,7 @@ AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
   setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
-  userSelections: PropTypes.arrayOf(
+  userRemarks: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
       rc_code: PropTypes.string,
@@ -317,6 +315,8 @@ AgendaItemMaintenancePane.propTypes = {
     }),
   ),
   updateSelection: PropTypes.func,
+  sendMaintenancePaneInfo: PropTypes.func,
+  saveAI: PropTypes.func,
   legCount: PropTypes.number,
 };
 
@@ -325,9 +325,11 @@ AgendaItemMaintenancePane.defaultProps = {
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
   unitedLoading: true,
-  userSelections: [],
+  userRemarks: [],
   addToSelection: EMPTY_FUNCTION,
   updateSelection: EMPTY_FUNCTION,
+  sendMaintenancePaneInfo: EMPTY_FUNCTION,
+  saveAI: EMPTY_FUNCTION,
   legCount: 0,
 };
 
