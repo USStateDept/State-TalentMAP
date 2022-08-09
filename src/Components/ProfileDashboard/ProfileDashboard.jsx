@@ -25,7 +25,7 @@ const ProfileDashboard = ({
   notificationsIsLoading, bidList, bidListIsLoading, favoritePositions, favoritePositionsIsLoading,
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
-  unregisterHandshake, userClassificationsHasErrored, showLanguages,
+  unregisterHandshake, userClassificationsHasErrored, showLanguages, canEditClassifications,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -96,6 +96,7 @@ const ProfileDashboard = ({
                           clientClassifications={clientClassifications}
                           userId={userProfile.perdet_seq_number}
                           isPublic={isPublic}
+                          canEditClassifications={canEditClassifications}
                         />
                       </BoxShadow>
                     }
@@ -184,6 +185,7 @@ ProfileDashboard.propTypes = {
   showSearchAsClient: PropTypes.bool,
   userClassificationsHasErrored: PropTypes.bool,
   showLanguages: PropTypes.bool,
+  canEditClassifications: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
@@ -207,6 +209,7 @@ ProfileDashboard.defaultProps = {
   showSearchAsClient: true,
   userClassificationsHasErrored: false,
   showLanguages: true,
+  canEditClassifications: false,
 };
 
 export default ProfileDashboard;

@@ -17,8 +17,10 @@ const Classifications = props => {
     userId,
     isPublic,
     hideTitle,
+    canEditClassifications,
   } = props;
 
+  console.log(canEditClassifications);
   const [editView, setEditView] = useState(false);
   const [userInput, setUserInput] = useState(clientClassifications);
 
@@ -79,7 +81,7 @@ const Classifications = props => {
         </div>
       </div>
       {
-        !editView && isPublic &&
+        !editView && isPublic && canEditClassifications &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
@@ -117,6 +119,7 @@ Classifications.propTypes = {
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   isPublic: PropTypes.bool,
   hideTitle: PropTypes.bool,
+  canEditClassifications: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
@@ -125,6 +128,7 @@ Classifications.defaultProps = {
   updateUserClassifications: EMPTY_FUNCTION,
   isPublic: false,
   hideTitle: false,
+  canEditClassifications: false,
 };
 
 export const mapDispatchToProps = dispatch => ({
