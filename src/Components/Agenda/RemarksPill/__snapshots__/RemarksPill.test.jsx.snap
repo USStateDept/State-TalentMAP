@@ -2,23 +2,13 @@
 
 exports[`RemarksPill matches snapshot 1`] = `
 <div
-  className="remarks-pill"
-  style={
-    Object {
-      "backgroundColor": "#0071bc",
-    }
-  }
+  className="remarks-pill remark-category--default"
 />
 `;
 
 exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
 <div
-  className="remarks-pill"
-  style={
-    Object {
-      "backgroundColor": "#0071bc",
-    }
-  }
+  className="remarks-pill remark-category--B"
 >
   Potential recognized by last promo board
   <FontAwesome
