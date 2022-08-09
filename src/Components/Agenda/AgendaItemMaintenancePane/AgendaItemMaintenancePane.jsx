@@ -26,7 +26,7 @@ const AgendaItemMaintenancePane = (props) => {
     updateSelection,
   } = props;
 
-  const defaultText = 'Coming Soon';
+  const defaultText = '';
 
   const { data: asgSepBidData, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${perdet}/`);
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
@@ -136,8 +136,8 @@ const AgendaItemMaintenancePane = (props) => {
                     asgSepBids.map(a => (
                       <option key={a.pos_num} value={a.pos_num}>
                         {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        {a.name || defaultText} '{a.status || defaultText}'
-                          in {a.org || defaultText} -
+                        '{a.status || defaultText}'
+                          in {a.org || defaultText} -&nbsp;
                         {a.pos_title || defaultText}({a.pos_num || defaultText})
                       </option>
                     ))

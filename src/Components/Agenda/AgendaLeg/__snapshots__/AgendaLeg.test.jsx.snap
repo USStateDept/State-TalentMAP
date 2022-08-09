@@ -71,6 +71,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     className="grid-col-3 grid-row-9"
   >
     08/09/22
+    08/05/22
     <FontAwesome
       name="calendar"
       onClick={[Function]}
