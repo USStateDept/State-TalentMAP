@@ -405,8 +405,7 @@
       "default": #0071BC,
     );
 
-    @each $remark-id,
-    $color in $remarks {
+    @each $remark-id, $color in $remarks {
       .remark-category--#{$remark-id} {
         background-color: $color;
         color: $color-white;
