@@ -20,7 +20,6 @@ const Classifications = props => {
     canEditClassifications,
   } = props;
 
-  console.log(canEditClassifications);
   const [editView, setEditView] = useState(false);
   const [userInput, setUserInput] = useState(clientClassifications);
 
