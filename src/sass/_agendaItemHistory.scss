@@ -401,7 +401,8 @@
       "R": #00102F,
       "S": #8D5500,
       "T": #446228,
-      "W": $color-cornflower-blue // need to update this one
+      "W": $color-cornflower-blue, // need to update this one
+      "default": #0071BC,
     );
 
     @each $remark-id,

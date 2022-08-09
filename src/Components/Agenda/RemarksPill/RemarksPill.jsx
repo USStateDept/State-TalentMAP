@@ -5,11 +5,12 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 const RemarksPill = props => {
   // TODO - make use of colors?
   const { remark, isEditable, updateSelection } = props;
-
+  const remarkPillText = remark.text ? remark.text : remark.title;
+  const remarkPillColor = remark.rc_code ? remark.rc_code : 'default';
 
   return (
-    <div className={`remarks-pill remark-category--${remark.rc_code}`}>
-      {remark.text}
+    <div className={`remarks-pill remark-category--${remarkPillColor}`}>
+      {remarkPillText}
       { isEditable &&
         <FA name="times" onClick={() => updateSelection(remark)} />
       }
@@ -26,6 +27,8 @@ RemarksPill.propTypes = {
     mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
+    title: PropTypes.string,
+    type: PropTypes.string,
   }),
   isEditable: PropTypes.bool,
   updateSelection: PropTypes.func,

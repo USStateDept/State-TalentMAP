@@ -8,7 +8,9 @@ import RemarksPill from '../RemarksPill';
 const AgendaItemLegs = props => {
   const {
     legs,
+    remarks,
     isCard,
+    remarksData,
   } = props;
 
   let legs$ = legs;
@@ -114,53 +116,21 @@ const AgendaItemLegs = props => {
 
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
-  const remarks$ = [
-    {
-      active_ind: 'Y',
-      mutually_exclusive_ind: 'N',
-      order_num: 7,
-      rc_code: 'B',
-      seq_num: 2,
-      short_desc_text: 'Promo Bd Recognized',
-      text: 'Potential recognized by last promo board',
-    },
-    {
-      active_ind: 'Y',
-      mutually_exclusive_ind: 'Y',
-      order_num: 8,
-      rc_code: 'S',
-      seq_num: 14,
-      short_desc_text: 'Extend Stretch',
-      text: 'Extension in Stretch',
-    },
-    {
-      active_ind: 'Y',
-      mutually_exclusive_ind: 'N',
-      order_num: 3,
-      rc_code: 'R',
-      seq_num: 22,
-      short_desc_text: 'No Repayment',
-      text: 'No Repayment Issues',
-    },
-    {
-      active_ind: 'Y',
-      mutually_exclusive_ind: 'Y',
-      order_num: 4,
-      rc_code: 'I',
-      seq_num: 28,
-      short_desc_text: 'No Tandem issues',
-      text: 'Tandem:  No issues',
-    },
-    {
-      active_ind: 'Y',
-      mutually_exclusive_ind: 'Y',
-      order_num: 2,
-      rc_code: 'L',
-      seq_num: 40,
-      short_desc_text: 'DCM Lang. Waiver',
-      text: 'Language Requirement Waived by DCM Committee',
-    },
-  ];
+  const remarks$ = [];
+  remarks.map((remark) => {
+    remarksData.forEach((rd) => {
+      if (rd.text === remark.title) {
+        const data = rd;
+        data.title = remark.title;
+        data.type = remark.type;
+        remarks$.push(data);
+      }
+    });
+    if (remark.type === 'person') {
+      remarks$.push(remark);
+    }
+    return remarks$;
+  });
 
   return (
     <div className="ai-history-card-legs">
@@ -187,7 +157,7 @@ const AgendaItemLegs = props => {
           <div className="remarks-text">Remarks:</div>
           {
             remarks$.map(remark => (
-              <RemarksPill key={remark.text} remark={remark} />
+              <RemarksPill key={remark.title} remark={remark} />
             ))
           }
         </div>
@@ -198,13 +168,24 @@ const AgendaItemLegs = props => {
 
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
+  remarks: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
+  remarksData: PropTypes.shape([{
+    seq_num: PropTypes.number,
+    rc_code: PropTypes.string,
+    order_num: PropTypes.number,
+    short_desc_text: PropTypes.string,
+    mutually_exclusive_ind: PropTypes.string,
+    text: PropTypes.string,
+    active_ind: PropTypes.string,
+  }]),
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   remarks: [],
   isCard: false,
+  remarksData: [],
 };
 
 export default AgendaItemLegs;

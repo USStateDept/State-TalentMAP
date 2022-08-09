@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import { agendaItemHistoryExport, aihFetchData } from 'actions/agendaItemHistory';
-import { useMount, usePrevious } from 'hooks';
+import { useDataLoader, useMount, usePrevious } from 'hooks';
 import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
@@ -17,6 +17,7 @@ import AgendaItemCard from '../AgendaItemCard';
 import AgendaItemRow from '../AgendaItemRow';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
+import api from '../../../api';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
@@ -42,6 +43,9 @@ const AgendaItemHistory = (props) => {
   const employeeName = get(employee, 'person.fullName') || '';
 
   const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
+
+  const remarksData = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const remarksData$ = get(remarksData, 'data.data.results') || [];
 
   // Actions
   const dispatch = useDispatch();
@@ -180,6 +184,7 @@ const AgendaItemHistory = (props) => {
                         agenda={result}
                         isCDO={isCDO}
                         isAIHView
+                        remarksData={remarksData$}
                       />
                     ))
                   }
