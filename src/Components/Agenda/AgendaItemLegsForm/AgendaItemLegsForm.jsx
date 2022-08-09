@@ -55,11 +55,11 @@ const AgendaItemLegsForm = props => {
           <Spinner type="legs" size="small" />
       }
       {
-        legs.length === 0 &&
+        !legs.length &&
         <Alert type="info" title="No Agenda Item Legs" />
       }
       {
-        !legsLoading && (legs.length > 0) &&
+        !legsLoading && legs.length &&
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
