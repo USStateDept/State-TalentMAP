@@ -137,7 +137,7 @@ const AgendaItemMaintenancePane = (props) => {
                       <option key={a.pos_num} value={a.pos_num}>
                         {/* eslint-disable-next-line react/no-unescaped-entities */}
                         '{a.status || defaultText}'
-                          in {a.org || defaultText} -
+                          in {a.org || defaultText} -&nbsp;
                         {a.pos_title || defaultText}({a.pos_num || defaultText})
                       </option>
                     ))
