@@ -3,7 +3,6 @@ import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
-  // TODO - make use of colors?
   const { remark, isEditable, updateSelection } = props;
   const remarkPillText = remark.text ? remark.text : remark.title;
   const remarkPillColor = remark.rc_code ? remark.rc_code : 'default';
