@@ -14,16 +14,24 @@ import { PANEL_MEETINGS_PAGE_SIZES, PANEL_MEETINGS_SORT } from 'Constants/Sort';
 import ExportButton from 'Components/ExportButton';
 import { isDate, startOfDay } from 'date-fns-v2';
 import Spinner from 'Components/Spinner';
+import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelMeetingSearchRow';
+import Alert from 'Components/Alert';
+import shortid from 'shortid';
+import ScrollUpButton from '../../ScrollUpButton';
 
-// eslint-disable-next-line no-unused-vars
 const PanelMeetingSearch = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  const panelMeetings$ = useSelector(state => state.panelMeetings);
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
+  // const panelMeetingsFiltersHasErrored = useSelector(state =>
+  //  state.panelMeetingsFiltersFetchDataErrored);
+
+  const panelMeetings$ = useSelector(state => state.panelMeetings);
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  // const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
   const userSelections = useSelector(state => state.panelMeetingsSelections);
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
@@ -40,6 +48,43 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
+
+  const fakePanelMeetings = [
+    {
+      meeting_type: 'Interdivisional',
+      short_desc_text: 'ID',
+      meeting_date: '2022-07-14T18:25:51.394Z',
+      meeting_status: 'Initiated',
+      preliminary_cutoff: '2022-07-14T18:25:51.394Z',
+      addendum_cutoff: '2022-07-14T18:25:51.394Z',
+    },
+    {
+      meeting_type: 'Mid-Level',
+      short_desc_text: 'ML',
+      meeting_date: '2022-07-14T18:25:51.394Z',
+      meeting_status: 'Addendum',
+      preliminary_cutoff: '2022-07-14T18:25:51.394Z',
+      addendum_cutoff: '2022-07-14T18:25:51.394Z',
+    },
+    {
+      meeting_type: 'Mid-Level',
+      short_desc_text: 'ML',
+      meeting_date: '2022-07-14T18:25:51.394Z',
+      meeting_status: 'Post Panel',
+      preliminary_cutoff: '2022-07-14T18:25:51.394Z',
+      addendum_cutoff: '2022-07-14T18:25:51.394Z',
+    },
+    {
+      meeting_type: 'Interdivisional',
+      short_desc_text: 'ID',
+      meeting_date: '2022-07-14T18:25:51.394Z',
+      meeting_status: 'Review',
+      preliminary_cutoff: '2022-07-14T18:25:51.394Z',
+      addendum_cutoff: '2022-07-14T18:25:51.394Z',
+    },
+  ];
+
+  const count = fakePanelMeetings.length;
 
   const isLoading = panelMeetingsFiltersIsLoading;
   const exportDisabled = !panelMeetings.length;
@@ -158,6 +203,26 @@ const PanelMeetingSearch = ({ isCDO }) => {
     setClearFilters(false);
   };
 
+  const getOverlay = () => {
+    let toReturn;
+    if (panelMeetingsIsLoading) {
+      toReturn = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    // } else if (panelMeetingsHasErrored) {
+    // eslint-disable-next-line max-len
+    //   toReturn = <Alert type="error" title="Error loading panel meetings" messages={[{ body: 'Please try again.' }]} />;
+    } else if (count <= 0) {
+      toReturn = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else {
+      toReturn = false;
+    }
+    if (toReturn) {
+      return <div className="usa-width-one-whole empl-search-lower-section results-dropdown">{toReturn}</div>;
+    }
+    return false;
+  };
+
+  const overlay = getOverlay();
+
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -228,31 +293,55 @@ const PanelMeetingSearch = ({ isCDO }) => {
               </div>
             </div>
           </div>
-          <div className="panel-results-controls">
-            <SelectForm
-              className="panel-results-select"
-              id="panel-search-results-sort"
-              options={sorts.options}
-              label="Sort by:"
-              defaultSort={ordering}
-              onSelectOption={value => setOrdering(value.target.value)}
-            />
-            <SelectForm
-              className="panel-results-select"
-              id="panel-search-num-results"
-              options={pageSizes.options}
-              label="Results:"
-              defaultSort={limit}
-              onSelectOption={value => setLimit(value.target.value)}
-            />
-            <div className="export-button-container">
-              <ExportButton
-                onClick={exportPanelMeetings}
-                isLoading={exportIsLoading}
-                disabled={exportDisabled}
+          {
+            !panelMeetingsIsLoading && !isLoading &&
+            <div className="panel-results-controls">
+              <SelectForm
+                className="panel-results-select"
+                id="panel-search-results-sort"
+                options={sorts.options}
+                label="Sort by:"
+                defaultSort={ordering}
+                onSelectOption={value => setOrdering(value.target.value)}
               />
+              <SelectForm
+                className="panel-results-select"
+                id="panel-search-num-results"
+                options={pageSizes.options}
+                label="Results:"
+                defaultSort={limit}
+                onSelectOption={value => setLimit(value.target.value)}
+              />
+              <div className="export-button-container">
+                <ExportButton
+                  onClick={exportPanelMeetings}
+                  isLoading={exportIsLoading}
+                  disabled={exportDisabled}
+                />
+              </div>
+              <ScrollUpButton />
             </div>
-          </div>
+          }
+          {
+            overlay ||
+            <>
+              <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
+                {
+                  !panelMeetingsIsLoading &&
+                  <div className="panel-meeting-row">
+                    {fakePanelMeetings.map(meeting => (
+                      // TODO: include React keys once we have real data
+                      <PanelMeetingSearchRow
+                        key={shortid.generate()}
+                        result={meeting}
+                        isCDO={isCDO}
+                      />
+                    ))}
+                  </div>
+                }
+              </div>
+            </>
+          }
         </div>
       </>
   );
