@@ -34,7 +34,7 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
             <dd>{meetingDate}</dd>
           </div>
           <div className="panel-meeting-row-data-point">
-            <FA name="clock-o" />
+            <FA name="thermometer" />
             <dt>Meeting Status:</dt>
             <dd>{meetingStatus}</dd>
           </div>
@@ -44,14 +44,9 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
             <dd>{preliminaryCutoff}</dd>
           </div>
           <div className="panel-meeting-row-data-point">
-            <FA name="calendar-o" />
+            <FA name="plus-square" />
             <dt>Addendum Cut-Off:</dt>
             <dd>{addendum_cutoff}</dd>
-          </div>
-          <div className="panel-meeting-row-data-point">
-            <FA name="sticky-note-o" />
-            <dt>Agenda Status:</dt>
-            <dd>{'agendaStatus'}</dd>
           </div>
         </div>
         <div className="button-container">

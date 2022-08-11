@@ -138,7 +138,7 @@
     box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
     margin-bottom: 1rem;
     margin-left: 0;
-    padding: 15px 20px;
+    padding: 15px 20px 30px;
     position: relative;
 
     .meeting-type-circle-container {
@@ -166,6 +166,7 @@
       margin: 8px 0 .3rem 15rem;
       
       .row-name {
+        color: $primary-blue;
         font-size: .9em;
         font-weight: bold;
         margin-left: 15px;
@@ -187,11 +188,12 @@
 
     .panel-meeting-row-data-container {
       margin-left: 15rem;
+      margin-top: 2rem;
 
       .panel-meeting-row-data-points {
         display: inline-grid;
         grid-auto-flow: column;
-        grid-template-rows: repeat(3, auto);
+        grid-template-rows: repeat(2, auto);
         margin-left: 1.5rem;
 
         .panel-meeting-row-data-point {
