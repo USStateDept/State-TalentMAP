@@ -94,7 +94,7 @@ const AgendaItemMaintenancePane = (props) => {
     sendMaintenancePaneInfo({
       selectedPanelMLDate: selectedPanelMLDate || '',
       selectedPanelIDDAte: selectedPanelIDDate || '',
-      Remarks: userRemarks || [],
+      remarks: userRemarks || [],
       selectedStatus: selectedStatus || '',
       asgSepBid: asgSepBid || '',
       selectedPanelCat: selectedPanelCat || '',
