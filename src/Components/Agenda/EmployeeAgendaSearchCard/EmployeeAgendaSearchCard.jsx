@@ -25,9 +25,24 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
+  // const params = useParams();
+  // console.log(params);
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+
+  const cdoLink = (isCDO && employeeHasCDO) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+  const aoLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
+
+  // var profileLink
+  // switch (whatever comes in through params) {
+  //  case 'ao':
+  //    profileLink = aoLink
+  //  case 'cdo':
+  //    profileLink = cdoLink
+  // }
+
+  // console.log(person);
 
   return (
     <BoxShadow className="employee-agenda-stat-card">
@@ -49,7 +64,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
         </div>
         <div>
           <h3>
-            {isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
+            {cdoLink} {aoLink}
+            {/* {profileLink} */}
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">
