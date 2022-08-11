@@ -86,8 +86,8 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
-      defaultValue="1 YEAR"
       onChange={[Function]}
+      value="1 YEAR"
     >
       <option
         key="null"
@@ -105,8 +105,8 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
-      defaultValue="Extend"
       onChange={[Function]}
+      value="Extend"
     >
       <option
         key="null"
@@ -124,8 +124,8 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
-      defaultValue={null}
       onChange={[Function]}
+      value=""
     >
       <option
         key="null"
