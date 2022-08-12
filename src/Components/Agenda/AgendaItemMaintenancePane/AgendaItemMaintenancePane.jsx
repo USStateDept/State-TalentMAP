@@ -48,7 +48,6 @@ const AgendaItemMaintenancePane = (props) => {
   const panelDatesML = filter(panelDates, (p) => p.pmt_code === 'ML');
   const panelDatesID = filter(panelDates, (p) => p.pmt_code === 'ID');
 
-  const [asgSepBid, setAsgSepBid] = useState('');
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
 
@@ -108,10 +107,8 @@ const AgendaItemMaintenancePane = (props) => {
 
   const addAsgSepBid = (k) => {
     setAsgSepBidSelectClass('asg-animation');
-    setAsgSepBid(k);
     sendAsgSepBid(find(asgSepBids, { pos_num: k }));
     setTimeout(() => {
-      setAsgSepBid('');
       sendAsgSepBid({});
       setAsgSepBidSelectClass('');
     }, 2000);
@@ -152,9 +149,8 @@ const AgendaItemMaintenancePane = (props) => {
                 <select
                   id="ai-maintenance-dd-asgSepBids"
                   className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
-                  defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
-                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                  value={`${legLimit ? 'legLimit' : ''}`}
                   disabled={legLimit}
                 >
                   <option selected value={''}>
