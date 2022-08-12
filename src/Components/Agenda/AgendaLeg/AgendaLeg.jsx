@@ -35,7 +35,7 @@ const AgendaLeg = props => {
   const getDropdown = (key, data, text) => (
     <select
       className="leg-dropdown"
-      defaultValue={get(leg, key)}
+      value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
     >
       <option selected key={null} value={''}>
