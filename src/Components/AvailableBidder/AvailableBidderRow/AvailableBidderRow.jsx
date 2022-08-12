@@ -211,7 +211,7 @@ const AvailableBidderRow = (props) => {
     const notes$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_NOTES : notesToolTip;
     const ted$ = isModal ? formattedTedTooltip : tedToolTip;
     return isInternalCDA ? {
-      name: (<Link to={`/profile/public/${id}${isAO ? '/bureau' : ''}`}>{name}</Link>),
+      name: (<Link to={`/profile/public/${id}${isAO ? '/ao' : ''}`}>{name}</Link>),
       status: getStatus(),
       step_letters: stepLettersToolTip,
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,

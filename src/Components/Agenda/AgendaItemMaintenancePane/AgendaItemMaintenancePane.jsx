@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, get, includes } from 'lodash';
+import { filter, find, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
@@ -26,6 +26,7 @@ const AgendaItemMaintenancePane = (props) => {
     sendMaintenancePaneInfo,
     legCount,
     saveAI,
+    sendAsgSepBid,
   } = props;
 
   const defaultText = '';
@@ -47,7 +48,8 @@ const AgendaItemMaintenancePane = (props) => {
   const panelDatesML = filter(panelDates, (p) => p.pmt_code === 'ML');
   const panelDatesID = filter(panelDates, (p) => p.pmt_code === 'ID');
 
-  const [asgSepBid, setAsgSepBid] = useState(filter(asgSepBids, ['status', 'EF']));
+  const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
+  const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
@@ -96,17 +98,25 @@ const AgendaItemMaintenancePane = (props) => {
       selectedPanelIDDAte: selectedPanelIDDate || '',
       remarks: userRemarks || [],
       selectedStatus: selectedStatus || '',
-      asgSepBid: asgSepBid || '',
       selectedPanelCat: selectedPanelCat || '',
     });
   }, [selectedPanelMLDate,
     selectedPanelIDDate,
     userRemarks,
     selectedStatus,
-    asgSepBid,
     selectedPanelCat]);
 
-  // special handling for position number
+  const addAsgSepBid = (k) => {
+    setAsgSepBidSelectClass('asg-animation');
+    setAsgSepBid(k);
+    sendAsgSepBid(find(asgSepBids, { pos_num: k }));
+    setTimeout(() => {
+      setAsgSepBid('');
+      sendAsgSepBid({});
+      setAsgSepBidSelectClass('');
+    }, 2000);
+  };
+
   const addPositionNum = () => {
     if (!legLimit) {
       setPosNumError(false);
@@ -141,12 +151,17 @@ const AgendaItemMaintenancePane = (props) => {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
                   id="ai-maintenance-dd-asgSepBids"
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
                   defaultValue={asgSepBids}
-                  onChange={(e) => setAsgSepBid(get(e, 'target.value'))}
-                  value={asgSepBid}
+                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
+                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                  disabled={legLimit}
                 >
-                  <option selected hidden>
+                  <option selected value={''}>
                     Employee Assignments, Separations, and Bids
+                  </option>
+                  <option hidden value={'legLimit'}>
+                    Leg Limit of 10 Reached
                   </option>
                   {
                     asgSepBids.map(a => (
@@ -316,6 +331,7 @@ AgendaItemMaintenancePane.propTypes = {
   ),
   updateSelection: PropTypes.func,
   sendMaintenancePaneInfo: PropTypes.func,
+  sendAsgSepBid: PropTypes.func,
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
 };
@@ -329,6 +345,7 @@ AgendaItemMaintenancePane.defaultProps = {
   addToSelection: EMPTY_FUNCTION,
   updateSelection: EMPTY_FUNCTION,
   sendMaintenancePaneInfo: EMPTY_FUNCTION,
+  sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
 };
