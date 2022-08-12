@@ -146,8 +146,19 @@
         max-width: fit-content;
         margin-left: 10px;
       }
+      .asg-disabled {
+        background-color: $color-gray-lighter;
+        border: 1px solid $color-gray-light;
+        color: $color-black;
+      }
+      .asg-animation {
+        animation: asgAnimation 2s;
+      }
 
-
+      @keyframes asgAnimation {
+        0%   {background-color: $primary-alt-light;}
+        100% {background-color: $primary-alt-lightest;}
+      }
 
       .loading-animation {
         //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
