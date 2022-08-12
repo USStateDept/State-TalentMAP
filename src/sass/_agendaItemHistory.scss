@@ -388,8 +388,6 @@
     @each $remark-id, $color in $remarks {
       .remark-category--#{$remark-id} {
         background-color: $color;
-        color: $color-white;
-        scroll-margin-top: 60px;
       }
     }
   }
