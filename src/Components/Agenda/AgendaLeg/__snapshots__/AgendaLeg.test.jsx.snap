@@ -70,7 +70,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   <div
     className="grid-col-3 grid-row-9"
   >
-    08/11/22
     2020-07-05T00:00:00.000Z
     <FontAwesome
       name="calendar"
