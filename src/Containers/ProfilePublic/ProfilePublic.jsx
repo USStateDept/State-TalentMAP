@@ -68,7 +68,6 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
-        canEditClassifications: false,
       };
     } else if (isPostView) {
       props = {
@@ -77,24 +76,17 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
-        canEditClassifications: false,
       };
     } else if (isAOView) {
       props = {
         ...props,
         showBidTracker: false,
         showAssignmentHistory: false,
-        showClassifications: true,
         showSearchAsClient: false,
-        canEditClassifications: false,
       };
     } else { // CDO View
       props = {
         ...props,
-        showBidTracker: true,
-        showAssignmentHistory: true,
-        showClassifications: true,
-        showSearchAsClient: true,
         canEditClassifications: true,
       };
     }
