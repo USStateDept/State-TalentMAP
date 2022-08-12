@@ -182,8 +182,33 @@
     }
 
     .button-container {
-        display: flex;
         float: right;
+        padding-bottom: 30px;
+
+        .go-to-panel-button-container {
+            
+            .go-to-panel-button {
+                background-color: $blue-primary;
+                border: 1px solid $blue-primary;
+                border-radius: 3px;
+                color: $color-white;
+                font-size: 1.5rem;
+                line-height: 37px;
+                margin: auto;
+                padding: 3px;
+                text-align: center;
+                width: 150px;
+            }
+
+            .go-to-panel-button:hover {
+                background-color: $primary-blue-darker;
+            }
+        }
+
+        @media screen and (max-width: 1115px) {
+            padding-bottom: 0px;
+            padding-top: 20px;
+        }
     }
 
     .panel-meeting-row-data-container {

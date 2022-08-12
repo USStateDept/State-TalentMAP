@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import FA from 'react-fontawesome';
 import LinkButton from 'Components/LinkButton';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
@@ -10,10 +9,12 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
   // will need to update during integration
   const meetingType = get(result, 'meeting_type') || FALLBACK;
   const meetingTypeAbbreviation = get(result, 'short_desc_text') || FALLBACK;
-  const meetingDate = get(result, 'meeting_date') ? formatDate(result.meeting_date) : FALLBACK;
+  const meetingDate = get(result, 'meeting_date') ? formatDate(result.meeting_date, 'MM/DD/YYYY HH:mm:ss') : FALLBACK;
   const meetingStatus = get(result, 'meeting_status') || FALLBACK;
-  const preliminaryCutoff = get(result, 'preliminary_cutoff') ? formatDate(result.preliminary_cutoff) : FALLBACK;
-  const addendum_cutoff = get(result, 'addendum_cutoff') ? formatDate(result.addendum_cutoff) : FALLBACK;
+  const preliminaryCutoff = get(result, 'preliminary_cutoff') ?
+    formatDate(result.preliminary_cutoff, 'MM/DD/YYYY HH:mm:ss') : FALLBACK;
+  const addendum_cutoff = get(result, 'addendum_cutoff') ?
+    formatDate(result.addendum_cutoff, 'MM/DD/YYYY HH:mm:ss') : FALLBACK;
   const userRole = isCDO ? 'cdo' : 'ao';
 
   return (
@@ -29,22 +30,18 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
       <div className="panel-meeting-row-data-container">
         <div className="panel-meeting-row-data-points">
           <div className="panel-meeting-row-data-point">
-            <FA name="calendar-o" />
             <dt>Meeting Date:</dt>
             <dd>{meetingDate}</dd>
           </div>
           <div className="panel-meeting-row-data-point">
-            <FA name="thermometer" />
             <dt>Meeting Status:</dt>
             <dd>{meetingStatus}</dd>
           </div>
           <div className="panel-meeting-row-data-point">
-            <FA name="user-o" />
             <dt>Preliminary Cut-Off:</dt>
             <dd>{preliminaryCutoff}</dd>
           </div>
           <div className="panel-meeting-row-data-point">
-            <FA name="plus-square" />
             <dt>Addendum Cut-Off:</dt>
             <dd>{addendum_cutoff}</dd>
           </div>
@@ -52,8 +49,8 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
         <div className="button-container">
           {
             !!showCreate &&
-            <div className="create-ai-box-container">
-              <LinkButton className="create-ai-box-button" toLink={`/profile/${userRole}/panel/`}>Go to Panel</LinkButton>
+            <div className="go-to-panel-button-container">
+              <LinkButton className="go-to-panel-button" toLink={`/profile/${userRole}/panel/`}>Go to Panel</LinkButton>
             </div>
           }
         </div>
