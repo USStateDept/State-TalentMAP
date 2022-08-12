@@ -119,7 +119,7 @@ const AgendaItemLegs = props => {
   const remarks$ = [];
   remarks.map((remark) => {
     remarksData.forEach((rd) => {
-      if (rd.text === remark.title) {
+      if (rd.text === remark.text) {
         const data = rd;
         data.title = remark.title;
         data.type = remark.type;
@@ -157,7 +157,7 @@ const AgendaItemLegs = props => {
           <div className="remarks-text">Remarks:</div>
           {
             remarks$.map(remark => (
-              <RemarksPill key={remark.title} remark={remark} />
+              <RemarksPill key={remark.text} remark={remark} />
             ))
           }
         </div>
