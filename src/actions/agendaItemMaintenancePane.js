@@ -29,27 +29,27 @@ export function aiCreateSuccess(data) {
   };
 }
 
-// eslint-disable-next-line no-unused-vars
-export function aiCreate(post_body) {
+export function aiCreate(panel, legs) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
     api()
-      // .post('/fsbid/agenda/agenda_items/&q=', { cancelToken: new CancelToken((c) => {
-      //   cancel = c;
-      // }) })
-      .get('/fsbid/reference/cycles/', { cancelToken: new CancelToken((c) => {
-        cancel = c;
-      }) })
-      .then(({ data }) => data || [])
-      .then(() => {
-        const toastTitle = UPDATE_AGENDA_ITEM_SUCCESS_TITLE;
-        const toastMessage = UPDATE_AGENDA_ITEM_SUCCESS;
+      .post('/fsbid/agenda/agenda_item/', { Data: [
+        'Elsa, Gigi, Nori, Sophie',
+      ],
+      Panel: panel,
+      agendaLegs: [...legs],
+      }, {
+        cancelToken: new CancelToken((c) => {
+          cancel = c;
+        }),
+      })
+      .then(({ data }) => {
         batch(() => {
           dispatch(aiCreateErrored(false));
-          dispatch(aiCreateSuccess(post_body));
-          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(aiCreateSuccess(data || []));
+          dispatch(toastSuccess(UPDATE_AGENDA_ITEM_SUCCESS, UPDATE_AGENDA_ITEM_SUCCESS_TITLE));
           dispatch(aiCreateLoading(true));
         });
       })
@@ -58,9 +58,7 @@ export function aiCreate(post_body) {
           dispatch(aiCreateErrored(false));
           dispatch(aiCreateLoading(true));
         } else {
-          const toastTitle = UPDATE_AGENDA_ITEM_ERROR_TITLE;
-          const toastMessage = UPDATE_AGENDA_ITEM_ERROR;
-          dispatch(toastError(toastMessage, toastTitle));
+          dispatch(toastError(UPDATE_AGENDA_ITEM_ERROR, UPDATE_AGENDA_ITEM_ERROR_TITLE));
           dispatch(aiCreateErrored(true));
           dispatch(aiCreateLoading(false));
         }
