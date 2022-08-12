@@ -4,16 +4,16 @@
   },
   "hrAuthUrl": "http://localhost:3333/Authorize?sAppCircuitID=32",
   "flags": {
-    "static_content": true,
-    "persona_auth": true,
-    "unassigned_filters": true,
-    "handshake_bidding": true,
-    "post_handshake": false,
-    "register_checklist": true,
     "agenda_search": true,
     "create_agenda_item": true,
+    "handshake_bidding": true,
     "panel_search": true,
+    "persona_auth": true,
+    "post_handshake": false,
+    "profile_assignments": true,
     "profile_languages": true,
-    "profile_assignments": true
+    "register_checklist": true,
+    "static_content": true,
+    "unassigned_filters": true
   }
 }

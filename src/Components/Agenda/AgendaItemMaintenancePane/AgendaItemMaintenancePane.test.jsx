@@ -12,7 +12,7 @@ const mockStore = configureStore(middlewares);
 
 describe('AgendaItemMaintenancePane Component', () => {
   const props = {
-    userSelections: [
+    userRemarks: [
       {
         active_ind: 'Y',
         mutually_exclusive_ind: 'N',
@@ -56,6 +56,6 @@ describe('AgendaItemMaintenancePane Component', () => {
     );
     const remarksPill = wrapper.find('.remarks-container').children().find('RemarksPill');
     const renderedSeqNum = remarksPill.props().remark.seq_num;
-    expect(renderedSeqNum).toBe(props.userSelections[0].seq_num);
+    expect(renderedSeqNum).toBe(props.userRemarks[0].seq_num);
   });
 });

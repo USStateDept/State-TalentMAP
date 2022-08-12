@@ -1,38 +1,46 @@
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
-import InteractiveElement from 'Components/InteractiveElement';
+import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
+import InteractiveElement from 'Components/InteractiveElement';
 import { filter, find, get, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
+import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
 import { RG as RemarksGlossaryTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
 const AgendaItemMaintenanceContainer = (props) => {
+  const dispatch = useDispatch();
+
   const researchPaneRef = useRef();
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
   const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
+  const [legs, setLegs] = useState([]);
+  const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [spinner, setSpinner] = useState(true);
 
-  const userRemarks = [];
-  const [userSelections, setUserSelections] = useState(userRemarks);
-
+  const [userRemarks, setUserRemarks] = useState([]);
 
   const updateSelection = (remark) => {
-    const userSelection$ = [...userSelections];
-    const found = find(userSelection$, { seq_num: remark.seq_num });
+    const userRemarks$ = [...userRemarks];
+    const found = find(userRemarks$, { seq_num: remark.seq_num });
     if (!found) {
-      userSelection$.push(remark);
-      setUserSelections(userSelection$);
+      userRemarks$.push(remark);
+      setUserRemarks(userRemarks$);
     } else {
-      setUserSelections(filter(userSelection$, (r) => r.seq_num !== remark.seq_num));
+      setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
     }
+  };
+
+  const submitAI = () => {
+    dispatch(aiCreate(maintenanceInfo, legs));
   };
 
   function toggleExpand() {
@@ -103,11 +111,15 @@ const AgendaItemMaintenanceContainer = (props) => {
                 unitedLoading={spinner}
                 setParentLoadingState={setAgendaItemMaintenancePaneLoading}
                 updateSelection={updateSelection}
-                userSelections={userSelections}
+                sendMaintenancePaneInfo={setMaintenanceInfo}
+                userRemarks={userRemarks}
+                legCount={legs.length}
+                saveAI={submitAI}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}
                 setParentLoadingState={setAgendaItemTimelineLoading}
+                updateLegs={setLegs}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
@@ -128,7 +140,7 @@ const AgendaItemMaintenanceContainer = (props) => {
               <AgendaItemResearchPane
                 perdet={id}
                 ref={researchPaneRef}
-                userSelections={userSelections}
+                userSelections={userRemarks}
                 updateSelection={updateSelection}
               />
             </div>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -12,6 +11,7 @@ const AgendaItemLegsForm = props => {
   const {
     legs,
     onClose,
+    updateLeg,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
@@ -30,6 +30,10 @@ const AgendaItemLegsForm = props => {
     onClose(leg);
   };
 
+  const updateLeg$ = (legID, dropdown, value) => {
+    updateLeg(legID, dropdown, value);
+  };
+
   const legHeaderData = [
     'Position Title',
     'Position Number',
@@ -44,12 +48,6 @@ const AgendaItemLegsForm = props => {
     'Travel',
   ];
 
-  const [numLegs, setNumLegs] = useState(0);
-
-  useEffect(() => {
-    setNumLegs(legs.length);
-  }, [legs]);
-
   return (
     <>
       {
@@ -57,11 +55,11 @@ const AgendaItemLegsForm = props => {
           <Spinner type="legs" size="small" />
       }
       {
-        !numLegs &&
+        !legs.length &&
         <Alert type="info" title="No Agenda Item Legs" />
       }
       {
-        !legsLoading && numLegs &&
+        !legsLoading && legs.length &&
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
@@ -79,6 +77,7 @@ const AgendaItemLegsForm = props => {
                   legActionTypes={legActionTypes}
                   travelFunctions={travelFunctions}
                   onClose={onClose$}
+                  updateLeg={updateLeg$}
                 />
               ))
             }
@@ -91,11 +90,13 @@ const AgendaItemLegsForm = props => {
 AgendaItemLegsForm.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
+  updateLeg: PropTypes.func,
 };
 
 AgendaItemLegsForm.defaultProps = {
   legs: [],
   onClose: EMPTY_FUNCTION,
+  updateLeg: EMPTY_FUNCTION,
 };
 
 export default AgendaItemLegsForm;
