@@ -117,19 +117,15 @@ const AgendaItemLegs = props => {
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   const remarks$ = [];
-  remarks.map((remark) => {
-    remarksData.forEach((rd) => {
+  remarks.forEach(remark => {
+    remarksData.forEach(rd => {
       if (rd.text === remark.text) {
-        const data = rd;
-        data.title = remark.title;
-        data.type = remark.type;
-        remarks$.push(data);
+        remarks$.push(rd);
       }
     });
     if (remark.type === 'person') {
       remarks$.push(remark);
     }
-    return remarks$;
   });
 
   return (
