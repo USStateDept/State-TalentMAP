@@ -1,6 +1,13 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
+import configureStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 import AgendaItemMaintenanceContainer from './AgendaItemMaintenanceContainer';
+
+const middlewares = [thunk];
+const mockStore = configureStore(middlewares);
 
 describe('AgendaItemMaintenanceContainerComponent', () => {
   const userSelections = {
@@ -15,20 +22,37 @@ describe('AgendaItemMaintenanceContainerComponent', () => {
     } };
 
   it('is defined', () => {
-    const wrapper = shallow(<AgendaItemMaintenanceContainer.WrappedComponent />);
+    const wrapper = shallow(
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <AgendaItemMaintenanceContainer.WrappedComponent />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('is defined when there is a route id', () => {
     const wrapper = shallow(
-      <AgendaItemMaintenanceContainer.WrappedComponent
-        match={{ params: { id: 1 } }}
-      />);
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <AgendaItemMaintenanceContainer.WrappedComponent
+            match={{ params: { id: 1 } }}
+          />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<AgendaItemMaintenanceContainer.WrappedComponent />);
+    const wrapper = shallow(
+      <Provider store={mockStore({})}>
+        <MemoryRouter>
+          <AgendaItemMaintenanceContainer.WrappedComponent />
+        </MemoryRouter>
+      </Provider>,
+    );
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 
