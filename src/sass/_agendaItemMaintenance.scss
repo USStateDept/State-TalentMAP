@@ -147,13 +147,7 @@
         margin-left: 10px;
       }
 
-      #add-pos-num-input {
-        border-radius: 3px;
-        height: 28px;
-        padding: 0 30px 0 5px;
-        max-width: 150px;
-        font-size: 13px;
-      }
+
 
       .loading-animation {
         //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
@@ -172,25 +166,44 @@
         }
       }
 
+      .add-pos-num-input {
+        border-radius: 3px;
+        height: 28px;
+        padding: 0 30px 0 5px;
+        max-width: 150px;
+        font-size: 13px;
+      }
       .input-default {
         background-color: $color-white;
         border: 1px solid $bg-gray-dark-2;
       }
-
       .input-error {
         background-color: $color-red-lightest;
         border: 1px solid $color-red;
       }
+      .input-disabled {
+        background-color: $color-gray-lighter;
+        border: 1px solid $color-gray-light;
+      }
 
-      #add-pos-num-icon {
+      .add-pos-num-icon {
         color: $primary-blue;
         margin-left: -25px;
         position: relative;
         top: 1px
       }
-
-      #add-pos-num-icon:hover {
+      .add-pos-num-icon:hover {
         color: $primary-blue-darkest;
+      }
+      .icon-disabled {
+        color: $color-gray;
+        .fa {
+          cursor: not-allowed;
+        }
+      }
+      .icon-disabled:hover {
+        color: $color-gray;
+        cursor: not-allowed;
       }
 
       div {

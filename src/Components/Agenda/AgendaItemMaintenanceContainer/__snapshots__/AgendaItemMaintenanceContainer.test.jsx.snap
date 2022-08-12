@@ -1,28 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AgendaItemMaintenanceContainerComponent matches snapshot 1`] = `
-<div>
-  <div
-    className="aim-header-container"
-  >
-    <div
-      className="aim-title-container"
-    >
-      <FontAwesome
-        name="user-circle-o"
-        size="lg"
-      />
-      Agenda Item Maintenance
-      <span>
-         - Employee Name Placeholder
-      </span>
-    </div>
-  </div>
-  <MediaQueryWrapper
-    breakpoint="screenXlgMin"
-    widthType="max"
-  >
-    <Component />
-  </MediaQueryWrapper>
-</div>
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <MemoryRouter>
+    <AgendaItemMaintenanceContainer />
+  </MemoryRouter>
+</ContextProvider>
 `;
