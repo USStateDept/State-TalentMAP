@@ -48,7 +48,7 @@ const AgendaItemMaintenancePane = (props) => {
   const panelDatesML = filter(panelDates, (p) => p.pmt_code === 'ML');
   const panelDatesID = filter(panelDates, (p) => p.pmt_code === 'ID');
 
-  const [asgSepBid, setAsgSepBid] = useState('');
+  const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
 
