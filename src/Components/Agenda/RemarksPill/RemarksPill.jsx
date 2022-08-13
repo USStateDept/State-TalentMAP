@@ -24,7 +24,7 @@ RemarksPill.propTypes = {
     mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
-    type: PropTypes.string,
+    type: null,
   }),
   isEditable: PropTypes.bool,
   updateSelection: PropTypes.func,
