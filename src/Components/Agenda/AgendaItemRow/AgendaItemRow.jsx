@@ -14,7 +14,6 @@ const AgendaItemRow = props => {
     showEdit,
     isCDO,
     perdet,
-    remarksData,
   } = props;
 
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -49,7 +48,7 @@ const AgendaItemRow = props => {
           <div className="ai-history-row-panel-date">
             Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
           </div>
-          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} remarksData={remarksData} />
+          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
             showEdit &&
             <div className="ai-history-edit">
@@ -70,7 +69,13 @@ AgendaItemRow.propTypes = {
     id: PropTypes.number,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
-        title: PropTypes.string,
+        seq_num: PropTypes.number,
+        rc_code: PropTypes.string,
+        order_num: PropTypes.number,
+        short_desc_text: PropTypes.string,
+        mutually_exclusive_ind: PropTypes.string,
+        text: PropTypes.string,
+        active_ind: PropTypes.string,
         type: null,
       }),
     ),
@@ -98,15 +103,6 @@ AgendaItemRow.propTypes = {
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
-  remarksData: PropTypes.shape([{
-    seq_num: PropTypes.number,
-    rc_code: PropTypes.string,
-    order_num: PropTypes.number,
-    short_desc_text: PropTypes.string,
-    mutually_exclusive_ind: PropTypes.string,
-    text: PropTypes.string,
-    active_ind: PropTypes.string,
-  }]),
 };
 
 
@@ -116,7 +112,6 @@ AgendaItemRow.defaultProps = {
   showEdit: false,
   isCDO: false,
   perdet: null,
-  remarksData: [],
 };
 
 export default AgendaItemRow;

@@ -10,7 +10,6 @@ const AgendaItemLegs = props => {
     legs,
     remarks,
     isCard,
-    remarksData,
   } = props;
 
   let legs$ = legs;
@@ -116,18 +115,6 @@ const AgendaItemLegs = props => {
 
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
-  const remarks$ = [];
-  remarks.forEach(remark => {
-    remarksData.forEach(rd => {
-      if (rd.text === remark.text) {
-        remarks$.push(rd);
-      }
-    });
-    if (remark.type === 'person') {
-      remarks$.push(remark);
-    }
-  });
-
   return (
     <div className="ai-history-card-legs">
       <table>
@@ -152,7 +139,7 @@ const AgendaItemLegs = props => {
         <div className="remarks-container">
           <div className="remarks-text">Remarks:</div>
           {
-            remarks$.map(remark => (
+            remarks.map(remark => (
               <RemarksPill key={remark.text} remark={remark} />
             ))
           }
@@ -164,9 +151,7 @@ const AgendaItemLegs = props => {
 
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
-  remarks: PropTypes.arrayOf(PropTypes.shape({})),
-  isCard: PropTypes.bool,
-  remarksData: PropTypes.shape([{
+  remarks: PropTypes.arrayOf(PropTypes.shape({
     seq_num: PropTypes.number,
     rc_code: PropTypes.string,
     order_num: PropTypes.number,
@@ -174,14 +159,15 @@ AgendaItemLegs.propTypes = {
     mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
-  }]),
+    type: null,
+  })),
+  isCard: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   remarks: [],
   isCard: false,
-  remarksData: [],
 };
 
 export default AgendaItemLegs;
