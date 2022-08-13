@@ -2,7 +2,7 @@
 
 exports[`RemarksPill matches snapshot 1`] = `
 <div
-  className="remarks-pill remark-category--default"
+  className="remarks-pill remark-category--undefined"
 />
 `;
 

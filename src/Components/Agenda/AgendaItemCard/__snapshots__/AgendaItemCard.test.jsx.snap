@@ -59,7 +59,6 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
       isCard={true}
       legs={Array []}
       remarks={Array []}
-      remarksData={Array []}
     />
     <div
       className="ai-history-card-date"
