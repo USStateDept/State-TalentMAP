@@ -3,12 +3,10 @@ import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
-  // TODO - make use of colors?
   const { remark, isEditable, updateSelection } = props;
 
-
   return (
-    <div className="remarks-pill" style={{ backgroundColor: '#0071bc' }}>
+    <div className={`remarks-pill remark-category--${remark.rc_code}`}>
       {remark.text}
       { isEditable &&
         <FA name="times" onClick={() => updateSelection(remark)} />
@@ -26,6 +24,7 @@ RemarksPill.propTypes = {
     mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
+    type: null,
   }),
   isEditable: PropTypes.bool,
   updateSelection: PropTypes.func,
