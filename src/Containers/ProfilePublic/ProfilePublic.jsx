@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { get, includes } from 'lodash';
+import { get } from 'lodash';
 import ProfileDashboard from 'Components/ProfileDashboard';
 import Alert from 'Components/Alert';
 import { fetchClassifications } from 'actions/classifications';
@@ -36,16 +36,9 @@ class ProfilePublic extends Component {
     return viewType === 'post';
   }
 
-  isAOView = (permissions) => {
+  isAOView = () => {
     const viewType = get(this.props, 'match.params.viewType');
-    if (includes(permissions, 'ao_user')) {
-      if (viewType === 'ao') {
-        return true;
-      }
-    } else {
-      return false;
-    }
-    return false;
+    return viewType === 'ao';
   }
 
   render() {
@@ -59,7 +52,6 @@ class ProfilePublic extends Component {
       registerHandshakePosition,
       unregisterHandshakePosition,
       deleteBid,
-      permissions,
     } = this.props;
     const { bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
@@ -67,7 +59,7 @@ class ProfilePublic extends Component {
     const combinedErrored = hasErrored || classificationsHasErrored;
     const isBureauView = this.isBureauView();
     const isPostView = this.isPostView();
-    const isAOView = this.isAOView(permissions);
+    const isAOView = this.isAOView();
     let props = {};
     if (isBureauView) {
       props = {
@@ -76,7 +68,6 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
-        canEditClassifications: false,
       };
     } else if (isPostView) {
       props = {
@@ -85,24 +76,17 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
-        canEditClassifications: false,
       };
     } else if (isAOView) {
       props = {
         ...props,
         showBidTracker: false,
         showAssignmentHistory: false,
-        showClassifications: true,
         showSearchAsClient: false,
-        canEditClassifications: false,
       };
     } else { // CDO View
       props = {
         ...props,
-        showBidTracker: true,
-        showAssignmentHistory: true,
-        showClassifications: true,
-        showSearchAsClient: true,
         canEditClassifications: true,
       };
     }
@@ -139,9 +123,6 @@ ProfilePublic.propTypes = {
   registerHandshakePosition: PropTypes.func,
   unregisterHandshakePosition: PropTypes.func,
   deleteBid: PropTypes.func,
-  permissions: PropTypes.arrayOf(
-    PropTypes.string,
-  ),
 };
 
 ProfilePublic.defaultProps = {
@@ -156,7 +137,6 @@ ProfilePublic.defaultProps = {
   registerHandshakePosition: EMPTY_FUNCTION,
   unregisterHandshakePosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
-  permissions: [],
 };
 
 ProfilePublic.contextTypes = {
@@ -171,7 +151,6 @@ const mapStateToProps = (state, ownProps) => ({
   classificationsIsLoading: state.classificationsIsLoading,
   classificationsHasErrored: state.classificationsHasErrored,
   classifications: state.classifications,
-  permissions: state.userProfile.permission_groups,
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => {

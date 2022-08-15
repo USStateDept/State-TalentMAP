@@ -1,88 +1,103 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
+import shortid from 'shortid';
+import { useDidMountEffect } from 'hooks';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState }) => {
-  const FAKE_LEGS = [
-    {
-      id: 11158,
-      pos_title: 'SPECIAL AGENT',
-      pos_num: '57159000',
-      org: 'FSI',
-      eta: '2029-12-05T00:00:00.000Z',
-      ted: '2023-05-01T00:00:00',
-      tod: '2 YRS/HLRT/2 YRS',
-      grade: 'OM',
-    },
-    {
-      id: 41387,
-      pos_title: 'REGIONAL SECURITY OFFICER',
-      pos_num: '57019000',
-      org: 'A',
-      eta: '2019-05-05T00:00:00.000Z',
-      ted: '2020-07-05T00:00:00.000Z',
-      tod: '1 YEAR',
-      grade: '00',
-      action: 'Extend',
-      travel: null,
-    },
-  ];
-
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, asgSepBid }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const [selectedLegs, setLegs] = useState(FAKE_LEGS);
+  const [legs, setLegs] = useState([]);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);
   }, [pos_results_loading]);
 
   useEffect(() => {
+    updateLegs(legs);
+  }, [legs]);
+
+  useDidMountEffect(() => {
     if (!pos_results_loading && !pos_results_errored) {
-      const pos = pos_results;
-      if (pos) {
-        const legs = [...selectedLegs];
-        const pos$ = {
-          id: get(pos, 'id'),
-          pos_title: get(pos, 'title'),
-          pos_num: get(pos, 'position_number'),
-          org: get(pos, 'organization'),
-          eta: '2019-05-05T00:00:00.000Z',
-          ted: '2020-07-05T00:00:00.000Z',
-          tod: '2 Years',
-          grade: get(pos, 'grade'),
+      if (pos_results) {
+        const legs$ = [...legs];
+        // TODO: waiting for updates to generic pos EP to pull in eta, language
+        // and possibly others
+        legs$.push({
+          ail_seq_num: shortid.generate(),
+          pos_title: get(pos_results, 'title'),
+          pos_num: get(pos_results, 'position_number'),
+          org: get(pos_results, 'organization'),
+          eta: 'Coming Soon',
+          ted: null,
+          language: 'Coming Soon',
+          tod: null,
+          grade: get(pos_results, 'grade'),
           action: null,
           travel: null,
-        };
-        legs.push(pos$);
-        setLegs(legs);
+        });
+        setLegs(legs$);
       }
     }
-  }, [pos_results_loading]);
+  }, [pos_results]);
+
+  useEffect(() => {
+    if (!isEmpty(asgSepBid)) {
+      const legs$ = [...legs];
+      // TODO: waiting for updates to generic pos EP to pull in eta, language
+      // and possibly others
+      legs$.push({
+        ail_seq_num: shortid.generate(),
+        pos_title: get(asgSepBid, 'pos_title'),
+        pos_num: get(asgSepBid, 'pos_num'),
+        org: get(asgSepBid, 'org'),
+        eta: 'Coming Soon',
+        ted: null,
+        language: 'Coming Soon',
+        tod: null,
+        grade: get(asgSepBid, 'grade'),
+        action: null,
+        travel: null,
+      });
+      setLegs(legs$);
+    }
+  }, [asgSepBid]);
 
   const onClose = leg => {
-    const legs$ = selectedLegs.filter(l => l.id !== leg.id);
+    const legs$ = legs.filter(l => l.ail_seq_num !== leg.ail_seq_num);
     setLegs(legs$);
+  };
+
+  const updateLeg = (legID, dropdown, value) => {
+    const temp = [...legs];
+    const legToModify = temp.findIndex(l => l.ail_seq_num === legID);
+    temp[legToModify][dropdown] = value;
+    setLegs(temp);
   };
 
   return (
     !unitedLoading &&
-      <AgendaItemLegsForm onClose={onClose} legs={selectedLegs} />
+      <AgendaItemLegsForm onClose={onClose} legs={legs} updateLeg={updateLeg} />
   );
 };
 
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
   setParentLoadingState: PropTypes.func,
+  updateLegs: PropTypes.func,
+  asgSepBid: PropTypes.shape({}),
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
   setParentLoadingState: EMPTY_FUNCTION,
+  updateLegs: EMPTY_FUNCTION,
+  asgSepBid: {},
 };
 
 export default AgendaItemTimeline;

@@ -1,5 +1,4 @@
-/* eslint-disable */
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
@@ -12,6 +11,7 @@ const AgendaLeg = props => {
   const {
     leg,
     legNum,
+    updateLeg,
     onClose,
     TODs,
     legActionTypes,
@@ -24,48 +24,48 @@ const AgendaLeg = props => {
   };
 
   const [calendarHidden, setCalendarHidden] = useState(true);
-  const [TED, setTED] = useState(format(new Date(), 'MM/dd/yy'));
 
-
-
-  const updateTED = (date) => {
-    setTED(date);
-    setCalendarHidden(true)
+  const updateDropdown = (dropdown, value) => {
+    updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
+    if (dropdown === 'ted') {
+      setCalendarHidden(true);
+    }
   };
 
-
   const getDropdown = (key, data, text) => (
-      <select
-          className="leg-dropdown"
-      >
-        {
-          data.map(a => (
-            <option key={get(a, key)} value={get(a, 'code')}>{get(a, text)}</option>
-          ))
-        }
-      </select>
+    <select
+      className="leg-dropdown"
+      value={get(leg, key) || ''}
+      onChange={(e) => updateDropdown(key, e.target.value)}
+    >
+      <option selected key={null} value={''}>
+        Keep Unselected
+      </option>
+      {
+        data.map(a => (
+          <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
+        ))
+      }
+    </select>
   );
 
-  const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/dd/yy') : '';
+  const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
   const getCalendar = () => (
-      <>
-        {formatDate(TED)}
-        <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
-        {
-          !calendarHidden &&
+    <>
+      {formatDate(get(leg, 'ted'))}
+      <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
+      {
+        !calendarHidden &&
             <div className="ted-calendar-container" id={`cal-${legNum}`}>
               <Calendar
                 className="ted-react-calendar"
-                onChange={updateTED}
-                selected={TED}
+                onChange={(e) => updateDropdown('ted', e)}
               />
             </div>
-        }
-      </>
+      }
+    </>
   );
-
-
 
   const getArrows = () => (
     <div className="arrow">
@@ -128,11 +128,11 @@ const AgendaLeg = props => {
         </InteractiveElement>
       </div>
       {
-          columnData.map((cData, i) => (
+        columnData.map((cData, i) => (
           <div className={`grid-col-${legNum} grid-row-${i + 2}`}>
-              {cData.content}
+            {cData.content}
           </div>
-          ))
+        ))
       }
     </>
   );
@@ -145,11 +145,13 @@ AgendaLeg.propTypes = {
   legActionTypes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   travelFunctions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClose: PropTypes.func.isRequired,
+  updateLeg: PropTypes.func.isRequired,
 };
 
 AgendaLeg.defaultProps = {
   leg: {},
   onClose: EMPTY_FUNCTION,
+  updateLeg: EMPTY_FUNCTION,
 };
 
 export default AgendaLeg;

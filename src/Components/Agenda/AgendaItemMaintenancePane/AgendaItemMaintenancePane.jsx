@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, get, includes } from 'lodash';
+import { filter, find, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
-import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
@@ -21,12 +20,16 @@ const AgendaItemMaintenancePane = (props) => {
     perdet,
     setParentLoadingState,
     unitedLoading,
-    userSelections,
+    userRemarks,
     leftExpanded,
     updateSelection,
+    sendMaintenancePaneInfo,
+    legCount,
+    saveAI,
+    sendAsgSepBid,
   } = props;
 
-  const defaultText = 'Coming Soon';
+  const defaultText = '';
 
   const { data: asgSepBidData, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${perdet}/`);
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
@@ -45,15 +48,19 @@ const AgendaItemMaintenancePane = (props) => {
   const panelDatesML = filter(panelDates, (p) => p.pmt_code === 'ML');
   const panelDatesID = filter(panelDates, (p) => p.pmt_code === 'ID');
 
-  const [asgSepBid, setAsgSepBid] = useState(filter(asgSepBids, ['status', 'EF']));
+  const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
+  const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
   const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
 
-  const [selectedPositionNumber, setPositionNumber] = useState();
+  const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
+  const [inputClass, setInputClass] = useState('input-default');
 
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
   const [selectedPanelMLDate, setPanelMLDate] = useState();
   const [selectedPanelIDDate, setPanelIDDate] = useState();
+
+  const legLimit = legCount >= 10;
 
   useEffect(() => {
     setParentLoadingState(includes([asgSepBidLoading,
@@ -73,30 +80,49 @@ const AgendaItemMaintenancePane = (props) => {
     }
   }, [pos_results_errored]);
 
-  const submitAction = (userInputs) => {
-    dispatch(aiCreate(userInputs));
-  };
+  useEffect(() => {
+    if (legLimit) {
+      setInputClass('input-disabled');
+    } else if (pos_results_loading) {
+      setInputClass('loading-animation');
+    } else if (posNumError) {
+      setInputClass('input-error');
+    } else {
+      setInputClass('input-default');
+    }
+  }, [legCount, pos_results_loading, posNumError]);
 
-  const saveAI = (e) => {
-    e.preventDefault();
-    const userInputs = {
+  useEffect(() => {
+    sendMaintenancePaneInfo({
       selectedPanelMLDate: selectedPanelMLDate || '',
       selectedPanelIDDAte: selectedPanelIDDate || '',
-      userSelections: userSelections || [],
+      remarks: userRemarks || [],
       selectedStatus: selectedStatus || '',
-      asgSepBid: asgSepBid || '',
       selectedPanelCat: selectedPanelCat || '',
-      selectedPositionNumber: selectedPositionNumber || '',
-    };
+    });
+  }, [selectedPanelMLDate,
+    selectedPanelIDDate,
+    userRemarks,
+    selectedStatus,
+    selectedPanelCat]);
 
-    submitAction(userInputs);
+  const addAsgSepBid = (k) => {
+    setAsgSepBidSelectClass('asg-animation');
+    setAsgSepBid(k);
+    sendAsgSepBid(find(asgSepBids, { pos_num: k }));
+    setTimeout(() => {
+      setAsgSepBid('');
+      sendAsgSepBid({});
+      setAsgSepBidSelectClass('');
+    }, 2000);
   };
 
-  // special handling for position number
   const addPositionNum = () => {
-    setPosNumError(false);
-    if (selectedPositionNumber) {
-      dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
+    if (!legLimit) {
+      setPosNumError(false);
+      if (selectedPositionNumber) {
+        dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
+      }
     }
   };
 
@@ -125,19 +151,24 @@ const AgendaItemMaintenancePane = (props) => {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
                   id="ai-maintenance-dd-asgSepBids"
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
                   defaultValue={asgSepBids}
-                  onChange={(e) => setAsgSepBid(get(e, 'target.value'))}
-                  value={asgSepBid}
+                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
+                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                  disabled={legLimit}
                 >
-                  <option selected hidden>
+                  <option selected value={''}>
                     Employee Assignments, Separations, and Bids
+                  </option>
+                  <option hidden value={'legLimit'}>
+                    Leg Limit of 10 Reached
                   </option>
                   {
                     asgSepBids.map(a => (
                       <option key={a.pos_num} value={a.pos_num}>
                         {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        {a.name || defaultText} '{a.status || defaultText}'
-                          in {a.org || defaultText} -
+                        '{a.status || defaultText}'
+                          in {a.org || defaultText} -&nbsp;
                         {a.pos_title || defaultText}({a.pos_num || defaultText})
                       </option>
                     ))
@@ -165,16 +196,16 @@ const AgendaItemMaintenancePane = (props) => {
             <div>
               <label htmlFor="position number">Add Position Number:</label>
               <input
-                id="add-pos-num-input"
                 name="add"
-                className={`${posNumError ? 'input-error' : 'input-default'} ${pos_results_loading ? 'loading-animation' : ''}`}
+                className={`add-pos-num-input ${inputClass}`}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
-                value={selectedPositionNumber}
+                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
+                disabled={legLimit}
               />
               <InteractiveElement
-                id="add-pos-num-icon"
+                className={`add-pos-num-icon ${legLimit ? 'icon-disabled' : ''}`}
                 onClick={addPositionNum}
                 role="button"
                 title="Add position"
@@ -256,7 +287,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
               {
-                userSelections.map(remark => (
+                userRemarks.map(remark => (
                   <RemarksPill
                     isEditable
                     remark={remark}
@@ -287,7 +318,7 @@ AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
   setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
-  userSelections: PropTypes.arrayOf(
+  userRemarks: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
       rc_code: PropTypes.string,
@@ -299,6 +330,10 @@ AgendaItemMaintenancePane.propTypes = {
     }),
   ),
   updateSelection: PropTypes.func,
+  sendMaintenancePaneInfo: PropTypes.func,
+  sendAsgSepBid: PropTypes.func,
+  saveAI: PropTypes.func,
+  legCount: PropTypes.number,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -306,9 +341,13 @@ AgendaItemMaintenancePane.defaultProps = {
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
   unitedLoading: true,
-  userSelections: [],
+  userRemarks: [],
   addToSelection: EMPTY_FUNCTION,
   updateSelection: EMPTY_FUNCTION,
+  sendMaintenancePaneInfo: EMPTY_FUNCTION,
+  sendAsgSepBid: EMPTY_FUNCTION,
+  saveAI: EMPTY_FUNCTION,
+  legCount: 0,
 };
 
 export default AgendaItemMaintenancePane;
