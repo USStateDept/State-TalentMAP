@@ -140,7 +140,7 @@ const AgendaItemLegs = props => {
           <div className="remarks-text">Remarks:</div>
           {
             remarks.map(remark => (
-              <RemarksPill key={remark.title} {...remark} />
+              <RemarksPill key={remark.text} remark={remark} />
             ))
           }
         </div>
@@ -151,7 +151,16 @@ const AgendaItemLegs = props => {
 
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
-  remarks: PropTypes.arrayOf(PropTypes.shape({})),
+  remarks: PropTypes.arrayOf(PropTypes.shape({
+    seq_num: PropTypes.number,
+    rc_code: PropTypes.string,
+    order_num: PropTypes.number,
+    short_desc_text: PropTypes.string,
+    mutually_exclusive_ind: PropTypes.string,
+    text: PropTypes.string,
+    active_ind: PropTypes.string,
+    type: null,
+  })),
   isCard: PropTypes.bool,
 };
 
