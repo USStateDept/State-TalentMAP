@@ -10,7 +10,7 @@ import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None listed';
 
-const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
+const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -28,6 +28,20 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+
+
+  let profileLink;
+  switch (viewType) {
+    case 'ao':
+      profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
+      break;
+    case 'cdo':
+      profileLink = isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+      break;
+    default:
+      profileLink = bidder;
+      break;
+  }
 
   return (
     <BoxShadow className="employee-agenda-stat-card">
@@ -49,7 +63,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
         </div>
         <div>
           <h3>
-            {isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder }
+            {profileLink}
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">
@@ -127,12 +141,14 @@ EmployeeAgendaSearchCard.propTypes = {
     }),
   }),
   showCreate: PropTypes.bool,
+  viewType: PropTypes.string,
 };
 
 EmployeeAgendaSearchCard.defaultProps = {
   isCDO: false,
   result: {},
   showCreate: true,
+  viewType: '',
 };
 
 export default EmployeeAgendaSearchCard;
