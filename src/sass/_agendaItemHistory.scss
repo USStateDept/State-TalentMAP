@@ -376,6 +376,7 @@
     }
 
     .remarks-pill {
+      background-color: $primary-blue;
       border-radius: 12px;
       color: $color-white;
       display: inline;
@@ -383,6 +384,12 @@
       margin-bottom: 1rem;
       margin-right: 1.5rem;
       padding: .5em;
+    }
+
+    @each $remark-id, $color in $remarks {
+      .remark-category--#{$remark-id} {
+        background-color: $color;
+      }
     }
   }
   
