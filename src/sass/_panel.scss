@@ -2,7 +2,9 @@
     .panel-meeting-search-upper-section {
         background-color: $bg-blue-dark-1;
         box-shadow: 20px 20px 20px $bg-gray-medium-2;
-        padding: 20px 35px;
+        color: $color-white;
+        max-width: none;
+        padding: 20px 35px 35px;
     }
 
     .filterby-container {
@@ -138,7 +140,7 @@
     box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
     margin-bottom: 1rem;
     margin-left: 0;
-    padding: 15px 20px 30px;
+    padding: 15px 20px;
     position: relative;
 
     .meeting-type-circle-container {
@@ -182,33 +184,13 @@
     }
 
     .button-container {
-        float: right;
-        padding-bottom: 30px;
-
-        .go-to-panel-button-container {
-            
-            .go-to-panel-button {
-                background-color: $blue-primary;
-                border: 1px solid $blue-primary;
-                border-radius: 3px;
-                color: $color-white;
-                font-size: 1.5rem;
-                line-height: 37px;
-                margin: auto;
-                padding: 3px;
-                text-align: center;
-                width: 150px;
-            }
-
-            .go-to-panel-button:hover {
-                background-color: $primary-blue-darker;
-            }
-        }
-
-        @media screen and (max-width: 1250px) {
-            padding-bottom: 0px;
-            padding-top: 20px;
-        }
+      float: right;
+      padding-bottom: 30px;
+      
+      @media screen and (max-width: 1250px) {
+        padding-bottom: 0px;
+        padding-top: 20px;
+      }
     }
 
     .panel-meeting-row-data-container {
@@ -228,14 +210,6 @@
 
           @media screen and (max-width: 1650px) {
             margin-right: 2rem;
-          }
-
-          .fa {
-            padding-right: 6px;
-          }
-
-          .org-fa-arrow {
-            padding: 0 9px;
           }
         }
       }

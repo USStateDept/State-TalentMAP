@@ -26,8 +26,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
-  // const panelMeetingsFiltersHasErrored = useSelector(state =>
-  //  state.panelMeetingsFiltersFetchDataErrored);
 
   const panelMeetings$ = useSelector(state => state.panelMeetings);
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
@@ -87,6 +85,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const count = fakePanelMeetings.length;
 
   const isLoading = panelMeetingsFiltersIsLoading;
+  const isPanelLoading = panelMeetingsIsLoading && isLoading;
   const exportDisabled = !panelMeetings.length;
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
@@ -224,77 +223,73 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const overlay = getOverlay();
 
   return (
-    isLoading ?
+    isPanelLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="panel-meeting-search-page">
-          <div className="panel-meeting-search-upper-section">
-            <div className="results-search-bar results-single-search">
-              <div className="usa-grid-full results-search-bar-container">
-                <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
-                <PositionManagerSearch
-                  submitSearch={submitSearch}
-                  onChange={setTextInputThrottled}
-                  ref={childRef}
-                  textSearch={textSearch}
-                  label="Search for a Panel Meeting"
-                  placeHolder="Search using Panel ID"
-                />
-                <div className="filterby-container">
-                  <div className="filterby-label">Filter by:</div>
-                  <div className="filterby-clear">
-                    {clearFilters &&
+          <div className="usa-grid-full panel-meeting-search-upper-section results-search-bar-container">
+            <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
+            <PositionManagerSearch
+              submitSearch={submitSearch}
+              onChange={setTextInputThrottled}
+              ref={childRef}
+              textSearch={textSearch}
+              label="Search for a Panel Meeting"
+              placeHolder="Search using Panel ID"
+            />
+            <div className="filterby-container">
+              <div className="filterby-label">Filter by:</div>
+              <div className="filterby-clear">
+                {clearFilters &&
                   <button className="unstyled-button" onClick={resetFilters}>
                     <FA name="times" />
                     Clear Filters
                   </button>
-                    }
-                  </div>
-                </div>
-                <div className="usa-width-one-whole panel-meeting-search-filters">
-                  <div className="filter-div">
-                    <div className="label">Type:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Meeting Type"
-                      value={selectedMeetingType}
-                      options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
-                      onChange={setSelectedMeetingType}
-                      valueKey="code"
-                      labelKey="description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label label-date">Meeting Date:</div>
-                    <DateRangePicker
-                      onChange={setSelectedMeetingDate}
-                      value={selectedMeetingDate}
-                      maxDetail="month"
-                      calendarIcon={null}
-                      showLeadingZeros
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Status:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Meeting Status"
-                      value={selectedMeetingStatus}
-                      options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
-                      onChange={setSelectedMeetingStatus}
-                      valueKey="code"
-                      labelKey="description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                </div>
+                }
+              </div>
+            </div>
+            <div className="usa-width-one-whole panel-meeting-search-filters">
+              <div className="filter-div">
+                <div className="label">Type:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Meeting Type"
+                  value={selectedMeetingType}
+                  options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
+                  onChange={setSelectedMeetingType}
+                  valueKey="code"
+                  labelKey="description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label label-date">Meeting Date:</div>
+                <DateRangePicker
+                  onChange={setSelectedMeetingDate}
+                  value={selectedMeetingDate}
+                  maxDetail="month"
+                  calendarIcon={null}
+                  showLeadingZeros
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Status:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Meeting Status"
+                  value={selectedMeetingStatus}
+                  options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
+                  onChange={setSelectedMeetingStatus}
+                  valueKey="code"
+                  labelKey="description"
+                  disabled={isLoading}
+                />
               </div>
             </div>
           </div>
           {
-            !panelMeetingsIsLoading && !isLoading &&
+            !isPanelLoading &&
             <div className="panel-results-controls">
               <SelectForm
                 className="panel-results-select"
@@ -327,7 +322,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
             <>
               <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
                 {
-                  !panelMeetingsIsLoading &&
                   <div className="panel-meeting-row">
                     {fakePanelMeetings.map(meeting => (
                       // TODO: include React keys once we have real data

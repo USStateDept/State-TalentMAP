@@ -49,8 +49,8 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
         <div className="button-container">
           {
             !!showCreate &&
-            <div className="go-to-panel-button-container">
-              <LinkButton className="go-to-panel-button" toLink={`/profile/${userRole}/panel/`}>Go to Panel</LinkButton>
+            <div className="button-box-container">
+              <LinkButton className="button-box" toLink={`/profile/${userRole}/panel/`}>Go to Panel</LinkButton>
             </div>
           }
         </div>
