@@ -10,7 +10,7 @@ import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None listed';
 
-const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
+const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -25,8 +25,9 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
-  // const params = useParams();
-  // console.log(params);
+  // const { viewType } = useParams();
+  //  get(props, 'match.params.id'),
+  console.log(viewType);
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -131,6 +132,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate }) => {
 };
 
 EmployeeAgendaSearchCard.propTypes = {
+  // eslint-disable-next-line react/no-unused-prop-types
   isCDO: PropTypes.bool,
   result: PropTypes.PropTypes.shape({
     person: PropTypes.shape({}),
@@ -142,13 +144,16 @@ EmployeeAgendaSearchCard.propTypes = {
       panelDate: PropTypes.string,
     }),
   }),
+  // eslint-disable-next-line react/no-unused-prop-types
   showCreate: PropTypes.bool,
+  viewType: PropTypes.string,
 };
 
 EmployeeAgendaSearchCard.defaultProps = {
   isCDO: false,
   result: {},
   showCreate: true,
+  viewType: '',
 };
 
 export default EmployeeAgendaSearchCard;

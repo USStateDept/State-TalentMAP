@@ -155,7 +155,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const id$ = get(ownProps, 'match.params.id');
-  console.log(ownProps);
   const config = {
     fetchData: (id, includeBids) => dispatch(userProfilePublicFetchData(id, false, includeBids)),
     onNavigateTo: dest => dispatch(push(dest)),

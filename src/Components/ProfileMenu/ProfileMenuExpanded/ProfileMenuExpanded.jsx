@@ -70,7 +70,6 @@ const ProfileMenuExpanded = (props) => {
       <NavLinksContainer>
         {
           getProfileMenuSort.map((item) => {
-            console.log(item);
             let subitems = filter(item.children, { text: 'Dashboard' });
             const subitems$ = sortBy(remove(item.children,
               menu => get(menu, 'text') !== 'Dashboard'), [(menu) => lowerCase(get(menu, 'text'))],

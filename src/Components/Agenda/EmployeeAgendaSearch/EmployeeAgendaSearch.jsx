@@ -29,7 +29,7 @@ import ScrollUpButton from '../../ScrollUpButton';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
-const EmployeeAgendaSearch = ({ isCDO }) => {
+const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
   const createAI = useCreateAI();
@@ -441,6 +441,7 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
                           result={emp}
                           isCDO={isCDO}
                           showCreate={createAI}
+                          viewType={viewType}
                         />
                       ))}
                     </div>
@@ -479,10 +480,12 @@ const EmployeeAgendaSearch = ({ isCDO }) => {
 
 EmployeeAgendaSearch.propTypes = {
   isCDO: PropTypes.bool,
+  viewType: PropTypes.string,
 };
 
 EmployeeAgendaSearch.defaultProps = {
   isCDO: false,
+  viewType: '',
 };
 
 export default EmployeeAgendaSearch;
