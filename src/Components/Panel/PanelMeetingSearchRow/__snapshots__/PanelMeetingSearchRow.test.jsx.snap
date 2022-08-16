@@ -73,10 +73,10 @@ exports[`PanelMeetingSearchRow matches snapshot 1`] = `
       className="button-container"
     >
       <div
-        className="go-to-panel-button-container"
+        className="button-box-container"
       >
         <LinkButton
-          className="go-to-panel-button"
+          className="button-box"
           toLink="/profile/ao/panel/"
         >
           Go to Panel
