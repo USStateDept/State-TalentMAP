@@ -7,7 +7,7 @@ import { get, isNil } from 'lodash';
 import { formatDate } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
+const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -27,6 +27,19 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
 
+  let profileLink;
+  switch (viewType) {
+    case 'ao':
+      profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
+      break;
+    case 'cdo':
+      profileLink = (isCDO && employeeHasCDO) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+      break;
+    default:
+      profileLink = <div className="row-name">{bidder} ({employeeID})</div>;
+      break;
+  }
+
   return (
     <div className="usa-grid-full employee-agenda-stat-row">
       <div className="initials-circle-container">
@@ -44,11 +57,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate }) => {
         </div>
       </div>
       <div className="employee-agenda-row-name">
-        {
-          isCDO && employeeHasCDO ?
-            <Link to={`/profile/public/${perdet}`}>{bidder} ({employeeID})</Link> :
-            <div className="row-name">{bidder} ({employeeID})</div>
-        }
+        {profileLink}
       </div>
       <div className="employee-agenda-row-data-container">
         <div className="employee-agenda-row-data-points">
@@ -119,12 +128,14 @@ EmployeeAgendaSearchRow.propTypes = {
     }),
   }),
   showCreate: PropTypes.bool,
+  viewType: PropTypes.string,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
   isCDO: false,
   result: {},
   showCreate: true,
+  viewType: '',
 };
 
 export default EmployeeAgendaSearchRow;

@@ -456,6 +456,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                           result={emp}
                           isCDO={isCDO}
                           showCreate={createAI}
+                          viewType={viewType}
                         />
                       ))}
                     </div>
