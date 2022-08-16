@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { filter, flatten, get, isEmpty, throttle } from 'lodash';
+import { filter, flatten, get, includes, isEmpty, throttle } from 'lodash';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
@@ -202,25 +202,22 @@ const PanelMeetingSearch = ({ isCDO }) => {
     setClearFilters(false);
   };
 
+  const noPanelMeetingResults = count <= 0;
+  // eslint-disable-next-line max-len
+  // const showOverlay = includes([panelMeetingsIsLoading, panelMeetingsHasErrored, panelMeetingResults], true);
+  const showOverlay = includes([panelMeetingsIsLoading, noPanelMeetingResults], true);
+
   const getOverlay = () => {
-    let toReturn;
     if (panelMeetingsIsLoading) {
-      toReturn = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+      return <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
     // } else if (panelMeetingsHasErrored) {
     // eslint-disable-next-line max-len
     //   toReturn = <Alert type="error" title="Error loading panel meetings" messages={[{ body: 'Please try again.' }]} />;
-    } else if (count <= 0) {
-      toReturn = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
-    } else {
-      toReturn = false;
-    }
-    if (toReturn) {
-      return <div className="usa-width-one-whole empl-search-lower-section results-dropdown">{toReturn}</div>;
+    } else if (noPanelMeetingResults) {
+      return <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
     }
     return false;
   };
-
-  const overlay = getOverlay();
 
   return (
     isPanelLoading ?
@@ -318,23 +315,27 @@ const PanelMeetingSearch = ({ isCDO }) => {
             </div>
           }
           {
-            overlay ||
-            <>
-              <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
-                {
-                  <div className="panel-meeting-row">
-                    {fakePanelMeetings.map(meeting => (
-                      // TODO: include React keys once we have real data
-                      <PanelMeetingSearchRow
-                        key={shortid.generate()}
-                        result={meeting}
-                        isCDO={isCDO}
-                      />
-                    ))}
-                  </div>
-                }
+            showOverlay ?
+              <div className="usa-width-one-whole empl-search-lower-section results-dropdown">
+                {getOverlay()}
               </div>
-            </>
+              :
+              <>
+                <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
+                  {
+                    <div className="panel-meeting-row">
+                      {fakePanelMeetings.map(meeting => (
+                      // TODO: include React keys once we have real data
+                        <PanelMeetingSearchRow
+                          key={shortid.generate()}
+                          result={meeting}
+                          isCDO={isCDO}
+                        />
+                      ))}
+                    </div>
+                  }
+                </div>
+              </>
           }
         </div>
       </>
