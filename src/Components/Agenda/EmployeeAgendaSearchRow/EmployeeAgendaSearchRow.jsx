@@ -28,15 +28,16 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const employeeHasCDO = !isNil(get(person, 'cdo'));
 
   let profileLink;
+  const defaultLink = <div className="row-name">{bidder} ({employeeID})</div>;
   switch (viewType) {
     case 'ao':
-      profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
+      profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder} ({employeeID})</Link>;
       break;
     case 'cdo':
-      profileLink = (isCDO && employeeHasCDO) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+      profileLink = isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder} ({employeeID})</Link> : defaultLink;
       break;
     default:
-      profileLink = <div className="row-name">{bidder} ({employeeID})</div>;
+      profileLink = defaultLink;
       break;
   }
 

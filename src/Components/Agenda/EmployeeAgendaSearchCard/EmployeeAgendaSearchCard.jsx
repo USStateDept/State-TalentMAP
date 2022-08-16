@@ -36,7 +36,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
       profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
       break;
     case 'cdo':
-      profileLink = (isCDO && employeeHasCDO) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+      profileLink = isCDO && employeeHasCDO ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
       break;
     default:
       profileLink = bidder;
