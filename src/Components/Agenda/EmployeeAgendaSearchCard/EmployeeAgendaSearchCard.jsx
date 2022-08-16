@@ -118,8 +118,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
           </div>
           {
             !!showCreate &&
-            <div className="create-ai-box-container">
-              <LinkButton className="create-ai-box-button" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
+            <div className="button-box-container">
+              <LinkButton className="button-box" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
             </div>
           }
         </div>

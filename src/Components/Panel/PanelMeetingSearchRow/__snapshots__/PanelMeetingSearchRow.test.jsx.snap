@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PanelMeetingSearchRow matches snapshot 1`] = `
+<div
+  className="usa-grid-full panel-meeting-stat-row"
+>
+  <div
+    className="meeting-type-circle-container"
+  >
+    <div
+      className="meeting-type-circle"
+    >
+      None listed
+    </div>
+  </div>
+  <div
+    className="panel-meeting-row-name"
+  >
+    <div
+      className="row-name"
+    >
+      None listed
+    </div>
+  </div>
+  <div
+    className="panel-meeting-row-data-container"
+  >
+    <div
+      className="panel-meeting-row-data-points"
+    >
+      <div
+        className="panel-meeting-row-data-point"
+      >
+        <dt>
+          Meeting Date:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+      <div
+        className="panel-meeting-row-data-point"
+      >
+        <dt>
+          Meeting Status:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+      <div
+        className="panel-meeting-row-data-point"
+      >
+        <dt>
+          Preliminary Cut-Off:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+      <div
+        className="panel-meeting-row-data-point"
+      >
+        <dt>
+          Addendum Cut-Off:
+        </dt>
+        <dd>
+          None listed
+        </dd>
+      </div>
+    </div>
+    <div
+      className="button-container"
+    >
+      <div
+        className="button-box-container"
+      >
+        <LinkButton
+          className="button-box"
+          toLink="/profile/ao/panel/"
+        >
+          Go to Panel
+        </LinkButton>
+      </div>
+    </div>
+  </div>
+</div>
+`;

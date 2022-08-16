@@ -2,7 +2,9 @@
     .panel-meeting-search-upper-section {
         background-color: $bg-blue-dark-1;
         box-shadow: 20px 20px 20px $bg-gray-medium-2;
-        padding: 20px 35px;
+        color: $color-white;
+        max-width: none;
+        padding: 20px 35px 35px;
     }
 
     .filterby-container {
@@ -93,7 +95,7 @@
     display: flex;
     justify-content: flex-end;
     font-size: 0.8em;
-    margin-right: 10px;
+    margin-right: 35px;
 
     div:first-child {
         margin-right: 10px;
@@ -122,4 +124,95 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     width: 130px;
+}
+
+.panel-search-lower-section {
+  padding: 0 35px 20px;
+  position: relative;
+}
+
+.panel-meeting-row {
+  margin-top: 1rem;
+  
+  .panel-meeting-stat-row {
+    border: 1px solid $color-gray-light;
+    border-left: 11px solid $primary-blue;
+    box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
+    margin-bottom: 1rem;
+    margin-left: 0;
+    padding: 15px 20px;
+    position: relative;
+
+    .meeting-type-circle-container {
+      position: absolute;
+      margin: 0;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      top: 50%;
+
+      .meeting-type-circle {
+        background: $primary-blue;
+        border-radius: 50%;
+        color: $color-white;
+        font-size: 37px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        width: 90px;
+        }
+      }
+
+    .panel-meeting-row-name {
+      font-size: 1.2em;
+      line-height: 1.3em;
+      margin: 8px 0 .3rem 15rem;
+      
+      .row-name {
+        color: $primary-blue;
+        font-size: .9em;
+        font-weight: bold;
+        margin-left: 15px;
+      }
+    }
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        margin-left: 5px;
+    }
+
+    .button-container {
+      float: right;
+      padding-bottom: 30px;
+      
+      @media screen and (max-width: 1250px) {
+        padding-bottom: 0px;
+        padding-top: 20px;
+      }
+    }
+
+    .panel-meeting-row-data-container {
+      margin-left: 15rem;
+      margin-top: 2rem;
+
+      .panel-meeting-row-data-points {
+        display: inline-grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(2, auto);
+        margin-left: 1.5rem;
+
+        .panel-meeting-row-data-point {
+          align-items: center;
+          display: flex;
+          margin: 0 8rem .5rem 0;
+
+          @media screen and (max-width: 1650px) {
+            margin-right: 2rem;
+          }
+        }
+      }
+    }
+  }
 }

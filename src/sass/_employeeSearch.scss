@@ -302,9 +302,9 @@
   }
 }
 
-.create-ai-box-container {
+.button-box-container {
 
-  .create-ai-box-button {
+  .button-box {
     background-color: $blue-primary;
     border: 1px solid $blue-primary;
     border-radius: 3px;
@@ -317,7 +317,7 @@
     width: 150px;
   }
 
-  .create-ai-box-button:hover {
+  .button-box:hover {
     background-color: $primary-blue-darker;
   }
 }
@@ -413,4 +413,3 @@
     }
   }
 }
-
