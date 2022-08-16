@@ -25,25 +25,23 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
-  // const { viewType } = useParams();
-  //  get(props, 'match.params.id'),
-  console.log(viewType);
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
 
-  const cdoLink = (isCDO && employeeHasCDO) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
-  const aoLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
 
-  // var profileLink
-  // switch (whatever comes in through params) {
-  //  case 'ao':
-  //    profileLink = aoLink
-  //  case 'cdo':
-  //    profileLink = cdoLink
-  // }
-
-  // console.log(person);
+  let profileLink;
+  switch (viewType) {
+    case 'ao':
+      profileLink = <Link to={`/profile/public/${perdet}/ao`}>{bidder}</Link>;
+      break;
+    case 'cdo':
+      profileLink = (isCDO && employeeHasCDO) ? <Link to={`/profile/public/${perdet}`}>{bidder}</Link> : bidder;
+      break;
+    default:
+      profileLink = bidder;
+      break;
+  }
 
   return (
     <BoxShadow className="employee-agenda-stat-card">
@@ -65,8 +63,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         </div>
         <div>
           <h3>
-            {cdoLink} {aoLink}
-            {/* {profileLink} */}
+            {profileLink}
           </h3>
         </div>
         <div className="employee-agenda-card-data-point-top">
@@ -132,7 +129,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
 };
 
 EmployeeAgendaSearchCard.propTypes = {
-  // eslint-disable-next-line react/no-unused-prop-types
   isCDO: PropTypes.bool,
   result: PropTypes.PropTypes.shape({
     person: PropTypes.shape({}),
@@ -144,7 +140,6 @@ EmployeeAgendaSearchCard.propTypes = {
       panelDate: PropTypes.string,
     }),
   }),
-  // eslint-disable-next-line react/no-unused-prop-types
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
 };
