@@ -59,7 +59,7 @@ const AgendaItemLegsForm = props => {
         <Alert type="info" title="No Agenda Item Legs" />
       }
       {
-        !legsLoading && legs.length &&
+        !legsLoading && !!legs.length &&
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
