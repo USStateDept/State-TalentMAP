@@ -37,7 +37,7 @@ export function aiCreate(panel, legs) {
     api()
       .post('/fsbid/agenda/agenda_item/', {
         ...panel,
-        agendaLegs: [...legs],
+        agendaLegs: legs,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;
