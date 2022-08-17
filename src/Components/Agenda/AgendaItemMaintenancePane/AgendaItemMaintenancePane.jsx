@@ -94,8 +94,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   useEffect(() => {
     sendMaintenancePaneInfo({
-      selectedPanelMLDate: selectedPanelMLDate || '',
-      selectedPanelIDDAte: selectedPanelIDDate || '',
+      panelMeetingDate: selectedPanelMLDate.concat(selectedPanelIDDate),
       remarks: userRemarks || [],
       agendaStatus: selectedStatus || '',
       meetingItemCategory: selectedPanelCat || '',
