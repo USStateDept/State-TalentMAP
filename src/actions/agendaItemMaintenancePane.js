@@ -35,11 +35,9 @@ export function aiCreate(panel, legs) {
     dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
     api()
-      .post('/fsbid/agenda/agenda_item/', { Data: [
-        'Elsa, Gigi, Nori, Sophie',
-      ],
-      Panel: panel,
-      agendaLegs: [...legs],
+      .post('/fsbid/agenda/agenda_item/', {
+        ...panel,
+        agendaLegs: [...legs],
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;
