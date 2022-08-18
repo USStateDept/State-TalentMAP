@@ -47,7 +47,7 @@ const AgendaItemHistory = (props) => {
   let profileLink;
   switch (viewType) {
     case 'ao':
-      profileLink = !employeeHasCDO ?
+      profileLink = employeeHasCDO ?
         (
           <Link to={`/profile/public/${perdet}/ao`}>
             <span className="aih-title">
