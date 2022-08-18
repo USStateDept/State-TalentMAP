@@ -153,6 +153,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,
   clientData: PropTypes.shape({}),
+  updateSelection: PropTypes.func,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -164,13 +165,12 @@ AgendaItemResearchPane.propTypes = {
       active_ind: PropTypes.string,
     }),
   ),
-  updateSelection: PropTypes.func,
 };
 
 AgendaItemResearchPane.defaultProps = {
   clientData: {},
-  userSelections: [],
   updateSelection: EMPTY_FUNCTION,
+  userSelections: [],
 };
 
 export default AgendaItemResearchPane;
