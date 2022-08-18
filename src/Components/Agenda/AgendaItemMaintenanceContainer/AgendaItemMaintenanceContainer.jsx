@@ -37,6 +37,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
+  // TODO: can they ever have no EF or more than one EF?
   const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark) => {

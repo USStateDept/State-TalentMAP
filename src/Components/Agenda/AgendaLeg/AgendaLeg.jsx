@@ -18,6 +18,9 @@ const AgendaLeg = props => {
     travelFunctions,
   } = props;
 
+  // TODO: Working on assumption: always only one EF
+  const isFirstLeg = legNum === 2;
+
   // eslint-disable-next-line no-unused-vars
   const onClose$ = () => {
     onClose(leg);
@@ -32,37 +35,45 @@ const AgendaLeg = props => {
     }
   };
 
-  const getDropdown = (key, data, text) => (
-    <select
+  const getDropdown = (key, data, text) => {
+    if (isFirstLeg) {
+      return get(leg, key) || '';
+    }
+    return (<select
       className="leg-dropdown"
       value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
     >
       <option selected key={null} value={''}>
-        Keep Unselected
+      Keep Unselected
       </option>
       {
         data.map(a => (
           <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
         ))
       }
-    </select>
-  );
+    </select>);
+  };
 
   const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'ted'))}
-      <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
       {
-        !calendarHidden &&
-            <div className="ted-calendar-container" id={`cal-${legNum}`}>
-              <Calendar
-                className="ted-react-calendar"
-                onChange={(e) => updateDropdown('ted', e)}
-              />
-            </div>
+        !isFirstLeg &&
+          <>
+            <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
+            {
+              !calendarHidden &&
+                <div className="ted-calendar-container" id={`cal-${legNum}`}>
+                  <Calendar
+                    className="ted-react-calendar"
+                    onChange={(e) => updateDropdown('ted', e)}
+                  />
+                </div>
+            }
+          </>
       }
     </>
   );
@@ -123,9 +134,12 @@ const AgendaLeg = props => {
   return (
     <>
       <div className={`grid-col-${legNum} grid-row-1`}>
-        <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
-          <FA name="times" />
-        </InteractiveElement>
+        {
+          !isFirstLeg &&
+          <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
+            <FA name="times" />
+          </InteractiveElement>
+        }
       </div>
       {
         columnData.map((cData, i) => (
