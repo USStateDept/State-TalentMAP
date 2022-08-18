@@ -26,13 +26,15 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
-  const [asgSepBid, setAsgSepBid] = useState({});
+  const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
   const [userRemarks, setUserRemarks] = useState([]);
   const [spinner, setSpinner] = useState(true);
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
+  const asgSepBidData = { asgSepBidResults: get(asgSepBidResults, 'data'), asgSepBidError, asgSepBidLoading };
 
   const updateSelection = (remark) => {
     const userRemarks$ = [...userRemarks];
@@ -117,6 +119,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 updateSelection={updateSelection}
                 sendMaintenancePaneInfo={setMaintenanceInfo}
                 sendAsgSepBid={setAsgSepBid}
+                asgSepBidData={asgSepBidData}
                 userRemarks={userRemarks}
                 legCount={legs.length}
                 saveAI={submitAI}

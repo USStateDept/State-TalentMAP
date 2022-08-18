@@ -27,20 +27,21 @@ const AgendaItemMaintenancePane = (props) => {
     legCount,
     saveAI,
     sendAsgSepBid,
+    asgSepBidData,
   } = props;
 
   const defaultText = '';
 
-  const { data: asgSepBidData, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${perdet}/`);
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
+  const { asgSepBidResults, asgSepBidError, asgSepBidLoading } = asgSepBidData;
 
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const asgSepBids = get(asgSepBidData, 'data') || [];
+  const asgSepBids = asgSepBidResults || [];
   const statuses = get(statusData, 'data.results') || [];
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
@@ -320,6 +321,11 @@ const AgendaItemMaintenancePane = (props) => {
 
 AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
+  asgSepBidData: PropTypes.shape({
+    asgSepBidResults: PropTypes.arrayOf({}),
+    asgSepBidError: PropTypes.bool,
+    asgSepBidLoading: PropTypes.bool,
+  }),
   leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
   setParentLoadingState: PropTypes.func,
@@ -343,6 +349,7 @@ AgendaItemMaintenancePane.propTypes = {
 };
 
 AgendaItemMaintenancePane.defaultProps = {
+  asgSepBidData: {},
   leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
