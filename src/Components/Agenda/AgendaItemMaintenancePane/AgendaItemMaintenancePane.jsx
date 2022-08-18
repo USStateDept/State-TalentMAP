@@ -35,13 +35,12 @@ const AgendaItemMaintenancePane = (props) => {
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
-  const { asgSepBidResults, asgSepBidError, asgSepBidLoading } = asgSepBidData;
+  const { asgSepBidResults$: asgSepBids, asgSepBidError, asgSepBidLoading } = asgSepBidData;
 
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const asgSepBids = asgSepBidResults || [];
   const statuses = get(statusData, 'data.results') || [];
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
@@ -322,7 +321,7 @@ const AgendaItemMaintenancePane = (props) => {
 AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
   asgSepBidData: PropTypes.shape({
-    asgSepBidResults: PropTypes.arrayOf({}),
+    asgSepBidResults$: PropTypes.arrayOf({}),
     asgSepBidError: PropTypes.bool,
     asgSepBidLoading: PropTypes.bool,
   }),

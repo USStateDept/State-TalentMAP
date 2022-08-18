@@ -33,8 +33,11 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
-  const asgSepBidData = { asgSepBidResults: get(asgSepBidResults, 'data'), asgSepBidError, asgSepBidLoading };
+  const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
+  const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
+  const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark) => {
     const userRemarks$ = [...userRemarks];
@@ -129,6 +132,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 setParentLoadingState={setAgendaItemTimelineLoading}
                 updateLegs={setLegs}
                 asgSepBid={asgSepBid}
+                efPos={efPosition}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
