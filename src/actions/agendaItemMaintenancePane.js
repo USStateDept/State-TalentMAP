@@ -29,13 +29,14 @@ export function aiCreateSuccess(data) {
   };
 }
 
-export function aiCreate(panel, legs) {
+export function aiCreate(panel, legs, perSeqNum) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
     api()
       .post('/fsbid/agenda/agenda_item/', {
+        perSeqNum,
         ...panel,
         agendaLegs: legs,
       }, {
