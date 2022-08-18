@@ -22,8 +22,9 @@ const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
-  const id = get(props, 'match.params.id'); // client's perdet
+  const perdet = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
+  const viewType = get(props, 'viewType');
   const createAI = useCreateAI();
 
   const [cardView, setCardView] = useState(false);
@@ -43,11 +44,37 @@ const AgendaItemHistory = (props) => {
 
   const employeeHasCDO = !isNil(get(employee, 'person.cdo'));
 
+  let profileLink;
+  switch (viewType) {
+    case 'ao':
+      profileLink = !employeeHasCDO ?
+        (
+          <Link to={`/profile/public/${perdet}/ao`}>
+            <span className="aih-title">
+              {` ${employeeName}`}
+            </span>
+          </Link>
+        ) : employeeName;
+      break;
+    case 'cdo':
+      profileLink = isCDO && employeeHasCDO ?
+        (<Link to={`/profile/public/${perdet}`}>
+          <span className="aih-title">
+            {` ${employeeName}`}
+          </span>
+        </Link>)
+        : employeeName;
+      break;
+    default:
+      profileLink = employeeName;
+      break;
+  }
+
   // Actions
   const dispatch = useDispatch();
 
   const getData = () => {
-    dispatch(aihFetchData(id, sort));
+    dispatch(aihFetchData(perdet, sort));
   };
 
   const prevSort = usePrevious(sort);
@@ -55,7 +82,7 @@ const AgendaItemHistory = (props) => {
   const exportAgendaItem = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
-      agendaItemHistoryExport(id, sort, employeeName.replaceAll(' ', '_'))
+      agendaItemHistoryExport(perdet, sort, employeeName.replaceAll(' ', '_'))
         .then(() => {
           setExportIsLoading(false);
         })
@@ -87,18 +114,10 @@ const AgendaItemHistory = (props) => {
           size="lg"
         />
         Agenda Item History
-        {isCDO && employeeHasCDO ?
+        {
           <span className="aih-title-dash">
               -
-            <Link to={`/profile/public/${id}`}>
-              <span className="aih-title">
-                {` ${employeeName}`}
-              </span>
-            </Link>
-          </span>
-          :
-          <span>
-            {` - ${employeeName}`}
+            {profileLink}
           </span>
         }
       </div>
@@ -147,7 +166,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemCard
                         isCreate
                         isCDO={isCDO}
-                        perdet={id}
+                        perdet={perdet}
                       />
                   }
                   {
@@ -170,7 +189,7 @@ const AgendaItemHistory = (props) => {
                       <AgendaItemRow
                         isCreate
                         isCDO={isCDO}
-                        perdet={id}
+                        perdet={perdet}
                       />
                   }
                   {
