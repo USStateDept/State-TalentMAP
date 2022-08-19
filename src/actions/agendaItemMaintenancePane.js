@@ -30,13 +30,6 @@ export function aiCreateSuccess(data) {
 }
 
 export function aiCreate(panel, legs, perSeqNum, ef) {
-  // eslint-disable-next-line no-console
-  console.log('👾 current: ', {
-    perSeqNum,
-    ...panel,
-    ...ef,
-    agendaLegs: legs,
-  });
 
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
