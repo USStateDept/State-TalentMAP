@@ -31,6 +31,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         grade: get(efPos, 'grade'),
         action: null,
         travel: null,
+        asg_seq_num: get(efPos, 'id'),
+        revision_num: get(efPos, 'revision_num'),
       }]);
     }
   }, [efPos]);
