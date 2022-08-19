@@ -9,6 +9,7 @@ import { format, isDate } from 'date-fns-v2';
 
 const AgendaLeg = props => {
   const {
+    isEf,
     leg,
     legNum,
     updateLeg,
@@ -18,10 +19,6 @@ const AgendaLeg = props => {
     travelFunctions,
   } = props;
 
-  // TODO: Working on assumption: always only one EF
-  const isFirstLeg = legNum === 2;
-
-  // eslint-disable-next-line no-unused-vars
   const onClose$ = () => {
     onClose(leg);
   };
@@ -36,7 +33,7 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    if (isFirstLeg) {
+    if (isEf) {
       return get(leg, key) || '';
     }
     return (<select
@@ -61,7 +58,7 @@ const AgendaLeg = props => {
     <>
       {formatDate(get(leg, 'ted'))}
       {
-        !isFirstLeg &&
+        !isEf &&
           <>
             <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
             {
@@ -135,7 +132,7 @@ const AgendaLeg = props => {
     <>
       <div className={`grid-col-${legNum} grid-row-1`}>
         {
-          !isFirstLeg &&
+          !isEf &&
           <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
             <FA name="times" />
           </InteractiveElement>
@@ -153,6 +150,7 @@ const AgendaLeg = props => {
 };
 
 AgendaLeg.propTypes = {
+  isEf: PropTypes.bool,
   leg: PropTypes.shape({}),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -163,6 +161,7 @@ AgendaLeg.propTypes = {
 };
 
 AgendaLeg.defaultProps = {
+  isEf: false,
   leg: {},
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,

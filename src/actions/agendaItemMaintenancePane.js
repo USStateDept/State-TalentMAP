@@ -29,7 +29,15 @@ export function aiCreateSuccess(data) {
   };
 }
 
-export function aiCreate(panel, legs, perSeqNum) {
+export function aiCreate(panel, legs, perSeqNum, ef) {
+  // eslint-disable-next-line no-console
+  console.log('👾 current: ', {
+    perSeqNum,
+    ...panel,
+    ...ef,
+    agendaLegs: legs,
+  });
+
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateErrored(false));
@@ -38,6 +46,7 @@ export function aiCreate(panel, legs, perSeqNum) {
       .post('/fsbid/agenda/agenda_item/', {
         perSeqNum,
         ...panel,
+        ...ef,
         agendaLegs: legs,
       }, {
         cancelToken: new CancelToken((c) => {

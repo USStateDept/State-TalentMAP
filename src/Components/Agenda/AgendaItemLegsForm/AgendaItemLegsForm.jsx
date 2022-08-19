@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { get, includes } from 'lodash';
+import { get, includes, isEmpty } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
@@ -9,6 +9,7 @@ import api from '../../../api';
 
 const AgendaItemLegsForm = props => {
   const {
+    efPos,
     legs,
     onClose,
     updateLeg,
@@ -25,6 +26,8 @@ const AgendaItemLegsForm = props => {
   const legActionTypes = get(legATData, 'data.results') || [];
   const travelFunctions = get(travelFData, 'data.results') || [];
   const legsLoading = includes([TODLoading, legATLoading, travelFLoading], true);
+  const hasEf = !isEmpty(efPos);
+  const showOverlay = !legs.length && !hasEf;
 
   const onClose$ = leg => {
     onClose(leg);
@@ -55,11 +58,11 @@ const AgendaItemLegsForm = props => {
           <Spinner type="legs" size="small" />
       }
       {
-        !legs.length &&
+        showOverlay &&
         <Alert type="info" title="No Agenda Item Legs" />
       }
       {
-        !legsLoading && !!legs.length &&
+        !legsLoading && !showOverlay &&
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
@@ -69,10 +72,24 @@ const AgendaItemLegsForm = props => {
               ))
             }
             {
+              hasEf &&
+              <AgendaLeg
+                leg={efPos}
+                legNum={2}
+                TODs={TODs}
+                legActionTypes={legActionTypes}
+                travelFunctions={travelFunctions}
+                onClose={onClose$}
+                updateLeg={updateLeg$}
+                isEf={true}
+            />
+            }
+            {
+              // grid-col 2 or 3 dependent on hasEf
               legs.map((leg, i) => (
                 <AgendaLeg
                   leg={leg}
-                  legNum={i + 2}
+                  legNum={i + (hasEf ? 3 : 2)}
                   TODs={TODs}
                   legActionTypes={legActionTypes}
                   travelFunctions={travelFunctions}
@@ -88,12 +105,14 @@ const AgendaItemLegsForm = props => {
 };
 
 AgendaItemLegsForm.propTypes = {
+  efPos: PropTypes.shape({}),
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
   updateLeg: PropTypes.func,
 };
 
 AgendaItemLegsForm.defaultProps = {
+  efPos: {},
   legs: [],
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,

@@ -16,28 +16,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   const [legs, setLegs] = useState([]);
 
   useEffect(() => {
-    if (!legs.length && !isEmpty(efPos)) {
-      // TODO: waiting for updates to generic pos EP to pull in eta, language
-      // and possibly others
-      setLegs([{
-        ail_seq_num: shortid.generate(),
-        pos_title: get(efPos, 'pos_title'),
-        pos_num: get(efPos, 'pos_num'),
-        org: get(efPos, 'org'),
-        eta: 'Coming Soon',
-        ted: null,
-        language: 'Coming Soon',
-        tod: null,
-        grade: get(efPos, 'grade'),
-        action: null,
-        travel: null,
-        asg_seq_num: get(efPos, 'id'),
-        revision_num: get(efPos, 'revision_num'),
-      }]);
-    }
-  }, [efPos]);
-
-  useEffect(() => {
     setParentLoadingState(pos_results_loading);
   }, [pos_results_loading]);
 
@@ -105,7 +83,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
 
   return (
     !unitedLoading &&
-      <AgendaItemLegsForm onClose={onClose} legs={legs} updateLeg={updateLeg} />
+      <AgendaItemLegsForm onClose={onClose} legs={legs} updateLeg={updateLeg} efPos={efPos} />
   );
 };
 
