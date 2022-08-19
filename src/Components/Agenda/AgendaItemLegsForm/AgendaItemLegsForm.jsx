@@ -81,8 +81,8 @@ const AgendaItemLegsForm = props => {
                 travelFunctions={travelFunctions}
                 onClose={onClose$}
                 updateLeg={updateLeg$}
-                isEf={true}
-            />
+                isEf
+              />
             }
             {
               // grid-col 2 or 3 dependent on hasEf

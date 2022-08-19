@@ -30,7 +30,6 @@ export function aiCreateSuccess(data) {
 }
 
 export function aiCreate(panel, legs, perSeqNum, ef) {
-
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateErrored(false));
