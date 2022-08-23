@@ -33,8 +33,9 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           ail_seq_num: shortid.generate(),
           pos_title: get(pos_results, 'title'),
           pos_num: get(pos_results, 'position_number'),
+          positionId: get(pos_results, 'id'),
           org: get(pos_results, 'organization'),
-          eta: 'Coming Soon',
+          eta: get(pos_results, 'start_date'),
           ted: null,
           language: 'Coming Soon',
           tod: null,
@@ -50,12 +51,12 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   useEffect(() => {
     if (!isEmpty(asgSepBid)) {
       const legs$ = [...legs];
-      // TODO: waiting for updates to generic pos EP to pull in eta, language
-      // and possibly others
       legs$.push({
         ail_seq_num: shortid.generate(),
         pos_title: get(asgSepBid, 'pos_title'),
         pos_num: get(asgSepBid, 'pos_num'),
+        asgSeqNum: get(asgSepBid, 'id'),
+        revisionNum: get(asgSepBid, 'revision_num'),
         org: get(asgSepBid, 'org'),
         eta: 'Coming Soon',
         ted: null,

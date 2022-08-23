@@ -54,18 +54,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const submitAI = () => {
     const perSeqNum = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '');
     const efInfo = {
-      pos_title: get(efPosition, 'pos_title'),
-      pos_num: get(efPosition, 'pos_num'),
-      org: get(efPosition, 'org'),
-      eta: 'Coming Soon',
-      ted: null,
-      language: 'Coming Soon',
-      tod: null,
-      grade: get(efPosition, 'grade'),
-      action: null,
-      travel: null,
-      asg_seq_num: get(efPosition, 'id'),
-      revision_num: get(efPosition, 'revision_num'),
+      asgSeqNum: get(efPosition, 'id'),
+      revisionNum: get(efPosition, 'revision_num'),
     };
     dispatch(aiCreate(maintenanceInfo, legs, perSeqNum, efInfo));
   };
