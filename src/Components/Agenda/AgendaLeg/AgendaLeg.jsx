@@ -56,7 +56,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'ted'))}
+      {formatDate(get(leg, 'legEndDate'))}
       {
         !isEf &&
           <>
@@ -66,7 +66,7 @@ const AgendaLeg = props => {
                 <div className="ted-calendar-container" id={`cal-${legNum}`}>
                   <Calendar
                     className="ted-react-calendar"
-                    onChange={(e) => updateDropdown('ted', e)}
+                    onChange={(e) => updateDropdown('legEndDate', e)}
                   />
                 </div>
             }
@@ -116,15 +116,15 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown('tod', TODs, 'short_description')),
+      content: (getDropdown('tourOfDutyCode', TODs, 'short_description')),
     },
     {
       title: 'Action',
-      content: (getDropdown('action', legActionTypes, 'abbr_desc_text')),
+      content: (getDropdown('legActionType', legActionTypes, 'abbr_desc_text')),
     },
     {
       title: 'Travel',
-      content: (getDropdown('travel', travelFunctions, 'abbr_desc_text')),
+      content: (getDropdown('travelFunctionCode', travelFunctions, 'abbr_desc_text')),
     },
   ];
 
