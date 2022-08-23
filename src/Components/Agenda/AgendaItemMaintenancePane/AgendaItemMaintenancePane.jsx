@@ -95,11 +95,11 @@ const AgendaItemMaintenancePane = (props) => {
 
   useEffect(() => {
     sendMaintenancePaneInfo({
-      employeePerdet: perdet,
-      panelMeetingDate: selectedPanelMLDate.concat(selectedPanelIDDate),
+      personDetailId: perdet,
+      panelMeetingId: selectedPanelMLDate.concat(selectedPanelIDDate),
       remarks: userRemarks || [],
-      agendaStatus: selectedStatus || '',
-      meetingItemCategory: selectedPanelCat || '',
+      agendaStatusCode: selectedStatus || '',
+      panelMeetingCategory: selectedPanelCat || '',
     });
   }, [selectedPanelMLDate,
     selectedPanelIDDate,

@@ -52,12 +52,12 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const perSeqNum = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '');
+    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '');
     const efInfo = {
-      asgSeqNum: get(efPosition, 'id'),
-      revisionNum: get(efPosition, 'revision_num'),
+      assignmentId: get(efPosition, 'asg_seq_num'),
+      assignmentVersion: get(efPosition, 'revision_num'),
     };
-    dispatch(aiCreate(maintenanceInfo, legs, perSeqNum, efInfo));
+    dispatch(aiCreate(maintenanceInfo, legs, personId, efInfo));
   };
 
   function toggleExpand() {
