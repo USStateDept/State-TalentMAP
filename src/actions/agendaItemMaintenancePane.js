@@ -30,18 +30,10 @@ export function aiCreateSuccess(data) {
 }
 
 export function aiCreate(panel, legs, personId, ef) {
-  // eslint-disable-next-line no-console
-  console.log('👾 current: ', {
-    ...ef,
-    personId,
-    ...panel,
-    agendaLegs: legs,
-  });
-
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
-    dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
+    dispatch(aiCreateErrored(false));
     api()
       .post('/fsbid/agenda/agenda_item/', {
         ...ef,
@@ -58,13 +50,13 @@ export function aiCreate(panel, legs, personId, ef) {
           dispatch(aiCreateErrored(false));
           dispatch(aiCreateSuccess(data || []));
           dispatch(toastSuccess(UPDATE_AGENDA_ITEM_SUCCESS, UPDATE_AGENDA_ITEM_SUCCESS_TITLE));
-          dispatch(aiCreateLoading(true));
+          dispatch(aiCreateLoading(false));
         });
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
           dispatch(aiCreateErrored(false));
-          dispatch(aiCreateLoading(true));
+          dispatch(aiCreateLoading(false));
         } else {
           dispatch(toastError(UPDATE_AGENDA_ITEM_ERROR, UPDATE_AGENDA_ITEM_ERROR_TITLE));
           dispatch(aiCreateErrored(true));
