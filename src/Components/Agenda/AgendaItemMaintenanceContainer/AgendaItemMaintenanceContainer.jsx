@@ -9,10 +9,12 @@ import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { aiCreate } from 'actions/agendaItemMaintenancePane';
+import { useDataLoader } from 'hooks';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
 import { RG as RemarksGlossaryTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
+import api from '../../../api';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
@@ -24,10 +26,19 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
-  const [asgSepBid, setAsgSepBid] = useState({});
+  const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
+  const [userRemarks, setUserRemarks] = useState([]);
   const [spinner, setSpinner] = useState(true);
 
-  const [userRemarks, setUserRemarks] = useState([]);
+  const id = get(props, 'match.params.id'); // client's perdet
+  const isCDO = get(props, 'isCDO');
+  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+
+  const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
+  const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
+  const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
+  // TODO: can they ever have no EF or more than one EF?
+  const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark) => {
     const userRemarks$ = [...userRemarks];
@@ -41,7 +52,12 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    dispatch(aiCreate(maintenanceInfo, legs));
+    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '');
+    const efInfo = {
+      assignmentId: get(efPosition, 'asg_seq_num'),
+      assignmentVersion: get(efPosition, 'revision_num'),
+    };
+    dispatch(aiCreate(maintenanceInfo, legs, personId, efInfo));
   };
 
   function toggleExpand() {
@@ -49,9 +65,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   }
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
-
-  const id = get(props, 'match.params.id'); // client's perdet
-  const isCDO = get(props, 'isCDO');
 
   // need to update once further integration is done
   const employeeName = 'Employee Name Placeholder';
@@ -114,6 +127,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 updateSelection={updateSelection}
                 sendMaintenancePaneInfo={setMaintenanceInfo}
                 sendAsgSepBid={setAsgSepBid}
+                asgSepBidData={asgSepBidData}
                 userRemarks={userRemarks}
                 legCount={legs.length}
                 saveAI={submitAI}
@@ -123,6 +137,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 setParentLoadingState={setAgendaItemTimelineLoading}
                 updateLegs={setLegs}
                 asgSepBid={asgSepBid}
+                efPos={efPosition}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
@@ -141,10 +156,11 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
+                clientData={client_data}
                 perdet={id}
                 ref={researchPaneRef}
-                userSelections={userRemarks}
                 updateSelection={updateSelection}
+                userSelections={userRemarks}
               />
             </div>
           </div>

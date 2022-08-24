@@ -29,17 +29,25 @@ export function aiCreateSuccess(data) {
   };
 }
 
-export function aiCreate(panel, legs) {
+export function aiCreate(panel, legs, personId, ef) {
+  // eslint-disable-next-line no-console
+  console.log('👾 current: ', {
+    ...ef,
+    personId,
+    ...panel,
+    agendaLegs: legs,
+  });
+
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
     api()
-      .post('/fsbid/agenda/agenda_item/', { Data: [
-        'Elsa, Gigi, Nori, Sophie',
-      ],
-      Panel: panel,
-      agendaLegs: [...legs],
+      .post('/fsbid/agenda/agenda_item/', {
+        ...ef,
+        personId,
+        ...panel,
+        agendaLegs: legs,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;
