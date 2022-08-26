@@ -87,6 +87,7 @@ const HomePagePositions = ({ homePageFeaturedPositions,
             isLoading={homePageFeaturedPositionsIsLoading}
             bidList={bidList}
             type="default"
+            name={homePageFeaturedPositions.name}
           />
         }
         <HomePagePositionsSection

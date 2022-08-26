@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
 import { BID_RESULTS, FAVORITE_POSITIONS_ARRAY, HOME_PAGE_CARD_TYPE, POSITION_DETAILS_ARRAY } from 'Constants/PropTypes';
+import { Tooltip } from 'react-tippy';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import HomePagePositionsList from '../HomePagePositionsList';
 import Alert from '../Alert';
 import Spinner from '../Spinner';
+
 
 const propTypes = {
   title: PropTypes.string.isRequired,
@@ -19,6 +21,7 @@ const propTypes = {
   useSpinner: PropTypes.bool,
   hasErrored: PropTypes.bool,
   wrapInLink: PropTypes.bool,
+  name: PropTypes.string,
 };
 
 const defaultProps = {
@@ -31,17 +34,28 @@ const defaultProps = {
   useSpinner: false,
   hasErrored: false,
   wrapInLink: true,
+  name: '',
 };
 
+const getTooltipText = (title, text) => (
+  <div>
+    <div className={'tooltip-title'}>{title}</div>
+    <div className={'tooltip-text'}>{text}</div>
+  </div>
+);
+
 const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
-  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink }) => {
+  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink, name }) => {
   const listIsReady = !!(positions && Object.keys(positions).length);
   const shouldShowAlert = !hasErrored && positions && !positions.length;
   const shouldShowErrorAlert = hasErrored && !isLoading;
   const shouldDisplaySpinner = useSpinner && isLoading;
   const isFavorites = title === 'Favorited Positions';
+  const isNameEmpty = name === '';
+  let wrappedInLinkVal;
 
-  const wrappedInLink = wrapInLink ?
+  if (isNameEmpty) {
+    wrappedInLinkVal =
     (
       <Link to={viewMoreLink} title={`View more ${title}`}>
         <h2 className="positions-section-title">
@@ -50,6 +64,32 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
           <FontAwesome name="angle-right" />
         </h2>
       </Link>
+    );
+  } else {
+    wrappedInLinkVal =
+    (
+      <Link to={viewMoreLink} title={`View more ${title}`}>
+        <h2 className="positions-section-title">
+          <Tooltip
+            html={getTooltipText('What is "Featured Positions?"', 'Featured positions are positions indicated as Historic Diff. to Staff (HDS) and/or Service Need Differential')}
+            theme={'bidtracker-status'}
+            arrow
+            tabIndex="0"
+            interactive
+            useContext
+          >
+            { !!icon.length && <FontAwesome name={icon} /> }
+            {title}
+            <FontAwesome name="angle-right" />
+          </Tooltip>
+        </h2>
+      </Link>
+    );
+  }
+
+  const wrappedInLink = wrapInLink ?
+    (
+      wrappedInLinkVal
     )
     :
     (
