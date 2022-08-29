@@ -46,11 +46,11 @@ const tabs = [
   { text: 'Classifications', value: TP },
 ];
 
-const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: [], updateSelection: '' }, ref) => {
+const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {}, updateSelection: '', userSelection: [] }, ref) => {
   const navTabRef = useRef();
   const dispatch = useDispatch();
 
-  const { perdet, userSelections, updateSelection } = props;
+  const { perdet, clientData, userSelections, updateSelection } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -59,14 +59,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: 
   const classificationsProps = { classifications, clientClassifications };
 
   // assignments
-  // need to update once fully integrated
+  // TODO: fully integrate
   const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
-  const client_data = useDataLoader(api().get, `/fsbid/client/${perdet}/`);
   const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(data, 'data') || [];
-  const languages = get(client_data, 'data.data.languages') || [];
+  const languages = get(clientData, 'data.data.languages') || [];
   const remarks_data = get(remarks, 'data.data.results') || [];
   const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
 
@@ -153,6 +152,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', userSelection: 
 
 AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,
+  clientData: PropTypes.shape({}),
+  updateSelection: PropTypes.func,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -164,12 +165,12 @@ AgendaItemResearchPane.propTypes = {
       active_ind: PropTypes.string,
     }),
   ),
-  updateSelection: PropTypes.func,
 };
 
 AgendaItemResearchPane.defaultProps = {
-  userSelections: [],
+  clientData: {},
   updateSelection: EMPTY_FUNCTION,
+  userSelections: [],
 };
 
 export default AgendaItemResearchPane;
