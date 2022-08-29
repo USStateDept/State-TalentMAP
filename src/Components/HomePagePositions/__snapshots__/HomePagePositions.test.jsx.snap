@@ -204,6 +204,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       icon="bolt"
       isLoading={false}
       maxLength="3"
+      name="featuredGradeAndSkillPositions"
       positions={
         Array [
           Object {
@@ -419,6 +420,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       icon="briefcase"
       isLoading={false}
       maxLength="3"
+      name=""
       positions={
         Array [
           Object {
@@ -645,6 +647,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       icon="bolt"
       isLoading={false}
       maxLength="3"
+      name="featuredPositions"
       positions={Array []}
       title="Featured Positions"
       type="default"
@@ -849,6 +852,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       icon="star"
       isLoading={false}
       maxLength="3"
+      name=""
       positions={Array []}
       title="Favorited Positions"
       type="default"
