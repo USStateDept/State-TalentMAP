@@ -27,20 +27,21 @@ const AgendaItemMaintenancePane = (props) => {
     legCount,
     saveAI,
     sendAsgSepBid,
+    asgSepBidData,
   } = props;
 
   const defaultText = '';
 
-  const { data: asgSepBidData, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${perdet}/`);
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
   const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
   const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
+  const { asgSepBidResults$, asgSepBidError, asgSepBidLoading } = asgSepBidData;
+  const asgSepBids = asgSepBidResults$ || [];
 
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const asgSepBids = get(asgSepBidData, 'data') || [];
   const statuses = get(statusData, 'data.results') || [];
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
@@ -50,15 +51,15 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
-  const [selectedStatus, setStatus] = useState(get(statuses, '[0].code'));
+  const [selectedStatus, setStatus] = useState(get(statuses, '[0].code') || '');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code'));
-  const [selectedPanelMLDate, setPanelMLDate] = useState();
-  const [selectedPanelIDDate, setPanelIDDate] = useState();
+  const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code') || '');
+  const [selectedPanelMLDate, setPanelMLDate] = useState('');
+  const [selectedPanelIDDate, setPanelIDDate] = useState('');
 
   const legLimit = legCount >= 10;
 
@@ -94,11 +95,11 @@ const AgendaItemMaintenancePane = (props) => {
 
   useEffect(() => {
     sendMaintenancePaneInfo({
-      selectedPanelMLDate: selectedPanelMLDate || '',
-      selectedPanelIDDAte: selectedPanelIDDate || '',
+      personDetailId: perdet,
+      panelMeetingId: selectedPanelMLDate.concat(selectedPanelIDDate),
       remarks: userRemarks || [],
-      selectedStatus: selectedStatus || '',
-      selectedPanelCat: selectedPanelCat || '',
+      agendaStatusCode: selectedStatus || '',
+      panelMeetingCategory: selectedPanelCat || '',
     });
   }, [selectedPanelMLDate,
     selectedPanelIDDate,
@@ -185,6 +186,9 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setStatus(get(e, 'target.value'))}
                     value={selectedStatus}
                   >
+                    <option selected value={''}>
+                      Agenda Item Status
+                    </option>
                     {
                       statuses.map(a => (
                         <option key={a.code} value={a.code}>{a.desc_text}</option>
@@ -224,6 +228,9 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
                     value={selectedPanelCat}
                   >
+                    <option selected value={''}>
+                      Meeting Item Category
+                    </option>
                     {
                       panelCategories.map(a => (
                         <option value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
@@ -241,7 +248,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
                   >
-                    <option>Panel Dates - ML</option>
+                    <option value={''}>Panel Dates - ML</option>
                     {
                       panelDatesML.map(a => (
                         <option
@@ -258,7 +265,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
                   >
-                    <option>Panel Dates - ID</option>
+                    <option value={''}>Panel Dates - ID</option>
                     {
                       panelDatesID.map(a => (
                         <option
@@ -313,9 +320,14 @@ const AgendaItemMaintenancePane = (props) => {
 };
 
 AgendaItemMaintenancePane.propTypes = {
+  perdet: PropTypes.string.isRequired,
+  asgSepBidData: PropTypes.shape({
+    asgSepBidResults$: PropTypes.arrayOf({}),
+    asgSepBidError: PropTypes.bool,
+    asgSepBidLoading: PropTypes.bool,
+  }),
   leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
-  perdet: PropTypes.string.isRequired,
   setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
   userRemarks: PropTypes.arrayOf(
@@ -337,6 +349,7 @@ AgendaItemMaintenancePane.propTypes = {
 };
 
 AgendaItemMaintenancePane.defaultProps = {
+  asgSepBidData: {},
   leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
