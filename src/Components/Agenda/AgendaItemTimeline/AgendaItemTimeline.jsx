@@ -7,7 +7,8 @@ import { useDidMountEffect } from 'hooks';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
-const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, asgSepBid }) => {
+const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
+  asgSepBid, efPos }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -32,14 +33,15 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, 
           ail_seq_num: shortid.generate(),
           pos_title: get(pos_results, 'title'),
           pos_num: get(pos_results, 'position_number'),
+          posSeqNum: get(pos_results, 'pos_seq_num'),
           org: get(pos_results, 'organization'),
-          eta: 'Coming Soon',
-          ted: null,
+          legStartDate: get(pos_results, 'start_date'),
+          legEndDate: null,
           language: 'Coming Soon',
-          tod: null,
+          tourOfDutyCode: null,
           grade: get(pos_results, 'grade'),
-          action: null,
-          travel: null,
+          legActionType: null,
+          travelFunctionCode: null,
         });
         setLegs(legs$);
       }
@@ -49,20 +51,22 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, 
   useEffect(() => {
     if (!isEmpty(asgSepBid)) {
       const legs$ = [...legs];
-      // TODO: waiting for updates to generic pos EP to pull in eta, language
-      // and possibly others
       legs$.push({
         ail_seq_num: shortid.generate(),
         pos_title: get(asgSepBid, 'pos_title'),
         pos_num: get(asgSepBid, 'pos_num'),
+        posSeqNum: get(asgSepBid, 'pos_seq_num'),
+        cpId: get(asgSepBid, 'cp_id'),
+        legAssignmentId: get(asgSepBid, 'asg_seq_num'),
+        legAssignmentVersion: get(asgSepBid, 'revision_num'),
         org: get(asgSepBid, 'org'),
-        eta: 'Coming Soon',
-        ted: null,
+        legStartDate: 'Coming Soon',
+        legEndDate: null,
         language: 'Coming Soon',
-        tod: null,
+        tourOfDutyCode: null,
         grade: get(asgSepBid, 'grade'),
-        action: null,
-        travel: null,
+        legActionType: null,
+        travelFunctionCode: null,
       });
       setLegs(legs$);
     }
@@ -82,7 +86,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs, 
 
   return (
     !unitedLoading &&
-      <AgendaItemLegsForm onClose={onClose} legs={legs} updateLeg={updateLeg} />
+      <AgendaItemLegsForm onClose={onClose} legs={legs} updateLeg={updateLeg} efPos={efPos} />
   );
 };
 
@@ -91,6 +95,7 @@ AgendaItemTimeline.propTypes = {
   setParentLoadingState: PropTypes.func,
   updateLegs: PropTypes.func,
   asgSepBid: PropTypes.shape({}),
+  efPos: PropTypes.shape({}),
 };
 
 AgendaItemTimeline.defaultProps = {
@@ -98,6 +103,7 @@ AgendaItemTimeline.defaultProps = {
   setParentLoadingState: EMPTY_FUNCTION,
   updateLegs: EMPTY_FUNCTION,
   asgSepBid: {},
+  efPos: {},
 };
 
 export default AgendaItemTimeline;

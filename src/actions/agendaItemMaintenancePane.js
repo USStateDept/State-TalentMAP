@@ -29,17 +29,17 @@ export function aiCreateSuccess(data) {
   };
 }
 
-export function aiCreate(panel, legs) {
+export function aiCreate(panel, legs, personId, ef) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
-    dispatch(aiCreateErrored(false));
     dispatch(aiCreateLoading(true));
+    dispatch(aiCreateErrored(false));
     api()
-      .post('/fsbid/agenda/agenda_item/', { Data: [
-        'Elsa, Gigi, Nori, Sophie',
-      ],
-      Panel: panel,
-      agendaLegs: [...legs],
+      .post('/fsbid/agenda/agenda_item/', {
+        ...ef,
+        personId,
+        ...panel,
+        agendaLegs: legs,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;
@@ -50,13 +50,13 @@ export function aiCreate(panel, legs) {
           dispatch(aiCreateErrored(false));
           dispatch(aiCreateSuccess(data || []));
           dispatch(toastSuccess(UPDATE_AGENDA_ITEM_SUCCESS, UPDATE_AGENDA_ITEM_SUCCESS_TITLE));
-          dispatch(aiCreateLoading(true));
+          dispatch(aiCreateLoading(false));
         });
       })
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
           dispatch(aiCreateErrored(false));
-          dispatch(aiCreateLoading(true));
+          dispatch(aiCreateLoading(false));
         } else {
           dispatch(toastError(UPDATE_AGENDA_ITEM_ERROR, UPDATE_AGENDA_ITEM_ERROR_TITLE));
           dispatch(aiCreateErrored(true));

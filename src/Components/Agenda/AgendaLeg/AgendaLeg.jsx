@@ -18,8 +18,6 @@ const AgendaLeg = props => {
     travelFunctions,
   } = props;
 
-  const textInput = createRef(null);
-
   // eslint-disable-next-line no-unused-vars
   const onClose$ = () => {
     onClose(leg);
@@ -53,10 +51,6 @@ const AgendaLeg = props => {
 
   const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
-  // const closeCalendar = () => {
-  //   console.log('hello');
-  // };
-
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'ted'))}
@@ -67,8 +61,6 @@ const AgendaLeg = props => {
               <Calendar
                 className="ted-react-calendar"
                 onChange={(e) => updateDropdown('ted', e)}
-                ref={textInput}
-                // on={closeCalendar()}
               />
             </div>
       }
