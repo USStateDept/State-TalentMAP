@@ -4,6 +4,7 @@ import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { get, includes, some } from 'lodash';
+import { BrowserRouter } from 'react-router-dom';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
@@ -17,7 +18,9 @@ const isPersonaAuth = () => checkFlag('flags.persona_auth');
 
 export const render = () => {
   ReactDOM.render((
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   ), document.getElementById('root') || document.createElement('div'));
 };
 
