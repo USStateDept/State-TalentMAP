@@ -101,7 +101,7 @@ class PositionDetailsContact extends Component {
 
     const OBCUrl = propOrDefault(details, 'post.post_overview_url');
 
-    const hidePositionDetails = () => checkFlag('flags.position_details');
+    const hidePositionDetails = () => checkFlag('flags.static_content');
 
     return (
       <div className="position-details-contact" style={{ position: 'relative' }}>
@@ -117,31 +117,30 @@ class PositionDetailsContact extends Component {
           </PermissionsWrapper>
           {
             !hidePositionDetails() &&
-            <div className="usa-grid-full contact-section website-section">
-              <PositionTitleSubDescription
-                title="Post website"
-                formattedContent={formattedPostWebsite}
-                plainContent={plainTextPostWebsite}
-                shouldShowEditor={shouldShowWebsiteEditor.value}
-                onSubmitText={this.submitWebsiteEdit}
-                toggleEditor={this.toggleWebsiteEditor}
-                isAllowedToEdit={isAllowedToEdit}
-              />
-            </div>
-          }
-          {
-            !hidePositionDetails() &&
-            <div className="usa-grid-full contact-section poc-section">
-              <PositionTitleSubDescription
-                title="Point-of-contact"
-                formattedContent={formattedPointOfContact}
-                plainContent={plainTextPointOfContact}
-                shouldShowEditor={shouldShowPocEditor.value}
-                onSubmitText={this.submitPocEdit}
-                toggleEditor={this.togglePocEditor}
-                isAllowedToEdit={isAllowedToEdit}
-              />
-            </div>
+              <>
+                <div className="usa-grid-full contact-section website-section">
+                  <PositionTitleSubDescription
+                    title="Post website"
+                    formattedContent={formattedPostWebsite}
+                    plainContent={plainTextPostWebsite}
+                    shouldShowEditor={shouldShowWebsiteEditor.value}
+                    onSubmitText={this.submitWebsiteEdit}
+                    toggleEditor={this.toggleWebsiteEditor}
+                    isAllowedToEdit={isAllowedToEdit}
+                  />
+                </div>
+                <div className="usa-grid-full contact-section poc-section">
+                  <PositionTitleSubDescription
+                    title="Point-of-contact"
+                    formattedContent={formattedPointOfContact}
+                    plainContent={plainTextPointOfContact}
+                    shouldShowEditor={shouldShowPocEditor.value}
+                    onSubmitText={this.submitPocEdit}
+                    toggleEditor={this.togglePocEditor}
+                    isAllowedToEdit={isAllowedToEdit}
+                  />
+                </div>
+              </>
           }
           {
             !isProjectedVacancy &&
