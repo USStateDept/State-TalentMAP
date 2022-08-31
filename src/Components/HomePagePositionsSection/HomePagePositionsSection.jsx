@@ -70,7 +70,7 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
       <Link to={viewMoreLink} title={`View more ${title}`}>
         <h2 className="positions-section-title">
           <Tooltip
-            html={getTooltipText('What is "Featured Positions?"', 'Featured positions are positions indicated as Historic Diff. to Staff (HDS) and/or Service Need Differential')}
+            html={getTooltipText('What are "Featured Positions"?', 'Featured positions are positions indicated as Historic Diff. to Staff (HDS) and/or Service Need Differential')}
             theme={'bidtracker-status'}
             arrow
             tabIndex="0"
