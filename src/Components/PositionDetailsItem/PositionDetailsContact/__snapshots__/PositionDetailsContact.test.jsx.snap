@@ -29,6 +29,32 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
         />
       </div>
     </Connect(PermissionsWrapper)>
+    <div
+      className="usa-grid-full contact-section website-section"
+    >
+      <PositionTitleSubDescription
+        formattedContent="Coming Soon"
+        isAllowedToEdit={false}
+        onSubmitText={[Function]}
+        plainContent=""
+        shouldShowEditor={false}
+        title="Post website"
+        toggleEditor={[Function]}
+      />
+    </div>
+    <div
+      className="usa-grid-full contact-section poc-section"
+    >
+      <PositionTitleSubDescription
+        formattedContent="Coming Soon"
+        isAllowedToEdit={false}
+        onSubmitText={[Function]}
+        plainContent=""
+        shouldShowEditor={false}
+        title="Point-of-contact"
+        toggleEditor={[Function]}
+      />
+    </div>
     <BidCount
       altStyle={true}
       bidStatistics={Object {}}
