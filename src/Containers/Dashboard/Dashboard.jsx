@@ -10,10 +10,6 @@ import { BID_LIST, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION, FAVO
 import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
-import { checkFlag } from '../../flags';
-
-const showLanguages = () => checkFlag('flags.profile_languages');
-const showAssignments = () => checkFlag('flags.profile_assignments');
 
 class DashboardContainer extends Component {
   UNSAFE_componentWillMount() {
@@ -52,8 +48,8 @@ class DashboardContainer extends Component {
         clientClassifications={userClassifications}
         userClassificationsHasErrored={userClassificationsHasErrored}
         showClassifications
-        showLanguages={showLanguages()}
-        showAssignments={showAssignments()}
+        showLanguages={false}
+        showAssignmentHistory={false}
       />
     );
   }
