@@ -10,7 +10,6 @@ import { BID_LIST, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION, FAVO
 import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import ProfileDashboard from 'Components/ProfileDashboard';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
-import { checkFlag } from '../../flags';
 
 class DashboardContainer extends Component {
   UNSAFE_componentWillMount() {
