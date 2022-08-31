@@ -50,7 +50,7 @@ class DashboardContainer extends Component {
         userClassificationsHasErrored={userClassificationsHasErrored}
         showClassifications
         showLanguages={false}
-        showAssignments={false}
+        showAssignmentHistory={false}
       />
     );
   }
