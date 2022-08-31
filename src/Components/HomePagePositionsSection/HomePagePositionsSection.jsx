@@ -51,44 +51,34 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
   const shouldShowErrorAlert = hasErrored && !isLoading;
   const shouldDisplaySpinner = useSpinner && isLoading;
   const isFavorites = title === 'Favorited Positions';
-  let wrappedInLinkVal;
-
-  if (!featuredPos) {
-    wrappedInLinkVal =
-    (
-      <Link to={viewMoreLink} title={`View more ${title}`}>
-        <h2 className="positions-section-title">
-          { !!icon.length && <FontAwesome name={icon} /> }
-          {title}
-          <FontAwesome name="angle-right" />
-        </h2>
-      </Link>
-    );
-  } else {
-    wrappedInLinkVal =
-    (
-      <Link to={viewMoreLink} title={`View more ${title}`}>
-        <h2 className="positions-section-title">
-          <Tooltip
-            html={getTooltipText('What are "Featured Positions"?', 'Featured positions are positions indicated as Historic Diff. to Staff (HDS) and/or Service Need Differential')}
-            theme={'bidtracker-status'}
-            arrow
-            tabIndex="0"
-            interactive
-            useContext
-          >
-            { !!icon.length && <FontAwesome name={icon} /> }
-            {title}
-            <FontAwesome name="angle-right" />
-          </Tooltip>
-        </h2>
-      </Link>
-    );
-  }
 
   const wrappedInLink = wrapInLink ?
     (
-      wrappedInLinkVal
+      <Link to={viewMoreLink} title={`View more ${title}`}>
+        <h2 className="positions-section-title">
+          {
+            featuredPos ?
+              <Tooltip
+                html={getTooltipText('What are "Featured Positions"?', 'Featured positions are positions indicated as Historic Diff. to Staff (HDS) and/or Service Need Differential')}
+                theme={'bidtracker-status'}
+                arrow
+                tabIndex="0"
+                interactive
+                useContext
+              >
+                { !!icon.length && <FontAwesome name={icon} /> }
+                {title}
+                <FontAwesome name="angle-right" />
+              </Tooltip>
+              :
+              <>
+                { !!icon.length && <FontAwesome name={icon} /> }
+                {title}
+                <FontAwesome name="angle-right" />
+              </>
+          }
+        </h2>
+      </Link>
     )
     :
     (
