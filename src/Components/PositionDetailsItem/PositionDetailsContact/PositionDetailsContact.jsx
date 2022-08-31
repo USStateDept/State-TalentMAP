@@ -101,7 +101,7 @@ class PositionDetailsContact extends Component {
 
     const OBCUrl = propOrDefault(details, 'post.post_overview_url');
 
-    const hidePositionDetails = () => checkFlag('flags.static_content');
+    const showStaticContent = () => checkFlag('flags.static_content');
 
     return (
       <div className="position-details-contact" style={{ position: 'relative' }}>
@@ -116,7 +116,7 @@ class PositionDetailsContact extends Component {
             </div>
           </PermissionsWrapper>
           {
-            !hidePositionDetails() &&
+            showStaticContent() &&
               <>
                 <div className="usa-grid-full contact-section website-section">
                   <PositionTitleSubDescription
