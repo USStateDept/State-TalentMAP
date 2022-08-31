@@ -21,7 +21,7 @@ const propTypes = {
   useSpinner: PropTypes.bool,
   hasErrored: PropTypes.bool,
   wrapInLink: PropTypes.bool,
-  name: PropTypes.string,
+  featuredPos: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -34,7 +34,7 @@ const defaultProps = {
   useSpinner: false,
   hasErrored: false,
   wrapInLink: true,
-  name: '',
+  featuredPos: false,
 };
 
 const getTooltipText = (title, text) => (
@@ -45,16 +45,15 @@ const getTooltipText = (title, text) => (
 );
 
 const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
-  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink, name }) => {
+  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink, featuredPos }) => {
   const listIsReady = !!(positions && Object.keys(positions).length);
   const shouldShowAlert = !hasErrored && positions && !positions.length;
   const shouldShowErrorAlert = hasErrored && !isLoading;
   const shouldDisplaySpinner = useSpinner && isLoading;
   const isFavorites = title === 'Favorited Positions';
-  const isNameEmpty = name === '';
   let wrappedInLinkVal;
 
-  if (isNameEmpty) {
+  if (!featuredPos) {
     wrappedInLinkVal =
     (
       <Link to={viewMoreLink} title={`View more ${title}`}>
