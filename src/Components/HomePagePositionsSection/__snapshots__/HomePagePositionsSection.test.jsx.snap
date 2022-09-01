@@ -14,10 +14,12 @@ exports[`HomePagePositionsSection matches snapshot 1`] = `
         <h2
           className="positions-section-title"
         >
-          Title
-          <FontAwesome
-            name="angle-right"
-          />
+          <React.Fragment>
+            Title
+            <FontAwesome
+              name="angle-right"
+            />
+          </React.Fragment>
         </h2>
       </Link>
     }

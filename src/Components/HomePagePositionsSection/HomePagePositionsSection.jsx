@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import FontAwesome from 'react-fontawesome';
 import { Link } from 'react-router-dom';
 import { BID_RESULTS, FAVORITE_POSITIONS_ARRAY, HOME_PAGE_CARD_TYPE, POSITION_DETAILS_ARRAY } from 'Constants/PropTypes';
+import { Tooltip } from 'react-tippy';
 import PositionsSectionTitle from '../PositionsSectionTitle';
 import HomePagePositionsList from '../HomePagePositionsList';
 import Alert from '../Alert';
 import Spinner from '../Spinner';
+
 
 const propTypes = {
   title: PropTypes.string.isRequired,
@@ -19,6 +21,7 @@ const propTypes = {
   useSpinner: PropTypes.bool,
   hasErrored: PropTypes.bool,
   wrapInLink: PropTypes.bool,
+  featuredPos: PropTypes.bool,
 };
 
 const defaultProps = {
@@ -31,10 +34,18 @@ const defaultProps = {
   useSpinner: false,
   hasErrored: false,
   wrapInLink: true,
+  featuredPos: false,
 };
 
+const getTooltipText = (title, text) => (
+  <div>
+    <div className={'tooltip-title'}>{title}</div>
+    <div className={'tooltip-text'}>{text}</div>
+  </div>
+);
+
 const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
-  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink }) => {
+  favorites, isLoading, hasErrored, bidList, type, useSpinner, wrapInLink, featuredPos }) => {
   const listIsReady = !!(positions && Object.keys(positions).length);
   const shouldShowAlert = !hasErrored && positions && !positions.length;
   const shouldShowErrorAlert = hasErrored && !isLoading;
@@ -45,9 +56,27 @@ const HomePagePositionsSection = ({ title, icon, viewMoreLink, positions,
     (
       <Link to={viewMoreLink} title={`View more ${title}`}>
         <h2 className="positions-section-title">
-          { !!icon.length && <FontAwesome name={icon} /> }
-          {title}
-          <FontAwesome name="angle-right" />
+          {
+            featuredPos ?
+              <Tooltip
+                html={getTooltipText('What are "Featured Positions"?', 'Featured positions are positions indicated as Historic Diff. to Staff (HDS) and/or Service Need Differential')}
+                theme={'bidtracker-status'}
+                arrow
+                tabIndex="0"
+                interactive
+                useContext
+              >
+                { !!icon.length && <FontAwesome name={icon} /> }
+                {title}
+                <FontAwesome name="angle-right" />
+              </Tooltip>
+              :
+              <>
+                { !!icon.length && <FontAwesome name={icon} /> }
+                {title}
+                <FontAwesome name="angle-right" />
+              </>
+          }
         </h2>
       </Link>
     )
