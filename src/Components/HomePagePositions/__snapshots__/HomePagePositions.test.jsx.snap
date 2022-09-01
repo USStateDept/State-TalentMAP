@@ -200,11 +200,11 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={true}
       hasErrored={false}
       icon="bolt"
       isLoading={false}
       maxLength="3"
-      name="featuredGradeAndSkillPositions"
       positions={
         Array [
           Object {
@@ -416,11 +416,11 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={false}
       hasErrored={false}
       icon="briefcase"
       isLoading={false}
       maxLength="3"
-      name=""
       positions={
         Array [
           Object {
@@ -643,11 +643,11 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={true}
       hasErrored={false}
       icon="bolt"
       isLoading={false}
       maxLength="3"
-      name="featuredPositions"
       positions={Array []}
       title="Featured Positions"
       type="default"
@@ -848,11 +848,11 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={false}
       hasErrored={false}
       icon="star"
       isLoading={false}
       maxLength="3"
-      name=""
       positions={Array []}
       title="Favorited Positions"
       type="default"
