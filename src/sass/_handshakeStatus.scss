@@ -24,16 +24,20 @@
 
   .expired {
     background-color: $hs-expiration-orange;
+    padding-left: 11px!important;
+    padding-top: 2.5px
   }
 
   .hs-status-bureau {
     clip-path: polygon(0 0, 75% 0%, 100% 50%, 75% 100%, 0 100%);
-    padding-left: 5px;
+    padding-bottom: 3px;
+    padding-left: 3px;
   }
 
   .hs-status-bidder {
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
-    padding-left: 15px;
+    padding-bottom: 3px;
+    padding-left: 13px;
   }
 }
 
