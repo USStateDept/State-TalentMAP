@@ -12,13 +12,6 @@
 
   .inactive {
     background-color: lightgrey;
-    padding-bottom: 3px;
-    padding-left: 13px;
-  }
-
-  .accepted, .declined {
-    padding-bottom: 2px;
-    padding-left: 13px;
   }
 
   .offered, .accepted {
@@ -31,7 +24,7 @@
 
   .expired {
     background-color: $hs-expiration-orange;
-    padding-left: 11px;
+    padding-left: 11px!important;
     padding-top: 2.5px
   }
 
@@ -43,6 +36,8 @@
 
   .hs-status-bidder {
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
+    padding-bottom: 3px;
+    padding-left: 13px;
   }
 }
 
