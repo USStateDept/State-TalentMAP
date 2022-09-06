@@ -9,6 +9,7 @@ import { format, isDate } from 'date-fns-v2';
 
 const AgendaLeg = props => {
   const {
+    isEf,
     leg,
     legNum,
     updateLeg,
@@ -18,7 +19,6 @@ const AgendaLeg = props => {
     travelFunctions,
   } = props;
 
-  // eslint-disable-next-line no-unused-vars
   const onClose$ = () => {
     onClose(leg);
   };
@@ -32,37 +32,45 @@ const AgendaLeg = props => {
     }
   };
 
-  const getDropdown = (key, data, text) => (
-    <select
+  const getDropdown = (key, data, text) => {
+    if (isEf) {
+      return get(leg, key) || '';
+    }
+    return (<select
       className="leg-dropdown"
       value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
     >
       <option selected key={null} value={''}>
-        Keep Unselected
+      Keep Unselected
       </option>
       {
         data.map(a => (
           <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
         ))
       }
-    </select>
-  );
+    </select>);
+  };
 
   const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'ted'))}
-      <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
+      {formatDate(get(leg, 'legEndDate'))}
       {
-        !calendarHidden &&
-            <div className="ted-calendar-container" id={`cal-${legNum}`}>
-              <Calendar
-                className="ted-react-calendar"
-                onChange={(e) => updateDropdown('ted', e)}
-              />
-            </div>
+        !isEf &&
+          <>
+            <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
+            {
+              !calendarHidden &&
+                <div className="ted-calendar-container" id={`cal-${legNum}`}>
+                  <Calendar
+                    className="ted-react-calendar"
+                    onChange={(e) => updateDropdown('legEndDate', e)}
+                  />
+                </div>
+            }
+          </>
       }
     </>
   );
@@ -108,15 +116,15 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown('tod', TODs, 'short_description')),
+      content: (getDropdown('tourOfDutyCode', TODs, 'short_description')),
     },
     {
       title: 'Action',
-      content: (getDropdown('action', legActionTypes, 'abbr_desc_text')),
+      content: (getDropdown('legActionType', legActionTypes, 'abbr_desc_text')),
     },
     {
       title: 'Travel',
-      content: (getDropdown('travel', travelFunctions, 'abbr_desc_text')),
+      content: (getDropdown('travelFunctionCode', travelFunctions, 'abbr_desc_text')),
     },
   ];
 
@@ -126,6 +134,13 @@ const AgendaLeg = props => {
         <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
           <FA name="times" />
         </InteractiveElement>
+      <div className={`grid-col-${legNum} grid-row-1`}>
+        {
+          !isEf &&
+          <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
+            <FA name="times" />
+          </InteractiveElement>
+        }
       </div>
       {
         columnData.map((cData, i) => (
@@ -144,6 +159,7 @@ const AgendaLeg = props => {
 };
 
 AgendaLeg.propTypes = {
+  isEf: PropTypes.bool,
   leg: PropTypes.shape({}),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -154,6 +170,7 @@ AgendaLeg.propTypes = {
 };
 
 AgendaLeg.defaultProps = {
+  isEf: false,
   leg: {},
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,

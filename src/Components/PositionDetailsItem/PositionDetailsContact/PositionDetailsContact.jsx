@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { formatDate, getBidStatisticsObject, propOrDefault } from 'utilities';
+import { checkFlag } from 'flags';
 import BidCount from 'Components/BidCount';
 import PositionViews from 'Components/PositionViews';
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
@@ -100,6 +101,8 @@ class PositionDetailsContact extends Component {
 
     const OBCUrl = propOrDefault(details, 'post.post_overview_url');
 
+    const showStaticContent = () => checkFlag('flags.static_content');
+
     return (
       <div className="position-details-contact" style={{ position: 'relative' }}>
         <div className="contact-container">
@@ -112,28 +115,33 @@ class PositionDetailsContact extends Component {
               />
             </div>
           </PermissionsWrapper>
-          <div className="usa-grid-full contact-section website-section">
-            <PositionTitleSubDescription
-              title="Post website"
-              formattedContent={formattedPostWebsite}
-              plainContent={plainTextPostWebsite}
-              shouldShowEditor={shouldShowWebsiteEditor.value}
-              onSubmitText={this.submitWebsiteEdit}
-              toggleEditor={this.toggleWebsiteEditor}
-              isAllowedToEdit={isAllowedToEdit}
-            />
-          </div>
-          <div className="usa-grid-full contact-section poc-section">
-            <PositionTitleSubDescription
-              title="Point-of-contact"
-              formattedContent={formattedPointOfContact}
-              plainContent={plainTextPointOfContact}
-              shouldShowEditor={shouldShowPocEditor.value}
-              onSubmitText={this.submitPocEdit}
-              toggleEditor={this.togglePocEditor}
-              isAllowedToEdit={isAllowedToEdit}
-            />
-          </div>
+          {
+            showStaticContent() &&
+              <>
+                <div className="usa-grid-full contact-section website-section">
+                  <PositionTitleSubDescription
+                    title="Post website"
+                    formattedContent={formattedPostWebsite}
+                    plainContent={plainTextPostWebsite}
+                    shouldShowEditor={shouldShowWebsiteEditor.value}
+                    onSubmitText={this.submitWebsiteEdit}
+                    toggleEditor={this.toggleWebsiteEditor}
+                    isAllowedToEdit={isAllowedToEdit}
+                  />
+                </div>
+                <div className="usa-grid-full contact-section poc-section">
+                  <PositionTitleSubDescription
+                    title="Point-of-contact"
+                    formattedContent={formattedPointOfContact}
+                    plainContent={plainTextPointOfContact}
+                    shouldShowEditor={shouldShowPocEditor.value}
+                    onSubmitText={this.submitPocEdit}
+                    toggleEditor={this.togglePocEditor}
+                    isAllowedToEdit={isAllowedToEdit}
+                  />
+                </div>
+              </>
+          }
           {
             !isProjectedVacancy &&
               this.renderBidCount()
