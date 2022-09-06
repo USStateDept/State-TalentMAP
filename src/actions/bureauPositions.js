@@ -26,8 +26,6 @@ export function downloadBureauPositionsData(userQuery) {
   q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/export/?${q}`;
-  // eslint-disable-next-line no-console
-  console.log('👾 current: url', url);
 
   return api().get(url, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
