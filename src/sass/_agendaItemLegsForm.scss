@@ -13,7 +13,7 @@
     border: none!important;
     padding: 0 10px!important;
   }
-  .grid-row-1 {
+  .grid-row-1, .grid-row-1-icon {
     font-weight: bold;
     border: none!important;
     padding: 5px!important;
@@ -23,7 +23,7 @@
 
 
   @each $num in $cols-rows {
-    .grid-col-#{$num} {
+    .grid-col-#{$num}, .grid-col-#{$num}-icon  {
       grid-column: $num;
       border-left: 1px solid $color-gray-lighter;
     }
@@ -31,6 +31,32 @@
       grid-row: $num;
       padding: 10px;
     }
+  }
+
+  $hover-rows: [ 1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12 ];
+
+  @each $num in $hover-rows {
+    .grid-row-#{$num}:hover {
+      background-color: $color-gray-lightest;
+    }
+    // .grid-row-#{$num}:hover {
+    //   background-color: $color-gray-lightest;
+    // }
+    // .grid-row-#{$num}:hover::before, .grid-row-#{$num}::before {
+    //   content: "";
+    //   position: absolute;
+    //   background: inherit;
+    //   top: 0;
+    //   bottom: 0;
+    //   // left: -100vw;
+    //   right: -100vw;
+    // }
+    // .grid-row-#{$num}:hover::before {
+    //   z-index: -1;
+    // }
+    // .grid-col-#{$num}:hover {
+    //   background-color: $color-gray-lightest;
+    // }
   }
 
 
