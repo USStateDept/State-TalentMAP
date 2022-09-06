@@ -10,8 +10,6 @@ let cancel;
 
 
 export function downloadBureauPositionsData(userQuery) {
-  // eslint-disable-next-line no-console
-  console.log('👾 current: userQuery', userQuery);
   if (get(userQuery, 'position__bureau__code__in', []).length < 1 && get(userQuery, 'position__org__code__in', []).length < 1) {
     return () => {
       // eslint-disable-next-line global-require
