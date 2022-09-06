@@ -1,4 +1,4 @@
-import { downloadFromResponse } from 'utilities';
+import { downloadFromResponse, formatDate } from 'utilities';
 import { batch } from 'react-redux';
 import { get, identity, isArray, isEmpty, pickBy } from 'lodash';
 import querystring from 'query-string';
@@ -32,7 +32,7 @@ export function downloadBureauPositionsData(userQuery) {
     responseType: 'stream',
   })
     .then((response) => {
-      downloadFromResponse(response, 'TalentMap_bureau_positions_export');
+      downloadFromResponse(response, `TalentMap_bureau_positions_export_${formatDate(new Date().getTime(), 'YYYY_M_D_H')}`);
     })
     .catch(() => {
       // eslint-disable-next-line global-require
