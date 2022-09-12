@@ -74,8 +74,7 @@ const AgendaItemLegsForm = props => {
             {
               legHeaderData.map((title, i) => (
                 <InteractiveElement
-                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}${title.dropdown ? ' dropdown-title' : ''}
-                  ${title.pos_text ? ' pos-text-title' : ''}`}
+                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}${title.dropdown ? ' dropdown-title' : ''}${title.pos_text ? ' pos-text-title' : ''}`}
                   onMouseOver={() => onHover(i + 2)}
                   onMouseLeave={() => onHover('')}
                 >

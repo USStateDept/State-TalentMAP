@@ -3,7 +3,7 @@
 exports[`AgendaLeg Component matches snapshot 1`] = `
 <Fragment>
   <div
-    className="grid-col-3 grid-row-1"
+    className="grid-col-3-icon grid-row-1-icon"
   >
     <InteractiveElement
       className="remove-leg-button"
@@ -16,48 +16,69 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       />
     </InteractiveElement>
   </div>
-  <div
-    className="grid-col-3 grid-row-2"
+  <InteractiveElement
+    className="grid-col-3 grid-row-2 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div>
       REGIONAL SECURITY OFFICER
     </div>
-  </div>
-  <div
-    className="grid-col-3 grid-row-3"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-3 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div>
       57019000
     </div>
-  </div>
-  <div
-    className="grid-col-3 grid-row-4"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-4 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div>
       00
     </div>
-  </div>
-  <div
-    className="grid-col-3 grid-row-5"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-5 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div />
-  </div>
-  <div
-    className="grid-col-3 grid-row-6"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-6 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div>
       A
     </div>
-  </div>
-  <div
-    className="grid-col-3 grid-row-7"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-7 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div>
       2019-05-05T00:00:00.000Z
     </div>
-  </div>
-  <div
-    className="grid-col-3 grid-row-8"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-8 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <div
       className="arrow"
@@ -66,9 +87,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
         name="arrow-down"
       />
     </div>
-  </div>
-  <div
-    className="grid-col-3 grid-row-9"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-9 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <FontAwesome
       name="calendar"
@@ -79,9 +103,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
         }
       }
     />
-  </div>
-  <div
-    className="grid-col-3 grid-row-10"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-10 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <select
       className="leg-dropdown"
@@ -98,9 +125,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       <option />
       <option />
     </select>
-  </div>
-  <div
-    className="grid-col-3 grid-row-11"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-11 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <select
       className="leg-dropdown"
@@ -117,9 +147,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       <option />
       <option />
     </select>
-  </div>
-  <div
-    className="grid-col-3 grid-row-12"
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-12 "
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
   >
     <select
       className="leg-dropdown"
@@ -136,6 +169,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       <option />
       <option />
     </select>
-  </div>
+  </InteractiveElement>
 </Fragment>
 `;
