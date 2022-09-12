@@ -14,8 +14,12 @@
     padding: 0 10px!important;
   }
 
-  .grid-row-2, .grid-row-3 {
-    min-height: 50px !important;
+  .grid-row-2 {
+    min-height: 80px !important;
+  }
+
+  .grid-row-3 {
+    min-height: 60px !important;
   }
 
   .grid-row-4, .grid-row-5, .grid-row-6, .grid-row-7,
@@ -48,7 +52,11 @@
     }
   }
 
-  .pos-text-title {
+  .pos-title-text {
+    padding: 8px 10px !important;
+  }
+  
+  .pos-num-text {
     padding: 5px 10px !important;
   }
 
