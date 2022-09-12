@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
+import InteractiveElement from 'Components/InteractiveElement';
 import AgendaLeg from '../AgendaLeg';
 import Alert from '../../Alert';
 import api from '../../../api';
@@ -28,6 +30,11 @@ const AgendaItemLegsForm = props => {
   const legsLoading = includes([TODLoading, legATLoading, travelFLoading], true);
   const hasEf = !isEmpty(efPos);
   const showOverlay = !legs.length && !hasEf;
+  const [rowHoverNum, setRowHoverNum] = useState();
+
+  const onHover = row => {
+    setRowHoverNum(row);
+  };
 
   const onClose$ = leg => {
     onClose(leg);
@@ -38,17 +45,17 @@ const AgendaItemLegsForm = props => {
   };
 
   const legHeaderData = [
-    'Position Title',
-    'Position Number',
-    'Grade',
-    'Language',
-    'Org',
-    'ETA',
-    '',
-    'TED',
-    'TOD',
-    'Action',
-    'Travel',
+    { text: 'Position Title', pos_text: true },
+    { text: 'Position Number', pos_text: true },
+    { text: 'Grade' },
+    { text: 'Language' },
+    { text: 'Org' },
+    { text: 'ETA' },
+    { text: '' },
+    { text: 'TED' },
+    { text: 'TOD', dropdown: true },
+    { text: 'Action', dropdown: true },
+    { text: 'Travel', dropdown: true },
   ];
 
   return (
@@ -66,14 +73,14 @@ const AgendaItemLegsForm = props => {
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
-                // <div className={`hover-test-${i}`}>
-                //   <div className={`grid-col-1 grid-row-${i + 2}`}>
-                //     {title}
-                //   </div>
-                // </div>
-                <div className={`grid-col-1 grid-row-${i + 2}`}>
-                  {title}
-                </div>
+                <InteractiveElement
+                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}${title.dropdown ? ' dropdown-title' : ''}
+                  ${title.pos_text ? ' pos-text-title' : ''}`}
+                  onMouseOver={() => onHover(i + 2)}
+                  onMouseLeave={() => onHover('')}
+                >
+                  {title.text}
+                </InteractiveElement>
               ))
             }
             {
@@ -87,6 +94,8 @@ const AgendaItemLegsForm = props => {
                 onClose={onClose$}
                 updateLeg={updateLeg$}
                 isEf
+                onHover={onHover}
+                rowNum={rowHoverNum}
               />
             }
             {
@@ -100,6 +109,8 @@ const AgendaItemLegsForm = props => {
                   travelFunctions={travelFunctions}
                   onClose={onClose$}
                   updateLeg={updateLeg$}
+                  onHover={onHover}
+                  rowNum={rowHoverNum}
                 />
               ))
             }
