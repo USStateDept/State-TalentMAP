@@ -34,16 +34,26 @@ const AgendaLeg = props => {
     }
   };
 
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
   const calendarModal = () => {
     swal({
       title: 'TED Date Picker',
       closeOnEsc: true,
       button: false,
       content: (
-        <Calendar
-          className="ted-react-calendar"
-          onChange={(e) => updateDropdown('ted', e)}
-        />
+        <div>
+          <Calendar
+            className="ted-react-calendar"
+            onChange={(e) => updateDropdown('ted', e)}
+          />
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <button onClick={cancel}>Cancel</button>
+          </div>
+        </div>
       ),
     });
   };
