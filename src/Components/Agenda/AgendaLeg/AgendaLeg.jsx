@@ -1,4 +1,4 @@
-import { createRef, useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
@@ -6,6 +6,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { format, isDate } from 'date-fns-v2';
+import swal from '@sweetalert/with-react';
 
 const AgendaLeg = props => {
   const {
@@ -29,7 +30,22 @@ const AgendaLeg = props => {
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
     if (dropdown === 'ted') {
       setCalendarHidden(true);
+      swal.close();
     }
+  };
+
+  const calendarModal = () => {
+    swal({
+      title: 'TED Date Picker',
+      closeOnEsc: true,
+      button: false,
+      content: (
+        <Calendar
+          className="ted-react-calendar"
+          onChange={(e) => updateDropdown('ted', e)}
+        />
+      ),
+    });
   };
 
   const getDropdown = (key, data, text) => (
@@ -54,16 +70,7 @@ const AgendaLeg = props => {
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'ted'))}
-      <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
-      {
-        !calendarHidden &&
-            <div className="ted-calendar-container" id={`cal-${legNum}`}>
-              <Calendar
-                className="ted-react-calendar"
-                onChange={(e) => updateDropdown('ted', e)}
-              />
-            </div>
-      }
+      <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={calendarModal} />
     </>
   );
 
