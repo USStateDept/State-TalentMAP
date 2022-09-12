@@ -49,7 +49,8 @@ const EditBidder = (props) => {
       oc_bureau: ocBureau || '',
       oc_reason: ocReason || '',
       status: status || '',
-      notes: note || '',
+      // 'notes' on ui
+      comments: note || '',
       is_shared: shared,
       step_letter_one: stepLetterOne,
       step_letter_two: stepLetterTwo,

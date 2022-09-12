@@ -200,6 +200,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={true}
       hasErrored={false}
       icon="bolt"
       isLoading={false}
@@ -415,6 +416,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={false}
       hasErrored={false}
       icon="briefcase"
       isLoading={false}
@@ -641,6 +643,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={true}
       hasErrored={false}
       icon="bolt"
       isLoading={false}
@@ -845,6 +848,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={false}
       hasErrored={false}
       icon="star"
       isLoading={false}
