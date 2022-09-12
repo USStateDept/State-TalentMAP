@@ -85,7 +85,8 @@ const AgendaLeg = props => {
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'ted'))}
-      { !isEf &&
+      {
+        !isEf &&
         <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={calendarModal} />
       }
     </>
