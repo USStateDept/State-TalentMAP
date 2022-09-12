@@ -63,21 +63,20 @@ const AgendaLeg = props => {
     if (isEf) {
       return get(leg, key) || '';
     }
-    return (
-      <select
-        className="leg-dropdown"
-        value={get(leg, key) || ''}
-        onChange={(e) => updateDropdown(key, e.target.value)}
-      >
-        <option selected key={null} value={''}>
-        Keep Unselected
-        </option>
-        {
-          data.map(a => (
-            <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
-          ))
-        }
-      </select>);
+    return (<select
+      className="leg-dropdown"
+      value={get(leg, key) || ''}
+      onChange={(e) => updateDropdown(key, e.target.value)}
+    >
+      <option selected key={null} value={''}>
+      Keep Unselected
+      </option>
+      {
+        data.map(a => (
+          <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
+        ))
+      }
+    </select>);
   };
 
   const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
