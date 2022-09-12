@@ -147,7 +147,8 @@ const AgendaLeg = props => {
   return (
     <>
       <div className={`grid-col-${legNum} grid-row-1`}>
-        { !isEf &&
+        {
+          !isEf &&
           <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
             <FA name="times" />
           </InteractiveElement>
