@@ -9,6 +9,8 @@ import { SAVED_SEARCH_PARENT_OBJECT } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from 'Constants/DefaultProps';
 import { formQueryString } from 'utilities';
 import SavedSearchesMap from '../SavedSearchesMap';
+import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
+
 
 // Wrapper for anything related to saved searches
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
@@ -17,7 +19,7 @@ class SavedSearchesContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultSort: '',
+      defaultSort: SAVED_SEARCH_SORTS.defaultSort,
     };
   }
 
@@ -32,11 +34,13 @@ class SavedSearchesContainer extends Component {
   }
 
   getSavedSearches() {
+    // console.log('sort option is: ', this.state.defaultSort);
     this.props.savedSearchesFetchData(this.state.defaultSort);
   }
 
   getSortedSearches = type => {
     if (type.target && type.target.value) {
+      // console.log('sort option is: ', type.target.value);
       this.props.savedSearchesFetchData(type.target.value);
       this.setState({ defaultSort: type.target.value });
     }
