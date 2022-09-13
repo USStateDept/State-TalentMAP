@@ -45,8 +45,8 @@ const AgendaItemLegsForm = props => {
   };
 
   const legHeaderData = [
-    { text: 'Position Title' },
-    { text: 'Position Number' },
+    { text: 'Position Title', positionTitleOrNum: true, className: ' pos-title-text' },
+    { text: 'Position Number', positionTitleOrNum: true, className: ' pos-num-text' },
     { text: 'Grade' },
     { text: 'Language' },
     { text: 'Org' },
@@ -75,7 +75,7 @@ const AgendaItemLegsForm = props => {
               legHeaderData.map((title, i) => (
                 <InteractiveElement
                   className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}${title.dropdown ? ' dropdown-title' : ''}
-                  ${title.text === 'Position Title' ? ' pos-title-text' : ''}${title.text === 'Position Number' ? ' pos-num-text' : ''}`}
+                  ${title.positionTitleOrNum ? title.className : ''}`}
                   onMouseOver={() => onHover(i + 2)}
                   onMouseLeave={() => onHover('')}
                 >

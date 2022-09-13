@@ -1,5 +1,4 @@
 .legs-form-container {
-  //background-color: #ffadad;
   background-color: $color-white;
   border: 2px solid $color-gray-light;
   padding: 0 10px 20px 10px;
@@ -14,17 +13,22 @@
     padding: 0 10px!important;
   }
 
-  .grid-row-2 {
+  .grid-row-2, .grid-row-10, .grid-row-11, .grid-row-12 {
     min-height: 80px !important;
+  }
+  
+  .grid-row-3 {
+    min-height: 50px !important;
+  }
+  
+  .grid-row-4, .grid-row-5, .grid-row-6, .grid-row-7,
+   .grid-row-9 {
+    min-height: 45px !important;
   }
 
   .grid-row-4, .grid-row-5, .grid-row-6, .grid-row-7,
    .grid-row-9, .grid-row-10, .grid-row-11, .grid-row-12 {
     padding: 10px 10px!important;
-  }
-
-  .grid-row-10, .grid-row-11, .grid-row-12 {
-    min-height: 70px!important;
   }
 
   .grid-row-1, .grid-row-1-icon {
@@ -44,7 +48,6 @@
     .grid-row-#{$num} {
       grid-row: $num;
       padding: 10px;
-      min-height: 45px;
     }
   }
 

@@ -147,7 +147,7 @@ const AgendaLeg = props => {
       {
         columnData.map((cData, i) => (
           <InteractiveElement
-            className={`grid-col-${legNum} grid-row-${i + 2} ${rowNum === (i + 2) ? 'grid-row-hover' : ''}`}
+            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}`}
             onMouseOver={() => onHover$(cData.title !== '' ? i + 2 : '')}
             onMouseLeave={() => onHover$('')}
           >
