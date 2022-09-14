@@ -1,4 +1,4 @@
-import { downloadFromResponse } from 'utilities';
+import { downloadFromResponse, formatDate } from 'utilities';
 import { batch } from 'react-redux';
 import { get, identity, isArray, isEmpty, pickBy } from 'lodash';
 import querystring from 'query-string';
@@ -10,7 +10,7 @@ let cancel;
 
 
 export function downloadBureauPositionsData(userQuery) {
-  if (get(userQuery, 'position__bureau__code__in', []).length < 1) {
+  if (get(userQuery, 'position__bureau__code__in', []).length < 1 && get(userQuery, 'position__org__code__in', []).length < 1) {
     return () => {
       // eslint-disable-next-line global-require
       require('../store').store.dispatch(toastError('Export unsuccessful. Please try again.', 'Error exporting'));
@@ -26,12 +26,13 @@ export function downloadBureauPositionsData(userQuery) {
   q = querystring.stringify(q);
 
   const url = `/fsbid/bureau/positions/export/?${q}`;
+
   return api().get(url, {
     cancelToken: new CancelToken((c) => { cancel = c; }),
     responseType: 'stream',
   })
     .then((response) => {
-      downloadFromResponse(response, 'TalentMap_bureau_positions_export');
+      downloadFromResponse(response, `TalentMap_bureau_positions_export_${formatDate(new Date().getTime(), 'YYYY_M_D_H')}`);
     })
     .catch(() => {
       // eslint-disable-next-line global-require
