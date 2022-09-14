@@ -288,8 +288,8 @@ const AvailableBidderRow = (props) => {
     <tr className={getTRClass()}>
       {
         keys(rowSections).map(i => {
-          if (i === 'notes' && rowSections[i] === NO_NOTES) {
-            return (<td key={i}><text aria-disabled="true" className="no-notes">{rowSections[i]}</text></td>);
+          if ((i === 'notes' && rowSections[i] === NO_NOTES) || (i === 'languages' && rowSections[i] === NO_LANGUAGES)) {
+            return (<td key={i}><text aria-disabled="true" className="no-value">{rowSections[i]}</text></td>);
           }
           return (
             <td key={i}>{rowSections[i]}</td>
