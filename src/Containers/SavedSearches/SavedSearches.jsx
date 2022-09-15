@@ -11,7 +11,6 @@ import { formQueryString } from 'utilities';
 import SavedSearchesMap from '../SavedSearchesMap';
 import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
 
-
 // Wrapper for anything related to saved searches
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
 // that use this container.
@@ -34,13 +33,11 @@ class SavedSearchesContainer extends Component {
   }
 
   getSavedSearches() {
-    // console.log('sort option is: ', this.state.defaultSort);
     this.props.savedSearchesFetchData(this.state.defaultSort);
   }
 
   getSortedSearches = type => {
     if (type.target && type.target.value) {
-      // console.log('sort option is: ', type.target.value);
       this.props.savedSearchesFetchData(type.target.value);
       this.setState({ defaultSort: type.target.value });
     }
