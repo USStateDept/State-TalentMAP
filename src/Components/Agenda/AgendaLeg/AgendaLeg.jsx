@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
@@ -24,12 +23,9 @@ const AgendaLeg = props => {
     onClose(leg);
   };
 
-  const [calendarHidden, setCalendarHidden] = useState(true);
-
   const updateDropdown = (dropdown, value) => {
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
     if (dropdown === 'legEndDate') {
-      setCalendarHidden(true);
       swal.close();
     }
   };
@@ -45,13 +41,22 @@ const AgendaLeg = props => {
       closeOnEsc: true,
       button: false,
       content: (
-        <div>
-          <Calendar
-            className="ted-react-calendar"
-            onChange={(e) => updateDropdown('legEndDate', e)}
-          />
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <button onClick={cancel}>Cancel</button>
+        // <div style={{ display: 'flex' }}>
+        <div className="ted-modal-content-container">
+          <div className="ted-modal-header">
+            Editing {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
+          </div>
+          <div>
+            Organization: ({get(leg, 'org') || 'None listed'})
+          </div>
+          <div>
+            <Calendar
+              className="ted-react-calendar"
+              onChange={(e) => updateDropdown('legEndDate', e)}
+            />
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <button onClick={cancel}>Cancel</button>
+            </div>
           </div>
         </div>
       ),
@@ -85,7 +90,7 @@ const AgendaLeg = props => {
       {formatDate(get(leg, 'legEndDate'))}
       {
         !isEf &&
-        <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={calendarModal} />
+        <FA name="calendar" onClick={calendarModal} />
       }
     </>
   );

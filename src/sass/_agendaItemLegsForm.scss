@@ -60,7 +60,7 @@
 
   .ted-react-calendar {
     width: 280px;
-    margin-left: 100px;
+    margin-top: 50px;
 
     .react-calendar__navigation {
       background-color: $bg-gray-medium-3;
@@ -82,6 +82,16 @@
       background-color: $bg-gray-medium-3;
       font-size: .8em;
     }
+  }
+
+  .ted-modal-content-container {
+    border-top: 1px solid $color-blue-mariner;
+    margin-top: -20px;
+    margin-left: 100px;
+  }
+
+  .ted-modal-header {
+    margin-top: 20px;
   }
 
   .swal-content {
