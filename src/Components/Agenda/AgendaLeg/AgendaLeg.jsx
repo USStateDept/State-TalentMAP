@@ -48,7 +48,7 @@ const AgendaLeg = props => {
         <div>
           <Calendar
             className="ted-react-calendar"
-            onChange={(e) => updateDropdown('ted', e)}
+            onChange={(e) => updateDropdown('legEndDate', e)}
           />
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <button onClick={cancel}>Cancel</button>
@@ -82,7 +82,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'ted'))}
+      {formatDate(get(leg, 'legEndDate'))}
       {
         !isEf &&
         <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={calendarModal} />
