@@ -41,13 +41,12 @@ const AgendaLeg = props => {
       closeOnEsc: true,
       button: false,
       content: (
-        // <div style={{ display: 'flex' }}>
         <div className="ted-modal-content-container">
           <div className="ted-modal-header">
-            Editing {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
+            {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
           </div>
-          <div>
-            Organization: ({get(leg, 'org') || 'None listed'})
+          <div className="ted-modal-header">
+            ({get(leg, 'org') || 'None listed'})
           </div>
           <div>
             <Calendar
