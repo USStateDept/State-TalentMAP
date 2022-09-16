@@ -28,7 +28,7 @@ const AgendaLeg = props => {
 
   const updateDropdown = (dropdown, value) => {
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
-    if (dropdown === 'ted') {
+    if (dropdown === 'legEndDate') {
       setCalendarHidden(true);
       swal.close();
     }
