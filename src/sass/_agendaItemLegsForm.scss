@@ -92,14 +92,10 @@
     justify-content: center;
   }
 
-  .swal-break {
-    flex-basis: 100%;
-    height: 0;
-  }
-
   .ted-modal-header {
     margin-top: 20px;
     font-weight: bold;
+    flex-basis: 100%;
   }
 
 .leg-dropdown {

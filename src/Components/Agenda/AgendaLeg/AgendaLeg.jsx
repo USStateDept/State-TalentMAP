@@ -45,11 +45,9 @@ const AgendaLeg = props => {
           <div className="ted-modal-header">
             {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
           </div>
-          <div className="swal-break" />
           <div className="ted-modal-header">
             Organization: ({get(leg, 'org') || 'None listed'})
           </div>
-          <div className="swal-break" />
           <div>
             <Calendar
               className="ted-react-calendar"
