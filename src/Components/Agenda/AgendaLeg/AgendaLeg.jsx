@@ -53,9 +53,9 @@ const AgendaLeg = props => {
               className="ted-react-calendar"
               onChange={(e) => updateDropdown('legEndDate', e)}
             />
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <button onClick={cancel}>Cancel</button>
-            </div>
+          </div>
+          <div className="ted-button">
+            <button onClick={cancel}>Cancel</button>
           </div>
         </div>
       ),

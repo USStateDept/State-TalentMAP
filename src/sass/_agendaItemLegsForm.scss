@@ -90,6 +90,12 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+
+    .ted-button {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 66%;
+    }
   }
 
   .ted-modal-header {
