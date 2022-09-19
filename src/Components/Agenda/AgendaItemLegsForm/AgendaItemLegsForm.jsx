@@ -53,9 +53,9 @@ const AgendaItemLegsForm = props => {
     { text: 'ETA' },
     { text: '' },
     { text: 'TED' },
-    { text: 'TOD', dropdown: true },
-    { text: 'Action', dropdown: true },
-    { text: 'Travel', dropdown: true },
+    { text: 'TOD' },
+    { text: 'Action' },
+    { text: 'Travel' },
   ];
 
   return (
@@ -74,7 +74,7 @@ const AgendaItemLegsForm = props => {
             {
               legHeaderData.map((title, i) => (
                 <InteractiveElement
-                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}${title.dropdown ? ' dropdown-title' : ''}`}
+                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
                   onMouseOver={() => onHover(i + 2)}
                   onMouseLeave={() => onHover('')}
                 >
