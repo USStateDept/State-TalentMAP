@@ -3,7 +3,7 @@
 exports[`AgendaLeg Component matches snapshot 1`] = `
 <Fragment>
   <div
-    className="grid-col-3-icon grid-row-1-icon"
+    className="grid-col-3 grid-row-1"
   >
     <InteractiveElement
       className="remove-leg-button"
