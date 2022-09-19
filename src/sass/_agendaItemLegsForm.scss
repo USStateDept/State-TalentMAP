@@ -31,7 +31,7 @@
     padding: 10px 10px!important;
   }
 
-  .grid-row-1, .grid-row-1-icon {
+  .grid-row-1 {
     font-weight: bold;
     border: none!important;
     padding: 5px!important;
@@ -41,7 +41,7 @@
 
 
   @each $num in $cols-rows {
-    .grid-col-#{$num}, .grid-col-#{$num}-icon  {
+    .grid-col-#{$num}  {
       grid-column: $num;
       border-left: 1px solid $color-gray-lighter;
     }
