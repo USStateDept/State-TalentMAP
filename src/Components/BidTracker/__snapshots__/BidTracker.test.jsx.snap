@@ -44,7 +44,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort={null}
+        defaultSort="-date_created"
         disabled={false}
         emptyOptionText="- Select -"
         id="sort"
@@ -608,7 +608,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort={null}
+        defaultSort="-date_created"
         disabled={false}
         emptyOptionText="- Select -"
         id="sort"

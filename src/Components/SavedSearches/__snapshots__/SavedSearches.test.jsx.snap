@@ -21,7 +21,7 @@ exports[`SavedSearchesComponent matches snapshot 1`] = `
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort={null}
+        defaultSort="-date_created"
         disabled={false}
         emptyOptionText="- Select -"
         id="sort"
