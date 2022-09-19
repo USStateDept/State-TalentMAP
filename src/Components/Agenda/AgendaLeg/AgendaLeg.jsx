@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
@@ -6,6 +5,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { format, isDate } from 'date-fns-v2';
+import swal from '@sweetalert/with-react';
 
 const AgendaLeg = props => {
   const {
@@ -23,13 +23,43 @@ const AgendaLeg = props => {
     onClose(leg);
   };
 
-  const [calendarHidden, setCalendarHidden] = useState(true);
-
   const updateDropdown = (dropdown, value) => {
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
-    if (dropdown === 'ted') {
-      setCalendarHidden(true);
+    if (dropdown === 'legEndDate') {
+      swal.close();
     }
+  };
+
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const calendarModal = () => {
+    swal({
+      title: 'Tour End Date (TED)',
+      closeOnEsc: true,
+      button: false,
+      content: (
+        <div className="ted-modal-content-container">
+          <div className="ted-modal-header">
+            {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
+          </div>
+          <div className="ted-modal-header">
+            Organization: ({get(leg, 'org') || 'None listed'})
+          </div>
+          <div>
+            <Calendar
+              className="ted-react-calendar"
+              onChange={(e) => updateDropdown('legEndDate', e)}
+            />
+          </div>
+          <div className="ted-button">
+            <button onClick={cancel}>Cancel</button>
+          </div>
+        </div>
+      ),
+    });
   };
 
   const getDropdown = (key, data, text) => {
@@ -59,18 +89,7 @@ const AgendaLeg = props => {
       {formatDate(get(leg, 'legEndDate'))}
       {
         !isEf &&
-          <>
-            <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
-            {
-              !calendarHidden &&
-                <div className="ted-calendar-container" id={`cal-${legNum}`}>
-                  <Calendar
-                    className="ted-react-calendar"
-                    onChange={(e) => updateDropdown('legEndDate', e)}
-                  />
-                </div>
-            }
-          </>
+        <FA name="calendar" onClick={calendarModal} />
       }
     </>
   );
