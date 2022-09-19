@@ -7,9 +7,9 @@ import { isEqual } from 'lodash';
 import { deleteSavedSearch, savedSearchesFetchData, setCurrentSavedSearch } from 'actions/savedSearch';
 import { SAVED_SEARCH_PARENT_OBJECT } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from 'Constants/DefaultProps';
+import { SAVED_SEARCH_SORTS } from 'Constants/Sort';
 import { formQueryString } from 'utilities';
 import SavedSearchesMap from '../SavedSearchesMap';
-import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
 
 
 // Wrapper for anything related to saved searches
