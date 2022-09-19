@@ -87,16 +87,19 @@
   .ted-modal-content-container {
     border-top: 1px solid $color-blue-mariner;
     margin-top: -20px;
-    margin-left: 100px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+  }
+
+  .swal-break {
+    flex-basis: 100%;
+    height: 0;
   }
 
   .ted-modal-header {
     margin-top: 20px;
     font-weight: bold;
-  }
-
-  .swal-content {
-    display: flex;
   }
 
 .leg-dropdown {

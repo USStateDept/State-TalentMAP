@@ -37,7 +37,7 @@ const AgendaLeg = props => {
 
   const calendarModal = () => {
     swal({
-      title: 'TED Date Picker',
+      title: 'Tour End Date (TED)',
       closeOnEsc: true,
       button: false,
       content: (
@@ -45,9 +45,11 @@ const AgendaLeg = props => {
           <div className="ted-modal-header">
             {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
           </div>
+          <div className="swal-break" />
           <div className="ted-modal-header">
-            ({get(leg, 'org') || 'None listed'})
+            Organization: ({get(leg, 'org') || 'None listed'})
           </div>
+          <div className="swal-break" />
           <div>
             <Calendar
               className="ted-react-calendar"
