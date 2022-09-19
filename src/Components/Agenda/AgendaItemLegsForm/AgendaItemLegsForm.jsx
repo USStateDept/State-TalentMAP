@@ -45,17 +45,17 @@ const AgendaItemLegsForm = props => {
   };
 
   const legHeaderData = [
-    { text: 'Position Title' },
-    { text: 'Position Number' },
-    { text: 'Grade' },
-    { text: 'Language' },
-    { text: 'Org' },
-    { text: 'ETA' },
-    { text: '' },
-    { text: 'TED' },
-    { text: 'TOD' },
-    { text: 'Action' },
-    { text: 'Travel' },
+    'Position Title',
+    'Position Number',
+    'Grade',
+    'Language',
+    'Org',
+    'ETA',
+    '',
+    'TED',
+    'TOD',
+    'Action',
+    'Travel',
   ];
 
   return (
@@ -78,7 +78,7 @@ const AgendaItemLegsForm = props => {
                   onMouseOver={() => onHover(i + 2)}
                   onMouseLeave={() => onHover('')}
                 >
-                  {title.text}
+                  {title}
                 </InteractiveElement>
               ))
             }
