@@ -73,11 +73,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     <FontAwesome
       name="calendar"
       onClick={[Function]}
-      style={
-        Object {
-          "color": "black",
-        }
-      }
     />
   </div>
   <div
