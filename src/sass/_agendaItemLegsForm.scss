@@ -20,13 +20,7 @@
   
   @each $leg-sm-height-info in $aim-legs-sm-height-config {
     .grid-row-#{nth($leg-sm-height-info, 2)} {
-      min-height: 50px;
-    }
-  }
-
-  @each $leg-info in $aim-legs-row-config {
-    .grid-row-#{nth($leg-info, 2)} {
-      padding-top: 10px;
+      min-height: 60px;
     }
   }
 
@@ -46,23 +40,12 @@
     }
     .grid-row-#{$num} {
       grid-row: $num;
-      padding-left: 10px;
-      padding-right: 10px;
+      padding: 10px;
     }
   }
 
-  // Position Title Header Styling
-  .grid-col-1.grid-row-2 {
-    padding-top: 8px;
-  }
-  
-  // Position Number Header Styling
-  .grid-col-1.grid-row-3 {
-    padding-top: 5px;
-  }
-
+  // Dropdown Columns
   .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
-    padding-bottom: 25px;
     padding-top: 25px;
   }
 
