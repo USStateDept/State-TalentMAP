@@ -12,14 +12,16 @@
     border: none!important;
   }
 
-  @each $leg-lrg-height-info in $aim-legs-lrg-height-config {
-    .grid-row-#{nth($leg-lrg-height-info, 2)} {
+  $aim-legs-lrg: map-values($aim-legs-lrg-height-config);
+  @each $row-num in $aim-legs-lrg {
+    .grid-row-#{$row-num} {
       min-height: 80px;
     }
   }
   
-  @each $leg-sm-height-info in $aim-legs-sm-height-config {
-    .grid-row-#{nth($leg-sm-height-info, 2)} {
+  $aim-legs-sm: map-values($aim-legs-sm-height-config);
+  @each $row-num in $aim-legs-sm {
+    .grid-row-#{$row-num} {
       min-height: 60px;
     }
   }
