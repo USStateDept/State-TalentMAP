@@ -75,6 +75,7 @@ const SavedSearches = props => {
           <SelectForm
             id="sort"
             label="Sort by:"
+            defaultValue={SAVED_SEARCH_SORTS.defaultSort}
             onSelectOption={onSortChange}
             options={SAVED_SEARCH_SORTS.options}
             disabled={savedSearchesIsLoading}

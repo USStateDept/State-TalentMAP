@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isString } from 'lodash';
 import { EMPTY_FUNCTION, SORT_BY_ARRAY } from '../../Constants/PropTypes';
-import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
 
 class SelectForm extends Component {
   constructor(props) {
@@ -93,7 +92,7 @@ SelectForm.propTypes = {
 };
 
 SelectForm.defaultProps = {
-  defaultSort: SAVED_SEARCH_SORTS.defaultSort,
+  defaultSort: null,
   onSelectOption: EMPTY_FUNCTION,
   includeFirstEmptyOption: false,
   emptyOptionText: '- Select -',
