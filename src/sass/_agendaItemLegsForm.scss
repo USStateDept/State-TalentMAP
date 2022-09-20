@@ -10,25 +10,24 @@
   .grid-col-1 {
     font-weight: bold;
     border: none!important;
-    padding: 0 10px!important;
   }
 
-  .grid-row-2, .grid-row-10, .grid-row-11, .grid-row-12 {
-    min-height: 80px !important;
+  @each $leg-lrg-height-info in $aim-legs-lrg-height-config {
+    .grid-row-#{nth($leg-lrg-height-info, 2)} {
+      min-height: 80px;
+    }
   }
   
-  .grid-row-3 {
-    min-height: 50px !important;
-  }
-  
-  .grid-row-4, .grid-row-5, .grid-row-6, .grid-row-7,
-   .grid-row-9 {
-    min-height: 45px !important;
+  @each $leg-sm-height-info in $aim-legs-sm-height-config {
+    .grid-row-#{nth($leg-sm-height-info, 2)} {
+      min-height: 50px;
+    }
   }
 
-  .grid-row-4, .grid-row-5, .grid-row-6, .grid-row-7,
-   .grid-row-9, .grid-row-10, .grid-row-11, .grid-row-12 {
-    padding: 10px 10px!important;
+  @each $leg-info in $aim-legs-row-config {
+    .grid-row-#{nth($leg-info, 2)} {
+      padding-top: 10px;
+    }
   }
 
   .grid-row-1 {
@@ -47,26 +46,28 @@
     }
     .grid-row-#{$num} {
       grid-row: $num;
-      padding: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 
   // Position Title Header Styling
   .grid-col-1.grid-row-2 {
-    padding: 8px 10px !important;
+    padding-top: 8px;
   }
   
   // Position Number Header Styling
   .grid-col-1.grid-row-3 {
-    padding: 5px 10px !important;
+    padding-top: 5px;
   }
 
   .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
-    padding: 25px 10px !important;
+    padding-bottom: 25px;
+    padding-top: 25px;
   }
 
  .grid-row-hover {
-    background-color: $color-gray-lightest !important;
+    background-color: $color-gray-lightest;
   }
 
 
