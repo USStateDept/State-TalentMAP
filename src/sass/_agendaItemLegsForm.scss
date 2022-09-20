@@ -12,15 +12,13 @@
     border: none!important;
   }
 
-  $aim-legs-lrg: map-values($aim-legs-lrg-height-config);
-  @each $row-num in $aim-legs-lrg {
+  @each $row-num in map-values($aim-legs-lrg-height-config) {
     .grid-row-#{$row-num} {
       min-height: 80px;
     }
   }
   
-  $aim-legs-sm: map-values($aim-legs-sm-height-config);
-  @each $row-num in $aim-legs-sm {
+  @each $row-num in map-values($aim-legs-sm-height-config) {
     .grid-row-#{$row-num} {
       min-height: 60px;
     }
