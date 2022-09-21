@@ -22,6 +22,7 @@ const SavedSearches = props => {
     onSortChange,
     mappedParams,
     filtersIsLoading,
+    defaultSort,
   } = props;
 
   const getSearches = useType => {
@@ -78,6 +79,7 @@ const SavedSearches = props => {
             onSelectOption={onSortChange}
             options={SAVED_SEARCH_SORTS.options}
             disabled={savedSearchesIsLoading}
+            defaultSort={defaultSort}
           />
         </div>
       </div>
@@ -114,10 +116,12 @@ SavedSearches.propTypes = {
   mappedParams: MAPPED_PARAM_ARRAY,
   filtersIsLoading: PropTypes.bool.isRequired,
   onSortChange: PropTypes.func.isRequired,
+  defaultSort: PropTypes.string,
 };
 
 SavedSearches.defaultProps = {
   mappedParams: [],
+  defaultSort: '',
 };
 
 export default SavedSearches;
