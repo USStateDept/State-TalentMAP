@@ -33,7 +33,11 @@ const AgendaItemLegsForm = props => {
   const [rowHoverNum, setRowHoverNum] = useState();
 
   const onHover = row => {
-    setRowHoverNum(row);
+    // this should check the row number of the
+    // Arrow Header '' to avoid highlighting the arrow row
+    if (row !== 8) {
+      setRowHoverNum(row);
+    }
   };
 
   const onClose$ = leg => {

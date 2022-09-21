@@ -14,10 +14,10 @@
 
   @each $row-num in map-values($aim-legs-lrg-height-config) {
     .grid-row-#{$row-num} {
-      min-height: 80px;
+      min-height: 95px;
     }
   }
-  
+
   @each $row-num in map-values($aim-legs-sm-height-config) {
     .grid-row-#{$row-num} {
       min-height: 60px;
@@ -122,6 +122,11 @@
     margin-top: 20px;
     font-weight: bold;
     flex-basis: 100%;
+  }
+
+  .swal-aim-ted-calendar {
+    padding: 0px;
+    width: 600px;
   }
 
 .leg-dropdown {
