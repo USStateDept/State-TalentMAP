@@ -257,3 +257,22 @@ $remarks: (
   "T": #446228,
   "W": $color-cornflower-blue, // need to update this one
 );
+
+//**
+//* Agenda Item Maintenance Legs
+//*
+$aim-legs-sm-height-config: (
+  "Position Number": 3,
+  "Grade": 4,
+  "Language": 5,
+  "Org": 6,
+  "ETA": 7,
+  "TED": 9,
+);
+
+$aim-legs-lrg-height-config: (
+  "Position Title": 2,
+  "TOD": 10,
+  "Action": 11,
+  "Travel": 12,
+);

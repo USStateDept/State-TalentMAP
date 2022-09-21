@@ -17,7 +17,17 @@ const AgendaLeg = props => {
     TODs,
     legActionTypes,
     travelFunctions,
+    onHover,
+    rowNum,
   } = props;
+
+  const onHover$ = (row) => {
+    // this should check the row number of getArrow()
+    // to avoid highlighting the arrow
+    if (row !== 8) {
+      onHover(row);
+    }
+  };
 
   const onClose$ = () => {
     onClose(leg);
@@ -159,9 +169,13 @@ const AgendaLeg = props => {
       </div>
       {
         columnData.map((cData, i) => (
-          <div className={`grid-col-${legNum} grid-row-${i + 2}`}>
+          <InteractiveElement
+            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}`}
+            onMouseOver={() => onHover$(i + 2)}
+            onMouseLeave={() => onHover$('')}
+          >
             {cData.content}
-          </div>
+          </InteractiveElement>
         ))
       }
     </>
@@ -177,6 +191,8 @@ AgendaLeg.propTypes = {
   travelFunctions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClose: PropTypes.func.isRequired,
   updateLeg: PropTypes.func.isRequired,
+  onHover: PropTypes.func.isRequired,
+  rowNum: PropTypes.number.isRequired,
 };
 
 AgendaLeg.defaultProps = {
@@ -184,6 +200,8 @@ AgendaLeg.defaultProps = {
   leg: {},
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
+  onHover: EMPTY_FUNCTION,
+  rowNum: null,
 };
 
 export default AgendaLeg;
