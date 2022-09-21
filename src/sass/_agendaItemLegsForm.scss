@@ -14,7 +14,7 @@
 
   @each $row-num in map-values($aim-legs-lrg-height-config) {
     .grid-row-#{$row-num} {
-      min-height: 95px;
+      min-height: 105px;
     }
   }
 
