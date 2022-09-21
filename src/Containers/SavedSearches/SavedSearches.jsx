@@ -10,8 +10,6 @@ import { DEFAULT_USER_PROFILE, POSITION_RESULTS_OBJECT } from 'Constants/Default
 import { SAVED_SEARCH_SORTS } from 'Constants/Sort';
 import { formQueryString } from 'utilities';
 import SavedSearchesMap from '../SavedSearchesMap';
-import { SAVED_SEARCH_SORTS } from '../../Constants/Sort';
-
 
 // Wrapper for anything related to saved searches
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
