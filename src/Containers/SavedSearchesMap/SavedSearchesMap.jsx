@@ -64,7 +64,7 @@ class SavedSearchesMap extends Component {
   }
 
   render() {
-    const { savedSearches, deleteSearch, filters, ChildElement,
+    const { savedSearches, deleteSearch, filters, ChildElement, defaultSort,
       savedSearchesHasErrored, savedSearchesIsLoading, goToSavedSearch,
       filtersIsLoading, onSortChange } = this.props;
     const props = {
@@ -76,6 +76,7 @@ class SavedSearchesMap extends Component {
       goToSavedSearch,
       filtersIsLoading,
       onSortChange,
+      defaultSort,
       mappedParams: filters.mappedParams || [],
     };
 
@@ -96,6 +97,7 @@ SavedSearchesMap.propTypes = {
   ChildElement: PropTypes.func.isRequired,
   filtersIsLoading: PropTypes.bool,
   onSortChange: PropTypes.func.isRequired,
+  defaultSort: PropTypes.string,
 };
 
 SavedSearchesMap.defaultProps = {
@@ -109,6 +111,7 @@ SavedSearchesMap.defaultProps = {
   goToSavedSearch: EMPTY_FUNCTION,
   fetchFilters: EMPTY_FUNCTION,
   filtersIsLoading: true,
+  defaultSort: '',
 };
 
 SavedSearchesMap.contextTypes = {
