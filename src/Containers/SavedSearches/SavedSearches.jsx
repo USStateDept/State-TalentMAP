@@ -66,6 +66,7 @@ class SavedSearchesContainer extends Component {
           goToSavedSearch={this.goToSavedSearch}
           deleteSearch={deleteSearch}
           ChildElement={ChildElement}
+          defaultSort={this.state.defaultSort}
           onSortChange={this.getSortedSearches}
         />
       </div>

@@ -117,7 +117,7 @@ export const UNASSIGNED_BIDDERS_FILTERS = {
   ],
 };
 
-export const SAVED_SEARCH_SORTS = {
+const SAVED_SEARCH_SORTS$ = {
   options: [
     { value: '', text: 'Sort option', disabled: true },
     { value: 'name', text: 'Name: A-Z' },
@@ -126,8 +126,9 @@ export const SAVED_SEARCH_SORTS = {
   ],
 };
 
-SAVED_SEARCH_SORTS.defaultSort = SAVED_SEARCH_SORTS.options[2].value;
+SAVED_SEARCH_SORTS$.defaultSort = SAVED_SEARCH_SORTS$.options[2].value;
 
+export const SAVED_SEARCH_SORTS = SAVED_SEARCH_SORTS$;
 export const POSITION_SEARCH_SORTS_TYPE = 'POSITION_SEARCH_SORTS';
 export const POSITION_PAGE_SIZES_TYPE = 'POSITION_PAGE_SIZES';
 export const BID_PORTFOLIO_SORTS_TYPE = 'BID_PORTFOLIO_SORTS';
