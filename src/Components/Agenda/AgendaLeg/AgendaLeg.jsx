@@ -50,7 +50,7 @@ const AgendaLeg = props => {
       title: 'Tour End Date (TED)',
       closeOnEsc: true,
       button: false,
-      className: 'swal-wide',
+      className: 'swal-no-padding',
       content: (
         <div className="ted-modal-content-container">
           <div className="ted-modal-header">
