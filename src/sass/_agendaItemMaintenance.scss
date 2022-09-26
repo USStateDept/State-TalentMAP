@@ -48,7 +48,7 @@
     }
 
     .remarks-text {
-      float: left;
+      // float: left;
       font-size: 1.1em;
       margin-right: .7rem;
       margin-top: 3px;
@@ -105,9 +105,9 @@
         border-radius: 5px;
         color: $primary-blue;
         background-color: $color-white;
-        display: inline-block;
+        // display: inline-block;
         padding: 10px 20px;
-        float: right;
+        float: right; // keep this
         font-size: 1.4rem;
       }
 
@@ -237,7 +237,7 @@
   }
 
   .maintenance-container-left {
-    float: left;
+    // float: left; // can remove?
     height: 98vh;
     overflow-y: auto;
     padding: 0 10px 20px 0;
@@ -252,10 +252,10 @@
   }
 
   .maintenance-container-left-expanded {
-    float: left;
+    // float: left; // can remove
     height: 98vh;
     overflow-y: auto;
-    padding: 0 10px 20px 0;
+    padding: 0 0 20px 0;
     width: 99%;
 
     .tm-spinner-left-pane {
@@ -276,7 +276,7 @@
 
   .maintenance-container-right {
     background-color: $color-white;
-    float: left;
+    // float: left; // can remove
     height: 98vh;
     margin-left: 20px;
     margin-right: 10px;
@@ -330,7 +330,7 @@
 
   .language-details > span {
     border-left: 1px solid $bg-gray-medium-1;
-    float: inherit;
+    float: inherit; // keep this
     margin-left: 10px;
     padding-left: 10px;
   }
