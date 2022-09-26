@@ -11,7 +11,6 @@ import { SAVED_SEARCH_SORTS } from 'Constants/Sort';
 import { formQueryString } from 'utilities';
 import SavedSearchesMap from '../SavedSearchesMap';
 
-
 // Wrapper for anything related to saved searches
 // Make sure to update Components/ResultsMultiSearchHeader/bypassRoutes.js with any routes
 // that use this container.
