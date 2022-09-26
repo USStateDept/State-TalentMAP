@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Skeleton from 'react-loading-skeleton';
-import { get, keys } from 'lodash';
+import { get, includes, keys } from 'lodash';
 import { formatDate, getCustomLocation, useCloseSwalOnUnmount } from 'utilities';
 import { availableBidderEditData, availableBiddersToggleUser } from 'actions/availableBidders';
 import { useDispatch } from 'react-redux';
@@ -226,7 +226,7 @@ const AvailableBidderRow = (props) => {
       name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),
       skill: <SkillCodeList skillCodes={get(bidder, 'skills')} />,
       grade: get(bidder, 'grade') || NO_GRADE,
-      languages: languages ? getLanguages() : NO_LANGUAGES,
+      languages: languages.length ? getLanguages() : NO_LANGUAGES,
       ted: ted$,
       current_post: currentPost,
       cdo: cdo ? getCDO() : NO_CDO,
@@ -288,8 +288,8 @@ const AvailableBidderRow = (props) => {
     <tr className={getTRClass()}>
       {
         keys(rowSections).map(i => {
-          if (i === 'notes' && rowSections[i] === NO_NOTES) {
-            return (<td key={i}><text aria-disabled="true" className="no-notes">{rowSections[i]}</text></td>);
+          if (includes(['notes', 'languages'], i) && includes([NO_NOTES, NO_LANGUAGES], rowSections[i])) {
+            return (<td key={i}><text aria-disabled="true" className="no-value">{rowSections[i]}</text></td>);
           }
           return (
             <td key={i}>{rowSections[i]}</td>
