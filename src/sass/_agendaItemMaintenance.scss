@@ -252,7 +252,6 @@
   .maintenance-container-left-expanded {
     height: 98vh;
     overflow-y: auto;
-    padding-bottom: 20px;
     width: 99%;
 
     .tm-spinner-left-pane {
@@ -274,7 +273,6 @@
   .maintenance-container-right {
     background-color: $color-white;
     height: 98vh;
-    margin-left: 20px;
     margin-right: 10px;
     overflow-y: auto;
     width: 48%;
