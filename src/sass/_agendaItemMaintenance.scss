@@ -105,7 +105,6 @@
         border-radius: 5px;
         color: $primary-blue;
         background-color: $color-white;
-        display: inline-block;
         padding: 10px 20px;
         float: right;
         font-size: 1.4rem;
@@ -237,7 +236,6 @@
   }
 
   .maintenance-container-left {
-    float: left;
     height: 98vh;
     overflow-y: auto;
     padding: 0 10px 20px 0;
@@ -252,10 +250,8 @@
   }
 
   .maintenance-container-left-expanded {
-    float: left;
     height: 98vh;
     overflow-y: auto;
-    padding: 0 10px 20px 0;
     width: 99%;
 
     .tm-spinner-left-pane {
@@ -276,9 +272,7 @@
 
   .maintenance-container-right {
     background-color: $color-white;
-    float: left;
     height: 98vh;
-    margin-left: 20px;
     margin-right: 10px;
     overflow-y: auto;
     width: 48%;
@@ -417,6 +411,7 @@
 
 .stacked {
   display: block;
+  width: 99%;
 
   .maintenance-container-left-expanded {
     border-bottom: 3px solid $color-black;
@@ -424,31 +419,7 @@
 
   .maintenance-container-right {
     margin-top: 20px;
-    width: 98%;
-  }
-}
-
-@media screen and (min-width: 1441px) and (max-width: 1600px) {
-  .stacked {
     width: 99%;
-  }
-}
-
-@media screen and (min-width: 1367px) and (max-width: 1440px) {
-  .stacked {
-    width: 95%;
-  }
-}
-
-@media screen and (min-width: 1201px) and (max-width: 1366px) {
-  .stacked {
-    width: 90%;
-  }
-}
-
-@media screen and (min-width: 1100px) and (max-width: 1200px) {
-  .stacked {
-    width: 77%;
   }
 }
 
