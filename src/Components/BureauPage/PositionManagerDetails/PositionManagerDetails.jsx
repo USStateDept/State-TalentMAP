@@ -44,13 +44,8 @@ class PositionManagerDetails extends Component {
 
   onSort = sort => {
     this.setState({ ordering: sort }, () => {
-      const { id, ordering, filters } = this.state;
-      const query = {
-        ...filters,
-        ordering,
-      };
-      this.props.getAllBids(id, query);
-      this.props.getBidsRanking(id);
+      this.getPositionBids();
+      this.props.getBidsRanking(this.state.id);
     });
   }
 
