@@ -76,13 +76,15 @@
   .ai-maintenance-header {
     background-color: $tm-white-smoke-light;
     padding-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
 
     .usa-form:not(.remarks, .corrections) {
       max-width: 36rem;
     }
 
     .half-width {
-      width: 51% !important;
+      width: 100% !important;
     }
 
     label {
@@ -94,7 +96,10 @@
     .back-save-btns-container {
       padding-top: 2.5rem;
       min-height: 70px;
-      width: 95%;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      display: flex;
+      width: 100%;
 
       button {
         margin: 0 !important;
@@ -106,7 +111,7 @@
         color: $primary-blue;
         background-color: $color-white;
         padding: 10px 20px;
-        float: right;
+        // float: right;
         font-size: 1.4rem;
       }
 
