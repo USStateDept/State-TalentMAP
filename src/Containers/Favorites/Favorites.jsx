@@ -150,7 +150,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
   withQueryParams({
     page: withDefault(NumberParam, 1),
     sortType: StringParam,
-    navType: withDefault(StringParam, 'open'),
+    navType: withDefault(StringParam, 'all'),
   }, withRouter(
     FavoritePositionsContainer,
   )),
