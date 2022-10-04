@@ -76,8 +76,6 @@
   .ai-maintenance-header {
     background-color: $tm-white-smoke-light;
     padding-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
 
     .usa-form:not(.remarks, .corrections) {
       max-width: 36rem;
@@ -96,9 +94,6 @@
     .back-save-btns-container {
       padding-top: 2.5rem;
       min-height: 70px;
-      justify-content: space-between;
-      padding-bottom: 10px;
-      display: flex;
       width: 100%;
 
       button {
@@ -111,6 +106,7 @@
         color: $primary-blue;
         background-color: $color-white;
         padding: 10px 20px;
+        float: right;
         font-size: 1.4rem;
       }
 
