@@ -230,6 +230,7 @@ const EditBidder = (props) => {
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
                   dateFormat={DATE_FORMAT}
+                  placeholderText="None listed"
                   className={stepLetterOneError ? 'select-error' : ''}
                 />
                 {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
@@ -264,6 +265,7 @@ const EditBidder = (props) => {
                     selected={stepLetterTwo}
                     onChange={updateStepLetterTwo}
                     dateFormat={DATE_FORMAT}
+                    placeholderText="None listed"
                     className={stepLetterTwoError ? 'select-error' : ''}
                     minDate={stepLetterOne}
                   />
