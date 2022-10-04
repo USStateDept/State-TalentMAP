@@ -139,6 +139,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
           onMonthChange={[Function]}
           onSelect={[Function]}
           onYearChange={[Function]}
+          placeholderText="None listed"
           preventOpenOnFocus={false}
           previousMonthAriaLabel="Previous Month"
           previousMonthButtonLabel="Previous Month"
