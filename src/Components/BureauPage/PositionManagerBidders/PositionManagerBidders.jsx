@@ -267,8 +267,6 @@ class PositionManagerBidders extends Component {
     const handshakeRegistered = get(m, 'handshake_registered') === 'Y';
     const active_hs_perdet = get(m, 'active_handshake_perdet');
     const hasAcceptedOtherOffer = get(m, 'has_accepted_other_offer');
-    const bureauOBidderA = (get(handshake, 'hs_status_code') === 'handshake_offered')
-      && (get(handshake, 'bidder_hs_code') === 'handshake_accepted');
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
@@ -340,7 +338,7 @@ class PositionManagerBidders extends Component {
               />
             }
           >
-            { this.props.hasHsReg && bureauOBidderA ?
+            { handshakeRegistered ?
               <>
                 <HandshakeAnimation isBidder />
                 <HandshakeStatus
