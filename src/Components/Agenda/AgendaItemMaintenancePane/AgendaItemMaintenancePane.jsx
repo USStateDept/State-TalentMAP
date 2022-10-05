@@ -21,7 +21,6 @@ const AgendaItemMaintenancePane = (props) => {
     setParentLoadingState,
     unitedLoading,
     userRemarks,
-    leftExpanded,
     updateSelection,
     sendMaintenancePaneInfo,
     legCount,
@@ -141,13 +140,13 @@ const AgendaItemMaintenancePane = (props) => {
     <div className="ai-maintenance-header">
       { !unitedLoading &&
         <>
-          <div className={`back-save-btns-container ${leftExpanded ? ' half-width' : ''}`}>
+          <div className="back-save-btns-container">
             <BackButton />
             <button className="save-ai-btn" onClick={saveAI}>
               Save Agenda Item
             </button>
           </div>
-          <div className={`ai-maintenance-header-dd ${leftExpanded ? ' half-width' : ''}`}>
+          <div className="ai-maintenance-header-dd">
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
@@ -326,7 +325,6 @@ AgendaItemMaintenancePane.propTypes = {
     asgSepBidError: PropTypes.bool,
     asgSepBidLoading: PropTypes.bool,
   }),
-  leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
   setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
@@ -350,7 +348,6 @@ AgendaItemMaintenancePane.propTypes = {
 
 AgendaItemMaintenancePane.defaultProps = {
   asgSepBidData: {},
-  leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
   unitedLoading: true,
