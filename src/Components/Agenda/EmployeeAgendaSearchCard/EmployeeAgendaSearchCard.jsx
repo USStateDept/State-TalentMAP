@@ -61,36 +61,36 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
             </div>
           </div>
         </div>
+      </div>
+      <div className="employee-agenda-card-data-point-top">
         <div>
           <h3>
             {profileLink}
           </h3>
         </div>
-        <div className="employee-agenda-card-data-point-top">
-          <div className="employee-card-data-point">
-            <FA name="id-badge" />
-            <dt>ID:</dt>
-            <dd>{employeeID}</dd>
-          </div>
-          <div className="employee-card-data-point">
-            <FA name="building-o" />
-            <dt>Org:</dt>
-            <dd>
-              {currentPost}
-              <FA className="org-fa-arrow" name="long-arrow-right" />
-              {futurePost}
-            </dd>
-          </div>
-          <div className="employee-card-data-point">
-            <FA name="clock-o" />
-            <dt>TED:</dt>
-            <dd>{ted}</dd>
-          </div>
-          <div className="employee-card-data-point">
-            <FA name="user-o" />
-            <dt>CDO:</dt>
-            <dd>{cdo}</dd>
-          </div>
+        <div className="employee-card-data-point">
+          <FA name="id-badge" />
+          <dt>ID:</dt>
+          <dd>{employeeID}</dd>
+        </div>
+        <div className="employee-card-data-point">
+          <FA name="building-o" />
+          <dt>Org:</dt>
+          <dd>
+            {currentPost}
+            <FA className="org-fa-arrow" name="long-arrow-right" />
+            {futurePost}
+          </dd>
+        </div>
+        <div className="employee-card-data-point">
+          <FA name="clock-o" />
+          <dt>TED:</dt>
+          <dd>{ted}</dd>
+        </div>
+        <div className="employee-card-data-point">
+          <FA name="user-o" />
+          <dt>CDO:</dt>
+          <dd>{cdo}</dd>
         </div>
         {/*
           // TODO - do we want to include and/or filter by Author?
