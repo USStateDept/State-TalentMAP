@@ -230,6 +230,7 @@ const AvailableBidderRow = (props) => {
       ted: ted$,
       current_post: currentPost,
       cdo: cdo ? getCDO() : NO_CDO,
+      updated_on: updateTooltip,
     };
   };
 
