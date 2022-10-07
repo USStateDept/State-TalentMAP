@@ -83,7 +83,7 @@
 
     label {
       font-weight: bold;
-      margin: 10px 10px;
+      margin: 10px 10px 10px 0;
       text-align: left;
       min-width: 160px;
     }
@@ -114,7 +114,7 @@
 
     .corrections, .remarks {
       max-width: fit-content;
-      margin: 10px;
+      margin: 10px 0;
 
       label {
         display: inline;
@@ -131,16 +131,9 @@
     }
 
     .ai-maintenance-header-dd {
-      margin-right: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      width: 94%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 
-      #ai-maintenance-dd-asgSepBids {
-        max-width: fit-content;
-        margin-left: 10px;
-      }
       .asg-disabled {
         background-color: $color-gray-lighter;
         border: 1px solid $color-gray-light;
@@ -242,7 +235,13 @@
       position: absolute;
       top: 40%;
     }
-
+    @media screen and (min-width: 4000px) {
+      .ai-maintenance-header label {
+        margin: 10px;
+        min-width: 0;
+        text-align: right;
+      }
+    }
   }
 
   .maintenance-container-left-expanded {
@@ -254,6 +253,13 @@
       left: 55%;
       position: absolute;
       top: 40%;
+    }
+    @media screen and (min-width: 2300px) {
+      .ai-maintenance-header label {
+        margin: 10px;
+        min-width: 0;
+        text-align: right;
+      }
     }
   }
 
