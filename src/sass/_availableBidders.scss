@@ -209,12 +209,8 @@
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: -50px;
-  .export-button-container {
-    button {
-      position: absolute;
-      right: 50px;
-      top: 100px;
-    }
+  button {
+    margin-right: 0;
   }
 }
 
