@@ -16,16 +16,8 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
     className="employee-agenda-card-inner"
   >
     <div
-      className="employee-agenda-card-top"
-    >
-      <div
-        className="employee-ribbon-container"
-      >
-        <div
-          className="ribbon-container-condensed"
-        />
-      </div>
-    </div>
+      className="ribbon-container-condensed"
+    />
   </div>
   <div
     className="employee-agenda-card-data-point-top"
