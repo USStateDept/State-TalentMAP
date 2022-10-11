@@ -46,10 +46,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   return (
     <BoxShadow className="employee-agenda-stat-card">
       <div className="employee-agenda-card-inner">
-        <div className="employee-agenda-card-top">
-          <div className="employee-ribbon-container">
-            <div className="ribbon-container-condensed">
-              {showHandshakeIcon &&
+        <div className="ribbon-container-condensed">
+          {showHandshakeIcon &&
                   <Tooltip
                     title="Handshake"
                     arrow
@@ -57,9 +55,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
                   >
                     <Handshake showText={false} className="ribbon-condensed-card" />
                   </Tooltip>
-              }
-            </div>
-          </div>
+          }
         </div>
       </div>
       <div className="employee-agenda-card-data-point-top">

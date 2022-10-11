@@ -223,20 +223,13 @@
     .employee-agenda-card-inner {
       padding-right: 16px;
       padding-top: 16px;
-
-      .employee-agenda-card-top {
-        position: relative;
-
-        .employee-ribbon-container {
-          display: flex;
-
-          .ribbon-container-condensed {
-            position: absolute;
-            right: -16px;
-            top: -17px;
-            z-index: 2;
-          }
-        }
+      position: relative;
+      display: flex;
+      .ribbon-container-condensed {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
       }
     }
 
