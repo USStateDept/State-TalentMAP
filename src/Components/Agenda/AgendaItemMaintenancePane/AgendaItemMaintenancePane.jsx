@@ -150,7 +150,6 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  id="ai-maintenance-dd-asgSepBids"
                   className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
@@ -247,7 +246,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
                   >
-                    <option value={''}>Panel Dates - ML</option>
+                    <option value={''}>ML Dates</option>
                     {
                       panelDatesML.map(a => (
                         <option
@@ -264,7 +263,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
                   >
-                    <option value={''}>Panel Dates - ID</option>
+                    <option value={''}>ID Dates</option>
                     {
                       panelDatesID.map(a => (
                         <option
