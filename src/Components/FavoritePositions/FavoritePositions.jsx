@@ -20,7 +20,7 @@ const TYPE_PV_TANDEM = 'pvTandem';
 const TYPE_OPEN_TANDEM = 'openTandem';
 
 const FavoritePositions = props => {
-  const [selected, setSelected] = useState(props.navType === 'all' ? TYPE_OPEN : props.navType);
+  const [selected, setSelected] = useState(props.navType || TYPE_OPEN);
   const [isLoading, setIsLoading] = useState(false);
 
   const { favorites, favoritesTandem, favoritesPV,
