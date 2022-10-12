@@ -16,81 +16,73 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
     className="employee-agenda-card-inner"
   >
     <div
-      className="employee-agenda-card-top"
-    >
-      <div
-        className="employee-ribbon-container"
-      >
-        <div
-          className="ribbon-container-condensed"
-        />
-      </div>
-    </div>
+      className="ribbon-container-condensed"
+    />
+  </div>
+  <div
+    className="employee-agenda-card-data-point-top"
+  >
     <div>
       <h3>
         None listed
       </h3>
     </div>
     <div
-      className="employee-agenda-card-data-point-top"
+      className="employee-card-data-point"
     >
-      <div
-        className="employee-card-data-point"
-      >
+      <FontAwesome
+        name="id-badge"
+      />
+      <dt>
+        ID:
+      </dt>
+      <dd>
+        None listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="building-o"
+      />
+      <dt>
+        Org:
+      </dt>
+      <dd>
+        None listed
         <FontAwesome
-          name="id-badge"
+          className="org-fa-arrow"
+          name="long-arrow-right"
         />
-        <dt>
-          ID:
-        </dt>
-        <dd>
-          None listed
-        </dd>
-      </div>
-      <div
-        className="employee-card-data-point"
-      >
-        <FontAwesome
-          name="building-o"
-        />
-        <dt>
-          Org:
-        </dt>
-        <dd>
-          None listed
-          <FontAwesome
-            className="org-fa-arrow"
-            name="long-arrow-right"
-          />
-          None listed
-        </dd>
-      </div>
-      <div
-        className="employee-card-data-point"
-      >
-        <FontAwesome
-          name="clock-o"
-        />
-        <dt>
-          TED:
-        </dt>
-        <dd>
-          None listed
-        </dd>
-      </div>
-      <div
-        className="employee-card-data-point"
-      >
-        <FontAwesome
-          name="user-o"
-        />
-        <dt>
-          CDO:
-        </dt>
-        <dd>
-          None listed
-        </dd>
-      </div>
+        None listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="clock-o"
+      />
+      <dt>
+        TED:
+      </dt>
+      <dd>
+        None listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="user-o"
+      />
+      <dt>
+        CDO:
+      </dt>
+      <dd>
+        None listed
+      </dd>
     </div>
     <div
       className="employee-card-data-point"
