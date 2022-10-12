@@ -21,7 +21,6 @@ const AgendaItemMaintenancePane = (props) => {
     setParentLoadingState,
     unitedLoading,
     userRemarks,
-    leftExpanded,
     updateSelection,
     sendMaintenancePaneInfo,
     legCount,
@@ -141,17 +140,16 @@ const AgendaItemMaintenancePane = (props) => {
     <div className="ai-maintenance-header">
       { !unitedLoading &&
         <>
-          <div className={`back-save-btns-container ${leftExpanded ? ' half-width' : ''}`}>
+          <div className="back-save-btns-container">
             <BackButton />
             <button className="save-ai-btn" onClick={saveAI}>
               Save Agenda Item
             </button>
           </div>
-          <div className={`ai-maintenance-header-dd ${leftExpanded ? ' half-width' : ''}`}>
+          <div className="ai-maintenance-header-dd">
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  id="ai-maintenance-dd-asgSepBids"
                   className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
@@ -248,7 +246,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
                   >
-                    <option value={''}>Panel Dates - ML</option>
+                    <option value={''}>ML Dates</option>
                     {
                       panelDatesML.map(a => (
                         <option
@@ -265,7 +263,7 @@ const AgendaItemMaintenancePane = (props) => {
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
                   >
-                    <option value={''}>Panel Dates - ID</option>
+                    <option value={''}>ID Dates</option>
                     {
                       panelDatesID.map(a => (
                         <option
@@ -326,7 +324,6 @@ AgendaItemMaintenancePane.propTypes = {
     asgSepBidError: PropTypes.bool,
     asgSepBidLoading: PropTypes.bool,
   }),
-  leftExpanded: PropTypes.bool,
   onAddRemarksClick: PropTypes.func,
   setParentLoadingState: PropTypes.func,
   unitedLoading: PropTypes.bool,
@@ -350,7 +347,6 @@ AgendaItemMaintenancePane.propTypes = {
 
 AgendaItemMaintenancePane.defaultProps = {
   asgSepBidData: {},
-  leftExpanded: false,
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
   unitedLoading: true,

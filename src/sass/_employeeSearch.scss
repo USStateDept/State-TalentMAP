@@ -197,10 +197,10 @@
     border-top: 11px solid $primary-blue;
     display: flex;
     flex-direction: column;
-    height: 335px;
+    height: 385px;
     margin-bottom: 25px;
     margin-right: 40px;
-    width: 335px;
+    width: 355px;
 
     a {
       display: inline-block;
@@ -221,40 +221,38 @@
     }
 
     .employee-agenda-card-inner {
-      padding: 16px;
-
-      .employee-agenda-card-top {
-        position: relative;
-
-        .employee-ribbon-container {
-          display: flex;
-
-          .ribbon-container-condensed {
-            position: absolute;
-            right: -16px;
-            top: -17px;
-            z-index: 2;
-          }
-        }
-      }
-
-      .employee-agenda-card-data-point-top {
-        margin-bottom: 4rem;
-        margin-top: .5rem;
+      padding-right: 16px;
+      padding-top: 16px;
+      position: relative;
+      display: flex;
+      .ribbon-container-condensed {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
       }
     }
 
-    .employee-card-data-point {
-      align-items: center;
+    .employee-agenda-card-data-point-top {
       display: flex;
-      margin-bottom: 5px;
+      flex: 5;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      padding-left: 16px;
 
-      .fa {
-        padding-right: 6px;
-      }
+      .employee-card-data-point {
+        align-items: center;
+        display: flex;
+        margin-bottom: 5px;
 
-      .org-fa-arrow {
-        padding: 0 9px;
+        .fa {
+          padding-right: 6px;
+        }
+
+        .org-fa-arrow {
+          padding: 0 9px;
+        }
       }
     }
 
@@ -264,7 +262,7 @@
 
       > div {
         display: flex;
-        padding: 10px 16px 0;
+        padding: 10px 27px 20px;
       }
 
       .button-container {

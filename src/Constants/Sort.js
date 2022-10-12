@@ -180,7 +180,7 @@ export const BUREAU_BIDDER_SORT = {
     { value: 'bidder_hs', text: 'Handshake' },
     { value: 'bidder_ted', text: 'TED' },
     { value: 'bidder_grade', text: "Bidder's Grade" },
-    { value: 'bidder_langauge', text: "Bidder's Langauge" },
+    { value: 'bidder_language', text: "Bidder's Language" },
     { value: 'bidder_name', text: "Bidder's Name" },
     { value: 'bidder_skill', text: "Bidder's Skill" },
   ],

@@ -87,6 +87,7 @@ const AvailableBidderTable = props => {
     'TED',
     'Post',
     'CDO',
+    'Updated',
   ];
 
   tableHeaders = tableHeaders.filter(f => f);
@@ -151,18 +152,15 @@ const AvailableBidderTable = props => {
       <>
         <div className="ab-table-title-row">
           <h3>{title} {getTitleCount()}</h3>
-          <div className={isInternalCDA ? 'export-button-container' : ''}>
-            {
-              !hasErrored &&
+          {
+            !hasErrored &&
               <ExportButton
                 onClick={exportBidders}
                 isLoading={exportIsLoading}
                 disabled={!bidders.length}
                 text={internalViewToggle || !isInternalCDA ? 'Export' : 'Export External View'}
               />
-
-            }
-          </div>
+          }
         </div>
         <div className={`usa-width-one-whole bidder-manager-bidders ${isInternalCDA ? 'internal ' : ''}ab-lower-section`}>
           {

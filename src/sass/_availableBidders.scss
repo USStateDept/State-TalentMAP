@@ -190,7 +190,6 @@
 }
 
 .internal {
-  overflow-x: auto;
   @media screen and (min-width: 1099px) and (max-width: 1199px) {
     width: 79%;
     margin-left: 0;
@@ -210,12 +209,8 @@
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: -50px;
-  .export-button-container {
-    button {
-      position: absolute;
-      right: 50px;
-      top: 100px;
-    }
+  button {
+    margin-right: 0;
   }
 }
 
@@ -537,8 +532,8 @@
   }
 }
 
-.no-notes {
-  color: $color-gray-light;
+.no-value {
+    color: $color-gray-light;
 }
 
 .step-letter-clear-icon {
