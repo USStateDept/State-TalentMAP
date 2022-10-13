@@ -87,7 +87,6 @@ const AvailableBidderTable = props => {
     'TED',
     'Post',
     'CDO',
-    'Updated',
   ];
 
   tableHeaders = tableHeaders.filter(f => f);
