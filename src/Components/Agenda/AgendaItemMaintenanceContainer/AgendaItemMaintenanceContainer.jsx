@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, find, get, isNil } from 'lodash';
+import { filter, find, get, has, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -40,11 +40,29 @@ const AgendaItemMaintenanceContainer = (props) => {
   // TODO: can they ever have no EF or more than one EF?
   const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
-  const updateSelection = (remark) => {
+  // eslint-disable-next-line no-unused-vars
+  const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
     const found = find(userRemarks$, { seq_num: remark.seq_num });
     if (!found) {
-      userRemarks$.push(remark);
+      const remark$ = { ...remark };
+      if (has(remark$, 'ri_insertions')) {
+        const ariInsertionsArr = [];
+
+        remark$.ri_insertions.forEach(ri => {
+          ariInsertionsArr.push({
+            ri_seq_num: ri.ri_seq_num,
+            ari_insertion_text: textInputs[remark.seq_num][ri.ri_seq_num],
+          });
+        });
+        remark$.ari_insertions = ariInsertionsArr;
+      }
+
+      userRemarks$.push(remark$);
+
+      // eslint-disable-next-line no-console
+      console.log('👻 current: userRemarks$', userRemarks$);
+
       setUserRemarks(userRemarks$);
     } else {
       setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));

@@ -21,6 +21,12 @@ RemarksPill.propTypes = {
     rc_code: PropTypes.string,
     order_num: PropTypes.number,
     short_desc_text: PropTypes.string,
+    ari_insertions: PropTypes.arrayOf(
+      PropTypes.shape({
+        ri_seq_num: PropTypes.number,
+        ari_insertion_text: PropTypes.string,
+      }),
+    ),
     mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
