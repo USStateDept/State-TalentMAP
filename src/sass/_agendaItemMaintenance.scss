@@ -81,20 +81,16 @@
       max-width: 36rem;
     }
 
-    .half-width {
-      width: 51% !important;
-    }
-
     label {
       font-weight: bold;
-      margin: 10px 10px;
-      text-align: end;
+      margin: 10px 10px 10px 0;
+      text-align: left;
+      min-width: 160px;
     }
 
     .back-save-btns-container {
       padding-top: 2.5rem;
       min-height: 70px;
-      width: 95%;
 
       button {
         margin: 0 !important;
@@ -105,7 +101,6 @@
         border-radius: 5px;
         color: $primary-blue;
         background-color: $color-white;
-        display: inline-block;
         padding: 10px 20px;
         float: right;
         font-size: 1.4rem;
@@ -119,7 +114,7 @@
 
     .corrections, .remarks {
       max-width: fit-content;
-      margin: 10px;
+      margin: 10px 0;
 
       label {
         display: inline;
@@ -136,16 +131,9 @@
     }
 
     .ai-maintenance-header-dd {
-      margin-right: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      width: 94%;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 
-      #ai-maintenance-dd-asgSepBids {
-        max-width: fit-content;
-        margin-left: 10px;
-      }
       .asg-disabled {
         background-color: $color-gray-lighter;
         border: 1px solid $color-gray-light;
@@ -237,7 +225,6 @@
   }
 
   .maintenance-container-left {
-    float: left;
     height: 98vh;
     overflow-y: auto;
     padding: 0 10px 20px 0;
@@ -248,20 +235,31 @@
       position: absolute;
       top: 40%;
     }
-
+    @media screen and (min-width: 4000px) {
+      .ai-maintenance-header label {
+        margin: 10px;
+        min-width: 0;
+        text-align: right;
+      }
+    }
   }
 
   .maintenance-container-left-expanded {
-    float: left;
     height: 98vh;
     overflow-y: auto;
-    padding: 0 10px 20px 0;
     width: 99%;
 
     .tm-spinner-left-pane {
       left: 55%;
       position: absolute;
       top: 40%;
+    }
+    @media screen and (min-width: 2300px) {
+      .ai-maintenance-header label {
+        margin: 10px;
+        min-width: 0;
+        text-align: right;
+      }
     }
   }
 
@@ -276,9 +274,7 @@
 
   .maintenance-container-right {
     background-color: $color-white;
-    float: left;
     height: 98vh;
-    margin-left: 20px;
     margin-right: 10px;
     overflow-y: auto;
     width: 48%;
@@ -417,6 +413,7 @@
 
 .stacked {
   display: block;
+  width: 99%;
 
   .maintenance-container-left-expanded {
     border-bottom: 3px solid $color-black;
@@ -424,31 +421,7 @@
 
   .maintenance-container-right {
     margin-top: 20px;
-    width: 98%;
-  }
-}
-
-@media screen and (min-width: 1441px) and (max-width: 1600px) {
-  .stacked {
     width: 99%;
-  }
-}
-
-@media screen and (min-width: 1367px) and (max-width: 1440px) {
-  .stacked {
-    width: 95%;
-  }
-}
-
-@media screen and (min-width: 1201px) and (max-width: 1366px) {
-  .stacked {
-    width: 90%;
-  }
-}
-
-@media screen and (min-width: 1100px) and (max-width: 1200px) {
-  .stacked {
-    width: 77%;
   }
 }
 

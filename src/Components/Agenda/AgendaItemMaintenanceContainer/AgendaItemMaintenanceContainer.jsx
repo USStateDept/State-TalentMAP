@@ -137,7 +137,6 @@ const AgendaItemMaintenanceContainer = (props) => {
                   <Spinner type="left-pane" size="small" />
               }
               <AgendaItemMaintenancePane
-                leftExpanded={(legsContainerExpanded || matches)}
                 onAddRemarksClick={openRemarksResearchTab}
                 perdet={id}
                 unitedLoading={spinner}

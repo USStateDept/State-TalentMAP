@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
@@ -6,6 +5,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { format, isDate } from 'date-fns-v2';
+import swal from '@sweetalert/with-react';
 
 const AgendaLeg = props => {
   const {
@@ -17,19 +17,60 @@ const AgendaLeg = props => {
     TODs,
     legActionTypes,
     travelFunctions,
+    onHover,
+    rowNum,
   } = props;
+
+  const onHover$ = (row) => {
+    // this should check the row number of getArrow()
+    // to avoid highlighting the arrow
+    if (row !== 8) {
+      onHover(row);
+    }
+  };
 
   const onClose$ = () => {
     onClose(leg);
   };
 
-  const [calendarHidden, setCalendarHidden] = useState(true);
-
   const updateDropdown = (dropdown, value) => {
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
-    if (dropdown === 'ted') {
-      setCalendarHidden(true);
+    if (dropdown === 'legEndDate') {
+      swal.close();
     }
+  };
+
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const calendarModal = () => {
+    swal({
+      title: 'Tour End Date (TED)',
+      closeOnEsc: true,
+      button: false,
+      className: 'swal-aim-ted-calendar',
+      content: (
+        <div className="ted-modal-content-container">
+          <div className="ted-modal-header">
+            {get(leg, 'pos_title') || 'None Listed'} ({get(leg, 'pos_num') || 'None Listed'})
+          </div>
+          <div className="ted-modal-header">
+            Organization: ({get(leg, 'org') || 'None listed'})
+          </div>
+          <div>
+            <Calendar
+              className="ted-react-calendar"
+              onChange={(e) => updateDropdown('legEndDate', e)}
+            />
+          </div>
+          <div className="ted-button">
+            <button onClick={cancel}>Cancel</button>
+          </div>
+        </div>
+      ),
+    });
   };
 
   const getDropdown = (key, data, text) => {
@@ -59,18 +100,7 @@ const AgendaLeg = props => {
       {formatDate(get(leg, 'legEndDate'))}
       {
         !isEf &&
-          <>
-            <FA name="calendar" style={{ color: `${calendarHidden ? 'black' : 'red'}` }} onClick={() => setCalendarHidden(!calendarHidden)} />
-            {
-              !calendarHidden &&
-                <div className="ted-calendar-container" id={`cal-${legNum}`}>
-                  <Calendar
-                    className="ted-react-calendar"
-                    onChange={(e) => updateDropdown('legEndDate', e)}
-                  />
-                </div>
-            }
-          </>
+        <FA name="calendar" onClick={calendarModal} />
       }
     </>
   );
@@ -140,9 +170,13 @@ const AgendaLeg = props => {
       </div>
       {
         columnData.map((cData, i) => (
-          <div className={`grid-col-${legNum} grid-row-${i + 2}`}>
+          <InteractiveElement
+            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}`}
+            onMouseOver={() => onHover$(i + 2)}
+            onMouseLeave={() => onHover$('')}
+          >
             {cData.content}
-          </div>
+          </InteractiveElement>
         ))
       }
     </>
@@ -158,6 +192,8 @@ AgendaLeg.propTypes = {
   travelFunctions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClose: PropTypes.func.isRequired,
   updateLeg: PropTypes.func.isRequired,
+  onHover: PropTypes.func.isRequired,
+  rowNum: PropTypes.number.isRequired,
 };
 
 AgendaLeg.defaultProps = {
@@ -165,6 +201,8 @@ AgendaLeg.defaultProps = {
   leg: {},
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
+  onHover: EMPTY_FUNCTION,
+  rowNum: null,
 };
 
 export default AgendaLeg;

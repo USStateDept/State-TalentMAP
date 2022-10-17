@@ -126,7 +126,7 @@ export const SAVED_SEARCH_SORTS = {
   ],
 };
 
-SAVED_SEARCH_SORTS.defaultSort = SAVED_SEARCH_SORTS.options[0].value;
+SAVED_SEARCH_SORTS.defaultSort = SAVED_SEARCH_SORTS.options[2].value;
 
 export const POSITION_SEARCH_SORTS_TYPE = 'POSITION_SEARCH_SORTS';
 export const POSITION_PAGE_SIZES_TYPE = 'POSITION_PAGE_SIZES';
@@ -180,7 +180,7 @@ export const BUREAU_BIDDER_SORT = {
     { value: 'bidder_hs', text: 'Handshake' },
     { value: 'bidder_ted', text: 'TED' },
     { value: 'bidder_grade', text: "Bidder's Grade" },
-    { value: 'bidder_langauge', text: "Bidder's Langauge" },
+    { value: 'bidder_language', text: "Bidder's Language" },
     { value: 'bidder_name', text: "Bidder's Name" },
     { value: 'bidder_skill', text: "Bidder's Skill" },
   ],

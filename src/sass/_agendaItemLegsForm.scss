@@ -1,5 +1,4 @@
 .legs-form-container {
-  //background-color: #ffadad;
   background-color: $color-white;
   border: 2px solid $color-gray-light;
   padding: 0 10px 20px 10px;
@@ -11,19 +10,35 @@
   .grid-col-1 {
     font-weight: bold;
     border: none!important;
-    padding: 0 10px!important;
   }
+
+  @each $row-num in map-values($aim-legs-lrg-height-config) {
+    .grid-row-#{$row-num} {
+      min-height: 80px;
+    }
+  }
+
+  @each $row-num in map-values($aim-legs-sm-height-config) {
+    .grid-row-#{$row-num} {
+      min-height: 60px;
+    }
+  }
+
   .grid-row-1 {
     font-weight: bold;
     border: none!important;
     padding: 5px!important;
   }
 
+  .grid-row-2 {
+    min-height: 105px;
+  }
+
   $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
 
 
   @each $num in $cols-rows {
-    .grid-col-#{$num} {
+    .grid-col-#{$num}  {
       grid-column: $num;
       border-left: 1px solid $color-gray-lighter;
     }
@@ -31,6 +46,15 @@
       grid-row: $num;
       padding: 10px;
     }
+  }
+
+  // Dropdown Columns
+  .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
+    padding-top: 25px;
+  }
+
+ .grid-row-hover {
+    background-color: $color-gray-lightest;
   }
 
 
@@ -58,28 +82,23 @@
     padding-left: 5px;
   }
 
-  .ted-calendar-container {
-    display: inline;
-    padding-left: 10px;
-    position: relative;
+  .ted-react-calendar {
+    width: 280px;
+    margin-top: 30px;
 
-    .ted-react-calendar {
-      width: 280px;
+    .react-calendar__navigation {
+      background-color: $bg-gray-medium-3;
+      margin-bottom: 0;
 
-      .react-calendar__navigation {
-        background-color: $bg-gray-medium-3;
-        margin-bottom: 0;
+      button {
+        font-size: 2rem;
+        font-weight: bold;
+      }
 
-        button {
-          font-size: 2rem;
-          font-weight: bold;
-        }
-
-        .react-calendar__navigation__label {
-          font-size: 1.5rem;
-          font-weight: bold;
-          min-width: 40px;
-        }
+      .react-calendar__navigation__label {
+        font-size: 1.5rem;
+        font-weight: bold;
+        min-width: 40px;
       }
     }
 
@@ -87,6 +106,31 @@
       background-color: $bg-gray-medium-3;
       font-size: .8em;
     }
+  }
+
+  .ted-modal-content-container {
+    border-top: 1px solid $color-blue-mariner;
+    margin-top: -20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+
+    .ted-button {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 66%;
+    }
+  }
+
+  .ted-modal-header {
+    margin-top: 20px;
+    font-weight: bold;
+    flex-basis: 100%;
+  }
+
+  .swal-aim-ted-calendar {
+    padding: 0px;
+    width: 600px;
   }
 
 .leg-dropdown {

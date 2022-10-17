@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
+import InteractiveElement from 'Components/InteractiveElement';
 import AgendaLeg from '../AgendaLeg';
 import Alert from '../../Alert';
 import api from '../../../api';
@@ -28,6 +30,15 @@ const AgendaItemLegsForm = props => {
   const legsLoading = includes([TODLoading, legATLoading, travelFLoading], true);
   const hasEf = !isEmpty(efPos);
   const showOverlay = !legs.length && !hasEf;
+  const [rowHoverNum, setRowHoverNum] = useState();
+
+  const onHover = row => {
+    // this should check the row number of the
+    // Arrow Header '' to avoid highlighting the arrow row
+    if (row !== 8) {
+      setRowHoverNum(row);
+    }
+  };
 
   const onClose$ = leg => {
     onClose(leg);
@@ -66,9 +77,13 @@ const AgendaItemLegsForm = props => {
           <div className="legs-form-container">
             {
               legHeaderData.map((title, i) => (
-                <div className={`grid-col-1 grid-row-${i + 2}`}>
+                <InteractiveElement
+                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
+                  onMouseOver={() => onHover(i + 2)}
+                  onMouseLeave={() => onHover('')}
+                >
                   {title}
-                </div>
+                </InteractiveElement>
               ))
             }
             {
@@ -82,6 +97,8 @@ const AgendaItemLegsForm = props => {
                 onClose={onClose$}
                 updateLeg={updateLeg$}
                 isEf
+                onHover={onHover}
+                rowNum={rowHoverNum}
               />
             }
             {
@@ -95,6 +112,8 @@ const AgendaItemLegsForm = props => {
                   travelFunctions={travelFunctions}
                   onClose={onClose$}
                   updateLeg={updateLeg$}
+                  onHover={onHover}
+                  rowNum={rowHoverNum}
                 />
               ))
             }
