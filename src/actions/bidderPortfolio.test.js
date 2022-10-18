@@ -59,32 +59,6 @@ describe('bidderPortfolio async actions', () => {
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('fetches client statistics', (done) => {
-    store = mockStore({});
-
-    ({ mock, spy } = spyMockAdapter({
-      url: '/client/statistics/', response: [200, bidderPortfolioCountsObject],
-    })); mock();
-
-    store.dispatch(actions.bidderPortfolioCountsFetchData());
-    store.dispatch(actions.bidderPortfolioCountsIsLoading());
-
-    expectMockWasCalled({ spy, cb: done });
-  });
-
-  it('handles failures when fetching client statistics', (done) => {
-    store = mockStore({});
-
-    ({ mock, spy } = spyMockAdapter({
-      url: '/client/statistics/', response: [404, null],
-    })); mock();
-
-    store.dispatch(actions.bidderPortfolioCountsFetchData());
-    store.dispatch(actions.bidderPortfolioCountsIsLoading());
-
-    expectMockWasCalled({ spy, cb: done });
-  });
-
   it('fetches client bidder portfolio CDOs', (done) => {
     store = mockStore({});
 
