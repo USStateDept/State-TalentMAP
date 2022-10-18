@@ -35,16 +35,27 @@ const FavoritePositionsContainer = props => {
   const setNavType$ = e => setQuery({ navType: e, page: 1 });
 
   useEffect(() => {
+    const isNavAll = navType === 'all';
     if (!called ||
       !isEqual(userProfileFavoritePositionIsLoading, prevUserProfileFavoritePositionIsLoading)) {
-      // Only fetch all if counts doesn't exist; otherwise fetch selected navType
-      let type = 'all';
-      if (keys(favoritePositions.counts).length) {
-        type = navType;
+      if (isNavAll) {
+        // on initial page call, grab all favorites
+        setCalled(true);
+        setQuery({ navType: 'open', page: 1 });
+        props.bidListFetchData();
+        getFavorites('pv');
+        getFavorites('pvTandem');
+        getFavorites('openTandem');
+      } else {
+        // Only fetch all if counts doesn't exist; otherwise fetch selected navType
+        let type = 'all';
+        if (keys(favoritePositions.counts).length) {
+          type = navType;
+        }
+        setCalled(true);
+        props.bidListFetchData();
+        getFavorites(type);
       }
-      setCalled(true);
-      props.bidListFetchData();
-      getFavorites(type);
     }
   });
 
@@ -150,7 +161,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(
   withQueryParams({
     page: withDefault(NumberParam, 1),
     sortType: StringParam,
-    navType: withDefault(StringParam, 'open'),
+    navType: withDefault(StringParam, 'all'),
   }, withRouter(
     FavoritePositionsContainer,
   )),
