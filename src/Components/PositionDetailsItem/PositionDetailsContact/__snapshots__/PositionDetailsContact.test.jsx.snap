@@ -68,7 +68,7 @@ exports[`PositionDetailsContact matches snapshot 1`] = `
     className="contact-container has-bid-count no-button"
   >
     <strong>
-      Capsule Last Updated
+      Position Details Last Updated
     </strong>
     : 
   </div>

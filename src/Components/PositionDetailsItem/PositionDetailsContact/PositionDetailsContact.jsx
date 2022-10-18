@@ -148,7 +148,7 @@ class PositionDetailsContact extends Component {
           }
         </div>
         <div className={`contact-container ${isProjectedVacancy ? '' : 'has-bid-count'} ${!OBCUrl ? 'no-button' : ''}`}>
-          <strong>Capsule Last Updated</strong>: {formattedDate}
+          <strong>Position Details Last Updated</strong>: {formattedDate}
         </div>
         <div className="offset-bid-button-container">
           <div className="offset-bid-button-container-button">
