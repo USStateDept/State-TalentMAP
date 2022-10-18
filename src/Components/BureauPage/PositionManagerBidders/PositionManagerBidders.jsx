@@ -267,6 +267,7 @@ class PositionManagerBidders extends Component {
     const handshakeRegistered = get(m, 'handshake_registered') === 'Y';
     const active_hs_perdet = get(m, 'active_handshake_perdet');
     const hasAcceptedOtherOffer = get(m, 'has_accepted_other_offer');
+    const hasHsReg = props.hasHsReg;
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
@@ -362,6 +363,7 @@ class PositionManagerBidders extends Component {
                 personID={m.emp_id}
                 activePerdet={active_hs_perdet}
                 bidCycle={get(props, 'bidCycle', {})}
+                hasHsReg={hasHsReg}
               />
             </PermissionsWrapper>
           }
