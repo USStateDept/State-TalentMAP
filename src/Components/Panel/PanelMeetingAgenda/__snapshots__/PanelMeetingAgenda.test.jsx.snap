@@ -1,83 +1,95 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PanelMeetingAgendaComponent matches snapshot when CDO 1`] = `
-<Router
-  history={
-    Object {
-      "action": "POP",
-      "block": [Function],
-      "canGo": [Function],
-      "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "e3ryrq",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-      ],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "index": 0,
-      "length": 1,
-      "listen": [Function],
-      "location": Object {
-        "hash": "",
-        "key": "e3ryrq",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      "push": [Function],
-      "replace": [Function],
-    }
-  }
+<div
+  className="panel-meeting-agenda-page"
 >
-  <PanelMeetingAgenda
-    isCDO={true}
-  />
-</Router>
+  <div
+    className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container"
+  >
+    <ProfileSectionTitle
+      icon="tasks"
+      title="Panel Meeting Agenda"
+    />
+    <div
+      className="cutoff-date-container"
+    >
+      <div>
+        <span>
+          Preliminary Cut-off:
+        </span>
+        <span
+          className="preliminary-cut-off-date"
+        >
+          05/20/2024 12:00:00
+        </span>
+      </div>
+      <div>
+        <span>
+          Addendum Cut-off:
+        </span>
+        <span
+          className="addendum-cut-off-date"
+        >
+          05/21/2024 13:00:00
+        </span>
+      </div>
+    </div>
+    <ForwardRef
+      defaultValue=""
+      label="Find Panel Meeting Agenda Item"
+      onChange={[Function]}
+      placeHolder="Search using Panel Meeting Agenda Info"
+      submitSearch={[Function]}
+      textSearch=""
+    />
+  </div>
+</div>
 `;
 
 exports[`PanelMeetingAgendaComponent matches snapshot when not CDO 1`] = `
-<Router
-  history={
-    Object {
-      "action": "POP",
-      "block": [Function],
-      "canGo": [Function],
-      "createHref": [Function],
-      "entries": Array [
-        Object {
-          "hash": "",
-          "key": "upifni",
-          "pathname": "/",
-          "search": "",
-          "state": undefined,
-        },
-      ],
-      "go": [Function],
-      "goBack": [Function],
-      "goForward": [Function],
-      "index": 0,
-      "length": 1,
-      "listen": [Function],
-      "location": Object {
-        "hash": "",
-        "key": "upifni",
-        "pathname": "/",
-        "search": "",
-        "state": undefined,
-      },
-      "push": [Function],
-      "replace": [Function],
-    }
-  }
+<div
+  className="panel-meeting-agenda-page"
 >
-  <PanelMeetingAgenda
-    isCDO={false}
-  />
-</Router>
+  <div
+    className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container"
+  >
+    <ProfileSectionTitle
+      icon="tasks"
+      title="Panel Meeting Agenda"
+    />
+    <div
+      className="cutoff-date-container"
+    >
+      <div>
+        <span>
+          Preliminary Cut-off:
+        </span>
+        <span
+          className="preliminary-cut-off-date"
+        >
+          05/20/2024 12:00:00
+        </span>
+      </div>
+      <div>
+        <span>
+          Addendum Cut-off:
+        </span>
+        <span
+          className="addendum-cut-off-date"
+        >
+          05/21/2024 13:00:00
+        </span>
+      </div>
+    </div>
+    <ForwardRef
+      defaultValue=""
+      label="Find Panel Meeting Agenda Item"
+      onChange={[Function]}
+      placeHolder="Search using Panel Meeting Agenda Info"
+      submitSearch={[Function]}
+      textSearch=""
+    />
+  </div>
+</div>
 `;
