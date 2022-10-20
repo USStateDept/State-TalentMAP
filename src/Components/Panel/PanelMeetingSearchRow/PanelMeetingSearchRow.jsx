@@ -41,7 +41,7 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
             <dt>Preliminary Cut-Off:</dt>
             <dd>{preliminaryCutoff}</dd>
           </div>
-          <div className="panel-meeting-row-data-point">
+          <div className="panel-meeting-row-data-point addendum-cut-off-date">
             <dt>Addendum Cut-Off:</dt>
             <dd>{addendum_cutoff}</dd>
           </div>
