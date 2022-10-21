@@ -173,3 +173,12 @@ export function bidderPortfolioLastQuery(state = '/fsbid/client/', action, endpo
       return state;
   }
 }
+
+export function bidderPortfolioSelections(state = {}, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_SELECTIONS_SAVE_SUCCESS':
+      return action.result;
+    default:
+      return state;
+  }
+}

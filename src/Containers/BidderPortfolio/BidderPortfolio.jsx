@@ -19,7 +19,8 @@ class BidderPortfolio extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      limit: { value: CLIENTS_PAGE_SIZES.defaultSort },
+      // limit: { value: CLIENTS_PAGE_SIZES.defaultSort },
+      limit: { value: props.defaultPageSize },
       page: { value: 1 },
       defaultKeyword: { value: '' },
       hasHandshake: { value: props.defaultHandshakeFilter },
@@ -99,6 +100,9 @@ class BidderPortfolio extends Component {
   // When we trigger a new search, we reset the page number and limit.
   createSearchQuery() {
     const { page, limit, hasHandshake, ordering } = this.state;
+    // set our default page size
+    limit.value =
+      parseInt(limit.value, 10) || this.props.defaultPageSize;
     this.mapTypeToQuery();
     const query = {
       page: page.value,
@@ -145,7 +149,6 @@ class BidderPortfolio extends Component {
           defaultOrdering={ordering.value}
         />
       </div>
-
     );
   }
 }
@@ -167,6 +170,7 @@ BidderPortfolio.propTypes = {
   classificationsIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioCDOsIsLoading: PropTypes.bool,
   defaultHandshakeFilter: PropTypes.string,
+  defaultPageSize: PropTypes.number.isRequired,
   defaultSort: PropTypes.string,
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
@@ -211,6 +215,7 @@ const mapStateToProps = state => ({
   classificationsIsLoading: state.classificationsIsLoading,
   classificationsHasErrored: state.classificationsHasErrored,
   classifications: state.classifications,
+  defaultPageSize: get(state, `sortPreferences.${CLIENTS_PAGE_SIZES}.defaultSort`, CLIENTS_PAGE_SIZES.defaultSort),
   defaultHandshakeFilter: get(state, `sortPreferences.${BID_PORTFOLIO_FILTERS_TYPE}.defaultSort`, BID_PORTFOLIO_FILTERS_TYPE.defaultSort),
   defaultSort: get(state, `sortPreferences.${BID_PORTFOLIO_SORTS_TYPE}.defaultSort`, BID_PORTFOLIO_SORTS_TYPE.defaultSort),
   selectedUnassigned: state.bidderPortfolioSelectedUnassigned,

@@ -318,3 +318,14 @@ export function bidderPortfolioFetchDataFromLastQuery() {
       });
   };
 }
+
+export function bidderPortfolioSelectionsSaveSuccess(result) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function bidderPortfolioSelections(queryObject) {
+  return (dispatch) => dispatch(bidderPortfolioSelectionsSaveSuccess(queryObject));
+}

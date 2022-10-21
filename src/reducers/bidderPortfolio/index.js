@@ -4,7 +4,7 @@ import { bidderPortfolio, bidderPortfolioCDOs, bidderPortfolioCDOsHasErrored,
   bidderPortfolioHasErrored, bidderPortfolioIsLoading, bidderPortfolioLastQuery,
   bidderPortfolioSeasons, bidderPortfolioSeasonsHasErrored, bidderPortfolioSeasonsIsLoading,
   bidderPortfolioSelectedCDO, bidderPortfolioSelectedCDOsToSearchBy, bidderPortfolioSelectedSeasons,
-  bidderPortfolioSelectedUnassigned, lastBidderPortfolio,
+  bidderPortfolioSelectedUnassigned, bidderPortfolioSelections, lastBidderPortfolio,
   lastBidderPortfolioHasErrored, lastBidderPortfolioIsLoading } from './bidderPortfolio';
 
 export default { bidderPortfolioSelectedSeasons,
@@ -26,4 +26,5 @@ export default { bidderPortfolioSelectedSeasons,
   bidderPortfolioSelectedCDO,
   bidderPortfolioSelectedCDOsToSearchBy,
   lastBidderPortfolio,
+  bidderPortfolioSelections,
   bidderPortfolioSelectedUnassigned };

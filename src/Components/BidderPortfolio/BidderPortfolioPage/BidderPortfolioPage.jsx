@@ -48,6 +48,13 @@ class BidderPortfolioPage extends Component {
     this.setState({ editType: value });
   };
 
+  /* changePageSize = (e) => {
+    console.log('<<<<<<new PageSize is: ', e);
+    const { pageSize } = e;
+    this.setState({ pageSize });
+  }; */
+
+
   render() {
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
@@ -61,6 +68,11 @@ class BidderPortfolioPage extends Component {
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
 
+    // console.log('<<<<<<<<<current pageSize is: ', pageSize);
+    /* if (pageSize !== this.state.pageSize) {
+      this.changePageSize();
+    } */
+    // console.log('<<<<<<<<<pageNum: ', pageNumber);
     let viewTypeClass = 'card-view';
     if (isListView) { viewTypeClass = 'list-view'; }
 
