@@ -1,22 +1,65 @@
 .panel-meeting-agenda-page {
-    .panel-meeting-agenda-upper-section {
-        background-color: $bg-blue-dark-1;
-        box-shadow: 20px 20px 20px $bg-gray-medium-2;
-        color: $color-white;
-        max-width: none;
-        padding: 20px 35px 35px;
-
-        .cutoff-date-container {
-          float: right;
-          margin-right: 9em;
-
-          .preliminary-cut-off-date {
-            margin-left: 10px;
-          }
-          
-          .addendum-cut-off-date {
-            margin-left: 12px;
-          }
-        }
+  .panel-meeting-agenda-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    color: $color-white;
+    max-width: none;
+    padding: 20px 35px 35px;
+    
+    .cutoff-date-container {
+      float: right;
+      margin-right: 9em;
+      
+      .preliminary-cut-off-date {
+        margin-left: 10px;
+      }
+      
+      .addendum-cut-off-date {
+        margin-left: 12px;
+      }
     }
+  }
+  
+  .filterby-container {
+    display: flex;
+    margin-top: 20px;
+    
+    .filterby-label {
+      font-size: 20px;
+      margin-bottom: 10px;
+      width: 115px;
+    }
+    
+    .filterby-clear {
+      font-weight: bold;
+      
+      .fa-times {
+        color: $color-red;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .panel-meeting-agenda-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+      margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+        min-width: 115px;
+        text-align: end;
+      }
+
+      .picky {
+        color: $color-black;
+        width: 200px;
+      }
+    }
+  }
+
 }
