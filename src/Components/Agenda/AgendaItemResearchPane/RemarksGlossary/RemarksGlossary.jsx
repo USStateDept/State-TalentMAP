@@ -1,5 +1,6 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
-import { find, get, has, isEqual, orderBy, uniqBy } from 'lodash';
+import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -11,22 +12,28 @@ import Fuse from 'fuse.js';
 const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
 
-  // still need indicator to come through for input
   const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
-    textInputs$[rSeq][riSeq] = value;
+    if (!textInputs$[rSeq.toString()]) {
+      textInputs$[rSeq.toString()] = {};
+      textInputs$[rSeq.toString()][riSeq.toString()] = value;
+    } else {
+      textInputs$[rSeq.toString()][riSeq.toString()] = value;
+    }
     setTextInputs(textInputs$);
   };
 
   const setTextInputBulk = (remarksArr = []) => {
     const textInputs$ = {};
     remarksArr.forEach(r => {
-      if (has(r, 'ri_insertions')) {
-        r.ri_insertions.forEach(ri => {
-          //seq num ints wont work as obj keys, will have to typecast
-          textInputs$[r.seq_num][ri.ri_seq_num] = ri.ri_insertion_text;
-        });
-      }
+      r.remark_inserts.forEach(ri => {
+        if (!textInputs$[(r.seq_num).toString()]) {
+          textInputs$[(r.seq_num).toString()] = {};
+          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
+        } else {
+          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
+        }
+      });
     });
     if (!isEqual(textInputs$, textInputs)) {
       setTextInputs(textInputs$);
@@ -35,30 +42,49 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
 
-  // eslint-disable-next-line no-unused-vars
-  const getInsertionType = (type, r) => {
+  const getInsertionType = (type, ri) => {
     // date: date, date2,
     // number:  #,
     // text: not sure yet, but likely to be the default
     const type$ = type.replace(/[{}\d]/g, '').replace(/#/g, 'number');
     const returnTypes = {
       text: (<TextInput
-        value={getTextInputValue(get(r, 'seq_num'), get(r, 'ri_insertion.ri_seq_num'))}
-        changeText={v => setTextInput(get(r, 'seq_num'), get(r, 'ri_insertion.ri_seq_num'), v)}
-        customContainerClass="remarks-input-container"
+        value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
+        changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
+        customContainerClass="remark-input"
         inputProps={{ autoComplete: 'off' }}
       />),
       date: (<DatePicker
-        selected={getTextInputValue(get(r, 'seq_num'), get(r, 'ri_insertion.ri_seq_num'))}
-        onChange={v => setTextInput(get(r, 'seq_num'), get(r, 'ri_insertion.ri_seq_num'), v)}
+        selected={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
+        onChange={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
         showTimeSelect
         timeFormat="HH:mm"
         timeIntervals={15}
         timeCaption="time"
         dateFormat="MMMM d, yyyy h:mm aa"
+        className="remark-input"
       />),
     };
-    return returnTypes[type$];
+    return returnTypes[type$] || returnTypes.text;
+  };
+
+  const renderText = r => {
+    const rText = r.text.split(/(\s+)/);
+    const regex = /({.*})/g;
+    let regNum = 0;
+
+    rText.forEach((a, i) => {
+      if (a.match(regex)) {
+        if (r['remark_inserts'][regNum]){
+          rText.splice(i, 1, getInsertionType(a, r['remark_inserts'][regNum]));
+        }
+          regNum += 1;
+      }
+    });
+
+    return (
+      <div className="remark-input-container">{rText}</div>
+    );
   };
 
   const [remarks$, setRemarks$] = useState(remarks);
@@ -124,11 +150,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
                     <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
                       <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
                     </InteractiveElement>
-                    <span className="remark-text">{r.text}</span>
-                    {/* {r.ri_insertions.map(ri_insert => ( */}
-                    {/*  getInsertionType(ri_insert.ri_insertion_text, r) */}
-                    {/* ))} */}
-                    {getInsertionType('text', r)}
+                    {renderText(r)}
                   </li>)
                 ))}
               </ul>

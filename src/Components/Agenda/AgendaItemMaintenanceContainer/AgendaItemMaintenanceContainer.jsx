@@ -46,23 +46,16 @@ const AgendaItemMaintenanceContainer = (props) => {
     const found = find(userRemarks$, { seq_num: remark.seq_num });
     if (!found) {
       const remark$ = { ...remark };
-      if (has(remark$, 'ri_insertions')) {
-        const ariInsertionsArr = [];
 
-        remark$.ri_insertions.forEach(ri => {
-          ariInsertionsArr.push({
-            ri_seq_num: ri.ri_seq_num,
-            ari_insertion_text: textInputs[remark.seq_num][ri.ri_seq_num],
-          });
-        });
-        remark$.ari_insertions = ariInsertionsArr;
+      if (has(remark$, 'remark_inserts')) {
+        const tempKey = (remark$.seq_num).toString();
+        if (!remark$.ari_insertions) {
+          remark$.ari_insertions = {};
+        }
+        remark$.ari_insertions = textInputs[tempKey];
       }
 
       userRemarks$.push(remark$);
-
-      // eslint-disable-next-line no-console
-      console.log('👻 current: userRemarks$', userRemarks$);
-
       setUserRemarks(userRemarks$);
     } else {
       setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
