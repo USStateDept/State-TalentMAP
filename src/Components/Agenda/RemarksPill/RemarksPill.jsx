@@ -1,24 +1,29 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { get, isEmpty } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
   const { remark, isEditable, updateSelection } = props;
 
   const getRemarkText = (r) => {
-    const rText = r.text.split(' ');
+    if (!isEmpty(r)) {
+      let rText = get(r, 'text');
+      rText = rText.split(' ');
 
-    const regex = /({.*})/g;
-    let regNum = 0;
-    rText.forEach((a, i) => {
-      if (a.match(regex)) {
-        const riSeqNum = r.remark_inserts[regNum].riseqnum;
-        rText.splice(i, 1, r.ari_insertions[riSeqNum]);
-        regNum += 1;
-      }
-    });
+      const regex = /({.*})/g;
+      let regNum = 0;
+      rText.forEach((a, i) => {
+        if (a.match(regex)) {
+          const riSeqNum = r.remark_inserts[regNum].riseqnum;
+          rText.splice(i, 1, r.ari_insertions[riSeqNum]);
+          regNum += 1;
+        }
+      });
 
-    return rText.join(' ');
+      return rText.join(' ');
+    }
+    return '';
   };
 
   return (

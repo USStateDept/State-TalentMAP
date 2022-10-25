@@ -10,7 +10,7 @@ exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
 <div
   className="remarks-pill remark-category--B"
 >
-  Potential recognized by last promo board
+  Potential recognized by GTM/EX/OTS/SSD/OAB/OS at last promo board 1.1.1600
   <FontAwesome
     name="times"
     onClick={[Function]}

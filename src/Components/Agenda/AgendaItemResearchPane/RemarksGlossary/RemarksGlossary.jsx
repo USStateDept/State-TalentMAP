@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
@@ -75,10 +74,10 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
     rText.forEach((a, i) => {
       if (a.match(regex)) {
-        if (r['remark_inserts'][regNum]){
-          rText.splice(i, 1, getInsertionType(a, r['remark_inserts'][regNum]));
+        if (r.remark_inserts[regNum]) {
+          rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
         }
-          regNum += 1;
+        regNum += 1;
       }
     });
 
