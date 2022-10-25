@@ -9,7 +9,7 @@ import { useCloseSwalOnUnmount } from 'utilities';
 import EditHandshake from '../EditHandshake';
 
 const HandshakeBureauButton = props => {
-  const { positionID, personID, bidCycle } = props;
+  const { positionID, personID, bidCycle, positionHasHsReg } = props;
   const [handshake, setHandshake] = useState(props.handshake);
   const [activePerdet, setActivePerdet] = useState(props.activePerdet);
 
@@ -64,7 +64,7 @@ const HandshakeBureauButton = props => {
   };
 
   const disabledOffer = () => {
-    if ((!activePerdet && !isNull(activePerdet)) || isNull(hsAllowed)) {
+    if ((!activePerdet && !isNull(activePerdet)) || isNull(hsAllowed) || positionHasHsReg) {
       return true;
     }
     return false;
@@ -97,6 +97,7 @@ HandshakeBureauButton.propTypes = {
   positionID: PropTypes.string,
   personID: PropTypes.string,
   activePerdet: PropTypes.string,
+  positionHasHsReg: PropTypes.bool,
 };
 
 HandshakeBureauButton.defaultProps = {
@@ -106,6 +107,7 @@ HandshakeBureauButton.defaultProps = {
   personID: '',
   disabled: true,
   activePerdet: null,
+  positionHasHsReg: false,
 };
 
 export default HandshakeBureauButton;
