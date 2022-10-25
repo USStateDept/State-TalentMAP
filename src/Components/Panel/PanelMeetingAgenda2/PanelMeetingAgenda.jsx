@@ -181,22 +181,24 @@ const PanelMeetingAgenda = () => {
     <div className="panel-meeting-agenda-page">
       <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
         <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
-        <div className="cutoff-date-container">
-          <div>
-            <span>
+        <div className="date-container">
+          <div className="cutoff-date-container">
+            <div>
+              <span>
               Preliminary Cut-off:
-            </span>
-            <span className="preliminary-cut-off-date">
-              {preliminaryCutoff}
-            </span>
-          </div>
-          <div>
-            <span>
+              </span>
+              <span className="preliminary-cut-off-date">
+                {preliminaryCutoff}
+              </span>
+            </div>
+            <div>
+              <span>
               Addendum Cut-off:
-            </span>
-            <span className="addendum-cut-off-date">
-              {addendumCutoff}
-            </span>
+              </span>
+              <span className="addendum-cut-off-date">
+                {addendumCutoff}
+              </span>
+            </div>
           </div>
         </div>
         <PositionManagerSearch
