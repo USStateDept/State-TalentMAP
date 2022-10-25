@@ -80,8 +80,8 @@ const PanelMeetingAgenda = () => {
   return (
     <div className="panel-meeting-search-page">
       <div className="usa-grid-full panel-meeting-search-upper-section results-search-bar-container">
-        <BackButton />
         <ProfileSectionTitle title="Panel Meeting Agenda" icon="comment" />
+        <BackButton />
         <PositionManagerSearch
           submitSearch={submitSearch}
           onChange={setTextInputThrottled}
