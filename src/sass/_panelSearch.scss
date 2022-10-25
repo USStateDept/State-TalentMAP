@@ -133,7 +133,7 @@
 
 .panel-meeting-row {
   margin-top: 1rem;
-  
+
   .panel-meeting-stat-row {
     border: 1px solid $color-gray-light;
     border-left: 11px solid $primary-blue;
@@ -166,7 +166,7 @@
       font-size: 1.2em;
       line-height: 1.3em;
       margin: 8px 0 .3rem 15rem;
-      
+
       .row-name {
         color: $primary-blue;
         font-size: .9em;
@@ -192,7 +192,7 @@
     .button-container {
       float: right;
       padding-bottom: 30px;
-      
+
       @media screen and (max-width: 1250px) {
         padding-bottom: 0px;
         padding-top: 20px;
@@ -222,3 +222,4 @@
     }
   }
 }
+

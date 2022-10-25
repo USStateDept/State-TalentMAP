@@ -77,7 +77,7 @@ exports[`PanelMeetingSearchRow matches snapshot 1`] = `
       >
         <LinkButton
           className="button-box"
-          toLink="/profile/ao/panel/"
+          toLink="/profile/ao/panelmeetingagenda/"
         >
           Go to Panel
         </LinkButton>
