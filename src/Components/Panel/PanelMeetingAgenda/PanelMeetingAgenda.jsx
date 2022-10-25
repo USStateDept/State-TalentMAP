@@ -1,19 +1,143 @@
 // import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { formatDate } from 'utilities';
+import { filter, flatten, get, isEmpty, throttle } from 'lodash';
+import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 
 const PanelMeetingAgenda = () => {
   const childRef = useRef();
+  const dispatch = useDispatch();
 
   const preliminaryCutoff = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const addendumCutoff = formatDate('2024-05-21T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
 
+  const panelMeetingAgendasFilters = useSelector(state => state.panelMeetingAgendasFilters);
+  const panelMeetingsFiltersIsLoading = useSelector(state =>
+    state.panelMeetingAgendasFiltersFetchDataLoading);
+
+  const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
+
+  // const [limit, setLimit] = useState(get(userSelections, 'limit')
+  //  || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
+  // const [ordering, setOrdering] = useState(get(userSelections, 'ordering')
+  //  || PANEL_MEETINGS_SORT.defaultSort);
+
+  const [selectedBureau, setSelectedBureau] = useState(get(userSelections, 'selectedBureau') || []);
+  const [selectedCategory, setSelectedCategory] = useState(get(userSelections, 'selectedCategory') || []);
+  const [selectedGrade, setSelectedGrade] = useState(get(userSelections, 'selectedGrade') || []);
+  const [selectedItemAction, setSelectedItemAction] = useState(get(userSelections, 'selectedItemAction') || []);
+  const [selectedItemStatus, setSelectedItemStatus] = useState(get(userSelections, 'selectedItemStatus') || []);
+  const [selectedLanguage, setSelectedLanguage] = useState(get(userSelections, 'selectedLanguage') || []);
+  const [selectedLocation, setSelectedLocation] = useState(get(userSelections, 'selectedLocation') || []);
+  const [selectedOverseas, setSelectedOverseas] = useState(get(userSelections, 'selectedOverseas') || []);
+  const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
+  const [selectedSkill, setSelectedSkill] = useState(get(userSelections, 'selectedSkill') || []);
+
+  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
+  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
+
   const [clearFilters, setClearFilters] = useState(false);
+
+  const isLoading = panelMeetingsFiltersIsLoading;
+
+  const getQuery = () => ({
+    // limit,
+    // ordering,
+
+    // User Filters
+    bureau: selectedBureau.map(meetingObject => (get(meetingObject, 'code'))),
+    category: selectedCategory.map(meetingObject => (get(meetingObject, 'code'))),
+    grade: selectedGrade.map(meetingObject => (get(meetingObject, 'code'))),
+    itemAction: selectedItemAction.map(meetingObject => (get(meetingObject, 'code'))),
+    itemStatus: selectedItemStatus.map(meetingObject => (get(meetingObject, 'code'))),
+    language: selectedLanguage.map(meetingObject => (get(meetingObject, 'code'))),
+    location: selectedLocation.map(meetingObject => (get(meetingObject, 'code'))),
+    overseas: selectedOverseas.map(meetingObject => (get(meetingObject, 'code'))),
+    remarks: selectedRemarks.map(meetingObject => (get(meetingObject, 'code'))),
+    skill: selectedSkill.map(meetingObject => (get(meetingObject, 'code'))),
+
+    // Free Text
+    q: textInput || textSearch,
+  });
+
+  const getCurrentInputs = () => ({
+    // limit,
+    // ordering,
+    selectedBureau,
+    selectedCategory,
+    selectedGrade,
+    selectedItemAction,
+    selectedItemStatus,
+    selectedLanguage,
+    selectedLocation,
+    selectedOverseas,
+    selectedRemarks,
+    selectedSkill,
+    textInput,
+    textSearch,
+  });
+
+  useEffect(() => {
+    dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(panelMeetingAgendasFiltersFetchData());
+  }, []);
+
+  const fetchAndSet = () => {
+    const filters = [
+      selectedBureau,
+      selectedCategory,
+      selectedGrade,
+      selectedItemAction,
+      selectedItemStatus,
+      selectedLanguage,
+      selectedLocation,
+      selectedOverseas,
+      selectedRemarks,
+      selectedSkill,
+    ];
+    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+    dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    // limit,
+    // ordering,
+    selectedBureau,
+    selectedCategory,
+    selectedGrade,
+    selectedItemAction,
+    selectedItemStatus,
+    selectedLanguage,
+    selectedLocation,
+    selectedOverseas,
+    selectedRemarks,
+    selectedSkill,
+    textSearch,
+  ]);
+
+  function submitSearch(text) {
+    setTextSearch(text);
+  }
+
+  const throttledTextInput = () =>
+    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
+
+  const setTextInputThrottled = (q) => {
+    throttledTextInput(q);
+  };
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
     const getSelected = item => !!selected.find(f => f.code === item.code);
@@ -38,6 +162,18 @@ const PanelMeetingAgenda = () => {
   };
 
   const resetFilters = () => {
+    setSelectedBureau([]);
+    setSelectedCategory([]);
+    setSelectedGrade([]);
+    setSelectedItemAction([]);
+    setSelectedItemStatus([]);
+    setSelectedLanguage([]);
+    setSelectedLocation([]);
+    setSelectedOverseas([]);
+    setSelectedRemarks([]);
+    setSelectedSkill([]);
+    setTextSearch('');
+    childRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -64,7 +200,10 @@ const PanelMeetingAgenda = () => {
           </div>
         </div>
         <PositionManagerSearch
+          submitSearch={submitSearch}
+          onChange={setTextInputThrottled}
           ref={childRef}
+          textSearch={textSearch}
           label="Find Panel Meeting Agenda Item"
           placeHolder="Search using Panel Meeting Agenda Item Info"
         />
@@ -85,8 +224,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Bureau"
+              value={selectedBureau}
+              options={get(panelMeetingAgendasFilters, 'bureau', [])}
+              onChange={setSelectedBureau}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -94,8 +237,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Category"
+              value={selectedCategory}
+              options={get(panelMeetingAgendasFilters, 'category', [])}
+              onChange={setSelectedCategory}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -103,8 +250,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Grade"
+              value={selectedGrade}
+              options={get(panelMeetingAgendasFilters, 'grade', [])}
+              onChange={setSelectedGrade}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -112,8 +263,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Item Action"
+              value={selectedItemAction}
+              options={get(panelMeetingAgendasFilters, 'itemAction', [])}
+              onChange={setSelectedItemAction}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -121,8 +276,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Item Status"
+              value={selectedItemStatus}
+              options={get(panelMeetingAgendasFilters, 'itemStatus', [])}
+              onChange={setSelectedItemStatus}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -130,8 +289,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Language"
+              value={selectedLanguage}
+              options={get(panelMeetingAgendasFilters, 'language', [])}
+              onChange={setSelectedLanguage}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -139,8 +302,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Location (Org)"
+              value={selectedLocation}
+              options={get(panelMeetingAgendasFilters, 'location', [])}
+              onChange={setSelectedLocation}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -148,8 +315,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Overseas"
+              value={selectedOverseas}
+              options={get(panelMeetingAgendasFilters, 'overseas', [])}
+              onChange={setSelectedOverseas}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -157,8 +328,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Remarks"
+              value={selectedRemarks}
+              options={get(panelMeetingAgendasFilters, 'remarks', [])}
+              onChange={setSelectedRemarks}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
           <div className="filter-div">
@@ -166,8 +341,12 @@ const PanelMeetingAgenda = () => {
             <Picky
               {...pickyProps}
               placeholder="Select Skill"
+              value={selectedSkill}
+              options={get(panelMeetingAgendasFilters, 'skill', [])}
+              onChange={setSelectedSkill}
               valueKey="code"
               labelKey="description"
+              disabled={isLoading}
             />
           </div>
         </div>

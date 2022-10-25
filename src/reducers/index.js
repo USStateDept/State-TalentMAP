@@ -62,6 +62,7 @@ import positions from './positions';
 import agendaEmployees from './agendaEmployees';
 import panelMeetings from './panelMeetings';
 import agendaItemMaintenancePane from './agendaItemMaintenancePane';
+import panelMeetingAgendas from './panelMeetingAgendas';
 
 export default (history) => combineReducers({
   ...results,
@@ -121,6 +122,7 @@ export default (history) => combineReducers({
   ...panelMeetings,
   ...agendaItemMaintenancePane,
   ...positions,
+  ...panelMeetingAgendas,
   router: connectRouter(history),
   client,
   login,
