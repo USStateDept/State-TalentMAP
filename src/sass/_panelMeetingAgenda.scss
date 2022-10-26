@@ -12,15 +12,17 @@
     }
 
     .cutoff-date-container {
+      border: 3px solid white;
       margin-top: 15px;
       display: inline-grid;
       grid-auto-flow: column;
       grid-template-rows: repeat(2, auto);
+      padding: 15px 0px 5px 25px;
 
       .panel-meeting-agenda-header-data-point {
         align-items: center;
         display: flex;
-        margin: 0 8rem 1.5rem 0;
+        margin: 0 3rem 1.5rem .1rem;
 
         dd {
           margin-left: 5px;
