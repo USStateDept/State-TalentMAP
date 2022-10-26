@@ -49,6 +49,12 @@ const PanelMeetingAgenda = props => {
   const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const remarksOptions = uniqBy(sortBy(get(remarks, 'data.data.results'), [(c) => c.text]), 'text');
+  const itemStatus = useDataLoader(api().get, '/fsbid/agenda/statuses/');
+  const itemStatusOptions = uniqBy(sortBy(get(itemStatus, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
+  const itemAction = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  const itemActionOptions = uniqBy(sortBy(get(itemAction, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
+  const category = useDataLoader(api().get, '/panel/categories/');
+  const categoryOptions = uniqBy(sortBy(get(category, 'data.data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
 
   const [selectedBureau, setSelectedBureau] = useState(get(userSelections, 'selectedBureau') || []);
   const [selectedCategory, setSelectedCategory] = useState(get(userSelections, 'selectedCategory') || []);
@@ -57,7 +63,6 @@ const PanelMeetingAgenda = props => {
   const [selectedItemStatus, setSelectedItemStatus] = useState(get(userSelections, 'selectedItemStatus') || []);
   const [selectedLanguage, setSelectedLanguage] = useState(get(userSelections, 'selectedLanguage') || []);
   const [selectedPost, setSelectedPost] = useState(get(userSelections, 'selectedPost') || []);
-  const [selectedOverseas, setSelectedOverseas] = useState(get(userSelections, 'selectedOverseas') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
   const [selectedSkill, setSelectedSkill] = useState(get(userSelections, 'selectedSkill') || []);
 
@@ -75,18 +80,15 @@ const PanelMeetingAgenda = props => {
     limit,
     ordering,
     // User Filters
+    [get(grades, 'item.selectionRef')]: selectedBureau.map(gradeObject => (get(gradeObject, 'code'))),
     [get(grades, 'item.selectionRef')]: selectedGrade.map(gradeObject => (get(gradeObject, 'code'))),
     [get(skills, 'item.selectionRef')]: selectedSkill.map(skillObject => (get(skillObject, 'code'))),
     [get(posts, 'item.selectionRef')]: selectedPost.map(postObject => (get(postObject, 'code'))),
     [get(languages, 'item.selectionRef')]: selectedLanguage.map(langObject => (get(langObject, 'code'))),
+    itemAction: selectedItemAction.map(itemActionObject => (get(itemActionObject, 'desc_text'))),
+    itemStatus: selectedItemStatus.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
+    category: selectedCategory.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
     remarks: selectedRemarks.map(remarkObject => (get(remarkObject, 'text'))),
-
-    [get(grades, 'item.selectionRef')]: selectedBureau.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedCategory.map(skillObject => (get(skillObject, 'code'))),
-    [get(posts, 'item.selectionRef')]: selectedItemAction.map(postObject => (get(postObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedItemStatus.map(langObject => (get(langObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedOverseas.map(langObject => (get(langObject, 'code'))),
-
 
     // Free Text
     q: textInput || textSearch,
@@ -102,7 +104,6 @@ const PanelMeetingAgenda = props => {
     selectedItemStatus,
     selectedLanguage,
     selectedPost,
-    selectedOverseas,
     selectedRemarks,
     selectedSkill,
     textInput,
@@ -128,7 +129,6 @@ const PanelMeetingAgenda = props => {
       selectedItemStatus,
       selectedLanguage,
       selectedPost,
-      selectedOverseas,
       selectedRemarks,
       selectedSkill,
     ];
@@ -153,7 +153,6 @@ const PanelMeetingAgenda = props => {
     selectedItemStatus,
     selectedLanguage,
     selectedPost,
-    selectedOverseas,
     selectedRemarks,
     selectedSkill,
     textSearch,
@@ -173,20 +172,30 @@ const PanelMeetingAgenda = props => {
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
     // only Remarks needs to use 'text'
-    if (!has(items[0], 'code')) {
+    if (has(items[0], 'text')) {
       codeOrText = 'text';
+    }
+    // only Item Action/Status use 'desc_text'
+    if (has(items[0], 'desc_text')) {
+      codeOrText = 'desc_text';
+    }
+    // only Category use 'mic_desc_text'
+    if (has(items[0], 'mic_desc_text')) {
+      codeOrText = 'mic_desc_text';
     }
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    const queryProp$ = codeOrText !== 'text' ? queryProp : 'text';
+    else if (codeOrText === 'text') queryProp = 'text';
+    else if (codeOrText === 'desc_text') queryProp = 'desc_text';
+    else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
         item={item}
         {...rest}
-        queryProp={queryProp$}
+        queryProp={queryProp}
         getIsSelected={getSelected}
       />),
     );
@@ -209,7 +218,6 @@ const PanelMeetingAgenda = props => {
     setSelectedItemStatus([]);
     setSelectedLanguage([]);
     setSelectedPost([]);
-    setSelectedOverseas([]);
     setSelectedRemarks([]);
     setSelectedSkill([]);
     setTextSearch('');
@@ -279,7 +287,7 @@ const PanelMeetingAgenda = props => {
               {...pickyProps}
               placeholder="Select Category"
               value={selectedCategory}
-              options={skillOptions}
+              options={categoryOptions}
               onChange={setSelectedCategory}
               valueKey="code"
               labelKey="description"
@@ -305,7 +313,7 @@ const PanelMeetingAgenda = props => {
               {...pickyProps}
               placeholder="Select Item Action"
               value={selectedItemAction}
-              options={postOptions}
+              options={itemActionOptions}
               onChange={setSelectedItemAction}
               valueKey="code"
               labelKey="description"
@@ -318,7 +326,7 @@ const PanelMeetingAgenda = props => {
               {...pickyProps}
               placeholder="Select Item Status"
               value={selectedItemStatus}
-              options={languageOptions}
+              options={itemStatusOptions}
               onChange={setSelectedItemStatus}
               valueKey="code"
               labelKey="description"
@@ -346,19 +354,6 @@ const PanelMeetingAgenda = props => {
               value={selectedPost}
               options={postOptions}
               onChange={setSelectedPost}
-              valueKey="code"
-              labelKey="description"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Overseas:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Overseas"
-              value={selectedOverseas}
-              options={languageOptions}
-              onChange={setSelectedOverseas}
               valueKey="code"
               labelKey="description"
               disabled={isLoading}
