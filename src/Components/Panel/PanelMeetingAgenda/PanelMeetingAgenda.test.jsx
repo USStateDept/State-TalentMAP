@@ -1,4 +1,3 @@
-// primary file
 import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
