@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, has, includes, intersection, isArray, isEmpty, isEqual, isFunction,
-  isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy, padStart, pick,
-  split, startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
+import { cloneDeep, get, has, identity, includes, intersection, isArray, isEmpty, isEqual,
+  isFunction, isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy,
+  padStart, pick, pickBy, split, startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
-import queryString from 'query-string';
+import { queryString, stringify } from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
@@ -891,3 +891,15 @@ export const useCloseSwalOnUnmount = () =>
   }, []);
 
 export const splitByLineBreak = text => (text || '').split('\n\n\n');
+
+export const convertQueryToString = query => {
+  let q = pickBy(query, identity);
+  Object.keys(q).forEach(queryk => {
+    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
+    if (isString(q[queryk]) && !q[queryk]) {
+      q[queryk] = undefined;
+    }
+  });
+  q = stringify(q);
+  return q;
+};

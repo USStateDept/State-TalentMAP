@@ -42,7 +42,7 @@ export function panelMeetingAgendasFiltersFetchDataErrored(state = false, action
 }
 export function panelMeetingAgendasFiltersFetchDataLoading(state = false, action) {
   switch (action.type) {
-    case 'panelMeetingAgendasFiltersFetchDataLoading':
+    case 'PANEL_MEETING_AGENDAS_FILTERS_FETCH_IS_LOADING':
       return action.isLoading;
     default:
       return state;

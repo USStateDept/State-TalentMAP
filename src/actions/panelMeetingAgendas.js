@@ -1,15 +1,8 @@
-/* eslint-disable max-len */
-/* eslint-disable no-unused-vars */
 import { batch } from 'react-redux';
-import { get, identity, isArray, isString, pickBy } from 'lodash';
+import { get } from 'lodash';
 import { CancelToken } from 'axios';
-import { downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
-import Q from 'q';
-import { stringify } from 'query-string';
+import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
 import api from '../api';
-
-// TO-DO: Update the naming/functionality in this file
-// based on what the BE/WS returns
 
 let cancelPanelMeetingAgendas;
 
@@ -43,7 +36,7 @@ export function panelMeetingAgendasFiltersFetchDataErrored(bool) {
 
 export function panelMeetingAgendasFiltersFetchDataLoading(bool) {
   return {
-    type: 'panelMeetingAgendasFiltersFetchDataLoading',
+    type: 'PANEL_MEETING_AGENDAS_FILTERS_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
@@ -54,18 +47,6 @@ export function panelMeetingAgendasFiltersFetchDataSuccess(results) {
     results,
   };
 }
-
-const convertQueryToString = query => {
-  let q = pickBy(query, identity);
-  Object.keys(q).forEach(queryk => {
-    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
-    if (isString(q[queryk]) && !q[queryk]) {
-      q[queryk] = undefined;
-    }
-  });
-  q = stringify(q);
-  return q;
-};
 
 export function panelMeetingAgendasExport(query = {}) {
   const q = convertQueryToString(query);
@@ -188,7 +169,6 @@ export function panelMeetingAgendasFiltersFetchData() {
       dispatch(panelMeetingAgendasFiltersFetchDataLoading(false));
     });
   };
-  // TO-DO: integrate below with BE/WS data
   // return (dispatch) => {
   //   batch(() => {
   //     dispatch(panelMeetingAgendasFiltersFetchDataLoading(true));
@@ -205,7 +185,8 @@ export function panelMeetingAgendasFiltersFetchData() {
   //   );
   //   Q.allSettled(queryProms)
   //     .then((results) => {
-  //       const successCount = results.filter(r => get(r, 'state') === 'fulfilled' && get(r, 'value')).length || 0;
+  //       const successCount = results.filter(r => get(r, 'state') ===
+  // 'fulfilled' && get(r, 'value')).length || 0;
   //       const queryPromsLen = queryProms.length || 0;
   //       const countDiff = queryPromsLen - successCount;
   //       if (countDiff > 0) {
@@ -219,7 +200,8 @@ export function panelMeetingAgendasFiltersFetchData() {
   //         const filters = {
   //           type, status,
   //         };
-  //         const transformFunction = e => ({ ...e, name: get(e, 'code') ? `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name') });
+  //         const transformFunction = e => ({ ...e, name: get(e, 'code') ?
+  // `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name')});
   //         keys(filters).forEach(k => {
   //           filters[k] = mapDuplicates(filters[k], 'name', transformFunction);
   //           filters[k] = orderBy(filters[k], 'name');

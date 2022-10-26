@@ -1,9 +1,8 @@
 
 import { batch } from 'react-redux';
-import { get, identity, isArray, isString, keys, orderBy, pickBy } from 'lodash';
-import { stringify } from 'query-string';
+import { get, keys, orderBy } from 'lodash';
 import { CancelToken } from 'axios';
-import { downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
+import { convertQueryToString, downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
 import Q from 'q';
 import api from '../api';
 
@@ -50,18 +49,6 @@ export function agendaEmployeesFiltersFetchDataSuccess(results) {
     results,
   };
 }
-
-const convertQueryToString = query => {
-  let q = pickBy(query, identity);
-  Object.keys(q).forEach(queryk => {
-    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
-    if (isString(q[queryk]) && !q[queryk]) {
-      q[queryk] = undefined;
-    }
-  });
-  q = stringify(q);
-  return q;
-};
 
 export function agendaItemHistoryExport(query = {}) {
   const q = convertQueryToString(query);
