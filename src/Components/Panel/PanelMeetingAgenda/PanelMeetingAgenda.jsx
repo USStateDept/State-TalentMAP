@@ -2,7 +2,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectForm from 'Components/SelectForm';
 import { useEffect, useRef, useState } from 'react';
-import { filter, flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import { PANEL_MEETING_AGENDAS_PAGE_SIZES, PANEL_MEETING_AGENDAS_SORT } from 'Constants/Sort';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -26,34 +26,37 @@ const PanelMeetingAgenda = () => {
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const addendumCutoff = formatDate('2024-05-18T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
 
-  const panelMeetingsFiltersIsLoading = useSelector(state =>
-    state.panelMeetingAgendasFiltersFetchDataLoading);
+  const genericFiltersIsLoading = useSelector(state =>
+    state.filtersIsLoading);
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
-  const panelMeetingAgendaFilters = useSelector(state => state.filters);
+  const genericFilters = useSelector(state => state.filters);
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
 
-  const panelMeetingAgendaFilters$ = get(panelMeetingAgendaFilters, 'filters') || [];
-  const bureaus = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'region');
+  const genericFilters$ = get(genericFilters, 'filters') || [];
+  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const grades = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'grade');
+  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
-  const skills = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'skill');
+  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const posts = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'post');
+  const posts = genericFilters$.find(f => get(f, 'item.description') === 'post');
   const postsOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
-  const languages = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'language');
+  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
-  const remarksOptions = uniqBy(sortBy(get(remarks, 'data.data.results'), [(c) => c.text]), 'text');
-  const itemStatuses = useDataLoader(api().get, '/fsbid/agenda/statuses/');
-  const itemStatusesOptions = uniqBy(sortBy(get(itemStatuses, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
-  const itemActions = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
-  const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
-  const categories = useDataLoader(api().get, '/panel/categories/');
-  const categoriesOptions = uniqBy(sortBy(get(categories, 'data.data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
+  const { data: remarks, loading: remarksLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const remarksOptions = uniqBy(sortBy(get(remarks, 'data.results'), [(c) => c.text]), 'text');
+  const { data: itemStatuses, loading: itemStatusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
+  const itemStatusesOptions = uniqBy(sortBy(get(itemStatuses, 'data.results'), [(c) => c.desc_text]), 'desc_text');
+  const { data: itemActions, loading: itemActionLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
+  const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/panel/categories/');
+  const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
+
+  const panelFiltersIsLoading =
+    includes([remarksLoading, itemStatusLoading, itemActionLoading, categoryLoading], true);
 
   const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
@@ -70,7 +73,7 @@ const PanelMeetingAgenda = () => {
 
   const [clearFilters, setClearFilters] = useState(false);
 
-  const isLoading = panelMeetingsFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading;
 
   const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
   const sorts = PANEL_MEETING_AGENDAS_SORT;
@@ -112,7 +115,7 @@ const PanelMeetingAgenda = () => {
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData(getQuery()));
     dispatch(panelMeetingAgendasFiltersFetchData());
-    dispatch(filtersFetchData(panelMeetingAgendaFilters));
+    dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   }, []);
 
