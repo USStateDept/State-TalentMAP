@@ -11,7 +11,23 @@ describe('RemarksPill', () => {
       rc_code: 'B',
       seq_num: 2,
       short_desc_text: 'Promo Bd Recognized',
-      text: 'Potential recognized by last promo board',
+      text: 'Potential recognized by {Bureau} at last promo board {date}',
+      remark_inserts: [
+        {
+          riinsertiontext: '{Bureau}',
+          rirmrkseqnum: 225,
+          riseqnum: 193,
+        },
+        {
+          riinsertiontext: '{date}',
+          rirmrkseqnum: 225,
+          riseqnum: 192,
+        },
+      ],
+      ari_insertions: {
+        193: 'GTM/EX/OTS/SSD/OAB/OS',
+        192: '1.1.1600',
+      },
     },
     isEditable: true,
     userSelection: () => {},
@@ -34,13 +50,13 @@ describe('RemarksPill', () => {
 
   it('displays an editable remark', () => {
     const wrapper = shallow(<RemarksPill {...props} />);
-    const expected = `${props.remark.text}<FontAwesome />`;
+    const expected = 'Potential recognized by GTM/EX/OTS/SSD/OAB/OS at last promo board 1.1.1600<FontAwesome />';
     expect(wrapper.find('div').text()).toBe(expected);
   });
 
   it('displays an un-editable remark', () => {
     const wrapper = shallow(<RemarksPill {...props} isEditable={false} />);
-    const expected = `${props.remark.text}`;
+    const expected = 'Potential recognized by GTM/EX/OTS/SSD/OAB/OS at last promo board 1.1.1600';
     expect(wrapper.find('div').text()).toBe(expected);
   });
 });

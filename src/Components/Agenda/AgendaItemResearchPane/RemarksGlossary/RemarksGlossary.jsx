@@ -1,35 +1,92 @@
 import { useEffect, useState } from 'react';
-import { find, get, has, isEqual, orderBy, uniqBy } from 'lodash';
+import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import DatePicker from 'react-datepicker';
 import Fuse from 'fuse.js';
 
 const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
 
-  // still need indicator to come through for input
-  const setTextInput = (key, value) => {
+  const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
-    textInputs$[key] = value;
+    if (!textInputs$[rSeq.toString()]) {
+      textInputs$[rSeq.toString()] = {};
+      textInputs$[rSeq.toString()][riSeq.toString()] = value;
+    } else {
+      textInputs$[rSeq.toString()][riSeq.toString()] = value;
+    }
     setTextInputs(textInputs$);
   };
 
   const setTextInputBulk = (remarksArr = []) => {
     const textInputs$ = {};
-    remarksArr.forEach(f => {
-      if (has(f, 'text')) {
-        textInputs$[f.seq_num] = f.text;
-      }
+    remarksArr.forEach(r => {
+      r.remark_inserts.forEach(ri => {
+        if (!textInputs$[(r.seq_num).toString()]) {
+          textInputs$[(r.seq_num).toString()] = {};
+          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
+        } else {
+          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
+        }
+      });
     });
     if (!isEqual(textInputs$, textInputs)) {
       setTextInputs(textInputs$);
     }
   };
 
-  const getTextInputValue = key => get(textInputs, key) || '';
+  const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
+
+  const getInsertionType = (type, ri) => {
+    // date: date, date2,
+    // number:  #,
+    // text: not sure yet, but likely to be the default
+    const type$ = type.replace(/[{}\d]/g, '').replace(/#/g, 'number');
+    const returnTypes = {
+      text: (<TextInput
+        value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
+        changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
+        customContainerClass="remark-input"
+        placeholder={type$}
+        inputProps={{ autoComplete: 'off' }}
+      />),
+      date: (<DatePicker
+        selected={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
+        onChange={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
+        showTimeSelect
+        timeFormat="HH:mm"
+        placeholderText={type$}
+        timeIntervals={15}
+        timeCaption="time"
+        dateFormat="MMMM d, yyyy h:mm aa"
+        className="remark-input"
+      />),
+    };
+    return returnTypes[type$] || returnTypes.text;
+  };
+
+  const renderText = r => {
+    const rText = r.text.split(/(\s+)/);
+    const regex = /({.*})/g;
+    let regNum = 0;
+
+    rText.forEach((a, i) => {
+      if (a.match(regex)) {
+        if (r.remark_inserts[regNum]) {
+          rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
+        }
+        regNum += 1;
+      }
+    });
+
+    return (
+      <div className="remark-input-container">{rText}</div>
+    );
+  };
 
   const [remarks$, setRemarks$] = useState(remarks);
 
@@ -89,27 +146,14 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
             <div key={category.code}>
               <div id={`remark-category-${category.code}`} className={`remark-category remark-category--${category.code}`}>{category.desc_text}</div>
               <ul>
-                {remarksInCategory.map(r => {
-                // still need indicator to come through for input
-                  const hasTextInput = false;
-                  return (
-                    <li key={r.seq_num}>
-                      <InteractiveElement onClick={() => updateSelection(r)}>
-                        <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
-                      </InteractiveElement>
-                      <span className="remark-text">{r.text}</span>
-                      {
-                        hasTextInput &&
-                      <TextInput
-                        value={getTextInputValue(r.seq_num)}
-                        changeText={v => setTextInput(r.seq_num, v)}
-                        customContainerClass="remarks-input-container"
-                        inputProps={{ autoComplete: 'off' }}
-                      />
-                      }
-                    </li>
-                  );
-                })}
+                {remarksInCategory.map(r => (
+                  (<li key={r.seq_num}>
+                    <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
+                      <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+                    </InteractiveElement>
+                    {renderText(r)}
+                  </li>)
+                ))}
               </ul>
             </div>
           );
@@ -126,6 +170,12 @@ RemarksGlossary.propTypes = {
       rc_code: PropTypes.string,
       order_num: PropTypes.number,
       short_desc_text: PropTypes.string,
+      ari_insertions: PropTypes.arrayOf(
+        PropTypes.shape({
+          ri_seq_num: PropTypes.number,
+          ari_insertion_text: PropTypes.string,
+        }),
+      ),
       mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
       active_ind: PropTypes.string,
@@ -137,6 +187,12 @@ RemarksGlossary.propTypes = {
       rc_code: PropTypes.string,
       order_num: PropTypes.number,
       short_desc_text: PropTypes.string,
+      ri_insertions: PropTypes.arrayOf(
+        PropTypes.shape({
+          ri_seq_num: PropTypes.number,
+          ri_insertion_text: PropTypes.string,
+        }),
+      ),
       mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
       active_ind: PropTypes.string,

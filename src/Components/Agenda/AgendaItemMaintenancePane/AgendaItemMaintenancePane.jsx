@@ -336,6 +336,14 @@ AgendaItemMaintenancePane.propTypes = {
       mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
       active_ind: PropTypes.string,
+      remark_inserts: PropTypes.arrayOf(
+        PropTypes.shape({
+          rirmrkseqnum: PropTypes.number,
+          riseqnum: PropTypes.number,
+          riinsertiontext: PropTypes.string,
+        }),
+      ),
+      ari_insertions: PropTypes.shape({}),
     }),
   ),
   updateSelection: PropTypes.func,
