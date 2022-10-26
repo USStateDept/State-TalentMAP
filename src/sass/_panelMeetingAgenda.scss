@@ -10,7 +10,7 @@
       background-color: $primary-blue;
       color: $color-white;
     }
-    
+
     .cutoff-date-container {
       margin-top: 15px;
       display: inline-grid;
@@ -21,36 +21,35 @@
         align-items: center;
         display: flex;
         margin: 0 8rem 1.5rem 0;
-        
+
         dd {
           margin-left: 5px;
         }
       }
 
-      
       .preliminary-cut-off-date {
         margin-left: 10px;
       }
-      
+
       .addendum-cut-off-date {
         margin-left: 12px;
       }
     }
   }
-  
+
   .filterby-container {
     display: flex;
     margin-top: 20px;
-    
+
     .filterby-label {
       font-size: 20px;
       margin-bottom: 10px;
       width: 115px;
     }
-    
+
     .filterby-clear {
       font-weight: bold;
-      
+
       .fa-times {
         color: $color-red;
         margin-right: 5px;
@@ -79,5 +78,4 @@
       }
     }
   }
-
 }
