@@ -7,8 +7,21 @@
     padding: 20px 35px 35px;
     
     .cutoff-date-container {
-      float: right;
-      margin-right: 9em;
+      margin-top: 15px;
+      display: inline-grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(2, auto);
+
+      .panel-meeting-agenda-header-data-point {
+        align-items: center;
+        display: flex;
+        margin: 0 8rem 1.5rem 0;
+        
+        dd {
+          margin-left: 5px;
+        }
+      }
+
       
       .preliminary-cut-off-date {
         margin-left: 10px;
@@ -42,7 +55,7 @@
 
   .panel-meeting-agenda-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 
     .filter-div {
       align-items: center;

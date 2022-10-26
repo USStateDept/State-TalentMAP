@@ -14,11 +14,13 @@ import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
 const PanelMeetingAgenda = () => {
-  const dispatch = useDispatch();
   const childRef = useRef();
+  const dispatch = useDispatch();
 
-  const preliminaryCutoff = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
-  const addendumCutoff = formatDate('2024-05-21T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
+  const meetingStatus = 'Initiated';
+  const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
+  const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
+  const addendumCutoff = formatDate('2024-05-18T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
 
   const panelMeetingAgendasFilters = useSelector(state => state.panelMeetingAgendasFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
@@ -185,24 +187,22 @@ const PanelMeetingAgenda = () => {
       <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
         <BackButton />
         <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
-        <div className="date-container">
-          <div className="cutoff-date-container">
-            <div>
-              <span>
-                Preliminary Cut-off:
-              </span>
-              <span className="preliminary-cut-off-date">
-                {preliminaryCutoff}
-              </span>
-            </div>
-            <div>
-              <span>
-                Addendum Cut-off:
-              </span>
-              <span className="addendum-cut-off-date">
-                {addendumCutoff}
-              </span>
-            </div>
+        <div className="cutoff-date-container">
+          <div className="panel-meeting-agenda-header-data-point">
+            <dt>Meeting Date:</dt>
+            <dd>{meetingDate}</dd>
+          </div>
+          <div className="panel-meeting-agenda-header-data-point">
+            <dt>Meeting Status:</dt>
+            <dd>{meetingStatus}</dd>
+          </div>
+          <div className="panel-meeting-agenda-header-data-point">
+            <dt>Preliminary Cut-Off:</dt>
+            <dd>{preliminaryCutoff}</dd>
+          </div>
+          <div className="panel-meeting-agenda-header-data-point">
+            <dt>Addendum Cut-Off:</dt>
+            <dd>{addendumCutoff}</dd>
           </div>
         </div>
         <PositionManagerSearch
@@ -210,7 +210,7 @@ const PanelMeetingAgenda = () => {
           onChange={setTextInputThrottled}
           ref={childRef}
           textSearch={textSearch}
-          label="Find Panel Meeting Agenda Item"
+          label="Find Agenda Item"
           placeHolder="Search using Panel Meeting Agenda Item Info"
         />
         <div className="filterby-container">
