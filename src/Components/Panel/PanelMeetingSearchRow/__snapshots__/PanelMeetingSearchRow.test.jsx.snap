@@ -59,7 +59,7 @@ exports[`PanelMeetingSearchRow matches snapshot 1`] = `
         </dd>
       </div>
       <div
-        className="panel-meeting-row-data-point addendum-cut-off-date"
+        className="panel-meeting-row-data-point"
       >
         <dt>
           Addendum Cut-Off:

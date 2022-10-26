@@ -6,7 +6,7 @@ import { cloneDeep, get, has, identity, includes, intersection, isArray, isEmpty
   isFunction, isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy,
   padStart, pick, pickBy, split, startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
-import { queryString, stringify } from 'query-string';
+import queryString, { stringify } from 'query-string';
 import shortid from 'shortid';
 import Bowser from 'bowser';
 import Fuse from 'fuse.js';
