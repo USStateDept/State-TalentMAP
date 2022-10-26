@@ -1,3 +1,4 @@
+// primary file
 import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
@@ -6,11 +7,12 @@ import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import PanelMeetingAgenda from './PanelMeetingAgenda';
+import filters from '../../../__mocks__/filtersArray';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('PanelMeetingAgenda', () => {
+describe('PanelMeetingAgendaComponent', () => {
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(
       <Provider store={mockStore({})}>
@@ -42,5 +44,35 @@ describe('PanelMeetingAgenda', () => {
       </Provider>,
     );
     expect(toJSON(wrapper)).toMatchSnapshot();
+  });
+
+  it('handles loading', () => {
+    const wrapper = TestUtils.renderIntoDocument(
+      <Provider store={mockStore({
+        filterData: [],
+        filtersIsLoading: true,
+      })}
+      >
+        <MemoryRouter>
+          <PanelMeetingAgenda />
+        </MemoryRouter>
+      </Provider>,
+    );
+    expect(wrapper).toBeDefined();
+  });
+
+  it('handles not loading', () => {
+    const wrapper = TestUtils.renderIntoDocument(
+      <Provider store={mockStore({
+        filterData: filters,
+        filtersIsLoading: false,
+      })}
+      >
+        <MemoryRouter>
+          <PanelMeetingAgenda />
+        </MemoryRouter>
+      </Provider>,
+    );
+    expect(wrapper).toBeDefined();
   });
 });

@@ -5,7 +5,7 @@ import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/Employe
 import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
-import PanelMeetingAgenda from 'Components/Panel/PanelMeetingAgenda2/PanelMeetingAgenda';
+// import PanelMeetingAgenda from 'Components/Panel/PanelMeetingAgenda2/PanelMeetingAgenda';
 import PanelMeetingAgenda from 'Components/Panel/PanelMeetingAgenda/PanelMeetingAgenda';
 
 const CdoPage = () => (
