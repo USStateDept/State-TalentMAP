@@ -51,6 +51,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
         changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
         customContainerClass="remark-input"
+        placeholder={type$}
         inputProps={{ autoComplete: 'off' }}
       />),
       date: (<DatePicker
@@ -58,6 +59,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         onChange={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
         showTimeSelect
         timeFormat="HH:mm"
+        placeholderText={type$}
         timeIntervals={15}
         timeCaption="time"
         dateFormat="MMMM d, yyyy h:mm aa"
