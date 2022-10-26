@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, find, get, isNil } from 'lodash';
+import { filter, find, get, has, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -37,14 +37,23 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  // TODO: can they ever have no EF or more than one EF?
   const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
-  const updateSelection = (remark) => {
+  const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
     const found = find(userRemarks$, { seq_num: remark.seq_num });
     if (!found) {
-      userRemarks$.push(remark);
+      const remark$ = { ...remark };
+
+      if (has(remark$, 'remark_inserts')) {
+        const tempKey = (remark$.seq_num).toString();
+        if (!remark$.ari_insertions) {
+          remark$.ari_insertions = {};
+        }
+        remark$.ari_insertions = textInputs[tempKey];
+      }
+
+      userRemarks$.push(remark$);
       setUserRemarks(userRemarks$);
     } else {
       setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
