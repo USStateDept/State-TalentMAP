@@ -35,7 +35,7 @@ const PanelMeetingAgenda = () => {
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
 
-  const panelMeetingAgendaFilters$ = panelMeetingAgendaFilters.filters;
+  const panelMeetingAgendaFilters$ = get(panelMeetingAgendaFilters, 'filters') || [];
   const bureaus = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const grades = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'grade');
