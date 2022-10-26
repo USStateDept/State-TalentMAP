@@ -39,32 +39,34 @@ const PanelMeetingAgenda = props => {
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
 
   const panelMeetingAgendaFilters$ = panelMeetingAgendaFilters.filters;
+  const bureaus = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'region');
+  const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const grades = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'grade');
-  const gradeOptions = uniqBy(get(grades, 'data'), 'code');
+  const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const posts = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'post');
-  const postOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
+  const postsOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = panelMeetingAgendaFilters$.find(f => get(f, 'item.description') === 'language');
-  const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const remarksOptions = uniqBy(sortBy(get(remarks, 'data.data.results'), [(c) => c.text]), 'text');
-  const itemStatus = useDataLoader(api().get, '/fsbid/agenda/statuses/');
-  const itemStatusOptions = uniqBy(sortBy(get(itemStatus, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
-  const itemAction = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
-  const itemActionOptions = uniqBy(sortBy(get(itemAction, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
-  const category = useDataLoader(api().get, '/panel/categories/');
-  const categoryOptions = uniqBy(sortBy(get(category, 'data.data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
+  const itemStatuses = useDataLoader(api().get, '/fsbid/agenda/statuses/');
+  const itemStatusesOptions = uniqBy(sortBy(get(itemStatuses, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
+  const itemActions = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.data.results'), [(c) => c.desc_text]), 'desc_text');
+  const categories = useDataLoader(api().get, '/panel/categories/');
+  const categoriesOptions = uniqBy(sortBy(get(categories, 'data.data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
 
-  const [selectedBureau, setSelectedBureau] = useState(get(userSelections, 'selectedBureau') || []);
-  const [selectedCategory, setSelectedCategory] = useState(get(userSelections, 'selectedCategory') || []);
-  const [selectedGrade, setSelectedGrade] = useState(get(userSelections, 'selectedGrade') || []);
-  const [selectedItemAction, setSelectedItemAction] = useState(get(userSelections, 'selectedItemAction') || []);
-  const [selectedItemStatus, setSelectedItemStatus] = useState(get(userSelections, 'selectedItemStatus') || []);
-  const [selectedLanguage, setSelectedLanguage] = useState(get(userSelections, 'selectedLanguage') || []);
-  const [selectedPost, setSelectedPost] = useState(get(userSelections, 'selectedPost') || []);
+  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
+  const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
+  const [selectedGrades, setSelectedGrades] = useState(get(userSelections, 'selectedGrades') || []);
+  const [selectedItemActions, setSelectedItemActions] = useState(get(userSelections, 'selectedItemActions') || []);
+  const [selectedItemStatuses, setSelectedItemStatuses] = useState(get(userSelections, 'selectedItemStatuses') || []);
+  const [selectedLanguages, setSelectedLanguages] = useState(get(userSelections, 'selectedLanguages') || []);
+  const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
-  const [selectedSkill, setSelectedSkill] = useState(get(userSelections, 'selectedSkill') || []);
+  const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
 
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
@@ -80,14 +82,14 @@ const PanelMeetingAgenda = props => {
     limit,
     ordering,
     // User Filters
-    [get(grades, 'item.selectionRef')]: selectedBureau.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(grades, 'item.selectionRef')]: selectedGrade.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedSkill.map(skillObject => (get(skillObject, 'code'))),
-    [get(posts, 'item.selectionRef')]: selectedPost.map(postObject => (get(postObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedLanguage.map(langObject => (get(langObject, 'code'))),
-    itemAction: selectedItemAction.map(itemActionObject => (get(itemActionObject, 'desc_text'))),
-    itemStatus: selectedItemStatus.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
-    category: selectedCategory.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
+    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
+    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    [get(posts, 'item.selectionRef')]: selectedPosts.map(postObject => (get(postObject, 'code'))),
+    [get(languages, 'item.selectionRef')]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
+    itemActions: selectedItemActions.map(itemActionObject => (get(itemActionObject, 'desc_text'))),
+    itemStatuses: selectedItemStatuses.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
+    categories: selectedCategories.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
     remarks: selectedRemarks.map(remarkObject => (get(remarkObject, 'text'))),
 
     // Free Text
@@ -97,15 +99,15 @@ const PanelMeetingAgenda = props => {
   const getCurrentInputs = () => ({
     limit,
     ordering,
-    selectedBureau,
-    selectedCategory,
-    selectedGrade,
-    selectedItemAction,
-    selectedItemStatus,
-    selectedLanguage,
-    selectedPost,
+    selectedBureaus,
+    selectedCategories,
+    selectedGrades,
+    selectedItemActions,
+    selectedItemStatuses,
+    selectedLanguages,
+    selectedPosts,
     selectedRemarks,
-    selectedSkill,
+    selectedSkills,
     textInput,
     textSearch,
   });
@@ -122,15 +124,15 @@ const PanelMeetingAgenda = props => {
 
   const fetchAndSet = () => {
     const filters = [
-      selectedBureau,
-      selectedCategory,
-      selectedGrade,
-      selectedItemAction,
-      selectedItemStatus,
-      selectedLanguage,
-      selectedPost,
+      selectedBureaus,
+      selectedCategories,
+      selectedGrades,
+      selectedItemActions,
+      selectedItemStatuses,
+      selectedLanguages,
+      selectedPosts,
       selectedRemarks,
-      selectedSkill,
+      selectedSkills,
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
       setClearFilters(false);
@@ -146,15 +148,15 @@ const PanelMeetingAgenda = props => {
   }, [
     limit,
     ordering,
-    selectedBureau,
-    selectedCategory,
-    selectedGrade,
-    selectedItemAction,
-    selectedItemStatus,
-    selectedLanguage,
-    selectedPost,
+    selectedBureaus,
+    selectedCategories,
+    selectedGrades,
+    selectedItemActions,
+    selectedItemStatuses,
+    selectedLanguages,
+    selectedPosts,
     selectedRemarks,
-    selectedSkill,
+    selectedSkills,
     textSearch,
   ]);
 
@@ -175,11 +177,11 @@ const PanelMeetingAgenda = props => {
     if (has(items[0], 'text')) {
       codeOrText = 'text';
     }
-    // only Item Action/Status use 'desc_text'
+    // only Item Actions/Statuses need to use 'desc_text'
     if (has(items[0], 'desc_text')) {
       codeOrText = 'desc_text';
     }
-    // only Category use 'mic_desc_text'
+    // only Categories need to use 'mic_desc_text'
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
     }
@@ -211,15 +213,15 @@ const PanelMeetingAgenda = props => {
   };
 
   const resetFilters = () => {
-    setSelectedBureau([]);
-    setSelectedCategory([]);
-    setSelectedGrade([]);
-    setSelectedItemAction([]);
-    setSelectedItemStatus([]);
-    setSelectedLanguage([]);
-    setSelectedPost([]);
+    setSelectedBureaus([]);
+    setSelectedCategories([]);
+    setSelectedGrades([]);
+    setSelectedItemActions([]);
+    setSelectedItemStatuses([]);
+    setSelectedLanguages([]);
+    setSelectedPosts([]);
     setSelectedRemarks([]);
-    setSelectedSkill([]);
+    setSelectedSkills([]);
     setTextSearch('');
     childRef.current.clearText();
     setClearFilters(false);
@@ -273,11 +275,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Bureau"
-              value={selectedBureau}
-              options={gradeOptions}
-              onChange={setSelectedBureau}
+              value={selectedBureaus}
+              options={bureausOptions}
+              onChange={setSelectedBureaus}
               valueKey="code"
-              labelKey="description"
+              labelKey="long_description"
               disabled={isLoading}
             />
           </div>
@@ -285,12 +287,12 @@ const PanelMeetingAgenda = props => {
             <div className="label">Category:</div>
             <Picky
               {...pickyProps}
-              placeholder="Select Category"
-              value={selectedCategory}
-              options={categoryOptions}
-              onChange={setSelectedCategory}
-              valueKey="code"
-              labelKey="description"
+              placeholder="Select Categories"
+              value={selectedCategories}
+              options={categoriesOptions}
+              onChange={setSelectedCategories}
+              valueKey="mic_code"
+              labelKey="mic_desc_text"
               disabled={isLoading}
             />
           </div>
@@ -299,11 +301,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Grade"
-              value={selectedGrade}
-              options={gradeOptions}
-              onChange={setSelectedGrade}
+              value={selectedGrades}
+              options={gradesOptions}
+              onChange={setSelectedGrades}
               valueKey="code"
-              labelKey="description"
+              labelKey="custom_description"
               disabled={isLoading}
             />
           </div>
@@ -312,11 +314,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Item Action"
-              value={selectedItemAction}
-              options={itemActionOptions}
-              onChange={setSelectedItemAction}
+              value={selectedItemActions}
+              options={itemActionsOptions}
+              onChange={setSelectedItemActions}
               valueKey="code"
-              labelKey="description"
+              labelKey="desc_text"
               disabled={isLoading}
             />
           </div>
@@ -325,11 +327,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Item Status"
-              value={selectedItemStatus}
-              options={itemStatusOptions}
-              onChange={setSelectedItemStatus}
+              value={selectedItemStatuses}
+              options={itemStatusesOptions}
+              onChange={setSelectedItemStatuses}
               valueKey="code"
-              labelKey="description"
+              labelKey="desc_text"
               disabled={isLoading}
             />
           </div>
@@ -338,11 +340,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Language"
-              value={selectedLanguage}
-              options={languageOptions}
-              onChange={setSelectedLanguage}
+              value={selectedLanguages}
+              options={languagesOptions}
+              onChange={setSelectedLanguages}
               valueKey="code"
-              labelKey="description"
+              labelKey="custom_description"
               disabled={isLoading}
             />
           </div>
@@ -351,11 +353,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Location (Org)"
-              value={selectedPost}
-              options={postOptions}
-              onChange={setSelectedPost}
+              value={selectedPosts}
+              options={postsOptions}
+              onChange={setSelectedPosts}
               valueKey="code"
-              labelKey="description"
+              labelKey="custom_description"
               disabled={isLoading}
             />
           </div>
@@ -367,8 +369,8 @@ const PanelMeetingAgenda = props => {
               value={selectedRemarks}
               options={remarksOptions}
               onChange={setSelectedRemarks}
-              valueKey="code"
-              labelKey="description"
+              valueKey="rc_code"
+              labelKey="text"
               disabled={isLoading}
             />
           </div>
@@ -377,11 +379,11 @@ const PanelMeetingAgenda = props => {
             <Picky
               {...pickyProps}
               placeholder="Select Skill"
-              value={selectedSkill}
-              options={skillOptions}
-              onChange={setSelectedSkill}
+              value={selectedSkills}
+              options={skillsOptions}
+              onChange={setSelectedSkills}
               valueKey="code"
-              labelKey="description"
+              labelKey="custom_description"
               disabled={isLoading}
             />
           </div>
