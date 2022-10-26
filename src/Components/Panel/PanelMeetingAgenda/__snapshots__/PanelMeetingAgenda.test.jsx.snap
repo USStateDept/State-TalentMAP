@@ -25,7 +25,7 @@ exports[`PanelMeetingAgendaComponent matches snapshot when CDO 1`] = `
   }
 >
   <MemoryRouter>
-    <PanelMeetingAgenda
+    <Connect(PanelMeetingAgenda)
       isCDO={true}
     />
   </MemoryRouter>
@@ -57,7 +57,7 @@ exports[`PanelMeetingAgendaComponent matches snapshot when not CDO 1`] = `
   }
 >
   <MemoryRouter>
-    <PanelMeetingAgenda
+    <Connect(PanelMeetingAgenda)
       isCDO={false}
     />
   </MemoryRouter>
