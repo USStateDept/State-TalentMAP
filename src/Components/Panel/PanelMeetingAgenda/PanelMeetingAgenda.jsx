@@ -20,9 +20,7 @@ import BackButton from '../../BackButton';
 
 
 const PanelMeetingAgenda = props => {
-  const {
-    panelMeetingAgendaFilters,
-  } = props;
+  const { panelMeetingAgendaFilters } = props;
 
   const childRef = useRef();
   const dispatch = useDispatch();
