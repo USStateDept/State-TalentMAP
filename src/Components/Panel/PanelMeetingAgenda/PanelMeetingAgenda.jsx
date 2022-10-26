@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SelectForm from 'Components/SelectForm';
 import { useEffect, useRef, useState } from 'react';
 import { filter, flatten, get, has, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
@@ -13,15 +12,12 @@ import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { FILTERS_PARENT } from 'Constants/PropTypes';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
 
-const PanelMeetingAgenda = props => {
-  const { panelMeetingAgendaFilters } = props;
-
+const PanelMeetingAgenda = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -34,6 +30,7 @@ const PanelMeetingAgenda = props => {
     state.panelMeetingAgendasFiltersFetchDataLoading);
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
+  const panelMeetingAgendaFilters = useSelector(state => state.filters);
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
@@ -113,13 +110,10 @@ const PanelMeetingAgenda = props => {
   });
 
   useEffect(() => {
-    props.fetchFilters(panelMeetingAgendaFilters, {});
-    props.saveSelections(getCurrentInputs);
-  }, []);
-
-  useEffect(() => {
     dispatch(panelMeetingAgendasFetchData(getQuery()));
     dispatch(panelMeetingAgendasFiltersFetchData());
+    dispatch(filtersFetchData(panelMeetingAgendaFilters));
+    dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   }, []);
 
   const fetchAndSet = () => {
@@ -414,25 +408,4 @@ const PanelMeetingAgenda = props => {
   );
 };
 
-PanelMeetingAgenda.propTypes = {
-  fetchFilters: PropTypes.func.isRequired,
-  saveSelections: PropTypes.func.isRequired,
-  panelMeetingAgendaFilters: FILTERS_PARENT,
-};
-
-PanelMeetingAgenda.defaultProps = {
-  panelMeetingAgendaFilters: { filters: [] },
-};
-
-const mapStateToProps = state => ({
-  panelMeetingAgendaFilters: state.filters,
-  bureauFiltersHasErrored: state.filtersHasErrored,
-});
-
-export const mapDispatchToProps = dispatch => ({
-  fetchFilters: (items, queryParams, savedFilters) =>
-    dispatch(filtersFetchData(items, queryParams, savedFilters)),
-  saveSelections: (selections) => dispatch(savePanelMeetingAgendasSelections(selections)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PanelMeetingAgenda);
+export default PanelMeetingAgenda;
