@@ -452,11 +452,6 @@
     font-size: 13px;
   }
 
-  li {
-    display: flex;
-    padding: 2px 0;
-  }
-
   li > * {
     display: inline;
   }
@@ -484,24 +479,32 @@
     color: $tertiary-success;
   }
 
-  .remarks-input-container {
-    margin-right: 0;
-    min-width: 100px;
-    max-width: 40%;
-    width: 100%;
-
-    input {
-      height: 10px;
-      font-size: 13px;
-      line-height: normal;
-      max-width: initial;
-      margin: 0;
-    }
-  }
-
-  .remark-text {
-    position: relative;
+  .remark-input-container {
+    display: inline;
     margin: auto 0 auto 7px;
+
+    .react-datepicker-wrapper {
+      width: 200px;
+    }
+
+    .remark-input {
+      display: inline-block;
+      height: 10px;
+      margin-right: 0;
+      width: 200px;
+
+      label {
+        display: inline;
+      }
+
+      input, .react-datepicker__input-container {
+        height: 10px;
+        display: inline-block;
+        font-size: 13px;
+        line-height: normal;
+        margin: 0;
+      }
+    }
   }
 
   .remark-category {
