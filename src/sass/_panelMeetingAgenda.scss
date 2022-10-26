@@ -5,6 +5,11 @@
     color: $color-white;
     max-width: none;
     padding: 20px 35px 35px;
+
+    .button-back-link {
+      background-color: $primary-blue;
+      color: $color-white;
+    }
     
     .cutoff-date-container {
       margin-top: 15px;
@@ -30,11 +35,6 @@
       .addendum-cut-off-date {
         margin-left: 12px;
       }
-    }
-
-    .button-back-link {
-      background-color: $primary-blue;
-      color: $color-white;
     }
   }
   
