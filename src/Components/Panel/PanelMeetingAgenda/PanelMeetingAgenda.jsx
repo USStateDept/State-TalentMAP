@@ -12,6 +12,7 @@ import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
+import Spinner from 'Components/Spinner';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -225,189 +226,193 @@ const PanelMeetingAgenda = () => {
   };
 
   return (
-    <div className="panel-meeting-agenda-page">
-      <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
-        <BackButton />
-        <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
-        <div className="cutoff-date-container">
-          <div className="panel-meeting-agenda-header-data-point">
-            <dt>Meeting Date:</dt>
-            <dd>{meetingDate}</dd>
-          </div>
-          <div className="panel-meeting-agenda-header-data-point">
-            <dt>Meeting Status:</dt>
-            <dd>{meetingStatus}</dd>
-          </div>
-          <div className="panel-meeting-agenda-header-data-point">
-            <dt>Preliminary Cut-Off:</dt>
-            <dd>{preliminaryCutoff}</dd>
-          </div>
-          <div className="panel-meeting-agenda-header-data-point">
-            <dt>Addendum Cut-Off:</dt>
-            <dd>{addendumCutoff}</dd>
-          </div>
-        </div>
-        <PositionManagerSearch
-          submitSearch={submitSearch}
-          onChange={setTextInputThrottled}
-          ref={childRef}
-          textSearch={textSearch}
-          label="Find Agenda Item"
-          placeHolder="Search using Panel Meeting Agenda Item Info"
-        />
-        <div className="filterby-container">
-          <div className="filterby-label">Filter by:</div>
-          <div className="filterby-clear">
-            {clearFilters &&
+    isLoading ?
+      <Spinner type="bureau-filters" size="small" /> :
+      <>
+        <div className="panel-meeting-agenda-page">
+          <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
+            <BackButton />
+            <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
+            <div className="cutoff-date-container">
+              <div className="panel-meeting-agenda-header-data-point">
+                <dt>Meeting Date:</dt>
+                <dd>{meetingDate}</dd>
+              </div>
+              <div className="panel-meeting-agenda-header-data-point">
+                <dt>Meeting Status:</dt>
+                <dd>{meetingStatus}</dd>
+              </div>
+              <div className="panel-meeting-agenda-header-data-point">
+                <dt>Preliminary Cut-Off:</dt>
+                <dd>{preliminaryCutoff}</dd>
+              </div>
+              <div className="panel-meeting-agenda-header-data-point">
+                <dt>Addendum Cut-Off:</dt>
+                <dd>{addendumCutoff}</dd>
+              </div>
+            </div>
+            <PositionManagerSearch
+              submitSearch={submitSearch}
+              onChange={setTextInputThrottled}
+              ref={childRef}
+              textSearch={textSearch}
+              label="Find Agenda Item"
+              placeHolder="Search using Panel Meeting Agenda Item Info"
+            />
+            <div className="filterby-container">
+              <div className="filterby-label">Filter by:</div>
+              <div className="filterby-clear">
+                {clearFilters &&
                 <button className="unstyled-button" onClick={resetFilters}>
                   <FA name="times" />
                 Clear Filters
                 </button>
-            }
+                }
+              </div>
+            </div>
+            <div className="usa-width-one-whole panel-meeting-agenda-filters">
+              <div className="filter-div">
+                <div className="label">Bureau:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bureau"
+                  value={selectedBureaus}
+                  options={bureausOptions}
+                  onChange={setSelectedBureaus}
+                  valueKey="code"
+                  labelKey="long_description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Category:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Categories"
+                  value={selectedCategories}
+                  options={categoriesOptions}
+                  onChange={setSelectedCategories}
+                  valueKey="mic_code"
+                  labelKey="mic_desc_text"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Grade:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Grade"
+                  value={selectedGrades}
+                  options={gradesOptions}
+                  onChange={setSelectedGrades}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Item Action:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Item Action"
+                  value={selectedItemActions}
+                  options={itemActionsOptions}
+                  onChange={setSelectedItemActions}
+                  valueKey="code"
+                  labelKey="desc_text"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Item Status:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Item Status"
+                  value={selectedItemStatuses}
+                  options={itemStatusesOptions}
+                  onChange={setSelectedItemStatuses}
+                  valueKey="code"
+                  labelKey="desc_text"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Language:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Language"
+                  value={selectedLanguages}
+                  options={languagesOptions}
+                  onChange={setSelectedLanguages}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Location (Org):</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Location (Org)"
+                  value={selectedPosts}
+                  options={postsOptions}
+                  onChange={setSelectedPosts}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Remarks:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Remarks"
+                  value={selectedRemarks}
+                  options={remarksOptions}
+                  onChange={setSelectedRemarks}
+                  valueKey="rc_code"
+                  labelKey="text"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Skill:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Skill"
+                  value={selectedSkills}
+                  options={skillsOptions}
+                  onChange={setSelectedSkills}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
           </div>
+          {
+            <div className="panel-results-controls">
+              <SelectForm
+                className="panel-results-select"
+                id="panel-search-results-sort"
+                options={sorts.options}
+                label="Sort by:"
+                defaultSort={ordering}
+                onSelectOption={value => setOrdering(value.target.value)}
+              />
+              <SelectForm
+                className="panel-results-select"
+                id="panel-search-num-results"
+                options={pageSizes.options}
+                label="Results:"
+                defaultSort={limit}
+                onSelectOption={value => setLimit(value.target.value)}
+              />
+              <ScrollUpButton />
+            </div>
+          }
         </div>
-        <div className="usa-width-one-whole panel-meeting-agenda-filters">
-          <div className="filter-div">
-            <div className="label">Bureau:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Bureau"
-              value={selectedBureaus}
-              options={bureausOptions}
-              onChange={setSelectedBureaus}
-              valueKey="code"
-              labelKey="long_description"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Category:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Categories"
-              value={selectedCategories}
-              options={categoriesOptions}
-              onChange={setSelectedCategories}
-              valueKey="mic_code"
-              labelKey="mic_desc_text"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Grade:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Grade"
-              value={selectedGrades}
-              options={gradesOptions}
-              onChange={setSelectedGrades}
-              valueKey="code"
-              labelKey="custom_description"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Item Action:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Item Action"
-              value={selectedItemActions}
-              options={itemActionsOptions}
-              onChange={setSelectedItemActions}
-              valueKey="code"
-              labelKey="desc_text"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Item Status:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Item Status"
-              value={selectedItemStatuses}
-              options={itemStatusesOptions}
-              onChange={setSelectedItemStatuses}
-              valueKey="code"
-              labelKey="desc_text"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Language:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Language"
-              value={selectedLanguages}
-              options={languagesOptions}
-              onChange={setSelectedLanguages}
-              valueKey="code"
-              labelKey="custom_description"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Location (Org):</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Location (Org)"
-              value={selectedPosts}
-              options={postsOptions}
-              onChange={setSelectedPosts}
-              valueKey="code"
-              labelKey="custom_description"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Remarks:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Remarks"
-              value={selectedRemarks}
-              options={remarksOptions}
-              onChange={setSelectedRemarks}
-              valueKey="rc_code"
-              labelKey="text"
-              disabled={isLoading}
-            />
-          </div>
-          <div className="filter-div">
-            <div className="label">Skill:</div>
-            <Picky
-              {...pickyProps}
-              placeholder="Select Skill"
-              value={selectedSkills}
-              options={skillsOptions}
-              onChange={setSelectedSkills}
-              valueKey="code"
-              labelKey="custom_description"
-              disabled={isLoading}
-            />
-          </div>
-        </div>
-      </div>
-      {
-        <div className="panel-results-controls">
-          <SelectForm
-            className="panel-results-select"
-            id="panel-search-results-sort"
-            options={sorts.options}
-            label="Sort by:"
-            defaultSort={ordering}
-            onSelectOption={value => setOrdering(value.target.value)}
-          />
-          <SelectForm
-            className="panel-results-select"
-            id="panel-search-num-results"
-            options={pageSizes.options}
-            label="Results:"
-            defaultSort={limit}
-            onSelectOption={value => setLimit(value.target.value)}
-          />
-          <ScrollUpButton />
-        </div>
-      }
-    </div>
+      </>
   );
 };
 
