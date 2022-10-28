@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectForm from 'Components/SelectForm';
@@ -18,7 +19,8 @@ import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
 
-const PanelMeetingAgenda = () => {
+// eslint-disable-next-line no-unused-vars
+const PanelMeetingAgenda = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -414,6 +416,14 @@ const PanelMeetingAgenda = () => {
         </div>
       </>
   );
+};
+
+PanelMeetingAgenda.propTypes = {
+  isCDO: PropTypes.bool,
+};
+
+PanelMeetingAgenda.defaultProps = {
+  isCDO: false,
 };
 
 export default PanelMeetingAgenda;
