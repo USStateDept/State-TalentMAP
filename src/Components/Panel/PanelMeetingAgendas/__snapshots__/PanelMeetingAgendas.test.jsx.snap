@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PanelMeetingAgenda matches snapshot when CDO 1`] = `
+exports[`PanelMeetingAgendaComponent matches snapshot when CDO 1`] = `
 <ContextProvider
   value={
     Object {
@@ -25,14 +25,14 @@ exports[`PanelMeetingAgenda matches snapshot when CDO 1`] = `
   }
 >
   <MemoryRouter>
-    <PanelMeetingAgenda
+    <PanelMeetingAgendas
       isCDO={true}
     />
   </MemoryRouter>
 </ContextProvider>
 `;
 
-exports[`PanelMeetingAgenda matches snapshot when not CDO 1`] = `
+exports[`PanelMeetingAgendaComponent matches snapshot when not CDO 1`] = `
 <ContextProvider
   value={
     Object {
@@ -57,7 +57,7 @@ exports[`PanelMeetingAgenda matches snapshot when not CDO 1`] = `
   }
 >
   <MemoryRouter>
-    <PanelMeetingAgenda
+    <PanelMeetingAgendas
       isCDO={false}
     />
   </MemoryRouter>
