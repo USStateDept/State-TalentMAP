@@ -5,7 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import PanelMeetingAgenda from './PanelMeetingAgenda';
+import PanelMeetingAgendas from './PanelMeetingAgendas';
 import filters from '../../../__mocks__/filtersArray';
 
 const middlewares = [thunk];
@@ -16,7 +16,7 @@ describe('PanelMeetingAgendaComponent', () => {
     const wrapper = TestUtils.renderIntoDocument(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <PanelMeetingAgenda isCDO />
+          <PanelMeetingAgendas isCDO />
         </MemoryRouter>
       </Provider>,
     );
@@ -27,7 +27,7 @@ describe('PanelMeetingAgendaComponent', () => {
     const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <PanelMeetingAgenda isCDO />
+          <PanelMeetingAgendas isCDO />
         </MemoryRouter>
       </Provider>,
     );
@@ -38,7 +38,7 @@ describe('PanelMeetingAgendaComponent', () => {
     const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <PanelMeetingAgenda isCDO={false} />
+          <PanelMeetingAgendas isCDO={false} />
         </MemoryRouter>
       </Provider>,
     );
@@ -53,7 +53,7 @@ describe('PanelMeetingAgendaComponent', () => {
       })}
       >
         <MemoryRouter>
-          <PanelMeetingAgenda />
+          <PanelMeetingAgendas />
         </MemoryRouter>
       </Provider>,
     );
@@ -68,7 +68,7 @@ describe('PanelMeetingAgendaComponent', () => {
       })}
       >
         <MemoryRouter>
-          <PanelMeetingAgenda />
+          <PanelMeetingAgendas />
         </MemoryRouter>
       </Provider>,
     );

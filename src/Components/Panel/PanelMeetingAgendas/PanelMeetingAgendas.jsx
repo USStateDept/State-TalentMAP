@@ -20,7 +20,7 @@ import BackButton from '../../BackButton';
 
 
 // eslint-disable-next-line no-unused-vars
-const PanelMeetingAgenda = ({ isCDO }) => {
+const PanelMeetingAgendas = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -418,12 +418,12 @@ const PanelMeetingAgenda = ({ isCDO }) => {
   );
 };
 
-PanelMeetingAgenda.propTypes = {
+PanelMeetingAgendas.propTypes = {
   isCDO: PropTypes.bool,
 };
 
-PanelMeetingAgenda.defaultProps = {
+PanelMeetingAgendas.defaultProps = {
   isCDO: false,
 };
 
-export default PanelMeetingAgenda;
+export default PanelMeetingAgendas;
