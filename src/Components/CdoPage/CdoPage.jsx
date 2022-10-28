@@ -16,7 +16,7 @@ const CdoPage = () => (
       <Route path="/profile/cdo/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO viewType="cdo" />} />
       <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
-      <Route path="/profile/cdo/panelmeetingagenda" render={() => <PanelMeetingAgendas isCDO />} />
+      <Route path="/profile/cdo/panelmeetingagendas" render={() => <PanelMeetingAgendas isCDO />} />
     </Switch>
   </div>
 );
