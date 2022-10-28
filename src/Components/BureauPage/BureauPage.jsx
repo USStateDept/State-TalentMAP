@@ -30,7 +30,6 @@ const BureauPage = () => {
         <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO={false} viewType="ao" />} />
         <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO={false} />} />
         <Route path="/profile/ao/panelmeetings" render={() => <PanelMeetingSearch isCDO={false} />} />
-        <Route path="/profile/ao/panel" render={() => <PanelMeetingAgenda isCDO={false} />} />
         <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
         <Route path="/profile/ao/panelmeetingagenda" render={() => <PanelMeetingAgenda isCDO={false} isAO />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
