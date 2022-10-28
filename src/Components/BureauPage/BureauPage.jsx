@@ -4,8 +4,8 @@ import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/Employe
 import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
-import PanelMeetingAgenda from 'Components/Panel/PanelMeetingAgenda/PanelMeetingAgenda';
 import EditPositionDetails from 'Components/EditPositionDetails2/EditPositionDetails';
+import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
@@ -32,7 +32,7 @@ const BureauPage = () => {
         <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO={false} />} />
         <Route path="/profile/ao/panelmeetings" render={() => <PanelMeetingSearch isCDO={false} />} />
         <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
-        <Route path="/profile/ao/panelmeetingagenda" render={() => <PanelMeetingAgenda isCDO={false} isAO />} />
+        <Route path="/profile/ao/panelmeetingagendas" render={() => <PanelMeetingAgendas isCDO={false} isAO />} />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
         <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
