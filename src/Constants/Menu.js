@@ -202,6 +202,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      checkFlag('flags.position_details2') ?
+        {
+          text: 'Position Details2',
+          route: '/profile/bureau/positiondetails2',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
     ],
   },
   {
