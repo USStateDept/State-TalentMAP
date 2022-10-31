@@ -29,8 +29,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const addendumCutoff = formatDate('2024-05-18T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
 
-  const genericFiltersIsLoading = useSelector(state =>
-    state.filtersIsLoading);
+  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
