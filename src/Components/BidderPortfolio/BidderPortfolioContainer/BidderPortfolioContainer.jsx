@@ -25,6 +25,7 @@ class BidderPortfolioContainer extends Component {
     const showNoCdosAlert = !cdosLength;
     const showEdit$ = showEdit && !hideControls;
     const showExpand = !hideControls;
+    // console.log('container pageNumber: ', pageNumber);
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {

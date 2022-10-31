@@ -19,6 +19,7 @@ class BidderPortfolioPage extends Component {
     this.state = {
       viewType: { value: 'card' },
       editType: { show: false },
+      // pageNumber: { value: 1 },
       q: '',
     };
   }
@@ -48,19 +49,19 @@ class BidderPortfolioPage extends Component {
     this.setState({ editType: value });
   };
 
-  /* changePageSize = (e) => {
-    console.log('<<<<<<new PageSize is: ', e);
-    const { pageSize } = e;
-    this.setState({ pageSize });
-  }; */
-
+  changePageNumber = (e) => {
+    // console.log('<<<<<<new pageNumber is: ', e);
+    // const { pageNumber } = e;
+    this.setState({ pageNumber: e });
+  };
 
   render() {
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
-      bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, pageNumber,
+      bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
+    // console.log(this.props);
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
@@ -175,6 +176,7 @@ BidderPortfolioPage.propTypes = {
 BidderPortfolioPage.defaultProps = {
   classifications: [],
   cdosLength: 0,
+  pageNumber: 1,
 };
 
 export default BidderPortfolioPage;

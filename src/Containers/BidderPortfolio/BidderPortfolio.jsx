@@ -40,6 +40,7 @@ class BidderPortfolio extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const props = ['cdos', 'selectedSeasons', 'selectedUnassigned'];
+    const props2 = ['page'];
     if (!isEqual(pick(this.props, props), pick(nextProps, props))) {
       this.setState({
         // Reset page number, since these filters are
@@ -52,6 +53,14 @@ class BidderPortfolio extends Component {
     if (this.props.availableBiddersIdsLoading && !nextProps.availableBiddersIdsLoading) {
       this.setState({
         bidderIdsHasLoaded: true,
+      });
+    }
+    if (!isEqual(pick(this.props, props2), pick(nextProps, props2))) {
+      this.setState({
+        page: { value: this.state.page },
+      }, () => {
+        console.log(this.state.page);
+        this.getBidderPortfolio();
       });
     }
   }
@@ -127,6 +136,7 @@ class BidderPortfolio extends Component {
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { limit, page, hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
+    console.log('bidderPortfolio page number: ', page);
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
       || (availableBiddersIdsLoading && !bidderIdsHasLoaded)) && cdos.length;
     return (
@@ -175,6 +185,8 @@ BidderPortfolio.propTypes = {
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
   availableBiddersIdsLoading: PropTypes.bool,
+  // eslint-disable-next-line react/no-unused-prop-types
+  pageNumber: PropTypes.number,
 };
 
 BidderPortfolio.defaultProps = {
@@ -198,6 +210,7 @@ BidderPortfolio.defaultProps = {
   fetchAvailableBidders: EMPTY_FUNCTION,
   selectedUnassigned: [],
   availableBiddersIdsLoading: false,
+  pageNumber: 1,
 };
 
 const mapStateToProps = state => ({
@@ -220,6 +233,7 @@ const mapStateToProps = state => ({
   defaultSort: get(state, `sortPreferences.${BID_PORTFOLIO_SORTS_TYPE}.defaultSort`, BID_PORTFOLIO_SORTS_TYPE.defaultSort),
   selectedUnassigned: state.bidderPortfolioSelectedUnassigned,
   availableBiddersIdsLoading: state.availableBiddersIdsLoading,
+  pageNumber: state.bidderPortfolioPageNumber,
 });
 
 export const mapDispatchToProps = dispatch => ({

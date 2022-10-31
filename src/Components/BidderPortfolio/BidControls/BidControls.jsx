@@ -1,4 +1,4 @@
-import { Component, useEffect, useState } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { checkFlag } from 'flags';
 import PreferenceWrapper from 'Containers/PreferenceWrapper';
@@ -6,10 +6,10 @@ import {
   BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_FILTERS_TYPE, BID_PORTFOLIO_SORTS,
   BID_PORTFOLIO_SORTS_TYPE, CLIENTS_PAGE_SIZES, UNASSIGNED_BIDDERS_FILTERS } from 'Constants/Sort';
 import { filter, findIndex, get, includes, isEqual } from 'lodash';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { bidderPortfolioSelections, bidderPortfolioSetUnassigned } from 'actions/bidderPortfolio';
+import { bidderPortfolioSetUnassigned } from 'actions/bidderPortfolio';
 import ResultsPillContainer from '../../ResultsPillContainer/ResultsPillContainer';
 import SelectForm from '../../SelectForm';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
@@ -37,6 +37,7 @@ class BidControls extends Component {
       unassignedFilter: false,
       unassignedBidders: [],
       pills: [],
+      pageNumber: this.props.pageNumber,
     };
   }
 
@@ -65,6 +66,7 @@ class BidControls extends Component {
         this.setState({ proxyCdos: nextProps.selection }, this.generatePills);
       }
     }
+    this.setState({ pageNumber: this.props.pageNumber });
   }
 
   onSeasonChange = seasons => {
@@ -109,9 +111,9 @@ class BidControls extends Component {
     this.props.queryParamUpdate(orderingObject);
   };
 
-  /* updateQueryLimit = q => {
+  updateQueryLimit = q => {
     this.props.queryParamUpdate({ limit: q.target.value });
-  }; */
+  };
 
   generatePills = () => {
     const pills = [];
@@ -168,11 +170,8 @@ class BidControls extends Component {
   };
 
   render() {
-    console.log('<<<<<< Props: ', this.props);
-
-    const dispatch = useDispatch();
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, /* pageSize, */ getKeyword } = this.props;
+      defaultOrdering, pageSize, getKeyword } = this.props;
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayUnassignedFilter = useUnassignedFilter();
@@ -181,44 +180,6 @@ class BidControls extends Component {
     if (!displayUnassignedFilter) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
-    const userSelections = useSelector(state => state.bidderPortfolioSelections);
-    // Pagination
-    // const [page, setPage] = useState(get(userSelections, 'page') || 1);
-    const [limit, setLimit] = useState(get(userSelections, 'limit') || CLIENTS_PAGE_SIZES.defaultSize);
-
-    // const prevPage = usePrevious(page);
-    const getCurrentInputs = () => ({
-      // page,
-      limit,
-    });
-
-    useEffect(() => {
-      dispatch(bidderPortfolioSelections(getCurrentInputs()));
-    }, []);
-
-    /*
-    const fetchAndSet = (resetPage = false) => {
-      if (resetPage) {
-        // setPage(1);
-      }
-      dispatch(bidderPortfolioSelections(getCurrentInputs()));
-    }; */
-
-    /*
-    useEffect(() => {
-      if (prevPage) {
-        fetchAndSet(true);
-      }
-    }, [
-      limit,
-    ]); */
-
-    /*
-    useEffect(() => {
-      fetchAndSet(false);
-    }, [
-      page,
-    ]); */
 
     return (
       <div className="usa-grid-full portfolio-controls">
@@ -230,20 +191,13 @@ class BidControls extends Component {
             />
           </div>
           <div className="portfolio-sort-container-contents small-screen-stack">
-            <PreferenceWrapper
-              onSelect={value => setLimit(value.target.value)}
-              keyRef={CLIENTS_PAGE_SIZES}
-            >
-              <SelectForm
-                id="num-clients"
-                label="Display Clients:"
-                options={pageSizes}
-                // defaultSort={pageSize}
-                defaultSort={limit}
-                transformValue={n => parseInt(n, 10)}
-                // onSelectOption={this.updateQueryLimit}
-              />
-            </PreferenceWrapper>
+            <SelectForm
+              id="num-clients"
+              label="Display Clients:"
+              options={pageSizes}
+              defaultSort={pageSize}
+              onSelectOption={this.updateQueryLimit}
+            />
             <BidCyclePicker
               setSeasonsCb={this.onSeasonChange}
               setClick={(a) => { this.updateMultiSelect = a; }}
@@ -315,29 +269,31 @@ BidControls.propTypes = {
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  // pageSize: PropTypes.number,
+  pageSize: PropTypes.number,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/no-unused-prop-types
+  pageNumber: PropTypes.number,
 };
 
 BidControls.defaultProps = {
-  // pageSize: 0,
+  pageSize: 0,
   selection: [],
   unassignedSelection: [],
+  pageNumber: 1,
 };
 
 const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
   unassignedSelection: state.bidderPortfolioSelectedUnassigned,
-  userSelections: state.bidderPortfolioSelections,
+  pageNumber: state.bidderPortfolioPageNumber,
 });
 
 export const mapDispatchToProps = dispatch => ({
   setUnassigned: (arr = []) => dispatch(bidderPortfolioSetUnassigned(arr)),
-  setUserSelections: (obj) => dispatch(bidderPortfolioSelections(obj)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BidControls);
