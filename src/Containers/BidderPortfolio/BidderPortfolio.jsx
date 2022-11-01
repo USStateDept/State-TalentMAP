@@ -144,7 +144,7 @@ class BidderPortfolio extends Component {
           bidderPortfolio={bidderPortfolio}
           bidderPortfolioIsLoading={isLoading}
           bidderPortfolioHasErrored={bidderPortfolioHasErrored}
-          pageSize={bidderPortfolioPagination.pageSize}
+          pageSize={bidderPortfolioPagination.pageSize || 10}
           queryParamUpdate={this.onQueryParamUpdate}
           pageNumber={bidderPortfolioPagination.pageNumber}
           bidderPortfolioCounts={bidderPortfolioCounts}

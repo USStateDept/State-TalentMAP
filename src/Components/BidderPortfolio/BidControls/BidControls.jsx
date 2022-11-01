@@ -112,6 +112,8 @@ class BidControls extends Component {
   };
 
   updateQueryLimit = q => {
+    const { pageNumber, updatePagination } = this.props;
+    updatePagination({ pageNumber, pageSize: q.target.value });
     this.props.queryParamUpdate({ limit: q.target.value });
   };
 
@@ -279,6 +281,8 @@ BidControls.propTypes = {
   resetKeyword: PropTypes.func.isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
   pageSize: PropTypes.number,
+  pageNumber: PropTypes.number,
+  updatePagination: PropTypes.func.isRequired,
 };
 
 BidControls.defaultProps = {
@@ -286,12 +290,13 @@ BidControls.defaultProps = {
   selection: [],
   unassignedSelection: [],
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
+  pageNumber: 1,
 };
 
 const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
   unassignedSelection: state.bidderPortfolioSelectedUnassigned,
-  pageNumber: state.bidderPortfolioPageNumber,
+  // pageNumber: state.bidderPortfolioPageNumber,
 });
 
 export const mapDispatchToProps = dispatch => ({

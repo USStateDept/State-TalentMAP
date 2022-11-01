@@ -49,11 +49,11 @@ class BidderPortfolioPage extends Component {
     this.setState({ editType: value });
   };
 
-  changePageNumber = (e) => {
-    // console.log('<<<<<<new pageNumber is: ', e);
-    // const { pageNumber } = e;
-    this.setState({ pageNumber: e });
-  };
+  // changePageNumber = (e) => {
+  //   // console.log('<<<<<<new pageNumber is: ', e);
+  //   // const { pageNumber } = e;
+  //   this.setState({ pageNumber: e });
+  // };
 
   render() {
     console.log('scotty: ', this.props);
@@ -113,10 +113,12 @@ class BidderPortfolioPage extends Component {
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
                 pageSize={pageSize}
+                pageNumber={pageNumber}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
                 getKeyword={this.state.q}
                 resetKeyword={this.resetRefKeyword}
+                updatePagination={updatePagination}
               />
             </div>
           }
