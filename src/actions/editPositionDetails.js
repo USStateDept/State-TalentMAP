@@ -1,10 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { batch } from 'react-redux';
-import { get, identity, isArray, isString, pickBy } from 'lodash';
+import { get } from 'lodash';
 import { CancelToken } from 'axios';
-import { downloadFromResponse, formatDate, mapDuplicates } from 'utilities';
-import Q from 'q';
-import { stringify } from 'query-string';
+import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
 import api from '../api';
 
 let cancelEditPositionDetails;
@@ -50,20 +47,6 @@ export function editPositionDetailsFiltersFetchDataSuccess(results) {
     results,
   };
 }
-
-// replace this with the utilities import
-// once panelmeetingagendas pr is merged
-const convertQueryToString = query => {
-  let q = pickBy(query, identity);
-  Object.keys(q).forEach(queryk => {
-    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
-    if (isString(q[queryk]) && !q[queryk]) {
-      q[queryk] = undefined;
-    }
-  });
-  q = stringify(q);
-  return q;
-};
 
 export function editPositionDetailsExport(query = {}) {
   const q = convertQueryToString(query);
