@@ -119,6 +119,32 @@ export function bidderPortfolioLastQuery(query, count) {
     count,
   };
 }
+export function bidderPortfolioPaginationHasErrored(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_PAGINATION_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bidderPortfolioPaginationIsLoading(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_PAGINATION_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bidderPortfolioPaginationFetchDataSuccess(data) {
+  console.log('step 2: success');
+  return {
+    type: 'BIDDER_PORTFOLIO_PAGINATION_FETCH_DATA_SUCCESS',
+    data,
+  };
+}
+export function saveBidderPortfolioPagination(paginationObject = { pageSize: 10, pageNumber: 1 }) {
+  console.log('step 1: saving');
+  console.log(paginationObject);
+  return (dispatch) => {
+    dispatch(bidderPortfolioPaginationFetchDataSuccess(paginationObject));
+  };
+}
 
 export function bidderPortfolioSetSeasons(seasons = []) {
   return (dispatch) => {
@@ -247,6 +273,7 @@ export function downloadClientData(q = '') {
 }
 
 export function bidderPortfolioCDOsFetchData() {
+  console.log('scott: ');
   return (dispatch, getState) => {
     if (cancelCDOs) { cancelCDOs('cancel'); }
     const cdos = get(getState(), 'bidderPortfolioCDOs', []);
@@ -266,6 +293,8 @@ export function bidderPortfolioCDOsFetchData() {
             last_name: '',
           }));
           dispatch(bidderPortfolioCDOsFetchDataSuccess(data));
+          // console.log('scott: ', currentUser);
+          // console.log('scott: ', data);
           if (!getState().bidderPortfolioSelectedCDOsToSearchBy.length) {
             const currentUser = data.find(f => f.isCurrentUser);
             if (currentUser) {

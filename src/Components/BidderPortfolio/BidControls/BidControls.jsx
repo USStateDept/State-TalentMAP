@@ -37,7 +37,7 @@ class BidControls extends Component {
       unassignedFilter: false,
       unassignedBidders: [],
       pills: [],
-      pageNumber: this.props.pageNumber,
+      // pageNumber: this.props.pageNumber || 1,
     };
   }
 
@@ -172,7 +172,9 @@ class BidControls extends Component {
   render() {
     const { viewType, changeViewType, defaultHandshake,
       defaultOrdering, pageSize, getKeyword } = this.props;
-    const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
+    const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter,
+      pageNumber } = this.state;
+    console.log('bidControls pageNumber: ', pageNumber);
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayUnassignedFilter = useUnassignedFilter();
     const showClear = !!pills.length || getKeyword;
@@ -269,21 +271,21 @@ BidControls.propTypes = {
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  pageSize: PropTypes.number,
+  // pageSize: PropTypes.number,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
-  pageNumber: PropTypes.number,
+  pageSize: PropTypes.number,
 };
 
 BidControls.defaultProps = {
-  pageSize: 0,
+  // pageSize: 0,
   selection: [],
   unassignedSelection: [],
-  pageNumber: 1,
+  pageSize: CLIENTS_PAGE_SIZES.defaultSort,
 };
 
 const mapStateToProps = state => ({

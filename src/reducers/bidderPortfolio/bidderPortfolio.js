@@ -139,6 +139,31 @@ export function bidderPortfolioCDOs(state = [], action) {
       return state;
   }
 }
+export function bidderPortfolioPaginationHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_PAGINATION_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioPaginationIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_PAGINATION_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function bidderPortfolioPagination(state = {}, action) {
+  switch (action.type) {
+    case 'BIDDER_PORTFOLIO_PAGINATION_FETCH_DATA_SUCCESS':
+      console.log('hit the reducer');
+      return action.data;
+    default:
+      return state;
+  }
+}
 
 export function bidderPortfolioSelectedCDO(state = {}, action) {
   switch (action.type) {

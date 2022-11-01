@@ -56,10 +56,11 @@ class BidderPortfolioPage extends Component {
   };
 
   render() {
+    console.log('scotty: ', this.props);
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
-      classificationsIsLoading,
+      classificationsIsLoading, updatePagination,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // console.log(this.props);
     // for bidder results, however, we'll wait until everything is loaded
@@ -73,7 +74,8 @@ class BidderPortfolioPage extends Component {
     /* if (pageSize !== this.state.pageSize) {
       this.changePageSize();
     } */
-    // console.log('<<<<<<<<<pageNum: ', pageNumber);
+    console.log('<<<<<<<<<pageNum: ', pageNumber);
+    // console.log(state.BidderPortfolioPageNumber);
     let viewTypeClass = 'card-view';
     if (isListView) { viewTypeClass = 'list-view'; }
 
@@ -148,6 +150,7 @@ class BidderPortfolioPage extends Component {
                     cdosLength={cdosLength}
                     hideControls={hideControls}
                     hasErrored={bidderPortfolioHasErrored}
+                    updatePagination={updatePagination}
                   />
                 </ErrorBoundary>
             }
@@ -171,6 +174,7 @@ BidderPortfolioPage.propTypes = {
   cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
+  updatePagination: PropTypes.func.isRequired,
 };
 
 BidderPortfolioPage.defaultProps = {
