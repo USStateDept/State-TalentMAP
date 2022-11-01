@@ -216,8 +216,6 @@ const PositionManager = props => {
     );
   }
 
-  console.log('bureauoptions', bureauOptions);
-
 
   // Free Text Search
   function submitSearch(text) {
