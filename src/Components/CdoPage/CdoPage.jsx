@@ -5,6 +5,7 @@ import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/Employe
 import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
+import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -15,6 +16,7 @@ const CdoPage = () => (
       <Route path="/profile/cdo/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO viewType="cdo" />} />
       <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
+      <Route path="/profile/cdo/panelmeetingagendas" render={() => <PanelMeetingAgendas isCDO />} />
     </Switch>
   </div>
 );

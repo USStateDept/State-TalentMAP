@@ -1,0 +1,81 @@
+.panel-meeting-agenda-page {
+  .panel-meeting-agenda-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    color: $color-white;
+    max-width: none;
+    padding: 20px 35px 35px;
+
+    .button-back-link {
+      background-color: $primary-blue;
+      color: $color-white;
+    }
+
+    .cutoff-date-container {
+      margin-top: 15px;
+      display: inline-grid;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(2, auto);
+
+      .panel-meeting-agenda-header-data-point {
+        align-items: center;
+        display: flex;
+        margin: 0 3rem 1.5rem .1rem;
+
+        dd {
+          margin-left: 5px;
+        }
+      }
+
+      .preliminary-cut-off-date {
+        margin-left: 10px;
+      }
+
+      .addendum-cut-off-date {
+        margin-left: 12px;
+      }
+    }
+  }
+
+  .filterby-container {
+    display: flex;
+    margin-top: 20px;
+
+    .filterby-label {
+      font-size: 20px;
+      margin-bottom: 10px;
+      width: 115px;
+    }
+
+    .filterby-clear {
+      font-weight: bold;
+
+      .fa-times {
+        color: $color-red;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .panel-meeting-agenda-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(335px, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+      margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+        min-width: 115px;
+        text-align: end;
+      }
+
+      .picky {
+        color: $color-black;
+        width: 200px;
+      }
+    }
+  }
+}
