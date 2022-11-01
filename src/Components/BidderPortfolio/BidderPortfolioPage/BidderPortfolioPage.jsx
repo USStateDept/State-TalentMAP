@@ -49,12 +49,6 @@ class BidderPortfolioPage extends Component {
     this.setState({ editType: value });
   };
 
-  // changePageNumber = (e) => {
-  //   // console.log('<<<<<<new pageNumber is: ', e);
-  //   // const { pageNumber } = e;
-  //   this.setState({ pageNumber: e });
-  // };
-
   render() {
     console.log('scotty: ', this.props);
     const { editType } = this.state;
@@ -62,7 +56,6 @@ class BidderPortfolioPage extends Component {
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading, updatePagination,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
-    // console.log(this.props);
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
@@ -70,12 +63,7 @@ class BidderPortfolioPage extends Component {
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
 
-    // console.log('<<<<<<<<<current pageSize is: ', pageSize);
-    /* if (pageSize !== this.state.pageSize) {
-      this.changePageSize();
-    } */
     console.log('<<<<<<<<<pageNum: ', pageNumber);
-    // console.log(state.BidderPortfolioPageNumber);
     let viewTypeClass = 'card-view';
     if (isListView) { viewTypeClass = 'list-view'; }
 

@@ -37,7 +37,6 @@ class BidControls extends Component {
       unassignedFilter: false,
       unassignedBidders: [],
       pills: [],
-      // pageNumber: this.props.pageNumber || 1,
     };
   }
 
@@ -112,9 +111,9 @@ class BidControls extends Component {
   };
 
   updateQueryLimit = q => {
-    const { pageNumber, updatePagination } = this.props;
-    updatePagination({ pageNumber, pageSize: q.target.value });
-    this.props.queryParamUpdate({ limit: q.target.value });
+    const { updatePagination } = this.props;
+    updatePagination({ pageNumber: 1, pageSize: q.target.value });
+    this.props.queryParamUpdate();
   };
 
   generatePills = () => {
@@ -273,20 +272,17 @@ BidControls.propTypes = {
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  // pageSize: PropTypes.number,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   pageSize: PropTypes.number,
   pageNumber: PropTypes.number,
   updatePagination: PropTypes.func.isRequired,
 };
 
 BidControls.defaultProps = {
-  // pageSize: 0,
   selection: [],
   unassignedSelection: [],
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
@@ -296,7 +292,6 @@ BidControls.defaultProps = {
 const mapStateToProps = state => ({
   selection: state.bidderPortfolioSelectedCDOsToSearchBy,
   unassignedSelection: state.bidderPortfolioSelectedUnassigned,
-  // pageNumber: state.bidderPortfolioPageNumber,
 });
 
 export const mapDispatchToProps = dispatch => ({

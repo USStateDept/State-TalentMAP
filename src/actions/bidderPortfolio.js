@@ -132,13 +132,12 @@ export function bidderPortfolioPaginationIsLoading(bool) {
   };
 }
 export function bidderPortfolioPaginationFetchDataSuccess(data) {
-  console.log('step 2: success');
   return {
     type: 'BIDDER_PORTFOLIO_PAGINATION_FETCH_DATA_SUCCESS',
     data,
   };
 }
-export function saveBidderPortfolioPagination(paginationObject = { pageSize: 10, pageNumber: 1 }) {
+export function saveBidderPortfolioPagination(paginationObject) {
   console.log('step 1: saving');
   console.log(paginationObject);
   return (dispatch) => {

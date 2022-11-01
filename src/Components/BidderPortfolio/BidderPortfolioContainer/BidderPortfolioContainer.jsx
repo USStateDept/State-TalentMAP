@@ -11,31 +11,19 @@ import BidderPortfolioGridList from '../BidderPortfolioGridList';
 const ID = 'bidder-portfolio-container';
 
 class BidderPortfolioContainer extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     pageNumber: this.props.pageNumber || 1,
-  //   };
-  // }
-
   onPageChange = q => {
     console.log('scooootty (hit in onPageChange) q: ', q);
-    // eslint-disable-next-line no-unused-vars
     const { pageSize, queryParamUpdate, updatePagination } = this.props;
     scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
     updatePagination({ pageNumber: q.page, pageSize });
     setTimeout(() => {
       queryParamUpdate();
     }, 600);
-    // uncomment, check if redux update then errors, or errors and redux does not update
-    // handling for queryParamUpdate
   };
 
   render() {
     const { bidderPortfolio, pageSize, showListView, showEdit, isLoading,
       cdosLength, hideControls, classifications, hasErrored, pageNumber } = this.props;
-    // eslint-disable-next-line no-unused-vars
-    // const { pageNumber } = this.state;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     const showNoCdosAlert = !cdosLength;
     const showEdit$ = showEdit && !hideControls;

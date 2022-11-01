@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { get, isEqual, omit, pick } from 'lodash';
+import { get, isEmpty, isEqual, omit, pick } from 'lodash';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -55,27 +55,21 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate = (q = {}) => {
+    console.log('patty: q', q);
+    const { pageNumber, pageSize } = this.props.bidderPortfolioPagination;
     const { query } = this.state;
-    if (q) {
+    if (!isEmpty(q)) {
+      saveBidderPortfolioPagination({ pageNumber: 1, pageSize });
+      console.log('patty pageNumber: ', pageNumber);
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);
+      console.log('patty newQuery: ', newQuery);
       query.value = newQuery;
     }
+    console.log('patty query: ', query);
     this.setState({ query }, () => {
       this.getBidderPortfolio();
     });
-
-    // const newQueryObject = queryParamUpdate(q, query.value, true);
-
-    // and update the query state
-
-    // convert to a number, if it exists
-    // const newQueryObjectPage = parseInt(newQueryObject.page, 10);
-    // bidderPortfolioPagination.pageNumber = newQueryObjectPage || 1;
-    // saveBidderPortfolioPagination?
-    // maybe empty default object for q
-    // if empty, skip everything else and just setState (don't need to update)
-    // still want to call getBidderPortfolio
   };
 
   // Form our query and then retrieve bidders.
@@ -108,7 +102,7 @@ class BidderPortfolio extends Component {
     const size = parseInt(pageSize, 10) || this.props.defaultPageSize;
     this.mapTypeToQuery();
     const query = {
-      page: pageNumber, // don't we want these to be 1 and 10 respectively?
+      page: pageNumber,
       limit: size,
       hasHandshake: hasHandshake.value,
       ordering: ordering.value,
@@ -120,7 +114,7 @@ class BidderPortfolio extends Component {
       queryString.stringify(newQuery),
       true,
       false,
-    ); // filter undefined values
+    );
     return newQuery;
   }
 
@@ -130,12 +124,9 @@ class BidderPortfolio extends Component {
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       // eslint-disable-next-line no-shadow
-      saveBidderPortfolioPagination,
-      // eslint-disable-next-line max-len
-      classifications, classificationsIsLoading, classificationsHasErrored, bidderPortfolioPagination } = this.props;
+      saveBidderPortfolioPagination, bidderPortfolioPagination,
+      classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
-    // console.log('bidderPortfolio page number: ', page);
-    // console.log(cdos);
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
       || (availableBiddersIdsLoading && !bidderIdsHasLoaded)) && cdos.length;
     return (
@@ -185,8 +176,6 @@ BidderPortfolio.propTypes = {
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
   availableBiddersIdsLoading: PropTypes.bool,
-  // eslint-disable-next-line react/no-unused-prop-types
-  pageNumber: PropTypes.number,
   saveBidderPortfolioPagination: PropTypes.func.isRequired,
 };
 
@@ -211,7 +200,6 @@ BidderPortfolio.defaultProps = {
   fetchAvailableBidders: EMPTY_FUNCTION,
   selectedUnassigned: [],
   availableBiddersIdsLoading: false,
-  pageNumber: 1,
 };
 
 const mapStateToProps = state => ({
@@ -234,7 +222,6 @@ const mapStateToProps = state => ({
   defaultSort: get(state, `sortPreferences.${BID_PORTFOLIO_SORTS_TYPE}.defaultSort`, BID_PORTFOLIO_SORTS_TYPE.defaultSort),
   selectedUnassigned: state.bidderPortfolioSelectedUnassigned,
   availableBiddersIdsLoading: state.availableBiddersIdsLoading,
-  // pageNumber: state.bidderPortfolioPageNumber,
   bidderPortfolioPagination: state.bidderPortfolioPagination,
 });
 
@@ -243,8 +230,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
   fetchClassifications: () => dispatch(fetchClassifications()),
   fetchAvailableBidders: () => dispatch(availableBiddersIds()),
-  // eslint-disable-next-line max-len
-  saveBidderPortfolioPagination: paginationObject => dispatch(saveBidderPortfolioPagination(paginationObject)),
+  saveBidderPortfolioPagination: a => dispatch(saveBidderPortfolioPagination(a)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));
