@@ -25,15 +25,14 @@ const EditPositionDetails = () => {
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
+  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'seletecBureaus') || []);
+  const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
+
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const posts = genericFilters$.find(f => get(f, 'item.description') === 'post');
   const postsOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
-
-
-  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'seletecBureaus') || []);
-  const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
 
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
