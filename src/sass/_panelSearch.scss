@@ -43,9 +43,13 @@
             }
 
             @media screen and (max-width: 1025px) {
-                .label-date {
-                    margin-right: 2px;
-                }
+              .label {
+                min-width: 100px;
+              }
+
+              .label-date {
+                margin-right: 2px;
+              }
             }
 
             .picky {
@@ -82,16 +86,10 @@
             }
         }
 
-        @media screen and (min-width: 986px) and (max-width: 1025px) {
+        @media screen and (max-width: $screen-md-max) {
           .react-daterange-picker {
-            margin-left: 8px;
+            margin-left: 9px;
           }
-        }
-        
-        @media screen and (max-width: 985px) {
-            .react-daterange-picker, .picky {
-                margin-left: 5px;
-            }
         }
     }
 }

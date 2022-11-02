@@ -202,7 +202,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      checkFlag('flags.position_details') ?
+      checkFlag('flags.edit_position_details') ?
         {
           text: 'Position Details',
           route: '/profile/bureau/positiondetails',

@@ -46,6 +46,12 @@
                 text-align: end;
             }
 
+            @media screen and (max-width: 985px) {
+                .label {
+                    min-width: 110px;
+                }
+            }
+
             @media screen and (max-width: 1025px) {
                 .label-date {
                     margin-right: 2px;
