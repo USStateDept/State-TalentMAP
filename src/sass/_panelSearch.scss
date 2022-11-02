@@ -82,9 +82,15 @@
             }
         }
 
-        @media screen and (max-width: $screen-md-max) {
-            .react-daterange-picker {
-                margin-left: 25px;
+        @media screen and (min-width: 986px) and (max-width: 1025px) {
+          .react-daterange-picker {
+            margin-left: 8px;
+          }
+        }
+        
+        @media screen and (max-width: 985px) {
+            .react-daterange-picker, .picky {
+                margin-left: 5px;
             }
         }
     }
