@@ -4,7 +4,7 @@ import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/Employe
 import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
-import EditPositionDetails from 'Components/EditPositionDetails2/EditPositionDetails';
+import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDetails';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
@@ -39,7 +39,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/bureau/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
-        <Route path="/profile/bureau/positiondetails2" render={() => <EditPositionDetails />} />
+        <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
       </Switch>
     </div>
   );
