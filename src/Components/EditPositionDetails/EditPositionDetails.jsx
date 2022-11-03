@@ -167,7 +167,7 @@ const EditPositionDetails = () => {
                 <div className="label">Bureau:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Bureau"
+                  placeholder="Select Bureau(s)"
                   value={selectedBureaus}
                   options={bureausOptions}
                   onChange={setSelectedBureaus}
@@ -180,7 +180,7 @@ const EditPositionDetails = () => {
                 <div className="label">Location (Org):</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Location (Org)"
+                  placeholder="Select Location(s)"
                   value={selectedPosts}
                   options={postsOptions}
                   onChange={setSelectedPosts}
