@@ -236,6 +236,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Position Details"
+        link="/profile/bureau/positiondetails"
+        search=""
+        title="Position Details"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="map"
         key="Position Manager"
         link="/profile/bureau/positionmanager"
@@ -574,6 +582,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Position Details"
+        link="/profile/bureau/positiondetails"
+        search=""
+        title="Position Details"
       />
       <withRouter(NavLink)
         hidden={true}
