@@ -25,7 +25,7 @@ const EditPositionDetails = () => {
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
-  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'seletecBureaus') || []);
+  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
   const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
@@ -177,7 +177,7 @@ const EditPositionDetails = () => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Location (Org):</div>
+                <div className="label">Location:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Location(s)"

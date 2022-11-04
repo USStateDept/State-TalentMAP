@@ -244,7 +244,6 @@ export const PANEL_MEETINGS_PAGE_SIZES = {
 
 PANEL_MEETINGS_PAGE_SIZES.defaultSize = PANEL_MEETINGS_PAGE_SIZES.options[2].value;
 
-// place sort options here pending be/ws info
 export const PANEL_MEETING_AGENDAS_SORT = {
   options: [
     { value: 'grade', text: 'Grade Asc.' },
@@ -266,7 +265,6 @@ export const PANEL_MEETING_AGENDAS_PAGE_SIZES = {
 
 PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize = PANEL_MEETING_AGENDAS_PAGE_SIZES.options[2].value;
 
-// place sort options here pending be/ws info
 export const EDIT_POSITION_DETAILS_SORT = {
   options: [
     { value: 'location', text: 'Location Asc.' },

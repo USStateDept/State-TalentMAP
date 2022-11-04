@@ -5,6 +5,10 @@
         color: $color-white;
         max-width: none;
         padding: 20px 35px 35px;
+
+        .fa-lg {
+            font-size: 1.8em;
+        }
     }
 
     .search-submit-button {
@@ -49,12 +53,6 @@
             @media screen and (max-width: 985px) {
                 .label {
                     min-width: 110px;
-                }
-            }
-
-            @media screen and (max-width: 1025px) {
-                .label-date {
-                    margin-right: 2px;
                 }
             }
 
