@@ -62,15 +62,9 @@ exports[`FrequentPositionsComponent matches snapshot 1`] = `
             />
           </InteractiveElement>
         </td>
-        <td>
-          AF
-        </td>
-        <td>
-          010101010
-        </td>
-        <td>
-          Information Technology Spec
-        </td>
+        <td />
+        <td />
+        <td />
       </tr>
     </tbody>
   </table>
