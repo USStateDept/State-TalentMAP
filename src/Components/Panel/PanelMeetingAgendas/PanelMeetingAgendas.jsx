@@ -110,8 +110,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const addendumCutoff = formatDate('2024-05-18T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
 
-  const genericFiltersIsLoading = useSelector(state =>
-    state.filtersIsLoading);
+  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
@@ -358,7 +357,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Bureau:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Bureau"
+                  placeholder="Select Bureau(s)"
                   value={selectedBureaus}
                   options={bureausOptions}
                   onChange={setSelectedBureaus}
@@ -371,7 +370,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Category:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Categories"
+                  placeholder="Select Category(-ies)"
                   value={selectedCategories}
                   options={categoriesOptions}
                   onChange={setSelectedCategories}
@@ -384,7 +383,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Grade:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Grade"
+                  placeholder="Select Grade(s)"
                   value={selectedGrades}
                   options={gradesOptions}
                   onChange={setSelectedGrades}
@@ -397,7 +396,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Item Action:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Item Action"
+                  placeholder="Select Item Action(s)"
                   value={selectedItemActions}
                   options={itemActionsOptions}
                   onChange={setSelectedItemActions}
@@ -410,7 +409,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Item Status:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Item Status"
+                  placeholder="Select Item Status(es)"
                   value={selectedItemStatuses}
                   options={itemStatusesOptions}
                   onChange={setSelectedItemStatuses}
@@ -423,7 +422,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Language:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Language"
+                  placeholder="Select Language(s)"
                   value={selectedLanguages}
                   options={languagesOptions}
                   onChange={setSelectedLanguages}
@@ -436,7 +435,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Location (Org):</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Location (Org)"
+                  placeholder="Select Location(s)"
                   value={selectedPosts}
                   options={postsOptions}
                   onChange={setSelectedPosts}
@@ -462,7 +461,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 <div className="label">Skill:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Skill"
+                  placeholder="Select Skill(s)"
                   value={selectedSkills}
                   options={skillsOptions}
                   onChange={setSelectedSkills}
