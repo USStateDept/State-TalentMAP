@@ -30,7 +30,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
       position_id: 89413,
       panel_date: '2015-02-14T00:00:00Z',
       status: 'BR',
-      status_full: 'Item Status: BR',
+      status_full: 'Item Status: Ready',
       remarks: [
         {
           active_ind: 'Y',
@@ -54,7 +54,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
         grade: '03',
         pos_num: '56100035',
         pos_title: 'SPECIAL AGENT',
-        org: 'Test Organization',
+        org: 'A/LM/OPS/TTM',
         eta: '2015-02-14T00:00:00Z',
         ted: '2015-02-14T00:00:00Z',
         action: 'Extend (by 3 months)',
@@ -64,7 +64,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
         grade: '03',
         pos_num: '56100035',
         pos_title: 'SPECIAL AGENT',
-        org: 'Test Organization',
+        org: 'A/LM/OPS/TTM',
         eta: '2015-02-14T00:00:00Z',
         ted: '2015-02-14T00:00:00Z',
         tod: '27MRR',
@@ -469,13 +469,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               />
               <ScrollUpButton />
             </div>
-          }
-          {
-            <header className="panel-meeting-agendas-header">
-              {dummyAgenda.map(result => (
-                <h3>(Panel Meeting Type) {formatDate(result.panel_date)}: Review</h3>
-              ))}
-            </header>
           }
           {
             <>
