@@ -250,7 +250,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 <div className="label">Type:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Meeting Type"
+                  placeholder="Select Meeting Type(s)"
                   value={selectedMeetingType}
                   options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
                   onChange={setSelectedMeetingType}
@@ -274,7 +274,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 <div className="label">Status:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Meeting Status"
+                  placeholder="Select Meeting Status(es)"
                   value={selectedMeetingStatus}
                   options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
                   onChange={setSelectedMeetingStatus}
