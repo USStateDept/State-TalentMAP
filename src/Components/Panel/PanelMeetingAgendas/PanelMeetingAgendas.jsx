@@ -14,6 +14,8 @@ import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, save
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Spinner from 'Components/Spinner';
+// import AgendaItemCard from 'Components/Agenda/AgendaItemCard';
+import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -23,6 +25,85 @@ import BackButton from '../../BackButton';
 const PanelMeetingAgendas = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
+
+  // agenda: PropTypes.shape({
+  //   id: PropTypes.number,
+  //   remarks: PropTypes.arrayOf(
+  //     PropTypes.shape({
+  //       seq_num: PropTypes.number,
+  //       rc_code: PropTypes.string,
+  //       order_num: PropTypes.number,
+  //       short_desc_text: PropTypes.string,
+  //       mutually_exclusive_ind: PropTypes.string,
+  //       text: PropTypes.string,
+  //       active_ind: PropTypes.string,
+  //       type: null,
+  //     }),
+  //   ),
+  //   panel_date: PropTypes.string,
+  //   status: PropTypes.string,
+  //   perdet: PropTypes.number,
+  //   legs: PropTypes.arrayOf(
+  //     PropTypes.shape({
+  //       id: PropTypes.number,
+  //       pos_title: PropTypes.string,
+  //       pos_num: PropTypes.string,
+  //       org: PropTypes.string,
+  //       eta: PropTypes.string,
+  //       ted: PropTypes.string,
+  //       tod: PropTypes.string,
+  //       grade: PropTypes.string,
+  //       action: PropTypes.string,
+  //       travel: PropTypes.string,
+  //     }),
+  //   ),
+  //   update_date: PropTypes.string,
+  //   modifier_name: PropTypes.number,
+  //   creator_name: PropTypes.number,
+  // }),
+
+  // eslint-disable-next-line no-unused-vars
+  const dummyAgenda = [
+    {
+      id: 155,
+      position_id: 89413,
+      start_date: '2015-02-14T00:00:00Z',
+      end_date: null,
+      status: 'BR',
+      asgd_tod_desc_text: '3 YRS (2 R & R)',
+      asgd_revision_num: null,
+      position: {
+        grade: '03',
+        skill: 'None (None)',
+        skill_code: null,
+        bureau: '(None) None',
+        bureau_code: null,
+        organization: 'A/LM/OPS/TTM',
+        position_number: '56100035',
+        position_id: 89413,
+        title: 'SPECIAL AGENT',
+        post: {
+          code: null,
+          post_overview_url: null,
+          post_bidding_considerations_url: null,
+          obc_id: null,
+          location: {
+            country: null,
+            code: null,
+            city: null,
+            state: null,
+          },
+        },
+        language: null,
+      },
+      pos: {
+        posseqnum: 89413,
+        posorgshortdesc: 'A/LM/OPS/TTM',
+        posnumtext: '56100035',
+        posgradecode: '03',
+        postitledesc: 'SPECIAL AGENT',
+      },
+    }];
 
   const meetingStatus = 'Initiated';
   const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
@@ -412,6 +493,29 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               />
               <ScrollUpButton />
             </div>
+          }
+          {
+          // !isLoading$ && !hasErrored &&
+            <>
+              {
+                // cardView &&
+                // !cardView &&
+                <div className="ai-history-rows-container">
+                  {
+                    // createAI &&
+                    dummyAgenda.map(result => (
+                      <AgendaItemRow
+                        key={result.id}
+                        isCDO={isCDO}
+                        isAIHView
+                        agenda={result}
+                        // perdet={perdet}
+                      />
+                    ))
+                  }
+                </div>
+              }
+            </>
           }
         </div>
       </>
