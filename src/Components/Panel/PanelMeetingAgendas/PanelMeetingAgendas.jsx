@@ -475,7 +475,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               {dummyAgenda.map(result => (
                 <h3>(Panel Meeting Type) {formatDate(result.panel_date)}: Review</h3>
               ))}
-              <h2>{dummyAgenda.panel_date}</h2>
             </header>
           }
           {
