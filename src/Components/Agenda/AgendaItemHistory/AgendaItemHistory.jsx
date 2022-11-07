@@ -38,7 +38,6 @@ const AgendaItemHistory = (props) => {
   const hasErrored = useSelector(state => state.aihHasErrored);
 
   const aih = get(aihResults, 'results.results') || [];
-  // console.log('aih ', aih);
 
   const employee = get(aihResults, 'employee.results', [])[0] || {};
   const employeeName = get(employee, 'person.fullName') || '';

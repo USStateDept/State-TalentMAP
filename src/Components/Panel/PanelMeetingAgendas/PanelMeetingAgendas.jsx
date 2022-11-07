@@ -14,55 +14,16 @@ import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, save
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Spinner from 'Components/Spinner';
-// import AgendaItemCard from 'Components/Agenda/AgendaItemCard';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
 
-// eslint-disable-next-line no-unused-vars
 const PanelMeetingAgendas = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  // agenda: PropTypes.shape({
-  //   id: PropTypes.number,
-  //   remarks: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //       seq_num: PropTypes.number,
-  //       rc_code: PropTypes.string,
-  //       order_num: PropTypes.number,
-  //       short_desc_text: PropTypes.string,
-  //       mutually_exclusive_ind: PropTypes.string,
-  //       text: PropTypes.string,
-  //       active_ind: PropTypes.string,
-  //       type: null,
-  //     }),
-  //   ),
-  //   panel_date: PropTypes.string,
-  //   status: PropTypes.string,
-  //   perdet: PropTypes.number,
-  //   legs: PropTypes.arrayOf(
-  //     PropTypes.shape({
-  //       id: PropTypes.number,
-  //       pos_title: PropTypes.string,
-  //       pos_num: PropTypes.string,
-  //       org: PropTypes.string,
-  //       eta: PropTypes.string,
-  //       ted: PropTypes.string,
-  //       tod: PropTypes.string,
-  //       grade: PropTypes.string,
-  //       action: PropTypes.string,
-  //       travel: PropTypes.string,
-  //     }),
-  //   ),
-  //   update_date: PropTypes.string,
-  //   modifier_name: PropTypes.number,
-  //   creator_name: PropTypes.number,
-  // }),
-
-  // eslint-disable-next-line no-unused-vars
   const dummyAgenda = [
     {
       id: 155,
@@ -518,21 +479,16 @@ const PanelMeetingAgendas = ({ isCDO }) => {
             </header>
           }
           {
-          // !isLoading$ && !hasErrored &&
             <>
               {
-                // cardView &&
-                // !cardView &&
                 <div className="ai-history-rows-container">
                   {
-                    // createAI &&
                     dummyAgenda.map(result => (
                       <AgendaItemRow
                         key={result.id}
                         isCDO={isCDO}
                         isAIHView
                         agenda={result}
-                        // perdet={perdet}
                       />
                     ))
                   }
