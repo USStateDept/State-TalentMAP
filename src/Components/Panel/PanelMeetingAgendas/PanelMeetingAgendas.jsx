@@ -473,7 +473,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           {
             <>
               {
-                <div className="ai-history-rows-container">
+                <div className="panel-meeting-agendas-rows-container">
                   {
                     dummyAgenda.map(result => (
                       <AgendaItemRow
