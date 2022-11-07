@@ -67,42 +67,58 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     {
       id: 155,
       position_id: 89413,
-      start_date: '2015-02-14T00:00:00Z',
-      end_date: null,
+      panel_date: '2015-02-14T00:00:00Z',
       status: 'BR',
-      asgd_tod_desc_text: '3 YRS (2 R & R)',
-      asgd_revision_num: null,
-      position: {
-        grade: '03',
-        skill: 'None (None)',
-        skill_code: null,
-        bureau: '(None) None',
-        bureau_code: null,
-        organization: 'A/LM/OPS/TTM',
-        position_number: '56100035',
-        position_id: 89413,
-        title: 'SPECIAL AGENT',
-        post: {
-          code: null,
-          post_overview_url: null,
-          post_bidding_considerations_url: null,
-          obc_id: null,
-          location: {
-            country: null,
-            code: null,
-            city: null,
-            state: null,
-          },
+      status_full: 'Item Status: BR',
+      remarks: [
+        {
+          active_ind: 'Y',
+          mutually_exclusive_ind: 'N',
+          order_num: 7,
+          rc_code: 'B',
+          seq_num: 2,
+          short_desc_text: 'Promo Bd Recognized',
+          text: 'Potential recognized by last promo board',
         },
-        language: null,
+        {
+          active_ind: 'Y',
+          mutually_exclusive_ind: 'N',
+          order_num: 5,
+          rc_code: 'G',
+          seq_num: 3,
+          short_desc_text: 'Soph',
+          text: 'Sophie',
+        }],
+      legs: [{
+        grade: '03',
+        pos_num: '56100035',
+        pos_title: 'SPECIAL AGENT',
+        org: 'Test Organization',
+        eta: '2015-02-14T00:00:00Z',
+        ted: '2015-02-14T00:00:00Z',
+        action: 'Extend (by 3 months)',
+        travel: 'PostToPostHL',
       },
-      pos: {
-        posseqnum: 89413,
-        posorgshortdesc: 'A/LM/OPS/TTM',
-        posnumtext: '56100035',
-        posgradecode: '03',
-        postitledesc: 'SPECIAL AGENT',
+      {
+        grade: '03',
+        pos_num: '56100035',
+        pos_title: 'SPECIAL AGENT',
+        org: 'Test Organization',
+        eta: '2015-02-14T00:00:00Z',
+        ted: '2015-02-14T00:00:00Z',
+        tod: '27MRR',
+        action: 'Extend (by 3 months)',
+        travel: 'PostToPostHL',
       },
+      {
+        grade: 'OM',
+        eta: '2015-02-14T00:00:00Z',
+        ted: '2015-02-14T00:00:00Z',
+        tod: '2YRR',
+        org: 'BERLIN USEMB',
+        pos_num: 'S5764000',
+        pos_title: 'HR OFF CAREER MANAGEMENT',
+      }],
     }];
 
   const meetingStatus = 'Initiated';
@@ -492,6 +508,14 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               />
               <ScrollUpButton />
             </div>
+          }
+          {
+            <header className="panel-meeting-agendas-header">
+              {dummyAgenda.map(result => (
+                <h3>(Panel Meeting Type) {formatDate(result.panel_date)}: Review</h3>
+              ))}
+              <h2>{dummyAgenda.panel_date}</h2>
+            </header>
           }
           {
           // !isLoading$ && !hasErrored &&

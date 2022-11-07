@@ -160,6 +160,35 @@
       }
 
     }
+    .remarks-container {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 15px;
+
+      .remarks-text {
+        float: left;
+        font-size: 1.1em;
+        margin-right: .7rem;
+        margin-top: 3px;
+      }
+
+      .remarks-pill {
+        background-color: $primary-blue;
+        border-radius: 12px;
+        color: $color-white;
+        display: inline;
+        font-size: .8em;
+        margin-bottom: 1rem;
+        margin-right: 1.5rem;
+        padding: .5em;
+      }
+
+      @each $remark-id, $color in $remarks {
+        .remark-category--#{$remark-id} {
+          background-color: $color;
+        }
+      }
+    }
 
     @media screen and (max-width: 1400px) {
 
@@ -191,5 +220,30 @@
     .ai-history-edit {
       bottom: 5px;
     }
+
+    .ai-history-status {
+      position: absolute;
+      top: 0;
+      left: -2px;
+      font-family: 'Roboto';
+      .status-tag {
+        background-color: $color-black;
+        color: $color-white;
+        display: inline;
+      }
+      .poly-slash {
+        background-color: $color-black;
+        clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
+        color: $color-black;
+        display: inline-block;
+        margin-left: -3px;
+        width: 30px;
+      }
+    }
+  }
+
+  .panel-meeting-agendas-header {
+    margin-left: 20px;
+    font-family: 'Roboto';
   }
 }
