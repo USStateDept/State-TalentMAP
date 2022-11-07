@@ -16,6 +16,7 @@ import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
+// import queryParamUpdate from '../../../Containers/queryParams';
 
 const useUnassignedFilter = () => checkFlag('flags.unassigned_filters');
 
@@ -65,7 +66,7 @@ class BidControls extends Component {
         this.setState({ proxyCdos: nextProps.selection }, this.generatePills);
       }
     }
-    this.setState({ pageNumber: this.props.pageNumber });
+    // this.setState({ pageNumber: this.props.pageNumber });
   }
 
   onSeasonChange = seasons => {
@@ -106,6 +107,8 @@ class BidControls extends Component {
   };
 
   onSortChange = q => {
+    const { updatePagination, pageSize } = this.props;
+    updatePagination({ pageNumber: 1, pageSize });
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
@@ -138,19 +141,26 @@ class BidControls extends Component {
         pills.push({ description: a.text, selectionRef: 'unassignedBidders', codeRef: a.value });
       });
     }
+    const { updatePagination, pageSize } = this.props;
+    updatePagination({ pageNumber: 1, pageSize });
+    this.props.queryParamUpdate();
     this.setState({ pills });
   };
 
   resetAllFilters = () => {
     const { resetKeyword } = this.props;
+    const { updatePagination } = this.props;
     resetKeyword();
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
     this.setState({ unassignedBidders: [] });
+    updatePagination({ pageNumber: 1, pageSize: 10 });
+    this.props.queryParamUpdate();
   };
 
   pillClick = (dropdownID, pillID) => {
+    // const { updatePagination, pageSize } = this.props;
     switch (dropdownID) {
       case 'proxyCdos':
         this.setState({ proxyCdos:
@@ -277,7 +287,7 @@ BidControls.propTypes = {
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
-  pageNumber: PropTypes.number,
+  // pageNumber: PropTypes.number,
   updatePagination: PropTypes.func.isRequired,
 };
 
@@ -285,7 +295,7 @@ BidControls.defaultProps = {
   selection: [],
   unassignedSelection: [],
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
-  pageNumber: 1,
+  // pageNumber: 1,
 };
 
 const mapStateToProps = state => ({

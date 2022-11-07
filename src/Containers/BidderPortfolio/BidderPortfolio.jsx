@@ -57,7 +57,7 @@ class BidderPortfolio extends Component {
   onQueryParamUpdate = (q = {}) => {
     console.log('current: 1: onQueryParamUpdate q:', q);
     const { pageSize } = this.props.bidderPortfolioPagination;
-    const pageSize$ = pageSize || 5;
+    const pageSize$ = pageSize || 10;
     const { query } = this.state;
     if (!isEmpty(q)) {
       this.props.patrick({ pageNumber: 1, pageSize: pageSize$.toString() });
