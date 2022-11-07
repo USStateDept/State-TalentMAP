@@ -55,18 +55,16 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate = (q = {}) => {
-    console.log('patty: q', q);
-    const { pageNumber, pageSize } = this.props.bidderPortfolioPagination;
+    console.log('current: 1: onQueryParamUpdate q:', q);
+    const { pageSize } = this.props.bidderPortfolioPagination;
+    const pageSize$ = pageSize || 5;
     const { query } = this.state;
     if (!isEmpty(q)) {
-      saveBidderPortfolioPagination({ pageNumber: 1, pageSize });
-      console.log('patty pageNumber: ', pageNumber);
+      this.props.patrick({ pageNumber: 1, pageSize: pageSize$.toString() });
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);
-      console.log('patty newQuery: ', newQuery);
       query.value = newQuery;
     }
-    console.log('patty query: ', query);
     this.setState({ query }, () => {
       this.getBidderPortfolio();
     });
@@ -119,12 +117,11 @@ class BidderPortfolio extends Component {
   }
 
   render() {
-    console.log('scootty: ', this.props);
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
       // eslint-disable-next-line no-shadow
-      saveBidderPortfolioPagination, bidderPortfolioPagination,
+      patrick, bidderPortfolioPagination,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
@@ -147,7 +144,7 @@ class BidderPortfolio extends Component {
           cdosLength={cdos.length}
           defaultHandshake={hasHandshake.value}
           defaultOrdering={ordering.value}
-          updatePagination={saveBidderPortfolioPagination}
+          updatePagination={patrick}
         />
       </div>
     );
@@ -176,7 +173,12 @@ BidderPortfolio.propTypes = {
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
   availableBiddersIdsLoading: PropTypes.bool,
-  saveBidderPortfolioPagination: PropTypes.func.isRequired,
+  // saveBidderPortfolioPagination: PropTypes.func.isRequired,
+  bidderPortfolioPagination: PropTypes.shape({
+    pageNumber: PropTypes.number,
+    pageSize: PropTypes.string,
+  }),
+  patrick: PropTypes.func,
 };
 
 BidderPortfolio.defaultProps = {
@@ -200,6 +202,8 @@ BidderPortfolio.defaultProps = {
   fetchAvailableBidders: EMPTY_FUNCTION,
   selectedUnassigned: [],
   availableBiddersIdsLoading: false,
+  bidderPortfolioPagination: {},
+  patrick: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -230,7 +234,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
   fetchClassifications: () => dispatch(fetchClassifications()),
   fetchAvailableBidders: () => dispatch(availableBiddersIds()),
-  saveBidderPortfolioPagination: a => dispatch(saveBidderPortfolioPagination(a)),
+  patrick: (arr = {}) => dispatch(saveBidderPortfolioPagination(arr)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));

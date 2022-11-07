@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { BIDDER_LIST, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import StaticDevContent from 'Components/StaticDevContent';
 import TotalResults from 'Components/TotalResults/TotalResults';
 import ErrorBoundary from 'Components/ErrorBoundary';
@@ -50,7 +50,6 @@ class BidderPortfolioPage extends Component {
   };
 
   render() {
-    console.log('scotty: ', this.props);
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
@@ -63,7 +62,6 @@ class BidderPortfolioPage extends Component {
     // whether or not we should use the list view
     const isListView = this.state.viewType.value === 'grid';
 
-    console.log('<<<<<<<<<pageNum: ', pageNumber);
     let viewTypeClass = 'card-view';
     if (isListView) { viewTypeClass = 'list-view'; }
 
@@ -164,13 +162,14 @@ BidderPortfolioPage.propTypes = {
   cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  updatePagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func,
 };
 
 BidderPortfolioPage.defaultProps = {
   classifications: [],
   cdosLength: 0,
   pageNumber: 1,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 export default BidderPortfolioPage;

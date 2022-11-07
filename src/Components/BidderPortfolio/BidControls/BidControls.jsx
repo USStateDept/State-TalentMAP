@@ -173,9 +173,8 @@ class BidControls extends Component {
   render() {
     const { viewType, changeViewType, defaultHandshake,
       defaultOrdering, pageSize, getKeyword } = this.props;
-    const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter,
-      pageNumber } = this.state;
-    console.log('bidControls pageNumber: ', pageNumber);
+    const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
+    // console.log('bidControls pageNumber: ', pageNumber);
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayUnassignedFilter = useUnassignedFilter();
     const showClear = !!pills.length || getKeyword;

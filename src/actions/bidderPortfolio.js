@@ -138,14 +138,13 @@ export function bidderPortfolioPaginationFetchDataSuccess(data) {
   };
 }
 export function saveBidderPortfolioPagination(paginationObject) {
-  console.log('step 1: saving');
-  console.log(paginationObject);
   return (dispatch) => {
     dispatch(bidderPortfolioPaginationFetchDataSuccess(paginationObject));
   };
 }
 
 export function bidderPortfolioSetSeasons(seasons = []) {
+  console.log(seasons);
   return (dispatch) => {
     dispatch(bidderPortfolioSelectedSeasons(seasons));
   };
@@ -272,7 +271,6 @@ export function downloadClientData(q = '') {
 }
 
 export function bidderPortfolioCDOsFetchData() {
-  console.log('scott: ');
   return (dispatch, getState) => {
     if (cancelCDOs) { cancelCDOs('cancel'); }
     const cdos = get(getState(), 'bidderPortfolioCDOs', []);
@@ -292,8 +290,6 @@ export function bidderPortfolioCDOsFetchData() {
             last_name: '',
           }));
           dispatch(bidderPortfolioCDOsFetchDataSuccess(data));
-          // console.log('scott: ', currentUser);
-          // console.log('scott: ', data);
           if (!getState().bidderPortfolioSelectedCDOsToSearchBy.length) {
             const currentUser = data.find(f => f.isCurrentUser);
             if (currentUser) {

@@ -12,10 +12,9 @@ const ID = 'bidder-portfolio-container';
 
 class BidderPortfolioContainer extends Component {
   onPageChange = q => {
-    console.log('scooootty (hit in onPageChange) q: ', q);
     const { pageSize, queryParamUpdate, updatePagination } = this.props;
     scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
-    updatePagination({ pageNumber: q.page, pageSize });
+    updatePagination({ pageNumber: q.page, pageSize: pageSize.toString() });
     setTimeout(() => {
       queryParamUpdate();
     }, 600);
@@ -28,7 +27,6 @@ class BidderPortfolioContainer extends Component {
     const showNoCdosAlert = !cdosLength;
     const showEdit$ = showEdit && !hideControls;
     const showExpand = !hideControls;
-    // console.log('container pageNumber: ', pageNumber);
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>
         {
@@ -97,6 +95,7 @@ BidderPortfolioContainer.propTypes = {
   cdosLength: PropTypes.number,
   hideControls: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  updatePagination: PropTypes.func.isRequired,
 };
 
 BidderPortfolioContainer.defaultProps = {

@@ -46,7 +46,6 @@ class CDOAutoSuggest extends Component {
   }
 
   selectMultipleOption(value, fromPills) {
-    console.log('scott: ', value);
     if (isEmpty(value) && fromPills && !isEmpty(this.props.currentCDO)) {
       this.props.setCDOsToSearchBy([this.props.currentCDO]);
     } else {

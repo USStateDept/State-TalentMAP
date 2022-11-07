@@ -158,7 +158,6 @@ export function bidderPortfolioPaginationIsLoading(state = false, action) {
 export function bidderPortfolioPagination(state = {}, action) {
   switch (action.type) {
     case 'BIDDER_PORTFOLIO_PAGINATION_FETCH_DATA_SUCCESS':
-      console.log('hit the reducer');
       return action.data;
     default:
       return state;
