@@ -10,7 +10,8 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { formatDate } from 'utilities';
-import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData,
+  panelMeetingAgendasLoadAgendas, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Spinner from 'Components/Spinner';
@@ -24,64 +25,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  const dummyAgenda = [
-    {
-      id: 155,
-      position_id: 89413,
-      panel_date: '2015-02-14T00:00:00Z',
-      status: 'BR',
-      status_full: 'Item Status: Ready',
-      remarks: [
-        {
-          active_ind: 'Y',
-          mutually_exclusive_ind: 'N',
-          order_num: 7,
-          rc_code: 'B',
-          seq_num: 2,
-          short_desc_text: 'Promo Bd Recognized',
-          text: 'Potential recognized by last promo board',
-        },
-        {
-          active_ind: 'Y',
-          mutually_exclusive_ind: 'N',
-          order_num: 5,
-          rc_code: 'G',
-          seq_num: 3,
-          short_desc_text: 'Soph',
-          text: 'Sophie',
-        }],
-      legs: [{
-        grade: '03',
-        pos_num: '56100035',
-        pos_title: 'SPECIAL AGENT',
-        org: 'A/LM/OPS/TTM',
-        eta: '2015-02-14T00:00:00Z',
-        ted: '2015-02-14T00:00:00Z',
-        action: 'Extend (by 3 months)',
-        travel: 'PostToPostHL',
-      },
-      {
-        grade: '03',
-        pos_num: '56100035',
-        pos_title: 'SPECIAL AGENT',
-        org: 'A/LM/OPS/TTM',
-        eta: '2015-02-14T00:00:00Z',
-        ted: '2015-02-14T00:00:00Z',
-        tod: '27MRR',
-        action: 'Extend (by 3 months)',
-        travel: 'PostToPostHL',
-      },
-      {
-        grade: 'OM',
-        eta: '2015-02-14T00:00:00Z',
-        ted: '2015-02-14T00:00:00Z',
-        tod: '2YRR',
-        org: 'BERLIN USEMB',
-        pos_num: 'S5764000',
-        pos_title: 'HR OFF CAREER MANAGEMENT',
-      }],
-    }];
-
   const meetingStatus = 'Initiated';
   const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
@@ -91,6 +34,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
+  const agenda = useSelector(state => state.panelMeetingItems);
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
@@ -177,6 +121,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
+    dispatch(panelMeetingAgendasLoadAgendas());
   }, []);
 
   const fetchAndSet = () => {
@@ -475,7 +420,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               {
                 <div className="panel-meeting-agendas-rows-container">
                   {
-                    dummyAgenda.map(result => (
+                    agenda.map(result => (
                       <AgendaItemRow
                         key={result.id}
                         isCDO={isCDO}

@@ -6,6 +6,64 @@ import api from '../api';
 
 let cancelPanelMeetingAgendas;
 
+const dummyAgenda = [
+  {
+    id: 155,
+    position_id: 89413,
+    panel_date: '2015-02-14T00:00:00Z',
+    status: 'BR',
+    status_full: 'Item Status: Ready',
+    remarks: [
+      {
+        active_ind: 'Y',
+        mutually_exclusive_ind: 'N',
+        order_num: 7,
+        rc_code: 'B',
+        seq_num: 2,
+        short_desc_text: 'Promo Bd Recognized',
+        text: 'Potential recognized by last promo board',
+      },
+      {
+        active_ind: 'Y',
+        mutually_exclusive_ind: 'N',
+        order_num: 5,
+        rc_code: 'G',
+        seq_num: 3,
+        short_desc_text: 'Soph',
+        text: 'Sophie',
+      }],
+    legs: [{
+      grade: '03',
+      pos_num: '56100035',
+      pos_title: 'SPECIAL AGENT',
+      org: 'A/LM/OPS/TTM',
+      eta: '2015-02-14T00:00:00Z',
+      ted: '2015-02-14T00:00:00Z',
+      action: 'Extend (by 3 months)',
+      travel: 'PostToPostHL',
+    },
+    {
+      grade: '03',
+      pos_num: '56100035',
+      pos_title: 'SPECIAL AGENT',
+      org: 'A/LM/OPS/TTM',
+      eta: '2015-02-14T00:00:00Z',
+      ted: '2015-02-14T00:00:00Z',
+      tod: '27MRR',
+      action: 'Extend (by 3 months)',
+      travel: 'PostToPostHL',
+    },
+    {
+      grade: 'OM',
+      eta: '2015-02-14T00:00:00Z',
+      ted: '2015-02-14T00:00:00Z',
+      tod: '2YRR',
+      org: 'BERLIN USEMB',
+      pos_num: 'S5764000',
+      pos_title: 'HR OFF CAREER MANAGEMENT',
+    }],
+  }];
+
 export function panelMeetingAgendasFetchDataErrored(bool) {
   return {
     type: 'PANEL_MEETING_AGENDAS_FETCH_HAS_ERRORED',
@@ -167,4 +225,35 @@ export function panelMeetingAgendasFiltersFetchData() {
   //       });
   //     });
   // };
+}
+
+export function panelMeetingAgendasLoadAgendasErrored(bool) {
+  return {
+    type: 'PANEL_MEETING_AGENDAS_LOAD_AGENDAS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function panelMeetingAgendasLoadAgendasIsLoading(bool) {
+  return {
+    type: 'PANEL_MEETING_AGENDAS_LOAD_AGENDAS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function panelMeetingAgendasLoadAgendasSuccess(results) {
+  return {
+    type: 'PANEL_MEETING_AGENDAS_LOAD_AGENDAS_SUCCESS',
+    results,
+  };
+}
+
+export function panelMeetingAgendasLoadAgendas() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(panelMeetingAgendasLoadAgendasSuccess(dummyAgenda));
+      dispatch(panelMeetingAgendasLoadAgendasIsLoading(false));
+      dispatch(panelMeetingAgendasLoadAgendasErrored(false));
+    });
+  };
 }

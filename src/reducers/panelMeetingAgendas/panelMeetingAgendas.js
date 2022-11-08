@@ -56,3 +56,27 @@ export function panelMeetingAgendasFilters(state = {}, action) {
       return state;
   }
 }
+export function panelMeetingAgendasLoadAgendasErrored(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_MEETING_AGENDAS_LOAD_AGENDAS_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function panelMeetingAgendasLoadAgendasIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'PANEL_MEETING_AGENDAS_LOAD_AGENDAS_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function panelMeetingItems(state = {}, action) {
+  switch (action.type) {
+    case 'PANEL_MEETING_AGENDAS_LOAD_AGENDAS_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
