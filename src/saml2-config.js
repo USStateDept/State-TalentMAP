@@ -34,7 +34,7 @@ const serviceProvider = new saml2.ServiceProvider({
   private_key: privateKey,
   certificate: cert,
   assert_endpoint: ASSERT_ENDPOINT,
-  force_authn: true,
+  force_authn: false,
 });
 
 const identityProvider = new saml2.IdentityProvider({

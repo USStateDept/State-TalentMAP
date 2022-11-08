@@ -25,7 +25,7 @@ const serviceProvider = new saml2.ServiceProvider({
   private_key: fs.readFileSync(keyFile),
   certificate: fs.readFileSync(certFile),
   assert_endpoint: ASSERT_ENDPOINT,
-  force_authn: true,
+  force_authn: false,
 });
 
 const serviceProviderPublic = new saml2.ServiceProvider({
@@ -33,7 +33,7 @@ const serviceProviderPublic = new saml2.ServiceProvider({
   private_key: fs.readFileSync(keyFile),
   certificate: fs.readFileSync(certFile),
   assert_endpoint: ASSERT_ENDPOINT_PUBLIC,
-  force_authn: true,
+  force_authn: false,
 });
 
 const identityProvider = new saml2.IdentityProvider({
