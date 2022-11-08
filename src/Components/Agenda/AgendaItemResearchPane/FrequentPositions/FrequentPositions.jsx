@@ -75,9 +75,9 @@ const FrequentPositions = (props) => {
                     <FA name="plus-circle" />
                   </InteractiveElement>
                 </td>
-                <td>{m.org}</td>
-                <td>{m.position_number}</td>
-                <td>{m.position_title}</td>
+                <td>{m.pos_org_short_desc}</td>
+                <td>{m.pos_num_text}</td>
+                <td>{m.pos_title_desc}</td>
               </tr>
             ))
           }
@@ -89,9 +89,9 @@ const FrequentPositions = (props) => {
 
 FrequentPositions.propTypes = {
   positions: PropTypes.arrayOf(PropTypes.shape({
-    org: PropTypes.string,
-    position_number: PropTypes.string,
-    position_title: PropTypes.string,
+    pos_org_short_desc: PropTypes.string,
+    pos_num_text: PropTypes.string,
+    pos_title_desc: PropTypes.string,
   })),
   onClick: PropTypes.func,
 };
