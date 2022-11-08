@@ -1,7 +1,7 @@
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NavTabs from 'Components/NavTabs';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 import PropTypes from 'prop-types';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
@@ -15,21 +15,6 @@ import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
 import Classifications from './Classifications';
 import api from '../../../api';
-
-/* TODO replace with real data */
-let positions = [
-  { org: 'ORG NAME',
-    position_number: '0000000000',
-    position_title: 'ECONOMIC OFFICER LONGER NAME HERE (' },
-  { org: 'A',
-    position_number: '0000100000',
-    position_title: 'ECONOMIC OFFICER' },
-  { org: 'ORG NAME',
-    position_number: '0000000000',
-    position_title: 'TRAINING' },
-];
-positions = [...positions, ...positions, ...positions, ...positions];
-/* end TODO */
 
 export const ASGH = 'asgh';
 export const FP = 'fp';
@@ -58,16 +43,19 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const classificationsProps = { classifications, clientClassifications };
 
-  // assignments
-  // TODO: fully integrate
-  const { data, error, loading /* , retry */ } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
+  const { data, error, loading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  // eslint-disable-next-line no-unused-vars
+  const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
   const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(data, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
   const remarks_data = get(remarks, 'data.data.results') || [];
   const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
+  const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
+
+  const groupLoading = includes([loading, frequentPositionsLoading], true);
 
   const onFPClick = pos => {
     // TODO - do something with this
@@ -124,9 +112,9 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === FP && !loading && !error &&
+          selectedNav === FP && !groupLoading && !error &&
             <FrequentPositions
-              positions={positions}
+              positions={frequentPositions}
               onClick={onFPClick}
             />
         }
