@@ -60,6 +60,7 @@ class BidderPortfolio extends Component {
     const pageSize$ = pageSize || 10;
     const { query } = this.state;
     if (!isEmpty(q)) {
+      console.trace('RESETTING BACK TO PAGE 1');
       this.props.patrick({ pageNumber: 1, pageSize: pageSize$.toString() });
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);

@@ -72,7 +72,7 @@ class BidCyclePicker extends Component {
     }
   }
   componentDidMount() {
-    this.props.setSeasonsCb(this.getSeasons());
+    this.props.setSeasonsCb(this.getSeasons(':)'));
     this.props.setClick(this.setMultipleOptionFromParent);
   }
   componentDidUpdate() {

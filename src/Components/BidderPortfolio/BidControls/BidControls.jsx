@@ -70,6 +70,7 @@ class BidControls extends Component {
   }
 
   onSeasonChange = seasons => {
+    console.log('onSeasonChange ', seasons);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
@@ -99,6 +100,7 @@ class BidControls extends Component {
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
     this.props.queryParamUpdate({ hasHandshake: q });
+    console.log('');
   };
 
   onUnassignedChange = q => {
@@ -141,9 +143,9 @@ class BidControls extends Component {
         pills.push({ description: a.text, selectionRef: 'unassignedBidders', codeRef: a.value });
       });
     }
-    const { updatePagination, pageSize } = this.props;
-    updatePagination({ pageNumber: 1, pageSize });
-    this.props.queryParamUpdate();
+    // const { updatePagination, pageSize } = this.props;
+    // updatePagination({ pageNumber: 1, pageSize });
+    // this.props.queryParamUpdate();
     this.setState({ pills });
   };
 
@@ -211,7 +213,7 @@ class BidControls extends Component {
               onSelectOption={this.updateQueryLimit}
             />
             <BidCyclePicker
-              setSeasonsCb={this.onSeasonChange}
+              setSeasonsCb={(b) => this.onSeasonChange(b)}
               setClick={(a) => { this.updateMultiSelect = a; }}
             />
             {
