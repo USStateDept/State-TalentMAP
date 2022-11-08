@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import AgendaItemLegs from '../AgendaItemLegs';
-import { pillColors } from '../Constants';
+import { borderColors } from '../Constants';
 
 const AgendaItemRow = props => {
   const {
@@ -21,7 +21,7 @@ const AgendaItemRow = props => {
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
-  const pillColor = pillColors[get(agenda, 'status_full') || 'Default'];
+  const borderColor = borderColors[get(agenda, 'status_full') || 'Default'];
   return (
     <>
       {
@@ -38,12 +38,12 @@ const AgendaItemRow = props => {
       }
       {
         !isCreate &&
-        <div className="ai-history-row" style={{ borderLeftColor: pillColor }}>
+        <div className="ai-history-row" style={{ borderLeftColor: borderColor }}>
           <div className="ai-history-status">
-            <div className="status-tag" style={{ backgroundColor: pillColor }}>
+            <div className="status-tag" style={{ backgroundColor: borderColor }}>
               {get(agenda, 'status_full') || 'Default'}
             </div>
-            <div className="poly-slash" style={{ backgroundColor: pillColor, color: pillColor }} >_</div>
+            <div className="poly-slash" style={{ backgroundColor: borderColor, color: borderColor }} >_</div>
           </div>
           <div className="ai-history-row-panel-date">
             Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
