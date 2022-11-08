@@ -33,7 +33,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
-  const agenda = useSelector(state => state.panelMeetingAgendas); // it's panelMeetingAgenda
+  const agenda = useSelector(state => state.panelMeetingAgendas);
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
@@ -414,22 +414,18 @@ const PanelMeetingAgendas = ({ isCDO }) => {
             </div>
           }
           {
-            <>
+            <div className="panel-meeting-agendas-rows-container">
               {
-                <div className="panel-meeting-agendas-rows-container">
-                  {
-                    agenda.map(result => (
-                      <AgendaItemRow
-                        key={result.id}
-                        isCDO={isCDO}
-                        isAIHView
-                        agenda={result}
-                      />
-                    ))
-                  }
-                </div>
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                  />
+                ))
               }
-            </>
+            </div>
           }
         </div>
       </>
