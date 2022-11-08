@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import AgendaItemLegs from '../AgendaItemLegs';
-import { pillColors } from '../Constants';
+import { borderColors } from '../Constants';
 
 const AgendaItemRow = props => {
   const {
@@ -21,7 +21,7 @@ const AgendaItemRow = props => {
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
-  const pillColor = pillColors[get(agenda, 'status_full') || 'Default'];
+  const pillColor = borderColors[get(agenda, 'status_full') || 'Default'];
   return (
     <>
       {

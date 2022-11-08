@@ -5,7 +5,7 @@ import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
-import { pillColors } from '../Constants';
+import { borderColors } from '../Constants';
 
 const AgendaItemCard = props => {
   const {
@@ -52,7 +52,7 @@ const AgendaItemCard = props => {
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
   const status_full = get(agenda, 'status_full') || 'Default';
-  const pillColor = pillColors[status_full];
+  const pillColor = borderColors[status_full];
 
   return (
     <>
