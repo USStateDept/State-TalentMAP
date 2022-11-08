@@ -351,7 +351,7 @@ const PositionManager = props => {
                   <div className="filter-div">
                     <div className="label">Cycle:</div>
                     <Picky
-                      placeholder="Select cycle(s)"
+                      placeholder="Select Cycle(s)"
                       value={selectedCycles}
                       options={cycleOptions}
                       onChange={setSelectedCycles}

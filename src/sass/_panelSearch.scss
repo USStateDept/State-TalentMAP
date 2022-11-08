@@ -1,129 +1,133 @@
 .panel-meeting-search-page {
-    .panel-meeting-search-upper-section {
-        background-color: $bg-blue-dark-1;
-        box-shadow: 20px 20px 20px $bg-gray-medium-2;
-        color: $color-white;
-        max-width: none;
-        padding: 20px 35px 35px;
+  .panel-meeting-search-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    color: $color-white;
+    max-width: none;
+    padding: 20px 35px 35px;
+  }
+
+  .filterby-container {
+    display: flex;
+    margin-top: 20px;
+
+    .filterby-label {
+      font-size: 20px;
+      margin-bottom: 10px;
+      width: 115px;
     }
 
-    .filterby-container {
+    .filterby-clear {
+      font-weight: bold;
+
+      .fa-times {
+        color: $color-red;
+        margin-right: 5px;
+      }
+    }
+  }
+
+  .panel-meeting-search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+      margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+        min-width: 90px;
+        text-align: end;
+      }
+
+      @media screen and (max-width: 1025px) {
+        .label {
+          min-width: 100px;
+        }
+
+        .label-date {
+          margin-right: 2px;
+        }
+      }
+
+      .picky {
+        color: $color-black;
+        width: 240px;
+      }
+    }
+
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 1.5rem;
+      height: 28px;
+      width: 240px;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+      }
+
+      .react-daterange-picker__inputGroup {
+        align-items: center;
         display: flex;
-        margin-top: 20px;
+        justify-content: center;
+      }
 
-        .filterby-label {
-            font-size: 20px;
-            margin-bottom: 10px;
-            width: 115px;
-        }
-
-        .filterby-clear {
-            font-weight: bold;
-
-            .fa-times {
-                color: $color-red;
-                margin-right: 5px;
-            }
-        }
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
     }
 
-    .panel-meeting-search-filters {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-
-        .filter-div {
-            align-items: center;
-            display: flex;
-            margin-right: 10px;
-
-            .label {
-                margin-right: 10px;
-                min-width: 90px;
-                text-align: end;
-            }
-
-            @media screen and (max-width: 1025px) {
-                .label-date {
-                    margin-right: 2px;
-                }
-            }
-
-            .picky {
-                color: $color-black;
-                width: 240px;
-            }
-        }
-
-        .react-daterange-picker__calendar--open {
-            z-index: $daterange-z;
-        }
-
-        .react-daterange-picker {
-            align-items: center;
-            background: $color-white;
-            font-size: 1.5rem;
-            height: 28px;
-            width: 240px;
-
-            .react-daterange-picker__wrapper {
-                border: none;
-            }
-
-            .react-daterange-picker__inputGroup {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .react-daterange-picker__range-divider,
-            .react-daterange-picker__inputGroup__leadingZero,
-            .react-date-picker__inputGroup__divider {
-                color: $color-black;
-            }
-        }
-
-        @media screen and (max-width: $screen-md-max) {
-            .react-daterange-picker {
-                margin-left: 25px;
-            }
-        }
+    @media screen and (max-width: $screen-md-max) {
+      .react-daterange-picker {
+        margin-left: 9px;
+      }
     }
+  }
 }
 
 .panel-results-controls {
+  align-items: baseline;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.8em;
+  margin-right: 35px;
+
+  div:first-child {
+    margin-right: 10px;
+  }
+
+  div {
     align-items: baseline;
     display: flex;
-    justify-content: flex-end;
-    font-size: 0.8em;
-    margin-right: 35px;
 
-    div:first-child {
-        margin-right: 10px;
+    label {
+        margin-right: 5px;
     }
-
-    div {
-        align-items: baseline;
-        display: flex;
-
-        label {
-            margin-right: 5px;
-        }
-    }
+  }
 }
 
 .panel-results-select {
-    background-color: $color-white;
-    background-image: url(/assets/img/angle-down-black.svg);
-    background-position-x: calc(100% - 8px);
-    border: 1px solid $bg-gray-dark-2;
-    border-radius: 3px;
-    font-size: 0.9em;
-    height: 28px;
-    overflow: hidden;
-    padding: 0 1.5em 0 0.7em;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 130px;
+  background-color: $color-white;
+  background-image: url(/assets/img/angle-down-black.svg);
+  background-position-x: calc(100% - 8px);
+  border: 1px solid $bg-gray-dark-2;
+  border-radius: 3px;
+  font-size: 0.9em;
+  height: 28px;
+  overflow: hidden;
+  padding: 0 1.5em 0 0.7em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 130px;
 }
 
 .panel-search-lower-section {
@@ -133,7 +137,7 @@
 
 .panel-meeting-row {
   margin-top: 1rem;
-
+  
   .panel-meeting-stat-row {
     border: 1px solid $color-gray-light;
     border-left: 11px solid $primary-blue;
@@ -159,8 +163,8 @@
         line-height: 90px;
         text-align: center;
         width: 90px;
-        }
       }
+    }
 
     .panel-meeting-row-name {
       font-size: 1.2em;
@@ -176,11 +180,11 @@
     }
 
     dt {
-        font-weight: bold;
+      font-weight: bold;
     }
 
     dd {
-        margin-left: 5px;
+      margin-left: 5px;
     }
 
     .button-container {
@@ -216,4 +220,3 @@
     }
   }
 }
-
