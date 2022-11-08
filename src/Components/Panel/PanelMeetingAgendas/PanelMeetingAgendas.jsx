@@ -10,8 +10,7 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { formatDate } from 'utilities';
-import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData,
-  panelMeetingAgendasLoadAgendas, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Spinner from 'Components/Spinner';
@@ -34,7 +33,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
-  const agenda = useSelector(state => state.panelMeetingItems);
+  const agenda = useSelector(state => state.panelMeetingAgendas); // it's panelMeetingAgenda
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
@@ -121,7 +120,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
-    dispatch(panelMeetingAgendasLoadAgendas());
   }, []);
 
   const fetchAndSet = () => {
