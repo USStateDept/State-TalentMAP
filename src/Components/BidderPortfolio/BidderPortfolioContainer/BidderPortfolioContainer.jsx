@@ -16,7 +16,7 @@ class BidderPortfolioContainer extends Component {
     scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
     updatePagination({ pageNumber: q.page, pageSize: pageSize.toString() });
     setTimeout(() => {
-      queryParamUpdate();
+      queryParamUpdate({value: 'skip'});
     }, 600);
   };
 
