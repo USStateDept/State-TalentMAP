@@ -224,7 +224,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="panel-meeting-search-page">
-          <div className="usa-grid-full panel-meeting-search-upper-section results-search-bar-container">
+          <div className="usa-grid-full panel-meeting-search-upper-section results-search-bar-container results-single-search">
             <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
             <PositionManagerSearch
               submitSearch={submitSearch}

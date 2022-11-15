@@ -232,7 +232,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="panel-meeting-agenda-page">
-          <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
+          <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container results-single-search">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
             <div className="cutoff-date-container">
