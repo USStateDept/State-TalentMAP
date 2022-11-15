@@ -15,7 +15,7 @@
   }
 
   .padded-section {
-    padding: 25px;
+    padding: 25px; 
   }
 
   .no-padding {
@@ -46,22 +46,6 @@
     background-color: $bg-blue-dark-1;
   }
 
-  .filterby-container {
-    margin-top: 20px;
-    .filterby-label {
-      font-size: 20px;
-      margin-bottom: 10px;
-      float: left;
-      width: 115px;
-    }
-    .filterby-clear {
-      font-weight: bold;
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
-      }
-    }
-  }
   .position-manager-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(350px, 1fr));

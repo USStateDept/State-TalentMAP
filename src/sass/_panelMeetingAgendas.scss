@@ -18,7 +18,7 @@
       grid-template-rows: repeat(2, auto);
 
       .panel-meeting-agenda-header-data-point {
-        align-items: center;
+        align-items: center; 
         display: flex;
         margin: 0 3rem 1.5rem .1rem;
 
@@ -33,26 +33,6 @@
 
       .addendum-cut-off-date {
         margin-left: 12px;
-      }
-    }
-  }
-
-  .filterby-container {
-    display: flex;
-    margin-top: 20px;
-
-    .filterby-label {
-      font-size: 20px;
-      margin-bottom: 10px;
-      width: 115px;
-    }
-
-    .filterby-clear {
-      font-weight: bold;
-
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
       }
     }
   }
