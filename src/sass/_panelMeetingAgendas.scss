@@ -10,17 +10,37 @@
       background-color: $primary-blue;
       color: $color-white;
     }
+    .pma-meeting-info-container {
+      margin-top: 15px;
+      .pma-meeting-type {
+        clip-path: polygon(0% 0%,
+                100% 0%,
+                50% 100%,
+                0% 100%);
+        color: $color-white;
+        background-color: $primary-blue;
+        font-size: 50px;
+        font-weight: bold;
+        display: inline-block;
+        width: 150px;
+        padding: 9px 12px 8px 14px;
+      }
+    }
 
     .cutoff-date-container {
-      margin-top: 15px;
       display: inline-grid;
       grid-auto-flow: column;
       grid-template-rows: repeat(2, auto);
+      background-color: $color-white;
+      border-top: 5px solid $primary-blue;
 
       .panel-meeting-agenda-header-data-point {
         align-items: center;
         display: flex;
-        margin: 0 3rem 1.5rem .1rem;
+        //margin: 0 3rem 1.5rem .1rem;
+        margin: 5px 35px;
+        color: $primary-blue;
+
 
         dd {
           margin-left: 5px;
