@@ -81,7 +81,6 @@
   .panel-meeting-agendas-rows-container {
     .ai-history-row {
       background-color: $color-white;
-      border-left: 15px solid $color-black;
       border-radius: 10px;
       box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
       margin: 20px 15px;
@@ -105,6 +104,7 @@
             font-size: medium;
           }
         }
+        
       }
 
       .ai-history-card-legs {
@@ -227,14 +227,11 @@
       left: -2px;
       font-family: 'Roboto';
       .status-tag {
-        background-color: $color-black;
         color: $color-white;
         display: inline;
       }
       .poly-slash {
-        background-color: $color-black;
         clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
-        color: $color-black;
         display: inline-block;
         margin-left: -3px;
         width: 30px;
