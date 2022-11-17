@@ -7,26 +7,6 @@
     padding: 20px 35px 35px;
   }
 
-  .filterby-container {
-    display: flex;
-    margin-top: 20px;
-
-    .filterby-label {
-      font-size: 20px;
-      margin-bottom: 10px;
-      width: 115px;
-    }
-
-    .filterby-clear {
-      font-weight: bold;
-
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
-      }
-    }
-  }
-
   .panel-meeting-search-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
