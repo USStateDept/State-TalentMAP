@@ -1,4 +1,3 @@
-
 @each $remark-id, $color in $borderColor {
     .agenda-status--#{$remark-id} {
         background-color: $color; 
