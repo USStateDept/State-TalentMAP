@@ -422,6 +422,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                     isCDO={isCDO}
                     isAIHView
                     agenda={result}
+                    isPanelMeetingView
                   />
                 ))
               }

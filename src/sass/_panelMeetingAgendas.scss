@@ -226,4 +226,22 @@
     margin-left: 20px;
     font-family: 'Roboto';
   }
+
+  .panel-meeting-agendas-user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 750px;
+    margin: 10px 0px 5px 20px;
+
+    .panel-meeting-agendas-profile-link {
+      font-weight: bold;
+      font-size: 1.8rem;
+    }
+
+    .item {
+      font-size: 1.4rem;
+      width: 100%;
+    }
+  }
 }
