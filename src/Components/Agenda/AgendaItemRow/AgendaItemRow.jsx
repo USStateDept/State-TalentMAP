@@ -19,9 +19,9 @@ const AgendaItemRow = props => {
   const perdet$ = perdet || get(agenda, 'perdet');
 
   // eslint-disable-next-line no-console
+  console.log('agenda!: ', agenda);
   const editAI = () => { console.log('placeholder edit AI'); };
-  let agendaStatus = get(agenda, 'status_full') || 'Default';
-  agendaStatus = agendaStatus.replace(/ /g, '_').replace(/\//g, '-');
+  const agendaStatus = get(agenda, 'status_short') || 'Default';
   return (
     <>
       {

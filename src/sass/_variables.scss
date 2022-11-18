@@ -261,18 +261,17 @@ $remarks: (
 //* Border Colors
 //*
 $borderColor:(
-  
-  "Withdrawn": #227C9D, // Withdrawn: turqoise
-  "Disapproved": #913831, // Disapproved: red
-  "Approved": #2D6E0E, // Approved: dark green
-  "Deferred": #36454F, // Deferred: grey
-  "Deferred_-_Proposed_Position": #483C32, // Deferred - Proposed Position: dark brown
-  "Ready": #003EBD, // Ready: blue
-  "Held": #6421A2, // Held: purple
-  "Not_Ready": #DC6601, // Not Ready: Orange
-  "Out_of_Order": #946f00, // Out of Order: copper
+  "WDR": #227C9D, // Withdrawn: turqoise
+  "DIS": #913831, // Disapproved: red
+  "APR": #2D6E0E, // Approved: dark green
+  "DEF": #36454F, // Deferred: grey
+  "XXX": #483C32, // Deferred - Proposed Position: dark brown
+  "RDY": #003EBD, // Ready: blue
+  "HLD": #6421A2, // Held: purple
+  "NR": #DC6601, // Not Ready: Orange
+  "OOO": #946f00, // Out of Order: copper
   "PIP": #75673E, // PIP: light brown
-  "Move_to_ML-ID": #301934, // Move to ML/ID: dark purple
+  "MOV": #301934, // Move to ML/ID: dark purple
   "Default": #513C2C, // Default: brown
 );
 
