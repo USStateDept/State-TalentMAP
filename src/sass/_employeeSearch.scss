@@ -42,22 +42,6 @@
     padding: 20px 35px;
   }
 
-  .filterby-container {
-    margin-top: 20px;
-    .filterby-label {
-      float: left;
-      font-size: 20px;
-      margin-bottom: 10px;
-      width: 115px;
-    }
-    .filterby-clear {
-      font-weight: bold;
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
-      }
-    }
-  }
   .empl-search-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));

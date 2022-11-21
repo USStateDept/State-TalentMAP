@@ -37,26 +37,6 @@
     }
   }
 
-  .filterby-container {
-    display: flex;
-    margin-top: 20px;
-
-    .filterby-label {
-      font-size: 20px;
-      margin-bottom: 10px;
-      width: 115px;
-    }
-
-    .filterby-clear {
-      font-weight: bold;
-
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
-      }
-    }
-  }
-
   .panel-meeting-agenda-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(335px, 1fr));
