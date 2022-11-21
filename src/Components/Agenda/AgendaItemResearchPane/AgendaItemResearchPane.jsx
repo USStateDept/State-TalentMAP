@@ -9,6 +9,7 @@ import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
+import { positionsFetchData } from 'actions/positions';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
@@ -31,11 +32,11 @@ const tabs = [
   { text: 'Classifications', value: TP },
 ];
 
-const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {}, updateSelection: '', userSelection: [] }, ref) => {
+const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {}, updateSelection: '', userSelection: [], legCount: 0 }, ref) => {
   const navTabRef = useRef();
   const dispatch = useDispatch();
 
-  const { perdet, clientData, userSelections, updateSelection } = props;
+  const { perdet, clientData, userSelections, updateSelection, legCount } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -57,11 +58,27 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const groupLoading = includes([loading, frequentPositionsLoading], true);
 
-  const onFPClick = pos => {
+  const legLimit = legCount >= 10;
+
+  const addFrequentPosition = pos => {
     // TODO - do something with this
     // eslint-disable-next-line
-    console.log(pos);
+    console.log('aim research', pos);
+    // const posNumber = get(pos, 'pos_num_text') || '';
+    if (!legLimit) {
+      // dispatch(positionsFetchData(`limit=50&page=1&position_num=${posNumber}`));
+      dispatch(positionsFetchData('limit=50&page=1&position_num=52028012'));
+    }
   };
+
+  // const addPositionNum = () => {
+  //   if (!legLimit) {
+  //     setPosNumError(false);
+  //     if (selectedPositionNumber) {
+  //       dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
+  //     }
+  //   }
+  // };
 
   useImperativeHandle(ref, () => ({
     setSelectedNav: e => {
@@ -73,6 +90,18 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
     dispatch(fetchClassifications());
     dispatch(fetchUserClassifications(perdet));
   }, []);
+
+  // useEffect(() => {
+  //   if (legLimit) {
+  //     setInputClass('input-disabled');
+  //   } else if (pos_results_loading) {
+  //     setInputClass('loading-animation');
+  //   } else if (posNumError) {
+  //     setInputClass('input-error');
+  //   } else {
+  //     setInputClass('input-default');
+  //   }
+  // }, [legCount, pos_results_loading, posNumError]);
 
   return (
     <div className="ai-research-pane">
@@ -115,7 +144,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
           selectedNav === FP && !groupLoading && !error &&
             <FrequentPositions
               positions={frequentPositions}
-              onClick={onFPClick}
+              addFrequentPosition={addFrequentPosition}
+              legCount={legCount}
             />
         }
         {
@@ -153,12 +183,14 @@ AgendaItemResearchPane.propTypes = {
       active_ind: PropTypes.string,
     }),
   ),
+  legCount: PropTypes.number,
 };
 
 AgendaItemResearchPane.defaultProps = {
   clientData: {},
   updateSelection: EMPTY_FUNCTION,
   userSelections: [],
+  legCount: 0,
 };
 
 export default AgendaItemResearchPane;

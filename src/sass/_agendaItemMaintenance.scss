@@ -379,6 +379,19 @@
           left: 30%;
           position: relative;
         }
+        .fa:hover {
+          color: $primary-blue-darkest;
+        }
+        .icon-disabled {
+          .fa {
+            color: $color-gray;
+            cursor: not-allowed;
+          }
+        }
+        .icon-disabled:hover {
+          color: $color-gray;
+          cursor: not-allowed;
+        }
       }
     }
 

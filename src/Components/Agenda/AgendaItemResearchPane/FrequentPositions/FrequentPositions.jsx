@@ -25,13 +25,17 @@ const fuseOptions = {
 const FrequentPositions = (props) => {
   const headers = ['', 'Organization', 'Position Number', 'Position Title'];
 
-  const { positions, onClick } = props;
+  const { positions, addFrequentPosition, legCount } = props;
 
   const [positions$, setPositions$] = useState(positions);
   const [term, setTerm] = useState('');
 
-  const onClick$ = pos => {
-    onClick(pos);
+  const legLimit = legCount >= 10;
+
+  const addFrequentPosition$ = pos => {
+    addFrequentPosition(pos);
+    console.log('inside on click ');
+    console.log('pos: ', pos);
   };
 
   const fuse$ = new Fuse(positions, fuseOptions);
@@ -71,7 +75,11 @@ const FrequentPositions = (props) => {
             positions$$.map(m => (
               <tr>
                 <td>
-                  <InteractiveElement title="Add to Agenda Item" onClick={() => onClick$(m)}>
+                  <InteractiveElement
+                    className={`${legLimit ? 'icon-disabled' : ''}`}
+                    onClick={() => addFrequentPosition$(m)}
+                    title="Add to Agenda Item"
+                  >
                     <FA name="plus-circle" />
                   </InteractiveElement>
                 </td>
@@ -93,12 +101,14 @@ FrequentPositions.propTypes = {
     pos_num_text: PropTypes.string,
     pos_title_desc: PropTypes.string,
   })),
-  onClick: PropTypes.func,
+  addFrequentPosition: PropTypes.func,
+  legCount: PropTypes.number,
 };
 
 FrequentPositions.defaultProps = {
   positions: [],
-  onClick: EMPTY_FUNCTION,
+  addFrequentPosition: EMPTY_FUNCTION,
+  legCount: 0,
 };
 
 export default FrequentPositions;
