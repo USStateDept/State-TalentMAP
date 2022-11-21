@@ -1,10 +1,13 @@
 @each $remark-id, $color in $borderColor {
-    .agenda-status--#{$remark-id} {
+    .agenda-tag--#{$remark-id} {
         background-color: $color; 
         color: $color;
     }
-    .agenda-border--#{$remark-id} {
+    .agenda-border-row--#{$remark-id} {
         border-left: 15px solid $color;
+    }
+    .agenda-border-card--#{$remark-id} {
+        border-left: 10px solid $color;
     }
 }
 

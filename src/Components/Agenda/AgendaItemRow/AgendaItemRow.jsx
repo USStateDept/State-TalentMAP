@@ -19,7 +19,6 @@ const AgendaItemRow = props => {
   const perdet$ = perdet || get(agenda, 'perdet');
 
   // eslint-disable-next-line no-console
-  console.log('agenda!: ', agenda);
   const editAI = () => { console.log('placeholder edit AI'); };
   const agendaStatus = get(agenda, 'status_short') || 'Default';
   return (
@@ -38,12 +37,12 @@ const AgendaItemRow = props => {
       }
       {
         !isCreate &&
-        <div className={`ai-history-row agenda-border--${agendaStatus} `}>
+        <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
-            <div className={`status-tag agenda-status--${agendaStatus}`}>
+            <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
             </div>
-            <div className={`poly-slash agenda-status--${agendaStatus}`}>_</div>
+            <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <div className="ai-history-row-panel-date">
             Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
