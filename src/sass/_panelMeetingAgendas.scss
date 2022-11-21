@@ -10,29 +10,48 @@
       background-color: $primary-blue;
       color: $color-white;
     }
+    .pma-meeting-info-container {
+      display: grid;
+      margin: 20px 0;
+      .pma-meeting-type {
+        background-color: $primary-blue;
+        clip-path: polygon(
+                        0% 0%,
+                        100% 0%,
+                        100% 10%,
+                        13% 10%,
+                        7% 100%,
+                        0% 100%);
+        color: $color-white;
+        font-size: 30px;
+        font-weight: bold;
+        grid-column: 1;
+        grid-row: 1;
+        padding: 20px 0 0 20px;
+        width: 700px;
+      }
+    }
 
     .cutoff-date-container {
-      margin-top: 15px;
+      background-color: $color-white;
+      box-shadow: inset 10px 10px 10px rgb(0 0 0 / 30%);
       display: inline-grid;
       grid-auto-flow: column;
+      grid-column: 1;
+      grid-row: 1;
       grid-template-rows: repeat(2, auto);
+      padding: 10px 0 10px 80px;
+      width: 700px;
 
       .panel-meeting-agenda-header-data-point {
         align-items: center;
+        color: $primary-blue;
         display: flex;
-        margin: 0 3rem 1.5rem .1rem;
+        margin: 5px 10px;
 
         dd {
           margin-left: 5px;
         }
-      }
-
-      .preliminary-cut-off-date {
-        margin-left: 10px;
-      }
-
-      .addendum-cut-off-date {
-        margin-left: 12px;
       }
     }
   }
