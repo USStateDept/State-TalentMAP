@@ -10,52 +10,32 @@
         font-size: 1.8em;
     }
   }
-  
+
   .search-submit-button {
     margin-top: 40px;
   }
-  
-  .filterby-container {
-    display: flex;
-    margin-top: 20px;
 
-    .filterby-label {
-        font-size: 20px;
-        margin-bottom: 10px;
-        width: 115px;
-    }
-    
-    .filterby-clear {
-      font-weight: bold;
-      
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
-      }
-    }
-  }
-  
   .edit-position-details-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    
+
     .filter-div {
       align-items: center;
       display: flex;
       margin-right: 10px;
-      
+
       .label {
         margin-right: 10px;
         min-width: 90px;
         text-align: end;
       }
-      
+
       @media screen and (max-width: 985px) {
         .label {
           min-width: 110px;
         }
       }
-      
+
       .picky {
         color: $color-black;
         width: 200px;
@@ -70,15 +50,15 @@
   justify-content: flex-end;
   font-size: 0.8em;
   margin-right: 35px;
-  
+
   div:first-child {
     margin-right: 10px;
   }
-  
+
   div {
     align-items: baseline;
     display: flex;
-    
+
     label {
       margin-right: 5px;
     }
