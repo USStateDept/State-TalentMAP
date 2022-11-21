@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
@@ -21,12 +21,12 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
 
-  const panelAgendas = useSelector(state => state.panelMeetingAgendas[0]);
+  // const panelAgendas = useSelector(state => state.panelMeetingAgendas[0]);
 
-  const userSkill = get(panelAgendas, 'skill');
-  const userLanguage = get(panelAgendas, 'language');
-  const userBureau = get(panelAgendas, 'bureau');
-  const userGrade = get(panelAgendas, 'grade');
+  const userSkill = get(agenda, 'skill' || 'None Listed');
+  const userLanguage = get(agenda, 'language' || 'None Listed');
+  const userBureau = get(agenda, 'bureau' || 'None Listed');
+  const userGrade = get(agenda, 'grade' || 'None Listed');
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
@@ -55,20 +55,23 @@ const AgendaItemRow = props => {
             <div className="poly-slash" style={{ backgroundColor: borderColor, color: borderColor }} >_</div>
           </div>
           <div className="ai-history-row-panel-date">
-            Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+            {
+              isPanelMeetingView &&
+              <div className="panel-meeting-agendas-user-info">
+                <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
+                <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                <div className="item"><span className="label">Language: </span> {userLanguage}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+              </div>
+            }
+            <div>
+              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+            </div>
           </div>
           {
             isPanelMeetingView &&
-            <div className="panel-meeting-agendas-user-info">
-              <div className="panel-meeting-agendas-profile-link">
-                <Link to="/profile/public/4">Townpost, Jenny Y.</Link>
-              </div>
-              <div>
-                <div className="item"><strong>Bureau: </strong> {userBureau}</div>
-                <div className="item"><strong>Grade: </strong> {userGrade}</div>
-                <div className="item"><strong>Language: </strong> {userLanguage}</div>
-                <div className="item"><strong>Skill: </strong> {userSkill}</div>
-              </div>
+            <div className="panel-meeting-agendas-profile-link">
+              <Link to="/profile/public/4">Townpost, Jenny Y.</Link>
             </div>
           }
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
