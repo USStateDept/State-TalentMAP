@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
-// import { useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
@@ -20,8 +19,6 @@ const AgendaItemRow = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
-
-  // const panelAgendas = useSelector(state => state.panelMeetingAgendas[0]);
 
   const userSkill = get(agenda, 'skill' || 'None Listed');
   const userLanguage = get(agenda, 'language' || 'None Listed');
