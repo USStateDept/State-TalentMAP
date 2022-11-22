@@ -259,6 +259,24 @@ $remarks: (
 );
 
 //**
+//* Border Colors
+//*
+$borderColor:(
+  "WDR": #227C9D, // Withdrawn: turqoise
+  "DIS": #913831, // Disapproved: red
+  "APR": #2D6E0E, // Approved: dark green
+  "DEF": #36454F, // Deferred: grey
+  "XXX": #483C32, // Deferred - Proposed Position: dark brown
+  "RDY": #003EBD, // Ready: blue
+  "HLD": #6421A2, // Held: purple
+  "NR": #DC6601, // Not Ready: Orange
+  "OOO": #946f00, // Out of Order: copper
+  "PIP": #75673E, // PIP: light brown
+  "MOV": #301934, // Move to ML/ID: dark purple
+  "Default": #513C2C, // Default: brown
+);
+
+//**
 //* Agenda Item Maintenance Legs
 //*
 $aim-legs-sm-height-config: (
