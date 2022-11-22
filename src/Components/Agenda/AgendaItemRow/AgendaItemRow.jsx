@@ -5,7 +5,6 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import AgendaItemLegs from '../AgendaItemLegs';
-import { borderColors } from '../Constants';
 
 const AgendaItemRow = props => {
   const {
@@ -27,7 +26,7 @@ const AgendaItemRow = props => {
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
-  const borderColor = borderColors[get(agenda, 'status_full') || 'Default'];
+  const agendaStatus = get(agenda, 'status_short') || 'Default';
   return (
     <>
       {
@@ -44,12 +43,12 @@ const AgendaItemRow = props => {
       }
       {
         !isCreate &&
-        <div className="ai-history-row" style={{ borderLeftColor: borderColor }}>
+        <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
-            <div className="status-tag" style={{ backgroundColor: borderColor }}>
+            <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
             </div>
-            <div className="poly-slash" style={{ backgroundColor: borderColor, color: borderColor }} >_</div>
+            <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <div className="ai-history-row-panel-date">
             {

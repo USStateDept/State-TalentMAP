@@ -5,7 +5,6 @@ import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import AgendaItemLegs from '../AgendaItemLegs';
-import { borderColors } from '../Constants';
 
 const AgendaItemCard = props => {
   const {
@@ -51,8 +50,7 @@ const AgendaItemCard = props => {
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder create AI'); };
-  const status_full = get(agenda, 'status_full') || 'Default';
-  const borderColor = borderColors[status_full];
+  const agendaStatus = get(agenda, 'status_short') || 'Default';
 
   return (
     <>
@@ -70,12 +68,12 @@ const AgendaItemCard = props => {
       }
       {
         !isCreate &&
-        <div className="ai-history-card" style={{ borderLeftColor: borderColor }}>
+        <div className={`ai-history-card agenda-border-card--${agendaStatus}`}>
           <div className="ai-history-status">
-            <div className="status-tag" style={{ backgroundColor: borderColor }}>
+            <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
             </div>
-            <div className="poly-slash" style={{ backgroundColor: borderColor, color: borderColor }} >_</div>
+            <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           {
             showEdit &&
