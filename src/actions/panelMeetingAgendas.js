@@ -9,6 +9,10 @@ const dummyAgenda = [
     panel_date: '2015-02-14T00:00:00Z',
     status: 'BR',
     status_full: 'Item Status: Ready',
+    skill: 'CONSULAR AFFAIRS (3001)',
+    bureau: '(DGHR) DIR GEN OF THE FOR SER & DIR OF HUMAN RESOURCES',
+    language: 'Spanish 3/3',
+    grade: '03',
     remarks: [
       {
         active_ind: 'Y',

@@ -13,10 +13,16 @@ const AgendaItemRow = props => {
     showEdit,
     isCDO,
     perdet,
+    isPanelMeetingView,
   } = props;
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+
+  const userSkill = get(agenda, 'skill') || 'None Listed';
+  const userLanguage = get(agenda, 'language') || 'None Listed';
+  const userBureau = get(agenda, 'bureau') || 'None Listed';
+  const userGrade = get(agenda, 'grade') || 'None Listed';
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
@@ -45,8 +51,25 @@ const AgendaItemRow = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <div className="ai-history-row-panel-date">
-            Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+            {
+              isPanelMeetingView &&
+              <div className="panel-meeting-agendas-user-info">
+                <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
+                <div className="item"><span className="label">Grade: </span> {userGrade}</div>
+                <div className="item"><span className="label">Language: </span> {userLanguage}</div>
+                <div className="item"><span className="label">Skill: </span> {userSkill}</div>
+              </div>
+            }
+            <div>
+              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+            </div>
           </div>
+          {
+            isPanelMeetingView &&
+            <div className="panel-meeting-agendas-profile-link">
+              <Link to="/profile/public/4">Townpost, Jenny Y.</Link>
+            </div>
+          }
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
             showEdit &&
@@ -102,6 +125,7 @@ AgendaItemRow.propTypes = {
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
+  isPanelMeetingView: PropTypes.bool,
 };
 
 
@@ -111,6 +135,7 @@ AgendaItemRow.defaultProps = {
   showEdit: false,
   isCDO: false,
   perdet: null,
+  isPanelMeetingView: false,
 };
 
 export default AgendaItemRow;

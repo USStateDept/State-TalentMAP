@@ -108,7 +108,7 @@
 
       .ai-history-row-panel-date {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         font-size: large;
 
         @media screen and (max-width: 1600px) {
@@ -253,5 +253,27 @@
   .panel-meeting-agendas-header {
     margin-left: 20px;
     font-family: 'Roboto';
+  }
+
+  .panel-meeting-agendas-user-info {
+    display: flex;
+    flex-wrap: wrap;
+    width: 750px;
+    margin-left: 300px;
+
+    .item {
+      font-size: 1.4rem;
+      width: 100%;
+
+      .label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .panel-meeting-agendas-profile-link {
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: -20px 0px 20px 3rem;
   }
 }
