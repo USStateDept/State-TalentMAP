@@ -20,10 +20,10 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
 
-  const userSkill = get(agenda, 'skill' || 'None Listed');
-  const userLanguage = get(agenda, 'language' || 'None Listed');
-  const userBureau = get(agenda, 'bureau' || 'None Listed');
-  const userGrade = get(agenda, 'grade' || 'None Listed');
+  const userSkill = get(agenda, 'skill') || 'None Listed';
+  const userLanguage = get(agenda, 'language') || 'None Listed';
+  const userBureau = get(agenda, 'bureau') || 'None Listed';
+  const userGrade = get(agenda, 'grade') || 'None Listed';
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
