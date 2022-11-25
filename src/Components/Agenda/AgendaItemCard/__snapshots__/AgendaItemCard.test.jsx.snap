@@ -3,34 +3,18 @@
 exports[`AgendaItemCard Component matches snapshot 1`] = `
 <Fragment>
   <div
-    className="ai-history-card"
-    style={
-      Object {
-        "borderLeftColor": "#513C2C",
-      }
-    }
+    className="ai-history-card agenda-border-card--Default"
   >
     <div
       className="ai-history-status"
     >
       <div
-        className="status-tag"
-        style={
-          Object {
-            "backgroundColor": "#513C2C",
-          }
-        }
+        className="status-tag agenda-tag--Default"
       >
         Default
       </div>
       <div
-        className="poly-slash"
-        style={
-          Object {
-            "backgroundColor": "#513C2C",
-            "color": "#513C2C",
-          }
-        }
+        className="poly-slash agenda-tag--Default"
       >
         _
       </div>
