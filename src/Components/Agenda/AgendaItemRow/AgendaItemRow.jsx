@@ -94,6 +94,7 @@ AgendaItemRow.propTypes = {
         grade: PropTypes.string,
         action: PropTypes.string,
         travel: PropTypes.string,
+        language: PropTypes.string,
       }),
     ),
     update_date: PropTypes.string,

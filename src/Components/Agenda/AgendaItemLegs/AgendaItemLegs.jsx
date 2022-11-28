@@ -13,7 +13,6 @@ const AgendaItemLegs = props => {
   } = props;
 
   let legs$ = legs;
-
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
   }
@@ -26,16 +25,18 @@ const AgendaItemLegs = props => {
   const getData = (key, helperFunc) => (
     <>
       {
-        legs$.map((leg) =>
-          (<td>
-            {
-              helperFunc ?
-                <dd>{helperFunc(leg[key])}</dd>
-                :
-                <dd>{leg[key]}</dd>
-            }
-          </td>),
-        )
+        legs$.map((leg) => {
+          return (
+            <td>
+              {
+                helperFunc ?
+                  <dd>{helperFunc(leg[key])}</dd>
+                  :
+                  <dd>{leg[key]}</dd>
+              }
+            </td>
+          );
+        })
       }
     </>
   );
@@ -70,6 +71,18 @@ const AgendaItemLegs = props => {
       cardView: true,
     },
     {
+      icon: '',
+      title: 'Grade',
+      content: (getData('grade')),
+      cardView: false,
+    },
+    {
+      icon: '',
+      title: 'Lang',
+      content: (getData('language')),
+      cardView: false,
+    },
+    {
       icon: 'paper-plane-o',
       title: 'ETA',
       content: (getData('eta', formatDate)),
@@ -91,12 +104,6 @@ const AgendaItemLegs = props => {
       icon: '',
       title: 'TOD',
       content: (getData('tod')),
-      cardView: false,
-    },
-    {
-      icon: '',
-      title: 'Grade',
-      content: (getData('grade')),
       cardView: false,
     },
     {
