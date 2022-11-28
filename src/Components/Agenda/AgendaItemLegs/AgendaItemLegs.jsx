@@ -26,6 +26,7 @@ const AgendaItemLegs = props => {
     <>
       {
         legs$.map((leg) => {
+          console.log('leg! ', leg);
           return (
             <td>
               {
