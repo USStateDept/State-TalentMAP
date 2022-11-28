@@ -25,19 +25,16 @@ const AgendaItemLegs = props => {
   const getData = (key, helperFunc) => (
     <>
       {
-        legs$.map((leg) => {
-          console.log('leg! ', leg);
-          return (
-            <td>
-              {
-                helperFunc ?
-                  <dd>{helperFunc(leg[key])}</dd>
-                  :
-                  <dd>{leg[key]}</dd>
-              }
-            </td>
-          );
-        })
+        legs$.map((leg) => (
+          <td>
+            {
+              helperFunc ?
+                <dd>{helperFunc(leg[key])}</dd>
+                :
+                <dd>{leg[key]}</dd>
+            }
+          </td>
+        ))
       }
     </>
   );
