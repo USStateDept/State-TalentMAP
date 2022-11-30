@@ -14,4 +14,19 @@ export const borderColors = {
   'Move to ML/ID': '#301934', // dark purple
   Default: '#513C2C', // brown
 };
+
+export const statusRenaming = {
+  Withdrawn: 'WDR',
+  Disapproved: 'DIS',
+  Approved: 'APR',
+  Deferred: 'DEF',
+  'Deferred - Proposed Position': 'XXX',
+  Ready: 'RDY',
+  Held: 'HLD',
+  'Not Ready': 'NR',
+  'Out of Order': 'OOO',
+  PIP: 'PIP',
+  'Move to ML/ID': 'MOV',
+  Default: 'Default',
+};
 /* eslint-enable import/prefer-default-export */
