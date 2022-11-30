@@ -1,23 +1,4 @@
 .search-bar-container {
-  .usa-search {
-    max-width: 645px;
-  }
-  .usa-width-one-sixth {
-    margin-right: 0px;
-  }
-  .usa-search.usa-search-big [type=submit] {
-    height: 3.4rem
-  }
-  .usa-search [type=submit] {
-    border-bottom-left-radius: 5px;
-    border-top-left-radius: 5px;
-  }
-  height: auto;
-
-  max-width: 1140px;
-
-  padding: 0 0 15px;
-
   .homepage-search-legend {
     font-size: 16px;
     font-weight: normal;
@@ -39,7 +20,6 @@
     width: 100%;
 
     input {
-      // height: $input-height;
       height: 40px;
 
       &[disabled] {
@@ -80,8 +60,7 @@
   }
 
   .search-submit-button {
-    margin-left: 15px;
-    margin-top: 5px;
+    margin-top: 40px;
 
     button {
       font-size: .9em;
@@ -89,10 +68,7 @@
     }
   }
 
-
   .search-keyword {
-    float: left;
-    padding: 15px 0;
 
     input {
       width: 100%;
@@ -106,38 +82,37 @@
 
   .usa-button {
     min-width: 150px;
-    padding: inherit 40px;
   }
-}
 
-.searchbar {
-  .text-input-wrapper {
-    display: block;
-    position: relative;
-
-    > span {
-      color: $color-gray;
-      font-size: 17px;
-      position: absolute;
-      right: 11px;
-      top: 10px;
-
-      &:hover {
-        color: $color-gray-darkest;
-      }
-
-      .fa-times-circle {
-        color: $alert-red;
-        font-size: 21px;
-        top: 9px;
-
+  .searchbar {
+    .text-input-wrapper {
+      display: block;
+      position: relative;
+  
+      > span {
+        color: $color-gray;
+        font-size: 17px;
+        position: absolute;
+        right: 11px;
+        top: 10px;
+  
         &:hover {
-          color: darken($alert-red, 10%);
+          color: $color-gray-darkest;
         }
-      }
-
-      &:focus {
-        outline-color: $color-black !important;
+  
+        .fa-times-circle {
+          color: $alert-red;
+          font-size: 21px;
+          top: 9px;
+  
+          &:hover {
+            color: darken($alert-red, 10%);
+          }
+        }
+  
+        &:focus {
+          outline-color: $color-black !important;
+        }
       }
     }
   }

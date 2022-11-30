@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
@@ -86,24 +85,18 @@ class SearchBar extends Component {
             :
             input
         }
-        {/* <div id={`enabled-search-${id}`}> */}
-        <div className="usa-width-one-sixth search-submit-button">
+        <div id={`enabled-search-${id}`}>
           { !noButton &&
-          <button className="usa-button" type="submit">
-            <FA name="search" className="label-icon" />
+          <button
+            id={`enabled-search-button-${id}`}
+            className={submitDisabledClass}
+            disabled={submitDisabled}
+            type="submit"
+            title="submit search"
+          >
             <span className="usa-search-submit-text">{formattedSubmitText}</span>
             <span className="usa-sr-only">{formattedSubmitTextSr}</span>
           </button>
-          // <button
-          //   id={`enabled-search-button-${id}`}
-          //   className={submitDisabledClass}
-          //   disabled={submitDisabled}
-          //   type="submit"
-          //   title="submit search"
-          // >
-          //   <span className="usa-search-submit-text">{formattedSubmitText}</span>
-          //   <span className="usa-sr-only">{formattedSubmitTextSr}</span>
-          // </button>
           }
         </div>
         <div id={`disabled-search-${id}`} style={hidden}>
