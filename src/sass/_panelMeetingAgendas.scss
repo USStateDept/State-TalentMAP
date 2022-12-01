@@ -10,49 +10,48 @@
       background-color: $primary-blue;
       color: $color-white;
     }
+    .pma-meeting-info-container {
+      display: grid;
+      margin: 20px 0;
+      .pma-meeting-type {
+        background-color: $primary-blue;
+        clip-path: polygon(
+                        0% 0%,
+                        100% 0%,
+                        100% 10%,
+                        13% 10%,
+                        7% 100%,
+                        0% 100%);
+        color: $color-white;
+        font-size: 30px;
+        font-weight: bold;
+        grid-column: 1;
+        grid-row: 1;
+        padding: 20px 0 0 20px;
+        width: 700px;
+      }
+    }
 
     .cutoff-date-container {
-      margin-top: 15px;
+      background-color: $color-white;
+      box-shadow: inset 10px 10px 10px rgb(0 0 0 / 30%);
       display: inline-grid;
       grid-auto-flow: column;
+      grid-column: 1;
+      grid-row: 1;
       grid-template-rows: repeat(2, auto);
+      padding: 10px 0 10px 80px;
+      width: 700px;
 
       .panel-meeting-agenda-header-data-point {
         align-items: center;
+        color: $primary-blue;
         display: flex;
-        margin: 0 3rem 1.5rem .1rem;
+        margin: 5px 10px;
 
         dd {
           margin-left: 5px;
         }
-      }
-
-      .preliminary-cut-off-date {
-        margin-left: 10px;
-      }
-
-      .addendum-cut-off-date {
-        margin-left: 12px;
-      }
-    }
-  }
-
-  .filterby-container {
-    display: flex;
-    margin-top: 20px;
-
-    .filterby-label {
-      font-size: 20px;
-      margin-bottom: 10px;
-      width: 115px;
-    }
-
-    .filterby-clear {
-      font-weight: bold;
-
-      .fa-times {
-        color: $color-red;
-        margin-right: 5px;
       }
     }
   }
@@ -60,6 +59,19 @@
   .panel-meeting-agenda-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(335px, 1fr));
+    padding-right: 6em;
+
+    @media screen and (min-width: 2390px) and (max-width: 2780px) {
+      padding-right: 10em;
+    }
+    
+    @media screen and (min-width: 2781px) and (max-width: 3188px) {
+      padding-right: 14em;
+    }
+    
+    @media screen and (min-width: 3189px) {
+      padding-right: 18em;
+    }
 
     .filter-div {
       align-items: center;
@@ -81,7 +93,6 @@
   .panel-meeting-agendas-rows-container {
     .ai-history-row {
       background-color: $color-white;
-      border-left: 15px solid $color-black;
       border-radius: 10px;
       box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
       margin: 20px 15px;
@@ -97,7 +108,7 @@
 
       .ai-history-row-panel-date {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         font-size: large;
 
         @media screen and (max-width: 1600px) {
@@ -227,14 +238,11 @@
       left: -2px;
       font-family: 'Roboto';
       .status-tag {
-        background-color: $color-black;
         color: $color-white;
         display: inline;
       }
       .poly-slash {
-        background-color: $color-black;
         clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
-        color: $color-black;
         display: inline-block;
         margin-left: -3px;
         width: 30px;
@@ -245,5 +253,27 @@
   .panel-meeting-agendas-header {
     margin-left: 20px;
     font-family: 'Roboto';
+  }
+
+  .panel-meeting-agendas-user-info {
+    display: flex;
+    flex-wrap: wrap;
+    width: 750px;
+    margin-left: 300px;
+
+    .item {
+      font-size: 1.4rem;
+      width: 100%;
+
+      .label {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .panel-meeting-agendas-profile-link {
+    font-weight: bold;
+    font-size: 1.8rem;
+    margin: -20px 0px 20px 3rem;
   }
 }
