@@ -4,6 +4,7 @@ import FA from 'react-fontawesome';
 import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
+import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 import { borderColors } from '../Constants';
 
@@ -131,15 +132,7 @@ AgendaItemCard.propTypes = {
         grade: PropTypes.string,
         action: PropTypes.string,
         travel: PropTypes.string,
-        languages: PropTypes.arrayOf(
-          PropTypes.shape({
-            lang: PropTypes.string,
-            sp: PropTypes.number,
-            rp: PropTypes.number,
-            code: PropTypes.string,
-            representation: PropTypes.string,
-          }),
-        ),
+        languages: POS_LANGUAGES,
       }),
     ),
     update_date: PropTypes.string,

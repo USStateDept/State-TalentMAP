@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
+import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 import { borderColors } from '../Constants';
 
@@ -94,15 +95,7 @@ AgendaItemRow.propTypes = {
         grade: PropTypes.string,
         action: PropTypes.string,
         travel: PropTypes.string,
-        languages: PropTypes.arrayOf(
-          PropTypes.shape({
-            language: PropTypes.string,
-            spoken_proficiency: PropTypes.number,
-            reading_proficiency: PropTypes.number,
-            code: PropTypes.string,
-            representation: PropTypes.string,
-          }),
-        ),
+        languages: POS_LANGUAGES,
       }),
     ),
     update_date: PropTypes.string,
