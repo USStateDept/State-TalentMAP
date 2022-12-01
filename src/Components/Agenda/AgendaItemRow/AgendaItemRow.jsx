@@ -96,9 +96,9 @@ AgendaItemRow.propTypes = {
         travel: PropTypes.string,
         languages: PropTypes.arrayOf(
           PropTypes.shape({
-            lang: PropTypes.string,
-            sp: PropTypes.number,
-            rp: PropTypes.number,
+            language: PropTypes.string,
+            spoken_proficiency: PropTypes.number,
+            reading_proficiency: PropTypes.number,
             code: PropTypes.string,
             representation: PropTypes.string,
           }),
