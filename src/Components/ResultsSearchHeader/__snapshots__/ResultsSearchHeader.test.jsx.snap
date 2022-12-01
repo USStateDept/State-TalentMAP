@@ -5,7 +5,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
   className="results-search-bar padded-main-content results-single-search homepage-offset"
 >
   <div
-    className="usa-grid-full results-search-bar-container"
+    className="usa-grid-full search-bar-container"
   >
     <form
       className="usa-grid-full"
