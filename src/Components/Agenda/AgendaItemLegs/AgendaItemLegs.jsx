@@ -78,7 +78,7 @@ const AgendaItemLegs = props => {
     {
       icon: '',
       title: 'Lang',
-      content: (getData('language', formatLang)),
+      content: (getData('languages', formatLang)),
       cardView: false,
     },
     {
