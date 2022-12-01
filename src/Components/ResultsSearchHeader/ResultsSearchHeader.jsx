@@ -43,7 +43,7 @@ class ResultsSearchHeader extends Component {
       searchBarDisabledPlaceholder, legend, legendSrOnly } = this.props;
     return (
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
-        <div className="usa-grid-full results-search-bar-container">
+        <div className="usa-grid-full search-bar-container">
           <form className="usa-grid-full" onSubmit={this.submitSearch} >
             <fieldset className="usa-width-five-sixths">
               <div className="usa-width-one-whole search-results-inputs search-keyword">
