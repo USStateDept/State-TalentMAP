@@ -94,7 +94,15 @@ AgendaItemRow.propTypes = {
         grade: PropTypes.string,
         action: PropTypes.string,
         travel: PropTypes.string,
-        language: PropTypes.string,
+        languages: PropTypes.arrayOf(
+          PropTypes.shape({
+            lang: PropTypes.string,
+            sp: PropTypes.number,
+            rp: PropTypes.number,
+            code: PropTypes.string,
+            representation: PropTypes.string,
+          }),
+        ),
       }),
     ),
     update_date: PropTypes.string,
