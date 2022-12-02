@@ -100,25 +100,28 @@ class BidControls extends Component {
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
     this.props.queryParamUpdate({ hasHandshake: q });
-    console.log('');
+    // console.log('');
   };
 
   onUnassignedChange = q => {
+    const { updatePagination, pageSize } = this.props;
     this.setState({ unassignedBidders: q }, this.generatePills);
+    updatePagination({ pageNumber: 1, pageSize });
     this.props.setUnassigned(q);
   };
 
   onSortChange = q => {
-    const { updatePagination, pageSize } = this.props;
-    updatePagination({ pageNumber: 1, pageSize });
+    // const { updatePagination, pageSize } = this.props;
+    // updatePagination({ pageNumber: 1, pageSize });
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
 
   updateQueryLimit = q => {
+    console.log('updateQueryLimit ', q.target.value);
     const { updatePagination } = this.props;
     updatePagination({ pageNumber: 1, pageSize: q.target.value });
-    this.props.queryParamUpdate();
+    this.props.queryParamUpdate({ value: 'skip' });
   };
 
   generatePills = () => {

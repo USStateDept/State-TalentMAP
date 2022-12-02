@@ -12,7 +12,8 @@ const ID = 'bidder-portfolio-container';
 
 class BidderPortfolioContainer extends Component {
   onPageChange = q => {
-    const { pageSize, queryParamUpdate, updatePagination } = this.props;
+    console.log(q.page);
+    const { pageSize, updatePagination, queryParamUpdate } = this.props;
     scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
     updatePagination({ pageNumber: q.page, pageSize: pageSize.toString() });
     setTimeout(() => {

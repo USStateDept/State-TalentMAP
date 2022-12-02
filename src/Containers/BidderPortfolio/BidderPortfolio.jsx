@@ -59,7 +59,7 @@ class BidderPortfolio extends Component {
     const { pageSize } = this.props.bidderPortfolioPagination;
     const pageSize$ = pageSize || 10;
     const { query } = this.state;
-    if (q.value === 'skip') {
+    if (q.value !== 'skip') {
       console.trace('RESETTING BACK TO PAGE 1');
       this.props.patrick({ pageNumber: 1, pageSize: pageSize$.toString() });
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
