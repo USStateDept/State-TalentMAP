@@ -235,22 +235,27 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
-            <div className="cutoff-date-container">
-              <div className="panel-meeting-agenda-header-data-point">
-                <dt>Meeting Date:</dt>
-                <dd>{meetingDate}</dd>
+            <div className="pma-meeting-info-container">
+              <div className="pma-meeting-type">
+                ID
               </div>
-              <div className="panel-meeting-agenda-header-data-point">
-                <dt>Meeting Status:</dt>
-                <dd>{meetingStatus}</dd>
-              </div>
-              <div className="panel-meeting-agenda-header-data-point">
-                <dt>Preliminary Cut-Off:</dt>
-                <dd>{preliminaryCutoff}</dd>
-              </div>
-              <div className="panel-meeting-agenda-header-data-point">
-                <dt>Addendum Cut-Off:</dt>
-                <dd>{addendumCutoff}</dd>
+              <div className="cutoff-date-container">
+                <div className="panel-meeting-agenda-header-data-point">
+                  <dt>Meeting Date:</dt>
+                  <dd>{meetingDate}</dd>
+                </div>
+                <div className="panel-meeting-agenda-header-data-point">
+                  <dt>Meeting Status:</dt>
+                  <dd>{meetingStatus}</dd>
+                </div>
+                <div className="panel-meeting-agenda-header-data-point">
+                  <dt>Preliminary Cut-Off:</dt>
+                  <dd>{preliminaryCutoff}</dd>
+                </div>
+                <div className="panel-meeting-agenda-header-data-point">
+                  <dt>Addendum Cut-Off:</dt>
+                  <dd>{addendumCutoff}</dd>
+                </div>
               </div>
             </div>
             <PositionManagerSearch
@@ -422,6 +427,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                     isCDO={isCDO}
                     isAIHView
                     agenda={result}
+                    isPanelMeetingView
                   />
                 ))
               }
