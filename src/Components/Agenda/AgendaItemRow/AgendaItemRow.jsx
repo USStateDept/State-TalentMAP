@@ -61,6 +61,10 @@ const AgendaItemRow = props => {
               </div>
             }
             <div>
+              <div>Created By: John Andrews</div>
+              <div>Modified By: John Andrews</div>
+            </div>
+            <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
           </div>
