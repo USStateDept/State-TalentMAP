@@ -1,5 +1,4 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import SearchBar from 'Components/SearchBar/SearchBar';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -35,7 +34,7 @@ const PositionManagerSearch = forwardRef((props, ref) => {
 
   return (
     <form className="usa-grid-full">
-      <fieldset className="usa-width-five-sixths">
+      <fieldset>
         <div className="usa-width-one-whole search-results-inputs search-keyword">
           <legend className="usa-grid-full homepage-search-legend">{props.label}</legend>
           <SearchBar
@@ -43,7 +42,6 @@ const PositionManagerSearch = forwardRef((props, ref) => {
             defaultValue={props.textSearch || props.defaultValue}
             label="Keywords"
             labelSrOnly
-            noButton
             noForm
             onChangeText={changeText}
             onClear={onClear}
@@ -52,15 +50,10 @@ const PositionManagerSearch = forwardRef((props, ref) => {
             submitText="Search"
             type="medium"
             ref={childRef}
+            submitForm={submitForm}
           />
         </div>
       </fieldset>
-      <div className="usa-width-one-sixth search-submit-button">
-        <button className="usa-button" type="submit" onClick={submitForm}>
-          <FontAwesome name="search" className="label-icon" />
-                Search
-        </button>
-      </div>
     </form>
   );
 });

@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -44,7 +43,7 @@ class ResultsSearchHeader extends Component {
     return (
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
         <div className="usa-grid-full search-bar-container">
-          <form className="usa-grid-full" onSubmit={this.submitSearch} >
+          <form className="usa-grid-full" onSubmit={this.submitSearch}>
             <fieldset className="usa-width-five-sixths">
               <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <legend className={`usa-grid-full homepage-search-legend ${legendSrOnly ? 'usa-sr-only' : ''}`}>{legend}</legend>
@@ -55,7 +54,6 @@ class ResultsSearchHeader extends Component {
                   submitText="Search"
                   labelSrOnly
                   noForm
-                  noButton
                   placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
                   onChangeText={this.onChangeQueryText}
                   defaultValue={defaultKeyword}
@@ -63,15 +61,10 @@ class ResultsSearchHeader extends Component {
                   showClear
                   onClear={this.onClear}
                   ref={(ref) => { this.searchBarRef = ref; }}
+                  submitForm={this.submitSearch}
                 />
               </div>
             </fieldset>
-            <div className="usa-width-one-sixth search-submit-button">
-              <button className="usa-button" type="submit" disabled={searchBarDisabled}>
-                <FontAwesome name="search" className="label-icon" />
-                Search
-              </button>
-            </div>
           </form>
         </div>
       </div>
