@@ -11,9 +11,7 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
       className="usa-grid-full"
       onSubmit={[Function]}
     >
-      <fieldset
-        className="usa-width-five-sixths"
-      >
+      <fieldset>
         <div
           className="usa-width-one-whole search-results-inputs search-keyword"
         >
