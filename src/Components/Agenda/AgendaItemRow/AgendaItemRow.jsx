@@ -4,6 +4,7 @@ import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
+import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
 const AgendaItemRow = props => {
@@ -116,6 +117,7 @@ AgendaItemRow.propTypes = {
         grade: PropTypes.string,
         action: PropTypes.string,
         travel: PropTypes.string,
+        languages: POS_LANGUAGES,
       }),
     ),
     update_date: PropTypes.string,
