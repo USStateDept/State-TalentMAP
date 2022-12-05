@@ -554,6 +554,10 @@ $cdo-search-container-padding: 10px;
   .search-bar-container {
     max-width: unset;
     padding: 0;
+
+    .search-results-inputs {
+      padding: 15px 0;
+    }
   }
 
   .total-results-container {
