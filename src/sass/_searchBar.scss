@@ -96,35 +96,37 @@
     @media screen and (max-width: 1200px) {
       width: 64%;
     }
+  }
+}
 
-    .text-input-wrapper {
-      display: block;
-      position: relative;
-  
-      > span {
-        color: $color-gray;
-        font-size: 17px;
-        position: absolute;
-        right: 11px;
-        top: 10px;
-  
+.searchbar {
+  .text-input-wrapper {
+    display: block;
+    position: relative;
+
+    >span {
+      color: $color-gray;
+      font-size: 17px;
+      position: absolute;
+      right: 11px;
+      top: 10px;
+
+      &:hover {
+        color: $color-gray-darkest;
+      }
+
+      .fa-times-circle {
+        color: $alert-red;
+        font-size: 21px;
+        top: 9px;
+
         &:hover {
-          color: $color-gray-darkest;
+          color: darken($alert-red, 10%);
         }
-  
-        .fa-times-circle {
-          color: $alert-red;
-          font-size: 21px;
-          top: 9px;
-  
-          &:hover {
-            color: darken($alert-red, 10%);
-          }
-        }
-  
-        &:focus {
-          outline-color: $color-black !important;
-        }
+      }
+
+      &:focus {
+        outline-color: $color-black !important;
       }
     }
   }
