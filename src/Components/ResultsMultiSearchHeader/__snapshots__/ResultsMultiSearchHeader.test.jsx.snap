@@ -42,7 +42,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 onSubmitSearch={[Function]}
                 placeholder="Enter keywords..."
                 showClear={false}
-                submitDisabled={false}
+                submitForm={[Function]}
                 submitText="Search"
                 type="medium"
               />

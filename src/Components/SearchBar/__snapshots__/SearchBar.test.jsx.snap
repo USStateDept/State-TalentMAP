@@ -1,458 +1,356 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchBarComponent big matches snapshot 1`] = `
-<div
-  className="usa-search usa-search-big searchbar"
->
+<Fragment>
   <div
-    className="usa-grid-full"
-    role="search"
+    className="usa-search usa-search-big searchbar"
   >
-    <form
-      onSubmit={[Function]}
+    <div
+      className="usa-grid-full"
+      role="search"
     >
-      <div
-        className="usa-grid-full label-input-wrapper"
+      <form
+        onSubmit={[Function]}
       >
-        <label
-          className="usa-sr-only"
-          htmlFor="search-2"
-        >
-          Label
-        </label>
-        <input
-          disabled={false}
-          id="search-2"
-          name="search"
-          onChange={[Function]}
-          placeholder={null}
-          type="search"
-          value=""
-        />
         <div
-          id="enabled-search-search-2"
+          className="usa-grid-full label-input-wrapper"
         >
-          <button
-            className=""
+          <label
+            className="usa-sr-only"
+            htmlFor="search-2"
+          >
+            Label
+          </label>
+          <input
             disabled={false}
-            id="enabled-search-button-search-2"
-            title="submit search"
-            type="submit"
-          >
-            <span
-              className="usa-search-submit-text"
-            >
-              Submit 2
-            </span>
-            <span
-              className="usa-sr-only"
-            >
-              Submit 2
-            </span>
-          </button>
-        </div>
-        <div
-          id="disabled-search-search-2"
-          style={
-            Object {
-              "display": "none",
+            id="search-2"
+            name="search"
+            onChange={[Function]}
+            placeholder={null}
+            type="search"
+            value=""
+          />
+          <div
+            id="disabled-search-search-2"
+            style={
+              Object {
+                "display": "none",
+              }
             }
-          }
-        >
-          <button
-            className="usa-button-disabled"
-            disabled="true"
-            id="disabled-search-button-search-2"
-            title="search button disabled"
-            type="submit"
           >
-            <span
-              className="usa-search-submit-text usa-button-disabled"
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              id="disabled-search-button-search-2"
+              title="search button disabled"
+              type="submit"
             >
-              Submit 2
+              <span
+                className="usa-search-submit-text usa-button-disabled"
+              >
+                Submit 2
+              </span>
+            </button>
+            <span
+              className="alert-text"
+            >
+              Search is disabled
             </span>
-          </button>
-          <span
-            className="alert-text"
-          >
-            Search is disabled
-          </span>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  <div
+    className="usa-width-one-sixth search-submit-button"
+  >
+    <button
+      className="usa-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      <FontAwesome
+        className="label-icon"
+        name="search"
+      />
+      Search
+    </button>
+  </div>
+</Fragment>
 `;
 
 exports[`SearchBarComponent big matches snapshot when showClear === true 1`] = `
-<div
-  className="usa-search usa-search-big searchbar"
->
+<Fragment>
   <div
-    className="usa-grid-full"
-    role="search"
+    className="usa-search usa-search-big searchbar"
   >
-    <form
-      onSubmit={[Function]}
+    <div
+      className="usa-grid-full"
+      role="search"
     >
-      <div
-        className="usa-grid-full label-input-wrapper"
+      <form
+        onSubmit={[Function]}
       >
-        <label
-          className="usa-sr-only"
-          htmlFor="search-2"
-        >
-          Label
-        </label>
-        <span
-          className="text-input-wrapper"
-        >
-          <input
-            disabled={false}
-            id="search-2"
-            name="search"
-            onChange={[Function]}
-            placeholder={null}
-            type="search"
-            value=""
-          />
-          <FontAwesome
-            name="search"
-          />
-        </span>
         <div
-          id="enabled-search-search-2"
+          className="usa-grid-full label-input-wrapper"
         >
-          <button
-            className=""
-            disabled={false}
-            id="enabled-search-button-search-2"
-            title="submit search"
-            type="submit"
+          <label
+            className="usa-sr-only"
+            htmlFor="search-2"
           >
-            <span
-              className="usa-search-submit-text"
-            >
-              Submit 2
-            </span>
-            <span
-              className="usa-sr-only"
-            >
-              Submit 2
-            </span>
-          </button>
-        </div>
-        <div
-          id="disabled-search-search-2"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <button
-            className="usa-button-disabled"
-            disabled="true"
-            id="disabled-search-button-search-2"
-            title="search button disabled"
-            type="submit"
-          >
-            <span
-              className="usa-search-submit-text usa-button-disabled"
-            >
-              Submit 2
-            </span>
-          </button>
+            Label
+          </label>
           <span
-            className="alert-text"
+            className="text-input-wrapper"
           >
-            Search is disabled
+            <input
+              disabled={false}
+              id="search-2"
+              name="search"
+              onChange={[Function]}
+              placeholder={null}
+              type="search"
+              value=""
+            />
+            <FontAwesome
+              name="search"
+            />
           </span>
+          <div
+            id="disabled-search-search-2"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              id="disabled-search-button-search-2"
+              title="search button disabled"
+              type="submit"
+            >
+              <span
+                className="usa-search-submit-text usa-button-disabled"
+              >
+                Submit 2
+              </span>
+            </button>
+            <span
+              className="alert-text"
+            >
+              Search is disabled
+            </span>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  <div
+    className="usa-width-one-sixth search-submit-button"
+  >
+    <button
+      className="usa-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      <FontAwesome
+        className="label-icon"
+        name="search"
+      />
+      Search
+    </button>
+  </div>
+</Fragment>
 `;
 
 exports[`SearchBarComponent medium matches snapshot 1`] = `
-<div
-  className="usa-search usa-search-medium searchbar"
->
+<Fragment>
   <div
-    className="usa-grid-full"
-    role="search"
+    className="usa-search usa-search-medium searchbar"
   >
-    <form
-      onSubmit={[Function]}
+    <div
+      className="usa-grid-full"
+      role="search"
     >
-      <div
-        className="usa-grid-full label-input-wrapper"
+      <form
+        onSubmit={[Function]}
       >
-        <label
-          className="usa-sr-only"
-          htmlFor="search-2"
-        >
-          Label
-        </label>
-        <input
-          disabled={false}
-          id="search-2"
-          name="search"
-          onChange={[Function]}
-          placeholder={null}
-          type="search"
-          value=""
-        />
         <div
-          id="enabled-search-search-2"
+          className="usa-grid-full label-input-wrapper"
         >
-          <button
-            className=""
+          <label
+            className="usa-sr-only"
+            htmlFor="search-2"
+          >
+            Label
+          </label>
+          <input
             disabled={false}
-            id="enabled-search-button-search-2"
-            title="submit search"
-            type="submit"
-          >
-            <span
-              className="usa-search-submit-text"
-            >
-              Submit 2
-            </span>
-            <span
-              className="usa-sr-only"
-            >
-              Submit 2
-            </span>
-          </button>
-        </div>
-        <div
-          id="disabled-search-search-2"
-          style={
-            Object {
-              "display": "none",
+            id="search-2"
+            name="search"
+            onChange={[Function]}
+            placeholder={null}
+            type="search"
+            value=""
+          />
+          <div
+            id="disabled-search-search-2"
+            style={
+              Object {
+                "display": "none",
+              }
             }
-          }
-        >
-          <button
-            className="usa-button-disabled"
-            disabled="true"
-            id="disabled-search-button-search-2"
-            title="search button disabled"
-            type="submit"
           >
-            <span
-              className="usa-search-submit-text usa-button-disabled"
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              id="disabled-search-button-search-2"
+              title="search button disabled"
+              type="submit"
             >
-              Submit 2
+              <span
+                className="usa-search-submit-text usa-button-disabled"
+              >
+                Submit 2
+              </span>
+            </button>
+            <span
+              className="alert-text"
+            >
+              Search is disabled
             </span>
-          </button>
-          <span
-            className="alert-text"
-          >
-            Search is disabled
-          </span>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  <div
+    className="usa-width-one-sixth search-submit-button"
+  >
+    <button
+      className="usa-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      <FontAwesome
+        className="label-icon"
+        name="search"
+      />
+      Search
+    </button>
+  </div>
+</Fragment>
 `;
 
 exports[`SearchBarComponent medium matches snapshot when showClear === true 1`] = `
-<div
-  className="usa-search usa-search-medium searchbar"
->
+<Fragment>
   <div
-    className="usa-grid-full"
-    role="search"
+    className="usa-search usa-search-medium searchbar"
   >
-    <form
-      onSubmit={[Function]}
+    <div
+      className="usa-grid-full"
+      role="search"
     >
-      <div
-        className="usa-grid-full label-input-wrapper"
+      <form
+        onSubmit={[Function]}
       >
-        <label
-          className="usa-sr-only"
-          htmlFor="search-2"
-        >
-          Label
-        </label>
-        <span
-          className="text-input-wrapper"
-        >
-          <input
-            disabled={false}
-            id="search-2"
-            name="search"
-            onChange={[Function]}
-            placeholder={null}
-            type="search"
-            value=""
-          />
-          <FontAwesome
-            name="search"
-          />
-        </span>
         <div
-          id="enabled-search-search-2"
+          className="usa-grid-full label-input-wrapper"
         >
-          <button
-            className=""
-            disabled={false}
-            id="enabled-search-button-search-2"
-            title="submit search"
-            type="submit"
+          <label
+            className="usa-sr-only"
+            htmlFor="search-2"
           >
-            <span
-              className="usa-search-submit-text"
-            >
-              Submit 2
-            </span>
-            <span
-              className="usa-sr-only"
-            >
-              Submit 2
-            </span>
-          </button>
-        </div>
-        <div
-          id="disabled-search-search-2"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <button
-            className="usa-button-disabled"
-            disabled="true"
-            id="disabled-search-button-search-2"
-            title="search button disabled"
-            type="submit"
-          >
-            <span
-              className="usa-search-submit-text usa-button-disabled"
-            >
-              Submit 2
-            </span>
-          </button>
+            Label
+          </label>
           <span
-            className="alert-text"
+            className="text-input-wrapper"
           >
-            Search is disabled
+            <input
+              disabled={false}
+              id="search-2"
+              name="search"
+              onChange={[Function]}
+              placeholder={null}
+              type="search"
+              value=""
+            />
+            <FontAwesome
+              name="search"
+            />
           </span>
+          <div
+            id="disabled-search-search-2"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              id="disabled-search-button-search-2"
+              title="search button disabled"
+              type="submit"
+            >
+              <span
+                className="usa-search-submit-text usa-button-disabled"
+              >
+                Submit 2
+              </span>
+            </button>
+            <span
+              className="alert-text"
+            >
+              Search is disabled
+            </span>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  <div
+    className="usa-width-one-sixth search-submit-button"
+  >
+    <button
+      className="usa-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      <FontAwesome
+        className="label-icon"
+        name="search"
+      />
+      Search
+    </button>
+  </div>
+</Fragment>
 `;
 
 exports[`SearchBarComponent small matches snapshot 1`] = `
-<div
-  className="usa-search usa-search-small searchbar"
->
+<Fragment>
   <div
-    className="usa-grid-full"
-    role="search"
+    className="usa-search usa-search-small searchbar"
   >
-    <form
-      onSubmit={[Function]}
+    <div
+      className="usa-grid-full"
+      role="search"
     >
-      <div
-        className="usa-grid-full label-input-wrapper"
+      <form
+        onSubmit={[Function]}
       >
-        <label
-          className="usa-sr-only"
-          htmlFor="search-2"
-        >
-          Label
-        </label>
-        <input
-          disabled={false}
-          id="search-2"
-          name="search"
-          onChange={[Function]}
-          placeholder={null}
-          type="search"
-          value=""
-        />
         <div
-          id="enabled-search-search-2"
+          className="usa-grid-full label-input-wrapper"
         >
-          <button
-            className=""
-            disabled={false}
-            id="enabled-search-button-search-2"
-            title="submit search"
-            type="submit"
+          <label
+            className="usa-sr-only"
+            htmlFor="search-2"
           >
-            <span
-              className="usa-search-submit-text"
-            />
-            <span
-              className="usa-sr-only"
-            >
-              Search
-            </span>
-          </button>
-        </div>
-        <div
-          id="disabled-search-search-2"
-          style={
-            Object {
-              "display": "none",
-            }
-          }
-        >
-          <button
-            className="usa-button-disabled"
-            disabled="true"
-            id="disabled-search-button-search-2"
-            title="search button disabled"
-            type="submit"
-          >
-            <span
-              className="usa-search-submit-text usa-button-disabled"
-            />
-          </button>
-          <span
-            className="alert-text"
-          >
-            Search is disabled
-          </span>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-`;
-
-exports[`SearchBarComponent small matches snapshot when showClear === true 1`] = `
-<div
-  className="usa-search usa-search-small searchbar"
->
-  <div
-    className="usa-grid-full"
-    role="search"
-  >
-    <form
-      onSubmit={[Function]}
-    >
-      <div
-        className="usa-grid-full label-input-wrapper"
-      >
-        <label
-          className="usa-sr-only"
-          htmlFor="search-2"
-        >
-          Label
-        </label>
-        <span
-          className="text-input-wrapper"
-        >
+            Label
+          </label>
           <input
             disabled={false}
             id="search-2"
@@ -462,57 +360,133 @@ exports[`SearchBarComponent small matches snapshot when showClear === true 1`] =
             type="search"
             value=""
           />
-          <FontAwesome
-            name="search"
-          />
-        </span>
-        <div
-          id="enabled-search-search-2"
-        >
-          <button
-            className=""
-            disabled={false}
-            id="enabled-search-button-search-2"
-            title="submit search"
-            type="submit"
-          >
-            <span
-              className="usa-search-submit-text"
-            />
-            <span
-              className="usa-sr-only"
-            >
-              Search
-            </span>
-          </button>
-        </div>
-        <div
-          id="disabled-search-search-2"
-          style={
-            Object {
-              "display": "none",
+          <div
+            id="disabled-search-search-2"
+            style={
+              Object {
+                "display": "none",
+              }
             }
-          }
-        >
-          <button
-            className="usa-button-disabled"
-            disabled="true"
-            id="disabled-search-button-search-2"
-            title="search button disabled"
-            type="submit"
           >
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              id="disabled-search-button-search-2"
+              title="search button disabled"
+              type="submit"
+            >
+              <span
+                className="usa-search-submit-text usa-button-disabled"
+              />
+            </button>
             <span
-              className="usa-search-submit-text usa-button-disabled"
-            />
-          </button>
-          <span
-            className="alert-text"
-          >
-            Search is disabled
-          </span>
+              className="alert-text"
+            >
+              Search is disabled
+            </span>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   </div>
-</div>
+  <div
+    className="usa-width-one-sixth search-submit-button"
+  >
+    <button
+      className="usa-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      <FontAwesome
+        className="label-icon"
+        name="search"
+      />
+      Search
+    </button>
+  </div>
+</Fragment>
+`;
+
+exports[`SearchBarComponent small matches snapshot when showClear === true 1`] = `
+<Fragment>
+  <div
+    className="usa-search usa-search-small searchbar"
+  >
+    <div
+      className="usa-grid-full"
+      role="search"
+    >
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="usa-grid-full label-input-wrapper"
+        >
+          <label
+            className="usa-sr-only"
+            htmlFor="search-2"
+          >
+            Label
+          </label>
+          <span
+            className="text-input-wrapper"
+          >
+            <input
+              disabled={false}
+              id="search-2"
+              name="search"
+              onChange={[Function]}
+              placeholder={null}
+              type="search"
+              value=""
+            />
+            <FontAwesome
+              name="search"
+            />
+          </span>
+          <div
+            id="disabled-search-search-2"
+            style={
+              Object {
+                "display": "none",
+              }
+            }
+          >
+            <button
+              className="usa-button-disabled"
+              disabled="true"
+              id="disabled-search-button-search-2"
+              title="search button disabled"
+              type="submit"
+            >
+              <span
+                className="usa-search-submit-text usa-button-disabled"
+              />
+            </button>
+            <span
+              className="alert-text"
+            >
+              Search is disabled
+            </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div
+    className="usa-width-one-sixth search-submit-button"
+  >
+    <button
+      className="usa-button"
+      onClick={[Function]}
+      type="submit"
+    >
+      <FontAwesome
+        className="label-icon"
+        name="search"
+      />
+      Search
+    </button>
+  </div>
+</Fragment>
 `;

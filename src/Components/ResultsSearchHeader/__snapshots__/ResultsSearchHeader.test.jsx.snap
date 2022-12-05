@@ -29,34 +29,19 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
             inputDisabled={false}
             label="Keywords"
             labelSrOnly={true}
-            noButton={true}
+            noButton={false}
             noForm={true}
             onChangeText={[Function]}
             onClear={[Function]}
             onSubmitSearch={[Function]}
             placeholder="Enter keywords..."
             showClear={true}
-            submitDisabled={false}
+            submitForm={[Function]}
             submitText="Search"
             type="medium"
           />
         </div>
       </fieldset>
-      <div
-        className="usa-width-one-sixth search-submit-button"
-      >
-        <button
-          className="usa-button"
-          disabled={false}
-          type="submit"
-        >
-          <FontAwesome
-            className="label-icon"
-            name="search"
-          />
-          Search
-        </button>
-      </div>
     </form>
   </div>
 </div>
