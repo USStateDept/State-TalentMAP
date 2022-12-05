@@ -45,6 +45,30 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
       <tr>
         <td>
           <FontAwesome
+            name=""
+          />
+        </td>
+        <th>
+          <dt>
+            Grade
+          </dt>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <FontAwesome
+            name=""
+          />
+        </td>
+        <th>
+          <dt>
+            Lang
+          </dt>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          <FontAwesome
             name="paper-plane-o"
           />
         </td>
@@ -85,18 +109,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         <th>
           <dt>
             TOD
-          </dt>
-        </th>
-      </tr>
-      <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
-        <th>
-          <dt>
-            Grade
           </dt>
         </th>
       </tr>

@@ -769,3 +769,13 @@ export const TEMP_FAKE_DATA = PropTypes.shape({
   legs: PropTypes.arrayOf(TEMP_FAKE_LEGS),
   panelDate: PropTypes.string,
 });
+
+export const POS_LANGUAGES = PropTypes.arrayOf(
+  PropTypes.shape({
+    language: PropTypes.string,
+    spoken_proficiency: PropTypes.number,
+    reading_proficiency: PropTypes.number,
+    code: PropTypes.string,
+    representation: PropTypes.string,
+  }),
+);
