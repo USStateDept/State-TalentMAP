@@ -53,6 +53,7 @@ class BidControls extends Component {
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value ===
         this.props.defaultHandshake)] });
     if (this.props.defaultHandshake === 'unassigned_filters' && this.state.bidSeasons.length) {
+      console.log('onLoad');
       this.setState({ unassignedFilter: true });
     }
     if (this.props.unassignedSelection.length) {
@@ -69,29 +70,40 @@ class BidControls extends Component {
     // this.setState({ pageNumber: this.props.pageNumber });
   }
 
-  onSeasonChange = seasons => {
-    console.log('onSeasonChange ', seasons);
+  onSeasonChange = (seasons, value) => {
+    // console.log('onSeasonChafskipnge ', seasons);
+    // const { updatePagination, pageSize } = this.props;
+    console.log('onSeasonChange seasons: ', seasons);
+    console.log('onSeasonChange value: ', value);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
+    // if (value === 'skip') {
+    //   this.onFilterChange('skip');
+    // }
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
-      this.onFilterChange(get(filterBy, 'value'));
+      this.onFilterChange(get(filterBy, 'value'), value);
     }
     if (!isEqual(hasSeasons, this.state.hasSeasons)) {
       this.setState({ hasSeasons }, () => {
-        this.onFilterChange(get(filterBy, 'value'));
+        this.onFilterChange(get(filterBy, 'value'), value);
       });
     }
     if (!isEqual(seasons, this.state.bidSeasons)) {
       this.setState({
         bidSeasons: seasons,
       }, () => {
+        console.log('onseasonschange updating pagination');
         this.generatePills();
+        // updatePagination({ pageNumber: 1, pageSize });
+        // this.props.queryParamUpdate({ value: 'skip' });
       });
     }
   };
 
-  onFilterChange = q => {
+  onFilterChange = (q, value) => {
+    console.trace('onfilterchange q: ', q);
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
+    // const { updatePagination, pageSize } = this.props;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
@@ -99,7 +111,13 @@ class BidControls extends Component {
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
-    this.props.queryParamUpdate({ hasHandshake: q });
+    // updatePagination({ pageNumber: 1, pageSize });
+    console.log('onfilterchange q: ', q);
+    if (value === 'skip') {
+      this.props.queryParamUpdate({ value: 'skip' });
+    } else {
+      this.props.queryParamUpdate({ hasHandshake: q });
+    }
     // console.log('');
   };
 
@@ -107,24 +125,27 @@ class BidControls extends Component {
     const { updatePagination, pageSize } = this.props;
     this.setState({ unassignedBidders: q }, this.generatePills);
     updatePagination({ pageNumber: 1, pageSize });
+    this.props.queryParamUpdate();
     this.props.setUnassigned(q);
   };
 
   onSortChange = q => {
     // const { updatePagination, pageSize } = this.props;
     // updatePagination({ pageNumber: 1, pageSize });
+    console.log('onsortchange ', q.target.value);
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
 
   updateQueryLimit = q => {
-    console.log('updateQueryLimit ', q.target.value);
+    // console.log('updateQueryLimit ', q.target.value);
     const { updatePagination } = this.props;
     updatePagination({ pageNumber: 1, pageSize: q.target.value });
     this.props.queryParamUpdate({ value: 'skip' });
   };
 
   generatePills = () => {
+    // const { updatePagination, pageSize } = this.props;
     const pills = [];
     const { filterBy } = this.state;
     this.state.proxyCdos.forEach(a => {
@@ -146,6 +167,7 @@ class BidControls extends Component {
         pills.push({ description: a.text, selectionRef: 'unassignedBidders', codeRef: a.value });
       });
     }
+    // updatePagination({ pageNumber: 1, pageSize });
     // const { updatePagination, pageSize } = this.props;
     // updatePagination({ pageNumber: 1, pageSize });
     // this.props.queryParamUpdate();
@@ -154,13 +176,14 @@ class BidControls extends Component {
 
   resetAllFilters = () => {
     const { resetKeyword } = this.props;
-    const { updatePagination } = this.props;
+    // const { updatePagination } = this.props;
     resetKeyword();
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
     this.setState({ unassignedBidders: [] });
-    updatePagination({ pageNumber: 1, pageSize: 10 });
+    // console.log('resetallfilters about to call query parm udpate');
+    // updatePagination({ pageNumber: 1, pageSize: 10 });
     this.props.queryParamUpdate();
   };
 
@@ -187,7 +210,7 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize, getKeyword } = this.props;
+      defaultOrdering, pageSize, getKeyword, updatePagination } = this.props;
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     // console.log('bidControls pageNumber: ', pageNumber);
     const pageSizes = CLIENTS_PAGE_SIZES.options;
@@ -205,6 +228,8 @@ class BidControls extends Component {
             <div className="label">Proxy CDO View:</div>
             <CDOAutoSuggest
               cdoPills={proxyCdos}
+              updatePagination={updatePagination}
+              pageSize={pageSize}
             />
           </div>
           <div className="portfolio-sort-container-contents small-screen-stack">
@@ -216,8 +241,9 @@ class BidControls extends Component {
               onSelectOption={this.updateQueryLimit}
             />
             <BidCyclePicker
-              setSeasonsCb={(b) => this.onSeasonChange(b)}
+              setSeasonsCb={(b, value) => this.onSeasonChange(b, value)}
               setClick={(a) => { this.updateMultiSelect = a; }}
+              updatePagination={updatePagination}
             />
             {
               <PreferenceWrapper

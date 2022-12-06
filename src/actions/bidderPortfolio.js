@@ -138,13 +138,14 @@ export function bidderPortfolioPaginationFetchDataSuccess(data) {
   };
 }
 export function saveBidderPortfolioPagination(paginationObject) {
+  console.log('action file object: ', paginationObject);
   return (dispatch) => {
     dispatch(bidderPortfolioPaginationFetchDataSuccess(paginationObject));
   };
 }
 
 export function bidderPortfolioSetSeasons(seasons = []) {
-  console.log(seasons);
+  // console.log(seasons);
   return (dispatch) => {
     dispatch(bidderPortfolioSelectedSeasons(seasons));
   };

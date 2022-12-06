@@ -30,9 +30,15 @@ class BidderPortfolio extends Component {
   }
   // Fetch bidder list and bidder statistics.
   UNSAFE_componentWillMount() {
+    const { pageNumber, pageSize } = this.props.bidderPortfolioPagination;
+    const pageSize$ = pageSize;
     if (get(this.props, 'cdos', []).length) {
       this.getBidderPortfolio();
+      console.log('onLoad');
     }
+    console.log('bp pageNumber: ', pageNumber);
+    console.log('bp pageSize: ', pageSize);
+    this.props.patrick({ pageNumber, pageSize: pageSize$.toString() });
     this.props.fetchBidderPortfolioCDOs();
     this.props.fetchClassifications();
     this.props.fetchAvailableBidders();
@@ -54,13 +60,25 @@ class BidderPortfolio extends Component {
   // For when we need to UPDATE the ENTIRE value of a filter.
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
-  onQueryParamUpdate = (q = {}) => {
-    console.log('current: 1: onQueryParamUpdate q:', q);
+  onQueryParamUpdate = (q) => {
+    console.log('q: ', q);
+    console.log('q undefined: ', q === undefined);
+    // console.log('q[0]: ', Object.values(q)[0] === '');
     const { pageSize } = this.props.bidderPortfolioPagination;
     const pageSize$ = pageSize || 10;
     const { query } = this.state;
-    if (q.value !== 'skip') {
-      console.trace('RESETTING BACK TO PAGE 1');
+    // this enables pagination persisting using go back button
+    // because when the page loads, hasHandshake: 'all' is loaded
+    // however this breaks the ability to use the filter by dropdown
+    // changing it back to all
+    // if (q === undefined || Object.values(q)[0] === '') {
+    //   console.log('success');
+    //   console.log('pagenumber: ', pageNumber);
+    //   console.log('pageSize: ', pageSize$);
+    //   this.props.patrick({ pageNumber, pageSize: pageSize$.toString() });
+    // } else if (Object.values(q)[0] !== 'skip') {
+    if (Object.values(q)[0] !== 'skip') {
+      console.log('RESETTING BACK TO PAGE 1');
       this.props.patrick({ pageNumber: 1, pageSize: pageSize$.toString() });
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);

@@ -72,7 +72,7 @@ class BidCyclePicker extends Component {
     }
   }
   componentDidMount() {
-    this.props.setSeasonsCb(this.getSeasons(':)'));
+    this.props.setSeasonsCb(this.getSeasons(), 'skip');
     this.props.setClick(this.setMultipleOptionFromParent);
   }
   componentDidUpdate() {
@@ -103,8 +103,11 @@ class BidCyclePicker extends Component {
   };
 
   selectMultipleOption(value) {
+    // console.log('selectMultipleOption');
+    const { updatePagination, pageSize } = this.props;
     const value$ = every(value, isObject) ? flatMap(value, a => a.description) : value;
     this.setState({ arrayValue: value$ }, () => this.setSeasons());
+    updatePagination({ pageNumber: 1, pageSize });
   }
   render() {
     const { arrayValue } = this.state;
@@ -138,6 +141,8 @@ BidCyclePicker.propTypes = {
   setSeasonsCb: PropTypes.func,
   setClick: PropTypes.func,
   selectedSeasons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
+  updatePagination: PropTypes.func.isRequired,
+  pageSize: PropTypes.number,
 };
 
 BidCyclePicker.defaultProps = {
@@ -147,6 +152,7 @@ BidCyclePicker.defaultProps = {
   setSeasonsCb: EMPTY_FUNCTION,
   setClick: EMPTY_FUNCTION,
   selectedSeasons: [],
+  pageSize: 10,
 };
 
 const mapStateToProps = state => ({
