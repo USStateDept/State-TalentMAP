@@ -60,9 +60,9 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
             }
-            <div className="aih-cmb pma-cmb">
-              <div className="label">Created By: <span>{get(agenda.creators, 'first_name' || 'Default')} {get(agenda.creators, 'last_name' || 'Default')}</span></div>
-              <div className="label">Modified By: <span>{get(agenda.updaters, 'first_name' || 'Default')} {get(agenda.updaters, 'last_name' || 'Default')}</span></div>
+            <div className="agenda-item-history-creation panel-meeting-agenda-creation">
+              <div className="label">Created By: <span>{get(agenda, 'creators.first_name' || 'Default')} {get(agenda, 'creators.last_name' || 'Default')}</span></div>
+              <div className="label">Modified By: <span>{get(agenda, 'updaters.first_name' || 'Default')} {get(agenda, 'updaters.last_name' || 'Default')}</span></div>
             </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
