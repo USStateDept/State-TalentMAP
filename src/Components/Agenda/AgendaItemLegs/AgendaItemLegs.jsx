@@ -13,29 +13,29 @@ const AgendaItemLegs = props => {
   } = props;
 
   let legs$ = legs;
-
   if (isCard && legs.length > 2) {
     legs$ = [take(legs)[0], takeRight(legs)[0]];
   }
   const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
-
   // TO-DO - better date checking. isDate() with null or bad string not guaranteed to work.
   const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
-
+  const formatLang = (langArr = []) => langArr.map(lang => (
+    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
   const getData = (key, helperFunc) => (
     <>
       {
-        legs$.map((leg) =>
-          (<td>
+        legs$.map((leg) => (
+          <td>
             {
               helperFunc ?
                 <dd>{helperFunc(leg[key])}</dd>
                 :
                 <dd>{leg[key]}</dd>
             }
-          </td>),
-        )
+          </td>
+        ))
       }
     </>
   );
@@ -70,6 +70,18 @@ const AgendaItemLegs = props => {
       cardView: true,
     },
     {
+      icon: '',
+      title: 'Grade',
+      content: (getData('grade')),
+      cardView: false,
+    },
+    {
+      icon: '',
+      title: 'Lang',
+      content: (getData('languages', formatLang)),
+      cardView: false,
+    },
+    {
       icon: 'paper-plane-o',
       title: 'ETA',
       content: (getData('eta', formatDate)),
@@ -91,12 +103,6 @@ const AgendaItemLegs = props => {
       icon: '',
       title: 'TOD',
       content: (getData('tod')),
-      cardView: false,
-    },
-    {
-      icon: '',
-      title: 'Grade',
-      content: (getData('grade')),
       cardView: false,
     },
     {
