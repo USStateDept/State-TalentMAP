@@ -162,6 +162,7 @@ class UserRoles extends Component {
                        showClear
                        submitText="Search"
                        type="small"
+                       isUserRoles
                      />
                    </div>
                  </th>
@@ -182,6 +183,7 @@ class UserRoles extends Component {
                        showClear
                        submitText="Search"
                        type="small"
+                       isUserRoles
                      />
                    </div>
                  </th>

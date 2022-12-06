@@ -31,7 +31,8 @@ class SearchBar extends Component {
       display: 'none',
     };
     const { id, type, submitText, placeholder, inputDisabled,
-      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear, submitForm }
+      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear, submitForm,
+      isUserRoles }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
@@ -99,27 +100,52 @@ class SearchBar extends Component {
     );
     return (
       <>
-        <div className={`usa-search usa-search-${type} searchbar`}>
-          <div role="search" className="usa-grid-full">
-            { !noForm &&
-            <form onSubmit={onSubmitSearch}>
-              {child}
-            </form>
-            }
-            {
-              noForm &&
-            child
-            }
-          </div>
-        </div>
         {
-          !noButton &&
-          <div className="usa-width-one-sixth search-submit-button">
-            <button className="usa-button" type="submit" onClick={submitForm}>
-              <FA name="search" className="label-icon" />
-                Search
-            </button>
-          </div>
+          !isUserRoles ?
+            <fieldset>
+              <div className="usa-width-one-whole search-results-inputs search-keyword">
+                <legend className="usa-grid-full homepage-search-legend">{label}</legend>
+                <InteractiveElement title="Search Bar" onSubmit={submitForm}>
+                  <div className={`usa-search usa-search-${type} searchbar`}>
+                    <div role="search" className="usa-grid-full">
+                      {
+                        !noForm &&
+                        <form onSubmit={onSubmitSearch}>
+                          {child}
+                        </form>
+                      }
+                      {
+                        noForm &&
+                        child
+                      }
+                    </div>
+                  </div>
+                </InteractiveElement>
+                {
+                  !noButton &&
+                  <div className="usa-width-one-sixth search-submit-button">
+                    <button className="usa-button" type="submit" onClick={submitForm}>
+                      <FA name="search" className="label-icon" />
+                    Search
+                    </button>
+                  </div>
+                }
+              </div>
+            </fieldset>
+            :
+            <div className={`usa-search usa-search-${type} searchbar`}>
+              <div role="search" className="usa-grid-full">
+                {!noForm &&
+                  <form onSubmit={onSubmitSearch}>
+                    {child}
+                  </form>
+                }
+                {
+                  noForm &&
+                  child
+                }
+              </div>
+            </div>
         }
       </>
     );
@@ -143,6 +169,7 @@ SearchBar.propTypes = {
   showClear: PropTypes.bool,
   onClear: PropTypes.func,
   submitForm: PropTypes.func,
+  isUserRoles: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
@@ -160,6 +187,7 @@ SearchBar.defaultProps = {
   showClear: false,
   onClear: EMPTY_FUNCTION,
   submitForm: EMPTY_FUNCTION,
+  isUserRoles: false,
 };
 
 export default SearchBar;

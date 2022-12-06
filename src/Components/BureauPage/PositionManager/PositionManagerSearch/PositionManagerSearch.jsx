@@ -34,26 +34,20 @@ const PositionManagerSearch = forwardRef((props, ref) => {
 
   return (
     <form className="usa-grid-full">
-      <fieldset>
-        <div className="usa-width-one-whole search-results-inputs search-keyword">
-          <legend className="usa-grid-full homepage-search-legend">{props.label}</legend>
-          <SearchBar
-            id="bureau-search-keyword-field"
-            defaultValue={props.textSearch || props.defaultValue}
-            label="Keywords"
-            labelSrOnly
-            noForm
-            onChangeText={changeText}
-            onClear={onClear}
-            placeholder={props.placeHolder}
-            showClear
-            submitText="Search"
-            type="medium"
-            ref={childRef}
-            submitForm={submitForm}
-          />
-        </div>
-      </fieldset>
+      <SearchBar
+        id="bureau-search-keyword-field"
+        defaultValue={props.textSearch || props.defaultValue}
+        label={props.label}
+        labelSrOnly
+        onChangeText={changeText}
+        onClear={onClear}
+        placeholder={props.placeHolder}
+        showClear
+        submitText="Search"
+        type="medium"
+        ref={childRef}
+        submitForm={submitForm}
+      />
     </form>
   );
 });
