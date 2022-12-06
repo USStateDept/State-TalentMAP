@@ -65,7 +65,7 @@ const AgendaItemRow = props => {
                 </div>
                 <div className={`status-tag agenda-tag--${agendaStatus}`}>
                   <select
-                    className="panel-meeting-agendas-status-menu"
+                    className="panel-select-box panel-meeting-agendas-select"
                     onChange={onStatusChange}
                   >
                     {

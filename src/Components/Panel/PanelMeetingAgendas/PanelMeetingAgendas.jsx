@@ -400,7 +400,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           {
             <div className="panel-results-controls">
               <SelectForm
-                className="panel-results-select"
+                className="panel-select-box"
                 id="panel-search-results-sort"
                 options={sorts.options}
                 label="Sort by:"
@@ -408,7 +408,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 onSelectOption={value => setOrdering(value.target.value)}
               />
               <SelectForm
-                className="panel-results-select"
+                className="panel-select-box"
                 id="panel-search-num-results"
                 options={pageSizes.options}
                 label="Results:"
