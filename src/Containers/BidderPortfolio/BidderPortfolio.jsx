@@ -31,7 +31,7 @@ class BidderPortfolio extends Component {
   // Fetch bidder list and bidder statistics.
   UNSAFE_componentWillMount() {
     const { pageNumber, pageSize } = this.props.bidderPortfolioPagination;
-    const pageSize$ = pageSize;
+    const pageSize$ = pageSize || 10;
     if (get(this.props, 'cdos', []).length) {
       this.getBidderPortfolio();
       console.log('onLoad');
@@ -65,7 +65,7 @@ class BidderPortfolio extends Component {
     console.log('q undefined: ', q === undefined);
     // console.log('q[0]: ', Object.values(q)[0] === '');
     const { pageSize } = this.props.bidderPortfolioPagination;
-    const pageSize$ = pageSize || 10;
+    // const pageSize$ = pageSize || 10;
     const { query } = this.state;
     // this enables pagination persisting using go back button
     // because when the page loads, hasHandshake: 'all' is loaded
@@ -77,9 +77,9 @@ class BidderPortfolio extends Component {
     //   console.log('pageSize: ', pageSize$);
     //   this.props.patrick({ pageNumber, pageSize: pageSize$.toString() });
     // } else if (Object.values(q)[0] !== 'skip') {
-    if (Object.values(q)[0] !== 'skip') {
+    if (q && Object.values(q)[0] !== 'skip') {
       console.log('RESETTING BACK TO PAGE 1');
-      this.props.patrick({ pageNumber: 1, pageSize: pageSize$.toString() });
+      this.props.patrick({ pageNumber: 1, pageSize });
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);
       query.value = newQuery;

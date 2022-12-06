@@ -53,7 +53,7 @@ class BidControls extends Component {
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value ===
         this.props.defaultHandshake)] });
     if (this.props.defaultHandshake === 'unassigned_filters' && this.state.bidSeasons.length) {
-      console.log('onLoad');
+      // console.log('onLoad');
       this.setState({ unassignedFilter: true });
     }
     if (this.props.unassignedSelection.length) {
@@ -122,10 +122,10 @@ class BidControls extends Component {
   };
 
   onUnassignedChange = q => {
-    const { updatePagination, pageSize } = this.props;
+    // const { updatePagination, pageSize } = this.props;
     this.setState({ unassignedBidders: q }, this.generatePills);
-    updatePagination({ pageNumber: 1, pageSize });
-    this.props.queryParamUpdate();
+    // updatePagination({ pageNumber: 1, pageSize });
+    this.props.queryParamUpdate({});
     this.props.setUnassigned(q);
   };
 
@@ -184,15 +184,17 @@ class BidControls extends Component {
     this.setState({ unassignedBidders: [] });
     // console.log('resetallfilters about to call query parm udpate');
     // updatePagination({ pageNumber: 1, pageSize: 10 });
-    this.props.queryParamUpdate();
+    this.props.queryParamUpdate({ value: 'skip' });
   };
 
   pillClick = (dropdownID, pillID) => {
     // const { updatePagination, pageSize } = this.props;
     switch (dropdownID) {
       case 'proxyCdos':
+        console.log('before: ', this.state.proxyCDos);
         this.setState({ proxyCdos:
                 filter(this.state.proxyCdos, (o) => o.id !== pillID) }, this.generatePills);
+        console.log('after: ', this.state.proxyCdos);
         break;
       case 'bidSeasons':
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
@@ -201,8 +203,12 @@ class BidControls extends Component {
         this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
         break;
       case 'unassignedBidders':
+        console.log('case unassignedBidders');
+        console.log('before: ', this.state.unassignedBidders);
         this.setState({ unassignedBidders:
             filter(this.state.unassignedBidders, (o) => o.value !== pillID) }, this.generatePills);
+        this.props.queryParamUpdate({ });
+        console.log('after: ', this.state.unassignedBidders);
         break;
       default:
     }
