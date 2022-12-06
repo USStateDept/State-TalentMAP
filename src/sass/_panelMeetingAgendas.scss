@@ -258,7 +258,7 @@
   .panel-meeting-agendas-user-info {
     display: flex;
     flex-wrap: wrap;
-    width: 750px;
+    width: 600px;
     margin-left: 300px;
 
     .item {
@@ -269,6 +269,11 @@
         font-weight: bold;
       }
     }
+  }
+
+  .pma-cmb{
+    font-size: 1.4rem;
+    width: 20%;
   }
 
   .panel-meeting-agendas-profile-link {

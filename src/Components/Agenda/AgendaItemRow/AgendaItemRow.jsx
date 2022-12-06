@@ -60,9 +60,9 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
             }
-            <div>
-              <div>Created By: John Andrews</div>
-              <div>Modified By: John Andrews</div>
+            <div className="aih-cmb pma-cmb">
+              <div className="label">Created By: <span>{agenda.creators.first_name} {agenda.creators.last_name}</span></div>
+              <div className="label">Modified By: <span>{agenda.updaters.first_name} {agenda.updaters.last_name}</span></div>
             </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
@@ -123,8 +123,8 @@ AgendaItemRow.propTypes = {
       }),
     ),
     update_date: PropTypes.string,
-    modifier_name: PropTypes.number,
-    creator_name: PropTypes.number,
+    modifier_name: PropTypes.string,
+    creator_name: PropTypes.string,
   }),
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
