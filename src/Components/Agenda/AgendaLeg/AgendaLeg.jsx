@@ -95,6 +95,10 @@ const AgendaLeg = props => {
 
   const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
+  const formatLang = (langArr = []) => langArr.map(lang => (
+    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
+
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'legEndDate'))}
@@ -121,16 +125,16 @@ const AgendaLeg = props => {
       content: (<div>{get(leg, 'pos_num')}</div>),
     },
     {
+      title: 'Org',
+      content: (<div>{get(leg, 'org')}</div>),
+    },
+    {
       title: 'Grade',
       content: (<div>{get(leg, 'grade')}</div>),
     },
     {
-      title: 'Language',
-      content: (<div>{get(leg, 'language')}</div>),
-    },
-    {
-      title: 'Org',
-      content: (<div>{get(leg, 'org')}</div>),
+      title: 'Languages',
+      content: (<div>{formatLang(get(leg, 'languages'))}</div>),
     },
     {
       title: 'ETA',
