@@ -9,37 +9,26 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
   >
     <form
       className="usa-grid-full"
-      onSubmit={[Function]}
     >
-      <fieldset>
-        <div
-          className="usa-width-one-whole search-results-inputs search-keyword"
-        >
-          <legend
-            className="usa-grid-full homepage-search-legend "
-          >
-            Find your next position
-          </legend>
-          <SearchBar
-            alertText="Disabled"
-            defaultValue="keyword"
-            id="search-keyword-field"
-            inputDisabled={false}
-            label="Keywords"
-            labelSrOnly={true}
-            noButton={false}
-            noForm={true}
-            onChangeText={[Function]}
-            onClear={[Function]}
-            onSubmitSearch={[Function]}
-            placeholder="Enter keywords..."
-            showClear={true}
-            submitForm={[Function]}
-            submitText="Search"
-            type="medium"
-          />
-        </div>
-      </fieldset>
+      <SearchBar
+        alertText="Disabled"
+        defaultValue="keyword"
+        id="search-keyword-field"
+        inputDisabled={false}
+        isUserRoles={false}
+        label="Find your next position"
+        labelSrOnly={true}
+        noButton={false}
+        noForm={true}
+        onChangeText={[Function]}
+        onClear={[Function]}
+        onSubmitSearch={[Function]}
+        placeholder="Enter keywords..."
+        showClear={true}
+        submitForm={[Function]}
+        submitText="Search"
+        type="medium"
+      />
     </form>
   </div>
 </div>
