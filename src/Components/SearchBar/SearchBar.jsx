@@ -105,7 +105,7 @@ class SearchBar extends Component {
             <fieldset>
               <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <legend className="usa-grid-full homepage-search-legend">{label}</legend>
-                <InteractiveElement title="Search Bar" onSubmit={submitForm}>
+                <InteractiveElement title="Search Bar" onClick={submitForm}>
                   <div className={`usa-search usa-search-${type} searchbar`}>
                     <div role="search" className="usa-grid-full">
                       {
