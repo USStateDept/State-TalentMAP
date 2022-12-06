@@ -44,26 +44,22 @@ class ResultsSearchHeader extends Component {
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
         <div className="usa-grid-full search-bar-container">
           <form className="usa-grid-full">
-            <fieldset>
-              <div className="usa-width-one-whole search-results-inputs search-keyword">
-                <SearchBar
-                  id="search-keyword-field"
-                  label={legend}
-                  type="medium"
-                  submitText="Search"
-                  labelSrOnly
-                  noForm
-                  placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
-                  onChangeText={this.onChangeQueryText}
-                  defaultValue={defaultKeyword}
-                  inputDisabled={searchBarDisabled}
-                  showClear
-                  onClear={this.onClear}
-                  ref={(ref) => { this.searchBarRef = ref; }}
-                  submitForm={this.submitSearch}
-                />
-              </div>
-            </fieldset>
+            <SearchBar
+              id="search-keyword-field"
+              label={legend}
+              type="medium"
+              submitText="Search"
+              labelSrOnly
+              noForm
+              placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
+              onChangeText={this.onChangeQueryText}
+              defaultValue={defaultKeyword}
+              inputDisabled={searchBarDisabled}
+              showClear
+              onClear={this.onClear}
+              ref={(ref) => { this.searchBarRef = ref; }}
+              submitForm={this.submitSearch}
+            />
           </form>
         </div>
       </div>

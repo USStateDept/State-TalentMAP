@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION, PREVENT_DEFAULT } from 'Constants/PropTypes';
 import InteractiveElement from '../InteractiveElement';
-import { focusById } from '../../utilities';
+import { focusById, ifEnter } from '../../utilities';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -105,7 +105,7 @@ class SearchBar extends Component {
             <fieldset>
               <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <legend className="usa-grid-full homepage-search-legend">{label}</legend>
-                <InteractiveElement title="Search Bar" onClick={submitForm}>
+                <InteractiveElement title="Search Bar" onKeyUp={(e) => { if (ifEnter(e)) { submitForm(); } }}>
                   <div className={`usa-search usa-search-${type} searchbar`}>
                     <div role="search" className="usa-grid-full">
                       {
@@ -135,7 +135,8 @@ class SearchBar extends Component {
             :
             <div className={`usa-search usa-search-${type} searchbar`}>
               <div role="search" className="usa-grid-full">
-                {!noForm &&
+                {
+                  !noForm &&
                   <form onSubmit={onSubmitSearch}>
                     {child}
                   </form>
