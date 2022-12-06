@@ -26,8 +26,6 @@ const AgendaItemRow = props => {
   const userBureau = get(agenda, 'bureau') || 'None Listed';
   const userGrade = get(agenda, 'grade') || 'None Listed';
 
-  const dropdownOptions = Object.keys(statusRenaming);
-
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
 
@@ -35,8 +33,8 @@ const AgendaItemRow = props => {
   const [longAgendaStatus, setLongAgendaStatus] = useState(get(agenda, 'status_full') || 'Default');
 
   const onStatusChange = (status) => {
-    setAgendaStatus(get(statusRenaming, status.target.value));
-    setLongAgendaStatus(status.target.value);
+    setAgendaStatus(status.target.value);
+    setLongAgendaStatus(status.target.text);
   };
 
   return (
@@ -57,38 +55,40 @@ const AgendaItemRow = props => {
         !isCreate &&
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           {
-            isPanelMeetingView &&
-            <div className="ai-history-status">
-              <div className={`status-tag agenda-tag--${agendaStatus} panel-meeting-agendas-item-number`}>
-                {get(agenda, 'id')}
+            isPanelMeetingView ?
+              <div className="ai-history-status">
+                <div className={`status-tag agenda-tag--${agendaStatus} panel-meeting-agendas-item-number`}>
+                  {get(agenda, 'id')}
+                </div>
+                <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                  Item Status:
+                </div>
+                <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                  <select
+                    className="panel-meeting-agendas-status-menu"
+                    onChange={onStatusChange}
+                  >
+                    {
+                      statusRenaming.map((k) =>
+                        (<option
+                          selected={(k.text === longAgendaStatus)}
+                          value={k.value}
+                        >
+                          {k.text}
+                        </option>),
+                      )
+                    }
+                  </select>
+                </div>
+                <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
               </div>
-              <div className={`status-tag agenda-tag--${agendaStatus}`}>
-                Item Status:
+              :
+              <div className="ai-history-status">
+                <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                  {get(agenda, 'status_full') || 'Default'}
+                </div>
+                <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
               </div>
-              <div className={`status-tag agenda-tag--${agendaStatus} panel-meeting-agendas-status-box`}>
-                <select
-                  className="panel-meeting-agendas-status-menu"
-                  onChange={onStatusChange}
-                  value={longAgendaStatus}
-                >
-                  {
-                    dropdownOptions.map((value) =>
-                      <option>{value}</option>,
-                    )
-                  }
-                </select>
-              </div>
-              <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
-            </div>
-          }
-          {
-            !isPanelMeetingView &&
-            <div className="ai-history-status">
-              <div className={`status-tag agenda-tag--${agendaStatus}`}>
-                {get(agenda, 'status_full') || 'Default'}
-              </div>
-              <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
-            </div>
           }
           <div className="ai-history-row-panel-date">
             {

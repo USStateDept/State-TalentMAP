@@ -254,10 +254,8 @@
         border-radius: 3px;
         font-size: 0.9em;
         height: 28px;
-        overflow: hidden;
         padding: 0 1.5em 0 0.7em;
         margin-left: -1.5em;
-        text-overflow: ellipsis;
         white-space: nowrap;
         width: 230px;
       }
@@ -272,8 +270,8 @@
   .panel-meeting-agendas-user-info {
     display: flex;
     flex-wrap: wrap;
-    width: 750px;
-    margin-left: 550px;
+    width: 550px;
+    margin-left: 500px;
 
     .item {
       font-size: 1.4rem;

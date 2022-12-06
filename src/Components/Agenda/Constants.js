@@ -15,18 +15,18 @@ export const borderColors = {
   Default: '#513C2C', // brown
 };
 
-export const statusRenaming = {
-  Withdrawn: 'WDR',
-  Disapproved: 'DIS',
-  Approved: 'APR',
-  Deferred: 'DEF',
-  'Deferred - Proposed Position': 'XXX',
-  Ready: 'RDY',
-  Held: 'HLD',
-  'Not Ready': 'NR',
-  'Out of Order': 'OOO',
-  PIP: 'PIP',
-  'Move to ML/ID': 'MOV',
-  Default: 'Default',
-};
+export const statusRenaming = [
+  { value: 'WDR', text: 'Withdrawn' },
+  { value: 'DIS', text: 'Disapproved' },
+  { value: 'APR', text: 'Approved' },
+  { value: 'DEF', text: 'Deferred' },
+  { value: 'XXX', text: 'Deferred - Proposed Position' },
+  { value: 'RDY', text: 'Ready' },
+  { value: 'HLD', text: 'Held' },
+  { value: 'NR:', text: 'Not Ready' },
+  { value: 'OOO', text: 'Out of Order' },
+  { value: 'PIP', text: 'PIP' },
+  { value: 'MOV', text: 'Move to ML/ID' },
+  { value: 'Default', text: 'Default' },
+];
 /* eslint-enable import/prefer-default-export */
