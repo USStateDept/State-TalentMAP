@@ -109,13 +109,7 @@
       .ai-history-row-panel-date {
         display: flex;
         justify-content: space-between;
-        font-size: large;
-
-        @media screen and (max-width: 1600px) {
-          .ai-history-row-panel-date {
-            font-size: medium;
-          }
-        }
+        font-size: medium;
       }
 
       .ai-history-card-legs {
@@ -237,15 +231,24 @@
       top: 0;
       left: -2px;
       font-family: 'Roboto';
+      display: flex;
       .status-tag {
         color: $color-white;
-        display: inline;
+        display: flex;
+        align-items: center;
       }
       .poly-slash {
         clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
         display: inline-block;
         margin-left: -3px;
-        width: 30px;
+        width: 50px;
+      }
+      .panel-meeting-agendas-item-number {
+        font-size: 3rem;
+      }
+      .panel-meeting-agendas-select {
+        margin-left: -1.5em;
+        width: 230px;
       }
     }
   }
@@ -258,8 +261,8 @@
   .panel-meeting-agendas-user-info {
     display: flex;
     flex-wrap: wrap;
-    width: 750px;
-    margin-left: 300px;
+    width: 550px;
+    margin-left: 500px;
 
     .item {
       font-size: 1.4rem;
@@ -277,3 +280,4 @@
     margin: -20px 0px 20px 3rem;
   }
 }
+
