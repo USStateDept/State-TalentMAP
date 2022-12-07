@@ -85,7 +85,7 @@ const AgendaItemRow = props => {
             }
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          <div className="ai-history-row-panel-date">
+          <div className={`ai-history-row-panel-date ${isPanelMeetingView ? '' : 'aih-view'}`}>
             {
               isPanelMeetingView &&
               <div className="panel-meeting-agendas-user-info">
@@ -95,6 +95,10 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
             }
+            <div>
+              <div className="label">Created By: <span>{get(agenda, 'creators.first_name' || 'Default')} {get(agenda, 'creators.last_name' || 'Default')}</span></div>
+              <div className="label">Modified By: <span>{get(agenda, 'updaters.first_name' || 'Default')} {get(agenda, 'updaters.last_name' || 'Default')}</span></div>
+            </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
@@ -157,6 +161,24 @@ AgendaItemRow.propTypes = {
     update_date: PropTypes.string,
     modifier_name: PropTypes.number,
     creator_name: PropTypes.number,
+    creators: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      hruempseqnbr: PropTypes.number,
+      hruneuid: PropTypes.number,
+      hruid: PropTypes.number,
+      neuid: PropTypes.number,
+      middle_name: PropTypes.string,
+    }),
+    updaters: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      hruempseqnbr: PropTypes.number,
+      hruneuid: PropTypes.number,
+      hruid: PropTypes.number,
+      neuid: PropTypes.number,
+      middle_name: PropTypes.string,
+    }),
   }),
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
