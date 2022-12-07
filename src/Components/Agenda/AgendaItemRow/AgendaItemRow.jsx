@@ -50,7 +50,7 @@ const AgendaItemRow = props => {
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          <div className="ai-history-row-panel-date">
+          <div className="ai-history-row-panel-date panel-meeting-agenda-date">
             {
               isPanelMeetingView &&
               <div className="panel-meeting-agendas-user-info">
@@ -64,7 +64,7 @@ const AgendaItemRow = props => {
               <div className="label">Created By: <span>{get(agenda, 'creators.first_name' || 'Default')} {get(agenda, 'creators.last_name' || 'Default')}</span></div>
               <div className="label">Modified By: <span>{get(agenda, 'updaters.first_name' || 'Default')} {get(agenda, 'updaters.last_name' || 'Default')}</span></div>
             </div>
-            <div className="panel-meeting-agenda-date">
+            <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
           </div>
