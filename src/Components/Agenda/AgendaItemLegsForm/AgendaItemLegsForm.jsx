@@ -51,9 +51,9 @@ const AgendaItemLegsForm = props => {
   const legHeaderData = [
     'Position Title',
     'Position Number',
-    'Grade',
-    'Language',
     'Org',
+    'Grade',
+    'Lang',
     'ETA',
     '',
     'TED',

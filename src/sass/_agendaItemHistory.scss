@@ -307,7 +307,7 @@
 
           }
           // exclude arrow row
-          tr:hover:nth-child(5) {
+          tr:hover:nth-child(7) {
 
             th, td {
               background-color: transparent;
@@ -387,7 +387,7 @@
       }
     }
   }
-  
+
   @media screen and (max-width: 1400px) {
 
     .profile-content-inner-container {

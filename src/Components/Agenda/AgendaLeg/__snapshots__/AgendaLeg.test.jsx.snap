@@ -43,7 +43,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div>
-      00
+      A
     </div>
   </InteractiveElement>
   <InteractiveElement
@@ -52,7 +52,9 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div />
+    <div>
+      00
+    </div>
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-6"
@@ -60,9 +62,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div>
-      A
-    </div>
+    <div />
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-7"
