@@ -23,7 +23,7 @@ export const statusRenaming = [
   { value: 'XXX', text: 'Deferred - Proposed Position' },
   { value: 'RDY', text: 'Ready' },
   { value: 'HLD', text: 'Held' },
-  { value: 'NR:', text: 'Not Ready' },
+  { value: 'NR', text: 'Not Ready' },
   { value: 'OOO', text: 'Out of Order' },
   { value: 'PIP', text: 'PIP' },
   { value: 'MOV', text: 'Move to ML/ID' },
