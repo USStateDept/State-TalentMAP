@@ -50,7 +50,7 @@ const AgendaItemRow = props => {
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          <div className="ai-history-row-panel-date panel-meeting-agenda-date">
+          <div className="ai-history-row-panel-date">
             {
               isPanelMeetingView &&
               <div className="panel-meeting-agendas-user-info">
