@@ -4,8 +4,10 @@ import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
+import { useState } from 'react';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
+import { statusRenaming } from '../Constants';
 
 const AgendaItemRow = props => {
   const {
@@ -27,7 +29,13 @@ const AgendaItemRow = props => {
 
   // eslint-disable-next-line no-console
   const editAI = () => { console.log('placeholder edit AI'); };
-  const agendaStatus = get(agenda, 'status_short') || 'Default';
+
+  const [agendaStatus, setAgendaStatus] = useState(get(agenda, 'status_short') || 'Default');
+
+  const onStatusChange = (status) => {
+    setAgendaStatus(status.target.value);
+  };
+
   return (
     <>
       {
@@ -46,12 +54,38 @@ const AgendaItemRow = props => {
         !isCreate &&
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
-            <div className={`status-tag agenda-tag--${agendaStatus}`}>
-              {get(agenda, 'status_full') || 'Default'}
-            </div>
+            {
+              isPanelMeetingView ?
+                <>
+                  <div className={`status-tag agenda-tag--${agendaStatus} panel-meeting-agendas-item-number`}>
+                    {get(agenda, 'id')}
+                  </div>
+                  <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                      Item Status:
+                  </div>
+                  <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                    <select
+                      className="panel-select-box panel-meeting-agendas-select"
+                      onChange={onStatusChange}
+                    >
+                      {statusRenaming.map((k) => (<option
+                        selected={(k.value === agendaStatus)}
+                        value={k.value}
+                      >
+                        {k.text}
+                      </option>),
+                      )}
+                    </select>
+                  </div>
+                </>
+                :
+                <div className={`status-tag agenda-tag--${agendaStatus}`}>
+                  {get(agenda, 'status_full') || 'Default'}
+                </div>
+            }
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          <div className="ai-history-row-panel-date">
+          <div className={`ai-history-row-panel-date ${isPanelMeetingView ? '' : 'aih-view'}`}>
             {
               isPanelMeetingView &&
               <div className="panel-meeting-agendas-user-info">
@@ -61,6 +95,10 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
             }
+            <div>
+              <div className="label">Created By: <span>{get(agenda, 'creators.first_name' || 'Default')} {get(agenda, 'creators.last_name' || 'Default')}</span></div>
+              <div className="label">Modified By: <span>{get(agenda, 'updaters.first_name' || 'Default')} {get(agenda, 'updaters.last_name' || 'Default')}</span></div>
+            </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
@@ -123,6 +161,24 @@ AgendaItemRow.propTypes = {
     update_date: PropTypes.string,
     modifier_name: PropTypes.number,
     creator_name: PropTypes.number,
+    creators: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      hruempseqnbr: PropTypes.number,
+      hruneuid: PropTypes.number,
+      hruid: PropTypes.number,
+      neuid: PropTypes.number,
+      middle_name: PropTypes.string,
+    }),
+    updaters: PropTypes.shape({
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      hruempseqnbr: PropTypes.number,
+      hruneuid: PropTypes.number,
+      hruid: PropTypes.number,
+      neuid: PropTypes.number,
+      middle_name: PropTypes.string,
+    }),
   }),
   showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
