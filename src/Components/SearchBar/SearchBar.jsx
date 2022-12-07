@@ -32,7 +32,7 @@ class SearchBar extends Component {
     };
     const { id, type, submitText, placeholder, inputDisabled,
       alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear, submitForm,
-      isUserRoles }
+      showButton }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
@@ -101,7 +101,7 @@ class SearchBar extends Component {
     return (
       <>
         {
-          !isUserRoles ?
+          !showButton ?
             <fieldset>
               <div className="usa-width-one-whole search-results-inputs search-keyword">
                 <legend className="usa-grid-full homepage-search-legend">{label}</legend>
@@ -170,7 +170,7 @@ SearchBar.propTypes = {
   showClear: PropTypes.bool,
   onClear: PropTypes.func,
   submitForm: PropTypes.func,
-  isUserRoles: PropTypes.bool,
+  showButton: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
@@ -188,7 +188,7 @@ SearchBar.defaultProps = {
   showClear: false,
   onClear: EMPTY_FUNCTION,
   submitForm: EMPTY_FUNCTION,
-  isUserRoles: false,
+  showButton: false,
 };
 
 export default SearchBar;
