@@ -34,8 +34,6 @@ const FrequentPositions = (props) => {
 
   const addFrequentPosition$ = pos => {
     addFrequentPosition(pos);
-    console.log('inside on click ');
-    console.log('pos: ', pos);
   };
 
   const fuse$ = new Fuse(positions, fuseOptions);

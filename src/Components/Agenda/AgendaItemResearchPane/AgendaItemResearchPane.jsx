@@ -61,13 +61,9 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const legLimit = legCount >= 10;
 
   const addFrequentPosition = pos => {
-    // TODO - do something with this
-    // eslint-disable-next-line
-    console.log('aim research', pos);
-    // const posNumber = get(pos, 'pos_num_text') || '';
+    const posNumber = get(pos, 'pos_num_text') || '';
     if (!legLimit) {
-      // dispatch(positionsFetchData(`limit=50&page=1&position_num=${posNumber}`));
-      dispatch(positionsFetchData('limit=50&page=1&position_num=52028012'));
+      dispatch(positionsFetchData(`limit=50&page=1&position_num=${posNumber}`));
     }
   };
 
