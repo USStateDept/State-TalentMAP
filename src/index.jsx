@@ -33,6 +33,7 @@ export const init = (config) => {
   sessionStorage.setItem('config', JSON.stringify(config));
 
   const auth = get(config, 'hrAuthUrl');
+  const publicAuth = get(config, 'hrAuthUrlPublic');
 
   // Only pass tmusrname header if localhost or metaphase environment
   const isDev = some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el));
@@ -47,16 +48,22 @@ export const init = (config) => {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
-  if (auth) {
-    renderLoading();
+  renderLoading();
+  try {
     axios
       .get(auth, { withCredentials, headers })
       .then((response) => {
         sessionStorage.setItem('jwt', response.data);
         render();
-      })
-      .catch(() => render());
-  } else {
+      });
+  } catch (e) {
+    axios
+      .get(publicAuth, { withCredentials, headers })
+      .then((response) => {
+        sessionStorage.setItem('jwt', response.data);
+        render();
+      });
+  } finally {
     render();
   }
 };
