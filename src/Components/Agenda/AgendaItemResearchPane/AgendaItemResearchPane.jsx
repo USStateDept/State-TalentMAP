@@ -67,15 +67,6 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
     }
   };
 
-  // const addPositionNum = () => {
-  //   if (!legLimit) {
-  //     setPosNumError(false);
-  //     if (selectedPositionNumber) {
-  //       dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
-  //     }
-  //   }
-  // };
-
   useImperativeHandle(ref, () => ({
     setSelectedNav: e => {
       navTabRef.current.setSelectedNav(e);
@@ -86,18 +77,6 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
     dispatch(fetchClassifications());
     dispatch(fetchUserClassifications(perdet));
   }, []);
-
-  // useEffect(() => {
-  //   if (legLimit) {
-  //     setInputClass('input-disabled');
-  //   } else if (pos_results_loading) {
-  //     setInputClass('loading-animation');
-  //   } else if (posNumError) {
-  //     setInputClass('input-error');
-  //   } else {
-  //     setInputClass('input-default');
-  //   }
-  // }, [legCount, pos_results_loading, posNumError]);
 
   return (
     <div className="ai-research-pane">
