@@ -54,14 +54,12 @@ export const init = (config) => {
       .get(auth, { withCredentials, headers })
       .then((response) => {
         sessionStorage.setItem('jwt', response.data);
-        render();
       });
   } catch (e) {
     axios
       .get(publicAuth, { withCredentials, headers })
       .then((response) => {
         sessionStorage.setItem('jwt', response.data);
-        render();
       });
   } finally {
     render();
