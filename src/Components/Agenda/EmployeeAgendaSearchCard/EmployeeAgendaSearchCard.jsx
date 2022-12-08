@@ -8,7 +8,7 @@ import { get, isNil } from 'lodash';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
 
-export const FALLBACK = 'None listed';
+export const FALLBACK = 'None Listed';
 
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // will need to update during integration
@@ -99,7 +99,16 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         <div className="employee-card-data-point">
           <FA name="calendar-o" />
           <dt>Panel Meeting Date:</dt>
-          <dd>{panelDate}</dd>
+          {
+            panelDate !== FALLBACK ?
+              <dd>
+                <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
+                  {panelDate}
+                </Link>
+              </dd>
+              :
+              <dd>{panelDate}</dd>
+          }
         </div>
         <div className="employee-card-data-point">
           <FA name="sticky-note-o" />
