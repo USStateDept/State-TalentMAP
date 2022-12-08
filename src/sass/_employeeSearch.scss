@@ -254,6 +254,11 @@
       }
     }
   }
+  .employee-card-status {
+    display: flex;
+    justify-content: space-between;
+    width: 55%;
+  }
 }
 
 // IE11 fix for input text not displaying
@@ -393,5 +398,10 @@
         }
       }
     }
+  }
+
+  .employee-row-status {
+    display: flex;
+    justify-content: space-between;
   }
 }

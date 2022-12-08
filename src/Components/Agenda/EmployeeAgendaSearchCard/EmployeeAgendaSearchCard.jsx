@@ -29,7 +29,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
 
-
   let profileLink;
   switch (viewType) {
     case 'ao':
@@ -104,7 +103,16 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         <div className="employee-card-data-point">
           <FA name="sticky-note-o" />
           <dt>Agenda Status:</dt>
-          <dd>{agendaStatus}</dd>
+          <dd className="employee-card-status">
+            <div>
+              {agendaStatus}
+            </div>
+            <div>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+                <FA name="pencil" />
+              </Link>
+            </div>
+          </dd>
         </div>
       </div>
       <div className="employee-agenda-card-bottom">

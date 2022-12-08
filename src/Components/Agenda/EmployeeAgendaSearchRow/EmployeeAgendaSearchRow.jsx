@@ -97,7 +97,16 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
           <div className="employee-agenda-row-data-point">
             <FA name="sticky-note-o" />
             <dt>Agenda Status:</dt>
-            <dd>{agendaStatus}</dd>
+            <dd className="employee-row-status">
+              <div>
+                {agendaStatus}
+              </div>
+              <div>
+                <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+                  <FA name="pencil" />
+                </Link>
+              </div>
+            </dd>
           </div>
         </div>
         <div className="button-container">
