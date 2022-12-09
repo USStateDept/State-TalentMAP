@@ -29,6 +29,7 @@ const AgendaItemRow = props => {
 
   // eslint-disable-next-line no-console
   // const editAI = () => { console.log('placeholder edit AI'); };
+  // placeholder comment to push again lmao whoops
 
   const [agendaStatus, setAgendaStatus] = useState(get(agenda, 'status_short') || 'Default');
   const onStatusChange = (status) => {
