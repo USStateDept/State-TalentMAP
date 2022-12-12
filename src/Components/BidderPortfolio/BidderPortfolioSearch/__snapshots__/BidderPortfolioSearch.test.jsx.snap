@@ -4,21 +4,17 @@ exports[`BidderPortfolioSearchComponent matches snapshot 1`] = `
 <div
   className="bidder-portfolio-search-container"
 >
-  <div
-    className="results-search-bar-container"
-  >
-    <ResultsSearchHeader
-      defaultKeyword=""
-      isHomePage={false}
-      labelSrOnly={true}
-      legend="Client search bar"
-      legendSrOnly={true}
-      onFilterChange={[Function]}
-      onUpdate={[Function]}
-      placeholder="Client name, skill, grade, and location"
-      searchBarDisabled={false}
-      searchBarDisabledPlaceholder="Free text search is unavailable when searching Projected Vacancies"
-    />
-  </div>
+  <ResultsSearchHeader
+    defaultKeyword=""
+    isHomePage={false}
+    labelSrOnly={true}
+    legend="Client search bar"
+    legendSrOnly={true}
+    onFilterChange={[Function]}
+    onUpdate={[Function]}
+    placeholder="Client name, skill, grade, and location"
+    searchBarDisabled={false}
+    searchBarDisabledPlaceholder="Free text search is unavailable when searching Projected Vacancies"
+  />
 </div>
 `;

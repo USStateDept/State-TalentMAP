@@ -7,110 +7,6 @@ $input-height: 40px;
   height: auto;
 }
 
-.results-search-bar-container {
-  height: auto;
-
-  max-width: 1140px;
-
-  padding: 0 0 15px;
-
-  .homepage-search-legend {
-    font-size: 16px;
-    font-weight: normal;
-    margin: 0 0 5px;
-    text-transform: capitalize;
-  }
-
-  .search-sub-text {
-    font-size: .7em;
-    font-style: italic;
-    margin: 5px 0 0 10px;
-    position: absolute;
-    white-space: nowrap;
-  }
-
-  label {
-    font-size: .8em;
-  }
-
-  @media screen and (max-width: $screen-xs-max) {
-    fieldset {
-      width: 100%;
-    }
-  }
-
-  .label-input-wrapper {
-    width: 100%;
-
-    input {
-      height: $input-height;
-
-      &[disabled] {
-        background-color: $bg-gray-dark-3;
-        cursor: not-allowed;
-
-        &::placeholder {
-          color: $color-black;
-          opacity: 1;
-        }
-
-        &:-ms-input-placeholder { // Internet Explorer 10-11
-          color: $color-black;
-        }
-      }
-    }
-  }
-
-  .label-icon {
-    margin-right: 9px;
-  }
-
-  .search-results-inputs {
-    float: left;
-    padding: 15px 0;
-
-    input {
-      border-radius: 5px;
-      border-right: solid 1px;
-      display: inline-block;
-      max-width: 100%;
-    }
-
-    label {
-      margin: 0 0 5px;
-    }
-  }
-
-  .search-submit-button {
-    margin-top: 37px;
-
-    button {
-      font-size: .9em;
-      padding: 10px 25px;
-    }
-  }
-
-
-  .search-keyword {
-    float: left;
-    padding: 15px 0;
-
-    input {
-      width: 100%;
-    }
-
-    label {
-      display: block;
-      text-align: left;
-    }
-  }
-
-  .usa-button {
-    min-width: 150px;
-    padding: inherit 40px;
-  }
-}
-
 .results-multi-search {
   $font-size: 16px;
 
@@ -196,12 +92,12 @@ $input-height: 40px;
 
   padding-bottom: 2px;
 
-  .results-search-bar-container {
+  .search-bar-container {
     padding-top: 3px;
   }
 
   @media screen and (max-width: $screen-md-max) {
-    .results-search-bar-container {
+    .search-bar-container {
       form {
         display: flex;
       }
@@ -225,10 +121,6 @@ $input-height: 40px;
   .search-results-inputs {
     width: 100%;
   }
-
-  .usa-button {
-    margin-top: 3px;
-  }
 }
 
 .results {
@@ -238,10 +130,6 @@ $input-height: 40px;
 
     .search-results-inputs {
       padding-top: 14px;
-    }
-
-    .search-submit-button {
-      margin-top: 36px;
     }
   }
 }
