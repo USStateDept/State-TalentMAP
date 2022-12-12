@@ -10,7 +10,7 @@ import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None listed';
 
-const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
+const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -103,12 +103,13 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         <div className="employee-card-data-point">
           <FA name="sticky-note-o" />
           <dt>Agenda Status:</dt>
-          <dd className="employee-card-status">
-            {agendaStatus}
-            <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+          <dd>{agendaStatus}</dd>
+          {
+            showEdit &&
+            <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="status-edit-button">
               <FA name="pencil" />
             </Link>
-          </dd>
+          }
         </div>
       </div>
       <div className="employee-agenda-card-bottom">
@@ -142,6 +143,7 @@ EmployeeAgendaSearchCard.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
+  showEdit: PropTypes.bool,
 };
 
 EmployeeAgendaSearchCard.defaultProps = {
@@ -149,6 +151,7 @@ EmployeeAgendaSearchCard.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
+  showEdit: true,
 };
 
 export default EmployeeAgendaSearchCard;
