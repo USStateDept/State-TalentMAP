@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import SelectForm from 'Components/SelectForm';
 import { useEffect, useRef, useState } from 'react';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
-import { PANEL_MEETING_AGENDAS_PAGE_SIZES, PANEL_MEETING_AGENDAS_SORT } from 'Constants/Sort';
+import { PANEL_MEETING_AGENDAS_PAGE_SIZES } from 'Constants/Sort';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
@@ -36,7 +36,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const agenda = useSelector(state => state.panelMeetingAgendas);
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETING_AGENDAS_SORT.defaultSort);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -79,11 +78,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading;
 
   const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
-  const sorts = PANEL_MEETING_AGENDAS_SORT;
 
   const getQuery = () => ({
     limit,
-    ordering,
     // User Filters
     [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
@@ -101,7 +98,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const getCurrentInputs = () => ({
     limit,
-    ordering,
     selectedBureaus,
     selectedCategories,
     selectedGrades,
@@ -147,7 +143,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     fetchAndSet();
   }, [
     limit,
-    ordering,
     selectedBureaus,
     selectedCategories,
     selectedGrades,
@@ -232,7 +227,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="panel-meeting-agenda-page">
-          <div className="usa-grid-full panel-meeting-agenda-upper-section results-search-bar-container">
+          <div className="usa-grid-full panel-meeting-agenda-upper-section search-bar-container">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
             <div className="pma-meeting-info-container">
@@ -399,14 +394,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           </div>
           {
             <div className="panel-results-controls">
-              <SelectForm
-                className="panel-select-box"
-                id="panel-search-results-sort"
-                options={sorts.options}
-                label="Sort by:"
-                defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
-              />
               <SelectForm
                 className="panel-select-box"
                 id="panel-search-num-results"
