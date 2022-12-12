@@ -92,7 +92,16 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
           <div className="employee-agenda-row-data-point">
             <FA name="calendar-o" />
             <dt>Panel Meeting Date:</dt>
-            <dd>{panelDate}</dd>
+            {
+              panelDate !== FALLBACK ?
+                <dd>
+                  <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
+                    {panelDate}
+                  </Link>
+                </dd>
+                :
+                <dd>{panelDate}</dd>
+            }
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="sticky-note-o" />
