@@ -7,16 +7,14 @@ class BidderPortfolioSearch extends Component {
     const { onUpdate } = this.props;
     return (
       <div className="bidder-portfolio-search-container">
-        <div className="results-search-bar-container">
-          <ResultsSearchHeader
-            labelSrOnly
-            legendSrOnly
-            legend="Client search bar"
-            placeholder="Client name, skill, grade, and location"
-            onUpdate={onUpdate}
-            ref={(ref) => { this.searchHeaderRef = ref; }}
-          />
-        </div>
+        <ResultsSearchHeader
+          labelSrOnly
+          legendSrOnly
+          legend="Client search bar"
+          placeholder="Client name, skill, grade, and location"
+          onUpdate={onUpdate}
+          ref={(ref) => { this.searchHeaderRef = ref; }}
+        />
       </div>
     );
   }
