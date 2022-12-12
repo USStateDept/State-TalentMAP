@@ -113,7 +113,7 @@ const AgendaItemRow = props => {
           {
             // showEdit &&
             <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
                 {/* </InteractiveElement> */}
