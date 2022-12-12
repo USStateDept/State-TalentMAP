@@ -56,7 +56,7 @@ const FrequentPositions = (props) => {
         legendSrOnly
       >
         {
-          !freq_pos_results_loading &&
+          freq_pos_results_loading &&
           <div>
             <Spinner type="aim-fp" size="small" />
           </div>
