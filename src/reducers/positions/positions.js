@@ -14,6 +14,14 @@ export function positionsIsLoading(state = false, action) {
       return state;
   }
 }
+export function frequentPositionsIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'FREQUENT_POSITIONS_IS_LOADING':
+      return action.isLoadingFP;
+    default:
+      return state;
+  }
+}
 export function positions(state = {}, action) {
   switch (action.type) {
     case 'POSITIONS_SUCCESS':

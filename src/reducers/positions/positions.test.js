@@ -9,6 +9,10 @@ describe('reducers', () => {
     expect(reducers.positionsIsLoading(false, { type: 'POSITIONS_IS_LOADING', isLoading: true })).toBe(true);
   });
 
+  it('can set reducer FREQUENT_POSITIONS_IS_LOADING', () => {
+    expect(reducers.positionsIsLoading(false, { type: 'FREQUENT_POSITIONS_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
   it('can set reducer POSITIONS_SUCCESS', () => {
     expect(reducers.positions([], { type: 'POSITIONS_SUCCESS', data: true })).toBe(true);
   });

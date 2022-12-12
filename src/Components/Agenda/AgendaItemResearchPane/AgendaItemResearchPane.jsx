@@ -63,7 +63,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const addFrequentPosition = pos => {
     const posNumber = get(pos, 'pos_num_text') || '';
     if (!legLimit) {
-      dispatch(positionsFetchData(`limit=50&page=1&position_num=${posNumber}`));
+      dispatch(positionsFetchData(`limit=50&page=1&position_num=${posNumber}`, true));
     }
   };
 

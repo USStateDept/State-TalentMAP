@@ -40,6 +40,7 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
+  const freq_pos_results_loading = useSelector(state => state.frequentPositionsIsLoading);
 
   const statuses = get(statusData, 'data.results') || [];
   const panelCategories = get(panelCatData, 'data.results') || [];
@@ -83,7 +84,7 @@ const AgendaItemMaintenancePane = (props) => {
   useEffect(() => {
     if (legLimit) {
       setInputClass('input-disabled');
-    } else if (pos_results_loading) {
+    } else if (pos_results_loading && !freq_pos_results_loading) {
       setInputClass('loading-animation');
     } else if (posNumError) {
       setInputClass('input-error');

@@ -6,6 +6,8 @@ import InteractiveElement from 'Components/InteractiveElement';
 import FieldSet from 'Components/FieldSet/FieldSet';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import Spinner from 'Components/Spinner';
+import { useSelector } from 'react-redux';
 
 const fuseOptions = {
   shouldSort: false,
@@ -26,6 +28,7 @@ const FrequentPositions = (props) => {
   const headers = ['', 'Organization', 'Position Number', 'Position Title'];
 
   const { positions, addFrequentPosition, legCount } = props;
+  const freq_pos_results_loading = useSelector(state => state.frequentPositionsIsLoading);
 
   const [positions$, setPositions$] = useState(positions);
   const [term, setTerm] = useState('');
@@ -52,6 +55,12 @@ const FrequentPositions = (props) => {
         legend="Enter a keyword to search"
         legendSrOnly
       >
+        {
+          !freq_pos_results_loading &&
+          <div>
+            <Spinner type="aim-fp" size="small" />
+          </div>
+        }
         <TextInput
           changeText={e => { search(e); setTerm(e); }}
           value={term}
