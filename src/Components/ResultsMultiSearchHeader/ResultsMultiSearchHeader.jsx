@@ -153,7 +153,7 @@ class ResultsMultiSearchHeader extends Component {
     const defaultSkills = skills || userProfile.skills || [];
     return (
       <div className="results-search-bar padded-main-content results-multi-search">
-        <div className="usa-grid-full search-bar-container">
+        <div className="usa-grid-full results-search-bar-container">
           <form className="usa-grid-full" onSubmit={this.submitSearch} >
             <fieldset className="usa-width-one-whole">
               <div className="usa-grid-full">
