@@ -278,8 +278,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       <>
         <div className="empl-search-page">
           <div className="usa-grid-full empl-search-upper-section">
-            <div className="results-search-bar padded-main-content results-single-search homepage-offset">
-              <div className="usa-grid-full results-search-bar-container">
+            <div className="results-search-bar">
+              <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />
                 <PositionManagerSearch
                   submitSearch={submitSearch}

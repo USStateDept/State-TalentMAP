@@ -326,8 +326,8 @@ const PositionManager = props => {
       <>
         <div className="bureau-page">
           <div className="usa-grid-full position-manager-upper-section">
-            <div className="results-search-bar padded-main-content results-single-search homepage-offset">
-              <div className="usa-grid-full results-search-bar-container">
+            <div className="results-search-bar">
+              <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Position Manager" icon="map" />
                 <PositionManagerSearch
                   submitSearch={submitSearch}

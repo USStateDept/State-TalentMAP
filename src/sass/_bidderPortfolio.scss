@@ -393,10 +393,6 @@ $cdo-search-container-padding: 10px;
 
   border-top: 1px solid $color-white;
 
-  .results-single-search {
-    padding-left: 0 !important;
-  }
-
   .bid-cycle-picker-container, .unassigned-bidder-picker-container {
     > div {
       font-size: .8em;
@@ -551,13 +547,13 @@ $cdo-search-container-padding: 10px;
     background-color: inherit;
   }
 
-  .results-search-bar-container {
+  .search-bar-container {
     max-width: unset;
     padding: 0;
-  }
 
-  .search-submit-button {
-    margin-top: 13px;
+    .search-results-inputs {
+      padding: 15px 0;
+    }
   }
 
   .total-results-container {

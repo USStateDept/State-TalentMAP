@@ -64,16 +64,6 @@ describe('ResultsSearchHeaderComponent', () => {
     expect(wrapper.instance().state.q.value).toBe(defaultKeyword);
   });
 
-  it('can submit a search', () => {
-    const spy = sinon.spy();
-    wrapper = shallow(<ResultsSearchHeader
-      {...props}
-      onUpdate={spy}
-    />);
-    wrapper.find('form').simulate('submit', { preventDefault: () => {} });
-    expect(spy.calledOnce).toBe(true);
-  });
-
   it('can call the submitSearch function', () => {
     const spy = sinon.spy();
     wrapper = shallow(<ResultsSearchHeader
