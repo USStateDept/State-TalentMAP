@@ -18,7 +18,7 @@ const fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    'org', 'position_number', 'position_title',
+    'pos_org_short_desc', 'pos_num_text', 'pos_title_desc',
   ],
 };
 
