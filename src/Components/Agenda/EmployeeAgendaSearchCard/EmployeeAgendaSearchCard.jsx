@@ -112,13 +112,15 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
         <div className="employee-card-data-point">
           <FA name="sticky-note-o" />
           <dt>Agenda Status:</dt>
-          <dd>{agendaStatus}</dd>
-          {
-            showEdit &&
-            <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="status-edit-button">
-              <FA name="pencil" />
-            </Link>
-          }
+          <dd className="employee-card-status">
+            {agendaStatus}
+            {
+              showEdit &&
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+                <FA name="pencil" />
+              </Link>
+            }
+          </dd>
         </div>
       </div>
       <div className="employee-agenda-card-bottom">

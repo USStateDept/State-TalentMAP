@@ -254,6 +254,13 @@
       }
     }
   }
+  .employee-card-status {
+    display: flex;
+    justify-content: space-between;
+    width: 55%;
+    align-items: center;
+    text-align: center;
+  }
 }
 
 // IE11 fix for input text not displaying
