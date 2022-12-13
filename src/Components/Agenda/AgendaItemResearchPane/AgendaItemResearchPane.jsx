@@ -9,7 +9,7 @@ import { useDataLoader } from 'hooks';
 import Alert from 'Components/Alert';
 import Languages from 'Components/ProfileDashboard/Languages/Languages';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
-import { positionsFetchData } from 'actions/positions';
+import { addFrequentPositionsData } from 'actions/positions';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
@@ -63,7 +63,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const addFrequentPosition = pos => {
     const posNumber = get(pos, 'pos_num_text') || '';
     if (!legLimit) {
-      dispatch(positionsFetchData(`limit=50&page=1&position_num=${posNumber}`, true));
+      dispatch(addFrequentPositionsData(`limit=50&page=1&position_num=${posNumber}`));
     }
   };
 

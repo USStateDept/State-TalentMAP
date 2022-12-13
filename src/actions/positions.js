@@ -7,6 +7,13 @@ export function positionsHasErrored(bool) {
   };
 }
 
+export function frequentPositionsHasErrored(bool) {
+  return {
+    type: 'FREQUENT_POSITIONS_HAS_ERRORED',
+    hasErroredFP: bool,
+  };
+}
+
 export function positionsIsLoading(bool) {
   return {
     type: 'POSITIONS_IS_LOADING',
@@ -28,22 +35,37 @@ export function positionsFetchDataSuccess(data) {
   };
 }
 
-export function positionsFetchData(query, isFP = false) {
+export function positionsFetchData(query) {
   return (dispatch) => {
     dispatch(positionsIsLoading(true));
-    dispatch(frequentPositionsIsLoading(isFP));
     dispatch(positionsHasErrored(false));
     const prefix = '/fsbid/positions';
     api().get(`${prefix}/?${query}`)
       .then((response) => {
         dispatch(positionsHasErrored(false));
         dispatch(positionsIsLoading(false));
-        dispatch(frequentPositionsIsLoading(false));
         dispatch(positionsFetchDataSuccess(response.data));
       })
       .catch(() => {
         dispatch(positionsHasErrored(true));
         dispatch(positionsIsLoading(false));
+      });
+  };
+}
+
+export function addFrequentPositionsData(query) {
+  return (dispatch) => {
+    dispatch(frequentPositionsIsLoading(true));
+    dispatch(frequentPositionsHasErrored(false));
+    const prefix = '/fsbid/positions';
+    api().get(`${prefix}/?${query}`)
+      .then((response) => {
+        dispatch(frequentPositionsHasErrored(false));
+        dispatch(frequentPositionsIsLoading(false));
+        dispatch(positionsFetchDataSuccess(response.data));
+      })
+      .catch(() => {
+        dispatch(frequentPositionsHasErrored(true));
         dispatch(frequentPositionsIsLoading(false));
       });
   };

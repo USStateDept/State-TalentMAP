@@ -5,6 +5,10 @@ describe('reducers', () => {
     expect(reducers.positionsHasErrored(false, { type: 'POSITIONS_HAS_ERRORED', hasErrored: true })).toBe(true);
   });
 
+  it('can set reducer FREQUENT_POSITIONS_HAS_ERRORED', () => {
+    expect(reducers.frequentPositionsHasErrored(false, { type: 'FREQUENT_POSITIONS_HAS_ERRORED', hasErroredFP: true })).toBe(true);
+  });
+
   it('can set reducer POSITIONS_IS_LOADING', () => {
     expect(reducers.positionsIsLoading(false, { type: 'POSITIONS_IS_LOADING', isLoading: true })).toBe(true);
   });

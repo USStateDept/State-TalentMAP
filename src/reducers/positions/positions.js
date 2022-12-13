@@ -6,6 +6,14 @@ export function positionsHasErrored(state = false, action) {
       return state;
   }
 }
+export function frequentPositionsHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'FREQUENT_POSITIONS_HAS_ERRORED':
+      return action.hasErroredFP;
+    default:
+      return state;
+  }
+}
 export function positionsIsLoading(state = false, action) {
   switch (action.type) {
     case 'POSITIONS_IS_LOADING':

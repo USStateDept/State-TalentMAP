@@ -8,6 +8,7 @@ import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Spinner from 'Components/Spinner';
 import { useSelector } from 'react-redux';
+import Alert from 'Components/Alert';
 
 const fuseOptions = {
   shouldSort: false,
@@ -28,7 +29,8 @@ const FrequentPositions = (props) => {
   const headers = ['', 'Organization', 'Position Number', 'Position Title'];
 
   const { positions, addFrequentPosition, legCount } = props;
-  const freq_pos_results_loading = useSelector(state => state.frequentPositionsIsLoading);
+  const isLoading = useSelector(state => state.frequentPositionsIsLoading);
+  const hasErroed = useSelector(state => state.frequentPositionsHasErrored);
 
   const [positions$, setPositions$] = useState(positions);
   const [term, setTerm] = useState('');
@@ -56,10 +58,14 @@ const FrequentPositions = (props) => {
         legendSrOnly
       >
         {
-          freq_pos_results_loading &&
+          isLoading &&
           <div>
             <Spinner type="aim-fp" size="small" />
           </div>
+        }
+        {
+          hasErroed &&
+          <Alert type="error" title="Error adding Frequent Position" messages={[{ body: 'Please try again.' }]} />
         }
         <TextInput
           changeText={e => { search(e); setTerm(e); }}
