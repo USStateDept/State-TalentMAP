@@ -11,7 +11,7 @@ const AgendaItemCard = props => {
   const {
     isCreate,
     agenda,
-    // showEdit,
+    showEdit,
     isCDO,
     perdet,
   } = props;
@@ -77,7 +77,7 @@ const AgendaItemCard = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           {
-            // showEdit &&
+            showEdit &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
@@ -139,7 +139,7 @@ AgendaItemCard.propTypes = {
     modifier_name: PropTypes.number,
     creator_name: PropTypes.number,
   }),
-  // showEdit: PropTypes.bool,
+  showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
 };
@@ -148,7 +148,7 @@ AgendaItemCard.propTypes = {
 AgendaItemCard.defaultProps = {
   isCreate: false,
   agenda: {},
-  // showEdit: false,
+  showEdit: true,
   isCDO: false,
   perdet: null,
 };
