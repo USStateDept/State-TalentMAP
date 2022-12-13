@@ -383,21 +383,17 @@
         position: relative;
 
         .fa {
-          color: $color-blue-hover;
           font-size: 1.4em;
           left: 30%;
           position: relative;
         }
-        .fa:hover {
+        .fa-enabled {
+          color: $color-blue-hover;
+        }
+        .fa-enabled:hover {
           color: $primary-blue-darkest;
         }
-        .icon-disabled {
-          .fa {
-            color: $color-gray;
-            cursor: not-allowed;
-          }
-        }
-        .icon-disabled:hover {
+        .fa-disabled, .fa-disabled:hover {
           color: $color-gray;
           cursor: not-allowed;
         }

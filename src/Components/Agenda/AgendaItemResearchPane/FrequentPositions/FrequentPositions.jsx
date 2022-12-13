@@ -89,11 +89,13 @@ const FrequentPositions = (props) => {
               <tr>
                 <td>
                   <InteractiveElement
-                    className={`${legLimit ? 'icon-disabled' : ''}`}
                     onClick={() => addFrequentPosition$(m)}
                     title="Add to Agenda Item"
                   >
-                    <FA name="plus-circle" />
+                    <FA
+                      name="plus-circle"
+                      className={`${legLimit ? 'fa-disabled' : 'fa-enabled'}`}
+                    />
                   </InteractiveElement>
                 </td>
                 <td>{m.pos_org_short_desc}</td>
