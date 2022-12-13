@@ -109,6 +109,14 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
         <dd>
           None Listed
         </dd>
+        <Link
+          replace={false}
+          to="/profile/ao/createagendaitem/"
+        >
+          <FontAwesome
+            name="pencil"
+          />
+        </Link>
       </div>
     </div>
     <div
