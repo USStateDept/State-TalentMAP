@@ -15,9 +15,9 @@ import './polyfills';
 
 const isPersonaAuth = () => checkFlag('flags.persona_auth');
 
-export const render = () => {
+export const render = (url) => {
   ReactDOM.render((
-    <App />
+    <App url={url} />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
@@ -30,6 +30,7 @@ export const renderLoading = () => {
 
 // function to initialize app, capture feature flags in localStorage
 export const init = (config) => {
+  let url = '';
   sessionStorage.setItem('config', JSON.stringify(config));
 
   const auth = get(config, 'hrAuthUrl');
@@ -53,16 +54,24 @@ export const init = (config) => {
     axios
       .get(auth, { withCredentials, headers })
       .then((response) => {
+        console.log('~~~INSIDE JWT GET AUTH~~~', response);
+        console.log('res', response);
+        url = auth;
         sessionStorage.setItem('jwt', response.data);
       });
   } catch (e) {
     axios
       .get(publicAuth, { withCredentials, headers })
       .then((response) => {
+        console.log('~~~INSIDE JWT GET PUBLICAUTH~~~', response);
+        console.log('publicres', response);
+        url = publicAuth;
         sessionStorage.setItem('jwt', response.data);
       });
   } finally {
-    render();
+    console.log('~~~INSIDE FINALLY~~~');
+    console.log('url', url);
+    render(url);
   }
 };
 

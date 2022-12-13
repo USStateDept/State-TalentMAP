@@ -4,6 +4,7 @@ import { Route } from 'react-router-dom';
 import { ScrollContext } from 'react-router-scroll-4';
 import { FlagsProvider } from 'flag';
 import { StickyContainer } from 'react-sticky';
+import PropTypes from 'prop-types';
 import { QueryParamProvider } from 'use-query-params';
 import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';
@@ -23,6 +24,7 @@ const flags = () => getFlags();
 
 const Main = props => (
   <StickyContainer>
+    <iframe src={props.url} title="hrauth-msapp" loading="eager" hidden />
     <FlagsProvider flags={flags()}>
       <Provider store={store} history={history}>
         <ConnectedRouter history={history}>
@@ -48,5 +50,9 @@ const Main = props => (
     </FlagsProvider>
   </StickyContainer>
 );
+
+Main.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 
 export default Main;
