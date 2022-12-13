@@ -133,7 +133,7 @@ button,
 
   @media screen and (max-width: $screen-md-min) {
     // IE 11 pushes the fieldset too far to the left when width is not 100% between this width and the next step down
-    .results-search-bar-container {
+    .search-bar-container {
       fieldset {
         width: 100%;
       }

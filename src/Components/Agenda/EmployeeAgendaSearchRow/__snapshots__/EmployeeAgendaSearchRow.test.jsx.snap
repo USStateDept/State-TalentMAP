@@ -28,9 +28,9 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
     <div
       className="row-name"
     >
-      None listed
+      None Listed
        (
-      None listed
+      None Listed
       )
     </div>
   </div>
@@ -50,12 +50,12 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Org:
         </dt>
         <dd>
-          None listed
+          None Listed
           <FontAwesome
             className="org-fa-arrow"
             name="long-arrow-right"
           />
-          None listed
+          None Listed
         </dd>
       </div>
       <div
@@ -68,7 +68,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           TED:
         </dt>
         <dd>
-          None listed
+          None Listed
         </dd>
       </div>
       <div
@@ -81,7 +81,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           CDO:
         </dt>
         <dd>
-          None listed
+          None Listed
         </dd>
       </div>
       <div
@@ -94,7 +94,7 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Panel Meeting Date:
         </dt>
         <dd>
-          None listed
+          None Listed
         </dd>
       </div>
       <div
@@ -107,8 +107,16 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
           Agenda Status:
         </dt>
         <dd>
-          None listed
+          None Listed
         </dd>
+        <Link
+          replace={false}
+          to="/profile/ao/createagendaitem/"
+        >
+          <FontAwesome
+            name="pencil"
+          />
+        </Link>
       </div>
     </div>
     <div

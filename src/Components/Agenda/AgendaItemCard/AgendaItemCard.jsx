@@ -50,7 +50,7 @@ const AgendaItemCard = props => {
   const perdet$ = perdet || get(agenda, 'perdet');
 
   // eslint-disable-next-line no-console
-  const editAI = () => { console.log('placeholder create AI'); };
+  // const editAI = () => { console.log('placeholder create AI'); };
   const agendaStatus = get(agenda, 'status_short') || 'Default';
 
   return (
@@ -79,9 +79,11 @@ const AgendaItemCard = props => {
           {
             showEdit &&
             <div className="ai-history-edit">
-              <InteractiveElement title="Edit Agenda" onClick={editAI()}>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
+                {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
-              </InteractiveElement>
+                {/* </InteractiveElement> */}
+              </Link>
             </div>
           }
           <h3 className="ai-history-card-title">
@@ -146,7 +148,7 @@ AgendaItemCard.propTypes = {
 AgendaItemCard.defaultProps = {
   isCreate: false,
   agenda: {},
-  showEdit: false,
+  showEdit: true,
   isCDO: false,
   perdet: null,
 };

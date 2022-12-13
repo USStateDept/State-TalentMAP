@@ -12,7 +12,6 @@ import SearchBar from './SearchBar';
         <SearchBar
           id="search"
           type={size}
-          submitDisabled
           submitText="Submit"
           alertText="Search disabled"
           onChangeText={() => {}}
@@ -28,7 +27,6 @@ import SearchBar from './SearchBar';
           id="search-2"
           label="Label"
           type={size}
-          submitDisabled={false}
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
@@ -43,7 +41,6 @@ import SearchBar from './SearchBar';
         <SearchBar
           id="search-2"
           type={size}
-          submitDisabled={false}
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
@@ -60,7 +57,6 @@ import SearchBar from './SearchBar';
         <SearchBar
           id="search-2"
           type={size}
-          submitDisabled={false}
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
@@ -77,7 +73,6 @@ import SearchBar from './SearchBar';
       wrapper = shallow(<SearchBar
         id="search-2"
         type={size}
-        submitDisabled={false}
         submitText="Submit 2"
         alertText="Search is disabled"
         onChangeText={() => {}}
@@ -86,7 +81,7 @@ import SearchBar from './SearchBar';
         onClear={spy}
       />);
       wrapper.instance().setState({ searchText: { value: 'abc' } });
-      wrapper.find('InteractiveElement').simulate('click');
+      wrapper.find('[title="Clear keyword"]').simulate('click');
       expect(wrapper.instance().state.searchText.value).toBe('');
       sinon.assert.calledOnce(spy);
     });
@@ -97,7 +92,6 @@ import SearchBar from './SearchBar';
           id="search-2"
           label="Label"
           type={size}
-          submitDisabled={false}
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}
@@ -113,7 +107,6 @@ import SearchBar from './SearchBar';
           id="search-2"
           label="Label"
           type={size}
-          submitDisabled={false}
           submitText="Submit 2"
           alertText="Search is disabled"
           onChangeText={() => {}}

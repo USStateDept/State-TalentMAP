@@ -28,10 +28,9 @@ const AgendaItemRow = props => {
   const userGrade = get(agenda, 'grade') || 'None Listed';
 
   // eslint-disable-next-line no-console
-  const editAI = () => { console.log('placeholder edit AI'); };
+  // const editAI = () => { console.log('placeholder edit AI'); };
 
   const [agendaStatus, setAgendaStatus] = useState(get(agenda, 'status_short') || 'Default');
-
   const onStatusChange = (status) => {
     setAgendaStatus(status.target.value);
   };
@@ -113,9 +112,11 @@ const AgendaItemRow = props => {
           {
             showEdit &&
             <div className="ai-history-edit">
-              <InteractiveElement title="Edit Agenda" onClick={editAI()}>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
+                {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
-              </InteractiveElement>
+                {/* </InteractiveElement> */}
+              </Link>
             </div>
           }
         </div>
@@ -190,7 +191,7 @@ AgendaItemRow.propTypes = {
 AgendaItemRow.defaultProps = {
   isCreate: false,
   agenda: {},
-  showEdit: false,
+  showEdit: true,
   isCDO: false,
   perdet: null,
   isPanelMeetingView: false,
