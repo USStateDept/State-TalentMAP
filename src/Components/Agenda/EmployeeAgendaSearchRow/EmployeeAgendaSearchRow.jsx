@@ -7,7 +7,7 @@ import { get, isNil } from 'lodash';
 import { formatDate } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
+const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -107,6 +107,12 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="sticky-note-o" />
             <dt>Agenda Status:</dt>
             <dd>{agendaStatus}</dd>
+            {
+              showEdit &&
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+                <FA name="pencil" />
+              </Link>
+            }
           </div>
         </div>
         <div className="button-container">
@@ -140,6 +146,7 @@ EmployeeAgendaSearchRow.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
+  showEdit: PropTypes.bool,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
@@ -147,6 +154,7 @@ EmployeeAgendaSearchRow.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
+  showEdit: true,
 };
 
 export default EmployeeAgendaSearchRow;

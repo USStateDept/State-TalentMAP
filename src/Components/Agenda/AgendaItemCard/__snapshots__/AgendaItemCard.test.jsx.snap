@@ -19,6 +19,18 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
         _
       </div>
     </div>
+    <div
+      className="ai-history-edit"
+    >
+      <Link
+        replace={false}
+        to="/profile/ao/createagendaitem/undefined"
+      >
+        <FontAwesome
+          name="pencil"
+        />
+      </Link>
+    </div>
     <h3
       className="ai-history-card-title"
     >
