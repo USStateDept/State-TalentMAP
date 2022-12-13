@@ -22,9 +22,9 @@ export const render = (url) => {
 };
 
 // Because the JWT request could be slow.
-export const renderLoading = () => {
+export const renderLoading = (url) => {
   ReactDOM.render((
-    <Splash />
+    <Splash url={url} />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
@@ -49,7 +49,7 @@ export const init = (config) => {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
-  renderLoading();
+  renderLoading(auth);
   try {
     axios
       .get(auth, { withCredentials, headers })
