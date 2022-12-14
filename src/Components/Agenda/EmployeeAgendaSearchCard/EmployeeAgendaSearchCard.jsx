@@ -10,6 +10,7 @@ import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None Listed';
 
+// eslint-disable-next-line no-unused-vars
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
@@ -115,13 +116,18 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <dd className="employee-card-status">
             {agendaStatus}
             {
-              showEdit &&
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
-                <FA name="pencil" />
-              </Link>
+              // showEdit &&
+              // <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+              //   <FA name="pencil" />
+              // </Link>
             }
           </dd>
         </div>
+        {/* <div className="employee-card-data-point"> */}
+        <div className="edit-button">
+          <FA name="pencil" />
+        </div>
+        {/* </div> */}
       </div>
       <div className="employee-agenda-card-bottom">
         <div className="button-container">
@@ -154,6 +160,7 @@ EmployeeAgendaSearchCard.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
+  // eslint-disable-next-line no-unused-vars
   showEdit: PropTypes.bool,
 };
 
@@ -162,6 +169,7 @@ EmployeeAgendaSearchCard.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
+  // eslint-disable-next-line no-unused-vars
   showEdit: true,
 };
 
