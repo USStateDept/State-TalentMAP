@@ -7,7 +7,7 @@ const HrOnlineIFrame = ({ env }) => {
   );
 };
 
-HrOnlineIFrame.PropTypes = {
+HrOnlineIFrame.propTypes = {
   env: PropTypes.string.isRequired,
 };
 
