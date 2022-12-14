@@ -10,7 +10,6 @@ import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None Listed';
 
-// eslint-disable-next-line no-unused-vars
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
@@ -153,7 +152,6 @@ EmployeeAgendaSearchCard.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
-  // eslint-disable-next-line no-unused-vars
   showEdit: PropTypes.bool,
 };
 
@@ -162,7 +160,6 @@ EmployeeAgendaSearchCard.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
-  // eslint-disable-next-line no-unused-vars
   showEdit: true,
 };
 
