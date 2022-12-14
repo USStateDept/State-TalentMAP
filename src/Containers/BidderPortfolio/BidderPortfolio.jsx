@@ -36,8 +36,8 @@ class BidderPortfolio extends Component {
       this.getBidderPortfolio();
       console.log('onLoad');
     }
-    console.log('bp pageNumber: ', pageNumber);
-    console.log('bp pageSize: ', pageSize);
+    // console.log('bp pageNumber: ', pageNumber);
+    // console.log('bp pageSize: ', pageSize);
     this.props.patrick({ pageNumber, pageSize: pageSize$.toString() });
     this.props.fetchBidderPortfolioCDOs();
     this.props.fetchClassifications();
@@ -83,6 +83,7 @@ class BidderPortfolio extends Component {
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);
       query.value = newQuery;
+      console.log('onQueryParam query: ', query);
     }
     this.setState({ query }, () => {
       this.getBidderPortfolio();

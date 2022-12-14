@@ -73,8 +73,8 @@ class BidControls extends Component {
   onSeasonChange = (seasons, value) => {
     // console.log('onSeasonChafskipnge ', seasons);
     // const { updatePagination, pageSize } = this.props;
-    console.log('onSeasonChange seasons: ', seasons);
-    console.log('onSeasonChange value: ', value);
+    // console.log('onSeasonChange seasons: ', seasons);
+    // console.log('onSeasonChange value: ', value);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     // if (value === 'skip') {
@@ -92,7 +92,7 @@ class BidControls extends Component {
       this.setState({
         bidSeasons: seasons,
       }, () => {
-        console.log('onseasonschange updating pagination');
+        // console.log('onseasonschange updating pagination');
         this.generatePills();
         // updatePagination({ pageNumber: 1, pageSize });
         // this.props.queryParamUpdate({ value: 'skip' });
@@ -101,7 +101,7 @@ class BidControls extends Component {
   };
 
   onFilterChange = (q, value) => {
-    console.trace('onfilterchange q: ', q);
+    // console.trace('onfilterchange q: ', q);
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     // const { updatePagination, pageSize } = this.props;
     if (!useUnassignedFilter()) {
@@ -112,7 +112,7 @@ class BidControls extends Component {
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
     // updatePagination({ pageNumber: 1, pageSize });
-    console.log('onfilterchange q: ', q);
+    // console.log('onfilterchange q: ', q);
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
     } else {
@@ -139,7 +139,7 @@ class BidControls extends Component {
   };
 
   updateQueryLimit = q => {
-    // console.log('updateQueryLimit ', q.target.value);
+    console.log('updateQueryLimit ', q.target.value);
     const { updatePagination } = this.props;
     updatePagination({ pageNumber: 1, pageSize: q.target.value });
     this.props.queryParamUpdate({ value: 'skip' });
@@ -200,7 +200,10 @@ class BidControls extends Component {
         // console.log('after: ', this.state.proxyCdos);
         break;
       case 'bidSeasons':
+        // eslint-disable-next-line max-len
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
+        this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
+        // this.props.queryParamUpdate({});
         break;
       case 'filterBy':
         this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
