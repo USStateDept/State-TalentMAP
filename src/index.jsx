@@ -3,7 +3,7 @@ import 'core-js/shim'; // included < Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { get, includes, some } from 'lodash';
+import { get, includes } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
@@ -47,17 +47,19 @@ export const init = (config) => {
   const publicAuth = get(config, 'hrAuthUrlPublic');
 
   // Only pass tmusrname header if localhost or metaphase environment
-  const isDev = some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el));
-  const withCredentials = !isDev;
+  const isLocalDev = env.includes(['localhost', 'metaphasedev']);
+  const withCredentials = !isLocalDev;
 
   const headers = {
     Accept: 'application/json',
   };
 
   // Only needed for local/demo development.
-  if (isPersonaAuth() && isDev) {
+  if (isPersonaAuth() && isLocalDev) {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
+
+  renderLoading();
 
   try {
     if (isPublic) {
@@ -71,7 +73,8 @@ export const init = (config) => {
             .get(publicAuth, { withCredentials, headers })
             .then((response) => {
               sessionStorage.setItem('jwt', response.data);
-            });
+            })
+            .then(render());
         }
       });
     } else {
@@ -79,13 +82,12 @@ export const init = (config) => {
         .get(auth, { withCredentials, headers })
         .then((response) => {
           sessionStorage.setItem('jwt', response.data);
-        });
+        })
+        .then(render());
     }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log('error', e);
-  } finally {
-    render();
   }
 };
 

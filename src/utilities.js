@@ -905,7 +905,10 @@ export const convertQueryToString = query => {
 };
 
 export const determineEnv = (url) => {
-  const expression = /\w+:\/\/gtm(\w+)(?:hronline|tm)/;
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/;
   const regex = new RegExp(expression);
-  return url.match(regex);
+  const match = url.match(regex);
+  // eslint-disable-next-line
+  if (!match) console.log('no valid env found');
+  return match[0];
 };
