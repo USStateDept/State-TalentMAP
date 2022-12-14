@@ -254,13 +254,6 @@
       }
     }
   }
-  .employee-card-status {
-    display: flex;
-    justify-content: space-between;
-    width: 55%;
-    align-items: center;
-    text-align: center;
-  }
 }
 
 // IE11 fix for input text not displaying
@@ -401,15 +394,8 @@
       }
     }
   }
-  .row-edit-button {
-    margin-right: 30px;
-    display: flex;
-    align-items: center;
-  }
 }
 
-.edit-button {
-  display: flex;
-  justify-content: end;
-  margin: 0px 10px 5px 0px;
+.agenda-edit-button {
+  margin-left: 10px;
 }
