@@ -138,7 +138,6 @@ export function bidderPortfolioPaginationFetchDataSuccess(data) {
   };
 }
 export function saveBidderPortfolioPagination(paginationObject) {
-  console.log('action file object: ', paginationObject);
   return (dispatch) => {
     dispatch(bidderPortfolioPaginationFetchDataSuccess(paginationObject));
   };
