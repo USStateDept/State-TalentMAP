@@ -903,3 +903,9 @@ export const convertQueryToString = query => {
   q = queryString.stringify(q);
   return q;
 };
+
+export const determineEnv = (url) => {
+  const expression = /\w+:\/\/gtm(\w+)(?:hronline|tm)/;
+  const regex = new RegExp(expression);
+  return url.match(regex);
+};

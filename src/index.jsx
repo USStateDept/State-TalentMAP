@@ -7,7 +7,8 @@ import { get, includes, some } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
-import { getAssetPath } from './utilities';
+import HrOnlineIFrame from './Components/HrOnlineIFrame';
+import { determineEnv, getAssetPath } from './utilities';
 import { checkFlag } from './flags';
 
 import '../node_modules/uswds/dist/js/uswds.min';
@@ -15,9 +16,10 @@ import './polyfills';
 
 const isPersonaAuth = () => checkFlag('flags.persona_auth');
 
-export const render = (url) => {
+
+export const render = () => {
   ReactDOM.render((
-    <App url={url} />
+    <App />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
@@ -28,10 +30,18 @@ export const renderLoading = (url) => {
   ), document.getElementById('root') || document.createElement('div'));
 };
 
+export const renderIFrame = (env) => {
+  ReactDOM.render((
+    <HrOnlineIFrame env={env} />
+  ), document.getElementById('hronlineIframe') || document.createElement('div'));
+};
+
 // function to initialize app, capture feature flags in localStorage
 export const init = (config) => {
-  let url = '';
   sessionStorage.setItem('config', JSON.stringify(config));
+
+  const env = determineEnv(window.location.hostname);
+  const isPublic = includes(window.location.hostname, 'msappproxy');
 
   const auth = get(config, 'hrAuthUrl');
   const publicAuth = get(config, 'hrAuthUrlPublic');
@@ -49,29 +59,31 @@ export const init = (config) => {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
-  renderLoading(auth);
   try {
-    axios
-      .get(auth, { withCredentials, headers })
-      .then((response) => {
-        console.log('~~~INSIDE JWT GET AUTH~~~', response);
-        console.log('res', response);
-        url = auth;
-        sessionStorage.setItem('jwt', response.data);
+    if (isPublic) {
+      renderIFrame(env);
+      window.addEventListener('message', (e) => {
+        const { type, body } = e.data;
+        if (type === 'shakehand' && body) {
+          console.log('handshake received from iframe');
+          axios
+            .get(publicAuth, { withCredentials, headers })
+            .then((response) => {
+              sessionStorage.setItem('jwt', response.data);
+            });
+        }
       });
+    } else {
+      axios
+        .get(auth, { withCredentials, headers })
+        .then((response) => {
+          sessionStorage.setItem('jwt', response.data);
+        });
+    }
   } catch (e) {
-    axios
-      .get(publicAuth, { withCredentials, headers })
-      .then((response) => {
-        console.log('~~~INSIDE JWT GET PUBLICAUTH~~~', response);
-        console.log('publicres', response);
-        url = publicAuth;
-        sessionStorage.setItem('jwt', response.data);
-      });
+    console.log('error', e);  
   } finally {
-    console.log('~~~INSIDE FINALLY~~~');
-    console.log('url', url);
-    render(url);
+    render();  
   }
 };
 
@@ -100,3 +112,4 @@ export const getConfig = () => {
     .catch(() => init({}));
 };
 getConfig();
+

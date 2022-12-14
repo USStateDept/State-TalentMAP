@@ -24,7 +24,6 @@ const flags = () => getFlags();
 
 const Main = props => (
   <StickyContainer>
-    <iframe src={props.url} title="hrauth-msapp" loading="eager" hidden />
     <FlagsProvider flags={flags()}>
       <Provider store={store} history={history}>
         <ConnectedRouter history={history}>
@@ -50,9 +49,5 @@ const Main = props => (
     </FlagsProvider>
   </StickyContainer>
 );
-
-Main.propTypes = {
-  url: PropTypes.string.isRequired,
-};
 
 export default Main;
