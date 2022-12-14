@@ -122,6 +122,7 @@ class BidControls extends Component {
   };
 
   onUnassignedChange = q => {
+    console.log('onUnassignedChange: ', q);
     // const { updatePagination, pageSize } = this.props;
     this.setState({ unassignedBidders: q }, this.generatePills);
     // updatePagination({ pageNumber: 1, pageSize });
@@ -189,12 +190,14 @@ class BidControls extends Component {
 
   pillClick = (dropdownID, pillID) => {
     // const { updatePagination, pageSize } = this.props;
+    const q = filter(this.state.unassignedBidders, (o) => o.value !== pillID);
+    // console.log('pillClick unassigned: ', q);
     switch (dropdownID) {
       case 'proxyCdos':
-        console.log('before: ', this.state.proxyCDos);
+        // console.log('before: ', this.state.proxyCDos);
         this.setState({ proxyCdos:
                 filter(this.state.proxyCdos, (o) => o.id !== pillID) }, this.generatePills);
-        console.log('after: ', this.state.proxyCdos);
+        // console.log('after: ', this.state.proxyCdos);
         break;
       case 'bidSeasons':
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
@@ -204,11 +207,12 @@ class BidControls extends Component {
         break;
       case 'unassignedBidders':
         console.log('case unassignedBidders');
-        console.log('before: ', this.state.unassignedBidders);
-        this.setState({ unassignedBidders:
-            filter(this.state.unassignedBidders, (o) => o.value !== pillID) }, this.generatePills);
+        // console.log('before: ', this.state.unassignedBidders);
+        // console.log(filter(this.state.unassignedBidders, (o) => o.value !== pillID));
+        this.setState({ unassignedBidders: q }, this.generatePills);
+        // console.log('after: ', this.state.unassignedBidders);
         this.props.queryParamUpdate({ });
-        console.log('after: ', this.state.unassignedBidders);
+        this.props.setUnassigned(q);
         break;
       default:
     }
