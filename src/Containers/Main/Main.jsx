@@ -4,7 +4,6 @@ import { Route } from 'react-router-dom';
 import { ScrollContext } from 'react-router-scroll-4';
 import { FlagsProvider } from 'flag';
 import { StickyContainer } from 'react-sticky';
-import PropTypes from 'prop-types';
 import { QueryParamProvider } from 'use-query-params';
 import Routes from '../../Containers/Routes/Routes';
 import Header from '../../Components/Header/Header';

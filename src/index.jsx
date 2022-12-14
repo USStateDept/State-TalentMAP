@@ -65,6 +65,7 @@ export const init = (config) => {
       window.addEventListener('message', (e) => {
         const { type, body } = e.data;
         if (type === 'shakehand' && body) {
+          // eslint-disable-next-line no-console
           console.log('handshake received from iframe');
           axios
             .get(publicAuth, { withCredentials, headers })
@@ -81,9 +82,10 @@ export const init = (config) => {
         });
     }
   } catch (e) {
-    console.log('error', e);  
+    // eslint-disable-next-line no-console
+    console.log('error', e);
   } finally {
-    render();  
+    render();
   }
 };
 
