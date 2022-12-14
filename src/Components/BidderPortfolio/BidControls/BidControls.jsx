@@ -16,7 +16,6 @@ import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
-// import queryParamUpdate from '../../../Containers/queryParams';
 
 const useUnassignedFilter = () => checkFlag('flags.unassigned_filters');
 
@@ -53,7 +52,6 @@ class BidControls extends Component {
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value ===
         this.props.defaultHandshake)] });
     if (this.props.defaultHandshake === 'unassigned_filters' && this.state.bidSeasons.length) {
-      // console.log('onLoad');
       this.setState({ unassignedFilter: true });
     }
     if (this.props.unassignedSelection.length) {
@@ -67,19 +65,11 @@ class BidControls extends Component {
         this.setState({ proxyCdos: nextProps.selection }, this.generatePills);
       }
     }
-    // this.setState({ pageNumber: this.props.pageNumber });
   }
 
   onSeasonChange = (seasons, value) => {
-    // console.log('onSeasonChafskipnge ', seasons);
-    // const { updatePagination, pageSize } = this.props;
-    // console.log('onSeasonChange seasons: ', seasons);
-    // console.log('onSeasonChange value: ', value);
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
-    // if (value === 'skip') {
-    //   this.onFilterChange('skip');
-    // }
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
       this.onFilterChange(get(filterBy, 'value'), value);
     }
@@ -92,18 +82,13 @@ class BidControls extends Component {
       this.setState({
         bidSeasons: seasons,
       }, () => {
-        // console.log('onseasonschange updating pagination');
         this.generatePills();
-        // updatePagination({ pageNumber: 1, pageSize });
-        // this.props.queryParamUpdate({ value: 'skip' });
       });
     }
   };
 
   onFilterChange = (q, value) => {
-    // console.trace('onfilterchange q: ', q);
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
-    // const { updatePagination, pageSize } = this.props;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
     }
@@ -111,42 +96,31 @@ class BidControls extends Component {
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
-    // updatePagination({ pageNumber: 1, pageSize });
-    // console.log('onfilterchange q: ', q);
     if (value === 'skip') {
       this.props.queryParamUpdate({ value: 'skip' });
     } else {
       this.props.queryParamUpdate({ hasHandshake: q });
     }
-    // console.log('');
   };
 
   onUnassignedChange = q => {
-    console.log('onUnassignedChange: ', q);
-    // const { updatePagination, pageSize } = this.props;
     this.setState({ unassignedBidders: q }, this.generatePills);
-    // updatePagination({ pageNumber: 1, pageSize });
     this.props.queryParamUpdate({});
     this.props.setUnassigned(q);
   };
 
   onSortChange = q => {
-    // const { updatePagination, pageSize } = this.props;
-    // updatePagination({ pageNumber: 1, pageSize });
-    console.log('onsortchange ', q.target.value);
     const orderingObject = { ordering: q.target.value };
     this.props.queryParamUpdate(orderingObject);
   };
 
   updateQueryLimit = q => {
-    console.log('updateQueryLimit ', q.target.value);
     const { updatePagination } = this.props;
     updatePagination({ pageNumber: 1, pageSize: q.target.value });
     this.props.queryParamUpdate({ value: 'skip' });
   };
 
   generatePills = () => {
-    // const { updatePagination, pageSize } = this.props;
     const pills = [];
     const { filterBy } = this.state;
     this.state.proxyCdos.forEach(a => {
@@ -168,52 +142,35 @@ class BidControls extends Component {
         pills.push({ description: a.text, selectionRef: 'unassignedBidders', codeRef: a.value });
       });
     }
-    // updatePagination({ pageNumber: 1, pageSize });
-    // const { updatePagination, pageSize } = this.props;
-    // updatePagination({ pageNumber: 1, pageSize });
-    // this.props.queryParamUpdate();
     this.setState({ pills });
   };
 
   resetAllFilters = () => {
     const { resetKeyword } = this.props;
-    // const { updatePagination } = this.props;
     resetKeyword();
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
     this.setState({ unassignedBidders: [] });
-    // console.log('resetallfilters about to call query parm udpate');
-    // updatePagination({ pageNumber: 1, pageSize: 10 });
     this.props.queryParamUpdate({ value: 'skip' });
   };
 
   pillClick = (dropdownID, pillID) => {
-    // const { updatePagination, pageSize } = this.props;
     const q = filter(this.state.unassignedBidders, (o) => o.value !== pillID);
-    // console.log('pillClick unassigned: ', q);
     switch (dropdownID) {
       case 'proxyCdos':
-        // console.log('before: ', this.state.proxyCDos);
         this.setState({ proxyCdos:
                 filter(this.state.proxyCdos, (o) => o.id !== pillID) }, this.generatePills);
-        // console.log('after: ', this.state.proxyCdos);
         break;
       case 'bidSeasons':
-        // eslint-disable-next-line max-len
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
         this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
-        // this.props.queryParamUpdate({});
         break;
       case 'filterBy':
         this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
         break;
       case 'unassignedBidders':
-        console.log('case unassignedBidders');
-        // console.log('before: ', this.state.unassignedBidders);
-        // console.log(filter(this.state.unassignedBidders, (o) => o.value !== pillID));
         this.setState({ unassignedBidders: q }, this.generatePills);
-        // console.log('after: ', this.state.unassignedBidders);
         this.props.queryParamUpdate({ });
         this.props.setUnassigned(q);
         break;
@@ -225,7 +182,6 @@ class BidControls extends Component {
     const { viewType, changeViewType, defaultHandshake,
       defaultOrdering, pageSize, getKeyword, updatePagination } = this.props;
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
-    // console.log('bidControls pageNumber: ', pageNumber);
     const pageSizes = CLIENTS_PAGE_SIZES.options;
     const displayUnassignedFilter = useUnassignedFilter();
     const showClear = !!pills.length || getKeyword;
@@ -331,7 +287,6 @@ BidControls.propTypes = {
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
-  // pageNumber: PropTypes.number,
   updatePagination: PropTypes.func.isRequired,
 };
 
@@ -339,7 +294,6 @@ BidControls.defaultProps = {
   selection: [],
   unassignedSelection: [],
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
-  // pageNumber: 1,
 };
 
 const mapStateToProps = state => ({

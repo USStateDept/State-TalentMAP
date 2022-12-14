@@ -19,9 +19,6 @@ class BidderPortfolio extends Component {
     this.state = {
       key: 0,
       query: { value: window.location.search.replace('?', '') || '' },
-      // limit: { value: CLIENTS_PAGE_SIZES.defaultSort },
-      // limit: { value: props.defaultPageSize },
-      // page: { value: 1 },
       defaultKeyword: { value: '' },
       hasHandshake: { value: props.defaultHandshakeFilter },
       ordering: { value: props.defaultSort },
@@ -34,15 +31,11 @@ class BidderPortfolio extends Component {
     const pageSize$ = pageSize || 10;
     if (get(this.props, 'cdos', []).length) {
       this.getBidderPortfolio();
-      console.log('onLoad');
     }
-    // console.log('bp pageNumber: ', pageNumber);
-    // console.log('bp pageSize: ', pageSize);
-    this.props.patrick({ pageNumber, pageSize: pageSize$.toString() });
+    this.props.updatePagination({ pageNumber, pageSize: pageSize$.toString() });
     this.props.fetchBidderPortfolioCDOs();
     this.props.fetchClassifications();
     this.props.fetchAvailableBidders();
-    // this.props.saveBidderPortfolioPagination();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -61,29 +54,13 @@ class BidderPortfolio extends Component {
   // Much of the logic is abstracted to a helper, but we need to set state within
   // the instance.
   onQueryParamUpdate = (q) => {
-    console.log('q: ', q);
-    console.log('q undefined: ', q === undefined);
-    // console.log('q[0]: ', Object.values(q)[0] === '');
     const { pageSize } = this.props.bidderPortfolioPagination;
-    // const pageSize$ = pageSize || 10;
     const { query } = this.state;
-    // this enables pagination persisting using go back button
-    // because when the page loads, hasHandshake: 'all' is loaded
-    // however this breaks the ability to use the filter by dropdown
-    // changing it back to all
-    // if (q === undefined || Object.values(q)[0] === '') {
-    //   console.log('success');
-    //   console.log('pagenumber: ', pageNumber);
-    //   console.log('pageSize: ', pageSize$);
-    //   this.props.patrick({ pageNumber, pageSize: pageSize$.toString() });
-    // } else if (Object.values(q)[0] !== 'skip') {
     if (q && Object.values(q)[0] !== 'skip') {
-      console.log('RESETTING BACK TO PAGE 1');
-      this.props.patrick({ pageNumber: 1, pageSize });
+      this.props.updatePagination({ pageNumber: 1, pageSize });
       this.setState({ [Object.keys(q)[0]]: { value: Object.values(q)[0] } });
       const newQuery = queryParamUpdate(q, query.value);
       query.value = newQuery;
-      console.log('onQueryParam query: ', query);
     }
     this.setState({ query }, () => {
       this.getBidderPortfolio();
@@ -140,8 +117,7 @@ class BidderPortfolio extends Component {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
-      // eslint-disable-next-line no-shadow
-      patrick, bidderPortfolioPagination,
+      updatePagination, bidderPortfolioPagination,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
@@ -164,7 +140,7 @@ class BidderPortfolio extends Component {
           cdosLength={cdos.length}
           defaultHandshake={hasHandshake.value}
           defaultOrdering={ordering.value}
-          updatePagination={patrick}
+          updatePagination={updatePagination}
         />
       </div>
     );
@@ -193,12 +169,11 @@ BidderPortfolio.propTypes = {
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
   availableBiddersIdsLoading: PropTypes.bool,
-  // saveBidderPortfolioPagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func.isRequired,
   bidderPortfolioPagination: PropTypes.shape({
     pageNumber: PropTypes.number,
     pageSize: PropTypes.string,
   }),
-  patrick: PropTypes.func,
 };
 
 BidderPortfolio.defaultProps = {
@@ -223,7 +198,6 @@ BidderPortfolio.defaultProps = {
   selectedUnassigned: [],
   availableBiddersIdsLoading: false,
   bidderPortfolioPagination: {},
-  patrick: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -254,7 +228,7 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidderPortfolioCDOs: () => dispatch(bidderPortfolioCDOsFetchData()),
   fetchClassifications: () => dispatch(fetchClassifications()),
   fetchAvailableBidders: () => dispatch(availableBiddersIds()),
-  patrick: (arr = {}) => dispatch(saveBidderPortfolioPagination(arr)),
+  updatePagination: (arr = {}) => dispatch(saveBidderPortfolioPagination(arr)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(BidderPortfolio));

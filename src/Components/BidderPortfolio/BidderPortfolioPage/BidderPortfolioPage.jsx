@@ -19,7 +19,6 @@ class BidderPortfolioPage extends Component {
     this.state = {
       viewType: { value: 'card' },
       editType: { show: false },
-      // pageNumber: { value: 1 },
       q: '',
     };
   }

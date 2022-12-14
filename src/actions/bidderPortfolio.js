@@ -145,7 +145,6 @@ export function saveBidderPortfolioPagination(paginationObject) {
 }
 
 export function bidderPortfolioSetSeasons(seasons = []) {
-  // console.log(seasons);
   return (dispatch) => {
     dispatch(bidderPortfolioSelectedSeasons(seasons));
   };
