@@ -21,7 +21,7 @@ const dummyAgenda = [
         neuid: 87496,
         last_name: 'Woodward',
         first_name: 'Wendy',
-        neumiddlenm: 'Cléopatre',
+        middle_name: 'Cléopatre',
       },
     updaters:
       {
@@ -31,7 +31,7 @@ const dummyAgenda = [
         neuid: 87496,
         last_name: 'Andrews',
         first_name: 'John',
-        neumiddlenm: 'Cléopatre',
+        middle_name: 'Philip',
       },
     remarks: [
       {
