@@ -10,6 +10,8 @@ import StartEnd from '../../../PositionInformation/StartEnd';
 
 
 const AssignmentsContent = ({ assignment }) => (
+  // need to login to dev1 and verify what the ep is sending now
+  // then update BE/mock if needed
   <div className="usa-grid-full bid-content-container">
     <div className="bid-list-card-title-lg">
       <span className="bid-list-card-title-post">{get(assignment, 'position.title')} </span>
@@ -39,7 +41,7 @@ const AssignmentsContent = ({ assignment }) => (
     { has(assignment, 'status') &&
       <div>
         <span className="bid-list-card-title-post">Status: </span>
-        {get(assignment, 'asgs_code') || NO_ASSIGNMENT_STATUS}
+        {get(assignment, 'status') || NO_ASSIGNMENT_STATUS}
       </div>
     }
     { has(assignment, 'asgd_tod_desc_text') &&
