@@ -164,7 +164,6 @@ class BidControls extends Component {
         break;
       case 'bidSeasons':
         this.updateMultiSelect(filter(this.state.bidSeasons, (o) => o.id !== pillID));
-        this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
         break;
       case 'filterBy':
         this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
