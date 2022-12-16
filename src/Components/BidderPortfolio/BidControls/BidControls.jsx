@@ -5,6 +5,7 @@ import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import {
   BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_FILTERS_TYPE, BID_PORTFOLIO_SORTS,
   BID_PORTFOLIO_SORTS_TYPE, CLIENTS_PAGE_SIZES, UNASSIGNED_BIDDERS_FILTERS } from 'Constants/Sort';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
@@ -293,6 +294,7 @@ BidControls.defaultProps = {
   selection: [],
   unassignedSelection: [],
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({

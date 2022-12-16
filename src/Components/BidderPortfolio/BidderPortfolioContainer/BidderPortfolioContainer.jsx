@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { scrollToId } from 'utilities';
-import { BIDDER_LIST, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
 import Alert from 'Components/Alert/Alert';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
