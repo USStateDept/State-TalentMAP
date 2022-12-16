@@ -35,6 +35,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 inputDisabled={false}
                 label="Keywords"
                 labelSrOnly={true}
+                minimal={false}
                 noButton={true}
                 noForm={true}
                 onChangeText={[Function]}
@@ -42,7 +43,7 @@ exports[`ResultsMultiSearchHeaderComponent matches snapshot 1`] = `
                 onSubmitSearch={[Function]}
                 placeholder="Enter keywords..."
                 showClear={false}
-                submitDisabled={false}
+                submitForm={[Function]}
                 submitText="Search"
                 type="medium"
               />

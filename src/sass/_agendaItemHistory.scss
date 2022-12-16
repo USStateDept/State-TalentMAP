@@ -263,13 +263,18 @@
       .ai-history-row-panel-date {
         display: flex;
         justify-content: flex-end;
-        font-size: large;
+        font-size: 1.4rem;
 
         @media screen and (max-width: 1600px) {
           .ai-history-row-panel-date {
             font-size: medium;
           }
         }
+      }
+
+      .aih-view {
+        margin-left: 60%;
+        justify-content: space-between;
       }
 
       .ai-history-card-legs {
@@ -307,7 +312,7 @@
 
           }
           // exclude arrow row
-          tr:hover:nth-child(5) {
+          tr:hover:nth-child(7) {
 
             th, td {
               background-color: transparent;
@@ -387,7 +392,7 @@
       }
     }
   }
-  
+
   @media screen and (max-width: 1400px) {
 
     .profile-content-inner-container {

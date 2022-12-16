@@ -95,21 +95,6 @@
   }
 }
 
-.panel-results-select {
-  background-color: $color-white;
-  background-image: url(/assets/img/angle-down-black.svg);
-  background-position-x: calc(100% - 8px);
-  border: 1px solid $bg-gray-dark-2;
-  border-radius: 3px;
-  font-size: 0.9em;
-  height: 28px;
-  overflow: hidden;
-  padding: 0 1.5em 0 0.7em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  width: 130px;
-}
-
 .panel-search-lower-section {
   padding: 0 35px 20px;
   position: relative;
@@ -117,7 +102,7 @@
 
 .panel-meeting-row {
   margin-top: 1rem;
-  
+
   .panel-meeting-stat-row {
     border: 1px solid $color-gray-light;
     border-left: 11px solid $primary-blue;

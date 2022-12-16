@@ -7,12 +7,32 @@ const dummyAgenda = [
     id: 155,
     position_id: 89413,
     panel_date: '2015-02-14T00:00:00Z',
-    status: 'BR',
-    status_full: 'Item Status: Ready',
+    status_short: 'RDY',
+    status_full: 'Ready',
     skill: 'CONSULAR AFFAIRS (3001)',
     bureau: '(DGHR) DIR GEN OF THE FOR SER & DIR OF HUMAN RESOURCES',
     language: 'Spanish 3/3',
     grade: '03',
+    creators:
+      {
+        hruempseqnbr: null,
+        hruneuid: 87496,
+        hruid: 65426,
+        neuid: 87496,
+        last_name: 'Woodward',
+        first_name: 'Wendy',
+        neumiddlenm: 'Cléopatre',
+      },
+    updaters:
+      {
+        hruempseqnbr: null,
+        hruneuid: 87496,
+        hruid: 65426,
+        neuid: 87496,
+        last_name: 'Andrews',
+        first_name: 'John',
+        neumiddlenm: 'Cléopatre',
+      },
     remarks: [
       {
         active_ind: 'Y',
@@ -41,6 +61,22 @@ const dummyAgenda = [
       ted: '2015-02-14T00:00:00Z',
       action: 'Extend (by 3 months)',
       travel: 'PostToPostHL',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
     },
     {
       grade: '03',
@@ -52,6 +88,22 @@ const dummyAgenda = [
       tod: '27MRR',
       action: 'Extend (by 3 months)',
       travel: 'PostToPostHL',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
     },
     {
       grade: 'OM',
@@ -61,6 +113,22 @@ const dummyAgenda = [
       org: 'BERLIN USEMB',
       pos_num: 'S5764000',
       pos_title: 'HR OFF CAREER MANAGEMENT',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
     }],
   }];
 

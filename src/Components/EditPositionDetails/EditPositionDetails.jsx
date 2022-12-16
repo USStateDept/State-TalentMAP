@@ -141,7 +141,7 @@ const EditPositionDetails = () => {
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="edit-position-details-page">
-          <div className="usa-grid-full edit-position-details-upper-section results-search-bar-container">
+          <div className="usa-grid-full edit-position-details-upper-section search-bar-container">
             <ProfileSectionTitle title="Position Details" icon="keyboard-o" />
             <PositionManagerSearch
               submitSearch={submitSearch}
