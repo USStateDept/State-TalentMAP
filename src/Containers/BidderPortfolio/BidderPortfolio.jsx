@@ -164,12 +164,12 @@ BidderPortfolio.propTypes = {
   classificationsIsLoading: PropTypes.bool.isRequired,
   bidderPortfolioCDOsIsLoading: PropTypes.bool,
   defaultHandshakeFilter: PropTypes.string,
-  defaultPageSize: PropTypes.number.isRequired,
+  defaultPageSize: PropTypes.number,
   defaultSort: PropTypes.string,
   fetchAvailableBidders: PropTypes.func.isRequired,
   selectedUnassigned: PropTypes.arrayOf(PropTypes.shape({})), // eslint-disable-line
   availableBiddersIdsLoading: PropTypes.bool,
-  updatePagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func,
   bidderPortfolioPagination: PropTypes.shape({
     pageNumber: PropTypes.number,
     pageSize: PropTypes.string,
@@ -198,6 +198,8 @@ BidderPortfolio.defaultProps = {
   selectedUnassigned: [],
   availableBiddersIdsLoading: false,
   bidderPortfolioPagination: {},
+  updatePagination: EMPTY_FUNCTION,
+  defaultPageSize: CLIENTS_PAGE_SIZES.defaultSort,
 };
 
 const mapStateToProps = state => ({
