@@ -23,6 +23,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
         pageSize={10}
+        updatePagination={[Function]}
       />
     </div>
     <div
@@ -67,6 +68,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       <Connect(BidCyclePicker)
         setClick={[Function]}
         setSeasonsCb={[Function]}
+        updatePagination={[Function]}
       />
       <Connect(PreferenceWrapper)
         keyRef="BID_PORTFOLIO_FILTERS"
@@ -230,6 +232,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
         pageSize={10}
+        updatePagination={[Function]}
       />
     </div>
     <div
@@ -274,6 +277,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       <Connect(BidCyclePicker)
         setClick={[Function]}
         setSeasonsCb={[Function]}
+        updatePagination={[Function]}
       />
       <Connect(PreferenceWrapper)
         keyRef="BID_PORTFOLIO_FILTERS"
