@@ -140,7 +140,7 @@ BidCyclePicker.propTypes = {
   setSeasonsCb: PropTypes.func,
   setClick: PropTypes.func,
   selectedSeasons: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])),
-  updatePagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func,
   pageSize: PropTypes.number,
 };
 
@@ -152,6 +152,7 @@ BidCyclePicker.defaultProps = {
   setClick: EMPTY_FUNCTION,
   selectedSeasons: [],
   pageSize: 10,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({

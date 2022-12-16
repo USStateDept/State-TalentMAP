@@ -95,7 +95,7 @@ BidderPortfolioContainer.propTypes = {
   cdosLength: PropTypes.number,
   hideControls: PropTypes.bool,
   hasErrored: PropTypes.bool,
-  updatePagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func,
 };
 
 BidderPortfolioContainer.defaultProps = {
@@ -106,6 +106,7 @@ BidderPortfolioContainer.defaultProps = {
   cdosLength: 0,
   hideControls: false,
   hasErrored: false,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 export default BidderPortfolioContainer;

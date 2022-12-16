@@ -286,7 +286,7 @@ BidControls.propTypes = {
   getKeyword: PropTypes.string.isRequired,
   resetKeyword: PropTypes.func.isRequired,
   pageSize: PropTypes.number,
-  updatePagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func,
 };
 
 BidControls.defaultProps = {

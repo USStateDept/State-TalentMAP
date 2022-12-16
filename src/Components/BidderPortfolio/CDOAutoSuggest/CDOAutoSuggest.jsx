@@ -92,7 +92,7 @@ CDOAutoSuggest.propTypes = {
   setCDOsToSearchBy: PropTypes.func,
   cdoPills: PropTypes.arrayOf(PropTypes.shape({})),
   currentCDO: PropTypes.shape({}),
-  updatePagination: PropTypes.func.isRequired,
+  updatePagination: PropTypes.func,
   pageSize: PropTypes.number,
 };
 
@@ -105,6 +105,7 @@ CDOAutoSuggest.defaultProps = {
   cdoPills: [],
   currentCDO: {},
   pageSize: CLIENTS_PAGE_SIZES.defaultSort,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
