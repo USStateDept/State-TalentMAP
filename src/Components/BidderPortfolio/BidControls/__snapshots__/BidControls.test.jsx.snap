@@ -22,6 +22,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
       </div>
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
+        pageSize={10}
       />
     </div>
     <div
@@ -29,7 +30,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort={0}
+        defaultSort={10}
         disabled={false}
         emptyOptionText="- Select -"
         id="num-clients"
@@ -228,6 +229,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
       </div>
       <Connect(CDOAutoSuggest)
         cdoPills={Array []}
+        pageSize={10}
       />
     </div>
     <div
@@ -235,7 +237,7 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
     >
       <SelectForm
         className="select-offset select-black"
-        defaultSort={0}
+        defaultSort={10}
         disabled={false}
         emptyOptionText="- Select -"
         id="num-clients"
