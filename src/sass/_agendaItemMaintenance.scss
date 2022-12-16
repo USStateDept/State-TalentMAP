@@ -332,9 +332,21 @@
   }
 
   .frequent-positions-table {
-    
-    .tm-spinner-aim-fp {
-      margin-left: 33em;
+
+    .ds-c-spinner {
+      left: 45%;
+      position: absolute;
+      top: 0px;
+
+      &::before,
+      &::after {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    .spinner-blue {
+      color: $blue-primary;
     }
 
     .usa-alert {

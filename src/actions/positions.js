@@ -1,4 +1,6 @@
+import { ADD_FREQUENT_POSITION_ERROR, ADD_FREQUENT_POSITION_ERROR_TITLE } from 'Constants/SystemMessages';
 import api from '../api';
+import { toastError } from './toast';
 
 export function positionsHasErrored(bool) {
   return {
@@ -65,8 +67,11 @@ export function addFrequentPositionsData(query) {
         dispatch(positionsFetchDataSuccess(response.data));
       })
       .catch(() => {
+        const toastTitle = ADD_FREQUENT_POSITION_ERROR_TITLE;
+        const toastMessage = ADD_FREQUENT_POSITION_ERROR;
         dispatch(frequentPositionsHasErrored(true));
         dispatch(frequentPositionsIsLoading(false));
+        dispatch(toastError(toastMessage, toastTitle));
       });
   };
 }
