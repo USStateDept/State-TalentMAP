@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { scrollToId } from 'utilities';
-import { BIDDER_LIST, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
 import Alert from 'Components/Alert/Alert';
 import BidderPortfolioCardList from '../BidderPortfolioCardList';
@@ -12,15 +12,17 @@ const ID = 'bidder-portfolio-container';
 
 class BidderPortfolioContainer extends Component {
   onPageChange = q => {
+    const { pageSize, updatePagination, queryParamUpdate } = this.props;
     scrollToId({ el: '.bidder-portfolio-container', config: { duration: 400 } });
+    updatePagination({ pageNumber: q.page, pageSize: pageSize.toString() });
     setTimeout(() => {
-      this.props.queryParamUpdate(q);
+      queryParamUpdate({ value: 'skip' });
     }, 600);
   };
 
   render() {
-    const { bidderPortfolio, pageSize, pageNumber, showListView, showEdit, isLoading,
-      cdosLength, hideControls, classifications, hasErrored } = this.props;
+    const { bidderPortfolio, pageSize, showListView, showEdit, isLoading,
+      cdosLength, hideControls, classifications, hasErrored, pageNumber } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     const showNoCdosAlert = !cdosLength;
     const showEdit$ = showEdit && !hideControls;
@@ -93,6 +95,7 @@ BidderPortfolioContainer.propTypes = {
   cdosLength: PropTypes.number,
   hideControls: PropTypes.bool,
   hasErrored: PropTypes.bool,
+  updatePagination: PropTypes.func,
 };
 
 BidderPortfolioContainer.defaultProps = {
@@ -103,6 +106,7 @@ BidderPortfolioContainer.defaultProps = {
   cdosLength: 0,
   hideControls: false,
   hasErrored: false,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 export default BidderPortfolioContainer;

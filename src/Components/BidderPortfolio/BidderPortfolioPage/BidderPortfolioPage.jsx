@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { BIDDER_LIST, CLASSIFICATIONS } from 'Constants/PropTypes';
+import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import StaticDevContent from 'Components/StaticDevContent';
 import TotalResults from 'Components/TotalResults/TotalResults';
 import ErrorBoundary from 'Components/ErrorBoundary';
@@ -50,9 +50,9 @@ class BidderPortfolioPage extends Component {
 
   render() {
     const { editType } = this.state;
-    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength,
-      bidderPortfolioHasErrored, pageSize, queryParamUpdate, pageNumber,
-      classificationsIsLoading,
+    const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, pageNumber,
+      bidderPortfolioHasErrored, pageSize, queryParamUpdate,
+      classificationsIsLoading, updatePagination,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
@@ -98,10 +98,12 @@ class BidderPortfolioPage extends Component {
                 viewType={this.state.viewType.value}
                 changeViewType={this.changeViewType}
                 pageSize={pageSize}
+                pageNumber={pageNumber}
                 defaultHandshake={defaultHandshake}
                 defaultOrdering={defaultOrdering}
                 getKeyword={this.state.q}
                 resetKeyword={this.resetRefKeyword}
+                updatePagination={updatePagination}
               />
             </div>
           }
@@ -135,6 +137,7 @@ class BidderPortfolioPage extends Component {
                     cdosLength={cdosLength}
                     hideControls={hideControls}
                     hasErrored={bidderPortfolioHasErrored}
+                    updatePagination={updatePagination}
                   />
                 </ErrorBoundary>
             }
@@ -158,11 +161,14 @@ BidderPortfolioPage.propTypes = {
   cdosLength: PropTypes.number,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
+  updatePagination: PropTypes.func,
 };
 
 BidderPortfolioPage.defaultProps = {
   classifications: [],
   cdosLength: 0,
+  pageNumber: 1,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 export default BidderPortfolioPage;
