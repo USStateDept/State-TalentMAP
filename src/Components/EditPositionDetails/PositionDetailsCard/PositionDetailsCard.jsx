@@ -39,8 +39,7 @@ class PositionDetailCard extends Component {
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-    const postShort = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
-
+    const postShort = `${getPostName(pos.post, NO_POST)}`;
     const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
 
     const detailsLink = (<Link to={`/profile/${fromPostMenu ? 'post' : 'bureau'}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}>
