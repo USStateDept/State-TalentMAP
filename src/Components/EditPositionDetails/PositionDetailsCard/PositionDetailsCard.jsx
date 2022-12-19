@@ -30,7 +30,7 @@ class PositionDetailCard extends Component {
     const { showMore } = this.state;
     const { result, isProjectedVacancy, fromPostMenu } = this.props;
 
-    const pos = result.position || result;
+    const pos = get(result, 'position') || result;
 
     const title = propOrDefault(pos, 'title');
     const position = getResult(pos, 'position_number', NO_POSITION_NUMBER);
@@ -39,10 +39,11 @@ class PositionDetailCard extends Component {
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-    const postShort = `${getPostName(pos.post, NO_POST)}`;
+    const postShort = `${getPostName(get(pos, 'post') || NO_POST)}`;
     const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
+    const id = get(result, 'id') || '';
 
-    const detailsLink = (<Link to={`/profile/${fromPostMenu ? 'post' : 'bureau'}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}>
+    const detailsLink = (<Link to={`/profile/${fromPostMenu ? 'post' : 'bureau'}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${id}`}>
       <h3>{title}</h3></Link>);
     const shortListIndicator = hasShortList ? (<Tooltip
       title="Position has an active short list"

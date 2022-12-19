@@ -1,16 +1,15 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import { bidderUserObject } from '../../../__mocks__/userObject';
 import PositionDetailsCard from './PositionDetailsCard';
 
-describe('UserProfileContactInformationComponent', () => {
+describe('PositionDetailsCardComponent', () => {
   it('is defined', () => {
-    const wrapper = shallow(<PositionDetailsCard userProfile={bidderUserObject} />);
+    const wrapper = shallow(<PositionDetailsCard />);
     expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {
-    const wrapper = shallow(<PositionDetailsCard userProfile={bidderUserObject} />);
+    const wrapper = shallow(<PositionDetailsCard />);
     expect(toJSON(wrapper)).toMatchSnapshot();
   });
 });
