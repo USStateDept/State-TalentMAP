@@ -118,17 +118,6 @@ const dummyPositionDetails = {
     active: null,
     handshake_allowed_date: null,
   },
-  bid_statistics: [
-    {
-      id: null,
-      total_bids: 10,
-      in_grade: 2,
-      at_skill: 2,
-      in_grade_at_skill: 2,
-      has_handshake_offered: false,
-      has_handshake_accepted: null,
-    },
-  ],
   bid_handshake: {
     active_handshake_perdet: null,
   },
