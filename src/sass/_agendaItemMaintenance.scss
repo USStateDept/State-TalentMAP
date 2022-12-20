@@ -333,6 +333,27 @@
 
   .frequent-positions-table {
 
+    .ds-c-spinner {
+      left: 45%;
+      position: absolute;
+      top: 0px;
+
+      &::before,
+      &::after {
+        height: 20px;
+        width: 20px;
+      }
+    }
+
+    .spinner-blue {
+      color: $blue-primary;
+    }
+
+    .usa-alert {
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
     font-size: .9em;
 
     td {
@@ -374,10 +395,19 @@
         position: relative;
 
         .fa {
-          color: $color-blue-hover;
           font-size: 1.4em;
           left: 30%;
           position: relative;
+        }
+        .fa-enabled {
+          color: $color-blue-hover;
+        }
+        .fa-enabled:hover {
+          color: $primary-blue-darkest;
+        }
+        .fa-disabled, .fa-disabled:hover {
+          color: $color-gray;
+          cursor: not-allowed;
         }
       }
     }

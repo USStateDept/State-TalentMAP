@@ -169,6 +169,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 ref={researchPaneRef}
                 updateSelection={updateSelection}
                 userSelections={userRemarks}
+                legCount={legs.length}
               />
             </div>
           </div>
