@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
@@ -17,7 +16,7 @@ import {
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 
-const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
+const PositionDetailsCard = ({ result }) => {
   const [showMore, setShowMore] = useState(false);
 
 
@@ -33,7 +32,7 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
   const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
   const id = get(result, 'id') || '';
 
-  const detailsLink = (<Link to={`/profile/bureau/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${id}`}>
+  const detailsLink = (<Link to={`/profile/bureau/positionmanager/available/${id}`}>
     <h3>{title}</h3></Link>);
 
   const sections = [
@@ -59,8 +58,6 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
     },
     /* eslint-enable quote-props */
   ];
-
-  if (isProjectedVacancy) { delete sections[2].Posted; }
 
   return (
     <Row fluid className="bureau-results-card">
@@ -97,13 +94,10 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
 };
 
 PositionDetailsCard.propTypes = {
-  isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
 };
 
 PositionDetailsCard.defaultProps = {
-  isProjectedVacancy: false,
-  fromPostMenu: false,
 };
 
 export default PositionDetailsCard;
