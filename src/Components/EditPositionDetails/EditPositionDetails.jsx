@@ -138,6 +138,7 @@ const EditPositionDetails = () => {
     setClearFilters(false);
   };
 
+  const dummyid = get(dummyPositionDetails, 'id', '');
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -219,7 +220,7 @@ const EditPositionDetails = () => {
           <div className="usa-grid-full position-list">
             <PositionDetailsCard
               result={dummyPositionDetails}
-              key={dummyPositionDetails.id}
+              key={dummyid}
             />
           </div>
         </div>
