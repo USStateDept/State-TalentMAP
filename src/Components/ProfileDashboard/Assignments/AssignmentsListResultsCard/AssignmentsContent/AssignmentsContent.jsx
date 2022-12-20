@@ -1,8 +1,8 @@
 import { get, has } from 'lodash';
 // import { Link } from 'react-router-dom';
 import {
-  NO_ASSIGNMENT_STATUS, NO_ASSIGNMENT_TOD_DESC, NO_LANGUAGES,
-  NO_POSITION_NUMBER, NO_POST, NO_SKILL,
+  NO_ASSIGNMENT_DATE, NO_ASSIGNMENT_STATUS, NO_ASSIGNMENT_TOD_DESC,
+  NO_LANGUAGES, NO_POSITION_NUMBER, NO_POST, NO_SKILL,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import { formatDate, getPostName } from '../../../../../utilities';
@@ -10,8 +10,6 @@ import StartEnd from '../../../PositionInformation/StartEnd';
 
 
 const AssignmentsContent = ({ assignment }) => (
-  // need to login to dev1 and verify what the ep is sending now
-  // then update BE/mock if needed
   <div className="usa-grid-full bid-content-container">
     <div className="bid-list-card-title-lg">
       <span className="bid-list-card-title-post">{get(assignment, 'position.title')} </span>
@@ -53,8 +51,8 @@ const AssignmentsContent = ({ assignment }) => (
     <div>
       <span className="bid-list-card-title-post">Start date and End date: </span>
       <StartEnd
-        start={formatDate(assignment.start_date)}
-        end={formatDate(assignment.end_date)}
+        start={formatDate(get(assignment, 'start_date')) || NO_ASSIGNMENT_DATE}
+        end={formatDate(get(assignment, 'end_date')) || NO_ASSIGNMENT_DATE}
       />
     </div>
   </div>
