@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
-import { Tooltip } from 'react-tippy';
 import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
@@ -18,7 +17,7 @@ import {
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 
-const PositionDetailsCard = ({ result, isProjectedVacancy, fromPostMenu }) => {
+const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
   const [showMore, setShowMore] = useState(false);
 
 
@@ -27,7 +26,6 @@ const PositionDetailsCard = ({ result, isProjectedVacancy, fromPostMenu }) => {
   const title = propOrDefault(pos, 'title');
   const position = getResult(pos, 'position_number', NO_POSITION_NUMBER);
   const languages = getResult(pos, 'languages', []);
-  const hasShortList = getResult(result, 'has_short_list', false);
 
   const language = (<LanguageList languages={languages} propToUse="representation" />);
 
@@ -35,15 +33,8 @@ const PositionDetailsCard = ({ result, isProjectedVacancy, fromPostMenu }) => {
   const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
   const id = get(result, 'id') || '';
 
-  const detailsLink = (<Link to={`/profile/${fromPostMenu ? 'post' : 'bureau'}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${id}`}>
+  const detailsLink = (<Link to={`/profile/bureau/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${id}`}>
     <h3>{title}</h3></Link>);
-  const shortListIndicator = hasShortList ? (<Tooltip
-    title="Position has an active short list"
-    arrow
-    tabIndex="0"
-  >
-    <FA name="list-ol" />
-  </Tooltip>) : '';
 
   const sections = [
     /* eslint-disable quote-props */
@@ -76,7 +67,6 @@ const PositionDetailsCard = ({ result, isProjectedVacancy, fromPostMenu }) => {
       <Row fluid>
         <Row fluid className="bureau-card--section bureau-card--header">
           <div>{detailsLink}</div>
-          <div className="shortlist-icon">{shortListIndicator}</div>
         </Row>
         <Row fluid className="bureau-card--section bureau-card--header">
           <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
@@ -109,7 +99,6 @@ const PositionDetailsCard = ({ result, isProjectedVacancy, fromPostMenu }) => {
 PositionDetailsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
-  fromPostMenu: PropTypes.bool,
 };
 
 PositionDetailsCard.defaultProps = {

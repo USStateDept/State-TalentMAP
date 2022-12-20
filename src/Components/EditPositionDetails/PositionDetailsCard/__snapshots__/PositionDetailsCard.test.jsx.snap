@@ -24,9 +24,6 @@ exports[`PositionDetailsCardComponent matches snapshot 1`] = `
           <h3 />
         </Link>
       </div>
-      <div
-        className="shortlist-icon"
-      />
     </Row>
     <Row
       as="div"
