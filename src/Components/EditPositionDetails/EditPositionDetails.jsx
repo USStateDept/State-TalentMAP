@@ -365,10 +365,10 @@ const EditPositionDetails = () => {
         </div>
         <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
           <div className="usa-grid-full position-list">
-            {<PositionDetailsCard
+            <PositionDetailsCard
               result={dummyPositionDetails}
               key={dummyPositionDetails.id}
-            />}
+            />
           </div>
         </div>
       </>
