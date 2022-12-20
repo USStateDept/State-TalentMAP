@@ -104,13 +104,13 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         name="sticky-note-o"
       />
       <dt>
-        Agenda Status:
+        Agenda:
       </dt>
       <dd>
         None Listed
       </dd>
       <Link
-        className="status-edit-button"
+        className="agenda-edit-button"
         replace={false}
         to="/profile/ao/createagendaitem/"
       >
