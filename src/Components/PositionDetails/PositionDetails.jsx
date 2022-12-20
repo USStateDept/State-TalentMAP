@@ -86,7 +86,7 @@ class PositionDetails extends Component {
             userProfile={userProfile}
             isProjectedVacancy={isProjectedVacancy}
           />
-          wefoinwiowenf
+
           <PositionDetailsItem
             details={details}
             editDescriptionContent={this.editDescriptionContent}

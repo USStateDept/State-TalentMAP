@@ -18,7 +18,7 @@ import {
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 
-class PositionDetailCard extends Component {
+class PositionDetailsCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -115,15 +115,15 @@ class PositionDetailCard extends Component {
   }
 }
 
-PositionDetailCard.propTypes = {
+PositionDetailsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
   fromPostMenu: PropTypes.bool,
 };
 
-PositionDetailCard.defaultProps = {
+PositionDetailsCard.defaultProps = {
   isProjectedVacancy: false,
   fromPostMenu: false,
 };
 
-export default PositionDetailCard;
+export default PositionDetailsCard;

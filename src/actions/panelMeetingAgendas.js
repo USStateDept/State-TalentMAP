@@ -29,9 +29,9 @@ const dummyAgenda = [
         hruneuid: 87496,
         hruid: 65426,
         neuid: 87496,
-        last_name: 'Andrews',
-        first_name: 'John',
-        middle_name: 'Philip',
+        last_name: 'Bob',
+        first_name: 'Rob',
+        middle_name: 'P',
       },
     remarks: [
       {
