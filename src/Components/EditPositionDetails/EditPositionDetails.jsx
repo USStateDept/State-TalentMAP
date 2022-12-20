@@ -12,12 +12,14 @@ import { filtersFetchData } from 'actions/filters/filters';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import ScrollUpButton from '../ScrollUpButton';
+import PositionDetailsCard from '../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 
 const EditPositionDetails = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.editPositionDetailsSelections);
+  const dummyPositionDetails = useSelector(state => state.editPositionDetails);
 
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
@@ -136,6 +138,7 @@ const EditPositionDetails = () => {
     setClearFilters(false);
   };
 
+  const dummyid = get(dummyPositionDetails, 'id', '');
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -212,6 +215,14 @@ const EditPositionDetails = () => {
               <ScrollUpButton />
             </div>
           }
+        </div>
+        <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
+          <div className="usa-grid-full position-list">
+            <PositionDetailsCard
+              result={dummyPositionDetails}
+              key={dummyid}
+            />
+          </div>
         </div>
       </>
   );

@@ -42,9 +42,11 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         defaultHandshake=""
         defaultOrdering=""
         getKeyword=""
+        pageNumber={1}
         pageSize={8}
         queryParamUpdate={[Function]}
         resetKeyword={[Function]}
+        updatePagination={[Function]}
         viewType="card"
       />
     </div>
@@ -264,6 +266,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           queryParamUpdate={[Function]}
           showEdit={false}
           showListView={false}
+          updatePagination={[Function]}
         />
       </ErrorBoundary>
     </div>
