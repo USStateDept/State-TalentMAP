@@ -135,6 +135,13 @@ $results-container-width: 100% - $filter-container-width;
     margin-bottom: 1rem;
     margin-top: .2rem;
 
+    .location-label{
+      width: 20%;
+    }
+
+    .location-text{
+      width: 90%;
+    }
     .results-card-title-link {
       align-items: center;
       display: flex;
@@ -162,7 +169,7 @@ $results-container-width: 100% - $filter-container-width;
     }
 
     dd {
-      padding: 0 0 0 .5rem;
+      padding: 0 0 0 .5em;
     }
 
     h3,
