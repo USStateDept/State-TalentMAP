@@ -16,9 +16,11 @@ import {
   NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
-import TextareaAutosize from 'react-textarea-autosize';
 
 const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
+  const [showMore, setShowMore] = useState(false);
+
+
   const pos = get(result, 'position') || result;
 
   const title = propOrDefault(pos, 'title');
@@ -28,12 +30,8 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
   const language = (<LanguageList languages={languages} propToUse="representation" />);
 
   const postShort = `${getPostName(get(pos, 'post') || NO_POST)}`;
-  const description$ = shortenString(get(pos, 'description.content') || 'No description.', 2000);
+  const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
   const id = get(result, 'id') || '';
-
-  const [showMore, setShowMore] = useState(false);
-  const [editPositionData, setEditPositionData] = useState(false);
-  const [description, setDescription] = useState(description$);
 
   const detailsLink = (<Link to={`/profile/bureau/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${id}`}>
     <h3>{title}</h3></Link>);
@@ -62,20 +60,11 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
     /* eslint-enable quote-props */
   ];
 
-  const editPosition = () => {
-    setShowMore(!showMore);
-    setEditPositionData(!editPositionData);
-    // setDescription()
-  };
-
   return (
     <Row fluid className="bureau-results-card">
       <Row fluid>
         <Row fluid className="bureau-card--section bureau-card--header">
           <div>{detailsLink}</div>
-          <InteractiveElement onClick={() => editPosition()}>
-            <FA name="pencil-square-o" className="fa-lg" />
-          </InteractiveElement>
         </Row>
         <Row fluid className="bureau-card--section bureau-card--header">
           <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
@@ -95,36 +84,11 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
       </Row>
       {
         showMore &&
-          <Row fluid className="bureau-card--description">
-            <Linkify properties={{ target: '_blank' }}>
-              {description}
-            </Linkify>
-          </Row>
-      }
-      {
-        (showMore && (editPositionData)) &&
-        <div>
-          <Row fluid className="bureau-card--description">
-            <Linkify properties={{ target: '_blank' }}>
-              <TextareaAutosize
-                /* make sure this matches height in _availableBidders.scss edit this later */
-                maxRows={4}
-                minRows={4}
-                maxlength="255"
-                name="position-description"
-                placeholder="No Description"
-                defaultValue={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </Linkify>
-          </Row>
-          <button>
-              Update
-          </button>
-          <button>
-              Cancel
-          </button>
-        </div>
+        <Row fluid className="bureau-card--description">
+          <Linkify properties={{ target: '_blank' }}>
+            {description}
+          </Linkify>
+        </Row>
       }
     </Row>
   );
