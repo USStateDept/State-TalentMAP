@@ -138,7 +138,9 @@ $results-container-width: 100% - $filter-container-width;
     .location-label{
       width: 25%;
       @media screen and (max-width: 1200px){
-        color: red;
+        width: 28%;
+      }
+      @media screen and (max-width: 1025px){
         width: 32%;
       }
     }
@@ -146,6 +148,7 @@ $results-container-width: 100% - $filter-container-width;
     .location-text{
       width: 95%;
     }
+    
     .results-card-title-link {
       align-items: center;
       display: flex;
