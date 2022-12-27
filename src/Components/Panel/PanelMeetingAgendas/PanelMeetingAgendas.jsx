@@ -407,6 +407,105 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           }
           {
             <div className="panel-meeting-agendas-rows-container">
+              <div className="pma-category-header">Position Challenge</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Employee Challenge</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Review</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Off Panel</div>
+              <div> There is nothing here </div>
+              <div className="pma-category-header">Discuss</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Separations</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Express</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Volunteer Cable</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Addendum</div>
+              {
+                agenda.map(result => (
+                  <AgendaItemRow
+                    key={result.id}
+                    isCDO={isCDO}
+                    isAIHView
+                    agenda={result}
+                    isPanelMeetingView
+                  />
+                ))
+              }
+              <div className="pma-category-header">Addendum (Volunteer)</div>
               {
                 agenda.map(result => (
                   <AgendaItemRow

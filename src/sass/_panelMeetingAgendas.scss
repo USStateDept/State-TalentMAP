@@ -91,6 +91,14 @@
     }
   }
   .panel-meeting-agendas-rows-container {
+    .pma-category-header{
+      font-family: 'Roboto';
+      font-size: 26px;
+      padding-top: 1rem;
+      padding-left: 2rem;
+      padding-bottom: .5rem;
+    }
+
     .ai-history-row {
       background-color: $color-white;
       border-radius: 10px;
