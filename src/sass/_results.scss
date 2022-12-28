@@ -136,7 +136,7 @@ $results-container-width: 100% - $filter-container-width;
     margin-top: .2rem;
 
     .location-label{
-      width: 25%;
+      width: 23%;
       @media screen and (max-width: 1200px){
         width: 28%;
       }
@@ -146,7 +146,7 @@ $results-container-width: 100% - $filter-container-width;
     }
 
     .location-text{
-      width: 95%;
+      width: 100%;
     }
     
     .results-card-title-link {
@@ -168,7 +168,7 @@ $results-container-width: 100% - $filter-container-width;
     h3,
     dt,
     dd {
-      padding: 0 0 0 .5rem;
+      // padding: 0 0 0 .5rem;
       font-family: 'Roboto';
       font-size: 1.5rem;
       margin-bottom: 0;
