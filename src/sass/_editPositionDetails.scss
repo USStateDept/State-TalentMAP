@@ -76,7 +76,11 @@
   width: 130px;
 }
 
+textarea {
+  max-width: 194rem;
+}
 
 .edit-pos-details-btns {
   float: right;
+  margin-right: -7px;
 }

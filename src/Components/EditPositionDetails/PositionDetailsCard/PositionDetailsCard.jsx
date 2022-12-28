@@ -72,7 +72,11 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
   };
 
   const editPosition = () => {
-    setShowMore(!showMore);
+    if (showMore && !editPositionData) {
+      setEditPositionData(true);
+    } else {
+      setShowMore(!showMore);
+    }
     setEditPositionData(!editPositionData);
   };
 
@@ -125,7 +129,6 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
           <Row fluid className="bureau-card--description">
             <Linkify properties={{ target: '_blank' }}>
               <TextareaAutosize
-                /* make sure this matches height in _availableBidders.scss edit this later */
                 maxRows={4}
                 minRows={4}
                 maxlength="255"
