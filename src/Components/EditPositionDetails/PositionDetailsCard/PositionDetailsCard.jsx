@@ -62,10 +62,28 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
     /* eslint-enable quote-props */
   ];
 
+  const toggleView = () => {
+    if (showMore && editPositionData) {
+      setShowMore(false);
+      setEditPositionData(false);
+    } else {
+      setShowMore(!showMore);
+    }
+  };
+
   const editPosition = () => {
     setShowMore(!showMore);
     setEditPositionData(!editPositionData);
-    // setDescription()
+  };
+
+  const updatePosition = () => {
+    setDescription(description);
+    setEditPositionData(false);
+  };
+
+  const cancelInput = () => {
+    setShowMore(false);
+    setEditPositionData(false);
   };
 
   return (
@@ -86,7 +104,7 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
         <Row fluid className="bureau-card--section bureau-card--footer">
           <DefinitionList items={sections[1]} className="bureau-definition" />
           <div className="usa-grid-full toggle-more-container">
-            <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+            <InteractiveElement className="toggle-more" onClick={toggleView}>
               <span>View {showMore ? 'less' : 'more'} </span>
               <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
             </InteractiveElement>
@@ -94,7 +112,7 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
         </Row>
       </Row>
       {
-        showMore &&
+        showMore && !editPositionData &&
         <Row fluid className="bureau-card--description">
           <Linkify properties={{ target: '_blank' }}>
             {description}
@@ -102,7 +120,7 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
         </Row>
       }
       {
-        (showMore && (editPositionData)) &&
+        editPositionData &&
         <div>
           <Row fluid className="bureau-card--description">
             <Linkify properties={{ target: '_blank' }}>
@@ -118,12 +136,14 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
               />
             </Linkify>
           </Row>
-          <button>
-            Update
-          </button>
-          <button>
-            Cancel
-          </button>
+          <div className="edit-pos-details-btns">
+            <button onClick={updatePosition}>
+              Update
+            </button>
+            <button onClick={cancelInput}>
+              Cancel
+            </button>
+          </div>
         </div>
       }
     </Row>
