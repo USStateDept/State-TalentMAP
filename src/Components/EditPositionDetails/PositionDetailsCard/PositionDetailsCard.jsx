@@ -135,7 +135,7 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
                 name="position-description"
                 placeholder="No Description"
                 defaultValue={description}
-                onChange={(e) => setDescription(e.target.value)}
+                onChange={e => setDescription(e.target.value)}
               />
             </Linkify>
           </Row>

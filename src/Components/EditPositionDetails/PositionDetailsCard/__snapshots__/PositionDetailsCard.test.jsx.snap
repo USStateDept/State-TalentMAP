@@ -24,6 +24,16 @@ exports[`PositionDetailsCardComponent matches snapshot 1`] = `
           <h3 />
         </Link>
       </div>
+      <InteractiveElement
+        className=""
+        onClick={[Function]}
+        type="div"
+      >
+        <FontAwesome
+          className="fa-lg"
+          name="pencil-square-o"
+        />
+      </InteractiveElement>
     </Row>
     <Row
       as="div"
