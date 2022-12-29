@@ -8,6 +8,7 @@ import { PANEL_MEETING_AGENDAS_PAGE_SIZES } from 'Constants/Sort';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
+import Alert from 'Components/Alert/Alert';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
@@ -34,7 +35,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
   const agenda = useSelector(state => state.panelMeetingAgendas);
-
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
@@ -221,6 +221,19 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     childRef.current.clearText();
     setClearFilters(false);
   };
+  const booleanOne = true;
+  const booleanTwo = true;
+  const alertTitle = 'This section is empty';
+  const alertBody = [
+    booleanTwo ?
+      {
+        body: booleanOne ?
+          'No agendas for this section' :
+          'Also how do I make this not need 2 booleans to work pls help',
+      } : {
+        body: 'Please try again.',
+      },
+  ];
 
   return (
     isLoading ?
@@ -409,7 +422,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
             <div className="panel-meeting-agendas-rows-container">
               <div className="pma-category-header">Position Challenge</div>
               {
-                agenda.map(result => (
+                agenda.results.map(result => (
                   <AgendaItemRow
                     key={result.id}
                     isCDO={isCDO}
@@ -420,20 +433,15 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 ))
               }
               <div className="pma-category-header">Employee Challenge</div>
-              {
-                agenda.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
+              <div className="empty-category-alert">
+                <Alert
+                  title={alertTitle}
+                  messages={alertBody}
+                />
+              </div>
               <div className="pma-category-header">Review</div>
               {
-                agenda.map(result => (
+                agenda.results.map(result => (
                   <AgendaItemRow
                     key={result.id}
                     isCDO={isCDO}
@@ -444,10 +452,15 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 ))
               }
               <div className="pma-category-header">Off Panel</div>
-              <div> There is nothing here </div>
+              <div className="empty-category-alert">
+                <Alert
+                  title={alertTitle}
+                  messages={alertBody}
+                />
+              </div>
               <div className="pma-category-header">Discuss</div>
               {
-                agenda.map(result => (
+                agenda.results.map(result => (
                   <AgendaItemRow
                     key={result.id}
                     isCDO={isCDO}
@@ -458,32 +471,22 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                 ))
               }
               <div className="pma-category-header">Separations</div>
-              {
-                agenda.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
+              <div className="empty-category-alert">
+                <Alert
+                  title={alertTitle}
+                  messages={alertBody}
+                />
+              </div>
               <div className="pma-category-header">Express</div>
-              {
-                agenda.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
+              <div className="empty-category-alert">
+                <Alert
+                  title={alertTitle}
+                  messages={alertBody}
+                />
+              </div>
               <div className="pma-category-header">Volunteer Cable</div>
               {
-                agenda.map(result => (
+                agenda.results.map(result => (
                   <AgendaItemRow
                     key={result.id}
                     isCDO={isCDO}
@@ -495,7 +498,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               }
               <div className="pma-category-header">Addendum</div>
               {
-                agenda.map(result => (
+                agenda.results.map(result => (
                   <AgendaItemRow
                     key={result.id}
                     isCDO={isCDO}
@@ -507,7 +510,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               }
               <div className="pma-category-header">Addendum (Volunteer)</div>
               {
-                agenda.map(result => (
+                agenda.results.map(result => (
                   <AgendaItemRow
                     key={result.id}
                     isCDO={isCDO}
