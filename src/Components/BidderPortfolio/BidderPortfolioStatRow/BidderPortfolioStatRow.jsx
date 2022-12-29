@@ -18,6 +18,11 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
+
+  const orgShort = get(userProfile, 'current_assignment.position.organization');
+  const orgLong = get(userProfile, 'current_assignment.position.organization_long');
+  const orgDesc = `(${orgShort}) ${orgLong}`;
+
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
@@ -41,7 +46,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             <dt>TED:</dt><dd>{ted || NO_TOUR_END_DATE}</dd>
           </div>
           <div className="stat-card-data-point">
-            <dt>Location:</dt><dd>{currentAssignmentText || NO_POST}</dd>
+            <dt>Location (Org):</dt><dd>{currentAssignmentText || NO_POST} {orgDesc}</dd>
           </div>
         </div>
         {
