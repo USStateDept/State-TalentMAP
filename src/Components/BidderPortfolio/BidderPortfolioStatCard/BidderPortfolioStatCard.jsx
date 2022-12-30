@@ -21,7 +21,6 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const orgShort = get(userProfile, 'current_assignment.position.organization');
   const orgLong = get(userProfile, 'current_assignment.position.organization_long');
   const orgDesc = `(${orgShort}) ${orgLong}`;
-  console.log(userProfile);
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
