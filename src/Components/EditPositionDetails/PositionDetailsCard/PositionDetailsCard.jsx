@@ -84,11 +84,11 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
       </Row>
       {
         showMore &&
-          <Row fluid className="bureau-card--description">
-            <Linkify properties={{ target: '_blank' }}>
-              {description}
-            </Linkify>
-          </Row>
+        <Row fluid className="bureau-card--description">
+          <Linkify properties={{ target: '_blank' }}>
+            {description}
+          </Linkify>
+        </Row>
       }
     </Row>
   );
