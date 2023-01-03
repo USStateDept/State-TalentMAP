@@ -76,6 +76,11 @@
   width: 130px;
 }
 
+.disabled-input {
+  background-color: $bg-gray-dark-3;
+  cursor: not-allowed;
+}
+
 textarea {
   max-width: 194rem;
 }

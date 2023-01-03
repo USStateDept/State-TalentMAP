@@ -15,6 +15,7 @@ import {
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import TextareaAutosize from 'react-textarea-autosize';
+import ToggleButton from 'Components/ToggleButton';
 
 const PositionDetailsCard = ({ result }) => {
   const pos = get(result, 'position') || result;
@@ -31,6 +32,9 @@ const PositionDetailsCard = ({ result }) => {
   const [showMore, setShowMore] = useState(false);
   const [editPositionData, setEditPositionData] = useState(false);
   const [description, setDescription] = useState(description$);
+
+  // need to integrate with later
+  const isDisabled = false;
 
   const sections = [
     /* eslint-disable quote-props */
@@ -80,7 +84,7 @@ const PositionDetailsCard = ({ result }) => {
   };
 
   const cancelInput = () => {
-    setShowMore(false);
+    setDescription(description$);
     setEditPositionData(false);
   };
 
@@ -89,9 +93,14 @@ const PositionDetailsCard = ({ result }) => {
       <Row fluid>
         <Row fluid className="bureau-card--section bureau-card--header">
           <div><h3>{title}</h3></div>
-          <InteractiveElement onClick={() => editPosition()}>
-            <FA name="pencil-square-o" className="fa-lg" />
-          </InteractiveElement>
+          <div className="toggle-edit-position">
+            <ToggleButton
+              labelTextRight="Edit Position"
+              checked={editPositionData}
+              onChange={editPosition}
+              onColor="#0071BC"
+            />
+          </div>
         </Row>
         <Row fluid className="bureau-card--section bureau-card--header">
           <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
@@ -101,12 +110,14 @@ const PositionDetailsCard = ({ result }) => {
         </Row>
         <Row fluid className="bureau-card--section bureau-card--footer">
           <DefinitionList items={sections[1]} className="bureau-definition" />
-          <div className="usa-grid-full toggle-more-container">
-            <InteractiveElement className="toggle-more" onClick={toggleView}>
-              <span>View {showMore ? 'less' : 'more'} </span>
-              <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-            </InteractiveElement>
-          </div>
+          { !editPositionData &&
+            <div className="usa-grid-full toggle-more-container">
+              <InteractiveElement className="toggle-more" onClick={toggleView}>
+                <span>View {showMore ? 'less' : 'more'} </span>
+                <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+              </InteractiveElement>
+            </div>
+          }
         </Row>
       </Row>
       {
@@ -130,6 +141,8 @@ const PositionDetailsCard = ({ result }) => {
                 placeholder="No Description"
                 defaultValue={description}
                 onChange={e => setDescription(e.target.value)}
+                disabled={isDisabled}
+                className={isDisabled ? 'disabled-input' : ''}
               />
             </Linkify>
           </Row>
