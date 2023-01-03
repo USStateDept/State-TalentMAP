@@ -269,6 +269,10 @@
     font-weight: bold;
   }
 
+  .location-label {
+    flex-shrink: 0
+  }
+
   dd {
     margin-left: 5px;
   }
@@ -410,7 +414,7 @@ $cdo-search-container-padding: 10px;
     li:last-child {
       margin-bottom: 3px;
     }
-    
+
     .picky--sublabel {
       margin-left: 2em;
     }

@@ -17,10 +17,8 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
+  const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
 
-  const orgShort = get(userProfile, 'current_assignment.position.organization');
-  const orgLong = get(userProfile, 'current_assignment.position.organization_long');
-  const orgDesc = `(${orgShort}) ${orgLong}`;
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
@@ -45,7 +43,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
           <dt>TED:</dt><dd>{ted || NO_TOUR_END_DATE}</dd>
         </div>
         <div className="stat-card-data-point">
-          <dt>Location (Org):</dt><dd>{currentAssignmentText || NO_POST} {orgDesc}</dd>
+          <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
         </div>
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
