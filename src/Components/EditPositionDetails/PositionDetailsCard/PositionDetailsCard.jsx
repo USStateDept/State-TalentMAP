@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
@@ -18,7 +16,7 @@ import {
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import TextareaAutosize from 'react-textarea-autosize';
 
-const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
+const PositionDetailsCard = ({ result }) => {
   const pos = get(result, 'position') || result;
 
   const title = propOrDefault(pos, 'title');
@@ -29,14 +27,10 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
 
   const postShort = `${getPostName(get(pos, 'post') || NO_POST)}`;
   const description$ = shortenString(get(pos, 'description.content') || 'No description.', 2000);
-  const id = get(result, 'id') || '';
 
   const [showMore, setShowMore] = useState(false);
   const [editPositionData, setEditPositionData] = useState(false);
   const [description, setDescription] = useState(description$);
-
-  const detailsLink = (<Link to={`/profile/bureau/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${id}`}>
-    <h3>{title}</h3></Link>);
 
   const sections = [
     /* eslint-disable quote-props */
@@ -94,7 +88,7 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
     <Row fluid className="bureau-results-card">
       <Row fluid>
         <Row fluid className="bureau-card--section bureau-card--header">
-          <div>{detailsLink}</div>
+          <div><h3>{title}</h3></div>
           <InteractiveElement onClick={() => editPosition()}>
             <FA name="pencil-square-o" className="fa-lg" />
           </InteractiveElement>
@@ -155,11 +149,6 @@ const PositionDetailsCard = ({ result, isProjectedVacancy }) => {
 
 PositionDetailsCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
-  isProjectedVacancy: PropTypes.bool,
-};
-
-PositionDetailsCard.defaultProps = {
-  isProjectedVacancy: false,
 };
 
 export default PositionDetailsCard;
