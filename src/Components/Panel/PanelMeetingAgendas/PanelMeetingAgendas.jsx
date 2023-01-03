@@ -234,7 +234,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
         body: 'Please try again.',
       },
   ];
-
+  const headers = ['Position Challenge', 'Employee Challenge', 'Review', 'Off Panel', 'Discuss', 'Separations', 'Express', 'Volunteer Cable', 'Addendum', 'Addendum (Volunteer)'];
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -420,7 +420,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           }
           {
             <div className="panel-meeting-agendas-rows-container">
-              <div className="pma-category-header">Position Challenge</div>
+              <div className="pma-category-header">{headers[0]}</div>
               {
                 agenda.results.map(result => (
                   <AgendaItemRow
@@ -432,14 +432,14 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                   />
                 ))
               }
-              <div className="pma-category-header">Employee Challenge</div>
+              <div className="pma-category-header">{headers[1]}</div>
               <div className="empty-category-alert">
                 <Alert
                   title={alertTitle}
                   messages={alertBody}
                 />
               </div>
-              <div className="pma-category-header">Review</div>
+              <div className="pma-category-header">{headers[2]}</div>
               {
                 agenda.results.map(result => (
                   <AgendaItemRow
@@ -451,14 +451,14 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                   />
                 ))
               }
-              <div className="pma-category-header">Off Panel</div>
+              <div className="pma-category-header">{headers[3]}</div>
               <div className="empty-category-alert">
                 <Alert
                   title={alertTitle}
                   messages={alertBody}
                 />
               </div>
-              <div className="pma-category-header">Discuss</div>
+              <div className="pma-category-header">{headers[4]}</div>
               {
                 agenda.results.map(result => (
                   <AgendaItemRow
@@ -470,21 +470,21 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                   />
                 ))
               }
-              <div className="pma-category-header">Separations</div>
+              <div className="pma-category-header">{headers[5]}</div>
               <div className="empty-category-alert">
                 <Alert
                   title={alertTitle}
                   messages={alertBody}
                 />
               </div>
-              <div className="pma-category-header">Express</div>
+              <div className="pma-category-header">{headers[6]}</div>
               <div className="empty-category-alert">
                 <Alert
                   title={alertTitle}
                   messages={alertBody}
                 />
               </div>
-              <div className="pma-category-header">Volunteer Cable</div>
+              <div className="pma-category-header">{headers[7]}</div>
               {
                 agenda.results.map(result => (
                   <AgendaItemRow
@@ -496,7 +496,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                   />
                 ))
               }
-              <div className="pma-category-header">Addendum</div>
+              <div className="pma-category-header">{headers[8]}</div>
               {
                 agenda.results.map(result => (
                   <AgendaItemRow
@@ -508,7 +508,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                   />
                 ))
               }
-              <div className="pma-category-header">Addendum (Volunteer)</div>
+              <div className="pma-category-header">{headers[9]}</div>
               {
                 agenda.results.map(result => (
                   <AgendaItemRow
