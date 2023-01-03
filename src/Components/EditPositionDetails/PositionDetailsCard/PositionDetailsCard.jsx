@@ -60,24 +60,6 @@ const PositionDetailsCard = ({ result }) => {
     /* eslint-enable quote-props */
   ];
 
-  const toggleView = () => {
-    if (showMore && editPositionData) {
-      setShowMore(false);
-      setEditPositionData(false);
-    } else {
-      setShowMore(!showMore);
-    }
-  };
-
-  const editPosition = () => {
-    if (showMore && !editPositionData) {
-      setEditPositionData(true);
-    } else {
-      setShowMore(!showMore);
-    }
-    setEditPositionData(!editPositionData);
-  };
-
   const updatePosition = () => {
     setDescription(description);
     setEditPositionData(false);
@@ -97,7 +79,7 @@ const PositionDetailsCard = ({ result }) => {
             <ToggleButton
               labelTextRight="Edit Position"
               checked={editPositionData}
-              onChange={editPosition}
+              onChange={() => setEditPositionData(!editPositionData)}
               onColor="#0071BC"
             />
           </div>
@@ -112,7 +94,7 @@ const PositionDetailsCard = ({ result }) => {
           <DefinitionList items={sections[1]} className="bureau-definition" />
           { !editPositionData &&
             <div className="usa-grid-full toggle-more-container">
-              <InteractiveElement className="toggle-more" onClick={toggleView}>
+              <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
                 <span>View {showMore ? 'less' : 'more'} </span>
                 <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
               </InteractiveElement>
@@ -146,14 +128,17 @@ const PositionDetailsCard = ({ result }) => {
               />
             </Linkify>
           </Row>
-          <div className="edit-pos-details-btns">
-            <button onClick={updatePosition}>
-              Update
-            </button>
-            <button onClick={cancelInput}>
-              Cancel
-            </button>
-          </div>
+          {
+            !isDisabled &&
+            <div className="edit-pos-details-btns">
+              <button onClick={updatePosition}>
+                  Update
+              </button>
+              <button onClick={cancelInput}>
+                  Cancel
+              </button>
+            </div>
+          }
         </div>
       }
     </Row>
