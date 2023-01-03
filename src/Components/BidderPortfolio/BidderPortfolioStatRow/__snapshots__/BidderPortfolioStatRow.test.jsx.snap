@@ -79,10 +79,12 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
         className="stat-card-data-point"
       >
         <dt>
-          Location:
+          Location (Org):
         </dt>
         <dd>
           None listed
+           (
+          )
         </dd>
       </div>
     </div>
