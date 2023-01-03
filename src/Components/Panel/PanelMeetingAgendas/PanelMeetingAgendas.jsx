@@ -8,7 +8,6 @@ import { PANEL_MEETING_AGENDAS_PAGE_SIZES } from 'Constants/Sort';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
-import Alert from 'Components/Alert/Alert';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
@@ -221,19 +220,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     childRef.current.clearText();
     setClearFilters(false);
   };
-  const booleanOne = true;
-  const booleanTwo = true;
-  const alertTitle = 'This section is empty';
-  const alertBody = [
-    booleanTwo ?
-      {
-        body: booleanOne ?
-          'No agendas for this section' :
-          'Also how do I make this not need 2 booleans to work pls help',
-      } : {
-        body: 'Please try again.',
-      },
-  ];
+
   const headers = ['Position Challenge', 'Employee Challenge', 'Review', 'Off Panel', 'Discuss', 'Separations', 'Express', 'Volunteer Cable', 'Addendum', 'Addendum (Volunteer)'];
   return (
     isLoading ?
@@ -420,104 +407,22 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           }
           {
             <div className="panel-meeting-agendas-rows-container">
-              <div className="pma-category-header">{headers[0]}</div>
               {
-                agenda.results.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
-              <div className="pma-category-header">{headers[1]}</div>
-              <div className="empty-category-alert">
-                <Alert
-                  title={alertTitle}
-                  messages={alertBody}
-                />
-              </div>
-              <div className="pma-category-header">{headers[2]}</div>
-              {
-                agenda.results.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
-              <div className="pma-category-header">{headers[3]}</div>
-              <div className="empty-category-alert">
-                <Alert
-                  title={alertTitle}
-                  messages={alertBody}
-                />
-              </div>
-              <div className="pma-category-header">{headers[4]}</div>
-              {
-                agenda.results.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
-              <div className="pma-category-header">{headers[5]}</div>
-              <div className="empty-category-alert">
-                <Alert
-                  title={alertTitle}
-                  messages={alertBody}
-                />
-              </div>
-              <div className="pma-category-header">{headers[6]}</div>
-              <div className="empty-category-alert">
-                <Alert
-                  title={alertTitle}
-                  messages={alertBody}
-                />
-              </div>
-              <div className="pma-category-header">{headers[7]}</div>
-              {
-                agenda.results.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
-              <div className="pma-category-header">{headers[8]}</div>
-              {
-                agenda.results.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
-                ))
-              }
-              <div className="pma-category-header">{headers[9]}</div>
-              {
-                agenda.results.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
+                headers.map(header => (
+                  <>
+                    <div className="pma-category-header">{header}</div>
+                    {
+                      agenda.results.map(result => (
+                        <AgendaItemRow
+                          key={result.id}
+                          isCDO={isCDO}
+                          isAIHView
+                          agenda={result}
+                          isPanelMeetingView
+                        />
+                      ))
+                    }
+                  </>
                 ))
               }
             </div>

@@ -94,15 +94,13 @@
     .pma-category-header{
       font-family: 'Roboto';
       font-size: 26px;
-      padding-top: 1rem;
-      padding-left: 2rem;
-      padding-bottom: .5rem;
+      padding-top: 10px;
+      margin-left: 20px;
+      margin-right: 15px;
+      padding-bottom: 10px;
+      border-top: solid 3px $color-gray-light;
     }
 
-    .empty-category-alert{
-      width: 33%;
-      margin-left: 2rem;
-    }
     .ai-history-row {
       background-color: $color-white;
       border-radius: 10px;
@@ -256,7 +254,7 @@
         width: 50px;
       }
       .panel-meeting-agendas-item-number {
-        font-size: 2rem;
+        font-size: 20px;
       }
       .panel-meeting-agendas-select {
         margin-left: -1.5em;
