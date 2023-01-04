@@ -2,136 +2,6 @@ import { batch } from 'react-redux';
 import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
 import api from '../api';
 
-const dummyAgenda = [
-  {
-    id: 155,
-    position_id: 89413,
-    panel_date: '2015-02-14T00:00:00Z',
-    status_short: 'RDY',
-    status_full: 'Ready',
-    skill: 'CONSULAR AFFAIRS (3001)',
-    bureau: '(DGHR) DIR GEN OF THE FOR SER & DIR OF HUMAN RESOURCES',
-    language: 'Spanish 3/3',
-    grade: '03',
-    creators:
-      {
-        hruempseqnbr: null,
-        hruneuid: 87496,
-        hruid: 65426,
-        neuid: 87496,
-        last_name: 'Woodward',
-        first_name: 'Wendy',
-        middle_name: 'Cléopatre',
-      },
-    updaters:
-      {
-        hruempseqnbr: null,
-        hruneuid: 87496,
-        hruid: 65426,
-        neuid: 87496,
-        last_name: 'Bob',
-        first_name: 'Rob',
-        middle_name: 'P',
-      },
-    remarks: [
-      {
-        active_ind: 'Y',
-        mutually_exclusive_ind: 'N',
-        order_num: 7,
-        rc_code: 'B',
-        seq_num: 2,
-        short_desc_text: 'Promo Bd Recognized',
-        text: 'Potential recognized by last promo board',
-      },
-      {
-        active_ind: 'Y',
-        mutually_exclusive_ind: 'N',
-        order_num: 5,
-        rc_code: 'G',
-        seq_num: 3,
-        short_desc_text: 'Soph',
-        text: 'Sophie',
-      }],
-    legs: [{
-      grade: '03',
-      pos_num: '56100035',
-      pos_title: 'SPECIAL AGENT',
-      org: 'A/LM/OPS/TTM',
-      eta: '2015-02-14T00:00:00Z',
-      ted: '2015-02-14T00:00:00Z',
-      action: 'Extend (by 3 months)',
-      travel: 'PostToPostHL',
-      languages: [
-        {
-          language: 'HUNGARIAN',
-          spoken_proficiency: '3',
-          reading_proficiency: '3',
-          code: 'HU',
-          representation: 'HUNGARIAN (HU) 3/3',
-        },
-        {
-          language: 'ARABIC EGYPTIAN',
-          spoken_proficiency: '2',
-          reading_proficiency: '2',
-          code: 'AE',
-          representation: 'ARABIC EGYPTIAN (AE) 2/2',
-        },
-      ],
-    },
-    {
-      grade: '03',
-      pos_num: '56100035',
-      pos_title: 'SPECIAL AGENT',
-      org: 'A/LM/OPS/TTM',
-      eta: '2015-02-14T00:00:00Z',
-      ted: '2015-02-14T00:00:00Z',
-      tod: '27MRR',
-      action: 'Extend (by 3 months)',
-      travel: 'PostToPostHL',
-      languages: [
-        {
-          language: 'HUNGARIAN',
-          spoken_proficiency: '3',
-          reading_proficiency: '3',
-          code: 'HU',
-          representation: 'HUNGARIAN (HU) 3/3',
-        },
-        {
-          language: 'ARABIC EGYPTIAN',
-          spoken_proficiency: '2',
-          reading_proficiency: '2',
-          code: 'AE',
-          representation: 'ARABIC EGYPTIAN (AE) 2/2',
-        },
-      ],
-    },
-    {
-      grade: 'OM',
-      eta: '2015-02-14T00:00:00Z',
-      ted: '2015-02-14T00:00:00Z',
-      tod: '2YRR',
-      org: 'BERLIN USEMB',
-      pos_num: 'S5764000',
-      pos_title: 'HR OFF CAREER MANAGEMENT',
-      languages: [
-        {
-          language: 'HUNGARIAN',
-          spoken_proficiency: '3',
-          reading_proficiency: '3',
-          code: 'HU',
-          representation: 'HUNGARIAN (HU) 3/3',
-        },
-        {
-          language: 'ARABIC EGYPTIAN',
-          spoken_proficiency: '2',
-          reading_proficiency: '2',
-          code: 'AE',
-          representation: 'ARABIC EGYPTIAN (AE) 2/2',
-        },
-      ],
-    }],
-  }];
-
 export function panelMeetingAgendasFetchDataErrored(bool) {
   return {
     type: 'PANEL_MEETING_AGENDAS_FETCH_HAS_ERRORED',
@@ -185,13 +55,19 @@ export function panelMeetingAgendasExport(query = {}) {
     });
 }
 
-export function panelMeetingAgendasFetchData() {
+export function panelMeetingAgendasFetchData(query = {}, id) {
   return (dispatch) => {
-    batch(() => {
-      dispatch(panelMeetingAgendasFetchDataSuccess(dummyAgenda));
-      dispatch(panelMeetingAgendasFetchDataLoading(false));
-      dispatch(panelMeetingAgendasFetchDataErrored(false));
-    });
+    const q = convertQueryToString(query);
+    const endpoint = `/fsbid/panel/${id}/agendas`;
+    const ep = `${endpoint}?${q}`;
+    api().get(ep)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(panelMeetingAgendasFetchDataSuccess(data));
+          dispatch(panelMeetingAgendasFetchDataErrored(false));
+          dispatch(panelMeetingAgendasFetchDataLoading(false));
+        });
+      });
   };
 }
 
