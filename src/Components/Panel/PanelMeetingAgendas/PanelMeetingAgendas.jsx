@@ -109,9 +109,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-
+  const pmaid = '123';
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmaid));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
@@ -134,7 +134,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmaid));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
