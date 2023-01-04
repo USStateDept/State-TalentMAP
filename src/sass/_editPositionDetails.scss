@@ -76,6 +76,12 @@
   width: 130px;
 }
 
+.toggle-edit-position {
+  float: right;
+  padding-top: 15px;
+  padding-right: 5px;
+}
+
 .disabled-input {
   background-color: $bg-gray-dark-3;
   cursor: not-allowed;

@@ -70,77 +70,79 @@ const PositionDetailsCard = ({ result }) => {
   };
 
   return (
-    <Row fluid className="bureau-results-card">
-      <Row fluid>
-        <Row fluid className="bureau-card--section bureau-card--header">
-          <div><h3>{title}</h3></div>
-          <div className="toggle-edit-position">
-            <ToggleButton
-              labelTextRight="Edit Position"
-              checked={editMode}
-              onChange={() => setEditMode(!editMode)}
-              onColor="#0071BC"
-            />
-          </div>
+    <>
+      <div className="toggle-edit-position">
+        <ToggleButton
+          labelTextRight="Edit Position"
+          checked={editMode}
+          onChange={() => setEditMode(!editMode)}
+          onColor="#0071BC"
+        />
+      </div>
+      <Row fluid className="bureau-results-card">
+        <Row fluid>
+          <Row fluid className="bureau-card--section bureau-card--header">
+            <div><h3>{title}</h3></div>
+          </Row>
+          <Row fluid className="bureau-card--section bureau-card--header">
+            <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
+          </Row>
+          <Row fluid className="bureau-card--section bureau-card--content">
+            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} className="bureau-definition" />
+          </Row>
+          <Row fluid className="bureau-card--section bureau-card--footer">
+            <DefinitionList items={sections[1]} className="bureau-definition" />
+            {
+              !editMode &&
+              <div className="usa-grid-full toggle-more-container">
+                <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+                  <span>View {showMore ? 'less' : 'more'} </span>
+                  <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+                </InteractiveElement>
+              </div>
+            }
+          </Row>
         </Row>
-        <Row fluid className="bureau-card--section bureau-card--header">
-          <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
-        </Row>
-        <Row fluid className="bureau-card--section bureau-card--content">
-          <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} className="bureau-definition" />
-        </Row>
-        <Row fluid className="bureau-card--section bureau-card--footer">
-          <DefinitionList items={sections[1]} className="bureau-definition" />
-          { !editMode &&
-            <div className="usa-grid-full toggle-more-container">
-              <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
-                <span>View {showMore ? 'less' : 'more'} </span>
-                <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
-              </InteractiveElement>
-            </div>
-          }
-        </Row>
-      </Row>
-      {
-        showMore && !editMode &&
-        <Row fluid className="bureau-card--description">
-          <Linkify properties={{ target: '_blank' }}>
-            {description}
-          </Linkify>
-        </Row>
-      }
-      {
-        editMode &&
-        <div>
+        {
+          showMore && !editMode &&
           <Row fluid className="bureau-card--description">
             <Linkify properties={{ target: '_blank' }}>
-              <TextareaAutosize
-                maxRows={4}
-                minRows={4}
-                maxlength="255"
-                name="position-description"
-                placeholder="No Description"
-                defaultValue={description}
-                onChange={e => setDescription(e.target.value)}
-                disabled={isDisabled}
-                className={isDisabled ? 'disabled-input' : ''}
-              />
+              {description}
             </Linkify>
           </Row>
-          {
-            !isDisabled &&
-            <div className="edit-pos-details-btns">
-              <button onClick={updatePosition}>
+        }
+        {
+          editMode &&
+          <div>
+            <Row fluid className="bureau-card--description">
+              <Linkify properties={{ target: '_blank' }}>
+                <TextareaAutosize
+                  maxRows={4}
+                  minRows={4}
+                  name="position-description"
+                  placeholder="No Description"
+                  defaultValue={description}
+                  onChange={e => setDescription(e.target.value)}
+                  disabled={isDisabled}
+                  className={isDisabled ? 'disabled-input' : ''}
+                />
+              </Linkify>
+            </Row>
+            {
+              !isDisabled &&
+              <div className="edit-pos-details-btns">
+                <button onClick={updatePosition}>
                   Update
-              </button>
-              <button onClick={cancelInput}>
+                </button>
+                <button onClick={cancelInput}>
                   Cancel
-              </button>
-            </div>
-          }
-        </div>
-      }
-    </Row>
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </Row>
+    </>
   );
 };
 
