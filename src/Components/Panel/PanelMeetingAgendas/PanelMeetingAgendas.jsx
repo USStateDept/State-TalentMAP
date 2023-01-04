@@ -134,7 +134,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmaid));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
