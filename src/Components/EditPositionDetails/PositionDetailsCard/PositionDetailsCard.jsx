@@ -30,10 +30,9 @@ const PositionDetailsCard = ({ result }) => {
   const description$ = shortenString(get(pos, 'description.content') || 'No description.', 2000);
 
   const [showMore, setShowMore] = useState(false);
-  const [editPositionData, setEditPositionData] = useState(false);
+  const [editMode, setEditMode] = useState(false);
   const [description, setDescription] = useState(description$);
 
-  // need to integrate with later
   const isDisabled = false;
 
   const sections = [
@@ -62,12 +61,12 @@ const PositionDetailsCard = ({ result }) => {
 
   const updatePosition = () => {
     setDescription(description);
-    setEditPositionData(false);
+    setEditMode(false);
   };
 
   const cancelInput = () => {
     setDescription(description$);
-    setEditPositionData(false);
+    setEditMode(false);
   };
 
   return (
@@ -78,8 +77,8 @@ const PositionDetailsCard = ({ result }) => {
           <div className="toggle-edit-position">
             <ToggleButton
               labelTextRight="Edit Position"
-              checked={editPositionData}
-              onChange={() => setEditPositionData(!editPositionData)}
+              checked={editMode}
+              onChange={() => setEditMode(!editMode)}
               onColor="#0071BC"
             />
           </div>
@@ -92,7 +91,7 @@ const PositionDetailsCard = ({ result }) => {
         </Row>
         <Row fluid className="bureau-card--section bureau-card--footer">
           <DefinitionList items={sections[1]} className="bureau-definition" />
-          { !editPositionData &&
+          { !editMode &&
             <div className="usa-grid-full toggle-more-container">
               <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
                 <span>View {showMore ? 'less' : 'more'} </span>
@@ -103,7 +102,7 @@ const PositionDetailsCard = ({ result }) => {
         </Row>
       </Row>
       {
-        showMore && !editPositionData &&
+        showMore && !editMode &&
         <Row fluid className="bureau-card--description">
           <Linkify properties={{ target: '_blank' }}>
             {description}
@@ -111,7 +110,7 @@ const PositionDetailsCard = ({ result }) => {
         </Row>
       }
       {
-        editPositionData &&
+        editMode &&
         <div>
           <Row fluid className="bureau-card--description">
             <Linkify properties={{ target: '_blank' }}>
