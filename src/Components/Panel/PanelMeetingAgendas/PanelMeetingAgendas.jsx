@@ -109,9 +109,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-  const pmaid = '123';
+  const pmId = '720';
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmaid));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
