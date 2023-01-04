@@ -8,7 +8,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getDifferentials, getResult } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { getPostName, propOrDefault, shortenString } from 'utilities';
+import { getPostName, propOrDefault } from 'utilities';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
@@ -27,7 +27,7 @@ const PositionDetailsCard = ({ result }) => {
   const language = (<LanguageList languages={languages} propToUse="representation" />);
 
   const postShort = `${getPostName(get(pos, 'post') || NO_POST)}`;
-  const description$ = shortenString(get(pos, 'description.content') || 'No description.', 2000);
+  const description$ = get(pos, 'description.content') || 'No description.';
 
   const [showMore, setShowMore] = useState(false);
   const [editMode, setEditMode] = useState(false);
