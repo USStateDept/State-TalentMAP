@@ -119,6 +119,7 @@ const PositionDetailsCard = ({ result }) => {
                 <TextareaAutosize
                   maxRows={4}
                   minRows={4}
+                  maxlength="4000"
                   name="position-description"
                   placeholder="No Description"
                   defaultValue={description}
