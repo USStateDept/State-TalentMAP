@@ -34,6 +34,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
   const agenda = useSelector(state => state.panelMeetingAgendas);
+  const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
@@ -74,7 +75,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const [clearFilters, setClearFilters] = useState(false);
 
-  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
   const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
 
@@ -109,9 +110,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-  const pmaid = '123';
+  const pmId = '720';
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmaid));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
@@ -134,7 +135,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmaid));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
