@@ -16,17 +16,16 @@ export const borderColors = {
 };
 
 export const statusRenaming = [
-  { value: 'WDR', text: 'Withdrawn' },
-  { value: 'DIS', text: 'Disapproved' },
   { value: 'APR', text: 'Approved' },
   { value: 'DEF', text: 'Deferred' },
   { value: 'XXX', text: 'Deferred - Proposed Position' },
-  { value: 'RDY', text: 'Ready' },
+  { value: 'DIS', text: 'Disapproved' },
   { value: 'HLD', text: 'Held' },
+  { value: 'MOV', text: 'Move to ML/ID' },
   { value: 'NR', text: 'Not Ready' },
   { value: 'OOO', text: 'Out of Order' },
   { value: 'PIP', text: 'PIP' },
-  { value: 'MOV', text: 'Move to ML/ID' },
-  { value: 'Default', text: 'Default' },
+  { value: 'RDY', text: 'Ready' },
+  { value: 'WDR', text: 'Withdrawn' },
 ];
 /* eslint-enable import/prefer-default-export */
