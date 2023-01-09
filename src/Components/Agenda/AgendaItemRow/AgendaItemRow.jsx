@@ -21,6 +21,8 @@ const AgendaItemRow = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+  const agendaID = get(agenda, 'id');
+  console.log('agenda', agenda);
 
   const userSkill = get(agenda, 'skill') || 'None Listed';
   const userLanguage = get(agenda, 'language') || 'None Listed';
@@ -116,7 +118,7 @@ const AgendaItemRow = props => {
           {
             showEdit &&
             <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
                 {/* </InteractiveElement> */}

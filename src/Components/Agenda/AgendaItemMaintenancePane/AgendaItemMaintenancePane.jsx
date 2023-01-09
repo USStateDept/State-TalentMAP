@@ -27,6 +27,8 @@ const AgendaItemMaintenancePane = (props) => {
     saveAI,
     sendAsgSepBid,
     asgSepBidData,
+    agendaItem,
+    isCreate,
   } = props;
 
   const defaultText = '';
@@ -59,6 +61,10 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code') || '');
   const [selectedPanelMLDate, setPanelMLDate] = useState('');
   const [selectedPanelIDDate, setPanelIDDate] = useState('');
+
+  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
+
+  const userRemarks$ = isCreate ? userRemarks : agendaItemRemarks;
 
   const legLimit = legCount >= 10;
 
@@ -292,7 +298,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
               {
-                userRemarks.map(remark => (
+                userRemarks$.map(remark => (
                   <RemarksPill
                     isEditable
                     remark={remark}
@@ -351,6 +357,23 @@ AgendaItemMaintenancePane.propTypes = {
   sendAsgSepBid: PropTypes.func,
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
+  // need to finish updating
+  agendaItem: PropTypes.shape({
+    assignemt: {},
+    creator_name: PropTypes.number,
+    creators: [],
+    id: PropTypes.number,
+    legs: [],
+    modifier_name: PropTypes.number,
+    panel_date: PropTypes.string,
+    perdet: PropTypes.number,
+    remarks: [],
+    status_full: PropTypes.string,
+    status_short: PropTypes.string,
+    update_date: PropTypes.string,
+    updaters: {},
+  }),
+  isCreate: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -365,6 +388,8 @@ AgendaItemMaintenancePane.defaultProps = {
   sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
+  agendaItem: {},
+  isCreate: true,
 };
 
 export default AgendaItemMaintenancePane;
