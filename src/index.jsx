@@ -74,6 +74,10 @@ export const init = (config) => {
             .then((response) => {
               sessionStorage.setItem('jwt', response.data);
             })
+            .catch((error) => {
+              // eslint-disable-next-line no-console
+              console.log('error setting jwt', error);
+            })
             .then(render());
         }
       });
@@ -83,11 +87,16 @@ export const init = (config) => {
         .then((response) => {
           sessionStorage.setItem('jwt', response.data);
         })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log('error setting jwt', error);
+        })
         .then(render());
     }
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log('error', e);
+    render();
   }
 };
 
