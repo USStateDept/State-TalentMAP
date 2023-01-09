@@ -8,6 +8,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { bidderPortfolioSelectCDOsToSearchBy } from 'actions/bidderPortfolio';
 import { unsetClientView } from 'actions/clientView';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import { CLIENTS_PAGE_SIZES } from 'Constants/Sort';
 import filterUsers from '../helpers';
 
 // TODO - Running into an issue where the label/span element is also
@@ -46,10 +47,12 @@ class CDOAutoSuggest extends Component {
   }
 
   selectMultipleOption(value, fromPills) {
+    const { updatePagination, pageSize } = this.props;
     if (isEmpty(value) && fromPills && !isEmpty(this.props.currentCDO)) {
       this.props.setCDOsToSearchBy([this.props.currentCDO]);
     } else {
       this.props.setCDOsToSearchBy(value);
+      updatePagination({ pageNumber: 1, pageSize });
     }
   }
 
@@ -89,6 +92,8 @@ CDOAutoSuggest.propTypes = {
   setCDOsToSearchBy: PropTypes.func,
   cdoPills: PropTypes.arrayOf(PropTypes.shape({})),
   currentCDO: PropTypes.shape({}),
+  updatePagination: PropTypes.func,
+  pageSize: PropTypes.number,
 };
 
 CDOAutoSuggest.defaultProps = {
@@ -99,6 +104,8 @@ CDOAutoSuggest.defaultProps = {
   setCDOsToSearchBy: EMPTY_FUNCTION,
   cdoPills: [],
   currentCDO: {},
+  pageSize: CLIENTS_PAGE_SIZES.defaultSort,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({

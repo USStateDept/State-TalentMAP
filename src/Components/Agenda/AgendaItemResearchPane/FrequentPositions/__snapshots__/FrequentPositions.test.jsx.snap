@@ -1,72 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FrequentPositionsComponent matches snapshot 1`] = `
-<div
-  className="frequent-positions-table"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <FieldSet
-    className="glossary-fieldset"
-    legend="Enter a keyword to search"
-    legendSrOnly={true}
-  >
-    <TextInput
-      changeText={[Function]}
-      containerProps={Object {}}
-      customContainerClass=""
-      inputProps={
-        Object {
-          "autoComplete": "off",
-        }
+  <MemoryRouter>
+    <FrequentPositions
+      addFrequentPosition={[Function]}
+      legCount={0}
+      positions={
+        Array [
+          Object {
+            "pos_num_text": "010101010",
+            "pos_org_short_desc": "AF",
+            "pos_title_desc": "Information Technology Spec",
+          },
+        ]
       }
-      label=""
-      labelMessage=""
-      labelSrOnly={true}
-      placeholder="Search for Frequent Positions"
-      value=""
     />
-  </FieldSet>
-  <table>
-    <thead>
-      <tr>
-        <th
-          key=""
-        />
-        <th
-          key="Organization"
-        >
-          Organization
-        </th>
-        <th
-          key="Position Number"
-        >
-          Position Number
-        </th>
-        <th
-          key="Position Title"
-        >
-          Position Title
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <InteractiveElement
-            className=""
-            onClick={[Function]}
-            title="Add to Agenda Item"
-            type="div"
-          >
-            <FontAwesome
-              name="plus-circle"
-            />
-          </InteractiveElement>
-        </td>
-        <td />
-        <td />
-        <td />
-      </tr>
-    </tbody>
-  </table>
-</div>
+    ,
+  </MemoryRouter>
+</ContextProvider>
 `;

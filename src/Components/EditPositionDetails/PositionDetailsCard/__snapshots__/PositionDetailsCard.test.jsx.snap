@@ -1,0 +1,141 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionDetailsCardComponent matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="toggle-edit-position"
+  >
+    <ToggleButton
+      activeBoxShadow=""
+      boxShadow=""
+      checked={false}
+      checkedIcon={false}
+      height={20}
+      labelSameLine={true}
+      labelText=""
+      labelTextLeft=""
+      labelTextRight="Edit Position"
+      labelToLeft={true}
+      offColor="#888888"
+      offHandleColor="#ffffff"
+      onChange={[Function]}
+      onColor="#0071BC"
+      onHandleColor="#ffffff"
+      uncheckedIcon={false}
+      width={40}
+    />
+  </div>
+  <Row
+    as="div"
+    className="bureau-results-card"
+    fluid={true}
+  >
+    <Row
+      as="div"
+      className=""
+      fluid={true}
+    >
+      <Row
+        as="div"
+        className="bureau-card--section bureau-card--header"
+        fluid={true}
+      >
+        <div>
+          <h3 />
+        </div>
+      </Row>
+      <Row
+        as="div"
+        className="bureau-card--section bureau-card--header"
+        fluid={true}
+      >
+        <DefinitionList
+          className="bureau-definition"
+          itemProps={
+            Object {
+              "excludeColon": false,
+            }
+          }
+          items={
+            Object {
+              "Location": "null",
+            }
+          }
+          truncate={true}
+        />
+      </Row>
+      <Row
+        as="div"
+        className="bureau-card--section bureau-card--content"
+        fluid={true}
+      >
+        <DefinitionList
+          className="bureau-definition"
+          itemProps={
+            Object {
+              "excludeColon": true,
+            }
+          }
+          items={
+            Object {
+              "Bid cycle": "None Listed",
+              "Bureau": "None listed",
+              "Grade": "None listed",
+              "Incumbent": "None listed",
+              "Language": <LanguageList
+                languages={Array []}
+                propToUse="representation"
+              />,
+              "Position number": "",
+              "Post differential | Danger Pay": <DefinitionList
+                dangerPay="None listed"
+                obcUrl={Object {}}
+                postDifferential="None listed"
+              />,
+              "Posted": "Unknown",
+              "Skill": "None listed",
+              "TED": "None listed",
+              "Tour of duty": "None listed",
+            }
+          }
+          truncate={true}
+        />
+      </Row>
+      <Row
+        as="div"
+        className="bureau-card--section bureau-card--footer"
+        fluid={true}
+      >
+        <DefinitionList
+          className="bureau-definition"
+          itemProps={Object {}}
+          items={
+            Object {
+              "Last Updated": "Unknown",
+            }
+          }
+          truncate={true}
+        />
+        <div
+          className="usa-grid-full toggle-more-container"
+        >
+          <InteractiveElement
+            className="toggle-more"
+            onClick={[Function]}
+            type="div"
+          >
+            <span>
+              View 
+              more
+               
+            </span>
+            <FontAwesome
+              name="chevron-down"
+            />
+          </InteractiveElement>
+        </div>
+      </Row>
+    </Row>
+  </Row>
+</Fragment>
+`;

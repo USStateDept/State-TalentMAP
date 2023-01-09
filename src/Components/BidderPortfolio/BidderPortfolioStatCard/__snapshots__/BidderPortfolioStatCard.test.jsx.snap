@@ -87,11 +87,15 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
     <div
       className="stat-card-data-point"
     >
-      <dt>
-        Location:
+      <dt
+        className="location-label"
+      >
+        Location (Org):
       </dt>
       <dd>
         None listed
+         (
+        )
       </dd>
     </div>
   </div>

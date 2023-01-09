@@ -34,7 +34,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
   const agenda = useSelector(state => state.panelMeetingAgendas);
-
+  const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
@@ -75,7 +75,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const [clearFilters, setClearFilters] = useState(false);
 
-  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
   const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
 
@@ -110,9 +110,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-
+  const pmId = '720';
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
@@ -135,7 +135,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery()));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
@@ -222,6 +222,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     setClearFilters(false);
   };
 
+  const headers = ['Position Challenge', 'Employee Challenge', 'Review', 'Off Panel', 'Discuss', 'Separations', 'Express', 'Volunteer Cable', 'Addendum', 'Addendum (Volunteer)'];
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -408,14 +409,21 @@ const PanelMeetingAgendas = ({ isCDO }) => {
           {
             <div className="panel-meeting-agendas-rows-container">
               {
-                agenda.map(result => (
-                  <AgendaItemRow
-                    key={result.id}
-                    isCDO={isCDO}
-                    isAIHView
-                    agenda={result}
-                    isPanelMeetingView
-                  />
+                headers.map(header => (
+                  <>
+                    <div className="pma-category-header">{header}</div>
+                    {
+                      agenda.results.map(result => (
+                        <AgendaItemRow
+                          key={result.id}
+                          isCDO={isCDO}
+                          isAIHView
+                          agenda={result}
+                          isPanelMeetingView
+                        />
+                      ))
+                    }
+                  </>
                 ))
               }
             </div>

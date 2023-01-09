@@ -105,11 +105,11 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="sticky-note-o" />
-            <dt>Agenda Status:</dt>
+            <dt>Agenda:</dt>
             <dd>{agendaStatus}</dd>
             {
               showEdit &&
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`}>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="agenda-edit-button">
                 <FA name="pencil" />
               </Link>
             }

@@ -1,3 +1,9 @@
-import { positions, positionsHasErrored, positionsIsLoading } from './positions';
+import { frequentPositionsHasErrored, frequentPositionsIsLoading, positions, positionsHasErrored, positionsIsLoading } from './positions';
 
-export default { positions, positionsHasErrored, positionsIsLoading };
+export default {
+  positions,
+  positionsHasErrored,
+  positionsIsLoading,
+  frequentPositionsIsLoading,
+  frequentPositionsHasErrored,
+};
