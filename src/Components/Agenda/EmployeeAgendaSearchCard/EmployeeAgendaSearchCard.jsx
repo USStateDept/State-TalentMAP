@@ -13,7 +13,8 @@ export const FALLBACK = 'None Listed';
 
 const usePanelMeeting = () => checkFlag('flags.panel_search');
 
-const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
+const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
+  const panelMeetingActive = usePanelMeeting();
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -102,7 +103,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <FA name="calendar-o" />
           <dt>Panel Meeting Date:</dt>
           {
-            (usePanelMeeting && (panelDate !== FALLBACK)) ?
+            (panelMeetingActive && (panelDate !== FALLBACK)) ?
               <dd>
                 <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
                   {panelDate}
@@ -117,7 +118,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <dt>Agenda:</dt>
           <dd>{agendaStatus}</dd>
           {
-            showEdit &&
+            showCreate &&
             <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="agenda-edit-button">
               <FA name="pencil" />
             </Link>
@@ -155,7 +156,6 @@ EmployeeAgendaSearchCard.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
-  showEdit: PropTypes.bool,
 };
 
 EmployeeAgendaSearchCard.defaultProps = {
@@ -163,7 +163,6 @@ EmployeeAgendaSearchCard.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
-  showEdit: true,
 };
 
 export default EmployeeAgendaSearchCard;
