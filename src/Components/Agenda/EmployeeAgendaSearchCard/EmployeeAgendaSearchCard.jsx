@@ -5,10 +5,13 @@ import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
+import { checkFlag } from 'flags';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None Listed';
+
+const usePanelMeeting = () => checkFlag('flags.panel_search');
 
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
@@ -99,7 +102,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <FA name="calendar-o" />
           <dt>Panel Meeting Date:</dt>
           {
-            panelDate !== FALLBACK ?
+            (usePanelMeeting && (panelDate !== FALLBACK)) ?
               <dd>
                 <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
                   {panelDate}

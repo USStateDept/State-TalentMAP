@@ -5,9 +5,9 @@
   "hrAuthUrl": "http://localhost:3333/Authorize?sAppCircuitID=32",
   "flags": {
     "agenda_search": true,
-    "create_agenda_item": true,
+    "create_agenda_item": false,
     "handshake_bidding": true,
-    "panel_search": true,
+    "panel_search": false,
     "persona_auth": true,
     "post_handshake": false,
     "position_details": true,

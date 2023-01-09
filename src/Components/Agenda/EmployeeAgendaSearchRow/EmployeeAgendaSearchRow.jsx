@@ -4,8 +4,11 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
+import { checkFlag } from 'flags';
 import { formatDate } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
+
+const usePanelMeeting = () => checkFlag('flags.panel_search');
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
@@ -93,7 +96,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
             <FA name="calendar-o" />
             <dt>Panel Meeting Date:</dt>
             {
-              panelDate !== FALLBACK ?
+              (usePanelMeeting && (panelDate !== FALLBACK)) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
                     {panelDate}
