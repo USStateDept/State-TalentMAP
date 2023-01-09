@@ -13,7 +13,6 @@ const AgendaItemRow = props => {
   const {
     isCreate,
     agenda,
-    showEdit,
     isCDO,
     perdet,
     isPanelMeetingView,
@@ -114,7 +113,7 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
-            showEdit &&
+            isCreate &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
@@ -185,7 +184,6 @@ AgendaItemRow.propTypes = {
       middle_name: PropTypes.string,
     }),
   }),
-  showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
   isPanelMeetingView: PropTypes.bool,
@@ -195,7 +193,6 @@ AgendaItemRow.propTypes = {
 AgendaItemRow.defaultProps = {
   isCreate: false,
   agenda: {},
-  showEdit: true,
   isCDO: false,
   perdet: null,
   isPanelMeetingView: false,
