@@ -7,7 +7,7 @@ const HrOnlineIFrame = ({ env }) => {
   useEffect(() => {
     setTimeout(() => {
       setUrl(`https://gtm${env}hronline-usdos.msappproxy.net/${env}/hrdata/handshakechild.html`);
-    }, 2000);
+    }, 1000);
   }, []);
 
   return (
