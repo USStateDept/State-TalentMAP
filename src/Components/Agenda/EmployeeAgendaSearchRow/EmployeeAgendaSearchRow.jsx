@@ -18,7 +18,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
   const currentPos = get(currentAssignment, 'orgDescription') || FALLBACK;
-  const currentLoc = get(currentAssignment, 'location') || FALLBACK;
+  // const currentLoc = get(currentAssignment, 'location') || FALLBACK;
+  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPos);
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
@@ -30,7 +31,6 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const formatLoc = getCustomLocation(currentLoc, currentPos);
   const currentPost = `${formatLoc} (${currentPos})`;
 
   let profileLink;
