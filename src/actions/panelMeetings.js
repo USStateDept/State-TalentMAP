@@ -70,7 +70,7 @@ export function panelMeetingsFetchData(query = {}) {
       dispatch(panelMeetingsFetchDataErrored(false));
     });
     const q = convertQueryToString(query);
-    const endpoint = '/fsbid/panel_meetings/';
+    const endpoint = '/fsbid/panel/meetings/';
     const ep = `${endpoint}?${q}`;
     api().get(ep, {
       cancelToken: new CancelToken((c) => {
