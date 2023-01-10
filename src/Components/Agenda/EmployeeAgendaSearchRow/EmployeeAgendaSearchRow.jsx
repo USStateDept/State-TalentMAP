@@ -4,17 +4,21 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
-import { formatDate } from 'utilities';
+import { formatDate, getCustomLocation } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
+
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
+  // add  back to below
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
   // const author = get(result, 'author') || 'Coming soon';
+
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
-  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const currentPos = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const currentLoc = get(currentAssignment, 'location') || FALLBACK;
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
@@ -26,6 +30,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+  const formatLoc = getCustomLocation(currentLoc, currentPos);
+  const currentPost = `${formatLoc} (${currentPos})`;
 
   let profileLink;
   switch (viewType) {
@@ -65,7 +71,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
         <div className="employee-agenda-row-data-points">
           <div className="employee-agenda-row-data-point">
             <FA name="building-o" />
-            <dt>Org:</dt>
+            <dt className="location-label-row">Location (Org):</dt>
             <dd>
               {currentPost}
               <FA className="org-fa-arrow" name="long-arrow-right" />

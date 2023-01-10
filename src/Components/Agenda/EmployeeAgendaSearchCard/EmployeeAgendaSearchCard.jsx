@@ -6,18 +6,19 @@ import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
 import BoxShadow from 'Components/BoxShadow';
-import { formatDate } from 'utilities';
+import { formatDate, getCustomLocation } from 'utilities';
 
 export const FALLBACK = 'None Listed';
 
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
-  const { person, currentAssignment, hsAssignment, agenda } = result;
+  const { person, currentAssignment, agenda, hsAssignment } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
-  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const currentPos = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const currentLoc = get(currentAssignment, 'location') || FALLBACK;
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
@@ -28,6 +29,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+  const formatLoc = getCustomLocation(currentLoc, currentPos);
+  const currentPost = `${formatLoc} (${currentPos})`;
 
   let profileLink;
   switch (viewType) {
@@ -70,7 +73,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
         </div>
         <div className="employee-card-data-point">
           <FA name="building-o" />
-          <dt>Org:</dt>
+          <dt>Location (Org):</dt>
           <dd>
             {currentPost}
             <FA className="org-fa-arrow" name="long-arrow-right" />
