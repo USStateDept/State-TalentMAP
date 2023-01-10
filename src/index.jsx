@@ -3,7 +3,7 @@ import 'core-js/shim'; // included < Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { get, includes } from 'lodash';
+import { get, includes, some } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
@@ -24,9 +24,9 @@ export const render = () => {
 };
 
 // Because the JWT request could be slow.
-export const renderLoading = (url) => {
+export const renderLoading = () => {
   ReactDOM.render((
-    <Splash url={url} />
+    <Splash />
   ), document.getElementById('root') || document.createElement('div'));
 };
 
@@ -47,56 +47,50 @@ export const init = (config) => {
   const publicAuth = get(config, 'hrAuthUrlPublic');
 
   // Only pass tmusrname header if localhost or metaphase environment
-  const isLocalDev = env.includes(['localhost', 'metaphasedev']);
-  const withCredentials = !isLocalDev;
+  const isDev = some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el));
+  const withCredentials = !isDev;
 
   const headers = {
     Accept: 'application/json',
   };
 
   // Only needed for local/demo development.
-  if (isPersonaAuth() && isLocalDev) {
+  if (isPersonaAuth() && isDev) {
     headers.tmusrname = localStorage.getItem('tmusrname');
   }
 
   renderLoading();
 
-  try {
-    if (isPublic) {
-      renderIFrame(env);
-      window.addEventListener('message', (e) => {
-        const { type, body } = e.data;
-        if (type === 'shakehand' && body) {
-          // eslint-disable-next-line no-console
-          console.log('handshake received from iframe');
-          axios
-            .get(publicAuth, { withCredentials, headers })
-            .then((response) => {
-              sessionStorage.setItem('jwt', response.data);
-            })
-            .catch((error) => {
-              // eslint-disable-next-line no-console
-              console.log('error setting jwt', error);
-            })
-            .then(render());
-        }
-      });
-    } else {
-      axios
-        .get(auth, { withCredentials, headers })
-        .then((response) => {
-          sessionStorage.setItem('jwt', response.data);
-        })
-        .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log('error setting jwt', error);
-        })
-        .then(render());
-    }
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.log('error', e);
-    render();
+  if (isPublic) {
+    renderIFrame(env);
+    window.addEventListener('message', (e) => {
+      const { type, body } = e.data;
+      if (type === 'shakehand' && body) {
+        // eslint-disable-next-line no-console
+        console.log('handshake received from iframe');
+        axios
+          .get(publicAuth, { withCredentials, headers })
+          .then((response) => {
+            sessionStorage.setItem('jwt', response.data);
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.log('Error setting public jwt', error);
+          })
+          .then(render());
+      }
+    });
+  } else {
+    axios
+      .get(auth, { withCredentials, headers })
+      .then((response) => {
+        sessionStorage.setItem('jwt', response.data);
+      })
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('Error setting non-public jwt', error);
+      })
+      .then(render());
   }
 };
 
