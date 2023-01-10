@@ -52,7 +52,9 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
-  const [selectedStatus, setStatus] = useState(get(statuses, '[0].code') || '');
+
+  const agendaItemStatus = get(agendaItem, 'status_full') || '';
+  const [selectedStatus, setStatus] = useState(isCreate ? get(statuses, '[0].code') || '' : agendaItemStatus);
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
@@ -62,11 +64,12 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPanelMLDate, setPanelMLDate] = useState('');
   const [selectedPanelIDDate, setPanelIDDate] = useState('');
 
-  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
+  const legLimit = legCount >= 10;
 
+  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
   const userRemarks$ = isCreate ? userRemarks : agendaItemRemarks;
 
-  const legLimit = legCount >= 10;
+  console.log('agendaitem pane', agendaItem);
 
   useEffect(() => {
     setParentLoadingState(includes([asgSepBidLoading,
@@ -195,7 +198,7 @@ const AgendaItemMaintenancePane = (props) => {
                     </option>
                     {
                       statuses.map(a => (
-                        <option key={a.code} value={a.code}>{a.desc_text}</option>
+                        <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
                       ))
                     }
                   </select>

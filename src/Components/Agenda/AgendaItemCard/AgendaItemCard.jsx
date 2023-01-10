@@ -48,6 +48,7 @@ const AgendaItemCard = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+  const agendaID = get(agenda, 'id');
 
   // eslint-disable-next-line no-console
   // const editAI = () => { console.log('placeholder create AI'); };
@@ -79,7 +80,7 @@ const AgendaItemCard = props => {
           {
             showEdit &&
             <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
                 {/* </InteractiveElement> */}
