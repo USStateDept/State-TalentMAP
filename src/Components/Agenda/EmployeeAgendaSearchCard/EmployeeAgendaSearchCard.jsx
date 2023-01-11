@@ -19,7 +19,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
   const cdo = get(person, 'cdo.name') || FALLBACK;
   const currentPos = get(currentAssignment, 'orgDescription') || FALLBACK;
   const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPos);
-  // const currentLoc = get(currentAssignment, 'location') || FALLBACK;
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
@@ -30,7 +29,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  // const formatLoc = getCustomLocation(currentLoc, currentPos);
   const currentPost = `${formatLoc} (${currentPos})`;
 
   let profileLink;
