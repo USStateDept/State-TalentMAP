@@ -10,6 +10,7 @@ import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
+import shortid from 'shortid';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
@@ -34,14 +35,14 @@ const AgendaItemMaintenanceContainer = (props) => {
   const isCDO = get(props, 'isCDO');
   const isCreate = get(props, 'isCreate');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const agendaID = get(props, 'match.params.agendaID');
+  // const agendaID = get(props, 'match.params.agendaID');
+  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}/`);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
   const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
-  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}/`);
   const agendaItem = {
     id: 962,
     remarks: [
@@ -277,6 +278,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     },
   };
 
+  const agendaItemLegs = get(agendaItem, 'legs') || [];
+  const agendaItemLegs$ = agendaItemLegs.map(ail => ({
+    ...ail,
+    ail_seq_num: shortid.generate(),
+  }));
+
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
     const found = find(userRemarks$, { seq_num: remark.seq_num });
@@ -377,7 +384,6 @@ const AgendaItemMaintenanceContainer = (props) => {
                 userRemarks={userRemarks}
                 legCount={legs.length}
                 saveAI={submitAI}
-                agendaID={agendaID}
                 agendaItem={agendaItem}
                 isCreate={isCreate}
               />
@@ -387,6 +393,8 @@ const AgendaItemMaintenanceContainer = (props) => {
                 updateLegs={setLegs}
                 asgSepBid={asgSepBid}
                 efPos={efPosition}
+                agendaItemLegs={agendaItemLegs$}
+                isCreate={isCreate}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
