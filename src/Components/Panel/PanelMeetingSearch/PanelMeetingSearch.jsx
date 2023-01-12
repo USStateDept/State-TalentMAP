@@ -87,6 +87,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const isLoading = panelMeetingsFiltersIsLoading;
   const isPanelLoading = panelMeetingsIsLoading && isLoading;
   const exportDisabled = !panelMeetings.length;
+  const disabled_dd = true;
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
   const sorts = PANEL_MEETINGS_SORT;
@@ -280,7 +281,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   onChange={setSelectedMeetingStatus}
                   valueKey="code"
                   labelKey="description"
-                  disabled={isLoading}
+                  disabled={disabled_dd}
                 />
               </div>
             </div>
