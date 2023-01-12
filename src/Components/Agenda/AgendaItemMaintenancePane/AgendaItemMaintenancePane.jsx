@@ -66,9 +66,6 @@ const AgendaItemMaintenancePane = (props) => {
 
   const legLimit = legCount >= 10;
 
-  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
-  const userRemarks$ = isCreate ? userRemarks : agendaItemRemarks;
-
   console.log('agendaitem pane', agendaItem);
 
   useEffect(() => {
@@ -301,7 +298,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
               {
-                userRemarks$.map(remark => (
+                userRemarks.map(remark => (
                   <RemarksPill
                     isEditable
                     remark={remark}

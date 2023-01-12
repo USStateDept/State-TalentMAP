@@ -22,27 +22,6 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const researchPaneRef = useRef();
 
-  const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
-  const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
-  const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
-  const [legs, setLegs] = useState([]);
-  const [maintenanceInfo, setMaintenanceInfo] = useState([]);
-  const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
-  const [userRemarks, setUserRemarks] = useState([]);
-  const [spinner, setSpinner] = useState(true);
-
-  const id = get(props, 'match.params.id'); // client's perdet
-  const isCDO = get(props, 'isCDO');
-  const isCreate = get(props, 'isCreate');
-  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  // const agendaID = get(props, 'match.params.agendaID');
-  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}/`);
-
-  const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
-  const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
-  const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
-
   const agendaItem = {
     id: 962,
     remarks: [
@@ -278,11 +257,35 @@ const AgendaItemMaintenanceContainer = (props) => {
     },
   };
 
+  const id = get(props, 'match.params.id'); // client's perdet
+  const isCDO = get(props, 'isCDO');
+  const isCreate = get(props, 'isCreate');
+  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  // const agendaID = get(props, 'match.params.agendaID');
+  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}/`);
+
   const agendaItemLegs = get(agendaItem, 'legs') || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
     ...ail,
     ail_seq_num: shortid.generate(),
   }));
+
+  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
+  const agendaItemRemarks$ = filter(agendaItemRemarks, remark => remark.type !== 'person');
+
+  const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
+  const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
+  const [agendaItemTimelineLoading, setAgendaItemTimelineLoading] = useState(true);
+  const [legs, setLegs] = useState([]);
+  const [maintenanceInfo, setMaintenanceInfo] = useState([]);
+  const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
+  const [userRemarks, setUserRemarks] = useState(isCreate ? [] : agendaItemRemarks$);
+  const [spinner, setSpinner] = useState(true);
+
+  const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
+  const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
+  const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
+  const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
