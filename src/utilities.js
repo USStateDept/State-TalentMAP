@@ -903,3 +903,12 @@ export const convertQueryToString = query => {
   q = queryString.stringify(q);
   return q;
 };
+
+export const determineEnv = (url) => {
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/;
+  const regex = new RegExp(expression);
+  const match = url.match(regex);
+  // eslint-disable-next-line
+  if (!match) console.log('no valid env found');
+  return match[0];
+};

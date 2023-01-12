@@ -5,12 +5,16 @@ import { Tooltip } from 'react-tippy';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
+import { checkFlag } from 'flags';
 import BoxShadow from 'Components/BoxShadow';
 import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None Listed';
 
-const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdit }) => {
+const usePanelMeeting = () => checkFlag('flags.panel_search');
+
+const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
+  const panelMeetingActive = usePanelMeeting();
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -99,7 +103,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <FA name="calendar-o" />
           <dt>Panel Meeting Date:</dt>
           {
-            panelDate !== FALLBACK ?
+            (panelMeetingActive && (panelDate !== FALLBACK)) ?
               <dd>
                 <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
                   {panelDate}
@@ -114,7 +118,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <dt>Agenda:</dt>
           <dd>{agendaStatus}</dd>
           {
-            showEdit &&
+            showCreate &&
             <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="agenda-edit-button">
               <FA name="pencil" />
             </Link>
@@ -152,7 +156,6 @@ EmployeeAgendaSearchCard.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
-  showEdit: PropTypes.bool,
 };
 
 EmployeeAgendaSearchCard.defaultProps = {
@@ -160,7 +163,6 @@ EmployeeAgendaSearchCard.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
-  showEdit: true,
 };
 
 export default EmployeeAgendaSearchCard;

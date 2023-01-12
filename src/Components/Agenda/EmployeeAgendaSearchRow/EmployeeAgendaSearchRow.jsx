@@ -4,10 +4,14 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
+import { checkFlag } from 'flags';
 import { formatDate } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit }) => {
+const usePanelMeeting = () => checkFlag('flags.panel_search');
+
+const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
+  const panelMeetingActive = usePanelMeeting();
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -93,7 +97,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
             <FA name="calendar-o" />
             <dt>Panel Meeting Date:</dt>
             {
-              panelDate !== FALLBACK ?
+              (panelMeetingActive && (panelDate !== FALLBACK)) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
                     {panelDate}
@@ -108,7 +112,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
             <dt>Agenda:</dt>
             <dd>{agendaStatus}</dd>
             {
-              showEdit &&
+              showCreate &&
               <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="agenda-edit-button">
                 <FA name="pencil" />
               </Link>
@@ -146,7 +150,6 @@ EmployeeAgendaSearchRow.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
-  showEdit: PropTypes.bool,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
@@ -154,7 +157,6 @@ EmployeeAgendaSearchRow.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
-  showEdit: true,
 };
 
 export default EmployeeAgendaSearchRow;
