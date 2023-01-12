@@ -310,7 +310,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     submitSearch={submitSearch}
                     onChange={setSearchLastNameTemp}
                     ref={childRef}
-                    value={searchTextLastName}
                     placeHolder="Search by Last Name"
                     noButton
                   />
