@@ -22,6 +22,7 @@ const AgendaItemRow = props => {
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const agendaID = get(agenda, 'id');
+  console.log('agenda airow', agenda);
 
   const userSkill = get(agenda, 'skill') || 'None Listed';
   const userLanguage = get(agenda, 'language') || 'None Listed';

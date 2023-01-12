@@ -4,7 +4,7 @@ import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
-import { format, isDate } from 'date-fns-v2';
+import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 
 const AgendaLeg = props => {
@@ -92,8 +92,6 @@ const AgendaLeg = props => {
       }
     </select>);
   };
-
-  const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
