@@ -261,7 +261,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     setSelectedOngoingPosts([]);
     setSelectedTED(null);
     setSearchTextLastName('');
-    console.log('last name post reset: ', searchTextLastName);
     setSearchTextFirstName('');
     setSearchTextEmpID('');
     clearTempVariables();
