@@ -35,9 +35,9 @@ const AgendaItemRow = props => {
     setAgendaStatus(status.target.value);
   };
   const updateMiddleName = get(agenda, 'updaters.middle_name', '');
-  const updateMiddleInitial = updateMiddleName.slice(0, 1);
+  const updateMiddleInitial = updateMiddleName ? updateMiddleName.slice(0, 1) : 'NMN';
   const creatorMiddleName = get(agenda, 'creators.middle_name', '');
-  const creatorMiddleInitial = creatorMiddleName.slice(0, 1);
+  const creatorMiddleInitial = creatorMiddleName ? creatorMiddleName.slice(0, 1) : 'NMN';
 
   return (
     <>
