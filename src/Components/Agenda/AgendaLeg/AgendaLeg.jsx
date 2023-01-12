@@ -21,6 +21,8 @@ const AgendaLeg = props => {
     rowNum,
   } = props;
 
+  console.log('leg agenda leg', leg);
+
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow
@@ -99,7 +101,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'legEndDate'))}
+      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted'))}
       {
         !isEf &&
         <FA name="calendar" onClick={calendarModal} />
