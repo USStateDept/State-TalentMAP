@@ -30,7 +30,10 @@ import ScrollUpButton from '../../ScrollUpButton';
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
 const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
-  const childRef = useRef();
+  const searchLastNameRef = useRef();
+  const searchFirstNameRef = useRef();
+  const searchEmpIDRef = useRef();
+
   const dispatch = useDispatch();
   const createAI = useCreateAI();
 
@@ -264,6 +267,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     setSearchTextFirstName('');
     setSearchTextEmpID('');
     clearTempVariables();
+    searchFirstNameRef.current.clearText();
+    searchLastNameRef.current.clearText();
+    searchEmpIDRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -308,7 +314,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     id="last-name-search"
                     submitSearch={submitSearch}
                     onChange={setSearchLastNameTemp}
-                    ref={childRef}
+                    ref={searchLastNameRef}
                     placeHolder="Search by Last Name"
                     noButton
                   />
@@ -319,7 +325,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     id="first-name-search"
                     submitSearch={submitSearch}
                     onChange={setSearchFirstNameTemp}
-                    ref={childRef}
+                    ref={searchFirstNameRef}
                     placeHolder="Search by First Name"
                     noButton
                   />
@@ -330,7 +336,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     id="emp-id-search"
                     submitSearch={submitSearch}
                     onChange={setSearchEmpIDTemp}
-                    ref={childRef}
+                    ref={searchEmpIDRef}
                     placeHolder="Search by Employee ID"
                   />
                 </div>
