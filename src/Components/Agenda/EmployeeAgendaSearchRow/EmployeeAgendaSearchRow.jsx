@@ -7,10 +7,8 @@ import { get, isNil } from 'lodash';
 import { formatDate, getCustomLocation } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit }) => {
   // will need to update during integration
-  // add  back to below
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
   // const author = get(result, 'author') || 'Coming soon';
