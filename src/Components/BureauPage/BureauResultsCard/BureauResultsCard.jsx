@@ -80,7 +80,7 @@ class BureauResultsCard extends Component {
         'Last Updated': getResult(pos, 'description.date_updated') || NO_UPDATE_DATE,
       },
       {
-        'Location': postShort,
+        'Location (Org)': postShort,
       },
     /* eslint-enable quote-props */
     ];

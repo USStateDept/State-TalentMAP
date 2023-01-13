@@ -13,7 +13,6 @@ const AgendaItemRow = props => {
   const {
     isCreate,
     agenda,
-    showEdit,
     isCDO,
     perdet,
     isPanelMeetingView,
@@ -34,10 +33,8 @@ const AgendaItemRow = props => {
   const onStatusChange = (status) => {
     setAgendaStatus(status.target.value);
   };
-  const updateMiddleName = get(agenda, 'updaters.middle_name', '');
-  const updateMiddleInitial = updateMiddleName.slice(0, 1);
-  const creatorMiddleName = get(agenda, 'creators.middle_name', '');
-  const creatorMiddleInitial = creatorMiddleName.slice(0, 1);
+  const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
+  const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
 
   return (
     <>
@@ -100,7 +97,7 @@ const AgendaItemRow = props => {
             }
             <div>
               <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
-              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updateMiddleInitial}</span></div>
+              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
             </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
@@ -114,7 +111,7 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
-            showEdit &&
+            isCreate &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
@@ -185,7 +182,6 @@ AgendaItemRow.propTypes = {
       middle_name: PropTypes.string,
     }),
   }),
-  showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
   isPanelMeetingView: PropTypes.bool,
@@ -195,7 +191,6 @@ AgendaItemRow.propTypes = {
 AgendaItemRow.defaultProps = {
   isCreate: false,
   agenda: {},
-  showEdit: true,
   isCDO: false,
   perdet: null,
   isPanelMeetingView: false,
