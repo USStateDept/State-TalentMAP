@@ -17,8 +17,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
-  const currentPos = get(currentAssignment, 'orgDescription') || FALLBACK;
-  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPos);
+  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPost);
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
@@ -29,7 +29,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const currentPost = `${formatLoc} (${currentPos})`;
+  const currentPost$ = `${formatLoc} (${currentPost})`;
 
   let profileLink;
   switch (viewType) {
@@ -74,7 +74,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType, showEdi
           <FA name="building-o" />
           <dt className="location-label-card">Location (Org):</dt>
           <dd className="location-data-card">
-            {currentPost}
+            {currentPost$}
             <FA className="org-fa-arrow" name="long-arrow-right" />
             {futurePost}
           </dd>
