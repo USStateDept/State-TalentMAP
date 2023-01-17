@@ -4,8 +4,8 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
+import { formatDate, getCustomLocation } from 'utilities';
 import { checkFlag } from 'flags';
-import { formatDate } from 'utilities';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
 const usePanelMeeting = () => checkFlag('flags.panel_search');
@@ -19,6 +19,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
   const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPost);
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
@@ -30,6 +31,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+  const currentPost$ = `${formatLoc} (${currentPost})`;
 
   let profileLink;
   switch (viewType) {
@@ -69,9 +71,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
         <div className="employee-agenda-row-data-points">
           <div className="employee-agenda-row-data-point">
             <FA name="building-o" />
-            <dt>Org:</dt>
+            <dt className="location-label-row">Location (Org):</dt>
             <dd>
-              {currentPost}
+              {currentPost$}
               <FA className="org-fa-arrow" name="long-arrow-right" />
               {futurePost}</dd>
           </div>
