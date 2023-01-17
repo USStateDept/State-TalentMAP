@@ -79,13 +79,13 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   // Export
   const [exportIsLoading, setExportIsLoading] = useState(false);
   // Text Searches
-  const [searchTextLastName, setSearchTextLastName] = useState('');
-  const [searchTextFirstName, setSearchTextFirstName] = useState('');
-  const [searchTextEmpID, setSearchTextEmpID] = useState('');
+  const [searchTextLastName, setSearchTextLastName] = useState(get(userSelections, 'searchTextLastName') || '');
+  const [searchTextFirstName, setSearchTextFirstName] = useState(get(userSelections, 'searchTextFirstName') || '');
+  const [searchTextEmpID, setSearchTextEmpID] = useState(get(userSelections, 'searchTextEmpID') || '');
 
-  const [searchInputLastName, setSearchInputLastName] = useState('');
-  const [searchInputFirstName, setSearchInputFirstName] = useState('');
-  const [searchInputEmpID, setSearchInputEmpID] = useState('');
+  const [searchInputLastName, setSearchInputLastName] = useState(get(userSelections, 'searchInputLastName') || '');
+  const [searchInputFirstName, setSearchInputFirstName] = useState(get(userSelections, 'searchInputFirstName') || '');
+  const [searchInputEmpID, setSearchInputEmpID] = useState(get(userSelections, 'searchInputEmpID') || '');
 
   const count = get(agendaEmployees$, 'count') || 0;
 
@@ -132,6 +132,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchTextLastName,
     searchTextFirstName,
     searchTextEmpID,
+    searchInputLastName,
+    searchInputFirstName,
+    searchInputEmpID,
   });
 
   useEffect(() => {
@@ -316,6 +319,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     onChange={setSearchInputLastName}
                     ref={searchLastNameRef}
                     placeHolder="Search by Last Name"
+                    textSearch={searchTextLastName}
                     noButton
                   />
                   <label htmlFor="first-name-search" className="search-label">
@@ -327,6 +331,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     onChange={setSearchInputFirstName}
                     ref={searchFirstNameRef}
                     placeHolder="Search by First Name"
+                    textSearch={searchTextFirstName}
                     noButton
                   />
                   <label htmlFor="emp-id-search" className="search-label">
@@ -337,6 +342,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     submitSearch={submitSearch}
                     onChange={setSearchInputEmpID}
                     ref={searchEmpIDRef}
+                    textSearch={searchTextEmpID}
                     placeHolder="Search by Employee ID"
                   />
                 </div>
