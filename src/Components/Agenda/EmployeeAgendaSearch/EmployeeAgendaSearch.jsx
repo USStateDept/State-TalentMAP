@@ -83,9 +83,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [searchTextFirstName, setSearchTextFirstName] = useState('');
   const [searchTextEmpID, setSearchTextEmpID] = useState('');
 
-  const [searchLastNameTemp, setSearchLastNameTemp] = useState('');
-  const [searchFirstNameTemp, setSearchFirstNameTemp] = useState('');
-  const [searchEmpIDTemp, setSearchEmpIDTemp] = useState('');
+  const [searchInputLastName, setSearchInputLastName] = useState('');
+  const [searchInputFirstName, setSearchInputFirstName] = useState('');
+  const [searchInputEmpID, setSearchInputEmpID] = useState('');
 
   const count = get(agendaEmployees$, 'count') || 0;
 
@@ -199,15 +199,15 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   }, [cardView]);
 
   function clearTempVariables() {
-    setSearchLastNameTemp('');
-    setSearchFirstNameTemp('');
-    setSearchEmpIDTemp('');
+    setSearchInputLastName('');
+    setSearchInputFirstName('');
+    setSearchInputEmpID('');
   }
 
   function submitSearch() {
-    setSearchTextLastName(searchLastNameTemp);
-    setSearchTextFirstName(searchFirstNameTemp);
-    setSearchTextEmpID(searchEmpIDTemp);
+    setSearchTextLastName(searchInputLastName);
+    setSearchTextFirstName(searchInputFirstName);
+    setSearchTextEmpID(searchInputEmpID);
   }
 
   const exportAgendaEmployees = () => {
@@ -313,7 +313,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   <PositionManagerSearch
                     id="last-name-search"
                     submitSearch={submitSearch}
-                    onChange={setSearchLastNameTemp}
+                    onChange={setSearchInputLastName}
                     ref={searchLastNameRef}
                     placeHolder="Search by Last Name"
                     noButton
@@ -324,7 +324,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   <PositionManagerSearch
                     id="first-name-search"
                     submitSearch={submitSearch}
-                    onChange={setSearchFirstNameTemp}
+                    onChange={setSearchInputFirstName}
                     ref={searchFirstNameRef}
                     placeHolder="Search by First Name"
                     noButton
@@ -335,7 +335,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   <PositionManagerSearch
                     id="emp-id-search"
                     submitSearch={submitSearch}
-                    onChange={setSearchEmpIDTemp}
+                    onChange={setSearchInputEmpID}
                     ref={searchEmpIDRef}
                     placeHolder="Search by Employee ID"
                   />
