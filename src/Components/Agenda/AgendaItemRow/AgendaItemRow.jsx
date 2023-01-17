@@ -67,6 +67,7 @@ const AgendaItemRow = props => {
                     <select
                       className="panel-select-box panel-meeting-agendas-select"
                       onChange={onStatusChange}
+                      disabled
                     >
                       {statusRenaming.map((k) => (<option
                         selected={(k.value === agendaStatus)}

@@ -280,7 +280,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   onChange={setSelectedMeetingStatus}
                   valueKey="code"
                   labelKey="description"
-                  disabled
+                  disabled={isLoading}
                 />
               </div>
             </div>
