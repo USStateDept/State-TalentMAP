@@ -237,6 +237,12 @@
         .org-fa-arrow {
           padding: 0 9px;
         }
+        .location-label-card{
+          width: 37%;
+        }
+        .location-data-card{
+          width: 63%;
+        }
       }
     }
 
@@ -389,6 +395,9 @@
 
           .org-fa-arrow {
             padding: 0 9px;
+          }
+          .location-label-row{
+            width: 110px;
           }
         }
       }
