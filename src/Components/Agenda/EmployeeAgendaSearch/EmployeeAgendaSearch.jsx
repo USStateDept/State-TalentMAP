@@ -160,7 +160,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchTextFirstName,
       searchTextEmpID,
     ];
-    if (isEmpty(filter(flatten(filters$), identity))) {
+    if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(searchTextLastName)
+      && isEmpty(searchTextFirstName) && isEmpty(searchTextEmpID)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -200,12 +201,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   useEffect(() => {
     dispatch(saveAgendaEmployeesSelections(getCurrentInputs()));
   }, [cardView]);
-
-  function clearTempVariables() {
-    setSearchInputLastName('');
-    setSearchInputFirstName('');
-    setSearchInputEmpID('');
-  }
 
   function submitSearch() {
     setSearchTextLastName(searchInputLastName);
@@ -259,21 +254,39 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   };
 
   const resetFilters = () => {
-    setSelectedCurrentBureaus([]);
-    setSelectedOngoingBureaus([]);
-    setSelectedCDOs([]);
-    setSelectedHandshakeStatus([]);
-    setSelectedCurrentPosts([]);
-    setSelectedOngoingPosts([]);
-    setSelectedTED(null);
-    setSearchTextLastName('');
-    setSearchTextFirstName('');
-    setSearchTextEmpID('');
-    clearTempVariables();
-    searchFirstNameRef.current.clearText();
-    searchLastNameRef.current.clearText();
-    searchEmpIDRef.current.clearText();
-    setClearFilters(false);
+    Promise.resolve().then(() => {
+      setSelectedCurrentBureaus([]);
+      setSelectedOngoingBureaus([]);
+      setSelectedCDOs([]);
+      setSelectedHandshakeStatus([]);
+      setSelectedCurrentPosts([]);
+      setSelectedOngoingPosts([]);
+      setSelectedTED(null);
+      setSearchTextLastName('');
+      setSearchTextFirstName('');
+      setSearchTextEmpID('');
+      searchFirstNameRef.current.clearText();
+      searchLastNameRef.current.clearText();
+      searchEmpIDRef.current.clearText();
+      setClearFilters(false);
+    });
+    // setSelectedCurrentBureaus([]);
+    // setSelectedOngoingBureaus([]);
+    // setSelectedCDOs([]);
+    // setSelectedHandshakeStatus([]);
+    // setSelectedCurrentPosts([]);
+    // setSelectedOngoingPosts([]);
+    // setSelectedTED(null);
+    // setSearchTextLastName('');
+    // setSearchTextFirstName('');
+    // setSearchTextEmpID('');
+    // setSearchInputLastName('');
+    // setSearchInputFirstName('');
+    // setSearchInputEmpID('');
+    // searchFirstNameRef.current.clearText();
+    // searchLastNameRef.current.clearText();
+    // searchEmpIDRef.current.clearText();
+    // setClearFilters(false);
   };
 
   const getOverlay = () => {
