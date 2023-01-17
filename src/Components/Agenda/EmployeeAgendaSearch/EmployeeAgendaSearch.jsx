@@ -270,23 +270,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchEmpIDRef.current.clearText();
       setClearFilters(false);
     });
-    // setSelectedCurrentBureaus([]);
-    // setSelectedOngoingBureaus([]);
-    // setSelectedCDOs([]);
-    // setSelectedHandshakeStatus([]);
-    // setSelectedCurrentPosts([]);
-    // setSelectedOngoingPosts([]);
-    // setSelectedTED(null);
-    // setSearchTextLastName('');
-    // setSearchTextFirstName('');
-    // setSearchTextEmpID('');
-    // setSearchInputLastName('');
-    // setSearchInputFirstName('');
-    // setSearchInputEmpID('');
-    // searchFirstNameRef.current.clearText();
-    // searchLastNameRef.current.clearText();
-    // searchEmpIDRef.current.clearText();
-    // setClearFilters(false);
   };
 
   const getOverlay = () => {
