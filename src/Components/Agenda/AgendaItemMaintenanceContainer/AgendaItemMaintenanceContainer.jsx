@@ -81,7 +81,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       pos_num: '10157002',
       org: 'IIP',
       eta: '2015-09-07T00:00:00.000Z',
-      ted: '2023-05-01T00:00:00',
+      ted: '2016-02-01T00:00:00',
       tod: '2 YRS/TRANSFER',
       grade: 'MC',
       languages: [
@@ -262,7 +262,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const isCreate = get(props, 'isCreate');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
   // const agendaID = get(props, 'match.params.agendaID');
-  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}/`);
+  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}`);
 
   const agendaItemLegs = get(agendaItem, 'legs') || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({

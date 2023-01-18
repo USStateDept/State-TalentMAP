@@ -21,8 +21,6 @@ const AgendaLeg = props => {
     rowNum,
   } = props;
 
-  console.log('leg agenda leg', leg);
-
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow

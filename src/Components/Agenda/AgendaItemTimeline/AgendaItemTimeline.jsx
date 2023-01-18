@@ -14,7 +14,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
   const [legs, setLegs] = useState(isCreate ? [] : agendaItemLegs);
-  console.log('aitime legs', agendaItemLegs);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);

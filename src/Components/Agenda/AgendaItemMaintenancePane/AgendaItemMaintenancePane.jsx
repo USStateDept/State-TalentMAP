@@ -66,8 +66,6 @@ const AgendaItemMaintenancePane = (props) => {
 
   const legLimit = legCount >= 10;
 
-  console.log('agendaitem pane', agendaItem);
-
   useEffect(() => {
     setParentLoadingState(includes([asgSepBidLoading,
       statusLoading, panelCatLoading, panelDatesLoading], true));
