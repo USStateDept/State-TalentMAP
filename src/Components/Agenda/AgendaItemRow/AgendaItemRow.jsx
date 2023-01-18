@@ -6,8 +6,11 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { useState } from 'react';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
+import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
 import { statusRenaming } from '../Constants';
+
+const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
 const AgendaItemRow = props => {
   const {
@@ -17,6 +20,11 @@ const AgendaItemRow = props => {
     perdet,
     isPanelMeetingView,
   } = props;
+
+  // this check is tempoary and being done because we
+  // do not have the data to identify if an AI is editable or not
+  const editAgendaItem = useEditAgendaItem();
+  const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
@@ -113,7 +121,7 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
-            isCreate &&
+            (editAgendaItem && isStatusShortRDY) &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
