@@ -118,7 +118,7 @@ const AgendaItemRow = props => {
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
-                {/* </InteractiveElement */}
+                {/* </InteractiveElement> */}
               </Link>
             </div>
           }
