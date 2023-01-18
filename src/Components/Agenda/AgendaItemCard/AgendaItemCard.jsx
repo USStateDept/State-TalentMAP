@@ -80,7 +80,6 @@ const AgendaItemCard = props => {
             isCreate &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
-                {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
               </Link>
             </div>
