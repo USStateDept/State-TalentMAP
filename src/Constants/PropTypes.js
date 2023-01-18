@@ -781,7 +781,7 @@ export const POS_LANGUAGES = PropTypes.arrayOf(
 );
 
 export const AGENDA_ITEM = PropTypes.shape({
-  assignemt: {
+  assignment: {
     eta: PropTypes.string,
     grade: PropTypes.string,
     id: PropTypes.number,

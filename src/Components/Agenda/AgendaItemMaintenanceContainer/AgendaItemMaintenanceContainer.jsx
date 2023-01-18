@@ -261,8 +261,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   const isCDO = get(props, 'isCDO');
   const isCreate = get(props, 'isCreate');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  // const agendaID = get(props, 'match.params.agendaID');
-  // const agendaItem = useDataLoader(api().get, `/fsbid/agedna/agenda_item/${agendaID}`);
 
   const agendaItemLegs = get(agendaItem, 'legs') || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
