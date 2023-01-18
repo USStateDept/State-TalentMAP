@@ -46,11 +46,15 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
       <FontAwesome
         name="building-o"
       />
-      <dt>
-        Org:
+      <dt
+        className="location-label-card"
+      >
+        Location (Org):
       </dt>
-      <dd>
-        None Listed
+      <dd
+        className="location-data-card"
+      >
+         (None Listed)
         <FontAwesome
           className="org-fa-arrow"
           name="long-arrow-right"

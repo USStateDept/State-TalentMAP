@@ -237,6 +237,12 @@
         .org-fa-arrow {
           padding: 0 9px;
         }
+        .location-label-card{
+          width: 37%;
+        }
+        .location-data-card{
+          width: 63%;
+        }
       }
     }
 
@@ -390,6 +396,9 @@
           .org-fa-arrow {
             padding: 0 9px;
           }
+          .location-label-row{
+            width: 110px;
+          }
         }
       }
     }
@@ -398,4 +407,32 @@
 
 .agenda-edit-button {
   margin-left: 10px;
+}
+
+.eas-search-form-container {
+  display: flex;
+  align-items: center;
+
+  > form {
+    margin: 5px;
+    display: flex;
+  }
+
+  .search-results-inputs {
+    display: flex;
+  }
+
+  .search-label {
+    font-size: 16px;
+    margin-top: 0px;
+  }
+
+  .search-keyword input {
+    width: 250px;
+  }
+}
+
+.search-header {
+  font-size: 16px;
+  margin-top: 20px;
 }

@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { filter, flatten, get, has, identity, isEmpty, throttle } from 'lodash';
+import { filter, flatten, get, has, identity, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import { isDate, startOfDay } from 'date-fns-v2';
 import { agendaEmployeesFetchData, agendaEmployeesFiltersFetchData, agendaItemHistoryExport, saveAgendaEmployeesSelections } from 'actions/agendaEmployees';
@@ -30,7 +30,10 @@ import ScrollUpButton from '../../ScrollUpButton';
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
 
 const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
-  const childRef = useRef();
+  const searchLastNameRef = useRef();
+  const searchFirstNameRef = useRef();
+  const searchEmpIDRef = useRef();
+
   const dispatch = useDispatch();
   const createAI = useCreateAI();
 
@@ -67,9 +70,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [selectedCurrentPosts, setSelectedCurrentPosts] = useState(get(userSelections, 'selectedCurrentPosts') || []);
   const [selectedOngoingPosts, setSelectedOngoingPosts] = useState(get(userSelections, 'selectedOngoingPosts') || []);
   const [selectedTED, setSelectedTED] = useState(get(userSelections, 'selectedTED') || null);
-  // Free Text
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
-  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
   const prevPage = usePrevious(page);
 
@@ -78,6 +78,14 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [clearFilters, setClearFilters] = useState(false);
   // Export
   const [exportIsLoading, setExportIsLoading] = useState(false);
+  // Text Searches
+  const [searchTextLastName, setSearchTextLastName] = useState(get(userSelections, 'searchTextLastName') || '');
+  const [searchTextFirstName, setSearchTextFirstName] = useState(get(userSelections, 'searchTextFirstName') || '');
+  const [searchTextEmpID, setSearchTextEmpID] = useState(get(userSelections, 'searchTextEmpID') || '');
+
+  const [searchInputLastName, setSearchInputLastName] = useState(get(userSelections, 'searchInputLastName') || '');
+  const [searchInputFirstName, setSearchInputFirstName] = useState(get(userSelections, 'searchInputFirstName') || '');
+  const [searchInputEmpID, setSearchInputEmpID] = useState(get(userSelections, 'searchInputEmpID') || '');
 
   const count = get(agendaEmployees$, 'count') || 0;
 
@@ -103,8 +111,10 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     'ted-start': isDate(get(selectedTED, '[0]')) ? startOfDay(get(selectedTED, '[0]')).toJSON() : '',
     'ted-end': isDate(get(selectedTED, '[1]')) ? startOfDay(get(selectedTED, '[1]')).toJSON() : '',
 
-    // Free Text
-    q: textInput || textSearch,
+    // Search Text
+    lastName: searchTextLastName,
+    firstName: searchTextFirstName,
+    empID: searchTextEmpID,
   });
 
   const getCurrentInputs = () => ({
@@ -118,9 +128,13 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     selectedCurrentPosts,
     selectedOngoingPosts,
     selectedTED,
-    textInput,
-    textSearch,
     cardView,
+    searchTextLastName,
+    searchTextFirstName,
+    searchTextEmpID,
+    searchInputLastName,
+    searchInputFirstName,
+    searchInputEmpID,
   });
 
   useEffect(() => {
@@ -142,8 +156,12 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       selectedCurrentPosts,
       selectedOngoingPosts,
       selectedTED,
+      searchTextLastName,
+      searchTextFirstName,
+      searchTextEmpID,
     ];
-    if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(textSearch)) {
+    if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(searchTextLastName)
+      && isEmpty(searchTextFirstName) && isEmpty(searchTextEmpID)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -169,7 +187,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     selectedCurrentPosts,
     selectedOngoingPosts,
     selectedTED,
-    textSearch,
+    searchTextLastName,
+    searchTextFirstName,
+    searchTextEmpID,
   ]);
 
   useEffect(() => {
@@ -182,16 +202,11 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     dispatch(saveAgendaEmployeesSelections(getCurrentInputs()));
   }, [cardView]);
 
-  function submitSearch(text) {
-    setTextSearch(text);
+  function submitSearch() {
+    setSearchTextLastName(searchInputLastName);
+    setSearchTextFirstName(searchInputFirstName);
+    setSearchTextEmpID(searchInputEmpID);
   }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   const exportAgendaEmployees = () => {
     if (!exportIsLoading) {
@@ -239,16 +254,22 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   };
 
   const resetFilters = () => {
-    setSelectedCurrentBureaus([]);
-    setSelectedOngoingBureaus([]);
-    setSelectedCDOs([]);
-    setSelectedHandshakeStatus([]);
-    setSelectedCurrentPosts([]);
-    setSelectedOngoingPosts([]);
-    setSelectedTED(null);
-    setTextSearch('');
-    childRef.current.clearText();
-    setClearFilters(false);
+    Promise.resolve().then(() => {
+      setSelectedCurrentBureaus([]);
+      setSelectedOngoingBureaus([]);
+      setSelectedCDOs([]);
+      setSelectedHandshakeStatus([]);
+      setSelectedCurrentPosts([]);
+      setSelectedOngoingPosts([]);
+      setSelectedTED(null);
+      setSearchTextLastName('');
+      setSearchTextFirstName('');
+      setSearchTextEmpID('');
+      searchFirstNameRef.current.clearText();
+      searchLastNameRef.current.clearText();
+      searchEmpIDRef.current.clearText();
+      setClearFilters(false);
+    });
   };
 
   const getOverlay = () => {
@@ -281,14 +302,46 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />
-                <PositionManagerSearch
-                  submitSearch={submitSearch}
-                  onChange={setTextInputThrottled}
-                  ref={childRef}
-                  textSearch={textSearch}
-                  label="Search for an Employee"
-                  placeHolder="Search using Employee ID or Name here"
-                />
+                <div className="search-header">
+                  Search For An Employee
+                </div>
+                <div className="eas-search-form-container">
+                  <label htmlFor="last-name-search" className="search-label">
+                    Last Name:
+                  </label>
+                  <PositionManagerSearch
+                    id="last-name-search"
+                    submitSearch={submitSearch}
+                    onChange={setSearchInputLastName}
+                    ref={searchLastNameRef}
+                    placeHolder="Search by Last Name"
+                    textSearch={searchTextLastName}
+                    noButton
+                  />
+                  <label htmlFor="first-name-search" className="search-label">
+                    First Name:
+                  </label>
+                  <PositionManagerSearch
+                    id="first-name-search"
+                    submitSearch={submitSearch}
+                    onChange={setSearchInputFirstName}
+                    ref={searchFirstNameRef}
+                    placeHolder="Search by First Name"
+                    textSearch={searchTextFirstName}
+                    noButton
+                  />
+                  <label htmlFor="emp-id-search" className="search-label">
+                    Employee ID:
+                  </label>
+                  <PositionManagerSearch
+                    id="emp-id-search"
+                    submitSearch={submitSearch}
+                    onChange={setSearchInputEmpID}
+                    ref={searchEmpIDRef}
+                    textSearch={searchTextEmpID}
+                    placeHolder="Search by Employee ID"
+                  />
+                </div>
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
