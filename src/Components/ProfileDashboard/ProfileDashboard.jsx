@@ -6,7 +6,6 @@ import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButto
 import { get, includes } from 'lodash';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
-import AgendaItemHistoryCard from './AgendaItemHistoryCard';
 import Notifications from './Notifications';
 import Spinner from '../Spinner';
 import ProfileSectionTitle from '../ProfileSectionTitle';
@@ -19,6 +18,7 @@ import BackButton from '../BackButton';
 import BoxShadow from '../BoxShadow';
 import Classifications from './Classifications';
 import Languages from './Languages';
+import AgendaItemHistoryLink from './AgendaItemHistoryLink';
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, isPublic,
@@ -153,7 +153,9 @@ const ProfileDashboard = ({
                         <Assignments assignments={userProfile.assignments} />
                       </BoxShadow>
                     }
-                    <AgendaItemHistoryCard />
+                    <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                      <AgendaItemHistoryLink />
+                    </BoxShadow>
                   </Column>
                 </Row>
               );
