@@ -13,6 +13,8 @@ const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const panelMeetingActive = usePanelMeeting();
+  // this check is tempoary and being done because we
+  // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
   const isEditableItem = Math.floor(Math.random() * 3) === 1;
 
