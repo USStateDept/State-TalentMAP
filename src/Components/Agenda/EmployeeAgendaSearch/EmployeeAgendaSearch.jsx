@@ -53,8 +53,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const agendaEmployeesHasErrored = useSelector(state => state.agendaEmployeesFetchDataErrored);
   const userSelections = useSelector(state => state.agendaEmployeesSelections);
 
-  // TODO: filter these results based on active/inactive boolean from new WS payload
   const agendaEmployees = get(agendaEmployees$, 'results') || [];
+  // TODO: update dummy filter to be based on active/inactive boolean from new WS payload
   const activeEmployees = agendaEmployees.filter(r => r.person.fullName === 'Abella, Hewett');
 
   const fsbidHandshakeStatusOptions = [{ description: 'Handshake', code: 'Y' }, { description: 'No Handshake', code: 'N' }];
