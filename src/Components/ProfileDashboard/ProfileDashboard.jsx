@@ -26,6 +26,7 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
   unregisterHandshake, userClassificationsHasErrored, showLanguages, canEditClassifications,
+  showAgendaItemHistory, isAOView,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -42,6 +43,8 @@ const ProfileDashboard = ({
           <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
             {(matches) => {
               const isBidder = () => includes(get(userProfile, 'permission_groups', []), 'bidder');
+              const perdet = get(userProfile, 'perdet_seq_number') || '';
+              const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                   <Favorites favorites={favoritePositions} />
@@ -153,9 +156,11 @@ const ProfileDashboard = ({
                         <Assignments assignments={userProfile.assignments} />
                       </BoxShadow>
                     }
-                    <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                      <AgendaItemHistoryLink />
-                    </BoxShadow>
+                    {(isPublic && showAgendaItemHistory) &&
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                        <AgendaItemHistoryLink perdet={perdet} userRole={userRole} />
+                      </BoxShadow>
+                    }
                   </Column>
                 </Row>
               );
@@ -189,6 +194,8 @@ ProfileDashboard.propTypes = {
   userClassificationsHasErrored: PropTypes.bool,
   showLanguages: PropTypes.bool,
   canEditClassifications: PropTypes.bool,
+  showAgendaItemHistory: PropTypes.bool,
+  isAOView: PropTypes.bool,
 };
 
 ProfileDashboard.defaultProps = {
@@ -213,6 +220,8 @@ ProfileDashboard.defaultProps = {
   userClassificationsHasErrored: false,
   showLanguages: true,
   canEditClassifications: false,
+  showAgendaItemHistory: true,
+  isAOView: false,
 };
 
 export default ProfileDashboard;
