@@ -356,7 +356,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     placeHolder="Search by Employee ID"
                   />
                   <ToggleButton
-                    labelTextRight="Include Inactive Employees"
+                    labelTextRight="Show Inactive Employees"
                     onChange={onInactiveToggle}
                     checked={inactiveIsSelected}
                     onColor={colorBlueChill}
