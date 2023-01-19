@@ -9,9 +9,13 @@ import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
 const usePanelMeeting = () => checkFlag('flags.panel_search');
+const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const panelMeetingActive = usePanelMeeting();
+  const editAgendaItem = useEditAgendaItem();
+  const isEditableItem = Math.floor(Math.random() * 3) === 1;
+
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -114,7 +118,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <dt>Agenda:</dt>
             <dd>{agendaStatus}</dd>
             {
-              showCreate &&
+              (editAgendaItem && isEditableItem) &&
               <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
                 <FA name="pencil" />
               </Link>

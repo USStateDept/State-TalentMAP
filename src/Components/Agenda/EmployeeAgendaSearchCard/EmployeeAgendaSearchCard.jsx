@@ -12,9 +12,13 @@ import { formatDate, getCustomLocation } from 'utilities';
 export const FALLBACK = 'None Listed';
 
 const usePanelMeeting = () => checkFlag('flags.panel_search');
+const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const panelMeetingActive = usePanelMeeting();
+  const editAgendaItem = useEditAgendaItem();
+  const isEditableItem = Math.floor(Math.random() * 3) === 1;
+
   // will need to update during integration
   const { person, currentAssignment, agenda, hsAssignment } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -120,7 +124,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
           <dt>Agenda:</dt>
           <dd>{agendaStatus}</dd>
           {
-            showCreate &&
+            (editAgendaItem && isEditableItem) &&
             <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
               <FA name="pencil" />
             </Link>
