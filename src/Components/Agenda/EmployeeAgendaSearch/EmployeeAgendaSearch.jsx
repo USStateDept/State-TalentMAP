@@ -18,6 +18,7 @@ import { AGENDA_EMPLOYEES_PAGE_SIZES, AGENDA_EMPLOYEES_SORT } from 'Constants/So
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
+import ToggleButton from 'Components/ToggleButton';
 import { checkFlag } from 'flags';
 import { usePrevious } from 'hooks';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
@@ -25,6 +26,7 @@ import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSe
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
+import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
@@ -51,7 +53,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const agendaEmployeesHasErrored = useSelector(state => state.agendaEmployeesFetchDataErrored);
   const userSelections = useSelector(state => state.agendaEmployeesSelections);
 
+  // TODO: filter these results based on active/inactive boolean from new WS payload
   const agendaEmployees = get(agendaEmployees$, 'results') || [];
+  const activeEmployees = agendaEmployees.filter(r => r.person.fullName === 'Abella, Hewett');
 
   const fsbidHandshakeStatusOptions = [{ description: 'Handshake', code: 'Y' }, { description: 'No Handshake', code: 'N' }];
 
@@ -86,6 +90,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [searchInputLastName, setSearchInputLastName] = useState(get(userSelections, 'searchInputLastName') || '');
   const [searchInputFirstName, setSearchInputFirstName] = useState(get(userSelections, 'searchInputFirstName') || '');
   const [searchInputEmpID, setSearchInputEmpID] = useState(get(userSelections, 'searchInputEmpID') || '');
+
+  const [inactiveIsSelected, setInactiveIsSelected] = useState(get(userSelections, 'inactiveIsSelected') || false);
 
   const count = get(agendaEmployees$, 'count') || 0;
 
@@ -135,6 +141,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchInputLastName,
     searchInputFirstName,
     searchInputEmpID,
+    inactiveIsSelected,
   });
 
   useEffect(() => {
@@ -159,6 +166,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchTextLastName,
       searchTextFirstName,
       searchTextEmpID,
+      inactiveIsSelected,
     ];
     if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(searchTextLastName)
       && isEmpty(searchTextFirstName) && isEmpty(searchTextEmpID)) {
@@ -190,6 +198,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchTextLastName,
     searchTextFirstName,
     searchTextEmpID,
+    inactiveIsSelected,
   ]);
 
   useEffect(() => {
@@ -268,8 +277,14 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchFirstNameRef.current.clearText();
       searchLastNameRef.current.clearText();
       searchEmpIDRef.current.clearText();
+      setInactiveIsSelected(false);
       setClearFilters(false);
     });
+  };
+
+  const onInactiveToggle = value => {
+    console.log('value: ', value);
+    setInactiveIsSelected(value);
   };
 
   const getOverlay = () => {
@@ -340,6 +355,12 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     ref={searchEmpIDRef}
                     textSearch={searchTextEmpID}
                     placeHolder="Search by Employee ID"
+                  />
+                  <ToggleButton
+                    labelTextRight="Include Inactive Employees"
+                    onChange={onInactiveToggle}
+                    checked={inactiveIsSelected}
+                    onColor={colorBlueChill}
                   />
                 </div>
                 <div className="filterby-container">
@@ -487,7 +508,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   {
                     cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-card">
-                      {agendaEmployees.map(emp => (
+                      {/* {agendaEmployees.map(emp => (
                         // TODO: include React keys once we have real data
                         <EmployeeAgendaSearchCard
                           key={shortid.generate()}
@@ -496,22 +517,60 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                           showCreate={createAI}
                           viewType={viewType}
                         />
-                      ))}
+                      ))} */}
+                      {
+                        inactiveIsSelected ?
+                          // Return both active and inactive employees
+                          agendaEmployees.map(emp => (
+                            // TODO: include React keys once we have real data
+                            <EmployeeAgendaSearchCard
+                              key={shortid.generate()}
+                              result={emp}
+                              isCDO={isCDO}
+                              showCreate={createAI}
+                              viewType={viewType}
+                            />
+                          )) :
+                          activeEmployees.map(emp => (
+                            // TODO: include React keys once we have real data
+                            <EmployeeAgendaSearchCard
+                              key={shortid.generate()}
+                              result={emp}
+                              isCDO={isCDO}
+                              showCreate={createAI}
+                              viewType={viewType}
+                            />
+                          ))
+                      }
                     </div>
                   }
                   {
                     !cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-row">
-                      {agendaEmployees.map(emp => (
-                        // TODO: include React keys once we have real data
-                        <EmployeeAgendaSearchRow
-                          key={shortid.generate()}
-                          result={emp}
-                          isCDO={isCDO}
-                          showCreate={createAI}
-                          viewType={viewType}
-                        />
-                      ))}
+                      {
+                        inactiveIsSelected ?
+                          // Return both active and inactive employees
+                          agendaEmployees.map(emp => (
+                            // TODO: include React keys once we have real data
+                            <EmployeeAgendaSearchRow
+                              key={shortid.generate()}
+                              result={emp}
+                              isCDO={isCDO}
+                              showCreate={createAI}
+                              viewType={viewType}
+                            />
+                          )) :
+                          activeEmployees.map(emp => (
+                            // TODO: include React keys once we have real data
+                            <EmployeeAgendaSearchRow
+                              key={shortid.generate()}
+                              result={emp}
+                              isCDO={isCDO}
+                              showCreate={createAI}
+                              viewType={viewType}
+                            />
+                          ))
+                      }
                     </div>
                   }
                 </div>
