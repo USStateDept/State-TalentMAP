@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
@@ -27,6 +27,8 @@ const AgendaItemMaintenancePane = (props) => {
     saveAI,
     sendAsgSepBid,
     asgSepBidData,
+    agendaItem,
+    isCreate,
   } = props;
 
   const defaultText = '';
@@ -50,7 +52,9 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
-  const [selectedStatus, setStatus] = useState(get(statuses, '[0].code') || '');
+
+  const agendaItemStatus = get(agendaItem, 'status_full') || '';
+  const [selectedStatus, setStatus] = useState(isCreate ? get(statuses, '[0].code') || '' : agendaItemStatus);
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
@@ -189,7 +193,7 @@ const AgendaItemMaintenancePane = (props) => {
                     </option>
                     {
                       statuses.map(a => (
-                        <option key={a.code} value={a.code}>{a.desc_text}</option>
+                        <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
                       ))
                     }
                   </select>
@@ -351,6 +355,8 @@ AgendaItemMaintenancePane.propTypes = {
   sendAsgSepBid: PropTypes.func,
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
+  agendaItem: AGENDA_ITEM.isRequired,
+  isCreate: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -365,6 +371,7 @@ AgendaItemMaintenancePane.defaultProps = {
   sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
+  isCreate: true,
 };
 
 export default AgendaItemMaintenancePane;
