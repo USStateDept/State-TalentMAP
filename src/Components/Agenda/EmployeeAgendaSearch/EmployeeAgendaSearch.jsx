@@ -283,7 +283,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   };
 
   const onInactiveToggle = value => {
-    console.log('value: ', value);
     setInactiveIsSelected(value);
   };
 
@@ -508,16 +507,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   {
                     cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-card">
-                      {/* {agendaEmployees.map(emp => (
-                        // TODO: include React keys once we have real data
-                        <EmployeeAgendaSearchCard
-                          key={shortid.generate()}
-                          result={emp}
-                          isCDO={isCDO}
-                          showCreate={createAI}
-                          viewType={viewType}
-                        />
-                      ))} */}
                       {
                         inactiveIsSelected ?
                           // Return both active and inactive employees
