@@ -6,6 +6,7 @@
   "flags": {
     "agenda_search": true,
     "create_agenda_item": true,
+    "edit_agenda_item": false,
     "handshake_bidding": true,
     "panel_search": true,
     "persona_auth": true,

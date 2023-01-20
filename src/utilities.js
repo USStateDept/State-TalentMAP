@@ -905,7 +905,7 @@ export const convertQueryToString = query => {
 };
 
 export const determineEnv = (url) => {
-  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/;
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/i;
   const regex = new RegExp(expression);
   const match = url.match(regex);
   // eslint-disable-next-line

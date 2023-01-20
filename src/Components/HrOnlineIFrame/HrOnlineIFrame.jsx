@@ -2,11 +2,12 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 
 const HrOnlineIFrame = ({ env }) => {
-  const [url, setUrl] = useState(`https://gtm${env}hronline-usdos.msappproxy.net/${env}/HRData/api/v1/getuser`);
+  const domain = env.toLowerCase() === 'prd' ? '' : env;
+  const [url, setUrl] = useState(`https://gtm${domain}hronline-usdos.msappproxy.net/${env}/HRData/api/v1/getuser`);
 
   useEffect(() => {
     setTimeout(() => {
-      setUrl(`https://gtm${env}hronline-usdos.msappproxy.net/${env}/hrdata/handshakechild.html`);
+      setUrl(`https://gtm${domain}hronline-usdos.msappproxy.net/${env}/hrdata/handshakechild.html`);
     }, 1000);
   }, []);
 
