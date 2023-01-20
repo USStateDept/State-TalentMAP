@@ -319,6 +319,14 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="search-header">
                   Search For An Employee
                 </div>
+                <div className="eas-inactive-toggle">
+                  <ToggleButton
+                    labelTextRight="Show Inactive Employees"
+                    onChange={onInactiveToggle}
+                    checked={inactiveIsSelected}
+                    onColor={colorBlueChill}
+                  />
+                </div>
                 <div className="eas-search-form-container">
                   <label htmlFor="last-name-search" className="search-label">
                     Last Name:
@@ -354,12 +362,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     ref={searchEmpIDRef}
                     textSearch={searchTextEmpID}
                     placeHolder="Search by Employee ID"
-                  />
-                  <ToggleButton
-                    labelTextRight="Show Inactive Employees"
-                    onChange={onInactiveToggle}
-                    checked={inactiveIsSelected}
-                    onColor={colorBlueChill}
                   />
                 </div>
                 <div className="filterby-container">
