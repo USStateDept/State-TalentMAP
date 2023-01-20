@@ -12,7 +12,7 @@ const AgendaItemHistoryLink = (props) => (
     </div>
     <div className="usa-grid-full small-link-container agenda-item-history-link">
       <StaticDevContent>
-        <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Link to Agenda Item History</Link>
+        <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Go to Agenda Item History</Link>
       </StaticDevContent>
     </div>
   </div>
