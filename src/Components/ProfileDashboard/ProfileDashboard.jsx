@@ -151,14 +151,15 @@ const ProfileDashboard = ({
                       </BoxShadow>
                     }
                     {
+                      (isPublic && showAgendaItemHistory) &&
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                        <AgendaItemHistoryLink perdet={perdet} userRole={userRole} />
+                      </BoxShadow>
+                    }
+                    {
                       (showAssignmentHistory) &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments assignments={userProfile.assignments} />
-                      </BoxShadow>
-                    }
-                    {(isPublic && showAgendaItemHistory) &&
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <AgendaItemHistoryLink perdet={perdet} userRole={userRole} />
                       </BoxShadow>
                     }
                   </Column>
