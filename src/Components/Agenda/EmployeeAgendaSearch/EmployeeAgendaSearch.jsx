@@ -54,7 +54,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const userSelections = useSelector(state => state.agendaEmployeesSelections);
 
   const agendaEmployees = get(agendaEmployees$, 'results') || [];
-  // TODO: update dummy filter to be based on active/inactive boolean from new WS payload
 
   const fsbidHandshakeStatusOptions = [{ description: 'Handshake', code: 'Y' }, { description: 'No Handshake', code: 'N' }];
 
