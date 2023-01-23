@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import SectionTitle from '../SectionTitle';
-import StaticDevContent from '../../StaticDevContent';
 
 const AgendaItemHistoryLink = (props) => (
   <div className="usa-grid-full section-padded-inner-container">
@@ -11,9 +10,7 @@ const AgendaItemHistoryLink = (props) => (
       </div>
     </div>
     <div className="usa-grid-full small-link-container agenda-item-history-link">
-      <StaticDevContent>
-        <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Go to Agenda Item History</Link>
-      </StaticDevContent>
+      <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Go to Agenda Item History</Link>
     </div>
   </div>
 );
