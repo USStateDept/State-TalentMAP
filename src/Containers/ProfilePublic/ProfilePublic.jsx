@@ -68,6 +68,7 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
+        showAgendaItemHistory: false,
       };
     } else if (isPostView) {
       props = {
@@ -76,6 +77,7 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
+        showAgendaItemHistory: false,
       };
     } else if (isAOView) {
       props = {
@@ -105,6 +107,7 @@ class ProfilePublic extends Component {
           unregisterHandshake={unregisterHandshakePosition}
           deleteBid={deleteBid}
           isPublic
+          isAOView={isAOView}
           {...props}
         />
     );
