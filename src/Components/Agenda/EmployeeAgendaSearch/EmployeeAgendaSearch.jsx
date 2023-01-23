@@ -55,7 +55,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
 
   const agendaEmployees = get(agendaEmployees$, 'results') || [];
   // TODO: update dummy filter to be based on active/inactive boolean from new WS payload
-  const activeEmployees = agendaEmployees.filter(r => r.person.fullName === 'Abella, Hewett');
 
   const fsbidHandshakeStatusOptions = [{ description: 'Handshake', code: 'Y' }, { description: 'No Handshake', code: 'N' }];
 
@@ -121,6 +120,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     lastName: searchTextLastName,
     firstName: searchTextFirstName,
     empID: searchTextEmpID,
+
+    inactiveIsSelected,
   });
 
   const getCurrentInputs = () => ({
@@ -510,28 +511,16 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-card">
                       {
-                        inactiveIsSelected ?
-                          // Return both active and inactive employees
-                          agendaEmployees.map(emp => (
-                            // TODO: include React keys once we have real data
-                            <EmployeeAgendaSearchCard
-                              key={shortid.generate()}
-                              result={emp}
-                              isCDO={isCDO}
-                              showCreate={createAI}
-                              viewType={viewType}
-                            />
-                          )) :
-                          activeEmployees.map(emp => (
-                            // TODO: include React keys once we have real data
-                            <EmployeeAgendaSearchCard
-                              key={shortid.generate()}
-                              result={emp}
-                              isCDO={isCDO}
-                              showCreate={createAI}
-                              viewType={viewType}
-                            />
-                          ))
+                        agendaEmployees.map(emp => (
+                          // TODO: include React keys once we have real data
+                          <EmployeeAgendaSearchCard
+                            key={shortid.generate()}
+                            result={emp}
+                            isCDO={isCDO}
+                            showCreate={createAI}
+                            viewType={viewType}
+                          />
+                        ))
                       }
                     </div>
                   }
@@ -539,28 +528,16 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     !cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-row">
                       {
-                        inactiveIsSelected ?
-                          // Return both active and inactive employees
-                          agendaEmployees.map(emp => (
-                            // TODO: include React keys once we have real data
-                            <EmployeeAgendaSearchRow
-                              key={shortid.generate()}
-                              result={emp}
-                              isCDO={isCDO}
-                              showCreate={createAI}
-                              viewType={viewType}
-                            />
-                          )) :
-                          activeEmployees.map(emp => (
-                            // TODO: include React keys once we have real data
-                            <EmployeeAgendaSearchRow
-                              key={shortid.generate()}
-                              result={emp}
-                              isCDO={isCDO}
-                              showCreate={createAI}
-                              viewType={viewType}
-                            />
-                          ))
+                        agendaEmployees.map(emp => (
+                          // TODO: include React keys once we have real data
+                          <EmployeeAgendaSearchRow
+                            key={shortid.generate()}
+                            result={emp}
+                            isCDO={isCDO}
+                            showCreate={createAI}
+                            viewType={viewType}
+                          />
+                        ))
                       }
                     </div>
                   }
