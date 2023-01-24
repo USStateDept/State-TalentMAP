@@ -510,6 +510,16 @@
     font-size: 1.6rem;
     margin-bottom: 5px;
   }
+
+  .agenda-item-history-link {
+    border-top: 1px solid #AEB0B5;
+    padding-top: 1em;
+    text-align: center;
+  }
+
+  .agenda-item-history-header{
+    padding-bottom: 1em;
+  }
 }
 
 $total-padding: 28px;
