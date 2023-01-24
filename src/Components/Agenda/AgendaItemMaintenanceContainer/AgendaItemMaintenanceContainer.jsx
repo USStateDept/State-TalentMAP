@@ -22,7 +22,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const researchPaneRef = useRef();
   // const agendaID = get(props, 'match.params.agendaID');
-  const agendaID = 25487;
+  const agendaID = 63699;
   // eslint-disable-next-line no-unused-vars
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};

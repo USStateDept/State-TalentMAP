@@ -781,7 +781,7 @@ export const POS_LANGUAGES = PropTypes.arrayOf(
 );
 
 export const AGENDA_ITEM = PropTypes.shape({
-  assignment: {
+  assignment: PropTypes.shape({
     eta: PropTypes.string,
     grade: PropTypes.string,
     id: PropTypes.number,
@@ -799,7 +799,7 @@ export const AGENDA_ITEM = PropTypes.shape({
     pos_title: PropTypes.string,
     ted: PropTypes.string,
     tod: PropTypes.string,
-  },
+  }),
   creator_name: PropTypes.number,
   creators: PropTypes.arrayOf(
     PropTypes.shape({
@@ -847,6 +847,12 @@ export const AGENDA_ITEM = PropTypes.shape({
   ),
   modifier_name: PropTypes.number,
   panel_date: PropTypes.string,
+  panel_date_type: PropTypes.string,
+  panel_meeting_seq_num: PropTypes.string,
+  report_category: PropTypes.shape({
+    code: PropTypes.string,
+    desc_text: PropTypes.string,
+  }),
   perdet: PropTypes.number,
   remarks: PropTypes.arrayOf(PropTypes.shape({
     seq_num: PropTypes.number,

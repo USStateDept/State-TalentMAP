@@ -60,9 +60,16 @@ const AgendaItemMaintenancePane = (props) => {
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code') || '');
-  const [selectedPanelMLDate, setPanelMLDate] = useState('');
-  const [selectedPanelIDDate, setPanelIDDate] = useState('');
+  const agendaItemPanelCat = get(agendaItem, 'report_category.code') || '';
+  const [selectedPanelCat, setPanelCat] = useState(isCreate ? get(panelCategories, '[0].mic_code') || '' : agendaItemPanelCat);
+
+  const isPanelTypeML = get(agendaItem, 'panel_date_type') === 'ML';
+  const isPanelTypeID = get(agendaItem, 'panel_date_type') === 'ID';
+  const panelMeetingSeqNum = get(agendaItem, 'panel_meeting_seq_num') || '';
+  const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
+  const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
+  const [selectedPanelMLDate, setPanelMLDate] = useState(isCreate ? '' : agendaItemPanelMLSeqNum);
+  const [selectedPanelIDDate, setPanelIDDate] = useState(isCreate ? '' : agendaItemPanelIDSeqNum);
 
   const legLimit = legCount >= 10;
 
