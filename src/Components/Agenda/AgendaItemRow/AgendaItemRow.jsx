@@ -24,7 +24,7 @@ const AgendaItemRow = props => {
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
-  const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
+  const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
