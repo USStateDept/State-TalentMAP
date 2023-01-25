@@ -305,7 +305,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="search-header">
                   Search For An Employee
                 </div>
-                <div className="eas-search-form-container">
+                {/* <div className="eas-search-form-container">
                   <label htmlFor="last-name-search" className="search-label">
                     Last Name:
                   </label>
@@ -341,6 +341,56 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     textSearch={searchTextEmpID}
                     placeHolder="Search by Employee ID"
                   />
+                </div> */}
+                {/* <div className="usa-width-one-whole empl-search-filters results-dropdown"> */}
+                <div className="testclass usa-width-one-whole empl-search-filters">
+                  <div className="filter-div split-filter-div">
+                    <label htmlFor="last-name-search" className="label">
+                    Last Name:
+                    </label>
+                    <div className="emp-search-div">
+                      <PositionManagerSearch
+                        id="last-name-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputLastName}
+                        ref={searchLastNameRef}
+                        placeHolder="Search by Last Name"
+                        textSearch={searchTextLastName}
+                        noButton
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-div split-filter-div">
+                    <label htmlFor="first-name-search" className="label">
+                    First Name:
+                    </label>
+                    <div className="emp-search-div">
+                      <PositionManagerSearch
+                        id="first-name-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputFirstName}
+                        ref={searchFirstNameRef}
+                        placeHolder="Search by First Name"
+                        textSearch={searchTextFirstName}
+                        noButton
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-div split-filter-div">
+                    <label htmlFor="emp-id-search" className="label">
+                    Employee ID:
+                    </label>
+                    <div className="emp-search-id-div">
+                      <PositionManagerSearch
+                        id="emp-id-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputEmpID}
+                        ref={searchEmpIDRef}
+                        textSearch={searchTextEmpID}
+                        placeHolder="Search by Employee ID"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
@@ -353,6 +403,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     }
                   </div>
                 </div>
+
+                {/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */}
+
                 <div className="usa-width-one-whole empl-search-filters results-dropdown">
                   <div className="filter-div split-filter-div">
                     <div className="label">Post:</div>

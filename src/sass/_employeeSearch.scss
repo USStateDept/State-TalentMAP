@@ -40,20 +40,94 @@
     background-color: $bg-blue-dark-1;
     box-shadow: 20px 20px 20px $bg-gray-medium-2;
     padding: 20px 35px;
+
+    .filterby-container{
+      display: inline-block;
+    }
   }
 
   .empl-search-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    
+    @media screen and (max-width: 1685px) {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+      color: blue;
+    }
+    @media screen and (max-width: 1585px) {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      color: red;
+    }
+    @media screen and (max-width: 1475px) {
+      color: green;
+      .fa-search{
+        display: none;
+      }
+    }
+
+    .search-submit-button{
+      margin: 0px 0px 0px 0px;
+    }
+
     .filter-div {
       align-items: center;
       display: flex;
       margin-right: 10px;
+
       .label {
         margin-right: 10px;
-        min-width: 90px;
+        min-width: 95px;
+        font-size: 16px;
         text-align: end;
       }
+
+      .emp-search-div {
+
+        input {
+          width: 230px;
+          @media screen and (max-width: 1475px) {
+            width: 200px;
+          }
+        }
+
+      }
+
+      .emp-search-id-div {
+
+        input {
+          width: 230px;
+          
+          @media screen and (max-width: 1475px) {
+            width: 205px;
+          }
+
+        }
+        
+
+        button {
+          width: 110px;
+          min-width: 100px;
+          padding: 8px 16px;
+          margin-left: 100px;
+          align-content: flex-end;
+
+          @media screen and (max-width: 1684px) {
+            margin-left: 30px;
+            margin-right: 0px;
+            padding: 8px 12px;
+          }
+
+          @media screen and (max-width: 1585px) {
+            margin-left: 15px;
+            margin-right: 0px;
+            padding: 7px 10px;
+          }
+
+        }
+      }
+
       .picky {
         color: $color-black;
         width: 240px;
@@ -79,6 +153,9 @@
     }
     input {
       display: inline;
+    }
+    label{
+      margin-top: 0px;
     }
     .react-daterange-picker__calendar--open {
       z-index: $daterange-z;
@@ -420,12 +497,14 @@
 
   .search-results-inputs {
     display: flex;
+    align-content: flex-start;
   }
 
-  .search-label {
-    font-size: 16px;
-    margin-top: 0px;
-  }
+  // .search-label {
+  //   font-size: 16px;
+  //   margin-top: 0px;
+  //   min-width: 400px;
+  // }
 
   .search-keyword input {
     width: 250px;
