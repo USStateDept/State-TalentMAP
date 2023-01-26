@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, get, includes, isEmpty, throttle } from 'lodash';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -39,7 +38,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
-  const [selectedMeetingDate, setSelectedMeetingDate] = useState(get(userSelections, 'selectedMeetingDate') || null);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
@@ -97,11 +95,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     // User Filters
     panelMeetingsTypes: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
     panelMeetingsStatus: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
-
-    // need to set to beginning of the day to avoid timezone issues
-    'pmd-start': isDate(get(selectedMeetingDate, '[0]')) ? startOfDay(get(selectedMeetingDate, '[0]')).toJSON() : '',
-    'pmd-end': isDate(get(selectedMeetingDate, '[1]')) ? startOfDay(get(selectedMeetingDate, '[1]')).toJSON() : '',
-
     // Free Text
     q: textInput || textSearch,
   });
@@ -111,7 +104,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
-    selectedMeetingDate,
     textInput,
     textSearch,
   });
@@ -124,7 +116,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const fetchAndSet = () => {
     const filters = [
       selectedMeetingType,
-      selectedMeetingDate,
       selectedMeetingStatus,
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
@@ -142,7 +133,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     limit,
     ordering,
     selectedMeetingType,
-    selectedMeetingDate,
     selectedMeetingStatus,
     textSearch,
   ]);
@@ -195,7 +185,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const resetFilters = () => {
     setSelectedMeetingType([]);
-    setSelectedMeetingDate(null);
     setSelectedMeetingStatus([]);
     setTextSearch('');
     childRef.current.clearText();
@@ -256,17 +245,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   onChange={setSelectedMeetingType}
                   valueKey="code"
                   labelKey="description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label label-date">Meeting Date:</div>
-                <DateRangePicker
-                  onChange={setSelectedMeetingDate}
-                  value={selectedMeetingDate}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  showLeadingZeros
                   disabled={isLoading}
                 />
               </div>
