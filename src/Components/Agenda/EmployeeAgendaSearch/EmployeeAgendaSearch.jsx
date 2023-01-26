@@ -318,7 +318,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="eas-inactive-toggle">
                   <ToggleButton
                     labelTextRight="Include Inactive Employees"
-                    onChange={setIsInactiveSelected}
+                    onChange={() => setIsInactiveSelected(!isInactiveSelected)}
                     checked={isInactiveSelected}
                     onColor="#0071BC"
                   />
