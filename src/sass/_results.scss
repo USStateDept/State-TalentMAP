@@ -148,7 +148,7 @@ $results-container-width: 100% - $filter-container-width;
     .location-text{
       width: 100%;
     }
-    
+
     .results-card-title-link {
       align-items: center;
       display: flex;
@@ -707,6 +707,12 @@ $results-container-width: 100% - $filter-container-width;
 
   .dropdowns-container {
     float: right;
+  }
+
+  .sticky {
+    z-index: 9;
+    background-color: rgb(255 255 255);
+    // background-color: red;
   }
 }
 

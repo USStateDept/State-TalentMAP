@@ -2,6 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import { connect } from 'react-redux';
+import Sticky from 'react-sticky-el';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import ResultsList from 'Components/ResultsList/ResultsList';
 import ScrollUpButton from '../ScrollUpButton';
@@ -75,20 +76,24 @@ class ResultsContainer extends Component {
             )
           }
         </MediaQuery>
-        <ResultsPillContainer
-          items={pillFilters}
-          onPillClick={onQueryParamToggle}
-        />
-        <ResultsControls
-          results={results}
-          hasLoaded={hasLoaded}
-          defaultSort={defaultSort}
-          pageSizes={pageSizes}
-          defaultPageSize={defaultPageSize}
-          sortBy={sortBy}
-          defaultPageNumber={defaultPageNumber}
-          queryParamUpdate={queryParamUpdate}
-        />
+        <div className="sticky-results-controls">
+          <Sticky topOffset={0} hideOnBoundaryHit={false}>
+            <ResultsPillContainer
+              items={pillFilters}
+              onPillClick={onQueryParamToggle}
+            />
+            <ResultsControls
+              results={results}
+              hasLoaded={hasLoaded}
+              defaultSort={defaultSort}
+              pageSizes={pageSizes}
+              defaultPageSize={defaultPageSize}
+              sortBy={sortBy}
+              defaultPageNumber={defaultPageNumber}
+              queryParamUpdate={queryParamUpdate}
+            />
+          </Sticky>
+        </div>
         <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
