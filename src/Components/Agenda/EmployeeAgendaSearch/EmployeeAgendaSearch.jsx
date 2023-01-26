@@ -26,7 +26,6 @@ import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSe
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
-import { colorBlueChill } from '../../../sass/sass-vars/variables';
 
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
@@ -89,7 +88,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [searchInputFirstName, setSearchInputFirstName] = useState(get(userSelections, 'searchInputFirstName') || '');
   const [searchInputEmpID, setSearchInputEmpID] = useState(get(userSelections, 'searchInputEmpID') || '');
 
-  const [inactiveIsSelected, setInactiveIsSelected] = useState(get(userSelections, 'inactiveIsSelected') || false);
+  const [isInactiveSelected, setIsInactiveSelected] = useState(get(userSelections, 'isInactiveSelected') || false);
 
   const count = get(agendaEmployees$, 'count') || 0;
 
@@ -120,7 +119,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     firstName: searchTextFirstName,
     empID: searchTextEmpID,
 
-    inactiveIsSelected,
+    // Include Inactive Emps Toggle
+    isInactiveSelected,
   });
 
   const getCurrentInputs = () => ({
@@ -141,7 +141,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchInputLastName,
     searchInputFirstName,
     searchInputEmpID,
-    inactiveIsSelected,
+    isInactiveSelected,
   });
 
   useEffect(() => {
@@ -166,7 +166,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchTextLastName,
       searchTextFirstName,
       searchTextEmpID,
-      inactiveIsSelected,
+      isInactiveSelected,
     ];
     if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(searchTextLastName)
       && isEmpty(searchTextFirstName) && isEmpty(searchTextEmpID)) {
@@ -198,7 +198,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchTextLastName,
     searchTextFirstName,
     searchTextEmpID,
-    inactiveIsSelected,
+    isInactiveSelected,
   ]);
 
   useEffect(() => {
@@ -277,13 +277,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchFirstNameRef.current.clearText();
       searchLastNameRef.current.clearText();
       searchEmpIDRef.current.clearText();
-      setInactiveIsSelected(false);
+      setIsInactiveSelected(false);
       setClearFilters(false);
     });
-  };
-
-  const onInactiveToggle = value => {
-    setInactiveIsSelected(value);
   };
 
   const getOverlay = () => {
@@ -322,9 +318,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="eas-inactive-toggle">
                   <ToggleButton
                     labelTextRight="Include Inactive Employees"
-                    onChange={onInactiveToggle}
-                    checked={inactiveIsSelected}
-                    onColor={colorBlueChill}
+                    onChange={setIsInactiveSelected}
+                    checked={isInactiveSelected}
+                    onColor="#0071BC"
                   />
                 </div>
                 <div className="eas-search-form-container">
@@ -511,7 +507,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <div className="employee-agenda-card">
                       {
                         agendaEmployees.map(emp => (
-                          // TODO: include React keys once we have real data
                           <EmployeeAgendaSearchCard
                             key={shortid.generate()}
                             result={emp}
@@ -528,7 +523,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <div className="employee-agenda-row">
                       {
                         agendaEmployees.map(emp => (
-                          // TODO: include React keys once we have real data
                           <EmployeeAgendaSearchRow
                             key={shortid.generate()}
                             result={emp}
