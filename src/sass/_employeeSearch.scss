@@ -430,9 +430,17 @@
   .search-keyword input {
     width: 250px;
   }
+
+  .search-submit-button {
+    margin-left: 0px;
+  }
 }
 
 .search-header {
   font-size: 16px;
   margin-top: 20px;
+}
+
+.eas-inactive-toggle {
+  margin-top: 25px;
 }

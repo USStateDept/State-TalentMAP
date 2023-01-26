@@ -44,6 +44,8 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
   const statuses = get(statusData, 'data.results') || [];
+  statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
+
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
 
