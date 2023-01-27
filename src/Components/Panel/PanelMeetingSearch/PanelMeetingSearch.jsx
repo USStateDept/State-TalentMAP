@@ -30,7 +30,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const panelMeetings$ = useSelector(state => state.panelMeetings);
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
-  // const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
+  const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
   const userSelections = useSelector(state => state.panelMeetingsSelections);
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
@@ -84,8 +84,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const count = fakePanelMeetings.length;
 
-  const isLoading = panelMeetingsFiltersIsLoading;
-  const isPanelLoading = panelMeetingsIsLoading && isLoading;
+  const groupLoading = panelMeetingsIsLoading && panelMeetingsFiltersIsLoading;
   const exportDisabled = !panelMeetings.length;
 
   const pageSizes = PANEL_MEETINGS_PAGE_SIZES;
@@ -194,131 +193,125 @@ const PanelMeetingSearch = ({ isCDO }) => {
   };
 
   const noPanelMeetingResults = count <= 0;
-  // eslint-disable-next-line max-len
-  // const showOverlay = includes([panelMeetingsIsLoading, panelMeetingsHasErrored, panelMeetingResults], true);
-  const showOverlay = includes([panelMeetingsIsLoading, noPanelMeetingResults], true);
 
   const getOverlay = () => {
+    let toReturn;
     if (panelMeetingsIsLoading) {
-      return <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    // } else if (panelMeetingsHasErrored) {
-    // eslint-disable-next-line max-len
-    //   toReturn = <Alert type="error" title="Error loading panel meetings" messages={[{ body: 'Please try again.' }]} />;
+      toReturn = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    } else if (panelMeetingsHasErrored) {
+      toReturn = <Alert type="error" title="Error loading panel meetings" messages={[{ body: 'Please try again.' }]} />;
     } else if (noPanelMeetingResults) {
-      return <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+      toReturn = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    }
+    if (toReturn) {
+      return <div className="usa-width-one-whole empl-search-lower-section results-dropdown">{toReturn}</div>
     }
     return false;
   };
 
+  const overlay = getOverlay();
+
   return (
-    isPanelLoading ?
-      <Spinner type="bureau-filters" size="small" /> :
-      <>
-        <div className="panel-meeting-search-page">
-          <div className="usa-grid-full panel-meeting-search-upper-section search-bar-container">
-            <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
-            <PositionManagerSearch
-              submitSearch={submitSearch}
-              onChange={setTextInputThrottled}
-              ref={childRef}
-              textSearch={textSearch}
-              label="Search for a Panel Meeting"
-              placeHolder="Search using Panel ID"
-            />
-            <div className="filterby-container">
-              <div className="filterby-label">Filter by:</div>
-              <div className="filterby-clear">
-                {clearFilters &&
-                  <button className="unstyled-button" onClick={resetFilters}>
-                    <FA name="times" />
-                    Clear Filters
-                  </button>
-                }
-              </div>
-            </div>
-            <div className="usa-width-one-whole panel-meeting-search-filters">
-              <div className="filter-div">
-                <div className="label">Type:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Meeting Type(s)"
-                  value={selectedMeetingType}
-                  options={get(panelMeetingsFilters, 'panelTypes')}
-                  onChange={setSelectedMeetingType}
-                  valueKey="code"
-                  labelKey="text"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Status:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Meeting Status(es)"
-                  value={selectedMeetingStatus}
-                  options={get(panelMeetingsFilters, 'panelStatuses')}
-                  onChange={setSelectedMeetingStatus}
-                  valueKey="code"
-                  labelKey="text"
-                  disabled={isLoading}
-                />
-              </div>
+    groupLoading ?
+      <Spinner type="bureau-results" class="homepage-position-results" size="big" /> :
+      <div className="panel-meeting-search-page">
+        <div className="usa-grid-full panel-meeting-search-upper-section search-bar-container">
+          <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
+          <PositionManagerSearch
+            submitSearch={submitSearch}
+            onChange={setTextInputThrottled}
+            ref={childRef}
+            textSearch={textSearch}
+            label="Search for a Panel Meeting"
+            placeHolder="Search using Panel ID"
+          />
+          <div className="filterby-container">
+            <div className="filterby-label">Filter by:</div>
+            <div className="filterby-clear">
+              {clearFilters &&
+                <button className="unstyled-button" onClick={resetFilters}>
+                  <FA name="times" />
+                  Clear Filters
+                </button>
+              }
             </div>
           </div>
-          {
-            !isPanelLoading &&
-            <div className="panel-results-controls">
-              <SelectForm
-                className="panel-select-box"
-                id="panel-search-results-sort"
-                options={sorts.options}
-                label="Sort by:"
-                defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
+          <div className="usa-width-one-whole panel-meeting-search-filters">
+            <div className="filter-div">
+              <div className="label">Type:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Meeting Type(s)"
+                value={selectedMeetingType}
+                options={get(panelMeetingsFilters, 'panelTypes')}
+                onChange={setSelectedMeetingType}
+                valueKey="code"
+                labelKey="text"
+                // disabled={isLoading}
               />
-              <SelectForm
-                className="panel-select-box"
-                id="panel-search-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
-              <div className="export-button-container">
-                <ExportButton
-                  onClick={exportPanelMeetings}
-                  isLoading={exportIsLoading}
-                  disabled={exportDisabled}
-                />
-              </div>
-              <ScrollUpButton />
             </div>
-          }
-          {
-            showOverlay ?
-              <div className="usa-width-one-whole empl-search-lower-section results-dropdown">
-                {getOverlay()}
-              </div>
-              :
-              <>
-                <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
-                  {
-                    <div className="panel-meeting-row">
-                      {fakePanelMeetings.map(meeting => (
-                      // TODO: include React keys once we have real data
-                        <PanelMeetingSearchRow
-                          key={shortid.generate()}
-                          result={meeting}
-                          isCDO={isCDO}
-                        />
-                      ))}
-                    </div>
-                  }
-                </div>
-              </>
-          }
+            <div className="filter-div">
+              <div className="label">Status:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Meeting Status(es)"
+                value={selectedMeetingStatus}
+                options={get(panelMeetingsFilters, 'panelStatuses')}
+                onChange={setSelectedMeetingStatus}
+                valueKey="code"
+                labelKey="text"
+                // disabled={isLoading}
+              />
+            </div>
+          </div>
         </div>
-      </>
+        {
+          !groupLoading &&
+          <div className="panel-results-controls">
+            <SelectForm
+              className="panel-select-box"
+              id="panel-search-results-sort"
+              options={sorts.options}
+              label="Sort by:"
+              defaultSort={ordering}
+              onSelectOption={value => setOrdering(value.target.value)}
+            />
+            <SelectForm
+              className="panel-select-box"
+              id="panel-search-num-results"
+              options={pageSizes.options}
+              label="Results:"
+              defaultSort={limit}
+              onSelectOption={value => setLimit(value.target.value)}
+            />
+            <div className="export-button-container">
+              <ExportButton
+                onClick={exportPanelMeetings}
+                isLoading={exportIsLoading}
+                disabled={exportDisabled}
+              />
+            </div>
+            <ScrollUpButton />
+          </div>
+        }
+        {
+          overlay ||
+            <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
+                {
+                  <div className="panel-meeting-row">
+                    {fakePanelMeetings.map(meeting => (
+                    // TODO: include React keys once we have real data
+                      <PanelMeetingSearchRow
+                        key={shortid.generate()}
+                        result={meeting}
+                        isCDO={isCDO}
+                      />
+                    ))}
+                  </div>
+                }
+              </div>
+        }
+    </div>
   );
 };
 
