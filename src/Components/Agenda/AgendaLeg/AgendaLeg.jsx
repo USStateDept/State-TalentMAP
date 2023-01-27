@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
+import { useMount } from 'hooks';
 
 const AgendaLeg = props => {
   const {
@@ -39,6 +40,14 @@ const AgendaLeg = props => {
       swal.close();
     }
   };
+
+  useMount(() => {
+    if (!isEf) {
+      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyCode', get(leg, 'tod') || '');
+      updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
+      updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
+    }
+  });
 
   const cancel = (e) => {
     e.preventDefault();
@@ -87,7 +96,7 @@ const AgendaLeg = props => {
       </option>
       {
         data.map(a => (
-          <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
+          <option key={get(a, 'code')} value={get(a, 'text')}>{get(a, text)}</option>
         ))
       }
     </select>);

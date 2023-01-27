@@ -129,6 +129,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
         </div>
         <div className="button-container">
           <div className="view-agenda-item-container">
+            {/* need to use agendaID here once it is coming through */}
             <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
           </div>
           {
