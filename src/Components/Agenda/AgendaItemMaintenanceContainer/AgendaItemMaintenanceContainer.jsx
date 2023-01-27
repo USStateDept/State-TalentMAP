@@ -21,7 +21,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
 
   const researchPaneRef = useRef();
-  // const agendaID = get(props, 'match.params.agendaID');
+  // const agendaID = get(props, 'match.params.agendaID') || '';
   const agendaID = 76425;
   // eslint-disable-next-line no-unused-vars
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
@@ -29,10 +29,9 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
-  const isCreate = get(props, 'isCreate');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
 
-  const isLoading = !isCreate && agendaItemLoading;
+  const isLoading = agendaItemLoading;
 
   const agendaItemLegs = get(agendaItem, 'legs') || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -49,7 +48,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
-  const [userRemarks, setUserRemarks] = useState(isCreate ? [] : agendaItemRemarks$);
+  const [userRemarks, setUserRemarks] = useState(agendaItemRemarks$);
   const [spinner, setSpinner] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
@@ -159,7 +158,6 @@ const AgendaItemMaintenanceContainer = (props) => {
                 legCount={legs.length}
                 saveAI={submitAI}
                 agendaItem={agendaItem}
-                isCreate={isCreate}
               />
               <AgendaItemTimeline
                 unitedLoading={spinner}
@@ -168,7 +166,6 @@ const AgendaItemMaintenanceContainer = (props) => {
                 asgSepBid={asgSepBid}
                 efPos={efPosition}
                 agendaItemLegs={agendaItemLegs$}
-                isCreate={isCreate}
               />
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
