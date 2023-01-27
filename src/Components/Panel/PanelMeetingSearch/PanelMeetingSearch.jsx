@@ -61,7 +61,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     type: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
     status: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
     // Free Text
-    q: textInput || textSearch,
+    id: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
