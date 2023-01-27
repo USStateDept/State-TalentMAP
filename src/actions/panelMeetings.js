@@ -61,7 +61,6 @@ export function panelMeetingsFetchData(query = {}) {
           });
         } else {
           batch(() => {
-            dispatch(panelMeetingsFetchDataSuccess([]));
             dispatch(panelMeetingsFetchDataErrored(true));
             dispatch(panelMeetingsFetchDataLoading(false));
           });
@@ -137,12 +136,6 @@ export function panelMeetingsFiltersFetchData() {
             dispatch(panelMeetingsFiltersFetchDataErrored(false));
           });
         }
-
-        /* eslint-disable no-console */
-        console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-        console.log('🦄 current: ', refFilters);
-        console.log('🦄 current: ', errCount);
-        console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
 
         batch(() => {
           dispatch(panelMeetingsFiltersFetchDataSuccess(refFilters));

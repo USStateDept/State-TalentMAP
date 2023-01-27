@@ -17,6 +17,11 @@ export function panelMeetingsFetchDataLoading(state = false, action) {
 export function panelMeetings(state = {}, action) {
   switch (action.type) {
     case 'PANEL_MEETINGS_FETCH_SUCCESS':
+      /* eslint-disable no-console */
+      console.log('👻👻👻👻👻👻👻👻👻👻👻');
+      console.log('👻 current: ', action);
+      console.log('👻 current: ', action.results);
+      console.log('👻👻👻👻👻👻👻👻👻👻👻');
       return action.results;
     default:
       return state;

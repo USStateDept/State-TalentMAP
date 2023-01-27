@@ -15,7 +15,6 @@ import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelMeetingSearchRow';
 import Alert from 'Components/Alert';
-import shortid from 'shortid';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -47,42 +46,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
-  const fakePanelMeetings = [
-    {
-      meeting_type: 'Interdivisional',
-      short_desc_text: 'ID',
-      meeting_date: '2022-10-14T18:00:00Z',
-      meeting_status: 'Initiated',
-      preliminary_cutoff: '2022-10-11T16:00:00Z',
-      addendum_cutoff: '2022-10-12T17:00:00Z',
-    },
-    {
-      meeting_type: 'Mid-Level',
-      short_desc_text: 'ML',
-      meeting_date: '2023-07-10T18:00:00Z',
-      meeting_status: 'Addendum',
-      preliminary_cutoff: '2023-07-08T16:00:00Z',
-      addendum_cutoff: '2023-07-09T17:00:00Z',
-    },
-    {
-      meeting_type: 'Mid-Level',
-      short_desc_text: 'ML',
-      meeting_date: '2024-05-22T18:00:00Z',
-      meeting_status: 'Post Panel',
-      preliminary_cutoff: '2024-05-20T16:00:00Z',
-      addendum_cutoff: '2024-05-21T17:00:00Z',
-    },
-    {
-      meeting_type: 'Interdivisional',
-      short_desc_text: 'ID',
-      meeting_date: '2025-02-03T18:00:00Z',
-      meeting_status: 'Review',
-      preliminary_cutoff: '2025-02-01T16:00:00Z',
-      addendum_cutoff: '2025-02-02T17:00:00Z',
-    },
-  ];
-
-  const count = fakePanelMeetings.length;
+  const count = panelMeetings.length;
 
   const groupLoading = panelMeetingsIsLoading && panelMeetingsFiltersIsLoading;
   const exportDisabled = !panelMeetings.length;
@@ -94,8 +58,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
     limit,
     ordering,
     // User Filters
-    panelMeetingsTypes: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
-    panelMeetingsStatus: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
+    type: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
+    status: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
     // Free Text
     q: textInput || textSearch,
   });
@@ -297,19 +261,18 @@ const PanelMeetingSearch = ({ isCDO }) => {
         {
           overlay ||
             <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
-                {
-                  <div className="panel-meeting-row">
-                    {fakePanelMeetings.map(meeting => (
-                    // TODO: include React keys once we have real data
-                      <PanelMeetingSearchRow
-                        key={shortid.generate()}
-                        result={meeting}
-                        isCDO={isCDO}
-                      />
-                    ))}
-                  </div>
-                }
+            {
+              <div className="panel-meeting-row">
+                {panelMeetings.map(pm => (
+                  <PanelMeetingSearchRow
+                    key={get(pm, 'pm_seq_num')}
+                    pm={pm}
+                    isCDO={isCDO}
+                  />
+                ))}
               </div>
+            }
+            </div>
         }
     </div>
   );

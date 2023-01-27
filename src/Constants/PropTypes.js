@@ -752,22 +752,26 @@ export const AB_EDIT_DETAILS_OBJECT = PropTypes.shape({
   formattedCreated: PropTypes.string,
 });
 
-export const TEMP_FAKE_LEGS = PropTypes.shape({
-  position: PropTypes.string,
-  org: PropTypes.string,
-  eta: PropTypes.string,
-  ted: PropTypes.string,
-  tod: PropTypes.string,
-  grade: PropTypes.string,
-  posNum: PropTypes.string,
-  action: PropTypes.string,
-  travel: PropTypes.string,
+export const PANEL_MEETING_DATES = PropTypes.shape({
+  pm_seq_num: PropTypes.number,
+  mdt_code: PropTypes.string,
+  pmd_dttm: PropTypes.string,
+  mdt_desc_text: PropTypes.string,
+  mdt_order_num: PropTypes.number,
 });
 
-export const TEMP_FAKE_DATA = PropTypes.shape({
-  status: PropTypes.string,
-  legs: PropTypes.arrayOf(TEMP_FAKE_LEGS),
-  panelDate: PropTypes.string,
+export const PANEL_MEETING = PropTypes.shape({
+  pm_seq_num: PropTypes.number,
+  pm_virtual: PropTypes.string,
+  pm_create_id: PropTypes.number,
+  pm_create_date: PropTypes.string,
+  pm_update_id: PropTypes.number,
+  pm_update_date: PropTypes.string,
+  pms_code: PropTypes.string,
+  pmt_code: PropTypes.string,
+  pmt_desc_text: PropTypes.string,
+  pms_desc_text: PropTypes.string,
+  panelMeetingDates: PropTypes.arrayOf(PANEL_MEETING_DATES),
 });
 
 export const POS_LANGUAGES = PropTypes.arrayOf(
