@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,6 +25,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
+  const panelMeetingsFiltersHasErrored = useSelector(state =>
+    state.panelMeetingsFiltersFetchDataErrored);
 
   const panelMeetings$ = useSelector(state => state.panelMeetings);
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
@@ -167,7 +170,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
         key={item.code}
         item={item}
         {...rest}
-        queryProp={'description'}
+        queryProp={'text'}
         getIsSelected={getSelected}
       />),
     );
@@ -240,10 +243,10 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   {...pickyProps}
                   placeholder="Select Meeting Type(s)"
                   value={selectedMeetingType}
-                  options={get(panelMeetingsFilters, 'panelMeetingsTypesOptions', [])}
+                  options={get(panelMeetingsFilters, 'panelTypes')}
                   onChange={setSelectedMeetingType}
                   valueKey="code"
-                  labelKey="description"
+                  labelKey="text"
                   disabled={isLoading}
                 />
               </div>
@@ -253,10 +256,10 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   {...pickyProps}
                   placeholder="Select Meeting Status(es)"
                   value={selectedMeetingStatus}
-                  options={get(panelMeetingsFilters, 'panelMeetingsStatusOptions', [])}
+                  options={get(panelMeetingsFilters, 'panelStatuses')}
                   onChange={setSelectedMeetingStatus}
                   valueKey="code"
-                  labelKey="description"
+                  labelKey="text"
                   disabled={isLoading}
                 />
               </div>
