@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import Sticky from 'react-sticky-el';
+// import Sticky from 'react-sticky-el';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -42,30 +42,30 @@ class ResultsSearchHeader extends Component {
     const { defaultKeyword, isHomePage, placeholder, searchBarDisabled,
       searchBarDisabledPlaceholder, legend } = this.props;
     return (
-      <Sticky topOffset={0} hideOnBoundaryHit={false}>
-        <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
-          <div className="usa-grid-full search-bar-container">
-            <form className="usa-grid-full">
-              <SearchBar
-                id="search-keyword-field"
-                label={legend}
-                type="medium"
-                submitText="Search"
-                labelSrOnly
-                noForm
-                placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
-                onChangeText={this.onChangeQueryText}
-                defaultValue={defaultKeyword}
-                inputDisabled={searchBarDisabled}
-                showClear
-                onClear={this.onClear}
-                ref={(ref) => { this.searchBarRef = ref; }}
-                submitForm={this.submitSearch}
-              />
-            </form>
-          </div>
+      // <Sticky topOffset={0} hideOnBoundaryHit={false}>
+      <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
+        <div className="usa-grid-full search-bar-container">
+          <form className="usa-grid-full">
+            <SearchBar
+              id="search-keyword-field"
+              label={legend}
+              type="medium"
+              submitText="Search"
+              labelSrOnly
+              noForm
+              placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
+              onChangeText={this.onChangeQueryText}
+              defaultValue={defaultKeyword}
+              inputDisabled={searchBarDisabled}
+              showClear
+              onClear={this.onClear}
+              ref={(ref) => { this.searchBarRef = ref; }}
+              submitForm={this.submitSearch}
+            />
+          </form>
         </div>
-      </Sticky>
+      </div>
+      // </Sticky>
     );
   }
 }
