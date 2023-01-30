@@ -1,10 +1,9 @@
-/* eslint-disable */
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { filter, flatten, get, includes, isEmpty, throttle } from 'lodash';
+import { filter, flatten, get, isEmpty, throttle } from 'lodash';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -162,13 +161,13 @@ const PanelMeetingSearch = ({ isCDO }) => {
     let toReturn;
     if (panelMeetingsIsLoading) {
       toReturn = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (panelMeetingsHasErrored) {
+    } else if (panelMeetingsHasErrored || panelMeetingsFiltersHasErrored) {
       toReturn = <Alert type="error" title="Error loading panel meetings" messages={[{ body: 'Please try again.' }]} />;
     } else if (noPanelMeetingResults) {
       toReturn = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
     }
     if (toReturn) {
-      return <div className="usa-width-one-whole empl-search-lower-section results-dropdown">{toReturn}</div>
+      return <div className="usa-width-one-whole empl-search-lower-section results-dropdown">{toReturn}</div>;
     }
     return false;
   };
@@ -261,20 +260,20 @@ const PanelMeetingSearch = ({ isCDO }) => {
         {
           overlay ||
             <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
-            {
-              <div className="panel-meeting-row">
-                {panelMeetings.map(pm => (
-                  <PanelMeetingSearchRow
-                    key={get(pm, 'pm_seq_num')}
-                    pm={pm}
-                    isCDO={isCDO}
-                  />
-                ))}
-              </div>
-            }
+              {
+                <div className="panel-meeting-row">
+                  {panelMeetings.map(pm => (
+                    <PanelMeetingSearchRow
+                      key={get(pm, 'pm_seq_num')}
+                      pm={pm}
+                      isCDO={isCDO}
+                    />
+                  ))}
+                </div>
+              }
             </div>
         }
-    </div>
+      </div>
   );
 };
 

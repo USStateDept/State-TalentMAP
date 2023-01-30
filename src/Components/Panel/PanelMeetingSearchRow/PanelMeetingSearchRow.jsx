@@ -14,7 +14,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
   const meetingDates$ = sortBy(meetingDates, ['mdt_order_num']);
 
   const userRole = isCDO ? 'cdo' : 'ao';
-  // noinspection JSUnusedLocalSymbols
+
   return (
     <div className="usa-grid-full panel-meeting-stat-row">
       <div className="meeting-type-circle-container">

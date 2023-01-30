@@ -121,8 +121,7 @@ export function panelMeetingsFiltersFetchData() {
           const refFiltersKeys = Object.keys(refFilters);
           // handle Promise errors
           if (p.value.response || p.reason) {
-            // eslint-disable-next-line no-plusplus
-            errCount++;
+            errCount += 1;
             refFilters[refFiltersKeys[i]] = 'Error';
           } else {
             refFilters[refFiltersKeys[i]] = get(p, 'value.data.results') || [];
