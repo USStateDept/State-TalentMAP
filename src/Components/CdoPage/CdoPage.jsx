@@ -14,7 +14,8 @@ const CdoPage = () => (
       <Route path="/profile/cdo/bidderportfolio" render={() => <BidderPortfolio />} />
       <Route path="/profile/cdo/employeeagendas" render={() => <EmployeeAgendaSearch isCDO viewType="cdo" />} />
       <Route path="/profile/cdo/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO viewType="cdo" />} />
-      <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO />} />
+      <Route path="/profile/cdo/createagendaitem/:id/:agendaID" render={() => <AgendaItemMaintenanceContainer isCDO isCreate={false} />} />
+      <Route path="/profile/cdo/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO isCreate />} />
       <Route path="/profile/cdo/panelmeetings" render={() => <PanelMeetingSearch isCDO />} />
       <Route path="/profile/cdo/panelmeetingagendas" render={() => <PanelMeetingAgendas isCDO />} />
     </Switch>

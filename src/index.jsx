@@ -40,7 +40,7 @@ export const renderIFrame = (env) => {
 export const init = (config) => {
   sessionStorage.setItem('config', JSON.stringify(config));
 
-  const env = determineEnv(window.location.hostname);
+  const env = determineEnv(window.location.href);
   const isPublic = includes(window.location.hostname, 'msappproxy');
 
   const auth = get(config, 'hrAuthUrl');
