@@ -33,7 +33,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
-  // TO-DO: complete integration based off of BE/WS data
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
 
@@ -41,6 +40,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
+
+  const meetingStatusFilterErrored = get(panelMeetingsFilters, 'panelStatuses') ? get(panelMeetingsFilters, 'panelStatuses').length === 0 : true;
+  const meetingTypeFilterErrored = get(panelMeetingsFilters, 'panelTypes') ? get(panelMeetingsFilters, 'panelTypes').length === 0 : true;
 
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
@@ -210,7 +212,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 onChange={setSelectedMeetingType}
                 valueKey="code"
                 labelKey="text"
-                // disabled={isLoading}
+                disabled={meetingTypeFilterErrored || panelMeetingsFiltersHasErrored}
               />
             </div>
             <div className="filter-div">
@@ -223,7 +225,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 onChange={setSelectedMeetingStatus}
                 valueKey="code"
                 labelKey="text"
-                // disabled={isLoading}
+                disabled={meetingStatusFilterErrored || panelMeetingsFiltersHasErrored}
               />
             </div>
           </div>

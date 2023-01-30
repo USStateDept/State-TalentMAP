@@ -5,9 +5,6 @@ import { convertQueryToString, downloadFromResponse, formatDate } from 'utilitie
 import Q from 'q';
 import api from '../api';
 
-// TO-DO: Update the naming/functionality in this file
-// based on what the BE/WS returns
-
 let cancelPanelMeetings;
 
 export function panelMeetingsFetchDataErrored(bool) {
@@ -122,7 +119,7 @@ export function panelMeetingsFiltersFetchData() {
           // handle Promise errors
           if (p.value.response || p.reason) {
             errCount += 1;
-            refFilters[refFiltersKeys[i]] = 'Error';
+            refFilters[refFiltersKeys[i]] = [];
           } else {
             refFilters[refFiltersKeys[i]] = get(p, 'value.data.results') || [];
           }
@@ -132,15 +129,15 @@ export function panelMeetingsFiltersFetchData() {
         if (errCount > Math.floor(EPs.length / 2)) {
           batch(() => {
             dispatch(panelMeetingsFiltersFetchDataErrored(true));
+            dispatch(panelMeetingsFiltersFetchDataLoading(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(panelMeetingsFiltersFetchDataSuccess(refFilters));
             dispatch(panelMeetingsFiltersFetchDataErrored(false));
+            dispatch(panelMeetingsFiltersFetchDataLoading(false));
           });
         }
-
-        batch(() => {
-          dispatch(panelMeetingsFiltersFetchDataSuccess(refFilters));
-          dispatch(panelMeetingsFiltersFetchDataErrored(false));
-          dispatch(panelMeetingsFiltersFetchDataLoading(false));
-        });
       })
       .catch(() => {
         batch(() => {
