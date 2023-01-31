@@ -117,11 +117,10 @@
           width: 110px;
           min-width: 100px;
           padding: 8px 16px;
-          margin-left: 100px;
+          margin-left: 15px;
           align-content: flex-end;
 
           @media screen and (max-width: 1684px) {
-            margin-left: 30px;
             margin-right: 0px;
             padding: 8px 12px;
           }
@@ -191,12 +190,6 @@
         color: $color-black;
       }
     }
-    // @media screen and (max-width: $screen-md-max) {
-    //   .react-daterange-picker {
-    //     margin-left: 25px;
-    //   }
-    // this is why the TED would shift to the left. leaving in for now to draw attention to it 
-    // why was it here originally? if we deem this not needed i'll delete}
   }
 }
 

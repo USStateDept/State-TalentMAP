@@ -305,7 +305,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="search-header">
                   Search For An Employee
                 </div>
-                <div className="testclass usa-width-one-whole empl-search-filters">
+                <div className="usa-width-one-whole empl-search-filters">
                   <div className="filter-div split-filter-div">
                     <label htmlFor="last-name-search" className="label">
                     Last Name:
