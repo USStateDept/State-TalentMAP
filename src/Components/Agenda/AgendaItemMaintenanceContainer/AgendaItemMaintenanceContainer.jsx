@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
 import shortid from 'shortid';
+import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
@@ -21,17 +22,13 @@ const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
 
   const researchPaneRef = useRef();
-  // const agendaID = get(props, 'match.params.agendaID') || '';
-  const agendaID = 76425;
-  // eslint-disable-next-line no-unused-vars
+  const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
-
-  const isLoading = agendaItemLoading;
 
   const agendaItemLegs = get(agendaItem, 'legs') || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -138,35 +135,45 @@ const AgendaItemMaintenanceContainer = (props) => {
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
-          !isLoading &&
           <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
                   <Spinner type="left-pane" size="small" />
               }
-              <AgendaItemMaintenancePane
-                onAddRemarksClick={openRemarksResearchTab}
-                perdet={id}
-                unitedLoading={spinner}
-                setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                updateSelection={updateSelection}
-                sendMaintenancePaneInfo={setMaintenanceInfo}
-                sendAsgSepBid={setAsgSepBid}
-                asgSepBidData={asgSepBidData}
-                userRemarks={userRemarks}
-                legCount={legs.length}
-                saveAI={submitAI}
-                agendaItem={agendaItem}
-              />
-              <AgendaItemTimeline
-                unitedLoading={spinner}
-                setParentLoadingState={setAgendaItemTimelineLoading}
-                updateLegs={setLegs}
-                asgSepBid={asgSepBid}
-                efPos={efPosition}
-                agendaItemLegs={agendaItemLegs$}
-              />
+              {
+                !agendaItemLoading &&
+                <>
+                  {
+                    (agendaItemError && agendaID !== '') ?
+                      <Alert type="error" title="Error loading Agenda Item Maintenance Data" messages={[{ body: 'Please try again.' }]} /> :
+                      <>
+                        <AgendaItemMaintenancePane
+                          onAddRemarksClick={openRemarksResearchTab}
+                          perdet={id}
+                          unitedLoading={spinner}
+                          setParentLoadingState={setAgendaItemMaintenancePaneLoading}
+                          updateSelection={updateSelection}
+                          sendMaintenancePaneInfo={setMaintenanceInfo}
+                          sendAsgSepBid={setAsgSepBid}
+                          asgSepBidData={asgSepBidData}
+                          userRemarks={userRemarks}
+                          legCount={legs.length}
+                          saveAI={submitAI}
+                          agendaItem={agendaItem}
+                        />
+                        <AgendaItemTimeline
+                          unitedLoading={spinner}
+                          setParentLoadingState={setAgendaItemTimelineLoading}
+                          updateLegs={setLegs}
+                          asgSepBid={asgSepBid}
+                          efPos={efPosition}
+                          agendaItemLegs={agendaItemLegs$}
+                        />
+                      </>
+                  }
+                </>
+              }
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
               <InteractiveElement onClick={toggleExpand}>
