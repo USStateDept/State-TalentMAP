@@ -1,8 +1,11 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import ErrorBoundary from 'Components/ErrorBoundary';
+import { isEmpty } from 'lodash';
 import Sticky from 'react-sticky-el';
-import { ACCORDION_SELECTION_OBJECT, FILTER_ITEMS_ARRAY,
+import { connect } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { ACCORDION_SELECTION_OBJECT, BIDDER_OBJECT, FILTER_ITEMS_ARRAY,
   MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
 import SearchFiltersContainer from '../SearchFilters/SearchFiltersContainer';
@@ -10,7 +13,7 @@ import ResetFilters from '../ResetFilters/ResetFilters';
 import MobileControls from './MobileControls';
 import Spinner from '../Spinner';
 
-class ResultsFilterContainer extends Component {
+export class ResultsFilterContainer extends Component {
   shouldComponentUpdate(nextProps) {
     if (this.props !== nextProps) {
       return true;
@@ -22,7 +25,10 @@ class ResultsFilterContainer extends Component {
     const { filters, resetFilters, setAccordion, selectedAccordion, isLoading,
       fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
       missionSearchHasErrored, fetchPostAutocomplete, onQueryParamUpdate, onQueryParamToggle,
-      postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear } = this.props;
+      postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear,
+      client } = this.props;
+    console.log('===clientView===');
+    console.log(isEmpty(client));
     return (
       <div className={`filter-container ${isLoading ? 'is-loading' : ''}`}>
         {isLoading && <Spinner type="results-filter" size="small" />}
@@ -37,7 +43,7 @@ class ResultsFilterContainer extends Component {
             </div>
           </div>
           <div className="usa-grid-full search-filters-container">
-            <Sticky topOffset={0} hideOnBoundaryHit={false}>
+            <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'filter-sticky' : 'filter-sticky-client-view'}`}>
               <ErrorBoundary>
                 <SearchFiltersContainer
                   filters={filters}
@@ -80,11 +86,19 @@ ResultsFilterContainer.propTypes = {
   postSearchIsLoading: PropTypes.bool.isRequired,
   postSearchHasErrored: PropTypes.bool.isRequired,
   showClear: PropTypes.bool,
+  client: BIDDER_OBJECT,
 };
 
 ResultsFilterContainer.defaultProps = {
   selectedAccordion: ACCORDION_SELECTION,
   showClear: false,
+  client: {},
 };
 
-export default ResultsFilterContainer;
+const mapStateToProps = ({
+  clientView: { client },
+}) => ({
+  client,
+});
+
+export default connect(mapStateToProps, null)(ResultsFilterContainer);

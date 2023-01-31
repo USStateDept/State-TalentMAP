@@ -711,8 +711,16 @@ $results-container-width: 100% - $filter-container-width;
 
   .sticky {
     z-index: 9;
+    // top: 75px;
     background-color: rgb(255 255 255);
     // margin-top: 50px;
+    // background-color: red;
+  }
+
+  .controls-sticky-client-view {
+    z-index: 9;
+    padding-top: 75px;
+    background-color: rgb(255 255 255);
     // background-color: red;
   }
 }
@@ -835,6 +843,16 @@ $results-container-width: 100% - $filter-container-width;
     .tm-checkbox {
       float: left;
     }
+  }
+
+  // .sticky {
+  //   // background-color: red;
+  //   padding-top: 75px;
+  // }
+
+  .filter-sticky-client-view {
+    padding-top: 75px;
+    // background-color: red;
   }
 }
 

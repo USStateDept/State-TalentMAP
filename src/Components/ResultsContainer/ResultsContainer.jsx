@@ -1,13 +1,14 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Sticky from 'react-sticky-el';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import ResultsList from 'Components/ResultsList/ResultsList';
+// import { BIDDER_OBJECT } from '../../Constants/PropTypes';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import { BID_RESULTS, EMPTY_FUNCTION,
+import { BIDDER_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
   PILL_ITEM_ARRAY, POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT,
   USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
@@ -37,8 +38,8 @@ class ResultsContainer extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
       defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-      defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
-    } = this.props;
+      // eslint-disable-next-line max-len
+      defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle, client } = this.props;
     const { isTandemSearch } = this.context;
     return (
       <div className="results-container">
@@ -77,7 +78,7 @@ class ResultsContainer extends Component {
           }
         </MediaQuery>
         <div className="sticky-results-controls">
-          <Sticky topOffset={0} hideOnBoundaryHit={false}>
+          <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'controls-sticky-client-view'}`}>
             <ResultsPillContainer
               items={pillFilters}
               onPillClick={onQueryParamToggle}
@@ -172,6 +173,7 @@ ResultsContainer.propTypes = {
   totalResults: PropTypes.number,
   bidList: BID_RESULTS.isRequired,
   toggle: PropTypes.func,
+  client: BIDDER_OBJECT,
 };
 
 ResultsContainer.defaultProps = {
@@ -189,10 +191,17 @@ ResultsContainer.defaultProps = {
   currentSavedSearch: {},
   totalResults: 0,
   toggle: EMPTY_FUNCTION,
+  client: {},
 };
 
 export const mapDispatchToProps = dispatch => ({
   toggle: () => dispatch(toggleMobileFilter(true)),
 });
 
-export default connect(null, mapDispatchToProps)(ResultsContainer);
+const mapStateToProps = ({
+  clientView: { client },
+}) => ({
+  client,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsContainer);
