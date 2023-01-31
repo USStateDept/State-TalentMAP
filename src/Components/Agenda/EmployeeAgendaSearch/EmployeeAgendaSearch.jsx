@@ -18,6 +18,7 @@ import { AGENDA_EMPLOYEES_PAGE_SIZES, AGENDA_EMPLOYEES_SORT } from 'Constants/So
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
+import ToggleButton from 'Components/ToggleButton';
 import { checkFlag } from 'flags';
 import { usePrevious } from 'hooks';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
@@ -87,6 +88,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [searchInputFirstName, setSearchInputFirstName] = useState(get(userSelections, 'searchInputFirstName') || '');
   const [searchInputEmpID, setSearchInputEmpID] = useState(get(userSelections, 'searchInputEmpID') || '');
 
+  const [isInactiveSelected, setIsInactiveSelected] = useState(get(userSelections, 'isInactiveSelected') || false);
+
   const count = get(agendaEmployees$, 'count') || 0;
 
   const view = cardView ? 'card' : 'grid';
@@ -115,6 +118,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     lastName: searchTextLastName,
     firstName: searchTextFirstName,
     empID: searchTextEmpID,
+
+    // Include Inactive Emps Toggle
+    isInactiveSelected,
   });
 
   const getCurrentInputs = () => ({
@@ -135,6 +141,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchInputLastName,
     searchInputFirstName,
     searchInputEmpID,
+    isInactiveSelected,
   });
 
   useEffect(() => {
@@ -159,6 +166,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchTextLastName,
       searchTextFirstName,
       searchTextEmpID,
+      isInactiveSelected,
     ];
     if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(searchTextLastName)
       && isEmpty(searchTextFirstName) && isEmpty(searchTextEmpID)) {
@@ -190,6 +198,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchTextLastName,
     searchTextFirstName,
     searchTextEmpID,
+    isInactiveSelected,
   ]);
 
   useEffect(() => {
@@ -268,6 +277,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchFirstNameRef.current.clearText();
       searchLastNameRef.current.clearText();
       searchEmpIDRef.current.clearText();
+      setIsInactiveSelected(false);
       setClearFilters(false);
     });
   };
@@ -304,6 +314,14 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />
                 <div className="search-header">
                   Search For An Employee
+                </div>
+                <div className="eas-inactive-toggle">
+                  <ToggleButton
+                    labelTextRight="Include Inactive Employees"
+                    onChange={() => setIsInactiveSelected(!isInactiveSelected)}
+                    checked={isInactiveSelected}
+                    onColor="#0071BC"
+                  />
                 </div>
                 <div className="eas-search-form-container">
                   <label htmlFor="last-name-search" className="search-label">
@@ -487,31 +505,33 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   {
                     cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-card">
-                      {agendaEmployees.map(emp => (
-                        // TODO: include React keys once we have real data
-                        <EmployeeAgendaSearchCard
-                          key={shortid.generate()}
-                          result={emp}
-                          isCDO={isCDO}
-                          showCreate={createAI}
-                          viewType={viewType}
-                        />
-                      ))}
+                      {
+                        agendaEmployees.map(emp => (
+                          <EmployeeAgendaSearchCard
+                            key={shortid.generate()}
+                            result={emp}
+                            isCDO={isCDO}
+                            showCreate={createAI}
+                            viewType={viewType}
+                          />
+                        ))
+                      }
                     </div>
                   }
                   {
                     !cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-row">
-                      {agendaEmployees.map(emp => (
-                        // TODO: include React keys once we have real data
-                        <EmployeeAgendaSearchRow
-                          key={shortid.generate()}
-                          result={emp}
-                          isCDO={isCDO}
-                          showCreate={createAI}
-                          viewType={viewType}
-                        />
-                      ))}
+                      {
+                        agendaEmployees.map(emp => (
+                          <EmployeeAgendaSearchRow
+                            key={shortid.generate()}
+                            result={emp}
+                            isCDO={isCDO}
+                            showCreate={createAI}
+                            viewType={viewType}
+                          />
+                        ))
+                      }
                     </div>
                   }
                 </div>
