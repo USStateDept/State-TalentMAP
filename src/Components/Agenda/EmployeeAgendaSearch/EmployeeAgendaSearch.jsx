@@ -306,7 +306,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   Search For An Employee
                 </div>
                 <div className="usa-width-one-whole empl-search-filters">
-                  <div className="filter-div split-filter-div">
+                  <div className="filter-div">
                     <label htmlFor="last-name-search" className="label">
                     Last Name:
                     </label>
@@ -322,7 +322,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                       />
                     </div>
                   </div>
-                  <div className="filter-div split-filter-div">
+                  <div className="filter-div">
                     <label htmlFor="first-name-search" className="label">
                     First Name:
                     </label>
@@ -338,7 +338,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                       />
                     </div>
                   </div>
-                  <div className="filter-div split-filter-div">
+                  <div className="filter-div">
                     <label htmlFor="emp-id-search" className="label">
                     Employee ID:
                     </label>
