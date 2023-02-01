@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import Sticky from 'react-sticky-el';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import ResultsList from 'Components/ResultsList/ResultsList';
-// import { BIDDER_OBJECT } from '../../Constants/PropTypes';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
 import { BIDDER_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
@@ -38,8 +37,8 @@ class ResultsContainer extends Component {
   render() {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
       defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
-      // eslint-disable-next-line max-len
-      defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle, client } = this.props;
+      defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
+      client } = this.props;
     const { isTandemSearch } = this.context;
     return (
       <div className="results-container">

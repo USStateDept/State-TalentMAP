@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-// import Sticky from 'react-sticky-el';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -42,7 +41,6 @@ class ResultsSearchHeader extends Component {
     const { defaultKeyword, isHomePage, placeholder, searchBarDisabled,
       searchBarDisabledPlaceholder, legend } = this.props;
     return (
-      // <Sticky topOffset={0} hideOnBoundaryHit={false}>
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
         <div className="usa-grid-full search-bar-container">
           <form className="usa-grid-full">
@@ -65,7 +63,6 @@ class ResultsSearchHeader extends Component {
           </form>
         </div>
       </div>
-      // </Sticky>
     );
   }
 }

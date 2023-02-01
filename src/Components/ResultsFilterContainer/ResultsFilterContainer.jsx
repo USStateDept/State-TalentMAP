@@ -4,7 +4,6 @@ import ErrorBoundary from 'Components/ErrorBoundary';
 import { isEmpty } from 'lodash';
 import Sticky from 'react-sticky-el';
 import { connect } from 'react-redux';
-// import { useSelector } from 'react-redux';
 import { ACCORDION_SELECTION_OBJECT, BIDDER_OBJECT, FILTER_ITEMS_ARRAY,
   MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
@@ -27,8 +26,6 @@ export class ResultsFilterContainer extends Component {
       missionSearchHasErrored, fetchPostAutocomplete, onQueryParamUpdate, onQueryParamToggle,
       postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear,
       client } = this.props;
-    console.log('===clientView===');
-    console.log(isEmpty(client));
     return (
       <div className={`filter-container ${isLoading ? 'is-loading' : ''}`}>
         {isLoading && <Spinner type="results-filter" size="small" />}
@@ -43,7 +40,7 @@ export class ResultsFilterContainer extends Component {
             </div>
           </div>
           <div className="usa-grid-full search-filters-container">
-            <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'filter-sticky' : 'filter-sticky-client-view'}`}>
+            <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'filter-sticky-client-view'}`}>
               <ErrorBoundary>
                 <SearchFiltersContainer
                   filters={filters}
