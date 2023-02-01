@@ -76,24 +76,22 @@ class ResultsContainer extends Component {
             )
           }
         </MediaQuery>
-        <div className="sticky-results-controls">
-          <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'controls-sticky-client-view'}`}>
-            <ResultsPillContainer
-              items={pillFilters}
-              onPillClick={onQueryParamToggle}
-            />
-            <ResultsControls
-              results={results}
-              hasLoaded={hasLoaded}
-              defaultSort={defaultSort}
-              pageSizes={pageSizes}
-              defaultPageSize={defaultPageSize}
-              sortBy={sortBy}
-              defaultPageNumber={defaultPageNumber}
-              queryParamUpdate={queryParamUpdate}
-            />
-          </Sticky>
-        </div>
+        <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'controls-sticky-client-view'}`}>
+          <ResultsPillContainer
+            items={pillFilters}
+            onPillClick={onQueryParamToggle}
+          />
+          <ResultsControls
+            results={results}
+            hasLoaded={hasLoaded}
+            defaultSort={defaultSort}
+            pageSizes={pageSizes}
+            defaultPageSize={defaultPageSize}
+            sortBy={sortBy}
+            defaultPageNumber={defaultPageNumber}
+            queryParamUpdate={queryParamUpdate}
+          />
+        </Sticky>
         <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
