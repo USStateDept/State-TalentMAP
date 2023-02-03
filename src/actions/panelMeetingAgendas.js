@@ -58,7 +58,7 @@ export function panelMeetingAgendasExport(query = {}) {
 export function panelMeetingAgendasFetchData(query = {}, id) {
   return (dispatch) => {
     const q = convertQueryToString(query);
-    const endpoint = `/fsbid/panel/${id}/agendas`;
+    const endpoint = `/fsbid/panel/${id}/agendas/`;
     const ep = `${endpoint}?${q}`;
     dispatch(panelMeetingAgendasFetchDataLoading(true));
     api().get(ep)
