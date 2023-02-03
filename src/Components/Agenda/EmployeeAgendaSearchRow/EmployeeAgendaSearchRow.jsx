@@ -121,6 +121,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <dd>{agendaStatus}</dd>
             {
               (editAgendaItem && isEditableItem) &&
+              // need to use agendaID here once it is coming through
               <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
                 <FA name="pencil" />
               </Link>
@@ -129,7 +130,6 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
         </div>
         <div className="button-container">
           <div className="view-agenda-item-container">
-            {/* need to use agendaID here once it is coming through */}
             <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
           </div>
           {

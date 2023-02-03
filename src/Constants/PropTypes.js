@@ -781,26 +781,27 @@ export const POS_LANGUAGES = PropTypes.arrayOf(
 );
 
 export const AGENDA_ITEM = PropTypes.shape({
+  creator_name: PropTypes.number,
+  id: PropTypes.number,
+  modifier_name: PropTypes.number,
+  panel_date: PropTypes.string,
+  panel_date_type: PropTypes.string,
+  panel_meeting_seq_num: PropTypes.string,
+  perdet: PropTypes.number,
+  status_full: PropTypes.string,
+  status_short: PropTypes.string,
+  update_date: PropTypes.string,
   assignment: PropTypes.shape({
     eta: PropTypes.string,
     grade: PropTypes.string,
     id: PropTypes.number,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string,
-        language: PropTypes.string,
-        reading_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-      }),
-    ),
+    languages: POS_LANGUAGES,
     org: PropTypes.string,
     pos_num: PropTypes.string,
     pos_title: PropTypes.string,
     ted: PropTypes.string,
     tod: PropTypes.string,
   }),
-  creator_name: PropTypes.number,
   creators: PropTypes.arrayOf(
     PropTypes.shape({
       empUser: PropTypes.arrayOf(
@@ -823,7 +824,6 @@ export const AGENDA_ITEM = PropTypes.shape({
       neumiddlenm: PropTypes.string,
     }),
   ),
-  id: PropTypes.number,
   legs: PropTypes.arrayOf(
     PropTypes.shape({
       eta: PropTypes.string,
@@ -845,15 +845,10 @@ export const AGENDA_ITEM = PropTypes.shape({
       tod: PropTypes.string,
     }),
   ),
-  modifier_name: PropTypes.number,
-  panel_date: PropTypes.string,
-  panel_date_type: PropTypes.string,
-  panel_meeting_seq_num: PropTypes.string,
   report_category: PropTypes.shape({
     code: PropTypes.string,
     desc_text: PropTypes.string,
   }),
-  perdet: PropTypes.number,
   remarks: PropTypes.arrayOf(PropTypes.shape({
     seq_num: PropTypes.number,
     rc_code: PropTypes.string,
@@ -865,9 +860,6 @@ export const AGENDA_ITEM = PropTypes.shape({
     active_ind: PropTypes.string,
     type: null,
   })),
-  status_full: PropTypes.string,
-  status_short: PropTypes.string,
-  update_date: PropTypes.string,
   updaters: PropTypes.shape({
     emp_seq_num: PropTypes.number,
     emp_user: PropTypes.shape({
