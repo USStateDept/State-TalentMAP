@@ -780,8 +780,29 @@ export const POS_LANGUAGES = PropTypes.arrayOf(
   }),
 );
 
+export const EMP_USER = PropTypes.shape({
+  emp_user_first_name: PropTypes.string,
+  emp_user_last_name: PropTypes.string,
+  emp_user_middle_name: PropTypes.string,
+  emp_user_seq_num: PropTypes.number,
+  emp_user_suffix_name: PropTypes.string,
+  per_desc: PropTypes.string,
+  perdet_seqnum: PropTypes.number,
+});
+
+export const CREATORS_OR_UPDATERS = PropTypes.shape({
+  emp_seq_num: PropTypes.number,
+  emp_user: EMP_USER,
+  first_name: PropTypes.string,
+  hru_id: PropTypes.string,
+  last_name: PropTypes.string,
+  middle_name: PropTypes.string,
+  neu_id: PropTypes.number,
+});
+
 export const AGENDA_ITEM = PropTypes.shape({
   creator_name: PropTypes.number,
+  creators: CREATORS_OR_UPDATERS,
   id: PropTypes.number,
   modifier_name: PropTypes.number,
   panel_date: PropTypes.string,
@@ -791,6 +812,7 @@ export const AGENDA_ITEM = PropTypes.shape({
   status_full: PropTypes.string,
   status_short: PropTypes.string,
   update_date: PropTypes.string,
+  updaters: CREATORS_OR_UPDATERS,
   assignment: PropTypes.shape({
     eta: PropTypes.string,
     grade: PropTypes.string,
@@ -802,28 +824,6 @@ export const AGENDA_ITEM = PropTypes.shape({
     ted: PropTypes.string,
     tod: PropTypes.string,
   }),
-  creators: PropTypes.arrayOf(
-    PropTypes.shape({
-      empUser: PropTypes.arrayOf(
-        PropTypes.shape({
-          perdetseqnum: PropTypes.number,
-          perpiifirstname: PropTypes.string,
-          perpiilastname: PropTypes.string,
-          perpiimiddlename: PropTypes.string,
-          perpiiseqnum: PropTypes.number,
-          perpiisuffixname: PropTypes.string,
-          persdesc: PropTypes.string,
-        }),
-      ),
-      hruempseqnbr: PropTypes.number,
-      hruid: PropTypes.number,
-      hruneuid: PropTypes.number,
-      neufirstnm: PropTypes.string,
-      neuid: PropTypes.number,
-      neulastnm: PropTypes.string,
-      neumiddlenm: PropTypes.string,
-    }),
-  ),
   legs: PropTypes.arrayOf(
     PropTypes.shape({
       eta: PropTypes.string,
@@ -860,21 +860,4 @@ export const AGENDA_ITEM = PropTypes.shape({
     active_ind: PropTypes.string,
     type: null,
   })),
-  updaters: PropTypes.shape({
-    emp_seq_num: PropTypes.number,
-    emp_user: PropTypes.shape({
-      emp_user_first_name: PropTypes.string,
-      emp_user_last_name: PropTypes.string,
-      emp_user_middle_name: PropTypes.string,
-      emp_user_seq_num: PropTypes.number,
-      emp_user_suffix_name: PropTypes.string,
-      per_desc: PropTypes.string,
-      perdet_seqnum: PropTypes.number,
-    }),
-    first_name: PropTypes.string,
-    hru_id: PropTypes.string,
-    last_name: PropTypes.string,
-    middle_name: PropTypes.string,
-    neu_id: PropTypes.number,
-  }),
 });
