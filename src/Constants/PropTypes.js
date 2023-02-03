@@ -829,15 +829,7 @@ export const AGENDA_ITEM = PropTypes.shape({
       eta: PropTypes.string,
       grade: PropTypes.string,
       id: PropTypes.number,
-      languages: PropTypes.arrayOf(
-        PropTypes.shape({
-          code: PropTypes.string,
-          language: PropTypes.string,
-          reading_proficiency: PropTypes.string,
-          representation: PropTypes.string,
-          spoken_proficiency: PropTypes.string,
-        }),
-      ),
+      languages: POS_LANGUAGES,
       org: PropTypes.string,
       pos_num: PropTypes.string,
       pos_title: PropTypes.string,
