@@ -6,7 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
-import { useMount } from 'hooks';
+import { useEffect } from 'react';
 
 const AgendaLeg = props => {
   const {
@@ -41,13 +41,13 @@ const AgendaLeg = props => {
     }
   };
 
-  useMount(() => {
+  useEffect(() => {
     if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyCode', get(leg, 'tod') || '');
       updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
       updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
     }
-  });
+  }, []);
 
   const cancel = (e) => {
     e.preventDefault();
