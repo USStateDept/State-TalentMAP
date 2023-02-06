@@ -12,9 +12,12 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
   const meetingStatus = get(pm, 'pms_desc_text') || FALLBACK;
   const meetingDates = get(pm, 'panelMeetingDates') || [];
   const meetingDates$ = sortBy(meetingDates, ['mdt_order_num']);
+  console.log('meetingDates$: ', meetingDates$);
+  console.log('desc: ', meetingDates$[1].mdt_desc_text.slice(9, meetingDates$[1].mdt_desc_text.length));
 
   const userRole = isCDO ? 'cdo' : 'ao';
 
+  // meetingDates$[1].mdt_desc_text = meetingDates$[1].mdt_desc_text.slice(9, 27);
   return (
     <div className="usa-grid-full panel-meeting-stat-row">
       <div className="meeting-type-circle-container">
