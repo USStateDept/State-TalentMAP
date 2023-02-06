@@ -1,50 +1,47 @@
 import PropTypes from 'prop-types';
 import LinkButton from 'Components/LinkButton';
-import { get } from 'lodash';
+import { PANEL_MEETING } from 'Constants/PropTypes';
+import { get, sortBy } from 'lodash';
 import { formatDate } from 'utilities';
 
 const FALLBACK = 'None listed';
 
-const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
-  // will need to update during integration
-  const meetingType = get(result, 'meeting_type') || FALLBACK;
-  const meetingTypeAbbreviation = get(result, 'short_desc_text') || FALLBACK;
-  const meetingDate = get(result, 'meeting_date') ? formatDate(result.meeting_date, 'MM/DD/YYYY HH:mm:ss') : FALLBACK;
-  const meetingStatus = get(result, 'meeting_status') || FALLBACK;
-  const preliminaryCutoff = get(result, 'preliminary_cutoff') ?
-    formatDate(result.preliminary_cutoff, 'MM/DD/YYYY HH:mm:ss') : FALLBACK;
-  const addendum_cutoff = get(result, 'addendum_cutoff') ?
-    formatDate(result.addendum_cutoff, 'MM/DD/YYYY HH:mm:ss') : FALLBACK;
+const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
+  const meetingTypeCode = get(pm, 'pmt_code') || FALLBACK;
+  const meetingTypeText = get(pm, 'pmt_desc_text') || '';
+  const meetingStatus = get(pm, 'pms_desc_text') || FALLBACK;
+  const meetingDates = get(pm, 'panelMeetingDates') || [];
+  const meetingDates$ = sortBy(meetingDates, ['mdt_order_num']);
+
   const userRole = isCDO ? 'cdo' : 'ao';
 
   return (
     <div className="usa-grid-full panel-meeting-stat-row">
       <div className="meeting-type-circle-container">
         <div className="meeting-type-circle">
-          {meetingTypeAbbreviation}
+          {meetingTypeCode}
         </div>
       </div>
       <div className="panel-meeting-row-name">
-        <div className="row-name">{meetingType}</div>
+        {meetingTypeText}
       </div>
       <div className="panel-meeting-row-data-container">
         <div className="panel-meeting-row-data-points">
           <div className="panel-meeting-row-data-point">
-            <dt>Meeting Date:</dt>
-            <dd>{meetingDate}</dd>
-          </div>
-          <div className="panel-meeting-row-data-point">
             <dt>Meeting Status:</dt>
             <dd>{meetingStatus}</dd>
           </div>
-          <div className="panel-meeting-row-data-point">
-            <dt>Preliminary Cut-Off:</dt>
-            <dd>{preliminaryCutoff}</dd>
-          </div>
-          <div className="panel-meeting-row-data-point">
-            <dt>Addendum Cut-Off:</dt>
-            <dd>{addendum_cutoff}</dd>
-          </div>
+          {meetingDates$.map(pmd => {
+            if (get(pmd, 'mdt_desc_text')) {
+              return (
+                <div className="panel-meeting-row-data-point">
+                  <dt>{get(pmd, 'mdt_desc_text')}:</dt>
+                  <dd>{formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || FALLBACK}</dd>
+                </div>
+              );
+            }
+            return false;
+          })}
         </div>
         <div className="button-container">
           {
@@ -62,20 +59,13 @@ const PanelMeetingSearchRow = ({ isCDO, result, showCreate }) => {
 
 PanelMeetingSearchRow.propTypes = {
   isCDO: PropTypes.bool,
-  result: PropTypes.PropTypes.shape({
-    meeting_type: PropTypes.string,
-    short_desc_text: PropTypes.string,
-    meeting_date: PropTypes.string,
-    meeting_status: PropTypes.string,
-    preliminary_cutoff: PropTypes.string,
-    addendum_cutoff: PropTypes.string,
-  }),
+  pm: PANEL_MEETING,
   showCreate: PropTypes.bool,
 };
 
 PanelMeetingSearchRow.defaultProps = {
   isCDO: false,
-  result: {},
+  pm: {},
   showCreate: true,
 };
 
