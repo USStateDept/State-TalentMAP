@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, find, get, has, isNil } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -25,12 +25,14 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
+  const assignment = get(agendaItem, 'assignment') || {};
+  const hasAssignment = !isEmpty(assignment);
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
 
-  const agendaItemLegs = get(agendaItem, 'legs') || [];
+  const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
     ...ail,
     ail_seq_num: shortid.generate(),
@@ -51,7 +53,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
+  const efPosition = !hasAssignment ? find(asgSepBidResults$, ['status', 'EF']) || {} : assignment;
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
