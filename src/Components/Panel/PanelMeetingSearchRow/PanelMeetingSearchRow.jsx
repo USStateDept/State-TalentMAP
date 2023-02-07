@@ -35,7 +35,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
             if (get(pmd, 'mdt_desc_text')) {
               return (
                 <div className="panel-meeting-row-data-point">
-                  <dt>{get(pmd, 'mdt_desc_text')}:</dt>
+                  <dt>{get(pmd, 'mdt_desc_text').replace('Official', '')}:</dt>
                   <dd>{formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || FALLBACK}</dd>
                 </div>
               );
