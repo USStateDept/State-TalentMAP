@@ -27,7 +27,6 @@
 
 .ai-maintenance-container {
   margin: 10px;
-  display: flex;
   padding-bottom: 15px;
 
   // ---- start: styling for left pane ----
@@ -84,7 +83,7 @@
     label {
       font-weight: bold;
       margin: 10px 10px 10px 0;
-      text-align: left;
+      text-align: right;
       min-width: 160px;
     }
 
@@ -228,7 +227,8 @@
     height: 98vh;
     overflow-y: auto;
     padding: 0 10px 20px 0;
-    width: 50%;
+    width: 49%;
+    display: inline-block;
 
     .tm-spinner-left-pane {
       left: 35%;
@@ -245,9 +245,11 @@
   }
 
   .maintenance-container-left-expanded {
+    border-bottom: 3px solid $color-black;
     height: 98vh;
     overflow-y: auto;
-    width: 99%;
+    width: 98%;
+    display: inline-block;
 
     .tm-spinner-left-pane {
       left: 55%;
@@ -268,6 +270,13 @@
   .expand-arrow {
     align-self: center;
     color: $primary-blue;
+    display: inline-block;
+    width: 2%;
+  }
+  .expand-arrow > div {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
   }
 
   // ---- start: styling for right pane ----
@@ -275,9 +284,9 @@
   .maintenance-container-right {
     background-color: $color-white;
     height: 98vh;
-    margin-right: 10px;
     overflow-y: auto;
-    width: 48%;
+    width: 49%;
+    display: inline-block;
   }
 
   .hidden {
