@@ -7,6 +7,9 @@ import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
+import {
+  NO_ETA, NO_GRADE, NO_LANGUAGES, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_TOUR_END_DATE,
+} from 'Constants/SystemMessages';
 
 const AgendaLeg = props => {
   const {
@@ -83,16 +86,15 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
-    if (isEf) {
-      return get(leg, key) || '';
-    }
+    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     return (<select
       className="leg-dropdown"
       value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
+      disabled={isEf}
     >
       <option selected key={null} value={''}>
-      Keep Unselected
+        {defaultText}
       </option>
       {
         data.map(a => (
@@ -108,7 +110,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted'))}
+      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || NO_TOUR_END_DATE}
       {
         !isEf &&
         <FA name="calendar" onClick={calendarModal} />
@@ -125,27 +127,27 @@ const AgendaLeg = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: (<div>{get(leg, 'pos_title')}</div>),
+      content: (<div>{get(leg, 'pos_title') || NO_POSITION_TITLE}</div>),
     },
     {
       title: 'Position Number',
-      content: (<div>{get(leg, 'pos_num')}</div>),
+      content: (<div>{get(leg, 'pos_num') || NO_POSITION_NUMBER}</div>),
     },
     {
       title: 'Org',
-      content: (<div>{get(leg, 'org')}</div>),
+      content: (<div>{get(leg, 'org') || NO_ORG}</div>),
     },
     {
       title: 'Grade',
-      content: (<div>{get(leg, 'grade')}</div>),
+      content: (<div>{get(leg, 'grade') || NO_GRADE}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages'))}</div>),
+      content: (<div>{formatLang(get(leg, 'languages')) || NO_LANGUAGES}</div>),
     },
     {
       title: 'ETA',
-      content: (<div>{formatDate(get(leg, 'eta'))}</div>),
+      content: (<div>{formatDate(get(leg, 'eta')) || NO_ETA}</div>),
     },
     {
       title: '',
@@ -157,15 +159,15 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown('tourOfDutyCode', TODs, 'short_description')),
+      content: (getDropdown(isEf ? 'tod' : 'tourOfDutyCode', TODs, 'short_description')),
     },
     {
       title: 'Action',
-      content: (getDropdown('legActionType', legActionTypes, 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
     },
     {
       title: 'Travel',
-      content: (getDropdown('travelFunctionCode', travelFunctions, 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'abbr_desc_text')),
     },
   ];
 
