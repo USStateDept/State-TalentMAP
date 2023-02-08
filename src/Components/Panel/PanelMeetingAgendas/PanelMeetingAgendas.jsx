@@ -1,3 +1,4 @@
+/* eslint-disable */
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -13,12 +14,27 @@ import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
+import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
+const fuseOptions = {
+  shouldSort: false,
+  findAllMatches: true,
+  tokenize: true,
+  includeScore: false,
+  threshold: 0.25,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'status_short', // 'id', 'creators.first_name', 'creators.last_name',
+  ],
+};
 
 const PanelMeetingAgendas = ({ isCDO }) => {
   const childRef = useRef();
@@ -33,9 +49,11 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
-  const agenda = useSelector(state => state.panelMeetingAgendas);
+  const agenda = useSelector(state => state.panelMeetingAgendas.results);
   const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
+  const [agendas$, setAgendas$] = useState(agenda);
+
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -78,6 +96,23 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
   const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
+  const [term, setTerm] = useState('');
+
+  const fuse$ = new Fuse(agenda, fuseOptions);
+  // const search = a => setAgendas$(fuse$.search(a));
+
+  const search = () => setAgendas$(fuse$.search({
+    $or: [{ status_short: 'APR' }, { status_short: 'XXX' }],
+  }));
+
+  useEffect(() => {
+    setAgendas$(agenda);
+  }, [agenda]);
+
+  const agendas$$ = term ? agendas$ : agenda;
+  console.log('agenda', agenda);
+  console.log('agendas$$', agendas$$);
+  console.log('selectedItemStatuses', selectedItemStatuses);
 
   const getQuery = () => ({
     limit,
@@ -110,7 +145,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-  const pmId = '720';
+  const pmId = '1';
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(panelMeetingAgendasFiltersFetchData());
@@ -135,7 +170,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
+    // dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
@@ -156,7 +191,8 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   ]);
 
   function submitSearch(text) {
-    setTextSearch(text);
+    setTerm(text);
+    search();
   }
 
   const throttledTextInput = () =>
@@ -413,7 +449,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
                   <>
                     <div className="pma-category-header">{header}</div>
                     {
-                      agenda.results.map(result => (
+                      agendas$$.map(result => (
                         <AgendaItemRow
                           key={result.id}
                           isCDO={isCDO}
