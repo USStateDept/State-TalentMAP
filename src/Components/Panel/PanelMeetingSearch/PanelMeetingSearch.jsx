@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
-import { filter, flatten, get, isEmpty, throttle } from 'lodash';
+import { filter, flatten, get, isEmpty } from 'lodash';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -38,7 +38,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
   const meetingStatusFilterErrored = get(panelMeetingsFilters, 'panelStatuses') ? get(panelMeetingsFilters, 'panelStatuses').length === 0 : true;
@@ -58,11 +57,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const getQuery = () => ({
     limit,
     ordering,
-    // User Filters
     type: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
     status: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
-    // Free Text
-    id: textInput || textSearch,
+    id: textSearch,
   });
 
   const getCurrentInputs = () => ({
@@ -70,7 +67,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
-    textInput,
     textSearch,
   });
 
@@ -106,13 +102,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
   function submitSearch(text) {
     setTextSearch(text);
   }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
@@ -184,7 +173,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
           <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
           <PositionManagerSearch
             submitSearch={submitSearch}
-            onChange={setTextInputThrottled}
             ref={childRef}
             textSearch={textSearch}
             label="Search for a Panel Meeting"
