@@ -40,7 +40,13 @@ export class ResultsFilterContainer extends Component {
             </div>
           </div>
           <div className="usa-grid-full search-filters-container">
-            <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'filter-sticky-client-view'}`}>
+            <Sticky
+              topOffset={0}
+              hideOnBoundaryHit={false}
+              stickyClassName={`${isEmpty(client) ? 'sticky' : 'filter-sticky-client-view'}`}
+              // bottomOffset={500}
+              // scrollElement=".search-filters-container"
+            >
               <ErrorBoundary>
                 <SearchFiltersContainer
                   filters={filters}
