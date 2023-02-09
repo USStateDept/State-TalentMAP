@@ -14,9 +14,13 @@ export function panelMeetingAgendasFetchDataLoading(state = false, action) {
       return state;
   }
 }
-export function panelMeetingAgendas(state = {}, action) {
+export function panelMeetingAgendas(state = [], action) {
   switch (action.type) {
     case 'PANEL_MEETING_AGENDAS_FETCH_SUCCESS':
+      /* eslint-disable no-console */
+      console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+      console.log('🦄 current: state: ', state);
+      console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
       return action.results;
     default:
       return state;

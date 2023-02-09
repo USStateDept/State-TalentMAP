@@ -8,12 +8,6 @@ const FALLBACK = 'None listed';
 
 const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
   const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
-  /* eslint-disable no-console */
-  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-  console.log('👾 current: pm', pm);
-  console.log('👾 current: pmSeqNum', pmSeqNum);
-  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-
   const meetingTypeCode = get(pm, 'pmt_code') || FALLBACK;
   const meetingTypeText = get(pm, 'pmt_desc_text') || '';
   const meetingStatus = get(pm, 'pms_desc_text') || FALLBACK;

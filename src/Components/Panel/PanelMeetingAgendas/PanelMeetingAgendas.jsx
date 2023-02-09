@@ -14,6 +14,8 @@ import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
+// TODO: resolve if possible
+// import { meetingCategoryMap } from 'src/Components/Panel/Constants';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -24,6 +26,32 @@ const PanelMeetingAgendas = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { isAO, isCDO } = props;
   const pmSeqNum = get(props, 'match.params.pmID');
+
+  const meetingCategoryMap = {
+    R: 'Review',
+    O: 'Off Panel',
+    D: 'Discuss',
+    S: 'Separations',
+    X: 'Express',
+    V: 'Volunteer Cable',
+    A: 'Addendum',
+    C: 'Addendum(Volunteer Cable)',
+    P: 'Position Challenge',
+    E: 'Employee Challenge',
+  };
+
+  const agendasCategorized = {
+    Review: [],
+    'Off Panel': [],
+    Discuss: [],
+    Separations: [],
+    Express: [],
+    'Volunteer Cable': [],
+    Addendum: [],
+    'Addendum(Volunteer Cable)': [],
+    'Position Challenge': [],
+    'Employee Challenge': [],
+  };
 
   const childRef = useRef();
   const dispatch = useDispatch();
@@ -37,8 +65,8 @@ const PanelMeetingAgendas = (props) => {
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
-  const agenda = useSelector(state => state.panelMeetingAgendas);
   const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
+  const agendas = useSelector(state => state.panelMeetingAgendas);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -106,6 +134,13 @@ const PanelMeetingAgendas = (props) => {
     textInput,
     textSearch,
   });
+
+  function categorizeAgendas() {
+    agendas.forEach(a => {
+      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
+    });
+    return agendasCategorized;
+  }
 
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
@@ -217,7 +252,6 @@ const PanelMeetingAgendas = (props) => {
     setClearFilters(false);
   };
 
-  const headers = ['Position Challenge', 'Employee Challenge', 'Review', 'Off Panel', 'Discuss', 'Separations', 'Express', 'Volunteer Cable', 'Addendum', 'Addendum (Volunteer)'];
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -388,20 +422,15 @@ const PanelMeetingAgendas = (props) => {
               </div>
             </div>
           </div>
-          {
-            <div className="panel-results-controls">
-              {/* TO DO: ? */}
-              <ScrollUpButton />
-            </div>
-          }
+          <ScrollUpButton />
           {
             <div className="panel-meeting-agendas-rows-container">
               {
-                headers.map(header => (
+                Object.keys(categorizeAgendas()).map(header => (
                   <>
                     <div className="pma-category-header">{header}</div>
                     {
-                      agenda.results.map(result => (
+                      agendasCategorized[header].map(result => (
                         <AgendaItemRow
                           key={result.id}
                           isCDO={isCDO}
