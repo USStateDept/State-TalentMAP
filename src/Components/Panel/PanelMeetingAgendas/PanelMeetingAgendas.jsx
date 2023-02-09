@@ -2,10 +2,8 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import SelectForm from 'Components/SelectForm';
 import { useEffect, useRef, useState } from 'react';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
-import { PANEL_MEETING_AGENDAS_PAGE_SIZES } from 'Constants/Sort';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
@@ -41,7 +39,6 @@ const PanelMeetingAgendas = (props) => {
   const genericFilters = useSelector(state => state.filters);
   const agenda = useSelector(state => state.panelMeetingAgendas);
   const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -86,8 +83,6 @@ const PanelMeetingAgendas = (props) => {
   const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
 
   const getQuery = () => ({
-    limit,
-    // User Filters
     [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
     [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
@@ -97,13 +92,10 @@ const PanelMeetingAgendas = (props) => {
     itemStatuses: selectedItemStatuses.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
     categories: selectedCategories.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
     remarks: selectedRemarks.map(remarkObject => (get(remarkObject, 'text'))),
-
-    // Free Text
     q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
-    limit,
     selectedBureaus,
     selectedCategories,
     selectedGrades,
@@ -148,7 +140,6 @@ const PanelMeetingAgendas = (props) => {
   useEffect(() => {
     fetchAndSet();
   }, [
-    limit,
     selectedBureaus,
     selectedCategories,
     selectedGrades,
@@ -401,14 +392,7 @@ const PanelMeetingAgendas = (props) => {
           </div>
           {
             <div className="panel-results-controls">
-              <SelectForm
-                className="panel-select-box"
-                id="panel-search-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
+              {/*TO DO: ?*/}
               <ScrollUpButton />
             </div>
           }
