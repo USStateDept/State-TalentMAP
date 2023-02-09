@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router';
 import SelectForm from 'Components/SelectForm';
 import { useEffect, useRef, useState } from 'react';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
@@ -25,6 +26,7 @@ const PanelMeetingAgendas = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { isAO, isCDO } = props;
   const pmSeqNum = get(props, 'match.params.pmID');
+
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -447,4 +449,4 @@ PanelMeetingAgendas.defaultProps = {
   isAO: false,
 };
 
-export default PanelMeetingAgendas;
+export default withRouter(PanelMeetingAgendas);
