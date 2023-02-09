@@ -80,8 +80,6 @@ const PanelMeetingAgendas = (props) => {
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
-  const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
-
   const getQuery = () => ({
     [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
@@ -392,7 +390,7 @@ const PanelMeetingAgendas = (props) => {
           </div>
           {
             <div className="panel-results-controls">
-              {/*TO DO: ?*/}
+              {/* TO DO: ? */}
               <ScrollUpButton />
             </div>
           }
