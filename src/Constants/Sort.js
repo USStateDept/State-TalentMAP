@@ -253,18 +253,6 @@ export const PANEL_MEETING_AGENDAS_SORT = {
 
 PANEL_MEETING_AGENDAS_SORT.defaultSort = PANEL_MEETING_AGENDAS_SORT.options[0].value;
 
-export const PANEL_MEETING_AGENDAS_PAGE_SIZES = {
-  options: [
-    { value: 5, text: '5' },
-    { value: 10, text: '10' },
-    { value: 25, text: '25' },
-    { value: 50, text: '50' },
-    { value: 100, text: '100' },
-  ],
-};
-
-PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize = PANEL_MEETING_AGENDAS_PAGE_SIZES.options[2].value;
-
 export const EDIT_POSITION_DETAILS_SORT = {
   options: [
     { value: 'location', text: 'Location Asc.' },
