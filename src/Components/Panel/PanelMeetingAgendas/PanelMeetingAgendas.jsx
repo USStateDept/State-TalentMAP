@@ -20,7 +20,11 @@ import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
 
-const PanelMeetingAgendas = ({ isCDO }) => {
+const PanelMeetingAgendas = (props) => {
+  // do we actually care to differentiate AO from CDO?
+  // eslint-disable-next-line no-unused-vars
+  const { isAO, isCDO } = props;
+  const pmSeqNum = get(props, 'match.params.pmID');
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -110,9 +114,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-  const pmId = '720';
+
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
@@ -135,7 +139,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
@@ -435,10 +439,12 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
 PanelMeetingAgendas.propTypes = {
   isCDO: PropTypes.bool,
+  isAO: PropTypes.bool,
 };
 
 PanelMeetingAgendas.defaultProps = {
   isCDO: false,
+  isAO: false,
 };
 
 export default PanelMeetingAgendas;
