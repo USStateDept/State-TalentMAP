@@ -228,7 +228,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Report Category:</label>
                   <select
-                    className="aim-status"
+                    className="aim-select"
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
@@ -250,7 +250,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-date">Panel Date:</label>
                   <select
-                    className="aim-status-small"
+                    className="aim-select-small"
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
@@ -268,7 +268,7 @@ const AgendaItemMaintenancePane = (props) => {
                     }
                   </select>
                   <select
-                    className="aim-status-small"
+                    className="aim-select-small"
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
