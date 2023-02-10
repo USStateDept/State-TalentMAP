@@ -50,7 +50,6 @@ exports[`PositionDetailsCardComponent matches snapshot 1`] = `
         fluid={true}
       >
         <DefinitionList
-          className="bureau-definition"
           itemProps={
             Object {
               "excludeColon": false,
@@ -70,7 +69,6 @@ exports[`PositionDetailsCardComponent matches snapshot 1`] = `
         fluid={true}
       >
         <DefinitionList
-          className="bureau-definition"
           itemProps={
             Object {
               "excludeColon": true,
@@ -107,7 +105,6 @@ exports[`PositionDetailsCardComponent matches snapshot 1`] = `
         fluid={true}
       >
         <DefinitionList
-          className="bureau-definition"
           itemProps={Object {}}
           items={
             Object {
