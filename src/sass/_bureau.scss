@@ -93,6 +93,12 @@
     margin-top: 1em;
   }
 
+  @media screen and (max-width: 1645px) {
+    .bureau-card--footer {
+      margin-top: 0;
+    }
+  }
+
   .toggle-more-container {
     position: relative;
   }
@@ -169,6 +175,10 @@
         flex: 10 10 auto;
         flex-direction: column;
         padding-left: 1em;
+
+        @media screen and (max-width: 1645px) {
+          padding-bottom: .8em;
+        }
       }
 
       > div:first-child {
