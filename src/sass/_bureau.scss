@@ -161,7 +161,8 @@
 
   .bureau-card--content {
     dl {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
 
       > div {
         display: flex;
@@ -172,7 +173,6 @@
 
       > div:first-child {
         flex: 7 7 auto;
-        padding-left: 0;
       }
 
       > div:nth-child(2),
