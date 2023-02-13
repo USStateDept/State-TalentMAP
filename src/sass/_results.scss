@@ -845,11 +845,19 @@ $results-container-width: 100% - $filter-container-width;
     padding-top: 75px;
     overflow: auto;
     max-height: 72vh;
+
+    @media screen and (max-height: 800px) {
+      max-height: 63vh;
+    }
   }
 
   .sticky {
     max-height: 75vh;
     overflow: auto;
+
+    @media screen and (max-height: 800px) {
+      max-height: 65vh;
+    }
   }
 }
 
