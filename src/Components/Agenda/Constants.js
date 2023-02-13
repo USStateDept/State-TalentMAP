@@ -1,5 +1,6 @@
 
 /* eslint-disable import/prefer-default-export */
+// TODO: remove
 export const borderColors = {
   Withdrawn: '#227C9D', // turqoise
   Disapproved: '#913831', // red
