@@ -35,9 +35,6 @@ const AgendaItemRow = props => {
   const userBureau = get(agenda, 'bureau') || 'None Listed';
   const userGrade = get(agenda, 'grade') || 'None Listed';
 
-  // eslint-disable-next-line no-console
-  // const editAI = () => { console.log('placeholder edit AI'); };
-
   const [agendaStatus, setAgendaStatus] = useState(get(agenda, 'status_short') || 'Default');
   const onStatusChange = (status) => {
     setAgendaStatus(status.target.value);
@@ -125,9 +122,7 @@ const AgendaItemRow = props => {
             (editAgendaItem && isStatusShortRDY) &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
-                {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
                 <FA name="pencil" />
-                {/* </InteractiveElement> */}
               </Link>
             </div>
           }
