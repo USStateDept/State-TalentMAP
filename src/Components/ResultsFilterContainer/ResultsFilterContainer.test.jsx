@@ -1,21 +1,15 @@
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
 import configureStore from 'redux-mock-store';
 import { MemoryRouter } from 'react-router-dom';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-// import { setupAsyncMocks } from '../testUtilities/testUtilities';
 import ResultsFilterContainer from './ResultsFilterContainer';
 import { bidderUserObject } from '../../__mocks__/userObject';
 
 describe('ResultsFilterContainerComponent', () => {
   const middlewares = [thunk];
   const mockStore = configureStore(middlewares);
-  // const { mockStore } = setupAsyncMocks();
-  // let [store] = Array(1);
-
-  // store = mockStore({ clientView: {} });
-
 
   const items = [{
     title: 'title', expanded: true,
@@ -56,19 +50,16 @@ describe('ResultsFilterContainerComponent', () => {
   });
 
   it('can receive props', () => {
-    const wrapper = mount(
-      <Provider store={mockStore({ clientView: {} })}>
+    const wrapper = shallow(
+      <Provider store={mockStore()}>
         <MemoryRouter>
           <ResultsFilterContainer
             {...props}
           />
         </MemoryRouter>
       </Provider>,
-      );
-    console.log('===');
-    console.log(wrapper.instance().props);
-    console.log('===');
-    expect(wrapper.instance().props.filters).toBe(items);
+      ).childAt(0).dive();
+    expect(wrapper.instance().props.children.props.filters).toBe(items);
   });
 
   it('is defined after receiving new props', () => {
