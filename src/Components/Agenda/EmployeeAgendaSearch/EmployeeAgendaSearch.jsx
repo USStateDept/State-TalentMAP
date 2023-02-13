@@ -18,6 +18,7 @@ import { AGENDA_EMPLOYEES_PAGE_SIZES, AGENDA_EMPLOYEES_SORT } from 'Constants/So
 import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
+import ToggleButton from 'Components/ToggleButton';
 import { checkFlag } from 'flags';
 import { usePrevious } from 'hooks';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
@@ -87,6 +88,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const [searchInputFirstName, setSearchInputFirstName] = useState(get(userSelections, 'searchInputFirstName') || '');
   const [searchInputEmpID, setSearchInputEmpID] = useState(get(userSelections, 'searchInputEmpID') || '');
 
+  const [isInactiveSelected, setIsInactiveSelected] = useState(get(userSelections, 'isInactiveSelected') || false);
+
   const count = get(agendaEmployees$, 'count') || 0;
 
   const view = cardView ? 'card' : 'grid';
@@ -115,6 +118,9 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     lastName: searchTextLastName,
     firstName: searchTextFirstName,
     empID: searchTextEmpID,
+
+    // Include Inactive Emps Toggle
+    isInactiveSelected,
   });
 
   const getCurrentInputs = () => ({
@@ -135,6 +141,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchInputLastName,
     searchInputFirstName,
     searchInputEmpID,
+    isInactiveSelected,
   });
 
   useEffect(() => {
@@ -159,6 +166,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchTextLastName,
       searchTextFirstName,
       searchTextEmpID,
+      isInactiveSelected,
     ];
     if (isEmpty(filter(flatten(filters$), identity)) && isEmpty(searchTextLastName)
       && isEmpty(searchTextFirstName) && isEmpty(searchTextEmpID)) {
@@ -190,6 +198,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     searchTextLastName,
     searchTextFirstName,
     searchTextEmpID,
+    isInactiveSelected,
   ]);
 
   useEffect(() => {
@@ -268,6 +277,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
       searchFirstNameRef.current.clearText();
       searchLastNameRef.current.clearText();
       searchEmpIDRef.current.clearText();
+      setIsInactiveSelected(false);
       setClearFilters(false);
     });
   };
@@ -305,42 +315,62 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="search-header">
                   Search For An Employee
                 </div>
-                <div className="eas-search-form-container">
-                  <label htmlFor="last-name-search" className="search-label">
+                <div className="eas-inactive-toggle">
+                  <ToggleButton
+                    labelTextRight="Include Inactive Employees"
+                    onChange={() => setIsInactiveSelected(!isInactiveSelected)}
+                    checked={isInactiveSelected}
+                    onColor="#0071BC"
+                  />
+                </div>
+                <div className="usa-width-one-whole empl-search-filters">
+                  <div className="filter-div">
+                    <label htmlFor="last-name-search" className="label">
                     Last Name:
-                  </label>
-                  <PositionManagerSearch
-                    id="last-name-search"
-                    submitSearch={submitSearch}
-                    onChange={setSearchInputLastName}
-                    ref={searchLastNameRef}
-                    placeHolder="Search by Last Name"
-                    textSearch={searchTextLastName}
-                    noButton
-                  />
-                  <label htmlFor="first-name-search" className="search-label">
+                    </label>
+                    <div className="emp-search-div">
+                      <PositionManagerSearch
+                        id="last-name-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputLastName}
+                        ref={searchLastNameRef}
+                        placeHolder="Search by Last Name"
+                        textSearch={searchTextLastName}
+                        noButton
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-div">
+                    <label htmlFor="first-name-search" className="label">
                     First Name:
-                  </label>
-                  <PositionManagerSearch
-                    id="first-name-search"
-                    submitSearch={submitSearch}
-                    onChange={setSearchInputFirstName}
-                    ref={searchFirstNameRef}
-                    placeHolder="Search by First Name"
-                    textSearch={searchTextFirstName}
-                    noButton
-                  />
-                  <label htmlFor="emp-id-search" className="search-label">
+                    </label>
+                    <div className="emp-search-div">
+                      <PositionManagerSearch
+                        id="first-name-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputFirstName}
+                        ref={searchFirstNameRef}
+                        placeHolder="Search by First Name"
+                        textSearch={searchTextFirstName}
+                        noButton
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-div">
+                    <label htmlFor="emp-id-search" className="label">
                     Employee ID:
-                  </label>
-                  <PositionManagerSearch
-                    id="emp-id-search"
-                    submitSearch={submitSearch}
-                    onChange={setSearchInputEmpID}
-                    ref={searchEmpIDRef}
-                    textSearch={searchTextEmpID}
-                    placeHolder="Search by Employee ID"
-                  />
+                    </label>
+                    <div className="emp-search-id-div">
+                      <PositionManagerSearch
+                        id="emp-id-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputEmpID}
+                        ref={searchEmpIDRef}
+                        textSearch={searchTextEmpID}
+                        placeHolder="Search by Employee ID"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
@@ -487,31 +517,33 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                   {
                     cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-card">
-                      {agendaEmployees.map(emp => (
-                        // TODO: include React keys once we have real data
-                        <EmployeeAgendaSearchCard
-                          key={shortid.generate()}
-                          result={emp}
-                          isCDO={isCDO}
-                          showCreate={createAI}
-                          viewType={viewType}
-                        />
-                      ))}
+                      {
+                        agendaEmployees.map(emp => (
+                          <EmployeeAgendaSearchCard
+                            key={shortid.generate()}
+                            result={emp}
+                            isCDO={isCDO}
+                            showCreate={createAI}
+                            viewType={viewType}
+                          />
+                        ))
+                      }
                     </div>
                   }
                   {
                     !cardView && !agendaEmployeesIsLoading &&
                     <div className="employee-agenda-row">
-                      {agendaEmployees.map(emp => (
-                        // TODO: include React keys once we have real data
-                        <EmployeeAgendaSearchRow
-                          key={shortid.generate()}
-                          result={emp}
-                          isCDO={isCDO}
-                          showCreate={createAI}
-                          viewType={viewType}
-                        />
-                      ))}
+                      {
+                        agendaEmployees.map(emp => (
+                          <EmployeeAgendaSearchRow
+                            key={shortid.generate()}
+                            result={emp}
+                            isCDO={isCDO}
+                            showCreate={createAI}
+                            viewType={viewType}
+                          />
+                        ))
+                      }
                     </div>
                   }
                 </div>
