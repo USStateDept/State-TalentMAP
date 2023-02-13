@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
@@ -22,9 +21,6 @@ import BackButton from '../../BackButton';
 
 
 const PanelMeetingAgendas = (props) => {
-  // do we actually care to differentiate AO from CDO?
-  // eslint-disable-next-line no-unused-vars
-  const { isAO, isCDO } = props;
   const pmSeqNum = get(props, 'match.params.pmID');
 
   const meetingCategoryMap = {
@@ -448,16 +444,6 @@ const PanelMeetingAgendas = (props) => {
         </div>
       </>
   );
-};
-
-PanelMeetingAgendas.propTypes = {
-  isCDO: PropTypes.bool,
-  isAO: PropTypes.bool,
-};
-
-PanelMeetingAgendas.defaultProps = {
-  isCDO: false,
-  isAO: false,
 };
 
 export default withRouter(PanelMeetingAgendas);
