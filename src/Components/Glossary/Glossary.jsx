@@ -57,6 +57,7 @@ class GlossaryComponent extends Component {
     }
   }
 
+
   resetText = () => {
     this.changeText('');
   }
@@ -84,7 +85,7 @@ class GlossaryComponent extends Component {
     const { glossaryItems } = this.props;
     // filter where the keyword matches part of the title, definition, or link
     if (searchText.value) {
-      return this.fuse.search(searchText.value);
+      return this.fuse.search(searchText.value).map(({ item }) => item);
     }
     return glossaryItems;
   }
