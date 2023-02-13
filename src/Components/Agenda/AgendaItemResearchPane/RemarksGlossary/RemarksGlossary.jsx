@@ -107,7 +107,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const fuse$ = new Fuse(remarks, fuseOptions);
 
-  const search = a => setRemarks$(fuse$.search(a));
+  const search = a => setRemarks$(fuse$.search(a).map(({ item }) => item));
   const [term, setTerm] = useState('');
 
   const remarks$$ = term ? remarks$ : remarks;
