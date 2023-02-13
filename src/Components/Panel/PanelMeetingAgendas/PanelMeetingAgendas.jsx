@@ -84,7 +84,7 @@ const PanelMeetingAgendas = (props) => {
   const itemStatusesOptions = uniqBy(sortBy(get(itemStatuses, 'data.results'), [(c) => c.desc_text]), 'desc_text');
   const { data: itemActions, loading: itemActionLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
   const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
-  const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/panel/categories/');
+  const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
 
   const panelFiltersIsLoading =
