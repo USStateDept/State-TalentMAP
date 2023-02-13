@@ -1,15 +1,13 @@
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
-import {
-  NO_ETA, NO_GRADE, NO_LANGUAGES, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_TOUR_END_DATE,
-} from 'Constants/SystemMessages';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 
 const AgendaLeg = props => {
   const {
@@ -87,6 +85,9 @@ const AgendaLeg = props => {
 
   const getDropdown = (key, data, text) => {
     const defaultText = isEf ? 'None listed' : 'Keep Unselected';
+    if (isEf) {
+      return get(leg, key) || defaultText;
+    }
     return (<select
       className="leg-dropdown"
       value={get(leg, key) || ''}
@@ -110,7 +111,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || NO_TOUR_END_DATE}
+      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
       {
         !isEf &&
         <FA name="calendar" onClick={calendarModal} />
@@ -127,27 +128,27 @@ const AgendaLeg = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: (<div>{get(leg, 'pos_title') || NO_POSITION_TITLE}</div>),
+      content: (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Position Number',
-      content: (<div>{get(leg, 'pos_num') || NO_POSITION_NUMBER}</div>),
+      content: (<div>{get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Org',
-      content: (<div>{get(leg, 'org') || NO_ORG}</div>),
+      content: (<div>{get(leg, 'org') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
-      content: (<div>{get(leg, 'grade') || NO_GRADE}</div>),
+      content: (<div>{get(leg, 'grade') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages')) || NO_LANGUAGES}</div>),
+      content: (<div>{formatLang(get(leg, 'languages')) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
-      content: (<div>{formatDate(get(leg, 'eta')) || NO_ETA}</div>),
+      content: (<div>{formatDate(get(leg, 'eta')) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
@@ -171,6 +172,8 @@ const AgendaLeg = props => {
     },
   ];
 
+  const dropdowns = ['TOD', 'Action', 'Travel'];
+
   return (
     <>
       <div className={`grid-col-${legNum} grid-row-1`}>
@@ -184,7 +187,7 @@ const AgendaLeg = props => {
       {
         columnData.map((cData, i) => (
           <InteractiveElement
-            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}`}
+            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}${(includes(dropdowns, cData.title) && isEf) ? ' ef-pos-dropdown' : ''}`}
             onMouseOver={() => onHover$(i + 2)}
             onMouseLeave={() => onHover$('')}
           >
