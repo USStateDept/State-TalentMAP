@@ -712,15 +712,12 @@ $results-container-width: 100% - $filter-container-width;
   .sticky {
     z-index: 9;
     background-color: rgb(255 255 255);
-    // background-color: #0071BC;
-    // bottom: 500px;
   }
 
   .controls-sticky-client-view {
     z-index: 9;
     padding-top: 75px;
     background-color: rgb(255 255 255);
-    // background-color: #0071BC;
   }
 }
 
@@ -848,7 +845,6 @@ $results-container-width: 100% - $filter-container-width;
     padding-top: 75px;
     overflow: auto;
     max-height: 72vh;
-    // bottom: 500px;
   }
 
   .sticky {

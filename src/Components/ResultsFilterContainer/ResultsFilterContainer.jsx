@@ -44,8 +44,6 @@ export class ResultsFilterContainer extends Component {
               topOffset={0}
               hideOnBoundaryHit={false}
               stickyClassName={`${isEmpty(client) ? 'sticky' : 'filter-sticky-client-view'}`}
-              // bottomOffset={500}
-              // scrollElement=".search-filters-container"
             >
               <ErrorBoundary>
                 <SearchFiltersContainer
