@@ -63,7 +63,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div>
-      None
+      None listed
     </div>
   </InteractiveElement>
   <InteractiveElement
