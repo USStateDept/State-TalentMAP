@@ -846,6 +846,8 @@ $results-container-width: 100% - $filter-container-width;
 
   .filter-sticky-client-view {
     padding-top: 75px;
+    overflow: auto;
+    max-height: 72vh;
     // bottom: 500px;
   }
 
