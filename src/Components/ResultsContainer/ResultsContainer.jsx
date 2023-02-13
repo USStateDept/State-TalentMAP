@@ -1,12 +1,13 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEmpty, isEqual } from 'lodash';
 import { connect } from 'react-redux';
+import Sticky from 'react-sticky-el';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import ResultsList from 'Components/ResultsList/ResultsList';
 import ScrollUpButton from '../ScrollUpButton';
 import PaginationWrapper from '../PaginationWrapper/PaginationWrapper';
-import { BID_RESULTS, EMPTY_FUNCTION,
+import { BIDDER_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
   PILL_ITEM_ARRAY, POSITION_SEARCH_RESULTS, SORT_BY_PARENT_OBJECT,
   USER_PROFILE } from '../../Constants/PropTypes';
 import Spinner from '../Spinner';
@@ -37,7 +38,7 @@ class ResultsContainer extends Component {
     const { results, isLoading, hasErrored, sortBy, pageSize, hasLoaded, totalResults,
       defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
       defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
-    } = this.props;
+      client } = this.props;
     const { isTandemSearch } = this.context;
     return (
       <div className="results-container">
@@ -75,20 +76,22 @@ class ResultsContainer extends Component {
             )
           }
         </MediaQuery>
-        <ResultsPillContainer
-          items={pillFilters}
-          onPillClick={onQueryParamToggle}
-        />
-        <ResultsControls
-          results={results}
-          hasLoaded={hasLoaded}
-          defaultSort={defaultSort}
-          pageSizes={pageSizes}
-          defaultPageSize={defaultPageSize}
-          sortBy={sortBy}
-          defaultPageNumber={defaultPageNumber}
-          queryParamUpdate={queryParamUpdate}
-        />
+        <Sticky topOffset={0} hideOnBoundaryHit={false} stickyClassName={`${isEmpty(client) ? 'sticky' : 'controls-sticky-client-view'}`}>
+          <ResultsPillContainer
+            items={pillFilters}
+            onPillClick={onQueryParamToggle}
+          />
+          <ResultsControls
+            results={results}
+            hasLoaded={hasLoaded}
+            defaultSort={defaultSort}
+            pageSizes={pageSizes}
+            defaultPageSize={defaultPageSize}
+            sortBy={sortBy}
+            defaultPageNumber={defaultPageNumber}
+            queryParamUpdate={queryParamUpdate}
+          />
+        </Sticky>
         <SaveNewSearchDialog />
         {
           // is not loading, results array exists, but is empty
@@ -167,6 +170,7 @@ ResultsContainer.propTypes = {
   totalResults: PropTypes.number,
   bidList: BID_RESULTS.isRequired,
   toggle: PropTypes.func,
+  client: BIDDER_OBJECT,
 };
 
 ResultsContainer.defaultProps = {
@@ -184,10 +188,17 @@ ResultsContainer.defaultProps = {
   currentSavedSearch: {},
   totalResults: 0,
   toggle: EMPTY_FUNCTION,
+  client: {},
 };
 
 export const mapDispatchToProps = dispatch => ({
   toggle: () => dispatch(toggleMobileFilter(true)),
 });
 
-export default connect(null, mapDispatchToProps)(ResultsContainer);
+const mapStateToProps = ({
+  clientView: { client },
+}) => ({
+  client,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsContainer);
