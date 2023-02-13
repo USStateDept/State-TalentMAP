@@ -7,6 +7,7 @@ import { formatDate } from 'utilities';
 const FALLBACK = 'None listed';
 
 const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
+  const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
   const meetingTypeCode = get(pm, 'pmt_code') || FALLBACK;
   const meetingTypeText = get(pm, 'pmt_desc_text') || '';
   const meetingStatus = get(pm, 'pms_desc_text') || FALLBACK;
@@ -47,7 +48,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
           {
             !!showCreate &&
             <div className="button-box-container">
-              <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/`}>Go to Panel</LinkButton>
+              <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>Go to Panel</LinkButton>
             </div>
           }
         </div>
