@@ -220,8 +220,8 @@
         text-overflow: ellipsis;
         max-width: fit-content;
       }
-      .bigdropdown{
-        width: 360px;
+      .assignment-dropdown{
+        width: 351px;
         margin-left: 10px;
       }
       .aim-select{
@@ -255,7 +255,6 @@
   }
 
   .maintenance-container-left-expanded {
-    border-bottom: 3px solid $color-black;
     height: 98vh;
     overflow-y: auto;
     width: 98%;

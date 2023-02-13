@@ -156,7 +156,7 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} bigdropdown`}
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} assignment-dropdown`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
