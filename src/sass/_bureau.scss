@@ -164,16 +164,13 @@
   .bureau-card--content {
     dl {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 
       > div {
         display: flex;
         flex-direction: column;
-        padding-left: 1em;
-
-        @media screen and (max-width: 1645px) {
-          padding-bottom: .8em;
-        }
+        padding-bottom: 12px;
+        padding-left: 16px;
       }
 
       dt,
