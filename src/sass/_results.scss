@@ -148,7 +148,7 @@ $results-container-width: 100% - $filter-container-width;
     .location-text{
       width: 100%;
     }
-    
+
     .results-card-title-link {
       align-items: center;
       display: flex;
@@ -708,6 +708,17 @@ $results-container-width: 100% - $filter-container-width;
   .dropdowns-container {
     float: right;
   }
+
+  .sticky {
+    z-index: 9;
+    background-color: rgb(255 255 255);
+  }
+
+  .controls-sticky-client-view {
+    z-index: 9;
+    padding-top: 75px;
+    background-color: rgb(255 255 255);
+  }
 }
 
 .results-list-container {
@@ -827,6 +838,25 @@ $results-container-width: 100% - $filter-container-width;
   .accordion-checkbox-grade-tandem {
     .tm-checkbox {
       float: left;
+    }
+  }
+
+  .filter-sticky-client-view {
+    padding-top: 75px;
+    overflow: auto;
+    max-height: 72vh;
+
+    @media screen and (max-height: 800px) {
+      max-height: 63vh;
+    }
+  }
+
+  .sticky {
+    max-height: 75vh;
+    overflow: auto;
+
+    @media screen and (max-height: 800px) {
+      max-height: 65vh;
     }
   }
 }

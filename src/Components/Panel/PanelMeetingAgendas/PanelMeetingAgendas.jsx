@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import SelectForm from 'Components/SelectForm';
+import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
-import { PANEL_MEETING_AGENDAS_PAGE_SIZES } from 'Constants/Sort';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
@@ -16,6 +15,8 @@ import { filtersFetchData } from 'actions/filters/filters';
 import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
+// TODO: resolve if possible
+// import { meetingCategoryMap } from 'src/Components/Panel/Constants';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -35,7 +36,37 @@ const fuseOptions = {
   ],
 };
 
-const PanelMeetingAgendas = ({ isCDO }) => {
+const PanelMeetingAgendas = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { isAO, isCDO } = props;
+  const pmSeqNum = get(props, 'match.params.pmID');
+
+  const meetingCategoryMap = {
+    R: 'Review',
+    O: 'Off Panel',
+    D: 'Discuss',
+    S: 'Separations',
+    X: 'Express',
+    V: 'Volunteer Cable',
+    A: 'Addendum',
+    C: 'Addendum(Volunteer Cable)',
+    P: 'Position Challenge',
+    E: 'Employee Challenge',
+  };
+
+  const agendasCategorized = {
+    Review: [],
+    'Off Panel': [],
+    Discuss: [],
+    Separations: [],
+    Express: [],
+    'Volunteer Cable': [],
+    Addendum: [],
+    'Addendum(Volunteer Cable)': [],
+    'Position Challenge': [],
+    'Employee Challenge': [],
+  };
+
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -48,11 +79,9 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
-  const agenda = useSelector(state => state.panelMeetingAgendas.results);
   const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETING_AGENDAS_PAGE_SIZES.defaultSize);
+  const agendas = useSelector(state => state.panelMeetingAgendas);
   const [agendas$, setAgendas$] = useState(agenda);
-
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -71,7 +100,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const itemStatusesOptions = uniqBy(sortBy(get(itemStatuses, 'data.results'), [(c) => c.desc_text]), 'desc_text');
   const { data: itemActions, loading: itemActionLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
   const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
-  const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/panel/categories/');
+  const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
 
   const panelFiltersIsLoading =
@@ -94,7 +123,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
-  const pageSizes = PANEL_MEETING_AGENDAS_PAGE_SIZES;
   const [term, setTerm] = useState('');
 
   const fuse$ = new Fuse(agenda, fuseOptions);
@@ -113,8 +141,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   console.log('selectedItemStatuses', selectedItemStatuses);
 
   const getQuery = () => ({
-    limit,
-    // User Filters
     [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
     [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
@@ -124,13 +150,10 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     itemStatuses: selectedItemStatuses.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
     categories: selectedCategories.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
     remarks: selectedRemarks.map(remarkObject => (get(remarkObject, 'text'))),
-
-    // Free Text
     q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
-    limit,
     selectedBureaus,
     selectedCategories,
     selectedGrades,
@@ -143,9 +166,16 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     textInput,
     textSearch,
   });
-  const pmId = '1';
+
+  function categorizeAgendas() {
+    agendas.forEach(a => {
+      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
+    });
+    return agendasCategorized;
+  }
+
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
@@ -168,14 +198,13 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
-    // dispatch(panelMeetingAgendasFetchData(getQuery(), pmId));
+    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
     fetchAndSet();
   }, [
-    limit,
     selectedBureaus,
     selectedCategories,
     selectedGrades,
@@ -256,7 +285,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
     setClearFilters(false);
   };
 
-  const headers = ['Position Challenge', 'Employee Challenge', 'Review', 'Off Panel', 'Discuss', 'Separations', 'Express', 'Volunteer Cable', 'Addendum', 'Addendum (Volunteer)'];
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -427,27 +455,15 @@ const PanelMeetingAgendas = ({ isCDO }) => {
               </div>
             </div>
           </div>
-          {
-            <div className="panel-results-controls">
-              <SelectForm
-                className="panel-select-box"
-                id="panel-search-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
-              <ScrollUpButton />
-            </div>
-          }
+          <ScrollUpButton />
           {
             <div className="panel-meeting-agendas-rows-container">
               {
-                headers.map(header => (
+                Object.keys(categorizeAgendas()).map(header => (
                   <>
                     <div className="pma-category-header">{header}</div>
                     {
-                      agendas$$.map(result => (
+                      agendasCategorized[header].map(result => (
                         <AgendaItemRow
                           key={result.id}
                           isCDO={isCDO}
@@ -469,10 +485,12 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
 PanelMeetingAgendas.propTypes = {
   isCDO: PropTypes.bool,
+  isAO: PropTypes.bool,
 };
 
 PanelMeetingAgendas.defaultProps = {
   isCDO: false,
+  isAO: false,
 };
 
-export default PanelMeetingAgendas;
+export default withRouter(PanelMeetingAgendas);

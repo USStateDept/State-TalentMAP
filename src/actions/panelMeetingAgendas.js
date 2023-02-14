@@ -1,4 +1,5 @@
 import { batch } from 'react-redux';
+import { get } from 'lodash';
 import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
 import api from '../api';
 
@@ -57,17 +58,35 @@ export function panelMeetingAgendasExport(query = {}) {
 
 export function panelMeetingAgendasFetchData(query = {}, id) {
   return (dispatch) => {
+    batch(() => {
+      dispatch(panelMeetingAgendasFetchDataLoading(true));
+      dispatch(panelMeetingAgendasFetchDataErrored(false));
+    });
     const q = convertQueryToString(query);
-    const endpoint = `/fsbid/panel/${id}/agendas`;
+    const endpoint = `/fsbid/panel/${id}/agendas/`;
     const ep = `${endpoint}?${q}`;
     dispatch(panelMeetingAgendasFetchDataLoading(true));
     api().get(ep)
       .then(({ data }) => {
         batch(() => {
-          dispatch(panelMeetingAgendasFetchDataSuccess(data));
+          dispatch(panelMeetingAgendasFetchDataSuccess(data.results));
           dispatch(panelMeetingAgendasFetchDataErrored(false));
           dispatch(panelMeetingAgendasFetchDataLoading(false));
         });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(panelMeetingAgendasFetchDataErrored(false));
+            dispatch(panelMeetingAgendasFetchDataLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(panelMeetingAgendasFetchDataSuccess([]));
+            dispatch(panelMeetingAgendasFetchDataErrored(true));
+            dispatch(panelMeetingAgendasFetchDataLoading(false));
+          });
+        }
       });
   };
 }

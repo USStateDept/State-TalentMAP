@@ -3,6 +3,7 @@ import { getAssetPath } from 'utilities';
 const viewPositionText = 'To view more information about a position and add it to your bid list, click "View position". See next step for how to submit a bid after adding it to your Bid Tracker.';
 const addToBidListGif = getAssetPath('/assets/img/add_to_bid_list.gif');
 const submitBidGif = getAssetPath('/assets/img/submit_bid.gif');
+const tandemToggleImg = getAssetPath('/assets/img/tandem_search_toggle.png');
 
 const steps = [
   {
@@ -19,8 +20,12 @@ const steps = [
     hideCloseButton: true,
   },
   {
-    target: '.tandem-toggle-button-container',
-    content: 'Additionally, you can switch to a Tandem search.',
+    target: '.filter-container',
+    content:
+      <div>
+        <div>Additionally, you can switch to a Tandem search.</div>
+        <img alt="tandem search toggle png" src={tandemToggleImg} />
+      </div>,
     hideCloseButton: true,
   },
   {

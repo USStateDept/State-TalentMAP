@@ -40,20 +40,75 @@
     background-color: $bg-blue-dark-1;
     box-shadow: 20px 20px 20px $bg-gray-medium-2;
     padding: 20px 35px;
+
+    .filterby-container{
+      display: inline-block;
+    }
   }
 
   .empl-search-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(406px, 1fr));
+
+    @media screen and (max-width: 1517px) {
+      .fa-search{
+        display: none;
+      }
+    }
+
+    .search-submit-button{
+      margin: 0;
+    }
+
     .filter-div {
       align-items: center;
       display: flex;
       margin-right: 10px;
+
       .label {
         margin-right: 10px;
-        min-width: 90px;
+        min-width: 95px;
+        font-size: 16px;
         text-align: end;
       }
+
+      .emp-search-div {
+        input {
+          width: 200px;
+          max-width: none;
+        }
+        .searchbar {
+          .text-input-wrapper {
+            > span {
+              left: 165px;
+            }
+          }
+        }
+      }
+
+      .emp-search-id-div {
+        input {
+          width: 200px;
+          max-width: none;
+        }
+
+        button {
+          min-width: 110px;
+          padding: 8px 16px;
+          margin: 4px 0 0 55px;
+          @media screen and (max-width: 1200px) {
+            margin-left: 80px;
+          }
+        }
+        .searchbar {
+          .text-input-wrapper {
+            > span {
+              left: 165px;
+            }
+          }
+        }
+      }
+
       .picky {
         color: $color-black;
         width: 240px;
@@ -80,6 +135,9 @@
     input {
       display: inline;
     }
+    label{
+      margin-top: 0px;
+    }
     .react-daterange-picker__calendar--open {
       z-index: $daterange-z;
     }
@@ -104,11 +162,6 @@
         color: $color-black;
       }
     }
-    @media screen and (max-width: $screen-md-max) {
-      .react-daterange-picker {
-        margin-left: 25px;
-      }
-    }
   }
 }
 
@@ -131,6 +184,10 @@
     left: 40%;
     margin-top: -10px;
     margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 1193px) {
+    display: block;
   }
 }
 
@@ -420,11 +477,7 @@
 
   .search-results-inputs {
     display: flex;
-  }
-
-  .search-label {
-    font-size: 16px;
-    margin-top: 0px;
+    align-content: flex-start;
   }
 
   .search-keyword input {

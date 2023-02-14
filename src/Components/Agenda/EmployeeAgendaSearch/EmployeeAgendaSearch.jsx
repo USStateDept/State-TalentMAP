@@ -323,42 +323,54 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     onColor="#0071BC"
                   />
                 </div>
-                <div className="eas-search-form-container">
-                  <label htmlFor="last-name-search" className="search-label">
+                <div className="usa-width-one-whole empl-search-filters">
+                  <div className="filter-div">
+                    <label htmlFor="last-name-search" className="label">
                     Last Name:
-                  </label>
-                  <PositionManagerSearch
-                    id="last-name-search"
-                    submitSearch={submitSearch}
-                    onChange={setSearchInputLastName}
-                    ref={searchLastNameRef}
-                    placeHolder="Search by Last Name"
-                    textSearch={searchTextLastName}
-                    noButton
-                  />
-                  <label htmlFor="first-name-search" className="search-label">
+                    </label>
+                    <div className="emp-search-div">
+                      <PositionManagerSearch
+                        id="last-name-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputLastName}
+                        ref={searchLastNameRef}
+                        placeHolder="Search by Last Name"
+                        textSearch={searchTextLastName}
+                        noButton
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-div">
+                    <label htmlFor="first-name-search" className="label">
                     First Name:
-                  </label>
-                  <PositionManagerSearch
-                    id="first-name-search"
-                    submitSearch={submitSearch}
-                    onChange={setSearchInputFirstName}
-                    ref={searchFirstNameRef}
-                    placeHolder="Search by First Name"
-                    textSearch={searchTextFirstName}
-                    noButton
-                  />
-                  <label htmlFor="emp-id-search" className="search-label">
+                    </label>
+                    <div className="emp-search-div">
+                      <PositionManagerSearch
+                        id="first-name-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputFirstName}
+                        ref={searchFirstNameRef}
+                        placeHolder="Search by First Name"
+                        textSearch={searchTextFirstName}
+                        noButton
+                      />
+                    </div>
+                  </div>
+                  <div className="filter-div">
+                    <label htmlFor="emp-id-search" className="label">
                     Employee ID:
-                  </label>
-                  <PositionManagerSearch
-                    id="emp-id-search"
-                    submitSearch={submitSearch}
-                    onChange={setSearchInputEmpID}
-                    ref={searchEmpIDRef}
-                    textSearch={searchTextEmpID}
-                    placeHolder="Search by Employee ID"
-                  />
+                    </label>
+                    <div className="emp-search-id-div">
+                      <PositionManagerSearch
+                        id="emp-id-search"
+                        submitSearch={submitSearch}
+                        onChange={setSearchInputEmpID}
+                        ref={searchEmpIDRef}
+                        textSearch={searchTextEmpID}
+                        placeHolder="Search by Employee ID"
+                      />
+                    </div>
+                  </div>
                 </div>
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
