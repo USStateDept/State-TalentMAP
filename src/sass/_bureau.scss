@@ -84,13 +84,9 @@
   border-left: 8px solid $blue-primary;
   padding: 1em;
 
-  .bureau-definition {
-    display: flex;
-  }
-
   .bureau-card--footer,
   .bureau-card--description {
-    margin-top: 1em;
+    margin-top: 0;
   }
 
   .toggle-more-container {
@@ -161,23 +157,14 @@
 
   .bureau-card--content {
     dl {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
 
       > div {
         display: flex;
-        flex: 10 10 auto;
         flex-direction: column;
-        padding-left: 1em;
-      }
-
-      > div:first-child {
-        flex: 7 7 auto;
-        padding-left: 0;
-      }
-
-      > div:nth-child(2),
-      > div:nth-child(3) {
-        flex: 5 5 auto;
+        padding-bottom: 12px;
+        padding-left: 16px;
       }
 
       dt,
