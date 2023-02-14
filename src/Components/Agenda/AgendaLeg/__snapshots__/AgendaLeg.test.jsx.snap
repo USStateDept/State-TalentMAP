@@ -62,7 +62,9 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div />
+    <div>
+      None listed
+    </div>
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-7"
@@ -108,6 +110,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -130,6 +133,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -152,6 +156,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
