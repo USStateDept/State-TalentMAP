@@ -27,7 +27,6 @@
 
 .ai-maintenance-container {
   margin: 10px;
-  display: flex;
   padding-bottom: 15px;
 
   // ---- start: styling for left pane ----
@@ -83,8 +82,8 @@
 
     label {
       font-weight: bold;
-      margin: 10px 10px 10px 0;
-      text-align: left;
+      margin: 10px;
+      text-align: right;
       min-width: 160px;
     }
 
@@ -169,7 +168,7 @@
         border-radius: 3px;
         height: 28px;
         padding: 0 30px 0 5px;
-        max-width: 150px;
+        max-width: 180px;
         font-size: 13px;
       }
       .input-default {
@@ -221,6 +220,16 @@
         text-overflow: ellipsis;
         max-width: fit-content;
       }
+      .asg-dropdown{
+        width: 351px;
+        margin-left: 10px;
+      }
+      .aim-select{
+        width: 180px;
+      }
+      .aim-select-small{
+        width: 90px;
+      }
     }
   }
 
@@ -228,7 +237,8 @@
     height: 98vh;
     overflow-y: auto;
     padding: 0 10px 20px 0;
-    width: 50%;
+    width: 49%;
+    display: inline-block;
 
     .tm-spinner-left-pane {
       left: 35%;
@@ -247,7 +257,8 @@
   .maintenance-container-left-expanded {
     height: 98vh;
     overflow-y: auto;
-    width: 99%;
+    width: 98%;
+    display: inline-block;
 
     .tm-spinner-left-pane {
       left: 55%;
@@ -268,6 +279,13 @@
   .expand-arrow {
     align-self: center;
     color: $primary-blue;
+    display: inline-block;
+    width: 2%;
+  }
+  .expand-arrow > div {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
   }
 
   // ---- start: styling for right pane ----
@@ -275,9 +293,9 @@
   .maintenance-container-right {
     background-color: $color-white;
     height: 98vh;
-    margin-right: 10px;
     overflow-y: auto;
-    width: 48%;
+    width: 49%;
+    display: inline-block;
   }
 
   .hidden {

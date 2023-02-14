@@ -109,7 +109,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
 
   return (
-    <div>
+    <>
       <div className="aim-header-container">
         <div className="aim-title-container">
           <FontAwesome
@@ -202,7 +202,7 @@ const AgendaItemMaintenanceContainer = (props) => {
           </div>
         )}
       </MediaQuery>
-    </div>
+    </>
   );
 };
 

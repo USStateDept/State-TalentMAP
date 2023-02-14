@@ -1,146 +1,293 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
-<div
-  className="filter-container "
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <ErrorBoundary
-    fallback=""
-    onCatch={[Function]}
-  >
-    <Connect(MobileControls) />
-  </ErrorBoundary>
-  <div
-    className="filter-container-bottom"
-  >
-    <div
-      className="usa-grid-full filter-control-container"
-    >
-      <div
-        className="filter-control-left"
-      >
-        Select Filter:
-      </div>
-      <div
-        className="filter-control-right"
-      >
-        <ResetFilters
-          clearText="Clear Filters"
-          resetFilters={[Function]}
-        />
-      </div>
-    </div>
-    <div
-      className="usa-grid-full search-filters-container"
-    >
-      <ErrorBoundary
-        fallback=""
-        onCatch={[Function]}
-      >
-        <SearchFiltersContainerLoadable
-          fetchMissionAutocomplete={[Function]}
-          fetchPostAutocomplete={[Function]}
-          filters={
-            Array [
-              Object {
-                "expanded": true,
-                "title": "title",
-              },
-            ]
-          }
-          missionSearchHasErrored={false}
-          missionSearchIsLoading={false}
-          missionSearchResults={Array []}
-          postSearchHasErrored={false}
-          postSearchIsLoading={false}
-          postSearchResults={Array []}
-          queryParamToggle={[Function]}
-          queryParamUpdate={[Function]}
-          selectedAccordion={
+  <MemoryRouter>
+    <Connect(ResultsFilterContainer)
+      client={Object {}}
+      clientView={Object {}}
+      fetchMissionAutocomplete={[Function]}
+      fetchPostAutocomplete={[Function]}
+      filters={
+        Array [
+          Object {
+            "expanded": true,
+            "title": "title",
+          },
+        ]
+      }
+      isLoading={false}
+      missionSearchHasErrored={false}
+      missionSearchIsLoading={false}
+      missionSearchResults={Array []}
+      onQueryParamToggle={[Function]}
+      onQueryParamUpdate={[Function]}
+      postSearchHasErrored={false}
+      postSearchIsLoading={false}
+      postSearchResults={Array []}
+      resetFilters={[Function]}
+      setAccordion={[Function]}
+      showClear={true}
+      userProfile={
+        Object {
+          "bid_statistics": Array [
             Object {
-              "main": "",
-              "sub": "",
-            }
-          }
-          setAccordion={[Function]}
-        />
-      </ErrorBoundary>
-    </div>
-  </div>
-</div>
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
+          "cdo": Object {
+            "email": "shadtrachl@state.gov",
+            "first_name": "Leah",
+            "initials": "LS",
+            "last_name": "Shadtrach",
+            "username": "shadtrachl",
+          },
+          "display_name": "John",
+          "emp_id": "1",
+          "employee_info": Object {
+            "grade": "00",
+            "skills": Array [
+              Object {
+                "code": "6218",
+                "description": "CONSTRUCTION ENGINEERING",
+              },
+              Object {
+                "code": "6211",
+                "description": "COMPUTER SCIENCE",
+              },
+            ],
+          },
+          "employee_profile_url": Object {
+            "external": "https://external.com",
+            "internal": "https://internal.com",
+          },
+          "favorite_positions": Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ],
+          "favorite_positions_pv": Array [
+            Object {
+              "id": 10,
+            },
+            Object {
+              "id": 20,
+            },
+          ],
+          "favorite_tandem_positions": Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ],
+          "favorite_tandem_positions_pv": Array [
+            Object {
+              "id": 10,
+            },
+            Object {
+              "id": 20,
+            },
+          ],
+          "grade": "03",
+          "id": 1,
+          "initials": "JD",
+          "is_cdo": false,
+          "skills": Array [
+            63,
+            40,
+          ],
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "initials": "JD",
+            "last_name": "Doe",
+            "username": "jdoe",
+          },
+          "user_info": Object {
+            "office_address": "1234 Apple St. NW Washington, DC 20010",
+            "office_phone": "202-876-5432",
+          },
+        }
+      }
+    />
+  </MemoryRouter>
+</ContextProvider>
 `;
 
 exports[`ResultsFilterContainerComponent matches snapshot when isLoading === true 1`] = `
-<div
-  className="filter-container is-loading"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <Spinner
-    size="small"
-    style={Object {}}
-    type="results-filter"
-  />
-  <ErrorBoundary
-    fallback=""
-    onCatch={[Function]}
-  >
-    <Connect(MobileControls) />
-  </ErrorBoundary>
-  <div
-    className="filter-container-bottom"
-  >
-    <div
-      className="usa-grid-full filter-control-container"
-    >
-      <div
-        className="filter-control-left"
-      >
-        Select Filter:
-      </div>
-      <div
-        className="filter-control-right"
-      >
-        <ResetFilters
-          clearText="Clear Filters"
-          resetFilters={[Function]}
-        />
-      </div>
-    </div>
-    <div
-      className="usa-grid-full search-filters-container"
-    >
-      <ErrorBoundary
-        fallback=""
-        onCatch={[Function]}
-      >
-        <SearchFiltersContainerLoadable
-          fetchMissionAutocomplete={[Function]}
-          fetchPostAutocomplete={[Function]}
-          filters={
-            Array [
-              Object {
-                "expanded": true,
-                "title": "title",
-              },
-            ]
-          }
-          missionSearchHasErrored={false}
-          missionSearchIsLoading={false}
-          missionSearchResults={Array []}
-          postSearchHasErrored={false}
-          postSearchIsLoading={false}
-          postSearchResults={Array []}
-          queryParamToggle={[Function]}
-          queryParamUpdate={[Function]}
-          selectedAccordion={
+  <MemoryRouter>
+    <Connect(ResultsFilterContainer)
+      client={Object {}}
+      clientView={Object {}}
+      fetchMissionAutocomplete={[Function]}
+      fetchPostAutocomplete={[Function]}
+      filters={
+        Array [
+          Object {
+            "expanded": true,
+            "title": "title",
+          },
+        ]
+      }
+      isLoading={true}
+      missionSearchHasErrored={false}
+      missionSearchIsLoading={false}
+      missionSearchResults={Array []}
+      onQueryParamToggle={[Function]}
+      onQueryParamUpdate={[Function]}
+      postSearchHasErrored={false}
+      postSearchIsLoading={false}
+      postSearchResults={Array []}
+      resetFilters={[Function]}
+      setAccordion={[Function]}
+      showClear={true}
+      userProfile={
+        Object {
+          "bid_statistics": Array [
             Object {
-              "main": "",
-              "sub": "",
-            }
-          }
-          setAccordion={[Function]}
-        />
-      </ErrorBoundary>
-    </div>
-  </div>
-</div>
+              "draft": 1,
+              "submitted": 1,
+            },
+          ],
+          "cdo": Object {
+            "email": "shadtrachl@state.gov",
+            "first_name": "Leah",
+            "initials": "LS",
+            "last_name": "Shadtrach",
+            "username": "shadtrachl",
+          },
+          "display_name": "John",
+          "emp_id": "1",
+          "employee_info": Object {
+            "grade": "00",
+            "skills": Array [
+              Object {
+                "code": "6218",
+                "description": "CONSTRUCTION ENGINEERING",
+              },
+              Object {
+                "code": "6211",
+                "description": "COMPUTER SCIENCE",
+              },
+            ],
+          },
+          "employee_profile_url": Object {
+            "external": "https://external.com",
+            "internal": "https://internal.com",
+          },
+          "favorite_positions": Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ],
+          "favorite_positions_pv": Array [
+            Object {
+              "id": 10,
+            },
+            Object {
+              "id": 20,
+            },
+          ],
+          "favorite_tandem_positions": Array [
+            Object {
+              "id": 1,
+              "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+            },
+            Object {
+              "id": 4,
+              "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+            },
+          ],
+          "favorite_tandem_positions_pv": Array [
+            Object {
+              "id": 10,
+            },
+            Object {
+              "id": 20,
+            },
+          ],
+          "grade": "03",
+          "id": 1,
+          "initials": "JD",
+          "is_cdo": false,
+          "skills": Array [
+            63,
+            40,
+          ],
+          "user": Object {
+            "email": "doej@state.gov",
+            "first_name": "John",
+            "initials": "JD",
+            "last_name": "Doe",
+            "username": "jdoe",
+          },
+          "user_info": Object {
+            "office_address": "1234 Apple St. NW Washington, DC 20010",
+            "office_phone": "202-876-5432",
+          },
+        }
+      }
+    />
+  </MemoryRouter>
+</ContextProvider>
 `;

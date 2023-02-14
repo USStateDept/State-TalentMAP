@@ -160,7 +160,7 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
@@ -189,6 +189,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Status:</label>
                   <select
+                    className="aim-select"
                     id="ai-maintenance-status"
                     defaultValue={selectedStatus}
                     onChange={(e) => setStatus(get(e, 'target.value'))}
@@ -231,6 +232,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Report Category:</label>
                   <select
+                    className="aim-select"
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
@@ -252,6 +254,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-date">Panel Date:</label>
                   <select
+                    className="aim-select-small"
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
@@ -269,6 +272,7 @@ const AgendaItemMaintenancePane = (props) => {
                     }
                   </select>
                   <select
+                    className="aim-select-small"
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
