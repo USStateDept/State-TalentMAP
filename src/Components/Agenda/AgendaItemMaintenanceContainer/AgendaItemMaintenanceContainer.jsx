@@ -33,7 +33,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
     ...ail,
-    ail_seq_num: shortid.generate(),
+    ail_seq_num: get(ail, 'ail_seq_num') || shortid.generate(),
   }));
 
   const agendaItemRemarks = get(agendaItem, 'remarks') || [];
