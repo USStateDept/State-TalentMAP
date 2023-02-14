@@ -14,7 +14,7 @@ export function panelMeetingAgendasFetchDataLoading(state = false, action) {
       return state;
   }
 }
-export function panelMeetingAgendas(state = {}, action) {
+export function panelMeetingAgendas(state = [], action) {
   switch (action.type) {
     case 'PANEL_MEETING_AGENDAS_FETCH_SUCCESS':
       return action.results;
