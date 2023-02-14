@@ -70,6 +70,7 @@ const PanelMeetingAgendas = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
+  // TODO: Remove
   const meetingStatus = 'Initiated';
   const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
@@ -81,7 +82,7 @@ const PanelMeetingAgendas = (props) => {
   const genericFilters = useSelector(state => state.filters);
   const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
   const agendas = useSelector(state => state.panelMeetingAgendas);
-  const [agendas$, setAgendas$] = useState(agenda);
+  const [agendas$, setAgendas$] = useState(agendas);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -125,20 +126,24 @@ const PanelMeetingAgendas = (props) => {
 
   const [term, setTerm] = useState('');
 
-  const fuse$ = new Fuse(agenda, fuseOptions);
+  const fuse$ = new Fuse(agendas, fuseOptions);
 
   const search = () => setAgendas$(fuse$.search({
-    $or: [{ status_short: 'APR' }, { status_short: 'XXX' }],
+    $or: [{ status_short: term }],
   }).map(({ item }) => item));
 
   useEffect(() => {
-    setAgendas$(agenda);
-  }, [agenda]);
+    setAgendas$(agendas);
+  }, [agendas]);
 
-  const agendas$$ = term ? agendas$ : agenda;
-  console.log('agenda', agenda);
-  console.log('agendas$$', agendas$$);
-  console.log('selectedItemStatuses', selectedItemStatuses);
+  useEffect(() => {
+    search();
+  }, [term]);
+
+  const agendas$$ = term ? agendas$ : agendas;
+  console.log('STATE: agendas', agendas);
+  console.log('LOCAL: agendas$', agendas$);
+  console.log('RENDER: agendas$$', agendas$$);
 
   const getQuery = () => ({
     [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
@@ -168,7 +173,7 @@ const PanelMeetingAgendas = (props) => {
   });
 
   function categorizeAgendas() {
-    agendas.forEach(a => {
+    agendas$$.forEach(a => {
       agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
     });
     return agendasCategorized;
@@ -219,7 +224,6 @@ const PanelMeetingAgendas = (props) => {
 
   function submitSearch(text) {
     setTerm(text);
-    search();
   }
 
   const throttledTextInput = () =>
