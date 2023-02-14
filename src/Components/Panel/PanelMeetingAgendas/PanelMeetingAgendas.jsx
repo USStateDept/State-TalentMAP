@@ -98,7 +98,6 @@ const PanelMeetingAgendas = ({ isCDO }) => {
   const [term, setTerm] = useState('');
 
   const fuse$ = new Fuse(agenda, fuseOptions);
-  // const search = a => setAgendas$(fuse$.search(a));
 
   const search = () => setAgendas$(fuse$.search({
     $or: [{ status_short: 'APR' }, { status_short: 'XXX' }],
