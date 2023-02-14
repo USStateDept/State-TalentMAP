@@ -1,4 +1,3 @@
-/* eslint-disable */
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
@@ -103,7 +102,7 @@ const PanelMeetingAgendas = ({ isCDO }) => {
 
   const search = () => setAgendas$(fuse$.search({
     $or: [{ status_short: 'APR' }, { status_short: 'XXX' }],
-  }));
+  }).map(({ item }) => item));
 
   useEffect(() => {
     setAgendas$(agenda);
