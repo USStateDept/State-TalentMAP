@@ -32,7 +32,11 @@ const fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    'status_short', // 'id', 'creators.first_name', 'creators.last_name',
+    'status_short',
+    'id',
+    'meeting_category',
+    'remarks.seq_num',
+    'legs.action',
   ],
 };
 
@@ -127,36 +131,48 @@ const PanelMeetingAgendas = (props) => {
   const [term, setTerm] = useState('');
 
   const fuse$ = new Fuse(agendas, fuseOptions);
+  console.log('meetcat', selectedItemActions);
+
+
+  const prepareFuseQuery = () => {
+    const fuseQuery = [];
+
+    const statuses$ = selectedItemStatuses.map(({ abbr_desc_text }) => (
+      { status_short: abbr_desc_text }
+    ));
+    const categories$ = selectedCategories.map(({ mic_code }) => (
+      { meeting_category: mic_code }
+    ));
+    // Need to seed different remarks to test
+    const remarks$ = selectedRemarks.map(({ seq_num }) => (
+      { 'remarks.seq_num': seq_num.toString() }
+    ));
+    const actions$ = selectedItemActions.map(({ abbr_desc_text }) => (
+      { 'legs.action': abbr_desc_text }
+    ));
+    if (actions$.length) { fuseQuery.push({ $or: actions$ }); }
+    if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
+    if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
+    if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
+    if (term) { fuseQuery.push({ id: `'${term}` }); }
+    console.log('fuseQuery', fuseQuery);
+    return fuseQuery;
+  };
+
 
   const search = () => setAgendas$(fuse$.search({
-    $or: [{ status_short: term }],
+    $and: prepareFuseQuery(),
   }).map(({ item }) => item));
 
   useEffect(() => {
     setAgendas$(agendas);
   }, [agendas]);
 
-  useEffect(() => {
-    search();
-  }, [term]);
+  const agendas$$ = (term || selectedItemStatuses) ? agendas$ : agendas;
 
-  const agendas$$ = term ? agendas$ : agendas;
   console.log('STATE: agendas', agendas);
   console.log('LOCAL: agendas$', agendas$);
   console.log('RENDER: agendas$$', agendas$$);
-
-  const getQuery = () => ({
-    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
-    [get(posts, 'item.selectionRef')]: selectedPosts.map(postObject => (get(postObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
-    itemActions: selectedItemActions.map(itemActionObject => (get(itemActionObject, 'desc_text'))),
-    itemStatuses: selectedItemStatuses.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
-    categories: selectedCategories.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
-    remarks: selectedRemarks.map(remarkObject => (get(remarkObject, 'text'))),
-    q: textInput || textSearch,
-  });
 
   const getCurrentInputs = () => ({
     selectedBureaus,
@@ -180,7 +196,7 @@ const PanelMeetingAgendas = (props) => {
   }
 
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
+    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
@@ -200,15 +216,16 @@ const PanelMeetingAgendas = (props) => {
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
       setClearFilters(false);
+      setAgendas$(agendas);
     } else {
       setClearFilters(true);
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
     fetchAndSet();
+    search();
   }, [
     selectedBureaus,
     selectedCategories,
@@ -220,6 +237,7 @@ const PanelMeetingAgendas = (props) => {
     selectedRemarks,
     selectedSkills,
     textSearch,
+    term,
   ]);
 
   function submitSearch(text) {
