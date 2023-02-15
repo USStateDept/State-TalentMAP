@@ -25,6 +25,7 @@ const fuseOptions = {
   shouldSort: false,
   findAllMatches: true,
   tokenize: true,
+  useExtendedSearch: true,
   includeScore: false,
   threshold: 0.25,
   location: 0,
@@ -36,7 +37,22 @@ const fuseOptions = {
     'id',
     'meeting_category',
     'remarks.seq_num',
+    'assignment.pos_num',
+    'assignment.pos_title',
     'legs.action',
+    'legs.languages.code',
+    'legs.grade',
+    'legs.pos_num',
+    'legs.pos_title',
+    'legs.org',
+    'creators.last_name',
+    'creators.first_name',
+    'creators.emp_user.emp_user_last_name',
+    'creators.emp_user.emp_user_first_name',
+    'updaters.last_name',
+    'updaters.first_name',
+    'updaters.emp_user.emp_user_last_name',
+    'updaters.emp_user.emp_user_first_name',
   ],
 };
 
@@ -95,8 +111,6 @@ const PanelMeetingAgendas = (props) => {
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const posts = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const postsOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const { data: remarks, loading: remarksLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
@@ -107,11 +121,16 @@ const PanelMeetingAgendas = (props) => {
   const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
   const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
+  // Replace with real ref data endpoints
+  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/handshake-organizations/');
+  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const panelFiltersIsLoading =
-    includes([remarksLoading, itemStatusLoading, itemActionLoading, categoryLoading], true);
+    includes([orgsLoading, remarksLoading, itemStatusLoading,
+      itemActionLoading, categoryLoading], true);
 
   const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
   const [selectedGrades, setSelectedGrades] = useState(get(userSelections, 'selectedGrades') || []);
   const [selectedItemActions, setSelectedItemActions] = useState(get(userSelections, 'selectedItemActions') || []);
@@ -120,22 +139,17 @@ const PanelMeetingAgendas = (props) => {
   const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
-
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
-
   const [clearFilters, setClearFilters] = useState(false);
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
-  const [term, setTerm] = useState('');
-
   const fuse$ = new Fuse(agendas, fuseOptions);
-  console.log('meetcat', selectedItemActions);
-
 
   const prepareFuseQuery = () => {
     const fuseQuery = [];
+    const term = textSearch;
 
     const statuses$ = selectedItemStatuses.map(({ abbr_desc_text }) => (
       { status_short: abbr_desc_text }
@@ -143,22 +157,48 @@ const PanelMeetingAgendas = (props) => {
     const categories$ = selectedCategories.map(({ mic_code }) => (
       { meeting_category: mic_code }
     ));
-    // Need to seed different remarks to test
     const remarks$ = selectedRemarks.map(({ seq_num }) => (
       { 'remarks.seq_num': seq_num.toString() }
     ));
     const actions$ = selectedItemActions.map(({ abbr_desc_text }) => (
       { 'legs.action': abbr_desc_text }
     ));
+    const languages$ = selectedLanguages.map(({ code }) => (
+      { 'legs.languages.code': code }
+    ));
+    const grades$ = selectedGrades.map(({ code }) => (
+      { 'legs.grade': code }
+    ));
+    const orgs$ = selectedOrgs.map(({ name }) => (
+      { 'legs.org': `=${name}` }
+    ));
+    if (orgs$.length) { fuseQuery.push({ $or: orgs$ }); }
+    if (grades$.length) { fuseQuery.push({ $or: grades$ }); }
+    if (languages$.length) { fuseQuery.push({ $or: languages$ }); }
     if (actions$.length) { fuseQuery.push({ $or: actions$ }); }
     if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
     if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
     if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
-    if (term) { fuseQuery.push({ id: `'${term}` }); }
-    console.log('fuseQuery', fuseQuery);
+    if (term) {
+      const freeTextLookups = [
+        { id: `'${term}` },
+        { 'assignment.pos_num': `'${term}` },
+        { 'assignment.pos_title': term },
+        { 'legs.pos_num': `'${term}` },
+        { 'legs.pos_title': term },
+        { 'creators.last_name': term },
+        { 'creators.first_name': term },
+        { 'creators.emp_user.emp_user_last_name': term },
+        { 'creators.emp_user.emp_user_first_name': term },
+        { 'updaters.last_name': term },
+        { 'updaters.first_name': term },
+        { 'updaters.emp_user.emp_user_last_name': term },
+        { 'updaters.emp_user.emp_user_first_name': term },
+      ];
+      fuseQuery.push({ $or: freeTextLookups });
+    }
     return fuseQuery;
   };
-
 
   const search = () => setAgendas$(fuse$.search({
     $and: prepareFuseQuery(),
@@ -168,32 +208,19 @@ const PanelMeetingAgendas = (props) => {
     setAgendas$(agendas);
   }, [agendas]);
 
-  const agendas$$ = (term || selectedItemStatuses) ? agendas$ : agendas;
-
-  console.log('STATE: agendas', agendas);
-  console.log('LOCAL: agendas$', agendas$);
-  console.log('RENDER: agendas$$', agendas$$);
-
   const getCurrentInputs = () => ({
     selectedBureaus,
+    selectedOrgs,
     selectedCategories,
     selectedGrades,
     selectedItemActions,
     selectedItemStatuses,
     selectedLanguages,
-    selectedPosts,
     selectedRemarks,
     selectedSkills,
     textInput,
     textSearch,
   });
-
-  function categorizeAgendas() {
-    agendas$$.forEach(a => {
-      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
-    });
-    return agendasCategorized;
-  }
 
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
@@ -205,6 +232,7 @@ const PanelMeetingAgendas = (props) => {
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
+      selectedOrgs,
       selectedCategories,
       selectedGrades,
       selectedItemActions,
@@ -219,15 +247,16 @@ const PanelMeetingAgendas = (props) => {
       setAgendas$(agendas);
     } else {
       setClearFilters(true);
+      search();
     }
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
     fetchAndSet();
-    search();
   }, [
     selectedBureaus,
+    selectedOrgs,
     selectedCategories,
     selectedGrades,
     selectedItemActions,
@@ -237,11 +266,17 @@ const PanelMeetingAgendas = (props) => {
     selectedRemarks,
     selectedSkills,
     textSearch,
-    term,
   ]);
 
+  function categorizeAgendas() {
+    agendas$.forEach(a => {
+      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
+    });
+    return agendasCategorized;
+  }
+
   function submitSearch(text) {
-    setTerm(text);
+    setTextSearch(text);
   }
 
   const throttledTextInput = () =>
@@ -265,6 +300,10 @@ const PanelMeetingAgendas = (props) => {
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
     }
+    // Used for handshake-organizations - Replace with comprehensive org ref data
+    if (has(items[0], 'name')) {
+      codeOrText = 'name';
+    }
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
@@ -272,6 +311,7 @@ const PanelMeetingAgendas = (props) => {
     else if (codeOrText === 'text') queryProp = 'text';
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
+    else if (codeOrText === 'name') queryProp = 'name';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
@@ -294,6 +334,7 @@ const PanelMeetingAgendas = (props) => {
 
   const resetFilters = () => {
     setSelectedBureaus([]);
+    setSelectedOrgs([]);
     setSelectedCategories([]);
     setSelectedGrades([]);
     setSelectedItemActions([]);
@@ -372,6 +413,18 @@ const PanelMeetingAgendas = (props) => {
                 />
               </div>
               <div className="filter-div">
+                <div className="label">Organization:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Organization(s)"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="name"
+                  labelKey="name"
+                />
+              </div>
+              <div className="filter-div">
                 <div className="label">Category:</div>
                 <Picky
                   {...pickyProps}
@@ -431,19 +484,6 @@ const PanelMeetingAgendas = (props) => {
                   value={selectedLanguages}
                   options={languagesOptions}
                   onChange={setSelectedLanguages}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Location (Org):</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Location(s)"
-                  value={selectedPosts}
-                  options={postsOptions}
-                  onChange={setSelectedPosts}
                   valueKey="code"
                   labelKey="custom_description"
                   disabled={isLoading}
