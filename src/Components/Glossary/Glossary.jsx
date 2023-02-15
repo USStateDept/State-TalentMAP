@@ -57,7 +57,6 @@ class GlossaryComponent extends Component {
     }
   }
 
-
   resetText = () => {
     this.changeText('');
   }

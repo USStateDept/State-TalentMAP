@@ -149,7 +149,6 @@ const PanelMeetingAgendas = (props) => {
 
   const prepareFuseQuery = () => {
     const fuseQuery = [];
-    const term = textSearch;
 
     const statuses$ = selectedItemStatuses.map(({ abbr_desc_text }) => (
       { status_short: abbr_desc_text }
@@ -179,21 +178,23 @@ const PanelMeetingAgendas = (props) => {
     if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
     if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
     if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
-    if (term) {
+    if (textSearch) {
+      const t = textSearch;
+      // See Fuse extended search docs
       const freeTextLookups = [
-        { id: `'${term}` },
-        { 'assignment.pos_num': `'${term}` },
-        { 'assignment.pos_title': term },
-        { 'legs.pos_num': `'${term}` },
-        { 'legs.pos_title': term },
-        { 'creators.last_name': term },
-        { 'creators.first_name': term },
-        { 'creators.emp_user.emp_user_last_name': term },
-        { 'creators.emp_user.emp_user_first_name': term },
-        { 'updaters.last_name': term },
-        { 'updaters.first_name': term },
-        { 'updaters.emp_user.emp_user_last_name': term },
-        { 'updaters.emp_user.emp_user_first_name': term },
+        { id: `'${t}` },
+        { 'assignment.pos_num': `'${t}` },
+        { 'assignment.pos_title': t },
+        { 'legs.pos_num': `'${t}` },
+        { 'legs.pos_title': t },
+        { 'creators.last_name': t },
+        { 'creators.first_name': t },
+        { 'creators.emp_user.emp_user_last_name': t },
+        { 'creators.emp_user.emp_user_first_name': t },
+        { 'updaters.last_name': t },
+        { 'updaters.first_name': t },
+        { 'updaters.emp_user.emp_user_last_name': t },
+        { 'updaters.emp_user.emp_user_first_name': t },
       ];
       fuseQuery.push({ $or: freeTextLookups });
     }
