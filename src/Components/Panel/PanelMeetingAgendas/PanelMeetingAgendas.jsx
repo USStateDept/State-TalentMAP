@@ -3,7 +3,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
@@ -139,7 +139,6 @@ const PanelMeetingAgendas = (props) => {
   const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
   const [clearFilters, setClearFilters] = useState(false);
 
@@ -219,7 +218,6 @@ const PanelMeetingAgendas = (props) => {
     selectedLanguages,
     selectedRemarks,
     selectedSkills,
-    textInput,
     textSearch,
   });
 
@@ -279,13 +277,6 @@ const PanelMeetingAgendas = (props) => {
   function submitSearch(text) {
     setTextSearch(text);
   }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -382,7 +373,7 @@ const PanelMeetingAgendas = (props) => {
             </div>
             <PositionManagerSearch
               submitSearch={submitSearch}
-              onChange={setTextInputThrottled}
+              onChange={setTextSearch}
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
