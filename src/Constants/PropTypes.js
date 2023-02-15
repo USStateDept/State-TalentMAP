@@ -784,64 +784,56 @@ export const POS_LANGUAGES = PropTypes.arrayOf(
   }),
 );
 
+export const EMP_USER = PropTypes.shape({
+  emp_user_first_name: PropTypes.string,
+  emp_user_last_name: PropTypes.string,
+  emp_user_middle_name: PropTypes.string,
+  emp_user_seq_num: PropTypes.number,
+  emp_user_suffix_name: PropTypes.string,
+  per_desc: PropTypes.string,
+  perdet_seqnum: PropTypes.number,
+});
+
+export const CREATORS_OR_UPDATERS = PropTypes.shape({
+  emp_seq_num: PropTypes.number,
+  emp_user: EMP_USER,
+  first_name: PropTypes.string,
+  hru_id: PropTypes.string,
+  last_name: PropTypes.string,
+  middle_name: PropTypes.string,
+  neu_id: PropTypes.number,
+});
+
 export const AGENDA_ITEM = PropTypes.shape({
-  assignment: {
+  creator_name: PropTypes.number,
+  creators: CREATORS_OR_UPDATERS,
+  id: PropTypes.number,
+  modifier_name: PropTypes.number,
+  panel_date: PropTypes.string,
+  panel_date_type: PropTypes.string,
+  panel_meeting_seq_num: PropTypes.string,
+  perdet: PropTypes.number,
+  status_full: PropTypes.string,
+  status_short: PropTypes.string,
+  update_date: PropTypes.string,
+  updaters: CREATORS_OR_UPDATERS,
+  assignment: PropTypes.shape({
     eta: PropTypes.string,
     grade: PropTypes.string,
     id: PropTypes.number,
-    languages: PropTypes.arrayOf(
-      PropTypes.shape({
-        code: PropTypes.string,
-        language: PropTypes.string,
-        reading_proficiency: PropTypes.string,
-        representation: PropTypes.string,
-        spoken_proficiency: PropTypes.string,
-      }),
-    ),
+    languages: POS_LANGUAGES,
     org: PropTypes.string,
     pos_num: PropTypes.string,
     pos_title: PropTypes.string,
     ted: PropTypes.string,
     tod: PropTypes.string,
-  },
-  creator_name: PropTypes.number,
-  creators: PropTypes.arrayOf(
-    PropTypes.shape({
-      empUser: PropTypes.arrayOf(
-        PropTypes.shape({
-          perdetseqnum: PropTypes.number,
-          perpiifirstname: PropTypes.string,
-          perpiilastname: PropTypes.string,
-          perpiimiddlename: PropTypes.string,
-          perpiiseqnum: PropTypes.number,
-          perpiisuffixname: PropTypes.string,
-          persdesc: PropTypes.string,
-        }),
-      ),
-      hruempseqnbr: PropTypes.number,
-      hruid: PropTypes.number,
-      hruneuid: PropTypes.number,
-      neufirstnm: PropTypes.string,
-      neuid: PropTypes.number,
-      neulastnm: PropTypes.string,
-      neumiddlenm: PropTypes.string,
-    }),
-  ),
-  id: PropTypes.number,
+  }),
   legs: PropTypes.arrayOf(
     PropTypes.shape({
       eta: PropTypes.string,
       grade: PropTypes.string,
       id: PropTypes.number,
-      languages: PropTypes.arrayOf(
-        PropTypes.shape({
-          code: PropTypes.string,
-          language: PropTypes.string,
-          reading_proficiency: PropTypes.string,
-          representation: PropTypes.string,
-          spoken_proficiency: PropTypes.string,
-        }),
-      ),
+      languages: POS_LANGUAGES,
       org: PropTypes.string,
       pos_num: PropTypes.string,
       pos_title: PropTypes.string,
@@ -849,9 +841,10 @@ export const AGENDA_ITEM = PropTypes.shape({
       tod: PropTypes.string,
     }),
   ),
-  modifier_name: PropTypes.number,
-  panel_date: PropTypes.string,
-  perdet: PropTypes.number,
+  report_category: PropTypes.shape({
+    code: PropTypes.string,
+    desc_text: PropTypes.string,
+  }),
   remarks: PropTypes.arrayOf(PropTypes.shape({
     seq_num: PropTypes.number,
     rc_code: PropTypes.string,
@@ -863,24 +856,4 @@ export const AGENDA_ITEM = PropTypes.shape({
     active_ind: PropTypes.string,
     type: null,
   })),
-  status_full: PropTypes.string,
-  status_short: PropTypes.string,
-  update_date: PropTypes.string,
-  updaters: PropTypes.shape({
-    emp_seq_num: PropTypes.number,
-    emp_user: PropTypes.shape({
-      emp_user_first_name: PropTypes.string,
-      emp_user_last_name: PropTypes.string,
-      emp_user_middle_name: PropTypes.string,
-      emp_user_seq_num: PropTypes.number,
-      emp_user_suffix_name: PropTypes.string,
-      per_desc: PropTypes.string,
-      perdet_seqnum: PropTypes.number,
-    }),
-    first_name: PropTypes.string,
-    hru_id: PropTypes.string,
-    last_name: PropTypes.string,
-    middle_name: PropTypes.string,
-    neu_id: PropTypes.number,
-  }),
 });

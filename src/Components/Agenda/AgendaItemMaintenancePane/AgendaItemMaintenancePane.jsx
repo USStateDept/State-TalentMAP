@@ -28,7 +28,6 @@ const AgendaItemMaintenancePane = (props) => {
     sendAsgSepBid,
     asgSepBidData,
     agendaItem,
-    isCreate,
   } = props;
 
   const defaultText = '';
@@ -55,16 +54,21 @@ const AgendaItemMaintenancePane = (props) => {
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
 
-  const agendaItemStatus = get(agendaItem, 'status_full') || '';
-  const [selectedStatus, setStatus] = useState(isCreate ? get(statuses, '[0].code') || '' : agendaItemStatus);
+  const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_full') || '');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code') || '');
-  const [selectedPanelMLDate, setPanelMLDate] = useState('');
-  const [selectedPanelIDDate, setPanelIDDate] = useState('');
+  const [selectedPanelCat, setPanelCat] = useState(get(agendaItem, 'report_category.code') || '');
+
+  const isPanelTypeML = get(agendaItem, 'panel_date_type') === 'ML';
+  const isPanelTypeID = get(agendaItem, 'panel_date_type') === 'ID';
+  const panelMeetingSeqNum = get(agendaItem, 'panel_meeting_seq_num') || '';
+  const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
+  const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
+  const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
+  const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
 
   const legLimit = legCount >= 10;
 
@@ -362,7 +366,6 @@ AgendaItemMaintenancePane.propTypes = {
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
-  isCreate: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -377,7 +380,6 @@ AgendaItemMaintenancePane.defaultProps = {
   sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
-  isCreate: true,
 };
 
 export default AgendaItemMaintenancePane;

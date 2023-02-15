@@ -85,13 +85,13 @@ const PositionDetailsCard = ({ result }) => {
             <div><h3>{title}</h3></div>
           </Row>
           <Row fluid className="bureau-card--section bureau-card--header">
-            <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} className="bureau-definition" />
+            <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} />
           </Row>
           <Row fluid className="bureau-card--section bureau-card--content">
-            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} className="bureau-definition" />
+            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} />
           </Row>
           <Row fluid className="bureau-card--section bureau-card--footer">
-            <DefinitionList items={sections[1]} className="bureau-definition" />
+            <DefinitionList items={sections[1]} />
             {
               !editMode &&
               <div className="usa-grid-full toggle-more-container">
