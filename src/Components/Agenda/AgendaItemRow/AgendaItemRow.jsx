@@ -59,9 +59,17 @@ const AgendaItemRow = props => {
               isPanelMeetingView &&
                 <>
                   <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
-                    <Link className="ai-id-link" to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}>
-                      {get(agenda, 'pmi_official_item_num')}
-                    </Link>
+                    {
+                      editAgendaItem ?
+                        <Link
+                          className="ai-id-link"
+                          to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}
+                        >
+                          {get(agenda, 'pmi_official_item_num')}
+                        </Link>
+                        :
+                        get(agenda, 'pmi_official_item_num')
+                    }
                   </div>
                 </>
             }
