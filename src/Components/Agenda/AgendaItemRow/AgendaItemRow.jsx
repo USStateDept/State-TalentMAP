@@ -4,11 +4,9 @@ import { get } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
-import { useState } from 'react';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
-import { statusRenaming } from '../Constants';
 
 const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
@@ -35,10 +33,7 @@ const AgendaItemRow = props => {
   const userBureau = get(agenda, 'bureau') || 'None Listed';
   const userGrade = get(agenda, 'grade') || 'None Listed';
 
-  const [agendaStatus, setAgendaStatus] = useState(get(agenda, 'status_short') || 'Default');
-  const onStatusChange = (status) => {
-    setAgendaStatus(status.target.value);
-  };
+  const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
 
@@ -61,35 +56,18 @@ const AgendaItemRow = props => {
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
             {
-              isPanelMeetingView ?
+              isPanelMeetingView &&
                 <>
                   <div className={`status-tag agenda-tag--${agendaStatus} panel-meeting-agendas-item-number`}>
-                    {get(agenda, 'pmi_official_item_num')}
-                  </div>
-                  <div className={`status-tag agenda-tag--${agendaStatus}`}>
-                      Item Status:
-                  </div>
-                  <div className={`status-tag agenda-tag--${agendaStatus}`}>
-                    <select
-                      className="panel-select-box panel-meeting-agendas-select"
-                      onChange={onStatusChange}
-                      disabled
-                    >
-                      {statusRenaming.map((k) => (<option
-                        selected={(k.value === agendaStatus)}
-                        value={k.value}
-                      >
-                        {k.text}
-                      </option>),
-                      )}
-                    </select>
+                    <Link className="create-ai-link" to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}>
+                      {get(agenda, 'pmi_official_item_num')}
+                    </Link>
                   </div>
                 </>
-                :
-                <div className={`status-tag agenda-tag--${agendaStatus}`}>
-                  {get(agenda, 'status_full') || 'Default'}
-                </div>
             }
+            <div className={`status-tag agenda-tag--${agendaStatus}`}>
+              {get(agenda, 'status_full') || 'Default'}
+            </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <div className={`ai-history-row-panel-date ${isPanelMeetingView ? '' : 'aih-view'}`}>
