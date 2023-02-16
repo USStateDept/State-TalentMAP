@@ -64,7 +64,7 @@ const AgendaItemRow = props => {
               isPanelMeetingView ?
                 <>
                   <div className={`status-tag agenda-tag--${agendaStatus} panel-meeting-agendas-item-number`}>
-                    {get(agenda, 'id')}
+                    {get(agenda, 'pmi_official_item_num')}
                   </div>
                   <div className={`status-tag agenda-tag--${agendaStatus}`}>
                       Item Status:
