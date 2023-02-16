@@ -501,8 +501,8 @@ const PanelMeetingAgendas = (props) => {
           {
             <div className="panel-meeting-agendas-rows-container">
               <div className="total-results">
-                Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong>
-              Total Results
+                {/* eslint-disable-next-line max-len */}
+                Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
               </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (
