@@ -136,7 +136,6 @@ const PanelMeetingAgendas = (props) => {
   const [selectedItemActions, setSelectedItemActions] = useState(get(userSelections, 'selectedItemActions') || []);
   const [selectedItemStatuses, setSelectedItemStatuses] = useState(get(userSelections, 'selectedItemStatuses') || []);
   const [selectedLanguages, setSelectedLanguages] = useState(get(userSelections, 'selectedLanguages') || []);
-  const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
@@ -204,10 +203,6 @@ const PanelMeetingAgendas = (props) => {
     $and: prepareFuseQuery(),
   }).map(({ item }) => item));
 
-  useEffect(() => {
-    setAgendas$(agendas);
-  }, [agendas]);
-
   const getCurrentInputs = () => ({
     selectedBureaus,
     selectedOrgs,
@@ -226,6 +221,7 @@ const PanelMeetingAgendas = (props) => {
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
+    search();
   }, []);
 
   const fetchAndSet = () => {
@@ -237,7 +233,6 @@ const PanelMeetingAgendas = (props) => {
       selectedItemActions,
       selectedItemStatuses,
       selectedLanguages,
-      selectedPosts,
       selectedRemarks,
       selectedSkills,
     ];
@@ -261,7 +256,6 @@ const PanelMeetingAgendas = (props) => {
     selectedItemActions,
     selectedItemStatuses,
     selectedLanguages,
-    selectedPosts,
     selectedRemarks,
     selectedSkills,
     textSearch,
@@ -272,10 +266,6 @@ const PanelMeetingAgendas = (props) => {
       agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
     });
     return agendasCategorized;
-  }
-
-  function submitSearch(text) {
-    setTextSearch(text);
   }
 
   function renderSelectionList({ items, selected, ...rest }) {
@@ -332,7 +322,6 @@ const PanelMeetingAgendas = (props) => {
     setSelectedItemActions([]);
     setSelectedItemStatuses([]);
     setSelectedLanguages([]);
-    setSelectedPosts([]);
     setSelectedRemarks([]);
     setSelectedSkills([]);
     setTextSearch('');
@@ -372,7 +361,6 @@ const PanelMeetingAgendas = (props) => {
               </div>
             </div>
             <PositionManagerSearch
-              submitSearch={submitSearch}
               onChange={setTextSearch}
               ref={childRef}
               textSearch={textSearch}
@@ -512,6 +500,10 @@ const PanelMeetingAgendas = (props) => {
           <ScrollUpButton />
           {
             <div className="panel-meeting-agendas-rows-container">
+              <div className="total-results">
+                Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong>
+              Total Results
+              </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (
                   <>
