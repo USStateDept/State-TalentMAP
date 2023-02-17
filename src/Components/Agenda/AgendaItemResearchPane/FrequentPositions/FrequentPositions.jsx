@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import FieldSet from 'Components/FieldSet/FieldSet';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { useSelector } from 'react-redux';
 
 const fuseOptions = {
   shouldSort: false,
@@ -18,20 +19,25 @@ const fuseOptions = {
   maxPatternLength: 32,
   minMatchCharLength: 1,
   keys: [
-    'org', 'position_number', 'position_title',
+    'pos_org_short_desc', 'pos_num_text', 'pos_title_desc',
   ],
 };
 
 const FrequentPositions = (props) => {
   const headers = ['', 'Organization', 'Position Number', 'Position Title'];
 
-  const { positions, onClick } = props;
+  const { positions, addFrequentPosition, legCount } = props;
+  const isLoading = useSelector(state => state.frequentPositionsIsLoading);
 
   const [positions$, setPositions$] = useState(positions);
   const [term, setTerm] = useState('');
+  const [selectedPosition, setSelectedPosition] = useState('');
 
-  const onClick$ = pos => {
-    onClick(pos);
+  const legLimit = legCount >= 10;
+
+  const addFrequentPosition$ = pos => {
+    setSelectedPosition(pos);
+    addFrequentPosition(pos);
   };
 
   const fuse$ = new Fuse(positions, fuseOptions);
@@ -71,8 +77,19 @@ const FrequentPositions = (props) => {
             positions$$.map(m => (
               <tr>
                 <td>
-                  <InteractiveElement title="Add to Agenda Item" onClick={() => onClick$(m)}>
-                    <FA name="plus-circle" />
+                  <InteractiveElement
+                    onClick={() => addFrequentPosition$(m)}
+                    title="Add to Agenda Item"
+                  >
+                    {
+                      (isLoading && (selectedPosition === m)) ?
+                        <span className="ds-c-spinner spinner-blue" />
+                        :
+                        <FA
+                          name="plus-circle"
+                          className={`${legLimit ? 'fa-disabled' : 'fa-enabled'}`}
+                        />
+                    }
                   </InteractiveElement>
                 </td>
                 <td>{m.pos_org_short_desc}</td>
@@ -93,12 +110,14 @@ FrequentPositions.propTypes = {
     pos_num_text: PropTypes.string,
     pos_title_desc: PropTypes.string,
   })),
-  onClick: PropTypes.func,
+  addFrequentPosition: PropTypes.func,
+  legCount: PropTypes.number,
 };
 
 FrequentPositions.defaultProps = {
   positions: [],
-  onClick: EMPTY_FUNCTION,
+  addFrequentPosition: EMPTY_FUNCTION,
+  legCount: 0,
 };
 
 export default FrequentPositions;

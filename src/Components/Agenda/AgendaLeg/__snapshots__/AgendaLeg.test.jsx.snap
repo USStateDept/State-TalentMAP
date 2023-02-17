@@ -62,7 +62,9 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <div />
+    <div>
+      None listed
+    </div>
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-7"
@@ -71,7 +73,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div>
-      2019-05-05T00:00:00.000Z
+      05/04/2019
     </div>
   </InteractiveElement>
   <InteractiveElement
@@ -94,6 +96,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
+    07/04/2020
     <FontAwesome
       name="calendar"
       onClick={[Function]}
@@ -107,6 +110,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -129,6 +133,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
+      disabled={false}
       onChange={[Function]}
       value=""
     >
@@ -151,6 +156,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     <select
       className="leg-dropdown"
+      disabled={false}
       onChange={[Function]}
       value=""
     >

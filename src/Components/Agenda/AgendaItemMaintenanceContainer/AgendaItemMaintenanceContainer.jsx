@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { filter, find, get, has, isNil } from 'lodash';
+import { drop, filter, find, get, has, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { aiCreate } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
+import shortid from 'shortid';
+import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
 import AgendaItemMaintenancePane from '../AgendaItemMaintenancePane';
 import AgendaItemTimeline from '../AgendaItemTimeline';
@@ -20,6 +22,22 @@ const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
 
   const researchPaneRef = useRef();
+  const agendaID = get(props, 'match.params.agendaID') || '';
+  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
+  const agendaItem = get(agendaItemData, 'data') || {};
+
+  const id = get(props, 'match.params.id'); // client's perdet
+  const isCDO = get(props, 'isCDO');
+  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+
+  const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
+  const agendaItemLegs$ = agendaItemLegs.map(ail => ({
+    ...ail,
+    ail_seq_num: get(ail, 'ail_seq_num') || shortid.generate(),
+  }));
+
+  const agendaItemRemarks = get(agendaItem, 'remarks') || [];
+  const agendaItemRemarks$ = filter(agendaItemRemarks, remark => remark.type !== 'person');
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
@@ -27,17 +45,13 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
-  const [userRemarks, setUserRemarks] = useState([]);
+  const [userRemarks, setUserRemarks] = useState(agendaItemRemarks$);
   const [spinner, setSpinner] = useState(true);
-
-  const id = get(props, 'match.params.id'); // client's perdet
-  const isCDO = get(props, 'isCDO');
-  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  const efPosition = find(asgSepBidResults$, ['status', 'EF']) || {};
+  const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
@@ -95,7 +109,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
 
   return (
-    <div>
+    <>
       <div className="aim-header-container">
         <div className="aim-title-container">
           <FontAwesome
@@ -127,26 +141,39 @@ const AgendaItemMaintenanceContainer = (props) => {
                 spinner &&
                   <Spinner type="left-pane" size="small" />
               }
-              <AgendaItemMaintenancePane
-                onAddRemarksClick={openRemarksResearchTab}
-                perdet={id}
-                unitedLoading={spinner}
-                setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                updateSelection={updateSelection}
-                sendMaintenancePaneInfo={setMaintenanceInfo}
-                sendAsgSepBid={setAsgSepBid}
-                asgSepBidData={asgSepBidData}
-                userRemarks={userRemarks}
-                legCount={legs.length}
-                saveAI={submitAI}
-              />
-              <AgendaItemTimeline
-                unitedLoading={spinner}
-                setParentLoadingState={setAgendaItemTimelineLoading}
-                updateLegs={setLegs}
-                asgSepBid={asgSepBid}
-                efPos={efPosition}
-              />
+              {
+                !agendaItemLoading &&
+                <>
+                  {
+                    (agendaItemError && agendaID !== '') ?
+                      <Alert type="error" title="Error loading Agenda Item Maintenance Data" messages={[{ body: 'Please try again.' }]} /> :
+                      <>
+                        <AgendaItemMaintenancePane
+                          onAddRemarksClick={openRemarksResearchTab}
+                          perdet={id}
+                          unitedLoading={spinner}
+                          setParentLoadingState={setAgendaItemMaintenancePaneLoading}
+                          updateSelection={updateSelection}
+                          sendMaintenancePaneInfo={setMaintenanceInfo}
+                          sendAsgSepBid={setAsgSepBid}
+                          asgSepBidData={asgSepBidData}
+                          userRemarks={userRemarks}
+                          legCount={legs.length}
+                          saveAI={submitAI}
+                          agendaItem={agendaItem}
+                        />
+                        <AgendaItemTimeline
+                          unitedLoading={spinner}
+                          setParentLoadingState={setAgendaItemTimelineLoading}
+                          updateLegs={setLegs}
+                          asgSepBid={asgSepBid}
+                          efPos={efPosition}
+                          agendaItemLegs={agendaItemLegs$}
+                        />
+                      </>
+                  }
+                </>
+              }
             </div>
             <div className={`expand-arrow${matches ? ' hidden' : ''}`}>
               <InteractiveElement onClick={toggleExpand}>
@@ -169,12 +196,13 @@ const AgendaItemMaintenanceContainer = (props) => {
                 ref={researchPaneRef}
                 updateSelection={updateSelection}
                 userSelections={userRemarks}
+                legCount={legs.length}
               />
             </div>
           </div>
         )}
       </MediaQuery>
-    </div>
+    </>
   );
 };
 

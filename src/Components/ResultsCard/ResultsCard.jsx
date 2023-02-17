@@ -231,7 +231,7 @@ class ResultsCard extends Component {
         );
 
     const headingBottom = !isTandem ?
-      <><dt>Location:</dt><dd>{post}</dd></>
+      <><dt className="location-label">Location (Org):</dt><dd className="location-text">{post}</dd></>
       :
       (<>
         <div>{title}</div>

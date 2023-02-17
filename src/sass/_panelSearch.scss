@@ -26,10 +26,6 @@
         .label {
           min-width: 100px;
         }
-
-        .label-date {
-          margin-right: 2px;
-        }
       }
 
       .picky {
@@ -79,7 +75,7 @@
   display: flex;
   justify-content: flex-end;
   font-size: 0.8em;
-  margin-right: 35px;
+  margin: 0 35px 5px 0;
 
   div:first-child {
     margin-right: 10px;
@@ -132,16 +128,11 @@
     }
 
     .panel-meeting-row-name {
-      font-size: 1.2em;
+      color: $primary-blue;
+      font-size: 18px;
+      font-weight: bold;
+      margin: 8px 0 5px 115px;
       line-height: 1.3em;
-      margin: 8px 0 .3rem 15rem;
-
-      .row-name {
-        color: $primary-blue;
-        font-size: .9em;
-        font-weight: bold;
-        margin-left: 15px;
-      }
     }
 
     dt {
@@ -163,22 +154,21 @@
     }
 
     .panel-meeting-row-data-container {
-      margin-left: 15rem;
-      margin-top: 2rem;
+      margin: 5px 0 0 100px;
 
       .panel-meeting-row-data-points {
         display: inline-grid;
         grid-auto-flow: column;
         grid-template-rows: repeat(2, auto);
-        margin-left: 1.5rem;
+        margin-left: 15px;
 
         .panel-meeting-row-data-point {
           align-items: center;
           display: flex;
-          margin: 0 8rem .5rem 0;
+          margin: 0 40px 5px 0;
 
           @media screen and (max-width: 1650px) {
-            margin-right: 2rem;
+            margin-right: 10px;
           }
         }
       }

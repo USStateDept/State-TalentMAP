@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
@@ -27,13 +27,14 @@ const AgendaItemMaintenancePane = (props) => {
     saveAI,
     sendAsgSepBid,
     asgSepBidData,
+    agendaItem,
   } = props;
 
   const defaultText = '';
 
   const { data: statusData, error: statusError, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
-  const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/panel/categories/');
-  const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/panel/dates/');
+  const { data: panelCatData, error: panelCatError, loading: panelCatLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
+  const { data: panelDatesData, error: panelDatesError, loading: panelDatesLoading } = useDataLoader(api().get, '/fsbid/panel/reference/dates/');
   const { asgSepBidResults$, asgSepBidError, asgSepBidLoading } = asgSepBidData;
   const asgSepBids = asgSepBidResults$ || [];
 
@@ -42,6 +43,8 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
   const statuses = get(statusData, 'data.results') || [];
+  statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
+
   const panelCategories = get(panelCatData, 'data.results') || [];
   const panelDates = get(panelDatesData, 'data.results') || [];
 
@@ -50,15 +53,22 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
-  const [selectedStatus, setStatus] = useState(get(statuses, '[0].code') || '');
+
+  const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_full') || '');
 
   const [selectedPositionNumber, setPositionNumber] = useState('');
   const [posNumError, setPosNumError] = useState(false);
   const [inputClass, setInputClass] = useState('input-default');
 
-  const [selectedPanelCat, setPanelCat] = useState(get(panelCategories, '[0].mic_code') || '');
-  const [selectedPanelMLDate, setPanelMLDate] = useState('');
-  const [selectedPanelIDDate, setPanelIDDate] = useState('');
+  const [selectedPanelCat, setPanelCat] = useState(get(agendaItem, 'report_category.code') || '');
+
+  const isPanelTypeML = get(agendaItem, 'panel_date_type') === 'ML';
+  const isPanelTypeID = get(agendaItem, 'panel_date_type') === 'ID';
+  const panelMeetingSeqNum = get(agendaItem, 'panel_meeting_seq_num') || '';
+  const agendaItemPanelMLSeqNum = isPanelTypeML ? panelMeetingSeqNum : '';
+  const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
+  const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
+  const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
 
   const legLimit = legCount >= 10;
 
@@ -150,7 +160,7 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''}`}
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
@@ -179,6 +189,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Status:</label>
                   <select
+                    className="aim-select"
                     id="ai-maintenance-status"
                     defaultValue={selectedStatus}
                     onChange={(e) => setStatus(get(e, 'target.value'))}
@@ -189,7 +200,7 @@ const AgendaItemMaintenancePane = (props) => {
                     </option>
                     {
                       statuses.map(a => (
-                        <option key={a.code} value={a.code}>{a.desc_text}</option>
+                        <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
                       ))
                     }
                   </select>
@@ -221,6 +232,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Report Category:</label>
                   <select
+                    className="aim-select"
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
@@ -242,6 +254,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-date">Panel Date:</label>
                   <select
+                    className="aim-select-small"
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
@@ -259,6 +272,7 @@ const AgendaItemMaintenancePane = (props) => {
                     }
                   </select>
                   <select
+                    className="aim-select-small"
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
@@ -351,6 +365,7 @@ AgendaItemMaintenancePane.propTypes = {
   sendAsgSepBid: PropTypes.func,
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
+  agendaItem: AGENDA_ITEM.isRequired,
 };
 
 AgendaItemMaintenancePane.defaultProps = {

@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { get } from 'lodash';
+import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
-import { format, isDate } from 'date-fns-v2';
+import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
+import { useEffect } from 'react';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 
 const AgendaLeg = props => {
   const {
@@ -39,6 +41,14 @@ const AgendaLeg = props => {
       swal.close();
     }
   };
+
+  useEffect(() => {
+    if (!isEf) {
+      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyCode', get(leg, 'tod') || '');
+      updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
+      updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
+    }
+  }, []);
 
   const cancel = (e) => {
     e.preventDefault();
@@ -74,26 +84,26 @@ const AgendaLeg = props => {
   };
 
   const getDropdown = (key, data, text) => {
+    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     if (isEf) {
-      return get(leg, key) || '';
+      return get(leg, key) || defaultText;
     }
     return (<select
       className="leg-dropdown"
       value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
+      disabled={isEf}
     >
       <option selected key={null} value={''}>
-      Keep Unselected
+        {defaultText}
       </option>
       {
         data.map(a => (
-          <option key={get(a, 'code')} value={get(a, 'code')}>{get(a, text)}</option>
+          <option key={get(a, 'code')} value={get(a, 'text')}>{get(a, text)}</option>
         ))
       }
     </select>);
   };
-
-  const formatDate = (d) => d && isDate(new Date(d)) && !isNaN(d) ? format(new Date(d), 'MM/dd/yy') : d;
 
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
@@ -101,7 +111,7 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     <>
-      {formatDate(get(leg, 'legEndDate'))}
+      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
       {
         !isEf &&
         <FA name="calendar" onClick={calendarModal} />
@@ -118,27 +128,27 @@ const AgendaLeg = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: (<div>{get(leg, 'pos_title')}</div>),
+      content: (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Position Number',
-      content: (<div>{get(leg, 'pos_num')}</div>),
+      content: (<div>{get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Org',
-      content: (<div>{get(leg, 'org')}</div>),
+      content: (<div>{get(leg, 'org') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
-      content: (<div>{get(leg, 'grade')}</div>),
+      content: (<div>{get(leg, 'grade') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages'))}</div>),
+      content: (<div>{formatLang(get(leg, 'languages')) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
-      content: (<div>{formatDate(get(leg, 'eta'))}</div>),
+      content: (<div>{formatDate(get(leg, 'eta')) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
@@ -150,17 +160,19 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown('tourOfDutyCode', TODs, 'short_description')),
+      content: (getDropdown(isEf ? 'tod' : 'tourOfDutyCode', TODs, 'short_description')),
     },
     {
       title: 'Action',
-      content: (getDropdown('legActionType', legActionTypes, 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
     },
     {
       title: 'Travel',
-      content: (getDropdown('travelFunctionCode', travelFunctions, 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'abbr_desc_text')),
     },
   ];
+
+  const dropdowns = ['TOD', 'Action', 'Travel'];
 
   return (
     <>
@@ -175,7 +187,7 @@ const AgendaLeg = props => {
       {
         columnData.map((cData, i) => (
           <InteractiveElement
-            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}`}
+            className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}${(includes(dropdowns, cData.title) && isEf) ? ' ef-pos-dropdown' : ''}`}
             onMouseOver={() => onHover$(i + 2)}
             onMouseLeave={() => onHover$('')}
           >

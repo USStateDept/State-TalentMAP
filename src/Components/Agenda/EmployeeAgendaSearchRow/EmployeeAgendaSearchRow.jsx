@@ -4,10 +4,20 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
-import { formatDate } from 'utilities';
+import { formatDate, getCustomLocation } from 'utilities';
+import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit }) => {
+const usePanelMeeting = () => checkFlag('flags.panel_search');
+const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
+
+const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
+  const panelMeetingActive = usePanelMeeting();
+  // this check is tempoary and being done because we
+  // do not have the data to identify if an AI is editable or not
+  const editAgendaItem = useEditAgendaItem();
+  const isEditableItem = Math.floor(Math.random() * 3) === 1;
+
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
   const agendaStatus = get(agenda, 'status') || FALLBACK;
@@ -15,6 +25,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
   const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
+  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPost);
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
@@ -26,6 +37,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+  const currentPost$ = `${formatLoc} (${currentPost})`;
 
   let profileLink;
   switch (viewType) {
@@ -65,9 +77,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
         <div className="employee-agenda-row-data-points">
           <div className="employee-agenda-row-data-point">
             <FA name="building-o" />
-            <dt>Org:</dt>
+            <dt className="location-label-row">Location (Org):</dt>
             <dd>
-              {currentPost}
+              {currentPost$}
               <FA className="org-fa-arrow" name="long-arrow-right" />
               {futurePost}</dd>
           </div>
@@ -93,7 +105,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
             <FA name="calendar-o" />
             <dt>Panel Meeting Date:</dt>
             {
-              panelDate !== FALLBACK ?
+              (panelMeetingActive && (panelDate !== FALLBACK)) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
                     {panelDate}
@@ -108,8 +120,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType, showEdit
             <dt>Agenda:</dt>
             <dd>{agendaStatus}</dd>
             {
-              showEdit &&
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet}`} className="agenda-edit-button">
+              (editAgendaItem && isEditableItem) &&
+              // need to use agendaID here once it is coming through
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
                 <FA name="pencil" />
               </Link>
             }
@@ -146,7 +159,6 @@ EmployeeAgendaSearchRow.propTypes = {
   }),
   showCreate: PropTypes.bool,
   viewType: PropTypes.string,
-  showEdit: PropTypes.bool,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
@@ -154,7 +166,6 @@ EmployeeAgendaSearchRow.defaultProps = {
   result: {},
   showCreate: true,
   viewType: '',
-  showEdit: true,
 };
 
 export default EmployeeAgendaSearchRow;

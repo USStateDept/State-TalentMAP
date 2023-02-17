@@ -6,38 +6,41 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { useState } from 'react';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
+import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
 import { statusRenaming } from '../Constants';
+
+const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
 const AgendaItemRow = props => {
   const {
     isCreate,
     agenda,
-    showEdit,
     isCDO,
     perdet,
     isPanelMeetingView,
   } = props;
 
+  // this check is tempoary and being done because we
+  // do not have the data to identify if an AI is editable or not
+  const editAgendaItem = useEditAgendaItem();
+  const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
+
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+  const agendaID = get(agenda, 'id');
 
   const userSkill = get(agenda, 'skill') || 'None Listed';
   const userLanguage = get(agenda, 'language') || 'None Listed';
   const userBureau = get(agenda, 'bureau') || 'None Listed';
   const userGrade = get(agenda, 'grade') || 'None Listed';
 
-  // eslint-disable-next-line no-console
-  // const editAI = () => { console.log('placeholder edit AI'); };
-
   const [agendaStatus, setAgendaStatus] = useState(get(agenda, 'status_short') || 'Default');
   const onStatusChange = (status) => {
     setAgendaStatus(status.target.value);
   };
-  const updateMiddleName = get(agenda, 'updaters.middle_name', '');
-  const updateMiddleInitial = updateMiddleName.slice(0, 1);
-  const creatorMiddleName = get(agenda, 'creators.middle_name', '');
-  const creatorMiddleInitial = creatorMiddleName.slice(0, 1);
+  const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
+  const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
 
   return (
     <>
@@ -70,6 +73,7 @@ const AgendaItemRow = props => {
                     <select
                       className="panel-select-box panel-meeting-agendas-select"
                       onChange={onStatusChange}
+                      disabled
                     >
                       {statusRenaming.map((k) => (<option
                         selected={(k.value === agendaStatus)}
@@ -100,7 +104,7 @@ const AgendaItemRow = props => {
             }
             <div>
               <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
-              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updateMiddleInitial}</span></div>
+              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
             </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
@@ -114,12 +118,10 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
           {
-            showEdit &&
+            (editAgendaItem && isStatusShortRDY) &&
             <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}`}>
-                {/* <InteractiveElement title="Edit Agenda" onClick={editAI()}> */}
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 <FA name="pencil" />
-                {/* </InteractiveElement> */}
               </Link>
             </div>
           }
@@ -185,7 +187,6 @@ AgendaItemRow.propTypes = {
       middle_name: PropTypes.string,
     }),
   }),
-  showEdit: PropTypes.bool,
   isCDO: PropTypes.bool,
   perdet: PropTypes.number,
   isPanelMeetingView: PropTypes.bool,
@@ -195,7 +196,6 @@ AgendaItemRow.propTypes = {
 AgendaItemRow.defaultProps = {
   isCreate: false,
   agenda: {},
-  showEdit: true,
   isCDO: false,
   perdet: null,
   isPanelMeetingView: false,

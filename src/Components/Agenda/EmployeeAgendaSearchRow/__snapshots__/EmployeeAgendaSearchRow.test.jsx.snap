@@ -46,11 +46,13 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
         <FontAwesome
           name="building-o"
         />
-        <dt>
-          Org:
+        <dt
+          className="location-label-row"
+        >
+          Location (Org):
         </dt>
         <dd>
-          None Listed
+           (None Listed)
           <FontAwesome
             className="org-fa-arrow"
             name="long-arrow-right"
@@ -109,15 +111,6 @@ exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
         <dd>
           None Listed
         </dd>
-        <Link
-          className="agenda-edit-button"
-          replace={false}
-          to="/profile/ao/createagendaitem/"
-        >
-          <FontAwesome
-            name="pencil"
-          />
-        </Link>
       </div>
     </div>
     <div

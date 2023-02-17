@@ -8,12 +8,12 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-  asgSepBid, efPos }) => {
+  asgSepBid, efPos, agendaItemLegs }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const [legs, setLegs] = useState([]);
+  const [legs, setLegs] = useState(agendaItemLegs);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);
@@ -96,6 +96,7 @@ AgendaItemTimeline.propTypes = {
   updateLegs: PropTypes.func,
   asgSepBid: PropTypes.shape({}),
   efPos: PropTypes.shape({}),
+  agendaItemLegs: PropTypes.arrayOf({}),
 };
 
 AgendaItemTimeline.defaultProps = {
@@ -104,6 +105,7 @@ AgendaItemTimeline.defaultProps = {
   updateLegs: EMPTY_FUNCTION,
   asgSepBid: {},
   efPos: {},
+  agendaItemLegs: [],
 };
 
 export default AgendaItemTimeline;
