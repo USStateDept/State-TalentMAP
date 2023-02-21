@@ -2,9 +2,10 @@ import { get, has } from 'lodash';
 // import { Link } from 'react-router-dom';
 import {
   NO_ASSIGNMENT_DATE, NO_ASSIGNMENT_STATUS, NO_ASSIGNMENT_TOD_DESC,
-  NO_LANGUAGES, NO_POSITION_NUMBER, NO_POST, NO_SKILL,
+  NO_POSITION_NUMBER, NO_POST, NO_SKILL,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
+import LanguageList from 'Components/LanguageList';
 import { formatDate, getPostName } from '../../../../../utilities';
 import StartEnd from '../../../PositionInformation/StartEnd';
 
@@ -34,7 +35,7 @@ const AssignmentsContent = ({ assignment }) => (
     </div>
     <div>
       <span className="bid-list-card-title-post">Language: </span>
-      {get(assignment, 'position.language', NO_LANGUAGES)}
+      <LanguageList languages={get(assignment, 'position.languages') || []} propToUse="representation" />
     </div>
     { has(assignment, 'status') &&
       <div>
