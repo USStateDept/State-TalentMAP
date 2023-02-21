@@ -48,7 +48,10 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     >
       Language: 
     </span>
-    None
+    <LanguageList
+      languages={Array []}
+      propToUse="representation"
+    />
   </div>
   <div>
     <span
