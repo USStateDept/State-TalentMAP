@@ -151,7 +151,7 @@ export function panelMeetingsFiltersFetchData() {
 
 export function panelMeetingsExport(query = {}) {
   const q = convertQueryToString(query);
-  const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
+  const endpoint = '/fsbid/panel/export/'; // Replace with correct endpoint when available
   const ep = `${endpoint}?${q}`;
   return api()
     .get(ep)
