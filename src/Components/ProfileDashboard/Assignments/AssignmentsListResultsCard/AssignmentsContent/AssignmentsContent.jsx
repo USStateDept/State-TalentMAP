@@ -2,7 +2,7 @@ import { get, has } from 'lodash';
 // import { Link } from 'react-router-dom';
 import {
   NO_ASSIGNMENT_DATE, NO_ASSIGNMENT_STATUS, NO_ASSIGNMENT_TOD_DESC,
-  NO_POSITION_NUMBER, NO_POST, NO_SKILL,
+  NO_ORG, NO_POSITION_NUMBER, NO_POST, NO_SKILL,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import LanguageList from 'Components/LanguageList';
@@ -26,8 +26,8 @@ const AssignmentsContent = ({ assignment }) => (
       {/* <Link to={`/archived/${get(assignment, 'position.position_id')}`}>View Position</Link> */}
     </div>
     <div>
-      <span className="bid-list-card-title-post">Location: </span>
-      {getPostName(get(assignment, 'position.post', NO_POST))}
+      <span className="bid-list-card-title-post">Location (Org): </span>
+      {`${getPostName(get(assignment, 'position.post', NO_POST))} (${get(assignment, 'position.organization', NO_ORG)})`}
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill: </span>
