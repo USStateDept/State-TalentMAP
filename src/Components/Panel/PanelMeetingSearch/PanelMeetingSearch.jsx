@@ -14,6 +14,7 @@ import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelMeetingSearchRow';
 import Alert from 'Components/Alert';
+import PaginationWrapper from 'Components/PaginationWrapper';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -33,6 +34,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
+  const [page, setPage] = useState(get(userSelections, 'page') || 1);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
 
@@ -263,6 +265,16 @@ const PanelMeetingSearch = ({ isCDO }) => {
               }
             </div>
         }
+        <div className="usa-grid-full react-paginate panel-meeting-search-pagination-controls">
+          <PaginationWrapper
+            pageSize={limit}
+            onPageChange={p => setPage(p.page)}
+            forcePage={page}
+            totalResults={count}
+            // marginPagesDisplayed={4}
+            // pageRangeDisplayed={3}
+          />
+        </div>
       </div>
   );
 };
