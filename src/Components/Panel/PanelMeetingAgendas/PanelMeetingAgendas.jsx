@@ -8,7 +8,6 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -55,10 +54,7 @@ const PanelMeetingAgendas = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  const meetingStatus = 'Initiated';
-  const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
-  const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
-  const addendumCutoff = formatDate('2024-05-18T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
+  // TO-DO: grab Scott's new data structure and component
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
@@ -259,29 +255,6 @@ const PanelMeetingAgendas = (props) => {
           <div className="usa-grid-full panel-meeting-agenda-upper-section search-bar-container">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
-            <div className="pma-meeting-info-container">
-              <div className="pma-meeting-type">
-                ID
-              </div>
-              <div className="cutoff-date-container">
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Meeting Date:</dt>
-                  <dd>{meetingDate}</dd>
-                </div>
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Meeting Status:</dt>
-                  <dd>{meetingStatus}</dd>
-                </div>
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Preliminary Cut-Off:</dt>
-                  <dd>{preliminaryCutoff}</dd>
-                </div>
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Addendum Cut-Off:</dt>
-                  <dd>{addendumCutoff}</dd>
-                </div>
-              </div>
-            </div>
             <PositionManagerSearch
               submitSearch={submitSearch}
               onChange={setTextInputThrottled}
