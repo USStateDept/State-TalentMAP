@@ -251,15 +251,13 @@ const PanelMeetingSearch = ({ isCDO }) => {
           overlay ||
             <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
               {
-                <div className="panel-meeting-row">
-                  {panelMeetings.map(pm => (
-                    <PanelMeetingSearchRow
-                      key={get(pm, 'pm_seq_num')}
-                      pm={pm}
-                      isCDO={isCDO}
-                    />
-                  ))}
-                </div>
+                panelMeetings.map(pm => (
+                  <PanelMeetingSearchRow
+                    key={get(pm, 'pm_seq_num')}
+                    pm={pm}
+                    isCDO={isCDO}
+                  />
+                ))
               }
             </div>
         }

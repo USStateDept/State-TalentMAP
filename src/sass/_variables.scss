@@ -277,6 +277,17 @@ $borderColor:(
 );
 
 //**
+//* Panel Status Colors
+//*
+$panelStatuses: (
+  "A": #2D6E0E,
+  "C": #913831,
+  "I": #757575,
+  "O": #003EBD,
+  "P": #DC6601,
+);
+
+//**
 //* Agenda Item Maintenance Legs
 //*
 $aim-legs-sm-height-config: (

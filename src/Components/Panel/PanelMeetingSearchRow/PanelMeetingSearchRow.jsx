@@ -1,59 +1,94 @@
 import PropTypes from 'prop-types';
 import LinkButton from 'Components/LinkButton';
 import { PANEL_MEETING } from 'Constants/PropTypes';
-import { get, sortBy } from 'lodash';
+import { get, includes } from 'lodash';
 import { formatDate } from 'utilities';
+import { isPast } from 'date-fns-v2';
+import Tracker from 'Components/Tracker';
 
 const FALLBACK = 'None listed';
 
 const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
   const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
-  const meetingTypeCode = get(pm, 'pmt_code') || FALLBACK;
   const meetingTypeText = get(pm, 'pmt_desc_text') || '';
   const meetingStatus = get(pm, 'pms_desc_text') || FALLBACK;
   const meetingDates = get(pm, 'panelMeetingDates') || [];
-  const meetingDates$ = sortBy(meetingDates, ['mdt_order_num']);
 
   const userRole = isCDO ? 'cdo' : 'ao';
 
-  return (
-    <div className="usa-grid-full panel-meeting-stat-row">
-      <div className="meeting-type-circle-container">
-        <div className="meeting-type-circle">
-          {meetingTypeCode}
-        </div>
-      </div>
-      <div className="panel-meeting-row-name">
-        {meetingTypeText}
-      </div>
-      <div className="panel-meeting-row-data-container">
-        <div className="panel-meeting-row-data-points">
-          <div className="panel-meeting-row-data-point">
-            <dt>Meeting Status:</dt>
-            <dd>{meetingStatus}</dd>
-          </div>
-          {meetingDates$.map(pmd => {
-            if (get(pmd, 'mdt_desc_text')) {
-              return (
-                <div className="panel-meeting-row-data-point">
-                  <dt>{get(pmd, 'mdt_desc_text').replace('Official', '')}:</dt>
-                  <dd>{formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || FALLBACK}</dd>
-                </div>
-              );
-            }
-            return false;
-          })}
-        </div>
-        <div className="button-container">
-          {
-            !!showCreate &&
-            <div className="button-box-container">
-              <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>Go to Panel</LinkButton>
-            </div>
-          }
-        </div>
+  const formatTrackerData = () => {
+    const pre = { label: 'Pre-Panel' };
+    const add = { label: 'Addendum' };
+    const panel = { label: 'Panel' };
+    const post = { label: 'Post-Panel' };
+    const complete = { label: 'Complete' };
+    meetingDates.forEach(pmd => {
+      const meetingDate = formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || '';
+      const code = get(pmd, 'mdt_code');
+      const isPast$ = isPast(new Date(pmd.pmd_dttm));
+      if (includes(['OFF', 'CUT'], code)) {
+        if ((code === 'CUT') && isPast$) {
+          pre.description = meetingDate;
+          pre.isActive = isPast$;
+        } else if (code === 'OFF' && isPast$) {
+          pre.description = meetingDate;
+          pre.isActive = isPast$;
+        } else if (code === 'OFF') {
+          pre.description = meetingDate;
+          pre.isActive = isPast$;
+        }
+      } else if (includes(['ADD', 'OFFA'], code)) {
+        if ((code === 'OFFA') && isPast$) {
+          add.description = meetingDate;
+          add.isActive = isPast$;
+        } else if (code === 'ADD' && isPast$) {
+          add.description = meetingDate;
+          add.isActive = isPast$;
+        } else if (code === 'ADD') {
+          add.description = meetingDate;
+          add.isActive = isPast$;
+        }
+      } else if (includes(['MEET'], code)) {
+        panel.description = meetingDate;
+        panel.isActive = isPast$;
+      } else if (includes(['POSS', 'POST'], code)) {
+        if ((code === 'POST') && isPast$) {
+          post.description = meetingDate;
+          post.isActive = isPast$;
+        } else if (code === 'POSS' && isPast) {
+          post.description = meetingDate;
+          post.isActive = isPast$;
+        } else if (code === 'POSS') {
+          post.description = meetingDate;
+          post.isActive = isPast$;
+        }
+      } else if (includes(['COMP'], code)) {
+        complete.description = meetingDate;
+        complete.isActive = isPast$;
+      }
+    });
+    return [pre, add, panel, post, complete];
+  };
 
+  return (
+    <div className="panel-meeting-row">
+      <div className="row-container">
+        <div className="panel-meeting-row-name">
+          {meetingTypeText}
+        </div>
+        <div className={`panel-status panel-status--${get(pm, 'pms_code')}`}>{meetingStatus}</div>
       </div>
+      <div className="progress-container">
+        <Tracker
+          data={formatTrackerData()}
+        />
+      </div>
+      {
+        !!showCreate &&
+        <div className="button-box-container">
+          <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>Go to Panel</LinkButton>
+        </div>
+      }
     </div>
   );
 };

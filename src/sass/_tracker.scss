@@ -1,0 +1,53 @@
+.tracker {
+  display: flex;
+  justify-content: space-between;
+  list-style-type: none;
+  padding-left: 0px;
+
+  .step-label {
+    font-size: 18px;
+  }
+
+  .step-description {
+    font-size: 14px;
+  }
+
+  .bar {
+    background: #b6b6b6;
+    height: 5px;
+    position: absolute;
+    width: 95%;
+    top: 26px;
+  }
+
+  li:last-child {
+    z-index: 1;
+    background: #f7f7f7;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      background: #b6b6b6;
+      border-radius: 50%;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      width: 24px;
+      z-index: 1;
+    }
+
+
+
+  }
+  .active > .icon {
+    background: #0071BC;
+
+    .fa {
+      padding-left: 0px;
+      color: white;
+    }
+  }
+}
