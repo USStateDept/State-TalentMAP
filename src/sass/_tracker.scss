@@ -11,8 +11,6 @@
     font-size: 14px;
   }
 
-
-
   li {
     width: 100%;
     position: relative;
@@ -22,10 +20,10 @@
    .bar {
       width: 0%;
     }
+    
     @media screen and (min-width: 1620px) {
       width: 50%;
     }
-
   }
 
   .step {
@@ -41,6 +39,7 @@
       width: 24px;
       z-index: 1;
     }
+    
     .bar {
       background: $bg-gray-medium-1;
       height: 2px;
