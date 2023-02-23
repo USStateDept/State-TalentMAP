@@ -251,12 +251,14 @@
         margin-left: -3px;
         width: 50px;
       }
-      .panel-meeting-agendas-item-number {
+      .pmi-official-item-number {
         font-size: 20px;
-      }
-      .panel-meeting-agendas-select {
-        margin-left: -1.5em;
-        width: 230px;
+        .ai-id-link {
+          border-bottom: 1px solid white;
+          color: white;
+          padding: 0 15px;
+          text-decoration: none;
+        }
       }
     }
   }
