@@ -27,43 +27,48 @@ const PanelMeetingSearchRow = ({ isCDO, pm }) => {
       const meetingDate = formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || '';
       const code = get(pmd, 'mdt_code');
       const isPast$ = isPast(new Date(pmd.pmd_dttm));
-      if (includes(['OFF', 'CUT'], code)) {
-        if ((code === 'CUT') && isPast$) {
+      // Use this console log to test last data in console to last card on page
+      console.log(code, pmd, meetingDate);
+      if (includes(['CUT', 'OFF'], code)) {
+        const { description = '' } = pre;
+        if ((code === 'OFF') && isPast$) {
           pre.description = meetingDate;
           pre.isActive = isPast$;
-        } else if (code === 'OFF' && isPast$) {
+        } else if (!description && (code === 'CUT' && isPast$)) {
           pre.description = meetingDate;
           pre.isActive = isPast$;
-        } else if (code === 'OFF') {
+        } else if (!description && (code === 'CUT')) {
           pre.description = meetingDate;
           pre.isActive = isPast$;
         }
       } else if (includes(['ADD', 'OFFA'], code)) {
+        const { description = '' } = add;
         if ((code === 'OFFA') && isPast$) {
           add.description = meetingDate;
           add.isActive = isPast$;
-        } else if (code === 'ADD' && isPast$) {
+        } else if (!description && (code === 'ADD' && isPast$)) {
           add.description = meetingDate;
           add.isActive = isPast$;
-        } else if (code === 'ADD') {
+        } else if (!description && (code === 'ADD')) {
           add.description = meetingDate;
           add.isActive = isPast$;
         }
-      } else if (includes(['MEET'], code)) {
+      } else if (code === 'MEET') {
         panel.description = meetingDate;
         panel.isActive = isPast$;
       } else if (includes(['POSS', 'POST'], code)) {
+        const { description = '' } = post;
         if ((code === 'POST') && isPast$) {
           post.description = meetingDate;
           post.isActive = isPast$;
-        } else if (code === 'POSS' && isPast) {
+        } else if (!description && (code === 'POSS' && isPast)) {
           post.description = meetingDate;
           post.isActive = isPast$;
-        } else if (code === 'POSS') {
+        } else if (!description && (code === 'POSS')) {
           post.description = meetingDate;
           post.isActive = isPast$;
         }
-      } else if (includes(['COMP'], code)) {
+      } else if (code === 'COMP') {
         complete.description = meetingDate;
         complete.isActive = isPast$;
       }
@@ -71,6 +76,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm }) => {
     const trackerData = [pre, add, panel, post, complete];
     const idx = findLastIndex(trackerData, (d) => !!d.isActive);
     if (idx >= 0) { trackerData[idx].isCurrent = true; }
+    console.log('trackerData', trackerData);
     return trackerData;
   };
 
