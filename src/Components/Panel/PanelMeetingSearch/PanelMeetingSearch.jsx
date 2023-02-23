@@ -15,6 +15,7 @@ import Spinner from 'Components/Spinner';
 import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelMeetingSearchRow';
 import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
+import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -222,31 +223,42 @@ const PanelMeetingSearch = ({ isCDO }) => {
         </div>
         {
           !groupLoading &&
-          <div className="panel-results-controls">
-            <SelectForm
-              className="panel-select-box"
-              id="panel-search-results-sort"
-              options={sorts.options}
-              label="Sort by:"
-              defaultSort={ordering}
-              onSelectOption={value => setOrdering(value.target.value)}
+          <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+            <TotalResults
+              total={count}
+              pageNumber={page}
+              pageSize={limit}
+              suffix="Results"
+              isHidden={panelMeetingsIsLoading}
             />
-            <SelectForm
-              className="panel-select-box"
-              id="panel-search-num-results"
-              options={pageSizes.options}
-              label="Results:"
-              defaultSort={limit}
-              onSelectOption={value => setLimit(value.target.value)}
-            />
-            <div className="export-button-container">
-              <ExportButton
-                onClick={exportPanelMeetings}
-                isLoading={exportIsLoading}
-                disabled={exportDisabled}
+            <div className="panel-results-controls">
+              <SelectForm
+                className="panel-select-box"
+                id="panel-search-results-sort"
+                options={sorts.options}
+                label="Sort by:"
+                defaultSort={ordering}
+                onSelectOption={value => setOrdering(value.target.value)}
+                disabled={panelMeetingsIsLoading}
               />
+              <SelectForm
+                className="panel-select-box"
+                id="panel-search-num-results"
+                options={pageSizes.options}
+                label="Results:"
+                defaultSort={limit}
+                onSelectOption={value => setLimit(value.target.value)}
+                disabled={panelMeetingsIsLoading}
+              />
+              <div className="export-button-container">
+                <ExportButton
+                  onClick={exportPanelMeetings}
+                  isLoading={exportIsLoading}
+                  disabled={exportDisabled}
+                />
+              </div>
+              <ScrollUpButton />
             </div>
-            <ScrollUpButton />
           </div>
         }
         {
@@ -265,16 +277,17 @@ const PanelMeetingSearch = ({ isCDO }) => {
               }
             </div>
         }
-        <div className="usa-grid-full react-paginate panel-meeting-search-pagination-controls">
-          <PaginationWrapper
-            pageSize={limit}
-            onPageChange={p => setPage(p.page)}
-            forcePage={page}
-            totalResults={count}
-            // marginPagesDisplayed={4}
-            // pageRangeDisplayed={3}
-          />
-        </div>
+        {
+          !panelMeetingsIsLoading &&
+          <div className="usa-grid-full react-paginate panel-meeting-search-pagination-controls">
+            <PaginationWrapper
+              pageSize={limit}
+              onPageChange={p => setPage(p.page)}
+              forcePage={page}
+              totalResults={count}
+            />
+          </div>
+        }
       </div>
   );
 };
