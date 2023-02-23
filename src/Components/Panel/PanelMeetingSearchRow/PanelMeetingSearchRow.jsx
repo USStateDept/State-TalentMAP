@@ -72,7 +72,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
 
   return (
     <div className="panel-meeting-row">
-      <div className="row-container">
+      <div className="panel-meeting-type-container">
         <div className="panel-meeting-row-name">
           {meetingTypeText}
         </div>

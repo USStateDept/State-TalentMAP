@@ -121,7 +121,7 @@
     margin: 0 20px;
   }
 
-  .row-container {
+  .panel-meeting-type-container {
     min-width: 115px;
   }
 
@@ -136,27 +136,6 @@
 
   .button-box {
     width: 100px;
-  }
-
-  .panel-meeting-row-data-container {
-    margin: 5px 0 0 100px;
-
-    .panel-meeting-row-data-points {
-      display: inline-grid;
-      grid-auto-flow: column;
-      grid-template-rows: repeat(2, auto);
-      margin-left: 15px;
-
-      .panel-meeting-row-data-point {
-        align-items: center;
-        display: flex;
-        margin: 0 40px 5px 0;
-
-        @media screen and (max-width: 1650px) {
-          margin-right: 10px;
-        }
-      }
-    }
   }
 
   @each $status, $color in $panelStatuses {
