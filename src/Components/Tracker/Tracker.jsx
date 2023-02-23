@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+import { TRACKER_DATA } from 'Constants/PropTypes';
 import FA from 'react-fontawesome';
 
 const Tracker = (props) => {
@@ -8,9 +8,9 @@ const Tracker = (props) => {
     <ul className="tracker">
       {
         data.map(d => {
-          const { isActive = false, isCurrent = false } = d;
+          const { isActive = false, isCurrent = false, description = '', label = '' } = d;
           return (
-            <li>
+            <li key={label}>
               <div className={`step ${isActive ? 'active' : ''}`}>
                 <div className={`bar ${isCurrent ? 'current' : ''}`} />
                 <div className="icon">
@@ -18,10 +18,10 @@ const Tracker = (props) => {
                 </div>
               </div>
               <div className="step-label">
-                {d.label}
+                {label}
               </div>
               <div className="step-description">
-                {d.description}
+                {description}
               </div>
             </li>
           );
@@ -32,7 +32,7 @@ const Tracker = (props) => {
 };
 
 Tracker.propTypes = {
-  data: PropTypes.shape([]),
+  data: TRACKER_DATA,
 };
 
 Tracker.defaultProps = {
