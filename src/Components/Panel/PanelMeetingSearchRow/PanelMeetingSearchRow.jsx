@@ -1,14 +1,14 @@
 import PropTypes from 'prop-types';
 import LinkButton from 'Components/LinkButton';
 import { PANEL_MEETING } from 'Constants/PropTypes';
-import { get, includes } from 'lodash';
+import { findLastIndex, get, includes } from 'lodash';
 import { formatDate } from 'utilities';
 import { isPast } from 'date-fns-v2';
 import Tracker from 'Components/Tracker';
 
 const FALLBACK = 'None listed';
 
-const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
+const PanelMeetingSearchRow = ({ isCDO, pm }) => {
   const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
   const meetingTypeText = get(pm, 'pmt_desc_text') || '';
   const meetingStatus = get(pm, 'pms_desc_text') || FALLBACK;
@@ -22,6 +22,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
     const panel = { label: 'Panel' };
     const post = { label: 'Post-Panel' };
     const complete = { label: 'Complete' };
+
     meetingDates.forEach(pmd => {
       const meetingDate = formatDate(get(pmd, 'pmd_dttm'), 'MM/DD/YYYY HH:mm') || '';
       const code = get(pmd, 'mdt_code');
@@ -67,7 +68,10 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
         complete.isActive = isPast$;
       }
     });
-    return [pre, add, panel, post, complete];
+    const trackerData = [pre, add, panel, post, complete];
+    const idx = findLastIndex(trackerData, (d) => !!d.isActive);
+    if (idx >= 0) { trackerData[idx].isCurrent = true; }
+    return trackerData;
   };
 
   return (
@@ -83,12 +87,9 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
           data={formatTrackerData()}
         />
       </div>
-      {
-        !!showCreate &&
-        <div className="button-box-container">
-          <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>Go to Panel</LinkButton>
-        </div>
-      }
+      <div className="button-box-container">
+        <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>View</LinkButton>
+      </div>
     </div>
   );
 };
@@ -96,13 +97,11 @@ const PanelMeetingSearchRow = ({ isCDO, pm, showCreate }) => {
 PanelMeetingSearchRow.propTypes = {
   isCDO: PropTypes.bool,
   pm: PANEL_MEETING,
-  showCreate: PropTypes.bool,
 };
 
 PanelMeetingSearchRow.defaultProps = {
   isCDO: false,
   pm: {},
-  showCreate: true,
 };
 
 export default PanelMeetingSearchRow;

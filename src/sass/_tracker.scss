@@ -1,6 +1,5 @@
 .tracker {
   display: flex;
-  justify-content: space-between;
   list-style-type: none;
   padding-left: 0px;
 
@@ -12,17 +11,21 @@
     font-size: 14px;
   }
 
-  .bar {
-    background: #b6b6b6;
-    height: 5px;
-    position: absolute;
-    width: 95%;
-    top: 26px;
+
+
+  li {
+    width: 100%;
+    position: relative;
   }
 
   li:last-child {
-    z-index: 1;
-    background: #f7f7f7;
+   .bar {
+      width: 0%;
+    }
+    @media screen and (min-width: 1620px) {
+      width: 50%;
+    }
+
   }
 
   .step {
@@ -38,16 +41,21 @@
       width: 24px;
       z-index: 1;
     }
-
-
-
+    .bar {
+      background: $bg-gray-medium-1;
+      height: 2px;
+      position: absolute;
+      width: 100%;
+    }
   }
-  .active > .icon {
-    background: #0071BC;
+  .active .icon, .active .bar {
+    &:not(.current) {
+      background: $tertiary-success;
+    }
 
     .fa {
       padding-left: 0px;
-      color: white;
+      color: $color-white;
     }
   }
 }
