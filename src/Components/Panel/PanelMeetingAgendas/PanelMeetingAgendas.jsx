@@ -3,6 +3,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
+import InteractiveElement from 'Components/InteractiveElement';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -86,6 +87,7 @@ const PanelMeetingAgendas = (props) => {
   const panelFiltersIsLoading =
     includes([remarksLoading, itemStatusLoading, itemActionLoading, categoryLoading], true);
 
+  const [showPanelMeetingInfo, setShowPanelMeetingInfo] = useState(false);
   const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
   const [selectedGrades, setSelectedGrades] = useState(get(userSelections, 'selectedGrades') || []);
@@ -397,6 +399,13 @@ const PanelMeetingAgendas = (props) => {
           <ScrollUpButton />
           {
             <div className="panel-meeting-agendas-rows-container">
+              <InteractiveElement title="Toggle Panel Information" onClick={() => setShowPanelMeetingInfo(!showPanelMeetingInfo)}>
+                <div className={`pma-pm-info ${showPanelMeetingInfo ? 'pma-pm-info-expanded' : ''}`}>
+                  <div className={`pma-pm-info-title ${showPanelMeetingInfo ? 'pma-pm-info-title-expanded' : ''}`}>
+                    Panel Meeting Information
+                  </div>
+                </div>
+              </InteractiveElement>
               {
                 Object.keys(categorizeAgendas()).map(header => (
                   <>
