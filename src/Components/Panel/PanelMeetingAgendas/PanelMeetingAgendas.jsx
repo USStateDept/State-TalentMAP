@@ -211,6 +211,12 @@ const PanelMeetingAgendas = (props) => {
     search();
   }, []);
 
+  useEffect(() => {
+    setAgendas$(agendas);
+    search();
+  }, [agendas]);
+
+
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
