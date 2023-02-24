@@ -15,8 +15,7 @@ import { filtersFetchData } from 'actions/filters/filters';
 import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
-// TODO: resolve if possible
-// import { meetingCategoryMap } from 'src/Components/Panel/Constants';
+import { meetingCategoryMap } from 'Components/Panel/Constants';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -61,19 +60,6 @@ const PanelMeetingAgendas = (props) => {
   const { isAO, isCDO } = props;
   const pmSeqNum = get(props, 'match.params.pmID');
 
-  const meetingCategoryMap = {
-    R: 'Review',
-    O: 'Off Panel',
-    D: 'Discuss',
-    S: 'Separations',
-    X: 'Express',
-    V: 'Volunteer Cable',
-    A: 'Addendum',
-    C: 'Addendum(Volunteer Cable)',
-    P: 'Position Challenge',
-    E: 'Employee Challenge',
-  };
-
   const agendasCategorized = {
     Review: [],
     'Off Panel': [],
@@ -90,7 +76,8 @@ const PanelMeetingAgendas = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  // TODO: Remove
+  // TODO: Re-enable skill and bureau picky once implemented
+  // TODO: Remove fake data
   const meetingStatus = 'Initiated';
   const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
@@ -278,6 +265,9 @@ const PanelMeetingAgendas = (props) => {
     if (has(items[0], 'desc_text')) {
       codeOrText = 'desc_text';
     }
+    if (has(items[0], 'abbr_desc_text') && items[0].code === 'V') {
+      codeOrText = 'abbr_desc_text';
+    }
     // only Categories need to use 'mic_desc_text'
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
@@ -292,6 +282,7 @@ const PanelMeetingAgendas = (props) => {
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
     else if (codeOrText === 'text') queryProp = 'text';
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
+    else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
     else if (codeOrText === 'name') queryProp = 'name';
     return items.map(item =>
@@ -389,7 +380,7 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedBureaus}
                   valueKey="code"
                   labelKey="long_description"
-                  disabled={isLoading}
+                  disabled
                 />
               </div>
               <div className="filter-div">
@@ -492,7 +483,7 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedSkills}
                   valueKey="code"
                   labelKey="custom_description"
-                  disabled={isLoading}
+                  disabled
                 />
               </div>
             </div>
