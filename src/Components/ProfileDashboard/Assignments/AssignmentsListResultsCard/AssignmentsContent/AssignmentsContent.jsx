@@ -24,7 +24,7 @@ const AssignmentsContent = ({ assignment }) => (
     </div>
     <div>
       <span className="bid-list-card-title-post">Location (Org): </span>
-      {`${getPostName(get(assignment, 'position.post') || DEFAULT_TEXT)} (${get(assignment, 'position.organization') || DEFAULT_TEXT})`}
+      {`${getPostName(get(assignment, 'position.post'))} (${get(assignment, 'position.organization') || DEFAULT_TEXT})`}
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill: </span>
