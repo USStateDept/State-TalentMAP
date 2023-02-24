@@ -792,7 +792,7 @@ const flagFuse = new Fuse(FLAG_COLORS, fuseOptions);
 export const getFlagColorsByTextSearch = (t = '', limit = 5) => {
   let value = false;
   if (t && isString(t)) {
-    const result = flagFuse.search(t);
+    const result = flagFuse.search(t).map(({ item }) => item);
     const colors = get(result, '[0].item.colors', false);
     value = colors;
   }

@@ -41,7 +41,7 @@ const FrequentPositions = (props) => {
   };
 
   const fuse$ = new Fuse(positions, fuseOptions);
-  const search = a => setPositions$(fuse$.search(a));
+  const search = a => setPositions$(fuse$.search(a).map(({ item }) => item));
 
   useEffect(() => {
     setPositions$(positions);
