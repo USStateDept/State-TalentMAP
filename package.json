@@ -33,7 +33,7 @@
     "flag": "^3.0.0-1",
     "flat": "^4.1.0",
     "font-awesome": "^4.7.0",
-    "fuse.js": "^3.6.1",
+    "fuse.js": "^6.6.2",
     "helmet": "^3.21.3",
     "history": "^4.7.2",
     "imagediff": "^1.0.8",
