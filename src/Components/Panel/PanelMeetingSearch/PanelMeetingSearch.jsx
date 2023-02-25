@@ -59,6 +59,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const getQuery = () => ({
     limit,
+    page,
     ordering,
     type: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
     status: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
@@ -67,6 +68,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const getCurrentInputs = () => ({
     limit,
+    page,
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
@@ -96,6 +98,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     fetchAndSet();
   }, [
     limit,
+    page,
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
