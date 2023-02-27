@@ -229,7 +229,6 @@ const PanelMeetingAgendas = (props) => {
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
-    fetchAndSet();
   }, []);
 
   useEffect(() => {
