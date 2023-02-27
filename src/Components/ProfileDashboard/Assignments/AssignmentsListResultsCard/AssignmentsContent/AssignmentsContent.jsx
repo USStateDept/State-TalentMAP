@@ -1,10 +1,8 @@
 import { get, has } from 'lodash';
 // import { Link } from 'react-router-dom';
-import {
-  NO_ASSIGNMENT_STATUS, NO_ASSIGNMENT_TOD_DESC, NO_LANGUAGES,
-  NO_POSITION_NUMBER, NO_POST, NO_SKILL,
-} from 'Constants/SystemMessages';
+import { DEFAULT_TEXT, NO_POSITION_NUMBER } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
+import LanguageList from 'Components/LanguageList';
 import { formatDate, getPostName } from '../../../../../utilities';
 import StartEnd from '../../../PositionInformation/StartEnd';
 
@@ -25,34 +23,34 @@ const AssignmentsContent = ({ assignment }) => (
       {/* <Link to={`/archived/${get(assignment, 'position.position_id')}`}>View Position</Link> */}
     </div>
     <div>
-      <span className="bid-list-card-title-post">Location: </span>
-      {getPostName(get(assignment, 'position.post', NO_POST))}
+      <span className="bid-list-card-title-post">Location (Org): </span>
+      {`${getPostName(get(assignment, 'position.post'))} (${get(assignment, 'position.organization') || DEFAULT_TEXT})`}
     </div>
     <div>
       <span className="bid-list-card-title-post">Skill: </span>
-      {get(assignment, 'position.skill', NO_SKILL)}
+      {get(assignment, 'position.skill') || DEFAULT_TEXT}
     </div>
     <div>
       <span className="bid-list-card-title-post">Language: </span>
-      {get(assignment, 'position.language', NO_LANGUAGES)}
+      <LanguageList languages={get(assignment, 'position.languages') || []} propToUse="representation" />
     </div>
     { has(assignment, 'status') &&
       <div>
         <span className="bid-list-card-title-post">Status: </span>
-        {get(assignment, 'asgs_code') || NO_ASSIGNMENT_STATUS}
+        {get(assignment, 'status') || DEFAULT_TEXT}
       </div>
     }
     { has(assignment, 'asgd_tod_desc_text') &&
       <div>
         <span className="bid-list-card-title-post">TOD Description: </span>
-        {get(assignment, 'asgd_tod_desc_text', NO_ASSIGNMENT_TOD_DESC)}
+        {get(assignment, 'asgd_tod_desc_text') || DEFAULT_TEXT}
       </div>
     }
     <div>
       <span className="bid-list-card-title-post">Start date and End date: </span>
       <StartEnd
-        start={formatDate(assignment.start_date)}
-        end={formatDate(assignment.end_date)}
+        start={formatDate(get(assignment, 'start_date')) || DEFAULT_TEXT}
+        end={formatDate(get(assignment, 'end_date')) || DEFAULT_TEXT}
       />
     </div>
   </div>

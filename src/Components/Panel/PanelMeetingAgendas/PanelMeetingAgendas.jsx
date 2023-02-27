@@ -3,7 +3,7 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
@@ -12,32 +12,53 @@ import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
+import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
-// TODO: resolve if possible
-// import { meetingCategoryMap } from 'src/Components/Panel/Constants';
+import { meetingCategoryMap } from 'Components/Panel/Constants';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
 
+const fuseOptions = {
+  shouldSort: false,
+  findAllMatches: true,
+  tokenize: true,
+  useExtendedSearch: true,
+  includeScore: false,
+  threshold: 0.25,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: [
+    'status_short',
+    'id',
+    'meeting_category',
+    'remarks.seq_num',
+    'assignment.pos_num',
+    'assignment.pos_title',
+    'legs.action',
+    'legs.languages.code',
+    'legs.grade',
+    'legs.pos_num',
+    'legs.pos_title',
+    'legs.org',
+    'creators.last_name',
+    'creators.first_name',
+    'creators.emp_user.emp_user_last_name',
+    'creators.emp_user.emp_user_first_name',
+    'updaters.last_name',
+    'updaters.first_name',
+    'updaters.emp_user.emp_user_last_name',
+    'updaters.emp_user.emp_user_first_name',
+  ],
+};
 
 const PanelMeetingAgendas = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { isAO, isCDO } = props;
   const pmSeqNum = get(props, 'match.params.pmID');
-
-  const meetingCategoryMap = {
-    R: 'Review',
-    O: 'Off Panel',
-    D: 'Discuss',
-    S: 'Separations',
-    X: 'Express',
-    V: 'Volunteer Cable',
-    A: 'Addendum',
-    C: 'Addendum(Volunteer Cable)',
-    P: 'Position Challenge',
-    E: 'Employee Challenge',
-  };
 
   const agendasCategorized = {
     Review: [],
@@ -55,6 +76,8 @@ const PanelMeetingAgendas = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
+  // TODO: Re-enable skill and bureau picky once implemented
+  // TODO: Remove fake data
   const meetingStatus = 'Initiated';
   const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
   const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
@@ -66,6 +89,7 @@ const PanelMeetingAgendas = (props) => {
   const genericFilters = useSelector(state => state.filters);
   const isAgendaLoading = useSelector(state => state.panelMeetingAgendasFetchDataLoading);
   const agendas = useSelector(state => state.panelMeetingAgendas);
+  const [agendas$, setAgendas$] = useState(agendas);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -74,8 +98,6 @@ const PanelMeetingAgendas = (props) => {
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const posts = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const postsOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const { data: remarks, loading: remarksLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
@@ -86,86 +108,128 @@ const PanelMeetingAgendas = (props) => {
   const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
   const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
+  // Replace with real ref data endpoints
+  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/handshake-organizations/');
+  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const panelFiltersIsLoading =
-    includes([remarksLoading, itemStatusLoading, itemActionLoading, categoryLoading], true);
+    includes([orgsLoading, remarksLoading, itemStatusLoading,
+      itemActionLoading, categoryLoading], true);
 
   const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
   const [selectedGrades, setSelectedGrades] = useState(get(userSelections, 'selectedGrades') || []);
   const [selectedItemActions, setSelectedItemActions] = useState(get(userSelections, 'selectedItemActions') || []);
   const [selectedItemStatuses, setSelectedItemStatuses] = useState(get(userSelections, 'selectedItemStatuses') || []);
   const [selectedLanguages, setSelectedLanguages] = useState(get(userSelections, 'selectedLanguages') || []);
-  const [selectedPosts, setSelectedPosts] = useState(get(userSelections, 'selectedPosts') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
-
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
-
   const [clearFilters, setClearFilters] = useState(false);
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
-  const getQuery = () => ({
-    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(grades, 'item.selectionRef')]: selectedGrades.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
-    [get(posts, 'item.selectionRef')]: selectedPosts.map(postObject => (get(postObject, 'code'))),
-    [get(languages, 'item.selectionRef')]: selectedLanguages.map(langObject => (get(langObject, 'code'))),
-    itemActions: selectedItemActions.map(itemActionObject => (get(itemActionObject, 'desc_text'))),
-    itemStatuses: selectedItemStatuses.map(itemStatusObject => (get(itemStatusObject, 'desc_text'))),
-    categories: selectedCategories.map(categoryObject => (get(categoryObject, 'mic_desc_text'))),
-    remarks: selectedRemarks.map(remarkObject => (get(remarkObject, 'text'))),
-    q: textInput || textSearch,
-  });
+  const fuse$ = new Fuse(agendas, fuseOptions);
+
+  const prepareFuseQuery = () => {
+    const fuseQuery = [];
+
+    const statuses$ = selectedItemStatuses.map(({ abbr_desc_text }) => (
+      { status_short: abbr_desc_text }
+    ));
+    const categories$ = selectedCategories.map(({ mic_code }) => (
+      { meeting_category: mic_code }
+    ));
+    const remarks$ = selectedRemarks.map(({ seq_num }) => (
+      { 'remarks.seq_num': seq_num.toString() }
+    ));
+    const actions$ = selectedItemActions.map(({ abbr_desc_text }) => (
+      { 'legs.action': abbr_desc_text }
+    ));
+    const languages$ = selectedLanguages.map(({ code }) => (
+      { 'legs.languages.code': code }
+    ));
+    const grades$ = selectedGrades.map(({ code }) => (
+      { 'legs.grade': code }
+    ));
+    const orgs$ = selectedOrgs.map(({ name }) => (
+      { 'legs.org': `=${name}` }
+    ));
+    if (orgs$.length) { fuseQuery.push({ $or: orgs$ }); }
+    if (grades$.length) { fuseQuery.push({ $or: grades$ }); }
+    if (languages$.length) { fuseQuery.push({ $or: languages$ }); }
+    if (actions$.length) { fuseQuery.push({ $or: actions$ }); }
+    if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
+    if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
+    if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
+    if (textSearch) {
+      const t = textSearch;
+      // See Fuse extended search docs
+      const freeTextLookups = [
+        { id: `'${t}` },
+        { 'assignment.pos_num': `'${t}` },
+        { 'assignment.pos_title': t },
+        { 'legs.pos_num': `'${t}` },
+        { 'legs.pos_title': t },
+        { 'creators.last_name': t },
+        { 'creators.first_name': t },
+        { 'creators.emp_user.emp_user_last_name': t },
+        { 'creators.emp_user.emp_user_first_name': t },
+        { 'updaters.last_name': t },
+        { 'updaters.first_name': t },
+        { 'updaters.emp_user.emp_user_last_name': t },
+        { 'updaters.emp_user.emp_user_first_name': t },
+      ];
+      fuseQuery.push({ $or: freeTextLookups });
+    }
+    return fuseQuery;
+  };
+
+  const search = () => setAgendas$(fuse$.search({
+    $and: prepareFuseQuery(),
+  }).map(({ item }) => item));
 
   const getCurrentInputs = () => ({
     selectedBureaus,
+    selectedOrgs,
     selectedCategories,
     selectedGrades,
     selectedItemActions,
     selectedItemStatuses,
     selectedLanguages,
-    selectedPosts,
     selectedRemarks,
     selectedSkills,
-    textInput,
     textSearch,
   });
 
-  function categorizeAgendas() {
-    agendas.forEach(a => {
-      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
-    });
-    return agendasCategorized;
-  }
-
   useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
+    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
+    search();
   }, []);
 
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
+      selectedOrgs,
       selectedCategories,
       selectedGrades,
       selectedItemActions,
       selectedItemStatuses,
       selectedLanguages,
-      selectedPosts,
       selectedRemarks,
       selectedSkills,
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
       setClearFilters(false);
+      setAgendas$(agendas);
     } else {
       setClearFilters(true);
+      search();
     }
-    dispatch(panelMeetingAgendasFetchData(getQuery(), pmSeqNum));
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
 
@@ -173,27 +237,23 @@ const PanelMeetingAgendas = (props) => {
     fetchAndSet();
   }, [
     selectedBureaus,
+    selectedOrgs,
     selectedCategories,
     selectedGrades,
     selectedItemActions,
     selectedItemStatuses,
     selectedLanguages,
-    selectedPosts,
     selectedRemarks,
     selectedSkills,
     textSearch,
   ]);
 
-  function submitSearch(text) {
-    setTextSearch(text);
+  function categorizeAgendas() {
+    agendas$.forEach(a => {
+      agendasCategorized[meetingCategoryMap[get(a, 'meeting_category')]].push(a);
+    });
+    return agendasCategorized;
   }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -205,9 +265,16 @@ const PanelMeetingAgendas = (props) => {
     if (has(items[0], 'desc_text')) {
       codeOrText = 'desc_text';
     }
+    if (has(items[0], 'abbr_desc_text') && items[0].code === 'V') {
+      codeOrText = 'abbr_desc_text';
+    }
     // only Categories need to use 'mic_desc_text'
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
+    }
+    // Used for handshake-organizations - Replace with comprehensive org ref data
+    if (has(items[0], 'name')) {
+      codeOrText = 'name';
     }
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
@@ -215,7 +282,9 @@ const PanelMeetingAgendas = (props) => {
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
     else if (codeOrText === 'text') queryProp = 'text';
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
+    else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
+    else if (codeOrText === 'name') queryProp = 'name';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
@@ -238,12 +307,12 @@ const PanelMeetingAgendas = (props) => {
 
   const resetFilters = () => {
     setSelectedBureaus([]);
+    setSelectedOrgs([]);
     setSelectedCategories([]);
     setSelectedGrades([]);
     setSelectedItemActions([]);
     setSelectedItemStatuses([]);
     setSelectedLanguages([]);
-    setSelectedPosts([]);
     setSelectedRemarks([]);
     setSelectedSkills([]);
     setTextSearch('');
@@ -283,8 +352,7 @@ const PanelMeetingAgendas = (props) => {
               </div>
             </div>
             <PositionManagerSearch
-              submitSearch={submitSearch}
-              onChange={setTextInputThrottled}
+              onChange={setTextSearch}
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
@@ -312,7 +380,19 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedBureaus}
                   valueKey="code"
                   labelKey="long_description"
-                  disabled={isLoading}
+                  disabled
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Organization:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Organization(s)"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="name"
+                  labelKey="name"
                 />
               </div>
               <div className="filter-div">
@@ -381,19 +461,6 @@ const PanelMeetingAgendas = (props) => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Location (Org):</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Location(s)"
-                  value={selectedPosts}
-                  options={postsOptions}
-                  onChange={setSelectedPosts}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
                 <div className="label">Remarks:</div>
                 <Picky
                   {...pickyProps}
@@ -416,7 +483,7 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedSkills}
                   valueKey="code"
                   labelKey="custom_description"
-                  disabled={isLoading}
+                  disabled
                 />
               </div>
             </div>
@@ -424,6 +491,10 @@ const PanelMeetingAgendas = (props) => {
           <ScrollUpButton />
           {
             <div className="panel-meeting-agendas-rows-container">
+              <div className="total-results">
+                {/* eslint-disable-next-line max-len */}
+                Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
+              </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (
                   <>
