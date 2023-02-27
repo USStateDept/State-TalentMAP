@@ -49,7 +49,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
-  const count = panelMeetings.length;
+  const count = get(panelMeetings$, 'count') || 0;
 
   const groupLoading = panelMeetingsIsLoading && panelMeetingsFiltersIsLoading;
   const exportDisabled = !panelMeetings.length;
