@@ -30,9 +30,9 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     <span
       className="bid-list-card-title-post"
     >
-      Location: 
+      Location (Org): 
     </span>
-    Washington, DC
+    Washington, DC (None listed)
   </div>
   <div>
     <span
@@ -48,7 +48,10 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
     >
       Language: 
     </span>
-    None
+    <LanguageList
+      languages={Array []}
+      propToUse="representation"
+    />
   </div>
   <div>
     <span
