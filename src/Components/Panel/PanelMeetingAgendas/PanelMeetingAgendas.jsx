@@ -203,20 +203,6 @@ const PanelMeetingAgendas = (props) => {
     textSearch,
   });
 
-  useEffect(() => {
-    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
-    dispatch(panelMeetingAgendasFiltersFetchData());
-    dispatch(filtersFetchData(genericFilters));
-    dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
-    search();
-  }, []);
-
-  useEffect(() => {
-    setAgendas$(agendas);
-    search();
-  }, [agendas]);
-
-
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
@@ -238,6 +224,17 @@ const PanelMeetingAgendas = (props) => {
     }
     dispatch(savePanelMeetingAgendasSelections(getCurrentInputs()));
   };
+
+  useEffect(() => {
+    dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
+    dispatch(panelMeetingAgendasFiltersFetchData());
+    dispatch(filtersFetchData(genericFilters));
+    fetchAndSet();
+  }, []);
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [agendas]);
 
   useEffect(() => {
     fetchAndSet();
