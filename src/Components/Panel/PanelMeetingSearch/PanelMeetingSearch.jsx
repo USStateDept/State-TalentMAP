@@ -241,7 +241,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 options={sorts.options}
                 label="Sort by:"
                 defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
+                onSelectOption={e => setOrdering(e.target.value)}
                 disabled={panelMeetingsIsLoading}
               />
               <SelectForm
@@ -250,7 +250,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 options={pageSizes.options}
                 label="Results:"
                 defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
+                onSelectOption={e => setLimit(e.target.value)}
                 disabled={panelMeetingsIsLoading}
               />
               <div className="export-button-container">
