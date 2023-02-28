@@ -4,43 +4,9 @@ exports[`PanelMeetingSearchRow matches snapshot 1`] = `
 <div
   className="panel-meeting-row"
 >
-  <div
-    className="panel-meeting-type-container"
-  >
-    <div
-      className="panel-meeting-row-name"
-    />
-    <div
-      className="panel-status panel-status--undefined"
-    >
-      None listed
-    </div>
-  </div>
-  <div
-    className="progress-container"
-  >
-    <Tracker
-      data={
-        Array [
-          Object {
-            "label": "Pre-Panel",
-          },
-          Object {
-            "label": "Addendum",
-          },
-          Object {
-            "label": "Panel",
-          },
-          Object {
-            "label": "Post-Panel",
-          },
-          Object {
-            "label": "Complete",
-          },
-        ]
-      }
-    />
-  </div>
+  <PanelMeetingTracker
+    panelMeeting={Object {}}
+  />
   <div
     className="button-box-container"
   >
