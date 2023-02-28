@@ -82,7 +82,6 @@ const PanelMeetingAgendas = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  // TO-DO: grab Scott's new data structure and component
   // TODO: Re-enable skill and bureau picky once implemented
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
