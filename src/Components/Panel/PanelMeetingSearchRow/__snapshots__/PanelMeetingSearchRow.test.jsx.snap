@@ -2,51 +2,54 @@
 
 exports[`PanelMeetingSearchRow matches snapshot 1`] = `
 <div
-  className="usa-grid-full panel-meeting-stat-row"
+  className="panel-meeting-row"
 >
   <div
-    className="meeting-type-circle-container"
+    className="panel-meeting-type-container"
   >
     <div
-      className="meeting-type-circle"
+      className="panel-meeting-row-name"
+    />
+    <div
+      className="panel-status panel-status--undefined"
     >
       None listed
     </div>
   </div>
   <div
-    className="panel-meeting-row-name"
-  />
-  <div
-    className="panel-meeting-row-data-container"
+    className="progress-container"
   >
-    <div
-      className="panel-meeting-row-data-points"
+    <Tracker
+      data={
+        Array [
+          Object {
+            "label": "Pre-Panel",
+          },
+          Object {
+            "label": "Addendum",
+          },
+          Object {
+            "label": "Panel",
+          },
+          Object {
+            "label": "Post-Panel",
+          },
+          Object {
+            "label": "Complete",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="button-box-container"
+  >
+    <LinkButton
+      className="button-box"
+      toLink="/profile/ao/panelmeetingagendas/None listed"
     >
-      <div
-        className="panel-meeting-row-data-point"
-      >
-        <dt>
-          Meeting Status:
-        </dt>
-        <dd>
-          None listed
-        </dd>
-      </div>
-    </div>
-    <div
-      className="button-container"
-    >
-      <div
-        className="button-box-container"
-      >
-        <LinkButton
-          className="button-box"
-          toLink="/profile/ao/panelmeetingagendas/None listed"
-        >
-          Go to Panel
-        </LinkButton>
-      </div>
-    </div>
+      View
+    </LinkButton>
   </div>
 </div>
 `;
