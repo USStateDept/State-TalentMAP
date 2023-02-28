@@ -10,6 +10,7 @@ const AgendaItemLegs = props => {
     legs,
     remarks,
     isCard,
+    isPanelMeetingView,
   } = props;
 
   let legs$ = legs;
@@ -52,56 +53,67 @@ const AgendaItemLegs = props => {
 
   const tableData = [
     {
+      icon: '',
       title: 'Position Title',
       content: (getData('pos_title', formatStr)),
       cardView: false,
     },
     {
+      icon: '',
       title: 'Position Number',
       content: (getData('pos_num')),
       cardView: false,
     },
     {
+      icon: `${isPanelMeetingView ? '' : 'building-o'}`,
       title: 'Org',
       content: (getData('org', formatStr)),
       cardView: true,
     },
     {
+      icon: '',
       title: 'Grade',
       content: (getData('grade')),
       cardView: false,
     },
     {
+      icon: '',
       title: 'Lang',
       content: (getData('languages', formatLang)),
       cardView: false,
     },
     {
+      icon: `${isPanelMeetingView ? '' : 'paper-plane-o'}`,
       title: 'ETA',
       content: (getData('eta', formatDate)),
       cardView: true,
     },
     {
+      icon: '',
       title: '',
       content: (getArrows()),
       cardView: true,
     },
     {
+      icon: `${isPanelMeetingView ? '' : 'clock-o'}`,
       title: 'TED',
       content: (getData('ted', formatDate)),
       cardView: true,
     },
     {
+      icon: '',
       title: 'TOD',
       content: (getData('tod')),
       cardView: false,
     },
     {
+      icon: '',
       title: 'Action',
       content: (getData('action')),
       cardView: false,
     },
     {
+      icon: '',
       title: 'Travel',
       content: (getData('travel')),
       cardView: false,
@@ -117,6 +129,9 @@ const AgendaItemLegs = props => {
           {
             tableData$.map(tr => (
               <tr>
+                <td>
+                  <FA name={tr.icon} />
+                </td>
                 <th>
                   <dt>{tr.title}</dt>
                 </th>
@@ -154,12 +169,14 @@ AgendaItemLegs.propTypes = {
     type: null,
   })),
   isCard: PropTypes.bool,
+  isPanelMeetingView: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   remarks: [],
   isCard: false,
+  isPanelMeetingView: false,
 };
 
 export default AgendaItemLegs;

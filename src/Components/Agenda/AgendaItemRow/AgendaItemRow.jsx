@@ -102,7 +102,11 @@ const AgendaItemRow = props => {
               <Link to="/profile/public/4">Townpost, Jenny Y.</Link>
             </div>
           }
-          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
+          <AgendaItemLegs
+            legs={agenda.legs}
+            remarks={agenda.remarks}
+            isPanelMeetingView={isPanelMeetingView}
+          />
           {
             (editAgendaItem && isStatusShortRDY) &&
             <div className="ai-history-edit">
