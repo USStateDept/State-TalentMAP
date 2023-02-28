@@ -857,3 +857,12 @@ export const AGENDA_ITEM = PropTypes.shape({
     type: null,
   })),
 });
+
+export const TRACKER_DATA = PropTypes.arrayOf(
+  PropTypes.shape({
+    description: PropTypes.string,
+    isActive: PropTypes.bool,
+    isCurrent: PropTypes.bool,
+    label: PropTypes.string,
+  }),
+);

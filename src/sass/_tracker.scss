@@ -1,0 +1,60 @@
+.tracker {
+  display: flex;
+  list-style-type: none;
+  padding-left: 0px;
+
+  .step-label {
+    font-size: 18px;
+  }
+
+  .step-description {
+    font-size: 14px;
+  }
+
+  li {
+    width: 100%;
+    position: relative;
+  }
+
+  li:last-child {
+   .bar {
+      width: 0%;
+    }
+
+    @media screen and (min-width: 1620px) {
+      width: 50%;
+    }
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+
+    .icon {
+      background: $bg-gray-dark-3;
+      border-radius: 50%;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      width: 24px;
+      z-index: 1;
+    }
+
+    .bar {
+      background: $bg-gray-medium-1;
+      height: 2px;
+      position: absolute;
+      width: 100%;
+    }
+  }
+  .active .icon, .active .bar {
+    &:not(.current) {
+      background: $tertiary-success;
+    }
+
+    .fa {
+      padding-left: 0px;
+      color: $color-white;
+    }
+  }
+}
