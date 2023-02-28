@@ -99,10 +99,6 @@ const AgendaItemRow = props => {
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
             }
-            <div className="ai-updater-creator">
-              <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
-              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
-            </div>
             <div>
               Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
             </div>
@@ -126,7 +122,7 @@ const AgendaItemRow = props => {
                 }
               </div>
             }
-            <div>
+            <div className="ai-updater-creator">
               <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
               <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
             </div>
