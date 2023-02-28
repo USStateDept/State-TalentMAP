@@ -276,16 +276,14 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   />
                 ))
               }
-              {
-                <div className="usa-grid-full react-paginate">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={count}
-                  />
-                </div>
-              }
+              <div className="usa-grid-full react-paginate">
+                <PaginationWrapper
+                  pageSize={limit}
+                  onPageChange={p => setPage(p.page)}
+                  forcePage={page}
+                  totalResults={count}
+                />
+              </div>
             </div>
         }
       </div>
