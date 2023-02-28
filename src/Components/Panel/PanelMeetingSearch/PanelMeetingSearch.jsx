@@ -277,7 +277,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 ))
               }
               {
-                !panelMeetingsIsLoading &&
                 <div className="usa-grid-full react-paginate">
                   <PaginationWrapper
                     pageSize={limit}
