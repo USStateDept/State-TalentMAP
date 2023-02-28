@@ -278,18 +278,18 @@ const PanelMeetingSearch = ({ isCDO }) => {
                   ))}
                 </div>
               }
+              {
+                !panelMeetingsIsLoading &&
+                <div className="usa-grid-full react-paginate">
+                  <PaginationWrapper
+                    pageSize={limit}
+                    onPageChange={p => setPage(p.page)}
+                    forcePage={page}
+                    totalResults={count}
+                  />
+                </div>
+              }
             </div>
-        }
-        {
-          !panelMeetingsIsLoading &&
-          <div className="usa-grid-full react-paginate panel-meeting-search-pagination-controls">
-            <PaginationWrapper
-              pageSize={limit}
-              onPageChange={p => setPage(p.page)}
-              forcePage={page}
-              totalResults={count}
-            />
-          </div>
         }
       </div>
   );
