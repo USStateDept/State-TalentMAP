@@ -293,5 +293,15 @@
     font-size: 1.8rem;
     margin: -20px 0px 20px 3rem;
   }
+
+  .agenda-bottom-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+
+  .ai-updater-creator {
+    min-width: 300px;
+  }
 }
 

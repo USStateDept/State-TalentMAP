@@ -7,6 +7,8 @@ import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
+import RemarksPill from '../RemarksPill';
+import SkillCodeList from '../../SkillCodeList';
 
 const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
@@ -19,19 +21,23 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
+  const isCard = false;
+
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
   const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
+  const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
   const agendaID = get(agenda, 'id');
 
-  const userSkill = get(agenda, 'skill') || 'None Listed';
-  const userLanguage = get(agenda, 'language') || 'None Listed';
-  const userBureau = get(agenda, 'bureau') || 'None Listed';
-  const userGrade = get(agenda, 'grade') || 'None Listed';
+  const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
+  const userLanguage = get(clientData, 'languages') || [];
+  const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
+  const userGrade = get(clientData, 'grade') || 'None Listed';
+  console.log('clientData', clientData);
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
@@ -84,11 +90,16 @@ const AgendaItemRow = props => {
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
-                <div className="item"><span className="label">Language: </span> {userLanguage}</div>
+                <div className="item">
+                  <span className="label">Languages: </span>
+                  {userLanguage.map((l, i) => (
+                    ` ${l.custom_description}${i + 1 === userLanguage.length ? '' : ','}`
+                  ))}
+                </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
             }
-            <div>
+            <div className="ai-updater-creator">
               <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
               <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
             </div>
@@ -99,10 +110,27 @@ const AgendaItemRow = props => {
           {
             isPanelMeetingView &&
             <div className="panel-meeting-agendas-profile-link">
-              <Link to="/profile/public/4">Townpost, Jenny Y.</Link>
+              <Link to={`/profile/public/${perdet$}`}>{get(clientData, 'shortened_name')}</Link>
             </div>
           }
-          <AgendaItemLegs legs={agenda.legs} remarks={agenda.remarks} />
+          <AgendaItemLegs legs={agenda.legs} />
+          <div className="agenda-bottom-row">
+            {
+              !isCard &&
+              <div className="remarks-container">
+                <div className="remarks-text">Remarks:</div>
+                {
+                  agenda.remarks.map(remark => (
+                    <RemarksPill key={remark.text} remark={remark} />
+                  ))
+                }
+              </div>
+            }
+            <div>
+              <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
+              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
+            </div>
+          </div>
           {
             (editAgendaItem && isStatusShortRDY) &&
             <div className="ai-history-edit">
