@@ -26,9 +26,12 @@
   .pma-pm-info-expanded {
     background-color: #E4E1DD;
     border: 3px solid #BFB9B0;
-    height: 400px;
+    height: 250px;
     width: 98%;
     transition: border 1s, background-color 1s, width 2s, height 2s;
+    @media screen and (max-width: 1500px) {
+      width: 95%;
+    }
   }
 
   .pma-pm-info-title {
@@ -44,6 +47,25 @@
     border-radius: 7px 0 10px 0;
     width: 260px;
     transition: all 1s linear;
+  }
+
+  .tracker-container {
+    padding: 30px;
+    display: flex;
+    align-items: center;
+
+    @media screen and (max-width: 1200px) {
+      flex-wrap: wrap;
+    }
+  }
+
+  .hideTracker {
+    opacity: 0;
+    transition: all 0s linear;
+  }
+  .showTracker {
+    opacity: 100%;
+    transition: all 2s linear .5s;
   }
 
   .panel-meeting-agenda-filters {
@@ -254,6 +276,9 @@
           text-decoration: none;
         }
       }
+    }
+    div[role=button]:focus {
+      outline: none!important;
     }
   }
 

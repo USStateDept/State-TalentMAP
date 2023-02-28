@@ -10,11 +10,13 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
+import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
@@ -58,7 +60,11 @@ const fuseOptions = {
 const PanelMeetingAgendas = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { isAO, isCDO } = props;
+
   const pmSeqNum = get(props, 'match.params.pmID');
+  const panelMeetingData = useSelector(state => state.panelMeetings);
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
 
   const agendasCategorized = {
     Review: [],
@@ -226,6 +232,7 @@ const PanelMeetingAgendas = (props) => {
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
   }, []);
 
   useEffect(() => {
@@ -472,6 +479,12 @@ const PanelMeetingAgendas = (props) => {
                   <div className={`pma-pm-info-title ${showPanelMeetingInfo ? 'pma-pm-info-title-expanded' : ''}`}>
                     Panel Meeting Information
                   </div>
+                  {
+                    !panelMeetingsIsLoading && !panelMeetingsHasErrored &&
+                     <div className={`tracker-container ${showPanelMeetingInfo ? 'showTracker' : 'hideTracker'}`}>
+                       <PanelMeetingTracker panelMeeting={get(panelMeetingData, 'results.[0]')} />
+                     </div>
+                  }
                 </div>
               </InteractiveElement>
               <div className="total-results">

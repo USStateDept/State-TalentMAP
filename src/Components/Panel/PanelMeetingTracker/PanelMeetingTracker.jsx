@@ -11,6 +11,12 @@ const PanelMeetingTracker = ({ panelMeeting }) => {
   const meetingStatus = get(panelMeeting, 'pms_desc_text') || FALLBACK;
   const meetingDates = get(panelMeeting, 'panelMeetingDates') || [];
 
+  /* eslint-disable no-console */
+  console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
+  console.log('🍭 current: ', 'hello');
+  console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
+
+
   const data = formatPanelMeetingTrackerData(meetingDates);
 
   return (
