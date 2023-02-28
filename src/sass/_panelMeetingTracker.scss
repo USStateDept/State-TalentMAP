@@ -1,0 +1,163 @@
+.panel-meeting-search-page {
+  .panel-meeting-search-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    color: $color-white;
+    max-width: none;
+    padding: 20px 35px 35px;
+  }
+
+  .panel-meeting-search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+      margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+        min-width: 90px;
+        text-align: end;
+      }
+
+      @media screen and (max-width: 1025px) {
+        .label {
+          min-width: 100px;
+        }
+      }
+
+      .picky {
+        color: $color-black;
+        width: 240px;
+      }
+    }
+
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 1.5rem;
+      height: 28px;
+      width: 240px;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+      }
+
+      .react-daterange-picker__inputGroup {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+    }
+
+    @media screen and (max-width: $screen-md-max) {
+      .react-daterange-picker {
+        margin-left: 9px;
+      }
+    }
+  }
+}
+
+.panel-results-controls {
+  align-items: baseline;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  margin: 0 35px 5px 0;
+
+  div:first-child {
+    margin-right: 10px;
+  }
+
+  div {
+    align-items: baseline;
+    display: flex;
+
+    label {
+        margin-right: 5px;
+    }
+  }
+}
+
+.panel-search-lower-section {
+  padding: 0 35px 20px;
+  position: relative;
+}
+
+.panel-meeting-row {
+  border: 1px solid $color-gray-light;
+  border-left: 11px solid $primary-blue;
+  box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .panel-meeting-row-name {
+    color: $primary-blue;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .progress-container {
+    position: relative;
+    width: 100%;
+    margin: 0 20px;
+  }
+
+  .panel-meeting-type-container {
+    min-width: 115px;
+  }
+
+  .panel-status {
+    margin-left: 5px;
+    border-radius: 12px;
+    color: #FFFFFF;
+    font-size: 11px;
+    display: inline;
+    padding: 5px;
+  }
+
+  .button-box {
+    width: 75px;
+    line-height: 25px;
+  }
+
+  @each $status, $color in $panelStatuses {
+    .panel-status--#{$status} {
+       background-color: $color;
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    flex-wrap: wrap;
+
+    .panel-meeting-type-container {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .button-box-container {
+      order: 1;
+    }
+
+    .progress-container {
+      order: 2;
+    }
+  }
+}
+
