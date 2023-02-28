@@ -189,7 +189,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="user-circle-o"
+        iconName="calendar-o"
         key="Employee Agendas"
         link="/profile/ao/employeeagendas"
         search=""
@@ -197,7 +197,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="comment"
+        iconName="sticky-note-o"
         key="Panel Meetings"
         link="/profile/ao/panelmeetings"
         search=""
@@ -291,7 +291,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="user-circle-o"
+        iconName="calendar-o"
         key="Employee Agendas"
         link="/profile/cdo/employeeagendas"
         search=""
@@ -299,7 +299,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="comment"
+        iconName="sticky-note-o"
         key="Panel Meetings"
         link="/profile/cdo/panelmeetings"
         search=""
@@ -538,7 +538,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="user-circle-o"
+        iconName="calendar-o"
         key="Employee Agendas"
         link="/profile/ao/employeeagendas"
         search=""
@@ -546,7 +546,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="comment"
+        iconName="sticky-note-o"
         key="Panel Meetings"
         link="/profile/ao/panelmeetings"
         search=""
@@ -640,7 +640,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="user-circle-o"
+        iconName="calendar-o"
         key="Employee Agendas"
         link="/profile/cdo/employeeagendas"
         search=""
@@ -648,7 +648,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="comment"
+        iconName="sticky-note-o"
         key="Panel Meetings"
         link="/profile/cdo/panelmeetings"
         search=""
