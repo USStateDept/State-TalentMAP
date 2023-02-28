@@ -10,50 +10,62 @@
       background-color: $primary-blue;
       color: $color-white;
     }
-    .pma-meeting-info-container {
-      display: grid;
-      margin: 20px 0;
-      .pma-meeting-type {
-        background-color: $primary-blue;
-        clip-path: polygon(
-                        0% 0%,
-                        100% 0%,
-                        100% 10%,
-                        13% 10%,
-                        7% 100%,
-                        0% 100%);
-        color: $color-white;
-        font-size: 30px;
-        font-weight: bold;
-        grid-column: 1;
-        grid-row: 1;
-        padding: 20px 0 0 20px;
-        width: 700px;
-      }
+  }
+
+  .pma-pm-info {
+    background-color: #BFB9B0;
+    border: 1px solid #BFB9B0;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 41px;
+    margin: 30px 20px;
+    width: 260px;
+    transition: all 1s linear;
+  }
+
+  .pma-pm-info-expanded {
+    background-color: #E4E1DD;
+    border: 3px solid #BFB9B0;
+    height: 250px;
+    width: 98%;
+    transition: border 1s, background-color 1s, width 2s, height 2s;
+    @media screen and (max-width: 1500px) {
+      width: 95%;
     }
+  }
 
-    .cutoff-date-container {
-      background-color: $color-white;
-      box-shadow: inset 10px 10px 10px rgb(0 0 0 / 30%);
-      display: inline-grid;
-      grid-auto-flow: column;
-      grid-column: 1;
-      grid-row: 1;
-      grid-template-rows: repeat(2, auto);
-      padding: 10px 0 10px 80px;
-      width: 700px;
+  .pma-pm-info-title {
+    font-size: 16px;
+    padding: 10px 0;
+    text-align: center;
+    width: 255px;
+    border-radius: 10px;
+    background-color: #BFB9B0;
+    transition: all 1s linear;
+  }
+  .pma-pm-info-title-expanded {
+    border-radius: 7px 0 10px 0;
+    width: 260px;
+    transition: all 1s linear;
+  }
 
-      .panel-meeting-agenda-header-data-point {
-        align-items: center;
-        color: $primary-blue;
-        display: flex;
-        margin: 5px 10px;
+  .tracker-container {
+    padding: 30px;
+    display: flex;
+    align-items: center;
 
-        dd {
-          margin-left: 5px;
-        }
-      }
+    @media screen and (max-width: 1200px) {
+      flex-wrap: wrap;
     }
+  }
+
+  .hideTracker {
+    opacity: 0;
+    transition: all 0s linear;
+  }
+  .showTracker {
+    opacity: 100%;
+    transition: all 2s linear .5s;
   }
 
   .panel-meeting-agenda-filters {
@@ -264,6 +276,9 @@
           text-decoration: none;
         }
       }
+    }
+    div[role=button]:focus {
+      outline: none!important;
     }
   }
 
