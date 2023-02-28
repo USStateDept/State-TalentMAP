@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import PanelMeetingSearchRow from './PanelMeetingTracker';
+import PanelMeetingTracker from './PanelMeetingTracker';
 
 describe('PanelMeetingTracker', () => {
   it('is defined', () => {
