@@ -84,7 +84,11 @@ const AgendaItemRow = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <div className="ai-history-row-panel-date">
-            Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+            {
+              !isPanelMeetingView ?
+                `Panel Date: ${agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}`
+                : ''
+            }
           </div>
           {
             isPanelMeetingView &&
