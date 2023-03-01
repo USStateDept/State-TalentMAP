@@ -107,56 +107,16 @@
   align-items: center;
   justify-content: space-between;
 
-  .panel-meeting-row-name {
-    color: $primary-blue;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-  }
-
-  .progress-container {
-    position: relative;
-    width: 100%;
-    margin: 0 20px;
-  }
-
-  .panel-meeting-type-container {
-    min-width: 115px;
-  }
-
-  .panel-status {
-    margin-left: 5px;
-    border-radius: 12px;
-    color: #FFFFFF;
-    font-size: 11px;
-    display: inline;
-    padding: 5px;
-  }
-
   .button-box {
     width: 75px;
     line-height: 25px;
   }
 
-  @each $status, $color in $panelStatuses {
-    .panel-status--#{$status} {
-       background-color: $color;
-    }
-  }
   @media screen and (max-width: 1200px) {
     flex-wrap: wrap;
 
-    .panel-meeting-type-container {
-      display: flex;
-      align-items: flex-start;
-    }
-
     .button-box-container {
       order: 1;
-    }
-
-    .progress-container {
-      order: 2;
     }
   }
 }

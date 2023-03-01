@@ -3,18 +3,20 @@ import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
+import InteractiveElement from 'Components/InteractiveElement';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { formatDate } from 'utilities';
 import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import Fuse from 'fuse.js';
 import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
+import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
@@ -58,7 +60,11 @@ const fuseOptions = {
 const PanelMeetingAgendas = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { isAO, isCDO } = props;
+
   const pmSeqNum = get(props, 'match.params.pmID');
+  const panelMeetingData = useSelector(state => state.panelMeetings);
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
 
   const agendasCategorized = {
     Review: [],
@@ -77,11 +83,6 @@ const PanelMeetingAgendas = (props) => {
   const dispatch = useDispatch();
 
   // TODO: Re-enable skill and bureau picky once implemented
-  // TODO: Remove fake data
-  const meetingStatus = 'Initiated';
-  const meetingDate = formatDate('2024-05-20T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
-  const preliminaryCutoff = formatDate('2024-05-19T16:00:00Z', 'MM/DD/YYYY HH:mm:ss');
-  const addendumCutoff = formatDate('2024-05-18T17:00:00Z', 'MM/DD/YYYY HH:mm:ss');
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
@@ -116,6 +117,7 @@ const PanelMeetingAgendas = (props) => {
     includes([orgsLoading, remarksLoading, itemStatusLoading,
       itemActionLoading, categoryLoading], true);
 
+  const [showPanelMeetingInfo, setShowPanelMeetingInfo] = useState(false);
   const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
   const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
@@ -229,6 +231,7 @@ const PanelMeetingAgendas = (props) => {
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
     dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
   }, []);
 
   useEffect(() => {
@@ -330,29 +333,6 @@ const PanelMeetingAgendas = (props) => {
           <div className="usa-grid-full panel-meeting-agenda-upper-section search-bar-container">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agenda" icon="tasks" />
-            <div className="pma-meeting-info-container">
-              <div className="pma-meeting-type">
-                ID
-              </div>
-              <div className="cutoff-date-container">
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Meeting Date:</dt>
-                  <dd>{meetingDate}</dd>
-                </div>
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Meeting Status:</dt>
-                  <dd>{meetingStatus}</dd>
-                </div>
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Preliminary Cut-Off:</dt>
-                  <dd>{preliminaryCutoff}</dd>
-                </div>
-                <div className="panel-meeting-agenda-header-data-point">
-                  <dt>Addendum Cut-Off:</dt>
-                  <dd>{addendumCutoff}</dd>
-                </div>
-              </div>
-            </div>
             <PositionManagerSearch
               onChange={setTextSearch}
               ref={childRef}
@@ -493,6 +473,19 @@ const PanelMeetingAgendas = (props) => {
           <ScrollUpButton />
           {
             <div className="panel-meeting-agendas-rows-container">
+              <InteractiveElement title="Toggle Panel Information" onClick={() => setShowPanelMeetingInfo(!showPanelMeetingInfo)}>
+                <div className={`pma-pm-info ${showPanelMeetingInfo ? 'pma-pm-info-expanded' : ''}`}>
+                  <div className={`pma-pm-info-title ${showPanelMeetingInfo ? 'pma-pm-info-title-expanded' : ''}`}>
+                    Panel Meeting Information
+                  </div>
+                  {
+                    !panelMeetingsIsLoading && !panelMeetingsHasErrored &&
+                     <div className={`tracker-container ${showPanelMeetingInfo ? 'showTracker' : 'hideTracker'}`}>
+                       <PanelMeetingTracker panelMeeting={get(panelMeetingData, 'results.[0]')} />
+                     </div>
+                  }
+                </div>
+              </InteractiveElement>
               <div className="total-results">
                 {/* eslint-disable-next-line max-len */}
                 Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
