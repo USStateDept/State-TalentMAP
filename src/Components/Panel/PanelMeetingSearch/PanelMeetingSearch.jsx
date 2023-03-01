@@ -14,6 +14,8 @@ import ExportButton from 'Components/ExportButton';
 import Spinner from 'Components/Spinner';
 import PanelMeetingSearchRow from 'Components/Panel/PanelMeetingSearchRow/PanelMeetingSearchRow';
 import Alert from 'Components/Alert';
+import PaginationWrapper from 'Components/PaginationWrapper';
+import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const PanelMeetingSearch = ({ isCDO }) => {
@@ -33,6 +35,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
+  const [page, setPage] = useState(get(userSelections, 'page') || 1);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
 
@@ -46,7 +49,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
-  const count = panelMeetings.length;
+  const count = get(panelMeetings$, 'count') || 0;
 
   const groupLoading = panelMeetingsIsLoading && panelMeetingsFiltersIsLoading;
   const exportDisabled = !panelMeetings.length;
@@ -56,6 +59,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const getQuery = () => ({
     limit,
+    page,
     ordering,
     type: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
     status: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
@@ -64,6 +68,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const getCurrentInputs = () => ({
     limit,
+    page,
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
@@ -93,6 +98,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     fetchAndSet();
   }, [
     limit,
+    page,
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
@@ -220,47 +226,64 @@ const PanelMeetingSearch = ({ isCDO }) => {
         </div>
         {
           !groupLoading &&
-          <div className="panel-results-controls">
-            <SelectForm
-              className="panel-select-box"
-              id="panel-search-results-sort"
-              options={sorts.options}
-              label="Sort by:"
-              defaultSort={ordering}
-              onSelectOption={value => setOrdering(value.target.value)}
+          <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+            <TotalResults
+              total={count}
+              pageNumber={page}
+              pageSize={limit}
+              suffix="Results"
+              isHidden={panelMeetingsIsLoading}
             />
-            <SelectForm
-              className="panel-select-box"
-              id="panel-search-num-results"
-              options={pageSizes.options}
-              label="Results:"
-              defaultSort={limit}
-              onSelectOption={value => setLimit(value.target.value)}
-            />
-            <div className="export-button-container">
-              <ExportButton
-                onClick={exportPanelMeetings}
-                isLoading={exportIsLoading}
-                disabled={exportDisabled}
+            <div className="panel-results-controls">
+              <SelectForm
+                className="panel-select-box"
+                id="panel-search-results-sort"
+                options={sorts.options}
+                label="Sort by:"
+                defaultSort={ordering}
+                onSelectOption={e => setOrdering(e.target.value)}
+                disabled={panelMeetingsIsLoading}
               />
+              <SelectForm
+                className="panel-select-box"
+                id="panel-search-num-results"
+                options={pageSizes.options}
+                label="Results:"
+                defaultSort={limit}
+                onSelectOption={e => setLimit(e.target.value)}
+                disabled={panelMeetingsIsLoading}
+              />
+              <div className="export-button-container">
+                <ExportButton
+                  onClick={exportPanelMeetings}
+                  isLoading={exportIsLoading}
+                  disabled={exportDisabled}
+                />
+              </div>
+              <ScrollUpButton />
             </div>
-            <ScrollUpButton />
           </div>
         }
         {
           overlay ||
             <div className="usa-width-one-whole panel-search-lower-section results-dropdown">
               {
-                <div className="panel-meeting-row">
-                  {panelMeetings.map(pm => (
-                    <PanelMeetingSearchRow
-                      key={get(pm, 'pm_seq_num')}
-                      pm={pm}
-                      isCDO={isCDO}
-                    />
-                  ))}
-                </div>
+                panelMeetings.map(pm => (
+                  <PanelMeetingSearchRow
+                    key={get(pm, 'pm_seq_num')}
+                    pm={pm}
+                    isCDO={isCDO}
+                  />
+                ))
               }
+              <div className="usa-grid-full react-paginate">
+                <PaginationWrapper
+                  pageSize={limit}
+                  onPageChange={p => setPage(p.page)}
+                  forcePage={page}
+                  totalResults={count}
+                />
+              </div>
             </div>
         }
       </div>

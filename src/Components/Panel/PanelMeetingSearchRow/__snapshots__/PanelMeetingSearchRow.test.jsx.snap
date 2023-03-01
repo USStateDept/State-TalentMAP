@@ -2,51 +2,20 @@
 
 exports[`PanelMeetingSearchRow matches snapshot 1`] = `
 <div
-  className="usa-grid-full panel-meeting-stat-row"
+  className="panel-meeting-row"
 >
-  <div
-    className="meeting-type-circle-container"
-  >
-    <div
-      className="meeting-type-circle"
-    >
-      None listed
-    </div>
-  </div>
-  <div
-    className="panel-meeting-row-name"
+  <PanelMeetingTracker
+    panelMeeting={Object {}}
   />
   <div
-    className="panel-meeting-row-data-container"
+    className="button-box-container"
   >
-    <div
-      className="panel-meeting-row-data-points"
+    <LinkButton
+      className="button-box"
+      toLink="/profile/ao/panelmeetingagendas/None listed"
     >
-      <div
-        className="panel-meeting-row-data-point"
-      >
-        <dt>
-          Meeting Status:
-        </dt>
-        <dd>
-          None listed
-        </dd>
-      </div>
-    </div>
-    <div
-      className="button-container"
-    >
-      <div
-        className="button-box-container"
-      >
-        <LinkButton
-          className="button-box"
-          toLink="/profile/ao/panelmeetingagendas/None listed"
-        >
-          Go to Panel
-        </LinkButton>
-      </div>
-    </div>
+      View
+    </LinkButton>
   </div>
 </div>
 `;
