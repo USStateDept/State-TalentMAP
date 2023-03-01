@@ -36,11 +36,11 @@ const AgendaItemRow = props => {
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
   const cdo = get(clientData, 'cdo.name') || 'None Listed';
-  console.log('clientData', clientData);
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
+  const remarks = get(agenda, 'remarks') || [];
 
   return (
     <>
@@ -111,7 +111,7 @@ const AgendaItemRow = props => {
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
               {
-                agenda.remarks.map(remark => (
+                remarks.map(remark => (
                   <RemarksPill key={remark.text} remark={remark} />
                 ))
               }
