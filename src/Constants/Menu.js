@@ -280,7 +280,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Employee Agendas',
           route: '/profile/ao/employeeagendas',
-          icon: 'user-circle-o',
+          icon: 'sticky-note',
           roles: [
             'ao_user',
             'superuser',
@@ -290,7 +290,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Panel Meetings',
           route: '/profile/ao/panelmeetings',
-          icon: 'comment',
+          icon: 'calendar',
           roles: [
             'ao_user',
             'superuser',
@@ -341,7 +341,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Employee Agendas',
           route: '/profile/cdo/employeeagendas',
-          icon: 'user-circle-o',
+          icon: 'sticky-note',
           roles: [
             'cdo',
             'superuser',
@@ -351,7 +351,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Panel Meetings',
           route: '/profile/cdo/panelmeetings',
-          icon: 'comment',
+          icon: 'calendar',
           roles: [
             'cdo',
             'superuser',
