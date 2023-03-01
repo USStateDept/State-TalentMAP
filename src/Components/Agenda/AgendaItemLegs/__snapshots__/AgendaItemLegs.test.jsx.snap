@@ -138,14 +138,5 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
       </tr>
     </tbody>
   </table>
-  <div
-    className="remarks-container"
-  >
-    <div
-      className="remarks-text"
-    >
-      Remarks:
-    </div>
-  </div>
 </div>
 `;

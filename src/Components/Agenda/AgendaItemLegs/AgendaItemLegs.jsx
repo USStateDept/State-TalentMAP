@@ -3,12 +3,10 @@ import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
-import RemarksPill from '../RemarksPill';
 
 const AgendaItemLegs = props => {
   const {
     legs,
-    remarks,
     isCard,
   } = props;
 
@@ -140,39 +138,17 @@ const AgendaItemLegs = props => {
           }
         </tbody>
       </table>
-      {
-        !isCard &&
-        <div className="remarks-container">
-          <div className="remarks-text">Remarks:</div>
-          {
-            remarks.map(remark => (
-              <RemarksPill key={remark.text} remark={remark} />
-            ))
-          }
-        </div>
-      }
     </div>
   );
 };
 
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
-  remarks: PropTypes.arrayOf(PropTypes.shape({
-    seq_num: PropTypes.number,
-    rc_code: PropTypes.string,
-    order_num: PropTypes.number,
-    short_desc_text: PropTypes.string,
-    mutually_exclusive_ind: PropTypes.string,
-    text: PropTypes.string,
-    active_ind: PropTypes.string,
-    type: null,
-  })),
   isCard: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
-  remarks: [],
   isCard: false,
 };
 
