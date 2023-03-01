@@ -21,8 +21,6 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const isCard = false;
-
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
@@ -85,10 +83,8 @@ const AgendaItemRow = props => {
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          <div className={`ai-history-row-panel-date ${isPanelMeetingView ? '' : 'aih-view'}`}>
-            <div>
-              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
-            </div>
+          <div className="ai-history-row-panel-date">
+            Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
           </div>
           {
             isPanelMeetingView &&
@@ -112,17 +108,14 @@ const AgendaItemRow = props => {
           }
           <AgendaItemLegs legs={agenda.legs} />
           <div className="agenda-bottom-row">
-            {
-              !isCard &&
-              <div className="remarks-container">
-                <div className="remarks-text">Remarks:</div>
-                {
-                  agenda.remarks.map(remark => (
-                    <RemarksPill key={remark.text} remark={remark} />
-                  ))
-                }
-              </div>
-            }
+            <div className="remarks-container">
+              <div className="remarks-text">Remarks:</div>
+              {
+                agenda.remarks.map(remark => (
+                  <RemarksPill key={remark.text} remark={remark} />
+                ))
+              }
+            </div>
             <div className="ai-updater-creator">
               <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
               <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>

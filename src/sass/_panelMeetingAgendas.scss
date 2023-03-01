@@ -304,16 +304,15 @@
     font-weight: bold;
     font-size: 1.8rem;
   }
-
-  .agenda-bottom-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-  }
-
-  .ai-updater-creator {
-    min-width: 300px;
-    font-size: 16px;
-  }
 }
 
+.agenda-bottom-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.ai-updater-creator {
+  min-width: 300px;
+  font-size: 16px;
+}
