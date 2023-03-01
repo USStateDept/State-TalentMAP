@@ -120,8 +120,21 @@
 
       .ai-history-row-panel-date {
         display: flex;
-        justify-content: space-between;
-        font-size: 1.4rem;
+        justify-content: flex-end;
+        font-size: 16px;
+      }
+
+      .panel-meeting-person-data {
+        display: flex;
+        margin: 10px 0px;
+        margin-right: 25%;
+        gap: 10px;
+        align-items: flex-start;
+        background: linear-gradient(white, white) padding-box, linear-gradient(to right, #d6d7d9, #d6d7d900) border-box;
+        border: 2px solid transparent;
+        border-top: none;
+        border-left: none;
+        border-right: none;
       }
 
       .ai-history-card-legs {
@@ -274,14 +287,13 @@
 
   .panel-meeting-agendas-user-info {
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
-    width: 575px;
-    margin-left: 500px;
+    height: 40px;
 
     .item {
       font-size: 1.4rem;
-      width: 100%;
-
+      margin-left: 10px;
       .label {
         font-weight: bold;
       }
@@ -291,7 +303,6 @@
   .panel-meeting-agendas-profile-link {
     font-weight: bold;
     font-size: 1.8rem;
-    margin: -20px 0px 20px 3rem;
   }
 
   .agenda-bottom-row {
@@ -302,6 +313,7 @@
 
   .ai-updater-creator {
     min-width: 300px;
+    font-size: 16px;
   }
 }
 

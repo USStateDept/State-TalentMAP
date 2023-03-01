@@ -37,6 +37,7 @@ const AgendaItemRow = props => {
   const userLanguage = get(clientData, 'languages') || [];
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
+  const cdo = get(clientData, 'cdo.name') || 'None Listed';
   console.log('clientData', clientData);
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
@@ -85,9 +86,18 @@ const AgendaItemRow = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           <div className={`ai-history-row-panel-date ${isPanelMeetingView ? '' : 'aih-view'}`}>
-            {
-              isPanelMeetingView &&
+            <div>
+              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
+            </div>
+          </div>
+          {
+            isPanelMeetingView &&
+            <div className="panel-meeting-person-data">
+              <div className="panel-meeting-agendas-profile-link">
+                <Link to={`/profile/public/${perdet$}`}>{get(clientData, 'shortened_name')}</Link>
+              </div>
               <div className="panel-meeting-agendas-user-info">
+                <div className="item"><span className="label">CDO: </span> {cdo}</div>
                 <div className="item"><span className="label">Bureau: </span> {userBureau}</div>
                 <div className="item"><span className="label">Grade: </span> {userGrade}</div>
                 <div className="item">
@@ -98,15 +108,6 @@ const AgendaItemRow = props => {
                 </div>
                 <div className="item"><span className="label">Skill: </span> {userSkill}</div>
               </div>
-            }
-            <div>
-              Panel Date: {agenda.panel_date ? formatDate(agenda.panel_date) : 'N/A'}
-            </div>
-          </div>
-          {
-            isPanelMeetingView &&
-            <div className="panel-meeting-agendas-profile-link">
-              <Link to={`/profile/public/${perdet$}`}>{get(clientData, 'shortened_name')}</Link>
             </div>
           }
           <AgendaItemLegs legs={agenda.legs} />
