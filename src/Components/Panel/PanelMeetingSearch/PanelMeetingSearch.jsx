@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, get, isEmpty } from 'lodash';
+import { usePrevious } from 'hooks';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -38,6 +39,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [page, setPage] = useState(get(userSelections, 'page') || 1);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
+
+  const prevPage = usePrevious(page);
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
@@ -80,7 +83,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     dispatch(panelMeetingsFiltersFetchData());
   }, []);
 
-  const fetchAndSet = () => {
+  const fetchAndSet = (resetPage = false) => {
     const filters = [
       selectedMeetingType,
       selectedMeetingStatus,
@@ -90,19 +93,29 @@ const PanelMeetingSearch = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
+    if (resetPage) {
+      setPage(1);
+    }
     dispatch(panelMeetingsFetchData(getQuery()));
     dispatch(savePanelMeetingsSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
-    fetchAndSet();
+    if (prevPage) {
+      fetchAndSet(true);
+    }
   }, [
     limit,
-    page,
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
     textSearch,
+  ]);
+
+  useEffect(() => {
+    fetchAndSet(false);
+  }, [
+    page,
   ]);
 
   function submitSearch(text) {
