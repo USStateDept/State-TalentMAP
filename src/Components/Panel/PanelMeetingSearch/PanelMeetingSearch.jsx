@@ -5,7 +5,6 @@ import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import SelectForm from 'Components/SelectForm';
@@ -105,10 +104,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     textSearch,
   ]);
 
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
-
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
@@ -176,14 +171,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
       <Spinner type="bureau-results" class="homepage-position-results" size="big" /> :
       <div className="panel-meeting-search-page">
         <div className="usa-grid-full panel-meeting-search-upper-section search-bar-container">
-          <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
-          <PositionManagerSearch
-            submitSearch={submitSearch}
-            ref={childRef}
-            textSearch={textSearch}
-            label="Search for a Panel Meeting"
-            placeHolder="Search using Panel ID"
-          />
+          <ProfileSectionTitle title="Panel Meeting Search" icon="calendar" />
           <div className="filterby-container">
             <div className="filterby-label">Filter by:</div>
             <div className="filterby-clear">
