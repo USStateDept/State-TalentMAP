@@ -77,12 +77,21 @@
   font-size: 14px;
   margin: 0 35px 5px 0;
 
+  label {
+    font-size: 15px;
+  }
+
+  .panel-sort {
+    width: 160px;
+  }
+
+
   div:first-child {
     margin-right: 10px;
   }
 
   div {
-    align-items: baseline;
+    align-items: stretch;
     display: flex;
 
     label {

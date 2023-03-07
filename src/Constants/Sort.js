@@ -223,8 +223,8 @@ AGENDA_EMPLOYEES_SORT.defaultSort = AGENDA_EMPLOYEES_SORT.options[0].value;
 
 export const PANEL_MEETINGS_SORT = {
   options: [
-    { value: 'meeting_status', text: 'Meeting Status A-Z' },
-    { value: '-meeting_status', text: 'Meeting Status Z-A' },
+    { value: '-panel_date', text: 'Panel Meet Date: Newest' },
+    { value: 'panel_date', text: 'Panel Meet Date: Oldest' },
   ],
 };
 
