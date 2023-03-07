@@ -9,7 +9,7 @@
 
   .panel-meeting-search-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
 
     .filter-div {
       align-items: center;
@@ -17,20 +17,18 @@
       margin-right: 10px;
 
       .label {
-        margin-right: 10px;
-        min-width: 90px;
+        margin: 0 10px;
+        min-width: 122px;
         text-align: end;
       }
 
-      @media screen and (max-width: 1025px) {
-        .label {
-          min-width: 100px;
-        }
+      .picky, .picky__input {
+        color: $color-black;
+        width: 220px;
       }
 
-      .picky {
-        color: $color-black;
-        width: 240px;
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
       }
     }
 
@@ -59,12 +57,6 @@
       .react-daterange-picker__inputGroup__leadingZero,
       .react-date-picker__inputGroup__divider {
         color: $color-black;
-      }
-    }
-
-    @media screen and (max-width: $screen-md-max) {
-      .react-daterange-picker {
-        margin-left: 9px;
       }
     }
   }

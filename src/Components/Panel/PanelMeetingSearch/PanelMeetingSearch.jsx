@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
@@ -20,7 +20,6 @@ import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const PanelMeetingSearch = ({ isCDO }) => {
-  const childRef = useRef();
   const dispatch = useDispatch();
 
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
@@ -148,7 +147,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     setSelectedMeetingType([]);
     setSelectedMeetingStatus([]);
     setSelectedPanelMeetDate(null);
-    childRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -229,7 +227,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
         </div>
         {
           !groupLoading &&
-          <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+          <div className="usa-width-one-whole results-dropdown controls-container">
             <TotalResults
               total={count}
               pageNumber={page}
