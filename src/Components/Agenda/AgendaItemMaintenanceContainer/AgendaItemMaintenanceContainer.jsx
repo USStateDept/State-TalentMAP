@@ -37,7 +37,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   }));
 
   const agendaItemRemarks = get(agendaItem, 'remarks') || [];
-  const agendaItemRemarks$ = filter(agendaItemRemarks, remark => remark.type !== 'person');
+  // const agendaItemRemarks$ = filter(agendaItemRemarks, remark => remark.type !== 'person');
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
@@ -45,7 +45,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
-  const [userRemarks, setUserRemarks] = useState(agendaItemRemarks$);
+  const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
@@ -107,6 +107,12 @@ const AgendaItemMaintenanceContainer = (props) => {
       setSpinner(false);
     }
   }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
+
+  useEffect(() => {
+    if (!agendaItemLoading) {
+      setUserRemarks(agendaItemRemarks);
+    }
+  }, [agendaItemLoading]);
 
   return (
     <>

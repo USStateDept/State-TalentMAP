@@ -168,7 +168,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
     },
   ];
 

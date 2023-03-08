@@ -54,6 +54,7 @@
     }
 
     .remarks-pill {
+      background-color: $primary-blue;
       border-radius: 12px;
       color: $color-white;
       display: inline;
@@ -68,6 +69,19 @@
 
       .fa-times:hover {
         cursor: pointer;
+      }
+    }
+    
+    @each $remark-id, $color in $remarks {
+      .remark-category--#{$remark-id} {
+        background-color: $color;
+        color: $color-white;
+        scroll-margin-top: 60px;
+      }
+      @media screen and (max-width: 1600px) {
+        .remark-category--#{$remark-id} {
+          scroll-margin-top: 32px;
+        }
       }
     }
   }
@@ -564,15 +578,3 @@
   }
 }
 
-@each $remark-id, $color in $remarks {
-  .remark-category--#{$remark-id} {
-    background-color: $color;
-    color: $color-white;
-    scroll-margin-top: 60px;
-  }
-  @media screen and (max-width: 1600px) {
-    .remark-category--#{$remark-id} {
-      scroll-margin-top: 32px;
-    }
-  }
-}
