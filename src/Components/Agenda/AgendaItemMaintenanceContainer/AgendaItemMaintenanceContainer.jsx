@@ -37,7 +37,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   }));
 
   const agendaItemRemarks = get(agendaItem, 'remarks') || [];
-  // const agendaItemRemarks$ = filter(agendaItemRemarks, remark => remark.type !== 'person');
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
