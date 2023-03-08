@@ -46,8 +46,7 @@ export function panelMeetingAgendasFiltersFetchDataSuccess(results) {
 }
 
 export function panelMeetingAgendasExport(pmseqnum = '') {
-  const endpoint = `/fsbid/panel/${pmseqnum}/export/`;
-  const ep = `${endpoint}`;
+  const ep = `/fsbid/panel/${pmseqnum}/export/`;
   return api()
     .get(ep)
     .then((response) => {

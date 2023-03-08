@@ -507,7 +507,7 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
-                <div className="pma-export-button-container">
+                <div className="export-button-container">
                   <ExportButton
                     onClick={exportPanelMeetingAgendas}
                     isLoading={exportIsLoading}
