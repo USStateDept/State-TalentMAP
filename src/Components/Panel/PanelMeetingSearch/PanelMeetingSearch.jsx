@@ -6,6 +6,7 @@ import Picky from 'react-picky';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import { isDate, startOfDay } from 'date-fns-v2';
+import { usePrevious } from 'hooks';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -38,6 +39,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const [page, setPage] = useState(get(userSelections, 'page') || 1);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PANEL_MEETINGS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PANEL_MEETINGS_SORT.defaultSort);
+
+  const prevPage = usePrevious(page);
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
@@ -82,7 +85,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     dispatch(panelMeetingsFiltersFetchData());
   }, []);
 
-  const fetchAndSet = () => {
+  const fetchAndSet = (resetPage = false) => {
     const filters = [
       selectedMeetingType,
       selectedMeetingStatus,
@@ -93,20 +96,34 @@ const PanelMeetingSearch = ({ isCDO }) => {
     } else {
       setClearFilters(true);
     }
+    if (resetPage) {
+      setPage(1);
+    }
     dispatch(panelMeetingsFetchData(getQuery()));
     dispatch(savePanelMeetingsSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
-    fetchAndSet();
+    if (prevPage) {
+      fetchAndSet(true);
+    }
   }, [
     limit,
-    page,
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
     selectedPanelMeetDate,
   ]);
+
+  useEffect(() => {
+    fetchAndSet(false);
+  }, [
+    page,
+  ]);
+
+  function submitSearch(text) {
+    setTextSearch(text);
+  }
 
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
