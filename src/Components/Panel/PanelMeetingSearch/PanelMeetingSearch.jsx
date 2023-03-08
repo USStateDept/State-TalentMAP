@@ -121,10 +121,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     page,
   ]);
 
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
-
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
