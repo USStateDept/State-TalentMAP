@@ -54,6 +54,11 @@ const fuseOptions = {
     'updaters.first_name',
     'updaters.emp_user.emp_user_last_name',
     'updaters.emp_user.emp_user_first_name',
+    'user.current_assignment.position.bureau',
+    'user.skills.code',
+    'user.grade',
+    'user.languages.code',
+    'user.cdo.name',
   ],
 };
 
@@ -149,14 +154,22 @@ const PanelMeetingAgendas = (props) => {
     const actions$ = selectedItemActions.map(({ abbr_desc_text }) => (
       { 'legs.action': abbr_desc_text }
     ));
-    const languages$ = selectedLanguages.map(({ code }) => (
-      { 'legs.languages.code': code }
-    ));
-    const grades$ = selectedGrades.map(({ code }) => (
-      { 'legs.grade': code }
-    ));
+    const languages$ = selectedLanguages.flatMap(({ code }) => ([
+      { 'legs.languages.code': code },
+      { 'user.languages.code': code },
+    ]));
+    const grades$ = selectedGrades.flatMap(({ code }) => ([
+      { 'legs.grade': code },
+      { 'user.grade': code },
+    ]));
     const orgs$ = selectedOrgs.map(({ name }) => (
       { 'legs.org': `=${name}` }
+    ));
+    const bureaus$ = selectedBureaus.map(({ custom_description }) => (
+      { 'user.current_assignment.position.bureau': custom_description }
+    ));
+    const skills$ = selectedSkills.map(({ code }) => (
+      { 'user.skills.code': code }
     ));
     if (orgs$.length) { fuseQuery.push({ $or: orgs$ }); }
     if (grades$.length) { fuseQuery.push({ $or: grades$ }); }
@@ -165,6 +178,8 @@ const PanelMeetingAgendas = (props) => {
     if (remarks$.length) { fuseQuery.push({ $or: remarks$ }); }
     if (categories$.length) { fuseQuery.push({ $or: categories$ }); }
     if (statuses$.length) { fuseQuery.push({ $or: statuses$ }); }
+    if (bureaus$.length) { fuseQuery.push({ $or: bureaus$ }); }
+    if (skills$.length) { fuseQuery.push({ $or: skills$ }); }
     if (textSearch) {
       const t = textSearch;
       // See Fuse extended search docs
@@ -182,6 +197,7 @@ const PanelMeetingAgendas = (props) => {
         { 'updaters.first_name': t },
         { 'updaters.emp_user.emp_user_last_name': t },
         { 'updaters.emp_user.emp_user_first_name': t },
+        { 'user.cdo.name': t },
       ];
       fuseQuery.push({ $or: freeTextLookups });
     }
@@ -362,7 +378,7 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedBureaus}
                   valueKey="code"
                   labelKey="long_description"
-                  disabled
+                  disabled={isLoading}
                 />
               </div>
               <div className="filter-div">
@@ -375,6 +391,7 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedOrgs}
                   valueKey="name"
                   labelKey="name"
+                  disabled={isLoading}
                 />
               </div>
               <div className="filter-div">
@@ -465,7 +482,7 @@ const PanelMeetingAgendas = (props) => {
                   onChange={setSelectedSkills}
                   valueKey="code"
                   labelKey="custom_description"
-                  disabled
+                  disabled={isLoading}
                 />
               </div>
             </div>
