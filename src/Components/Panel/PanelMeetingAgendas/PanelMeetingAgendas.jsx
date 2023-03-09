@@ -59,6 +59,7 @@ const fuseOptions = {
     'user.grade',
     'user.languages.code',
     'user.cdo.name',
+    'pmi_official_item_num',
   ],
 };
 
@@ -185,9 +186,9 @@ const PanelMeetingAgendas = (props) => {
       // See Fuse extended search docs
       const freeTextLookups = [
         { id: `'${t}` },
-        { 'assignment.pos_num': `'${t}` },
+        { 'assignment.pos_num': `^${t}` },
         { 'assignment.pos_title': t },
-        { 'legs.pos_num': `'${t}` },
+        { 'legs.pos_num': `^${t}` },
         { 'legs.pos_title': t },
         { 'creators.last_name': t },
         { 'creators.first_name': t },
@@ -198,6 +199,7 @@ const PanelMeetingAgendas = (props) => {
         { 'updaters.emp_user.emp_user_last_name': t },
         { 'updaters.emp_user.emp_user_first_name': t },
         { 'user.cdo.name': t },
+        { pmi_official_item_num: `^${t}` },
       ];
       fuseQuery.push({ $or: freeTextLookups });
     }
