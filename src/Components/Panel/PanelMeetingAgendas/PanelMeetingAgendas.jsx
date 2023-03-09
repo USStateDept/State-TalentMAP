@@ -9,7 +9,8 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { panelMeetingAgendasFetchData, panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingAgendasExport, panelMeetingAgendasFetchData,
+  panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -18,6 +19,7 @@ import Spinner from 'Components/Spinner';
 import AgendaItemRow from 'Components/Agenda/AgendaItemRow';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
 import { meetingCategoryMap } from 'Components/Panel/Constants';
+import ExportButton from 'Components/ExportButton';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import BackButton from '../../BackButton';
@@ -129,6 +131,7 @@ const PanelMeetingAgendas = (props) => {
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
   const [clearFilters, setClearFilters] = useState(false);
+  const [exportIsLoading, setExportIsLoading] = useState(false);
 
   const isLoading = genericFiltersIsLoading || panelFiltersIsLoading || isAgendaLoading;
 
@@ -325,6 +328,19 @@ const PanelMeetingAgendas = (props) => {
     setClearFilters(false);
   };
 
+  const exportPanelMeetingAgendas = () => {
+    if (!exportIsLoading) {
+      setExportIsLoading(true);
+      panelMeetingAgendasExport(pmSeqNum)
+        .then(() => {
+          setExportIsLoading(false);
+        })
+        .catch(() => {
+          setExportIsLoading(false);
+        });
+    }
+  };
+
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -487,8 +503,16 @@ const PanelMeetingAgendas = (props) => {
                 </div>
               </InteractiveElement>
               <div className="total-results">
-                {/* eslint-disable-next-line max-len */}
-                Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
+                <div>
+                  {/* eslint-disable-next-line max-len */}
+                  Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
+                </div>
+                <div className="export-button-container">
+                  <ExportButton
+                    onClick={exportPanelMeetingAgendas}
+                    isLoading={exportIsLoading}
+                  />
+                </div>
               </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (
