@@ -147,6 +147,9 @@ const AgendaItemMaintenancePane = (props) => {
     }
   };
 
+  const aimSelectStyling = isReadOnly ? 'aim-select aim-dd-disabled' : 'aim-select-small';
+  const aimSmallSelectStyling = isReadOnly ? 'aim-select-small aim-dd-disabled' : 'aim-select-small';
+
   return (
     <div className="ai-maintenance-header">
       { !unitedLoading &&
@@ -161,7 +164,7 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} ${isReadOnly ? 'aim-dd-disabled' : ''} asg-dropdown`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
@@ -190,7 +193,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Status:</label>
                   <select
-                    className="aim-select"
+                    className={aimSelectStyling}
                     id="ai-maintenance-status"
                     defaultValue={selectedStatus}
                     onChange={(e) => setStatus(get(e, 'target.value'))}
@@ -212,7 +215,7 @@ const AgendaItemMaintenancePane = (props) => {
               <label htmlFor="position number">Add Position Number:</label>
               <input
                 name="add"
-                className={`add-pos-num-input ${inputClass}`}
+                className={`add-pos-num-input ${inputClass} ${isReadOnly ? 'aim-dd-disabled' : ''}`}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
@@ -234,7 +237,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Report Category:</label>
                   <select
-                    className="aim-select"
+                    className={aimSelectStyling}
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
@@ -257,7 +260,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-date">Panel Date:</label>
                   <select
-                    className="aim-select-small"
+                    className={aimSmallSelectStyling}
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
@@ -276,7 +279,7 @@ const AgendaItemMaintenancePane = (props) => {
                     }
                   </select>
                   <select
-                    className="aim-select-small"
+                    className={aimSmallSelectStyling}
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
