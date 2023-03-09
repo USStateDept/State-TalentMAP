@@ -26,8 +26,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
-  const isReadOnly = true;
-  // const isReadOnly = !isEmpty(agendaItemData);
+  // temporary until business logic is added for readOnly items
+  const isReadOnly = !isEmpty(agendaItemData);
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');

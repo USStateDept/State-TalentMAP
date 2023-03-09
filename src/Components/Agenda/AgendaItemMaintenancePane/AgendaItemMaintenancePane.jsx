@@ -147,7 +147,7 @@ const AgendaItemMaintenancePane = (props) => {
     }
   };
 
-  const aimSelectStyling = isReadOnly ? 'aim-select aim-dd-disabled' : 'aim-select-small';
+  const aimSelectStyling = isReadOnly ? 'aim-select aim-dd-disabled' : 'aim-select';
   const aimSmallSelectStyling = isReadOnly ? 'aim-select-small aim-dd-disabled' : 'aim-select-small';
 
   return (
