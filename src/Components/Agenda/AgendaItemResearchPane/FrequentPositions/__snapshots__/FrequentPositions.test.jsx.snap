@@ -27,6 +27,7 @@ exports[`FrequentPositionsComponent matches snapshot 1`] = `
   <MemoryRouter>
     <FrequentPositions
       addFrequentPosition={[Function]}
+      isReadOnly={false}
       legCount={0}
       positions={
         Array [
