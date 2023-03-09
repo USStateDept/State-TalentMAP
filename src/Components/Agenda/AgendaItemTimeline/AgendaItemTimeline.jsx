@@ -8,12 +8,144 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
+  // eslint-disable-next-line no-unused-vars
   asgSepBid, efPos, agendaItemLegs }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const [legs, setLegs] = useState(agendaItemLegs);
+  const legs$$ = [
+    {
+      id: 127613,
+      ail_seq_num: 307083,
+      pos_title: 'INFORMATION MANAGEMENT SPEC',
+      pos_num: '55004008',
+      org: 'CSO',
+      eta: '2017-10-21T00:00:00.000Z',
+      ted: '2018-09-21T00:00:00.000Z',
+      tod: '2 YRS (1 R & R)',
+      grade: '00',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
+      action: 'Correction',
+      travel: null,
+      tourOfDutyCode: '2 YRS (1 R & R)',
+      legActionType: 'Correction',
+      travelFunctionCode: '',
+    },
+    {
+      id: 127613,
+      ail_seq_num: 307084,
+      pos_title: 'INFORMATION MANAGEMENT SPEC',
+      pos_num: '55004008',
+      org: 'CSO',
+      eta: '2018-10-21T00:00:00.000Z',
+      ted: '2021-03-21T00:00:00.000Z',
+      tod: '2 YRS/HLRT/2 YRS',
+      grade: '00',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
+      action: 'Break',
+      travel: null,
+      tourOfDutyCode: '2 YRS/HLRT/2 YRS',
+      legActionType: 'Break',
+      travelFunctionCode: '',
+    },
+    {
+      id: 127613,
+      ail_seq_num: 307085,
+      pos_title: 'RESIGNATION',
+      pos_num: 'N/A',
+      org: 'INL',
+      eta: '2021-04-21T00:00:00.000Z',
+      ted: '2022-02-21T00:00:00.000Z',
+      tod: '4 YRS/TRANSFER',
+      grade: 'OC',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
+      action: 'Resign',
+      travel: null,
+      tourOfDutyCode: '4 YRS/TRANSFER',
+      legActionType: 'Resign',
+      travelFunctionCode: '',
+    },
+    {
+      id: 127613,
+      ail_seq_num: 307089,
+      pos_title: 'TEST LEGACY LEG',
+      pos_num: '55004008',
+      org: 'CSO',
+      eta: '2017-10-21T00:00:00.000Z',
+      ted: '2018-09-21T00:00:00.000Z',
+      tod: 'Legacy TOD Value',
+      grade: '00',
+      languages: [
+        {
+          language: 'HUNGARIAN',
+          spoken_proficiency: '3',
+          reading_proficiency: '3',
+          code: 'HU',
+          representation: 'HUNGARIAN (HU) 3/3',
+        },
+        {
+          language: 'ARABIC EGYPTIAN',
+          spoken_proficiency: '2',
+          reading_proficiency: '2',
+          code: 'AE',
+          representation: 'ARABIC EGYPTIAN (AE) 2/2',
+        },
+      ],
+      action: 'Legacy Action Value',
+      travel: 'Legacy Travel Value',
+      tourOfDutyCode: 'Legacy TOD Value',
+      legActionType: 'Legacy Action Value',
+      travelFunctionCode: 'Legacy Travel Value',
+    },
+  ];
+  // const [legs, setLegs] = useState(agendaItemLegs);
+  const [legs, setLegs] = useState(legs$$);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);

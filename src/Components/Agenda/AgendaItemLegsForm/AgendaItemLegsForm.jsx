@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -61,6 +61,48 @@ const AgendaItemLegsForm = props => {
     'Action',
     'Travel',
   ];
+
+  useEffect(() => {
+    legs.forEach(l => {
+      const isLegacyValue = (!includes(TODs, l.tourOfDutyCode) && l.tourOfDutyCode !== '');
+      if (isLegacyValue) {
+        TODs.push({
+          id: 'LEGACY TOD',
+          code: 'LEGACY TOD',
+          is_active: true,
+          months: null,
+          long_description: l.tourOfDutyCode,
+          short_description: l.tourOfDutyCode,
+        });
+      }
+    });
+  }, [TODLoading]);
+
+  useEffect(() => {
+    legs.forEach(l => {
+      const isLegacyValue = (!includes(legActionTypes, l.legActionType) && l.legActionType !== '');
+      if (isLegacyValue) {
+        legActionTypes.push({
+          code: 'LA',
+          abbr_desc_text: l.legActionType,
+          desc_text: l.legActionType,
+        });
+      }
+    });
+  }, [legATLoading]);
+
+  useEffect(() => {
+    legs.forEach(l => {
+      const isLegacyValue = (!includes(travelFunctions, l.travelFunctionCode) && l.travelFunctionCode !== '');
+      if (isLegacyValue) {
+        travelFunctions.push({
+          code: '999',
+          desc_text: l.travelFunctionCode,
+          abbr_desc_text: l.travelFunctionCode,
+        });
+      }
+    });
+  }, [travelFLoading]);
 
   return (
     <>
