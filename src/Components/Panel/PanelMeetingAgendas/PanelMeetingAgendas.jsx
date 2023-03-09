@@ -35,7 +35,6 @@ const fuseOptions = {
   minMatchCharLength: 1,
   keys: [
     'status_short',
-    'id',
     'meeting_category',
     'remarks.seq_num',
     'assignment.pos_num',
@@ -59,6 +58,8 @@ const fuseOptions = {
     'user.grade',
     'user.languages.code',
     'user.cdo.name',
+    'user.name',
+    'user.shortened_name',
     'pmi_official_item_num',
   ],
 };
@@ -116,7 +117,7 @@ const PanelMeetingAgendas = (props) => {
   const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
   // Replace with real ref data endpoints
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/handshake-organizations/');
+  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const panelFiltersIsLoading =
@@ -185,7 +186,6 @@ const PanelMeetingAgendas = (props) => {
       const t = textSearch;
       // See Fuse extended search docs
       const freeTextLookups = [
-        { id: `'${t}` },
         { 'assignment.pos_num': `^${t}` },
         { 'assignment.pos_title': t },
         { 'legs.pos_num': `^${t}` },
@@ -199,6 +199,8 @@ const PanelMeetingAgendas = (props) => {
         { 'updaters.emp_user.emp_user_last_name': t },
         { 'updaters.emp_user.emp_user_first_name': t },
         { 'user.cdo.name': t },
+        { 'user.name': t },
+        { 'user.shortened_name': t },
         { pmi_official_item_num: `^${t}` },
       ];
       fuseQuery.push({ $or: freeTextLookups });
@@ -356,7 +358,7 @@ const PanelMeetingAgendas = (props) => {
               ref={childRef}
               textSearch={textSearch}
               label="Find Agenda Item"
-              placeHolder="Search using Panel Meeting Agenda Item Info"
+              placeHolder="Search for Agenda using Position, Name, or Official Item #"
             />
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
