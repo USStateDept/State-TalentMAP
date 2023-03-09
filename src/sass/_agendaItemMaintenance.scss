@@ -105,6 +105,10 @@
         font-size: 1.4rem;
       }
 
+      button:disabled {
+        float: right;
+      }
+
       .save-ai-btn:hover {
         border-color: $primary-blue-darkest;
         color: $primary-blue-darkest;
@@ -220,15 +224,18 @@
         text-overflow: ellipsis;
         max-width: fit-content;
       }
-      .asg-dropdown{
+      .asg-dropdown {
         width: 351px;
         margin-left: 10px;
       }
-      .aim-select{
+      .aim-select {
         width: 180px;
       }
-      .aim-select-small{
+      .aim-select-small {
         width: 90px;
+      }
+      .aim-select-disabled {
+        cursor: not-allowed;
       }
     }
   }
@@ -525,6 +532,11 @@
 
   .fa-plus-circle {
     color: $tertiary-success;
+  }
+
+  .fa-disabled, .fa-disabled:hover {
+    color: $color-gray;
+    cursor: not-allowed;
   }
 
   .remark-input-container {

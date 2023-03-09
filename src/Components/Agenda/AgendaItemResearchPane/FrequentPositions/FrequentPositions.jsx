@@ -26,7 +26,7 @@ const fuseOptions = {
 const FrequentPositions = (props) => {
   const headers = ['', 'Organization', 'Position Number', 'Position Title'];
 
-  const { positions, addFrequentPosition, legCount } = props;
+  const { positions, addFrequentPosition, legCount, isReadOnly } = props;
   const isLoading = useSelector(state => state.frequentPositionsIsLoading);
 
   const [positions$, setPositions$] = useState(positions);
@@ -36,8 +36,10 @@ const FrequentPositions = (props) => {
   const legLimit = legCount >= 10;
 
   const addFrequentPosition$ = pos => {
-    setSelectedPosition(pos);
-    addFrequentPosition(pos);
+    if (!isReadOnly) {
+      setSelectedPosition(pos);
+      addFrequentPosition(pos);
+    }
   };
 
   const fuse$ = new Fuse(positions, fuseOptions);
@@ -87,7 +89,7 @@ const FrequentPositions = (props) => {
                         :
                         <FA
                           name="plus-circle"
-                          className={`${legLimit ? 'fa-disabled' : 'fa-enabled'}`}
+                          className={`${(legLimit || isReadOnly) ? 'fa-disabled' : 'fa-enabled'}`}
                         />
                     }
                   </InteractiveElement>
@@ -112,12 +114,14 @@ FrequentPositions.propTypes = {
   })),
   addFrequentPosition: PropTypes.func,
   legCount: PropTypes.number,
+  isReadOnly: PropTypes.bool,
 };
 
 FrequentPositions.defaultProps = {
   positions: [],
   addFrequentPosition: EMPTY_FUNCTION,
   legCount: 0,
+  isReadOnly: false,
 };
 
 export default FrequentPositions;

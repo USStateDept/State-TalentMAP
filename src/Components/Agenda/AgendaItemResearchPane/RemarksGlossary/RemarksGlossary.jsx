@@ -8,7 +8,8 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import DatePicker from 'react-datepicker';
 import Fuse from 'fuse.js';
 
-const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
+const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection,
+  isReadOnly }) => {
   const [textInputs, setTextInputs] = useState({});
 
   const setTextInput = (rSeq, riSeq, value) => {
@@ -149,7 +150,10 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
                 {remarksInCategory.map(r => (
                   (<li key={r.seq_num}>
                     <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-                      <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+                      <FA
+                        name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'}
+                        className={`${(isReadOnly) ? 'fa-disabled' : ''}`}
+                      />
                     </InteractiveElement>
                     {renderText(r)}
                   </li>)
@@ -200,6 +204,7 @@ RemarksGlossary.propTypes = {
   ),
   remarkCategories: PropTypes.arrayOf(PropTypes.shape({})),
   updateSelection: PropTypes.func,
+  isReadOnly: PropTypes.bool,
 };
 
 RemarksGlossary.defaultProps = {
@@ -207,6 +212,7 @@ RemarksGlossary.defaultProps = {
   remarks: [],
   remarkCategories: [],
   updateSelection: EMPTY_FUNCTION,
+  isReadOnly: false,
 };
 
 export default RemarksGlossary;

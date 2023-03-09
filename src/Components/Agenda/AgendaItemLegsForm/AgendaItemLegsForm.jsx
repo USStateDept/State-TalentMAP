@@ -15,6 +15,7 @@ const AgendaItemLegsForm = props => {
     legs,
     onClose,
     updateLeg,
+    isReadOnly,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
@@ -156,6 +157,7 @@ const AgendaItemLegsForm = props => {
                   updateLeg={updateLeg$}
                   onHover={onHover}
                   rowNum={rowHoverNum}
+                  isReadOnly={isReadOnly}
                 />
               ))
             }
@@ -170,6 +172,7 @@ AgendaItemLegsForm.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
   updateLeg: PropTypes.func,
+  isReadOnly: PropTypes.bool,
 };
 
 AgendaItemLegsForm.defaultProps = {
@@ -177,6 +180,7 @@ AgendaItemLegsForm.defaultProps = {
   legs: [],
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
+  isReadOnly: false,
 };
 
 export default AgendaItemLegsForm;

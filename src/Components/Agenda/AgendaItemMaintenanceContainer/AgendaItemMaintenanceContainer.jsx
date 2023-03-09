@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isNil } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -25,6 +26,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
+  const isReadOnly = true;
+  // const isReadOnly = !isEmpty(agendaItemData);
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
@@ -53,23 +56,25 @@ const AgendaItemMaintenanceContainer = (props) => {
   const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark, textInputs) => {
-    const userRemarks$ = [...userRemarks];
-    const found = find(userRemarks$, { seq_num: remark.seq_num });
-    if (!found) {
-      const remark$ = { ...remark };
+    if (!isReadOnly) {
+      const userRemarks$ = [...userRemarks];
+      const found = find(userRemarks$, { seq_num: remark.seq_num });
+      if (!found) {
+        const remark$ = { ...remark };
 
-      if (has(remark$, 'remark_inserts')) {
-        const tempKey = (remark$.seq_num).toString();
-        if (!remark$.ari_insertions) {
-          remark$.ari_insertions = {};
+        if (has(remark$, 'remark_inserts')) {
+          const tempKey = (remark$.seq_num).toString();
+          if (!remark$.ari_insertions) {
+            remark$.ari_insertions = {};
+          }
+          remark$.ari_insertions = textInputs[tempKey];
         }
-        remark$.ari_insertions = textInputs[tempKey];
-      }
 
-      userRemarks$.push(remark$);
-      setUserRemarks(userRemarks$);
-    } else {
-      setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
+        userRemarks$.push(remark$);
+        setUserRemarks(userRemarks$);
+      } else {
+        setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
+      }
     }
   };
 
@@ -166,6 +171,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           legCount={legs.length}
                           saveAI={submitAI}
                           agendaItem={agendaItem}
+                          isReadOnly={isReadOnly}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -174,6 +180,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           asgSepBid={asgSepBid}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
+                          isReadOnly={isReadOnly}
                         />
                       </>
                   }
@@ -202,6 +209,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 updateSelection={updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
+                isReadOnly={isReadOnly}
               />
             </div>
           </div>

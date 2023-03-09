@@ -21,6 +21,7 @@ const AgendaLeg = props => {
     travelFunctions,
     onHover,
     rowNum,
+    isReadOnly,
   } = props;
 
   const onHover$ = (row) => {
@@ -92,7 +93,7 @@ const AgendaLeg = props => {
       className="leg-dropdown"
       value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
-      disabled={isEf}
+      disabled={isEf || isReadOnly}
     >
       <option selected key={null} value={''}>
         {defaultText}
@@ -112,7 +113,10 @@ const AgendaLeg = props => {
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
-      {
+      {isReadOnly ?
+        !isEf &&
+        <FA name="calendar" className="icon-disabled" />
+        :
         !isEf &&
         <FA name="calendar" onClick={calendarModal} />
       }
@@ -179,7 +183,7 @@ const AgendaLeg = props => {
       <div className={`grid-col-${legNum} grid-row-1`}>
         {
           !isEf &&
-          <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
+          <InteractiveElement className={`remove-leg-button${isReadOnly ? ' icon-disabled' : ''}`} onClick={() => onClose$(leg)} title="Remove leg">
             <FA name="times" />
           </InteractiveElement>
         }
@@ -210,6 +214,7 @@ AgendaLeg.propTypes = {
   updateLeg: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
   rowNum: PropTypes.number.isRequired,
+  isReadOnly: PropTypes.bool,
 };
 
 AgendaLeg.defaultProps = {
@@ -219,6 +224,7 @@ AgendaLeg.defaultProps = {
   updateLeg: EMPTY_FUNCTION,
   onHover: EMPTY_FUNCTION,
   rowNum: null,
+  isReadOnly: false,
 };
 
 export default AgendaLeg;
