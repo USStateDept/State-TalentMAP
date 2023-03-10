@@ -21,6 +21,8 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
+  console.log(agenda);
+
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
@@ -39,7 +41,10 @@ const AgendaItemRow = props => {
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
+  const updaterDate = (get(agenda, 'creator_date', null));
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
+  const creatorDate = (get(agenda, 'modifier_date', null));
+  console.log(formatDate(creatorDate));
   const remarks = get(agenda, 'remarks') || [];
 
   return (
@@ -121,8 +126,18 @@ const AgendaItemRow = props => {
               }
             </div>
             <div className="ai-updater-creator">
-              <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
-              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
+              <div className="label">
+                <span>
+                  Created: {get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}
+                  <span className="date">{creatorDate ? ` ${formatDate(creatorDate, 'MM/DD/YY')}` : ''}</span>
+                </span>
+              </div>
+              <div className="label">
+                <span>
+                  Modified: {get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}
+                  <span className="date">{updaterDate ? ` ${formatDate(updaterDate, 'MM/DD/YY')}` : ''}</span>
+                </span>
+              </div>
             </div>
           </div>
           {
