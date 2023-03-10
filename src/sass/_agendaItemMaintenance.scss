@@ -69,38 +69,6 @@
 
   // ---- start: styling for left pane ----
 
-  .remarks-container {
-    margin: 15px;
-
-    #add-remark {
-      color: $primary-blue;
-      font-size: 20px;
-      margin: 0 10px 0 -15px;
-    }
-
-    #add-remark:hover {
-      color: $primary-blue-darkest;
-    }
-
-    .remarks-pill {
-      border-radius: 12px;
-      color: $color-white;
-      display: inline;
-      font-size: .8em;
-      margin-bottom: 1rem;
-      margin-right: 1.5rem;
-      padding: .5em;
-
-      .fa-times {
-        margin-left: 10px;
-      }
-
-      .fa-times:hover {
-        cursor: pointer;
-      }
-    }
-  }
-
   .ai-maintenance-header {
     background-color: $tm-white-smoke-light;
     padding-bottom: 20px;
@@ -590,18 +558,5 @@
     padding: .5em;
     font-size: 13px;
     display: flex;
-  }
-}
-
-@each $remark-id, $color in $remarks {
-  .remark-category--#{$remark-id} {
-    background-color: $color;
-    color: $color-white;
-    scroll-margin-top: 60px;
-  }
-  @media screen and (max-width: 1600px) {
-    .remark-category--#{$remark-id} {
-      scroll-margin-top: 32px;
-    }
   }
 }

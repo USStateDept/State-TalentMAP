@@ -136,36 +136,6 @@
       }
 
     }
-    .remarks-container {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 15px;
-
-      .remarks-text {
-        float: left;
-        font-size: 1.1em;
-        margin-right: .7rem;
-        margin-top: 3px;
-      }
-
-      .remarks-pill {
-        background-color: $primary-blue;
-        border-radius: 12px;
-        color: $color-white;
-        display: inline;
-        font-size: .8em;
-        margin-bottom: 1rem;
-        margin-right: 1.5rem;
-        padding: .5em;
-      }
-
-      @each $remark-id, $color in $remarks {
-        .remark-category--#{$remark-id} {
-          background-color: $color;
-        }
-      }
-    }
-
 
     .ai-history-edit {
       bottom: 5px;
@@ -232,12 +202,6 @@
     font-size: 1.8rem;
     flex-shrink: 0;
   }
-}
-
-.agenda-bottom-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
 }
 
 .ai-updater-creator {

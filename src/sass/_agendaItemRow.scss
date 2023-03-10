@@ -127,4 +127,10 @@
   .ai-history-edit {
     bottom: 5px;
   }
+
+  .agenda-bottom-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
 }
