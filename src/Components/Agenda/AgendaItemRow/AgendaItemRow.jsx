@@ -21,8 +21,6 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  console.log(agenda);
-
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
@@ -44,7 +42,6 @@ const AgendaItemRow = props => {
   const updaterDate = (get(agenda, 'creator_date', null));
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
   const creatorDate = (get(agenda, 'modifier_date', null));
-  console.log(formatDate(creatorDate));
   const remarks = get(agenda, 'remarks') || [];
 
   return (
