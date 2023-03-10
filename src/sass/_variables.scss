@@ -304,3 +304,16 @@ $aim-legs-lrg-height-config: (
   "Action": 11,
   "Travel": 12,
 );
+
+//**
+//* resolution widths for .ai-history-legs
+//*
+$ai-history-legs-width-config: (
+        1000px: 67vw,
+        1300px: 73vw,
+        1500px: 75vw,
+        1700px: 80vw,
+        2000px: 83vw,
+        2400px: 95vw,
+        2700px: 98vw,
+);
