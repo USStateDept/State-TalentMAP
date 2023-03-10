@@ -518,17 +518,18 @@ const PanelMeetingAgendas = (props) => {
                 Object.keys(categorizeAgendas()).map(header => (
                   <>
                     <div className="pma-category-header">{header}</div>
-                    {
-                      agendasCategorized[header].map(result => (
-                        <AgendaItemRow
-                          key={result.id}
-                          isCDO={isCDO}
-                          isAIHView
-                          agenda={result}
-                          isPanelMeetingView
-                        />
-                      ))
-                    }
+                    <div className="agenda-item-row-container">
+                      {
+                        agendasCategorized[header].map(result => (
+                          <AgendaItemRow
+                            agenda={result}
+                            key={result.id}
+                            isCDO={isCDO}
+                            isPanelMeetingView
+                          />
+                        ))
+                      }
+                    </div>
                   </>
                 ))
               }

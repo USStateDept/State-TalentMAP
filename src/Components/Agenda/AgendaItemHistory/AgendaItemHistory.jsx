@@ -183,7 +183,7 @@ const AgendaItemHistory = (props) => {
               }
               {
                 !cardView &&
-                <div className="ai-history-rows-container">
+                <div className="agenda-item-row-container">
                   {
                     createAI &&
                       <AgendaItemRow
@@ -195,10 +195,9 @@ const AgendaItemHistory = (props) => {
                   {
                     aih.map(result => (
                       <AgendaItemRow
-                        key={result.id}
                         agenda={result}
+                        key={result.id}
                         isCDO={isCDO}
-                        isAIHView
                       />
                     ))
                   }

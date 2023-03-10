@@ -1,0 +1,130 @@
+.agenda-item-row-container {
+  .ai-history-row {
+    background-color: $color-white;
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
+    margin: 20px 15px;
+    padding: 15px;
+    position: relative;
+
+    .status-tag {
+      padding: 5px 20px;
+    }
+    .poly-slash {
+      padding: 5px 0;
+    }
+
+    .ai-history-row-panel-date {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 1.4rem;
+
+      @media screen and (max-width: 1600px) {
+        .ai-history-row-panel-date {
+          font-size: medium;
+        }
+      }
+    }
+
+    .ai-history-legs {
+      max-width: 60vw;
+      min-height: 300px;
+      overflow-x: auto;
+      padding-top: 20px;
+
+      @media screen and (min-width: 1000px) {
+        max-width: 67vw;
+      }
+      @media screen and (min-width: 1300px) {
+        max-width: 73vw;
+      }
+      @media screen and (min-width: 1500px) {
+        max-width: 75vw;
+      }
+      @media screen and (min-width: 1700px) {
+        max-width: 80vw;
+      }
+      @media screen and (min-width: 2000px) {
+        max-width: 83vw;
+      }
+      @media screen and (min-width: 2400px) {
+        max-width: 95vw;
+      }
+      @media screen and (min-width: 2700px) {
+        max-width: 98vw;
+      }
+
+      table {
+        margin-top: 0;
+        margin-bottom: 30px;
+
+        td {
+          border: none;
+          max-width: 300px;
+          padding: 0;
+        }
+
+        th {
+          border: none;
+          padding: .5rem 1rem;
+          max-width: 80px;
+        }
+
+        dt {
+          font-weight: bold;
+        }
+
+        dd {
+          margin: 0 10px;
+        }
+
+        tr:hover {
+
+          th, td {
+            background-color: $color-gray-lightest;
+          }
+
+        }
+        // exclude arrow row
+        tr:hover:nth-child(7) {
+
+          th, td {
+            background-color: transparent;
+          }
+
+        }
+
+        td:nth-child(n+2) {
+          border-left: 1px solid $color-gray-lighter;
+          padding-right: 10px;
+        }
+
+      }
+
+    }
+
+  }
+
+  .first-row {
+    border: 1px dashed $bg-blue-dark-0;
+    display: flex;
+    height: 100px;
+    padding: 5px;
+
+    .plusIcon {
+      color: $bg-blue-dark-0;
+      font-size: 75px;
+      margin: auto;
+    }
+
+    .plusIcon:hover {
+      color: $tertiary-cool-blue;
+      font-size: 80px;
+    }
+
+  }
+
+  .ai-history-edit {
+    bottom: 5px;
+  }
+}

@@ -70,8 +70,6 @@
   // ---- start: styling for left pane ----
 
   .remarks-container {
-    display: flex;
-    flex-wrap: wrap;
     margin: 15px;
 
     #add-remark {
@@ -82,13 +80,6 @@
 
     #add-remark:hover {
       color: $primary-blue-darkest;
-    }
-
-    .remarks-text {
-      float: left;
-      font-size: 1.1em;
-      margin-right: .7rem;
-      margin-top: 3px;
     }
 
     .remarks-pill {
