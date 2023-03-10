@@ -40,7 +40,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const currentPost$ = `${currentLocation} (${currentPost})`;
+  const currentPost$ = currentPost !== FALLBACK ? `${currentLocation} (${currentPost})` : FALLBACK;
   const futurePost$ = futurePost !== FALLBACK ? `${hsLocation} (${futurePost})` : FALLBACK;
 
   let profileLink;
