@@ -120,7 +120,7 @@ const AgendaItemLegs = props => {
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
-    <div className="ai-history-legs">
+    <div className="ai-legs">
       <table>
         <tbody>
           {

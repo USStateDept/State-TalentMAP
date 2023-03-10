@@ -26,12 +26,12 @@
       }
     }
 
-    .ai-history-legs {
+    .ai-legs {
       max-width: 60vw;
       min-height: 300px;
       overflow-x: auto;
       padding-top: 20px;
-      @each $res, $vw in $ai-history-legs-width-config {
+      @each $res, $vw in $ai-legs-width-config {
         @media screen and (min-width: $res) {
           max-width: $vw;
         }
