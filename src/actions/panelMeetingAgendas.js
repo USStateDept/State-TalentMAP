@@ -45,10 +45,8 @@ export function panelMeetingAgendasFiltersFetchDataSuccess(results) {
   };
 }
 
-export function panelMeetingAgendasExport(query = {}) {
-  const q = convertQueryToString(query);
-  const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
-  const ep = `${endpoint}?${q}`;
+export function panelMeetingAgendasExport(pmseqnum = '') {
+  const ep = `/fsbid/panel/${pmseqnum}/agendas/export/`;
   return api()
     .get(ep)
     .then((response) => {
