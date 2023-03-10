@@ -36,6 +36,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
+  const pmSeqNum = get(agenda, 'pm_seq_num') || FALLBACK;
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -109,11 +110,11 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         */}
         <div className="employee-card-data-point">
           <FA name="calendar-o" />
-          <dt>Panel Meeting Date:</dt>
+          <dt>Panel Date:</dt>
           {
             (panelMeetingActive && (panelDate !== FALLBACK)) ?
               <dd>
-                <Link to={`/profile/${userRole}/panelmeetingagendas/`}>
+                <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                   {panelDate}
                 </Link>
               </dd>
