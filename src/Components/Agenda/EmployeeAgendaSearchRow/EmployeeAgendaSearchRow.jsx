@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
-import { formatDate, getCustomLocation } from 'utilities';
+import { formatDate } from 'utilities';
 import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
@@ -25,8 +25,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
   const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
-  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPost);
+  const currentLocation = `${get(currentAssignment, 'locationCity') || FALLBACK}, ${get(currentAssignment, 'locationCountry') || FALLBACK}`;
   const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
+  const hsLocation = `${get(hsAssignment, 'hsLocationCity') || FALLBACK}, ${get(hsAssignment, 'hsLocationCountry') || FALLBACK}`;
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
@@ -37,7 +38,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const currentPost$ = `${formatLoc} (${currentPost})`;
+  const currentPost$ = `${currentLocation} (${currentPost})`;
+  const futurePost$ = futurePost !== FALLBACK ? `${hsLocation} (${futurePost})` : FALLBACK;
 
   let profileLink;
   switch (viewType) {
@@ -81,7 +83,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <dd>
               {currentPost$}
               <FA className="org-fa-arrow" name="long-arrow-right" />
-              {futurePost}</dd>
+              {futurePost$}</dd>
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="clock-o" />
