@@ -39,9 +39,9 @@ const AgendaItemRow = props => {
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
-  const updaterDate = (get(agenda, 'creator_date', null));
+  const updaterDate = get(agenda, 'creator_date', null);
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
-  const creatorDate = (get(agenda, 'modifier_date', null));
+  const creatorDate = get(agenda, 'modifier_date', null);
   const remarks = get(agenda, 'remarks') || [];
 
   return (
