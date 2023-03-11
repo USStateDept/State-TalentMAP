@@ -147,6 +147,7 @@ exports[`SearchBarComponent big matches snapshot when showClear === true 1`] = `
                   />
                   <FontAwesome
                     name="search"
+                    onClick={[Function]}
                   />
                 </span>
                 <div
@@ -348,6 +349,7 @@ exports[`SearchBarComponent medium matches snapshot when showClear === true 1`] 
                   />
                   <FontAwesome
                     name="search"
+                    onClick={[Function]}
                   />
                 </span>
                 <div
@@ -547,6 +549,7 @@ exports[`SearchBarComponent small matches snapshot when showClear === true 1`] =
                   />
                   <FontAwesome
                     name="search"
+                    onClick={[Function]}
                   />
                 </span>
                 <div
