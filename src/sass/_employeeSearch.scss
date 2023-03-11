@@ -74,36 +74,13 @@
 
       .emp-search-div {
         input {
-          width: 200px;
+          width: 240px;
           max-width: none;
         }
         .searchbar {
           .text-input-wrapper {
             > span {
-              left: 165px;
-            }
-          }
-        }
-      }
-
-      .emp-search-id-div {
-        input {
-          width: 200px;
-          max-width: none;
-        }
-
-        button {
-          min-width: 110px;
-          padding: 8px 16px;
-          margin: 4px 0 0 55px;
-          @media screen and (max-width: 1200px) {
-            margin-left: 80px;
-          }
-        }
-        .searchbar {
-          .text-input-wrapper {
-            > span {
-              left: 165px;
+              left: 205px;
             }
           }
         }
