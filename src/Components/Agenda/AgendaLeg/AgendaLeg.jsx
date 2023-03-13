@@ -24,6 +24,8 @@ const AgendaLeg = props => {
     isReadOnly,
   } = props;
 
+  const disabled = isReadOnly || isEf;
+
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
     // to avoid highlighting the arrow
@@ -93,7 +95,7 @@ const AgendaLeg = props => {
       className="leg-dropdown"
       value={get(leg, key) || ''}
       onChange={(e) => updateDropdown(key, e.target.value)}
-      disabled={isEf || isReadOnly}
+      disabled={disabled}
     >
       <option selected key={null} value={''}>
         {defaultText}
@@ -113,11 +115,8 @@ const AgendaLeg = props => {
   const getCalendar = () => (
     <>
       {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
-      {isReadOnly ?
-        !isEf &&
-        <FA name="calendar" className="icon-disabled" />
-        :
-        !isEf &&
+      {
+        !disabled &&
         <FA name="calendar" onClick={calendarModal} />
       }
     </>
@@ -182,8 +181,8 @@ const AgendaLeg = props => {
     <>
       <div className={`grid-col-${legNum} grid-row-1`}>
         {
-          !isEf &&
-          <InteractiveElement className={`remove-leg-button${isReadOnly ? ' icon-disabled' : ''}`} onClick={() => onClose$(leg)} title="Remove leg">
+          !disabled &&
+          <InteractiveElement className="remove-leg-button" onClick={() => onClose$(leg)} title="Remove leg">
             <FA name="times" />
           </InteractiveElement>
         }
