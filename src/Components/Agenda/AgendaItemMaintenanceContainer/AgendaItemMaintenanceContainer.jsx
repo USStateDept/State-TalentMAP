@@ -115,12 +115,6 @@ const AgendaItemMaintenanceContainer = (props) => {
     }
   }, [agendaItemLoading]);
 
-  const readOnlyStlying = {
-    ddDisabled: isReadOnly ? ' aim-dd-disabled' : '',
-    faIcon: isReadOnly ? 'fa-disabled' : '',
-    saveButton: isReadOnly ? '' : 'save-ai-btn',
-  };
-
   return (
     <>
       <div className="aim-header-container">
@@ -148,7 +142,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
-          <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
+          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${isReadOnly ? 'aim-disabled' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
@@ -175,7 +169,6 @@ const AgendaItemMaintenanceContainer = (props) => {
                           saveAI={submitAI}
                           agendaItem={agendaItem}
                           isReadOnly={isReadOnly}
-                          readOnlyStlying={readOnlyStlying}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -214,7 +207,6 @@ const AgendaItemMaintenanceContainer = (props) => {
                 userSelections={userRemarks}
                 legCount={legs.length}
                 isReadOnly={isReadOnly}
-                readOnlyStlying={readOnlyStlying}
               />
             </div>
           </div>

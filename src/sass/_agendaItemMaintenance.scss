@@ -25,25 +25,32 @@
   }
 }
 
-.ai-maintenance-container {
-  margin: 10px;
-  padding-bottom: 15px;
-
-  // ---- start: styling for readonly ----
-
-  .aim-dd-disabled {
+.aim-disabled {
+  .ai-maintenance-header {
+    .back-save-btns-container {
+      button:disabled {
+        background-color: #d6d7d9;
+        border: 1px solid #d6d7d9;
+        color: $color-white;
+      }
+    }
+  }
+  .asg-dropdown, .aim-select, .aim-select-small, .add-pos-num-input {
     color: $color-gray;
     cursor: not-allowed;
   }
-
+  
   .ai-research-pane {
-    .fa-disabled, .fa-disabled:hover {
+    .fa, .fa-disabled, .fa-disabled:hover {
       color: $color-gray;
       cursor: not-allowed;
     }
   }
+}
 
-  // ---- end: styling for readonly ----
+.ai-maintenance-container {
+  margin: 10px;
+  padding-bottom: 15px;
 
   // ---- start: styling for left pane ----
 

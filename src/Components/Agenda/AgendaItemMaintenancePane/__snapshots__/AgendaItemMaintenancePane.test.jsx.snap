@@ -31,6 +31,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
     legCount={0}
     onAddRemarksClick={[Function]}
     perdet="2"
+    readOnlyStlying={Object {}}
     saveAI={[Function]}
     sendAsgSepBid={[Function]}
     sendMaintenancePaneInfo={[Function]}

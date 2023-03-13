@@ -8,8 +8,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import DatePicker from 'react-datepicker';
 import Fuse from 'fuse.js';
 
-const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection,
-  readOnlyStlying }) => {
+const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
 
   const setTextInput = (rSeq, riSeq, value) => {
@@ -125,8 +124,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     setTextInputBulk(remarks);
   }, [remarks]);
 
-  const faDisabledStyling = get(readOnlyStlying, 'faIcon');
-
   return (
     <div className="usa-grid-full remarks-glossary-container">
       <TextInput
@@ -154,7 +151,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
                     <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
                       <FA
                         name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'}
-                        className={`${faDisabledStyling}`}
                       />
                     </InteractiveElement>
                     {renderText(r)}
@@ -206,7 +202,6 @@ RemarksGlossary.propTypes = {
   ),
   remarkCategories: PropTypes.arrayOf(PropTypes.shape({})),
   updateSelection: PropTypes.func,
-  readOnlyStlying: PropTypes.shape({}),
 };
 
 RemarksGlossary.defaultProps = {
@@ -214,7 +209,6 @@ RemarksGlossary.defaultProps = {
   remarks: [],
   remarkCategories: [],
   updateSelection: EMPTY_FUNCTION,
-  readOnlyStlying: false,
 };
 
 export default RemarksGlossary;
