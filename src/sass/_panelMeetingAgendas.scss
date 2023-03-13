@@ -119,20 +119,6 @@
     }
 
     .ai-history-row {
-      background-color: $color-white;
-      border-radius: 10px;
-      box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
-      margin: 20px 15px;
-      padding: 15px;
-      position: relative;
-
-      .status-tag {
-        padding: 5px 18px;
-      }
-      .poly-slash {
-        padding: 5px 0;
-      }
-
       .ai-history-row-panel-date {
         display: flex;
         justify-content: flex-end;
@@ -147,114 +133,6 @@
         align-items: baseline;
         background: linear-gradient(white, white) padding-box, linear-gradient(to right, #d6d7d9, #d6d7d900) border-box;
         border-bottom: 2px solid transparent;
-      }
-
-      .ai-history-card-legs {
-        min-height: 300px;
-
-        table {
-          margin-top: 0;
-          margin-bottom: 30px;
-
-          td {
-            border: none;
-            max-width: 300px;
-            padding: 0;
-          }
-
-          th {
-            border: none;
-            padding: .5rem 1rem;
-            max-width: 80px;
-          }
-
-          dt {
-            font-weight: bold;
-          }
-
-          dd {
-            margin: 0 10px;
-          }
-
-          tr:hover {
-
-            th, td {
-              background-color: $color-gray-lightest;
-            }
-
-          }
-          // exclude arrow row
-          tr:hover:nth-child(7) {
-
-            th, td {
-              background-color: transparent;
-            }
-
-          }
-
-          td:nth-child(n+2) {
-            border-left: 1px solid $color-gray-lighter;
-            padding-right: 10px;
-          }
-
-        }
-
-      }
-
-    }
-    .remarks-container {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 15px;
-
-      .remarks-text {
-        float: left;
-        font-size: 1.1em;
-        margin-right: .7rem;
-        margin-top: 3px;
-      }
-
-      .remarks-pill {
-        background-color: $primary-blue;
-        border-radius: 12px;
-        color: $color-white;
-        display: inline;
-        font-size: .8em;
-        margin-bottom: 1rem;
-        margin-right: 1.5rem;
-        padding: .5em;
-      }
-
-      @each $remark-id, $color in $remarks {
-        .remark-category--#{$remark-id} {
-          background-color: $color;
-        }
-      }
-    }
-
-    @media screen and (max-width: 1400px) {
-
-      .ai-history-row {
-        margin: 20px 0;
-      }
-
-    }
-
-    .first-row {
-      border: 1px dashed $bg-blue-dark-0;
-      display: flex;
-      height: 100px;
-      padding: 5px;
-
-      .plusIcon {
-        color: $bg-blue-dark-0;
-        font-size: 75px;
-        margin: auto;
-      }
-
-      .plusIcon:hover {
-        color: $tertiary-cool-blue;
-        font-size: 80px;
       }
 
     }
@@ -324,12 +202,6 @@
     font-size: 1.8rem;
     flex-shrink: 0;
   }
-}
-
-.agenda-bottom-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
 }
 
 .ai-updater-creator {

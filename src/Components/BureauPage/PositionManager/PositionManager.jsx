@@ -556,7 +556,7 @@ const PositionManager = props => {
           {
             getOverlay() ||
               <>
-                <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+                <div className="usa-width-one-whole results-dropdown controls-container">
                   <TotalResults
                     total={bureauPositions.count}
                     pageNumber={page}
