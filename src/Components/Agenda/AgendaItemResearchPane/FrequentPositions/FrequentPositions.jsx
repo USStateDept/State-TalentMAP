@@ -36,6 +36,8 @@ const FrequentPositions = (props) => {
   const legLimit = legCount >= 10;
 
   const addFrequentPosition$ = pos => {
+    // setSelectedPosition(pos);
+    // addFrequentPosition(pos);
     if (!isReadOnly) {
       setSelectedPosition(pos);
       addFrequentPosition(pos);

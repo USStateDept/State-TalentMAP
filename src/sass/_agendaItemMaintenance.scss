@@ -29,6 +29,25 @@
   margin: 10px;
   padding-bottom: 15px;
 
+
+
+  // ---- start: styling for readonly ----
+  .aim-dd-disabled {
+    color: $color-gray;
+    cursor: not-allowed;
+  }
+
+  .ai-research-pane {
+    .fa-disabled, .fa-disabled:hover {
+      color: $color-gray;
+      cursor: not-allowed;
+    }
+  }
+
+  // ---- end: styling for readonly ----
+
+
+
   // ---- start: styling for left pane ----
 
   .remarks-container {
@@ -234,9 +253,6 @@
       .aim-select-small {
         width: 90px;
       }
-      .aim-dd-disabled {
-        cursor: not-allowed;
-      }
     }
   }
 
@@ -430,10 +446,6 @@
         .fa-enabled:hover {
           color: $primary-blue-darkest;
         }
-        .fa-disabled, .fa-disabled:hover {
-          color: $color-gray;
-          cursor: not-allowed;
-        }
       }
     }
 
@@ -532,11 +544,6 @@
 
   .fa-plus-circle {
     color: $tertiary-success;
-  }
-
-  .fa-disabled, .fa-disabled:hover {
-    color: $color-gray;
-    cursor: not-allowed;
   }
 
   .remark-input-container {

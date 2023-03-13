@@ -55,6 +55,24 @@ const AgendaItemMaintenanceContainer = (props) => {
   const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark, textInputs) => {
+    // const userRemarks$ = [...userRemarks];
+    // const found = find(userRemarks$, { seq_num: remark.seq_num });
+    // if (!found) {
+    //   const remark$ = { ...remark };
+
+    //   if (has(remark$, 'remark_inserts')) {
+    //     const tempKey = (remark$.seq_num).toString();
+    //     if (!remark$.ari_insertions) {
+    //       remark$.ari_insertions = {};
+    //     }
+    //     remark$.ari_insertions = textInputs[tempKey];
+    //   }
+
+    //   userRemarks$.push(remark$);
+    //   setUserRemarks(userRemarks$);
+    // } else {
+    //   setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
+    // }
     if (!isReadOnly) {
       const userRemarks$ = [...userRemarks];
       const found = find(userRemarks$, { seq_num: remark.seq_num });
@@ -117,6 +135,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     }
   }, [agendaItemLoading]);
 
+  const readOnlyStlying = {
+    ddDisabled: isReadOnly ? ' aim-dd-disabled' : '',
+    faIcon: isReadOnly ? 'fa-disabled' : '',
+    saveButton: isReadOnly ? '' : 'save-ai-btn',
+  };
+
   return (
     <>
       <div className="aim-header-container">
@@ -163,6 +187,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
                           updateSelection={updateSelection}
+                          // updateSelection={isReadOnly ? () => {} : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
@@ -171,6 +196,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           saveAI={submitAI}
                           agendaItem={agendaItem}
                           isReadOnly={isReadOnly}
+                          readOnlyStlying={readOnlyStlying}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -206,9 +232,11 @@ const AgendaItemMaintenanceContainer = (props) => {
                 perdet={id}
                 ref={researchPaneRef}
                 updateSelection={updateSelection}
+                // updateSelection={isReadOnly ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
                 isReadOnly={isReadOnly}
+                readOnlyStlying={readOnlyStlying}
               />
             </div>
           </div>

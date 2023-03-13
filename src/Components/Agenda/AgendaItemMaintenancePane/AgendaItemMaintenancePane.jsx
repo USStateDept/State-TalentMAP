@@ -29,6 +29,7 @@ const AgendaItemMaintenancePane = (props) => {
     asgSepBidData,
     agendaItem,
     isReadOnly,
+    readOnlyStlying,
   } = props;
 
   const defaultText = '';
@@ -147,8 +148,8 @@ const AgendaItemMaintenancePane = (props) => {
     }
   };
 
-  const aimSelectStyling = isReadOnly ? 'aim-select aim-dd-disabled' : 'aim-select';
-  const aimSmallSelectStyling = isReadOnly ? 'aim-select-small aim-dd-disabled' : 'aim-select-small';
+  const ddDisabeldStyling = get(readOnlyStlying, 'ddDisabled');
+  const saveButtonStyling = get(readOnlyStlying, 'saveButton');
 
   return (
     <div className="ai-maintenance-header">
@@ -156,7 +157,7 @@ const AgendaItemMaintenancePane = (props) => {
         <>
           <div className="back-save-btns-container">
             <BackButton />
-            <button className={`${isReadOnly ? '' : 'save-ai-btn'}`} onClick={saveAI} disabled={isReadOnly}>
+            <button className={`${saveButtonStyling}`} onClick={saveAI} disabled={isReadOnly}>
               Save Agenda Item
             </button>
           </div>
@@ -164,7 +165,7 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} ${isReadOnly ? 'aim-dd-disabled' : ''} asg-dropdown`}
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} ${ddDisabeldStyling} asg-dropdown`}
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
@@ -193,7 +194,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Status:</label>
                   <select
-                    className={aimSelectStyling}
+                    className={`aim-select${ddDisabeldStyling}`}
                     id="ai-maintenance-status"
                     defaultValue={selectedStatus}
                     onChange={(e) => setStatus(get(e, 'target.value'))}
@@ -215,7 +216,7 @@ const AgendaItemMaintenancePane = (props) => {
               <label htmlFor="position number">Add Position Number:</label>
               <input
                 name="add"
-                className={`add-pos-num-input ${inputClass} ${isReadOnly ? 'aim-dd-disabled' : ''}`}
+                className={`add-pos-num-input ${inputClass}${ddDisabeldStyling}`}
                 onChange={value => setPositionNumber(value.target.value)}
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
@@ -237,7 +238,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-status">Report Category:</label>
                   <select
-                    className={aimSelectStyling}
+                    className={`aim-select${ddDisabeldStyling}`}
                     id="ai-maintenance-category"
                     defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
@@ -260,7 +261,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label htmlFor="ai-maintenance-date">Panel Date:</label>
                   <select
-                    className={aimSmallSelectStyling}
+                    className={`aim-select-small${ddDisabeldStyling}`}
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
@@ -279,7 +280,7 @@ const AgendaItemMaintenancePane = (props) => {
                     }
                   </select>
                   <select
-                    className={aimSmallSelectStyling}
+                    className={`aim-select-small${ddDisabeldStyling}`}
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
@@ -375,6 +376,7 @@ AgendaItemMaintenancePane.propTypes = {
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
   isReadOnly: PropTypes.bool,
+  readOnlyStlying: PropTypes.shape({}),
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -390,6 +392,7 @@ AgendaItemMaintenancePane.defaultProps = {
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
   isReadOnly: false,
+  readOnlyStlying: {},
 };
 
 export default AgendaItemMaintenancePane;

@@ -109,6 +109,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   }, [asgSepBid]);
 
   const onClose = leg => {
+    // const legs$ = legs.filter(l => l.ail_seq_num !== leg.ail_seq_num);
+    // setLegs(legs$);
     if (!isReadOnly) {
       const legs$ = legs.filter(l => l.ail_seq_num !== leg.ail_seq_num);
       setLegs(legs$);
@@ -126,6 +128,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     !unitedLoading &&
       <AgendaItemLegsForm
         onClose={onClose}
+        // onClose={isReadOnly ? () => {} : onClose}
         legs={legs}
         updateLeg={updateLeg}
         efPos={efPos}
