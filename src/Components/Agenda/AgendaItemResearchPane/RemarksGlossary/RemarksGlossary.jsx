@@ -149,9 +149,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
                 {remarksInCategory.map(r => (
                   (<li key={r.seq_num}>
                     <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-                      <FA
-                        name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'}
-                      />
+                      <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
                     </InteractiveElement>
                     {renderText(r)}
                   </li>)
