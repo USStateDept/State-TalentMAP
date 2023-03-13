@@ -44,7 +44,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
-  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || []);
+  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || null);
 
   const meetingStatusFilterErrored = get(panelMeetingsFilters, 'panelStatuses') ? get(panelMeetingsFilters, 'panelStatuses').length === 0 : true;
   const meetingTypeFilterErrored = get(panelMeetingsFilters, 'panelTypes') ? get(panelMeetingsFilters, 'panelTypes').length === 0 : true;
@@ -159,7 +159,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const resetFilters = () => {
     setSelectedMeetingType([]);
     setSelectedMeetingStatus([]);
-    setSelectedPanelMeetDate([]);
+    setSelectedPanelMeetDate(null);
     setClearFilters(false);
   };
 
