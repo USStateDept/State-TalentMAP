@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { filter, flatten, get, isEmpty } from 'lodash';
+import { isDate, startOfDay } from 'date-fns-v2';
 import { usePrevious } from 'hooks';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import SelectForm from 'Components/SelectForm';
@@ -20,7 +21,6 @@ import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const PanelMeetingSearch = ({ isCDO }) => {
-  const childRef = useRef();
   const dispatch = useDispatch();
 
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
@@ -44,7 +44,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
-  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
+  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || null);
 
   const meetingStatusFilterErrored = get(panelMeetingsFilters, 'panelStatuses') ? get(panelMeetingsFilters, 'panelStatuses').length === 0 : true;
   const meetingTypeFilterErrored = get(panelMeetingsFilters, 'panelTypes') ? get(panelMeetingsFilters, 'panelTypes').length === 0 : true;
@@ -66,7 +66,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
     ordering,
     type: selectedMeetingType.map(meetingObject => (get(meetingObject, 'code'))),
     status: selectedMeetingStatus.map(meetingObject => (get(meetingObject, 'code'))),
-    id: textSearch,
+    // need to set to beginning of the day to avoid timezone issues
+    'panel-date-start': isDate(get(selectedPanelMeetDate, '[0]')) ? startOfDay(get(selectedPanelMeetDate, '[0]')).toJSON() : '',
+    'panel-date-end': isDate(get(selectedPanelMeetDate, '[1]')) ? startOfDay(get(selectedPanelMeetDate, '[1]')).toJSON() : '',
   });
 
   const getCurrentInputs = () => ({
@@ -75,7 +77,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
-    textSearch,
+    selectedPanelMeetDate,
   });
 
   useEffect(() => {
@@ -87,8 +89,9 @@ const PanelMeetingSearch = ({ isCDO }) => {
     const filters = [
       selectedMeetingType,
       selectedMeetingStatus,
+      selectedPanelMeetDate,
     ];
-    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+    if (isEmpty(filter(flatten(filters)))) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -109,7 +112,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     ordering,
     selectedMeetingType,
     selectedMeetingStatus,
-    textSearch,
+    selectedPanelMeetDate,
   ]);
 
   useEffect(() => {
@@ -117,10 +120,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
   }, [
     page,
   ]);
-
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
 
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
@@ -160,8 +159,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const resetFilters = () => {
     setSelectedMeetingType([]);
     setSelectedMeetingStatus([]);
-    setTextSearch('');
-    childRef.current.clearText();
+    setSelectedPanelMeetDate(null);
     setClearFilters(false);
   };
 
@@ -189,14 +187,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
       <Spinner type="bureau-results" class="homepage-position-results" size="big" /> :
       <div className="panel-meeting-search-page">
         <div className="usa-grid-full panel-meeting-search-upper-section search-bar-container">
-          <ProfileSectionTitle title="Panel Meeting Search" icon="comment" />
-          <PositionManagerSearch
-            submitSearch={submitSearch}
-            ref={childRef}
-            textSearch={textSearch}
-            label="Search for a Panel Meeting"
-            placeHolder="Search using Panel ID"
-          />
+          <ProfileSectionTitle title="Panel Meeting Search" icon="calendar" />
           <div className="filterby-container">
             <div className="filterby-label">Filter by:</div>
             <div className="filterby-clear">
@@ -235,11 +226,21 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 disabled={meetingStatusFilterErrored || panelMeetingsFiltersHasErrored}
               />
             </div>
+            <div className="filter-div">
+              <div className="label">Panel Date:</div>
+              <DateRangePicker
+                onChange={setSelectedPanelMeetDate}
+                value={selectedPanelMeetDate}
+                maxDetail="month"
+                calendarIcon={null}
+                showLeadingZeros
+              />
+            </div>
           </div>
         </div>
         {
           !groupLoading &&
-          <div className="usa-width-one-whole results-dropdown bureau-controls-container">
+          <div className="usa-width-one-whole results-dropdown controls-container">
             <TotalResults
               total={count}
               pageNumber={page}
@@ -249,8 +250,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
             />
             <div className="panel-results-controls">
               <SelectForm
-                className="panel-select-box"
-                id="panel-search-results-sort"
+                className="panel-select panel-sort"
                 options={sorts.options}
                 label="Sort by:"
                 defaultSort={ordering}
@@ -258,8 +258,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
                 disabled={panelMeetingsIsLoading}
               />
               <SelectForm
-                className="panel-select-box"
-                id="panel-search-num-results"
+                className="panel-select"
                 options={pageSizes.options}
                 label="Results:"
                 defaultSort={limit}
