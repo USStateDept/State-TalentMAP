@@ -126,13 +126,13 @@ const AgendaItemRow = props => {
               <div className="label">
                 <span>
                   Created: {get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}
-                  <span className="date">{creatorDate ? ` ${formatDate(creatorDate, 'MM/DD/YY')}` : ''}</span>
+                  <span className="date">{creatorDate ? ` ${formatDate(creatorDate, 'MM/DD/YY')}` : ' --/--/--'}</span>
                 </span>
               </div>
               <div className="label">
                 <span>
                   Modified: {get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}
-                  <span className="date">{updaterDate ? ` ${formatDate(updaterDate, 'MM/DD/YY')}` : ''}</span>
+                  <span className="date">{updaterDate ? ` ${formatDate(updaterDate, 'MM/DD/YY')}` : ' --/--/--'}</span>
                 </span>
               </div>
             </div>
