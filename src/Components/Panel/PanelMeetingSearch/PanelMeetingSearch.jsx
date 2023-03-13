@@ -44,7 +44,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
 
   const [selectedMeetingType, setSelectedMeetingType] = useState(get(userSelections, 'selectedMeetingType') || []);
   const [selectedMeetingStatus, setSelectedMeetingStatus] = useState(get(userSelections, 'selectedMeetingStatus') || []);
-  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || null);
+  const [selectedPanelMeetDate, setSelectedPanelMeetDate] = useState(get(userSelections, 'selectedPanelMeetDate') || []);
 
   const meetingStatusFilterErrored = get(panelMeetingsFilters, 'panelStatuses') ? get(panelMeetingsFilters, 'panelStatuses').length === 0 : true;
   const meetingTypeFilterErrored = get(panelMeetingsFilters, 'panelTypes') ? get(panelMeetingsFilters, 'panelTypes').length === 0 : true;
@@ -159,7 +159,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const resetFilters = () => {
     setSelectedMeetingType([]);
     setSelectedMeetingStatus([]);
-    setSelectedPanelMeetDate(null);
+    setSelectedPanelMeetDate([]);
     setClearFilters(false);
   };
 
@@ -227,7 +227,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Panel Meet Date:</div>
+              <div className="label">Panel Date:</div>
               <DateRangePicker
                 onChange={setSelectedPanelMeetDate}
                 value={selectedPanelMeetDate}

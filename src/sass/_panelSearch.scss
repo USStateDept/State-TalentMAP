@@ -9,7 +9,7 @@
 
   .panel-meeting-search-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(365px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 
     .filter-div {
       align-items: center;
@@ -18,7 +18,7 @@
 
       .label {
         margin: 0 10px;
-        min-width: 122px;
+        min-width: 85px;
         text-align: end;
       }
 
@@ -27,6 +27,9 @@
         width: 220px;
       }
 
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
       .react-daterange-picker__clear-button:hover {
         background-color: $color-white;
       }
@@ -39,12 +42,13 @@
     .react-daterange-picker {
       align-items: center;
       background: $color-white;
-      font-size: 1.5rem;
-      height: 28px;
-      width: 240px;
+      font-size: 13px;
+      height: 26px;
+      margin: 7px 0;
 
       .react-daterange-picker__wrapper {
         border: none;
+        width: 220px;
       }
 
       .react-daterange-picker__inputGroup {
@@ -83,7 +87,6 @@
   }
 
   div {
-    align-items: stretch;
     display: flex;
 
     label {
