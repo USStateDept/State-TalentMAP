@@ -26,14 +26,12 @@ const fuseOptions = {
 const FrequentPositions = (props) => {
   const headers = ['', 'Organization', 'Position Number', 'Position Title'];
 
-  const { positions, addFrequentPosition, legCount, isReadOnly } = props;
+  const { positions, addFrequentPosition, disabled } = props;
   const isLoading = useSelector(state => state.frequentPositionsIsLoading);
 
   const [positions$, setPositions$] = useState(positions);
   const [term, setTerm] = useState('');
   const [selectedPosition, setSelectedPosition] = useState('');
-
-  const legLimit = legCount >= 10;
 
   const addFrequentPosition$ = pos => {
     setSelectedPosition(pos);
@@ -78,7 +76,7 @@ const FrequentPositions = (props) => {
               <tr>
                 <td>
                   <InteractiveElement
-                    onClick={() => addFrequentPosition$(m)}
+                    onClick={disabled ? () => {} : () => addFrequentPosition$(m)}
                     title="Add to Agenda Item"
                   >
                     {
@@ -87,7 +85,7 @@ const FrequentPositions = (props) => {
                         :
                         <FA
                           name="plus-circle"
-                          className={`${(legLimit || isReadOnly) ? 'fa-disabled' : 'fa-enabled'}`}
+                          className={`${disabled ? 'fa-disabled' : 'fa-enabled'}`}
                         />
                     }
                   </InteractiveElement>
@@ -111,15 +109,13 @@ FrequentPositions.propTypes = {
     pos_title_desc: PropTypes.string,
   })),
   addFrequentPosition: PropTypes.func,
-  legCount: PropTypes.number,
-  isReadOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
 };
 
 FrequentPositions.defaultProps = {
   positions: [],
   addFrequentPosition: EMPTY_FUNCTION,
-  legCount: 0,
-  isReadOnly: false,
+  disabled: false,
 };
 
 export default FrequentPositions;
