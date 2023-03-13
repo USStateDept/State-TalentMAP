@@ -75,48 +75,50 @@ const AgendaItemLegsForm = props => {
       {
         !legsLoading && !showOverlay &&
           <div className="legs-form-container">
-            {
-              legHeaderData.map((title, i) => (
-                <InteractiveElement
-                  className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
-                  onMouseOver={() => onHover(i + 2)}
-                  onMouseLeave={() => onHover('')}
-                >
-                  {title}
-                </InteractiveElement>
-              ))
-            }
-            {
-              hasEf &&
-              <AgendaLeg
-                leg={efPos}
-                legNum={2}
-                TODs={TODs}
-                legActionTypes={legActionTypes}
-                travelFunctions={travelFunctions}
-                onClose={onClose$}
-                updateLeg={updateLeg$}
-                isEf
-                onHover={onHover}
-                rowNum={rowHoverNum}
-              />
-            }
-            {
-              // grid-col 2 or 3 dependent on hasEf
-              legs.map((leg, i) => (
+            <div className="legs-form">
+              {
+                legHeaderData.map((title, i) => (
+                  <InteractiveElement
+                    className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
+                    onMouseOver={() => onHover(i + 2)}
+                    onMouseLeave={() => onHover('')}
+                  >
+                    {title}
+                  </InteractiveElement>
+                ))
+              }
+              {
+                hasEf &&
                 <AgendaLeg
-                  leg={leg}
-                  legNum={i + (hasEf ? 3 : 2)}
+                  leg={efPos}
+                  legNum={2}
                   TODs={TODs}
                   legActionTypes={legActionTypes}
                   travelFunctions={travelFunctions}
                   onClose={onClose$}
                   updateLeg={updateLeg$}
+                  isEf
                   onHover={onHover}
                   rowNum={rowHoverNum}
                 />
-              ))
-            }
+              }
+              {
+                // grid-col 2 or 3 dependent on hasEf
+                legs.map((leg, i) => (
+                  <AgendaLeg
+                    leg={leg}
+                    legNum={i + (hasEf ? 3 : 2)}
+                    TODs={TODs}
+                    legActionTypes={legActionTypes}
+                    travelFunctions={travelFunctions}
+                    onClose={onClose$}
+                    updateLeg={updateLeg$}
+                    onHover={onHover}
+                    rowNum={rowHoverNum}
+                  />
+                ))
+              }
+            </div>
           </div>
       }
     </>
