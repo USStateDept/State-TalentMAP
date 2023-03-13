@@ -38,9 +38,9 @@ const AgendaItemRow = props => {
   const cdo = get(clientData, 'cdo.name') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
-  const updaterDate = get(agenda, 'modifier_date', null);
+  const updateDate = get(agenda, 'modifier_date', null);
   const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || 'NMN';
-  const creatorDate = get(agenda, 'creator_date', null);
+  const createDate = get(agenda, 'creator_date', null);
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
   const remarks = get(agenda, 'remarks') || [];
 
@@ -126,13 +126,13 @@ const AgendaItemRow = props => {
               <div className="label">
                 <span>
                   Created: {get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}
-                  <span className="date">{creatorDate ? ` ${formatDate(creatorDate, 'MM/DD/YY')}` : ' --/--/--'}</span>
+                  <span className="date">{createDate ? ` ${formatDate(createDate, 'MM/DD/YY')}` : ' --/--/--'}</span>
                 </span>
               </div>
               <div className="label">
                 <span>
                   Modified: {get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}
-                  <span className="date">{updaterDate ? ` ${formatDate(updaterDate, 'MM/DD/YY')}` : ' --/--/--'}</span>
+                  <span className="date">{updateDate ? ` ${formatDate(updateDate, 'MM/DD/YY')}` : ' --/--/--'}</span>
                 </span>
               </div>
             </div>
