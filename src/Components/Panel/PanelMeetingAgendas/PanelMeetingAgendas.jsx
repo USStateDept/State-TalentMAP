@@ -112,10 +112,10 @@ const PanelMeetingAgendas = (props) => {
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const { data: remarks, loading: remarksLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const remarksOptions = uniqBy(sortBy(get(remarks, 'data.results'), [(c) => c.text]), 'text');
-  const { data: itemStatuses, loading: itemStatusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
-  const itemStatusesOptions = uniqBy(sortBy(get(itemStatuses, 'data.results'), [(c) => c.desc_text]), 'desc_text');
-  const { data: itemActions, loading: itemActionLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
-  const itemActionsOptions = uniqBy(sortBy(get(itemActions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
+  const { data: statuses, loading: statusLoading } = useDataLoader(api().get, '/fsbid/agenda/statuses/');
+  const statusesOptions = uniqBy(sortBy(get(statuses, 'data.results'), [(c) => c.desc_text]), 'desc_text');
+  const { data: actions, loading: actionLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
+  const actionsOptions = uniqBy(sortBy(get(actions, 'data.results'), [(c) => c.desc_text]), 'desc_text');
   const { data: categories, loading: categoryLoading } = useDataLoader(api().get, '/fsbid/panel/reference/categories/');
   const categoriesOptions = uniqBy(sortBy(get(categories, 'data.results'), [(c) => c.mic_desc_text]), 'mic_desc_text');
   // Replace with real ref data endpoints
@@ -123,16 +123,16 @@ const PanelMeetingAgendas = (props) => {
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const panelFiltersIsLoading =
-    includes([orgsLoading, remarksLoading, itemStatusLoading,
-      itemActionLoading, categoryLoading], true);
+    includes([orgsLoading, remarksLoading, statusLoading,
+      actionLoading, categoryLoading], true);
 
   const [showPanelMeetingInfo, setShowPanelMeetingInfo] = useState(false);
   const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
   const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
   const [selectedCategories, setSelectedCategories] = useState(get(userSelections, 'selectedCategories') || []);
   const [selectedGrades, setSelectedGrades] = useState(get(userSelections, 'selectedGrades') || []);
-  const [selectedItemActions, setSelectedItemActions] = useState(get(userSelections, 'selectedItemActions') || []);
-  const [selectedItemStatuses, setSelectedItemStatuses] = useState(get(userSelections, 'selectedItemStatuses') || []);
+  const [selectedActions, setSelectedActions] = useState(get(userSelections, 'selectedActions') || []);
+  const [selectedStatuses, setSelectedStatuses] = useState(get(userSelections, 'selectedStatuses') || []);
   const [selectedLanguages, setSelectedLanguages] = useState(get(userSelections, 'selectedLanguages') || []);
   const [selectedRemarks, setSelectedRemarks] = useState(get(userSelections, 'selectedRemarks') || []);
   const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
@@ -147,7 +147,7 @@ const PanelMeetingAgendas = (props) => {
   const prepareFuseQuery = () => {
     const fuseQuery = [];
 
-    const statuses$ = selectedItemStatuses.map(({ abbr_desc_text }) => (
+    const statuses$ = selectedStatuses.map(({ abbr_desc_text }) => (
       { status_short: abbr_desc_text }
     ));
     const categories$ = selectedCategories.map(({ mic_code }) => (
@@ -156,7 +156,7 @@ const PanelMeetingAgendas = (props) => {
     const remarks$ = selectedRemarks.map(({ seq_num }) => (
       { 'remarks.seq_num': seq_num.toString() }
     ));
-    const actions$ = selectedItemActions.map(({ abbr_desc_text }) => (
+    const actions$ = selectedActions.map(({ abbr_desc_text }) => (
       { 'legs.action': abbr_desc_text }
     ));
     const languages$ = selectedLanguages.flatMap(({ code }) => ([
@@ -220,8 +220,8 @@ const PanelMeetingAgendas = (props) => {
     selectedOrgs,
     selectedCategories,
     selectedGrades,
-    selectedItemActions,
-    selectedItemStatuses,
+    selectedActions,
+    selectedStatuses,
     selectedLanguages,
     selectedRemarks,
     selectedSkills,
@@ -234,8 +234,8 @@ const PanelMeetingAgendas = (props) => {
       selectedOrgs,
       selectedCategories,
       selectedGrades,
-      selectedItemActions,
-      selectedItemStatuses,
+      selectedActions,
+      selectedStatuses,
       selectedLanguages,
       selectedRemarks,
       selectedSkills,
@@ -268,8 +268,8 @@ const PanelMeetingAgendas = (props) => {
     selectedOrgs,
     selectedCategories,
     selectedGrades,
-    selectedItemActions,
-    selectedItemStatuses,
+    selectedActions,
+    selectedStatuses,
     selectedLanguages,
     selectedRemarks,
     selectedSkills,
@@ -338,8 +338,8 @@ const PanelMeetingAgendas = (props) => {
     setSelectedOrgs([]);
     setSelectedCategories([]);
     setSelectedGrades([]);
-    setSelectedItemActions([]);
-    setSelectedItemStatuses([]);
+    setSelectedActions([]);
+    setSelectedStatuses([]);
     setSelectedLanguages([]);
     setSelectedRemarks([]);
     setSelectedSkills([]);
@@ -375,6 +375,7 @@ const PanelMeetingAgendas = (props) => {
               textSearch={textSearch}
               label="Find Agenda Item"
               placeHolder="Search for Agenda using Position, Name, or Official Item #"
+              noButton
             />
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
@@ -441,26 +442,26 @@ const PanelMeetingAgendas = (props) => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Item Action:</div>
+                <div className="label">Action:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Item Action(s)"
-                  value={selectedItemActions}
-                  options={itemActionsOptions}
-                  onChange={setSelectedItemActions}
+                  placeholder="Select Action(s)"
+                  value={selectedActions}
+                  options={actionsOptions}
+                  onChange={setSelectedActions}
                   valueKey="code"
                   labelKey="desc_text"
                   disabled={isLoading}
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Item Status:</div>
+                <div className="label">Status:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Item Status(es)"
-                  value={selectedItemStatuses}
-                  options={itemStatusesOptions}
-                  onChange={setSelectedItemStatuses}
+                  value={selectedStatuses}
+                  options={statusesOptions}
+                  onChange={setSelectedStatuses}
                   valueKey="code"
                   labelKey="desc_text"
                   disabled={isLoading}
@@ -487,7 +488,7 @@ const PanelMeetingAgendas = (props) => {
                   value={selectedRemarks}
                   options={remarksOptions}
                   onChange={setSelectedRemarks}
-                  valueKey="rc_code"
+                  valueKey="seq_num"
                   labelKey="text"
                   disabled={isLoading}
                 />
