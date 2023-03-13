@@ -9,7 +9,7 @@
 
   .panel-meeting-search-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 
     .filter-div {
       align-items: center;
@@ -17,20 +17,21 @@
       margin-right: 10px;
 
       .label {
-        margin-right: 10px;
-        min-width: 90px;
+        margin: 0 10px;
+        min-width: 85px;
         text-align: end;
       }
 
-      @media screen and (max-width: 1025px) {
-        .label {
-          min-width: 100px;
-        }
+      .picky, .picky__input {
+        color: $color-black;
+        width: 220px;
       }
 
-      .picky {
-        color: $color-black;
-        width: 240px;
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
       }
     }
 
@@ -41,12 +42,13 @@
     .react-daterange-picker {
       align-items: center;
       background: $color-white;
-      font-size: 1.5rem;
-      height: 28px;
-      width: 240px;
+      font-size: 13px;
+      height: 26px;
+      margin: 7px 0;
 
       .react-daterange-picker__wrapper {
         border: none;
+        width: 220px;
       }
 
       .react-daterange-picker__inputGroup {
@@ -61,12 +63,6 @@
         color: $color-black;
       }
     }
-
-    @media screen and (max-width: $screen-md-max) {
-      .react-daterange-picker {
-        margin-left: 9px;
-      }
-    }
   }
 }
 
@@ -77,12 +73,20 @@
   font-size: 14px;
   margin: 0 35px 5px 0;
 
+  label {
+    font-size: 15px;
+  }
+
+  .panel-sort {
+    width: 160px;
+  }
+
+
   div:first-child {
     margin-right: 10px;
   }
 
   div {
-    align-items: baseline;
     display: flex;
 
     label {
