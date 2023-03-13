@@ -120,8 +120,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
           selectedNav === FP && !groupLoading && !error &&
             <FrequentPositions
               positions={frequentPositions}
-              addFrequentPosition={addFrequentPosition}
-              // addFrequentPosition={isReadOnly ? () => {} : addFrequentPosition}
+              addFrequentPosition={isReadOnly ? () => {} : addFrequentPosition}
               legCount={legCount}
               isReadOnly={isReadOnly}
             />

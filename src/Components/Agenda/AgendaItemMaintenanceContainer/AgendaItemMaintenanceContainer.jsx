@@ -55,43 +55,23 @@ const AgendaItemMaintenanceContainer = (props) => {
   const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
 
   const updateSelection = (remark, textInputs) => {
-    // const userRemarks$ = [...userRemarks];
-    // const found = find(userRemarks$, { seq_num: remark.seq_num });
-    // if (!found) {
-    //   const remark$ = { ...remark };
+    const userRemarks$ = [...userRemarks];
+    const found = find(userRemarks$, { seq_num: remark.seq_num });
+    if (!found) {
+      const remark$ = { ...remark };
 
-    //   if (has(remark$, 'remark_inserts')) {
-    //     const tempKey = (remark$.seq_num).toString();
-    //     if (!remark$.ari_insertions) {
-    //       remark$.ari_insertions = {};
-    //     }
-    //     remark$.ari_insertions = textInputs[tempKey];
-    //   }
-
-    //   userRemarks$.push(remark$);
-    //   setUserRemarks(userRemarks$);
-    // } else {
-    //   setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
-    // }
-    if (!isReadOnly) {
-      const userRemarks$ = [...userRemarks];
-      const found = find(userRemarks$, { seq_num: remark.seq_num });
-      if (!found) {
-        const remark$ = { ...remark };
-
-        if (has(remark$, 'remark_inserts')) {
-          const tempKey = (remark$.seq_num).toString();
-          if (!remark$.ari_insertions) {
-            remark$.ari_insertions = {};
-          }
-          remark$.ari_insertions = textInputs[tempKey];
+      if (has(remark$, 'remark_inserts')) {
+        const tempKey = (remark$.seq_num).toString();
+        if (!remark$.ari_insertions) {
+          remark$.ari_insertions = {};
         }
-
-        userRemarks$.push(remark$);
-        setUserRemarks(userRemarks$);
-      } else {
-        setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
+        remark$.ari_insertions = textInputs[tempKey];
       }
+
+      userRemarks$.push(remark$);
+      setUserRemarks(userRemarks$);
+    } else {
+      setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
     }
   };
 
@@ -186,8 +166,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           perdet={id}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                          updateSelection={updateSelection}
-                          // updateSelection={isReadOnly ? () => {} : updateSelection}
+                          updateSelection={isReadOnly ? () => {} : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
@@ -231,8 +210,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 clientData={client_data}
                 perdet={id}
                 ref={researchPaneRef}
-                updateSelection={updateSelection}
-                // updateSelection={isReadOnly ? () => {} : updateSelection}
+                updateSelection={isReadOnly ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
                 isReadOnly={isReadOnly}
