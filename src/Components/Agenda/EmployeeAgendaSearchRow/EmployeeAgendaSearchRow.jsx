@@ -34,7 +34,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
-  const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
+  const pmSeqNum = get(agenda, 'pmSeqfNum') || FALLBACK;
+  const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -106,7 +107,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="calendar-o" />
             <dt>Panel Date:</dt>
             {
-              (panelMeetingActive && (panelDate !== FALLBACK)) ?
+              (panelMeetingActive && panelMeetingExist) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                     {panelDate}
