@@ -42,6 +42,14 @@ const AgendaItemRow = props => {
   const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || 'NMN';
   const remarks = get(agenda, 'remarks') || [];
 
+  const updateDate = get(agenda, 'modifier_date')
+    ? `${formatDate(get(agenda, 'modifier_date'), 'MM/DD/YY')}`
+    : '--/--/--';
+
+  const createDate = get(agenda, 'creator_date')
+    ? `${formatDate(get(agenda, 'creator_date'), 'MM/DD/YY')}`
+    : '--/--/--';
+
   return (
     <>
       {
@@ -121,8 +129,18 @@ const AgendaItemRow = props => {
               }
             </div>
             <div className="ai-updater-creator">
-              <div className="label">Created By: <span>{get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}</span></div>
-              <div className="label">Modified By: <span>{get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}</span></div>
+              <div className="wrapper">
+                <span>
+                  Created: {get(agenda, 'creators.last_name') || ''}, {get(agenda, 'creators.first_name') || ''} {creatorMiddleInitial}
+                </span>
+                <span className="date">{createDate}</span>
+              </div>
+              <div className="wrapper">
+                <span>
+                  Modified: {get(agenda, 'updaters.last_name') || ''}, {get(agenda, 'updaters.first_name') || ''} {updaterMiddleInitial}
+                </span>
+                <span className="date">{updateDate}</span>
+              </div>
             </div>
           </div>
           {
