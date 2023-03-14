@@ -337,6 +337,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                         placeHolder="Search by Last Name"
                         textSearch={searchTextLastName}
                         noButton
+                        showIcon={false}
                       />
                     </div>
                   </div>
@@ -353,6 +354,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                         placeHolder="Search by First Name"
                         textSearch={searchTextFirstName}
                         noButton
+                        showIcon={false}
                       />
                     </div>
                   </div>
@@ -360,7 +362,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     <label htmlFor="emp-id-search" className="label">
                     Employee ID:
                     </label>
-                    <div className="emp-search-id-div">
+                    <div className="emp-search-div">
                       <PositionManagerSearch
                         id="emp-id-search"
                         submitSearch={submitSearch}
@@ -368,12 +370,13 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                         ref={searchEmpIDRef}
                         textSearch={searchTextEmpID}
                         placeHolder="Search by Employee ID"
+                        noButton
+                        showIcon={false}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="filterby-container">
-                  <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
                       <button className="unstyled-button" onClick={resetFilters}>
