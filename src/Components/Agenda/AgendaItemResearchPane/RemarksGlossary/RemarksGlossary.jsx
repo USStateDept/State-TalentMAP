@@ -41,6 +41,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
 
+  // eslint-disable-next-line no-unused-vars
   const getInsertionType = (type, ri) => {
     // date: date, date2,
     // number:  #,
@@ -83,8 +84,8 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   //     }
   //   });
   //
-     (
-      <div className="remark-input-container">{r}</div>
+    (
+      <div className="remark-input-container">{get(r, 'text') || 'None'}</div>
     )
   ;
 
