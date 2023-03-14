@@ -27,12 +27,12 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
-  const currentCity = get(currentAssignment, 'locationCity') || '';
+  const currentCity = get(currentAssignment, 'locationCity') ? `${get(currentAssignment, 'locationCity')},` : '';
   const currentCountry = get(currentAssignment, 'locationCountry') || '';
-  const currentOrg = get(currentAssignment, 'orgDescription') || '';
-  const hsCity = get(hsAssignment, 'locationCity') || '';
+  const currentOrg = get(currentAssignment, 'orgDescription') ? `(${get(currentAssignment, 'orgDescription')})` : '';
+  const hsCity = get(hsAssignment, 'locationCity') ? `${get(hsAssignment, 'locationCity')},` : '';
   const hsCountry = get(hsAssignment, 'locationCountry') || '';
-  const hsOrg = get(hsAssignment, 'orgDescription') || '';
+  const hsOrg = get(hsAssignment, 'orgDescription') ? `(${get(hsAssignment, 'orgDescription')})` : '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
   const ted = get(currentAssignment, 'TED') ? formatDate(currentAssignment.TED) : FALLBACK;
@@ -44,8 +44,8 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const currentPost = (currentCity || currentCountry || currentOrg) ? `${currentCity}, ${currentCountry} (${currentOrg})` : FALLBACK;
-  const hsPost = (hsCity || hsCountry || hsOrg) ? `${hsCity}, ${hsCountry} (${hsOrg})` : FALLBACK;
+  const currentPost = (currentCity || currentCountry || currentOrg) ? `${currentCity} ${currentCountry} ${currentOrg}` : FALLBACK;
+  const hsPost = (hsCity || hsCountry || hsOrg) ? `${hsCity} ${hsCountry} ${hsOrg}` : FALLBACK;
 
   let profileLink;
   switch (viewType) {
