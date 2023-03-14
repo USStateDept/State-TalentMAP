@@ -7,11 +7,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
   <table>
     <tbody>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             Position Title
@@ -19,11 +14,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             Position Number
@@ -31,11 +21,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name="building-o"
-          />
-        </td>
         <th>
           <dt>
             Org
@@ -43,11 +28,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             Grade
@@ -55,11 +35,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             Lang
@@ -67,11 +42,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name="paper-plane-o"
-          />
-        </td>
         <th>
           <dt>
             ETA
@@ -79,21 +49,11 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt />
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name="clock-o"
-          />
-        </td>
         <th>
           <dt>
             TED
@@ -101,11 +61,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             TOD
@@ -113,11 +68,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             Action
@@ -125,11 +75,6 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         </th>
       </tr>
       <tr>
-        <td>
-          <FontAwesome
-            name=""
-          />
-        </td>
         <th>
           <dt>
             Travel

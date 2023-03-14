@@ -28,9 +28,9 @@ const AgendaItemLegs = props => {
           <td>
             {
               helperFunc ?
-                <dd>{helperFunc(leg[key])}</dd>
+                <dd>{helperFunc(leg[key]) ? helperFunc(leg[key]) : 'None listed'}</dd>
                 :
-                <dd>{leg[key]}</dd>
+                <dd>{leg[key] ? leg[key] : 'None listed'}</dd>
             }
           </td>
         ))
@@ -50,67 +50,56 @@ const AgendaItemLegs = props => {
 
   const tableData = [
     {
-      icon: '',
       title: 'Position Title',
       content: (getData('pos_title', formatStr)),
       cardView: false,
     },
     {
-      icon: '',
       title: 'Position Number',
       content: (getData('pos_num')),
       cardView: false,
     },
     {
-      icon: 'building-o',
       title: 'Org',
       content: (getData('org', formatStr)),
       cardView: true,
     },
     {
-      icon: '',
       title: 'Grade',
       content: (getData('grade')),
       cardView: false,
     },
     {
-      icon: '',
       title: 'Lang',
       content: (getData('languages', formatLang)),
       cardView: false,
     },
     {
-      icon: 'paper-plane-o',
       title: 'ETA',
       content: (getData('eta', formatDate)),
       cardView: true,
     },
     {
-      icon: '',
       title: '',
       content: (getArrows()),
       cardView: true,
     },
     {
-      icon: 'clock-o',
       title: 'TED',
       content: (getData('ted', formatDate)),
       cardView: true,
     },
     {
-      icon: '',
       title: 'TOD',
       content: (getData('tod')),
       cardView: false,
     },
     {
-      icon: '',
       title: 'Action',
       content: (getData('action')),
       cardView: false,
     },
     {
-      icon: '',
       title: 'Travel',
       content: (getData('travel')),
       cardView: false,
@@ -126,9 +115,6 @@ const AgendaItemLegs = props => {
           {
             tableData$.map(tr => (
               <tr>
-                <td>
-                  <FA name={tr.icon} />
-                </td>
                 <th>
                   <dt>{tr.title}</dt>
                 </th>

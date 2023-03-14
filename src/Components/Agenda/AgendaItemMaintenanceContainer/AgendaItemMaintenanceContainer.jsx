@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isNil } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, isNil } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -25,6 +25,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
+  // temporary until business logic is added for readOnly items
+  const isReadOnly = !isEmpty(agendaItemData);
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
@@ -37,7 +39,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   }));
 
   const agendaItemRemarks = get(agendaItem, 'remarks') || [];
-  const agendaItemRemarks$ = filter(agendaItemRemarks, remark => remark.type !== 'person');
 
   const [legsContainerExpanded, setLegsContainerExpanded] = useState(false);
   const [agendaItemMaintenancePaneLoading, setAgendaItemMaintenancePaneLoading] = useState(true);
@@ -45,7 +46,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
-  const [userRemarks, setUserRemarks] = useState(agendaItemRemarks$);
+  const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
@@ -108,6 +109,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     }
   }, [agendaItemMaintenancePaneLoading, agendaItemTimelineLoading]);
 
+  useEffect(() => {
+    if (!agendaItemLoading) {
+      setUserRemarks(agendaItemRemarks);
+    }
+  }, [agendaItemLoading]);
+
   return (
     <>
       <div className="aim-header-container">
@@ -135,7 +142,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
-          <div className={`ai-maintenance-container${matches ? ' stacked' : ''}`}>
+          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${isReadOnly ? 'aim-disabled' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
@@ -153,7 +160,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           perdet={id}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                          updateSelection={updateSelection}
+                          updateSelection={isReadOnly ? () => {} : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
@@ -161,6 +168,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           legCount={legs.length}
                           saveAI={submitAI}
                           agendaItem={agendaItem}
+                          isReadOnly={isReadOnly}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -169,6 +177,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           asgSepBid={asgSepBid}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
+                          isReadOnly={isReadOnly}
                         />
                       </>
                   }
@@ -194,9 +203,10 @@ const AgendaItemMaintenanceContainer = (props) => {
                 clientData={client_data}
                 perdet={id}
                 ref={researchPaneRef}
-                updateSelection={updateSelection}
+                updateSelection={isReadOnly ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
+                isReadOnly={isReadOnly}
               />
             </div>
           </div>
