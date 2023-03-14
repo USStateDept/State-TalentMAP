@@ -8,7 +8,7 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-  asgSepBid, efPos, agendaItemLegs }) => {
+  asgSepBid, efPos, agendaItemLegs, isReadOnly }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -86,7 +86,13 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
 
   return (
     !unitedLoading &&
-      <AgendaItemLegsForm onClose={onClose} legs={legs} updateLeg={updateLeg} efPos={efPos} />
+      <AgendaItemLegsForm
+        onClose={isReadOnly ? () => {} : onClose}
+        legs={legs}
+        updateLeg={updateLeg}
+        efPos={efPos}
+        isReadOnly={isReadOnly}
+      />
   );
 };
 
@@ -97,6 +103,7 @@ AgendaItemTimeline.propTypes = {
   asgSepBid: PropTypes.shape({}),
   efPos: PropTypes.shape({}),
   agendaItemLegs: PropTypes.arrayOf({}),
+  isReadOnly: PropTypes.bool,
 };
 
 AgendaItemTimeline.defaultProps = {
@@ -106,6 +113,7 @@ AgendaItemTimeline.defaultProps = {
   asgSepBid: {},
   efPos: {},
   agendaItemLegs: [],
+  isReadOnly: false,
 };
 
 export default AgendaItemTimeline;

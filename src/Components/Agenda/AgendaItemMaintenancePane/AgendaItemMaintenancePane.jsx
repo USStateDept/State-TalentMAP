@@ -28,6 +28,7 @@ const AgendaItemMaintenancePane = (props) => {
     sendAsgSepBid,
     asgSepBidData,
     agendaItem,
+    isReadOnly,
   } = props;
 
   const defaultText = '';
@@ -152,7 +153,7 @@ const AgendaItemMaintenancePane = (props) => {
         <>
           <div className="back-save-btns-container">
             <BackButton />
-            <button className="save-ai-btn" onClick={saveAI}>
+            <button className="save-ai-btn" onClick={saveAI} disabled={isReadOnly}>
               Save Agenda Item
             </button>
           </div>
@@ -164,7 +165,7 @@ const AgendaItemMaintenancePane = (props) => {
                   defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
-                  disabled={legLimit}
+                  disabled={legLimit || isReadOnly}
                 >
                   <option selected value={''}>
                     Employee Assignments, Separations, and Bids
@@ -194,6 +195,7 @@ const AgendaItemMaintenancePane = (props) => {
                     defaultValue={selectedStatus}
                     onChange={(e) => setStatus(get(e, 'target.value'))}
                     value={selectedStatus}
+                    disabled={isReadOnly}
                   >
                     <option selected value={''}>
                       Agenda Item Status
@@ -215,10 +217,10 @@ const AgendaItemMaintenancePane = (props) => {
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
                 value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
-                disabled={legLimit}
+                disabled={legLimit || isReadOnly}
               />
               <InteractiveElement
-                className={`add-pos-num-icon ${legLimit ? 'icon-disabled' : ''}`}
+                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
                 onClick={addPositionNum}
                 role="button"
                 title="Add position"
@@ -237,6 +239,7 @@ const AgendaItemMaintenancePane = (props) => {
                     defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
                     value={selectedPanelCat}
+                    disabled={isReadOnly}
                   >
                     <option selected value={''}>
                       Meeting Item Category
@@ -258,6 +261,7 @@ const AgendaItemMaintenancePane = (props) => {
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), true)}
                     value={selectedPanelMLDate}
+                    disabled={isReadOnly}
                   >
                     <option value={''}>ML Dates</option>
                     {
@@ -276,6 +280,7 @@ const AgendaItemMaintenancePane = (props) => {
                     id="ai-maintenance-status"
                     onChange={(e) => setDate(get(e, 'target.value'), false)}
                     value={selectedPanelIDDate}
+                    disabled={isReadOnly}
                   >
                     <option value={''}>ID Dates</option>
                     {
@@ -308,7 +313,7 @@ const AgendaItemMaintenancePane = (props) => {
               {
                 userRemarks.map(remark => (
                   <RemarksPill
-                    isEditable
+                    isEditable={!isReadOnly}
                     remark={remark}
                     key={remark.seq_num}
                     updateSelection={updateSelection}
@@ -366,6 +371,7 @@ AgendaItemMaintenancePane.propTypes = {
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
+  isReadOnly: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -380,6 +386,7 @@ AgendaItemMaintenancePane.defaultProps = {
   sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
+  isReadOnly: false,
 };
 
 export default AgendaItemMaintenancePane;
