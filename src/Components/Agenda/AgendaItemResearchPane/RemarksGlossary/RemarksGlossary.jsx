@@ -41,6 +41,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
 
+  // eslint-disable-next-line no-unused-vars
   const getInsertionType = (type, ri) => {
     // date: date, date2,
     // number:  #,
@@ -69,24 +70,24 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     return returnTypes[type$] || returnTypes.text;
   };
 
-  const renderText = r => {
-    const rText = r.text.split(/(\s+)/);
-    const regex = /({.*})/g;
-    let regNum = 0;
-
-    rText.forEach((a, i) => {
-      if (a.match(regex)) {
-        if (r.remark_inserts[regNum]) {
-          rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
-        }
-        regNum += 1;
-      }
-    });
-
-    return (
-      <div className="remark-input-container">{rText}</div>
-    );
-  };
+  const renderText = r =>
+  //   const rText = r.text.split(/(\s+)/);
+  //   const regex = /({.*})/g;
+  //   let regNum = 0;
+  //
+  //   rText.forEach((a, i) => {
+  //     if (a.match(regex)) {
+  //       if (r.remark_inserts[regNum]) {
+  //         rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
+  //       }
+  //       regNum += 1;
+  //     }
+  //   });
+  //
+    (
+      <div className="remark-input-container">{get(r, 'text') || 'None'}</div>
+    )
+  ;
 
   const [remarks$, setRemarks$] = useState(remarks);
 
