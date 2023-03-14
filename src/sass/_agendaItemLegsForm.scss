@@ -78,6 +78,16 @@
       color: red;
     }
   }
+  .icon-disabled {
+    color: $color-gray;
+    .fa {
+      cursor: not-allowed;
+    }
+  }
+  .icon-disabled:hover {
+    color: $color-gray;
+    cursor: not-allowed;
+  }
 }
 
   .fa {

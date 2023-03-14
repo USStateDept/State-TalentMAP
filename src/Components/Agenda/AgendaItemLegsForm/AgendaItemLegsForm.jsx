@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -15,6 +15,7 @@ const AgendaItemLegsForm = props => {
     legs,
     onClose,
     updateLeg,
+    isReadOnly,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
@@ -62,6 +63,48 @@ const AgendaItemLegsForm = props => {
     'Travel',
   ];
 
+  useEffect(() => {
+    legs.forEach(l => {
+      const isLegacyValue = (!includes(TODs, l.tourOfDutyCode) && l.tourOfDutyCode !== '');
+      if (isLegacyValue) {
+        TODs.push({
+          id: 'LT',
+          code: 'LT',
+          is_active: true,
+          months: null,
+          long_description: l.tourOfDutyCode,
+          short_description: l.tourOfDutyCode,
+        });
+      }
+    });
+  }, [TODLoading]);
+
+  useEffect(() => {
+    legs.forEach(l => {
+      const isLegacyValue = (!includes(legActionTypes, l.legActionType) && l.legActionType !== '');
+      if (isLegacyValue) {
+        legActionTypes.push({
+          code: 'LA',
+          abbr_desc_text: l.legActionType,
+          desc_text: l.legActionType,
+        });
+      }
+    });
+  }, [legATLoading]);
+
+  useEffect(() => {
+    legs.forEach(l => {
+      const isLegacyValue = (!includes(travelFunctions, l.travelFunctionCode) && l.travelFunctionCode !== '');
+      if (isLegacyValue) {
+        travelFunctions.push({
+          code: '999',
+          desc_text: l.travelFunctionCode,
+          abbr_desc_text: l.travelFunctionCode,
+        });
+      }
+    });
+  }, [travelFLoading]);
+
   return (
     <>
       {
@@ -100,6 +143,7 @@ const AgendaItemLegsForm = props => {
                   isEf
                   onHover={onHover}
                   rowNum={rowHoverNum}
+                  isReadOnly={isReadOnly}
                 />
               }
               {
@@ -130,6 +174,7 @@ AgendaItemLegsForm.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
   updateLeg: PropTypes.func,
+  isReadOnly: PropTypes.bool,
 };
 
 AgendaItemLegsForm.defaultProps = {
@@ -137,6 +182,7 @@ AgendaItemLegsForm.defaultProps = {
   legs: [],
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
+  isReadOnly: false,
 };
 
 export default AgendaItemLegsForm;
