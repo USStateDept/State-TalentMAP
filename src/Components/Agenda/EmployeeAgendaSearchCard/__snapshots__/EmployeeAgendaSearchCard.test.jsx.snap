@@ -95,7 +95,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
         name="calendar-o"
       />
       <dt>
-        Panel Meeting Date:
+        Panel Date:
       </dt>
       <dd>
         None Listed
