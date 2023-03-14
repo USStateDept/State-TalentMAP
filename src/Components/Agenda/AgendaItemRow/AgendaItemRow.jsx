@@ -131,13 +131,13 @@ const AgendaItemRow = props => {
             <div className="ai-updater-creator">
               <div>
                 <span>
-                  Created: {get(agenda, 'creators.last_name' || '')}, {get(agenda, 'creators.first_name' || '')} {creatorMiddleInitial}
+                  Created: {get(agenda, 'creators.last_name') || ''}, {get(agenda, 'creators.first_name') || ''} {creatorMiddleInitial}
                   <span className="date">{createDate}</span>
                 </span>
               </div>
               <div>
                 <span>
-                  Modified: {get(agenda, 'updaters.last_name' || '')}, {get(agenda, 'updaters.first_name' || '')} {updaterMiddleInitial}
+                  Modified: {get(agenda, 'updaters.last_name') || ''}, {get(agenda, 'updaters.first_name') || ''} {updaterMiddleInitial}
                   <span className="date">{updateDate}</span>
                 </span>
               </div>
