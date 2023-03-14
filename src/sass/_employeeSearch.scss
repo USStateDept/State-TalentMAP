@@ -75,13 +75,17 @@
 
       .emp-search-div {
         input {
-          width: 240px;
+          border-radius: 0px;
+          height: 28px;
           max-width: none;
+          width: 240px;
         }
         .searchbar {
           .text-input-wrapper {
             > span {
-              left: 205px;
+              font-size: 15px;
+              left: 210px;
+              top: 5px;
             }
           }
         }
