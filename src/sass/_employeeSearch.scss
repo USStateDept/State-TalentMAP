@@ -57,8 +57,10 @@
       }
     }
 
-    .search-submit-button{
-      margin: 0;
+    @media screen and (max-width: 1502px) {
+      .search-results-inputs {
+        padding: 5px 0px;
+      }
     }
 
     .filter-div {
