@@ -32,7 +32,7 @@ class SearchBar extends Component {
     };
     const { id, type, submitText, placeholder, inputDisabled,
       alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear, submitForm,
-      minimal }
+      minimal, showIcon }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
@@ -69,11 +69,11 @@ class SearchBar extends Component {
             <span className="text-input-wrapper">
               {input}
               {
-                hasValue ? (
+                (hasValue && showIcon) ? (
                   <InteractiveElement onClick={this.clearSearch} type="span" role="button" title="Clear keyword">
                     <FA name="times-circle" />
                   </InteractiveElement>
-                ) : <FA name="search" />
+                ) : <FA name="search" onClick={submitForm} />
               }
             </span>
             :
@@ -171,6 +171,7 @@ SearchBar.propTypes = {
   onClear: PropTypes.func,
   submitForm: PropTypes.func,
   minimal: PropTypes.bool,
+  showIcon: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
@@ -189,6 +190,7 @@ SearchBar.defaultProps = {
   onClear: EMPTY_FUNCTION,
   submitForm: EMPTY_FUNCTION,
   minimal: false,
+  showIcon: true,
 };
 
 export default SearchBar;
