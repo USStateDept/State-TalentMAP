@@ -51,12 +51,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(406px, 1fr));
 
-    @media screen and (max-width: 1517px) {
-      .fa-search{
-        display: none;
-      }
-    }
-
     @media screen and (max-width: 1502px) {
       .search-results-inputs {
         padding: 5px 0px;
