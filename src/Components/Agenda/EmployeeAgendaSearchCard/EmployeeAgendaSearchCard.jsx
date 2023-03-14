@@ -27,10 +27,10 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
-  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
   const currentLocation = `${get(currentAssignment, 'locationCity') || FALLBACK}, ${get(currentAssignment, 'locationCountry') || FALLBACK}`;
-  const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
+  const currentPost = get(currentAssignment, 'orgDescription') ? `${currentLocation} (${get(currentAssignment, 'orgDescription')})` : FALLBACK;
   const hsLocation = `${get(hsAssignment, 'hsLocationCity') || FALLBACK}, ${get(hsAssignment, 'hsLocationCountry') || FALLBACK}`;
+  const hsPost = get(hsAssignment, 'orgDescription') ? `${hsLocation} (${get(hsAssignment, 'orgDescription')})` : FALLBACK;
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
   const ted = get(currentAssignment, 'TED') ? formatDate(currentAssignment.TED) : FALLBACK;
@@ -42,8 +42,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const currentPost$ = currentPost !== FALLBACK ? `${currentLocation} (${currentPost})` : FALLBACK;
-  const futurePost$ = futurePost !== FALLBACK ? `${hsLocation} (${futurePost})` : FALLBACK;
 
   let profileLink;
   switch (viewType) {
@@ -88,9 +86,9 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
           <FA name="building-o" />
           <dt className="location-label-card">Location (Org):</dt>
           <dd className="location-data-card">
-            {currentPost$}
+            {currentPost}
             <FA className="org-fa-arrow" name="long-arrow-right" />
-            {futurePost$}
+            {hsPost}
           </dd>
         </div>
         <div className="employee-card-data-point">
