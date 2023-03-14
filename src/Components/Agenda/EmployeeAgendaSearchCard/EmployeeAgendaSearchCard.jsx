@@ -36,7 +36,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
-  const pmSeqNum = get(agenda, 'pm_seq_num') || FALLBACK;
+  const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
