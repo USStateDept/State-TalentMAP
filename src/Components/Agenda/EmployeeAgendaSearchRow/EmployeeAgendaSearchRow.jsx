@@ -25,9 +25,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
   const currentLocation = `${get(currentAssignment, 'locationCity') || FALLBACK}, ${get(currentAssignment, 'locationCountry') || FALLBACK}`;
-  const currentPost = get(currentAssignment, 'orgDescription') ? `${currentLocation} (${get(currentAssignment, 'orgDescription')})` : FALLBACK;
+  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
   const hsLocation = `${get(hsAssignment, 'hsLocationCity') || FALLBACK}, ${get(hsAssignment, 'hsLocationCountry') || FALLBACK}`;
-  const hsPost = get(hsAssignment, 'orgDescription') ? `${hsLocation} (${get(hsAssignment, 'orgDescription')})` : FALLBACK;
+  const hsPost = get(hsAssignment, 'orgDescription') || FALLBACK;
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
@@ -40,6 +40,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
+  const currentPost$ = (currentLocation !== `${FALLBACK}, ${FALLBACK}` && currentPost !== FALLBACK) ? `${currentLocation} (${currentPost})` : FALLBACK;
+  const hsPost$ = (hsLocation !== `${FALLBACK}, ${FALLBACK}` && hsPost !== FALLBACK) ? `${hsLocation} (${hsPost})` : FALLBACK;
 
   let profileLink;
   switch (viewType) {
@@ -81,9 +83,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="building-o" />
             <dt className="location-label-row">Location (Org):</dt>
             <dd>
-              {currentPost}
+              {currentPost$}
               <FA className="org-fa-arrow" name="long-arrow-right" />
-              {hsPost}</dd>
+              {hsPost$}</dd>
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="clock-o" />
