@@ -51,57 +51,50 @@
 .ai-maintenance-container {
   margin: 10px;
   padding-bottom: 15px;
+  // at 1600 we auto stack, so smaller screen styles should go there
+  //@media screen and (min-width: 1600px) {
+  //  width: 85vw;
+  //}
+  //@media screen and (min-width: 1700px) {
+  //  width: 86vw;
+  //}
+  //@media screen and (min-width: 1800px) {
+  //  width: 87vw;
+  //}
+  //@media screen and (min-width: 1900px) {
+  //  width: 88vw;
+  //}
+  //@media screen and (min-width: 2070px) {
+  //  width: 89vw;
+  //}
+  //@media screen and (min-width: 2250px) {
+  //  width: 90vw;
+  //}
+  //@media screen and (min-width: 2700px) {
+  //  width: 92vw;
+  //}
+  //@media screen and (min-width: 3000px) {
+  //  width: 93vw;
+  //}
+  //@media screen and (min-width: 3300px) {
+  //  width: 94vw;
+  //}
+  //@media screen and (min-width: 4000px) {
+  //  width: 95vw;
+  //}
+  // at 1600 we auto stack, so smaller screen styles should go there
+  @media screen and (min-width: 1600px) {
+    width: 99%;
+  }
+  @media screen and (min-width: 4000px) {
+    width: 99.5%;
+  }
 
   // ---- start: styling for left pane ----
-
-  .remarks-container {
-    display: flex;
-    flex-wrap: wrap;
-    margin: 15px;
-
-    #add-remark {
-      color: $primary-blue;
-      font-size: 20px;
-      margin: 0 10px 0 -15px;
-    }
-
-    #add-remark:hover {
-      color: $primary-blue-darkest;
-    }
-
-    .remarks-text {
-      float: left;
-      font-size: 1.1em;
-      margin-right: .7rem;
-      margin-top: 3px;
-    }
-
-    .remarks-pill {
-      border-radius: 12px;
-      color: $color-white;
-      display: inline;
-      font-size: .8em;
-      margin-bottom: 1rem;
-      margin-right: 1.5rem;
-      padding: .5em;
-
-      .fa-times {
-        margin-left: 10px;
-      }
-
-      .fa-times:hover {
-        cursor: pointer;
-      }
-    }
-  }
 
   .ai-maintenance-header {
     background-color: $tm-white-smoke-light;
     padding-bottom: 20px;
-
-    .usa-form:not(.remarks, .corrections) {
-      max-width: 36rem;
-    }
 
     label {
       font-weight: bold;
@@ -135,7 +128,6 @@
     }
 
     .corrections, .remarks {
-      max-width: fit-content;
       margin: 10px 0;
 
       label {
@@ -484,11 +476,12 @@
 
   .maintenance-container-left-expanded {
     border-bottom: 3px solid $color-black;
+    width: 100%;
   }
 
   .maintenance-container-right {
     margin-top: 20px;
-    width: 99%;
+    width: 100%;
   }
 }
 
@@ -580,18 +573,5 @@
     padding: .5em;
     font-size: 13px;
     display: flex;
-  }
-}
-
-@each $remark-id, $color in $remarks {
-  .remark-category--#{$remark-id} {
-    background-color: $color;
-    color: $color-white;
-    scroll-margin-top: 60px;
-  }
-  @media screen and (max-width: 1600px) {
-    .remark-category--#{$remark-id} {
-      scroll-margin-top: 32px;
-    }
   }
 }

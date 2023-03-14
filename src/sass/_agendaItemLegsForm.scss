@@ -1,74 +1,82 @@
 .legs-form-container {
-  background-color: $color-white;
-  border: 2px solid $color-gray-light;
-  padding: 0 10px 20px 10px;
-  overflow-x: auto;
   display: grid;
-  grid-template-columns: 90px repeat(10, auto);
-  align-items: center;
+  .legs-form {
+    background-color: $color-white;
+    border: 2px solid $color-gray-light;
+    padding: 0 10px 20px 10px;
+    overflow-x: auto;
+    display: grid;
+    grid-template-columns: 90px repeat(16, auto);
+    align-items: center;
 
-  .grid-col-1 {
-    font-weight: bold;
-    border: none!important;
-  }
-
-  @each $row-num in map-values($aim-legs-lrg-height-config) {
-    .grid-row-#{$row-num} {
-      min-height: 80px;
+    .grid-col-1 {
+      font-weight: bold;
+      border: none!important;
     }
-  }
 
-  @each $row-num in map-values($aim-legs-sm-height-config) {
-    .grid-row-#{$row-num} {
-      min-height: 60px;
+    @each $row-num in map-values($aim-legs-lrg-height-config) {
+      .grid-row-#{$row-num} {
+        min-height: 80px;
+      }
     }
-  }
 
-  .grid-row-1 {
-    font-weight: bold;
-    border: none!important;
-    padding: 5px!important;
-  }
-
-  .grid-row-2 {
-    min-height: 105px;
-  }
-
-  $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
-
-
-  @each $num in $cols-rows {
-    .grid-col-#{$num}  {
-      grid-column: $num;
-      border-left: 1px solid $color-gray-lighter;
+    @each $row-num in map-values($aim-legs-sm-height-config) {
+      .grid-row-#{$row-num} {
+        min-height: 60px;
+      }
     }
-    .grid-row-#{$num} {
-      grid-row: $num;
-      padding: 10px;
+
+    .grid-row-1 {
+      font-weight: bold;
+      border: none!important;
+      padding: 5px!important;
     }
-  }
 
-  // Dropdown Columns
-  .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
-    padding-top: 25px;
-  }
+    .grid-row-2 {
+      min-height: 105px;
+    }
 
-  .ef-pos-dropdown {
-    padding-left: 10px;
-    padding-top: 25px;
-  }
-
- .grid-row-hover {
-    background-color: $color-gray-lightest;
-  }
+    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
 
 
-  .remove-leg-button {
-    float: right;
-  }
+    @each $num in $cols-rows {
+      .grid-col-#{$num}  {
+        grid-column: $num;
+        border-left: 1px solid $color-gray-lighter;
+      }
+      .grid-row-#{$num} {
+        grid-row: $num;
+        padding: 10px;
+      }
+    }
 
-  .remove-leg-button:hover {
-    color: red;
+    //TED date and date picker
+    .grid-row-9 {
+      min-width: 150px;
+    }
+
+    // Dropdown Columns
+    .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
+      padding-top: 25px;
+    }
+
+    .ef-pos-dropdown {
+      padding-left: 10px;
+      padding-top: 25px;
+    }
+
+    .grid-row-hover {
+      background-color: $color-gray-lightest;
+    }
+
+
+    .remove-leg-button {
+      float: right;
+    }
+
+    .remove-leg-button:hover {
+      color: red;
+    }
   }
   .icon-disabled {
     color: $color-gray;
@@ -81,16 +89,6 @@
     cursor: not-allowed;
   }
 }
-
-
-
-
-
-
-
-
-
-
 
   .fa {
     cursor: pointer;

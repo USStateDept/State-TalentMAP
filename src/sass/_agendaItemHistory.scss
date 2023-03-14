@@ -165,41 +165,6 @@
         font-size: small;
       }
 
-      .ai-history-card-legs {
-        padding-bottom: 5rem;
-
-        table {
-          margin: 0px;
-
-          td {
-            border: none;
-            padding: 0;
-          }
-
-          th {
-            border: none;
-            padding: .5rem 1rem;
-          }
-
-          dt {
-            font-weight: bold;
-          }
-
-          dd {
-            margin: 0 10px;
-          }
-
-          tr:not(:first-child) {
-
-            td:last-of-type {
-              border-left: 1px solid $bg-gray-dark-2 !important;
-            }
-
-          }
-
-        }
-      }
-
       .ai-history-card-footer {
         bottom: 5px;
         position: absolute;

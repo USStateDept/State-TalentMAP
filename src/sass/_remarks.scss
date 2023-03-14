@@ -1,0 +1,50 @@
+.remarks-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 15px;
+
+  .remarks-text {
+    float: left;
+    font-size: 1.1em;
+    margin-right: .7rem;
+    margin-top: 3px;
+  }
+
+  .remarks-pill {
+    background-color: $primary-blue;
+    border-radius: 12px;
+    color: $color-white;
+    display: inline;
+    font-size: 12px;
+    margin: 0 10px 5px 0;
+    padding: 6px;
+  }
+
+  .fa-times {
+    margin-left: 10px;
+  }
+  .fa-times:hover {
+    color: red;
+    cursor: pointer;
+  }
+  #add-remark {
+    color: $primary-blue;
+    font-size: 20px;
+    margin: 0 10px 0 -15px;
+  }
+  #add-remark:hover {
+    color: $primary-blue-darkest;
+  }
+}
+
+@each $remark-id, $color in $remarks {
+  .remark-category--#{$remark-id} {
+    background-color: $color!important;
+    scroll-margin-top: 60px;
+  }
+  @media screen and (max-width: 1600px) {
+    .remark-category--#{$remark-id} {
+      scroll-margin-top: 32px;
+    }
+  }
+}
