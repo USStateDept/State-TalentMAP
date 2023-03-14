@@ -11,15 +11,15 @@ const RemarksPill = props => {
       let rText = get(r, 'text');
       rText = rText.split(' ');
 
-      const regex = /({.*})/g;
-      let regNum = 0;
-      rText.forEach((a, i) => {
-        if (a.match(regex)) {
-          const riSeqNum = r.remark_inserts[regNum].riseqnum;
-          rText.splice(i, 1, r.ari_insertions[riSeqNum]);
-          regNum += 1;
-        }
-      });
+      // const regex = /({.*})/g;
+      // let regNum = 0;
+      // rText.forEach((a, i) => {
+      //   if (a.match(regex)) {
+      //     const riSeqNum = r.remark_inserts[regNum].riseqnum;
+      //     rText.splice(i, 1, r.ari_insertions[riSeqNum]);
+      //     regNum += 1;
+      //   }
+      // });
 
       return rText.join(' ');
     }
