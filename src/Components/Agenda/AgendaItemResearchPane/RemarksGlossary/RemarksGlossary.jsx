@@ -69,24 +69,24 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     return returnTypes[type$] || returnTypes.text;
   };
 
-  const renderText = r => {
-    const rText = r.text.split(/(\s+)/);
-    const regex = /({.*})/g;
-    let regNum = 0;
-
-    rText.forEach((a, i) => {
-      if (a.match(regex)) {
-        if (r.remark_inserts[regNum]) {
-          rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
-        }
-        regNum += 1;
-      }
-    });
-
-    return (
-      <div className="remark-input-container">{rText}</div>
-    );
-  };
+  const renderText = r =>
+  //   const rText = r.text.split(/(\s+)/);
+  //   const regex = /({.*})/g;
+  //   let regNum = 0;
+  //
+  //   rText.forEach((a, i) => {
+  //     if (a.match(regex)) {
+  //       if (r.remark_inserts[regNum]) {
+  //         rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
+  //       }
+  //       regNum += 1;
+  //     }
+  //   });
+  //
+     (
+      <div className="remark-input-container">{r}</div>
+    )
+  ;
 
   const [remarks$, setRemarks$] = useState(remarks);
 
