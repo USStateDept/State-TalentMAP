@@ -54,7 +54,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
       <dd
         className="location-data-card"
       >
-         (None Listed)
+        None Listed
         <FontAwesome
           className="org-fa-arrow"
           name="long-arrow-right"
