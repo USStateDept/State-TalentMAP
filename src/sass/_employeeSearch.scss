@@ -50,11 +50,10 @@
   .empl-search-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(406px, 1fr));
-
-    @media screen and (max-width: 1502px) {
-      .search-results-inputs {
-        padding: 5px 0px;
-      }
+    padding: 10px 0px;
+    
+    .search-results-inputs {
+      padding: 5px 0px;
     }
 
     .filter-div {
