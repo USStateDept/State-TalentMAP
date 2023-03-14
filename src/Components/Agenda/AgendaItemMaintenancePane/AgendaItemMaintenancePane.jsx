@@ -292,7 +292,7 @@ const AgendaItemMaintenancePane = (props) => {
                 </div>
             }
           </div>
-          <div className="usa-form remarks">
+          <div className="remarks">
             <label htmlFor="remarks">Remarks:</label>
             <div className="remarks-container">
               <InteractiveElement
@@ -317,7 +317,7 @@ const AgendaItemMaintenancePane = (props) => {
               }
             </div>
           </div>
-          <div className="usa-form corrections">
+          <div className="corrections">
             <label htmlFor="corrections">Corrections:</label>
             <div>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
