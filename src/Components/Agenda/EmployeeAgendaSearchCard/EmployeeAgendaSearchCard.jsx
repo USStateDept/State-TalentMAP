@@ -14,6 +14,7 @@ export const FALLBACK = 'None Listed';
 const usePanelMeeting = () => checkFlag('flags.panel_search');
 const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
+// eslint-disable-next-line complexity
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const panelMeetingActive = usePanelMeeting();
   // this check is tempoary and being done because we

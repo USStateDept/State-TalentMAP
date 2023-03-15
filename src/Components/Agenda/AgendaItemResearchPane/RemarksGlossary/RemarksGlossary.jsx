@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
@@ -47,6 +48,11 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     // number:  #,
     // text: not sure yet, but likely to be the default
     const type$ = type.replace(/[{}\d]/g, '').replace(/#/g, 'number');
+    /* eslint-disable no-console */
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    console.log('🦄 current: type$', type$);
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+
     const returnTypes = {
       text: (<TextInput
         value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
@@ -67,27 +73,60 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         className="remark-input"
       />),
     };
+    /* eslint-disable no-console */
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
+    console.log('👻 current: returnTypes[type$]', returnTypes[type$] || returnTypes.text);
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
+
     return returnTypes[type$] || returnTypes.text;
   };
 
-  const renderText = r =>
-  //   const rText = r.text.split(/(\s+)/);
-  //   const regex = /({.*})/g;
-  //   let regNum = 0;
-  //
-  //   rText.forEach((a, i) => {
-  //     if (a.match(regex)) {
-  //       if (r.remark_inserts[regNum]) {
-  //         rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
-  //       }
-  //       regNum += 1;
-  //     }
-  //   });
-  //
-    (
-      <div className="remark-input-container">{get(r, 'text') || 'None'}</div>
-    )
-  ;
+  const renderText = r => {
+    const rText = get(r, 'text').split(/(\s+)/) || '';
+    const rInserts = get(r, 'remark_inserts') || [];
+    /* eslint-disable no-console */
+    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+    console.log('🐙 current: r', r);
+    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+    //{
+    //     "seq_num": 249,
+    //     "rc_code": "P",
+    //     "order_num": 11,
+    //     "short_desc_text": "Senior cede",
+    //     "mutually_exclusive_ind": "N",
+    //     "text": "Senior Cede Granted on {date}",
+    //     "active_ind": "Y",
+    //     "remark_inserts": [
+    //         {
+    //             "riseqnum": 69,
+    //             "rirmrkseqnum": 249,
+    //             "riinsertiontext": "{date}"
+    //         }
+    //     ]
+    // }
+
+
+    rInserts.forEach((a) => {
+      const rInsertionText = get(a, 'riinsertiontext');
+      //         {
+      //             "riseqnum": 69,
+      //             "rirmrkseqnum": 249,
+      //             "riinsertiontext": "{date}"
+      //         }
+      /* eslint-disable no-console */
+      console.log('👻👻👻👻👻👻👻👻👻👻👻');
+      console.log('👻 current: a', a);
+      const rTextI = rText.indexOf(rInsertionText);
+      if( rTextI > -1) {
+        rText.splice(rTextI, 1, getInsertionType(rInsertionText, a));
+      }
+      console.log('👻 current: rText', rText);
+      console.log('👻👻👻👻👻👻👻👻👻👻👻');
+    });
+    return (
+      <div className="remark-input-container">{rText}</div>
+    );
+  };
 
   const [remarks$, setRemarks$] = useState(remarks);
 
