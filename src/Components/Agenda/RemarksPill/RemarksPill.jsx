@@ -1,4 +1,3 @@
-/* eslint-disable */
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { get } from 'lodash';
@@ -12,10 +11,10 @@ const RemarksPill = props => {
     let remarkText = get(r, 'text') || '';
 
     refInserts.forEach(refInsert => {
-      if(r['ari_insertions'][get(refInsert, 'riseqnum')]){
-        remarkText = remarkText.replace(get(refInsert, 'riinsertiontext'), r['ari_insertions'][get(refInsert, 'riseqnum')])
+      if (r.ari_insertions[get(refInsert, 'riseqnum')]) {
+        remarkText = remarkText.replace(get(refInsert, 'riinsertiontext'), r.ari_insertions[get(refInsert, 'riseqnum')]);
       }
-    })
+    });
 
     return remarkText;
   };

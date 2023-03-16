@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
@@ -80,7 +79,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     rInserts.forEach((a) => {
       const rInsertionText = get(a, 'riinsertiontext');
       const rTextI = rText.indexOf(rInsertionText);
-      if( rTextI > -1) {
+      if (rTextI > -1) {
         rText.splice(rTextI, 1, getInsertionType(rInsertionText, a));
       }
     });
