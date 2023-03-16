@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from 'react';
 import BackButton from 'Components/BackButton';
 import { AGENDA_ITEM_HISTORY_FILTERS } from 'Constants/Sort';
@@ -19,6 +20,7 @@ import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const useCreateAI = () => checkFlag('flags.create_agenda_item');
+const usePaneling = () => checkFlag('flags.paneling');
 
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
@@ -26,6 +28,7 @@ const AgendaItemHistory = (props) => {
   const isCDO = get(props, 'isCDO');
   const viewType = get(props, 'viewType');
   const createAI = useCreateAI();
+  const panelingIsActive = usePaneling();
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
@@ -162,7 +165,7 @@ const AgendaItemHistory = (props) => {
                 cardView &&
                 <div className="ai-history-cards-container">
                   {
-                    createAI &&
+                    panelingIsActive &&
                       <AgendaItemCard
                         isCreate
                         isCDO={isCDO}
@@ -185,7 +188,7 @@ const AgendaItemHistory = (props) => {
                 !cardView &&
                 <div className="agenda-item-row-container">
                   {
-                    createAI &&
+                    panelingIsActive &&
                       <AgendaItemRow
                         isCreate
                         isCDO={isCDO}

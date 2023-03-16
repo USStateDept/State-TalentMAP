@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
@@ -9,6 +10,7 @@ import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
 
 const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
+const usePaneling = () => checkFlag('flags.paneling');
 
 const AgendaItemCard = props => {
   const {
@@ -21,6 +23,7 @@ const AgendaItemCard = props => {
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
+  const panelingIsActive = usePaneling();
   const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
 
   const legs = get(agenda, 'legs') || [];
@@ -85,7 +88,7 @@ const AgendaItemCard = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           {
-            (editAgendaItem && isStatusShortRDY) &&
+            (panelingIsActive && isStatusShortRDY) &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 <FA name="pencil" />

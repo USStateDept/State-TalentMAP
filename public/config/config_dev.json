@@ -16,6 +16,7 @@
     "profile_languages": true,
     "register_checklist": true,
     "static_content": true,
-    "unassigned_filters": true
+    "unassigned_filters": true,
+    "paneling": false
   }
 }

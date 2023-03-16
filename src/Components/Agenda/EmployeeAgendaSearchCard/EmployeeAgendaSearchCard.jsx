@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable complexity */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
@@ -13,6 +15,7 @@ export const FALLBACK = 'None Listed';
 
 const usePanelMeeting = () => checkFlag('flags.panel_search');
 const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
+const usePaneling = () => checkFlag('flags.paneling');
 
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const panelMeetingActive = usePanelMeeting();
@@ -20,6 +23,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
   const isEditableItem = Math.floor(Math.random() * 3) === 1;
+  const panelingIsActive = usePaneling();
 
   // will need to update during integration
   const { person, currentAssignment, agenda, hsAssignment } = result;
@@ -114,10 +118,10 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         </div>
         */}
         <div className="employee-card-data-point">
-          <FA name="calendar-o" />
+          <FA name="calendar" />
           <dt>Panel Date:</dt>
           {
-            (panelMeetingActive && panelMeetingExist) ?
+            (panelingIsActive && panelMeetingExist) ?
               <dd>
                 <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                   {panelDate}
@@ -132,10 +136,10 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
           <dt>Agenda:</dt>
           <dd>{agendaStatus}</dd>
           {
-            (editAgendaItem && isEditableItem) &&
+            (panelingIsActive && isEditableItem) &&
             // need to use agendaID here once it is coming through
             <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
-              <FA name="pencil" />
+              <FA name="globe" />
             </Link>
           }
         </div>
