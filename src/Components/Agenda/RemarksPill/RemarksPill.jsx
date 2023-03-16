@@ -5,21 +5,25 @@ import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
-  const { remark, isEditable, updateSelection, forAIM } = props;
+  const { remark, isEditable, updateSelection, fromAIM } = props;
 
   const getRemarkText = (r) => {
+    const refInserts = get(r, 'remark_inserts') || [];
+    let remarkText = get(r, 'text') || '';
 
+    refInserts.forEach(refInsert => {
+      if(r['ari_insertions'][get(refInsert, 'riseqnum')]){
+        remarkText = remarkText.replace(get(refInsert, 'riinsertiontext'), r['ari_insertions'][get(refInsert, 'riseqnum')])
+      }
+    })
+
+    return remarkText;
   };
-  /* eslint-disable no-console */
-  console.log('👻👻👻👻👻👻👻👻👻👻👻');
-  console.log('👻 current: remark', remark);
-  console.log('👻👻👻👻👻👻👻👻👻👻👻');
-
 
   return (
     <div className={`remarks-pill remark-category--${get(remark, 'rc_code')}`}>
       {
-        forAIM ?
+        fromAIM ?
           getRemarkText(remark)
           :
           get(remark, 'text')
@@ -40,7 +44,6 @@ RemarksPill.propTypes = {
     mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
-
     remark_inserts: PropTypes.arrayOf(
       PropTypes.shape({
         rirmrkseqnum: PropTypes.number,
@@ -49,16 +52,17 @@ RemarksPill.propTypes = {
       }),
     ),
     ari_insertions: PropTypes.shape({}),
-    type: null,
   }),
   isEditable: PropTypes.bool,
   updateSelection: PropTypes.func,
+  fromAIM: PropTypes.bool,
 };
 
 RemarksPill.defaultProps = {
   remark: {},
   isEditable: false,
   updateSelection: EMPTY_FUNCTION,
+  fromAIM: false,
 };
 
 export default RemarksPill;

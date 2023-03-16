@@ -39,7 +39,7 @@
     color: $color-gray;
     cursor: not-allowed;
   }
-  
+
   .ai-research-pane {
     .fa, .fa-disabled, .fa-disabled:hover {
       color: $color-gray;
@@ -127,7 +127,7 @@
       }
     }
 
-    .corrections, .remarks {
+    .remarks {
       margin: 10px 0;
 
       label {
