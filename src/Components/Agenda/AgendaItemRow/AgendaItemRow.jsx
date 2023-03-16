@@ -38,8 +38,8 @@ const AgendaItemRow = props => {
   const cdo = get(clientData, 'cdo.name') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
-  const updaterMiddleInitial = get(agenda, 'updaters.middle_name', '')?.slice(0, 1) || '';
-  const creatorMiddleInitial = get(agenda, 'creators.middle_name', '')?.slice(0, 1) || '';
+  const updaterMiddleInitial = get(agenda, 'updaters.middle_name')?.slice(0, 1) || '';
+  const creatorMiddleInitial = get(agenda, 'creators.middle_name')?.slice(0, 1) || '';
   const remarks = get(agenda, 'remarks') || [];
 
   const updateDate = get(agenda, 'modifier_date')
