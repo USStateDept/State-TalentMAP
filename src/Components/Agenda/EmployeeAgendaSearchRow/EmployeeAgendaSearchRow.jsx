@@ -11,7 +11,6 @@ import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 const usePanelMeeting = () => checkFlag('flags.panel_search');
 const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
-// eslint-disable-next-line complexity
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const panelMeetingActive = usePanelMeeting();
   // this check is tempoary and being done because we
