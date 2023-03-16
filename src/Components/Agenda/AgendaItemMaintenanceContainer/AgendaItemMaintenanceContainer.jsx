@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, isNil } from 'lodash';
+import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -90,9 +90,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
 
-  // need to update once further integration is done
-  const employeeName = 'Employee Name Placeholder';
-  const employeeHasCDO = !isNil(get(employeeName, 'person.cdo'));
+  const employeeName = client_data.loading ? '' : client_data?.data?.data?.name;
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -124,7 +122,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             size="lg"
           />
           Agenda Item Maintenance
-          {isCDO && employeeHasCDO ?
+          {isCDO ?
             <span className="aim-title-dash">
                 -
               <Link to={`/profile/public/${id}`}>
@@ -134,8 +132,13 @@ const AgendaItemMaintenanceContainer = (props) => {
               </Link>
             </span>
             :
-            <span>
-              {` - ${employeeName}`}
+            <span className="aim-title-dash">
+                -
+              <Link to={`/profile/public/${id}/ao`}>
+                <span className="aim-title">
+                  {` ${employeeName}`}
+                </span>
+              </Link>
             </span>
           }
         </div>
