@@ -20,10 +20,6 @@ const AgendaItemRow = props => {
     perdet,
     isPanelMeetingView,
   } = props;
-  /* eslint-disable no-console */
-  console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
-  console.log('🍭 current: agenda', agenda);
-  console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
 
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
