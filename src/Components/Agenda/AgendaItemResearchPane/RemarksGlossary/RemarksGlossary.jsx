@@ -73,11 +73,11 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   };
 
   const renderText = r => {
-    const rText = get(r, 'text').split(/(\s+)/) || '';
-    const rInserts = get(r, 'remark_inserts') || [];
+    const rText = r?.text.split(/(\s+)/) || '';
+    const rInserts = r?.remark_inserts || [];
 
     rInserts.forEach((a) => {
-      const rInsertionText = get(a, 'riinsertiontext');
+      const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {
         rText.splice(rTextI, 1, getInsertionType(rInsertionText, a));

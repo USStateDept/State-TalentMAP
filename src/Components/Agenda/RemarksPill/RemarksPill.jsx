@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
   const { remark, isEditable, updateSelection, fromAIM } = props;
 
   const getRemarkText = (r) => {
-    const refInserts = get(r, 'remark_inserts') || [];
-    let remarkText = get(r, 'text') || '';
+    const refInserts = r?.remark_inserts || [];
+    let remarkText = r?.text || '';
 
     refInserts.forEach(refInsert => {
-      if (r.ari_insertions[get(refInsert, 'riseqnum')]) {
-        remarkText = remarkText.replace(get(refInsert, 'riinsertiontext'), r.ari_insertions[get(refInsert, 'riseqnum')]);
+      if (r.ari_insertions[refInsert?.riseqnum]) {
+        remarkText =
+          remarkText.replace(refInsert?.riinsertiontext, r.ari_insertions[refInsert?.riseqnum]);
       }
     });
 
@@ -20,12 +20,12 @@ const RemarksPill = props => {
   };
 
   return (
-    <div className={`remarks-pill remark-category--${get(remark, 'rc_code')}`}>
+    <div className={`remarks-pill remark-category--${remark?.rc_code}`}>
       {
         fromAIM ?
           getRemarkText(remark)
           :
-          get(remark, 'text')
+          remark?.text
       }
       { isEditable &&
         <FA name="times" onClick={() => updateSelection(remark)} />
