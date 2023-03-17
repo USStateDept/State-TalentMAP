@@ -22,7 +22,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
-  const isEditableItem = Math.floor(Math.random() * 3) === 1;
   const panelingIsActive = usePaneling();
 
   // will need to update during integration
@@ -134,13 +133,14 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
         <div className="employee-card-data-point">
           <FA name="sticky-note-o" />
           <dt>Agenda:</dt>
-          <dd>{agendaStatus}</dd>
           {
-            (panelingIsActive && isEditableItem) &&
+            panelingIsActive ?
             // need to use agendaID here once it is coming through
-            <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
-              <FA name="globe" />
-            </Link>
+              <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
+                <dd>{agendaStatus}</dd>
+              </Link>
+              :
+              <dd>{agendaStatus}</dd>
           }
         </div>
       </div>
