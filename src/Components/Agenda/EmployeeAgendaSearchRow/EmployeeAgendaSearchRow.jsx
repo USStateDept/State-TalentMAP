@@ -9,9 +9,11 @@ import { formatDate } from 'utilities';
 import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
+const usePanelMeeting = () => checkFlag('flags.panel_search');
 const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
+  const panelMeetingActive = usePanelMeeting();
   const showPanelAndAgenda = usePanelAndAgenda();
 
   // will need to update during integration
@@ -107,7 +109,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="calendar" />
             <dt>Panel Date:</dt>
             {
-              (showPanelAndAgenda && panelMeetingExist) ?
+              (panelMeetingActive && panelMeetingExist) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                     {panelDate}

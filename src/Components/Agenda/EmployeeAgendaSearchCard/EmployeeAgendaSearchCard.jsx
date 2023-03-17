@@ -12,9 +12,11 @@ import { formatDate } from 'utilities';
 
 export const FALLBACK = 'None Listed';
 
+const usePanelMeeting = () => checkFlag('flags.panel_search');
 const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
 
 const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
+  const panelMeetingActive = usePanelMeeting();
   const showPanelAndAgenda = usePanelAndAgenda();
 
   // will need to update during integration
@@ -113,7 +115,7 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
           <FA name="calendar" />
           <dt>Panel Date:</dt>
           {
-            (showPanelAndAgenda && panelMeetingExist) ?
+            (panelMeetingActive && panelMeetingExist) ?
               <dd>
                 <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                   {panelDate}
