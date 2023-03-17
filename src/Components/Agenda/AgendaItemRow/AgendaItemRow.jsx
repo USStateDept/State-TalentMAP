@@ -20,6 +20,10 @@ const AgendaItemRow = props => {
     perdet,
     isPanelMeetingView,
   } = props;
+  /* eslint-disable no-console */
+  console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
+  console.log('🍭 current: agenda', agenda);
+  console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
 
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
@@ -50,6 +54,14 @@ const AgendaItemRow = props => {
     ? `${formatDate(get(agenda, 'creator_date'), 'MM/DD/YY')}`
     : '--/--/--';
 
+  const pmi = (<>
+    {
+      agenda?.pmi_official_item_num &&
+      <div className="pmiNum">{agenda?.pmi_official_item_num}</div>
+    }
+    <FA name="sticky-note" />
+  </>);
+
   return (
     <>
       {
@@ -76,12 +88,12 @@ const AgendaItemRow = props => {
                       editAgendaItem ?
                         <Link
                           className="ai-id-link"
-                          to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}
+                          to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
                         >
-                          {get(agenda, 'pmi_official_item_num')}
+                          {pmi}
                         </Link>
                         :
-                        get(agenda, 'pmi_official_item_num')
+                        pmi
                     }
                   </div>
                 </>
@@ -174,6 +186,7 @@ AgendaItemRow.propTypes = {
       }),
     ),
     panel_date: PropTypes.string,
+    pmi_official_item_num: PropTypes.number,
     status: PropTypes.string,
     perdet: PropTypes.number,
     legs: PropTypes.arrayOf(

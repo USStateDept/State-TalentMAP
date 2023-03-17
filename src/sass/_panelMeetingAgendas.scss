@@ -268,10 +268,13 @@
       .pmi-official-item-number {
         font-size: 20px;
         .ai-id-link {
-          border-bottom: 1px solid white;
           color: white;
           padding: 0 15px;
           text-decoration: none;
+          .pmiNum {
+            margin-right: 20px;
+            display: inline;
+          }
         }
       }
     }
