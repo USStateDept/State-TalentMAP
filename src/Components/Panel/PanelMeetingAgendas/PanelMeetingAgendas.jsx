@@ -368,7 +368,7 @@ const PanelMeetingAgendas = (props) => {
         <div className="panel-meeting-agenda-page">
           <div className="usa-grid-full panel-meeting-agenda-upper-section search-bar-container">
             <BackButton />
-            <ProfileSectionTitle title="Panel Meetings Agendas" icon="calendar" />
+            <ProfileSectionTitle title="Panel Meeting Agendas" icon="calendar" />
             <PositionManagerSearch
               onChange={setTextSearch}
               ref={childRef}
