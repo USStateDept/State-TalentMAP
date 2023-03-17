@@ -21,16 +21,14 @@ const AgendaItemLegs = props => {
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
-  const getData = (key, helperFunc) => (
+
+  const getData = (key, helperFunc = () => {}) => (
     <>
       {
         legs$.map((leg) => (
           <td>
             {
-              helperFunc ?
-                <dd>{helperFunc(leg[key]) ? helperFunc(leg[key]) : 'None listed'}</dd>
-                :
-                <dd>{leg[key] ? leg[key] : 'None listed'}</dd>
+              <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
             }
           </td>
         ))
