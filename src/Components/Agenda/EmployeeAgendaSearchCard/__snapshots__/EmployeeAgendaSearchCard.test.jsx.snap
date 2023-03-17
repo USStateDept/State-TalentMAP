@@ -92,7 +92,7 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
       className="employee-card-data-point"
     >
       <FontAwesome
-        name="calendar-o"
+        name="calendar"
       />
       <dt>
         Panel Date:
