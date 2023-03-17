@@ -287,10 +287,11 @@
   font-size: 16px;
   .wrapper {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
   }
   .date {
     font-size: 12px;
     align-self: center;
+    padding-left: 5px;
   }
 }
