@@ -5,9 +5,8 @@
   "hrAuthUrl": "https://mockfsbid.metaphasedev.com/Authorize?sAppCircuitID=32",
   "flags": {
     "agenda_search": true,
-    "create_agenda_item": true,
-    "edit_agenda_item": false,
     "handshake_bidding": true,
+    "panel_and_agenda": false,
     "panel_search": true,
     "persona_auth": true,
     "post_handshake": false,
@@ -16,7 +15,6 @@
     "profile_languages": true,
     "register_checklist": true,
     "static_content": true,
-    "unassigned_filters": true,
-    "paneling": false
+    "unassigned_filters": true
   }
 }

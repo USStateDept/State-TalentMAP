@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get } from 'lodash';
@@ -11,8 +10,7 @@ import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
 
-const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
-const usePaneling = () => checkFlag('flags.paneling');
+const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
 
 const AgendaItemRow = props => {
   const {
@@ -25,8 +23,7 @@ const AgendaItemRow = props => {
 
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
-  const editAgendaItem = useEditAgendaItem();
-  const panelingIsActive = usePaneling();
+  const showPanelAndAgenda = usePanelAndAgenda();
   const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
   const clientData = get(agenda, 'user');
 
@@ -76,7 +73,7 @@ const AgendaItemRow = props => {
                 <>
                   <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
                     {
-                      panelingIsActive ?
+                      showPanelAndAgenda ?
                         <Link
                           className="ai-id-link"
                           to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}
@@ -147,7 +144,7 @@ const AgendaItemRow = props => {
             </div>
           </div>
           {
-            (panelingIsActive && isStatusShortRDY) &&
+            (showPanelAndAgenda && isStatusShortRDY) &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 <FA name="pencil" />

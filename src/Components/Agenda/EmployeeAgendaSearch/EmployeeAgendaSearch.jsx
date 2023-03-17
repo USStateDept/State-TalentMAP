@@ -28,7 +28,7 @@ import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
 
-const useCreateAI = () => checkFlag('flags.create_agenda_item');
+const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
 
 const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const searchLastNameRef = useRef();
@@ -36,7 +36,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const searchEmpIDRef = useRef();
 
   const dispatch = useDispatch();
-  const createAI = useCreateAI();
+  const showPanelAndAgenda = usePanelAndAgenda();
 
   const agendaEmployeesFilters = useSelector(state => state.agendaEmployeesFilters);
   const agendaEmployeesFiltersIsLoading = useSelector(state =>
@@ -526,7 +526,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                             key={shortid.generate()}
                             result={emp}
                             isCDO={isCDO}
-                            showCreate={createAI}
+                            showCreate={showPanelAndAgenda}
                             viewType={viewType}
                           />
                         ))
@@ -542,7 +542,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                             key={shortid.generate()}
                             result={emp}
                             isCDO={isCDO}
-                            showCreate={createAI}
+                            showCreate={showPanelAndAgenda}
                             viewType={viewType}
                           />
                         ))
