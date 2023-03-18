@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, isNil } from 'lodash';
+import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -91,7 +91,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
 
   const employeeName = client_data.loading ? '' : client_data?.data?.data?.name;
-  const employeeHasCDO = !isNil(get(employeeName, 'person.cdo'));
+  // handles error where some employees have no Profile
+  const employeeHasCDO = client_data.loading ? false : !!(client_data?.data?.data?.cdo?.name);
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -114,40 +115,6 @@ const AgendaItemMaintenanceContainer = (props) => {
     }
   }, [agendaItemLoading]);
 
-  let profileLink;
-  switch (isCDO) {
-    case false:
-      profileLink = employeeHasCDO ?
-        (
-          <span className="aim-title-dash">
-            -
-            <Link to={`/profile/public/${id}/ao`}>
-              <span className="aim-title">
-                {` ${employeeName}`}
-              </span>
-            </Link>
-          </span>
-        ) : ` - ${employeeName}`;
-      break;
-    case true:
-      profileLink = employeeHasCDO ?
-        (
-          <span className="aim-title-dash">
-          -
-            <Link to={`/profile/public/${id}`}>
-              <span className="aim-title">
-                {` ${employeeName}`}
-              </span>
-            </Link>
-          </span>
-        )
-        : ` - ${employeeName}`;
-      break;
-    default:
-      profileLink = `- ${employeeName}`;
-      break;
-  }
-
   return (
     <>
       <div className="aim-header-container">
@@ -157,7 +124,21 @@ const AgendaItemMaintenanceContainer = (props) => {
             size="lg"
           />
           Agenda Item Maintenance
-          { profileLink }
+          {
+            employeeHasCDO ?
+              <span className="aim-title-dash">
+                {'- '}
+                <Link to={`/profile/public/${id}${isCDO ? '' : '/ao'}`}>
+                  <span className="aim-title">
+                    {`${employeeName}`}
+                  </span>
+                </Link>
+              </span>
+              :
+              <span>
+                {` - ${employeeName}`}
+              </span>
+          }
         </div>
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
