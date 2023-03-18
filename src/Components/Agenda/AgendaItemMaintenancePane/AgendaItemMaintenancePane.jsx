@@ -71,6 +71,17 @@ const AgendaItemMaintenancePane = (props) => {
   const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
   const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
 
+  const createdByFirst = agendaItem?.creators?.first_name || '';
+  const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
+  const createDate = agendaItem?.creator_date
+    ? `${formatDate(agendaItem?.creator_date, 'MM/DD/YY')}`
+    : '--/--/--';
+  const modifiedByFirst = agendaItem?.updaters?.first_name || '';
+  const modifiedByLast = agendaItem?.updaters?.last_name ? `${agendaItem.updaters.last_name},` : '';
+  const modifyDate = agendaItem?.modifier_date
+    ? `${formatDate(agendaItem?.modifier_date, 'MM/DD/YY')}`
+    : '--/--/--';
+
   const legLimit = legCount >= 10;
 
   useEffect(() => {
@@ -156,6 +167,16 @@ const AgendaItemMaintenancePane = (props) => {
             <button className="save-ai-btn" onClick={saveAI} disabled={isReadOnly}>
               Save Agenda Item
             </button>
+          </div>
+          <div className="aim-timestamp-wrapper">
+            <span className="aim-timestamp">
+              {`Created: ${createdByLast} ${createdByFirst}`}
+              <span className="date">{` - ${createDate}`}</span>
+            </span>
+            <span className="aim-timestamp">
+              {`Modified: ${modifiedByLast} ${modifiedByFirst}`}
+              <span className="date">{` - ${modifyDate}`}</span>
+            </span>
           </div>
           <div className="ai-maintenance-header-dd">
             {

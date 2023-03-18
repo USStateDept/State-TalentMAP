@@ -39,7 +39,7 @@
     color: $color-gray;
     cursor: not-allowed;
   }
-  
+
   .ai-research-pane {
     .fa, .fa-disabled, .fa-disabled:hover {
       color: $color-gray;
@@ -286,6 +286,21 @@
         min-width: 0;
         text-align: right;
       }
+    }
+  }
+
+  .aim-timestamp-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
+    .aim-timestamp {
+      display: flex;
+      justify-content: end;
+    }
+    .date {
+      padding-left: 2px;
+      font-size: 10px;
+      align-self: center;
     }
   }
 
