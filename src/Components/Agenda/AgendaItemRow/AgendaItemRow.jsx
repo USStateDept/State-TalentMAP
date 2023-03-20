@@ -21,10 +21,10 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
+  const showPanelAndAgenda = usePanelAndAgenda();
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
-  const showPanelAndAgenda = usePanelAndAgenda();
-  const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
+  const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
