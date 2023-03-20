@@ -7,7 +7,6 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-
 const AgendaItemCard = props => {
   const {
     isCreate,
@@ -15,9 +14,6 @@ const AgendaItemCard = props => {
     isCDO,
     perdet,
   } = props;
-
-  // this check is tempoary and being done because we
-  // do not have the data to identify if an AI is editable or not
 
   const legs = get(agenda, 'legs') || [];
   let legs$ = clone(legs);
