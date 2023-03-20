@@ -73,7 +73,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   };
 
   const renderText = r => {
-    const rText = r?.text.split(/(\s+)/) || '';
+    const rText = r?.text?.split(/(\s+)/) || '';
     const rInserts = r?.remark_inserts || [];
 
     rInserts.forEach((a) => {
