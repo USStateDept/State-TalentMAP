@@ -25,11 +25,11 @@ const AgendaItemRow = props => {
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
+  const editAgendaItem = useEditAgendaItem();
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
-  const agendaID = get(agenda, 'id');
 
   const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
@@ -49,6 +49,14 @@ const AgendaItemRow = props => {
   const createDate = get(agenda, 'creator_date')
     ? `${formatDate(get(agenda, 'creator_date'), 'MM/DD/YY')}`
     : '--/--/--';
+
+  const pmi = (<>
+    {
+      agenda?.pmi_official_item_num &&
+      <div className="pmiNum">{agenda?.pmi_official_item_num}</div>
+    }
+    <FA name="sticky-note" />
+  </>);
 
   return (
     <>
@@ -76,12 +84,12 @@ const AgendaItemRow = props => {
                       showAgendaItemMaintenance ?
                         <Link
                           className="ai-id-link"
-                          to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}
+                          to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
                         >
-                          {get(agenda, 'pmi_official_item_num')}
+                          {pmi}
                         </Link>
                         :
-                        get(agenda, 'pmi_official_item_num')
+                        pmi
                     }
                   </div>
                 </>
@@ -174,6 +182,7 @@ AgendaItemRow.propTypes = {
       }),
     ),
     panel_date: PropTypes.string,
+    pmi_official_item_num: PropTypes.number,
     status: PropTypes.string,
     perdet: PropTypes.number,
     legs: PropTypes.arrayOf(

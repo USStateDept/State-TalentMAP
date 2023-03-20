@@ -52,7 +52,6 @@ const AgendaItemCard = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
-  const agendaID = get(agenda, 'id');
 
   // eslint-disable-next-line no-console
   // const editAI = () => { console.log('placeholder create AI'); };
