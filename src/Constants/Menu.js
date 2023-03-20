@@ -286,7 +286,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      checkFlag('flags.panel') ?
+      checkFlag('flags.panel_meetings_search') ?
         {
           text: 'Panel Meetings',
           route: '/profile/ao/panelmeetings',
@@ -347,7 +347,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      checkFlag('flags.panel') ?
+      checkFlag('flags.panel_meetings_search') ?
         {
           text: 'Panel Meetings',
           route: '/profile/cdo/panelmeetings',

@@ -8,7 +8,7 @@
     "agenda_item_maintenance": true,
     "agenda_search": true,
     "handshake_bidding": true,
-    "panel": true,
+    "panel_meetings_search": true,
     "panel_meeting_agendas": true,
     "persona_auth": true,
     "post_handshake": false,
