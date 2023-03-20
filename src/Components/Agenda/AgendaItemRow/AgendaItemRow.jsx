@@ -22,8 +22,6 @@ const AgendaItemRow = props => {
   } = props;
 
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
-  // this check is tempoary and being done because we
-  // do not have the data to identify if an AI is editable or not
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
