@@ -1,4 +1,3 @@
-/* eslint-disable complexity */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
