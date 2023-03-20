@@ -18,7 +18,6 @@ const AgendaItemCard = props => {
 
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
-  const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
 
   const legs = get(agenda, 'legs') || [];
   let legs$ = clone(legs);
@@ -80,14 +79,6 @@ const AgendaItemCard = props => {
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          {
-            isStatusShortRDY &&
-            <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
-                <FA name="pencil" />
-              </Link>
-            </div>
-          }
           <h3 className="ai-history-card-title">
             { titles[0] }
             <div className="title-arrow">

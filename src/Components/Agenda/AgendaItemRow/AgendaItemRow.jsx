@@ -24,8 +24,6 @@ const AgendaItemRow = props => {
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
-  const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
-  const editAgendaItem = useEditAgendaItem();
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -151,14 +149,6 @@ const AgendaItemRow = props => {
               </div>
             </div>
           </div>
-          {
-            isStatusShortRDY &&
-            <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
-                <FA name="pencil" />
-              </Link>
-            </div>
-          }
         </div>
       }
     </>
