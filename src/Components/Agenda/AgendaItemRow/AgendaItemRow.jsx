@@ -21,15 +21,11 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  // this check is tempoary and being done because we
-  // do not have the data to identify if an AI is editable or not
   const editAgendaItem = useEditAgendaItem();
-  const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
-  const agendaID = get(agenda, 'id');
 
   const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
@@ -151,14 +147,6 @@ const AgendaItemRow = props => {
               </div>
             </div>
           </div>
-          {
-            (editAgendaItem && isStatusShortRDY) &&
-            <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
-                <FA name="pencil" />
-              </Link>
-            </div>
-          }
         </div>
       }
     </>

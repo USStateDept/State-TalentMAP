@@ -53,22 +53,6 @@
     }
   }
 
-  .ai-history-edit {
-    position: absolute;
-    right: 5px;
-    text-align: right;
-
-    span {
-      color: $bg-blue-dark-0;
-      font-size: 18px;
-    }
-
-    span:hover {
-      color: $tertiary-cool-blue;
-      font-size: 20px;
-    }
-  }
-
   .button-back-link {
     margin: 15px 0 0 0;
   }
@@ -120,10 +104,6 @@
       }
       .poly-slash {
         padding: 3px 0;
-      }
-
-      .ai-history-edit {
-        top: 5px;
       }
 
       .ai-history-card-title {
@@ -316,10 +296,6 @@
         font-size: 80px;
       }
 
-    }
-
-    .ai-history-edit {
-      bottom: 5px;
     }
   }
 

@@ -5,10 +5,7 @@ import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
-import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
-
-const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
 
 const AgendaItemCard = props => {
   const {
@@ -17,11 +14,6 @@ const AgendaItemCard = props => {
     isCDO,
     perdet,
   } = props;
-
-  // this check is tempoary and being done because we
-  // do not have the data to identify if an AI is editable or not
-  const editAgendaItem = useEditAgendaItem();
-  const isStatusShortRDY = get(agenda, 'status_short') !== 'RDY';
 
   const legs = get(agenda, 'legs') || [];
   let legs$ = clone(legs);
@@ -55,7 +47,6 @@ const AgendaItemCard = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
-  const agendaID = get(agenda, 'id');
 
   // eslint-disable-next-line no-console
   // const editAI = () => { console.log('placeholder create AI'); };
@@ -84,14 +75,6 @@ const AgendaItemCard = props => {
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
-          {
-            (editAgendaItem && isStatusShortRDY) &&
-            <div className="ai-history-edit">
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
-                <FA name="pencil" />
-              </Link>
-            </div>
-          }
           <h3 className="ai-history-card-title">
             { titles[0] }
             <div className="title-arrow">
