@@ -292,10 +292,12 @@
   .aim-timestamp-wrapper {
     display: flex;
     flex-direction: column;
+    align-content: flex-end;
+    flex-wrap: wrap;
     font-size: 12px;
     .aim-timestamp {
       display: flex;
-      justify-content: end;
+      justify-content: space-around;
     }
     .date {
       padding-left: 2px;
