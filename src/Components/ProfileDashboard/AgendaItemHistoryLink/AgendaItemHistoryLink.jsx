@@ -9,20 +9,25 @@ const AgendaItemHistoryLink = (props) => (
         <SectionTitle title="Agenda Item History" icon="user-circle-o" />
       </div>
     </div>
-    <div className="usa-grid-full small-link-container agenda-item-history-link">
-      <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Go to Agenda Item History</Link>
-    </div>
+    {
+      props.showLink &&
+      <div className="usa-grid-full small-link-container agenda-item-history-link">
+        <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Go to Agenda Item History</Link>
+      </div>
+    }
   </div>
 );
 
 AgendaItemHistoryLink.propTypes = {
   perdet: PropTypes.String,
   userRole: PropTypes.String,
+  showLink: PropTypes.bool,
 };
 
 AgendaItemHistoryLink.defaultProps = {
   perdet: '',
   userRole: '',
+  showLink: true,
 };
 
 export default AgendaItemHistoryLink;

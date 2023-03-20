@@ -1,3 +1,4 @@
+/* eslint-disable complexity */
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
@@ -8,12 +9,14 @@ import { formatDate } from 'utilities';
 import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const usePanelMeeting = () => checkFlag('flags.panel_search');
-const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
+const useAgendaItemHistory = () => checkFlag('flags.agenda_item_history');
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
+const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
-  const panelMeetingActive = usePanelMeeting();
-  const showPanelAndAgenda = usePanelAndAgenda();
+  const showAgendaItemHistory = useAgendaItemHistory();
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
+  const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
 
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
@@ -108,7 +111,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="calendar" />
             <dt>Panel Date:</dt>
             {
-              (panelMeetingActive && panelMeetingExist) ?
+              (showPanelMeetingsAgendas && panelMeetingExist) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                     {panelDate}
@@ -122,7 +125,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="sticky-note-o" />
             <dt>Agenda:</dt>
             {
-              showPanelAndAgenda ?
+              showAgendaItemMaintenance ?
                 // need to use agendaID here once it is coming through
                 <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
                   <dd>{agendaStatus}</dd>
@@ -133,9 +136,12 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
           </div>
         </div>
         <div className="button-container">
-          <div className="view-agenda-item-container">
-            <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
-          </div>
+          {
+            showAgendaItemHistory &&
+            <div className="view-agenda-item-container">
+              <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
+            </div>
+          }
           {
             !!showCreate &&
             <div className="button-box-container">

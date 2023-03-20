@@ -10,7 +10,7 @@ import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
 
-const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemRow = props => {
   const {
@@ -21,7 +21,7 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const showPanelAndAgenda = usePanelAndAgenda();
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
@@ -73,7 +73,7 @@ const AgendaItemRow = props => {
                 <>
                   <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
                     {
-                      showPanelAndAgenda ?
+                      showAgendaItemMaintenance ?
                         <Link
                           className="ai-id-link"
                           to={`/profile/${userRole}/createagendaitem/${perdet$}/${get(agenda, 'id')}`}
@@ -144,7 +144,7 @@ const AgendaItemRow = props => {
             </div>
           </div>
           {
-            (showPanelAndAgenda && isStatusShortRDY) &&
+            isStatusShortRDY &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 <FA name="pencil" />

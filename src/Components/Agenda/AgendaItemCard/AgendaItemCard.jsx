@@ -5,10 +5,8 @@ import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
 import InteractiveElement from 'Components/InteractiveElement';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
-import { checkFlag } from 'flags';
 import AgendaItemLegs from '../AgendaItemLegs';
 
-const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
 
 const AgendaItemCard = props => {
   const {
@@ -18,7 +16,6 @@ const AgendaItemCard = props => {
     perdet,
   } = props;
 
-  const showPanelAndAgenda = usePanelAndAgenda();
   // this check is tempoary and being done because we
   // do not have the data to identify if an AI is editable or not
   const isStatusShortRDY = get(agenda, 'status_short') === 'RDY';
@@ -85,7 +82,7 @@ const AgendaItemCard = props => {
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
           </div>
           {
-            (showPanelAndAgenda && isStatusShortRDY) &&
+            isStatusShortRDY &&
             <div className="ai-history-edit">
               <Link to={`/profile/${userRole}/createagendaitem/${perdet$}/${agendaID}`}>
                 <FA name="pencil" />

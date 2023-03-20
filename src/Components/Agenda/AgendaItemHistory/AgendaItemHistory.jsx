@@ -18,14 +18,14 @@ import AgendaItemRow from '../AgendaItemRow';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
-const usePanelAndAgenda = () => checkFlag('flags.panel_and_agenda');
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
   const perdet = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
   const viewType = get(props, 'viewType');
-  const showPanelAndAgenda = usePanelAndAgenda();
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
@@ -162,7 +162,7 @@ const AgendaItemHistory = (props) => {
                 cardView &&
                 <div className="ai-history-cards-container">
                   {
-                    showPanelAndAgenda &&
+                    showAgendaItemMaintenance &&
                       <AgendaItemCard
                         isCreate
                         isCDO={isCDO}
@@ -185,7 +185,7 @@ const AgendaItemHistory = (props) => {
                 !cardView &&
                 <div className="agenda-item-row-container">
                   {
-                    showPanelAndAgenda &&
+                    showAgendaItemMaintenance &&
                       <AgendaItemRow
                         isCreate
                         isCDO={isCDO}
