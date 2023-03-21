@@ -110,15 +110,9 @@ exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
       <dt>
         Agenda:
       </dt>
-      <Link
-        className="agenda-edit-button"
-        replace={false}
-        to="/profile/ao/createagendaitem//962"
-      >
-        <dd>
-          None Listed
-        </dd>
-      </Link>
+      <dd>
+        None Listed
+      </dd>
     </div>
   </div>
   <div
