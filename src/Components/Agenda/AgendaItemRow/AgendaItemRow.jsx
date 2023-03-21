@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { checkFlag } from 'flags';
+import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
@@ -38,13 +39,8 @@ const AgendaItemRow = props => {
   const creatorMiddleInitial = get(agenda, 'creators.middle_name')?.slice(0, 1) || '';
   const remarks = get(agenda, 'remarks') || [];
 
-  const updateDate = get(agenda, 'modifier_date')
-    ? `${formatDate(get(agenda, 'modifier_date'), 'MM/DD/YY')}`
-    : '--/--/--';
-
-  const createDate = get(agenda, 'creator_date')
-    ? `${formatDate(get(agenda, 'creator_date'), 'MM/DD/YY')}`
-    : '--/--/--';
+  const updateDate = dateTernary(agenda?.modifier_date);
+  const createDate = dateTernary(agenda?.creator_date);
 
   const pmi = (<>
     {
@@ -157,6 +153,8 @@ AgendaItemRow.propTypes = {
   isCreate: PropTypes.bool,
   agenda: PropTypes.shape({
     id: PropTypes.number,
+    creator_date: PropTypes.string,
+    modifier_date: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,

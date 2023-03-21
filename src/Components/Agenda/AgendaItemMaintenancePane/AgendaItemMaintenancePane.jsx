@@ -10,6 +10,7 @@ import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
+import { dateTernary } from '../Constants';
 import api from '../../../api';
 
 const AgendaItemMaintenancePane = (props) => {
@@ -73,14 +74,10 @@ const AgendaItemMaintenancePane = (props) => {
 
   const createdByFirst = agendaItem?.creators?.first_name || '';
   const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
-  const createDate = agendaItem?.creator_date
-    ? `${formatDate(agendaItem?.creator_date, 'MM/DD/YY')}`
-    : '--/--/--';
+  const createDate = dateTernary(agendaItem?.creator_date);
   const modifiedByFirst = agendaItem?.updaters?.first_name || '';
   const modifiedByLast = agendaItem?.updaters?.last_name ? `${agendaItem.updaters.last_name},` : '';
-  const modifyDate = agendaItem?.modifier_date
-    ? `${formatDate(agendaItem?.modifier_date, 'MM/DD/YY')}`
-    : '--/--/--';
+  const modifyDate = dateTernary(agendaItem?.modifier_date);
 
   const legLimit = legCount >= 10;
 
