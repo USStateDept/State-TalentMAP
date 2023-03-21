@@ -282,15 +282,17 @@
 }
 
 .ai-updater-creator {
-  min-width: 300px;
-  font-size: 14px;
+  min-width: 200px;
+  font-size: 12px;
   .wrapper {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+  }
+  .ai-updater-creator-name {
+    padding-right: 5px;
   }
   .date {
-    font-size: 12px;
+    font-size: 10px;
     align-self: center;
-    padding-left: 5px;
   }
 }
