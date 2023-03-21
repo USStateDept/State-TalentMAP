@@ -36,7 +36,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
-  const pmSeqNum = get(agenda, 'pmSeqfNum') || FALLBACK;
+  const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
   const agendaID = get(agenda, 'agendaID') || FALLBACK;
   const agendaIDExist = (agendaID !== FALLBACK);
