@@ -71,7 +71,7 @@ app.use(bodyParser.urlencoded({
 // saml2 acs
 app.post(PUBLIC_URL, (request, response) => {
   // acs(options, acsHandler);
-  response.redirect(307, `${API_ROOT}/saml2/acs/${(request.headers['x-ms-proxy'] || '').includes('AzureAD') ? '?public=true' : ''}`);
+  response.redirect(307, `${API_ROOT}api/v1/saml2/acs/${(request.headers['x-ms-proxy'] || '').includes('AzureAD') ? '?public=true' : ''}`);
 });
 
 // saml2 login
