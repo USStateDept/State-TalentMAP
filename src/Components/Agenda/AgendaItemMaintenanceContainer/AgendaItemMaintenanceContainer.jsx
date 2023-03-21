@@ -91,7 +91,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
 
-  const employeeName = client_data.loading ? '' : client_data?.data?.data?.name;
+  const employeeName = client_data.loading ? '' : (client_data?.data?.data?.name || '');
   // handles error where some employees have no Profile
   const employeeHasCDO = client_data.loading ? false : !!(client_data?.data?.data?.cdo?.name);
 
