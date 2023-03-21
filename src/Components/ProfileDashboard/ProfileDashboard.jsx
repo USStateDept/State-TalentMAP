@@ -4,7 +4,6 @@ import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
 import PermissionsWrapper from 'Containers/PermissionsWrapper';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
 import { get, includes } from 'lodash';
-import { checkFlag } from 'flags';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -20,8 +19,6 @@ import BoxShadow from '../BoxShadow';
 import Classifications from './Classifications';
 import Languages from './Languages';
 import AgendaItemHistoryLink from './AgendaItemHistoryLink';
-
-const useAgendaItemHistory = () => checkFlag('flags.agenda_item_history');
 
 const ProfileDashboard = ({
   userProfile, isLoading, notifications, isPublic,
@@ -48,7 +45,6 @@ const ProfileDashboard = ({
               const isBidder = () => includes(get(userProfile, 'permission_groups', []), 'bidder');
               const perdet = get(userProfile, 'perdet_seq_number') || '';
               const userRole = isAOView ? 'ao' : 'cdo';
-              const showAgendaItemHistory$ = useAgendaItemHistory();
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
                   <Favorites favorites={favoritePositions} />
@@ -157,11 +153,7 @@ const ProfileDashboard = ({
                     {
                       (isPublic && showAgendaItemHistory) &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <AgendaItemHistoryLink
-                          perdet={perdet}
-                          userRole={userRole}
-                          showLink={showAgendaItemHistory$}
-                        />
+                        <AgendaItemHistoryLink perdet={perdet} userRole={userRole} />
                       </BoxShadow>
                     }
                     {
