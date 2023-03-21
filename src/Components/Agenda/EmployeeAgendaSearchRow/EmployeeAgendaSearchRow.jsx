@@ -38,6 +38,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
   const pmSeqNum = get(agenda, 'pmSeqfNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
+  const agendaID = get(agenda, 'agendaID') || FALLBACK;
+  const agendaIDExist = (agendaID !== FALLBACK);
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -124,9 +126,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="sticky-note-o" />
             <dt>Agenda:</dt>
             {
-              showAgendaItemMaintenance ?
-                // need to use agendaID here once it is coming through
-                <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
+              (showAgendaItemMaintenance && agendaIDExist) ?
+                <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
                   <dd>{agendaStatus}</dd>
                 </Link>
                 :
