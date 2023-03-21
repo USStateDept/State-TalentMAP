@@ -4,7 +4,7 @@ import FA from 'react-fontawesome';
 import { Handshake } from 'Components/Ribbon';
 import LinkButton from 'Components/LinkButton';
 import { get, isNil } from 'lodash';
-import { formatDate, getCustomLocation } from 'utilities';
+import { formatDate } from 'utilities';
 import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
@@ -24,9 +24,12 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
-  const currentPost = get(currentAssignment, 'orgDescription') || FALLBACK;
-  const formatLoc = getCustomLocation(get(currentAssignment, 'location') || FALLBACK, currentPost);
-  const futurePost = get(hsAssignment, 'orgDescription') || FALLBACK;
+  const currentCity = get(currentAssignment, 'locationCity') ? `${get(currentAssignment, 'locationCity')},` : '';
+  const currentCountry = get(currentAssignment, 'locationCountry') || '';
+  const currentOrg = get(currentAssignment, 'orgDescription') ? `(${get(currentAssignment, 'orgDescription')})` : '';
+  const hsCity = get(hsAssignment, 'locationCity') ? `${get(hsAssignment, 'locationCity')},` : '';
+  const hsCountry = get(hsAssignment, 'locationCountry') || '';
+  const hsOrg = get(hsAssignment, 'orgDescription') ? `(${get(hsAssignment, 'orgDescription')})` : '';
   const initials = get(person, 'initials') || '';
   const panelDate = get(agenda, 'panelDate') ? formatDate(agenda.panelDate) : FALLBACK;
   const showHandshakeIcon = get(result, 'hsAssignment.orgDescription') || false;
@@ -39,7 +42,8 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
-  const currentPost$ = `${formatLoc} (${currentPost})`;
+  const currentPost = (currentCity || currentCountry || currentOrg) ? `${currentCity} ${currentCountry} ${currentOrg}` : FALLBACK;
+  const hsPost = (hsCity || hsCountry || hsOrg) ? `${hsCity} ${hsCountry} ${hsOrg}` : FALLBACK;
 
   let profileLink;
   switch (viewType) {
@@ -81,9 +85,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <FA name="building-o" />
             <dt className="location-label-row">Location (Org):</dt>
             <dd>
-              {currentPost$}
+              {currentPost}
               <FA className="org-fa-arrow" name="long-arrow-right" />
-              {futurePost}</dd>
+              {hsPost}</dd>
           </div>
           <div className="employee-agenda-row-data-point">
             <FA name="clock-o" />

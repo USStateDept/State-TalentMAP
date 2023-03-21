@@ -338,17 +338,10 @@ const AgendaItemMaintenancePane = (props) => {
                     remark={remark}
                     key={remark.seq_num}
                     updateSelection={updateSelection}
+                    fromAIM
                   />
                 ))
               }
-            </div>
-          </div>
-          <div className="corrections">
-            <label htmlFor="corrections">Corrections:</label>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat
-              et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia
             </div>
           </div>
         </>

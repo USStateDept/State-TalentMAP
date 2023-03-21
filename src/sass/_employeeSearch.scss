@@ -51,7 +51,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(406px, 1fr));
     padding: 10px 0px;
-    
+
     .search-results-inputs {
       padding: 5px 0px;
     }
@@ -260,7 +260,7 @@
       padding-left: 16px;
 
       .employee-card-data-point {
-        align-items: center;
+        align-items: baseline;
         display: flex;
         margin-bottom: 5px;
 
