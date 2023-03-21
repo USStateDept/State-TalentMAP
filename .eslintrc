@@ -71,7 +71,7 @@
     "indent": ["error", 2, { "ignoredNodes": ["JSXAttribute", "JSXSpreadAttribute"], "SwitchCase": 1 }],
     "react/jsx-indent": [0],
     "react/jsx-indent-props": ["error", 2],
-    "complexity": ["warn", { "max": 32 }],
+    "complexity": ["warn", { "max": 40 }],
     "no-confusing-arrow": [0],
     // allow names to be the same as the default for Redux container testing
     "import/no-named-as-default": [0],

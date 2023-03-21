@@ -47,6 +47,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     // number:  #,
     // text: not sure yet, but likely to be the default
     const type$ = type.replace(/[{}\d]/g, '').replace(/#/g, 'number');
+
     const returnTypes = {
       text: (<TextInput
         value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
@@ -67,27 +68,25 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         className="remark-input"
       />),
     };
+
     return returnTypes[type$] || returnTypes.text;
   };
 
-  const renderText = r =>
-  //   const rText = r.text.split(/(\s+)/);
-  //   const regex = /({.*})/g;
-  //   let regNum = 0;
-  //
-  //   rText.forEach((a, i) => {
-  //     if (a.match(regex)) {
-  //       if (r.remark_inserts[regNum]) {
-  //         rText.splice(i, 1, getInsertionType(a, r.remark_inserts[regNum]));
-  //       }
-  //       regNum += 1;
-  //     }
-  //   });
-  //
-    (
-      <div className="remark-input-container">{get(r, 'text') || 'None'}</div>
-    )
-  ;
+  const renderText = r => {
+    const rText = r?.text?.split(/(\s+)/) || '';
+    const rInserts = r?.remark_inserts || [];
+
+    rInserts.forEach((a) => {
+      const rInsertionText = a?.riinsertiontext;
+      const rTextI = rText.indexOf(rInsertionText);
+      if (rTextI > -1) {
+        rText.splice(rTextI, 1, getInsertionType(rInsertionText, a));
+      }
+    });
+    return (
+      <div className="remark-input-container">{rText}</div>
+    );
+  };
 
   const [remarks$, setRemarks$] = useState(remarks);
 

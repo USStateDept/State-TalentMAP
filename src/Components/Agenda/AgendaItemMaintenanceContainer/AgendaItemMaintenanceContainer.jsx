@@ -56,6 +56,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
+
     const found = find(userRemarks$, { seq_num: remark.seq_num });
     if (!found) {
       const remark$ = { ...remark };
