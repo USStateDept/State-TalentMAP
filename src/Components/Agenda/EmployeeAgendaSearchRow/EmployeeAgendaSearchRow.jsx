@@ -127,9 +127,11 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <dt>Agenda:</dt>
             {
               (showAgendaItemMaintenance && agendaIDExist) ?
-                <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
-                  <dd>{agendaStatus}</dd>
-                </Link>
+                <dd>
+                  <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
+                    {agendaStatus}
+                  </Link>
+                </dd>
                 :
                 <dd>{agendaStatus}</dd>
             }
