@@ -39,7 +39,7 @@
     color: $color-gray;
     cursor: not-allowed;
   }
-  
+
   .ai-research-pane {
     .fa, .fa-disabled, .fa-disabled:hover {
       color: $color-gray;
@@ -141,6 +141,90 @@
 
       .remarks-pill {
         display: inline-block;
+      }
+    }
+    .add-legs-container {
+      display: flex;
+
+      .add-legs-label {
+        display: flex;
+        width: 100px;
+        margin-right: -20px;
+        align-items: center;
+      }
+      // select {
+      //   font-size: 0.8em;
+      //   height: 40px;
+      //   max-width: 350px;
+      // }
+      select {
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        font-size: 0.8em;
+        height: 28px;
+        padding: 0 28px 0 5px;
+        text-overflow: ellipsis;
+        max-width: fit-content;
+      }
+      .asg-dropdown {
+        width: 351px;
+        // margin-left: 10px;
+      }
+
+      // > div {
+      //   width: 100%;
+      // }
+      // background: red;
+    }
+    .position-number-container {
+      display: flex;
+      margin-left: -10px;
+      align-items: baseline;
+      // input {
+      //   height: 30px;
+      //   max-width: 225px;
+      // }
+      .add-pos-num-input {
+        border-radius: 3px;
+        height: 28px;
+        padding: 0 30px 0 5px;
+        max-width: 180px;
+        font-size: 13px;
+      }
+      .input-default {
+        background-color: $color-white;
+        border: 1px solid $bg-gray-dark-2;
+      }
+      .input-error {
+        background-color: $color-red-lightest;
+        border: 1px solid $color-red;
+      }
+      .input-disabled {
+        background-color: $color-gray-lighter;
+        border: 1px solid $color-gray-light;
+      }
+
+      .add-pos-num-icon {
+        color: $primary-blue;
+        margin-left: -25px;
+        position: relative;
+        top: 1px
+      }
+      .add-pos-num-icon:hover {
+        color: $primary-blue-darkest;
+      }
+      .icon-disabled {
+        color: $color-gray;
+        .fa {
+          cursor: not-allowed;
+        }
+      }
+      .icon-disabled:hover {
+        color: $color-gray;
+        cursor: not-allowed;
+      }
+      label {
+        display: flex;
       }
     }
 

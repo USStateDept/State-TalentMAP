@@ -11,6 +11,7 @@ import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
 import api from '../../../api';
+import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
 const AgendaItemMaintenancePane = (props) => {
   const dispatch = useDispatch();
@@ -29,6 +30,8 @@ const AgendaItemMaintenancePane = (props) => {
     asgSepBidData,
     agendaItem,
     isReadOnly,
+    updateResearchPaneTab,
+    setLegsContainerExpanded,
   } = props;
 
   const defaultText = '';
@@ -147,6 +150,11 @@ const AgendaItemMaintenancePane = (props) => {
     }
   };
 
+  const onFPLinkClick = () => {
+    setLegsContainerExpanded(false);
+    updateResearchPaneTab(FrequentPositionsTabID);
+  };
+
   return (
     <div className="ai-maintenance-header">
       { !unitedLoading &&
@@ -158,33 +166,6 @@ const AgendaItemMaintenancePane = (props) => {
             </button>
           </div>
           <div className="ai-maintenance-header-dd">
-            {
-              !asgSepBidLoading && !asgSepBidError &&
-                <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
-                  defaultValue={asgSepBids}
-                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
-                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
-                  disabled={legLimit || isReadOnly}
-                >
-                  <option selected value={''}>
-                    Employee Assignments, Separations, and Bids
-                  </option>
-                  <option hidden value={'legLimit'}>
-                    Leg Limit of 10 Reached
-                  </option>
-                  {
-                    asgSepBids.map(a => (
-                      <option key={a.pos_num} value={a.pos_num}>
-                        {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        '{a.status || defaultText}'
-                          in {a.org || defaultText} -&nbsp;
-                        {a.pos_title || defaultText}({a.pos_num || defaultText})
-                      </option>
-                    ))
-                  }
-                </select>
-            }
             {
               !statusLoading && !statusError &&
                 <div>
@@ -208,27 +189,6 @@ const AgendaItemMaintenancePane = (props) => {
                   </select>
                 </div>
             }
-            <div>
-              <label htmlFor="position number">Add Position Number:</label>
-              <input
-                name="add"
-                className={`add-pos-num-input ${inputClass}`}
-                onChange={value => setPositionNumber(value.target.value)}
-                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
-                type="add"
-                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
-                disabled={legLimit || isReadOnly}
-              />
-              <InteractiveElement
-                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
-                onClick={addPositionNum}
-                role="button"
-                title="Add position"
-                type="span"
-              >
-                <FA name="plus" />
-              </InteractiveElement>
-            </div>
             {
               !panelCatLoading && !panelCatError &&
                 <div>
@@ -322,14 +282,59 @@ const AgendaItemMaintenancePane = (props) => {
               }
             </div>
           </div>
-          <div className="corrections">
-            <label htmlFor="corrections">Corrections:</label>
-            <div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Ut tincidunt tincidunt imperdiet. Proin nisi diam, tincidunt rhoncus placerat
-              et, fringilla non ligula. Suspendisse sed nibh nisl. Cras varius lacinia
-            </div>
+          <div className="add-legs-container">
+            {/* <label htmlFor="asg-dropdown">Add Legs:</label> */}
+            <strong className="add-legs-label">Add Legs:</strong>
+            {
+              !asgSepBidLoading && !asgSepBidError &&
+                <select
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
+                  defaultValue={asgSepBids}
+                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
+                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                  disabled={legLimit || isReadOnly}
+                >
+                  <option selected value={''}>
+                    Employee Assignments, Separations, and Bids
+                  </option>
+                  <option hidden value={'legLimit'}>
+                    Leg Limit of 10 Reached
+                  </option>
+                  {
+                    asgSepBids.map(a => (
+                      <option key={a.pos_num} value={a.pos_num}>
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                        '{a.status || defaultText}'
+                          in {a.org || defaultText} -&nbsp;
+                        {a.pos_title || defaultText}({a.pos_num || defaultText})
+                      </option>
+                    ))
+                  }
+                </select>
+            }
           </div>
+          <div className="position-number-container">
+            <label htmlFor="position number">Add Position Number:</label>
+            <input
+              name="add"
+              className={`add-pos-num-input ${inputClass}`}
+              onChange={value => setPositionNumber(value.target.value)}
+              onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
+              type="add"
+              value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
+              disabled={legLimit || isReadOnly}
+            />
+            <InteractiveElement
+              className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
+              onClick={addPositionNum}
+              role="button"
+              title="Add position"
+              type="span"
+            >
+              <FA name="plus" />
+            </InteractiveElement>
+          </div>
+          <a aria-hidden="true" onClick={() => onFPLinkClick()}>Open Frequent Positions Tab</a>
         </>
       }
     </div>
@@ -372,6 +377,8 @@ AgendaItemMaintenancePane.propTypes = {
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
   isReadOnly: PropTypes.bool,
+  updateResearchPaneTab: PropTypes.func,
+  setLegsContainerExpanded: PropTypes.func,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -387,6 +394,8 @@ AgendaItemMaintenancePane.defaultProps = {
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
   isReadOnly: false,
+  updateResearchPaneTab: EMPTY_FUNCTION,
+  setLegsContainerExpanded: EMPTY_FUNCTION,
 };
 
 export default AgendaItemMaintenancePane;

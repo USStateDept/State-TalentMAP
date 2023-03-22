@@ -95,6 +95,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const employeeHasCDO = !isNil(get(employeeName, 'person.cdo'));
 
   const updateResearchPaneTab = tabID => {
+    console.log('update tabID: ', tabID);
     researchPaneRef.current.setSelectedNav(tabID);
   };
 
@@ -169,6 +170,8 @@ const AgendaItemMaintenanceContainer = (props) => {
                           saveAI={submitAI}
                           agendaItem={agendaItem}
                           isReadOnly={isReadOnly}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
