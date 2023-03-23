@@ -98,9 +98,9 @@
 
     label {
       font-weight: bold;
-      margin: 10px;
-      text-align: right;
-      min-width: 160px;
+      margin: 0px;
+      margin-right: 5px;
+      min-width: 90px;
     }
 
     .back-save-btns-container {
@@ -178,7 +178,6 @@
     }
     .position-number-container {
       display: flex;
-      margin-left: -10px;
       align-items: baseline;
       // input {
       //   height: 30px;
