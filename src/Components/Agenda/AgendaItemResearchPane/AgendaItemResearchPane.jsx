@@ -45,19 +45,25 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const classificationsProps = { classifications, clientClassifications };
 
-  const { data, error, loading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
-  const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  // eslint-disable-next-line no-unused-vars
+  const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
+  // eslint-disable-next-line no-unused-vars
+  const { data: remarks, error: remarksError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   // eslint-disable-next-line no-unused-vars
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
-  const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
+  // eslint-disable-next-line no-unused-vars
+  const { data: remarkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
-  const assignments = get(data, 'data') || [];
+  const assignments = get(asgHistory, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
   const remarks_data = get(remarks, 'data.data.results') || [];
   const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
-  const groupLoading = includes([loading, frequentPositionsLoading], true);
+  // eslint-disable-next-line max-len
+  const groupLoading = includes([asgHistLoading, remarksDataLoading, frequentPositionsLoading, rmrkCatLoading], true);
+  // eslint-disable-next-line max-len
+  const groupError = includes([asgHistError, remarksError, frequentPositionsError, rmrkCatError], true);
 
   const legLimit = legCount >= 10;
 
@@ -94,22 +100,22 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
       </MediaQuery>
       <div className="ai-research-content">
         {
-          loading && !error &&
+          groupLoading && !groupError &&
             <Spinner type="homepage-position-results" size="small" />
         }
         {
-          !loading && error &&
+          !groupLoading && groupError &&
             <Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />
         }
         {/* headers should always be hidden in the nav view */}
         {
-          selectedNav === ASGH && !loading && !error &&
+          selectedNav === ASGH && !groupLoading && !groupError &&
             <AssignmentHistory
               assignments={assignments}
             />
         }
         {
-          selectedNav === L && !loading && !error &&
+          selectedNav === L && !groupLoading && !groupError &&
             <Languages
               languagesArray={languages}
               useWrapper
@@ -117,7 +123,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === FP && !groupLoading && !error &&
+          selectedNav === FP && !groupLoading && !groupError &&
             <FrequentPositions
               positions={frequentPositions}
               addFrequentPosition={addFrequentPosition}
@@ -125,13 +131,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === TP && !loading && !error &&
+          selectedNav === TP && !groupLoading && !groupError &&
           <div id="aim-classifications"> {/* needed for css specificity */}
             <Classifications {...classificationsProps} />
           </div>
         }
         {
-          selectedNav === RG && !loading && !error &&
+          selectedNav === RG && !groupLoading && !groupError &&
             <RemarksGlossary
               remarks={remarks_data}
               remarkCategories={remarkCategories_data}
