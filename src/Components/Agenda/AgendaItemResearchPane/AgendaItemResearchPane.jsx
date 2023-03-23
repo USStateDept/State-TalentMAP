@@ -105,13 +105,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         }
         {/* headers should always be hidden in the nav view */}
         {
-          selectedNav === ASGH && !asgHistLoading && !asgHistError &&
+          selectedNav === ASGH && !groupLoading && !asgHistError &&
             <AssignmentHistory
               assignments={assignments}
             />
         }
         {
-          selectedNav === L && languages &&
+          selectedNav === L && !groupLoading && languages &&
             <Languages
               languagesArray={languages}
               useWrapper
@@ -119,7 +119,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === FP && !frequentPositionsLoading && !frequentPositionsError &&
+          selectedNav === FP && !groupLoading && !frequentPositionsError &&
             <FrequentPositions
               positions={frequentPositions}
               addFrequentPosition={addFrequentPosition}
@@ -127,13 +127,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === TP && classifications &&
+          selectedNav === TP && !groupLoading && classifications &&
           <div id="aim-classifications"> {/* needed for css specificity */}
             <Classifications {...classificationsProps} />
           </div>
         }
         {
-          selectedNav === RG && !remarksDataLoading && !remarksDataError &&
+          selectedNav === RG && !groupLoading && !remarksDataError &&
             <RemarksGlossary
               remarks={remarks_data}
               remarkCategories={remarkCategories_data}
