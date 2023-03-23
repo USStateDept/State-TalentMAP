@@ -277,6 +277,7 @@ const AgendaItemMaintenancePane = (props) => {
                     remark={remark}
                     key={remark.seq_num}
                     updateSelection={updateSelection}
+                    fromAIM
                   />
                 ))
               }
