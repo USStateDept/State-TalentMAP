@@ -133,6 +133,36 @@
       .asg-dropdown {
         width: 351px;
       }
+      .asg-disabled {
+        background-color: $color-gray-lighter;
+        border: 1px solid $color-gray-light;
+        color: $color-black;
+      }
+      .asg-animation {
+        animation: asgAnimation 2s;
+      }
+
+      @keyframes asgAnimation {
+        0%   {background-color: $primary-alt-light;}
+        100% {background-color: $primary-alt-lightest;}
+      }
+
+      .loading-animation {
+        //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
+        background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 70%, white 70% 100%) right;
+        //background: linear-gradient(135deg, white 0%, $primary-alt-light 50%, white 100%) right;
+        background-size: 400%;
+        animation: loadingAnimation 3s infinite linear;
+      }
+
+      @keyframes loadingAnimation {
+        0% {
+          background-position: right;
+        }
+        100% {
+          background-position: left;
+        }
+      }
     }
     .position-number-container {
       display: flex;
@@ -186,77 +216,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
 
-      .asg-disabled {
-        background-color: $color-gray-lighter;
-        border: 1px solid $color-gray-light;
-        color: $color-black;
-      }
-      .asg-animation {
-        animation: asgAnimation 2s;
-      }
-
-      @keyframes asgAnimation {
-        0%   {background-color: $primary-alt-light;}
-        100% {background-color: $primary-alt-lightest;}
-      }
-
-      .loading-animation {
-        //background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 35%, white 35% 100%) right;
-        background: linear-gradient(135deg, white 0% 30%, $primary-alt-light 30% 70%, white 70% 100%) right;
-        //background: linear-gradient(135deg, white 0%, $primary-alt-light 50%, white 100%) right;
-        background-size: 400%;
-        animation: loadingAnimation 3s infinite linear;
-      }
-
-      @keyframes loadingAnimation {
-        0% {
-          background-position: right;
-        }
-        100% {
-          background-position: left;
-        }
-      }
-
-      .add-pos-num-input {
-        border-radius: 3px;
-        height: 28px;
-        padding: 0 30px 0 5px;
-        max-width: 180px;
-        font-size: 13px;
-      }
-      .input-default {
-        background-color: $color-white;
-        border: 1px solid $bg-gray-dark-2;
-      }
-      .input-error {
-        background-color: $color-red-lightest;
-        border: 1px solid $color-red;
-      }
-      .input-disabled {
-        background-color: $color-gray-lighter;
-        border: 1px solid $color-gray-light;
-      }
-
-      .add-pos-num-icon {
-        color: $primary-blue;
-        margin-left: -25px;
-        position: relative;
-        top: 1px
-      }
-      .add-pos-num-icon:hover {
-        color: $primary-blue-darkest;
-      }
-      .icon-disabled {
-        color: $color-gray;
-        .fa {
-          cursor: not-allowed;
-        }
-      }
-      .icon-disabled:hover {
-        color: $color-gray;
-        cursor: not-allowed;
-      }
-
       div {
         display: flex;
         flex: 70%;
@@ -272,10 +231,6 @@
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
         max-width: fit-content;
-      }
-      .asg-dropdown {
-        width: 351px;
-        margin-left: 10px;
       }
       .aim-select {
         width: 180px;
