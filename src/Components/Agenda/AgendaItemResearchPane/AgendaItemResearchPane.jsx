@@ -45,27 +45,21 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const classificationsProps = { classifications, clientClassifications };
 
-  // eslint-disable-next-line no-unused-vars
   const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
-  // eslint-disable-next-line no-unused-vars
   const { data: remarks, error: remarksDataError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
-  // eslint-disable-next-line no-unused-vars
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
-  // eslint-disable-next-line no-unused-vars
   const { data: remarkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(asgHistory, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
   const remarks_data = get(remarks, 'data.results') || [];
-  console.log('remarks: ', remarks);
-  console.log('remarks_data: ', remarks_data);
-  const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
+  const remarkCategories_data = get(remarkCategories, 'data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
-  // eslint-disable-next-line max-len
-  const groupLoading = includes([asgHistLoading, remarksDataLoading, frequentPositionsLoading, rmrkCatLoading], true);
-  // eslint-disable-next-line max-len
-  const groupError = includes([asgHistError, remarksDataError, frequentPositionsError, rmrkCatError], true);
+  const groupLoading = includes([asgHistLoading, remarksDataLoading,
+    frequentPositionsLoading, rmrkCatLoading], true);
+  const groupError = includes([asgHistError, remarksDataError,
+    frequentPositionsError, rmrkCatError], true);
 
   const legLimit = legCount >= 10;
 
