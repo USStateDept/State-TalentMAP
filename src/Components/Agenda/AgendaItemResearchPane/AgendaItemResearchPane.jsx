@@ -48,7 +48,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   // eslint-disable-next-line no-unused-vars
   const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   // eslint-disable-next-line no-unused-vars
-  const { data: remarks, error: remarksError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const { data: remarks, error: remarksDataError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   // eslint-disable-next-line no-unused-vars
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
   // eslint-disable-next-line no-unused-vars
@@ -56,14 +56,16 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const assignments = get(asgHistory, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
-  const remarks_data = get(remarks, 'data.data.results') || [];
+  const remarks_data = get(remarks, 'data.results') || [];
+  console.log('remarks: ', remarks);
+  console.log('remarks_data: ', remarks_data);
   const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
   // eslint-disable-next-line max-len
   const groupLoading = includes([asgHistLoading, remarksDataLoading, frequentPositionsLoading, rmrkCatLoading], true);
   // eslint-disable-next-line max-len
-  const groupError = includes([asgHistError, remarksError, frequentPositionsError, rmrkCatError], true);
+  const groupError = includes([asgHistError, remarksDataError, frequentPositionsError, rmrkCatError], true);
 
   const legLimit = legCount >= 10;
 
@@ -109,13 +111,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         }
         {/* headers should always be hidden in the nav view */}
         {
-          selectedNav === ASGH && !groupLoading && !groupError &&
+          selectedNav === ASGH && !asgHistLoading && !asgHistError &&
             <AssignmentHistory
               assignments={assignments}
             />
         }
         {
-          selectedNav === L && !groupLoading && !groupError &&
+          selectedNav === L && languages &&
             <Languages
               languagesArray={languages}
               useWrapper
@@ -123,7 +125,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === FP && !groupLoading && !groupError &&
+          selectedNav === FP && !frequentPositionsLoading && !frequentPositionsError &&
             <FrequentPositions
               positions={frequentPositions}
               addFrequentPosition={addFrequentPosition}
@@ -131,13 +133,13 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
             />
         }
         {
-          selectedNav === TP && !groupLoading && !groupError &&
+          selectedNav === TP && classifications &&
           <div id="aim-classifications"> {/* needed for css specificity */}
             <Classifications {...classificationsProps} />
           </div>
         }
         {
-          selectedNav === RG && !groupLoading && !groupError &&
+          selectedNav === RG && !remarksDataLoading && !remarksDataError &&
             <RemarksGlossary
               remarks={remarks_data}
               remarkCategories={remarkCategories_data}
