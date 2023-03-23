@@ -96,7 +96,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   const employeeHasCDO = client_data.loading ? false : !!(client_data?.data?.data?.cdo?.name);
 
   const updateResearchPaneTab = tabID => {
-    console.log('update tabID: ', tabID);
     researchPaneRef.current.setSelectedNav(tabID);
   };
 

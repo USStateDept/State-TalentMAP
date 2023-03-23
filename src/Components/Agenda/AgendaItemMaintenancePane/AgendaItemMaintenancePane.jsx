@@ -284,7 +284,6 @@ const AgendaItemMaintenancePane = (props) => {
             </div>
           </div>
           <div className="add-legs-container">
-            {/* <label htmlFor="asg-dropdown">Add Legs:</label> */}
             <strong className="add-legs-label">Add Legs:</strong>
             {
               !asgSepBidLoading && !asgSepBidError &&
