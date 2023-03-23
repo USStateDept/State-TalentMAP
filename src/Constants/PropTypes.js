@@ -203,6 +203,16 @@ export const USER_NESTED_OBJECT = PropTypes.shape({
   last_name: PropTypes.string,
 });
 
+export const POS_LANGUAGES = PropTypes.arrayOf(
+  PropTypes.shape({
+    language: PropTypes.string,
+    spoken_proficiency: PropTypes.string,
+    reading_proficiency: PropTypes.string,
+    code: PropTypes.string,
+    representation: PropTypes.string,
+  }),
+);
+
 export const USER_PROFILE = PropTypes.shape({
   emp_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   employee_info: PropTypes.shape({
@@ -219,7 +229,7 @@ export const USER_PROFILE = PropTypes.shape({
   display_name: PropTypes.string,
   user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
-  languages: LANGUAGE_QUALIFICATIONS,
+  languages: POS_LANGUAGES,
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
@@ -773,16 +783,6 @@ export const PANEL_MEETING = PropTypes.shape({
   pms_desc_text: PropTypes.string,
   panelMeetingDates: PropTypes.arrayOf(PANEL_MEETING_DATES),
 });
-
-export const POS_LANGUAGES = PropTypes.arrayOf(
-  PropTypes.shape({
-    language: PropTypes.string,
-    spoken_proficiency: PropTypes.number,
-    reading_proficiency: PropTypes.number,
-    code: PropTypes.string,
-    representation: PropTypes.string,
-  }),
-);
 
 export const EMP_USER = PropTypes.shape({
   emp_user_first_name: PropTypes.string,
