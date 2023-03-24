@@ -124,7 +124,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
 CheckboxList.propTypes = {
   list: CLASSIFICATIONS,
   editView: PropTypes.bool,
-  updateClassifications: PropTypes.function,
+  updateClassifications: PropTypes.func,
   input: CLIENT_CLASSIFICATIONS,
   isPublic: PropTypes.bool,
 };
