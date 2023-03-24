@@ -150,7 +150,7 @@ const AgendaItemMaintenancePane = (props) => {
     }
   };
 
-  const onFPLinkClick = () => {
+  const onAddFPClick = () => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(FrequentPositionsTabID);
   };
@@ -284,7 +284,7 @@ const AgendaItemMaintenancePane = (props) => {
             </div>
           </div>
           <div className="add-legs-container">
-            <strong className="add-legs-label">Add Legs:</strong>
+            <strong className="add-legs-header">Add Legs:</strong>
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
@@ -312,29 +312,42 @@ const AgendaItemMaintenancePane = (props) => {
                   }
                 </select>
             }
+            <div className="position-number-container">
+              {/* <label htmlFor="position number">Add Position Number:</label> */}
+              <input
+                name="add"
+                className={`add-pos-num-input ${inputClass}`}
+                onChange={value => setPositionNumber(value.target.value)}
+                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
+                type="add"
+                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
+                disabled={legLimit || isReadOnly}
+                placeholder="Add by Position Number"
+              />
+              <InteractiveElement
+                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
+                onClick={addPositionNum}
+                role="button"
+                title="Add position"
+                type="span"
+              >
+                <FA name="plus" />
+              </InteractiveElement>
+            </div>
+            <div className="add-frequent-positions">
+              <label htmlFor="add-fp">Add Frequent Positions:</label>
+              <InteractiveElement
+                onClick={onAddFPClick}
+                type="span"
+                role="button"
+                className="add-fp-btn"
+                title="Add Frequent Position"
+                id="add-fp"
+              >
+                <FA name="plus" />
+              </InteractiveElement>
+            </div>
           </div>
-          <div className="position-number-container">
-            <label htmlFor="position number">Add Position Number:</label>
-            <input
-              name="add"
-              className={`add-pos-num-input ${inputClass}`}
-              onChange={value => setPositionNumber(value.target.value)}
-              onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
-              type="add"
-              value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
-              disabled={legLimit || isReadOnly}
-            />
-            <InteractiveElement
-              className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
-              onClick={addPositionNum}
-              role="button"
-              title="Add position"
-              type="span"
-            >
-              <FA name="plus" />
-            </InteractiveElement>
-          </div>
-          <a aria-hidden="true" onClick={() => onFPLinkClick()}>Open Frequent Positions Tab</a>
         </>
       }
     </div>
