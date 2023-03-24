@@ -8,15 +8,14 @@ import { formatDate } from 'utilities';
 import { checkFlag } from 'flags';
 import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
-const usePanelMeeting = () => checkFlag('flags.panel_search');
-const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
+const useAgendaItemHistory = () => checkFlag('flags.agenda_item_history');
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
+const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
 
 const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
-  const panelMeetingActive = usePanelMeeting();
-  // this check is tempoary and being done because we
-  // do not have the data to identify if an AI is editable or not
-  const editAgendaItem = useEditAgendaItem();
-  const isEditableItem = Math.floor(Math.random() * 3) === 1;
+  const showAgendaItemHistory = useAgendaItemHistory();
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
+  const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
 
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
@@ -37,8 +36,10 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const perdet = get(person, 'perdet', '');
   const userRole = isCDO ? 'cdo' : 'ao';
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
-  const pmSeqNum = get(agenda, 'pmSeqfNum') || FALLBACK;
+  const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
+  const agendaID = get(agenda, 'agendaID') || FALLBACK;
+  const agendaIDExist = (agendaID !== FALLBACK);
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -108,10 +109,10 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
           </div>
           */}
           <div className="employee-agenda-row-data-point">
-            <FA name="calendar-o" />
+            <FA name="calendar" />
             <dt>Panel Date:</dt>
             {
-              (panelMeetingActive && panelMeetingExist) ?
+              (showPanelMeetingsAgendas && panelMeetingExist) ?
                 <dd>
                   <Link to={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>
                     {panelDate}
@@ -124,20 +125,25 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
           <div className="employee-agenda-row-data-point">
             <FA name="sticky-note-o" />
             <dt>Agenda:</dt>
-            <dd>{agendaStatus}</dd>
             {
-              (editAgendaItem && isEditableItem) &&
-              // need to use agendaID here once it is coming through
-              <Link to={`/profile/${userRole}/createagendaitem/${perdet}/962`} className="agenda-edit-button">
-                <FA name="pencil" />
-              </Link>
+              (showAgendaItemMaintenance && agendaIDExist) ?
+                <dd>
+                  <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
+                    {agendaStatus}
+                  </Link>
+                </dd>
+                :
+                <dd>{agendaStatus}</dd>
             }
           </div>
         </div>
         <div className="button-container">
-          <div className="view-agenda-item-container">
-            <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
-          </div>
+          {
+            showAgendaItemHistory &&
+            <div className="view-agenda-item-container">
+              <LinkButton className="view-agenda-item-button" toLink={`/profile/${userRole}/agendaitemhistory/${perdet}`}>View History</LinkButton>
+            </div>
+          }
           {
             !!showCreate &&
             <div className="button-box-container">
