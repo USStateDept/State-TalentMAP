@@ -313,7 +313,6 @@ const AgendaItemMaintenancePane = (props) => {
                 </select>
             }
             <div className="position-number-container">
-              {/* <label htmlFor="position number">Add Position Number:</label> */}
               <input
                 name="add"
                 className={`add-pos-num-input ${inputClass}`}
