@@ -40,10 +40,10 @@ const AssignmentsContent = ({ assignment }) => (
         {get(assignment, 'status') || DEFAULT_TEXT}
       </div>
     }
-    { has(assignment, 'asgd_tod_desc_text') &&
+    { has(assignment, 'tod_desc_text') &&
       <div>
         <span className="bid-list-card-title-post">TOD Description: </span>
-        {get(assignment, 'asgd_tod_desc_text') || DEFAULT_TEXT}
+        {get(assignment, 'tod_desc_text') || DEFAULT_TEXT}
       </div>
     }
     <div>
