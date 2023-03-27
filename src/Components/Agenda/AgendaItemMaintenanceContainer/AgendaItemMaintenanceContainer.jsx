@@ -20,10 +20,14 @@ import api from '../../../api';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
-
   const researchPaneRef = useRef();
+
   const agendaID = get(props, 'match.params.agendaID') || '';
-  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
+  let agendaItemData = {}; let agendaItemError = false; let agendaItemLoading = false;
+  if (agendaID) {
+    const agendaItemCall = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
+    ({ data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = agendaItemCall);
+  }
   const agendaItem = get(agendaItemData, 'data') || {};
   // temporary until business logic is added for readOnly items
   const isReadOnly = !isEmpty(agendaItemData);
