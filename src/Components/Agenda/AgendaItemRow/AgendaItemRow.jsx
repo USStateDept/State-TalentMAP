@@ -35,12 +35,12 @@ const AgendaItemRow = props => {
   const cdo = get(clientData, 'cdo.name') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
-  const updaterMiddleInitial = get(agenda, 'updaters.middle_name')?.slice(0, 1) || '';
-  const creatorMiddleInitial = get(agenda, 'creators.middle_name')?.slice(0, 1) || '';
   const remarks = get(agenda, 'remarks') || [];
 
-  const updateDate = dateTernary(agenda?.modifier_date);
+  const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
   const createDate = dateTernary(agenda?.creator_date);
+  const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
+  const updateDate = dateTernary(agenda?.modifier_date);
 
   const pmi = (<>
     {
@@ -131,13 +131,13 @@ const AgendaItemRow = props => {
             <div className="ai-updater-creator">
               <div className="wrapper">
                 <span className="ai-updater-creator-name">
-                  Created: {get(agenda, 'creators.last_name') || ''}, {get(agenda, 'creators.first_name') || ''} {creatorMiddleInitial}
+                  Created: {createdByLast} {get(agenda, 'creators.first_name') || ''}
                 </span>
                 <span className="date">{createDate}</span>
               </div>
               <div className="wrapper">
                 <span className="ai-updater-creator-name">
-                  Modified: {get(agenda, 'updaters.last_name') || ''}, {get(agenda, 'updaters.first_name') || ''} {updaterMiddleInitial}
+                  Modified: {updateByLast} {get(agenda, 'updaters.first_name') || ''}
                 </span>
                 <span className="date">{updateDate}</span>
               </div>
