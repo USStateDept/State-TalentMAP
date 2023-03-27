@@ -23,11 +23,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const researchPaneRef = useRef();
 
   const agendaID = get(props, 'match.params.agendaID') || '';
-  let agendaItemData = {}; let agendaItemError = false; let agendaItemLoading = false;
-  if (agendaID) {
-    const agendaItemCall = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
-    ({ data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = agendaItemCall);
-  }
+  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
   // temporary until business logic is added for readOnly items
   const isReadOnly = !isEmpty(agendaItemData);
