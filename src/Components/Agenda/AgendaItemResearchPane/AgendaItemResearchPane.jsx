@@ -45,15 +45,18 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const classificationsProps = { classifications, clientClassifications };
 
+
   const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   const { data: remarks, error: remarksDataError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  // eslint-disable-next-line no-unused-vars
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
   const { data: remarkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(asgHistory, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
-  const remarks_data = get(remarks, 'data.results') || [];
-  const remarkCategories_data = get(remarkCategories, 'data.results') || [];
+
+  const remarks_data = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
+  const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
   const groupLoading = includes([asgHistLoading, remarksDataLoading,
