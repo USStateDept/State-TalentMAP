@@ -46,14 +46,14 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const classificationsProps = { classifications, clientClassifications };
 
   const { data, error, loading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
-  const remarks = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const { data: remarks } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   // eslint-disable-next-line no-unused-vars
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
   const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(data, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
-  const remarks_data = get(remarks, 'data.data.results') || [];
+  const remarks_data = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
   const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
