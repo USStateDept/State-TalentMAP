@@ -19,7 +19,6 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
 
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
-  const agendaStatus = get(agenda, 'status') || FALLBACK;
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
@@ -38,8 +37,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
   const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
+  const agendaStatus = get(agenda, 'status');
   const agendaID = get(agenda, 'agendaID') || FALLBACK;
-  const agendaIDExist = (agendaID !== FALLBACK);
+  const agendaIDExist = !!agendaID;
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -100,14 +100,6 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <dt>CDO:</dt>
             <dd>{cdo}</dd>
           </div>
-          {/*
-            // TODO - do we want to include and/or filter by Author?
-            <div className="employee-agenda-row-data-point">
-            <FA name="pencil-square" />
-            <dt>Author:</dt>
-            <dd>{author}</dd>
-          </div>
-          */}
           <div className="employee-agenda-row-data-point">
             <FA name="calendar" />
             <dt>Panel Date:</dt>
@@ -129,11 +121,11 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
               (showAgendaItemMaintenance && agendaIDExist) ?
                 <dd>
                   <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
-                    {agendaStatus}
+                    {agendaStatus || <FA name="sticky-note" />}
                   </Link>
                 </dd>
                 :
-                <dd>{agendaStatus}</dd>
+                <dd>{agendaStatus || FALLBACK}</dd>
             }
           </div>
         </div>

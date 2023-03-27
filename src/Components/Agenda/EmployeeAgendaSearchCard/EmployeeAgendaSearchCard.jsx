@@ -22,7 +22,6 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
 
   // will need to update during integration
   const { person, currentAssignment, agenda, hsAssignment } = result;
-  const agendaStatus = get(agenda, 'status') || FALLBACK;
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
@@ -40,8 +39,9 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
   const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
-  const agendaID = get(agenda, 'agendaID') || FALLBACK;
-  const agendaIDExist = (agendaID !== FALLBACK);
+  const agendaStatus = get(agenda, 'status');
+  const agendaID = get(agenda, 'agendaID');
+  const agendaIDExist = !!agendaID;
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -135,11 +135,11 @@ const EmployeeAgendaSearchCard = ({ isCDO, result, showCreate, viewType }) => {
             (showAgendaItemMaintenance && agendaIDExist) ?
               <dd>
                 <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
-                  {agendaStatus}
+                  {agendaStatus || <FA name="sticky-note-o" />}
                 </Link>
               </dd>
               :
-              <dd>{agendaStatus}</dd>
+              <dd>{agendaStatus || FALLBACK}</dd>
           }
         </div>
       </div>
