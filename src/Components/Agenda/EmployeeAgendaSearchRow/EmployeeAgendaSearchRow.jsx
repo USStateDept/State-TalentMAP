@@ -38,7 +38,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
   const agendaStatus = get(agenda, 'status');
-  const agendaID = get(agenda, 'agendaID') || FALLBACK;
+  const agendaID = get(agenda, 'agendaID');
   const agendaIDExist = !!agendaID;
 
   // handles error where some employees have no Profile
