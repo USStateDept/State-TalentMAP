@@ -621,6 +621,7 @@ export const CLASSIFICATION = PropTypes.shape({
   code: PropTypes.string,
   text: PropTypes.string,
   seasons: PropTypes.arrayOf(PropTypes.object),
+  glossary_term: PropTypes.string,
 });
 
 export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);
@@ -655,7 +656,14 @@ export const ORG_PERMISSIONS = PropTypes.arrayOf(
   }),
 );
 
-export const FILTER_SELECTION = PropTypes.arrayOf(PropTypes.string);
+export const FILTER_SELECTION = PropTypes.arrayOf(
+  PropTypes.oneOfType(
+    [
+      PropTypes.string,
+      PropTypes.shape({}),
+    ],
+  ),
+);
 
 export const BUREAU_USER_SELECTIONS = PropTypes.shape({
   page: PropTypes.number,
@@ -691,3 +699,170 @@ export const HANDSHAKE_DETAILS = PropTypes.shape({
   hs_date_expiration: PropTypes.string,
   hs_cdo_indicator: PropTypes.bool,
 });
+
+export const AB_DETAILS_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  status: PropTypes.string,
+  oc_reason: PropTypes.string,
+  oc_bureau: PropTypes.string,
+  notes: PropTypes.string,
+  date_created: PropTypes.string,
+  update_date: PropTypes.string,
+  is_shared: PropTypes.bool,
+  last_editing_user_id: PropTypes.number,
+  perdet_seq_num: PropTypes.number,
+});
+
+export const AVAILABLE_BIDDER_OBJECT = PropTypes.shape({
+  id: PropTypes.number,
+  cdo: CDO_OBJECT,
+  name: PropTypes.string,
+  shortened_name: PropTypes.string,
+  initials: PropTypes.string,
+  perdet_seq_number: PropTypes.string,
+  grade: PropTypes.string,
+  skills: USER_SKILL_CODE_ARRAY,
+  employee_id: PropTypes.string,
+  pos_location: PropTypes.string,
+  classifications: CLIENT_CLASSIFICATIONS,
+  current_assignment: ASSIGNMENT_OBJECT,
+  languages: LANGUAGE_QUALIFICATIONS,
+  available_bidder_details: AB_DETAILS_OBJECT,
+});
+
+export const AB_EDIT_SECTIONS_OBJECT = PropTypes.shape({
+  name: PropTypes.element,
+  status: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  skill: PropTypes.element,
+  grade: PropTypes.string,
+  languages: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  ted: PropTypes.string,
+  current_post: PropTypes.string,
+  cdo: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
+  notes: PropTypes.string,
+});
+
+export const AB_EDIT_DETAILS_OBJECT = PropTypes.shape({
+  oc_bureau: PropTypes.string,
+  oc_reason: PropTypes.string,
+  status: PropTypes.string,
+  shared: PropTypes.bool,
+  languages: LANGUAGE_QUALIFICATIONS,
+  bidderBureau: PropTypes.string,
+  formattedCreated: PropTypes.string,
+});
+
+export const PANEL_MEETING_DATES = PropTypes.shape({
+  pm_seq_num: PropTypes.number,
+  mdt_code: PropTypes.string,
+  pmd_dttm: PropTypes.string,
+  mdt_desc_text: PropTypes.string,
+  mdt_order_num: PropTypes.number,
+});
+
+export const PANEL_MEETING = PropTypes.shape({
+  pm_seq_num: PropTypes.number,
+  pm_virtual: PropTypes.string,
+  pm_create_id: PropTypes.number,
+  pm_create_date: PropTypes.string,
+  pm_update_id: PropTypes.number,
+  pm_update_date: PropTypes.string,
+  pms_code: PropTypes.string,
+  pmt_code: PropTypes.string,
+  pmt_desc_text: PropTypes.string,
+  pms_desc_text: PropTypes.string,
+  panelMeetingDates: PropTypes.arrayOf(PANEL_MEETING_DATES),
+});
+
+export const POS_LANGUAGES = PropTypes.arrayOf(
+  PropTypes.shape({
+    language: PropTypes.string,
+    spoken_proficiency: PropTypes.number,
+    reading_proficiency: PropTypes.number,
+    code: PropTypes.string,
+    representation: PropTypes.string,
+  }),
+);
+
+export const EMP_USER = PropTypes.shape({
+  emp_user_first_name: PropTypes.string,
+  emp_user_last_name: PropTypes.string,
+  emp_user_middle_name: PropTypes.string,
+  emp_user_seq_num: PropTypes.number,
+  emp_user_suffix_name: PropTypes.string,
+  per_desc: PropTypes.string,
+  perdet_seqnum: PropTypes.number,
+});
+
+export const CREATORS_OR_UPDATERS = PropTypes.shape({
+  emp_seq_num: PropTypes.number,
+  emp_user: EMP_USER,
+  first_name: PropTypes.string,
+  hru_id: PropTypes.string,
+  last_name: PropTypes.string,
+  middle_name: PropTypes.string,
+  neu_id: PropTypes.number,
+});
+
+export const AGENDA_ITEM = PropTypes.shape({
+  creator_name: PropTypes.number,
+  creators: CREATORS_OR_UPDATERS,
+  id: PropTypes.number,
+  modifier_name: PropTypes.number,
+  panel_date: PropTypes.string,
+  panel_date_type: PropTypes.string,
+  panel_meeting_seq_num: PropTypes.string,
+  perdet: PropTypes.number,
+  status_full: PropTypes.string,
+  status_short: PropTypes.string,
+  update_date: PropTypes.string,
+  updaters: CREATORS_OR_UPDATERS,
+  assignment: PropTypes.shape({
+    eta: PropTypes.string,
+    grade: PropTypes.string,
+    id: PropTypes.number,
+    languages: POS_LANGUAGES,
+    org: PropTypes.string,
+    pos_num: PropTypes.string,
+    pos_title: PropTypes.string,
+    ted: PropTypes.string,
+    tod: PropTypes.string,
+  }),
+  legs: PropTypes.arrayOf(
+    PropTypes.shape({
+      eta: PropTypes.string,
+      grade: PropTypes.string,
+      id: PropTypes.number,
+      languages: POS_LANGUAGES,
+      org: PropTypes.string,
+      pos_num: PropTypes.string,
+      pos_title: PropTypes.string,
+      ted: PropTypes.string,
+      tod: PropTypes.string,
+    }),
+  ),
+  report_category: PropTypes.shape({
+    code: PropTypes.string,
+    desc_text: PropTypes.string,
+  }),
+  remarks: PropTypes.arrayOf(PropTypes.shape({
+    seq_num: PropTypes.number,
+    rc_code: PropTypes.string,
+    remark_inserts: [],
+    order_num: PropTypes.number,
+    short_desc_text: PropTypes.string,
+    mutually_exclusive_ind: PropTypes.string,
+    text: PropTypes.string,
+    active_ind: PropTypes.string,
+    type: null,
+  })),
+});
+
+export const TRACKER_DATA = PropTypes.arrayOf(
+  PropTypes.shape({
+    description: PropTypes.string,
+    isActive: PropTypes.bool,
+    isCurrent: PropTypes.bool,
+    label: PropTypes.string,
+  }),
+);

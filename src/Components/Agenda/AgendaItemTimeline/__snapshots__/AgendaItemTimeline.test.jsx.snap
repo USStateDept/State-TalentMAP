@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemTimeline Component matches snapshot 1`] = `
+<div
+  className="agenda-item-history-container ai-timeline-pane"
+>
+  <div
+    className="ai-history-rows-container"
+  >
+    <div
+      className="ai-history-row"
+    >
+      <AgendaItemLegs
+        hideRemarks={true}
+        isCard={false}
+        legs={
+          Array [
+            Object {
+              "action": "Resign",
+              "eta": "2031-12-05T00:00:00.000Z",
+              "grade": "MC",
+              "id": 41387,
+              "org": "INR",
+              "pos_num": "N/A",
+              "pos_title": "RESIGNATION",
+              "ted": "2034-11-05T00:00:00.000Z",
+              "tod": "3 YRS/TRANSFER",
+              "travel": null,
+            },
+          ]
+        }
+        onClose={[Function]}
+        remarks={Array []}
+        showCloseButton={true}
+      />
+    </div>
+  </div>
+</div>
+`;

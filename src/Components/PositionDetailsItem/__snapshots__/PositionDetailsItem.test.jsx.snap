@@ -6,15 +6,7 @@ exports[`PositionDetailsItem matches snapshot 1`] = `
 >
   <div
     className="handshake-offset-container"
-  >
-    <Connect(StaticDevContent)>
-      <CriticalNeed
-        className="ribbon-position-details"
-        cutSide="both"
-        shortName={false}
-      />
-    </Connect(StaticDevContent)>
-  </div>
+  />
   <div
     className="usa-grid-full position-details-description-container positions-details-about-position"
   >
@@ -384,15 +376,7 @@ exports[`PositionDetailsItem matches snapshot when there is an obc id 1`] = `
 >
   <div
     className="handshake-offset-container"
-  >
-    <Connect(StaticDevContent)>
-      <CriticalNeed
-        className="ribbon-position-details"
-        cutSide="both"
-        shortName={false}
-      />
-    </Connect(StaticDevContent)>
-  </div>
+  />
   <div
     className="usa-grid-full position-details-description-container positions-details-about-position"
   >
@@ -764,15 +748,7 @@ exports[`PositionDetailsItem matches snapshot when various data is missing from 
 >
   <div
     className="handshake-offset-container"
-  >
-    <Connect(StaticDevContent)>
-      <CriticalNeed
-        className="ribbon-position-details"
-        cutSide="both"
-        shortName={false}
-      />
-    </Connect(StaticDevContent)>
-  </div>
+  />
   <div
     className="usa-grid-full position-details-description-container positions-details-about-position"
   >

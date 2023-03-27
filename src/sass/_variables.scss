@@ -31,6 +31,8 @@ $secondary-light: #E59393;
 $secondary-lightest: #F9DEDE;
 
 // Tertiary
+$tertiary-gold-darker: #7D6D40;
+$tertiary-gold-dark: #C8AE66;
 $tertiary-gold: #FDB81E;
 $tertiary-gold-light: #F9C642;
 $tertiary-gold-lighter: $var-tertiary-gold-lighter;
@@ -109,6 +111,7 @@ $color-cornflower-blue: #DDE4EF;
 $color-blue-chill: #117C8D;
 $color-blue-mariner: #2E72B7;
 $color-purple: #4e499b;
+$color-purple-medium: #E4E3F2;
 $color-purple-light: #F2F2F8;
 
 $tm-dark-blue: $bg-blue-dark-1;
@@ -120,8 +123,7 @@ $tm-navy-dark: $blue-primary-darkest;
 
 //**
 //* Ribbon Colors
-$ribbon-cn: #EDA176 ;
-$ribbon-htf: #89C1F2;
+$ribbon-hds: #89C1F2;
 
 //**
 //* DOS Colors
@@ -192,22 +194,25 @@ $tm-focus-outline-offset-default: 3px;
 //* z-index
 //*
 // we'll use this section to keep track of and order them
-$autosuggest-suggestions-container-open-z: 20;
+$glossary-z: 20000;
 $dropdown-content-z: 15000;
 $feedback-z: 11000;
-$feedback-button-z: 10000;
-$scrollbar-z: 0;
 $skill-code-dropdown-z: 10500;
-$spinner-z: 100;
-$bureau-spinner-z: 98;
-$toggle-button-z: 5;
-$ribbon-z: 10;
 $back-to-top-z: 10200;
-$glossary-z: 20000;
+$feedback-button-z: 10000;
+//Results Page joyride tutorial: 1000;
+$client-header-z: 100;
+$banner-toggle-z: 101;
+$spinner-z: 99;
+$bureau-spinner-z: 98;
+$daterange-z: 50;
+$autosuggest-suggestions-container-open-z: 20;
+$ribbon-z: 10;
+$toggle-button-z: 5;
 $glossary-close-z: 1;
 $ribbon-condensed-card-z: 1;
 $condensed-card-top-z: 1;
-$client-header-z: 9001;
+$scrollbar-z: 0;
 
 //**
 //* Images
@@ -219,5 +224,96 @@ $angle-down-black: url('#{$asset-path}assets/img/angle-down-black.svg');
 // other variables
 //
 $button-box-shadow: 5px 10px 20px -4px $color-black-box-shadow;
-$bg-hs-another-client: #dbdbdb;
-$bg-overlay-hs-another-client: #636363;
+
+//**
+//* Available Bidders
+//*
+$abl-actions-td: 12;
+$abl-gray-config: (
+  "Status": 2,
+  "Step Letter": 3,
+  "Updated On": 10,
+  "Notes": 11
+);
+
+//**
+//* remarks pills colors
+//*
+$remarks: (
+  "A": #1E600B,
+  "B": #4372C4,
+  "C": #3700AD,
+  "D": #012E16,
+  "E": #6F4F0B,
+  "G": #015E7A,
+  "I": #5D1EE6,
+  "L": #4F4A3F,
+  "M": #89471A,
+  "N": #003EBD,
+  "O": #0E6138,
+  "P": #3F0F10,
+  "R": #00102F,
+  "S": #8D5500,
+  "T": #446228,
+  "W": $color-cornflower-blue, // need to update this one
+);
+
+//**
+//* Border Colors
+//*
+$borderColor:(
+  "WDR": #227C9D, // Withdrawn: turqoise
+  "DIS": #913831, // Disapproved: red
+  "APR": #2D6E0E, // Approved: dark green
+  "DEF": #36454F, // Deferred: grey
+  "XXX": #483C32, // Deferred - Proposed Position: dark brown
+  "RDY": #003EBD, // Ready: blue
+  "HLD": #6421A2, // Held: purple
+  "NR": #DC6601, // Not Ready: Orange
+  "OOO": #946f00, // Out of Order: copper
+  "PIP": #75673E, // PIP: light brown
+  "MOV": #301934, // Move to ML/ID: dark purple
+  "Default": #513C2C, // Default: brown
+);
+
+//**
+//* Panel Status Colors
+//*
+$panelStatuses: (
+  "A": #6421A2,
+  "C": #913831,
+  "I": #757575,
+  "O": #003EBD,
+  "P": #DC6601,
+);
+
+//**
+//* Agenda Item Maintenance Legs
+//*
+$aim-legs-sm-height-config: (
+  "Position Number": 3,
+  "Grade": 4,
+  "Language": 5,
+  "Org": 6,
+  "ETA": 7,
+  "TED": 9,
+);
+
+$aim-legs-lrg-height-config: (
+  "TOD": 10,
+  "Action": 11,
+  "Travel": 12,
+);
+
+//**
+//* resolution widths for .ai-legs
+//*
+$ai-legs-width-config: (
+        1000px: 67vw,
+        1300px: 73vw,
+        1500px: 75vw,
+        1700px: 80vw,
+        2000px: 83vw,
+        2400px: 95vw,
+        2700px: 98vw,
+);

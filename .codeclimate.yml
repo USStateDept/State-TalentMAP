@@ -10,20 +10,22 @@ plugins:
     config:
       languages:
         javascript:
-  eslint:
-    enabled: true
-    channel: "eslint-6"
-    checks:
-      import/no-unresolved:
-        enabled: false
-      import/extensions:
-        enabled: false
-    config:
-      extensions:
-      - .js
-      - .jsx
-  scss-lint:
-    enabled: true
+  # eslint:
+  #   enabled: true
+  #   channel: "eslint-6"
+  #   checks:
+  #     import/no-unresolved:
+  #       enabled: false
+  #     import/extensions:
+  #       enabled: false
+  #     no-loops/no-loops:
+  #       enabled: false
+  #   config:
+  #     extensions:
+  #     - .js
+  #     - .jsx
+  # scss-lint:
+  #   enabled: true
 exclude_patterns:
 - node_modules/
 - build/ # build artifacts

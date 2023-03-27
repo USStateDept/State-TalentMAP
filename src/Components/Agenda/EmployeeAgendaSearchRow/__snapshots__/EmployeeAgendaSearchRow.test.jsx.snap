@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeAgendaSearchRow matches snapshot 1`] = `
+<div
+  className="usa-grid-full employee-agenda-stat-row"
+>
+  <div
+    className="initials-circle-container"
+  >
+    <div
+      className="initials-circle"
+    />
+  </div>
+  <div
+    className="employee-agenda-card-top"
+  >
+    <div
+      className="employee-ribbon-container"
+    >
+      <div
+        className="ribbon-container-condensed"
+      />
+    </div>
+  </div>
+  <div
+    className="employee-agenda-row-name"
+  >
+    <div
+      className="row-name"
+    >
+      None Listed
+       (
+      None Listed
+      )
+    </div>
+  </div>
+  <div
+    className="employee-agenda-row-data-container"
+  >
+    <div
+      className="employee-agenda-row-data-points"
+    >
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="building-o"
+        />
+        <dt
+          className="location-label-row"
+        >
+          Location (Org):
+        </dt>
+        <dd>
+          None Listed
+          <FontAwesome
+            className="org-fa-arrow"
+            name="long-arrow-right"
+          />
+          None Listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="clock-o"
+        />
+        <dt>
+          TED:
+        </dt>
+        <dd>
+          None Listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="user-o"
+        />
+        <dt>
+          CDO:
+        </dt>
+        <dd>
+          None Listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="calendar"
+        />
+        <dt>
+          Panel Date:
+        </dt>
+        <dd>
+          None Listed
+        </dd>
+      </div>
+      <div
+        className="employee-agenda-row-data-point"
+      >
+        <FontAwesome
+          name="sticky-note-o"
+        />
+        <dt>
+          Agenda:
+        </dt>
+        <dd>
+          None Listed
+        </dd>
+      </div>
+    </div>
+    <div
+      className="button-container"
+    >
+      <div
+        className="view-agenda-item-container"
+      >
+        <LinkButton
+          className="view-agenda-item-button"
+          toLink="/profile/ao/agendaitemhistory/"
+        >
+          View History
+        </LinkButton>
+      </div>
+      <div
+        className="button-box-container"
+      >
+        <LinkButton
+          className="button-box"
+          toLink="/profile/ao/createagendaitem/"
+        >
+          Create Agenda Item
+        </LinkButton>
+      </div>
+    </div>
+  </div>
+</div>
+`;

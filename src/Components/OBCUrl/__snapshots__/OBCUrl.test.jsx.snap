@@ -25,7 +25,6 @@ exports[`OBCUrlComponent matches snapshot when isButton is true 1`] = `
   className="post-data-button "
   isExternal={true}
   toLink="https://google.com/1"
-  useDefaultClass={true}
 >
   Post details
 </LinkButton>

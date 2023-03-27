@@ -127,7 +127,7 @@ export function availableBiddersFetchData(isCDO, sortType = 'Name') {
       dispatch(availableBiddersFetchDataLoading(true));
       dispatch(availableBiddersFetchDataErrored(false));
     });
-    api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/${sortType ? `?ordering=${sortType}` : ''}`)
+    api().get(`${isCDO ? 'cdo' : 'bureau'}/availablebidders/?ordering=${sortType}`)
       .then(({ data }) => {
         batch(() => {
           dispatch(availableBiddersFetchDataSuccess(data));
@@ -153,7 +153,7 @@ export function availableBiddersFetchData(isCDO, sortType = 'Name') {
   };
 }
 
-export function availableBiddersToggleUser(id, remove, refresh = false) {
+export function availableBiddersToggleUser(id, remove, refresh = false, sortType = 'Name') {
   return (dispatch) => {
     const config = {
       method: remove ? 'delete' : 'put',
@@ -177,7 +177,7 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
           dispatch(availableBiddersToggleUserIsLoading(false));
           dispatch(availableBiddersIds());
           if (refresh) {
-            dispatch(availableBiddersFetchData(true));
+            dispatch(availableBiddersFetchData(true, sortType));
           }
         });
       })
@@ -194,7 +194,7 @@ export function availableBiddersToggleUser(id, remove, refresh = false) {
   };
 }
 
-export function availableBidderEditData(id, data) {
+export function availableBidderEditData(id, data, sortType = 'Name') {
   return (dispatch) => {
     batch(() => {
       dispatch(availableBidderEditDataLoading(true));
@@ -210,7 +210,7 @@ export function availableBidderEditData(id, data) {
           dispatch(availableBidderEditDataLoading(false));
           dispatch(availableBidderEditDataSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(availableBiddersFetchData(true));
+          dispatch(availableBiddersFetchData(true, sortType));
         });
       })
       .catch((err) => {
@@ -232,9 +232,9 @@ export function availableBidderEditData(id, data) {
   };
 }
 
-export function availableBidderExport(cdo) {
+export function availableBidderExport(isInternalCDAView, isSort = 'Name') {
   return api()
-    .get(`${cdo ? '/cdo' : '/bureau'}/availablebidders/export/`)
+    .get(`${isInternalCDAView ? '/cdo' : '/bureau'}/availablebidders/export/?ordering=${isSort}`)
     .then((response) => {
       downloadFromResponse(response, `Available_Bidders_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });

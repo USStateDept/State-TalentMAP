@@ -45,11 +45,14 @@ class HandshakeOfferedAlert extends Component {
     const hsActionBy = `${handshake.hs_cdo_indicator ? 'a CDO' : `${cdoView ? userName : 'you'}`}`;
     const hsActionDate = formatDate(bidderAction$ === 'accepted' ? get(handshake, 'hs_date_accepted') : get(handshake, 'hs_date_declined'));
     const hsExpiration = get(handshake, 'hs_date_expiration');
+    const acceptedOtherHandshake = get(bid, 'accept_handshake_disabled');
 
     let languages$ = NO_LANGUAGES;
     if (languages) {
       languages$ = languages.map(l => l.representation).join(', ');
     }
+
+    const acceptedOtherHandShakeText = acceptedOtherHandshake ? ', but another one within the same bid cycle has already been accepted.' : '';
 
     return (
       <div className="bid-tracker-alert-container--handshake-offered">
@@ -63,8 +66,8 @@ class HandshakeOfferedAlert extends Component {
               {
                 !bidderAction ?
                   <>
-                    <div>{`${userName}${cdoView ? ' has' : ", you've"} been offered a handshake`}</div>
-                    <button className="tm-button-transparent" onClick={this.onAcceptBid}>
+                    <div>{`${userName}${cdoView ? ' has' : ", you've"} been offered a handshake`}{acceptedOtherHandShakeText}</div>
+                    <button className="tm-button-transparent" onClick={this.onAcceptBid} disabled={!!acceptedOtherHandshake}>
                       <FontAwesomeIcon icon={faCheck} /> Accept Handshake
                     </button>
                     <button className="tm-button-transparent tm-button-no-box" onClick={this.onDeclineBid}>
@@ -74,8 +77,8 @@ class HandshakeOfferedAlert extends Component {
                   </>
                   :
                   <>
-                    <div>{`Handshake was ${bidderAction$} by ${hsActionBy} on ${hsActionDate}`}</div>
-                    <button className="tm-button-transparent" onClick={this.onAcceptBid} disabled={bidderAction$ === 'accepted'}>
+                    <div>{`Handshake was ${bidderAction$} by ${hsActionBy} on ${hsActionDate}`}{acceptedOtherHandShakeText}</div>
+                    <button className="tm-button-transparent" onClick={this.onAcceptBid} disabled={bidderAction$ === 'accepted' || acceptedOtherHandshake}>
                       <FontAwesomeIcon icon={faCheck} /> Accept Handshake
                     </button>
                     {

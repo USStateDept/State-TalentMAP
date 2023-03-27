@@ -14,22 +14,25 @@ export const DEFAULT_TEXT = 'None listed';
 
 export const NO_ASSIGNMENT_DATE = DEFAULT_TEXT;
 export const NO_ASSIGNMENT_POSITION = DEFAULT_TEXT;
+export const NO_ASSIGNMENT_STATUS = DEFAULT_TEXT;
+export const NO_ASSIGNMENT_TOD_DESC = DEFAULT_TEXT;
 export const NO_BID_CYCLE = DEFAULT_TEXT;
 export const NO_BIRTHDAY = DEFAULT_TEXT;
 export const NO_BUREAU = DEFAULT_TEXT;
 export const NO_CDO = DEFAULT_TEXT;
 export const NO_CLASSIFICATIONS = DEFAULT_TEXT;
 export const NO_COLA = DEFAULT_TEXT;
-export const NO_COMMENTS = DEFAULT_TEXT;
 export const NO_CREATE_DATE = 'Unknown';
 export const NO_DANGER_PAY = DEFAULT_TEXT;
 export const NO_DATE = DEFAULT_TEXT;
 export const NO_EMAIL = DEFAULT_TEXT;
 export const NO_END_DATE = DEFAULT_TEXT;
+export const NO_ETA = DEFAULT_TEXT;
 export const NO_FAVORITES = 'You do not have any favorited positions.';
 export const NO_GRADE = DEFAULT_TEXT;
 export const NO_LANGUAGES = 'None';
 export const NO_LANGUAGE = DEFAULT_TEXT;
+export const NO_NOTES = 'None';
 export const NO_OC_REASON = DEFAULT_TEXT;
 export const NO_OFFICE_ADDRESS = DEFAULT_TEXT;
 export const NO_OFFICE_PHONE = DEFAULT_TEXT;
@@ -101,6 +104,7 @@ export const UPDATED_SAVED_SEARCH_SUCCESS = name => SavedSearchSuccess({ name, i
 export const DELETE_SAVED_SEARCH_SUCCESS = 'Successfully deleted the selected search';
 export const DELETE_SAVED_SEARCH_ERROR = 'An error occurred trying to delete this search.';
 
+export const CANNOT_BID_FILLED_POSITION = 'This position is already filled and not available to bid on.';
 export const CANNOT_BID_SUFFIX = ', but can be favorited for the future.';
 export const CANNOT_BID_DEFAULT = `This position is not available to bid on${CANNOT_BID_SUFFIX}`;
 
@@ -153,3 +157,13 @@ export const COMING_SOON = 'Coming Soon';
 
 export const UPDATE_CLASSIFICATIONS_SUCCESS = "Client's classifications updated";
 export const UPDATE_CLASSIFICATIONS_ERROR = "Error updating client's classifications";
+
+export const NO_NUMBER = '--';
+
+export const UPDATE_AGENDA_ITEM_SUCCESS_TITLE = 'Agenda Item Saved';
+export const UPDATE_AGENDA_ITEM_SUCCESS = 'This Agenda Item has been saved successfully.';
+export const UPDATE_AGENDA_ITEM_ERROR_TITLE = 'Agenda Item Error';
+export const UPDATE_AGENDA_ITEM_ERROR = 'There was an issue attempting to save this Agenda Item. Please try again.';
+
+export const ADD_FREQUENT_POSITION_ERROR_TITLE = 'Frequent Position Error';
+export const ADD_FREQUENT_POSITION_ERROR = 'Error adding Frequent Position. Please try again.';

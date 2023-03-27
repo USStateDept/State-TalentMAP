@@ -325,28 +325,102 @@
 
   .delegateRole--table {
     border: 1px solid $bg-gray-medium-0;
+    margin-top: 20px;
 
-    tr {
+    thead {
+      label {
+        margin-top: 0;
+      }
+
+      tr:nth-of-type(1) {
+        border-top: 1px solid $bg-blue-dark-1;
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+      }
+      .delegate-role-header:nth-of-type(-n + 2) {
+        min-width: 200px;
+        text-align: left;
+      }
+      .delegate-role-header {
+        cursor: pointer;
+
+        .header-text {
+          padding-left: 10px;
+        }
+
+        .delegate-role-header-sort-hidden {
+          display: inline;
+          visibility: hidden;
+        }
+        .delegate-role-header-sort {
+          display: inline;
+        }
+      }
+
+      .delegate-role-header:hover {
+        .delegate-role-header-sort-hidden {
+          visibility: visible;
+        }
+      }
+
       th {
         background-color: $bg-blue-dark-1;
         color: $color-white;
-        padding: 15px;
-        text-align:center
-      }
-
-      td {
-        border: none;
-        border-left: 1px solid $bg-gray-medium-0;
-        padding: 10px;
+        padding: 15px 0 0;
         text-align: center;
       }
 
-      td:nth-child(1) {
-        border-left: none!important;
+      th:nth-of-type(5) {
+        .filter-row {
+          div {
+            min-width: 150px;
+          }
+        }
       }
+    }
 
-      td:active {
-        cursor: grabbing;
+    .filter-row {
+      border-bottom: 1px solid $bg-blue-dark-1;
+      text-align: center;
+
+      div {
+        background-color: $color-white;
+        height: 3.3rem;
+        margin-top: 10px;
+        min-width: 130px;
+
+        label {
+          padding-top: .7rem;
+        }
+      }
+      input {
+        border: none;
+        width: calc(100% - 1.5rem);
+      }
+      .text-input-wrapper > span {
+        right: 5px;
+        top: 7px;
+      }
+    }
+
+    td {
+      border: none;
+      border-left: 1px solid $bg-gray-medium-0;
+      padding: 10px;
+      text-align: left;
+    }
+
+    td:nth-child(1) {
+      border-left: none!important;
+    }
+
+    td:active {
+      cursor: grabbing;
+    }
+    tr {
+      .delegateRoleCell {
+        text-align: center;
       }
     }
     tr:nth-child(odd) {

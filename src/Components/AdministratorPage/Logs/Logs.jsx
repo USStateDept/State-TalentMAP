@@ -19,7 +19,7 @@ class LogsPage extends Component {
     this.state = {
       selected: '',
       page: 1,
-      range: 3,
+      range: 10,
       logSize: 1000,
       logOffset: 0,
     };
@@ -81,7 +81,7 @@ class LogsPage extends Component {
               <TotalResults total={logsLen} pageNumber={page} pageSize={range} />
             </div>
             <div className="usa-grid-full">
-              {paginate(logsList, range, page).map((m) => {
+              {paginate(logsList.sort(), range, page).map((m) => {
                 const isSelected = m === selected;
                 return (
                   <LogRow

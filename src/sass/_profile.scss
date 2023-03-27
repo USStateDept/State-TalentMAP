@@ -59,25 +59,37 @@
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-
-        .classifications-client-badges {
-          padding-bottom: 15px;
-          min-width: 100%;
-          .client-badge-container {
-            display: inline-block;
-          }
-          .classifications-badges-text {
-            display: inline-block;
-            vertical-align: super;
-            padding-left: 10px;
-          }
-          .classifications-season-text {
-            display: inline-block;
-            vertical-align: super;
-            padding-left: 10px;
-            padding-top: 20px;
-          }
+      .classifications-client-badges-container {
+        max-height: 400px;
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .classifications-client-badges {
+        padding-bottom: 15px;
+        min-width: 100%;
+        .client-badge-container {
+          display: inline-block;
         }
+        .classifications-badges-text {
+          display: inline-block;
+          vertical-align: super;
+          padding-left: 10px;
+        }
+        .classifications-glossary-link {
+          vertical-align: super;
+          padding-left: 10px;
+          color: $bg-gray-dark-2;
+        }
+        .classifications-glossary-link:hover {
+          color: $bg-gray-dark-1;
+        }
+        .classifications-season-text {
+          display: inline-block;
+          vertical-align: super;
+          padding-left: 10px;
+          padding-top: 20px;
+        }
+      }
     }
 
     .unstyled-button {
@@ -297,7 +309,7 @@
   .assignments-section {
     .favorites-list-container {
       max-height: 410px;
-      overflow-y: scroll;
+      overflow-y: auto;
     }
 
     .start-end {
@@ -497,6 +509,16 @@
   .current-user-name {
     font-size: 1.6rem;
     margin-bottom: 5px;
+  }
+
+  .agenda-item-history-link {
+    border-top: 1px solid #AEB0B5;
+    padding-top: 1em;
+    text-align: center;
+  }
+
+  .agenda-item-history-header{
+    padding-bottom: 1em;
   }
 }
 
@@ -1057,4 +1079,14 @@ $padding-no-border: $total-padding - $border;
 
 .saved-search-list-container {
   min-height: 260px;
+}
+
+.permissions-table {
+  border-collapse: separate;
+  border-spacing: 0 .5em;
+  width: 40%;
+
+  .header {
+    font-weight: bold;
+  }
 }

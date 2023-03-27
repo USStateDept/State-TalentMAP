@@ -3,13 +3,14 @@ import axios from 'axios';
 import { get } from 'lodash';
 import { downloadFromResponse } from 'utilities';
 import * as SystemMessages from 'Constants/SystemMessages';
-import api from '../../api';
+import api, { INTERCEPTORS } from '../../api';
 import { toastError, toastSuccess } from '../toast';
 import { userProfilePublicFetchData } from '../userProfilePublic';
 import { registerHandshakeHasErrored, registerHandshakeIsLoading, registerHandshakeSuccess } from '../handshake';
 
-export function downloadBidlistData(useClient = false, clientId = '') {
-  const url = useClient && clientId ? `/fsbid/cdo/client/${clientId}/export/` : '/fsbid/bidlist/export/';
+export function downloadBidlistData(useClient = false, clientId = '', bidSort = 'status') {
+  let url = useClient && clientId ? `/fsbid/cdo/client/${clientId}/export/` : '/fsbid/bidlist/export/';
+  url = `${url}?ordering=${bidSort}`;
   const clientId$ = useClient ? clientId : '';
   return api().get(url, {
     responseType: 'stream',
@@ -177,7 +178,7 @@ export function shouldUseClient(getState = () => {}) {
   return !!get(getState(), 'clientView.client.perdet_seq_number');
 }
 
-export function bidListFetchData(ordering = 'draft_date') {
+export function bidListFetchData(ordering = 'status') {
   return (dispatch) => {
     batch(() => {
       dispatch(bidListIsLoading(true));
@@ -186,7 +187,7 @@ export function bidListFetchData(ordering = 'draft_date') {
 
     const endpoint = `/fsbid/bidlist/?ordering=${ordering}`;
 
-    api().get(endpoint)
+    api().get(endpoint, { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } })
       .then(response => get(response, 'data.results') || [])
       .then((results) => {
         batch(() => {

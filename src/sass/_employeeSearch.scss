@@ -1,0 +1,476 @@
+.empl-search-page {
+  .section {
+    background-color: $color-white;
+    border: 3px solid $tm-gray;
+    box-shadow: rgba(0, 0, 0, .15) 3px 2px 10px 1px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+    min-height: 200px;
+    padding: 25px;
+  }
+
+  .padded-section {
+    padding: 25px;
+  }
+
+  .no-padding {
+    padding: 0;
+  }
+  .align-middle {
+    margin: auto;
+    text-align: center;
+  }
+
+  .all-inline {
+    display: flex;
+    margin-bottom: 20px;
+  }
+
+  .mainSelector {
+    font-size: 2.5rem;
+    margin: 0 0 20px -30px;
+  }
+
+  .usa-width-one-sixth {
+    margin-bottom: 10px;
+  }
+
+  .empl-search-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    padding: 20px 35px;
+
+    .filterby-container{
+      display: inline-block;
+      margin-top: 10px;
+    }
+  }
+
+  .empl-search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(406px, 1fr));
+    padding: 10px 0px;
+
+    .search-results-inputs {
+      padding: 5px 0px;
+    }
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+      margin-right: 10px;
+
+      .label {
+        margin-right: 10px;
+        min-width: 95px;
+        font-size: 16px;
+        text-align: end;
+      }
+
+      .emp-search-div {
+        input {
+          border-radius: 0px;
+          height: 28px;
+          max-width: none;
+          width: 240px;
+        }
+        .searchbar {
+          .text-input-wrapper {
+            > span {
+              font-size: 15px;
+              left: 210px;
+              top: 5px;
+            }
+          }
+        }
+      }
+
+      .picky {
+        color: $color-black;
+        width: 240px;
+      }
+    }
+    .split-filter-div {
+      .picky {
+        width: 120px;
+      }
+      .picky:nth-child(3) {
+        .picky__dropdown {
+          margin-left: -120px;
+        }
+      }
+      .picky__dropdown {
+        width: 240px;
+      }
+    }
+    .handshake-filter-div {
+      .label {
+        max-width: 115px;
+      }
+    }
+    input {
+      display: inline;
+    }
+    label{
+      margin-top: 0px;
+    }
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 1.5rem;
+      height: 28px;
+      width: 240px;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+      }
+      .react-daterange-picker__inputGroup {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+    }
+  }
+}
+
+.empl-search-lower-section {
+  padding: 0 35px 20px;
+  position: relative;
+
+  .tm-spinner {
+    top: 0;
+  }
+}
+
+.empl-search-controls-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 35px;
+  padding-top: 15px;
+  .usa-alert-info {
+    left: 40%;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+
+  @media screen and (max-width: 1230px) {
+    display: block;
+  }
+}
+
+.empl-search-pagination-controls {
+  padding-left: 35px;
+}
+
+.empl-search-results-controls {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 35px;
+
+  div:first-child {
+    margin-right: 10px;
+  }
+
+  div {
+    align-items: baseline;
+    display: flex;
+  }
+}
+
+.empl-search-controls-right {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  padding-right: 35px;
+
+  .results-viewby-container {
+    min-width: 120px;
+  }
+}
+
+.empl-search-page-size {
+  margin-left: 20px;
+}
+
+.empl-search-controls {
+  padding-left: 35px;
+}
+
+.employee-agenda-card {
+  display: flex;
+  flex-wrap: wrap;
+
+  .employee-agenda-stat-card {
+    border-top: 11px solid $primary-blue;
+    display: flex;
+    flex-direction: column;
+    height: 385px;
+    margin-bottom: 25px;
+    margin-right: 40px;
+    width: 355px;
+
+    a {
+      display: inline-block;
+    }
+
+    h3 {
+      font-family: inherit;
+      font-size: 1.6rem;
+      margin: 0 5px 0 0;
+    }
+
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      margin-left: 5px;
+    }
+
+    .employee-agenda-card-inner {
+      padding-right: 16px;
+      padding-top: 16px;
+      position: relative;
+      display: flex;
+      .ribbon-container-condensed {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+      }
+    }
+
+    .employee-agenda-card-data-point-top {
+      display: flex;
+      flex: 5;
+      flex-direction: column;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      padding-left: 16px;
+
+      .employee-card-data-point {
+        align-items: baseline;
+        display: flex;
+        margin-bottom: 5px;
+
+        .fa {
+          padding-right: 6px;
+        }
+
+        .org-fa-arrow {
+          padding: 0 9px;
+        }
+        .location-label-card{
+          width: 37%;
+        }
+        .location-data-card{
+          width: 63%;
+        }
+      }
+    }
+
+    .employee-agenda-card-bottom {
+      border-top: 1px solid $color-gray-lighter;
+      margin-top: -10px;
+
+      > div {
+        display: flex;
+        padding: 10px 27px 20px;
+      }
+
+      .button-container {
+        margin-top: 1.1rem;
+      }
+    }
+  }
+}
+
+// IE11 fix for input text not displaying
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .employee-agenda-card {
+    max-width: calc(100vw - 260px);
+  }
+}
+
+.view-agenda-item-container {
+  margin-right: 2rem;
+
+  .view-agenda-item-button {
+    background-color: $color-white;
+    border: 1px solid $blue-primary;
+    border-radius: 3px;
+    color: $blue-primary;
+    margin: auto;
+    padding-bottom: 13px;
+    padding-top: 14px;
+    text-align: center;
+    width: 130px;
+  }
+
+  .view-agenda-item-button:hover {
+    border-color: $primary-blue-darker;
+    color: $primary-blue-darker;
+  }
+}
+
+.button-box-container {
+
+  .button-box {
+    background-color: $blue-primary;
+    border: 1px solid $blue-primary;
+    border-radius: 3px;
+    color: $color-white;
+    font-size: 1.5rem;
+    line-height: 37px;
+    margin: auto;
+    padding: 3px;
+    text-align: center;
+    width: 150px;
+  }
+
+  .button-box:hover {
+    background-color: $primary-blue-darker;
+  }
+}
+
+.employee-agenda-row {
+  margin-top: 1rem;
+
+  .employee-ribbon-container {
+    float: right;
+    width: auto;
+  }
+
+  .employee-agenda-stat-row {
+    border: 1px solid $color-gray-light;
+    border-left: 11px solid $primary-blue;
+    box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
+    margin-bottom: 1rem;
+    margin-left: 0;
+    padding: 15px 20px;
+    position: relative;
+
+    .initials-circle-container {
+      position: absolute;
+      margin: 0;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      top: 50%;
+
+      .initials-circle {
+        background: $primary-blue;
+        border-radius: 50%;
+        color: $color-white;
+        font-size: 37px;
+        height: 90px;
+        line-height: 90px;
+        text-align: center;
+        width: 90px;
+      }
+    }
+
+    .employee-agenda-row-name {
+      font-size: 1.2em;
+      line-height: 1.3em;
+      margin: 8px 0 .3rem 15rem;
+
+      a, .row-name {
+        font-size: .9em;
+        font-weight: bold;
+        margin-left: 15px;
+      }
+    }
+
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      margin-left: 5px;
+    }
+
+    .button-container {
+      display: flex;
+      float: right;
+    }
+
+    .employee-agenda-row-data-container {
+      margin-left: 15rem;
+
+      .employee-agenda-row-data-points {
+        display: inline-grid;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(3, auto);
+        margin-left: 1.5rem;
+
+        .employee-agenda-row-data-point {
+          align-items: center;
+          display: flex;
+          margin: 0 8rem .5rem 0;
+
+          @media screen and (max-width: 1650px) {
+            margin-right: 2rem;
+          }
+
+          .fa {
+            padding-right: 6px;
+          }
+
+          .org-fa-arrow {
+            padding: 0 9px;
+          }
+          .location-label-row{
+            width: 110px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.agenda-edit-button {
+  margin-left: 10px;
+}
+
+.eas-search-form-container {
+  display: flex;
+  align-items: center;
+
+  > form {
+    margin: 5px;
+    display: flex;
+  }
+
+  .search-results-inputs {
+    display: flex;
+    align-content: flex-start;
+  }
+
+  .search-keyword input {
+    width: 250px;
+  }
+
+  .search-submit-button {
+    margin-left: 0px;
+  }
+}
+
+.search-header {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.eas-inactive-toggle {
+  margin-top: 25px;
+}

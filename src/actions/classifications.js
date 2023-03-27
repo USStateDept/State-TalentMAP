@@ -26,6 +26,41 @@ export function classificationsFetchDataSuccess(classifications) {
   };
 }
 
+export function updateClassificationsHasErrored(bool) {
+  return {
+    type: 'UPDATE_CLASSIFICATIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function updateClassificationsIsLoading(bool) {
+  return {
+    type: 'UPDATE_CLASSIFICATIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function userClassificationsHasErrored(bool) {
+  return {
+    type: 'USER_CLASSIFICATIONS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function userClassificationsIsLoading(bool) {
+  return {
+    type: 'USER_CLASSIFICATIONS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function userClassificationsSuccess(classifications) {
+  return {
+    type: 'USER_CLASSIFICATIONS_SUCCESS',
+    classifications,
+  };
+}
+
 export function fetchClassifications() {
   return (dispatch) => {
     batch(() => {
@@ -49,20 +84,6 @@ export function fetchClassifications() {
           dispatch(classificationsIsLoading(false));
         });
       });
-  };
-}
-
-export function updateClassificationsHasErrored(bool) {
-  return {
-    type: 'UPDATE_CLASSIFICATIONS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function updateClassificationsIsLoading(bool) {
-  return {
-    type: 'UPDATE_CLASSIFICATIONS_IS_LOADING',
-    isLoading: bool,
   };
 }
 
@@ -92,6 +113,30 @@ export function updateClassifications(data, id) {
           dispatch(toastError(message));
           dispatch(updateClassificationsHasErrored(true));
           dispatch(updateClassificationsIsLoading(false));
+        });
+      });
+  };
+}
+
+export function fetchUserClassifications(user_id) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(userClassificationsIsLoading(true));
+      dispatch(userClassificationsHasErrored(false));
+    });
+    api()
+      .get(`/fsbid/classifications/${user_id}/`)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(userClassificationsHasErrored(false));
+          dispatch(userClassificationsSuccess(data));
+          dispatch(userClassificationsIsLoading(false));
+        });
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(userClassificationsHasErrored(true));
+          dispatch(userClassificationsIsLoading(false));
         });
       });
   };

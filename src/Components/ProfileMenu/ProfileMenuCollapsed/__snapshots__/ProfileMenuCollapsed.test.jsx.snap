@@ -34,6 +34,13 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
     />
     <withRouter(NavLink)
       hidden={true}
+      iconName="building-o"
+      key="AO"
+      link="/profile/ao/dashboard/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={true}
       iconName="building"
       key="Bureau"
       link="/profile/bureau/positionmanager/"
@@ -41,16 +48,16 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
     />
     <withRouter(NavLink)
       hidden={true}
-      iconName="building-o"
-      key="AO"
-      link="/profile/ao/positionmanager/"
+      iconName="street-view"
+      key="CDO"
+      link="/profile/cdo/bidderportfolio"
       search=""
     />
     <withRouter(NavLink)
       hidden={true}
-      iconName="street-view"
-      key="CDO"
-      link="/profile/cdo/bidderportfolio"
+      iconName="building"
+      key="Post"
+      link="/profile/post/dashboard/"
       search=""
     />
   </NavLinksContainer>
@@ -91,6 +98,13 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
     />
     <withRouter(NavLink)
       hidden={true}
+      iconName="building-o"
+      key="AO"
+      link="/profile/ao/dashboard/"
+      search=""
+    />
+    <withRouter(NavLink)
+      hidden={true}
       iconName="building"
       key="Bureau"
       link="/profile/bureau/positionmanager/"
@@ -98,16 +112,16 @@ exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is
     />
     <withRouter(NavLink)
       hidden={true}
-      iconName="building-o"
-      key="AO"
-      link="/profile/ao/positionmanager/"
+      iconName="street-view"
+      key="CDO"
+      link="/profile/cdo/bidderportfolio"
       search=""
     />
     <withRouter(NavLink)
       hidden={true}
-      iconName="street-view"
-      key="CDO"
-      link="/profile/cdo/bidderportfolio"
+      iconName="building"
+      key="Post"
+      link="/profile/post/dashboard/"
       search=""
     />
   </NavLinksContainer>

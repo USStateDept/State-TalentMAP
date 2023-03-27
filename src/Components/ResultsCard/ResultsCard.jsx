@@ -2,10 +2,8 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { get, isNull, isNumber } from 'lodash';
-import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
-import StaticDevContent from 'Components/StaticDevContent';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
 import DefinitionList from '../DefinitionList';
@@ -15,7 +13,7 @@ import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
 import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from '../Ribbon';
+import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import OBCUrl from '../OBCUrl';
@@ -163,7 +161,13 @@ class ResultsCard extends Component {
     /* eslint-enable quote-props */
     ];
 
-    if (isProjectedVacancy) { delete sections[2].Posted; }
+    if (isProjectedVacancy) {
+      delete sections[2].Posted;
+      sections[1] = {
+        ...sections[1],
+        Assignee: getResult(pos, 'assignee', NO_USER_LISTED),
+      };
+    }
 
     options.favorite = {
       compareArray: [],
@@ -202,7 +206,6 @@ class ResultsCard extends Component {
       />
     );
 
-
     const cardClassArray = ['results-card'];
     if (isProjectedVacancy) cardClassArray.push('results-card--secondary');
     if (isTandem) cardClassArray.push('results-card--tandem');
@@ -210,6 +213,8 @@ class ResultsCard extends Component {
     if (isGroupEnd) cardClassArray.push('results-card--group-end');
     if (isNew) cardClassArray.push('results-card--new');
     const cardClass = cardClassArray.join(' ');
+
+    const ribbonClass = 'ribbon-results-card';
 
     const headingTop =
       !isTandem ?
@@ -226,7 +231,7 @@ class ResultsCard extends Component {
         );
 
     const headingBottom = !isTandem ?
-      <><dt>Location:</dt><dd>{post}</dd></>
+      <><dt className="location-label">Location (Org):</dt><dd className="location-text">{post}</dd></>
       :
       (<>
         <div>{title}</div>
@@ -258,11 +263,7 @@ class ResultsCard extends Component {
                     <h3>{title}</h3>: {post}
                     {detailsLink}
                     {
-                      !isProjectedVacancy &&
-                      <Flag
-                        name="flags.bid_count"
-                        render={() => renderBidCountMobile(stats)}
-                      />
+                      !isProjectedVacancy && renderBidCountMobile(stats)
                     }
                   </Row>
                   :
@@ -276,11 +277,7 @@ class ResultsCard extends Component {
                       </Column>
                     </Column>
                     {
-                      !isProjectedVacancy &&
-                      <Flag
-                        name="flags.bid_count"
-                        render={() => renderBidCount(stats)}
-                      />
+                      !isProjectedVacancy && renderBidCount(stats)
                     }
                   </Row>
               }
@@ -303,22 +300,20 @@ class ResultsCard extends Component {
                 <Column columns="2">
                   <div className="ribbon-container">
                     {
-                      get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className="ribbon-results-card" />
+                      get(stats, 'has_handshake_offered', false) && <Handshake isWideResults className={ribbonClass} />
                     }
                     {
-                      <StaticDevContent>
-                        <CriticalNeed isWideResults className="ribbon-results-card" />
-                      </StaticDevContent>
+                      get(result, 'isDifficultToStaff', false) && <HistDiffToStaff isWideResults className={ribbonClass} />
                     }
                     {
-                      get(result, 'isDifficultToStaff', false) && <HardToFill isWideResults className="ribbon-results-card" />
+                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className={ribbonClass} />
                     }
                     {
-                      get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWideResults className="ribbon-results-card" />
+                      get(result, 'isHardToFill', false) && <IsHardToFill isWideResults className={ribbonClass} />
                     }
                     {
                       // conditional rendering occurs inside the container
-                      <InBidListContainer id={result.id} isWideResults className="ribbon-results-card" />
+                      <InBidListContainer id={result.id} isWideResults className={ribbonClass} />
                     }
                   </div>
                 </Column>
@@ -330,11 +325,7 @@ class ResultsCard extends Component {
                       <Favorite {...options.favorite} />
                   }
                   {
-                    isClient && !isProjectedVacancy &&
-                      <Flag
-                        name="flags.bidding"
-                        render={renderBidListButton}
-                      />
+                    isClient && !isProjectedVacancy && renderBidListButton()
                   }
                   {!isProjectedVacancy && !isClient && <CompareCheck {...options.compare} />}
                 </Column>

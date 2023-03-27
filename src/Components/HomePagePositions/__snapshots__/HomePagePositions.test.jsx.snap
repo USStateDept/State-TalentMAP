@@ -200,6 +200,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={true}
       hasErrored={false}
       icon="bolt"
       isLoading={false}
@@ -219,7 +220,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       title="Featured Positions That Match Your Grade And Skill(s)"
       type="default"
       useSpinner={false}
-      viewMoreLink="/results?position__post_indicator__in=BT_MOST_DIFFICULT_TO_STAFF_FLG,BT_SERVICE_NEEDS_DIFF_FLG&position__skill__code__in=3001,2881&position__grade__code__in=03"
+      viewMoreLink="/results?cps_codes=OP&position__post_indicator__in=BT_MOST_DIFFICULT_TO_STAFF_FLG,BT_SERVICE_NEEDS_DIFF_FLG&position__skill__code__in=3001,2881&position__grade__code__in=03"
       wrapInLink={true}
     />
     <HomePagePositionsSection
@@ -415,6 +416,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={false}
       hasErrored={false}
       icon="briefcase"
       isLoading={false}
@@ -434,7 +436,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       title="Positions That Match Your Grade And Skill(s)"
       type="default"
       useSpinner={false}
-      viewMoreLink="/results?position__skill__code__in=3001,2881&position__grade__code__in=03"
+      viewMoreLink="/results?cps_codes=OP&position__skill__code__in=3001,2881&position__grade__code__in=03"
       wrapInLink={true}
     />
   </div>
@@ -641,6 +643,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={true}
       hasErrored={false}
       icon="bolt"
       isLoading={false}
@@ -649,7 +652,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
       title="Featured Positions"
       type="default"
       useSpinner={false}
-      viewMoreLink="/results?position__post_indicator__in=BT_MOST_DIFFICULT_TO_STAFF_FLG,BT_SERVICE_NEEDS_DIFF_FLG"
+      viewMoreLink="/results?cps_codes=OP&position__post_indicator__in=BT_MOST_DIFFICULT_TO_STAFF_FLG,BT_SERVICE_NEEDS_DIFF_FLG"
       wrapInLink={true}
     />
     <HomePagePositionsSection
@@ -845,6 +848,7 @@ exports[`HomePageComponent matches snapshot when featuredPositions and favorited
         ]
       }
       favorites={Array []}
+      featuredPos={false}
       hasErrored={false}
       icon="star"
       isLoading={false}

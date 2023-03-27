@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HandshakeRegisterWithAnotherBidderAlert matches snapshot 1`] = `
+<div
+  className="bid-tracker-alert-container bid-tracker-alert-container--register-with-another-bidder"
+>
+  <div
+    className="usa-grid-full"
+  >
+    <div
+      className="top-text register-with-another-bidder-position-details"
+    >
+      A HANDSHAKE HAS BEEN REGISTERED WITH ANOTHER BIDDER:
+      <div>
+        POLITICAL/ECONOMIC OFFICER
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Skill: 
+        </span>
+        POLITICAL AND ECONOMIC AFFAIRS (6050)
+      </div>
+      <div>
+        <span
+          className="title"
+        >
+          Grade: 
+        </span>
+        03
+      </div>
+    </div>
+  </div>
+</div>
+`;

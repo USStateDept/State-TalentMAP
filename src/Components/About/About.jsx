@@ -48,14 +48,14 @@ class About extends Component {
                 }
                 {
                   !isLoading && hasErrored &&
-                  <Alert type="error" title="Error loading About page" messages={[{ body: 'Please try again.' }]} />
+                  <Alert type="error" title="Error loading Help page" messages={[{ body: 'Please try again.' }]} />
                 }
                 {
                   !isLoading &&
                   <div className={`${matches ? 'usa-width-one-half' : 'usa-width-three-fourths'} about-content`}>
                     {
                       !editorVisible &&
-                        <PermissionsWrapper permissions={['superuser', 'aboutpage_editor']} minimum>
+                        <PermissionsWrapper permissions={['superuser', 'helppage_editor']} minimum>
                           <EditContentButton onToggle={this.toggleEditor} id={EDIT_BUTTON_ID} />
                         </PermissionsWrapper>
                     }

@@ -5,58 +5,31 @@ exports[`ResultsSearchHeaderComponent matches snapshot 1`] = `
   className="results-search-bar padded-main-content results-single-search homepage-offset"
 >
   <div
-    className="usa-grid-full results-search-bar-container"
+    className="usa-grid-full search-bar-container"
   >
     <form
       className="usa-grid-full"
-      onSubmit={[Function]}
     >
-      <fieldset
-        className="usa-width-five-sixths"
-      >
-        <div
-          className="usa-width-one-whole search-results-inputs search-keyword"
-        >
-          <legend
-            className="usa-grid-full homepage-search-legend "
-          >
-            Find your next position
-          </legend>
-          <SearchBar
-            alertText="Disabled"
-            defaultValue="keyword"
-            id="search-keyword-field"
-            inputDisabled={false}
-            label="Keywords"
-            labelSrOnly={true}
-            noButton={true}
-            noForm={true}
-            onChangeText={[Function]}
-            onClear={[Function]}
-            onSubmitSearch={[Function]}
-            placeholder="Enter keywords..."
-            showClear={true}
-            submitDisabled={false}
-            submitText="Search"
-            type="medium"
-          />
-        </div>
-      </fieldset>
-      <div
-        className="usa-width-one-sixth search-submit-button"
-      >
-        <button
-          className="usa-button"
-          disabled={false}
-          type="submit"
-        >
-          <FontAwesome
-            className="label-icon"
-            name="search"
-          />
-          Search
-        </button>
-      </div>
+      <SearchBar
+        alertText="Disabled"
+        defaultValue="keyword"
+        id="search-keyword-field"
+        inputDisabled={false}
+        label="Find your next position"
+        labelSrOnly={true}
+        minimal={false}
+        noButton={false}
+        noForm={true}
+        onChangeText={[Function]}
+        onClear={[Function]}
+        onSubmitSearch={[Function]}
+        placeholder="Enter keywords..."
+        showClear={true}
+        showIcon={true}
+        submitForm={[Function]}
+        submitText="Search"
+        type="medium"
+      />
     </form>
   </div>
 </div>

@@ -80,8 +80,6 @@ $register-hide-icon: 95%;
     }
     div {
       display: inline;
-    }
-    div:first-child {
       margin-right: 20px;
     }
   }
@@ -269,31 +267,6 @@ $register-hide-icon: 95%;
   }
 }
 
-.bid-tracker-overlay-alert--register-another-client {
-  background: $bg-overlay-hs-another-client;
-  width: 56%;
-  margin-left: auto;
-  position: absolute;
-  right: 0;
-
-  .bid-tracker-overlay-alert-content-container {
-    width: 90%;
-  }
-}
-
-.bid-tracker-overlay-alert--register-another-client::after {
-  border-bottom: 10px solid transparent;
-  border-left: 10px solid $bg-hs-another-client;;
-  border-top: 10px solid transparent;
-  clear: both;
-  content: '';
-  height: 0;
-  left: 0;
-  position: absolute;
-  top: 43px;
-  width: 0;
-}
-
 .bid-tracker {
 
   background: $color-white;
@@ -306,6 +279,143 @@ $register-hide-icon: 95%;
   .confetti-container {
     left: 17px;
     position: relative;
+  }
+
+  .hs-animation-bidtracker {
+    margin-left: -36px;
+    .left, .right, .hs-bidtracker {
+      display: inline;
+      position: relative;
+      font-size: 20px;
+    }
+    .left {
+      left: -10rem;
+      transform: rotate(90deg);
+      opacity: 0;
+      color: $tertiary-gold-lighter;
+    }
+    .right {
+      right: -17rem;
+      transform: rotate(-90deg) scaleX(-1);
+      opacity: 0;
+      color: $tertiary-gold-lighter;
+    }
+    .hs-container {
+      border-radius: 50%;
+      background-color: $color-green-dark-opacity50;
+      width: 36px;
+      height: 36px;
+      margin: auto;
+      display: inline-block;
+      .hs-bidtracker {
+        margin-top: 8px;
+        color: $color-white;
+      }
+    }
+    .animate-left {
+      animation: left-animation-bidtracker 2s linear;
+    }
+    .animate-right {
+      animation: right-animation-bidtracker 2s linear;
+    }
+    .animate-hs-bidtracker {
+      animation: hs-animation-bidtracker 4s linear;
+    }
+    .temp-transparent {
+      animation: temp-transparent-animation 4s linear;
+    }
+
+    @keyframes left-animation-bidtracker {
+      0% {left:-10rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-bidtracker {
+      0% {right:-17rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes left-animation-max-1699 {
+      0% {left:-8rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-max-1699 {
+      0% {right:-15rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes left-animation-max-1499 {
+      0% {left:-4rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-max-1499 {
+      0% {right:-11rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes left-animation-max-1249 {
+      0% {left:-1rem; opacity: 100%;}
+      100% {left:4rem; opacity: 100%;}
+    }
+    @keyframes right-animation-max-1249 {
+      0% {right:-8rem; opacity: 100%;}
+      100% {right:-3rem; opacity: 100%;}
+    }
+    @keyframes hs-animation-bidtracker {
+      0% {opacity: 0;}
+      49% {opacity: 0;}
+      50% {top:10px; opacity: 100%; color: $tertiary-gold-lighter;}
+      65% {top:-10px;}
+      70% {top:10px;}
+      75% {top:-10px;}
+      80% {top:10px;}
+      85% {top:-10px;}
+      90% {top:10px;}
+      95% {top:-10px;}
+      100% {top:0; color: $tertiary-gold-lighter;}
+    }
+    @keyframes temp-transparent-animation {
+      0% {background-color: transparent;}
+      100% {background-color: transparent;}
+    }
+    @media screen and (max-width: 1699px) {
+      .left {
+        left: -8rem;
+      }
+      .right {
+        right: -15rem;
+      }
+      .animate-left {
+        animation: left-animation-max-1699 2s linear;
+      }
+      .animate-right {
+        animation: right-animation-max-1699 2s linear;
+      }
+    }
+    @media screen and (max-width: 1499px) {
+      .left {
+        left: -4rem;
+      }
+      .right {
+        right: -11rem;
+      }
+      .animate-left {
+        animation: left-animation-max-1499 2s linear;
+      }
+      .animate-right {
+        animation: right-animation-max-1499 2s linear;
+      }
+    }
+    @media screen and (max-width: 1249px) {
+      .left {
+        left: -1rem;
+      }
+      .right {
+        right: -8rem;
+      }
+      .animate-left {
+        animation: left-animation-max-1249 2s linear;
+      }
+      .animate-right {
+        animation: right-animation-max-1249 2s linear;
+      }
+    }
   }
 
   .fa-trash {
@@ -510,17 +620,6 @@ $register-hide-icon: 95%;
     border-color: $color-green-dark;
   }
 
-  .hs-registered-another-client-icon {
-    animation: none;
-    background: $color-green-dark-opacity50;
-    border-color: $color-green-dark-opacity50;
-  }
-
-  .hs-another-client-number-icon-is-current-no-action {
-    background: $color-green-dark-opacity50;
-    border-color: $color-green-dark-opacity50;
-  }
-
   .number-icon-is-current-no-action {
     background: $blue-primary;
     border-color: $blue-primary;
@@ -655,11 +754,11 @@ $register-hide-icon: 95%;
     }
   }
 
-  .hs-another-client-bid-steps {   
+  .register-with-another-bidder-bid-steps {
     .pending-line {
       .rc-steps-item-tail::after {
-        border: 1.5px dashed $color-green-dark-opacity50;
-        color: $blue-primary;
+        border: 1.5px dashed $color-gray-light;
+        color: $color-gray-light;
       }
     }
   }
@@ -835,6 +934,7 @@ $register-hide-icon: 95%;
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
+    text-align: left;
 
     button {
       flex: 1;
@@ -855,6 +955,7 @@ $register-hide-icon: 95%;
     flex-direction: column;
     flex-grow: 1;
     justify-content: center;
+    text-align: left;
 
     button {
       flex: 1;
@@ -868,6 +969,7 @@ $register-hide-icon: 95%;
       }
     }
   }
+
 
   // fix in IE11
   @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
@@ -904,11 +1006,12 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register {
-    margin-left: 0px;
+    margin-left: 0;
   }
 
   .bid-tracker-alert-container {
     top: 0;
+    margin-top: 0;
   }
 
   .top-text {
@@ -959,7 +1062,7 @@ $register-hide-icon: 95%;
   .step-in-panel {
     .rc-steps-item-content {
       .step-title-main-text {
-        left: -2px;
+        left: -12px;
       }
     }
   }
@@ -972,6 +1075,10 @@ $register-hide-icon: 95%;
       line-height: 1.2rem;
       position: absolute;
       text-align: center;
+    }
+    
+    .hs-needs-registered {
+      left: -15px;
     }
   }
 
@@ -1074,15 +1181,11 @@ $register-hide-icon: 95%;
   }
 
   .bid-tracker-overlay-alert--register {
-    margin-left: 0%;
+    margin-left: 0;
 
     .bid-tracker-overlay-alert-content-container {
-      padding-right: 0px;
+      padding-right: 0;
     }
-  }
-  
-  .bid-tracker-overlay-alert--register-another-client {
-    margin-left: 0%;
   }
 
   .pending-line > .rc-steps-item-tail,
@@ -1100,22 +1203,11 @@ $register-hide-icon: 95%;
     display: none;
   }
 
-  .bid-tracker-overlay-alert--register-another-client::after {
-    display: none;
-  }
-
   .bid-tracker-bid-steps-container--handshakeaccepted {
     .step-in-panel {
       .rc-steps-item-content {
         display: block;
       }
-    }
-  }
-
-  .hs-another-client-bid-steps {
-    .hs-registered-another-client-icon {
-      background: $color-green-dark-opacity50;
-      border-color: $color-green-dark-opacity50;
     }
   }
 
@@ -1215,6 +1307,7 @@ $register-hide-icon: 95%;
   }
   .left-side {
     flex: 0.65;
+    padding-right: 1em;
   }
   .link-button-wrapper {
     margin: auto;
@@ -1238,6 +1331,9 @@ $register-hide-icon: 95%;
     .flex {
       div {
         flex: 1;
+      }
+      div:first-of-type {
+        padding-right: 1em;
       }
     }
   }
@@ -1313,8 +1409,19 @@ $register-hide-icon: 95%;
   }
 }
 
+.bid-tracker-alert-container--register-with-another-bidder {
+  margin-top: 35px;
+  top: 0;
+
+  .register-with-another-bidder-position-details {
+      padding-left: 27%;
+      text-align: left;
+    }
+}
+
 .bid-tracker-alert-container--register {
-  top: 35px;
+  margin-top: 35px;
+  top: 0;
 
   .remove-bid-link {
     cursor: pointer;
@@ -1330,10 +1437,6 @@ $register-hide-icon: 95%;
 
   .register-submission-container {
     border-right: 1px solid $color-white;
-  }
-
-  .register-another-client-container {
-    border-left: 1px solid $color-white;
   }
 
   .register-submission-buttons-container {
@@ -1493,10 +1596,10 @@ $register-hide-icon: 95%;
 
 @media screen and (max-width: 1450px) {
   .bid-tracker-overlay-alert--register {
-    margin-left: 0%;
+    margin-left: 0;
 
     .bid-tracker-overlay-alert-content-container {
-      padding-right: 0%;
+      padding-right: 0;
     }
   }
 
@@ -1504,23 +1607,11 @@ $register-hide-icon: 95%;
     display: none;
   }
 
-  .bid-tracker-overlay-alert--register-another-client {
-    margin-left: 0%;
-
-    .bid-tracker-overlay-alert-content-container {
-      padding-right: 0%;
-    }
-  }
-
-  .bid-tracker-overlay-alert--register-another-client::after {
-    display: none;
+  .collapse-overlay {
+    margin-left: $register-hide-icon;
   }
 }
 
 .bid-tracker-inner-container {
   overflow: hidden;
-}
-
-.bid-tracker-hs-another-client {
-  background: $bg-hs-another-client;
 }

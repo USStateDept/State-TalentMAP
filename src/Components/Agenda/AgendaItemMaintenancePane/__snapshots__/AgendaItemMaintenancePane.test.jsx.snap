@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <AgendaItemMaintenancePane
+    addToSelection={[Function]}
+    asgSepBidData={Object {}}
+    isReadOnly={false}
+    legCount={0}
+    onAddRemarksClick={[Function]}
+    perdet="2"
+    saveAI={[Function]}
+    sendAsgSepBid={[Function]}
+    sendMaintenancePaneInfo={[Function]}
+    setParentLoadingState={[Function]}
+    unitedLoading={false}
+    updateSelection={[Function]}
+    userRemarks={
+      Array [
+        Object {
+          "active_ind": "Y",
+          "mutually_exclusive_ind": "N",
+          "order_num": 7,
+          "rc_code": "B",
+          "seq_num": 2,
+          "short_desc_text": "Promo Bd Recognized",
+          "text": "Potential recognized by last promo board",
+        },
+      ]
+    }
+  />
+</ContextProvider>
+`;

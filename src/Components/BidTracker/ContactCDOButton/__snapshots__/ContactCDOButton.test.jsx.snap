@@ -5,7 +5,6 @@ exports[`ContactCDOButtonComponent matches snapshot 1`] = `
   className="bid-tracker-cdo-button"
   isExternal={true}
   toLink="mailto:test@email.com"
-  useDefaultClass={true}
 >
   <FontAwesome
     name="envelope-o"

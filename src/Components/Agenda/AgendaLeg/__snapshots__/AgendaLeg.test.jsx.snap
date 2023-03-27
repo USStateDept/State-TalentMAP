@@ -1,0 +1,175 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaLeg Component matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="grid-col-3 grid-row-1"
+  >
+    <InteractiveElement
+      className="remove-leg-button"
+      onClick={[Function]}
+      title="Remove leg"
+      type="div"
+    >
+      <FontAwesome
+        name="times"
+      />
+    </InteractiveElement>
+  </div>
+  <InteractiveElement
+    className="grid-col-3 grid-row-2"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      REGIONAL SECURITY OFFICER
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-3"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      57019000
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-4"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      A
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-5"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      00
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-6"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None listed
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-7"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      05/04/2019
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-8"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div
+      className="arrow"
+    >
+      <FontAwesome
+        name="arrow-down"
+      />
+    </div>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-9"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    07/04/2020
+    <FontAwesome
+      name="calendar"
+      onClick={[Function]}
+    />
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-10"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <select
+      className="leg-dropdown"
+      disabled={false}
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        key="null"
+        selected={true}
+        value=""
+      >
+        Keep Unselected
+      </option>
+      <option />
+      <option />
+    </select>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-11"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <select
+      className="leg-dropdown"
+      disabled={false}
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        key="null"
+        selected={true}
+        value=""
+      >
+        Keep Unselected
+      </option>
+      <option />
+      <option />
+    </select>
+  </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-12"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <select
+      className="leg-dropdown"
+      disabled={false}
+      onChange={[Function]}
+      value=""
+    >
+      <option
+        key="null"
+        selected={true}
+        value=""
+      >
+        Keep Unselected
+      </option>
+      <option />
+      <option />
+    </select>
+  </InteractiveElement>
+</Fragment>
+`;

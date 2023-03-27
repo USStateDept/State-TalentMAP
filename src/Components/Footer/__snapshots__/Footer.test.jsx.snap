@@ -35,11 +35,11 @@ exports[`Footer Component matches snapshot 1`] = `
               className="usa-width-one-sixth usa-footer-primary-content"
             >
               <Link
-                className="usa-footer-primary-link"
+                className="usa-footer-primary-link tutorial-help-link"
                 replace={false}
-                to="/about"
+                to="/help"
               >
-                About
+                Help
               </Link>
             </li>
           </ul>

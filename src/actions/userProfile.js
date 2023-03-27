@@ -10,6 +10,52 @@ import { favoritePositionsFetchData } from './favoritePositions';
 import { toastError, toastSuccess } from './toast';
 import * as SystemMessages from '../Constants/SystemMessages';
 
+const assignment =
+  [
+    {
+      id: null,
+      position_id: '105344',
+      start_date: '2022-07-21T19:47:44.935000Z',
+      end_date: '2022-07-21T19:47:44.935000Z',
+      position: {
+        grade: '02',
+        skill: 'PASSPORT AFFAIRS (3020)',
+        skill_code: '3020',
+        bureau: '(EUR) BUR OF EUROPEAN AFF AND EURASIAN AFFAIRS',
+        bureau_code: 'EUR',
+        organization: null,
+        position_number: 'D0950904',
+        position_id: '105344',
+        title: 'INFO MANAGEMENT TECHNICAL SPEC',
+        post: {
+          code: 'UG5000000',
+          post_overview_url: null,
+          post_bidding_considerations_url: null,
+          obc_id: null,
+          location: {
+            country: 'French Guiana',
+            code: 'UG5000000',
+            city: 'Brenton',
+            state: '',
+          },
+        },
+        language: 'Spanish 3/3',
+      },
+    },
+  ];
+
+const language =
+  [
+    {
+      code: 'GG',
+      language: 'Georgian',
+      test_date: '2003-05-28T04:00:00Z',
+      speaking_score: '2+',
+      reading_score: '2',
+      custom_description: 'Georgian 2+/2',
+    },
+  ];
+
 export function userProfileHasErrored(bool) {
   return {
     type: 'USER_PROFILE_HAS_ERRORED',
@@ -67,7 +113,9 @@ export function userProfileFetchData(bypass, cb) {
      * create functions to fetch user's profile and permissions
      */
     // profile
-    const getUserAccount = () => api().get('/profile/');
+    const getUserAccount = () => api().get('/profile/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
+    // const getAssignments = () => api().get();
+
     // permissions
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // AP favorites
@@ -101,6 +149,7 @@ export function userProfileFetchData(bypass, cb) {
         const bureauPermissions = get(results, '[5].value.data', []);
         const orgPermissions = get(results, '[6].value.data', []);
         const account = get(results, '[7].value.data', {});
+
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
@@ -112,6 +161,8 @@ export function userProfileFetchData(bypass, cb) {
           cdo: account.cdo_info, // don't use deprecated CDO API model
           bureau_permissions: bureauPermissions,
           org_permissions: orgPermissions,
+          assignments: assignment,
+          languages: language,
         };
 
         if (!bypass) {
@@ -186,7 +237,7 @@ export function userProfileFetchData(bypass, cb) {
 }
 
 // Toggling a favorite position:
-// We want to be explicit by having a "remove" param,
+// We want to be explicit by having a 'remove' param,
 // so that the visual indicator for the user's action always aligns
 // what we're actually doing.
 // We also want to refresh their favorites, in case they made changes on another page.

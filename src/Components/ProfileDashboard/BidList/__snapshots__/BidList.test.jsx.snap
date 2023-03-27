@@ -21,207 +21,213 @@ exports[`BidListComponent matches snapshot 1`] = `
       <div
         className="usa-width-one-whole bid-tracker-title--condensed"
       >
-        <PositionInformation
-          className=""
-          icon="clipboard"
-          len={3}
-          small={false}
-          title="Bid List"
-        />
-        <BidStatusStats
-          bidList={
-            Array [
-              Object {
-                "approved_date": "2017-12-20",
-                "closed_date": "2017-12-20",
-                "create_date": "2017-12-20",
-                "declined_date": "2017-12-20",
-                "draft_date": "2017-12-20",
-                "handshake_accepted_date": "2017-12-20",
-                "handshake_declined_date": "2017-12-20",
-                "handshake_offered_date": "2017-12-20",
-                "id": 3,
-                "in_panel_date": "2017-12-20",
-                "is_priority": false,
-                "position_info": Object {
-                  "bid_statistics": Array [
-                    Object {
-                      "at_skill": 0,
-                      "has_handshake_accepted": null,
-                      "has_handshake_offered": false,
-                      "id": null,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 0,
-                    },
-                  ],
-                  "bidcycle": Object {
-                    "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-                  },
-                  "id": 11,
-                  "position": Object {
-                    "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                    "create_date": "2015-08-05",
-                    "grade": "03",
-                    "position_number": "10035561",
-                    "post": Object {
-                      "id": 199,
-                      "location": Object {
-                        "city": "Freetown",
-                        "code": "00A",
-                        "country": "Sierra Leone",
-                        "id": 103,
-                        "state": "",
+        <SkeletonTheme
+          color="#0071BB"
+          highlightColor="#fff"
+        >
+          <PositionInformation
+            className=""
+            icon="clipboard"
+            len={3}
+            small={false}
+            title="Bid List"
+          />
+          <BidStatusStats
+            bidList={
+              Array [
+                Object {
+                  "approved_date": "2017-12-20",
+                  "closed_date": "2017-12-20",
+                  "create_date": "2017-12-20",
+                  "declined_date": "2017-12-20",
+                  "draft_date": "2017-12-20",
+                  "handshake_accepted_date": "2017-12-20",
+                  "handshake_declined_date": "2017-12-20",
+                  "handshake_offered_date": "2017-12-20",
+                  "id": 3,
+                  "in_panel_date": "2017-12-20",
+                  "is_priority": false,
+                  "position_info": Object {
+                    "bid_statistics": Array [
+                      Object {
+                        "at_skill": 0,
+                        "has_handshake_accepted": null,
+                        "has_handshake_offered": false,
+                        "id": null,
+                        "in_grade": 0,
+                        "in_grade_at_skill": 0,
+                        "total_bids": 0,
                       },
-                    },
-                    "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
-                    "title": "POLITICAL/ECONOMIC OFFICER",
-                    "update_date": "2017-06-08",
-                  },
-                },
-                "reviewer": Object {
-                  "email": "woodwardw@state.gov",
-                  "first_name": "Wendy",
-                  "is_cdo": false,
-                  "last_name": "Woodward",
-                  "phone_number": "555-555-5555",
-                  "username": "woodwardw",
-                },
-                "scheduled_panel_date": "2017-12-20",
-                "status": "approved",
-                "submitted_date": "2017-12-20",
-                "update_date": "2017-12-20",
-                "user": "rehmant",
-              },
-              Object {
-                "approved_date": "2017-12-20",
-                "closed_date": "2017-12-20",
-                "create_date": "2017-12-20",
-                "declined_date": "2017-12-20",
-                "draft_date": "2017-12-20",
-                "handshake_accepted_date": "2017-12-20",
-                "handshake_declined_date": "2017-12-20",
-                "handshake_offered_date": "2017-12-20",
-                "id": 1,
-                "in_panel_date": "2017-12-20",
-                "is_priority": true,
-                "position_info": Object {
-                  "bid_statistics": Array [
-                    Object {
-                      "at_skill": 0,
-                      "has_handshake_accepted": null,
-                      "has_handshake_offered": false,
-                      "id": null,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 0,
-                    },
-                  ],
-                  "position": Object {
+                    ],
                     "bidcycle": Object {
                       "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
                     },
-                    "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                    "create_date": "2006-09-20",
-                    "grade": "05",
-                    "id": 1,
-                    "position_number": "00003026",
-                    "post": Object {
-                      "id": 235,
-                      "location": Object {
-                        "city": "Freetown",
-                        "code": "00A",
-                        "country": "Sierra Leone",
-                        "id": 103,
-                        "state": "",
+                    "id": 11,
+                    "position": Object {
+                      "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                      "create_date": "2015-08-05",
+                      "grade": "03",
+                      "position_number": "10035561",
+                      "post": Object {
+                        "id": 199,
+                        "location": Object {
+                          "city": "Freetown",
+                          "code": "00A",
+                          "country": "Sierra Leone",
+                          "id": 103,
+                          "state": "",
+                        },
                       },
+                      "skill": "POLITICAL AND ECONOMIC AFFAIRS (6050)",
+                      "title": "POLITICAL/ECONOMIC OFFICER",
+                      "update_date": "2017-06-08",
                     },
-                    "skill": "OFFICE MANAGEMENT (9017)",
-                    "title": "OMS (COM)",
-                    "update_date": "2017-06-08",
                   },
+                  "reviewer": Object {
+                    "email": "woodwardw@state.gov",
+                    "first_name": "Wendy",
+                    "is_cdo": false,
+                    "last_name": "Woodward",
+                    "phone_number": "555-555-5555",
+                    "username": "woodwardw",
+                  },
+                  "scheduled_panel_date": "2017-12-20",
+                  "status": "approved",
+                  "submitted_date": "2017-12-20",
+                  "update_date": "2017-12-20",
+                  "user": "rehmant",
                 },
-                "reviewer": Object {
-                  "email": "woodwardw@state.gov",
-                  "first_name": "Wendy",
-                  "is_cdo": false,
-                  "last_name": "Woodward",
-                  "phone_number": "555-555-5555",
-                  "username": "woodwardw",
-                },
-                "scheduled_panel_date": "2017-12-20",
-                "status": "closed",
-                "submitted_date": "2017-12-20",
-                "update_date": "2017-12-20",
-                "user": "rehmant",
-              },
-              Object {
-                "approved_date": "2017-12-20",
-                "closed_date": "2017-12-20",
-                "create_date": "2017-12-20",
-                "declined_date": "2017-12-20",
-                "draft_date": "2017-12-20",
-                "handshake_accepted_date": "2017-12-20",
-                "handshake_declined_date": "2017-12-20",
-                "handshake_offered_date": "2017-12-20",
-                "id": 2,
-                "in_panel_date": "2017-12-20",
-                "is_priority": false,
-                "position_info": Object {
-                  "bid_statistics": Array [
-                    Object {
-                      "at_skill": 0,
-                      "has_handshake_accepted": null,
-                      "has_handshake_offered": false,
-                      "id": null,
-                      "in_grade": 0,
-                      "in_grade_at_skill": 0,
-                      "total_bids": 0,
-                    },
-                  ],
-                  "id": 79,
-                  "position": Object {
-                    "bidcycle": Object {
-                      "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
-                    },
-                    "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
-                    "create_date": "2006-09-20",
-                    "grade": "04",
-                    "id": 84,
-                    "position_number": "56001600",
-                    "post": Object {
-                      "id": 195,
-                      "location": Object {
-                        "city": "Freetown",
-                        "code": "00A",
-                        "country": "Sierra Leone",
-                        "id": 103,
-                        "state": "",
+                Object {
+                  "approved_date": "2017-12-20",
+                  "closed_date": "2017-12-20",
+                  "create_date": "2017-12-20",
+                  "declined_date": "2017-12-20",
+                  "draft_date": "2017-12-20",
+                  "handshake_accepted_date": "2017-12-20",
+                  "handshake_declined_date": "2017-12-20",
+                  "handshake_offered_date": "2017-12-20",
+                  "id": 1,
+                  "in_panel_date": "2017-12-20",
+                  "is_priority": true,
+                  "position_info": Object {
+                    "bid_statistics": Array [
+                      Object {
+                        "at_skill": 0,
+                        "has_handshake_accepted": null,
+                        "has_handshake_offered": false,
+                        "id": null,
+                        "in_grade": 0,
+                        "in_grade_at_skill": 0,
+                        "total_bids": 0,
                       },
+                    ],
+                    "position": Object {
+                      "bidcycle": Object {
+                        "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                      },
+                      "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                      "create_date": "2006-09-20",
+                      "grade": "05",
+                      "id": 1,
+                      "position_number": "00003026",
+                      "post": Object {
+                        "id": 235,
+                        "location": Object {
+                          "city": "Freetown",
+                          "code": "00A",
+                          "country": "Sierra Leone",
+                          "id": 103,
+                          "state": "",
+                        },
+                      },
+                      "skill": "OFFICE MANAGEMENT (9017)",
+                      "title": "OMS (COM)",
+                      "update_date": "2017-06-08",
                     },
-                    "skill": "SECURITY (2501)",
-                    "title": "SPECIAL AGENT",
-                    "update_date": "2017-06-08",
                   },
+                  "reviewer": Object {
+                    "email": "woodwardw@state.gov",
+                    "first_name": "Wendy",
+                    "is_cdo": false,
+                    "last_name": "Woodward",
+                    "phone_number": "555-555-5555",
+                    "username": "woodwardw",
+                  },
+                  "scheduled_panel_date": "2017-12-20",
+                  "status": "closed",
+                  "submitted_date": "2017-12-20",
+                  "update_date": "2017-12-20",
+                  "user": "rehmant",
                 },
-                "reviewer": Object {
-                  "email": "woodwardw@state.gov",
-                  "first_name": "Wendy",
-                  "is_cdo": false,
-                  "last_name": "Woodward",
-                  "phone_number": "555-555-5555",
-                  "username": "woodwardw",
+                Object {
+                  "approved_date": "2017-12-20",
+                  "closed_date": "2017-12-20",
+                  "create_date": "2017-12-20",
+                  "declined_date": "2017-12-20",
+                  "draft_date": "2017-12-20",
+                  "handshake_accepted_date": "2017-12-20",
+                  "handshake_declined_date": "2017-12-20",
+                  "handshake_offered_date": "2017-12-20",
+                  "id": 2,
+                  "in_panel_date": "2017-12-20",
+                  "is_priority": false,
+                  "position_info": Object {
+                    "bid_statistics": Array [
+                      Object {
+                        "at_skill": 0,
+                        "has_handshake_accepted": null,
+                        "has_handshake_offered": false,
+                        "id": null,
+                        "in_grade": 0,
+                        "in_grade_at_skill": 0,
+                        "total_bids": 0,
+                      },
+                    ],
+                    "id": 79,
+                    "position": Object {
+                      "bidcycle": Object {
+                        "name": "Demo BidCycle 2017-10-31 16:00:51.254762",
+                      },
+                      "bureau": "(AF) BUREAU OF AFRICAN AFFAIRS",
+                      "create_date": "2006-09-20",
+                      "grade": "04",
+                      "id": 84,
+                      "position_number": "56001600",
+                      "post": Object {
+                        "id": 195,
+                        "location": Object {
+                          "city": "Freetown",
+                          "code": "00A",
+                          "country": "Sierra Leone",
+                          "id": 103,
+                          "state": "",
+                        },
+                      },
+                      "skill": "SECURITY (2501)",
+                      "title": "SPECIAL AGENT",
+                      "update_date": "2017-06-08",
+                    },
+                  },
+                  "reviewer": Object {
+                    "email": "woodwardw@state.gov",
+                    "first_name": "Wendy",
+                    "is_cdo": false,
+                    "last_name": "Woodward",
+                    "phone_number": "555-555-5555",
+                    "username": "woodwardw",
+                  },
+                  "scheduled_panel_date": "2017-12-20",
+                  "status": "closed",
+                  "submitted_date": "2017-12-20",
+                  "update_date": "2017-12-20",
+                  "user": "rehmant",
                 },
-                "scheduled_panel_date": "2017-12-20",
-                "status": "closed",
-                "submitted_date": "2017-12-20",
-                "update_date": "2017-12-20",
-                "user": "rehmant",
-              },
-            ]
-          }
-          condensed={true}
-        />
+              ]
+            }
+            condensed={true}
+            showTotal={false}
+          />
+        </SkeletonTheme>
       </div>
     </div>
     <div
@@ -543,17 +549,23 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
       <div
         className="usa-width-one-whole bid-tracker-title--condensed"
       >
-        <PositionInformation
-          className=""
-          icon="clipboard"
-          len={0}
-          small={false}
-          title="Bid List"
-        />
-        <BidStatusStats
-          bidList={Array []}
-          condensed={true}
-        />
+        <SkeletonTheme
+          color="#0071BB"
+          highlightColor="#fff"
+        >
+          <PositionInformation
+            className=""
+            icon="clipboard"
+            len={0}
+            small={false}
+            title="Bid List"
+          />
+          <BidStatusStats
+            bidList={Array []}
+            condensed={true}
+            showTotal={false}
+          />
+        </SkeletonTheme>
       </div>
     </div>
     <div

@@ -17,14 +17,13 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
   >
     <div>
       <h3>
-        N/A
+        <Link
+          replace={false}
+          to="/profile/public/undefined"
+        >
+          None listed
+        </Link>
       </h3>
-      <Link
-        replace={false}
-        to="/profile/public/undefined"
-      >
-        View Profile
-      </Link>
     </div>
     <div
       className="stat-card-data-point"
@@ -88,11 +87,15 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
     <div
       className="stat-card-data-point"
     >
-      <dt>
-        Location:
+      <dt
+        className="location-label"
+      >
+        Location (Org):
       </dt>
       <dd>
         None listed
+         (
+        )
       </dd>
     </div>
   </div>

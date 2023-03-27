@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { updateClassifications } from 'actions/classifications';
 import { CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { orderClassifications } from 'Components/BidderPortfolio/helpers';
-import { checkFlag } from 'flags';
 import SectionTitle from '../SectionTitle';
 import CheckboxList from '../../BidderPortfolio/CheckboxList';
 
@@ -16,6 +15,9 @@ const Classifications = props => {
     clientClassifications,
     updateUserClassifications,
     userId,
+    isPublic,
+    hideTitle,
+    canEditClassifications,
   } = props;
 
   const [editView, setEditView] = useState(false);
@@ -55,17 +57,17 @@ const Classifications = props => {
     }
   };
 
-  const useClassificationsEditor = () => checkFlag('flags.classifications');
-  const displayClassificationsEditor = useClassificationsEditor();
-
   const classifications$ = orderClassifications(classifications);
 
   return (
     <div className="usa-grid-full profile-section-container updates-container">
-      <div className="usa-grid-full section-padded-inner-container">
-        <div className="usa-width-one-whole">
-          <SectionTitle title="Bidder Classifications" icon="tasks" />
-        </div>
+      <div className="section-padded-inner-container">
+        {
+          !hideTitle &&
+          <div className="usa-width-one-whole">
+            <SectionTitle title="Bidder Classifications" icon="tasks" />
+          </div>
+        }
         <div className="usa-width-one-whole">
           <CheckboxList
             list={classifications$}
@@ -73,11 +75,12 @@ const Classifications = props => {
             editView={editView}
             updateClassifications={handleInput}
             input={userInput}
+            isPublic={isPublic}
           />
         </div>
       </div>
       {
-        !editView && displayClassificationsEditor &&
+        !editView && isPublic && canEditClassifications &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
@@ -113,12 +116,18 @@ Classifications.propTypes = {
   clientClassifications: CLIENT_CLASSIFICATIONS,
   updateUserClassifications: PropTypes.func,
   userId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  isPublic: PropTypes.bool,
+  hideTitle: PropTypes.bool,
+  canEditClassifications: PropTypes.bool,
 };
 
 Classifications.defaultProps = {
   classifications: [],
   clientClassifications: [],
   updateUserClassifications: EMPTY_FUNCTION,
+  isPublic: false,
+  hideTitle: false,
+  canEditClassifications: false,
 };
 
 export const mapDispatchToProps = dispatch => ({

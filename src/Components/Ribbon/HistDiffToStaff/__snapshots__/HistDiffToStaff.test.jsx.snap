@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HistDiffToStaffComponent matches snapshot 1`] = `
+<Ribbon
+  className=""
+  containerProps={Object {}}
+  cutSide="left"
+  icon="bolt"
+  isWide={false}
+  isWideResults={false}
+  showText={true}
+  text="Hist. Diff. to Staff"
+  type="hds"
+/>
+`;

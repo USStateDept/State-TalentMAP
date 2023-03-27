@@ -2,6 +2,11 @@
 
   border-top: 1px solid $color-white;
 
+  h3:not(.usa-alert-heading) {
+    font-size: 15px;
+    font-weight: normal;
+  }
+
   .bidder-manager-search-container {
     background-color: $bg-blue-dark-1;
     padding: 12px 31px;
@@ -14,6 +19,8 @@
   }
 
   .available-bidders-stats {
+    padding-top: .1em;
+
     .statistics-section {
       background-color: $color-white;
       border: 2px solid $color-gray-light;
@@ -25,11 +32,23 @@
     }
 
     .legend-container {
-      margin-left: auto;
+      h4 {
+        margin: 20px 0 0;
+      }
     }
 
-    .legend {
-      margin-top: 2em;
+    .legend-small {
+      display: inline-grid;
+      flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(9, auto);
+    }
+
+    .legend-large {
+      display: inline-grid;
+      flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: repeat(25, auto);
     }
 
     .legend-item {
@@ -42,8 +61,12 @@
     }
 
     .legend-text {
-       margin: auto;
-       margin-left: 1.5em;
+       margin: auto .8em;
+    }
+
+    .percent-text {
+      font-weight: bold;
+      margin: 0 .4em;
     }
 
     .chart-container {
@@ -97,7 +120,8 @@
     margin: 0;
     width: 100%;
     border: 1px solid $dos-blue;
-    
+    overflow-x: auto;
+
     thead {
       tr {
         th {
@@ -105,14 +129,14 @@
           color: $color-white;
           background-color: $dos-blue;
           // Position sticky not supported on ie11
-          // Position sticky has partial support on browsers (Must target th; not thead) 
+          // Position sticky has partial support on browsers (Must target th; not thead)
           position: -webkit-sticky;
           position: sticky;
           top: 0;
           border: none;
           border-bottom: 1px solid $dos-blue;
         }
-        th:last-child {
+        th:nth-of-type(#{$abl-actions-td}) {
           color: $color-black;
           background-color: $tm-white-smoke-light;
         }
@@ -153,6 +177,30 @@
         }
       }
     }
+    .no-step-letters-icon {
+      color: $color-gray-light;
+    }
+    .one-step-letter-icon {
+      color: #f7b578
+    }
+    .both-step-letters-icon {
+      color: $color-red;
+    }
+  }
+}
+
+.internal {
+  @media screen and (min-width: 1099px) and (max-width: 1199px) {
+    width: 79%;
+    margin-left: 0;
+  }
+  @media screen and (min-width: 1200px) and (max-width: 1315px) {
+    width: 87%;
+    margin-left: 0;
+  }
+  @media screen and (max-width: 1098px) {
+    width: 70%;
+    margin-left: 0;
   }
 }
 
@@ -160,10 +208,9 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  .export-button-container {
-    button {
-      display: inline;
-    }
+  margin-bottom: -50px;
+  button {
+    margin-right: 0;
   }
 }
 
@@ -172,8 +219,7 @@
 }
 
 .ab-inactive {
-  // td(10) is the action buttons column which should never be grayed out
-  td:not(:nth-of-type(10)) {
+  td:not(:nth-of-type(#{$abl-actions-td})) {
     color: #a9acaf;
     background-color: #cacbce;
     a {
@@ -183,12 +229,13 @@
 }
 
 .ab-active {
-  // td(2) is the status column, and td(9) is the comment column
-  td:nth-of-type(2), td:nth-of-type(9) {
-    color: #a9acaf;
-    background-color: #cacbce;
-    a {
+  @each $td-info in $abl-gray-config {
+    td:nth-of-type(#{nth($td-info, 2)}) {
       color: #a9acaf;
+      background-color: #cacbce;
+      a {
+        color: #a9acaf;
+      }
     }
   }
 }
@@ -214,7 +261,7 @@
   }
 }
 
-.bureau-view-toggle {
+.external-view-toggle {
   display: flex;
   justify-content: center;
 
@@ -229,13 +276,14 @@
     background: none;
   }
 
-  div {
+  // styling for step letter date picker
+  div:not(.react-datepicker-wrapper, .react-datepicker-wrapper div,
+   .react-datepicker__tab-loop, .react-datepicker__tab-loop div) {
     display: flex;
-    justify-content: space-between;
     align-items: baseline;
   }
   // for the Share Bureau icon
-  div:nth-child(13) {
+  div:nth-child(14) {
     justify-content: flex-start;
   }
 
@@ -256,6 +304,57 @@
   .select-error {
     border-color: $alert-red;
     box-shadow: 0px 0px 0px 2px $alert-red;
+  }
+
+  .date-picker-validation-container,
+  .oc-validation-container {
+    width: 100%;
+  }
+
+  .usa-input-error-message {
+    text-align: left;
+  }
+
+  .react-datepicker {
+    font-size: 1em;
+  }
+
+  .react-datepicker__header {
+    padding-top: 0.8em;
+  }
+
+  .react-datepicker__month {
+    margin: 0.4em 1em;
+  }
+
+  .react-datepicker__day-name, .react-datepicker__day {
+    width: 1.9em;
+    line-height: 1.9em;
+    margin: 0.166em;
+  }
+
+  .react-datepicker__current-month {
+    font-size: 1em;
+  }
+
+  .react-datepicker__navigation {
+    top: .5em;
+    line-height: 1.7em;
+    border: 0.45em solid transparent;
+  }
+
+  .react-datepicker__navigation--previous {
+    border-right-color: #ccc;
+    left: 1em;
+  }
+
+  .react-datepicker__navigation--next {
+    border-left-color: #ccc;
+    right: 1em;
+  }
+
+  .react-datepicker__navigation {
+    border: none;
   }
 }
 
@@ -294,12 +393,20 @@
     }
   }
 
+  textarea {
+    // make sure this matches minRows in TextareaAutosize component
+    height: 110px;
+    min-height: 50px;
+    min-width: 100px;
+  }
+
   input select textarea {
     width: 75%;
   }
 }
 
-#ocReason:disabled, #ocBureau:disabled {
+#ocReason:disabled, #ocBureau:disabled,
+#stepLetterOne:disabled, #stepLetterTwo:disabled {
   background: darkgrey;
 }
 
@@ -351,6 +458,52 @@
       padding-left: 5px;
     }
   }
+
+  .tippy-tooltip.ab-row-theme, .tippy-tooltip.step-letters-theme {
+    background-color: $color-white;
+    color: $color-black;
+    border: 2px solid $tm-gray;
+    font-size: 14px;
+    font-family: Roboto;
+    padding: 15px;
+    text-align: left;
+    box-shadow: $tm-gray 3px 14px 29px;
+    .arrow-regular {
+      border: none;
+    }
+    .ab-row-tooltip-wrapper, .step-letter-tooltip-wrapper {
+      display: flex;
+      padding-bottom: 10px;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .title {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .ab-row-tooltip-data, .step-letter-date {
+        font-weight: 400;
+        font-style: italic;
+        white-space: break-spaces;
+      }
+    }
+
+    .step-letter-tooltip-wrapper {
+      div:first-child {
+        padding-right: 10px;
+        border-right: 1px solid $color-gray-light;
+      }
+      div:nth-child(2) {
+        padding-left: 10px;
+      }
+    }
+    .title {
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
 }
 
 .oc-icon {
@@ -379,6 +532,22 @@
   }
 }
 
-.no-comments {
-  color: $color-gray-light;
+.no-value {
+    color: $color-gray-light;
+}
+
+.step-letter-clear-icon {
+  margin-left: 5px;
+
+  .active {
+    color: $alert-red;
+  }
+
+  .inactive {
+    color: $color-gray-light;
+  }
+}
+
+.comments-icon {
+  color: $color-dodger-blue;
 }

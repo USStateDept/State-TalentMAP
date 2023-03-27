@@ -8,7 +8,34 @@
 }
 
 .bid-cycles-container {
+  .react-datepicker {
+    font-size: 1rem;
+  }
+
   .react-datepicker__input-container {
     width: 300px;
+  }
+}
+
+.react-datepicker {
+  button {
+    font-size: initial;
+    font-weight: initial;
+    line-height: initial;
+    margin-top: initial;
+    margin-right: initial;
+    margin-bottom: initial;
+    border-radius: initial;
+    color: initial;
+    text-decoration: initial;
+    font: initial;
+    margin: initial;
+
+    &:hover {
+      background-color: initial;
+      border-bottom: initial;
+      color: initial;
+      text-decoration: initial;
+    }
   }
 }

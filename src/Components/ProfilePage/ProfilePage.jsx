@@ -1,9 +1,7 @@
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Flag } from 'flag';
 import Settings from 'Components/Settings';
 import Dashboard from 'Containers/Dashboard/Dashboard';
-import BidCycles from 'Containers/BidCycles';
 import FavoritePositionsContainer from 'Containers/Favorites/Favorites';
 import GlossaryEditor from 'Containers/GlossaryEditor';
 import BidTracker from 'Containers/BidTracker';
@@ -13,6 +11,7 @@ import ProfilePublic from 'Containers/ProfilePublic';
 import Administrator from 'Containers/Administrator';
 import Bureau from 'Containers/Bureau';
 import Cdo from 'Containers/Cdo';
+import Post from 'Containers/Post';
 import GLOSSARY_EDITOR_PERM from 'Constants/Permissions';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import Notifications from './Notifications';
@@ -32,7 +31,6 @@ const ProfilePage = ({ user, isLoading }) => (
         :
         <Switch>
           <Route path="/profile/dashboard" component={Dashboard} />
-          <Route path="/profile/cycles" component={BidCycles} />
           <Route path="/profile/favorites" component={FavoritePositionsContainer} />
           <Route path="/profile/searches" component={SavedSearchesWrapper} />
           <Route path="/profile/settings" component={Settings} />
@@ -49,12 +47,8 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/bureau" component={Bureau} />
           <Route path="/profile/ao" component={Bureau} />
           <Route path="/profile/cdo" component={Cdo} />
-          <Flag
-            name="flags.bidding"
-            render={() => (
-              <Route path="/profile/bidtracker" component={BidTracker} />
-            )}
-          />
+          <Route path="/profile/post" component={Post} />
+          <Route path="/profile/bidtracker" component={BidTracker} />
         </Switch>
       }
     </div>

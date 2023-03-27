@@ -4,33 +4,40 @@ import AvailableBidderTable from '../AvailableBidderTable';
 import AvailableBidderStats from '../AvailableBidderStats';
 
 
-const AvailableBidderContainer = ({ isCDO }) => (
-  <div className="position-manager-details bidder-manager-page">
-    <div className={'usa-grid-full profile-content-inner-container'}>
-      <div className="usa-grid-full">
-        <ProfileSectionTitle title="Available Bidders" icon="users" />
-      </div>
-      {
-        isCDO &&
-      <div className="usa-grid-full">
-        <AvailableBidderStats />
-      </div>
-      }
-      <div className="usa-width-one-whole">
+const AvailableBidderContainer = ({ isCDO, isAO, isPost }) => {
+  const isInternalCDA = (isCDO || isAO);
+  return (
+    <div className="position-manager-details bidder-manager-page">
+      <div className={'usa-grid-full profile-content-inner-container'}>
         <div className="usa-grid-full">
-          <AvailableBidderTable isCDO={isCDO} />
+          <ProfileSectionTitle title="Available Bidders" icon="users" />
+        </div>
+        {
+          isInternalCDA &&
+        <div className="usa-grid-full">
+          <AvailableBidderStats />
+        </div>
+        }
+        <div className="usa-width-one-whole">
+          <div className="usa-grid-full">
+            <AvailableBidderTable isInternalCDA={isInternalCDA} isAO={isAO} isPost={isPost} />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 AvailableBidderContainer.propTypes = {
   isCDO: PropTypes.bool,
+  isAO: PropTypes.bool,
+  isPost: PropTypes.bool,
 };
 
 AvailableBidderContainer.defaultProps = {
   isCDO: false,
+  isAO: false,
+  isPost: false,
 };
 
 export default AvailableBidderContainer;

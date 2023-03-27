@@ -79,25 +79,6 @@ export function lastBidderPortfolioFetchDataSuccess(results) {
   };
 }
 
-export function bidderPortfolioCountsHasErrored(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_COUNTS_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bidderPortfolioCountsIsLoading(bool) {
-  return {
-    type: 'BIDDER_PORTFOLIO_COUNTS_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bidderPortfolioCountsFetchDataSuccess(counts) {
-  return {
-    type: 'BIDDER_PORTFOLIO_COUNTS_FETCH_DATA_SUCCESS',
-    counts,
-  };
-}
-
 export function bidderPortfolioCDOsHasErrored(bool) {
   return {
     type: 'BIDDER_PORTFOLIO_CDOS_HAS_ERRORED',
@@ -136,6 +117,29 @@ export function bidderPortfolioLastQuery(query, count) {
     type: 'SET_BIDDER_PORTFOLIO_LAST_QUERY',
     query,
     count,
+  };
+}
+export function bidderPortfolioPaginationHasErrored(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_PAGINATION_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function bidderPortfolioPaginationIsLoading(bool) {
+  return {
+    type: 'BIDDER_PORTFOLIO_PAGINATION_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function bidderPortfolioPaginationFetchDataSuccess(data) {
+  return {
+    type: 'BIDDER_PORTFOLIO_PAGINATION_FETCH_DATA_SUCCESS',
+    data,
+  };
+}
+export function saveBidderPortfolioPagination(paginationObject) {
+  return (dispatch) => {
+    dispatch(bidderPortfolioPaginationFetchDataSuccess(paginationObject));
   };
 }
 
@@ -182,35 +186,6 @@ export function lookupAndSetCDO(id) {
     if (cdo) {
       dispatch(bidderPortfolioSelectCDO(cdo));
     }
-  };
-}
-
-export function bidderPortfolioCountsFetchData() {
-  return (dispatch, getState) => {
-    batch(() => {
-      dispatch(bidderPortfolioCountsIsLoading(true));
-      dispatch(bidderPortfolioCountsHasErrored(false));
-    });
-    const state = getState();
-    const id = get(state, 'bidderPortfolioSelectedCDO.hru_id');
-    const isCurrentUser = get(state, 'bidderPortfolioSelectedCDO.isCurrentUser');
-    let endpoint = isCurrentUser || !id ? '/client/statistics/' : `/client/${id}/statistics/`;
-    endpoint = '/client/statistics/'; // TODO update
-    api().get(endpoint)
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(bidderPortfolioCountsFetchDataSuccess(data));
-          dispatch(bidderPortfolioCountsHasErrored(false));
-          dispatch(bidderPortfolioCountsIsLoading(false));
-        });
-      })
-      .catch(() => {
-        batch(() => {
-          dispatch(bidderPortfolioCountsFetchDataSuccess({}));
-          dispatch(bidderPortfolioCountsHasErrored(true));
-          dispatch(bidderPortfolioCountsIsLoading(false));
-        });
-      });
   };
 }
 
@@ -365,4 +340,15 @@ export function bidderPortfolioFetchDataFromLastQuery() {
         });
       });
   };
+}
+
+export function bidderPortfolioSelectionsSaveSuccess(result) {
+  return {
+    type: 'BIDDER_PORTFOLIO_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function bidderPortfolioSelections(queryObject) {
+  return (dispatch) => dispatch(bidderPortfolioSelectionsSaveSuccess(queryObject));
 }

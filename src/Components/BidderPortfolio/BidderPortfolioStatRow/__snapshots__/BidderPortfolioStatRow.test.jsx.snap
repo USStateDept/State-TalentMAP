@@ -7,12 +7,11 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
   <div
     className="stat-card-data-point stat-card-data-point--name"
   >
-    N/A
     <Link
       replace={false}
       to="/profile/public/undefined"
     >
-      View Profile
+      None listed
     </Link>
   </div>
   <div>
@@ -80,10 +79,12 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
         className="stat-card-data-point"
       >
         <dt>
-          Location:
+          Location (Org):
         </dt>
         <dd>
           None listed
+           (
+          )
         </dd>
       </div>
     </div>
@@ -211,6 +212,7 @@ exports[`BidderPortfolioStatRow matches snapshot 1`] = `
           }
         }
       />
+      <Connect(AddToInternalListButton) />
     </div>
   </div>
 </div>

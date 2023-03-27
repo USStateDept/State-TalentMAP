@@ -3,9 +3,7 @@
 exports[`ViewDetailsButtonComponent matches snapshot 1`] = `
 <LinkButton
   className="tm-button-alt"
-  isExternal={false}
   toLink="/details/1"
-  useDefaultClass={true}
 >
   <span
     className="tm-button-alt-icon"

@@ -38,16 +38,16 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
   background-color: $tertiary-success-lightest;
 }
 
-.ribbon-cn {
-  background-color: $ribbon-cn;
-}
-
-.ribbon-htf {
-  background-color: $ribbon-htf;
+.ribbon-hds {
+  background-color: $ribbon-hds;
 }
 
 .ribbon-snd {
   background-color: $tertiary-success-lighter;
+}
+
+.ribbon-htf {
+  background-color: $color-purple-medium;
 }
 
 .ribbon-outer-container-cut-left {
@@ -84,7 +84,7 @@ $ribbon-shadow-color: rgba(112, 112, 112, .5);
 .ribbon-container {
   position: absolute;
   right: -1px;
-  top: calc(100% - 208px);
+  top: 55px;
   width: 170px;
 
   .ribbon-snd {

@@ -60,10 +60,9 @@
 }
 
 .classifications-row {
-  span {
-    float: right;
-    padding-top: 1em;
-  }
+  display: inline;
+  padding: 15px 15px 0 50px;
+  float: right;
 }
 
 .classifications-season-text {
@@ -171,9 +170,8 @@
     margin-bottom: 1.1em;
 
     a {
-      font-size: .9em;
-      font-weight: normal;
-      margin-left: 15px;
+      font-size: 1.1em;
+      font-weight: bold;
     }
   }
 
@@ -205,6 +203,10 @@
     justify-content: flex-end;
     margin-top: 0;
 
+    @media screen and (max-width: 1260px) {
+      justify-content: center;
+    }
+
     > span {
       margin-right: 10px;
     }
@@ -216,8 +218,16 @@
       margin-bottom: 0;
     }
 
+    > button {
+      width: 150px;
+    }
+
     .link-button-wrapper {
       margin-right: 10px;
+    }
+
+    .search-as-client-button {
+      margin-right: 2rem;
     }
   }
 }
@@ -245,8 +255,7 @@
     a {
       align-items: center;
       display: flex;
-      font-size: 1.8rem;
-      text-decoration: none;
+      font-size: 1.6rem;
     }
 
     .fa {
@@ -258,6 +267,10 @@
 
   dt {
     font-weight: bold;
+  }
+
+  .location-label {
+    flex-shrink: 0;
   }
 
   dd {
@@ -384,10 +397,6 @@ $cdo-search-container-padding: 10px;
 
   border-top: 1px solid $color-white;
 
-  .results-single-search {
-    padding-left: 0 !important;
-  }
-
   .bid-cycle-picker-container, .unassigned-bidder-picker-container {
     > div {
       font-size: .8em;
@@ -405,7 +414,7 @@ $cdo-search-container-padding: 10px;
     li:last-child {
       margin-bottom: 3px;
     }
-    
+
     .picky--sublabel {
       margin-left: 2em;
     }
@@ -542,13 +551,13 @@ $cdo-search-container-padding: 10px;
     background-color: inherit;
   }
 
-  .results-search-bar-container {
+  .search-bar-container {
     max-width: unset;
     padding: 0;
-  }
 
-  .search-submit-button {
-    margin-top: 13px;
+    .search-results-inputs {
+      padding: 15px 0;
+    }
   }
 
   .total-results-container {

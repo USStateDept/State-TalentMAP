@@ -29,10 +29,10 @@ describe('HandshakeRegisterAlert', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can submit a bid', () => {
+  it('can call unregister', () => {
     const registerSpy = sinon.spy();
     const wrapper = shallow(
-      <RegisterHandshakeAlert {...props} registerHandshake={registerSpy} />,
+      <RegisterHandshakeAlert {...props} unregisterHandshake={registerSpy} isUnregister />,
     );
     wrapper.find('.tm-button-submit-bid').simulate('click');
     sinon.assert.calledOnce(registerSpy);

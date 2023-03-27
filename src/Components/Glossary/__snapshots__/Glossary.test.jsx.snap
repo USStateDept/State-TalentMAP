@@ -50,6 +50,7 @@ exports[`GlossaryComponent matches snapshot 1`] = `
           changeText={[Function]}
           searchTextValue=""
         />
+        <GlossaryExport />
         <div
           className="glossary-content"
         >
@@ -161,6 +162,7 @@ exports[`GlossaryComponent matches snapshot when visible is false 1`] = `
           changeText={[Function]}
           searchTextValue=""
         />
+        <GlossaryExport />
         <div
           className="glossary-content"
         >

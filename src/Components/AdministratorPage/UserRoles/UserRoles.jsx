@@ -1,14 +1,19 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import DELEGATE_ROLES from 'Constants/DelegateRoles';
+import FA from 'react-fontawesome';
+import {
+  get, pull, replace,
+} from 'lodash';
+import shortid from 'shortid';
 import { getUsers } from 'actions/userRoles';
+import DELEGATE_ROLES from 'Constants/DelegateRoles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { get, isNil, omit } from 'lodash';
-import ProfileSectionTitle from '../../ProfileSectionTitle';
-import Spinner from '../../Spinner';
-import PaginationWrapper from '../../PaginationWrapper/PaginationWrapper';
-import TotalResults from '../../TotalResults';
+import SearchBar from 'Components/SearchBar/SearchBar';
+import CheckBox from 'Components/CheckBox';
+import TotalResults from 'Components/TotalResults';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle';
+import PaginationWrapper from 'Components/PaginationWrapper/PaginationWrapper';
 import UserRow from './UserRow';
 
 class UserRoles extends Component {
@@ -17,115 +22,203 @@ class UserRoles extends Component {
     this.state = {
       page: 1,
       range: 100,
+      sort: 'last_name',
+      filters: [],
+      q_username: '',
+      q_name: '',
     };
   }
 
-  onPageChange = ({ page }) => {
-    this.setState({ page });
-    this.props.updateUsers(page);
+  // eslint-disable-next-line react/sort-comp
+  callUpdateUsers = () => {
+    const {
+      page, range, sort, filters, q_username, q_name,
+    } = this.state;
+    this.props.updateUsers(page, range, sort, filters.join(), q_username, q_name);
   };
 
-  render() {
-    const {
-      totalUsers,
-      usersList,
-      usersIsLoading,
-      usersHasErrored,
-      modifyPermissionIsLoading,
-      tableStats,
-    } = this.props;
-    const { page, range } = this.state;
-    const usersSuccess = !usersIsLoading && !usersHasErrored;
+  onPageChange = ({ page }) => {
+    this.setState({ page }, this.callUpdateUsers);
+  };
 
-    // copying id from tableStats to group_id in DELEGATE_ROLES$
-    const getDelegateRoles = () => {
-      const roles = { ...DELEGATE_ROLES };
-      tableStats.forEach((m) => {
-        const roleGroup = get(roles, `${m.name}`);
-        if (roleGroup) { roles[m.name].group_id = m.id; }
-      });
-      // remove role if did not match with tableStats(no id in roles)
-      const removeRoles = [];
-      Object.keys(roles).forEach((role) => {
-        if (isNil(get(roles, `${role}.group_id`))) {
-          removeRoles.push(role);
-        }
-      });
-      return omit(roles, removeRoles);
-    };
+  filterByPermission = (clicked, permission) => {
+    const filters = [...this.state.filters];
 
-    const DELEGATE_ROLES$ = getDelegateRoles();
+    if (clicked) {
+      filters.push(permission);
+    } else {
+      pull(filters, permission);
+    }
+    this.setState({ filters }, this.callUpdateUsers);
+  };
 
-    const thArray = [];
-    Object.keys(DELEGATE_ROLES$).forEach(m => (
-      thArray.push(
-        <th key={get(DELEGATE_ROLES$, `${m}.group_name`)}>{get(DELEGATE_ROLES$, `${m}.title`)}</th>,
-      )
-    ));
+  changeText = (e, id) => {
+    this.setState({ [id]: e.target.value });
+  };
 
-    const userRows = usersList.map(m => (
-      <UserRow
-        key={m.id}
-        userID={m.id}
-        username={m.username}
-        name={`${m.last_name}, ${m.first_name}`}
-        permissionGroups={m.groups}
-        delegateRoles={DELEGATE_ROLES$}
-      />
-    ),
-    );
+  submitText = (e) => {
+    e.preventDefault();
+    this.callUpdateUsers();
+  };
 
-    return (
-      <div
-        className={`usa-grid-full profile-content-inner-container administrator-page
-        ${(usersIsLoading) ? 'results-loading' : ''}`}
-      >
-        {
-          usersIsLoading &&
-            <div>
-              <Spinner type="homepage-position-results" size="big" />
-            </div>
-        }
-        <div className="usa-grid-full">
-          <ProfileSectionTitle title="User Roles" icon="users" />
-        </div>
-        {
-          usersSuccess &&
-          <div>
-            <div className="usa-grid-full searches-top-section selectUsers" />
-            <div className="usa-grid-full total-results">
-              <TotalResults total={totalUsers} pageNumber={page} pageSize={range} />
-            </div>
-            <div className="usa-grid-full">
-              {
-                usersSuccess &&
-                <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
-                  <thead>
-                    <tr>
-                      <th>userName</th>
-                      <th>Last, First</th>
-                      {thArray}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {userRows}
-                  </tbody>
-                </table>
-              }
-            </div>
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                totalResults={totalUsers}
-                pageSize={range}
-                onPageChange={this.onPageChange}
-                forcePage={page}
-              />
-            </div>
+   clearText = (e, id) => {
+     this.setState({ [id]: '' }, this.callUpdateUsers);
+   };
+
+   onSortTable = (sortType) => {
+     const { sort } = this.state;
+     let sortType$;
+     if (sortType === sort) {
+       sortType$ = `-${sort}`;
+     } else if (`-${sortType}` === sort) {
+       sortType$ = '';
+     } else {
+       sortType$ = sortType;
+     }
+     this.setState({ sort: sortType$ }, this.callUpdateUsers);
+   };
+
+   render() {
+     const {
+       totalUsers,
+       usersList,
+       usersIsLoading,
+       usersHasErrored,
+       modifyPermissionIsLoading,
+       tableStats,
+     } = this.props;
+     const { page, range, sort } = this.state;
+     const usersSuccess = !usersIsLoading && !usersHasErrored;
+
+     // copying id from tableStats to group_id in DELEGATE_ROLES$
+     const getDelegateRoles = () => {
+       const roles = { ...DELEGATE_ROLES };
+       tableStats.forEach((m) => {
+         const roleGroup = get(roles, `${m.name}`);
+         if (roleGroup) { roles[m.name].group_id = m.id; }
+       });
+       return roles;
+     };
+
+     const sortArrow = (sortType) => (
+       <div className={`delegate-role-header-sort${sortType === replace(sort, '-', '') ? '' : '-hidden'}`}>
+         <FA name={`long-arrow-${get(sort, [0], '') === '-' ? 'down' : 'up'}`} />
+       </div>
+     );
+
+     const DELEGATE_ROLES$ = getDelegateRoles();
+
+     // eslint-disable-next-line no-unused-vars
+     const userRows = usersIsLoading ? [...new Array(10)].map(m => (
+       <UserRow
+         key={shortid.generate()}
+         isLoading={usersIsLoading}
+       />
+     ),
+     ) : usersList.map(m => (
+       <UserRow
+         key={m.id}
+         userID={m.id}
+         username={m.username}
+         name={`${m.last_name}, ${m.first_name}`}
+         permissionGroups={m.groups}
+         delegateRoles={DELEGATE_ROLES$}
+         isLoading={usersIsLoading}
+       />
+     ),
+     );
+
+     return (
+       <div
+         className="usa-grid-full profile-content-inner-container administrator-page"
+       >
+         <div className="usa-grid-full">
+           <ProfileSectionTitle title="User Roles" icon="users" />
+         </div>
+         {
+           usersSuccess &&
+          <div className="usa-grid-full total-results">
+            <TotalResults total={totalUsers} pageNumber={page} pageSize={range} />
           </div>
-        }
-      </div>
-    );
-  }
+         }
+         <div className="usa-grid-full">
+           <table className={`delegateRole--table ${modifyPermissionIsLoading ? 'delegate-roles-loading' : ''}`}>
+             <thead>
+               <tr>
+                 <th key="username" className="delegate-role-header">
+                   <div className="header-text" role="button" tabIndex={0} onClick={() => this.onSortTable('username')}>
+                    Username
+                     {sortArrow('username')}
+                   </div>
+                   <div className="filter-row">
+                     <SearchBar
+                       id="username-search-field"
+                       labelSrOnly
+                       noButton
+                       onChangeText={e => this.changeText(e, 'q_username')}
+                       onSubmitSearch={e => this.submitText(e, 'q_username')}
+                       onClear={e => this.clearText(e, 'q_username')}
+                       placeholder="Search by Username"
+                       showClear
+                       submitText="Search"
+                       type="small"
+                       minimal
+                     />
+                   </div>
+                 </th>
+                 <th className="delegate-role-header">
+                   <div className="header-text" role="button" tabIndex={0} onClick={() => this.onSortTable('last_name')}>
+                    Last, First
+                     {sortArrow('last_name')}
+                   </div>
+                   <div className="filter-row">
+                     <SearchBar
+                       id="name-search-field"
+                       labelSrOnly
+                       noButton
+                       onChangeText={e => this.changeText(e, 'q_name')}
+                       onSubmitSearch={e => this.submitText(e, 'q_name')}
+                       onClear={e => this.clearText(e, 'q_name')}
+                       placeholder="Search by Last, First"
+                       showClear
+                       submitText="Search"
+                       type="small"
+                       minimal
+                     />
+                   </div>
+                 </th>
+                 {
+                   Object.keys(DELEGATE_ROLES$).map(m => (
+                     <th key={get(DELEGATE_ROLES$, `${m}.group_name`)}>
+                       {get(DELEGATE_ROLES$, `${m}.title`)}
+                       <div className="filter-row">
+                         <CheckBox
+                           id={`${get(DELEGATE_ROLES$, `${m}.group_name`)}`}
+                           value={m.group_id}
+                           onCheckBoxClick={e => this.filterByPermission(e, get(DELEGATE_ROLES$, `${m}.group_id`))}
+                         />
+                       </div>
+                     </th>
+                   ))
+                 }
+               </tr>
+             </thead>
+             <tbody>
+               {userRows}
+             </tbody>
+           </table>
+         </div>
+         <div className="usa-grid-full react-paginate">
+           <PaginationWrapper
+             totalResults={totalUsers}
+             pageSize={range}
+             onPageChange={this.onPageChange}
+             forcePage={page}
+           />
+         </div>
+       </div>
+     );
+   }
 }
 
 UserRoles.propTypes = {
@@ -170,7 +263,8 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  updateUsers: (page, limit) => dispatch(getUsers(page, limit)),
+  updateUsers: (page, range, sort, filters, q_username, q_name) =>
+    dispatch(getUsers(page, range, sort, filters, q_username, q_name)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRoles);

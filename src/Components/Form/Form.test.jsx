@@ -23,7 +23,7 @@ describe('FormComponent', () => {
     expect(wrapper.find(`.${className}`)).toBeDefined();
   });
 
-  it('can call the onFormSubmit function', () => {
+  it('calls onFormSubmit', () => {
     const spy = sinon.spy();
     const wrapper = shallow(
       <Form onFormSubmit={spy}>

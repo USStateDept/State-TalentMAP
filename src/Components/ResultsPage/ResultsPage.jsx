@@ -1,7 +1,10 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { get, isEqual } from 'lodash';
 import { connect } from 'react-redux';
+import Joyride, { STATUS } from 'react-joyride';
+import FA from 'react-fontawesome';
+import InteractiveElement from 'Components/InteractiveElement';
 import { ACCORDION_SELECTION_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
   FILTER_ITEMS_ARRAY, MISSION_DETAILS_ARRAY, PILL_ITEM_ARRAY, POSITION_SEARCH_RESULTS,
   POST_DETAILS_ARRAY, SORT_BY_PARENT_OBJECT, USER_PROFILE } from '../../Constants/PropTypes';
@@ -11,12 +14,15 @@ import ResultsContainer from '../ResultsContainer/ResultsContainer';
 import ResultsSearchHeader from '../ResultsSearchHeader/ResultsSearchHeader';
 import ResultsFilterContainer from '../ResultsFilterContainer/ResultsFilterContainer';
 import MediaQuery from '../MediaQuery';
+import Steps from './tutorialSteps';
 
 class Results extends Component {
   constructor(props) {
     super(props);
     this.state = {
       currentPage: { value: 0 },
+      run: false,
+      steps: Steps,
     };
   }
 
@@ -27,12 +33,27 @@ class Results extends Component {
     };
   }
 
-  shouldComponentUpdate(nextProps) {
-    return !isEqual(nextProps, this.props);
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
   }
 
   getKeywordValue() {
     return this.keywordRef ? this.keywordRef.getValue() : null;
+  }
+
+  handleJoyrideCallback = data => {
+    const { status } = data;
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      // Need to set our running state to false, so we can restart if we click start again.
+      this.setState({ run: false });
+    }
+  };
+
+  handleTutorialButtonClick = () => {
+    const { isLoading, results } = this.props;
+    if (!isLoading && get(results, 'results', []).length) {
+      this.setState({ run: !this.state.run });
+    }
   }
 
   render() {
@@ -47,6 +68,7 @@ class Results extends Component {
       = this.props;
     const { isTandemSearch } = this.context;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
+    const { steps } = this.state;
 
     let sortBy$ = isProjectedVacancy ? filterPVSorts(sortBy) : sortBy;
     sortBy$ = isTandemSearch ? filterTandemSorts(sortBy$) : sortBy$;
@@ -86,9 +108,37 @@ class Results extends Component {
         }
         <div className="usa-grid-full results-section-container">
           <MediaQuery breakpoint="screenMdMin" widthType="min">
-            {/* eslint-disable */}
-            {matches => matches ? filterContainer : shouldShowMobileFilter && filterContainer}
-            {/* eslint-enable */}
+            {matches => matches ?
+              <>
+                {filterContainer}
+                <InteractiveElement
+                  onClick={this.handleTutorialButtonClick}
+                  className="tutorial-button"
+                  title="Display tutorial"
+                >
+                  <FA name="question-circle" />
+                </InteractiveElement>
+                <Joyride
+                  steps={steps}
+                  continuous
+                  scrollToFirstStep
+                  showProgress
+                  showSkipButton
+                  run={this.state.run}
+                  disableOverlayClose
+                  disableCloseOnEsc
+                  hideCloseButton
+                  scrollOffset={300}
+                  callback={this.handleJoyrideCallback}
+                  styles={{
+                    options: {
+                      primaryColor: '#0071BC',
+                      zIndex: 1000,
+                    },
+                  }}
+                  locale={{ skip: 'Exit', last: 'Exit' }}
+                /></> : <>{shouldShowMobileFilter && filterContainer}</>
+            }
           </MediaQuery>
           <ResultsContainer
             results={results}

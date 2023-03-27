@@ -17,8 +17,9 @@ import ClosedAlert from './ClosedAlert';
 import PanelRescheduledAlert from './PanelRescheduledAlert';
 import HandshakeRegisterAlert from './HandshakeRegisterAlert';
 import DraftAlert from './DraftAlert';
-import HandshakeRegisterAnotherClientAlert from './HandshakeRegisterAnotherClientAlert';
+import HandshakeRegisterWithAnotherBidderAlert from './HandshakeRegisterWithAnotherBidderAlert';
 import { getBidIdUrl } from './helpers';
+import { showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
 
 // Alert rendering based on status is handled here.
 const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
@@ -29,7 +30,6 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
   const CLASS_DRAFT = 'bid-tracker-overlay-alert--draft';
   const CLASS_REGISTER = 'bid-tracker-overlay-alert--register';
   const CLASS_UNREGISTER = 'bid-tracker-overlay-alert--unregister';
-  const CLASS_REGISTER_ANOTHER_CLIENT = 'bid-tracker-overlay-alert--register-another-client';
 
   const position = get(bid, 'position_info.position') || {};
   const BID_TITLE = position.title ? `${position.title}${position.position_number ? ` (${position.position_number})` : ''}` : 'N/A';
@@ -136,14 +136,13 @@ const OverlayAlert = ({ bid, submitBid, userId, registerHandshake,
     togglePanelAlert(!overlayContent);
   }, []);
 
-  const positionHandshakeRegistered = get(bid, 'position_info.bid_statistics[0].has_handshake_offered');
   let showArrow = true;
-  if (positionHandshakeRegistered &&
-    (bid.status !== HAND_SHAKE_ACCEPTED_PROP && bid.status !== DRAFT_PROP)) {
+  if (get(bid, 'position_info.bid_statistics[0].has_handshake_offered') &&
+    showHandshakeRegsiterWithAnotherBidderOverlay(bid)) {
     showArrow = false;
-    overlayClass = CLASS_REGISTER_ANOTHER_CLIENT;
+    overlayClass = CLASS_CLOSED;
     overlayContent = (
-      <HandshakeRegisterAnotherClientAlert
+      <HandshakeRegisterWithAnotherBidderAlert
         condensedView={condensedView}
         bid={bid}
       />);

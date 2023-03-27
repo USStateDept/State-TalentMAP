@@ -1,4 +1,5 @@
 import { shallow } from 'enzyme';
+import { STATUS } from 'react-joyride';
 import ResultsPage from './ResultsPage';
 import { POSITION_PAGE_SIZES, POSITION_SEARCH_SORTS } from '../../Constants/Sort';
 import resultsObject from '../../__mocks__/resultsObject';
@@ -65,14 +66,43 @@ describe('ResultsPageComponent', () => {
     expect(wrapper.instance().shouldComponentUpdate({})).toBe(true);
   });
 
-  it('can receive props', () => {
+  it('sets state when the FINISHED or SKIPPED value is passed to handleJoyrideCallback', () => {
+    wrapper = shallow(<ResultsPage.WrappedComponent
+      {...props}
+    />);
+    wrapper.instance().setState({ run: true });
+
+    wrapper.instance().handleJoyrideCallback({ status: 'other' });
+    expect(wrapper.instance().state.run).toBe(true);
+
+    wrapper.instance().handleJoyrideCallback({ status: STATUS.FINISHED });
+    expect(wrapper.instance().state.run).toBe(false);
+
+    wrapper.instance().handleJoyrideCallback({ status: STATUS.SKIPPED });
+    expect(wrapper.instance().state.run).toBe(false);
+
+    wrapper.instance().handleJoyrideCallback({ status: 'other' });
+    expect(wrapper.instance().state.run).toBe(false);
+  });
+
+  // TODO - need screen width set for this to work
+  xit('sets state when handleTutorialButtonClick is called', () => {
+    wrapper = shallow(<ResultsPage.WrappedComponent
+      {...props}
+    />);
+    expect(wrapper.instance().state.run).toBe(false);
+    wrapper.find('.tutorial-button').simulate('click');
+    expect(wrapper.instance().state.run).toBe(true);
+  });
+
+  it('receives props', () => {
     wrapper = shallow(<ResultsPage.WrappedComponent
       {...props}
     />);
     expect(wrapper.instance().props.results.results[0].position.id).toBe(6);
   });
 
-  it('can receive props', () => {
+  it('receives props 2', () => {
     wrapper = shallow(<ResultsPage.WrappedComponent
       hasErrored={false}
       isLoading={false}

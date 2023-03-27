@@ -1,0 +1,147 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmployeeAgendaSearchCards matches snapshot 1`] = `
+<BoxShadow
+  blurRadius={10}
+  className="employee-agenda-stat-card"
+  color="rgba(0,0,0,.15)"
+  inset={false}
+  is="div"
+  offsetX={3}
+  offsetY={2}
+  spreadRadius={1}
+  style={Object {}}
+>
+  <div
+    className="employee-agenda-card-inner"
+  >
+    <div
+      className="ribbon-container-condensed"
+    />
+  </div>
+  <div
+    className="employee-agenda-card-data-point-top"
+  >
+    <div>
+      <h3>
+        None Listed
+      </h3>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="id-badge"
+      />
+      <dt>
+        ID:
+      </dt>
+      <dd>
+        None Listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="building-o"
+      />
+      <dt
+        className="location-label-card"
+      >
+        Location (Org):
+      </dt>
+      <dd
+        className="location-data-card"
+      >
+        None Listed
+        <FontAwesome
+          className="org-fa-arrow"
+          name="long-arrow-right"
+        />
+        None Listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="clock-o"
+      />
+      <dt>
+        TED:
+      </dt>
+      <dd>
+        None Listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="user-o"
+      />
+      <dt>
+        CDO:
+      </dt>
+      <dd>
+        None Listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="calendar"
+      />
+      <dt>
+        Panel Date:
+      </dt>
+      <dd>
+        None Listed
+      </dd>
+    </div>
+    <div
+      className="employee-card-data-point"
+    >
+      <FontAwesome
+        name="sticky-note-o"
+      />
+      <dt>
+        Agenda:
+      </dt>
+      <dd>
+        None Listed
+      </dd>
+    </div>
+  </div>
+  <div
+    className="employee-agenda-card-bottom"
+  >
+    <div
+      className="button-container"
+    >
+      <div
+        className="view-agenda-item-container"
+      >
+        <LinkButton
+          className="view-agenda-item-button"
+          toLink="/profile/ao/agendaitemhistory/"
+        >
+          View History
+        </LinkButton>
+      </div>
+      <div
+        className="button-box-container"
+      >
+        <LinkButton
+          className="button-box"
+          toLink="/profile/ao/createagendaitem/"
+        >
+          Create Agenda Item
+        </LinkButton>
+      </div>
+    </div>
+  </div>
+</BoxShadow>
+`;

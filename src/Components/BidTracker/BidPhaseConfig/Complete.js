@@ -224,6 +224,8 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         date: HAND_SHAKE_ACCEPTED_DATE,
         title: HAND_SHAKE_NEEDS_REGISTER_TITLE,
         needsAction: false,
+        isComplete: false,
+        isCurrent: true,
         isPendingLine: true,
         hasBidPreparingTooltip: false,
         number: HAND_SHAKE_ACCEPTED_NUMBER,
@@ -242,7 +244,7 @@ export default function bidClassesFromCurrentStatus(bid = { status: 'draft' }) {
         number: APPROVED_NUMBER,
         tooltip: APPROVED_TOOLTIP };
       return bidClassObject;
-    // When the handshake is accepted, we display an overlay alert, so it can look the same
+    // When the handshake is registered, we display an overlay alert, so it can look the same
     // as the Pre-panel phase.
     case HAND_SHAKE_ACCEPTED_PROP:
     case PRE_PANEL_PROP:

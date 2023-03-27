@@ -1,44 +1,51 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get } from 'lodash';
-import numeral from 'numeral';
 import FA from 'react-fontawesome';
-import { Cell, Pie, PieChart } from 'recharts';
+import { Cell, Pie, PieChart, Tooltip } from 'recharts';
 import InteractiveElement from 'Components/InteractiveElement';
 import LoadingText from 'Components/LoadingText';
+import { getAvatarColor, sortGrades } from 'utilities';
+import Picky from 'react-picky';
 import { Row } from '../../Layout';
-
 
 const AvailableBidderStats = () => {
   const [showMore, setShowMore] = useState(false);
+  const [selectedStat, setSelectedStat] = useState('Post');
+
+  const statOptions = [
+    'Bureau',
+    'CDO',
+    'Grade',
+    'OC Bureau',
+    'Post',
+    'Skill',
+    'Status',
+  ];
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
 
-  const stats = get(biddersData, 'stats', {});
+  let stats = get(biddersData, 'stats', {})[selectedStat] || [];
+  const statsSum = get(biddersData, 'stats.Sum', {})[selectedStat] || 0;
 
-  const statsSum = Object.values(stats).reduce((a, b) => a + b, 0);
+  // sorting grades to maintain consistency across the site
+  if (selectedStat === 'Grade') {
+    stats = stats.map(grade => ({ ...grade, code: grade.name }));
+    stats.sort(sortGrades);
+  }
 
-  let data = [
-    { name: 'Overcompliment (OC)', key: 'OC', value: 0, color: '#112E51' },
-    { name: 'Unassigned (UA)', key: 'UA', value: 0, color: '#205493' },
-    { name: 'In Transit (IT)', key: 'IT', value: 0, color: '#9BDAF1' },
-    { name: 'Absent without leave (AWOL)', key: 'AWOL', value: 0, color: '#02BFE7' },
-  ];
-
-  data = data.map(m => ({ ...m, value: get(stats, m.key, 0) }));
-
-  const data$ = data.map(m => {
-    // handling division by zero
-    const sum = statsSum !== 0 ? statsSum : 1;
+  // adding colors
+  const stats$ = stats.map(m => {
+    const color = getAvatarColor((m.name), 6000).backgroundColor;
     return {
       ...m,
-      percent: numeral(m.value / sum).format('0%'),
+      color,
     };
   });
 
-  const chartData$ = data$.filter(f => f.value > 0);
+  const legendClass = stats$.length > 40 ? 'legend-large' : 'legend-small';
 
   const isNoBidders = !get(biddersData, 'results', []).length;
 
@@ -59,34 +66,64 @@ const AvailableBidderStats = () => {
               showMore &&
             <div className="usa-grid-full section statistics-section">
               {
+                <div className="filter-div">
+                  <div className="label">Chart Statistics:</div>
+                  <Picky
+                    placeholder="Select Stats"
+                    value={selectedStat}
+                    options={statOptions}
+                    onChange={setSelectedStat}
+                    multiple
+                    dropdownHeight={255}
+                    valueKey="code"
+                    labelKey="custom_description"
+                  />
+                </div>
+              }
+              {
                 !!availableBiddersIsLoading && <LoadingText />
               }
               {
-                !availableBiddersIsLoading && !statsSum && 'There are no available bidders categorized by status.'
+                !availableBiddersIsLoading && !statsSum && `There are no available bidders categorized by ${selectedStat}.`
               }
               {
                 !availableBiddersIsLoading && !!statsSum &&
                 <div className="usa-grid-full flex">
-                  <div className="usa-width-one-fourth legend-container">
-                    <div className="usa-grid-full legend">
-                      <h4>Available Bidders by Status ({statsSum})</h4>
+                  <div className="legend-container">
+                    <h4>Available Bidders {selectedStat} Statistics ({statsSum})</h4>
+                    <div className={`usa-grid-full ${legendClass}`}>
                       {
-                        data$.map(m => (
+                        stats$.map(m => (
                           <div className="flex legend-item">
                             <div
                               className="legend-square"
                               style={{ backgroundColor: m.color }}
                             />
-                            <div className="legend-text">{`(${m.value}) ${m.name} ${m.percent}`}</div>
+                            {
+                              selectedStat === 'Grade' ?
+                                <div className="legend-text">
+                                  {m.name}
+                                  <span className="percent-text">
+                                    {`${m.percent}`}
+                                  </span>
+                                  {`(${m.value})`}
+                                </div> :
+                                <div className="legend-text">
+                                  {`(${m.value}) ${m.name}`}
+                                  <span className="percent-text">
+                                    {`${m.percent}`}
+                                  </span>
+                                </div>
+                            }
                           </div>
                         ))
                       }
                     </div>
                   </div>
-                  <div className="usa-width-one-third chart-container">
+                  <div className="chart-container">
                     <PieChart width={400} height={400}>
                       <Pie
-                        data={chartData$}
+                        data={stats$}
                         cx={200}
                         cy={200}
                         labelLine={false}
@@ -96,9 +133,10 @@ const AvailableBidderStats = () => {
                       >
                         {
                         // eslint-disable-next-line react/no-array-index-key
-                          chartData$.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
+                          stats$.map((entry, index) => <Cell key={`cell-${index}`} fill={entry.color} />)
                         }
                       </Pie>
+                      <Tooltip />
                     </PieChart>
                   </div>
                 </div>

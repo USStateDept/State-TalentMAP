@@ -1,6 +1,6 @@
 $condensed-card-margin-bottom: 15px;
 $condensed-card-padding: 9px 20px 7px;
-$condensed-card-data-padding: 15px 20px 9px;
+$condensed-card-data-padding: 15px 27px 9px 20px;
 
 .condensed-card {
 
@@ -123,7 +123,7 @@ $condensed-card-data-padding: 15px 20px 9px;
       top: -1px;
       z-index: $ribbon-condensed-card-z + 1;
 
-      .ribbon-cn, .ribbon-htf {
+      .ribbon-hds {
         .fa {
         margin-right: .2em;
         }

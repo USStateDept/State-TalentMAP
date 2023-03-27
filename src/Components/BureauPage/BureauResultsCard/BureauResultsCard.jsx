@@ -11,13 +11,16 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
-import { CriticalNeed, Handshake, HardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
+import { HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
+import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
 import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
+import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
+import MediaQuery from '../../MediaQuery';
 
 class BureauResultsCard extends Component {
   constructor(props) {
@@ -26,27 +29,30 @@ class BureauResultsCard extends Component {
       showMore: false,
     };
   }
+
   render() {
     const { showMore } = this.state;
-    const { result, isProjectedVacancy } = this.props;
+    const { result, isProjectedVacancy, fromPostMenu } = this.props;
 
     const pos = result.position || result;
 
     const title = propOrDefault(pos, 'title');
     const position = getResult(pos, 'position_number', NO_POSITION_NUMBER);
     const languages = getResult(pos, 'languages', []);
+    const leadHandshake = getResult(result, 'lead_handshake', null);
     const hasShortList = getResult(result, 'has_short_list', false);
 
     const language = (<LanguageList languages={languages} propToUse="representation" />);
 
-    const postShort = getPostName(pos.post, NO_POST);
+    const postShort = `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
 
     const bidStatsToUse = getBidStatsToUse(result, pos);
     const stats = getBidStatisticsObject(bidStatsToUse);
 
     const description = shortenString(get(pos, 'description.content') || 'No description.', 2000);
 
-    const detailsLink = <Link to={`/profile/bureau/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}><h3>{title}</h3></Link>;
+    const detailsLink = (<Link to={`/profile/${fromPostMenu ? 'post' : 'bureau'}/positionmanager/${isProjectedVacancy ? 'vacancy' : 'available'}/${result.id}`}>
+      <h3>{title}</h3></Link>);
     const shortListIndicator = hasShortList ? (<Tooltip
       title="Position has an active short list"
       arrow
@@ -73,8 +79,13 @@ class BureauResultsCard extends Component {
       {
         'Last Updated': getResult(pos, 'description.date_updated') || NO_UPDATE_DATE,
       },
+      {
+        'Location (Org)': postShort,
+      },
     /* eslint-enable quote-props */
     ];
+
+    const ribbonClass = 'ribbon-results-card';
 
     if (isProjectedVacancy) { delete sections[2].Posted; }
 
@@ -83,27 +94,40 @@ class BureauResultsCard extends Component {
         <Row fluid>
           <Row fluid className="bureau-card--section bureau-card--header">
             <div>{detailsLink}</div>
-            <div>{postShort}</div>
             <div className="shortlist-icon">{shortListIndicator}</div>
-            {
-              get(stats, 'has_handshake_offered', false) && <Handshake isWide cutSide="both" className="ribbon-results-card" />
-            }
-            {
-              get(result, 'staticDevContentAlt', false) && <CriticalNeed isWide cutSide="both" className="ribbon-results-card" />
-            }
-            {
-              get(result, 'isDifficultToStaff', false) && <HardToFill isWide cutSide="both" className="ribbon-results-card" />
-            }
-            {
-              get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential isWide cutSide="both" className="ribbon-results-card" />
-            }
+            <MediaQuery breakpoint="screenXlgMin" widthType="min">
+              {matches => (
+                <>
+                  {
+                    get(result, 'isDifficultToStaff', false) && <HistDiffToStaff cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(result, 'isServiceNeedDifferential', false) && <ServiceNeedDifferential cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(result, 'isHardToFill', false) && <IsHardToFill cutSide="both" className={ribbonClass} shortName={!matches} />
+                  }
+                  {
+                    get(stats, 'has_handshake_offered', false) ?
+                      <>
+                        <HandshakeAnimation isRibbon shortName={!matches} />
+                        <HandshakeStatus handshake={leadHandshake} infoIcon />
+                      </> :
+                      <HandshakeStatus handshake={leadHandshake} />
+                  }
+                </>
+              )}
+            </MediaQuery>
             {renderBidCountMobile(stats)}
           </Row>
+          <Row fluid className="bureau-card--section bureau-card--header">
+            <DefinitionList itemProps={{ excludeColon: false }} items={sections[2]} />
+          </Row>
           <Row fluid className="bureau-card--section bureau-card--content">
-            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} className="bureau-definition" />
+            <DefinitionList itemProps={{ excludeColon: true }} items={sections[0]} />
           </Row>
           <Row fluid className="bureau-card--section bureau-card--footer">
-            <DefinitionList items={sections[1]} className="bureau-definition" />
+            <DefinitionList items={sections[1]} />
             <div className="usa-grid-full toggle-more-container">
               <InteractiveElement className="toggle-more" onClick={() => this.setState({ showMore: !showMore })}>
                 <span>View {showMore ? 'less' : 'more'} </span>
@@ -128,10 +152,12 @@ class BureauResultsCard extends Component {
 BureauResultsCard.propTypes = {
   isProjectedVacancy: PropTypes.bool,
   result: POSITION_DETAILS.isRequired,
+  fromPostMenu: PropTypes.bool,
 };
 
 BureauResultsCard.defaultProps = {
   isProjectedVacancy: false,
+  fromPostMenu: false,
 };
 
 export default BureauResultsCard;

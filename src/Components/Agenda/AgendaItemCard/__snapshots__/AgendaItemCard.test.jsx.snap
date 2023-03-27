@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AgendaItemCard Component matches snapshot 1`] = `
+<Fragment>
+  <div
+    className="ai-history-card agenda-border-card--Default"
+  >
+    <div
+      className="ai-history-status"
+    >
+      <div
+        className="status-tag agenda-tag--Default"
+      >
+        Default
+      </div>
+      <div
+        className="poly-slash agenda-tag--Default"
+      >
+        _
+      </div>
+    </div>
+    <h3
+      className="ai-history-card-title"
+    >
+      N/A
+      <div
+        className="title-arrow"
+      >
+        <div
+          className="arrow-tail"
+        />
+        0
+        <div
+          className="arrow-tail"
+        />
+        <div
+          className="arrow-right"
+        />
+      </div>
+      N/A
+    </h3>
+    <AgendaItemLegs
+      isCard={true}
+      legs={Array []}
+    />
+    <div
+      className="ai-history-card-date"
+    >
+      Panel Date: 
+      N/A
+    </div>
+  </div>
+</Fragment>
+`;

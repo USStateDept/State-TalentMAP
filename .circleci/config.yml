@@ -46,7 +46,8 @@ jobs:
             docker push talentmap/$DOCKER_HUB_REPO:$TAG
   yarn:
     <<: *default-docker-node
-    parallelism: 4
+    parallelism: 16
+    resource_class: large
     steps:
       - checkout
       - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -58,35 +59,80 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run: mkdir ~/.npm-global
+      - run: mkdir ~/junit
       - run: npm config set prefix '~/.npm-global'
       - run: export PATH=~/.npm-global/bin:$PATH
       - run: yarn install --pure-lockfile
       - run:
           name: Jest Test Coverage
           command: |
-                    TEST=$(circleci tests glob "src/**/[a-bA-B0-9]*.test.{js,jsx}" "src/**/[c-jC-J]*.test.{js,jsx}" "src/**/[k-rK-R]*.test.{js,jsx}" "src/**/[s-zS-Z]*.test.{js,jsx}" | circleci tests split)
-                    yarn test $TEST -- --ci --reporters=default --reporters=jest-junit
+                    TEST=$(circleci tests glob "src/**/*.test.{js,jsx}" | circleci tests split --split-by=timings)
+                    yarn test $TEST -- --ci --reporters=default --reporters=jest-junit --coverageReporters=lcov
           environment:
             JEST_JUNIT_OUTPUT_NAME: "reports/jest/test-results.xml"
-      - run: ./cc-test-reporter after-build --exit-code $? < coverage/lcov.info
+      - run:
+          name: Code Climate Test Coverage
+          command: |
+            ./cc-test-reporter format-coverage -t lcov -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
+      - persist_to_workspace:
+          root: coverage
+          paths:
+            - codeclimate.*.json
+      - run:
+          command: cp reports/jest/test-results.xml ~/junit/junit.xml
+          when: always
       - store_test_results:
           path: reports
+      - store_test_results:
+          path: ~/junit
       - store_artifacts:
           path: coverage/lcov.info
           destination: coverage/lcov.info
-  site:
+      - store_artifacts:
+          path: ~/junit
+
+  upload-coverage:
     <<: *default-docker-node
+
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Install Code Climate Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          command: |
+            ./cc-test-reporter sum-coverage --output - codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
+
+  site:
+    # use machine executor to get 7.5gb instead of 4gb RAM and avoid "Exited with code exit status 137" memory error
+    machine:
+      image: ubuntu-2004:202111-02
+    resource_class: large
     steps:
       - checkout
+      - run:
+          name: Use nvm
+          command: |
+            echo 'conf_force_conffold=YES' | sudo tee -a /etc/ucf.conf
+            (yes || true) | sudo apt-get update && sudo apt-get upgrade
+            (yes || true) | sudo apt-get install build-essential libssl-dev -y
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+            export NVM_DIR="/opt/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+            nvm install 12.13.0
+            nvm use 12.13.0
+      - run: sudo apt install yarn
+      - run: node --version
       - restore_cache:
           key: dependency-cache-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - run: mkdir ~/.npm-global
-      - run: npm config set prefix '~/.npm-global'
-      - run: export PATH=~/.npm-global/bin:$PATH
       - run: yarn install --pure-lockfile
       - run:
           name: Build site
-          command: yarn build
+          command: FAST_BUILD=1 && yarn build
       - run:
           name: Zip artifact
           command: zip talentmap.zip -r build/*
@@ -231,6 +277,9 @@ workflows:
       #           - staging
       #           - master
       - yarn
+      - upload-coverage:
+          requires:
+            - yarn
       - site:
           requires:
             - yarn

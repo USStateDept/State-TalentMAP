@@ -1,0 +1,339 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditBidders Component matches snapshot 1`] = `
+<div>
+  <form
+    className="available-bidder-form"
+  >
+    <div
+      className="detail"
+    >
+      <span>
+        * Internal CDA field only, not shared with External CDA
+      </span>
+    </div>
+    <div>
+      <dt>
+        Client Name:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <label
+        htmlFor="status"
+      >
+        *Status:
+      </label>
+      <select
+        id="status"
+        onChange={[Function]}
+      >
+        <option
+          value=""
+        >
+          None listed
+        </option>
+        <option
+          value="OC"
+        >
+          OC: Overcomplement
+        </option>
+        <option
+          value="UA"
+        >
+          UA: Unassigned
+        </option>
+        <option
+          value="IT"
+        >
+          IT: In Transit
+        </option>
+        <option
+          value="AWOL"
+        >
+          AWOL: Absent without leave
+        </option>
+      </select>
+    </div>
+    <div>
+      <label
+        htmlFor="ocReason"
+      >
+        *OC Reason:
+      </label>
+      <span
+        className="oc-validation-container"
+      >
+        <select
+          aria-describedby=""
+          className=""
+          disabled={true}
+          id="ocReason"
+          onChange={[Function]}
+        >
+          <option
+            value=""
+          >
+            None listed
+          </option>
+        </select>
+      </span>
+    </div>
+    <div>
+      <label
+        htmlFor="ocBureau"
+      >
+        *OC Bureau:
+      </label>
+      <span
+        className="oc-validation-container"
+      >
+        <select
+          aria-describedby=""
+          className=""
+          disabled={true}
+          id="ocBureau"
+          onChange={[Function]}
+        >
+          <option
+            value=""
+          >
+            None listed
+          </option>
+        </select>
+      </span>
+    </div>
+    <div>
+      <dt>
+        *Step Letter 1:
+      </dt>
+      <span
+        className="date-picker-validation-container"
+      >
+        <r
+          allowSameDay={false}
+          className=""
+          customTimeInput={null}
+          dateFormat="MMMM d, yyyy"
+          dateFormatCalendar="LLLL yyyy"
+          disabled={false}
+          disabledKeyboardNavigation={false}
+          dropdownMode="scroll"
+          enableTabLoop={true}
+          excludeScrollbar={true}
+          focusSelectedMonth={false}
+          monthsShown={1}
+          nextMonthAriaLabel="Next Month"
+          nextMonthButtonLabel="Next Month"
+          nextYearAriaLabel="Next Year"
+          nextYearButtonLabel="Next Year"
+          onBlur={[Function]}
+          onCalendarClose={[Function]}
+          onCalendarOpen={[Function]}
+          onChange={[Function]}
+          onClickOutside={[Function]}
+          onFocus={[Function]}
+          onInputClick={[Function]}
+          onInputError={[Function]}
+          onKeyDown={[Function]}
+          onMonthChange={[Function]}
+          onSelect={[Function]}
+          onYearChange={[Function]}
+          placeholderText="None listed"
+          preventOpenOnFocus={false}
+          previousMonthAriaLabel="Previous Month"
+          previousMonthButtonLabel="Previous Month"
+          previousYearAriaLabel="Previous Year"
+          previousYearButtonLabel="Previous Year"
+          readOnly={false}
+          renderDayContents={[Function]}
+          selected={null}
+          selectsDisabledDaysInRange={false}
+          shouldCloseOnSelect={true}
+          showFourColumnMonthYearPicker={false}
+          showFullMonthYearPicker={false}
+          showMonthYearPicker={false}
+          showPopperArrow={true}
+          showPreviousMonths={false}
+          showQuarterYearPicker={false}
+          showTimeInput={false}
+          showTimeSelect={false}
+          showTwoColumnMonthYearPicker={false}
+          showYearPicker={false}
+          strictParsing={false}
+          timeCaption="Time"
+          timeInputLabel="Time"
+          timeIntervals={30}
+          withPortal={false}
+          yearItemNumber={12}
+        />
+      </span>
+      <div
+        className="step-letter-clear-icon"
+      >
+        <FontAwesome
+          name="times-circle fa-lg inactive"
+        />
+      </div>
+    </div>
+    <div>
+      <dt>
+        *Step Letter 2:
+      </dt>
+      <span
+        className="date-picker-validation-container"
+      >
+        <select
+          disabled={true}
+          id="stepLetterTwo"
+        >
+          <option
+            value=""
+          >
+            None listed
+          </option>
+        </select>
+      </span>
+      <div
+        className="step-letter-clear-icon"
+      >
+        <FontAwesome
+          name="times-circle fa-lg inactive"
+        />
+      </div>
+    </div>
+    <div>
+      <dt>
+        Skill:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <dt>
+        Grade:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <dt>
+        Languages:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <dt>
+        TED:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <dt>
+        Current Post:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <dt>
+        CDO:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <label
+        htmlFor="note"
+      >
+        *Notes:
+      </label>
+      <ForwardRef(TextareaAutosize)
+        maxRows={4}
+        maxlength="255"
+        minRows={4}
+        name="note"
+        onChange={[Function]}
+        placeholder="No Notes"
+      />
+    </div>
+    <div>
+      <dt>
+        Created:
+      </dt>
+      <dd />
+    </div>
+    <div>
+      <dt>
+        External Share:
+      </dt>
+      <Tooltip
+        animateFill={true}
+        animation="shift"
+        arrow={true}
+        arrowSize="regular"
+        className=""
+        delay={0}
+        disabled={false}
+        distance={10}
+        duration={375}
+        followCursor={false}
+        hideDelay={0}
+        hideDuration={375}
+        hideOnClick={true}
+        html={null}
+        inertia={false}
+        interactive={false}
+        interactiveBorder={2}
+        multiple={false}
+        offset={0}
+        onHidden={[Function]}
+        onHide={[Function]}
+        onRequestClose={[Function]}
+        onShow={[Function]}
+        onShown={[Function]}
+        popperOptions={
+          Object {
+            "modifiers": Object {
+              "addZIndex": Object {
+                "enabled": true,
+                "fn": [Function],
+                "order": 810,
+              },
+            },
+          }
+        }
+        position="top"
+        size="regular"
+        sticky={false}
+        stickyDuration={200}
+        style={Object {}}
+        tag="div"
+        theme="dark"
+        title="Status must be UA or OC to share with External CDA"
+        touchHold={false}
+        trigger="mouseenter focus"
+        unmountHTMLWhenHide={false}
+        zIndex={9999}
+      >
+        <dd
+          className="ab-action-buttons"
+        >
+          <FontAwesome
+            className="fa-lg"
+            name="lock"
+          />
+        </dd>
+      </Tooltip>
+    </div>
+    <button
+      disabled={false}
+      onClick={[Function]}
+      type="submit"
+    >
+      Submit
+    </button>
+    <button
+      onClick={[Function]}
+    >
+      Cancel
+    </button>
+  </form>
+</div>
+`;

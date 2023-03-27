@@ -1,0 +1,17 @@
+export default [
+  'Ensure that employee bid on the position, accepted the handshake and that you have the handshake offer from the Bureau.',
+  'Verify that the client is an eligible bidder (TED May - Oct or April/Nov cusp bidder who elected to bid summer cycle. Winter TED November through April.)',
+  'LDP - if the position is language designated, does the employee have a current language score (an FSI-tested score within five years of estimated time of arrival (ETA))',
+  'Verify that client and family members have either a Class One medical clearance, or a Post Approval for class 2 for the post they have been offered. Clearances good for 2 years or home leave.',
+  'Verify that client can serve a full TOD if the post is not an HDS post.',
+  'Check the employee’s birthdate and ensure that the assignment will not bring the employee past 65. Only CDOs check employee birthdates. This is very important for linked assignments since the employee will complete the PSP tour then the linked assignment which could be via language.',
+  'Does the HS comply with the season?',
+  'Is the client a Fair Share bidder?',
+  'Is employee at-grade? Is it a stretch bid? If downstretch, send employee downstretch letter template. Letter needed before employee can be paneled but you can register handshake before receiving it. Let AO know when you have it on file.',
+  'Are there any 6/8 issues-domestic assignments? Remember employees need to complete overseas tour to reset clock.',
+  'Are there major timing issues? AOs will work out timing issues within an assignment cycle.',
+  'Is the employee a tandem?',
+  'After confirming that the client is an eligible bidder with none of the previous complications, enter the HS in FSBid.',
+  'Then respond to the client’s acceptance of the HS using the attached language.  Make sure that the appropriate Assignment Officer from HR/CDA/AD is copied, and state that you have entered the HS into FSBid unless it’s for a PSP linked position.',
+  'If necessary, send a separate e-mail to the AO to inform the AO of special issues, i.e., a 6/8 waiver approved, or waiting fora MED clearance.',
+];

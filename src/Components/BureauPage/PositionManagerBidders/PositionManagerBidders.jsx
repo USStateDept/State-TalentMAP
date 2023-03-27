@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isEqual, isNull, keys, orderBy } from 'lodash';
+import { get, isEqual, keys, orderBy } from 'lodash';
 import FA from 'react-fontawesome';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Tooltip } from 'react-tippy';
@@ -11,8 +11,8 @@ import { formatDate, move } from 'utilities';
 import { checkFlag } from 'flags';
 import { CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { Icons } from 'Constants/Classifications';
-import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
-import { DECONFLICT_TOOLTIP_TEXT } from 'Constants/Tooltips';
+import { NO_CLASSIFICATIONS, NO_END_DATE, NO_GRADE, NO_LANGUAGE, NO_SKILL, NO_SUBMIT_DATE } from 'Constants/SystemMessages';
+import { DECONFLICT_TOOLTIP_TEXT, OTHER_HANDSHAKE_TOOLTIP_TEXT } from 'Constants/Tooltips';
 import { BUREAU_BIDDER_FILTERS, BUREAU_BIDDER_SORT } from 'Constants/Sort';
 import SelectForm from 'Components/SelectForm';
 import Alert from 'Components/Alert';
@@ -25,6 +25,7 @@ import ShortListLock from '../ShortListLock';
 import BidderRankings from '../BidderRankings';
 import MailToButton from '../../MailToButton';
 import { tertiaryCoolBlueLight, tertiaryCoolBlueLightest } from '../../../sass/sass-vars/variables';
+import HandshakeAnimation from '../../BidTracker/BidStep/HandshakeAnimation';
 
 const postHandshakeVisibility = () => checkFlag('flags.post_handshake');
 
@@ -262,7 +263,11 @@ class PositionManagerBidders extends Component {
     const formattedSubmitted = submitted ? formatDate(submitted) : NO_SUBMIT_DATE;
     const deconflict = get(m, 'has_competing_rank');
     const handshake = get(m, 'handshake', {}) || {};
+    const handshakeRegisteredDate = get(m, 'handshake_registered_date');
+    const handshakeRegistered = get(m, 'handshake_registered') === 'Y';
     const active_hs_perdet = get(m, 'active_handshake_perdet');
+    const hasAcceptedOtherOffer = get(m, 'has_accepted_other_offer');
+    const positionHasHsReg = get(props, 'hasHsReg');
 
     const classifications = getClassificationsInfo(get(m, 'classifications') || [], props.classifications);
     const sections = {
@@ -274,24 +279,40 @@ class PositionManagerBidders extends Component {
               value={e}
             >{e + 1}</option>))}
         </select>,
-      Deconflict: deconflict ?
-        <Tooltip
-          html={getTooltipText(DECONFLICT_TOOLTIP_TEXT.title, DECONFLICT_TOOLTIP_TEXT.text)}
-          theme={'deconflict-indicator'}
-          arrow
-          tabIndex="0"
-          interactive
-          style={{ height: 'fit-content' }}
-          useContext
-        >
-          <FA name={'exclamation-triangle'} className={'deconflict-indicator'} />
-        </Tooltip>
-        : '',
+      Deconflict: (
+        <div className="alert-indicators">
+          {!!deconflict && <Tooltip
+            html={getTooltipText(DECONFLICT_TOOLTIP_TEXT.title, DECONFLICT_TOOLTIP_TEXT.text)}
+            theme={'deconflict-indicator'}
+            arrow
+            tabIndex="0"
+            interactive
+            style={{ height: 'fit-content' }}
+            useContext
+            position="right"
+          >
+            <FA name={'exclamation-triangle'} className={'deconflict-indicator'} />
+          </Tooltip>}
+          {!!hasAcceptedOtherOffer && <Tooltip
+            html={getTooltipText(OTHER_HANDSHAKE_TOOLTIP_TEXT.title,
+              OTHER_HANDSHAKE_TOOLTIP_TEXT.text)}
+            theme={'has-other-handshake-indicator'}
+            arrow
+            tabIndex="0"
+            interactive
+            style={{ height: 'fit-content' }}
+            useContext
+            position="right"
+          >
+            <FA name={'exclamation-triangle'} className={'has-other-handshake-indicator'} />
+          </Tooltip>}
+        </div>
+      ),
       Name: (<Link to={`/profile/public/${m.emp_id}/bureau`}>{get(m, 'name')}</Link>),
       SubmittedDate: formattedSubmitted,
-      Skill: get(m, 'skill'),
+      Skill: get(m, 'skill') || NO_SKILL,
       Grade: get(m, 'grade') || NO_GRADE,
-      Language: get(m, 'language'),
+      Language: get(m, 'language') || NO_LANGUAGE,
       Classifications: classifications.length ?
         <Tooltip
           html={getClassificationsTooltip(classifications)}
@@ -318,9 +339,20 @@ class PositionManagerBidders extends Component {
               />
             }
           >
-            <HandshakeStatus
-              handshake={handshake}
-            />
+            { handshakeRegistered ?
+              <>
+                <HandshakeAnimation isBidder />
+                <HandshakeStatus
+                  handshake={handshake}
+                  handshakeRegistered={handshakeRegistered}
+                  handshakeRegisteredDate={handshakeRegisteredDate}
+                  infoIcon
+                />
+              </> :
+              <HandshakeStatus
+                handshake={handshake}
+              />
+            }
           </PermissionsWrapper>
           {
             type !== 'unranked' &&
@@ -329,8 +361,9 @@ class PositionManagerBidders extends Component {
                 handshake={handshake}
                 positionID={props.id}
                 personID={m.emp_id}
-                disabled={!active_hs_perdet && !isNull(active_hs_perdet)}
+                activePerdet={active_hs_perdet}
                 bidCycle={get(props, 'bidCycle', {})}
+                positionHasHsReg={positionHasHsReg}
               />
             </PermissionsWrapper>
           }
@@ -346,7 +379,7 @@ class PositionManagerBidders extends Component {
     const tableRows = (
       <tr>
         {keys(sections).map(i => (
-          <td>{sections[i]}</td>
+          <td key={i}>{sections[i]}</td>
         ))}
       </tr>
     );
@@ -398,7 +431,7 @@ class PositionManagerBidders extends Component {
 
   render() {
     const { bids, bidsIsLoading, filtersSelected, filters, id, isLocked,
-      hasBureauPermission } = this.props;
+      hasBureauPermission, bidCycle } = this.props;
     const { hasLoaded, shortListVisible, unrankedVisible } = this.state;
 
     const tableHeaders = ['Ranking', '', 'Name', 'Submitted Date', 'Skill', 'Grade', 'Language', 'Classifications', 'TED', 'CDO', ''].map(item => (
@@ -492,6 +525,7 @@ class PositionManagerBidders extends Component {
                   :
                   <>
                     {/* eslint-disable no-nested-ternary */}
+                    {!get(bidCycle, 'handshake_allowed_date') && <Alert type="dark" title="Bureaus cannot offer handshakes for this cycle at this time" />}
                     {isLocked ?
                       hasBureauPermission ? shortListSection : <>
                         <Alert
@@ -509,7 +543,7 @@ class PositionManagerBidders extends Component {
                       <SelectForm
                         id="sort"
                         label="Sort by:"
-                        defaultSort={filters.ordering || ''}
+                        defaultSort={filters.ordering || 'bidder_grade'}
                         options={BUREAU_BIDDER_SORT.options}
                         disabled={false}
                         onSelectOption={e => this.props.onSort(e.target.value)}
@@ -523,7 +557,6 @@ class PositionManagerBidders extends Component {
                         onSelectOption={e => this.props.onFilter('handshake_code', e.target.value)}
                       />
                     </div>
-
                     <div className="list-toggle-container">
                       <InteractiveElement title="Toggle visibility" onClick={() => this.toggleVisibility('unrankedVisible')}><FA name={unrankedVisible ? 'chevron-down' : 'chevron-up'} /></InteractiveElement>
                       <h3>Candidates ({this.state.unranked.length})</h3>
@@ -596,6 +629,7 @@ class PositionManagerBidders extends Component {
 
 PositionManagerBidders.propTypes = {
   bids: PropTypes.arrayOf(PropTypes.shape({})),
+  bidCycle: PropTypes.shape({}),
   bidsIsLoading: PropTypes.bool,
   onSort: PropTypes.func,
   onFilter: PropTypes.func,
@@ -607,15 +641,17 @@ PositionManagerBidders.propTypes = {
     ordering: PropTypes.string,
   }),
   allBids: PropTypes.arrayOf(PropTypes.shape({})),
-  id: PropTypes.oneOfType([PropTypes.string, PropTypes.id]).isRequired,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   isLocked: PropTypes.bool,
   hasBureauPermission: PropTypes.bool,
   hasPostPermission: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  positionHasHsReg: PropTypes.bool,
 };
 
 PositionManagerBidders.defaultProps = {
   bids: [],
+  bidCycle: {},
   bidsIsLoading: false,
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
@@ -628,6 +664,7 @@ PositionManagerBidders.defaultProps = {
   hasBureauPermission: false,
   hasPostPermission: false,
   classifications: [],
+  positionHasHsReg: false,
 };
 
 export default PositionManagerBidders;

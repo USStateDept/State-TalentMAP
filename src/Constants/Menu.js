@@ -67,21 +67,12 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         route: '/profile/searches/',
         icon: 'clock-o',
       },
-      checkFlag('flags.bidding') ? {
+      {
         text: 'Bid Tracker',
         route: '/profile/bidtracker/',
         icon: 'clipboard',
         roles: [
           'bidder',
-        ],
-      } : null,
-      {
-        text: 'Bid Cycles',
-        route: '/profile/cycles/',
-        icon: 'hourglass-start',
-        roles: [
-          'superuser',
-          'bidcycle_admin',
         ],
       },
       checkFlag('flags.static_content') ?
@@ -92,15 +83,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         } : null,
     ],
   },
-  checkFlag('flags.bid_stats') ?
-    {
-      text: 'Statistics',
-      icon: 'pie-chart',
-      route: '/profile/statistics',
-      roles: [
-        'cdo',
-      ],
-    } : null,
   {
     text: 'Administrator',
     route: '/profile/administrator/',
@@ -112,24 +94,22 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'glossary_editors',
     ],
     children: [
-      checkFlag('flags.data_sync_admin') ?
-        {
-          text: 'Dashboard',
-          route: '/profile/administrator/dashboard/',
-          icon: 'tachometer',
-          roles: [
-            'superuser',
-          ],
-        } : null,
-      checkFlag('flags.data_sync_admin') ?
-        {
-          text: 'Logs',
-          route: '/profile/administrator/logs/',
-          icon: 'sitemap',
-          roles: [
-            'superuser',
-          ],
-        } : null,
+      {
+        text: 'Dashboard',
+        route: '/profile/administrator/dashboard/',
+        icon: 'tachometer',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Logs',
+        route: '/profile/administrator/logs/',
+        icon: 'sitemap',
+        roles: [
+          'superuser',
+        ],
+      },
       {
         text: 'Statistics',
         route: '/profile/administrator/stats/',
@@ -155,6 +135,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
+        text: 'Bid Cycles',
+        route: '/profile/administrator/cycles/',
+        icon: 'hourglass-start',
+        roles: [
+          'superuser',
+          'bidcycle_admin',
+        ],
+      },
+      {
         text: 'Glossary Editor',
         route: '/profile/glossaryeditor/',
         icon: 'book',
@@ -164,7 +153,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       },
     ],
   },
-  checkFlag('flags.bureau') ? {
+  {
     text: 'Bureau',
     route: '/profile/bureau/positionmanager/',
     icon: 'building',
@@ -173,7 +162,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     roles: [
       'superuser',
       'bureau_user',
-      'post_user',
     ],
     children: [
       checkFlag('flags.static_content') ?
@@ -203,24 +191,73 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         roles: [
           'superuser',
           'bureau_user',
-          'post_user',
         ],
       },
-      checkFlag('flags.available_bidders') ?
+      {
+        text: 'Available Bidders',
+        route: '/profile/bureau/availablebidders',
+        icon: 'users',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
+      checkFlag('flags.position_details') ?
         {
-          text: 'Available Bidders',
-          route: '/profile/bureau/availablebidders',
-          icon: 'users',
+          text: 'Position Details',
+          route: '/profile/bureau/positiondetails',
+          icon: ' fa-keyboard-o',
           roles: [
-            'super_user',
+            'superuser',
             'bureau_user',
           ],
         } : null,
     ],
-  } : null,
-  checkFlag('flags.ao') ? {
+  },
+  {
+    text: 'Post',
+    route: '/profile/post/dashboard/',
+    icon: 'building',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'post_user',
+    ],
+    children: [
+      checkFlag('flags.static_content') ?
+        {
+          text: 'Dashboard',
+          route: '/profile/post/dashboard/',
+          icon: 'tachometer',
+          roles: [
+            'superuser',
+            'post_user',
+          ],
+        } : null,
+      {
+        text: 'Position Manager',
+        route: '/profile/post/positionmanager',
+        icon: 'map',
+        roles: [
+          'superuser',
+          'post_user',
+        ],
+      },
+      {
+        text: 'Available Bidders',
+        route: '/profile/post/availablebidders',
+        icon: 'users',
+        roles: [
+          'superuser',
+          'post_user',
+        ],
+      },
+    ],
+  },
+  {
     text: 'AO',
-    route: '/profile/ao/positionmanager/',
+    route: '/profile/ao/dashboard/',
     icon: 'building-o',
     toggleMenuSection: true,
     expandedSection: true,
@@ -239,17 +276,37 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.agenda_search') ?
+        {
+          text: 'Employee Agendas',
+          route: '/profile/ao/employeeagendas',
+          icon: 'sticky-note',
+          roles: [
+            'ao_user',
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.panel_meetings_search') ?
+        {
+          text: 'Panel Meetings',
+          route: '/profile/ao/panelmeetings',
+          icon: 'calendar',
+          roles: [
+            'ao_user',
+            'superuser',
+          ],
+        } : null,
       {
-        text: 'Position Manager',
-        route: '/profile/ao/positionmanager',
-        icon: 'map-o',
+        text: 'Available Bidders',
+        route: '/profile/ao/availablebidders',
+        icon: 'users',
         roles: [
           'ao_user',
           'superuser',
         ],
       },
     ],
-  } : null,
+  },
   {
     text: 'CDO',
     route: '/profile/cdo/bidderportfolio',
@@ -261,25 +318,43 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'cdo',
     ],
     children: [
-      checkFlag('flags.client_profiles') ?
+      {
+        text: 'Client Profiles', // aka Bidder Portfolio
+        route: '/profile/cdo/bidderportfolio',
+        icon: 'address-book',
+        roles: [
+          'cdo',
+        ],
+        params: {
+          type: 'all',
+        },
+      },
+      {
+        text: 'Available Bidders',
+        route: '/profile/cdo/availablebidders',
+        icon: 'users',
+        roles: [
+          'cdo',
+        ],
+      },
+      checkFlag('flags.agenda_search') ?
         {
-          text: 'Client Profiles', // aka Bidder Portfolio
-          route: '/profile/cdo/bidderportfolio',
-          icon: 'address-book',
+          text: 'Employee Agendas',
+          route: '/profile/cdo/employeeagendas',
+          icon: 'sticky-note',
           roles: [
             'cdo',
+            'superuser',
           ],
-          params: {
-            type: 'all',
-          },
         } : null,
-      checkFlag('flags.available_bidders') ?
+      checkFlag('flags.panel_meetings_search') ?
         {
-          text: 'Available Bidders',
-          route: '/profile/cdo/availablebidders',
-          icon: 'users',
+          text: 'Panel Meetings',
+          route: '/profile/cdo/panelmeetings',
+          icon: 'calendar',
           roles: [
             'cdo',
+            'superuser',
           ],
         } : null,
     ],

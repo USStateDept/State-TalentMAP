@@ -1,72 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`UserRow matches snapshot 1`] = `
-<tr>
-  <td>
-    myTestUsername
-  </td>
-  <td>
-    my test
-  </td>
-  <td
-    className="delegateRoleCell"
-    key="superuser"
-  >
-    <CheckBox
-      checkboxProps={Object {}}
-      className=""
-      disabled={false}
-      id="0-superuser"
-      label="Toggle superuser permission."
-      labelSrOnly={true}
-      name=""
-      onChange={[Function]}
-      onCheckBoxClick={[Function]}
-      overrideLifecycle={false}
-      small={false}
-      title=""
-      value={false}
-    />
-  </td>
-  <td
-    className="delegateRoleCell"
-    key="glossary_editors"
-  >
-    <CheckBox
-      checkboxProps={Object {}}
-      className=""
-      disabled={false}
-      id="0-glossary_editors"
-      label="Toggle glossary_editors permission."
-      labelSrOnly={true}
-      name=""
-      onChange={[Function]}
-      onCheckBoxClick={[Function]}
-      overrideLifecycle={false}
-      small={false}
-      title=""
-      value={false}
-    />
-  </td>
-  <td
-    className="delegateRoleCell"
-    key="aboutpage_editor"
-  >
-    <CheckBox
-      checkboxProps={Object {}}
-      className=""
-      disabled={false}
-      id="0-aboutpage_editor"
-      label="Toggle aboutpage_editor permission."
-      labelSrOnly={true}
-      name=""
-      onChange={[Function]}
-      onCheckBoxClick={[Function]}
-      overrideLifecycle={false}
-      small={false}
-      title=""
-      value={false}
-    />
-  </td>
-</tr>
+<Fragment>
+  <tr>
+    <td>
+      myTestUsername
+    </td>
+    <td>
+      my test
+    </td>
+    <td
+      className="delegateRoleCell"
+      key="superuser"
+    >
+      <CheckBox
+        checkboxProps={Object {}}
+        className=""
+        disabled={false}
+        id="0-superuser"
+        label="Toggle superuser permission."
+        labelSrOnly={true}
+        name=""
+        onChange={[Function]}
+        onCheckBoxClick={[Function]}
+        overrideLifecycle={false}
+        small={false}
+        title=""
+        value={false}
+      />
+    </td>
+    <td
+      className="delegateRoleCell"
+      key="glossary_editors"
+    >
+      <CheckBox
+        checkboxProps={Object {}}
+        className=""
+        disabled={false}
+        id="0-glossary_editors"
+        label="Toggle glossary_editors permission."
+        labelSrOnly={true}
+        name=""
+        onChange={[Function]}
+        onCheckBoxClick={[Function]}
+        overrideLifecycle={false}
+        small={false}
+        title=""
+        value={false}
+      />
+    </td>
+    <td
+      className="delegateRoleCell"
+      key="helppage_editor"
+    >
+      <CheckBox
+        checkboxProps={Object {}}
+        className=""
+        disabled={false}
+        id="0-helppage_editor"
+        label="Toggle helppage_editor permission."
+        labelSrOnly={true}
+        name=""
+        onChange={[Function]}
+        onCheckBoxClick={[Function]}
+        overrideLifecycle={false}
+        small={false}
+        title=""
+        value={false}
+      />
+    </td>
+  </tr>
+</Fragment>
 `;

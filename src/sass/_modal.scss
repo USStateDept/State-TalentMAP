@@ -1,0 +1,21 @@
+.swal-modal.modal-1300 {
+  width: 1000px;
+}
+
+@media screen and (min-width: 1350px) {
+  .swal-modal.modal-1300 {
+    width: 1300px;
+  }
+}
+
+.swal-content {
+  position: relative;
+
+  .modal-close-icon {
+    color: $alert-red;
+    font-size: 2.2rem;
+    position: absolute;
+    right: 20px;
+    top: -84px;
+  }
+}

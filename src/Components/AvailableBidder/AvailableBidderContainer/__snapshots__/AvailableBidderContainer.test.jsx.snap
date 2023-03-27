@@ -28,7 +28,9 @@ exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
       >
         <AvailableBidderTable
           bidders={Array []}
-          isCDO={true}
+          isAO={false}
+          isInternalCDA={true}
+          isPost={false}
           onFilter={[Function]}
           onSort={[Function]}
         />
@@ -61,7 +63,9 @@ exports[`AvailableBidderContainerComponent matches snapshot when not CDO 1`] = `
       >
         <AvailableBidderTable
           bidders={Array []}
-          isCDO={false}
+          isAO={false}
+          isInternalCDA={false}
+          isPost={false}
           onFilter={[Function]}
           onSort={[Function]}
         />

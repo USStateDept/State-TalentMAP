@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { get, isNull } from 'lodash';
 import { offerHandshake, revokeHandshake } from 'actions/handshake';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
@@ -8,15 +9,15 @@ import { useCloseSwalOnUnmount } from 'utilities';
 import EditHandshake from '../EditHandshake';
 
 const HandshakeBureauButton = props => {
-  const { positionID, personID, bidCycle } = props;
+  const { positionID, personID, bidCycle, positionHasHsReg } = props;
   const [handshake, setHandshake] = useState(props.handshake);
-  const [disabled, setDisabled] = useState(props.disabled);
+  const [activePerdet, setActivePerdet] = useState(props.activePerdet);
 
   useCloseSwalOnUnmount();
 
   useEffect(() => {
     setHandshake(props.handshake);
-    setDisabled(props.disabled);
+    setActivePerdet(props.activePerdet);
   }, [props]);
 
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const HandshakeBureauButton = props => {
     hs_date_offered,
   } = handshake;
 
+  const hsAllowed = get(bidCycle, 'handshake_allowed_date', null);
 
   const buttonText = () => {
     if (hs_status_code === 'handshake_revoked') {
@@ -61,13 +63,20 @@ const HandshakeBureauButton = props => {
     });
   };
 
+  const disabledOffer = () => {
+    if ((!activePerdet && !isNull(activePerdet)) || isNull(hsAllowed) || positionHasHsReg) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className="btn-hs-wrapper">
       <button
         className="btn-action"
         title={`${buttonText()} handshake`}
         onClick={() => handshakeModal(false)}
-        disabled={disabled}
+        disabled={disabledOffer()}
       >
         {buttonText()}
       </button>
@@ -87,7 +96,8 @@ HandshakeBureauButton.propTypes = {
   bidCycle: PropTypes.shape({}),
   positionID: PropTypes.string,
   personID: PropTypes.string,
-  disabled: PropTypes.bool,
+  activePerdet: PropTypes.string,
+  positionHasHsReg: PropTypes.bool,
 };
 
 HandshakeBureauButton.defaultProps = {
@@ -96,6 +106,8 @@ HandshakeBureauButton.defaultProps = {
   positionID: '',
   personID: '',
   disabled: true,
+  activePerdet: null,
+  positionHasHsReg: false,
 };
 
 export default HandshakeBureauButton;

@@ -44,6 +44,7 @@ import { anyToTitleCase,
   shortenString,
   sortGrades,
   spliceStringForCSV,
+  splitByLineBreak,
   stopProp,
   userHasPermissions,
   validStateEmail,
@@ -904,5 +905,24 @@ describe('move', () => {
     const arr = [1, 2, 3];
     const exp = move(arr, 0, 1);
     expect(exp).toEqual([2, 1, 3]);
+  });
+});
+
+describe('splitByLineBreak', () => {
+  // We use 3 line breaks to signal a split
+  it('splits a single message', () => {
+    expect(splitByLineBreak('test')).toEqual(['test']);
+  });
+
+  it('splits no messages', () => {
+    expect(splitByLineBreak(null)).toEqual(['']);
+  });
+
+  it('splits 2 messages', () => {
+    expect(splitByLineBreak('test\n\n\ntest2')).toEqual(['test', 'test2']);
+  });
+
+  it('splits 5 messages', () => {
+    expect(splitByLineBreak('test \n a  \n\n\ntest2 a\n\n\n test 3 \n\n\n test4 4 4 \n\n\ntest5 \n\n').length).toEqual(5);
   });
 });

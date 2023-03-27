@@ -36,11 +36,24 @@ describe('BidderPortfolioPageComponent', () => {
     expect(wrapper.instance().state.editType).toBe(setTo);
   });
 
-  it('can set state by calling the changeViewType function', () => {
+  it('sets state by calling the changeViewType function', () => {
     const wrapper = shallow(<BidderPortfolioPage {...props} />);
     expect(wrapper.instance().state.viewType.value).toBe('card');
     wrapper.instance().changeViewType('grid');
     expect(wrapper.instance().state.viewType.value).toBe('grid');
+  });
+
+  it('sets state on queryParamUpdateText', () => {
+    const wrapper = shallow(<BidderPortfolioPage {...props} />);
+    const text = `${Math.random()}`;
+    wrapper.instance().queryParamUpdateText({ q: text });
+    expect(wrapper.instance().state.q).toBe(text);
+  });
+
+  it('does not error on resetRefKeyword', () => {
+    const wrapper = shallow(<BidderPortfolioPage {...props} />);
+    wrapper.instance().resetRefKeyword();
+    expect(wrapper).toBeDefined();
   });
 
   it('matches snapshot', () => {

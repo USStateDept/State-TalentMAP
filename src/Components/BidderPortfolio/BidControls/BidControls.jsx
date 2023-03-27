@@ -5,6 +5,7 @@ import PreferenceWrapper from 'Containers/PreferenceWrapper';
 import {
   BID_PORTFOLIO_FILTERS, BID_PORTFOLIO_FILTERS_TYPE, BID_PORTFOLIO_SORTS,
   BID_PORTFOLIO_SORTS_TYPE, CLIENTS_PAGE_SIZES, UNASSIGNED_BIDDERS_FILTERS } from 'Constants/Sort';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { filter, findIndex, get, includes, isEqual } from 'lodash';
 import { connect } from 'react-redux';
 import Picky from 'react-picky';
@@ -17,7 +18,6 @@ import BidCyclePicker from './BidCyclePicker';
 import CDOAutoSuggest from '../CDOAutoSuggest';
 import ResetFilters from '../../ResetFilters/ResetFilters';
 
-const useCDOSeasonFilter = () => checkFlag('flags.cdo_season_filter');
 const useUnassignedFilter = () => checkFlag('flags.unassigned_filters');
 
 export function renderList({ items, selected, ...rest }) {
@@ -68,15 +68,15 @@ class BidControls extends Component {
     }
   }
 
-  onSeasonChange = seasons => {
+  onSeasonChange = (seasons, value) => {
     const hasSeasons = !!seasons.length;
     const { filterBy } = this.state;
     if (!this.state.bidSeasons.length && this.state.hasSeasons) {
-      this.onFilterChange(get(filterBy, 'value'));
+      this.onFilterChange(get(filterBy, 'value'), value);
     }
     if (!isEqual(hasSeasons, this.state.hasSeasons)) {
       this.setState({ hasSeasons }, () => {
-        this.onFilterChange(get(filterBy, 'value'));
+        this.onFilterChange(get(filterBy, 'value'), value);
       });
     }
     if (!isEqual(seasons, this.state.bidSeasons)) {
@@ -88,7 +88,7 @@ class BidControls extends Component {
     }
   };
 
-  onFilterChange = q => {
+  onFilterChange = (q, value) => {
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!useUnassignedFilter()) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
@@ -97,11 +97,16 @@ class BidControls extends Component {
       findIndex(BID_PORTFOLIO_FILTERS$.options, (o) => o.value === q)] },
     this.generatePills);
     this.setState({ unassignedFilter: (q === 'unassigned_filters' && this.state.hasSeasons) });
-    this.props.queryParamUpdate({ hasHandshake: q });
+    if (value === 'skip') {
+      this.props.queryParamUpdate({ value: 'skip' });
+    } else {
+      this.props.queryParamUpdate({ hasHandshake: q });
+    }
   };
 
   onUnassignedChange = q => {
     this.setState({ unassignedBidders: q }, this.generatePills);
+    this.props.queryParamUpdate({});
     this.props.setUnassigned(q);
   };
 
@@ -111,7 +116,9 @@ class BidControls extends Component {
   };
 
   updateQueryLimit = q => {
-    this.props.queryParamUpdate({ limit: q.target.value });
+    const { updatePagination } = this.props;
+    updatePagination({ pageNumber: 1, pageSize: q.target.value });
+    this.props.queryParamUpdate({ value: 'skip' });
   };
 
   generatePills = () => {
@@ -140,13 +147,17 @@ class BidControls extends Component {
   };
 
   resetAllFilters = () => {
+    const { resetKeyword } = this.props;
+    resetKeyword();
     this.setState({ proxyCdos: [] });
     this.updateMultiSelect([]);
     this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
     this.setState({ unassignedBidders: [] });
+    this.props.queryParamUpdate({ value: 'skip' });
   };
 
   pillClick = (dropdownID, pillID) => {
+    const q = filter(this.state.unassignedBidders, (o) => o.value !== pillID);
     switch (dropdownID) {
       case 'proxyCdos':
         this.setState({ proxyCdos:
@@ -159,8 +170,9 @@ class BidControls extends Component {
         this.onFilterChange(BID_PORTFOLIO_FILTERS.options[0].value);
         break;
       case 'unassignedBidders':
-        this.setState({ unassignedBidders:
-            filter(this.state.unassignedBidders, (o) => o.value !== pillID) }, this.generatePills);
+        this.setState({ unassignedBidders: q }, this.generatePills);
+        this.props.queryParamUpdate({ });
+        this.props.setUnassigned(q);
         break;
       default:
     }
@@ -168,12 +180,11 @@ class BidControls extends Component {
 
   render() {
     const { viewType, changeViewType, defaultHandshake,
-      defaultOrdering, pageSize } = this.props;
+      defaultOrdering, pageSize, getKeyword, updatePagination } = this.props;
     const { hasSeasons, pills, proxyCdos, unassignedBidders, unassignedFilter } = this.state;
     const pageSizes = CLIENTS_PAGE_SIZES.options;
-    const displayCDOSeasonFilter = useCDOSeasonFilter();
     const displayUnassignedFilter = useUnassignedFilter();
-    const showClear = !!pills.length;
+    const showClear = !!pills.length || getKeyword;
     const BID_PORTFOLIO_FILTERS$ = BID_PORTFOLIO_FILTERS;
     if (!displayUnassignedFilter) {
       BID_PORTFOLIO_FILTERS$.options = BID_PORTFOLIO_FILTERS.options.filter(b => b.value !== 'unassigned_filters');
@@ -186,9 +197,10 @@ class BidControls extends Component {
             <div className="label">Proxy CDO View:</div>
             <CDOAutoSuggest
               cdoPills={proxyCdos}
+              updatePagination={updatePagination}
+              pageSize={pageSize}
             />
           </div>
-          {displayCDOSeasonFilter &&
           <div className="portfolio-sort-container-contents small-screen-stack">
             <SelectForm
               id="num-clients"
@@ -198,8 +210,9 @@ class BidControls extends Component {
               onSelectOption={this.updateQueryLimit}
             />
             <BidCyclePicker
-              setSeasonsCb={this.onSeasonChange}
+              setSeasonsCb={(b, value) => this.onSeasonChange(b, value)}
               setClick={(a) => { this.updateMultiSelect = a; }}
+              updatePagination={updatePagination}
             />
             {
               <PreferenceWrapper
@@ -245,7 +258,7 @@ class BidControls extends Component {
                 defaultSort={defaultOrdering}
               />
             </PreferenceWrapper>
-          </div>}
+          </div>
         </div>
         <div className="usa-width-one-whole portfolio-sort-container results-dropdown">
           <ResultsViewBy initial={viewType} onClick={changeViewType} />
@@ -268,16 +281,20 @@ BidControls.propTypes = {
   changeViewType: PropTypes.func.isRequired,
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
-  pageSize: PropTypes.number,
   selection: PropTypes.arrayOf(PropTypes.shape({})),
   setUnassigned: PropTypes.func.isRequired,
   unassignedSelection: PropTypes.arrayOf(PropTypes.shape({})),
+  getKeyword: PropTypes.string.isRequired,
+  resetKeyword: PropTypes.func.isRequired,
+  pageSize: PropTypes.number,
+  updatePagination: PropTypes.func,
 };
 
 BidControls.defaultProps = {
-  pageSize: 0,
   selection: [],
   unassignedSelection: [],
+  pageSize: CLIENTS_PAGE_SIZES.defaultSort,
+  updatePagination: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({

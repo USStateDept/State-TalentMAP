@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { addHours, differenceInMinutes, distanceInWords, isAfter } from 'date-fns'; // TODO - use v2 and figure out how alias'd typings work
-import { sample, upperFirst } from 'lodash';
+import { differenceInMinutes, distanceInWords, isAfter } from 'date-fns'; // TODO - use v2 and figure out how alias'd typings work
+import { upperFirst } from 'lodash';
 
 interface Props {
-  time?: Date,
+  time: Date,
 }
 
-const TimeRemaining = (props: Props) => {
+const TimeRemaining: React.FC<Props> = props => {
   // TODO - don't include these, for demoing
-  const { time = addHours(Date.now(), sample([0.1, 1, 4, 25, 45]) || 2) } = props;
+  const { time } = props;
 
   const getTimeInWords = () => {
     const now = Date.now();

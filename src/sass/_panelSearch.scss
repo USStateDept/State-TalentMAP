@@ -1,0 +1,127 @@
+.panel-meeting-search-page {
+  .panel-meeting-search-upper-section {
+    background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    color: $color-white;
+    max-width: none;
+    padding: 20px 35px 35px;
+  }
+
+  .panel-meeting-search-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+      margin-right: 10px;
+
+      .label {
+        margin: 0 10px;
+        min-width: 85px;
+        text-align: end;
+      }
+
+      .picky, .picky__input {
+        color: $color-black;
+        width: 220px;
+      }
+
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
+      }
+    }
+
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 13px;
+      height: 26px;
+      margin: 7px 0;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+        width: 220px;
+      }
+
+      .react-daterange-picker__inputGroup {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+    }
+  }
+}
+
+.panel-results-controls {
+  align-items: baseline;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  margin: 0 35px 5px 0;
+
+  label {
+    font-size: 15px;
+  }
+
+  .panel-sort {
+    width: 160px;
+  }
+
+
+  div:first-child {
+    margin-right: 10px;
+  }
+
+  div {
+    display: flex;
+
+    label {
+        margin-right: 5px;
+    }
+  }
+}
+
+.panel-search-lower-section {
+  padding: 0 35px 20px;
+  position: relative;
+}
+
+.panel-meeting-row {
+  border: 1px solid $color-gray-light;
+  border-left: 11px solid $primary-blue;
+  box-shadow: rgb(0 0 0 / 15%) 3px 2px 10px 1px;
+  margin-bottom: 10px;
+  margin-left: 0;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .button-box {
+    width: 75px;
+    line-height: 25px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    flex-wrap: wrap;
+
+    .button-box-container {
+      order: 1;
+    }
+  }
+}
+

@@ -2,18 +2,19 @@ import Steps, { Step } from 'rc-steps';
 import shortId from 'shortid';
 import PropTypes from 'prop-types';
 import { APPROVED } from 'Constants/BidStatuses';
-import { checkFlag } from 'flags';
-import { get } from 'lodash';
+import {
+  APPROVED_PROP, HAND_SHAKE_ACCEPTED_PROP, IN_PANEL_PROP,
+} from 'Constants/BidData';
+import { get, includes } from 'lodash';
 import { BID_OBJECT } from 'Constants/PropTypes';
-import { HAND_SHAKE_ACCEPTED_PROP } from 'Constants/BidData';
 import ConfettiIcon from './ConfettiIcon';
-import { bidClassesFromCurrentStatus } from '../BidHelpers';
+import HandshakeAnimation from './HandshakeAnimation';
+import { bidClassesFromCurrentStatus, showHandshakeRegsiterWithAnotherBidderOverlay } from '../BidHelpers';
 import BID_STEPS from './BidStepsHelpers';
 import BidStepIcon from './BidStepIcon';
 import BidPreparingIcon from './BidStepIcon/BidPreparingIcon';
 import { formatDate, getFlagColorsByTextSearch } from '../../../utilities';
 
-const getUseConfetti = () => checkFlag('flags.confetti');
 
 // Use the rc-steps module to render the bid tracker.
 // It uses <Steps> as a parent with <Step> children.
@@ -27,9 +28,11 @@ const BidSteps = (props, context) => {
   const { bid, collapseOverlay } = props;
   const { condensedView } = context;
   const bidData = bidClassesFromCurrentStatus(bid).stages || {};
-  const handshakeRegisteredAnotherClient =
-    get(bid, 'position_info.bid_statistics[0].has_handshake_offered') && (bid.status !== HAND_SHAKE_ACCEPTED_PROP);
+  const handshakeRegisterWithAnotherBidder = get(bid, 'position_info.bid_statistics[0].has_handshake_offered')
+    && showHandshakeRegsiterWithAnotherBidderOverlay(bid);
+  const handshakeNeedsRegistered = get(bid, 'status') === 'handshake_needs_registered';
   const getIcon = (status) => {
+    const bidPropsAfterRegister = [APPROVED_PROP, IN_PANEL_PROP, HAND_SHAKE_ACCEPTED_PROP];
     const tooltipTitle = get(bidData[status.prop], 'tooltip.title');
     const tooltipText = get(bidData[status.prop], 'tooltip.text');
     const icon = (
@@ -41,11 +44,11 @@ const BidSteps = (props, context) => {
         hasRescheduledTooltip={bidData[status.prop].hasRescheduledTooltip}
         tooltipTitle={tooltipTitle}
         tooltipText={tooltipText}
-        handshakeRegisteredAnotherClient={handshakeRegisteredAnotherClient}
+        handshakeRegisterWithAnotherBidder={handshakeRegisterWithAnotherBidder}
       />
     );
     if (bidData[status.prop].isCurrent && bidData[status.prop].title === APPROVED.text
-    && getUseConfetti() && !condensedView) {
+    && !condensedView) {
       let colors;
       const country = get(bid, 'position_info.position.post.location.country');
       if (country) {
@@ -56,6 +59,10 @@ const BidSteps = (props, context) => {
           {icon}
         </ConfettiIcon>
       );
+    }
+    if (bidData[status.prop].isPendingLine && includes(bidPropsAfterRegister, bid.status)
+      && !condensedView) {
+      return (<HandshakeAnimation isBidTracker />);
     }
     return icon;
   };
@@ -75,7 +82,7 @@ const BidSteps = (props, context) => {
           `}
             title={
               <div>
-                <div className="step-title-main-text">{bidData[status.prop].title}</div>
+                <div className={`step-title-main-text${handshakeNeedsRegistered ? ' hs-needs-registered' : ''}`}>{bidData[status.prop].title}</div>
                 <div className="step-title-sub-text">{formatDate(bidData[status.prop].date)}</div>
               </div>
             }

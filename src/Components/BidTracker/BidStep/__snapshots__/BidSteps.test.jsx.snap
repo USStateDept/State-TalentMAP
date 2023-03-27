@@ -21,7 +21,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -57,7 +57,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -93,7 +93,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -129,7 +129,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -165,7 +165,7 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <BidStepIcon
-        handshakeRegisteredAnotherClient={false}
+        handshakeRegisterWithAnotherBidder={false}
         hasRescheduledTooltip={false}
         isComplete={true}
         isCurrent={false}
@@ -201,16 +201,10 @@ exports[`BidStepsComponent matches snapshot 1`] = `
           "
     icon={
       <ConfettiIcon
-        colors={
-          Array [
-            "#0072c6",
-            "#fff",
-            "#1eb53a",
-          ]
-        }
+        colors={false}
       >
         <BidStepIcon
-          handshakeRegisteredAnotherClient={false}
+          handshakeRegisterWithAnotherBidder={false}
           hasRescheduledTooltip={false}
           isComplete={false}
           isCurrent={true}

@@ -1,5 +1,4 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from 'react';
-import FontAwesome from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import SearchBar from 'Components/SearchBar/SearchBar';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
@@ -35,32 +34,22 @@ const PositionManagerSearch = forwardRef((props, ref) => {
 
   return (
     <form className="usa-grid-full">
-      <fieldset className="usa-width-five-sixths">
-        <div className="usa-width-one-whole search-results-inputs search-keyword">
-          <legend className="usa-grid-full homepage-search-legend">Search for a position</legend>
-          <SearchBar
-            id="bureau-search-keyword-field"
-            defaultValue={props.textSearch || props.defaultValue}
-            label="Keywords"
-            labelSrOnly
-            noButton
-            noForm
-            onChangeText={changeText}
-            onClear={onClear}
-            placeholder="Type keywords here"
-            showClear
-            submitText="Search"
-            type="medium"
-            ref={childRef}
-          />
-        </div>
-      </fieldset>
-      <div className="usa-width-one-sixth search-submit-button">
-        <button className="usa-button" type="submit" onClick={submitForm}>
-          <FontAwesome name="search" className="label-icon" />
-                Search
-        </button>
-      </div>
+      <SearchBar
+        id="bureau-search-keyword-field"
+        defaultValue={props.textSearch || props.defaultValue}
+        label={props.label}
+        labelSrOnly
+        onChangeText={changeText}
+        onClear={onClear}
+        placeholder={props.placeHolder}
+        showClear
+        submitText="Search"
+        type="medium"
+        ref={childRef}
+        submitForm={submitForm}
+        noButton={props.noButton}
+        showIcon={props.showIcon}
+      />
     </form>
   );
 });
@@ -70,6 +59,10 @@ PositionManagerSearch.propTypes = {
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,
   textSearch: PropTypes.string,
+  label: PropTypes.string,
+  placeHolder: PropTypes.string,
+  noButton: PropTypes.bool,
+  showIcon: PropTypes.bool,
 };
 
 PositionManagerSearch.defaultProps = {
@@ -77,6 +70,10 @@ PositionManagerSearch.defaultProps = {
   onChange: EMPTY_FUNCTION,
   defaultValue: '',
   textSearch: '',
+  label: '',
+  placeHolder: 'Type keywords here',
+  noButton: false,
+  showIcon: true,
 };
 
 export default PositionManagerSearch;

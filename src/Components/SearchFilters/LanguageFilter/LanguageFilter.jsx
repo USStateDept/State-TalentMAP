@@ -101,7 +101,6 @@ class LanguageFilter extends Component {
                   title={group.name}
                   buttonClass="tm-nested-accordion-button"
                   disabled={isGroupHidden}
-                  expanded
                   preContent={(
                     <CheckBox
                       cone={group /* pass group to reference in onClick handler */}

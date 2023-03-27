@@ -20,7 +20,7 @@ const BidTrackerCardTitle = ({
   const viewPosition = (
     <div className="bid-tracker-card-title-link">
       {
-        id ? <Link to={`/${status === APPROVED_PROP ? 'archived' : 'details'}/${id}`}>View position</Link> : null
+        id ? <Link to={`/details/${id}`}>View position</Link> : null
       }
     </div>
   );

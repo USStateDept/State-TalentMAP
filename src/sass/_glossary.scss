@@ -33,7 +33,7 @@
 
   fieldset {
     color: $foreground-color;
-    padding: 0 $padding $padding;
+    padding: 0 $padding;
   }
 
   .glossary {
@@ -80,8 +80,19 @@
   }
 
   .glossary-top,
-  .glossary-fieldset {
+  .glossary-fieldset,
+  .glossary-export {
     background-color: $primary-blue-darkest;
+  }
+
+  .glossary-export {
+    color: $primary-alt-lightest;
+    font-size: .8em;
+    padding: $padding / 2 $padding;
+
+    svg {
+      margin-right: .5em;
+    }
   }
 
   .glossary-content {

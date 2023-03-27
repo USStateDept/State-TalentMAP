@@ -30,7 +30,7 @@ export class PermissionsWrapper extends Component {
       }
       return false;
     }
-    return setTimeout(() => this.checkPermissions(), 100);
+    return false;
   };
 
   render() {

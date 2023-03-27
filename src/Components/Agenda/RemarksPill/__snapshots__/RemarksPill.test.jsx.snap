@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RemarksPill matches snapshot 1`] = `
+<div
+  className="remarks-pill remark-category--undefined"
+/>
+`;
+
+exports[`RemarksPill matches snapshot when remarks are provided 1`] = `
+<div
+  className="remarks-pill remark-category--B"
+>
+  Potential recognized by {Bureau} at last promo board {date}
+  <FontAwesome
+    name="times"
+    onClick={[Function]}
+  />
+</div>
+`;

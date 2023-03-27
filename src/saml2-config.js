@@ -34,19 +34,21 @@ const serviceProvider = new saml2.ServiceProvider({
   private_key: privateKey,
   certificate: cert,
   assert_endpoint: ASSERT_ENDPOINT,
-  force_authn: true,
+  force_authn: false,
 });
 
 const identityProvider = new saml2.IdentityProvider({
   sso_login_url: SSO_LOGIN_URL,
   sso_logout_url: SSO_LOGOUT_URL,
   certificates: [ssoCert],
+  force_authn: false,  
 });
 
 const identityProviderAlt = new saml2.IdentityProvider({
   sso_login_url: SSO_LOGIN_URL_ALT,
   sso_logout_url: SSO_LOGOUT_URL_ALT,
   certificates: [ssoCert],
+  force_authn: false,  
 });
 
 // Example use of service provider.

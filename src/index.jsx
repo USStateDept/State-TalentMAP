@@ -3,17 +3,19 @@ import 'core-js/shim'; // included < Stage 4 proposals
 import 'regenerator-runtime/runtime';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { get } from 'lodash';
+import { get, includes, some } from 'lodash';
 import './sass/styles.scss';
 import App from './Components/App/App';
 import Splash from './Components/Splash';
-import { getAssetPath } from './utilities';
+import HrOnlineIFrame from './Components/HrOnlineIFrame';
+import { determineEnv, getAssetPath } from './utilities';
 import { checkFlag } from './flags';
 
 import '../node_modules/uswds/dist/js/uswds.min';
 import './polyfills';
 
 const isPersonaAuth = () => checkFlag('flags.persona_auth');
+
 
 export const render = () => {
   ReactDOM.render((
@@ -28,30 +30,67 @@ export const renderLoading = () => {
   ), document.getElementById('root') || document.createElement('div'));
 };
 
+export const renderIFrame = (env) => {
+  ReactDOM.render((
+    <HrOnlineIFrame env={env} />
+  ), document.getElementById('hronlineIframe') || document.createElement('div'));
+};
+
 // function to initialize app, capture feature flags in localStorage
 export const init = (config) => {
   sessionStorage.setItem('config', JSON.stringify(config));
 
+  const env = determineEnv(window.location.href);
+  const isPublic = includes(window.location.hostname, 'msappproxy');
+
   const auth = get(config, 'hrAuthUrl');
+  const publicAuth = get(config, 'hrAuthUrlPublic');
+
+  // Only pass tmusrname header if localhost or metaphase environment
+  const isDev = some(['localhost', 'metaphasedev'], el => includes(window.location.hostname, el));
+  const withCredentials = !isDev;
 
   const headers = {
     Accept: 'application/json',
   };
 
-  // Only needed for local development
-  if (isPersonaAuth()) { headers.tmusrname = localStorage.getItem('tmusrname'); }
+  // Only needed for local/demo development.
+  if (isPersonaAuth() && isDev) {
+    headers.tmusrname = localStorage.getItem('tmusrname');
+  }
 
-  if (auth) {
-    renderLoading();
+  renderLoading();
+
+  if (isPublic) {
+    renderIFrame(env);
+    window.addEventListener('message', (e) => {
+      const { type, body } = e.data;
+      if (type === 'shakehand' && body) {
+        // eslint-disable-next-line no-console
+        console.log('handshake received from iframe');
+        axios
+          .get(publicAuth, { withCredentials, headers })
+          .then((response) => {
+            sessionStorage.setItem('jwt', response.data);
+          })
+          .catch((error) => {
+            // eslint-disable-next-line no-console
+            console.log('Error setting public jwt', error);
+          })
+          .then(render());
+      }
+    });
+  } else {
     axios
-      .get(auth, { headers })
+      .get(auth, { withCredentials, headers })
       .then((response) => {
         sessionStorage.setItem('jwt', response.data);
-        render();
       })
-      .catch(() => render());
-  } else {
-    render();
+      .catch((error) => {
+        // eslint-disable-next-line no-console
+        console.log('Error setting non-public jwt', error);
+      })
+      .then(render());
   }
 };
 
@@ -80,3 +119,4 @@ export const getConfig = () => {
     .catch(() => init({}));
 };
 getConfig();
+

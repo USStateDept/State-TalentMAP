@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LanguagesComponent matches snapshot 1`] = `
+<div
+  className="usa-grid-full profile-section-container languages-container"
+>
+  <div
+    className="usa-grid-full section-padded-inner-container"
+  >
+    <div
+      className="usa-width-one-whole"
+    >
+      <PositionInformation
+        className=""
+        icon="language"
+        len={1}
+        small={false}
+        title="Language History"
+      />
+    </div>
+    <div
+      className="languages-list-container"
+    >
+      <InformationDataPoint
+        className=""
+        content={
+          <div
+            className="language-details"
+          >
+            Reading: 2 | Speaking: 2+
+            <span>
+              Test Date: 05/28/2003
+            </span>
+          </div>
+        }
+        key="1"
+        sideBySide={false}
+        title="Georgian"
+        titleOnBottom={false}
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`LanguagesComponent matches snapshot when useWrapper is false 1`] = `
+<div
+  className="usa-grid-full"
+>
+  <div
+    className="languages-list-container"
+  >
+    <InformationDataPoint
+      className=""
+      content={
+        <div
+          className="language-details"
+        >
+          Reading: 2 | Speaking: 2+
+          <span>
+            Test Date: 05/28/2003
+          </span>
+        </div>
+      }
+      key="1"
+      sideBySide={false}
+      title="Georgian"
+      titleOnBottom={false}
+    />
+  </div>
+</div>
+`;

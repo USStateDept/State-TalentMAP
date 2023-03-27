@@ -1,7 +1,6 @@
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { checkFlag } from 'flags';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
@@ -9,8 +8,7 @@ import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
 import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
-
-const useCDOBidding = () => checkFlag('flags.cdo_bidding');
+import AddToInternalListButton from '../AddToInternalListButton';
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
@@ -19,11 +17,13 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const id = get(userProfile, 'employee_id');
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
+  const bidder = get(userProfile, 'shortened_name') || 'None listed';
+  const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
+
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
-        {get(userProfile, 'name', 'N/A')}
-        <Link to={`/profile/public/${perdet}`}>View Profile</Link>
+        <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
       </div>
       <div>
         <div>
@@ -43,7 +43,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             <dt>TED:</dt><dd>{ted || NO_TOUR_END_DATE}</dd>
           </div>
           <div className="stat-card-data-point">
-            <dt>Location:</dt><dd>{currentAssignmentText || NO_POST}</dd>
+            <dt>Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
           </div>
         </div>
         {
@@ -57,9 +57,10 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           </div>
         }
         {
-          !showEdit && useCDOBidding() &&
+          !showEdit &&
           <div className="button-container">
             <SearchAsClientButton user={userProfile} />
+            <AddToInternalListButton refKey={perdet} />
           </div>
         }
         {

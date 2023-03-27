@@ -6,6 +6,7 @@ import CheckBox from 'Components/CheckBox';
 import { get } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { modifyPermission } from 'actions/userRoles';
+import Skeleton from 'react-loading-skeleton';
 
 class UserRow extends Component {
   checkPermission(permission) {
@@ -23,7 +24,7 @@ class UserRow extends Component {
 
   render() {
     const {
-      username, name, userID, delegateRoles,
+      username, name, userID, delegateRoles, isLoading,
     } = this.props;
 
     const tdArray = [];
@@ -42,11 +43,27 @@ class UserRow extends Component {
     ));
 
     return (
-      <tr>
-        <td>{username}</td>
-        <td>{name}</td>
-        {tdArray}
-      </tr>
+      <>
+        {
+          isLoading ?
+            (
+              <tr>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+                <td><Skeleton /></td>
+              </tr>
+            ) :
+            (
+              <tr>
+                <td>{username}</td>
+                <td>{name}</td>
+                {tdArray}
+              </tr>
+            )
+        }
+      </>
     );
   }
 }
@@ -58,6 +75,7 @@ UserRow.propTypes = {
   permissionGroups: PropTypes.arrayOf(PropTypes.shape({})),
   delegateRoles: PropTypes.shape({}),
   modifyPermission: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 UserRow.defaultProps = {
@@ -67,6 +85,7 @@ UserRow.defaultProps = {
   delegateRoles: {},
   modifyPermission: EMPTY_FUNCTION,
   onClick: EMPTY_FUNCTION,
+  isLoading: false,
 };
 
 const mapStateToProps = state => ({

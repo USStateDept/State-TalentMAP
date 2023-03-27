@@ -24,16 +24,20 @@
 
   .expired {
     background-color: $hs-expiration-orange;
+    padding-left: 11px!important;
+    padding-top: 2.5px
   }
 
   .hs-status-bureau {
     clip-path: polygon(0 0, 75% 0%, 100% 50%, 75% 100%, 0 100%);
-    padding-left: 5px;
+    padding-bottom: 3px;
+    padding-left: 3px;
   }
 
   .hs-status-bidder {
     clip-path: polygon(100% 0, 100% 50%, 100% 100%, 0% 100%, 25% 50%, 0% 0%);
-    padding-left: 15px;
+    padding-bottom: 3px;
+    padding-left: 13px;
   }
 }
 
@@ -50,11 +54,9 @@
     .arrow-regular {
       border: none;
     }
-    .tooltip-title {
-      font-weight: bold;
-    }
     .status-tooltip-wrapper {
       display: flex;
+      padding-bottom: 10px;
       div {
         display: flex;
         flex-direction: column;
@@ -74,6 +76,14 @@
       .status-name {
         font-weight: 400;
         font-style: italic;
+      }
+    }
+    .hs-registered {
+      border-top: 1px solid $color-gray-light;
+      padding-top: 10px;
+      .title {
+        font-size: 16px;
+        font-weight: bold;
       }
     }
   }

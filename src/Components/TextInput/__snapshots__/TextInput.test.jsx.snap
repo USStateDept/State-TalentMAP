@@ -2,7 +2,7 @@
 
 exports[`TextInputComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full "
+  className="usa-grid-full  "
 >
   <label
     className=""

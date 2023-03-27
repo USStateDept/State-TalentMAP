@@ -168,6 +168,12 @@
     margin-top: 1rem;
   }
 
+  .calendar-wrapper {
+    .react-calendar {
+      width: 450px;
+    }
+  }
+
   .calendar-legend {
     display: flex;
     justify-content: space-around;
@@ -264,6 +270,7 @@
   .react-time-picker__inputGroup {
     display: flex;
     align-items: center;
+    font-size: 17px;
     padding-left: 10px;
   }
 
@@ -296,5 +303,9 @@
     .react-time-picker__button {
       background-color: $bg-gray-dark-3;
     }
+  }
+
+  .react-time-picker__inputGroup__amPm[disabled] {
+    opacity: 1 !important;
   }
 }

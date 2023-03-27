@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
-import FontAwesome from 'react-fontawesome';
 import { EMPTY_FUNCTION } from '../../Constants/PropTypes';
 import SearchBar from '../SearchBar/SearchBar';
 
@@ -40,37 +39,27 @@ class ResultsSearchHeader extends Component {
 
   render() {
     const { defaultKeyword, isHomePage, placeholder, searchBarDisabled,
-      searchBarDisabledPlaceholder, legend, legendSrOnly } = this.props;
+      searchBarDisabledPlaceholder, legend } = this.props;
     return (
       <div className={`results-search-bar padded-main-content results-single-search ${!isHomePage ? 'homepage-offset' : ''}`}>
-        <div className="usa-grid-full results-search-bar-container">
-          <form className="usa-grid-full" onSubmit={this.submitSearch} >
-            <fieldset className="usa-width-five-sixths">
-              <div className="usa-width-one-whole search-results-inputs search-keyword">
-                <legend className={`usa-grid-full homepage-search-legend ${legendSrOnly ? 'usa-sr-only' : ''}`}>{legend}</legend>
-                <SearchBar
-                  id="search-keyword-field"
-                  label="Keywords"
-                  type="medium"
-                  submitText="Search"
-                  labelSrOnly
-                  noForm
-                  noButton
-                  placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
-                  onChangeText={this.onChangeQueryText}
-                  defaultValue={defaultKeyword}
-                  inputDisabled={searchBarDisabled}
-                  showClear
-                  onClear={this.onClear}
-                />
-              </div>
-            </fieldset>
-            <div className="usa-width-one-sixth search-submit-button">
-              <button className="usa-button" type="submit" disabled={searchBarDisabled}>
-                <FontAwesome name="search" className="label-icon" />
-                Search
-              </button>
-            </div>
+        <div className="usa-grid-full search-bar-container">
+          <form className="usa-grid-full">
+            <SearchBar
+              id="search-keyword-field"
+              label={legend}
+              type="medium"
+              submitText="Search"
+              labelSrOnly
+              noForm
+              placeholder={searchBarDisabled ? searchBarDisabledPlaceholder : placeholder}
+              onChangeText={this.onChangeQueryText}
+              defaultValue={defaultKeyword}
+              inputDisabled={searchBarDisabled}
+              showClear
+              onClear={this.onClear}
+              ref={(ref) => { this.searchBarRef = ref; }}
+              submitForm={this.submitSearch}
+            />
           </form>
         </div>
       </div>
@@ -87,7 +76,6 @@ ResultsSearchHeader.propTypes = {
   searchBarDisabled: PropTypes.bool,
   searchBarDisabledPlaceholder: PropTypes.string,
   legend: PropTypes.string,
-  legendSrOnly: PropTypes.bool,
 };
 
 ResultsSearchHeader.defaultProps = {
@@ -100,7 +88,6 @@ ResultsSearchHeader.defaultProps = {
   searchBarDisabled: false,
   searchBarDisabledPlaceholder: 'Free text search is unavailable when searching Projected Vacancies',
   legend: 'Find your next position',
-  legendSrOnly: false,
 };
 
 export default ResultsSearchHeader;

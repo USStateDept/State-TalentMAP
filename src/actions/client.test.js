@@ -10,7 +10,7 @@ describe('async actions', () => {
   });
 
   it('can fetch a client', (done) => {
-    mockAdapter.onGet('/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       clientObject,
     );
 
@@ -28,7 +28,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching a client', (done) => {
-    mockAdapter.onGet('/client/2/').reply(404,
+    mockAdapter.onGet('/fsbid/client/2/').reply(404,
       null,
     );
 
@@ -46,7 +46,7 @@ describe('async actions', () => {
   });
 
   it('can fetch client waivers', (done) => {
-    mockAdapter.onGet('/client/1/waivers/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/waivers/').reply(200,
       clientWaivers,
     );
 
@@ -64,7 +64,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching client waivers', (done) => {
-    mockAdapter.onGet('/client/2/waivers/').reply(404,
+    mockAdapter.onGet('/fsbid/client/2/waivers/').reply(404,
       null,
     );
 
@@ -82,7 +82,7 @@ describe('async actions', () => {
   });
 
   it('can fetch client bids', (done) => {
-    mockAdapter.onGet('/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/bids/').reply(200,
       clientBids,
     );
 
@@ -100,7 +100,7 @@ describe('async actions', () => {
   });
 
   it('can handle errors when fetching client bids', (done) => {
-    mockAdapter.onGet('/client/2/bids/').reply(404,
+    mockAdapter.onGet('/fsbid/client/2/bids/').reply(404,
       null,
     );
 
@@ -118,13 +118,13 @@ describe('async actions', () => {
   });
 
   it('can perform fetchAllClientData', (done) => {
-    mockAdapter.onGet('/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/bids/').reply(200,
       clientBids,
     );
-    mockAdapter.onGet('/client/1/waivers/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/waivers/').reply(200,
       clientWaivers,
     );
-    mockAdapter.onGet('/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       clientObject,
     );
 
@@ -144,13 +144,13 @@ describe('async actions', () => {
   });
 
   it('can handle errors when performing fetchAllClientData', (done) => {
-    mockAdapter.onGet('/client/1/bids/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/bids/').reply(200,
       clientBids,
     );
-    mockAdapter.onGet('/client/1/waivers/').reply(404,
+    mockAdapter.onGet('/fsbid/client/1/waivers/').reply(404,
       null,
     );
-    mockAdapter.onGet('/client/1/').reply(200,
+    mockAdapter.onGet('/fsbid/client/1/').reply(200,
       clientObject,
     );
 

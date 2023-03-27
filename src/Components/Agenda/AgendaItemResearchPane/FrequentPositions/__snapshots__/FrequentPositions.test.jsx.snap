@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FrequentPositionsComponent matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
+>
+  <MemoryRouter>
+    <FrequentPositions
+      addFrequentPosition={[Function]}
+      disabled={false}
+      positions={
+        Array [
+          Object {
+            "pos_num_text": "010101010",
+            "pos_org_short_desc": "AF",
+            "pos_title_desc": "Information Technology Spec",
+          },
+        ]
+      }
+    />
+    ,
+  </MemoryRouter>
+</ContextProvider>
+`;

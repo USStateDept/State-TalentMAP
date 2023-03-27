@@ -87,3 +87,8 @@ beforeEach(() => {
 
 // Mock jsoneditor-react
 jest.mock('jsoneditor-react', () => ({ JsonEditor: jest.fn() }))
+
+// fix memory leak - https://github.com/facebook/jest/issues/7874
+afterAll(() => {
+  // global.gc && global.gc();
+})

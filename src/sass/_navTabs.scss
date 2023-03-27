@@ -1,0 +1,60 @@
+.navTabs {
+  background-color: $bg-gray-medium-4;
+  border-bottom: 3px solid $color-black;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+
+  .tab {
+    background-color: $bg-gray-medium-4;
+    border-right: 1px solid $bg-gray-dark-2;
+    border-top: 3px solid $bg-gray-medium-4;
+    font-size: 13px;
+    padding: 5px 10px;
+    text-align: center;
+  }
+
+  // special styling for first tab
+  #asgh-tab-container {
+    .tab {
+      border-left: 1px solid $bg-gray-dark-2;
+    }
+  }
+
+  .tab-active {
+    background-color: $color-white;
+    border-top: 3px solid $dos-blue;
+    color: $dos-blue;
+  }
+
+  .tab:hover:not(.tab-active) {
+    color: $color-black;
+    background-color: $bg-gray-medium-2;
+    border-top: 3px solid $bg-gray-medium-2;
+    cursor: pointer;
+  }
+}
+
+.navDropdown {
+  background-color: $dos-blue;
+  display: grid;
+  justify-content: center;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  z-index: 1;
+
+  label {
+    margin-top: 0;
+  }
+
+  .dd-style {
+    select {
+      font-size: 13px;
+      padding: 5px 10px 5px;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.checklist-modal {
+  height: 65vh;
+  overflow-y: auto;
+
+  .row {
+    padding: 10px 10px 10px 5px;
+    position: relative;
+
+    .checkbox {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
+      label {
+        margin-top: 0;
+      }
+    }
+
+    .text {
+      padding: 10px 10px 10px 50px;
+      text-align: left;
+    }
+  }
+
+  .row-divider:not(:first-child) {
+    border-top: 1px dotted $tm-gray;
+  }
+
+  .title-divider {
+    border-top: 1px solid $color-black;
+  }
+}

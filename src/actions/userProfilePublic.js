@@ -32,7 +32,7 @@ export function unsetUserProfilePublic() {
 }
 
 // include an optional bypass for when we want to silently update the profile
-export function userProfilePublicFetchData(id, bypass, includeBids = true) {
+export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSort = 'status') {
   return (dispatch, getState) => {
     if (!bypass) {
       dispatch(userProfilePublicIsLoading(true));
@@ -46,7 +46,7 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true) {
     const getUserAccount = () => api().get(`/fsbid/client/${id}/`);
 
     // bids
-    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/`);
+    const getUserBids = () => api().get(`/fsbid/cdo/client/${id}/?ordering=${bidSort}`);
 
     const proms = [getUserAccount()];
     if (includeBids) proms.push(getUserBids());

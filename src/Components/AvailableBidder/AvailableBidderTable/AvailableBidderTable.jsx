@@ -13,53 +13,72 @@ import Alert from 'Components/Alert/Alert';
 import FA from 'react-fontawesome';
 import { Tooltip } from 'react-tippy';
 import shortid from 'shortid';
-
+import { useMount, usePrevious } from 'hooks';
 
 const AvailableBidderTable = props => {
-  // CDO or Bureau version
-  const { isCDO } = props;
+  const { isInternalCDA, isAO, isPost } = props;
 
   // Local state
-  // Toggle view state within CDO version
-  const [cdoView, setCdoView] = useState(true);
+  // Toggle view state within Internal CDA version
+  const [internalViewToggle, setInternalViewToggle] = useState(isInternalCDA);
   const [sort, setSort] = useState('Name');
   const [exportIsLoading, setExportIsLoading] = useState(false);
 
   // App state
   const biddersData = useSelector(state => state.availableBiddersFetchDataSuccess);
   const availableBiddersIsLoading = useSelector(state => state.availableBiddersFetchDataLoading);
+  const availableBiddersHasErrored = useSelector(state => state.availableBiddersFetchDataErrored);
   const filtersIsLoading = useSelector(state => state.filtersIsLoading);
   const filterData = useSelector(state => state.filters);
 
   const isLoading = availableBiddersIsLoading || filtersIsLoading;
+  const hasErrored = availableBiddersHasErrored;
+
+  const alertTitle = !hasErrored ? 'Available Bidders List is Empty' : 'Error loading Available Bidders List';
+  const alertBody = [
+    !hasErrored ?
+      {
+        body: isInternalCDA ?
+          'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
+          'Please wait for Internal CDAs to share available bidders.',
+      } : {
+        body: 'Please try again.',
+      },
+  ];
 
 
-  const bureaus = filterData.filters.find(f => f.item.description === 'region');
+  const bureaus = (get(filterData, 'filters') || []).find(f => f.item.description === 'region');
 
   const bidders = isLoading ? [...new Array(10)] : get(biddersData, 'results', []);
+
+  const prevSort = usePrevious(sort);
 
   // Actions
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(availableBiddersFetchData(isCDO, sort));
+  useMount(() => {
+    dispatch(availableBiddersFetchData(isInternalCDA, sort));
     dispatch(filtersFetchData(filterData, {}));
-  }, []);
+  });
 
   useEffect(() => {
-    dispatch(availableBiddersFetchData(isCDO, sort));
+    if (prevSort && sort && sort !== prevSort) {
+      dispatch(availableBiddersFetchData(isInternalCDA, sort));
+    }
   }, [sort]);
 
-  const tableHeaders = isCDO ? [
+  let tableHeaders = isInternalCDA ? [
     'Name',
     'Status',
+    isInternalCDA ? 'Step Letters' : undefined,
     'Skill',
     'Grade',
     'Languages',
     'TED',
     'Post',
     'CDO',
-    'Comments',
+    'Updated',
+    'Notes',
   ] : [
     'Name',
     'Skill',
@@ -70,30 +89,36 @@ const AvailableBidderTable = props => {
     'CDO',
   ];
 
+  tableHeaders = tableHeaders.filter(f => f);
+
   const getSortIcon = (header) => {
-    if (header === sort) {
+    let header$ = header;
+    header$ = header$.replace('Updated', 'Update');
+    if (header$ === sort) {
       return 'sort-asc';
-    } else if (`-${header}` === sort) {
+    } else if (`-${header$}` === sort) {
       return 'sort-desc';
     }
     return 'sort';
   };
 
-  const handleSort = (header) => (
+  const handleSort = (header) => {
+    let header$ = header;
+    header$ = header$.replace('Updated', 'Update');
     // Dynamically set the sort asc or desc('-')
-    header === sort ? setSort(`-${header}`) : setSort(header)
-  );
+    return header$ === sort ? setSort(`-${header$}`) : setSort(header$);
+  };
 
   let title = '';
-  if (isCDO) {
-    title = cdoView ? 'Internal CDA View' : 'External Bureau View';
+  if (isInternalCDA) {
+    title = internalViewToggle ? 'Internal CDA View' : 'External CDA View';
   }
 
   const getTitleCount = () => {
     let bidderCountTitle = '';
     if (!isLoading) {
-      if (isCDO) {
-        bidderCountTitle = cdoView ? `(${bidders.length})` : `(${bidders.filter(b => get(b, 'available_bidder_details.is_shared')).length})`;
+      if (isInternalCDA) {
+        bidderCountTitle = internalViewToggle ? `(${bidders.length})` : `(${bidders.filter(b => get(b, 'available_bidder_details.is_shared')).length})`;
       } else {
         bidderCountTitle = `Shared Available Bidders (${bidders.length})`;
       }
@@ -104,7 +129,7 @@ const AvailableBidderTable = props => {
   const exportBidders = () => {
     if (!isLoading) {
       setExportIsLoading(true);
-      availableBidderExport(isCDO)
+      availableBidderExport(isInternalCDA && internalViewToggle, sort)
         .then(() => {
           setExportIsLoading(false);
         })
@@ -115,123 +140,140 @@ const AvailableBidderTable = props => {
   };
 
   return (
-    !bidders.length && !isLoading ?
+    !bidders.length && !isLoading && !hasErrored ?
       <div className="usa-width-two-thirds">
         <Alert
-          title="Available Bidders List is Empty"
-          messages={[{
-            body: isCDO ?
-              'Please navigate to the CDO Client Profiles to begin searching and adding bidders.' :
-              'Please wait for CDOs to share available bidders.',
-          }]}
+          title={alertTitle}
+          messages={alertBody}
         />
       </div>
       :
-      <div className="usa-width-one-whole bidder-manager-bidders ab-lower-section">
+      <>
         <div className="ab-table-title-row">
           <h3>{title} {getTitleCount()}</h3>
-          <div className="export-button-container">
-            <ExportButton
-              onClick={exportBidders}
-              isLoading={exportIsLoading}
-              disabled={!bidders.length}
-            />
-          </div>
+          {
+            !hasErrored &&
+              <ExportButton
+                onClick={exportBidders}
+                isLoading={exportIsLoading}
+                disabled={!bidders.length}
+                text={internalViewToggle || !isInternalCDA ? 'Export' : 'Export External View'}
+              />
+          }
         </div>
-        {
-          <table className="bidder-manager-bidders">
-            <thead>
-              <tr>
+        <div className={`usa-width-one-whole bidder-manager-bidders ${isInternalCDA ? 'internal ' : ''}ab-lower-section`}>
+          {
+            <table>
+              <thead>
+                <tr>
+                  {
+                    tableHeaders.map(item => (
+                      item !== 'Languages' && item !== 'Notes' && item !== 'Step Letters' ?
+                        <th
+                          key={item}
+                          scope="col"
+                        >
+                          <InteractiveElement onClick={() => handleSort(item)}>
+                            {item} <FA name={getSortIcon(item)} />
+                          </InteractiveElement>
+                        </th>
+                        :
+                        <th
+                          key={item}
+                          scope="col"
+                        >
+                          {item}
+                        </th>
+                    ))
+                  }
+                  {
+                    isInternalCDA &&
+                      <th>
+                        <div className="external-view-toggle">
+                          <ToggleButton
+                            labelTextLeft={
+                              <Tooltip
+                                title="Internal CDA View"
+                                arrow
+                                offset={-95}
+                                position="top-end"
+                                tabIndex="0"
+                              >
+                                <FA name="street-view" className={`fa-lg ${internalViewToggle ? 'active' : ''}`} />
+                              </Tooltip>
+                            }
+                            labelTextRight={
+                              <Tooltip
+                                title="External CDA View"
+                                arrow
+                                offset={-95}
+                                position="top-end"
+                                tabIndex="0"
+                              >
+                                <FA name="building" className={`fa-lg ${!internalViewToggle ? 'active' : ''}`} />
+                              </Tooltip>
+                            }
+                            checked={!internalViewToggle}
+                            onChange={() => setInternalViewToggle(!internalViewToggle)}
+                            onColor="#888888"
+                            offColor="#888888"
+                            onHandleColor="#FFFFFF"
+                            offHandleColor="#FFFFFF"
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                          />
+                        </div>
+                      </th>
+                  }
+                </tr>
+              </thead>
+              <tbody>
                 {
-                  tableHeaders.map(item => (
-                    item !== 'Languages' && item !== 'Comments' ?
-                      <th
-                        key={item}
-                        scope="col"
-                      >
-                        <InteractiveElement onClick={() => handleSort(item)}>
-                          {item} <FA name={getSortIcon(item)} />
-                        </InteractiveElement>
-                      </th>
-                      :
-                      <th
-                        key={item}
-                        scope="col"
-                      >
-                        {item}
-                      </th>
+                  bidders.map(bidder => (
+                    <AvailableBidderRow
+                      key={shortid.generate()}
+                      bidder={bidder}
+                      internalViewToggle={internalViewToggle}
+                      isAO={isAO}
+                      isInternalCDA={isInternalCDA}
+                      isPost={isPost}
+                      isLoading={isLoading}
+                      bureaus={bureaus}
+                      sort={sort}
+                    />
                   ))
                 }
-                {
-                  isCDO &&
-                    <th>
-                      <div className="bureau-view-toggle">
-                        <ToggleButton
-                          labelTextLeft={
-                            <Tooltip
-                              title="CDO View"
-                              arrow
-                              offset={-95}
-                              position="top-end"
-                              tabIndex="0"
-                            >
-                              <FA name="street-view" className={`fa-lg ${cdoView ? 'active' : ''}`} />
-                            </Tooltip>
-                          }
-                          labelTextRight={
-                            <Tooltip
-                              title="Bureau View"
-                              arrow
-                              offset={-95}
-                              position="top-end"
-                              tabIndex="0"
-                            >
-                              <FA name="building" className={`fa-lg ${!cdoView ? 'active' : ''}`} />
-                            </Tooltip>
-                          }
-                          checked={!cdoView}
-                          onChange={() => setCdoView(!cdoView)}
-                          onColor="#888888"
-                          offColor="#888888"
-                          onHandleColor="#FFFFFF"
-                          offHandleColor="#FFFFFF"
-                          boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                          activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        />
-                      </div>
-                    </th>
-                }
-              </tr>
-            </thead>
-            <tbody>
-              {
-                bidders.map(bidder => (
-                  <AvailableBidderRow
-                    key={shortid.generate()}
-                    bidder={bidder}
-                    CDOView={cdoView}
-                    isCDO={isCDO}
-                    isLoading={isLoading}
-                    bureaus={bureaus}
-                  />
-                ))
-              }
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          }
+        </div>
+        {
+          hasErrored &&
+          <div className="usa-width-one-whole">
+            <Alert
+              type={'error'}
+              title={alertTitle}
+              messages={alertBody}
+            />
+          </div>
         }
-      </div>
+      </>
   );
 };
 
 AvailableBidderTable.propTypes = {
-  isCDO: PropTypes.bool,
+  isInternalCDA: PropTypes.bool,
+  isAO: PropTypes.bool,
+  isPost: PropTypes.bool,
 };
 
 AvailableBidderTable.defaultProps = {
   bidders: [],
   onSort: EMPTY_FUNCTION,
   onFilter: EMPTY_FUNCTION,
-  isCDO: false,
+  isInternalCDA: false,
+  isAO: false,
+  isPost: false,
 };
 
 export default AvailableBidderTable;

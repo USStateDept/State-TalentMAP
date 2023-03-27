@@ -15,7 +15,7 @@ describe('GlossaryEditorCardComponent', () => {
     expect(wrapper).toBeDefined();
   });
 
-  it('can call the toggleEditorState function', () => {
+  it('calls toggleEditorState', () => {
     const wrapper = shallow(<GlossaryEditorCard {...props} />);
     const instance = wrapper.instance();
     expect(instance.state.editorHidden).toBe(true);
@@ -23,28 +23,28 @@ describe('GlossaryEditorCardComponent', () => {
     expect(instance.state.editorHidden).toBe(false);
   });
 
-  it('can call the updateTitle function', () => {
+  it('calls updateTitle', () => {
     const wrapper = shallow(<GlossaryEditorCard {...props} />);
     const instance = wrapper.instance();
     instance.updateTitle('test');
     expect(instance.state.newTitle).toBe('test');
   });
 
-  it('can call the updateLink function', () => {
+  it('calls updateLink', () => {
     const wrapper = shallow(<GlossaryEditorCard {...props} />);
     const instance = wrapper.instance();
     instance.updateLink('link');
     expect(instance.state.newLink).toBe('link');
   });
 
-  it('can call the updateDefinition function', () => {
+  it('calls updateDefinition', () => {
     const wrapper = shallow(<GlossaryEditorCard {...props} />);
     const instance = wrapper.instance();
     instance.updateDefinition('test');
     expect(instance.state.newDefinition).toBe('test');
   });
 
-  it('can call the cancel function', () => {
+  it('calls cancel', () => {
     const wrapper = shallow(<GlossaryEditorCard {...props} />);
     const instance = wrapper.instance();
     // update state first
@@ -58,7 +58,7 @@ describe('GlossaryEditorCardComponent', () => {
     expect(instance.state.displayZeroLengthAlert).toBe(false);
   });
 
-  it('can call the submitDefinition function', () => {
+  it('calls submitDefinition', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<GlossaryEditorCard {...props} submitGlossaryTerm={spy} />);
     const instance = wrapper.instance();
@@ -68,7 +68,7 @@ describe('GlossaryEditorCardComponent', () => {
     sinon.assert.calledOnce(spy);
   });
 
-  it('can call the submitDefinition function no change', () => {
+  it('calls submitDefinition no change', () => {
     const spy = sinon.spy();
     const cancelSpy = sinon.spy();
     const wrapper = shallow(
@@ -84,7 +84,7 @@ describe('GlossaryEditorCardComponent', () => {
     sinon.assert.calledOnce(cancelSpy);
   });
 
-  it('can call the hasDefinitionChanged function', () => {
+  it('calls hasDefinitionChanged', () => {
     const spy = sinon.spy();
     const wrapper = shallow(<GlossaryEditorCard {...props} submitGlossaryTerm={spy} />);
     const instance = wrapper.instance();

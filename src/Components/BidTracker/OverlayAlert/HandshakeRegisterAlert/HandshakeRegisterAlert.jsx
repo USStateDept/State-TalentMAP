@@ -3,12 +3,25 @@ import PropTypes from 'prop-types';
 import { BID_OBJECT } from 'Constants/PropTypes';
 import { NO_GRADE, NO_POSITION_TITLE, NO_POST, NO_SKILL, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { get } from 'lodash';
-import { formatDate, getPostName } from 'utilities';
+import { closeSwal, formatDate, getPostName } from 'utilities';
+import swal from '@sweetalert/with-react';
+import ChecklistModal from 'Components/Handshake/ChecklistModal/ChecklistModal';
+import HS_REGISTER_CHECKLIST from 'Constants/RegisterChecklist';
+import { checkFlag } from 'flags';
+
+const useRegisterChecklist = () => checkFlag('flags.register_checklist');
 
 class HandshakeRegisterAlert extends Component {
+  componentWillUnmount() {
+    closeSwal();
+  }
+
   onRegisterHandshake = () => {
     const { registerHandshake, bid } = this.props;
     registerHandshake(bid.position_info.id);
+    if (useRegisterChecklist()) {
+      swal.close();
+    }
   };
 
   onUnregisterHandshake = () => {
@@ -36,6 +49,23 @@ class HandshakeRegisterAlert extends Component {
 
     const buttonText = isUnregister ? 'Undo Register Handshake' : 'Register Handshake';
 
+    const HS_REGISTER_CHECKLIST$ = HS_REGISTER_CHECKLIST.map((z, i) => ({ text: z, checked: false, id: `id-${i}` }));
+
+    const hsRegisterModal = () => {
+      swal({
+        title: 'Register Handshake Checklist:',
+        button: false,
+        className: 'modal-1300',
+        content: (
+          <ChecklistModal
+            onSubmit={this.onRegisterHandshake}
+            submitBtnText={buttonText}
+            checkList={HS_REGISTER_CHECKLIST$}
+          />
+        ),
+      });
+    };
+
     const classes = [
       'bid-tracker-alert-container',
       'bid-tracker-alert-container--register',
@@ -43,9 +73,6 @@ class HandshakeRegisterAlert extends Component {
     ];
 
     const classes$ = classes.join(' ');
-
-    const regFunction = isUnregister ? this.onUnregisterHandshake : this.onRegisterHandshake;
-
     return (
       <div className={classes$}>
         <div className="usa-grid-full" style={{ display: 'flex' }}>
@@ -54,12 +81,23 @@ class HandshakeRegisterAlert extends Component {
               {mainText}
             </div>
             <div className="usa-grid-full register-submission-buttons-container">
-              <button
-                className="tm-button-transparent tm-button-submit-bid"
-                onClick={regFunction}
-              >
-                {buttonText}
-              </button>
+              {isUnregister
+                ? (
+                  <button
+                    className="tm-button-transparent tm-button-submit-bid"
+                    onClick={this.onUnregisterHandshake}
+                  >
+                    {buttonText}
+                  </button>
+                ) : (
+                  <button
+                    className="tm-button-transparent tm-button-submit-bid"
+                    onClick={useRegisterChecklist() ? hsRegisterModal : this.onRegisterHandshake}
+                  >
+                    {buttonText}
+                  </button>
+                )
+              }
             </div>
           </div>
           <div className="register-position-details" style={{ flex: 1 }}>

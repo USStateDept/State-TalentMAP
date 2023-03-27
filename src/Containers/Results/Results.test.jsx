@@ -1,9 +1,7 @@
 import { shallow } from 'enzyme';
-import TestUtils from 'react-dom/test-utils';
 import sinon from 'sinon';
 import q from 'query-string';
 import { testDispatchFunctions } from '../../testUtilities/testUtilities';
-import MockTestProvider from '../../testUtilities/MockProvider';
 import Results, { mapDispatchToProps } from './Results';
 import resultsObject from '../../__mocks__/resultsObject';
 
@@ -33,30 +31,19 @@ describe('Results', () => {
   };
 
   it('is defined', () => {
-    const results = TestUtils.renderIntoDocument(<MockTestProvider>
-      <Results
+    const results = shallow(
+      <Results.WrappedComponent
         {...props}
-      />
-    </MockTestProvider>);
+      />);
     expect(results).toBeDefined();
   });
 
   it('is defined when isAuthorized returns false', () => {
-    const results = TestUtils.renderIntoDocument(<MockTestProvider>
-      <Results
+    const results = shallow(
+      <Results.WrappedComponent
         {...props}
         isAuthorized={() => false}
-      />
-    </MockTestProvider>);
-    expect(results).toBeDefined();
-  });
-
-  it('can handle authentication redirects', () => {
-    const results = TestUtils.renderIntoDocument(<MockTestProvider>
-      <Results
-        {...props}
-      />
-    </MockTestProvider>);
+      />);
     expect(results).toBeDefined();
   });
 

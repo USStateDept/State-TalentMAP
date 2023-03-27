@@ -11,13 +11,16 @@ import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { CLASSIFICATIONS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import { registerHandshake, unregisterHandshake } from 'actions/handshake';
+import { toggleBidPosition } from 'actions/bidList';
 
 class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isBureauView();
-    this.props.fetchData(id, !isBureauView);
-    if (!this.isBureauView()) {
+    const isPostView = this.isPostView();
+    const bureauOrPost = isBureauView || isPostView;
+    this.props.fetchData(id, !bureauOrPost);
+    if (!bureauOrPost) {
       this.props.fetchClassifications();
     }
   }
@@ -26,6 +29,16 @@ class ProfilePublic extends Component {
     const viewType = get(this.props, 'match.params.viewType');
     const isBureauView = viewType === 'bureau';
     return isBureauView;
+  }
+
+  isPostView = () => {
+    const viewType = get(this.props, 'match.params.viewType');
+    return viewType === 'post';
+  }
+
+  isAOView = () => {
+    const viewType = get(this.props, 'match.params.viewType');
+    return viewType === 'ao';
   }
 
   render() {
@@ -38,12 +51,15 @@ class ProfilePublic extends Component {
       classificationsHasErrored,
       registerHandshakePosition,
       unregisterHandshakePosition,
+      deleteBid,
     } = this.props;
     const { bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
     const isBureauView = this.isBureauView();
+    const isPostView = this.isPostView();
+    const isAOView = this.isAOView();
     let props = {};
     if (isBureauView) {
       props = {
@@ -52,8 +68,31 @@ class ProfilePublic extends Component {
         showAssignmentHistory: false,
         showClassifications: false,
         showSearchAsClient: false,
+        showAgendaItemHistory: false,
+      };
+    } else if (isPostView) {
+      props = {
+        ...props,
+        showBidTracker: false,
+        showAssignmentHistory: false,
+        showClassifications: false,
+        showSearchAsClient: false,
+        showAgendaItemHistory: false,
+      };
+    } else if (isAOView) {
+      props = {
+        ...props,
+        showBidTracker: false,
+        showAssignmentHistory: false,
+        showSearchAsClient: false,
+      };
+    } else { // CDO View
+      props = {
+        ...props,
+        canEditClassifications: true,
       };
     }
+
     return (
       combinedErrored ?
         <Alert type="error" title="User not found" />
@@ -66,7 +105,9 @@ class ProfilePublic extends Component {
           clientClassifications={clientClassifications}
           registerHandshake={registerHandshakePosition}
           unregisterHandshake={unregisterHandshakePosition}
+          deleteBid={deleteBid}
           isPublic
+          isAOView={isAOView}
           {...props}
         />
     );
@@ -84,6 +125,7 @@ ProfilePublic.propTypes = {
   classifications: CLASSIFICATIONS,
   registerHandshakePosition: PropTypes.func,
   unregisterHandshakePosition: PropTypes.func,
+  deleteBid: PropTypes.func,
 };
 
 ProfilePublic.defaultProps = {
@@ -97,6 +139,7 @@ ProfilePublic.defaultProps = {
   classifications: [],
   registerHandshakePosition: EMPTY_FUNCTION,
   unregisterHandshakePosition: EMPTY_FUNCTION,
+  deleteBid: EMPTY_FUNCTION,
 };
 
 ProfilePublic.contextTypes = {
@@ -121,6 +164,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     fetchClassifications: () => dispatch(fetchClassifications()),
     registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
     unregisterHandshakePosition: id => dispatch(unregisterHandshake(id, id$)),
+    deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
   };
   return config;
 };

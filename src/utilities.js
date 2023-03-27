@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import swal from '@sweetalert/with-react';
 import Scroll from 'react-scroll';
 import { distanceInWords, format } from 'date-fns';
-import { cloneDeep, get, has, includes, intersection, isArray, isEmpty, isEqual, isFunction,
-  isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy, padStart, pick,
-  split, startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
+import { cloneDeep, get, has, identity, includes, intersection, isArray, isEmpty, isEqual,
+  isFunction, isNumber, isObject, isString, keys, lowerCase, merge as merge$, omit, orderBy,
+  padStart, pick, pickBy, split, startCase, take, toLower, toString, transform, uniqBy } from 'lodash';
 import numeral from 'numeral';
 import queryString from 'query-string';
 import shortid from 'shortid';
@@ -535,7 +535,7 @@ export const mapSavedSearchToDescriptions = (savedSearchObject, mappedParams) =>
 export const getPostName = (post, defaultValue = null) => {
   let valueToReturn = defaultValue;
   if (propOrDefault(post, 'location.city') &&
-    (propOrDefault(post, 'location.country') === 'United States' || propOrDefault(post, 'location.country') === 'USA')) {
+      includes(['United States', 'USA'], get(post, 'location.country'))) {
     valueToReturn = `${post.location.city}, ${post.location.state}`;
   } else if (propOrDefault(post, 'location.city')) {
     valueToReturn = `${post.location.city}${post.location.country ? `, ${post.location.country}` : ''}`;
@@ -644,16 +644,27 @@ export const paginate = (array, pageSize, pageNumber) => {
 
 // Looks for duplicates in a data set by property, and adds a "hasDuplicateDescription" property
 // to any objects that are duplicates.
-export const mapDuplicates = (data = [], propToCheck = 'custom_description') => data.slice().map((p) => {
-  const p$ = { ...p };
+export const mapDuplicates = (data = [], propToCheck = 'custom_description', transformFunc) => data.slice().map((p) => {
+  let p$ = { ...p };
   const matching = data.filter(f =>
     f[propToCheck] === p$[propToCheck],
   ) || [];
   if (matching.length >= 2) {
     p$.hasDuplicateDescription = true;
+    if (isFunction(transformFunc)) {
+      transformFunc = e => ({ ...e, name: e.code ? `${e.name} (${e.code})` : e.name }); // eslint-disable-line
+      p$ = transformFunc(p$);
+    }
   }
   return p$;
 });
+
+
+export const termInGlossary = (term) => {
+  // id formatting used for glossary accordion buttons
+  const id = `${formatIdSpacing(term)}-button`;
+  return document.getElementById(id) !== null;
+};
 
 // scroll to a specific glossary term
 export const scrollToGlossaryTerm = (term) => {
@@ -674,6 +685,8 @@ export const scrollToGlossaryTerm = (term) => {
 };
 
 export const getBrowserName = () => Bowser.getParser(window.navigator.userAgent).getBrowserName();
+
+export const getBrowser = () => Bowser.getParser(window.navigator.userAgent).getBrowser();
 
 // Convert values used in aria-* attributes to 'true'/'false' string.
 // Perform a string check, if for some reason the value was already a string.
@@ -779,7 +792,7 @@ const flagFuse = new Fuse(FLAG_COLORS, fuseOptions);
 export const getFlagColorsByTextSearch = (t = '', limit = 5) => {
   let value = false;
   if (t && isString(t)) {
-    const result = flagFuse.search(t);
+    const result = flagFuse.search(t).map(({ item }) => item);
     const colors = get(result, '[0].item.colors', false);
     value = colors;
   }
@@ -807,9 +820,9 @@ export const getContrastYIQ = hexcolor => {
 
 // Supply a user's full name
 // Returns background color and text color
-export const getAvatarColor = str => {
+export const getAvatarColor = (str, hashAdjuster = 0) => {
   if (str) {
-    let hash = 0;
+    let hash = Math.floor(Math.random() * hashAdjuster);
     [...str].forEach((s, i) => {
       if (i) {
         hash = str.charCodeAt(i) + ((hash << 5) - hash); // eslint-disable-line
@@ -865,10 +878,37 @@ export function getCustomLocation(loc, org) {
   return x;
 }
 
+export const closeSwal = () => {
+  try {
+    swal.close();
+  } catch { return null; }
+  return null;
+};
+
 export const useCloseSwalOnUnmount = () =>
   useEffect(() => () => {
-    try {
-      swal.close();
-    } catch { return null; }
-    return null;
+    closeSwal();
   }, []);
+
+export const splitByLineBreak = text => (text || '').split('\n\n\n');
+
+export const convertQueryToString = query => {
+  let q = pickBy(query, identity);
+  Object.keys(q).forEach(queryk => {
+    if (isArray(q[queryk])) { q[queryk] = q[queryk].join(); }
+    if (isString(q[queryk]) && !q[queryk]) {
+      q[queryk] = undefined;
+    }
+  });
+  q = queryString.stringify(q);
+  return q;
+};
+
+export const determineEnv = (url) => {
+  const expression = /(dev1|dev2|tst1|tst2|asb|ivv1|uat|prd|cpy|localhost|metaphasedev)/i;
+  const regex = new RegExp(expression);
+  const match = url.match(regex);
+  // eslint-disable-next-line
+  if (!match) console.log('no valid env found');
+  return match[0];
+};

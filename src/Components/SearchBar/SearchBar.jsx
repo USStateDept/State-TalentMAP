@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION, PREVENT_DEFAULT } from 'Constants/PropTypes';
 import InteractiveElement from '../InteractiveElement';
-import { focusById } from '../../utilities';
+import { focusById, ifEnter } from '../../utilities';
 
 class SearchBar extends Component {
   constructor(props) {
@@ -30,8 +30,9 @@ class SearchBar extends Component {
     const hidden = {
       display: 'none',
     };
-    const { id, type, submitDisabled, submitText, placeholder, inputDisabled,
-      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear }
+    const { id, type, submitText, placeholder, inputDisabled,
+      alertText, onSubmitSearch, label, labelSrOnly, noForm, noButton, showClear, submitForm,
+      minimal, showIcon }
       = this.props;
     const { searchText } = this.state;
     let showSubmitText = true; // do not hide submit text initially
@@ -41,15 +42,8 @@ class SearchBar extends Component {
     if (labelSrOnly) { labelClass = 'usa-sr-only'; }
 
     let formattedSubmitText = '';
-    let formattedSubmitTextSr = 'Search';
     if (showSubmitText) {
       formattedSubmitText = submitText;
-      formattedSubmitTextSr = submitText;
-    }
-
-    let submitDisabledClass = '';
-    if (submitDisabled) {
-      submitDisabledClass = 'usa-button-disabled';
     }
 
     const hasValue = !!searchText.value;
@@ -75,30 +69,16 @@ class SearchBar extends Component {
             <span className="text-input-wrapper">
               {input}
               {
-                hasValue ? (
+                (hasValue && showIcon) ? (
                   <InteractiveElement onClick={this.clearSearch} type="span" role="button" title="Clear keyword">
                     <FA name="times-circle" />
                   </InteractiveElement>
-                ) : <FA name="search" />
+                ) : <FA name="search" onClick={submitForm} />
               }
             </span>
             :
             input
         }
-        <div id={`enabled-search-${id}`}>
-          { !noButton &&
-          <button
-            id={`enabled-search-button-${id}`}
-            className={submitDisabledClass}
-            disabled={submitDisabled}
-            type="submit"
-            title="submit search"
-          >
-            <span className="usa-search-submit-text">{formattedSubmitText}</span>
-            <span className="usa-sr-only">{formattedSubmitTextSr}</span>
-          </button>
-          }
-        </div>
         <div id={`disabled-search-${id}`} style={hidden}>
           {
             !noButton &&
@@ -119,19 +99,56 @@ class SearchBar extends Component {
       </div>
     );
     return (
-      <div className={`usa-search usa-search-${type} searchbar`}>
-        <div role="search" className="usa-grid-full">
-          { !noForm &&
-            <form onSubmit={onSubmitSearch}>
-              {child}
-            </form>
-          }
-          {
-            noForm &&
-            child
-          }
-        </div>
-      </div>
+      <>
+        {
+          !minimal ?
+            <fieldset>
+              <div className="usa-width-one-whole search-results-inputs search-keyword">
+                <legend className="usa-grid-full homepage-search-legend">{label}</legend>
+                <InteractiveElement title="Search Bar" onKeyUp={(e) => { if (ifEnter(e)) { submitForm(); } }}>
+                  <div className={`usa-search usa-search-${type} searchbar`}>
+                    <div role="search" className="usa-grid-full">
+                      {
+                        !noForm &&
+                        <form onSubmit={onSubmitSearch}>
+                          {child}
+                        </form>
+                      }
+                      {
+                        noForm &&
+                        child
+                      }
+                    </div>
+                  </div>
+                </InteractiveElement>
+                {
+                  !noButton &&
+                  <div className="usa-width-one-sixth search-submit-button">
+                    <button className="usa-button" type="submit" onClick={submitForm}>
+                      <FA name="search" className="label-icon" />
+                    Search
+                    </button>
+                  </div>
+                }
+              </div>
+            </fieldset>
+            :
+            <div className={`usa-search usa-search-${type} searchbar`}>
+              <div role="search" className="usa-grid-full">
+                {
+                  !noForm &&
+                  <form onSubmit={onSubmitSearch}>
+                    {child}
+                  </form>
+                }
+                {
+                  noForm &&
+                  child
+                }
+              </div>
+            </div>
+        }
+      </>
     );
   }
 }
@@ -140,7 +157,6 @@ SearchBar.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.node,
   type: PropTypes.oneOf(['small', 'medium', 'big']),
-  submitDisabled: PropTypes.bool,
   submitText: PropTypes.string.isRequired,
   alertText: PropTypes.string,
   onChangeText: PropTypes.func,
@@ -153,11 +169,13 @@ SearchBar.propTypes = {
   inputDisabled: PropTypes.bool,
   showClear: PropTypes.bool,
   onClear: PropTypes.func,
+  submitForm: PropTypes.func,
+  minimal: PropTypes.bool,
+  showIcon: PropTypes.bool,
 };
 
 SearchBar.defaultProps = {
   type: 'big', // should be one of the USWDS search types - https://standards.usa.gov/components/search-bar/
-  submitDisabled: false,
   alertText: 'Disabled',
   label: 'Search', // sr only if flagged
   labelSrOnly: true,
@@ -170,6 +188,9 @@ SearchBar.defaultProps = {
   inputDisabled: false,
   showClear: false,
   onClear: EMPTY_FUNCTION,
+  submitForm: EMPTY_FUNCTION,
+  minimal: false,
+  showIcon: true,
 };
 
 export default SearchBar;

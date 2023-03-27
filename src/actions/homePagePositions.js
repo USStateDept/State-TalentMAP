@@ -14,19 +14,19 @@ import { FAVORITED_POSITIONS,
 const specialNeedsParams = SPECIAL_NEEDS.join(',');
 
 // Export our queries so that we can consistently test them.
-export const GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
-export const GET_RECOMMENDED_GRADE_AND_SKILL_CONE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
-export const GET_RECOMMENDED_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_positions/?position__grade__code__in=${grade}&limit=3`;
+export const GET_RECOMMENDED_GRADE_AND_SKILL_CODE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?cps_codes=OP&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+export const GET_RECOMMENDED_GRADE_AND_SKILL_CONE_POSITIONS_QUERY = (skillCodes, grade) => `/fsbid/available_positions/?cps_codes=OP&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+export const GET_RECOMMENDED_GRADE_POSITIONS_QUERY = grade => `/fsbid/available_positions/?cps_codes=OP&position__grade__code__in=${grade}&limit=3`;
 export const FAVORITE_POSITIONS_QUERY = () => '/available_position/favorites/?limit=3';
 
 export const GET_FEATURED_GRADE_AND_SKILL_POSITIONS_QUERY = (skillCodes, grade) =>
-  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?cps_codes=OP&position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_GRADE_AND_SKILL_CONE_POSITIONS_QUERY = (skillCodes, grade) =>
-  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?cps_codes=OP&position__post_indicator__in=${specialNeedsParams}&position__skill__code__in=${skillCodes}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_GRADE_POSITIONS_QUERY = (grade) =>
-  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?cps_codes=OP&position__post_indicator__in=${specialNeedsParams}&position__grade__code__in=${grade}&limit=3`;
 export const GET_FEATURED_POSITIONS_QUERY = () =>
-  `/fsbid/available_positions/featuredPositions/?position__post_indicator__in=${specialNeedsParams}&limit=3`;
+  `/fsbid/available_positions/featuredPositions/?cps_codes=OP&position__post_indicator__in=${specialNeedsParams}&limit=3`;
 
 export function homePageRecommendedPositionsHasErrored(bool) {
   return {

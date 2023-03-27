@@ -1,19 +1,19 @@
 import api from '../api';
 
 export const fetchClient = clientId =>
-  api().get(`/client/${clientId}/`)
+  api().get(`/fsbid/client/${clientId}/`)
     .then(({ data }) => data)
     .then(client => client)
     .catch(error => error);
 
 export const fetchClientWaivers = clientId =>
-  api().get(`/client/${clientId}/waivers/`)
+  api().get(`/fsbid/client/${clientId}/waivers/`)
     .then(({ data }) => data)
     .then(client => client)
     .catch(error => error);
 
 export const fetchClientBids = clientId =>
-  api().get(`/client/${clientId}/bids/`)
+  api().get(`/fsbid/client/${clientId}/bids/`)
     .then(({ data }) => data)
     .then(client => client)
     .catch(error => error);

@@ -3,11 +3,11 @@
 exports[`DefinitionList matches snapshot 1`] = `
 <div>
   <span>
-    N/A
+    0%
      | 
   </span>
   <span>
-    N/A
+    0%
   </span>
   <span
     style={
@@ -18,8 +18,6 @@ exports[`DefinitionList matches snapshot 1`] = `
     }
   >
     <OBCUrl
-      altStyle={false}
-      isButton={false}
       label="OBC Details"
       type="post-data"
       url={Object {}}

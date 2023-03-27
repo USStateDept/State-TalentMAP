@@ -70,7 +70,7 @@ module.exports = function(proxy, allowedHost) {
     // Enable HTTPS if the HTTPS environment variable is set to 'true'
     https: protocol === 'https',
     host: host,
-    overlay: false,
+    overlay: true,
     historyApiFallback: {
       // Paths with dots should still use the history fallback.
       // See https://github.com/facebookincubator/create-react-app/issues/387.
@@ -93,6 +93,10 @@ module.exports = function(proxy, allowedHost) {
       app.get('/', redirectToLogin);
       app.get('/login', redirectToLogin);
       app.get('/logout', redirectToLogin);
+      // Fix name mismatch between dev server and prod builds
+      app.get('/static/js/pdf.worker.js', function (req, res) {
+        res.redirect('/static/js/bundle.worker.js')
+      });
     },
   };
 };

@@ -12,7 +12,6 @@ exports[`GlossaryEditorSearchComponent matches snapshot 1`] = `
       isHomePage={false}
       labelSrOnly={true}
       legend="Find Glossary Terms"
-      legendSrOnly={false}
       onFilterChange={[Function]}
       onUpdate={[Function]}
       placeholder="Search for Glossary terms"
