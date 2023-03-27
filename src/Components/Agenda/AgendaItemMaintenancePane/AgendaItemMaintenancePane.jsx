@@ -57,7 +57,7 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
-  const [showPosNumInput, setShowPosNumInput] = useState(false);
+  // const [showPosNumInput, setShowPosNumInput] = useState(false);
 
   const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_full') || '');
 
@@ -102,7 +102,6 @@ const AgendaItemMaintenancePane = (props) => {
       setInputClass('loading-animation');
     } else if (posNumError) {
       setInputClass('input-error');
-      setShowPosNumInput(true);
     } else {
       setInputClass('input-default');
     }
@@ -123,21 +122,14 @@ const AgendaItemMaintenancePane = (props) => {
     selectedPanelCat]);
 
   const addAsgSepBid = (k) => {
-    if (k === 'posNum') {
-      setShowPosNumInput(true);
-    } else {
-      setAsgSepBidSelectClass('asg-animation');
-      setAsgSepBid(k);
-      sendAsgSepBid(find(asgSepBids, { pos_num: k }));
-      setTimeout(() => {
-        setAsgSepBid('');
-        sendAsgSepBid({});
-        setAsgSepBidSelectClass('');
-      }, 2000);
-      setPosNumError(false);
-      setPositionNumber('');
-      setShowPosNumInput(false);
-    }
+    setAsgSepBidSelectClass('asg-animation');
+    setAsgSepBid(k);
+    sendAsgSepBid(find(asgSepBids, { pos_num: k }));
+    setTimeout(() => {
+      setAsgSepBid('');
+      sendAsgSepBid({});
+      setAsgSepBidSelectClass('');
+    }, 2000);
   };
 
   const addPositionNum = () => {
@@ -145,7 +137,6 @@ const AgendaItemMaintenancePane = (props) => {
       setPosNumError(false);
       if (selectedPositionNumber) {
         dispatch(positionsFetchData(`limit=50&page=1&position_num=${selectedPositionNumber}`));
-        setShowPosNumInput(false);
       }
     }
   };
@@ -294,7 +285,7 @@ const AgendaItemMaintenancePane = (props) => {
             </div>
           </div>
           <div className="add-legs-container">
-            <strong className="add-legs-header">Add Legs:</strong>
+            <div className="add-legs-header">Add Legs</div>
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
@@ -307,11 +298,6 @@ const AgendaItemMaintenancePane = (props) => {
                   <option selected value={''}>
                     Employee Assignments, Separations, and Bids
                   </option>
-                  <option disabled>----------</option>
-                  <option selected value={'posNum'}>
-                    Add Leg by Position Number
-                  </option>
-                  <option disabled>----------</option>
                   <option hidden value={'legLimit'}>
                     Leg Limit of 10 Reached
                   </option>
@@ -327,32 +313,29 @@ const AgendaItemMaintenancePane = (props) => {
                   }
                 </select>
             }
-            {
-              showPosNumInput &&
-              <div className="position-number-container">
-                <input
-                  name="add"
-                  className={`add-pos-num-input ${inputClass}`}
-                  onChange={value => setPositionNumber(value.target.value)}
-                  onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
-                  type="add"
-                  value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
-                  disabled={legLimit || isReadOnly}
-                  placeholder="Add by Position Number"
-                />
-                <InteractiveElement
-                  className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
-                  onClick={addPositionNum}
-                  role="button"
-                  title="Add position"
-                  type="span"
-                >
-                  <FA name="plus" />
-                </InteractiveElement>
-              </div>
-            }
+            <div className="position-number-container">
+              <input
+                name="add"
+                className={`add-pos-num-input ${inputClass}`}
+                onChange={value => setPositionNumber(value.target.value)}
+                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
+                type="add"
+                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
+                disabled={legLimit || isReadOnly}
+                placeholder="Add by Position Number"
+              />
+              <InteractiveElement
+                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
+                onClick={addPositionNum}
+                role="button"
+                title="Add position"
+                type="span"
+              >
+                <FA name="plus" />
+              </InteractiveElement>
+            </div>
+            <a className="add-fp-link" aria-hidden="true" onClick={() => onAddFPClick()}>Open Frequent Positions Tab</a>
           </div>
-          <a className="add-fp-link" aria-hidden="true" onClick={() => onAddFPClick()}>Open Frequent Positions Tab</a>
         </>
       }
     </div>
