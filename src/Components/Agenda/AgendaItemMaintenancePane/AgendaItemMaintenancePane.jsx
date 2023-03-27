@@ -134,6 +134,8 @@ const AgendaItemMaintenancePane = (props) => {
         sendAsgSepBid({});
         setAsgSepBidSelectClass('');
       }, 2000);
+      setPosNumError(false);
+      setPositionNumber('');
       setShowPosNumInput(false);
     }
   };
