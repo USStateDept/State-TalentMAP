@@ -113,7 +113,13 @@
       }
     }
     .add-legs-container {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
 
+      .add-fp-link {
+        cursor: pointer;
+      }
       .add-legs-header {
         margin-bottom: 10px;
       }
@@ -125,7 +131,7 @@
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
         max-width: fit-content;
-        margin: 10px 0 10px 0;
+        margin: 10px 0 10px 56px;
       }
       .asg-dropdown {
         width: 351px;
@@ -164,6 +170,8 @@
       .position-number-container {
         display: flex;
         align-items: baseline;
+        width: 100%;
+        margin-left: 128px;
 
         .add-pos-num-input {
           border-radius: 3px;
@@ -213,18 +221,7 @@
       }
       .add-frequent-positions {
         display: flex;
-        margin-top: 10px;
-
-        .add-fp-btn {
-          color: $primary-blue;
-          float: right;
-          font-size: 20px;
-        }
-
-        .add-fp-btn:hover {
-          border-color: $primary-blue-darkest;
-          color: $primary-blue-darkest;
-        }
+        margin-top: 15px;
       }
     }
 
