@@ -168,11 +168,11 @@ const AgendaItemMaintenancePane = (props) => {
           <div className="aim-timestamp-wrapper">
             <span className="aim-timestamp">
               {`Created: ${createdByLast} ${createdByFirst}`}
-              <span className="date">{` - ${createDate}`}</span>
+              <span className="date">{` ${agendaItem?.creator_date ? '-' : ''} ${createDate}`}</span>
             </span>
             <span className="aim-timestamp">
               {`Modified: ${modifiedByLast} ${modifiedByFirst}`}
-              <span className="date">{` - ${modifyDate}`}</span>
+              <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
             </span>
           </div>
           <div className="ai-maintenance-header-dd">
