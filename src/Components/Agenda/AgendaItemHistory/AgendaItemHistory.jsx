@@ -134,13 +134,16 @@ const AgendaItemHistory = (props) => {
                 defaultSort={sort}
                 onSelectOption={e => setSort(get(e, 'target.value'))}
               />
-              <div className="export-button-container">
-                <ExportButton
-                  onClick={exportAgendaItem}
-                  isLoading={exportIsLoading}
-                  disabled={exportDisabled}
-                />
-              </div>
+              {
+                false &&
+                <div className="export-button-container">
+                  <ExportButton
+                    onClick={exportAgendaItem}
+                    isLoading={exportIsLoading}
+                    disabled={exportDisabled}
+                  />
+                </div>
+              }
             </div>
           </div>
         </div>
