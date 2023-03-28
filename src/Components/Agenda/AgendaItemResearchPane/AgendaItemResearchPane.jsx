@@ -37,30 +37,36 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const dispatch = useDispatch();
 
   const { perdet, clientData, userSelections, updateSelection, legCount,
-    isReadOnly } = props;
+    isReadOnly, clientLoading, clientError } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
+  const classificationsError = useSelector(state => state.classificationsHasErrored);
+  const classificationsLoading = useSelector(state => state.classificationsIsLoading);
   const clientClassifications = useSelector(state => state.userClassifications);
+  const clientClassificationsLoading = useSelector(state => state.userClassificationsIsLoading);
+  const clientClassificationsError = useSelector(state => state.userClassificationsHasErrored);
 
   const classificationsProps = { classifications, clientClassifications };
 
 
   const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
   const { data: remarks, error: remarksDataError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
-  // eslint-disable-next-line no-unused-vars
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
   const { data: remarkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = get(asgHistory, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
 
+  console.log('research pane remarks: ', remarks);
   const remarks_data = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
+  console.log('remarks_data: ', remarks_data);
   const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
   const groupLoading = includes([asgHistLoading, remarksDataLoading,
-    frequentPositionsLoading, rmrkCatLoading], true);
+    frequentPositionsLoading, rmrkCatLoading, clientClassificationsLoading,
+    classificationsLoading, clientLoading], true);
 
   const legLimit = legCount >= 10;
 
@@ -97,7 +103,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         />);
 
       case L:
-        if (!languages) { // replace with languages Errored
+        if (clientError) {
           return errorAlert;
         }
         return (<Languages
@@ -117,7 +123,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         />);
 
       case TP:
-        if (!classifications) {
+        if (clientClassificationsError || classificationsError) {
           return errorAlert;
         }
         return (<div id="aim-classifications"> {/* needed for css specificity */}
