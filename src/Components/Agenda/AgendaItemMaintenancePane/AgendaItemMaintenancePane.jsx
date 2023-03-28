@@ -10,6 +10,7 @@ import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
+import { dateTernary } from '../Constants';
 import api from '../../../api';
 import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
@@ -74,6 +75,13 @@ const AgendaItemMaintenancePane = (props) => {
   const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
   const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
   const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
+
+  const createdByFirst = agendaItem?.creators?.first_name || '';
+  const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
+  const createDate = dateTernary(agendaItem?.creator_date);
+  const modifiedByFirst = agendaItem?.updaters?.first_name || '';
+  const modifiedByLast = agendaItem?.updaters?.last_name ? `${agendaItem.updaters.last_name},` : '';
+  const modifyDate = dateTernary(agendaItem?.modifier_date);
 
   const legLimit = legCount >= 10;
 
@@ -165,6 +173,16 @@ const AgendaItemMaintenancePane = (props) => {
             <button className="save-ai-btn" onClick={saveAI} disabled={isReadOnly}>
               Save Agenda Item
             </button>
+          </div>
+          <div className="aim-timestamp-wrapper">
+            <span className="aim-timestamp">
+              {`Created: ${createdByLast} ${createdByFirst}`}
+              <span className="date">{` ${agendaItem?.creator_date ? '-' : ''} ${createDate}`}</span>
+            </span>
+            <span className="aim-timestamp">
+              {`Modified: ${modifiedByLast} ${modifiedByFirst}`}
+              <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
+            </span>
           </div>
           <div className="ai-maintenance-header-dd">
             {

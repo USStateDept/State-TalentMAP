@@ -159,6 +159,7 @@ const AgendaItemLegsForm = props => {
                     updateLeg={updateLeg$}
                     onHover={onHover}
                     rowNum={rowHoverNum}
+                    isReadOnly={isReadOnly}
                   />
                 ))
               }

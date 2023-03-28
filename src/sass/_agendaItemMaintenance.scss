@@ -297,6 +297,23 @@
     }
   }
 
+  .aim-timestamp-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    font-size: 12px;
+    .aim-timestamp {
+      display: flex;
+      justify-content: space-around;
+    }
+    .date {
+      padding-left: 2px;
+      font-size: 10px;
+      align-self: center;
+    }
+  }
+
   // ---- end: styling for left pane ----
 
   .expand-arrow {
