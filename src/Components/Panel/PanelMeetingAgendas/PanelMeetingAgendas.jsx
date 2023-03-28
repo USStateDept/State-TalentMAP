@@ -529,12 +529,16 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
-                <div className="export-button-container">
-                  <ExportButton
-                    onClick={exportPanelMeetingAgendas}
-                    isLoading={exportIsLoading}
-                  />
-                </div>
+                {
+                  false &&
+                  <div className="export-button-container">
+                    <ExportButton
+                      onClick={exportPanelMeetingAgendas}
+                      isLoading={exportIsLoading}
+                      disabled
+                    />
+                  </div>
+                }
               </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (
