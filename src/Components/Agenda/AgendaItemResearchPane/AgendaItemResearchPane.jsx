@@ -61,8 +61,6 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
   const groupLoading = includes([asgHistLoading, remarksDataLoading,
     frequentPositionsLoading, rmrkCatLoading], true);
-  const groupError = includes([asgHistError, remarksDataError,
-    frequentPositionsError, rmrkCatError], true);
 
   const legLimit = legCount >= 10;
 
@@ -84,6 +82,64 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
     dispatch(fetchUserClassifications(perdet));
   }, []);
 
+  const loadingSpinner = (<Spinner type="homepage-position-results" size="small" />);
+  const errorAlert = (<Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />);
+
+
+  function getNavData(navType) {
+    switch (navType) {
+      case ASGH:
+        if (asgHistError) {
+          return errorAlert;
+        }
+        return (<AssignmentHistory
+          assignments={assignments}
+        />);
+
+      case L:
+        if (!languages) { // replace with languages Errored
+          return errorAlert;
+        }
+        return (<Languages
+          languagesArray={languages}
+          useWrapper
+          showHeader={false}
+        />);
+
+      case FP:
+        if (frequentPositionsError) {
+          return errorAlert;
+        }
+        return (<FrequentPositions
+          positions={frequentPositions}
+          addFrequentPosition={addFrequentPosition}
+          disabled={((legCount >= 10) || isReadOnly)}
+        />);
+
+      case TP:
+        if (!classifications) {
+          return errorAlert;
+        }
+        return (<div id="aim-classifications"> {/* needed for css specificity */}
+          <Classifications {...classificationsProps} />
+        </div>);
+
+      case RG:
+        if (remarksDataError || rmrkCatError) {
+          return errorAlert;
+        }
+        return (<RemarksGlossary
+          remarks={remarks_data}
+          remarkCategories={remarkCategories_data}
+          userSelections={userSelections}
+          updateSelection={updateSelection}
+        />);
+
+      default:
+        return errorAlert;
+    }
+  }
+
   return (
     <div className="ai-research-pane">
       <MediaQuery breakpoint="screenSmMax" widthType="max">
@@ -99,51 +155,12 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
       </MediaQuery>
       <div className="ai-research-content">
         {
-          groupLoading && !groupError &&
-            <Spinner type="homepage-position-results" size="small" />
+          groupLoading &&
+            loadingSpinner
         }
         {
-          !groupLoading && groupError &&
-            <Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />
-        }
-        {/* headers should always be hidden in the nav view */}
-        {
-          selectedNav === ASGH && !groupLoading && !asgHistError &&
-            <AssignmentHistory
-              assignments={assignments}
-            />
-        }
-        {
-          selectedNav === L && !groupLoading && languages &&
-            <Languages
-              languagesArray={languages}
-              useWrapper
-              showHeader={false}
-            />
-        }
-        {
-          selectedNav === FP && !groupLoading && !frequentPositionsError &&
-            <FrequentPositions
-              positions={frequentPositions}
-              addFrequentPosition={addFrequentPosition}
-              disabled={((legCount >= 10) || isReadOnly)}
-            />
-        }
-        {
-          selectedNav === TP && !groupLoading && classifications &&
-          <div id="aim-classifications"> {/* needed for css specificity */}
-            <Classifications {...classificationsProps} />
-          </div>
-        }
-        {
-          selectedNav === RG && !groupLoading && !remarksDataError &&
-            <RemarksGlossary
-              remarks={remarks_data}
-              remarkCategories={remarkCategories_data}
-              userSelections={userSelections}
-              updateSelection={updateSelection}
-            />
-        }
+          !groupLoading &&
+          getNavData(selectedNav)}
       </div>
     </div>
   );
