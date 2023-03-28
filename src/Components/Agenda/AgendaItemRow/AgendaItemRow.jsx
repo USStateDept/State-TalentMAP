@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { checkFlag } from 'flags';
+import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
@@ -34,17 +35,12 @@ const AgendaItemRow = props => {
   const cdo = get(clientData, 'cdo.name') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
-  const updaterMiddleInitial = get(agenda, 'updaters.middle_name')?.slice(0, 1) || '';
-  const creatorMiddleInitial = get(agenda, 'creators.middle_name')?.slice(0, 1) || '';
   const remarks = get(agenda, 'remarks') || [];
 
-  const updateDate = get(agenda, 'modifier_date')
-    ? `${formatDate(get(agenda, 'modifier_date'), 'MM/DD/YY')}`
-    : '--/--/--';
-
-  const createDate = get(agenda, 'creator_date')
-    ? `${formatDate(get(agenda, 'creator_date'), 'MM/DD/YY')}`
-    : '--/--/--';
+  const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
+  const createDate = dateTernary(agenda?.creator_date);
+  const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
+  const updateDate = dateTernary(agenda?.modifier_date);
 
   const pmi = (<>
     {
@@ -134,14 +130,14 @@ const AgendaItemRow = props => {
             </div>
             <div className="ai-updater-creator">
               <div className="wrapper">
-                <span>
-                  Created: {get(agenda, 'creators.last_name') || ''}, {get(agenda, 'creators.first_name') || ''} {creatorMiddleInitial}
+                <span className="ai-updater-creator-name">
+                  Created: {createdByLast} {get(agenda, 'creators.first_name') || ''}
                 </span>
                 <span className="date">{createDate}</span>
               </div>
               <div className="wrapper">
-                <span>
-                  Modified: {get(agenda, 'updaters.last_name') || ''}, {get(agenda, 'updaters.first_name') || ''} {updaterMiddleInitial}
+                <span className="ai-updater-creator-name">
+                  Modified: {updateByLast} {get(agenda, 'updaters.first_name') || ''}
                 </span>
                 <span className="date">{updateDate}</span>
               </div>
@@ -157,6 +153,8 @@ AgendaItemRow.propTypes = {
   isCreate: PropTypes.bool,
   agenda: PropTypes.shape({
     id: PropTypes.number,
+    creator_date: PropTypes.string,
+    modifier_date: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
