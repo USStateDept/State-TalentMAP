@@ -31,8 +31,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const clientDataLoading = get(client_data, 'data.loading');
-  const clientDataError = get(client_data, 'data.error');
+  const clientDataLoading = get(client_data, 'data.loading') || '';
+  const clientDataError = get(client_data, 'data.error') || '';
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({

@@ -58,10 +58,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const assignments = get(asgHistory, 'data') || [];
   const languages = get(clientData, 'data.data.languages') || [];
 
-  console.log('research pane remarks: ', remarks);
   const remarks_data = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
-  console.log('remarks_data: ', remarks_data);
-  const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
+  const remarkCategories_data = get(remarkCategories, 'data.results') || [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
   const groupLoading = includes([asgHistLoading, remarksDataLoading,
@@ -189,6 +187,8 @@ AgendaItemResearchPane.propTypes = {
   ),
   legCount: PropTypes.number,
   isReadOnly: PropTypes.bool,
+  clientLoading: PropTypes.string,
+  clientError: PropTypes.string,
 };
 
 AgendaItemResearchPane.defaultProps = {
@@ -197,6 +197,8 @@ AgendaItemResearchPane.defaultProps = {
   userSelections: [],
   legCount: 0,
   isReadOnly: false,
+  clientLoading: '',
+  clientError: '',
 };
 
 export default AgendaItemResearchPane;
