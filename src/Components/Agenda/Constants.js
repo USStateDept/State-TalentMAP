@@ -1,3 +1,4 @@
+import { formatDate } from 'utilities';
 
 /* eslint-disable import/prefer-default-export */
 // TODO: remove
@@ -30,3 +31,5 @@ export const statusRenaming = [
   { value: 'WDR', text: 'Withdrawn' },
 ];
 /* eslint-enable import/prefer-default-export */
+
+export const dateTernary = date => date ? `${formatDate(date, 'MM/DD/YY')}` : '--/--/--';
