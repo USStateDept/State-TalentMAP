@@ -18,14 +18,14 @@ import AgendaItemRow from '../AgendaItemRow';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
-const useCreateAI = () => checkFlag('flags.create_agenda_item');
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
   const perdet = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
   const viewType = get(props, 'viewType');
-  const createAI = useCreateAI();
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
@@ -134,13 +134,16 @@ const AgendaItemHistory = (props) => {
                 defaultSort={sort}
                 onSelectOption={e => setSort(get(e, 'target.value'))}
               />
-              <div className="export-button-container">
-                <ExportButton
-                  onClick={exportAgendaItem}
-                  isLoading={exportIsLoading}
-                  disabled={exportDisabled}
-                />
-              </div>
+              {
+                false &&
+                <div className="export-button-container">
+                  <ExportButton
+                    onClick={exportAgendaItem}
+                    isLoading={exportIsLoading}
+                    disabled={exportDisabled}
+                  />
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -162,7 +165,7 @@ const AgendaItemHistory = (props) => {
                 cardView &&
                 <div className="ai-history-cards-container">
                   {
-                    createAI &&
+                    showAgendaItemMaintenance &&
                       <AgendaItemCard
                         isCreate
                         isCDO={isCDO}
@@ -185,7 +188,7 @@ const AgendaItemHistory = (props) => {
                 !cardView &&
                 <div className="agenda-item-row-container">
                   {
-                    createAI &&
+                    showAgendaItemMaintenance &&
                       <AgendaItemRow
                         isCreate
                         isCDO={isCDO}

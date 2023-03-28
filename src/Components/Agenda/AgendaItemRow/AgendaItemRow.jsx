@@ -11,7 +11,7 @@ import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
 
-const useEditAgendaItem = () => checkFlag('flags.edit_agenda_item');
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemRow = props => {
   const {
@@ -22,7 +22,7 @@ const AgendaItemRow = props => {
     isPanelMeetingView,
   } = props;
 
-  const editAgendaItem = useEditAgendaItem();
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
   const clientData = get(agenda, 'user');
 
   const userRole = isCDO ? 'cdo' : 'ao';
@@ -73,7 +73,7 @@ const AgendaItemRow = props => {
                 <>
                   <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
                     {
-                      editAgendaItem ?
+                      showAgendaItemMaintenance ?
                         <Link
                           className="ai-id-link"
                           to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
