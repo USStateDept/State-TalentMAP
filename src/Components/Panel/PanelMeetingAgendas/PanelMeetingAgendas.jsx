@@ -312,7 +312,7 @@ const PanelMeetingAgendas = (props) => {
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
     else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    else if (codeOrText === 'name') queryProp = 'name';
+    else if (has(items[0], 'name')) queryProp = 'name';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
@@ -410,7 +410,7 @@ const PanelMeetingAgendas = (props) => {
                   value={selectedOrgs}
                   options={organizationOptions}
                   onChange={setSelectedOrgs}
-                  valueKey="name"
+                  valueKey="code"
                   labelKey="name"
                   disabled={isLoading}
                 />
