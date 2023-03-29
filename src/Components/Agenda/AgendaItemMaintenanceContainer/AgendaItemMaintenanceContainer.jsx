@@ -20,8 +20,8 @@ import api from '../../../api';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
-
   const researchPaneRef = useRef();
+
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
@@ -31,6 +31,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const clientDataLoading = client_data?.loading ?? false;
+  const clientDataError = client_data?.error ?? false;
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -171,6 +173,8 @@ const AgendaItemMaintenanceContainer = (props) => {
                           saveAI={submitAI}
                           agendaItem={agendaItem}
                           isReadOnly={isReadOnly}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -203,6 +207,8 @@ const AgendaItemMaintenanceContainer = (props) => {
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
                 clientData={client_data}
+                clientError={clientDataError}
+                clientLoading={clientDataLoading}
                 perdet={id}
                 ref={researchPaneRef}
                 updateSelection={isReadOnly ? () => {} : updateSelection}

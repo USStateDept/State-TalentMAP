@@ -10,7 +10,9 @@ import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
+import { dateTernary } from '../Constants';
 import api from '../../../api';
+import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
 const AgendaItemMaintenancePane = (props) => {
   const dispatch = useDispatch();
@@ -29,6 +31,8 @@ const AgendaItemMaintenancePane = (props) => {
     asgSepBidData,
     agendaItem,
     isReadOnly,
+    updateResearchPaneTab,
+    setLegsContainerExpanded,
   } = props;
 
   const defaultText = '';
@@ -70,6 +74,13 @@ const AgendaItemMaintenancePane = (props) => {
   const agendaItemPanelIDSeqNum = isPanelTypeID ? panelMeetingSeqNum : '';
   const [selectedPanelMLDate, setPanelMLDate] = useState(agendaItemPanelMLSeqNum);
   const [selectedPanelIDDate, setPanelIDDate] = useState(agendaItemPanelIDSeqNum);
+
+  const createdByFirst = agendaItem?.creators?.first_name || '';
+  const createdByLast = agendaItem?.creators?.last_name ? `${agendaItem.creators.last_name},` : '';
+  const createDate = dateTernary(agendaItem?.creator_date);
+  const modifiedByFirst = agendaItem?.updaters?.first_name || '';
+  const modifiedByLast = agendaItem?.updaters?.last_name ? `${agendaItem.updaters.last_name},` : '';
+  const modifyDate = dateTernary(agendaItem?.modifier_date);
 
   const legLimit = legCount >= 10;
 
@@ -147,6 +158,11 @@ const AgendaItemMaintenancePane = (props) => {
     }
   };
 
+  const onAddFPClick = () => {
+    setLegsContainerExpanded(false);
+    updateResearchPaneTab(FrequentPositionsTabID);
+  };
+
   return (
     <div className="ai-maintenance-header">
       { !unitedLoading &&
@@ -157,34 +173,17 @@ const AgendaItemMaintenancePane = (props) => {
               Save Agenda Item
             </button>
           </div>
+          <div className="aim-timestamp-wrapper">
+            <span className="aim-timestamp">
+              {`Created: ${createdByLast} ${createdByFirst}`}
+              <span className="date">{` ${agendaItem?.creator_date ? '-' : ''} ${createDate}`}</span>
+            </span>
+            <span className="aim-timestamp">
+              {`Modified: ${modifiedByLast} ${modifiedByFirst}`}
+              <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
+            </span>
+          </div>
           <div className="ai-maintenance-header-dd">
-            {
-              !asgSepBidLoading && !asgSepBidError &&
-                <select
-                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
-                  defaultValue={asgSepBids}
-                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
-                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
-                  disabled={legLimit || isReadOnly}
-                >
-                  <option selected value={''}>
-                    Employee Assignments, Separations, and Bids
-                  </option>
-                  <option hidden value={'legLimit'}>
-                    Leg Limit of 10 Reached
-                  </option>
-                  {
-                    asgSepBids.map(a => (
-                      <option key={a.pos_num} value={a.pos_num}>
-                        {/* eslint-disable-next-line react/no-unescaped-entities */}
-                        '{a.status || defaultText}'
-                          in {a.org || defaultText} -&nbsp;
-                        {a.pos_title || defaultText}({a.pos_num || defaultText})
-                      </option>
-                    ))
-                  }
-                </select>
-            }
             {
               !statusLoading && !statusError &&
                 <div>
@@ -208,27 +207,6 @@ const AgendaItemMaintenancePane = (props) => {
                   </select>
                 </div>
             }
-            <div>
-              <label htmlFor="position number">Add Position Number:</label>
-              <input
-                name="add"
-                className={`add-pos-num-input ${inputClass}`}
-                onChange={value => setPositionNumber(value.target.value)}
-                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
-                type="add"
-                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
-                disabled={legLimit || isReadOnly}
-              />
-              <InteractiveElement
-                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
-                onClick={addPositionNum}
-                role="button"
-                title="Add position"
-                type="span"
-              >
-                <FA name="plus" />
-              </InteractiveElement>
-            </div>
             {
               !panelCatLoading && !panelCatError &&
                 <div>
@@ -323,6 +301,58 @@ const AgendaItemMaintenancePane = (props) => {
               }
             </div>
           </div>
+          <div className="add-legs-container">
+            <div className="add-legs-header">Add Legs</div>
+            {
+              !asgSepBidLoading && !asgSepBidError &&
+                <select
+                  className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
+                  defaultValue={asgSepBids}
+                  onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
+                  value={`${legLimit ? 'legLimit' : asgSepBid}`}
+                  disabled={legLimit || isReadOnly}
+                >
+                  <option selected value={''}>
+                    Employee Assignments, Separations, and Bids
+                  </option>
+                  <option hidden value={'legLimit'}>
+                    Leg Limit of 10 Reached
+                  </option>
+                  {
+                    asgSepBids.map(a => (
+                      <option key={a.pos_num} value={a.pos_num}>
+                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                        '{a.status || defaultText}'
+                          in {a.org || defaultText} -&nbsp;
+                        {a.pos_title || defaultText}({a.pos_num || defaultText})
+                      </option>
+                    ))
+                  }
+                </select>
+            }
+            <div className="position-number-container">
+              <input
+                name="add"
+                className={`add-pos-num-input ${inputClass}`}
+                onChange={value => setPositionNumber(value.target.value)}
+                onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
+                type="add"
+                value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
+                disabled={legLimit || isReadOnly}
+                placeholder="Add by Position Number"
+              />
+              <InteractiveElement
+                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
+                onClick={addPositionNum}
+                role="button"
+                title="Add position"
+                type="span"
+              >
+                <FA name="plus" />
+              </InteractiveElement>
+            </div>
+            <a className="add-fp-link" aria-hidden="true" onClick={() => onAddFPClick()}>Open Frequent Positions Tab</a>
+          </div>
         </>
       }
     </div>
@@ -365,6 +395,8 @@ AgendaItemMaintenancePane.propTypes = {
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
   isReadOnly: PropTypes.bool,
+  updateResearchPaneTab: PropTypes.func,
+  setLegsContainerExpanded: PropTypes.func,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -380,6 +412,8 @@ AgendaItemMaintenancePane.defaultProps = {
   saveAI: EMPTY_FUNCTION,
   legCount: 0,
   isReadOnly: false,
+  updateResearchPaneTab: EMPTY_FUNCTION,
+  setLegsContainerExpanded: EMPTY_FUNCTION,
 };
 
 export default AgendaItemMaintenancePane;
