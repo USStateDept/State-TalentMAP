@@ -300,10 +300,6 @@ const PanelMeetingAgendas = (props) => {
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
     }
-    // Used for handshake-organizations - Replace with comprehensive org ref data
-    if (has(items[0], 'name')) {
-      codeOrText = 'name';
-    }
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
