@@ -37,27 +37,34 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const dispatch = useDispatch();
 
   const { perdet, clientData, userSelections, updateSelection, legCount,
-    isReadOnly } = props;
+    isReadOnly, clientLoading, clientError } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
+  const classificationsError = useSelector(state => state.classificationsHasErrored);
+  const classificationsLoading = useSelector(state => state.classificationsIsLoading);
   const clientClassifications = useSelector(state => state.userClassifications);
+  const clientClassificationsLoading = useSelector(state => state.userClassificationsIsLoading);
+  const clientClassificationsError = useSelector(state => state.userClassificationsHasErrored);
 
   const classificationsProps = { classifications, clientClassifications };
 
-  const { data, error, loading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
-  const { data: remarks } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
-  // eslint-disable-next-line no-unused-vars
-  const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
-  const remarkCategories = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
-  const assignments = get(data, 'data') || [];
+  const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
+  const { data: remarks, error: rmrkDataError, loading: rmrkDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
+  const { data: rmrkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
+
+  const assignments = asgHistory?.data ?? [];
   const languages = get(clientData, 'data.data.languages') || [];
-  const remarks_data = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
-  const remarkCategories_data = get(remarkCategories, 'data.data.results') || [];
+
+  const remarks$ = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
+  const rmrkCategories$ = rmrkCategories?.data?.results ?? [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
-  const groupLoading = includes([loading, frequentPositionsLoading], true);
+  const groupLoading = includes([asgHistLoading, rmrkDataLoading,
+    frequentPositionsLoading, rmrkCatLoading, clientClassificationsLoading,
+    classificationsLoading, clientLoading], true);
 
   const legLimit = legCount >= 10;
 
@@ -79,6 +86,64 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
     dispatch(fetchUserClassifications(perdet));
   }, []);
 
+  const loadingSpinner = (<Spinner type="homepage-position-results" size="small" />);
+  const errorAlert = (<Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />);
+
+
+  function getNavData(navType) {
+    switch (navType) {
+      case ASGH:
+        if (asgHistError) {
+          return errorAlert;
+        }
+        return (<AssignmentHistory
+          assignments={assignments}
+        />);
+
+      case L:
+        if (clientError) {
+          return errorAlert;
+        }
+        return (<Languages
+          languagesArray={languages}
+          useWrapper
+          showHeader={false}
+        />);
+
+      case FP:
+        if (frequentPositionsError) {
+          return errorAlert;
+        }
+        return (<FrequentPositions
+          positions={frequentPositions}
+          addFrequentPosition={addFrequentPosition}
+          disabled={((legCount >= 10) || isReadOnly)}
+        />);
+
+      case TP:
+        if (clientClassificationsError || classificationsError) {
+          return errorAlert;
+        }
+        return (<div id="aim-classifications"> {/* needed for css specificity */}
+          <Classifications {...classificationsProps} />
+        </div>);
+
+      case RG:
+        if (rmrkDataError || rmrkCatError) {
+          return errorAlert;
+        }
+        return (<RemarksGlossary
+          remarks={remarks$}
+          remarkCategories={rmrkCategories$}
+          userSelections={userSelections}
+          updateSelection={updateSelection}
+        />);
+
+      default:
+        return errorAlert;
+    }
+  }
+
   return (
     <div className="ai-research-pane">
       <MediaQuery breakpoint="screenSmMax" widthType="max">
@@ -94,51 +159,12 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
       </MediaQuery>
       <div className="ai-research-content">
         {
-          loading && !error &&
-            <Spinner type="homepage-position-results" size="small" />
+          groupLoading &&
+            loadingSpinner
         }
         {
-          !loading && error &&
-            <Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />
-        }
-        {/* headers should always be hidden in the nav view */}
-        {
-          selectedNav === ASGH && !loading && !error &&
-            <AssignmentHistory
-              assignments={assignments}
-            />
-        }
-        {
-          selectedNav === L && !loading && !error &&
-            <Languages
-              languagesArray={languages}
-              useWrapper
-              showHeader={false}
-            />
-        }
-        {
-          selectedNav === FP && !groupLoading && !error &&
-            <FrequentPositions
-              positions={frequentPositions}
-              addFrequentPosition={addFrequentPosition}
-              disabled={((legCount >= 10) || isReadOnly)}
-            />
-        }
-        {
-          selectedNav === TP && !loading && !error &&
-          <div id="aim-classifications"> {/* needed for css specificity */}
-            <Classifications {...classificationsProps} />
-          </div>
-        }
-        {
-          selectedNav === RG && !loading && !error &&
-            <RemarksGlossary
-              remarks={remarks_data}
-              remarkCategories={remarkCategories_data}
-              userSelections={userSelections}
-              updateSelection={updateSelection}
-            />
-        }
+          !groupLoading &&
+          getNavData(selectedNav)}
       </div>
     </div>
   );
@@ -161,6 +187,8 @@ AgendaItemResearchPane.propTypes = {
   ),
   legCount: PropTypes.number,
   isReadOnly: PropTypes.bool,
+  clientLoading: PropTypes.bool,
+  clientError: PropTypes.bool,
 };
 
 AgendaItemResearchPane.defaultProps = {
@@ -169,6 +197,8 @@ AgendaItemResearchPane.defaultProps = {
   userSelections: [],
   legCount: 0,
   isReadOnly: false,
+  clientLoading: false,
+  clientError: false,
 };
 
 export default AgendaItemResearchPane;
