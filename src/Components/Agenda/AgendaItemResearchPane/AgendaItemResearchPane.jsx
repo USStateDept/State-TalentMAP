@@ -51,18 +51,18 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
 
 
   const { data: asgHistory, error: asgHistError, loading: asgHistLoading } = useDataLoader(api().get, `/fsbid/assignment_history/${perdet}/`);
-  const { data: remarks, error: remarksDataError, loading: remarksDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
+  const { data: remarks, error: rmrkDataError, loading: rmrkDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const { data: frequentPositionsResults, error: frequentPositionsError, loading: frequentPositionsLoading } = useDataLoader(api().get, '/fsbid/positions/frequent_positions/');
-  const { data: remarkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
+  const { data: rmrkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
-  const assignments = get(asgHistory, 'data') || [];
+  const assignments = asgHistory?.data ?? [];
   const languages = get(clientData, 'data.data.languages') || [];
 
-  const remarks_data = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
-  const remarkCategories_data = get(remarkCategories, 'data.results') || [];
+  const remarks$ = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
+  const rmrkCategories$ = rmrkCategories?.data?.results ?? [];
   const frequentPositions = get(frequentPositionsResults, 'data.results') || [];
 
-  const groupLoading = includes([asgHistLoading, remarksDataLoading,
+  const groupLoading = includes([asgHistLoading, rmrkDataLoading,
     frequentPositionsLoading, rmrkCatLoading, clientClassificationsLoading,
     classificationsLoading, clientLoading], true);
 
@@ -129,12 +129,12 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         </div>);
 
       case RG:
-        if (remarksDataError || rmrkCatError) {
+        if (rmrkDataError || rmrkCatError) {
           return errorAlert;
         }
         return (<RemarksGlossary
-          remarks={remarks_data}
-          remarkCategories={remarkCategories_data}
+          remarks={remarks$}
+          remarkCategories={rmrkCategories$}
           userSelections={userSelections}
           updateSelection={updateSelection}
         />);
@@ -187,8 +187,8 @@ AgendaItemResearchPane.propTypes = {
   ),
   legCount: PropTypes.number,
   isReadOnly: PropTypes.bool,
-  clientLoading: PropTypes.string,
-  clientError: PropTypes.string,
+  clientLoading: PropTypes.bool,
+  clientError: PropTypes.bool,
 };
 
 AgendaItemResearchPane.defaultProps = {
@@ -197,8 +197,8 @@ AgendaItemResearchPane.defaultProps = {
   userSelections: [],
   legCount: 0,
   isReadOnly: false,
-  clientLoading: '',
-  clientError: '',
+  clientLoading: false,
+  clientError: false,
 };
 
 export default AgendaItemResearchPane;
