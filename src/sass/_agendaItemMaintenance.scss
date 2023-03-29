@@ -67,9 +67,10 @@
 
     label {
       font-weight: bold;
-      margin: 10px;
+      margin: 0px;
       text-align: right;
-      min-width: 160px;
+      margin-right: 5px;
+      min-width: 125px;
     }
 
     .back-save-btns-container {
@@ -97,7 +98,7 @@
     }
 
     .remarks {
-      margin: 10px 0;
+      margin: 10px 0 15px;
 
       label {
         display: inline;
@@ -112,11 +113,28 @@
         display: inline-block;
       }
     }
+    .add-legs-container {
+      display: flex;
+      flex-wrap: wrap;
+      border-top: 2px solid gray;
 
-    .ai-maintenance-header-dd {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-
+      .add-legs-header {
+        margin: 5px 0 10px 0;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+      select {
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        font-size: 0.8em;
+        height: 28px;
+        padding: 0 28px 0 5px;
+        text-overflow: ellipsis;
+      }
+      .asg-dropdown {
+        width: 351px;
+      }
       .asg-disabled {
         background-color: $color-gray-lighter;
         border: 1px solid $color-gray-light;
@@ -148,45 +166,66 @@
         }
       }
 
-      .add-pos-num-input {
-        border-radius: 3px;
-        height: 28px;
-        padding: 0 30px 0 5px;
-        max-width: 180px;
-        font-size: 13px;
-      }
-      .input-default {
-        background-color: $color-white;
-        border: 1px solid $bg-gray-dark-2;
-      }
-      .input-error {
-        background-color: $color-red-lightest;
-        border: 1px solid $color-red;
-      }
-      .input-disabled {
-        background-color: $color-gray-lighter;
-        border: 1px solid $color-gray-light;
-      }
+      .position-number-container {
+        display: flex;
+        align-items: baseline;
+        width: 100%;
 
-      .add-pos-num-icon {
-        color: $primary-blue;
-        margin-left: -25px;
-        position: relative;
-        top: 1px
-      }
-      .add-pos-num-icon:hover {
-        color: $primary-blue-darkest;
-      }
-      .icon-disabled {
-        color: $color-gray;
-        .fa {
+        .add-pos-num-input {
+          border-radius: 3px;
+          height: 28px;
+          padding: 0 30px 0 5px;
+          width: 351px;
+          font-size: 13px;
+        }
+        .input-default {
+          background-color: $color-white;
+          border: 1px solid $bg-gray-dark-2;
+        }
+        .input-error {
+          background-color: $color-red-lightest;
+          border: 1px solid $color-red;
+        }
+        .input-disabled {
+          background-color: $color-gray-lighter;
+          border: 1px solid $color-gray-light;
+        }
+
+        .add-pos-num-icon {
+          color: $primary-blue;
+          margin-left: -25px;
+          position: relative;
+          top: 1px
+        }
+        .add-pos-num-icon:hover {
+          color: $primary-blue-darkest;
+        }
+        .icon-disabled {
+          color: $color-gray;
+          .fa {
+            cursor: not-allowed;
+          }
+        }
+        .icon-disabled:hover {
+          color: $color-gray;
           cursor: not-allowed;
         }
+        label {
+          display: flex;
+        }
+        .fa {
+          padding-left: 0px;
+        }
       }
-      .icon-disabled:hover {
-        color: $color-gray;
-        cursor: not-allowed;
+      .add-fp-link {
+        cursor: pointer;
+        margin-top: 5px;
       }
+    }
+
+    .ai-maintenance-header-dd {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
 
       div {
         display: flex;
@@ -204,15 +243,11 @@
         text-overflow: ellipsis;
         max-width: fit-content;
       }
-      .asg-dropdown {
-        width: 351px;
-        margin-left: 10px;
-      }
       .aim-select {
-        width: 180px;
+        min-width: 255px;
       }
       .aim-select-small {
-        width: 90px;
+        width: 140px;
       }
     }
   }
@@ -331,6 +366,10 @@
       .classifications-client-badges-container {
         max-height: initial;
       }
+    }
+
+    .tm-spinner {
+      margin-top: 100px;
     }
   }
 
