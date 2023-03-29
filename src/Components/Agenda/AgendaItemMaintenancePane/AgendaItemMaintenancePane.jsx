@@ -58,7 +58,6 @@ const AgendaItemMaintenancePane = (props) => {
 
   const [asgSepBid, setAsgSepBid] = useState(''); // local state just used for select animation
   const [asgSepBidSelectClass, setAsgSepBidSelectClass] = useState('');
-  // const [showPosNumInput, setShowPosNumInput] = useState(false);
 
   const [selectedStatus, setStatus] = useState(get(agendaItem, 'status_full') || '');
 

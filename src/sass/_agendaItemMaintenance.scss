@@ -68,6 +68,7 @@
     label {
       font-weight: bold;
       margin: 0px;
+      text-align: right;
       margin-right: 5px;
       min-width: 125px;
     }
@@ -217,19 +218,15 @@
           padding-left: 0px;
         }
       }
-      .add-frequent-positions {
-        margin-top: 15px;
-      }
       .add-fp-link {
         cursor: pointer;
-        width: 100%;
         margin-top: 5px;
       }
     }
 
     .ai-maintenance-header-dd {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
 
       div {
         display: flex;
@@ -248,10 +245,10 @@
         max-width: fit-content;
       }
       .aim-select {
-        width: 180px;
+        min-width: 255px;
       }
       .aim-select-small {
-        width: 90px;
+        width: 140px;
       }
     }
   }
