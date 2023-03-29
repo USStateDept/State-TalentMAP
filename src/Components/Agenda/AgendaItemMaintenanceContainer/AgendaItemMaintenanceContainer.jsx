@@ -173,6 +173,8 @@ const AgendaItemMaintenanceContainer = (props) => {
                           saveAI={submitAI}
                           agendaItem={agendaItem}
                           isReadOnly={isReadOnly}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
