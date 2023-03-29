@@ -300,10 +300,6 @@ const PanelMeetingAgendas = (props) => {
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
     }
-    // Used for handshake-organizations - Replace with comprehensive org ref data
-    if (has(items[0], 'name')) {
-      codeOrText = 'name';
-    }
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
@@ -312,7 +308,7 @@ const PanelMeetingAgendas = (props) => {
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
     else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    else if (codeOrText === 'name') queryProp = 'name';
+    else if (has(items[0], 'name')) queryProp = 'name';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
@@ -410,7 +406,7 @@ const PanelMeetingAgendas = (props) => {
                   value={selectedOrgs}
                   options={organizationOptions}
                   onChange={setSelectedOrgs}
-                  valueKey="name"
+                  valueKey="code"
                   labelKey="name"
                   disabled={isLoading}
                 />
@@ -529,12 +525,16 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
-                <div className="export-button-container">
-                  <ExportButton
-                    onClick={exportPanelMeetingAgendas}
-                    isLoading={exportIsLoading}
-                  />
-                </div>
+                {
+                  false &&
+                  <div className="export-button-container">
+                    <ExportButton
+                      onClick={exportPanelMeetingAgendas}
+                      isLoading={exportIsLoading}
+                      disabled
+                    />
+                  </div>
+                }
               </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (
