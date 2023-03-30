@@ -57,6 +57,7 @@ const FrequentPositions = (props) => {
         <TextInput
           changeText={e => { search(e); setTerm(e); }}
           value={term}
+          id={'frequent-positions-search'}
           labelSrOnly
           placeholder="Search for Frequent Positions"
           inputProps={{
@@ -73,7 +74,7 @@ const FrequentPositions = (props) => {
         <tbody>
           {
             positions$$.map(m => (
-              <tr>
+              <tr key={m.pos_num_text}>
                 <td>
                   <InteractiveElement
                     onClick={disabled ? () => {} : () => addFrequentPosition$(m)}

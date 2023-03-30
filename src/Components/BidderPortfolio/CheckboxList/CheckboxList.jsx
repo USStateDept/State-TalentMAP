@@ -40,7 +40,7 @@ const CheckboxList = ({ list, editView, updateClassifications,
           });
 
           return (
-            <div className="classifications-client-badges">
+            <div className="classifications-client-badges" key={c.code}>
               {multiBidSeasonFlag &&
               <div>
                 <Row className="usa-grid-full">

@@ -191,12 +191,11 @@ const AgendaItemMaintenancePane = (props) => {
                   <select
                     className="aim-select"
                     id="ai-maintenance-status"
-                    defaultValue={selectedStatus}
                     onChange={(e) => setStatus(get(e, 'target.value'))}
                     value={selectedStatus}
                     disabled={isReadOnly}
                   >
-                    <option selected value={''}>
+                    <option value={''}>
                       Agenda Item Status
                     </option>
                     {
@@ -214,17 +213,16 @@ const AgendaItemMaintenancePane = (props) => {
                   <select
                     className="aim-select"
                     id="ai-maintenance-category"
-                    defaultValue={selectedPanelCat}
                     onChange={(e) => setPanelCat(get(e, 'target.value'))}
                     value={selectedPanelCat}
                     disabled={isReadOnly}
                   >
-                    <option selected value={''}>
+                    <option value={''}>
                       Meeting Item Category
                     </option>
                     {
                       panelCategories.map(a => (
-                        <option value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
+                        <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
                       ))
                     }
                   </select>
@@ -307,26 +305,28 @@ const AgendaItemMaintenancePane = (props) => {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
                   className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
-                  defaultValue={asgSepBids}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
                   disabled={legLimit || isReadOnly}
                 >
-                  <option selected value={''}>
+                  <option value={''}>
                     Employee Assignments, Separations, and Bids
                   </option>
                   <option hidden value={'legLimit'}>
                     Leg Limit of 10 Reached
                   </option>
                   {
-                    asgSepBids.map(a => (
-                      <option key={a.pos_num} value={a.pos_num}>
-                        {/* eslint-disable-next-line react/no-unescaped-entities */}
+                    asgSepBids.map((a, i) => {
+                      const keyId = i;
+                      return (
+                        <option key={`${a.pos_num}-${keyId}`} value={a.pos_num}>
+                          {/* eslint-disable-next-line react/no-unescaped-entities */}
                         '{a.status || defaultText}'
                           in {a.org || defaultText} -&nbsp;
-                        {a.pos_title || defaultText}({a.pos_num || defaultText})
-                      </option>
-                    ))
+                          {a.pos_title || defaultText}({a.pos_num || defaultText})
+                        </option>
+                      );
+                    })
                   }
                 </select>
             }
@@ -362,7 +362,9 @@ const AgendaItemMaintenancePane = (props) => {
 AgendaItemMaintenancePane.propTypes = {
   perdet: PropTypes.string.isRequired,
   asgSepBidData: PropTypes.shape({
-    asgSepBidResults$: PropTypes.arrayOf({}),
+    asgSepBidResults$: PropTypes.arrayOf(
+      PropTypes.shape({}),
+    ),
     asgSepBidError: PropTypes.bool,
     asgSepBidLoading: PropTypes.bool,
   }),

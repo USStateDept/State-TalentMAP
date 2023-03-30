@@ -54,6 +54,8 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
         customContainerClass="remark-input"
         placeholder={type$}
+        id={'remarks-custom-input'}
+        key={ri.riseqnum}
         inputProps={{ autoComplete: 'off' }}
       />),
       date: (<DatePicker
@@ -131,6 +133,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         value={term}
         labelSrOnly
         placeholder="Search for Remarks"
+        id={'remarks-search'}
         inputProps={{
           autoComplete: 'off',
         }}
@@ -138,7 +141,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       <div className="remarks-glossary-container">
         <div className="usa-grid-full remarks-categories-container">
           {remarkCategories$.map(a => (
-            <a tabIndex={0} role="button" onClick={() => processClick(a)}>{a.desc_text}</a>))}
+            <a key={a.desc_text} tabIndex={0} role="button" onClick={() => processClick(a)}>{a.desc_text}</a>))}
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
@@ -170,12 +173,10 @@ RemarksGlossary.propTypes = {
       rc_code: PropTypes.string,
       order_num: PropTypes.number,
       short_desc_text: PropTypes.string,
-      ari_insertions: PropTypes.arrayOf(
-        PropTypes.shape({
-          ri_seq_num: PropTypes.number,
-          ari_insertion_text: PropTypes.string,
-        }),
-      ),
+      ari_insertions: PropTypes.shape({
+        ri_seq_num: PropTypes.number,
+        ari_insertion_text: PropTypes.string,
+      }),
       mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
       active_ind: PropTypes.string,

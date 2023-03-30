@@ -193,6 +193,7 @@ const AgendaLeg = props => {
             className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}${(includes(dropdowns, cData.title) && isEf) ? ' ef-pos-dropdown' : ''}`}
             onMouseOver={() => onHover$(i + 2)}
             onMouseLeave={() => onHover$('')}
+            key={cData.title}
           >
             {cData.content}
           </InteractiveElement>
@@ -212,7 +213,8 @@ AgendaLeg.propTypes = {
   onClose: PropTypes.func.isRequired,
   updateLeg: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
-  rowNum: PropTypes.number.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  rowNum: PropTypes.any,
   isReadOnly: PropTypes.bool,
 };
 
