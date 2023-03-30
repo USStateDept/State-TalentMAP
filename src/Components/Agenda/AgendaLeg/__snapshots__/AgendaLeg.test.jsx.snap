@@ -18,6 +18,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </div>
   <InteractiveElement
     className="grid-col-3 grid-row-2"
+    key="Position Title"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -28,6 +29,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-3"
+    key="Position Number"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -38,6 +40,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-4"
+    key="Org"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -48,6 +51,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-5"
+    key="Grade"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -58,6 +62,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-6"
+    key="Languages"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -68,6 +73,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-7"
+    key="ETA"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -78,6 +84,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-8"
+    key=""
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -92,6 +99,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-9"
+    key="TED"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -104,6 +112,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-10"
+    key="TOD"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -127,6 +136,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-11"
+    key="Action"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
@@ -150,6 +160,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-12"
+    key="Travel"
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
     type="div"
