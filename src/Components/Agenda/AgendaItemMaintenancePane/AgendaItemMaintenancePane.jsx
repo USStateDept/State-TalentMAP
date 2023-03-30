@@ -319,7 +319,7 @@ const AgendaItemMaintenancePane = (props) => {
                     asgSepBids.map((a, i) => {
                       const keyId = i;
                       return (
-                        <option key={`${a.pos_num}-${keyId}`} value={a.pos_num}>
+                        <option key={`${a.pos_title}-${keyId}`} value={a.pos_num}>
                           {/* eslint-disable-next-line react/no-unescaped-entities */}
                         '{a.status || defaultText}'
                           in {a.org || defaultText} -&nbsp;

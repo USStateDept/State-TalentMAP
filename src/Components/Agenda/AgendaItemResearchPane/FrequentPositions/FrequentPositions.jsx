@@ -74,7 +74,7 @@ const FrequentPositions = (props) => {
         <tbody>
           {
             positions$$.map(m => (
-              <tr key={m.pos_num_text}>
+              <tr key={`${m.pos_num_text}-${m.pos_org_short_desc}`}>
                 <td>
                   <InteractiveElement
                     onClick={disabled ? () => {} : () => addFrequentPosition$(m)}

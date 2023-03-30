@@ -54,7 +54,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
         customContainerClass="remark-input"
         placeholder={type$}
-        id={'remarks-custom-input'}
+        id="remarks-custom-input"
         key={ri.riseqnum}
         inputProps={{ autoComplete: 'off' }}
       />),
@@ -133,7 +133,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         value={term}
         labelSrOnly
         placeholder="Search for Remarks"
-        id={'remarks-search'}
+        id="remarks-search"
         inputProps={{
           autoComplete: 'off',
         }}

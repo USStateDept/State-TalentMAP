@@ -97,7 +97,7 @@ const AgendaLeg = props => {
       onChange={(e) => updateDropdown(key, e.target.value)}
       disabled={disabled}
     >
-      <option selected key={null} value={''}>
+      <option key={null} value={''}>
         {defaultText}
       </option>
       {
@@ -213,8 +213,7 @@ AgendaLeg.propTypes = {
   onClose: PropTypes.func.isRequired,
   updateLeg: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  rowNum: PropTypes.any,
+  rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isReadOnly: PropTypes.bool,
 };
 
