@@ -125,7 +125,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     >
       <option
         key="null"
-        selected={true}
         value=""
       >
         Keep Unselected
@@ -149,7 +148,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     >
       <option
         key="null"
-        selected={true}
         value=""
       >
         Keep Unselected
@@ -173,7 +171,6 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     >
       <option
         key="null"
-        selected={true}
         value=""
       >
         Keep Unselected
