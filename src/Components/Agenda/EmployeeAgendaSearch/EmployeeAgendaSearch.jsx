@@ -315,6 +315,16 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                 <div className="search-header">
                   Search For An Employee
                 </div>
+                <div className="filterby-container">
+                  <div className="filterby-clear">
+                    {clearFilters &&
+                      <button className="unstyled-button" onClick={resetFilters}>
+                        <FA name="times" />
+                        Clear Filters
+                      </button>
+                    }
+                  </div>
+                </div>
                 <div className="eas-inactive-toggle">
                   <ToggleButton
                     labelTextRight="Include Inactive Employees"
@@ -374,16 +384,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                         showIcon={false}
                       />
                     </div>
-                  </div>
-                </div>
-                <div className="filterby-container">
-                  <div className="filterby-clear">
-                    {clearFilters &&
-                      <button className="unstyled-button" onClick={resetFilters}>
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
-                    }
                   </div>
                 </div>
                 <div className="usa-width-one-whole empl-search-filters results-dropdown">
