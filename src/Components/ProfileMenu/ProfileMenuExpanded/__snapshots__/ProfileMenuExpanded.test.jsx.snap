@@ -143,10 +143,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="book"
-        key="Remarks"
-        link="/profile/administrator/remarks/"
+        key="Panel"
+        link="/profile/administrator/panel/"
         search=""
-        title="Remarks"
+        title="Panel"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -500,10 +500,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="book"
-        key="Remarks"
-        link="/profile/administrator/remarks/"
+        key="Panel"
+        link="/profile/administrator/panel/"
         search=""
-        title="Remarks"
+        title="Panel"
       />
       <withRouter(NavLink)
         hidden={true}
