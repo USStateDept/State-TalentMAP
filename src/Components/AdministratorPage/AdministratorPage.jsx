@@ -7,7 +7,7 @@ import Logs from './Logs';
 import Stats from './Stats';
 import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
-import RemarksPage from './RemarksPage';
+import PanelAdmin from './PanelAdmin';
 
 const AdministratorPage = (props) => {
   const {
@@ -56,7 +56,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
         <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags {...featureFlagsProps} />} />
         <Route path="/profile/administrator/cycles" render={() => <BidCycles />} />
-        <Route path="/profile/administrator/remarks" render={() => <RemarksPage />} />
+        <Route path="/profile/administrator/panel" render={() => <PanelAdmin />} />
       </Switch>
     </div>
   );

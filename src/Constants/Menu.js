@@ -152,8 +152,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
-        text: 'Remarks',
-        route: '/profile/administrator/remarks/',
+        text: 'Panel',
+        route: '/profile/administrator/panel/',
         icon: 'book',
         roles: [
           'superuser',
