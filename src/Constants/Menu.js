@@ -151,6 +151,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      {
+        text: 'Remarks',
+        route: '/profile/administrator/remarks/',
+        icon: 'book',
+        roles: [
+          'superuser',
+        ],
+      },
     ],
   },
   {
