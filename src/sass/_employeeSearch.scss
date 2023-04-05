@@ -60,6 +60,7 @@
       align-items: center;
       display: flex;
       margin-right: 10px;
+      padding-left: 5px;
 
       .label {
         margin-right: 10px;
@@ -472,5 +473,6 @@
 }
 
 .eas-inactive-toggle {
+  padding-left: 5px;
   margin-top: 20px;
 }
