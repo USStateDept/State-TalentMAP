@@ -36,15 +36,6 @@
   width: 700px;
 
   .edit-remark-modal {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    align-items: baseline;
-
-    .whole-row {
-      grid-column-start: 1;
-      grid-column-end: 3;
-    }
-
     .help-text {
       padding: 10px 0;
       border-top: 1px solid gray;
@@ -62,6 +53,12 @@
       align-items: baseline;
     }
 
+    .edit-remark-checkboxes-controls {
+      display: flex;
+      align-items: baseline;
+      justify-content: end;
+    }
+
     .edit-remark-checkboxes {
       display: flex;
       min-width: 300px;
@@ -72,11 +69,8 @@
       }
     }
 
-    .modal-control-buttons {
-      display: flex;
-      margin-top: 10px;
-      grid-column-start: 2;
-      grid-column-end: 3;
+    .modal-controls {
+      margin-left: 40px;
     }
   }
 }
