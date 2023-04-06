@@ -13,5 +13,5 @@ jobs:
       env:
         APPROVALS: "1"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ADD_LABEL: "approved"
-        REMOVE_LABEL: "awaiting%20review"
+        ADD_LABEL: "Approved :heavy_check_mark:"
+        REMOVE_LABEL: "Approved Pending Feedback :stopwatch:"
