@@ -219,7 +219,16 @@ export const USER_PROFILE = PropTypes.shape({
   display_name: PropTypes.string,
   user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
-  languages: LANGUAGE_QUALIFICATIONS,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      custom_description: PropTypes.string,
+      language: PropTypes.string,
+      reading_score: PropTypes.string,
+      speaking_score: PropTypes.string,
+      test_date: PropTypes.string,
+    }),
+  ),
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
@@ -777,8 +786,8 @@ export const PANEL_MEETING = PropTypes.shape({
 export const POS_LANGUAGES = PropTypes.arrayOf(
   PropTypes.shape({
     language: PropTypes.string,
-    spoken_proficiency: PropTypes.number,
-    reading_proficiency: PropTypes.number,
+    spoken_proficiency: PropTypes.string,
+    reading_proficiency: PropTypes.string,
     code: PropTypes.string,
     representation: PropTypes.string,
   }),
