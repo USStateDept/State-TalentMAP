@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { format, isValid } from 'date-fns-v2';
 import { get } from 'lodash';
@@ -22,7 +23,7 @@ const Languages = props => {
       }
       <div className="languages-list-container">
         {languagesArray.map(l => (
-          <>
+          <Fragment key={l.language}>
             {
               get(l, 'language') ?
                 <InformationDataPoint
@@ -36,7 +37,7 @@ const Languages = props => {
                   }
                 /> : <></>
             }
-          </>
+          </Fragment>
         ))}
       </div>
     </>
