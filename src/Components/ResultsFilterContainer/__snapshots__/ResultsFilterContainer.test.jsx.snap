@@ -25,7 +25,7 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
   }
 >
   <MemoryRouter>
-    <Connect(ResultsFilterContainer)
+    <ResultsFilterContainer
       client={Object {}}
       clientView={Object {}}
       fetchMissionAutocomplete={[Function]}
@@ -48,6 +48,12 @@ exports[`ResultsFilterContainerComponent matches snapshot 1`] = `
       postSearchIsLoading={false}
       postSearchResults={Array []}
       resetFilters={[Function]}
+      selectedAccordion={
+        Object {
+          "main": "",
+          "sub": "",
+        }
+      }
       setAccordion={[Function]}
       showClear={true}
       userProfile={
@@ -171,7 +177,7 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
   }
 >
   <MemoryRouter>
-    <Connect(ResultsFilterContainer)
+    <ResultsFilterContainer
       client={Object {}}
       clientView={Object {}}
       fetchMissionAutocomplete={[Function]}
@@ -194,6 +200,12 @@ exports[`ResultsFilterContainerComponent matches snapshot when isLoading === tru
       postSearchIsLoading={false}
       postSearchResults={Array []}
       resetFilters={[Function]}
+      selectedAccordion={
+        Object {
+          "main": "",
+          "sub": "",
+        }
+      }
       setAccordion={[Function]}
       showClear={true}
       userProfile={
