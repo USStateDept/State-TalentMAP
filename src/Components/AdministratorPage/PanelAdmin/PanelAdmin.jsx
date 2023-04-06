@@ -40,13 +40,45 @@ const PanelAdmin = () => {
 
   const createRemarkModal = () => {
     swal({
-      title: 'Remark Editor',
+      title: 'Create New Remark',
       button: false,
+      closeOnEsc: true,
       content: (
-        <EditRemark />
+        <EditRemark
+          rmrkCategories={rmrkCategoriesOrdered}
+        />
       ),
     });
   };
+
+  const remarksTable = (
+    <div>
+      <table>
+        <tr>
+          <th>Remark Category</th>
+          <th>Description</th>
+          <th>Active</th>
+        </tr>
+        <tr>
+          <td className="create-remark-button" colSpan="3">
+            <button onClick={createRemarkModal}>Create New Remark</button>
+          </td>
+        </tr>
+        {rmrkCategoriesOrdered.map(category => {
+          const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
+          return (
+            remarksInCategory.map(r => (
+              <tr>
+                <td>{category.desc_text}</td>
+                <td>{r.text}</td>
+                <td className="active-column">{r.active_ind}</td>
+              </tr>
+            ))
+          );
+        })}
+      </table>
+    </div>
+  );
 
   function getNavData(navType) {
     switch (navType) {
@@ -54,34 +86,7 @@ const PanelAdmin = () => {
         if (rmrkDataError || rmrkCatError) {
           return errorAlert;
         }
-        return (
-          <div>
-            <table>
-              <tr>
-                <th>Remark Category</th>
-                <th>Description</th>
-                <th>Active</th>
-              </tr>
-              <tr>
-                <td className="create-remark-button" colSpan="3">
-                  <button onClick={createRemarkModal}>Create New Remark</button>
-                </td>
-              </tr>
-              {rmrkCategoriesOrdered.map(category => {
-                const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
-                return (
-                  remarksInCategory.map(r => (
-                    <tr>
-                      <td>{category.desc_text}</td>
-                      <td>{r.text}</td>
-                      <td className="active-column">{r.active_ind}</td>
-                    </tr>
-                  ))
-                );
-              })}
-            </table>
-          </div>
-        );
+        return remarksTable;
 
       case TST1:
         return (

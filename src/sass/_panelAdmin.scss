@@ -4,13 +4,6 @@
   .panel-admin-content {
     margin-left: 20px;
 
-    .remarks-glossary-header {
-      font-family: Roboto;
-      font-size: 1em;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
     .tm-spinner{
       margin-top: 125px;
     }
@@ -34,31 +27,56 @@
   }
   .navTabs {
     margin-left: 5px;
+    background-color: #F7F7F7;
   }
 }
 
 .swal-modal {
   padding: 0px;
-  // width: 1300px;
+  width: 700px;
+
   .edit-remark-modal {
     display: grid;
-    // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     grid-template-columns: 3fr 1fr;
-    flex-direction: row;
-    flex-wrap: wrap;
-    margin: 10px 10px 30px 10px;
-    justify-content: space-between;
+    align-items: baseline;
+
+    .whole-row {
+      grid-column-start: 1;
+      grid-column-end: 3;
+    }
+
+    .help-text {
+      padding: 10px 0;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      margin-top: -20px;
+    }
 
     label {
-      text-align: right;
-      margin-right: 10px;
-      font-weight: bold;
+      text-align: left;
       min-width: 200px;
     }
 
     .edit-remark-input {
       display: flex;
       align-items: baseline;
+    }
+
+    .edit-remark-checkboxes {
+      display: flex;
+      min-width: 300px;
+
+      .tm-checkbox {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+
+    .modal-control-buttons {
+      display: flex;
+      margin-top: 10px;
+      grid-column-start: 2;
+      grid-column-end: 3;
     }
   }
 }
