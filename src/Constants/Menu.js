@@ -154,7 +154,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       {
         text: 'Panel',
         route: '/profile/administrator/panel/',
-        icon: 'book',
+        icon: 'calendar',
         roles: [
           'superuser',
         ],

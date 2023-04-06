@@ -1,9 +1,11 @@
 import { useRef, useState } from 'react';
-import { get, includes, orderBy, uniqBy } from 'lodash';
+import { get, orderBy, uniqBy } from 'lodash';
 import { useDataLoader } from 'hooks';
+import swal from '@sweetalert/with-react';
 import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
+import EditRemark from '../EditRemark';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import api from '../../../api';
 
@@ -30,10 +32,21 @@ const PanelAdmin = () => {
   let rmrkCategoriesOrdered = uniqBy(rmrkCategories$, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
   rmrkCategoriesOrdered = orderBy(rmrkCategoriesOrdered, 'desc_text');
 
-  const groupLoading = includes([rmrkDataLoading, rmrkCatLoading], true);
+  const groupLoading = rmrkDataLoading || rmrkCatLoading;
 
-  const loadingSpinner = (<Spinner type="homepage-position-results" size="small" />);
+  const loadingSpinner = (<Spinner type="panel-admin-remarks" size="small" />);
   const errorAlert = (<Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />);
+
+
+  const createRemarkModal = () => {
+    swal({
+      title: 'Remark Editor',
+      button: false,
+      content: (
+        <EditRemark />
+      ),
+    });
+  };
 
   function getNavData(navType) {
     switch (navType) {
@@ -42,25 +55,32 @@ const PanelAdmin = () => {
           return errorAlert;
         }
         return (
-          <table>
-            <tr>
-              <th>Remark Category</th>
-              <th>Description</th>
-              <th>Active</th>
-            </tr>
-            {rmrkCategoriesOrdered.map(category => {
-              const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
-              return (
-                remarksInCategory.map(r => (
-                  <tr>
-                    <td>{category.desc_text}</td>
-                    <td>{r.text}</td>
-                    <td>{r.active_ind}</td>
-                  </tr>
-                ))
-              );
-            })}
-          </table>
+          <div>
+            <table>
+              <tr>
+                <th>Remark Category</th>
+                <th>Description</th>
+                <th>Active</th>
+              </tr>
+              <tr>
+                <td className="create-remark-button" colSpan="3">
+                  <button onClick={createRemarkModal}>Create New Remark</button>
+                </td>
+              </tr>
+              {rmrkCategoriesOrdered.map(category => {
+                const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
+                return (
+                  remarksInCategory.map(r => (
+                    <tr>
+                      <td>{category.desc_text}</td>
+                      <td>{r.text}</td>
+                      <td className="active-column">{r.active_ind}</td>
+                    </tr>
+                  ))
+                );
+              })}
+            </table>
+          </div>
         );
 
       case TST1:
@@ -78,7 +98,6 @@ const PanelAdmin = () => {
     }
   }
 
-
   return (
     <div className="panel-admin-tabs-container">
       <ProfileSectionTitle title="Panel Administration" icon="calendar" />
@@ -89,13 +108,7 @@ const PanelAdmin = () => {
         ref={navTabRef}
       />
       <div className="panel-admin-content">
-        {
-          groupLoading &&
-            loadingSpinner
-        }
-        {
-          !groupLoading &&
-          getNavData(selectedNav)}
+        {groupLoading ? loadingSpinner : getNavData(selectedNav)}
       </div>
     </div>
   );

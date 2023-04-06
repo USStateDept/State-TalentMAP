@@ -4,15 +4,61 @@
   .panel-admin-content {
     margin-left: 20px;
 
-    th {
+    .remarks-glossary-header {
+      font-family: Roboto;
+      font-size: 1em;
       font-weight: bold;
+      margin-top: 10px;
     }
+
     .tm-spinner{
       margin-top: 125px;
+    }
+
+
+    table {
+      th {
+        font-weight: bold;
+      }
+      .create-remark-button {
+        text-align: center;
+      }
+      .active-column {
+        text-align: center;
+      }
     }
   }
 
   .hello-greeting {
     margin-bottom: 25px;
+  }
+  .navTabs {
+    margin-left: 5px;
+  }
+}
+
+.swal-modal {
+  padding: 0px;
+  // width: 1300px;
+  .edit-remark-modal {
+    display: grid;
+    // grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: 3fr 1fr;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 10px 10px 30px 10px;
+    justify-content: space-between;
+
+    label {
+      text-align: right;
+      margin-right: 10px;
+      font-weight: bold;
+      min-width: 200px;
+    }
+
+    .edit-remark-input {
+      display: flex;
+      align-items: baseline;
+    }
   }
 }
