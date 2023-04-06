@@ -312,8 +312,13 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />
-                <div className="search-header">
-                  Search For An Employee
+                <div className="filterby-container">
+                  <div className="filterby-clear">
+                    <button className={`unstyled-button ${clearFilters ? '' : 'hide-clear-filters'}`} onClick={resetFilters}>
+                      <FA name="times" />
+                      Clear Filters
+                    </button>
+                  </div>
                 </div>
                 <div className="eas-inactive-toggle">
                   <ToggleButton
@@ -374,16 +379,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                         showIcon={false}
                       />
                     </div>
-                  </div>
-                </div>
-                <div className="filterby-container">
-                  <div className="filterby-clear">
-                    {clearFilters &&
-                      <button className="unstyled-button" onClick={resetFilters}>
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
-                    }
                   </div>
                 </div>
                 <div className="usa-width-one-whole empl-search-filters results-dropdown">
