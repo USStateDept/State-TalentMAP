@@ -8,6 +8,7 @@ exports[`RemarksGlossary Component matches snapshot 1`] = `
     changeText={[Function]}
     containerProps={Object {}}
     customContainerClass=""
+    id="remarks-search"
     inputProps={
       Object {
         "autoComplete": "off",

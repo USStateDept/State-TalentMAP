@@ -6,75 +6,97 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
 >
   <table>
     <tbody>
-      <tr>
+      <tr
+        key="Position Title"
+      >
         <th>
           <dt>
             Position Title
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="Position Number"
+      >
         <th>
           <dt>
             Position Number
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="Org"
+      >
         <th>
           <dt>
             Org
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="Grade"
+      >
         <th>
           <dt>
             Grade
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="Lang"
+      >
         <th>
           <dt>
             Lang
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="ETA"
+      >
         <th>
           <dt>
             ETA
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key=""
+      >
         <th>
           <dt />
         </th>
       </tr>
-      <tr>
+      <tr
+        key="TED"
+      >
         <th>
           <dt>
             TED
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="TOD"
+      >
         <th>
           <dt>
             TOD
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="Action"
+      >
         <th>
           <dt>
             Action
           </dt>
         </th>
       </tr>
-      <tr>
+      <tr
+        key="Travel"
+      >
         <th>
           <dt>
             Travel

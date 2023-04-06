@@ -25,13 +25,16 @@ const AgendaItemLegs = props => {
   const getData = (key, helperFunc = () => {}) => (
     <>
       {
-        legs$.map((leg) => (
-          <td>
-            {
-              <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
-            }
-          </td>
-        ))
+        legs$.map((leg, index) => {
+          const keyId = index;
+          return (
+            <td key={`${leg.id}-${keyId}`}>
+              {
+                <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
+              }
+            </td>
+          );
+        })
       }
     </>
   );
@@ -39,9 +42,13 @@ const AgendaItemLegs = props => {
   const getArrows = () => (
     <>
       {
-        legs$.map(() => (<td className="arrow">
-          <FA name="arrow-down" />
-        </td>))
+        legs$.map((leg, index) => {
+          const keyId = index;
+          return (
+            <td className="arrow" key={`${keyId}-${leg.id}`}>
+              <FA name="arrow-down" />
+            </td>);
+        })
       }
     </>
   );
@@ -112,7 +119,7 @@ const AgendaItemLegs = props => {
         <tbody>
           {
             tableData$.map(tr => (
-              <tr>
+              <tr key={tr.title}>
                 <th>
                   <dt>{tr.title}</dt>
                 </th>
