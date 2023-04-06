@@ -60,23 +60,11 @@ const ClientBadge = ({ type, status, showShortCode, editView, onChange, id }) =>
 };
 
 ClientBadge.propTypes = {
-  type: PropTypes.oneOf([
-    { code: '3', text: PropTypes.string, seasons: PropTypes.array },
-    { code: '4', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'R', text: PropTypes.string, seasons: PropTypes.array },
-    { code: '6', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'A', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'C', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'C1', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'CC', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'D', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'F', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'F1', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'F2', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'M', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'P', text: PropTypes.string, seasons: PropTypes.array },
-    { code: 'T', text: PropTypes.string, seasons: PropTypes.array },
-  ]).isRequired,
+  type: PropTypes.shape({
+    code: PropTypes.oneOf(['3', '4', 'R', '6', 'A', 'C', 'C1', 'CC', 'D', 'F', 'F1', 'F2', 'M', 'P', 'T', '8']),
+    seasons: PropTypes.arrayOf(PropTypes.shape({})),
+    glossary_term: PropTypes.string,
+  }),
   status: PropTypes.bool,
   showShortCode: PropTypes.bool,
   editView: PropTypes.bool,

@@ -209,7 +209,7 @@ AgendaItemRow.propTypes = {
     }),
   }),
   isCDO: PropTypes.bool,
-  perdet: PropTypes.number,
+  perdet: PropTypes.string,
   isPanelMeetingView: PropTypes.bool,
 };
 

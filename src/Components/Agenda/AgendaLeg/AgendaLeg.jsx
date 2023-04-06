@@ -97,7 +97,7 @@ const AgendaLeg = props => {
       onChange={(e) => updateDropdown(key, e.target.value)}
       disabled={disabled}
     >
-      <option selected key={null} value={''}>
+      <option key={null} value={''}>
         {defaultText}
       </option>
       {
@@ -193,6 +193,7 @@ const AgendaLeg = props => {
             className={`grid-col-${legNum} grid-row-${i + 2}${rowNum === (i + 2) ? ' grid-row-hover' : ''}${(includes(dropdowns, cData.title) && isEf) ? ' ef-pos-dropdown' : ''}`}
             onMouseOver={() => onHover$(i + 2)}
             onMouseLeave={() => onHover$('')}
+            key={cData.title}
           >
             {cData.content}
           </InteractiveElement>
@@ -212,7 +213,7 @@ AgendaLeg.propTypes = {
   onClose: PropTypes.func.isRequired,
   updateLeg: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
-  rowNum: PropTypes.number.isRequired,
+  rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isReadOnly: PropTypes.bool,
 };
 
