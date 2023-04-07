@@ -39,6 +39,7 @@ class ResultsContainer extends Component {
       defaultSort, pageSizes, defaultPageSize, refreshKey, pillFilters, userProfile,
       defaultPageNumber, queryParamUpdate, onQueryParamToggle, bidList, toggle,
       client } = this.props;
+
     const { isTandemSearch } = this.context;
     return (
       <div className="results-container">
@@ -195,10 +196,4 @@ export const mapDispatchToProps = dispatch => ({
   toggle: () => dispatch(toggleMobileFilter(true)),
 });
 
-const mapStateToProps = ({
-  clientView: { client },
-}) => ({
-  client,
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ResultsContainer);
+export default connect(null, mapDispatchToProps)(ResultsContainer);

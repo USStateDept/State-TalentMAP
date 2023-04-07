@@ -125,6 +125,7 @@ const AgendaItemLegsForm = props => {
                     className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
                     onMouseOver={() => onHover(i + 2)}
                     onMouseLeave={() => onHover('')}
+                    key={title}
                   >
                     {title}
                   </InteractiveElement>
@@ -148,20 +149,24 @@ const AgendaItemLegsForm = props => {
               }
               {
                 // grid-col 2 or 3 dependent on hasEf
-                legs.map((leg, i) => (
-                  <AgendaLeg
-                    leg={leg}
-                    legNum={i + (hasEf ? 3 : 2)}
-                    TODs={TODs}
-                    legActionTypes={legActionTypes}
-                    travelFunctions={travelFunctions}
-                    onClose={onClose$}
-                    updateLeg={updateLeg$}
-                    onHover={onHover}
-                    rowNum={rowHoverNum}
-                    isReadOnly={isReadOnly}
-                  />
-                ))
+                legs.map((leg, i) => {
+                  const keyId = i;
+                  return (
+                    <AgendaLeg
+                      leg={leg}
+                      key={`${leg.ail_seq_num}-${keyId}`}
+                      legNum={i + (hasEf ? 3 : 2)}
+                      TODs={TODs}
+                      legActionTypes={legActionTypes}
+                      travelFunctions={travelFunctions}
+                      onClose={onClose$}
+                      updateLeg={updateLeg$}
+                      onHover={onHover}
+                      rowNum={rowHoverNum}
+                      isReadOnly={isReadOnly}
+                    />
+                  );
+                })
               }
             </div>
           </div>

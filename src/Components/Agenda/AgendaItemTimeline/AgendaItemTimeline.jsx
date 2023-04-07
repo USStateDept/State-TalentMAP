@@ -102,7 +102,9 @@ AgendaItemTimeline.propTypes = {
   updateLegs: PropTypes.func,
   asgSepBid: PropTypes.shape({}),
   efPos: PropTypes.shape({}),
-  agendaItemLegs: PropTypes.arrayOf({}),
+  agendaItemLegs: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ),
   isReadOnly: PropTypes.bool,
 };
 
