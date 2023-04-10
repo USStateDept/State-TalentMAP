@@ -31,6 +31,10 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
   const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+
+  const ai2 = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}`);
+  console.log(ai2);
+
   const clientDataLoading = client_data?.loading ?? false;
   const clientDataError = client_data?.error ?? false;
 
