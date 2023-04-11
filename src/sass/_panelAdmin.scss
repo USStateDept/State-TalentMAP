@@ -51,6 +51,46 @@
     .edit-remark-input {
       display: flex;
       align-items: baseline;
+
+      .remark-insertion-list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 30%;
+
+        .remark-insertion {
+          display: flex;
+          justify-content: space-between;
+          width: 100%
+        }
+
+        .insertion-icon {
+          color: $color-red;
+        }
+      }
+
+      .add-insertion-container {
+        display: flex;
+        width: 100%;
+
+        .add-insertion-button {
+          font-size: 14px;
+          padding: 5px;
+          height: 40px;
+          min-width: 150px;
+        }
+
+        .add-insertion-input-container {
+          width: 100%;
+          display: flex;
+          align-items: baseline;
+
+          .insertion-icon {
+            color: $primary-blue;
+            margin-left: -25px;
+            position: relative;
+          }
+        }
+      }
     }
 
     .edit-remark-checkboxes-controls {
