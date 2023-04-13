@@ -37,7 +37,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const client_data_fallback = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}`);
   const clientDataFallback = (!client_data_fallback.loading && !client_data_fallback.error)
-    ? client_data_fallback?.data?.data?.results[0]?.person
+    ? client_data_fallback?.data?.data?.results[0]
     : {};
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
@@ -85,7 +85,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '') || clientDataFallback?.employeeID;
+    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '') || clientDataFallback?.perdet_seq_number;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
@@ -99,7 +99,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
 
-  const employeeName = client_data.loading ? '' : (client_data?.data?.data?.name || clientDataFallback?.fullName || '');
+  const employeeName = client_data.loading ? '' : (client_data?.data?.data?.name || clientDataFallback?.name || '');
   // handles error where some employees have no Profile
   const employeeHasCDO = client_data.loading
     ? false
