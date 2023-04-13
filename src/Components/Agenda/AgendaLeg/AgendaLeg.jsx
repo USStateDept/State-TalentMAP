@@ -6,8 +6,9 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
+import TextInput from 'Components/TextInput';
 
 const AgendaLeg = props => {
   const {
@@ -24,6 +25,8 @@ const AgendaLeg = props => {
     isReadOnly,
   } = props;
 
+  const [todInput, setTodInput] = useState('');
+
   const disabled = isReadOnly || isEf;
 
   const onHover$ = (row) => {
@@ -38,12 +41,92 @@ const AgendaLeg = props => {
     onClose(leg);
   };
 
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const OK = () => {
+    TODs.push({
+      id: todInput,
+      code: todInput,
+      is_active: true,
+      months: todInput,
+      short_description: todInput,
+      long_description: todInput,
+    });
+    updateLeg(leg.ail_seq_num, 'tourOfDutyCode', todInput);
+    swal.close();
+  };
+
+  const tour = (e) => {
+    console.log('tour');
+    console.log(e);
+  };
+
+  // const restAndRelaxation = (e) => {
+  //   console.log('restAndRelaxation');
+  //   console.log(e);
+  // };
+
+  // const homeLeave = (e) => {
+  //   console.log('homeLeave');
+  //   console.log(e);
+  // };
+
+  const TODModal = () => {
+    swal({
+      title: 'Tour of Duty',
+      closeOnEsc: true,
+      button: false,
+      className: 'swal-aim-ted-calendar',
+      content: (
+        <div className="ted-modal-content-container">
+          <div>
+            <button onClick={tour}>Tour</button>
+            {/* <button onClick={restAndRelaxation}>restAndRelaxation</button> */}
+            {/* <button onClick={homeLeave}>homeLeave</button> */}
+            <TextInput
+              changeText={e => (setTodInput(e))}
+              value={todInput}
+              id={'frequent-positions-search'}
+              placeholder=""
+              inputProps={{
+                autoComplete: 'off',
+              }}
+            />
+          </div>
+          <div className="ted-button">
+            <button onClick={OK}>OK</button>
+            <button onClick={cancel}>Cancel</button>
+          </div>
+          <div className="ted-button">
+            <div>{todInput}</div>
+          </div>
+        </div>
+      ),
+    });
+  };
+
   const updateDropdown = (dropdown, value) => {
+    if (dropdown === 'tourOfDutyCode' && value === 'OTHER') {
+      TODModal();
+      return;
+    }
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
     if (dropdown === 'legEndDate') {
       swal.close();
     }
   };
+
+  const initialRender = useRef(true);
+  useEffect(() => {
+    if (initialRender.current) {
+      initialRender.current = false;
+    } else {
+      TODModal();
+    }
+  }, [todInput]);
 
   useEffect(() => {
     if (!isEf) {
@@ -52,11 +135,6 @@ const AgendaLeg = props => {
       updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
     }
   }, []);
-
-  const cancel = (e) => {
-    e.preventDefault();
-    swal.close();
-  };
 
   const calendarModal = () => {
     swal({
@@ -205,7 +283,9 @@ const AgendaLeg = props => {
 
 AgendaLeg.propTypes = {
   isEf: PropTypes.bool,
-  leg: PropTypes.shape({}),
+  leg: PropTypes.shape({
+    ail_seq_num: PropTypes.string,
+  }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   legActionTypes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
