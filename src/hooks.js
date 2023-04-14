@@ -61,36 +61,40 @@ export const dataReducer = (state, action) => {
   }
 };
 
-export const useDataLoader = (getData, ...args) => {
-  const [nonce, setNonce] = useState(Date.now());
-  const [state, dispatch] = useReducer(dataReducer, {
-    data: null,
-    error: null,
-    loading: true,
-  });
+// eslint-disable-next-line consistent-return
+export const useDataLoader = (getData, url, execute = true) => {
+  if (execute) {
+    const [nonce, setNonce] = useState(Date.now());
+    const [state, dispatch] = useReducer(dataReducer, {
+      data: null,
+      error: null,
+      loading: true,
+    });
 
-  useEffect(() => {
-    let cancel = false;
+    useEffect(() => {
+      let cancel = false;
 
-    dispatch({ type: 'get' });
-    getData(...args)
-      .then(data => {
-        // eslint-disable-next-line no-unused-expressions
-        !cancel && dispatch({ type: 'success', payload: { data } });
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-unused-expressions
-        !cancel && dispatch({ type: 'error', payload: { error } });
-      });
+      dispatch({ type: 'get' });
+      getData(url)
+        .then(data => {
+          // eslint-disable-next-line no-unused-expressions
+          !cancel && dispatch({ type: 'success', payload: { data } });
+        })
+        .catch(error => {
+          // eslint-disable-next-line no-unused-expressions
+          !cancel && dispatch({ type: 'error', payload: { error } });
+        });
 
-    return () => {
-      cancel = true;
+      return () => {
+        cancel = true;
+      };
+    }, [nonce, url]);
+
+    const retry = () => {
+      setNonce(Date.now());
     };
-  }, [nonce, ...args]);
 
-  const retry = () => {
-    setNonce(Date.now());
-  };
-
-  return { ...state, retry };
+    return { ...state, retry };
+  }
+  return {};
 };
