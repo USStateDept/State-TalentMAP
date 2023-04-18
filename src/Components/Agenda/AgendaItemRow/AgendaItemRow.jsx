@@ -32,7 +32,7 @@ const AgendaItemRow = props => {
   const userLanguage = get(clientData, 'languages') || [];
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
-  const cdo = get(clientData, 'cdo.name') || 'None Listed';
+  const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
   const remarks = get(agenda, 'remarks') || [];
