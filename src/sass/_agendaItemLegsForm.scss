@@ -146,6 +146,32 @@
     width: 600px;
   }
 
+  .tod-modal-container {
+    border-top: 1px solid $color-blue-mariner;
+  }
+
+  .tod-input-and-button {
+    flex-basis: 180px;
+  }
+
+  .custom-tod-pill {
+    pointer-events: none;
+  }
+
+  .tod-modal-wrapper {
+    display: flex;
+    padding: 10px;
+  }
+
+  .custom-tod-pill {
+    border-radius: 80%;
+  }
+
+  .swal-aim-custom-tod {
+    padding: 0px;
+    width: 600px;
+  }
+
 .leg-dropdown {
   background-image: none;
   border: 2px solid transparent;
