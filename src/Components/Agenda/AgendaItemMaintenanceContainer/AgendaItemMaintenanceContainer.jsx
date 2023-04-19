@@ -30,15 +30,21 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');
-  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
 
-  const clientDataLoading = client_data?.loading ?? false;
-  const clientDataError = client_data?.error ?? false;
+  const clientData = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const clientDataLoading = clientData?.loading ?? false;
+  const clientDataError = clientData?.error ?? false;
 
-  const client_data_fallback = useDataLoader(api().get, `/fsbid/agenda_employees/employee/${id}`);
-  const clientDataFallback = (!client_data_fallback.loading && !client_data_fallback.error)
-    ? client_data_fallback?.data?.data?.results[0]
+  const clientFallback = useDataLoader(api().get, `/fsbid/persons/${id}`);
+  const clientFallbackData = (!clientFallback.loading && !clientFallback.error)
+    ? clientFallback?.data?.data?.results?.[0]
     : {};
+
+  const employeeName = clientData.loading ? '' : (clientData?.data?.data?.name || clientFallbackData?.name || '');
+  // handles error where some employees have no Profile
+  const employeeHasCDO = clientData.loading
+    ? false
+    : !!(clientData?.data?.data?.cdo?.name || clientFallbackData?.cdo?.name);
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -85,7 +91,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '') || clientDataFallback?.perdet_seq_number;
+    const personId = get(clientData, 'data.data.id', '') || clientFallbackData?.per_pii_seq_num;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
@@ -98,12 +104,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   }
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
-
-  const employeeName = client_data.loading ? '' : (client_data?.data?.data?.name || clientDataFallback?.name || '');
-  // handles error where some employees have no Profile
-  const employeeHasCDO = client_data.loading
-    ? false
-    : !!(client_data?.data?.data?.cdo?.name || clientDataFallback?.cdo?.name);
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -214,7 +214,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
-                clientData={client_data}
+                clientData={clientData}
                 clientError={clientDataError}
                 clientLoading={clientDataLoading}
                 perdet={id}
