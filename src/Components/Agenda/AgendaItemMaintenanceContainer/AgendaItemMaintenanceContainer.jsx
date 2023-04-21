@@ -4,7 +4,8 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty } from 'lodash';
+import { drop, filter, find, get, has } from 'lodash';
+// import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -26,7 +27,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
   // temporary until business logic is added for readOnly items
-  const isReadOnly = !isEmpty(agendaItemData);
+  const isReadOnly = false;
+  // const isReadOnly = !isEmpty(agendaItemData);
 
   const id = get(props, 'match.params.id'); // client's perdet
   const isCDO = get(props, 'isCDO');

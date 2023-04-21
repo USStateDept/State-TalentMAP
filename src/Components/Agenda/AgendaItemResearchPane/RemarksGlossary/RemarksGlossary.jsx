@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
@@ -5,7 +6,6 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import DatePicker from 'react-datepicker';
 import Fuse from 'fuse.js';
 
 const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
@@ -41,39 +41,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
 
-  // eslint-disable-next-line no-unused-vars
-  const getInsertionType = (type, ri) => {
-    // date: date, date2,
-    // number:  #,
-    // text: not sure yet, but likely to be the default
-    const type$ = type.replace(/[{}\d]/g, '').replace(/#/g, 'number');
-
-    const returnTypes = {
-      text: (<TextInput
-        value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
-        changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
-        customContainerClass="remark-input"
-        placeholder={type$}
-        id="remarks-custom-input"
-        key={ri.riseqnum}
-        inputProps={{ autoComplete: 'off' }}
-      />),
-      date: (<DatePicker
-        selected={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
-        onChange={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
-        showTimeSelect
-        timeFormat="HH:mm"
-        placeholderText={type$}
-        timeIntervals={15}
-        timeCaption="time"
-        dateFormat="MMMM d, yyyy h:mm aa"
-        className="remark-input"
-      />),
-    };
-
-    return returnTypes[type$] || returnTypes.text;
-  };
-
   const renderText = r => {
     const rText = r?.text?.split(/(\s+)/) || '';
     const rInserts = r?.remark_inserts || [];
@@ -82,13 +49,46 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {
-        rText.splice(rTextI, 1, getInsertionType(rInsertionText, a));
+        rText.splice(rTextI, 1, <TextInput
+          value={getTextInputValue(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'))}
+          changeText={v => setTextInput(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'), v)}
+          customContainerClass="remark-input"
+          placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
+          id="remarks-custom-input"
+          key={a.riseqnum}
+          inputProps={{ autoComplete: 'off' }}
+        />);
       }
     });
     return (
       <div className="remark-input-container">{rText}</div>
     );
   };
+
+  const getInteractiveType = (r, textInputs) => {
+
+    //for this category go through the user remarks and if they already
+    // have a selection in that category, then we'll keep track of it for all categories a
+    // and only enable it for the first one
+    /* eslint-disable no-console */
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    console.log('🦄 current: remarkCategoriesCodes', remarkCategoriesCodes);
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+
+    const returnTypes = {
+      mutallyExcusive: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
+        <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+      </InteractiveElement>),
+      notutallyExcusive: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
+        <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+      </InteractiveElement>),
+    };
+
+    return returnTypes['mutallyExcusive'];
+  };
+
+
+
 
   const [remarks$, setRemarks$] = useState(remarks);
 
@@ -114,7 +114,9 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const remarks$$ = term ? remarks$ : remarks;
 
-  let remarkCategories$ = uniqBy(remarkCategories, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
+  const remarkCategoriesCodes = uniqBy(remarkCategories, 'code');
+
+  let remarkCategories$ = remarkCategoriesCodes.map(({ code, desc_text }) => ({ code, desc_text }));
   remarkCategories$ = orderBy(remarkCategories$, 'desc_text');
 
   const processClick = remark => {
@@ -145,15 +147,19 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
+          // eslint-disable-next-line dot-notation
+          const isExclusiveCat = remarksInCategory?.[0]?.['mutually_exclusive_ind'] === 'Y';
+          const isExclusiveCatText = isExclusiveCat ? ' (one remark per this category)' : '';
+
           return (
             <div key={category.code}>
-              <div id={`remark-category-${category.code}`} className={`remark-category remark-category--${category.code}`}>{category.desc_text}</div>
+              <div id={`remark-category-${category.code}`} className={`remark-category remark-category--${category.code}`}>
+                {category.desc_text}{isExclusiveCatText}
+              </div>
               <ul>
                 {remarksInCategory.map(r => (
                   (<li key={r.seq_num}>
-                    <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-                      <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
-                    </InteractiveElement>
+                    {getInteractiveType(r, textInputs)}
                     {renderText(r)}
                   </li>)
                 ))}
