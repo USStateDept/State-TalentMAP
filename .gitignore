@@ -25,7 +25,6 @@ certs/**/*
 .env.development.local
 .env.test.local
 .env.production.local
-/.vscode
 stats.json
 
 npm-debug.log*

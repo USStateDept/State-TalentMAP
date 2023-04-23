@@ -154,6 +154,11 @@
     flex-basis: 180px;
   }
 
+  #tod-input {
+    width: 50%;
+    display: inline;
+  }
+
   .custom-tod-pill {
     pointer-events: none;
   }
@@ -165,6 +170,10 @@
 
   .custom-tod-pill {
     border-radius: 80%;
+  }
+
+  .tod-buttons {
+    margin: 10px;
   }
 
   .swal-aim-custom-tod {

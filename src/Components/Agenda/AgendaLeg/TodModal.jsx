@@ -29,7 +29,7 @@ const TodModal = (props) => {
           <TextInput
             changeText={e => (setTourInput(e))}
             value={tourInput}
-            id={'tod-tour-input'}
+            id="tod-input"
             placeholder=""
             inputProps={{
               autoComplete: 'off',
@@ -41,7 +41,7 @@ const TodModal = (props) => {
           <TextInput
             changeText={e => (setRrInput(e))}
             value={rrInput}
-            id={'tod-rr-input'}
+            id="tod-input"
             placeholder=""
             inputProps={{
               autoComplete: 'off',
@@ -53,7 +53,7 @@ const TodModal = (props) => {
           <TextInput
             changeText={e => (setHlInput(e))}
             value={hlInput}
-            id={'tod-hl-input'}
+            id="tod-input"
             placeholder=""
             inputProps={{
               autoComplete: 'off',
@@ -61,11 +61,11 @@ const TodModal = (props) => {
           />
         </div>
       </div>
-      <div className="ted-button">
+      <div className="tod-buttons">
         <button onClick={submit}>OK</button>
         <button onClick={cancel}>Cancel</button>
       </div>
-      <div className="ted-button">
+      <div className="tod-buttons">
         <div>{combinedTodCode}</div>
       </div>
     </div>
