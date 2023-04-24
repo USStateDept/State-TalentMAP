@@ -211,9 +211,9 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
-                clientData={employeeData}
-                clientError={employeeDataError}
-                clientLoading={employeeDataLoading}
+                clientData={employeeData$}
+                clientError={employeeError}
+                clientLoading={employeeLoading}
                 perdet={id}
                 ref={researchPaneRef}
                 updateSelection={isReadOnly ? () => {} : updateSelection}
