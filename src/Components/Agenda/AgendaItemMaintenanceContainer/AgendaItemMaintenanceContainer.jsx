@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { useDispatch } from 'react-redux';
@@ -28,23 +29,20 @@ const AgendaItemMaintenanceContainer = (props) => {
   // temporary until business logic is added for readOnly items
   const isReadOnly = !isEmpty(agendaItemData);
 
-  const id = get(props, 'match.params.id'); // client's perdet
+  const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
 
-  const clientData = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const clientDataLoading = clientData?.loading ?? false;
-  const clientDataError = clientData?.error ?? false;
+  const { data: clientData, error: clientDataError, loading: clientDataLoading } = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const { data: clientDataFallback, error: clientDataFallbackError, loading: clientDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
 
-  const clientFallback = useDataLoader(api().get, `/fsbid/persons/${id}`);
-  const clientFallbackData = (!clientFallback.loading && !clientFallback.error)
-    ? clientFallback?.data?.data?.results?.[0]
-    : {};
+  const clientLoading = clientDataLoading || clientDataFallbackLoading;
+  const clientError = clientDataError || clientDataFallbackError;
 
-  const employeeName = clientData.loading ? '' : (clientData?.data?.data?.name || clientFallbackData?.name || '');
+  const clientData$ = clientData?.data || clientDataFallback?.data?.results?.[0];
+
+  const employeeName = clientLoading ? '' : clientData$?.name;
   // handles error where some employees have no Profile
-  const employeeHasCDO = clientData.loading
-    ? false
-    : !!(clientData?.data?.data?.cdo?.name || clientFallbackData?.cdo?.name);
+  const employeeHasCDO = clientLoading ? false : !!(clientData$?.cdo?.name);
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
