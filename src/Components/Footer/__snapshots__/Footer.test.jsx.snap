@@ -57,9 +57,9 @@ exports[`Footer Component matches snapshot 1`] = `
             Need Help? Contact 
           </span>
           <a
-            href="mailto:HRHelpDesk@state.gov"
+            href="mailto:GTMHelpDesk@state.gov"
           >
-            HRHelpDesk@state.gov
+            GTMHelpDesk@state.gov
           </a>
         </div>
       </div>
