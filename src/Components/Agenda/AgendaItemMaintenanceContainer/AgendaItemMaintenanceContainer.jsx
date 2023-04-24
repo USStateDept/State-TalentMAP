@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { useDispatch } from 'react-redux';
