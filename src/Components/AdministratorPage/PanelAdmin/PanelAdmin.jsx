@@ -26,8 +26,8 @@ const PanelAdmin = () => {
   const { data: remarks, error: rmrkDataError, loading: rmrkDataLoading } = useDataLoader(api().get, '/fsbid/agenda/remarks/');
   const { data: rmrkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
-  const remarks$ = remarks?.data?.results ?? [];
-  const rmrkCategories$ = rmrkCategories?.data?.results ?? [];
+  const remarks$ = remarks?.data?.results || [];
+  const rmrkCategories$ = rmrkCategories?.data?.results || [];
 
   let rmrkCategoriesOrdered = uniqBy(rmrkCategories$, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
   rmrkCategoriesOrdered = orderBy(rmrkCategoriesOrdered, 'desc_text');
