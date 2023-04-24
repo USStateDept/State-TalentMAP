@@ -38,8 +38,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   // eslint-disable-next-line no-unused-vars
   const clientError = clientDataError || clientDataFallbackError;
 
-  const clientData$ = clientData?.data || clientDataFallback?.data?.results?.[0];
-
+  // eslint-disable-next-line max-len
+  const clientData$ = clientData?.data.length ? clientData?.data : clientDataFallback?.data?.results?.[0];
   const employeeName = clientLoading ? '' : clientData$?.name;
   // handles error where some employees have no Profile
   const employeeHasCDO = clientLoading ? false : !!(clientData$?.cdo?.name);
