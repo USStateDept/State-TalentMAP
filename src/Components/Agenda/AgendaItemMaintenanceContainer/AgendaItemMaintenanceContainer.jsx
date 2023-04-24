@@ -36,6 +36,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: clientDataFallback, error: clientDataFallbackError, loading: clientDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
 
   const clientLoading = clientDataLoading || clientDataFallbackLoading;
+  // eslint-disable-next-line no-unused-vars
   const clientError = clientDataError || clientDataFallbackError;
 
   const clientData$ = clientData?.data || clientDataFallback?.data?.results?.[0];
@@ -89,7 +90,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = get(clientData, 'data.data.id', '') || clientFallbackData?.per_pii_seq_num;
+    const personId = clientData$?.id || id;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
