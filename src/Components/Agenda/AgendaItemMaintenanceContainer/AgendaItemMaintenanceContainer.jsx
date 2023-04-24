@@ -31,17 +31,17 @@ const AgendaItemMaintenanceContainer = (props) => {
   const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
 
-  const { data: clientData, error: clientDataError, loading: clientDataLoading } = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const { data: clientDataFallback, error: clientDataFallbackError, loading: clientDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
+  const { data: employeeData, error: employeeDataError, loading: employeeDataLoading } = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const { data: employeeDataFallback, error: employeeDataFallbackError, loading: employeeDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
 
-  const clientLoading = clientDataLoading || clientDataFallbackLoading;
+  const employeeLoading = employeeDataLoading || employeeDataFallbackLoading;
   // eslint-disable-next-line no-unused-vars
-  const clientError = clientDataError || clientDataFallbackError;
+  const employeeError = employeeDataError || employeeDataFallbackError;
 
-  const clientData$ = clientData?.data || clientDataFallback?.data?.results?.[0];
-  const employeeName = clientLoading ? '' : clientData$?.name;
+  const employeeData$ = employeeData?.data || employeeDataFallback?.data?.results?.[0];
+  const employeeName = employeeLoading ? '' : employeeData$?.name;
   // handles error where some employees have no Profile
-  const employeeHasCDO = clientLoading ? false : !!(clientData$?.cdo?.name);
+  const employeeHasCDO = employeeLoading ? false : !!(employeeData$?.cdo?.name);
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -88,7 +88,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = clientData$?.id || id;
+    const personId = employeeData$?.id || id;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
@@ -211,9 +211,9 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
-                clientData={clientData}
-                clientError={clientDataError}
-                clientLoading={clientDataLoading}
+                clientData={employeeData}
+                clientError={employeeDataError}
+                clientLoading={employeeDataLoading}
                 perdet={id}
                 ref={researchPaneRef}
                 updateSelection={isReadOnly ? () => {} : updateSelection}
