@@ -47,7 +47,7 @@ const AgendaLeg = props => {
   };
 
   const submitCustomTod = (todArray) => {
-    const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).toString();
+    const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
     const customTod =
     [{
       id: todCode,
