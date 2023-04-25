@@ -35,7 +35,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: employeeDataFallback, error: employeeDataFallbackError, loading: employeeDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
 
   const employeeLoading = employeeDataLoading || employeeDataFallbackLoading;
-  const employeeError = employeeDataError || employeeDataFallbackError;
+  const employeeError = employeeDataError && employeeDataFallbackError;
 
   const employeeData$ = employeeData?.data || employeeDataFallback?.data?.results?.[0];
   const employeeName = employeeLoading ? '' : employeeData$?.name;

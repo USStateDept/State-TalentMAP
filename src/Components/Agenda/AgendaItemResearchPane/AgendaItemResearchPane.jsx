@@ -56,7 +56,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const { data: rmrkCategories, error: rmrkCatError, loading: rmrkCatLoading } = useDataLoader(api().get, '/fsbid/agenda/remark-categories/');
 
   const assignments = asgHistory?.data ?? [];
-  const languages = get(clientData, 'data.languages') || [];
+  const languages = get(clientData, 'languages') || [];
 
   const remarks$ = remarks?.data?.results?.filter(remark => remark.active_ind === 'Y') || [];
   const rmrkCategories$ = rmrkCategories?.data?.results ?? [];
