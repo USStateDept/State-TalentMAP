@@ -46,7 +46,8 @@ const AgendaLeg = props => {
     swal.close();
   };
 
-  const submitCustomTod = (todCode) => {
+  const submitCustomTod = (todArray) => {
+    const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).toString();
     const customTod =
     [{
       id: todCode,

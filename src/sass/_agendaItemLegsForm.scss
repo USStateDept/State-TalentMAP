@@ -146,39 +146,38 @@
     width: 600px;
   }
 
-  .tod-modal-container {
-    border-top: 1px solid $color-blue-mariner;
-  }
-
-  .tod-input-and-button {
-    flex-basis: 180px;
-  }
-
-  #tod-input {
-    width: 50%;
-    display: inline;
-  }
-
-  .custom-tod-pill {
-    pointer-events: none;
-  }
-
-  .tod-modal-wrapper {
-    display: flex;
-    padding: 10px;
-  }
-
-  .custom-tod-pill {
-    border-radius: 80%;
-  }
-
-  .tod-buttons {
-    margin: 10px;
-  }
-
   .swal-aim-custom-tod {
     padding: 0px;
     width: 600px;
+  }
+
+  .tod-modal-container {
+    border-top: 1px solid $color-blue-mariner;
+    .tod-modal-wrapper {
+      padding: 10px;
+    }
+    .tod-input-and-button {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+    }
+    .custom-tod-pill {
+      pointer-events: none;
+      border-radius: 80%;
+    }
+    .tod-buttons {
+      margin: 10px;
+    }
+    .tod-add-clickable {
+      align-self: center;
+      .tod-icon {
+        color: $color-blue-hover;
+      }
+      .tod-unclickable, .tod-unclickable:hover {
+        color: $color-gray;
+        cursor: not-allowed;
+      }
+    }
   }
 
 .leg-dropdown {
