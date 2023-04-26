@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import TextInput from 'Components/TextInput';
 import InteractiveElement from 'Components/InteractiveElement';
 import FA from 'react-fontawesome';
 
@@ -16,10 +15,12 @@ const TodModal = (props) => {
   const [combinedTodCode, setcombinedTodCode] = useState([]);
 
   const addTod = (input, type) => {
-    setcombinedTodCode([...combinedTodCode, `${input}${type}`]);
-    if (type === 'MM') setTourInput('');
-    if (type === 'RR') setRrInput('');
-    if (type === 'HL') setHlInput('');
+    if (input.length) {
+      setcombinedTodCode([...combinedTodCode, `${input}${type}`]);
+      if (type === 'MM') setTourInput('');
+      if (type === 'RR') setRrInput('');
+      if (type === 'HL') setHlInput('');
+    }
   };
 
   const submit = () => {
@@ -30,24 +31,28 @@ const TodModal = (props) => {
     setcombinedTodCode('');
   };
 
+  const handleKeyDown = (event, updateFn) => {
+    if (event.key === 'Enter') {
+      updateFn();
+    }
+  };
+
   return (
     <div className="tod-modal-container">
       <div className="tod-modal-wrapper">
         <div className="tod-input-and-button">
-          <button className="custom-tod-pill">TR</button>
-          <span>
-            <TextInput
-              changeText={e => (setTourInput(e))}
-              value={tourInput}
-              id="tod-input"
-              placeholder=""
-              inputProps={{
-                autoComplete: 'off',
-              }}
-            />
-          </span>
+          <label htmlFor="tour">Tour:</label>
+          <input
+            type="number"
+            id="tour"
+            value={tourInput}
+            onChange={e => setTourInput(e.target.value)}
+            min="1"
+            max="99"
+            onKeyDown={(e) => handleKeyDown(e, () => addTod(tourInput, 'MM'))}
+          />
           <InteractiveElement
-            onClick={tourInput.length ? () => addTod(tourInput, 'MM') : () => {}}
+            onClick={() => addTod(tourInput, 'MM')}
             title="Add to Tour Length"
             className="tod-add-clickable"
           >
@@ -58,20 +63,18 @@ const TodModal = (props) => {
           </InteractiveElement>
         </div>
         <div className="tod-input-and-button">
-          <button className="custom-tod-pill">RR</button>
-          <span>
-            <TextInput
-              changeText={e => (setRrInput(e))}
-              value={rrInput}
-              id="tod-input"
-              placeholder=""
-              inputProps={{
-                autoComplete: 'off',
-              }}
-            />
-          </span>
+          <label htmlFor="rr">RR:</label>
+          <input
+            type="number"
+            id="rr"
+            value={rrInput}
+            onChange={e => setRrInput(e.target.value)}
+            min="1"
+            max="99"
+            onKeyDown={(e) => handleKeyDown(e, () => addTod(rrInput, 'RR'))}
+          />
           <InteractiveElement
-            onClick={rrInput.length ? () => addTod(rrInput, 'RR') : () => {}}
+            onClick={() => addTod(rrInput, 'RR')}
             title="Add R&R"
             className="tod-add-clickable"
           >
@@ -82,20 +85,18 @@ const TodModal = (props) => {
           </InteractiveElement>
         </div>
         <div className="tod-input-and-button">
-          <button className="custom-tod-pill">HL</button>
-          <span>
-            <TextInput
-              changeText={e => (setHlInput(e))}
-              value={hlInput}
-              id="tod-input"
-              placeholder=""
-              inputProps={{
-                autoComplete: 'off',
-              }}
-            />
-          </span>
+          <label htmlFor="hl">HL:</label>
+          <input
+            type="number"
+            id="hl"
+            value={hlInput}
+            onChange={e => setHlInput(e.target.value)}
+            min="1"
+            max="99"
+            onKeyDown={(e) => handleKeyDown(e, () => addTod(hlInput, 'HL'))}
+          />
           <InteractiveElement
-            onClick={hlInput.length ? () => addTod(hlInput, 'HL') : () => {}}
+            onClick={() => addTod(hlInput, 'HL')}
             title="Add Home Leave"
             className="tod-add-clickable"
           >
@@ -106,16 +107,20 @@ const TodModal = (props) => {
           </InteractiveElement>
         </div>
       </div>
-      <div className="tod-buttons">
-        <button onClick={submit}>OK</button>
-        <button onClick={cancel}>Cancel</button>
-        <button onClick={clear}>Clear</button>
-      </div>
-      <div className="tod-buttons">
-        <div>Tour: {combinedTodCode.length
+      <div className="tod-preview">
+        <span>Preview</span>
+        <div>{combinedTodCode.length
           ? combinedTodCode.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`))
           : ''}
         </div>
+        <button className={`unstyled-button ${combinedTodCode.length ? '' : 'hide-clear'}`} onClick={clear}>
+          <FA name="times" />
+          Clear
+        </button>
+      </div>
+      <div className="tod-buttons">
+        <button onClick={submit}>OK</button>
+        <button onClick={cancel}>Cancel</button>
       </div>
     </div>
   );
