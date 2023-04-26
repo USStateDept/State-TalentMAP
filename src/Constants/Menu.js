@@ -151,6 +151,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      {
+        text: 'Panel',
+        route: '/profile/administrator/panel/',
+        icon: 'calendar',
+        roles: [
+          'superuser',
+        ],
+      },
     ],
   },
   {

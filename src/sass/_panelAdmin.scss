@@ -1,0 +1,116 @@
+.panel-admin-tabs-container {
+  padding: 20px 35px;
+
+  .panel-admin-content {
+    margin-left: 20px;
+
+    .tm-spinner{
+      margin-top: 125px;
+    }
+
+
+    table {
+      th {
+        font-weight: bold;
+      }
+      .create-remark-button {
+        text-align: center;
+      }
+      .active-column {
+        text-align: center;
+      }
+    }
+  }
+
+  .hello-greeting {
+    margin-bottom: 25px;
+  }
+  .navTabs {
+    margin-left: 5px;
+    background-color: #F7F7F7;
+  }
+}
+
+.swal-modal {
+  padding: 0px;
+  width: 700px;
+
+  .edit-remark-modal {
+    .help-text {
+      padding: 10px 0;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+      margin-top: -20px;
+    }
+
+    label {
+      text-align: left;
+      min-width: 200px;
+    }
+
+    .edit-remark-input {
+      display: flex;
+      align-items: baseline;
+
+      .remark-insertion-list {
+        display: flex;
+        flex-wrap: wrap;
+        width: 30%;
+
+        .remark-insertion {
+          display: flex;
+          justify-content: space-between;
+          width: 100%
+        }
+
+        .insertion-icon {
+          color: $color-red;
+        }
+      }
+
+      .add-insertion-container {
+        display: flex;
+        width: 100%;
+
+        .add-insertion-button {
+          font-size: 14px;
+          padding: 5px;
+          height: 40px;
+          min-width: 150px;
+        }
+
+        .add-insertion-input-container {
+          width: 100%;
+          display: flex;
+          align-items: baseline;
+
+          .insertion-icon {
+            color: $primary-blue;
+            margin-left: -25px;
+            position: relative;
+          }
+        }
+      }
+    }
+
+    .edit-remark-checkboxes-controls {
+      display: flex;
+      align-items: baseline;
+      justify-content: end;
+    }
+
+    .edit-remark-checkboxes {
+      display: flex;
+      min-width: 300px;
+
+      .tm-checkbox {
+        margin-left: 0px;
+        margin-right: 0px;
+      }
+    }
+
+    .modal-controls {
+      margin-left: 40px;
+    }
+  }
+}
