@@ -28,11 +28,19 @@ const AgendaItemMaintenanceContainer = (props) => {
   // temporary until business logic is added for readOnly items
   const isReadOnly = !isEmpty(agendaItemData);
 
-  const id = get(props, 'match.params.id'); // client's perdet
+  const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
-  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
-  const clientDataLoading = client_data?.loading ?? false;
-  const clientDataError = client_data?.error ?? false;
+
+  const { data: employeeData, error: employeeDataError, loading: employeeDataLoading } = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const { data: employeeDataFallback, error: employeeDataFallbackError, loading: employeeDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
+
+  const employeeLoading = employeeDataLoading || employeeDataFallbackLoading;
+  const employeeError = employeeDataError && employeeDataFallbackError;
+
+  const employeeData$ = employeeData?.data || employeeDataFallback?.data?.results?.[0];
+  const employeeName = employeeLoading ? '' : employeeData$?.name;
+  // handles error where some employees have no Profile
+  const employeeHasCDO = employeeLoading ? false : !!(employeeData$?.cdo?.name);
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -79,7 +87,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '');
+    const personId = employeeData$?.id || id;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
@@ -92,10 +100,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   }
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
-
-  const employeeName = client_data.loading ? '' : (client_data?.data?.data?.name || '');
-  // handles error where some employees have no Profile
-  const employeeHasCDO = client_data.loading ? false : !!(client_data?.data?.data?.cdo?.name);
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -206,9 +210,9 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
-                clientData={client_data}
-                clientError={clientDataError}
-                clientLoading={clientDataLoading}
+                clientData={employeeData$}
+                clientError={employeeError}
+                clientLoading={employeeLoading}
                 perdet={id}
                 ref={researchPaneRef}
                 updateSelection={isReadOnly ? () => {} : updateSelection}
