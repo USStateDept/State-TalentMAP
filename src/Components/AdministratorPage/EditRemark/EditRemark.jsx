@@ -26,6 +26,12 @@ const EditRemark = (props) => {
     const returnArray = [...rmrkInsertionList];
     returnArray.splice(i, 1);
     setRmrkInsertionList(returnArray);
+
+    const regex = new RegExp('{[^}]*}', 'g');
+    let x = 0;
+    // eslint-disable-next-line no-plusplus
+    const result = descriptionInput.replace(regex, (match) => (x++ === i ? '' : match));
+    setDescriptionInput(result);
   };
 
   const submitInsertion = () => {
