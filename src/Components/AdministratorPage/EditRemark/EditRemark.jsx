@@ -30,7 +30,7 @@ const EditRemark = (props) => {
     const regex = new RegExp('{[^}]*}', 'g');
     let x = 0;
     // eslint-disable-next-line no-plusplus
-    const result = descriptionInput.replace(regex, (match) => (++x === i + 1 ? '' : match));
+    const result = descriptionInput.replace(regex, (match) => (x++ === i ? '' : match));
     setDescriptionInput(result);
   };
 
