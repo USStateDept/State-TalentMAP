@@ -86,6 +86,10 @@ const AgendaItemMaintenanceContainer = (props) => {
     } else {
       setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
     }
+    /* eslint-disable no-console */
+    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+    console.log('👾 current: userRemarks$', userRemarks$);
+    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
   };
 
   const submitAI = () => {

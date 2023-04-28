@@ -10,6 +10,7 @@ import Fuse from 'fuse.js';
 
 const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
+  const [exclusiveCats, setExclusiveCats] = useState({});
 
   const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
@@ -35,6 +36,11 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       });
     });
     if (!isEqual(textInputs$, textInputs)) {
+      /* eslint-disable no-console */
+      console.log('🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹');
+      console.log('🥹 current: textInputs$', textInputs$);
+      console.log('🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹');
+
       setTextInputs(textInputs$);
     }
   };
@@ -65,30 +71,84 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     );
   };
 
+  const renderExclusiveCats = () => {
+    const rCatCodes = uniqBy(remarkCategories, 'code');
+    let exclusiveCategories = { exlusiveSeqs: [] };
+    // unfortunately we have to loop twice bc we can't trust all remarks in a category
+    // to be consistent in their mutually_exclusive_ind status
+    remarks.forEach(r => {
+      if(r?.mutually_exclusive_ind === 'Y') {
+        exclusiveCategories[r?.rc_code] = { remarkCatSelected: false }
+      }
+    });
+    remarks.forEach(r => {
+      const exlusiveRCatCodes = Object.keys(exclusiveCategories);
+      if(exlusiveRCatCodes.includes(r?.rc_code)) {
+        exclusiveCategories[r?.rc_code]['seqNums'] ??= [];
+        exclusiveCategories[r?.rc_code]['seqNums'].push(r?.seq_num);
+        exclusiveCategories?.exlusiveSeqs.push(r?.seq_num);
+      }
+    });
+    /* eslint-disable no-console */
+    console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
+    console.log('🧁 current: exclusiveCategories', exclusiveCategories);
+    console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
+
+    setExclusiveCats(exclusiveCategories);
+  };
+
+  const updateExclusiveCats = () => {
+    const exclusiveCats$ = {...exclusiveCats};
+
+    userSelections.forEach(r => {
+      if((exclusiveCats$?.exlusiveSeqs)?.includes(r?.seq_num)){
+        exclusiveCats$[r.rc_code].remarkCatSelected = true;
+      }
+    });
+    /* eslint-disable no-console */
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
+    console.log('👻 current: exclusiveCats$', exclusiveCats$);
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
+
+    setExclusiveCats(exclusiveCats$);
+  };
+
   const getInteractiveType = (r, textInputs) => {
+    let interactiveType = '';
 
     //for this category go through the user remarks and if they already
-    // have a selection in that category, then we'll keep track of it for all categories a
-    // and only enable it for the first one
+    // have a selection in that category, disable the adding of more than one per category
     /* eslint-disable no-console */
     console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    console.log('🦄 current: remarkCategoriesCodes', remarkCategoriesCodes);
+    console.log('🦄 current: r', r);
     console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
 
+    if(find(userSelections, { seq_num: r.seq_num })) {
+      interactiveType = 'selectedEnabled'
+    } else if(exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
+      interactiveType = 'notSelectedDisabled'
+    } else {
+      interactiveType = 'notSelectedEnabled'
+    }
+
+
     const returnTypes = {
-      mutallyExcusive: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-        <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+      selectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
+        <FA name='minus-circle' />
       </InteractiveElement>),
-      notutallyExcusive: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-        <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+      notSelectedDisabled: (<InteractiveElement onClick={() => {}}>
+        <FA
+          name='plus-circle'
+          className='fa-disabled'
+        />
+      </InteractiveElement>),
+      notSelectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
+        <FA name='plus-circle' />
       </InteractiveElement>),
     };
 
-    return returnTypes['mutallyExcusive'];
+    return returnTypes[interactiveType];
   };
-
-
-
 
   const [remarks$, setRemarks$] = useState(remarks);
 
@@ -115,9 +175,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   const remarks$$ = term ? remarks$ : remarks;
 
   const remarkCategoriesCodes = uniqBy(remarkCategories, 'code');
-
-  let remarkCategories$ = remarkCategoriesCodes.map(({ code, desc_text }) => ({ code, desc_text }));
-  remarkCategories$ = orderBy(remarkCategories$, 'desc_text');
+  let remarkCategories$ = orderBy(remarkCategoriesCodes, 'desc_text');
 
   const processClick = remark => {
     const el = document.getElementById(`remark-category-${remark.code}`);
@@ -127,6 +185,14 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   useEffect(() => {
     setTextInputBulk(remarks);
   }, [remarks]);
+
+  useEffect(() => {
+    updateExclusiveCats();
+  }, [userSelections]);
+
+  useEffect(() => {
+    renderExclusiveCats();
+  }, []);
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
@@ -147,9 +213,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
-          // eslint-disable-next-line dot-notation
-          const isExclusiveCat = remarksInCategory?.[0]?.['mutually_exclusive_ind'] === 'Y';
-          const isExclusiveCatText = isExclusiveCat ? ' (one remark per this category)' : '';
+          const isExclusiveCatText = exclusiveCats.hasOwnProperty(category.code) ? ' (one remark per this category)' : '';
 
           return (
             <div key={category.code}>
