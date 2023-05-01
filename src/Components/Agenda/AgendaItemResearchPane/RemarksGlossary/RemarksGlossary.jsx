@@ -14,6 +14,12 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
+    /* eslint-disable no-console */
+    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+    console.log('🐥 current: textInputs$:',textInputs$);
+    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+
+
     if (!textInputs$[rSeq.toString()]) {
       textInputs$[rSeq.toString()] = {};
       textInputs$[rSeq.toString()][riSeq.toString()] = value;
@@ -23,7 +29,8 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     setTextInputs(textInputs$);
   };
 
-  const setTextInputBulk = (remarksArr = []) => {
+  const setTextInputBulk = () => {
+    const remarksArr = remarks;
     const textInputs$ = {};
     remarksArr.forEach(r => {
       r.remark_inserts.forEach(ri => {
@@ -39,6 +46,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       /* eslint-disable no-console */
       console.log('🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹');
       console.log('🥹 current: textInputs$', textInputs$);
+      console.log('🥹 current: userSelections', userSelections);
       console.log('🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹');
 
       setTextInputs(textInputs$);
@@ -47,7 +55,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
 
-  const renderText = r => {
+  const renderText = (r, interactiveTypeRender, disabled) => {
     const rText = r?.text?.split(/(\s+)/) || '';
     const rInserts = r?.remark_inserts || [];
 
@@ -62,13 +70,16 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
           placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
           id="remarks-custom-input"
           key={a.riseqnum}
-          inputProps={{ autoComplete: 'off' }}
+          inputProps={{autoComplete: 'off'}}
+          disabled={disabled}
         />);
       }
     });
-    return (
-      <div className="remark-input-container">{rText}</div>
-    );
+    return (<>
+        {interactiveTypeRender}
+        <div className="remark-input-container">{rText}</div>
+      </>);
+
   };
 
   const renderExclusiveCats = () => {
@@ -120,8 +131,9 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     setExclusiveCats(exclusiveCats$);
   };
 
-  const getInteractiveType = (r, textInputs) => {
+  const getInteractiveTypeAndText = (r, textInputs) => {
     let interactiveType = '';
+    let disabled = false;
 
     //for this category go through the user remarks and if they already
     // have a selection in that category, disable the adding of more than one per category
@@ -133,8 +145,10 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
     if(find(userSelections, { seq_num: r.seq_num })) {
       interactiveType = 'selectedEnabled'
+      disabled = true;
     } else if(exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
       interactiveType = 'notSelectedDisabled'
+      disabled = true;
     } else {
       interactiveType = 'notSelectedEnabled'
     }
@@ -157,7 +171,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       </InteractiveElement>),
     };
 
-    return returnTypes[interactiveType];
+    return renderText(r, returnTypes[interactiveType], disabled)
   };
 
   const [remarks$, setRemarks$] = useState(remarks);
@@ -192,9 +206,9 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     el.scrollIntoView();
   };
 
-  useEffect(() => {
-    setTextInputBulk(remarks);
-  }, [remarks]);
+  // useEffect(() => {
+  //   setTextInputBulk(remarks);
+  // }, [remarks]);
 
   useEffect(() => {
     updateExclusiveCats();
@@ -202,6 +216,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   useEffect(() => {
     renderExclusiveCats();
+    setTextInputBulk();
   }, []);
 
   return (
@@ -233,8 +248,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
               <ul>
                 {remarksInCategory.map(r => (
                   (<li key={r.seq_num}>
-                    {getInteractiveType(r, textInputs)}
-                    {renderText(r)}
+                    {getInteractiveTypeAndText(r, textInputs)}
                   </li>)
                 ))}
               </ul>
