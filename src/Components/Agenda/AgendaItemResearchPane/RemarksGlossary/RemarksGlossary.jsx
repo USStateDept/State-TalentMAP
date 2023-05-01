@@ -84,6 +84,10 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     remarks.forEach(r => {
       const exlusiveRCatCodes = Object.keys(exclusiveCategories);
       if(exlusiveRCatCodes.includes(r?.rc_code)) {
+        // i thought having an array of the seqnums would help with optimization
+        // but since our remarks usually have the rc_code in them, we can just look up on that
+        // to prevent looping on all 😾 to find
+        // pending: remove seqNums [] before opening PR for review
         exclusiveCategories[r?.rc_code]['seqNums'] ??= [];
         exclusiveCategories[r?.rc_code]['seqNums'].push(r?.seq_num);
         exclusiveCategories?.exlusiveSeqs.push(r?.seq_num);
@@ -92,23 +96,26 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     /* eslint-disable no-console */
     console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
     console.log('🧁 current: exclusiveCategories', exclusiveCategories);
-    console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
 
     setExclusiveCats(exclusiveCategories);
   };
 
   const updateExclusiveCats = () => {
-    const exclusiveCats$ = {...exclusiveCats};
+    let exclusiveCats$ = {...exclusiveCats};
+
+    // reset cats
+    Object.keys(exclusiveCats$).forEach(c => {
+      // pending: remove if removing exlusiveSeqs
+      if(c !== 'exlusiveSeqs') {
+        exclusiveCats$[c].remarkCatSelected = false;
+      }
+    })
 
     userSelections.forEach(r => {
-      if((exclusiveCats$?.exlusiveSeqs)?.includes(r?.seq_num)){
+      if(exclusiveCats$[r.rc_code]){
         exclusiveCats$[r.rc_code].remarkCatSelected = true;
       }
     });
-    /* eslint-disable no-console */
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
-    console.log('👻 current: exclusiveCats$', exclusiveCats$);
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
 
     setExclusiveCats(exclusiveCats$);
   };
@@ -121,7 +128,8 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     /* eslint-disable no-console */
     console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
     console.log('🦄 current: r', r);
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    console.log('🦄 current: userSelections', userSelections);
+    console.log('🦄 current: find(userSelections, { seq_num: r.seq_num })', find(userSelections, { seq_num: r.seq_num }));
 
     if(find(userSelections, { seq_num: r.seq_num })) {
       interactiveType = 'selectedEnabled'
@@ -131,6 +139,8 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       interactiveType = 'notSelectedEnabled'
     }
 
+    console.log('🦄 current: interactiveType', interactiveType);
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
 
     const returnTypes = {
       selectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
