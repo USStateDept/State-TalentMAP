@@ -140,14 +140,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     let interactiveType = '';
     let disabled = false;
 
-    //for this category go through the user remarks and if they already
-    // have a selection in that category, disable the adding of more than one per category
-    /* eslint-disable no-console */
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    console.log('🦄 current: r', r);
-    console.log('🦄 current: userSelections', userSelections);
-    console.log('🦄 current: find(userSelections, { seq_num: r.seq_num })', find(userSelections, { seq_num: r.seq_num }));
-
     if(find(userSelections, { seq_num: r.seq_num })) {
       interactiveType = 'selectedEnabled'
       disabled = true;
@@ -157,9 +149,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     } else {
       interactiveType = 'notSelectedEnabled'
     }
-
-    console.log('🦄 current: interactiveType', interactiveType);
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
 
     const returnTypes = {
       selectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
@@ -295,6 +284,7 @@ RemarksGlossary.propTypes = {
       ),
       mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
+      ref_text: PropTypes.string,
       active_ind: PropTypes.string,
     }),
   ),

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
 import { useDispatch } from 'react-redux';
@@ -73,12 +74,6 @@ const AgendaItemMaintenanceContainer = (props) => {
     if (!found) {
       const remark$ = { ...remark };
 
-      /* eslint-disable no-console */
-      console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-      console.log('👾 current: remark$:', remark$);
-      console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-
-
       if (has(remark$, 'remark_inserts')) {
         const tempKey = (remark$.seq_num).toString();
         if (!remark$.ari_insertions) {
@@ -87,15 +82,18 @@ const AgendaItemMaintenanceContainer = (props) => {
         remark$.ari_insertions = textInputs[tempKey];
       }
 
+      remark$['user_remark_inserts'] = [];
+      remark$?.remark_inserts.forEach(ri => (remark$['user_remark_inserts'].push({
+        'airiinsertiontext': textInputs[ri.rirmrkseqnum][ri.riseqnum],
+        'airirmrkseqnum': ri.rirmrkseqnum,
+        'aiririseqnum': ri.riseqnum,
+      })));
+
       userRemarks$.push(remark$);
       setUserRemarks(userRemarks$);
     } else {
       setUserRemarks(filter(userRemarks$, (r) => r.seq_num !== remark.seq_num));
     }
-    /* eslint-disable no-console */
-    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-    console.log('👾 current: userRemarks$', userRemarks$);
-    console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
   };
 
   const submitAI = () => {
