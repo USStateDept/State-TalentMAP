@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
@@ -14,11 +13,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
-    /* eslint-disable no-console */
-    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-    console.log('🐥 current: textInputs$:',textInputs$);
-    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-
 
     if (!textInputs$[rSeq.toString()]) {
       textInputs$[rSeq.toString()] = {};
@@ -43,12 +37,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       });
     });
     if (!isEqual(textInputs$, textInputs)) {
-      /* eslint-disable no-console */
-      console.log('🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹');
-      console.log('🥹 current: textInputs$', textInputs$);
-      console.log('🥹 current: userSelections', userSelections);
-      console.log('🥹🥹🥹🥹🥹🥹🥹🥹🥹🥹');
-
       setTextInputs(textInputs$);
     }
   };
@@ -60,11 +48,6 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     const rInserts = r?.remark_inserts || [];
 
     rInserts.forEach((a) => {
-      /* eslint-disable no-console */
-      console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-      console.log('🐙 current: getTextInputValue(get(a, \'rirmrkseqnum\'), get(a, \'riseqnum\')):',a?.rirmrkseqnum, a?.riseqnum);
-      console.log('🐙 current: textInputs:',textInputs);
-      console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {
@@ -75,60 +58,46 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
           placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
           id="remarks-custom-input"
           key={a.riseqnum}
-          inputProps={{autoComplete: 'off'}}
+          inputProps={{ autoComplete: 'off' }}
           disabled={disabled}
         />);
       }
     });
     return (<>
-        {interactiveTypeRender}
-        <div className="remark-input-container">{rText}</div>
-      </>);
-
+      {interactiveTypeRender}
+      <div className="remark-input-container">{rText}</div>
+    </>);
   };
 
   const renderExclusiveCats = () => {
-    const rCatCodes = uniqBy(remarkCategories, 'code');
-    let exclusiveCategories = { exlusiveSeqs: [] };
+    const exclusiveCategories = { };
     // unfortunately we have to loop twice bc we can't trust all remarks in a category
     // to be consistent in their mutually_exclusive_ind status
     remarks.forEach(r => {
-      if(r?.mutually_exclusive_ind === 'Y') {
-        exclusiveCategories[r?.rc_code] = { remarkCatSelected: false }
+      if (r?.mutually_exclusive_ind === 'Y') {
+        exclusiveCategories[r?.rc_code] = { remarkCatSelected: false };
       }
     });
     remarks.forEach(r => {
       const exlusiveRCatCodes = Object.keys(exclusiveCategories);
-      if(exlusiveRCatCodes.includes(r?.rc_code)) {
-        // i thought having an array of the seqnums would help with optimization
-        // but since our remarks usually have the rc_code in them, we can just look up on that
-        // to prevent looping on all 😾 to find
-        // pending: remove seqNums [] before opening PR for review
-        exclusiveCategories[r?.rc_code]['seqNums'] ??= [];
-        exclusiveCategories[r?.rc_code]['seqNums'].push(r?.seq_num);
-        exclusiveCategories?.exlusiveSeqs.push(r?.seq_num);
+      if (exlusiveRCatCodes.includes(r?.rc_code)) {
+        exclusiveCategories[r?.rc_code].seqNums ??= [];
+        exclusiveCategories[r?.rc_code].seqNums.push(r?.seq_num);
       }
     });
-    /* eslint-disable no-console */
-    console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
-    console.log('🧁 current: exclusiveCategories', exclusiveCategories);
-
     setExclusiveCats(exclusiveCategories);
   };
 
   const updateExclusiveCats = () => {
-    let exclusiveCats$ = {...exclusiveCats};
+    const exclusiveCats$ = { ...exclusiveCats };
 
     // reset cats
     Object.keys(exclusiveCats$).forEach(c => {
-      // pending: remove if removing exlusiveSeqs
-      if(c !== 'exlusiveSeqs') {
-        exclusiveCats$[c].remarkCatSelected = false;
-      }
-    })
+      exclusiveCats$[c].remarkCatSelected = false;
+    });
 
     userSelections.forEach(r => {
-      if(exclusiveCats$[r.rc_code]){
+      if (exclusiveCats$[r.rc_code]) {
         exclusiveCats$[r.rc_code].remarkCatSelected = true;
       }
     });
@@ -136,36 +105,36 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     setExclusiveCats(exclusiveCats$);
   };
 
-  const getInteractiveTypeAndText = (r, textInputs) => {
+  const getInteractiveTypeAndText = (r) => {
     let interactiveType = '';
     let disabled = false;
 
-    if(find(userSelections, { seq_num: r.seq_num })) {
-      interactiveType = 'selectedEnabled'
+    if (find(userSelections, { seq_num: r.seq_num })) {
+      interactiveType = 'selectedEnabled';
       disabled = true;
-    } else if(exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
-      interactiveType = 'notSelectedDisabled'
+    } else if (exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
+      interactiveType = 'notSelectedDisabled';
       disabled = true;
     } else {
-      interactiveType = 'notSelectedEnabled'
+      interactiveType = 'notSelectedEnabled';
     }
 
     const returnTypes = {
       selectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-        <FA name='minus-circle' />
+        <FA name="minus-circle" />
       </InteractiveElement>),
       notSelectedDisabled: (<InteractiveElement onClick={() => {}}>
         <FA
-          name='plus-circle'
-          className='fa-disabled'
+          name="plus-circle"
+          className="fa-disabled"
         />
       </InteractiveElement>),
       notSelectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-        <FA name='plus-circle' />
+        <FA name="plus-circle" />
       </InteractiveElement>),
     };
 
-    return renderText(r, returnTypes[interactiveType], disabled)
+    return renderText(r, returnTypes[interactiveType], disabled);
   };
 
   const [remarks$, setRemarks$] = useState(remarks);
@@ -193,16 +162,12 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   const remarks$$ = term ? remarks$ : remarks;
 
   const remarkCategoriesCodes = uniqBy(remarkCategories, 'code');
-  let remarkCategories$ = orderBy(remarkCategoriesCodes, 'desc_text');
+  const remarkCategories$ = orderBy(remarkCategoriesCodes, 'desc_text');
 
   const processClick = remark => {
     const el = document.getElementById(`remark-category-${remark.code}`);
     el.scrollIntoView();
   };
-
-  // useEffect(() => {
-  //   setTextInputBulk(remarks);
-  // }, [remarks]);
 
   useEffect(() => {
     updateExclusiveCats();
@@ -232,7 +197,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
-          const isExclusiveCatText = exclusiveCats.hasOwnProperty(category.code) ? ' (one remark per this category)' : '';
+          const isExclusiveCatText = exclusiveCats?.[category.code] ? ' (one remark per this category)' : '';
 
           return (
             <div key={category.code}>
@@ -242,7 +207,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
               <ul>
                 {remarksInCategory.map(r => (
                   (<li key={r.seq_num}>
-                    {getInteractiveTypeAndText(r, textInputs)}
+                    {getInteractiveTypeAndText(r)}
                   </li>)
                 ))}
               </ul>

@@ -12,69 +12,12 @@ const RemarksPill = props => {
     const refInserts = r?.remark_inserts || [];
     let remarkText = r?.ref_text || '';
 
-    /* eslint-disable no-console */
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
-    console.log('👻 current: r:', r);
-    console.log('👻 current: remarkText:', remarkText);
-    // this r works
-    // {
-    //     "seq_num": 88,
-    //     "rc_code": "B",
-    //     "order_num": 3,
-    //     "short_desc_text": "Spec class no.",
-    //     "mutually_exclusive_ind": "N",
-    //     "text": "{#} Specialist Orientation Class",
-    //     "active_ind": "Y",
-    //     "remark_inserts": [
-    //         {
-    //             "riseqnum": 127,
-    //             "rirmrkseqnum": 88,
-    //             "riinsertiontext": "{#}"
-    //         }
-    //     ],
-    //     "ref_text": null,
-    //     "ari_insertions": {
-    //         "127": "666"
-    //     }
-    // }
-    // this one does not:
-    // {
-    //     "seq_num": 225,
-    //     "rc_code": "P",
-    //     "order_num": 11,
-    //     "short_desc_text": "Senior cede",
-    //     "mutually_exclusive_ind": "N",
-    //     "text": "LWOP Committee approved on  09/29/04, criterion 5",
-    //     "active_ind": "Y",
-    //     "remark_inserts": [
-    //         {
-    //             "riseqnum": 192,
-    //             "rirmrkseqnum": 225,
-    //             "riinsertiontext": "{number}"
-    //         },
-    //         {
-    //             "riseqnum": 193,
-    //             "rirmrkseqnum": 225,
-    //             "riinsertiontext": "{date}"
-    //         }
-    //     ],
-    //     "ref_text": "LWOP Committee approved on {date}, criterion {number}"
-    // }
-
-    console.log('👻 current: r?.user_remark_inserts:', r?.user_remark_inserts);
     refInserts.forEach(refInsert => {
-      console.log('👻 current: refInsert:', refInsert);
-      console.log('👻 current: find(r?.user_remark_inserts, { aiririseqnum: refInsert?.riseqnum }):', find(r?.user_remark_inserts, { aiririseqnum: refInsert?.riseqnum }));
-
-      // eslint-disable-next-line max-len
-      remarkText = remarkText.replace(refInsert?.riinsertiontext, find(r?.user_remark_inserts, { aiririseqnum: refInsert?.riseqnum })?.airiinsertiontext);
-      // if (r.ari_insertions[refInsert?.riseqnum]) {
-      //   remarkText =
-      //     remarkText.replace(refInsert?.riinsertiontext, r.ari_insertions[refInsert?.riseqnum]);
-      // }
+      remarkText = remarkText.replace(
+        refInsert?.riinsertiontext,
+        find(r?.user_remark_inserts, { aiririseqnum: refInsert?.riseqnum })?.airiinsertiontext);
     });
 
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
     return remarkText;
   };
 
