@@ -60,6 +60,11 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     const rInserts = r?.remark_inserts || [];
 
     rInserts.forEach((a) => {
+      /* eslint-disable no-console */
+      console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+      console.log('🐙 current: getTextInputValue(get(a, \'rirmrkseqnum\'), get(a, \'riseqnum\')):',a?.rirmrkseqnum, a?.riseqnum);
+      console.log('🐙 current: textInputs:',textInputs);
+      console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {

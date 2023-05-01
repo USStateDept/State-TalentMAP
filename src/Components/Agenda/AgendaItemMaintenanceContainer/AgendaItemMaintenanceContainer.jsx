@@ -73,6 +73,12 @@ const AgendaItemMaintenanceContainer = (props) => {
     if (!found) {
       const remark$ = { ...remark };
 
+      /* eslint-disable no-console */
+      console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+      console.log('👾 current: remark$:', remark$);
+      console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+
+
       if (has(remark$, 'remark_inserts')) {
         const tempKey = (remark$.seq_num).toString();
         if (!remark$.ari_insertions) {
