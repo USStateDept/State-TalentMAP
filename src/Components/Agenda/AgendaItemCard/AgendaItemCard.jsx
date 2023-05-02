@@ -76,13 +76,17 @@ const AgendaItemCard = props => {
           <div className="ai-history-status">
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {
-                showAgendaItemMaintenance &&
-              <Link
-                className="ai-id-card-link"
-                to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
-              >
-                <FA name="sticky-note" />
-              </Link>
+                showAgendaItemMaintenance ?
+                  <Link
+                    className="ai-id-card-link"
+                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  >
+                    <FA name="sticky-note" />
+                  </Link>
+                  :
+                  <div className="ai-id-card-link">
+                    <FA name="sticky-note" />
+                  </div>
               }
               {get(agenda, 'status_full') || 'Default'}
             </div>
