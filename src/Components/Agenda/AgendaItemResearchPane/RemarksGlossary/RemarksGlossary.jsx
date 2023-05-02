@@ -26,22 +26,24 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   const setTextInputBulk = () => {
     const remarksArr = remarks;
     const textInputs$ = {};
+
     remarksArr.forEach(r => {
+      const userRemark = find(userSelections, { seq_num: r.seq_num });
       r.remark_inserts.forEach(ri => {
-        if (!textInputs$[(r.seq_num).toString()]) {
-          textInputs$[(r.seq_num).toString()] = {};
-          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
-        } else {
-          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
-        }
+        const userRemarkInsert = find(userRemark?.user_remark_inserts,
+          { aiririseqnum: ri.riseqnum });
+        textInputs$[(r.seq_num).toString()] ??= {};
+        textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] =
+          userRemarkInsert?.airiinsertiontext || ri.riinsertiontext;
       });
     });
+
     if (!isEqual(textInputs$, textInputs)) {
       setTextInputs(textInputs$);
     }
   };
 
-  const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
+  const getTextInputValue = (rSeq, riSeq) => textInputs[rSeq][riSeq] || '';
 
   const renderText = (r, interactiveTypeRender, disabled) => {
     const rText = r?.text?.split(/(\s+)/) || '';
@@ -51,8 +53,11 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {
+        let remarkInsertValue = getTextInputValue(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'));
+        remarkInsertValue = remarkInsertValue[0] === '{' ? '' : remarkInsertValue;
+
         rText.splice(rTextI, 1, <TextInput
-          value={getTextInputValue(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'))}
+          value={remarkInsertValue}
           changeText={v => setTextInput(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'), v)}
           customContainerClass="remark-input"
           placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
