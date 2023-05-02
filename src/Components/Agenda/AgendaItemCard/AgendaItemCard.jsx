@@ -3,9 +3,12 @@ import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { clone, get, take, takeRight } from 'lodash';
 import { formatDate, shortenString } from 'utilities';
+import { checkFlag } from 'flags';
 import InteractiveElement from 'Components/InteractiveElement';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import AgendaItemLegs from '../AgendaItemLegs';
+
+const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
 
 const AgendaItemCard = props => {
   const {
@@ -15,6 +18,7 @@ const AgendaItemCard = props => {
     perdet,
   } = props;
 
+  const showAgendaItemMaintenance = useAgendaItemMaintenance();
   const legs = get(agenda, 'legs') || [];
   let legs$ = clone(legs);
   let legsLength = 0;
@@ -71,6 +75,19 @@ const AgendaItemCard = props => {
         <div className={`ai-history-card agenda-border-card--${agendaStatus}`}>
           <div className="ai-history-status">
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
+              {
+                showAgendaItemMaintenance ?
+                  <Link
+                    className="ai-id-card-link"
+                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  >
+                    <FA name="sticky-note" />
+                  </Link>
+                  :
+                  <div className="ai-id-card-link">
+                    <FA name="sticky-note" />
+                  </div>
+              }
               {get(agenda, 'status_full') || 'Default'}
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>
