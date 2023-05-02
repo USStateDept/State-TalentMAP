@@ -16,13 +16,14 @@
 
       .pmi-official-item-number {
         font-size: 20px;
+        padding: 5px 20px;
+        .fa-sticky-note {
+          color: white;
+          padding: 0 15px;
+        }
         .ai-id-link {
           color: white;
           text-decoration: none;
-          .pmiNum {
-            margin-right: 20px;
-            display: inline;
-          }
         }
       }
       .status-tag {
@@ -143,9 +144,6 @@
   .ai-history-row {
     .status-tag {
       padding: 5px 20px;
-      .ai-id-link {
-        padding: 0 15px;
-      }
     }
   }
 }
@@ -154,9 +152,6 @@
   .ai-history-card {
     .status-tag {
       padding: 4px;
-      .ai-id-link {
-        padding: 0 10px;
-      }
     }
   }
 }

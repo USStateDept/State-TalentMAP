@@ -74,7 +74,7 @@ const AgendaItemCard = props => {
         !isCreate &&
         <div className={`ai-history-card agenda-border-card--${agendaStatus}`}>
           <div className="ai-history-status">
-            <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
+            <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
               {
                 showAgendaItemMaintenance ?
                   <Link
