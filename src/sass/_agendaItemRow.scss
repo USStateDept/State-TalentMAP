@@ -18,7 +18,6 @@
         font-size: 20px;
         .ai-id-link {
           color: white;
-          padding: 0 15px;
           text-decoration: none;
           .pmiNum {
             margin-right: 20px;
@@ -27,7 +26,6 @@
         }
       }
       .status-tag {
-        padding: 5px 20px;
         color: $color-white;
         display: flex;
         align-items: center;
@@ -37,7 +35,7 @@
         clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
         display: inline-block;
         margin-left: -3px;
-        width: 50px;
+        width: 30px;
       }
     }
 
@@ -138,5 +136,27 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+  }
+}
+
+.agenda-item-row-container {
+  .ai-history-row {
+    .status-tag {
+      padding: 5px 20px;
+      .ai-id-link {
+        padding: 0 15px;
+      }
+    }
+  }
+}
+
+.ai-history-cards-container {
+  .ai-history-card {
+    .status-tag {
+      padding: 4px;
+      .ai-id-link {
+        padding: 0 10px;
+      }
+    }
   }
 }
