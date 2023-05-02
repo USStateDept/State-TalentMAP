@@ -6,8 +6,9 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
+import TodModal from './TodModal';
 
 const AgendaLeg = props => {
   const {
@@ -24,6 +25,8 @@ const AgendaLeg = props => {
     isReadOnly,
   } = props;
 
+  const [todCopy, setTodCopy] = useState(TODs);
+
   const disabled = isReadOnly || isEf;
 
   const onHover$ = (row) => {
@@ -38,7 +41,47 @@ const AgendaLeg = props => {
     onClose(leg);
   };
 
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const submitCustomTod = (todArray) => {
+    const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
+    const customTod =
+    [{
+      id: todCode,
+      code: todCode,
+      is_active: true,
+      months: todCode,
+      short_description: todCode,
+      long_description: todCode,
+    }];
+    setTodCopy([...todCopy, ...customTod]);
+    updateLeg(leg.ail_seq_num, 'tourOfDutyCode', todCode);
+    swal.close();
+  };
+
+  const openTodModal = () => {
+    swal({
+      title: 'Tour of Duty',
+      closeOnEsc: true,
+      button: false,
+      className: 'swal-aim-custom-tod',
+      content: (
+        <TodModal
+          cancel={cancel}
+          submitCustomTod={submitCustomTod}
+        />
+      ),
+    });
+  };
+
   const updateDropdown = (dropdown, value) => {
+    if (dropdown === 'tourOfDutyCode' && value === 'OTHER') {
+      openTodModal();
+      return;
+    }
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
     if (dropdown === 'legEndDate') {
       swal.close();
@@ -52,11 +95,6 @@ const AgendaLeg = props => {
       updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
     }
   }, []);
-
-  const cancel = (e) => {
-    e.preventDefault();
-    swal.close();
-  };
 
   const calendarModal = () => {
     swal({
@@ -163,7 +201,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown(isEf ? 'tod' : 'tourOfDutyCode', TODs, 'short_description')),
+      content: (getDropdown(isEf ? 'tod' : 'tourOfDutyCode', todCopy, 'short_description')),
     },
     {
       title: 'Action',
@@ -205,7 +243,9 @@ const AgendaLeg = props => {
 
 AgendaLeg.propTypes = {
   isEf: PropTypes.bool,
-  leg: PropTypes.shape({}),
+  leg: PropTypes.shape({
+    ail_seq_num: PropTypes.string,
+  }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   legActionTypes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
