@@ -7,14 +7,6 @@ exports[`SavedSearchesListComponent matches snapshot 1`] = `
   <div
     className="usa-grid-full"
   >
-    <Connect(StaticDevContent)>
-      <SectionHeader
-        buttonText="View Saved Searches"
-        icon="globe"
-        onButtonClick={[Function]}
-        title="3 projected vacancies are now available"
-      />
-    </Connect(StaticDevContent)>
     <div
       className="usa-grid-full section-padded-inner-container"
     >
@@ -154,14 +146,6 @@ exports[`SavedSearchesListComponent matches snapshot when there are no saved sea
   <div
     className="usa-grid-full"
   >
-    <Connect(StaticDevContent)>
-      <SectionHeader
-        buttonText="View Saved Searches"
-        icon="globe"
-        onButtonClick={[Function]}
-        title="3 projected vacancies are now available"
-      />
-    </Connect(StaticDevContent)>
     <div
       className="usa-grid-full section-padded-inner-container"
     >
