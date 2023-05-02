@@ -44,7 +44,7 @@ const AgendaItemRow = props => {
 
   const pmi = (<>
     {
-      agenda?.pmi_official_item_num &&
+      agenda?.pmi_official_item_num && isPanelMeetingView &&
       <div className="pmiNum">{agenda?.pmi_official_item_num}</div>
     }
     <FA name="sticky-note" />
