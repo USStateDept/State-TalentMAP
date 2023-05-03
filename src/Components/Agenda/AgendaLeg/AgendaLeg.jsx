@@ -48,18 +48,18 @@ const AgendaLeg = props => {
 
   const submitCustomTod = (todArray) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
-    console.log(todArray);
+    const customTodMonths = todArray[0]?.substring(0, todArray[0]?.length - 2);
     const customTod =
     [{
       id: todCode,
       code: 'X',
       is_active: true,
-      months: todArray[0],
+      months: customTodMonths,
       short_description: todCode,
       long_description: todCode,
     }];
     setTod$([...tod$, ...customTod]);
-    updateLeg(leg.ail_seq_num, 'tourOfDutyMonths', todArray[0]);
+    updateLeg(leg.ail_seq_num, 'tourOfDutyMonths', customTodMonths);
     updateLeg(leg.ail_seq_num, 'tourOfDutyText', todCode);
     updateLeg(leg.ail_seq_num, 'tourOfDutyCode', 'X');
     updateLeg(leg?.ail_seq_num, 'tourOfDutyOtherText', todCode);
