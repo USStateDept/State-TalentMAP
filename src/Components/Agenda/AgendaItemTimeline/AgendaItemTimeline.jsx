@@ -20,6 +20,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   }, [pos_results_loading]);
 
   useEffect(() => {
+    // console.log('Use Effect');
+    // console.log(legs);
     updateLegs(legs);
   }, [legs]);
 
@@ -39,6 +41,9 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           legEndDate: null,
           languages: get(pos_results, 'languages'),
           tourOfDutyCode: null,
+          tourOfDutyMonths: null,
+          tourOfDutyText: null,
+          tourOfDutyOtherText: null,
           grade: get(pos_results, 'grade'),
           legActionType: null,
           travelFunctionCode: null,
@@ -64,6 +69,9 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         legEndDate: null,
         languages: get(asgSepBid, 'languages'),
         tourOfDutyCode: null,
+        tourOfDutyMonths: null,
+        tourOfDutyText: null,
+        tourOfDutyOtherText: null,
         grade: get(asgSepBid, 'grade'),
         legActionType: null,
         travelFunctionCode: null,

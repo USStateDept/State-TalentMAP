@@ -25,7 +25,7 @@ const AgendaLeg = props => {
     isReadOnly,
   } = props;
 
-  const [todCopy, setTodCopy] = useState(TODs);
+  const [tod$, setTod$] = useState(TODs);
 
   const disabled = isReadOnly || isEf;
 
@@ -48,17 +48,21 @@ const AgendaLeg = props => {
 
   const submitCustomTod = (todArray) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
+    console.log(todArray);
     const customTod =
     [{
       id: todCode,
-      code: todCode,
+      code: 'X',
       is_active: true,
-      months: todCode,
+      months: todArray[0],
       short_description: todCode,
       long_description: todCode,
     }];
-    setTodCopy([...todCopy, ...customTod]);
-    updateLeg(leg.ail_seq_num, 'tourOfDutyCode', todCode);
+    setTod$([...tod$, ...customTod]);
+    updateLeg(leg.ail_seq_num, 'tourOfDutyMonths', todArray[0]);
+    updateLeg(leg.ail_seq_num, 'tourOfDutyText', todCode);
+    updateLeg(leg.ail_seq_num, 'tourOfDutyCode', 'X');
+    updateLeg(leg?.ail_seq_num, 'tourOfDutyOtherText', todCode);
     swal.close();
   };
 
@@ -78,8 +82,17 @@ const AgendaLeg = props => {
   };
 
   const updateDropdown = (dropdown, value) => {
-    if (dropdown === 'tourOfDutyCode' && value === 'OTHER') {
+    if (dropdown === 'tourOfDutyText' && value === 'OTHER') {
       openTodModal();
+      return;
+    }
+    if (dropdown === 'tourOfDutyText') {
+      const getTod = tod$.find(tod => tod.long_description === value);
+      const { code, months, long_description } = getTod;
+      updateLeg(leg?.ail_seq_num, 'tourOfDutyOtherText', null);
+      updateLeg(leg?.ail_seq_num, 'tourOfDutyCode', code);
+      updateLeg(leg?.ail_seq_num, 'tourOfDutyMonths', months);
+      updateLeg(leg?.ail_seq_num, 'tourOfDutyText', long_description);
       return;
     }
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
@@ -90,7 +103,10 @@ const AgendaLeg = props => {
 
   useEffect(() => {
     if (!isEf) {
-      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyCode', get(leg, 'tod') || '');
+      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyCode', get(leg, 'tourOfDutyCode') || null);
+      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyMonths', get(leg, 'tourOfDutyMonths') || null);
+      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyText', get(leg, 'tourOfDutyText') || null);
+      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyText', get(leg, 'tourOfDutyOtherText') || null);
       updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
       updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
     }
@@ -144,6 +160,30 @@ const AgendaLeg = props => {
         ))
       }
     </select>);
+  };
+
+  const getTodDropdown = (key, data) => {
+    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
+    if (isEf) {
+      return get(leg, key) || defaultText;
+    }
+    return (
+      <select
+        className="leg-dropdown"
+        value={get(leg, key) || ''}
+        onChange={(e) => updateDropdown(key, e.target.value)}
+        disabled={disabled}
+      >
+        <option key={null} value={''}>
+          {defaultText}
+        </option>
+        {
+          data.map(tod =>
+            (<option key={tod.code} value={tod.long_description}>{tod.long_description}</option>),
+          )
+        }
+      </select>
+    );
   };
 
   const formatLang = (langArr = []) => langArr.map(lang => (
@@ -201,7 +241,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown(isEf ? 'tod' : 'tourOfDutyCode', todCopy, 'short_description')),
+      content: (getTodDropdown(isEf ? 'tod' : 'tourOfDutyText', tod$)),
     },
     {
       title: 'Action',
