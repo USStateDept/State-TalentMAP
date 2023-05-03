@@ -20,8 +20,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   }, [pos_results_loading]);
 
   useEffect(() => {
-    // console.log('Use Effect');
-    // console.log(legs);
     updateLegs(legs);
   }, [legs]);
 
