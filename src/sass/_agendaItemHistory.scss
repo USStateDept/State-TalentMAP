@@ -37,43 +37,6 @@
     }
   }
 
-  .ai-history-status {
-    position: absolute;
-    top: 0;
-    left: -2px;
-    font-family: 'Roboto';
-    display: flex;
-    .status-tag {
-      color: $color-white;
-      display: flex;
-      align-items: center;
-    }
-    .poly-slash {
-      clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
-      display: inline-block;
-      margin-left: -3px;
-      width: 50px;
-    }
-    .ai-id-card-link {
-      color: white;
-      padding: 0 15px;
-      text-decoration: none;
-      background-color: inherit;
-    }
-    .pmi-official-item-number {
-      font-size: 20px;
-      .ai-id-link {
-        color: white;
-        padding: 0 15px;
-        text-decoration: none;
-        .pmiNum {
-          margin-right: 20px;
-          display: inline;
-        }
-      }
-    }
-  }
-
   .button-back-link {
     margin: 15px 0 0 0;
   }
@@ -119,13 +82,6 @@
       padding: 15px;
       position: relative;
       width: 350px;
-
-      .status-tag {
-        padding: 3px 20px;
-      }
-      .poly-slash {
-        padding: 3px 0;
-      }
 
       .ai-history-card-title {
         display: flex;
@@ -205,116 +161,6 @@
       .plusIcon:hover {
         color: $tertiary-cool-blue;
         font-size: 110px;
-      }
-
-    }
-  }
-
-  .ai-history-rows-container {
-    .ai-history-row {
-      background-color: $color-white;
-      border-radius: 10px;
-      box-shadow: rgb(0 0 0 / 25%) -5px 5px 15px 1px;
-      margin: 20px 15px;
-      padding: 15px;
-      position: relative;
-
-      .status-tag {
-        padding: 5px 20px;
-      }
-      .poly-slash {
-        padding: 5px 0;
-      }
-
-      .ai-history-row-panel-date {
-        display: flex;
-        justify-content: flex-end;
-        font-size: 1.4rem;
-
-        @media screen and (max-width: 1600px) {
-          .ai-history-row-panel-date {
-            font-size: medium;
-          }
-        }
-      }
-
-      .ai-history-card-legs {
-        min-height: 300px;
-
-        table {
-          margin-top: 0;
-          margin-bottom: 30px;
-
-          td {
-            border: none;
-            max-width: 300px;
-            padding: 0;
-          }
-
-          th {
-            border: none;
-            padding: 8px 10px;
-            max-width: 80px;
-          }
-
-          dt {
-            font-weight: bold;
-          }
-
-          dd {
-            margin: 0 10px;
-          }
-
-          tr:hover {
-
-            th, td {
-              background-color: $color-gray-lightest;
-            }
-
-          }
-          // exclude arrow row
-          tr:hover:nth-child(7) {
-
-            th, td {
-              background-color: transparent;
-            }
-
-          }
-
-          td:nth-child(n+2) {
-            border-left: 1px solid $color-gray-lighter;
-            padding-right: 10px;
-          }
-
-        }
-
-      }
-
-    }
-
-    @media screen and (max-width: 1400px) {
-
-      .ai-history-row {
-        margin: 20px 0;
-      }
-
-    }
-
-    .first-row {
-      border: 1px dashed $bg-blue-dark-0;
-      display: flex;
-      height: 100px;
-      padding: 5px;
-
-      .plusIcon {
-        color: $bg-blue-dark-0;
-        font-size: 75px;
-        margin: auto;
-      }
-
-      .plusIcon:hover {
-        color: $tertiary-cool-blue;
-        font-size: 80px;
       }
 
     }

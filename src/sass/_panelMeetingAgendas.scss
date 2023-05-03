@@ -215,36 +215,6 @@
       }
     }
 
-    .ai-history-status {
-      position: absolute;
-      top: 0;
-      left: -2px;
-      font-family: 'Roboto';
-      display: flex;
-      .status-tag {
-        color: $color-white;
-        display: flex;
-        align-items: center;
-      }
-      .poly-slash {
-        clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
-        display: inline-block;
-        margin-left: -3px;
-        width: 50px;
-      }
-      .pmi-official-item-number {
-        font-size: 20px;
-        .ai-id-link {
-          color: white;
-          padding: 0 15px;
-          text-decoration: none;
-          .pmiNum {
-            margin-right: 20px;
-            display: inline;
-          }
-        }
-      }
-    }
     div[role=button]:focus {
       outline: none!important;
     }
