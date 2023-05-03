@@ -11,6 +11,15 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
       <div
         className="status-tag agenda-tag--Default"
       >
+        <Link
+          className="ai-id-card-link"
+          replace={false}
+          to="/profile/ao/createagendaitem/undefined/undefined"
+        >
+          <FontAwesome
+            name="sticky-note"
+          />
+        </Link>
         Default
       </div>
       <div
