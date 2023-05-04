@@ -61,19 +61,17 @@ export const dataReducer = (state, action) => {
   }
 };
 
-// eslint-disable-next-line consistent-return
 export const useDataLoader = (getData, url, execute = true) => {
-  if (execute) {
-    const [nonce, setNonce] = useState(Date.now());
-    const [state, dispatch] = useReducer(dataReducer, {
-      data: null,
-      error: null,
-      loading: true,
-    });
+  const [nonce, setNonce] = useState(Date.now());
+  const [state, dispatch] = useReducer(dataReducer, {
+    data: null,
+    error: null,
+    loading: true,
+  });
 
-    useEffect(() => {
-      let cancel = false;
-
+  useEffect(() => {
+    let cancel = false;
+    if (execute) {
       dispatch({ type: 'get' });
       getData(url)
         .then(data => {
@@ -84,17 +82,17 @@ export const useDataLoader = (getData, url, execute = true) => {
           // eslint-disable-next-line no-unused-expressions
           !cancel && dispatch({ type: 'error', payload: { error } });
         });
-
-      return () => {
-        cancel = true;
-      };
-    }, [nonce, url]);
-
-    const retry = () => {
-      setNonce(Date.now());
+    } else {
+      dispatch({ type: 'success', payload: {} });
+    }
+    return () => {
+      cancel = true;
     };
+  }, [nonce, url]);
 
-    return { ...state, retry };
-  }
-  return {};
+  const retry = () => {
+    setNonce(Date.now());
+  };
+
+  return { ...state, retry };
 };

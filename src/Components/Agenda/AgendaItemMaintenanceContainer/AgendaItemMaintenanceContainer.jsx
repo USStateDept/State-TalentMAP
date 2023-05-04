@@ -23,7 +23,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const researchPaneRef = useRef();
 
   const agendaID = get(props, 'match.params.agendaID') || '';
-  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
+  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
   const agendaItem = get(agendaItemData, 'data') || {};
 
   const id = get(props, 'match.params.id');
@@ -131,7 +131,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             name="user-circle-o"
             size="lg"
           />
-          Agenda Item Maintenance
+          Agenda Item Maintenance |||{spinner.toString()}|||
           {
             employeeHasCDO ?
               <span className="aim-title-dash">
