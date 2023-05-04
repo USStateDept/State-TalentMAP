@@ -74,20 +74,20 @@ const AgendaItemCard = props => {
         !isCreate &&
         <div className={`ai-history-card agenda-border-card--${agendaStatus}`}>
           <div className="ai-history-status">
-            <div className={`status-tag agenda-tag--${agendaStatus}`}>
+            <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
               {
                 showAgendaItemMaintenance ?
                   <Link
-                    className="ai-id-card-link"
+                    className="ai-id-link"
                     to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
                   >
                     <FA name="sticky-note" />
                   </Link>
                   :
-                  <div className="ai-id-card-link">
-                    <FA name="sticky-note" />
-                  </div>
+                  <FA name="sticky-note" />
               }
+            </div>
+            <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
             </div>
             <div className={`poly-slash agenda-tag--${agendaStatus}`}>_</div>

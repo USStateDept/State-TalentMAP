@@ -45,7 +45,7 @@ const AgendaItemRow = props => {
   const pmi = (<>
     {
       agenda?.pmi_official_item_num && isPanelMeetingView &&
-      <div className="pmiNum">{agenda?.pmi_official_item_num}</div>
+      <>{agenda?.pmi_official_item_num}</>
     }
     <FA name="sticky-note" />
   </>);
@@ -68,7 +68,7 @@ const AgendaItemRow = props => {
         !isCreate &&
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
-            <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
+            <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
               {
                 showAgendaItemMaintenance ?
                   <Link
