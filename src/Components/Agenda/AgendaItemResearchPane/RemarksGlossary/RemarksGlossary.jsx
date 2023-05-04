@@ -112,7 +112,8 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     setExclusiveCats(exclusiveCats$);
   };
 
-  const getInteractiveTypeAndText = (r) => {
+  // eslint-disable-next-line no-unused-vars
+  const getInteractiveTypeAndTextOLD = (r) => {
     let interactiveType = '';
     let disabled = isReadOnly;
 
@@ -143,6 +144,36 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
 
     return renderText(r, returnTypes[interactiveType], disabled);
   };
+
+  const helpMe = (r) => {
+    let disabled = isReadOnly;
+    let selected = false;
+
+    if (find(userSelections, { seq_num: r.seq_num })) {
+      selected = true;
+    } else if (exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
+      selected = false;
+      disabled = true;
+    }
+
+    return { selected, disabled };
+  };
+
+  const getInteractiveTypeAndText = (r) => {
+    const elsa = helpMe(r);
+
+    const returnType = (<InteractiveElement
+      onClick={() => elsa?.disabled ? {} : updateSelection(r, textInputs)}
+    >
+      <FA
+        name={`${elsa?.selected ? 'minus-circle' : 'plus-circle'}`}
+        className={`${elsa?.disabled ? 'fa-disabled' : ''}`}
+      />
+    </InteractiveElement>);
+
+    return renderText(r, returnType, elsa?.disabled || elsa?.selected);
+  };
+
 
   const [remarks$, setRemarks$] = useState(remarks);
 
