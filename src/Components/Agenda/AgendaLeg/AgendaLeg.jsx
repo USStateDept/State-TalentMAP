@@ -12,7 +12,7 @@ import TodModal from './TodModal';
 
 const AgendaLeg = props => {
   const {
-    isEf,
+    isEf, // check if leg is first leg, or separation
     leg,
     legNum,
     updateLeg,
@@ -48,8 +48,11 @@ const AgendaLeg = props => {
 
   const submitCustomTod = (todArray) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
+
+    // TODO: figure out how to calculate custom TOD months
+    // TODO: likely will need validation
     const customTodMonths = todArray[0]?.substring(0, todArray[0]?.length - 2);
-    const customTod =
+    const customTodDropDownOption =
     [{
       id: todCode,
       code: 'X',
@@ -58,11 +61,15 @@ const AgendaLeg = props => {
       short_description: todCode,
       long_description: todCode,
     }];
-    setTod$([...tod$, ...customTod]);
-    updateLeg(leg.ail_seq_num, 'tourOfDutyMonths', customTodMonths);
-    updateLeg(leg.ail_seq_num, 'tourOfDutyText', todCode);
-    updateLeg(leg.ail_seq_num, 'tourOfDutyCode', 'X');
-    updateLeg(leg?.ail_seq_num, 'tourOfDutyOtherText', todCode);
+
+    if (leg?.ail_seq_num) {
+      const { ail_seq_num } = leg;
+      setTod$([...tod$, ...customTodDropDownOption]);
+      updateLeg(ail_seq_num, 'tourOfDutyMonths', customTodMonths);
+      updateLeg(ail_seq_num, 'tourOfDutyText', todCode);
+      updateLeg(ail_seq_num, 'tourOfDutyCode', 'X');
+      updateLeg(ail_seq_num, 'tourOfDutyOtherText', todCode);
+    }
     swal.close();
   };
 
@@ -86,13 +93,15 @@ const AgendaLeg = props => {
       openTodModal();
       return;
     }
-    if (dropdown === 'tourOfDutyText') {
+    if (dropdown === 'tourOfDutyText' && leg?.ail_seq_num) {
+      setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
       const getTod = tod$.find(tod => tod.long_description === value);
-      const { code, months, long_description } = getTod;
-      updateLeg(leg?.ail_seq_num, 'tourOfDutyOtherText', null);
-      updateLeg(leg?.ail_seq_num, 'tourOfDutyCode', code);
-      updateLeg(leg?.ail_seq_num, 'tourOfDutyMonths', months);
-      updateLeg(leg?.ail_seq_num, 'tourOfDutyText', long_description);
+      const { code, long_description } = getTod;
+      const { ail_seq_num } = leg;
+      updateLeg(ail_seq_num, 'tourOfDutyOtherText', null);
+      updateLeg(ail_seq_num, 'tourOfDutyCode', code);
+      updateLeg(ail_seq_num, 'tourOfDutyMonths', null);
+      updateLeg(ail_seq_num, 'tourOfDutyText', long_description);
       return;
     }
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
@@ -178,9 +187,11 @@ const AgendaLeg = props => {
           {defaultText}
         </option>
         {
-          data.map(tod =>
-            (<option key={tod.code} value={tod.long_description}>{tod.long_description}</option>),
-          )
+          data.map((tod, i) => {
+            const { code, long_description } = tod;
+            const todKey = `${code}-${i}`; // custom tods will have the same code as other
+            return <option key={todKey} value={long_description}>{long_description}</option>;
+          })
         }
       </select>
     );
