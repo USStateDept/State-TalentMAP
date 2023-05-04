@@ -134,6 +134,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         }
         return (<RemarksGlossary
           remarks={remarks$}
+          isReadOnly={isReadOnly}
           remarkCategories={rmrkCategories$}
           userSelections={userSelections}
           updateSelection={updateSelection}

@@ -7,7 +7,9 @@ import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Fuse from 'fuse.js';
 
-const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
+// eslint-disable-next-line no-unused-vars
+const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
+  userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
   const [exclusiveCats, setExclusiveCats] = useState({});
 
@@ -43,7 +45,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     }
   };
 
-  const getTextInputValue = (rSeq, riSeq) => textInputs[rSeq][riSeq] || '';
+  const getTextInputValue = (rSeq, riSeq) => textInputs?.[rSeq]?.[riSeq] || '';
 
   const renderText = (r, interactiveTypeRender, disabled) => {
     const rText = r?.text?.split(/(\s+)/) || '';
@@ -112,7 +114,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const getInteractiveTypeAndText = (r) => {
     let interactiveType = '';
-    let disabled = false;
+    let disabled = isReadOnly;
 
     if (find(userSelections, { seq_num: r.seq_num })) {
       interactiveType = 'selectedEnabled';
@@ -225,6 +227,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 };
 
 RemarksGlossary.propTypes = {
+  isReadOnly: PropTypes.bool,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -263,9 +266,10 @@ RemarksGlossary.propTypes = {
 };
 
 RemarksGlossary.defaultProps = {
-  userSelections: [],
+  isReadOnly: false,
   remarks: [],
   remarkCategories: [],
+  userSelections: [],
   updateSelection: EMPTY_FUNCTION,
 };
 
