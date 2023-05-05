@@ -7,11 +7,37 @@
     padding: 15px;
     position: relative;
 
-    .status-tag {
-      padding: 5px 20px;
-    }
-    .poly-slash {
-      padding: 5px 0;
+    .ai-history-status {
+      position: absolute;
+      top: 0;
+      left: -2px;
+      font-family: 'Roboto';
+      display: flex;
+
+      .pmi-official-item-number {
+        font-size: 20px;
+        padding: 5px 20px;
+        .fa-sticky-note {
+          color: white;
+          padding: 0 15px;
+        }
+        .ai-id-link {
+          color: white;
+          text-decoration: none;
+        }
+      }
+      .status-tag {
+        color: $color-white;
+        display: flex;
+        align-items: center;
+      }
+      .poly-slash {
+        padding: 5px 0;
+        clip-path: polygon(0 0, 100% 0, 20% 100%, 0 100%);
+        display: inline-block;
+        margin-left: -3px;
+        width: 30px;
+      }
     }
 
     .ai-history-row-panel-date {
@@ -111,5 +137,21 @@
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
+  }
+}
+
+.agenda-item-row-container {
+  .ai-history-row {
+    .status-tag {
+      padding: 5px 20px;
+    }
+  }
+}
+
+.ai-history-cards-container {
+  .ai-history-card {
+    .status-tag {
+      padding: 4px;
+    }
   }
 }
