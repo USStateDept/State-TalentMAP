@@ -68,7 +68,6 @@ const AgendaItemLegsForm = props => {
       const isLegacyValue = (!includes(TODs, l.tourOfDutyCode) && l.tourOfDutyCode !== '');
       if (isLegacyValue) {
         TODs.push({
-          id: 'LT',
           code: 'LT',
           is_active: true,
           months: null,
