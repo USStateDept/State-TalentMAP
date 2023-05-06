@@ -46,12 +46,9 @@ const AgendaLeg = props => {
     swal.close();
   };
 
-  const submitCustomTod = (todArray) => {
+  const submitCustomTod = (todArray, customTodMonths) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
 
-    // TODO: figure out how to calculate custom TOD months
-    // TODO: likely will need validation
-    const customTodMonths = todArray[0]?.substring(0, todArray[0]?.length - 2);
     const customTodDropDownOption =
     [{
       code: 'X',
