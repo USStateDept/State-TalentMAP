@@ -25,7 +25,7 @@ const EditRemark = (props) => {
     // to match insertion order of the remark description. Incoming insertions are not
     // necessarily in the same order as the insertions in the actual incoming remark description.
     const re = new RegExp('{[^}]*}', 'g');
-    const sortedInserts = descriptionInput.match(re);
+    const sortedInserts = descriptionInput.match(re) || '';
     const loadedInserts = remark.remark_inserts;
     const displayInsertionList = [];
     loadedInserts.map(x => (displayInsertionList.push(x.riinsertiontext)));
