@@ -3,6 +3,8 @@ import { get, orderBy, uniqBy } from 'lodash';
 import { useDataLoader } from 'hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import swal from '@sweetalert/with-react';
+import FA from 'react-fontawesome';
+import InteractiveElement from 'Components/InteractiveElement';
 import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
@@ -46,9 +48,9 @@ const PanelAdmin = () => {
   const errorAlert = (<Alert type="error" title="Error loading data" messages={[{ body: 'This data may not be available.' }]} />);
 
 
-  const createRemarkModal = () => {
+  const showRemarkModal = (edit, category, remark) => {
     swal({
-      title: 'Create New Remark',
+      title: edit ? 'Edit Remark' : 'Create New Remark',
       button: false,
       closeOnEsc: true,
       content: (
@@ -59,6 +61,9 @@ const PanelAdmin = () => {
           createRemarkError={createRemarkError}
           createRemarkLoading={createRemarkLoading}
           createRemarkSuccess={createRemarkSuccess}
+          category={category}
+          remark={remark}
+          isEdit={edit}
         />
       ),
     });
@@ -77,7 +82,7 @@ const PanelAdmin = () => {
         <tbody>
           <tr>
             <td className="create-remark-button" colSpan="3">
-              <button onClick={createRemarkModal}>Create New Remark</button>
+              <button onClick={() => showRemarkModal(false)}>Create New Remark</button>
             </td>
           </tr>
           {rmrkCategoriesOrdered.map(category => {
@@ -86,7 +91,12 @@ const PanelAdmin = () => {
               remarksInCategory.map(r => (
                 <tr key={r.seq_num}>
                   <td>{category.desc_text}</td>
-                  <td>{r.text}</td>
+                  <td>
+                    <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
+                      <FA name="pencil" />
+                    </InteractiveElement>
+                    {r.text}
+                  </td>
                   <td className="active-column">{r.active_ind}</td>
                 </tr>
               ))

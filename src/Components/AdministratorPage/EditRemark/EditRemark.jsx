@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
+import { get } from 'lodash';
 import InteractiveElement from 'Components/InteractiveElement';
 import CheckBox from 'Components/CheckBox';
 
@@ -12,16 +13,35 @@ const EditRemark = (props) => {
     createRemark,
     createRemarkSuccess,
     createRemarkLoading,
+    category,
+    remark,
+    isEdit,
   } = props;
 
-  const [rmrkInsertionList, setRmrkInsertionList] = useState([]);
+  const [descriptionInput, setDescriptionInput] = useState(remark.text || '');
 
-  const [descriptionInput, setDescriptionInput] = useState('');
+  const sortInserts = () => {
+    // Because the insertion remove functionality is index based, have to sort incoming insertions
+    // to match insertion order of the remark description. Incoming insertions are not
+    // necessarily in the same order as the insertions in the actual incoming remark description.
+    const re = new RegExp('{[^}]*}', 'g');
+    const sortedInserts = descriptionInput.match(re) || '';
+    const loadedInserts = remark.remark_inserts;
+    const displayInsertionList = [];
+    loadedInserts.map(x => (displayInsertionList.push(x.riinsertiontext)));
+    displayInsertionList.sort((a, b) => sortedInserts.indexOf(a) - sortedInserts.indexOf(b));
+    return displayInsertionList;
+  };
+
+  const [rmrkInsertionList, setRmrkInsertionList] = useState(isEdit ? sortInserts() : []);
+
+  const [shortDescription, setShortDescription] = useState(remark.short_desc_text || '');
   const [insertionInput, setInsertionInput] = useState('');
+  const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code : '');
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
-  const [activeIndicator, setActiveIndicator] = useState(false);
-  const [mutuallyExclusive, setMutuallyExclusive] = useState(false);
+  const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  const [mutuallyExclusive, setMutuallyExclusive] = useState(remark.mutually_exclusive_ind === 'Y');
 
   const closeRemarkModal = (e) => {
     e.preventDefault();
@@ -82,6 +102,13 @@ const EditRemark = (props) => {
     }
   };
 
+  const updateShortDescription = (e) => {
+    const value = e.target.value;
+    if (value) {
+      setShortDescription(value);
+    }
+  };
+
   const checkActiveIndicator = (e) => {
     setActiveIndicator(e);
   };
@@ -97,7 +124,11 @@ const EditRemark = (props) => {
       </div>
       <div className="edit-remark-input">
         <label htmlFor="edit-remark-categories">*Remark Category:</label>
-        <select id="edit-remark-categories">
+        <select
+          id="edit-remark-categories"
+          defaultValue={rmrkCategory}
+          onChange={(e) => setRmrkCategory(get(e, 'target.value'))}
+        >
           {
             rmrkCategories.map(x => (
               <option value={x.code}>
@@ -152,6 +183,8 @@ const EditRemark = (props) => {
         <input
           id="edit-remark-short-description"
           placeholder="Enter Remark Short Description"
+          onChange={updateShortDescription}
+          value={shortDescription}
         />
       </div>
       <div className="edit-remark-input">
@@ -201,10 +234,30 @@ EditRemark.propTypes = {
   rmrkCategories: PropTypes.arrayOf(PropTypes.shape({})),
   dispatch: PropTypes.func.isRequired,
   createRemark: PropTypes.func.isRequired,
+  remark: PropTypes.shape({
+    seq_num: PropTypes.number,
+    rc_code: PropTypes.string,
+    order_num: PropTypes.number,
+    short_desc_text: PropTypes.string,
+    mutually_exclusive_ind: PropTypes.string,
+    text: PropTypes.string,
+    active_ind: PropTypes.string,
+    remark_inserts: PropTypes.arrayOf(
+      PropTypes.shape({
+        rirmrkseqnum: PropTypes.number,
+        riseqnum: PropTypes.number,
+        riinsertiontext: PropTypes.string,
+      }),
+    ),
+  }),
+  category: PropTypes.string,
+  isEdit: PropTypes.bool.isRequired,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
+  remark: {},
+  category: '',
 };
 
 export default EditRemark;
