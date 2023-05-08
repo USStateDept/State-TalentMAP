@@ -129,8 +129,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       >
         Keep Unselected
       </option>
-      <option />
-      <option />
+      <option
+        key="undefined-0"
+      />
+      <option
+        key="undefined-1"
+      />
     </select>
   </InteractiveElement>
   <InteractiveElement
@@ -152,8 +156,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       >
         Keep Unselected
       </option>
-      <option />
-      <option />
+      <option
+        key="undefined-0"
+      />
+      <option
+        key="undefined-1"
+      />
     </select>
   </InteractiveElement>
   <InteractiveElement
@@ -175,8 +183,12 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
       >
         Keep Unselected
       </option>
-      <option />
-      <option />
+      <option
+        key="undefined-0"
+      />
+      <option
+        key="undefined-1"
+      />
     </select>
   </InteractiveElement>
 </Fragment>
