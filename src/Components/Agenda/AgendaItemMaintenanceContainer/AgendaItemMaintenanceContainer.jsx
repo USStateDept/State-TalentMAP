@@ -138,7 +138,7 @@ const AgendaItemMaintenanceContainer = (props) => {
             name="user-circle-o"
             size="lg"
           />
-          Agenda Item Maintenance |||{spinner.toString()}|||
+          Agenda Item Maintenance
           {
             employeeHasCDO ?
               <span className="aim-title-dash">
