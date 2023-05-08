@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -25,8 +25,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
   const agendaItem = get(agendaItemData, 'data') || {};
-  // temporary until business logic is added for readOnly items
-  const isReadOnly = !isEmpty(agendaItemData);
 
   const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
@@ -58,6 +56,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
   const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
+  // temporary until business logic is added for readOnly items
+  const [isReadOnly, setIsReadOnly] = useState(false);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
@@ -78,6 +78,13 @@ const AgendaItemMaintenanceContainer = (props) => {
         }
         remark$.ari_insertions = textInputs[tempKey];
       }
+
+      remark$.user_remark_inserts = [];
+      remark$.remark_inserts.forEach(ri => (remark$.user_remark_inserts.push({
+        airiinsertiontext: textInputs[ri.rirmrkseqnum][ri.riseqnum],
+        airirmrkseqnum: ri.rirmrkseqnum,
+        aiririseqnum: ri.riseqnum,
+      })));
 
       userRemarks$.push(remark$);
       setUserRemarks(userRemarks$);
@@ -118,6 +125,7 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   useEffect(() => {
     if (!agendaItemLoading) {
+      setIsReadOnly(!isEmpty(agendaItemData) && sample([true, false]));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);

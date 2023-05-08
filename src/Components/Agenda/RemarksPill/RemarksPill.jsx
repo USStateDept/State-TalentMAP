@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
+import { find } from 'lodash';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
 const RemarksPill = props => {
   const { remark, isEditable, updateSelection, fromAIM } = props;
 
   const getRemarkText = (r) => {
+    // we can just grab the already merged text from the BE, but it would mean
+    // we have to distinguish from the read/create RemarksGlossary renders
     const refInserts = r?.remark_inserts || [];
-    let remarkText = r?.text || '';
+    let remarkText = r?.ref_text || '';
 
     refInserts.forEach(refInsert => {
-      if (r.ari_insertions[refInsert?.riseqnum]) {
-        remarkText =
-          remarkText.replace(refInsert?.riinsertiontext, r.ari_insertions[refInsert?.riseqnum]);
-      }
+      remarkText = remarkText.replace(
+        refInsert?.riinsertiontext,
+        find(r?.user_remark_inserts, { aiririseqnum: refInsert?.riseqnum })?.airiinsertiontext);
     });
 
     return remarkText;
