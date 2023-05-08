@@ -8,9 +8,6 @@ import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import FavoriteListResultsCard from './FavoritesListResultsCard';
 import NoFavorites from '../../EmptyListAlert/NoFavorites';
-import SectionHeader from '../SectionHeader';
-import StaticDevContent from '../../StaticDevContent';
-
 
 const FavoriteList = ({ favoritePositions }) => {
   let favorites = [];
@@ -44,9 +41,6 @@ const FavoriteList = ({ favoritePositions }) => {
   });
   return (
     <div className="usa-grid-full profile-section-container">
-      <StaticDevContent>
-        <SectionHeader title="3 projected vacancies are now available" buttonText="View Favorites" icon="globe" />
-      </StaticDevContent>
       <div className="usa-grid-full section-padded-inner-container">
         <div className="usa-width-one-whole">
           <SectionTitle title="Favorites" icon="star" len={favoritePositions.counts.all} />

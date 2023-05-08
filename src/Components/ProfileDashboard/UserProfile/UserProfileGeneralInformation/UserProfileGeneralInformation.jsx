@@ -13,9 +13,7 @@ import { downloadPdfStream, fetchJWT, getBrowser, isOnProxy } from 'utilities';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
-import EditProfile from '../EditProfile';
 import Avatar from '../../../Avatar';
-import StaticDevContent from '../../../StaticDevContent';
 import SkillCodeList from '../../../SkillCodeList';
 import EmployeeProfileLink from './EmployeeProfileLinkLoadable';
 
@@ -51,7 +49,7 @@ class UserProfileGeneralInformation extends Component {
       });
   }
   render() {
-    const { userProfile, showEditLink, useGroup,
+    const { userProfile, useGroup,
       colorProp, useColor, isPublic } = this.props;
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
@@ -81,7 +79,6 @@ class UserProfileGeneralInformation extends Component {
               {...avatar}
             />
           </div>
-          { showEditLink && <StaticDevContent><EditProfile /></StaticDevContent> }
           <div className="name-group">
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <ErrorBoundary fallback="Employee Profile is currently unavailable">

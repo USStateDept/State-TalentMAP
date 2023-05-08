@@ -2,7 +2,6 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { BIDDER_LIST, CLASSIFICATIONS, EMPTY_FUNCTION } from 'Constants/PropTypes';
-import StaticDevContent from 'Components/StaticDevContent';
 import TotalResults from 'Components/TotalResults/TotalResults';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import Spinner from '../../Spinner';
@@ -11,7 +10,6 @@ import BidControls from '../BidControls';
 import BidderPortfolioSearch from '../BidderPortfolioSearch';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ExportLink from '../ExportLink';
-import EditButtons from '../EditButtons';
 
 class BidderPortfolioPage extends Component {
   constructor(props) {
@@ -85,9 +83,6 @@ class BidderPortfolioPage extends Component {
               <ProfileSectionTitle title="Clients" icon="users" />
             </div>
             <div className="usa-width-one-half" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <StaticDevContent>
-                {isListView && !hideControls && <EditButtons onChange={this.changeEditType} />}
-              </StaticDevContent>
               <ExportLink disabled={disableLink} />
             </div>
           </div>

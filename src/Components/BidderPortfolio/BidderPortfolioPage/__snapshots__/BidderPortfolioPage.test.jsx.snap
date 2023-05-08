@@ -30,7 +30,6 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           }
         }
       >
-        <Connect(StaticDevContent) />
         <Connect(ExportLink)
           disabled={true}
         />

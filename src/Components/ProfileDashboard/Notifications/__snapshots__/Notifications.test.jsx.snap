@@ -18,18 +18,6 @@ exports[`NotificationsComponent matches snapshot 1`] = `
         title="Notifications"
       />
     </div>
-    <div
-      className="usa-width-one-fourth small-link-container small-link-container-settings"
-    >
-      <Connect(StaticDevContent)>
-        <Link
-          replace={false}
-          to="/profile/dashboard/"
-        >
-          Settings
-        </Link>
-      </Connect(StaticDevContent)>
-    </div>
   </div>
   <BorderedList
     contentArray={
@@ -83,18 +71,6 @@ exports[`NotificationsComponent matches snapshot when there are zero notificatio
         small={false}
         title="Notifications"
       />
-    </div>
-    <div
-      className="usa-width-one-fourth small-link-container small-link-container-settings"
-    >
-      <Connect(StaticDevContent)>
-        <Link
-          replace={false}
-          to="/profile/dashboard/"
-        >
-          Settings
-        </Link>
-      </Connect(StaticDevContent)>
     </div>
   </div>
   <div
