@@ -7,7 +7,6 @@ import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Fuse from 'fuse.js';
 
-// eslint-disable-next-line no-unused-vars
 const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
@@ -26,10 +25,9 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   };
 
   const setTextInputBulk = () => {
-    const remarksArr = remarks;
     const textInputs$ = {};
 
-    remarksArr.forEach(r => {
+    remarks.forEach(r => {
       const userRemark = find(userSelections, { seq_num: r.seq_num });
       r.remark_inserts.forEach(ri => {
         const userRemarkInsert = find(userRemark?.user_remark_inserts,
@@ -87,7 +85,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     remarks.forEach(r => {
       const exlusiveRCatCodes = Object.keys(localExclusiveCategories);
       if (exlusiveRCatCodes.includes(r?.rc_code)) {
-        exclusiveCategories[r?.rc_code].seqNums ??= [];
+        localExclusiveCategories[r?.rc_code].seqNums ??= [];
         localExclusiveCategories[r?.rc_code].seqNums.push(r?.seq_num);
       }
     });
@@ -197,14 +195,14 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
                   const rStatus = remarkStatus(r);
                   return (<li key={r.seq_num}>
                     <InteractiveElement
-                      onClick={() => rStatus.disabled ? {} : updateSelection(r, textInputs)}
+                      onClick={() => rStatus?.disabled ? {} : updateSelection(r, textInputs)}
                     >
                       <FA
-                        name={`${rStatus.selected ? 'minus-circle' : 'plus-circle'}`}
-                        className={`${rStatus.disabled ? 'fa-disabled' : ''}`}
+                        name={`${rStatus?.selected ? 'minus-circle' : 'plus-circle'}`}
+                        className={`${rStatus?.disabled ? 'fa-disabled' : ''}`}
                       />
                     </InteractiveElement>
-                    {renderText(r, rStatus.disabled || rStatus.selected)}
+                    {renderText(r, rStatus?.disabled || rStatus?.selected)}
                   </li>);
                 })}
               </ul>
