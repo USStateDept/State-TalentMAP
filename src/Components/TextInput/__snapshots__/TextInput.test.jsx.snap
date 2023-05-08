@@ -10,6 +10,7 @@ exports[`TextInputComponent matches snapshot 1`] = `
   />
   <input
     className=""
+    disabled={false}
     id="1"
     name="input-type-text"
     onChange={[Function]}

@@ -79,6 +79,13 @@ const AgendaItemMaintenanceContainer = (props) => {
         remark$.ari_insertions = textInputs[tempKey];
       }
 
+      remark$.user_remark_inserts = [];
+      remark$.remark_inserts.forEach(ri => (remark$.user_remark_inserts.push({
+        airiinsertiontext: textInputs[ri.rirmrkseqnum][ri.riseqnum],
+        airirmrkseqnum: ri.rirmrkseqnum,
+        aiririseqnum: ri.riseqnum,
+      })));
+
       userRemarks$.push(remark$);
       setUserRemarks(userRemarks$);
     } else {

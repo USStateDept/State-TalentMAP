@@ -27,7 +27,7 @@ const TextInput = props => {
   }, [props.value]);
 
   const { id, labelSrOnly, type, label, labelMessage, placeholder, inputProps,
-    containerProps, customContainerClass } = props;
+    containerProps, customContainerClass, disabled } = props;
   let labelClass;
   // set the input class based on "type" prop
   let inputClass;
@@ -64,6 +64,7 @@ const TextInput = props => {
       <label htmlFor={id} className={labelSrOnly ? 'usa-sr-only' : ''}>{label}</label>
       <input
         id={id}
+        disabled={disabled}
         name="input-type-text"
         type="text"
         value={input}
@@ -80,6 +81,7 @@ const TextInput = props => {
 TextInput.propTypes = {
   id: PropTypes.string.isRequired,
   labelSrOnly: PropTypes.bool,
+  disabled: PropTypes.bool,
   changeText: PropTypes.func,
   type: PropTypes.oneOf(['success', 'error', 'focus']),
   label: PropTypes.string,
@@ -93,6 +95,7 @@ TextInput.propTypes = {
 
 TextInput.defaultProps = {
   labelSrOnly: false,
+  disabled: false,
   changeText: () => {},
   type: undefined,
   label: '',
