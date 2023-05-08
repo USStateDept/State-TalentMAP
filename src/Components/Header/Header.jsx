@@ -4,10 +4,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { push } from 'connected-react-router';
-import { Flag } from 'flag';
 import FA from 'react-fontawesome';
 import { EMPTY_FUNCTION, HISTORY_OBJECT, ROUTER_LOCATION_OBJECT, USER_PROFILE } from 'Constants/PropTypes';
-import ToggleContent from '../StaticDevContent/ToggleContent';
 import { userProfileFetchData } from '../../actions/userProfile';
 import { setSelectedSearchbarFilters } from '../../actions/selectedSearchbarFilters';
 import { logoutRequest } from '../../login/actions';
@@ -122,12 +120,6 @@ export class Header extends Component {
           Skip to main content
         </InteractiveElement>
         <header id="header" className="usa-header usa-header-extended tm-header" role="banner">
-          <Flag
-            name="flags.static_content"
-            render={() => (
-              <ToggleContent />
-            )}
-          />
           <div className="usa-navbar padded-main-content padded-main-content--header">
             <button className="usa-menu-btn"><FA name="bars" /></button>
             <div className="usa-logo" id="logo">

@@ -10,11 +10,6 @@ exports[`BidListComponent matches snapshot 1`] = `
   }
 >
   <div>
-    <Connect(StaticDevContent)>
-      <BidListHeader
-        date="07/15/2019"
-      />
-    </Connect(StaticDevContent)>
     <div
       className="usa-grid-full section-padded-inner-container"
     >
@@ -538,11 +533,6 @@ exports[`BidListComponent matches snapshot when there are no bids 1`] = `
   }
 >
   <div>
-    <Connect(StaticDevContent)>
-      <BidListHeader
-        date="07/15/2019"
-      />
-    </Connect(StaticDevContent)>
     <div
       className="usa-grid-full section-padded-inner-container"
     >

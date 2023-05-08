@@ -61,7 +61,7 @@ export const dataReducer = (state, action) => {
   }
 };
 
-export const useDataLoader = (getData, ...args) => {
+export const useDataLoader = (getData, url, execute = true) => {
   const [nonce, setNonce] = useState(Date.now());
   const [state, dispatch] = useReducer(dataReducer, {
     data: null,
@@ -71,22 +71,24 @@ export const useDataLoader = (getData, ...args) => {
 
   useEffect(() => {
     let cancel = false;
-
-    dispatch({ type: 'get' });
-    getData(...args)
-      .then(data => {
-        // eslint-disable-next-line no-unused-expressions
-        !cancel && dispatch({ type: 'success', payload: { data } });
-      })
-      .catch(error => {
-        // eslint-disable-next-line no-unused-expressions
-        !cancel && dispatch({ type: 'error', payload: { error } });
-      });
-
+    if (execute) {
+      dispatch({ type: 'get' });
+      getData(url)
+        .then(data => {
+          // eslint-disable-next-line no-unused-expressions
+          !cancel && dispatch({ type: 'success', payload: { data } });
+        })
+        .catch(error => {
+          // eslint-disable-next-line no-unused-expressions
+          !cancel && dispatch({ type: 'error', payload: { error } });
+        });
+    } else {
+      dispatch({ type: 'success', payload: {} });
+    }
     return () => {
       cancel = true;
     };
-  }, [nonce, ...args]);
+  }, [nonce, url]);
 
   const retry = () => {
     setNonce(Date.now());

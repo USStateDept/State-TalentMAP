@@ -8,8 +8,6 @@ import { DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
 import SectionTitle from '../SectionTitle';
 import BidTrackerCard from '../../BidTracker/BidTrackerCard';
 import BidStatusStats from '../../BidTracker/BidStatusStats';
-import BidListHeader from './BidListHeader';
-import StaticDevContent from '../../StaticDevContent';
 import Spinner from '../../Spinner';
 
 const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoading, isPublic,
@@ -43,9 +41,6 @@ const BidList = ({ bids, submitBidPosition, deleteBid, registerHandshake, isLoad
   return (
     <div className="usa-grid-full" style={{ position: 'relative' }}>
       <div>
-        <StaticDevContent>
-          <BidListHeader />
-        </StaticDevContent>
         <div className="usa-grid-full section-padded-inner-container">
           <div className="usa-width-one-whole bid-tracker-title--condensed">
             <SkeletonTheme color="#0071BB" highlightColor="#fff">

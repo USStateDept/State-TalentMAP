@@ -4,14 +4,6 @@ exports[`FavoritesListComponent matches snapshot 1`] = `
 <div
   className="usa-grid-full profile-section-container"
 >
-  <Connect(StaticDevContent)>
-    <SectionHeader
-      buttonText="View Favorites"
-      icon="globe"
-      onButtonClick={[Function]}
-      title="3 projected vacancies are now available"
-    />
-  </Connect(StaticDevContent)>
   <div
     className="usa-grid-full section-padded-inner-container"
   >
@@ -53,14 +45,6 @@ exports[`FavoritesListComponent matches snapshot when there are no bids 1`] = `
 <div
   className="usa-grid-full profile-section-container"
 >
-  <Connect(StaticDevContent)>
-    <SectionHeader
-      buttonText="View Favorites"
-      icon="globe"
-      onButtonClick={[Function]}
-      title="3 projected vacancies are now available"
-    />
-  </Connect(StaticDevContent)>
   <div
     className="usa-grid-full section-padded-inner-container"
   >
