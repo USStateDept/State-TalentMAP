@@ -580,10 +580,6 @@ exports[`CompareListComponent matches snapshot 1`] = `
               key="65"
             />
           </tr>
-          <Flag
-            name="flags.static_content"
-            render={[Function]}
-          />
           <tr>
             <th
               scope="row"
@@ -1225,10 +1221,6 @@ exports[`CompareListComponent matches snapshot when there is an obc id 1`] = `
               key="65"
             />
           </tr>
-          <Flag
-            name="flags.static_content"
-            render={[Function]}
-          />
           <tr>
             <th
               scope="row"
