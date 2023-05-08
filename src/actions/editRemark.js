@@ -29,7 +29,7 @@ export function createRemark(props) {
   return (dispatch) => {
     dispatch(createRemarkLoading(true));
     dispatch(createRemarkError(false));
-    api().post('/createremark/', {
+    api().post('/remarkspage/', {
       props,
     }).then(({ data }) => {
       batch(() => {
