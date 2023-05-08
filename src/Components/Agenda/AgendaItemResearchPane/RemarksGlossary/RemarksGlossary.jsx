@@ -73,40 +73,40 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     </>);
   };
 
-  const renderExclusiveCats = () => {
-    const localExclusiveCategories = { };
+  const renderExclusiveCategories = () => {
+    const exclusiveCats = { };
     // unfortunately we have to loop twice bc we can't trust all remarks in a category
     // to be consistent in their mutually_exclusive_ind status
     remarks.forEach(r => {
       if (r?.mutually_exclusive_ind === 'Y') {
-        localExclusiveCategories[r?.rc_code] = { remarkCatSelected: false };
+        exclusiveCats[r?.rc_code] = { remarkCatSelected: false };
       }
     });
     remarks.forEach(r => {
-      const exlusiveRCatCodes = Object.keys(localExclusiveCategories);
+      const exlusiveRCatCodes = Object.keys(exclusiveCats);
       if (exlusiveRCatCodes.includes(r?.rc_code)) {
-        localExclusiveCategories[r?.rc_code].seqNums ??= [];
-        localExclusiveCategories[r?.rc_code].seqNums.push(r?.seq_num);
+        exclusiveCats[r?.rc_code].seqNums ??= [];
+        exclusiveCats[r?.rc_code].seqNums.push(r?.seq_num);
       }
     });
-    setExclusiveCategories(localExclusiveCategories);
+    setExclusiveCategories(exclusiveCats);
   };
 
-  const updateExclusiveCats = () => {
-    const exclusiveCats$ = { ...exclusiveCategories };
+  const updateExclusiveCategories = () => {
+    const exclusiveCats = { ...exclusiveCategories };
 
-    // reset cats
-    Object.keys(exclusiveCats$).forEach(c => {
-      exclusiveCats$[c].remarkCatSelected = false;
+    // reset exclusive categories
+    Object.keys(exclusiveCats).forEach(c => {
+      exclusiveCats[c].remarkCatSelected = false;
     });
 
     userSelections.forEach(r => {
-      if (exclusiveCats$[r.rc_code]) {
-        exclusiveCats$[r.rc_code].remarkCatSelected = true;
+      if (exclusiveCats[r.rc_code]) {
+        exclusiveCats[r.rc_code].remarkCatSelected = true;
       }
     });
 
-    setExclusiveCategories(exclusiveCats$);
+    setExclusiveCategories(exclusiveCats);
   };
 
   const remarkStatus = (r) => {
@@ -156,11 +156,11 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   };
 
   useEffect(() => {
-    updateExclusiveCats();
+    updateExclusiveCategories();
   }, [userSelections]);
 
   useEffect(() => {
-    renderExclusiveCats();
+    renderExclusiveCategories();
     setTextInputBulk();
   }, []);
 
