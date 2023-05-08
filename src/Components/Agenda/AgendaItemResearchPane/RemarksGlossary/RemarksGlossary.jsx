@@ -47,7 +47,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
 
   const getTextInputValue = (rSeq, riSeq) => textInputs?.[rSeq]?.[riSeq] || '';
 
-  const renderText = (r, interactiveTypeRender, disabled) => {
+  const renderText = (r, disabled) => {
     const rText = r?.text?.split(/(\s+)/) || '';
     const rInserts = r?.remark_inserts || [];
 
@@ -71,7 +71,6 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
       }
     });
     return (<>
-      {interactiveTypeRender}
       <div className="remark-input-container">{rText}</div>
     </>);
   };
@@ -112,40 +111,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
     setExclusiveCats(exclusiveCats$);
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const getInteractiveTypeAndTextOLD = (r) => {
-    let interactiveType = '';
-    let disabled = isReadOnly;
-
-    if (find(userSelections, { seq_num: r.seq_num })) {
-      interactiveType = 'selectedEnabled';
-      disabled = true;
-    } else if (exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
-      interactiveType = 'notSelectedDisabled';
-      disabled = true;
-    } else {
-      interactiveType = 'notSelectedEnabled';
-    }
-
-    const returnTypes = {
-      selectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-        <FA name="minus-circle" />
-      </InteractiveElement>),
-      notSelectedDisabled: (<InteractiveElement onClick={() => {}}>
-        <FA
-          name="plus-circle"
-          className="fa-disabled"
-        />
-      </InteractiveElement>),
-      notSelectedEnabled: (<InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-        <FA name="plus-circle" />
-      </InteractiveElement>),
-    };
-
-    return renderText(r, returnTypes[interactiveType], disabled);
-  };
-
-  const helpMe = (r) => {
+  const remarkStatus = (r) => {
     let disabled = isReadOnly;
     let selected = false;
 
@@ -158,22 +124,6 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
 
     return { selected, disabled };
   };
-
-  const getInteractiveTypeAndText = (r) => {
-    const elsa = helpMe(r);
-
-    const returnType = (<InteractiveElement
-      onClick={() => elsa?.disabled ? {} : updateSelection(r, textInputs)}
-    >
-      <FA
-        name={`${elsa?.selected ? 'minus-circle' : 'plus-circle'}`}
-        className={`${elsa?.disabled ? 'fa-disabled' : ''}`}
-      />
-    </InteractiveElement>);
-
-    return renderText(r, returnType, elsa?.disabled || elsa?.selected);
-  };
-
 
   const [remarks$, setRemarks$] = useState(remarks);
 
@@ -243,11 +193,20 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
                 {category.desc_text}{isExclusiveCatText}
               </div>
               <ul>
-                {remarksInCategory.map(r => (
-                  (<li key={r.seq_num}>
-                    {getInteractiveTypeAndText(r)}
-                  </li>)
-                ))}
+                {remarksInCategory.map(r => {
+                  const rStatus = remarkStatus(r);
+                  return (<li key={r.seq_num}>
+                    <InteractiveElement
+                      onClick={() => rStatus.disabled ? {} : updateSelection(r, textInputs)}
+                    >
+                      <FA
+                        name={`${rStatus.selected ? 'minus-circle' : 'plus-circle'}`}
+                        className={`${rStatus.disabled ? 'fa-disabled' : ''}`}
+                      />
+                    </InteractiveElement>
+                    {renderText(r, rStatus.disabled || rStatus.selected)}
+                  </li>);
+                })}
               </ul>
             </div>
           );
