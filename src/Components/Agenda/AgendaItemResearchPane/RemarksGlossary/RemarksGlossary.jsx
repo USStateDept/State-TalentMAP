@@ -11,7 +11,7 @@ import Fuse from 'fuse.js';
 const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
-  const [exclusiveCats, setExclusiveCats] = useState({});
+  const [exclusiveCategories, setExclusiveCategories] = useState({});
 
   const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
@@ -76,26 +76,26 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
   };
 
   const renderExclusiveCats = () => {
-    const exclusiveCategories = { };
+    const localExclusiveCategories = { };
     // unfortunately we have to loop twice bc we can't trust all remarks in a category
     // to be consistent in their mutually_exclusive_ind status
     remarks.forEach(r => {
       if (r?.mutually_exclusive_ind === 'Y') {
-        exclusiveCategories[r?.rc_code] = { remarkCatSelected: false };
+        localExclusiveCategories[r?.rc_code] = { remarkCatSelected: false };
       }
     });
     remarks.forEach(r => {
-      const exlusiveRCatCodes = Object.keys(exclusiveCategories);
+      const exlusiveRCatCodes = Object.keys(localExclusiveCategories);
       if (exlusiveRCatCodes.includes(r?.rc_code)) {
         exclusiveCategories[r?.rc_code].seqNums ??= [];
-        exclusiveCategories[r?.rc_code].seqNums.push(r?.seq_num);
+        localExclusiveCategories[r?.rc_code].seqNums.push(r?.seq_num);
       }
     });
-    setExclusiveCats(exclusiveCategories);
+    setExclusiveCategories(localExclusiveCategories);
   };
 
   const updateExclusiveCats = () => {
-    const exclusiveCats$ = { ...exclusiveCats };
+    const exclusiveCats$ = { ...exclusiveCategories };
 
     // reset cats
     Object.keys(exclusiveCats$).forEach(c => {
@@ -108,7 +108,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
       }
     });
 
-    setExclusiveCats(exclusiveCats$);
+    setExclusiveCategories(exclusiveCats$);
   };
 
   const remarkStatus = (r) => {
@@ -117,7 +117,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
 
     if (find(userSelections, { seq_num: r.seq_num })) {
       selected = true;
-    } else if (exclusiveCats?.[r.rc_code]?.remarkCatSelected) {
+    } else if (exclusiveCategories?.[r.rc_code]?.remarkCatSelected) {
       selected = false;
       disabled = true;
     }
@@ -185,7 +185,7 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
-          const isExclusiveCatText = exclusiveCats?.[category.code] ? ' (one remark per this category)' : '';
+          const isExclusiveCatText = exclusiveCategories?.[category.code] ? ' (one remark per this category)' : '';
 
           return (
             <div key={category.code}>
