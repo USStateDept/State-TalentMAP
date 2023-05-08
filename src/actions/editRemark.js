@@ -29,8 +29,6 @@ export function createRemark(props) {
   return (dispatch) => {
     dispatch(createRemarkLoading(true));
     dispatch(createRemarkError(false));
-    // TODO: stub out correct endpoint
-    // TODO: fix CORS error here
     api().post('/createremark/', {
       props,
     }).then(({ data }) => {

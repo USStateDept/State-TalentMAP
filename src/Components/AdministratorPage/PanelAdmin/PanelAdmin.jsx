@@ -67,28 +67,32 @@ const PanelAdmin = () => {
   const remarksTable = (
     <div>
       <table>
-        <tr>
-          <th>Remark Category</th>
-          <th>Description</th>
-          <th>Active</th>
-        </tr>
-        <tr>
-          <td className="create-remark-button" colSpan="3">
-            <button onClick={createRemarkModal}>Create New Remark</button>
-          </td>
-        </tr>
-        {rmrkCategoriesOrdered.map(category => {
-          const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
-          return (
-            remarksInCategory.map(r => (
-              <tr>
-                <td>{category.desc_text}</td>
-                <td>{r.text}</td>
-                <td className="active-column">{r.active_ind}</td>
-              </tr>
-            ))
-          );
-        })}
+        <thead>
+          <tr>
+            <th>Remark Category</th>
+            <th>Description</th>
+            <th>Active</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td className="create-remark-button" colSpan="3">
+              <button onClick={createRemarkModal}>Create New Remark</button>
+            </td>
+          </tr>
+          {rmrkCategoriesOrdered.map(category => {
+            const remarksInCategory = orderBy(remarks$.filter(f => f.rc_code === category.code), 'order_num');
+            return (
+              remarksInCategory.map(r => (
+                <tr key={r.seq_num}>
+                  <td>{category.desc_text}</td>
+                  <td>{r.text}</td>
+                  <td className="active-column">{r.active_ind}</td>
+                </tr>
+              ))
+            );
+          })}
+        </tbody>
       </table>
     </div>
   );
