@@ -181,14 +181,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/ao/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="users"
         key="Available Bidders"
         link="/profile/ao/availablebidders"
@@ -228,14 +220,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/bureau/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="users"
         key="Available Bidders"
         link="/profile/bureau/availablebidders"
@@ -257,14 +241,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Manager"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="bar-chart"
-        key="Statistics"
-        link="/profile/bureau/stats/"
-        search=""
-        title="Statistics"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -328,14 +304,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       title="Post"
       toggleMenuSection={[Function]}
     >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/post/dashboard/"
-        search=""
-        title="Dashboard"
-      />
       <withRouter(NavLink)
         hidden={true}
         iconName="users"
@@ -538,14 +506,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/ao/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="users"
         key="Available Bidders"
         link="/profile/ao/availablebidders"
@@ -585,14 +545,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/bureau/dashboard/"
-        search=""
-        title="Dashboard"
-      />
-      <withRouter(NavLink)
-        hidden={true}
         iconName="users"
         key="Available Bidders"
         link="/profile/bureau/availablebidders"
@@ -614,14 +566,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Manager"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="bar-chart"
-        key="Statistics"
-        link="/profile/bureau/stats/"
-        search=""
-        title="Statistics"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -685,14 +629,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       title="Post"
       toggleMenuSection={[Function]}
     >
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="tachometer"
-        key="Dashboard"
-        link="/profile/post/dashboard/"
-        search=""
-        title="Dashboard"
-      />
       <withRouter(NavLink)
         hidden={true}
         iconName="users"

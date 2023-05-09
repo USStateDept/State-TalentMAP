@@ -23,7 +23,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const researchPaneRef = useRef();
 
   const agendaID = get(props, 'match.params.agendaID') || '';
-  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
+  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
   const agendaItem = get(agendaItemData, 'data') || {};
 
   const id = get(props, 'match.params.id');
@@ -79,6 +79,13 @@ const AgendaItemMaintenanceContainer = (props) => {
         }
         remark$.ari_insertions = textInputs[tempKey];
       }
+
+      remark$.user_remark_inserts = [];
+      remark$.remark_inserts.forEach(ri => (remark$.user_remark_inserts.push({
+        airiinsertiontext: textInputs[ri.rirmrkseqnum][ri.riseqnum],
+        airirmrkseqnum: ri.rirmrkseqnum,
+        aiririseqnum: ri.riseqnum,
+      })));
 
       userRemarks$.push(remark$);
       setUserRemarks(userRemarks$);

@@ -7,8 +7,6 @@ import BorderedList from '../../BorderedList';
 import SavedSearchesListResultsCard from './SavedSearchesListResultsCard';
 import Spinner from '../../Spinner';
 import NoSavedSearches from '../../EmptyListAlert/NoSavedSearches';
-import SectionHeader from '../SectionHeader';
-import StaticDevContent from '../../StaticDevContent';
 
 const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filtersIsLoading }) => {
   const savedSearchArray = [];
@@ -31,9 +29,6 @@ const SavedSearchesList = ({ savedSearches, goToSavedSearch, mappedParams, filte
         <Spinner type="saved-searches" size="big" />
         :
         <div className="usa-grid-full">
-          <StaticDevContent>
-            <SectionHeader title="3 projected vacancies are now available" buttonText="View Saved Searches" icon="globe" />
-          </StaticDevContent>
           <div className="usa-grid-full section-padded-inner-container">
             <div className="usa-width-one-whole">
               <SectionTitle title="Saved Searches" icon="clock-o" len={get(savedSearches, 'results.length')} />

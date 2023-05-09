@@ -29,9 +29,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         useExternalImg={false}
       />
     </div>
-    <Connect(StaticDevContent)>
-      <EditProfile />
-    </Connect(StaticDevContent)>
     <div
       className="name-group"
     >
@@ -202,9 +199,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         useExternalImg={false}
       />
     </div>
-    <Connect(StaticDevContent)>
-      <EditProfile />
-    </Connect(StaticDevContent)>
     <div
       className="name-group"
     >
@@ -375,9 +369,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         useExternalImg={false}
       />
     </div>
-    <Connect(StaticDevContent)>
-      <EditProfile />
-    </Connect(StaticDevContent)>
     <div
       className="name-group"
     >

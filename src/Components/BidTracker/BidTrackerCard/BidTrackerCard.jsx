@@ -139,19 +139,6 @@ class BidTrackerCard extends Component {
             }
           </div>
         </div>
-        { /*
-          Don't have this data yet, so we'll hide
-          showContacts && !condensedView &&
-            <div className="usa-grid-full bid-tracker-card-bottom-container">
-              <div className="padded-container-inner">
-                <BidTrackerCardBottom
-                  reviewer={bid.reviewer}
-                  bureau={bid.position_info.position.bureau}
-                  userProfile={userProfile}
-                />
-              </div>
-            </div>
-        */ }
         {
           condensedView &&
             <div className="usa-grid-full bid-tracker-stats">

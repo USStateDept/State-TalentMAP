@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import shortId from 'shortid';
 import { get, isNull } from 'lodash';
 import FA from 'react-fontawesome';
-import { Flag } from 'flag';
 import Differentials from 'Components/Differentials';
 import { BID_LIST, COMPARE_LIST } from 'Constants/PropTypes';
 import COMPARE_LIMIT from 'Constants/Compare';
@@ -295,10 +294,6 @@ class CompareList extends Component {
                         emptyArray.map(() => <td className="empty" key={shortId.generate()} />)
                       }
                     </tr>
-                    <Flag
-                      name="flags.static_content"
-                      render={() => this.renderBidListButtons(compareArray, emptyArray)}
-                    />
                     <tr>
                       <th scope="row" />
                       {

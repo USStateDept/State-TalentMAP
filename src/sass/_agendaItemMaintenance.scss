@@ -41,10 +41,19 @@
   }
 
   .ai-research-pane {
-    .fa, .fa-disabled, .fa-disabled:hover {
-      color: $color-gray;
-      cursor: not-allowed;
+    .frequent-positions-table, .remarks-glossary-container {
+      .fa, .fa-disabled, .fa-disabled:hover {
+        color: $color-gray;
+        cursor: not-allowed;
+      }
     }
+  }
+}
+
+.remarks-glossary-container {
+  .fa-disabled, .fa-disabled:hover {
+    color: $color-gray!important;
+    cursor: not-allowed;
   }
 }
 

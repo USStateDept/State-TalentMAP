@@ -5,14 +5,16 @@ import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import TextInput from 'Components/TextInput';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import DatePicker from 'react-datepicker';
 import Fuse from 'fuse.js';
 
-const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSelection }) => {
+const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
+  userSelections, updateSelection }) => {
   const [textInputs, setTextInputs] = useState({});
+  const [exclusiveCategories, setExclusiveCategories] = useState({});
 
   const setTextInput = (rSeq, riSeq, value) => {
     const textInputs$ = { ...textInputs };
+
     if (!textInputs$[rSeq.toString()]) {
       textInputs$[rSeq.toString()] = {};
       textInputs$[rSeq.toString()][riSeq.toString()] = value;
@@ -22,59 +24,28 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
     setTextInputs(textInputs$);
   };
 
-  const setTextInputBulk = (remarksArr = []) => {
+  const setTextInputBulk = () => {
     const textInputs$ = {};
-    remarksArr.forEach(r => {
+
+    remarks.forEach(r => {
+      const userRemark = find(userSelections, { seq_num: r.seq_num });
       r.remark_inserts.forEach(ri => {
-        if (!textInputs$[(r.seq_num).toString()]) {
-          textInputs$[(r.seq_num).toString()] = {};
-          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
-        } else {
-          textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] = ri.riinsertiontext;
-        }
+        const userRemarkInsert = find(userRemark?.user_remark_inserts,
+          { aiririseqnum: ri.riseqnum });
+        textInputs$[(r.seq_num).toString()] ??= {};
+        textInputs$[(r.seq_num).toString()][(ri.riseqnum).toString()] =
+          userRemarkInsert?.airiinsertiontext || ri.riinsertiontext;
       });
     });
+
     if (!isEqual(textInputs$, textInputs)) {
       setTextInputs(textInputs$);
     }
   };
 
-  const getTextInputValue = (rSeq, riSeq) => get(textInputs, rSeq[riSeq]) || '';
+  const getTextInputValue = (rSeq, riSeq) => textInputs?.[rSeq]?.[riSeq] || '';
 
-  // eslint-disable-next-line no-unused-vars
-  const getInsertionType = (type, ri) => {
-    // date: date, date2,
-    // number:  #,
-    // text: not sure yet, but likely to be the default
-    const type$ = type.replace(/[{}\d]/g, '').replace(/#/g, 'number');
-
-    const returnTypes = {
-      text: (<TextInput
-        value={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
-        changeText={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
-        customContainerClass="remark-input"
-        placeholder={type$}
-        id="remarks-custom-input"
-        key={ri.riseqnum}
-        inputProps={{ autoComplete: 'off' }}
-      />),
-      date: (<DatePicker
-        selected={getTextInputValue(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'))}
-        onChange={v => setTextInput(get(ri, 'rirmrkseqnum'), get(ri, 'riseqnum'), v)}
-        showTimeSelect
-        timeFormat="HH:mm"
-        placeholderText={type$}
-        timeIntervals={15}
-        timeCaption="time"
-        dateFormat="MMMM d, yyyy h:mm aa"
-        className="remark-input"
-      />),
-    };
-
-    return returnTypes[type$] || returnTypes.text;
-  };
-
-  const renderText = r => {
+  const renderText = (r, disabled) => {
     const rText = r?.text?.split(/(\s+)/) || '';
     const rInserts = r?.remark_inserts || [];
 
@@ -82,12 +53,74 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {
-        rText.splice(rTextI, 1, getInsertionType(rInsertionText, a));
+        let remarkInsertValue = getTextInputValue(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'));
+        remarkInsertValue = remarkInsertValue[0] === '{' ? '' : remarkInsertValue;
+
+        rText.splice(rTextI, 1, <TextInput
+          value={remarkInsertValue}
+          changeText={v => setTextInput(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'), v)}
+          customContainerClass="remark-input"
+          placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
+          id="remarks-custom-input"
+          key={a.riseqnum}
+          inputProps={{ autoComplete: 'off' }}
+          disabled={disabled}
+        />);
       }
     });
-    return (
+    return (<>
       <div className="remark-input-container">{rText}</div>
-    );
+    </>);
+  };
+
+  const renderExclusiveCategories = () => {
+    const exclusiveCats = { };
+    // unfortunately we have to loop twice bc we can't trust all remarks in a category
+    // to be consistent in their mutually_exclusive_ind status
+    remarks.forEach(r => {
+      if (r?.mutually_exclusive_ind === 'Y') {
+        exclusiveCats[r?.rc_code] = { remarkCatSelected: false };
+      }
+    });
+    remarks.forEach(r => {
+      const exlusiveRCatCodes = Object.keys(exclusiveCats);
+      if (exlusiveRCatCodes.includes(r?.rc_code)) {
+        exclusiveCats[r?.rc_code].seqNums ??= [];
+        exclusiveCats[r?.rc_code].seqNums.push(r?.seq_num);
+      }
+    });
+    setExclusiveCategories(exclusiveCats);
+  };
+
+  const updateExclusiveCategories = () => {
+    const exclusiveCats = { ...exclusiveCategories };
+
+    // reset exclusive categories
+    Object.keys(exclusiveCats).forEach(c => {
+      exclusiveCats[c].remarkCatSelected = false;
+    });
+
+    userSelections.forEach(r => {
+      if (exclusiveCats[r.rc_code]) {
+        exclusiveCats[r.rc_code].remarkCatSelected = true;
+      }
+    });
+
+    setExclusiveCategories(exclusiveCats);
+  };
+
+  const remarkStatus = (r) => {
+    let disabled = isReadOnly;
+    let selected = false;
+
+    if (find(userSelections, { seq_num: r.seq_num })) {
+      selected = true;
+    } else if (exclusiveCategories?.[r.rc_code]?.remarkCatSelected) {
+      selected = false;
+      disabled = true;
+    }
+
+    return { selected, disabled };
   };
 
   const [remarks$, setRemarks$] = useState(remarks);
@@ -114,8 +147,8 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 
   const remarks$$ = term ? remarks$ : remarks;
 
-  let remarkCategories$ = uniqBy(remarkCategories, 'code').map(({ code, desc_text }) => ({ code, desc_text }));
-  remarkCategories$ = orderBy(remarkCategories$, 'desc_text');
+  const remarkCategoriesCodes = uniqBy(remarkCategories, 'code');
+  const remarkCategories$ = orderBy(remarkCategoriesCodes, 'desc_text');
 
   const processClick = remark => {
     const el = document.getElementById(`remark-category-${remark.code}`);
@@ -123,8 +156,13 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
   };
 
   useEffect(() => {
-    setTextInputBulk(remarks);
-  }, [remarks]);
+    updateExclusiveCategories();
+  }, [userSelections]);
+
+  useEffect(() => {
+    renderExclusiveCategories();
+    setTextInputBulk();
+  }, []);
 
   return (
     <div className="usa-grid-full remarks-glossary-container">
@@ -145,18 +183,28 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
         </div>
         {remarkCategories$.map(category => {
           const remarksInCategory = orderBy(remarks$$.filter(f => f.rc_code === category.code), 'order_num');
+          const isExclusiveCatText = exclusiveCategories?.[category.code] ? ' (one remark per this category)' : '';
+
           return (
             <div key={category.code}>
-              <div id={`remark-category-${category.code}`} className={`remark-category remark-category--${category.code}`}>{category.desc_text}</div>
+              <div id={`remark-category-${category.code}`} className={`remark-category remark-category--${category.code}`}>
+                {category.desc_text}{isExclusiveCatText}
+              </div>
               <ul>
-                {remarksInCategory.map(r => (
-                  (<li key={r.seq_num}>
-                    <InteractiveElement onClick={() => updateSelection(r, textInputs)}>
-                      <FA name={find(userSelections, { seq_num: r.seq_num }) ? 'minus-circle' : 'plus-circle'} />
+                {remarksInCategory.map(r => {
+                  const rStatus = remarkStatus(r);
+                  return (<li key={r.seq_num}>
+                    <InteractiveElement
+                      onClick={() => rStatus?.disabled ? {} : updateSelection(r, textInputs)}
+                    >
+                      <FA
+                        name={`${rStatus?.selected ? 'minus-circle' : 'plus-circle'}`}
+                        className={`${rStatus?.disabled ? 'fa-disabled' : ''}`}
+                      />
                     </InteractiveElement>
-                    {renderText(r)}
-                  </li>)
-                ))}
+                    {renderText(r, rStatus?.disabled || rStatus?.selected)}
+                  </li>);
+                })}
               </ul>
             </div>
           );
@@ -167,6 +215,7 @@ const RemarksGlossary = ({ remarks, remarkCategories, userSelections, updateSele
 };
 
 RemarksGlossary.propTypes = {
+  isReadOnly: PropTypes.bool,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -196,6 +245,7 @@ RemarksGlossary.propTypes = {
       ),
       mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
+      ref_text: PropTypes.string,
       active_ind: PropTypes.string,
     }),
   ),
@@ -204,9 +254,10 @@ RemarksGlossary.propTypes = {
 };
 
 RemarksGlossary.defaultProps = {
-  userSelections: [],
+  isReadOnly: false,
   remarks: [],
   remarkCategories: [],
+  userSelections: [],
   updateSelection: EMPTY_FUNCTION,
 };
 
