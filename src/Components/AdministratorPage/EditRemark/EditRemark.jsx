@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import { get } from 'lodash';
 import InteractiveElement from 'Components/InteractiveElement';
 import CheckBox from 'Components/CheckBox';
 
@@ -127,7 +126,7 @@ const EditRemark = (props) => {
         <select
           id="edit-remark-categories"
           defaultValue={rmrkCategory}
-          onChange={(e) => setRmrkCategory(get(e, 'target.value'))}
+          onChange={(e) => setRmrkCategory(e?.target.value)}
         >
           {
             rmrkCategories.map(x => (
@@ -252,12 +251,16 @@ EditRemark.propTypes = {
   }),
   category: PropTypes.string,
   isEdit: PropTypes.bool.isRequired,
+  createRemarkSuccess: PropTypes.bool,
+  createRemarkLoading: PropTypes.bool,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
   remark: {},
   category: '',
+  createRemarkLoading: false,
+  createRemarkSuccess: false,
 };
 
 export default EditRemark;
