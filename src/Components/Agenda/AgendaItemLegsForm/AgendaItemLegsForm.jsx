@@ -19,7 +19,7 @@ const AgendaItemLegsForm = props => {
   } = props;
 
   // eslint-disable-next-line no-unused-vars
-  const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/tourofduties/');
+  const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/toursofduty/');
   // eslint-disable-next-line no-unused-vars
   const { data: legATData, error: legATError, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
   // eslint-disable-next-line no-unused-vars
@@ -68,7 +68,6 @@ const AgendaItemLegsForm = props => {
       const isLegacyValue = (!includes(TODs, l.tourOfDutyCode) && l.tourOfDutyCode !== '');
       if (isLegacyValue) {
         TODs.push({
-          id: 'LT',
           code: 'LT',
           is_active: true,
           months: null,
