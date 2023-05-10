@@ -12,22 +12,30 @@ const TodModal = (props) => {
   const [tourInput, setTourInput] = useState('');
   const [rrInput, setRrInput] = useState('');
   const [hlInput, setHlInput] = useState('');
+  const [months, setMonths] = useState(0);
   const [combinedTodCode, setcombinedTodCode] = useState([]);
 
   const addTod = (input, type) => {
     if (input.length) {
       setcombinedTodCode([...combinedTodCode, `${input}${type}`]);
-      if (type === 'MM') setTourInput('');
+      if (type === 'MM') {
+        setMonths(Number(input) + months);
+        setTourInput('');
+      }
+      if (type === 'HL') {
+        setMonths(Number(input) + months);
+        setHlInput('');
+      }
       if (type === 'RR') setRrInput('');
-      if (type === 'HL') setHlInput('');
     }
   };
 
   const submit = () => {
-    if (combinedTodCode.length) submitCustomTod(combinedTodCode);
+    if (combinedTodCode.length) submitCustomTod(combinedTodCode, months);
   };
 
   const clear = () => {
+    setMonths(0);
     setcombinedTodCode('');
   };
 
