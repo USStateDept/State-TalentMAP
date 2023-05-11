@@ -609,3 +609,9 @@
     display: flex;
   }
 }
+
+.sophie-error {
+  border: 3px solid $secondary-dark!important;
+  color: $secondary-dark!important;
+  background-color: $color-white!important;
+}

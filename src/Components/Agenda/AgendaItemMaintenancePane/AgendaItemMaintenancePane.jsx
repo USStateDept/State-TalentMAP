@@ -33,6 +33,7 @@ const AgendaItemMaintenancePane = (props) => {
     isReadOnly,
     updateResearchPaneTab,
     setLegsContainerExpanded,
+    AIvalidation,
   } = props;
 
   const defaultText = '';
@@ -46,6 +47,8 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
+
+  const AIvalidated = AIvalidation?.allValid;
 
   const statuses = get(statusData, 'data.results') || [];
   statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
@@ -169,8 +172,8 @@ const AgendaItemMaintenancePane = (props) => {
         <>
           <div className="back-save-btns-container">
             <BackButton />
-            <button className="save-ai-btn" onClick={saveAI} disabled={isReadOnly}>
-              Save Agenda Item
+            <button className={`save-ai-btn ${AIvalidated ? '' : 'sophie-error'}`} onClick={saveAI} disabled={isReadOnly || !AIvalidated}>
+              {`${AIvalidated ? 'Save Agenda Item' : 'AI Validation Failed'}`}
             </button>
           </div>
           <div className="aim-timestamp-wrapper">
@@ -399,6 +402,9 @@ AgendaItemMaintenancePane.propTypes = {
   isReadOnly: PropTypes.bool,
   updateResearchPaneTab: PropTypes.func,
   setLegsContainerExpanded: PropTypes.func,
+  AIvalidation: PropTypes.shape({
+    allValid: PropTypes.bool,
+  }),
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -416,6 +422,9 @@ AgendaItemMaintenancePane.defaultProps = {
   isReadOnly: false,
   updateResearchPaneTab: EMPTY_FUNCTION,
   setLegsContainerExpanded: EMPTY_FUNCTION,
+  AIvalidation: {
+    allValid: false,
+  },
 };
 
 export default AgendaItemMaintenancePane;

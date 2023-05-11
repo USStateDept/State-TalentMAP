@@ -8,7 +8,8 @@ import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-  asgSepBid, efPos, agendaItemLegs, isReadOnly }) => {
+// eslint-disable-next-line no-unused-vars
+  asgSepBid, efPos, agendaItemLegs, isReadOnly, AIvalidation }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -110,6 +111,7 @@ AgendaItemTimeline.propTypes = {
     PropTypes.shape({}),
   ),
   isReadOnly: PropTypes.bool,
+  AIvalidation: PropTypes.shape({}),
 };
 
 AgendaItemTimeline.defaultProps = {
@@ -120,6 +122,7 @@ AgendaItemTimeline.defaultProps = {
   efPos: {},
   agendaItemLegs: [],
   isReadOnly: false,
+  AIvalidation: {},
 };
 
 export default AgendaItemTimeline;

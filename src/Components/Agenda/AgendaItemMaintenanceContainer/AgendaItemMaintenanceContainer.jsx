@@ -204,6 +204,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           isReadOnly={isReadOnly}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
+                          AIvalidation={AIvalidation}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -213,6 +214,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
                           isReadOnly={isReadOnly}
+                          AIvalidation={AIvalidation}
                         />
                       </>
                   }
