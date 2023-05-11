@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -8,7 +8,7 @@ import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { aiCreate } from 'actions/agendaItemMaintenancePane';
+import { aiCreate, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
@@ -21,6 +21,13 @@ import api from '../../../api';
 const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
   const researchPaneRef = useRef();
+
+  // eslint-disable-next-line no-unused-vars
+  const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
+  // eslint-disable-next-line no-unused-vars
+  const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
+  // eslint-disable-next-line no-unused-vars
+  const AIvalidation = useSelector(state => state.aiValidation);
 
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
@@ -117,6 +124,15 @@ const AgendaItemMaintenanceContainer = (props) => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
+
+  useEffect(() => {
+    const personId = employeeData$?.id || id;
+    const efInfo = {
+      assignmentId: get(efPosition, 'asg_seq_num'),
+      assignmentVersion: get(efPosition, 'revision_num'),
+    };
+    dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
+  }, [maintenanceInfo, userRemarks, legs]);
 
   useEffect(() => {
     if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
