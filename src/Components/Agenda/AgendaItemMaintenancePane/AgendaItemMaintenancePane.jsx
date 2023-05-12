@@ -343,7 +343,7 @@ const AgendaItemMaintenancePane = (props) => {
           <div className="add-legs-container">
             <div className="add-legs-header">Add Legs
               <div className={`${AIvalidation?.legs?.valid ? 'hidden' : 'validation-error-message'}`}>
-                Agenda Item must have at least one leg
+                {AIvalidation?.legs?.errorMessage}
               </div>
             </div>
             {
