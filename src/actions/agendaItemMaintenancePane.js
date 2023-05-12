@@ -80,11 +80,6 @@ export function validateAIIsLoading(bool) {
   };
 }
 export function validateAISuccess(data) {
-  /* eslint-disable no-console */
-  console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-  console.log('🐥 current: data:', data);
-  console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-
   return {
     type: 'VALIDATE_AI_SUCCESS',
     data,

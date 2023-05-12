@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
-import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
@@ -341,7 +341,11 @@ const AgendaItemMaintenancePane = (props) => {
             </div>
           </div>
           <div className="add-legs-container">
-            <div className="add-legs-header">Add Legs</div>
+            <div className="add-legs-header">Add Legs
+              <div className={`${AIvalidation?.legs?.valid ? 'hidden' : 'validation-error-message'}`}>
+                Agenda Item must have at least one leg
+              </div>
+            </div>
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
@@ -440,9 +444,7 @@ AgendaItemMaintenancePane.propTypes = {
   isReadOnly: PropTypes.bool,
   updateResearchPaneTab: PropTypes.func,
   setLegsContainerExpanded: PropTypes.func,
-  AIvalidation: PropTypes.shape({
-    allValid: PropTypes.bool,
-  }),
+  AIvalidation: AI_VALIDATION,
   AIvalidationIsLoading: PropTypes.bool,
   AIvalidationHasErrored: PropTypes.bool,
 };

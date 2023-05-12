@@ -622,3 +622,11 @@
   padding: 10px 20px;
 }
 
+.validation-error-border {
+  border: 3px solid $secondary-base;
+}
+.validation-error-message {
+  color: $secondary-dark;
+  font-weight: 600;
+}
+

@@ -4,11 +4,10 @@ import { useSelector } from 'react-redux';
 import { get, isEmpty } from 'lodash';
 import shortid from 'shortid';
 import { useDidMountEffect } from 'hooks';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-// eslint-disable-next-line no-unused-vars
   asgSepBid, efPos, agendaItemLegs, isReadOnly, AIvalidation }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
@@ -97,6 +96,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         updateLeg={updateLeg}
         efPos={efPos}
         isReadOnly={isReadOnly}
+        AIvalidation={AIvalidation}
       />
   );
 };
@@ -111,7 +111,7 @@ AgendaItemTimeline.propTypes = {
     PropTypes.shape({}),
   ),
   isReadOnly: PropTypes.bool,
-  AIvalidation: PropTypes.shape({}),
+  AIvalidation: AI_VALIDATION,
 };
 
 AgendaItemTimeline.defaultProps = {
