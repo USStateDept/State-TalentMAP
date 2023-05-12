@@ -205,6 +205,8 @@ const AgendaItemMaintenanceContainer = (props) => {
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
                           AIvalidation={AIvalidation}
+                          AIvalidationIsLoading={AIvalidationIsLoading}
+                          AIvalidationHasErrored={AIvalidationHasErrored}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}

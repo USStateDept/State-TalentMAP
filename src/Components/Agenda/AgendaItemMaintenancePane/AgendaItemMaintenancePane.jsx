@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -34,6 +35,8 @@ const AgendaItemMaintenancePane = (props) => {
     updateResearchPaneTab,
     setLegsContainerExpanded,
     AIvalidation,
+    AIvalidationIsLoading,
+    AIvalidationHasErrored,
   } = props;
 
   const defaultText = '';
@@ -48,7 +51,8 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const AIvalidated = AIvalidation?.allValid;
+  const [validationButton, setValidationButton] = useState({}); // local state just used for select animation
+  const [AIvalidated, setAIvalidated] = useState(AIvalidation?.allValid || false);
 
   const statuses = get(statusData, 'data.results') || [];
   statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
@@ -131,6 +135,39 @@ const AgendaItemMaintenancePane = (props) => {
     selectedStatus,
     selectedPanelCat]);
 
+  useEffect(() => {
+    const aiV = AIvalidation?.allValid;
+    let buttonMetadata ={
+      classNames: 'save-ai-btn',
+      clickFunction: saveAI,
+      disabled: isReadOnly,
+      text: 'Save Agenda Item',
+      children: ''
+    };
+
+    if(!aiV || AIvalidationHasErrored) {
+      buttonMetadata.classNames = 'ai-validation-errored';
+      buttonMetadata.clickFunction = () => {};
+      buttonMetadata.disabled = true;
+      buttonMetadata.text = 'AI Validation Failed';
+    }
+
+    if(AIvalidationIsLoading) {
+      buttonMetadata.classNames = 'save-ai-btn button-tiny-loading-spinner min-width-155';
+      buttonMetadata.clickFunction = () => {};
+      buttonMetadata.disabled = true;
+      buttonMetadata.text = 'Validating AI';
+      buttonMetadata.children = (<span className="tiny-loading-spinner" />);
+    }
+
+    setValidationButton(buttonMetadata);
+    setAIvalidated(aiV);
+  }, [
+    AIvalidation,
+    AIvalidationIsLoading,
+    AIvalidationHasErrored,
+    ]);
+
   const addAsgSepBid = (k) => {
     setAsgSepBidSelectClass('asg-animation');
     setAsgSepBid(k);
@@ -172,8 +209,9 @@ const AgendaItemMaintenancePane = (props) => {
         <>
           <div className="back-save-btns-container">
             <BackButton />
-            <button className={`save-ai-btn ${AIvalidated ? '' : 'sophie-error'}`} onClick={saveAI} disabled={isReadOnly || !AIvalidated}>
-              {`${AIvalidated ? 'Save Agenda Item' : 'AI Validation Failed'}`}
+            <button className={validationButton?.classNames} onClick={validationButton?.clickFunction} disabled={validationButton?.disabled}>
+              {validationButton?.children}
+              {validationButton?.text}
             </button>
           </div>
           <div className="aim-timestamp-wrapper">
@@ -405,6 +443,8 @@ AgendaItemMaintenancePane.propTypes = {
   AIvalidation: PropTypes.shape({
     allValid: PropTypes.bool,
   }),
+  AIvalidationIsLoading: PropTypes.bool,
+  AIvalidationHasErrored: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -425,6 +465,8 @@ AgendaItemMaintenancePane.defaultProps = {
   AIvalidation: {
     allValid: false,
   },
+  AIvalidationIsLoading: false,
+  AIvalidationHasErrored: false,
 };
 
 export default AgendaItemMaintenancePane;

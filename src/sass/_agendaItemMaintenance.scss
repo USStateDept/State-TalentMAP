@@ -610,8 +610,15 @@
   }
 }
 
-.sophie-error {
-  border: 3px solid $secondary-dark!important;
-  color: $secondary-dark!important;
+
+.ai-validation-errored, .ai-validation-errored:hover {
   background-color: $color-white!important;
+  border: 3px solid $secondary-dark;
+  border-radius: 5px;
+  color: $secondary-dark;
+  cursor: not-allowed;
+  float: right;
+  font-size: 1.4rem;
+  padding: 10px 20px;
 }
+
