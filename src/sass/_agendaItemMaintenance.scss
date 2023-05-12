@@ -240,7 +240,7 @@
         display: flex;
         flex: 70%;
         align-items: baseline;
-        max-width: 36rem;
+        //max-width: 36rem;
       }
 
       select {
@@ -624,6 +624,11 @@
 
 .validation-error-border {
   border: 3px solid $secondary-base;
+}
+.validation-error-box {
+  //border-bottom: 3px solid $secondary-base;
+  //border-top: 3px solid $secondary-base;
+  margin-bottom: 10px;
 }
 .validation-error-message {
   color: $secondary-dark;

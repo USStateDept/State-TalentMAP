@@ -224,10 +224,16 @@ const AgendaItemMaintenancePane = (props) => {
               <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
             </span>
           </div>
+          {/*read from shared error state read*/}
+          <div className={`${AIvalidation?.status?.valid ? 'hidden' : 'validation-error-box validation-error-message'}`}>
+            {AIvalidation?.status?.errorMessage}
+            {AIvalidation?.reportCategory?.errorMessage}
+            {AIvalidation?.panelDate?.errorMessage}
+          </div>
           <div className="ai-maintenance-header-dd">
             {
               !statusLoading && !statusError &&
-                <div>
+                <div className={`${AIvalidation?.status?.valid ? '' : 'validation-error-border'}`}>
                   <label htmlFor="ai-maintenance-status">Status:</label>
                   <select
                     className="aim-select"
