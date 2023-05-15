@@ -224,99 +224,110 @@ const AgendaItemMaintenancePane = (props) => {
               <span className="date">{` ${agendaItem?.modifier_date ? '-' : ''} ${modifyDate}`}</span>
             </span>
           </div>
-          {/*read from shared error state read*/}
-          <div className={`${AIvalidation?.status?.valid ? 'hidden' : 'validation-error-box validation-error-message'}`}>
-            {AIvalidation?.status?.errorMessage}
-            {AIvalidation?.reportCategory?.errorMessage}
-            {AIvalidation?.panelDate?.errorMessage}
-          </div>
           <div className="ai-maintenance-header-dd">
             {
               !statusLoading && !statusError &&
-                <div className={`${AIvalidation?.status?.valid ? '' : 'validation-error-border'}`}>
-                  <label htmlFor="ai-maintenance-status">Status:</label>
-                  <select
-                    className="aim-select"
-                    id="ai-maintenance-status"
-                    onChange={(e) => setStatus(get(e, 'target.value'))}
-                    value={selectedStatus}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>
-                      Agenda Item Status
-                    </option>
-                    {
-                      statuses.map(a => (
-                        <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
-                      ))
-                    }
-                  </select>
+                <div>
+                  <label className="select-label" htmlFor="ai-maintenance-status">Status:</label>
+                  <div className="error-message-wrapper">
+                    <div className="validation-error-message-label validation-error-message">
+                      {AIvalidation?.status?.errorMessage}
+                    </div>
+                    <select
+                      className={`aim-select ${AIvalidation?.status?.valid ? '' : 'validation-error-border'}`}
+                      id="ai-maintenance-status"
+                      onChange={(e) => setStatus(get(e, 'target.value'))}
+                      value={selectedStatus}
+                      disabled={isReadOnly}
+                    >
+                      <option value={''}>
+                        Agenda Item Status
+                      </option>
+                      {
+                        statuses.map(a => (
+                          <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
                 </div>
             }
             {
               !panelCatLoading && !panelCatError &&
                 <div>
-                  <label htmlFor="ai-maintenance-status">Report Category:</label>
-                  <select
-                    className="aim-select"
-                    id="ai-maintenance-category"
-                    onChange={(e) => setPanelCat(get(e, 'target.value'))}
-                    value={selectedPanelCat}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>
-                      Meeting Item Category
-                    </option>
-                    {
-                      panelCategories.map(a => (
-                        <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
-                      ))
-                    }
-                  </select>
+                  <label className="select-label" htmlFor="ai-maintenance-report-category">Report Category:</label>
+                  <div className="error-message-wrapper">
+                    <div className="validation-error-message-label validation-error-message">
+                      {AIvalidation?.reportCategory?.errorMessage}
+                    </div>
+                    <select
+                      className={`aim-select ${AIvalidation?.reportCategory?.valid ? '' : 'validation-error-border'}`}
+                      id="ai-maintenance-category"
+                      onChange={(e) => setPanelCat(get(e, 'target.value'))}
+                      value={selectedPanelCat}
+                      disabled={isReadOnly}
+                    >
+                      <option value={''}>
+                        Meeting Item Category
+                      </option>
+                      {
+                        panelCategories.map(a => (
+                          <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
                 </div>
             }
             {
               !panelDatesLoading && !panelDatesError &&
                 <div>
-                  <label htmlFor="ai-maintenance-date">Panel Date:</label>
-                  <select
-                    className="aim-select-small"
-                    id="ai-maintenance-status"
-                    onChange={(e) => setDate(get(e, 'target.value'), true)}
-                    value={selectedPanelMLDate}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>ML Dates</option>
-                    {
-                      panelDatesML.map(a => (
-                        <option
-                          key={get(a, 'pm_seq_num')}
-                          value={get(a, 'pm_seq_num')}
-                        >
-                          {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                        </option>
-                      ))
-                    }
-                  </select>
-                  <select
-                    className="aim-select-small"
-                    id="ai-maintenance-status"
-                    onChange={(e) => setDate(get(e, 'target.value'), false)}
-                    value={selectedPanelIDDate}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>ID Dates</option>
-                    {
-                      panelDatesID.map(a => (
-                        <option
-                          key={get(a, 'pm_seq_num')}
-                          value={get(a, 'pm_seq_num')}
-                        >
-                          {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                        </option>
-                      ))
-                    }
-                  </select>
+                  <label className="select-label" htmlFor="ai-maintenance-date">Panel Date:</label>
+                  <div className="error-message-wrapper">
+                    <div className="validation-error-message-label validation-error-message">
+                      {AIvalidation?.panelDate?.errorMessage}
+                    </div>
+                    <div>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), true)}
+                        value={selectedPanelMLDate}
+                        disabled={isReadOnly}
+                      >
+                        <option value={''}>ML Dates</option>
+                        {
+                          panelDatesML.map(a => (
+                            <option
+                              key={get(a, 'pm_seq_num')}
+                              value={get(a, 'pm_seq_num')}
+                            >
+                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                            </option>
+                          ))
+                        }
+                      </select>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), false)}
+                        value={selectedPanelIDDate}
+                        disabled={isReadOnly}
+                      >
+                        <option value={''}>ID Dates</option>
+                        {
+                          panelDatesID.map(a => (
+                            <option
+                              key={get(a, 'pm_seq_num')}
+                              value={get(a, 'pm_seq_num')}
+                            >
+                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                            </option>
+                          ))
+                        }
+                      </select>
+                    </div>
+                  </div>
                 </div>
             }
           </div>

@@ -79,7 +79,7 @@
       margin: 0px;
       text-align: right;
       margin-right: 5px;
-      min-width: 125px;
+      width: 125px;
     }
 
     .back-save-btns-container {
@@ -234,13 +234,17 @@
 
     .ai-maintenance-header-dd {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
 
       div {
         display: flex;
         flex: 70%;
         align-items: baseline;
-        //max-width: 36rem;
+      }
+
+      .select-label {
+        align-self: end;
+        padding-bottom: 8px;
       }
 
       select {
@@ -250,10 +254,9 @@
         height: 28px;
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
-        max-width: fit-content;
       }
       .aim-select {
-        min-width: 255px;
+        width: 280px;
       }
       .aim-select-small {
         width: 140px;
@@ -292,13 +295,6 @@
       left: 55%;
       position: absolute;
       top: 40%;
-    }
-    @media screen and (min-width: 2300px) {
-      .ai-maintenance-header label {
-        margin: 10px;
-        min-width: 0;
-        text-align: right;
-      }
     }
   }
 
@@ -623,15 +619,20 @@
 }
 
 .validation-error-border {
-  border: 3px solid $secondary-base;
-}
-.validation-error-box {
-  //border-bottom: 3px solid $secondary-base;
-  //border-top: 3px solid $secondary-base;
-  margin-bottom: 10px;
+  border: 3px solid $secondary-base !important;
 }
 .validation-error-message {
   color: $secondary-dark;
   font-weight: 600;
+}
+
+.error-message-wrapper {
+  display: block!important;
+  .validation-error-message-label {
+    text-align: right;
+    width: 280px;
+    display: block!important;
+    height: 20px;
+  }
 }
 
