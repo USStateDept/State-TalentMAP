@@ -117,7 +117,7 @@ const AgendaItemLegsForm = props => {
       }
       {
         !legsLoading && !showOverlay &&
-          <div className={`legs-form-container ${AIvalidation?.legs?.valid ? '' : 'validation-error-border'}`}>
+          <div className={`legs-form-container ${AIvalidation?.legs?.valid ? '' : 'validation-error-border-legs'}`}>
             <div className="legs-form">
               {
                 legHeaderData.map((title, i) => (

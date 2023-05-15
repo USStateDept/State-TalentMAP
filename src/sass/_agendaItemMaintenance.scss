@@ -606,20 +606,25 @@
   }
 }
 
-
+// ---- start: styling for validation errors ----
 .ai-validation-errored, .ai-validation-errored:hover {
   background-color: $color-white!important;
-  border: 3px solid $secondary-dark;
+  border: 2px solid $secondary-dark;
   border-radius: 5px;
   color: $secondary-dark;
   float: right;
   font-size: 14px;
-  padding: 10px 20px;
+  padding: 9px 17px;
+}
+
+.validation-error-border-legs {
+  border: 2px solid $secondary-dark !important;
 }
 
 .validation-error-border {
-  border: 3px solid $secondary-base !important;
+  border-bottom: 2px solid $secondary-dark !important;
 }
+
 .validation-error-message {
   color: $secondary-dark;
   font-size: 12px;
@@ -635,4 +640,5 @@
     height: 15px;
   }
 }
+// ---- end: styling for validation errors ----
 
