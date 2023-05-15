@@ -22,11 +22,8 @@ const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
   const researchPaneRef = useRef();
 
-  // eslint-disable-next-line no-unused-vars
   const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
-  // eslint-disable-next-line no-unused-vars
   const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
-  // eslint-disable-next-line no-unused-vars
   const AIvalidation = useSelector(state => state.aiValidation);
 
   const agendaID = get(props, 'match.params.agendaID') || '';

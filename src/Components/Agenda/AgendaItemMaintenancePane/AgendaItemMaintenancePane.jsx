@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -51,8 +50,8 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
-  const [validationButton, setValidationButton] = useState({}); // local state just used for select animation
-  const [AIvalidated, setAIvalidated] = useState(AIvalidation?.allValid || false);
+  // local state just used for select animation
+  const [validationButton, setValidationButton] = useState({});
 
   const statuses = get(statusData, 'data.results') || [];
   statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
@@ -137,22 +136,22 @@ const AgendaItemMaintenancePane = (props) => {
 
   useEffect(() => {
     const aiV = AIvalidation?.allValid;
-    let buttonMetadata ={
+    const buttonMetadata = {
       classNames: 'save-ai-btn',
       clickFunction: saveAI,
       disabled: isReadOnly,
       text: 'Save Agenda Item',
-      children: ''
+      children: '',
     };
 
-    if(!aiV || AIvalidationHasErrored) {
+    if (!aiV || AIvalidationHasErrored) {
       buttonMetadata.classNames = 'ai-validation-errored';
       buttonMetadata.clickFunction = () => {};
       buttonMetadata.disabled = true;
       buttonMetadata.text = 'AI Validation Failed';
     }
 
-    if(AIvalidationIsLoading) {
+    if (AIvalidationIsLoading) {
       buttonMetadata.classNames = 'save-ai-btn button-tiny-loading-spinner min-width-155';
       buttonMetadata.clickFunction = () => {};
       buttonMetadata.disabled = true;
@@ -161,12 +160,11 @@ const AgendaItemMaintenancePane = (props) => {
     }
 
     setValidationButton(buttonMetadata);
-    setAIvalidated(aiV);
   }, [
     AIvalidation,
     AIvalidationIsLoading,
     AIvalidationHasErrored,
-    ]);
+  ]);
 
   const addAsgSepBid = (k) => {
     setAsgSepBidSelectClass('asg-animation');
@@ -209,7 +207,11 @@ const AgendaItemMaintenancePane = (props) => {
         <>
           <div className="back-save-btns-container">
             <BackButton />
-            <button className={validationButton?.classNames} onClick={validationButton?.clickFunction} disabled={validationButton?.disabled}>
+            <button
+              className={validationButton?.classNames}
+              onClick={validationButton.clickFunction}
+              disabled={validationButton?.disabled}
+            >
               {validationButton?.children}
               {validationButton?.text}
             </button>
