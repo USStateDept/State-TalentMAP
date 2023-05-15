@@ -97,7 +97,7 @@
         background-color: $color-white;
         padding: 10px 20px;
         float: right;
-        font-size: 1.4rem;
+        font-size: 14px;
       }
 
       .save-ai-btn:hover {
@@ -612,9 +612,8 @@
   border: 3px solid $secondary-dark;
   border-radius: 5px;
   color: $secondary-dark;
-  cursor: not-allowed;
   float: right;
-  font-size: 1.4rem;
+  font-size: 14px;
   padding: 10px 20px;
 }
 
@@ -623,7 +622,8 @@
 }
 .validation-error-message {
   color: $secondary-dark;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: normal;
 }
 
 .error-message-wrapper {
@@ -632,7 +632,7 @@
     text-align: right;
     width: 280px;
     display: block!important;
-    height: 20px;
+    height: 15px;
   }
 }
 
