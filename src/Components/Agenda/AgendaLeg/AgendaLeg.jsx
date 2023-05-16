@@ -12,7 +12,7 @@ import TodModal from './TodModal';
 
 const AgendaLeg = props => {
   const {
-    isEf,
+    isEf, // check if leg is first leg, or separation
     leg,
     legNum,
     updateLeg,
@@ -25,7 +25,7 @@ const AgendaLeg = props => {
     isReadOnly,
   } = props;
 
-  const [todCopy, setTodCopy] = useState(TODs);
+  const [tod$, setTod$] = useState(TODs);
 
   const disabled = isReadOnly || isEf;
 
@@ -46,19 +46,25 @@ const AgendaLeg = props => {
     swal.close();
   };
 
-  const submitCustomTod = (todArray) => {
+  const submitCustomTod = (todArray, customTodMonths) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
-    const customTod =
+
+    const customTodDropDownOption =
     [{
-      id: todCode,
-      code: todCode,
+      code: 'X',
       is_active: true,
-      months: todCode,
-      short_description: todCode,
+      months: customTodMonths,
       long_description: todCode,
+      short_description: todCode,
     }];
-    setTodCopy([...todCopy, ...customTod]);
-    updateLeg(leg.ail_seq_num, 'tourOfDutyCode', todCode);
+
+    if (leg?.ail_seq_num) {
+      const { ail_seq_num } = leg;
+      setTod$([...customTodDropDownOption, ...tod$]);
+      updateLeg(ail_seq_num, 'tod', 'X');
+      updateLeg(ail_seq_num, 'tourOfDutyOtherText', todCode);
+      updateLeg(ail_seq_num, 'tourOfDutyMonths', customTodMonths);
+    }
     swal.close();
   };
 
@@ -78,8 +84,18 @@ const AgendaLeg = props => {
   };
 
   const updateDropdown = (dropdown, value) => {
-    if (dropdown === 'tourOfDutyCode' && value === 'OTHER') {
+    if (dropdown === 'tod' && value === 'X') {
       openTodModal();
+      return;
+    }
+    if (dropdown === 'tod' && leg?.ail_seq_num) {
+      setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
+      const getTod = tod$.find(tod => tod.code === value);
+      const { code } = getTod;
+      const { ail_seq_num } = leg;
+      updateLeg(ail_seq_num, 'tourOfDutyOtherText', null);
+      updateLeg(ail_seq_num, 'tod', code);
+      updateLeg(ail_seq_num, 'tourOfDutyMonths', null);
       return;
     }
     updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
@@ -90,7 +106,6 @@ const AgendaLeg = props => {
 
   useEffect(() => {
     if (!isEf) {
-      updateLeg(get(leg, 'ail_seq_num'), 'tourOfDutyCode', get(leg, 'tod') || '');
       updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
       updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
     }
@@ -139,11 +154,40 @@ const AgendaLeg = props => {
         {defaultText}
       </option>
       {
-        data.map(a => (
-          <option key={get(a, 'code')} value={get(a, 'text')}>{get(a, text)}</option>
-        ))
+        data.map((a, i) => {
+          const keyId = `${a?.code}-${i}`;
+          return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
+        })
       }
     </select>);
+  };
+
+  const getTodDropdown = () => {
+    const defaultText = isEf ? 'None listed' : 'Keep Unselected';
+    const getTod = tod$.find(tod => tod.code === leg?.tod);
+    if (isEf) {
+      return getTod?.long_description || defaultText;
+    }
+
+    return (
+      <select
+        className="leg-dropdown"
+        value={getTod?.code || ''}
+        onChange={(e) => updateDropdown('tod', e.target.value)}
+        disabled={disabled}
+      >
+        <option key={null} value={''}>
+          {defaultText}
+        </option>
+        {
+          tod$.map((tod, i) => {
+            const { code, long_description } = tod;
+            const todKey = `${code}-${i}`; // custom tods will have the same code as other
+            return <option key={todKey} value={code}>{long_description}</option>;
+          })
+        }
+      </select>
+    );
   };
 
   const formatLang = (langArr = []) => langArr.map(lang => (
@@ -201,7 +245,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getDropdown(isEf ? 'tod' : 'tourOfDutyCode', todCopy, 'short_description')),
+      content: (getTodDropdown()),
     },
     {
       title: 'Action',
@@ -244,7 +288,8 @@ const AgendaLeg = props => {
 AgendaLeg.propTypes = {
   isEf: PropTypes.bool,
   leg: PropTypes.shape({
-    ail_seq_num: PropTypes.string,
+    ail_seq_num: PropTypes.number,
+    tod: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
