@@ -1,30 +1,31 @@
 import { useState } from 'react';
+// import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
 import CheckBox from 'Components/CheckBox';
+import { saveRemark } from 'actions/editRemark';
 
 const EditRemark = (props) => {
   const {
     rmrkCategories,
     dispatch,
-    createRemark,
-    createRemarkSuccess,
-    createRemarkLoading,
+    saveAdminRemarkIsLoading,
+    saveAdminRemarkSuccess,
     category,
     remark,
     isEdit,
   } = props;
 
-  const [descriptionInput, setDescriptionInput] = useState(remark.text || '');
+  const [longDescription, setLongDescription] = useState(remark.text || '');
 
   const sortInserts = () => {
     // Because the insertion remove functionality is index based, have to sort incoming insertions
     // to match insertion order of the remark description. Incoming insertions are not
     // necessarily in the same order as the insertions in the actual incoming remark description.
     const re = new RegExp('{[^}]*}', 'g');
-    const sortedInserts = descriptionInput.match(re) || '';
+    const sortedInserts = longDescription.match(re) || '';
     const loadedInserts = remark.remark_inserts;
     const displayInsertionList = [];
     loadedInserts.map(x => (displayInsertionList.push(x.riinsertiontext)));
@@ -48,13 +49,13 @@ const EditRemark = (props) => {
   };
 
   const submitRemark = () => {
-    dispatch(createRemark({
+    dispatch(saveRemark({
       rmrkInsertionList,
-      descriptionInput,
+      longDescription,
       activeIndicator,
       mutuallyExclusive,
     }));
-    if (createRemarkSuccess && !createRemarkLoading) {
+    if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
       swal.close();
     }
   };
@@ -67,14 +68,14 @@ const EditRemark = (props) => {
     const regex = new RegExp('{[^}]*}', 'g');
     let x = 0;
     // eslint-disable-next-line no-plusplus
-    const result = descriptionInput.replace(regex, (match) => (x++ === i ? '' : match));
-    setDescriptionInput(result);
+    const result = longDescription.replace(regex, (match) => (x++ === i ? '' : match));
+    setLongDescription(result);
   };
 
   const submitInsertion = () => {
     setShowInsertionInput(false);
     setRmrkInsertionList([...rmrkInsertionList, `{${insertionInput}}`]);
-    setDescriptionInput(`${descriptionInput}{${insertionInput}}`);
+    setLongDescription(`${longDescription}{${insertionInput}}`);
     setInsertionInput('');
   };
 
@@ -94,26 +95,11 @@ const EditRemark = (props) => {
     }
   };
 
-  const updateDescriptionInput = (e) => {
-    const value = e.target.value;
-    if (value) {
-      setDescriptionInput(value);
-    }
-  };
-
   const updateShortDescription = (e) => {
     const value = e.target.value;
     if (value) {
       setShortDescription(value);
     }
-  };
-
-  const checkActiveIndicator = (e) => {
-    setActiveIndicator(e);
-  };
-
-  const checkMutuallyExclusive = (e) => {
-    setMutuallyExclusive(e);
   };
 
   return (
@@ -142,8 +128,8 @@ const EditRemark = (props) => {
         <input
           id="edit-remark-description"
           placeholder="Enter Remark Description"
-          onChange={updateDescriptionInput}
-          value={descriptionInput}
+          onChange={e => setLongDescription(e?.target?.value || '')}
+          value={longDescription}
         />
       </div>
       <div className="edit-remark-input">
@@ -210,13 +196,13 @@ const EditRemark = (props) => {
           <CheckBox
             label="Active Indicator"
             id="active-indicator-checkbox"
-            onCheckBoxClick={checkActiveIndicator}
+            onCheckBoxClick={e => setActiveIndicator(e)}
             value={activeIndicator}
           />
           <CheckBox
             label="Mutually Exclusive Indicator"
             id="mutually-exclusive-checkbox"
-            onCheckBoxClick={checkMutuallyExclusive}
+            onCheckBoxClick={e => setMutuallyExclusive(e)}
             value={mutuallyExclusive}
           />
         </div>
@@ -232,7 +218,6 @@ const EditRemark = (props) => {
 EditRemark.propTypes = {
   rmrkCategories: PropTypes.arrayOf(PropTypes.shape({})),
   dispatch: PropTypes.func.isRequired,
-  createRemark: PropTypes.func.isRequired,
   remark: PropTypes.shape({
     seq_num: PropTypes.number,
     rc_code: PropTypes.string,
@@ -251,16 +236,16 @@ EditRemark.propTypes = {
   }),
   category: PropTypes.string,
   isEdit: PropTypes.bool.isRequired,
-  createRemarkSuccess: PropTypes.bool,
-  createRemarkLoading: PropTypes.bool,
+  saveAdminRemarkSuccess: PropTypes.bool,
+  saveAdminRemarkIsLoading: PropTypes.bool,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
   remark: {},
   category: '',
-  createRemarkLoading: false,
-  createRemarkSuccess: false,
+  saveAdminRemarkIsLoading: false,
+  saveAdminRemarkSuccess: false,
 };
 
 export default EditRemark;

@@ -1,48 +1,48 @@
 import { batch } from 'react-redux';
-import { CREATE_REMARK_ERROR,
-  CREATE_REMARK_ERROR_TITLE, CREATE_REMARK_SUCCESS,
-  CREATE_REMARK_SUCCESS_TITLE,
+import { SAVE_ADMIN_REMARK_HAS_ERRORED,
+  SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE, SAVE_ADMIN_REMARK_SUCCESS,
+  SAVE_ADMIN_REMARK_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
-export function createRemarkError(bool) {
+export function saveAdminRemarkHasErrored(bool) {
   return {
-    type: 'CREATE_REMARK_ERROR',
+    type: 'SAVE_ADMIN_REMARK_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-export function createRemarkLoading(bool) {
+export function saveAdminRemarkIsLoading(bool) {
   return {
-    type: 'CREATE_REMARK_LOADING',
+    type: 'SAVE_ADMIN_REMARK_IS_LOADING',
     isLoading: bool,
   };
 }
-export function createRemarkSuccess(data) {
+export function saveAdminRemarkSuccess(data) {
   return {
-    type: 'CREATE_REMARK_SUCCESS',
+    type: 'SAVE_ADMIN_REMARK_SUCCESS',
     data,
   };
 }
 
-export function createRemark(props) {
+export function saveRemark(props) {
   return (dispatch) => {
-    dispatch(createRemarkLoading(true));
-    dispatch(createRemarkError(false));
+    dispatch(saveAdminRemarkIsLoading(true));
+    dispatch(saveAdminRemarkHasErrored(false));
     api().post('/remarkspage/', {
       props,
     }).then(({ data }) => {
       batch(() => {
-        dispatch(createRemarkError(false));
-        dispatch(createRemarkLoading(false));
-        dispatch(createRemarkSuccess(data || []));
-        dispatch(toastSuccess(CREATE_REMARK_SUCCESS, CREATE_REMARK_SUCCESS_TITLE));
+        dispatch(saveAdminRemarkHasErrored(false));
+        dispatch(saveAdminRemarkSuccess(data || []));
+        dispatch(toastSuccess(SAVE_ADMIN_REMARK_SUCCESS, SAVE_ADMIN_REMARK_SUCCESS_TITLE));
+        dispatch(saveAdminRemarkIsLoading(false));
       });
     })
       .catch(() => {
-        dispatch(toastError(CREATE_REMARK_ERROR, CREATE_REMARK_ERROR_TITLE));
-        dispatch(createRemarkError(true));
-        dispatch(createRemarkLoading(false));
+        dispatch(toastError(SAVE_ADMIN_REMARK_HAS_ERRORED, SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE));
+        dispatch(saveAdminRemarkHasErrored(true));
+        dispatch(saveAdminRemarkIsLoading(false));
       });
   };
 }

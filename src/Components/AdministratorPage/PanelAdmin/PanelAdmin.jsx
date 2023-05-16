@@ -8,7 +8,6 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
-import { createRemark } from 'actions/editRemark';
 import EditRemark from '../EditRemark';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import api from '../../../api';
@@ -20,9 +19,9 @@ export const TST2 = 'TST2';
 const PanelAdmin = () => {
   const dispatch = useDispatch();
 
-  const createRemarkError = useSelector(state => state.createRemarkError);
-  const createRemarkLoading = useSelector(state => state.createRemarkLoading);
-  const createRemarkSuccess = useSelector(state => state.createRemarkSuccess);
+  const saveAdminRemarkHasErrored = useSelector(state => state.saveAdminRemarkHasErrored);
+  const saveAdminRemarkIsLoading = useSelector(state => state.saveAdminRemarkIsLoading);
+  const saveAdminRemarkSuccess = useSelector(state => state.saveAdminRemarkSuccess);
 
   const navTabRef = useRef();
   const tabs = [
@@ -57,10 +56,9 @@ const PanelAdmin = () => {
         <EditRemark
           rmrkCategories={rmrkCategoriesOrdered}
           dispatch={dispatch}
-          createRemark={createRemark}
-          createRemarkError={createRemarkError}
-          createRemarkLoading={createRemarkLoading}
-          createRemarkSuccess={createRemarkSuccess}
+          saveAdminRemarkHasErrored={saveAdminRemarkHasErrored}
+          saveAdminRemarkIsLoading={saveAdminRemarkIsLoading}
+          saveAdminRemarkSuccess={saveAdminRemarkSuccess}
           category={category}
           remark={remark}
           isEdit={edit}

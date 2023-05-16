@@ -1,24 +1,24 @@
-export function createRemarkError(state = false, action) {
+export function saveAdminRemarkHasErrored(state = false, action) {
   switch (action.type) {
-    case 'CREATE_REMARK_ERROR':
+    case 'SAVE_ADMIN_REMARK_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
 
-export function createRemarkLoading(state = false, action) {
+export function saveAdminRemarkIsLoading(state = false, action) {
   switch (action.type) {
-    case 'CREATE_REMARK_LOADING':
+    case 'SAVE_ADMIN_REMARK_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
 
-export function createRemarkSuccess(state = false, action) {
+export function saveAdminRemarkSuccess(state = [], action) {
   switch (action.type) {
-    case 'CREATE_REMARK_SUCCESS':
+    case 'SAVE_ADMIN_REMARK_SUCCESS':
       return action.data;
     default:
       return state;

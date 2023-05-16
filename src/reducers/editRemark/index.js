@@ -1,3 +1,3 @@
-import { createRemarkError, createRemarkLoading, createRemarkSuccess } from './editRemark';
+import { saveAdminRemarkHasErrored, saveAdminRemarkIsLoading, saveAdminRemarkSuccess } from './editRemark';
 
-export default { createRemarkError, createRemarkLoading, createRemarkSuccess };
+export default { saveAdminRemarkHasErrored, saveAdminRemarkIsLoading, saveAdminRemarkSuccess };
