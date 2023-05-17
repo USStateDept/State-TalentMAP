@@ -36,7 +36,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
   const userSelections = useSelector(state => state.panelMeetingsSelections);
   const userProfile = useSelector(state => state.userProfile);
-  const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
