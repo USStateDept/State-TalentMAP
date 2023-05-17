@@ -154,7 +154,6 @@ const PanelMeetingAdmin = (props) => {
         </div>
       </div>
 
-
       <div className="pma-buttons">
         <button onClick={submit}>Save</button>
         <button onClick={clear}>Clear</button>
