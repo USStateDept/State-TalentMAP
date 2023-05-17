@@ -114,3 +114,25 @@
     }
   }
 }
+
+.pma-wrapper {
+  margin: 2em 0;
+}
+.pma-row {
+  display: flex;
+}
+.pma-column {
+  width: 20%;
+  align-self: center;
+}
+.pma-checkbox > * {
+  display: inline;
+  vertical-align: middle;
+}
+.pma-status-input {
+  color: $color-gray;
+  background-color: $color-gray-lighter;
+}
+.pma-buttons {
+  padding: 1em 0;
+}

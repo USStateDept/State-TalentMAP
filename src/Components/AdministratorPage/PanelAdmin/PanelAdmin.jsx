@@ -6,18 +6,19 @@ import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
 import EditRemark from '../EditRemark';
+import PanelMeetingAdmin from './PanelMeetingAdmin';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import api from '../../../api';
 
 export const RG = 'RG';
-export const TST1 = 'TST1';
+export const PM = 'PM';
 export const TST2 = 'TST2';
 
 const PanelAdmin = () => {
   const navTabRef = useRef();
   const tabs = [
+    { text: 'Panel Meetings', value: PM },
     { text: 'Remarks Glossary', value: RG },
-    { text: 'Test Tab 1', value: TST1 },
     { text: 'Test Tab 2', value: TST2 },
   ];
 
@@ -88,10 +89,8 @@ const PanelAdmin = () => {
         }
         return remarksTable;
 
-      case TST1:
-        return (
-          <div>TST1</div>
-        );
+      case PM:
+        return <PanelMeetingAdmin />;
 
       case TST2:
         return (
