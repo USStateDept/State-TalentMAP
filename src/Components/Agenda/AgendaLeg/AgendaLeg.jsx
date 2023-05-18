@@ -145,22 +145,31 @@ const AgendaLeg = props => {
     if (isEf) {
       return get(leg, key) || defaultText;
     }
-    return (<select
-      className="leg-dropdown"
-      value={get(leg, key) || ''}
-      onChange={(e) => updateDropdown(key, e.target.value)}
-      disabled={disabled}
-    >
-      <option key={null} value={''}>
-        {defaultText}
-      </option>
-      {
-        data.map((a, i) => {
-          const keyId = `${a?.code}-${i}`;
-          return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
-        })
-      }
-    </select>);
+    return (
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key]?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key]?.valid ? '' : 'validation-error-border'}`}
+            value={get(leg, key) || ''}
+            onChange={(e) => updateDropdown(key, e.target.value)}
+            disabled={disabled}
+          >
+            <option key={null} value={''}>
+              {defaultText}
+            </option>
+            {
+              data.map((a, i) => {
+                const keyId = `${a?.code}-${i}`;
+                return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
+    );
   };
 
   const getTodDropdown = () => {
@@ -169,10 +178,6 @@ const AgendaLeg = props => {
     if (isEf) {
       return getTod?.long_description || defaultText;
     }
-    /* eslint-disable no-console */
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
-    console.log('👻 current: leg:', leg);
-    console.log('👻👻👻👻👻👻👻👻👻👻👻');
 
     return (
       <div className="error-message-wrapper">
