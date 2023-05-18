@@ -171,7 +171,7 @@ const AgendaLeg = props => {
 
     return (
       <select
-        className="leg-dropdown"
+        className="leg-dropdown validation-error-border"
         value={getTod?.code || ''}
         onChange={(e) => updateDropdown('tod', e.target.value)}
         disabled={disabled}

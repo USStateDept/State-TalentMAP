@@ -361,8 +361,8 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
           <div className="add-legs-container">
             <div className="add-legs-header">Add Legs
-              <div className={`${AIvalidation?.legs?.valid ? 'hidden' : 'validation-error-message'}`}>
-                {AIvalidation?.legs?.errorMessage}
+              <div className={`${AIvalidation?.legs?.allLegs?.valid ? 'hidden' : 'validation-error-message'}`}>
+                {AIvalidation?.legs?.allLegs?.errorMessage}
               </div>
             </div>
             {

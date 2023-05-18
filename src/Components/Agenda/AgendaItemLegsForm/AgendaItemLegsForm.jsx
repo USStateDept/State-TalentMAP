@@ -47,6 +47,12 @@ const AgendaItemLegsForm = props => {
   };
 
   const updateLeg$ = (legID, dropdown, value) => {
+    /* eslint-disable no-console */
+    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+    console.log('🐙 current: legID:', legID);
+    console.log('🐙 current: dropdown:', dropdown);
+    console.log('🐙 current: value:', value);
+    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
     updateLeg(legID, dropdown, value);
   };
 
@@ -117,7 +123,7 @@ const AgendaItemLegsForm = props => {
       }
       {
         !legsLoading && !showOverlay &&
-          <div className={`legs-form-container ${AIvalidation?.legs?.valid ? '' : 'validation-error-border-legs'}`}>
+          <div className={`legs-form-container ${AIvalidation?.legs?.allLegs?.valid ? '' : 'validation-error-border-legs'}`}>
             <div className="legs-form">
               {
                 legHeaderData.map((title, i) => (
