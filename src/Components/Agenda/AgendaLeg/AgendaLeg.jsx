@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -12,6 +12,7 @@ import TodModal from './TodModal';
 
 const AgendaLeg = props => {
   const {
+    AIvalidation,
     isEf, // check if leg is first leg, or separation
     leg,
     legNum,
@@ -168,25 +169,36 @@ const AgendaLeg = props => {
     if (isEf) {
       return getTod?.long_description || defaultText;
     }
+    /* eslint-disable no-console */
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
+    console.log('👻 current: leg:', leg);
+    console.log('👻👻👻👻👻👻👻👻👻👻👻');
 
     return (
-      <select
-        className="leg-dropdown validation-error-border"
-        value={getTod?.code || ''}
-        onChange={(e) => updateDropdown('tod', e.target.value)}
-        disabled={disabled}
-      >
-        <option key={null} value={''}>
-          {defaultText}
-        </option>
-        {
-          tod$.map((tod, i) => {
-            const { code, long_description } = tod;
-            const todKey = `${code}-${i}`; // custom tods will have the same code as other
-            return <option key={todKey} value={code}>{long_description}</option>;
-          })
-        }
-      </select>
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.valid ? '' : 'validation-error-border'}`}
+            value={getTod?.code || ''}
+            onChange={(e) => updateDropdown('tod', e.target.value)}
+            disabled={disabled}
+          >
+            <option key={null} value={''}>
+              {defaultText}
+            </option>
+            {
+              tod$.map((tod, i) => {
+                const { code, long_description } = tod;
+                const todKey = `${code}-${i}`; // custom tods will have the same code as other
+                return <option key={todKey} value={code}>{long_description}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
     );
   };
 
@@ -286,6 +298,7 @@ const AgendaLeg = props => {
 };
 
 AgendaLeg.propTypes = {
+  AIvalidation: AI_VALIDATION,
   isEf: PropTypes.bool,
   leg: PropTypes.shape({
     ail_seq_num: PropTypes.number,
@@ -303,6 +316,7 @@ AgendaLeg.propTypes = {
 };
 
 AgendaLeg.defaultProps = {
+  AIvalidation: {},
   isEf: false,
   leg: {},
   onClose: EMPTY_FUNCTION,

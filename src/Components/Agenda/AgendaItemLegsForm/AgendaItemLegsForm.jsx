@@ -47,12 +47,6 @@ const AgendaItemLegsForm = props => {
   };
 
   const updateLeg$ = (legID, dropdown, value) => {
-    /* eslint-disable no-console */
-    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-    console.log('🐙 current: legID:', legID);
-    console.log('🐙 current: dropdown:', dropdown);
-    console.log('🐙 current: value:', value);
-    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
     updateLeg(legID, dropdown, value);
   };
 
@@ -159,6 +153,7 @@ const AgendaItemLegsForm = props => {
                   const keyId = i;
                   return (
                     <AgendaLeg
+                      AIvalidation={AIvalidation}
                       leg={leg}
                       key={`${leg.ail_seq_num}-${keyId}`}
                       legNum={i + (hasEf ? 3 : 2)}
