@@ -212,13 +212,17 @@ const AgendaLeg = props => {
   )).join(', ');
 
   const getCalendar = () => (
-    <>
-      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
-      {
-        !disabled &&
-        <FA name="calendar" onClick={calendarModal} />
-      }
-    </>
+    disabled ?
+      <>{formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}</> :
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.errorMessage}
+        </div>
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
+          <FA name="calendar" onClick={calendarModal} />
+        </div>
+      </div>
   );
 
   const getArrows = () => (
