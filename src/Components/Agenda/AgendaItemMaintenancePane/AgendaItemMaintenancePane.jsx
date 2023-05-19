@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
-import { AGENDA_ITEM, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
 import RemarksPill from '../RemarksPill';
@@ -33,6 +33,9 @@ const AgendaItemMaintenancePane = (props) => {
     isReadOnly,
     updateResearchPaneTab,
     setLegsContainerExpanded,
+    AIvalidation,
+    AIvalidationIsLoading,
+    AIvalidationHasErrored,
   } = props;
 
   const defaultText = '';
@@ -46,6 +49,9 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
+
+  // local state just used for select animation
+  const [validationButton, setValidationButton] = useState({});
 
   const statuses = get(statusData, 'data.results') || [];
   statuses.sort((a, b) => (a.desc_text > b.desc_text) ? 1 : -1);
@@ -128,6 +134,38 @@ const AgendaItemMaintenancePane = (props) => {
     selectedStatus,
     selectedPanelCat]);
 
+  useEffect(() => {
+    const aiV = AIvalidation?.allValid;
+    const buttonMetadata = {
+      classNames: 'save-ai-btn',
+      clickFunction: saveAI,
+      disabled: isReadOnly,
+      text: 'Save Agenda Item',
+      children: '',
+    };
+
+    if (!aiV || AIvalidationHasErrored) {
+      buttonMetadata.classNames = 'ai-validation-errored';
+      buttonMetadata.clickFunction = () => {};
+      buttonMetadata.disabled = true;
+      buttonMetadata.text = 'AI Validation Failed';
+    }
+
+    if (AIvalidationIsLoading) {
+      buttonMetadata.classNames = 'save-ai-btn button-tiny-loading-spinner min-width-155';
+      buttonMetadata.clickFunction = () => {};
+      buttonMetadata.disabled = true;
+      buttonMetadata.text = 'Validating AI';
+      buttonMetadata.children = (<span className="tiny-loading-spinner" />);
+    }
+
+    setValidationButton(buttonMetadata);
+  }, [
+    AIvalidation,
+    AIvalidationIsLoading,
+    AIvalidationHasErrored,
+  ]);
+
   const addAsgSepBid = (k) => {
     setAsgSepBidSelectClass('asg-animation');
     setAsgSepBid(k);
@@ -169,8 +207,13 @@ const AgendaItemMaintenancePane = (props) => {
         <>
           <div className="back-save-btns-container">
             <BackButton />
-            <button className="save-ai-btn" onClick={saveAI} disabled={isReadOnly}>
-              Save Agenda Item
+            <button
+              className={validationButton?.classNames}
+              onClick={validationButton.clickFunction}
+              disabled={validationButton?.disabled}
+            >
+              {validationButton?.children}
+              {validationButton?.text}
             </button>
           </div>
           <div className="aim-timestamp-wrapper">
@@ -187,89 +230,106 @@ const AgendaItemMaintenancePane = (props) => {
             {
               !statusLoading && !statusError &&
                 <div>
-                  <label htmlFor="ai-maintenance-status">Status:</label>
-                  <select
-                    className="aim-select"
-                    id="ai-maintenance-status"
-                    onChange={(e) => setStatus(get(e, 'target.value'))}
-                    value={selectedStatus}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>
-                      Agenda Item Status
-                    </option>
-                    {
-                      statuses.map(a => (
-                        <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
-                      ))
-                    }
-                  </select>
+                  <label className="select-label" htmlFor="ai-maintenance-status">Status:</label>
+                  <div className="error-message-wrapper">
+                    <div className="validation-error-message-label validation-error-message">
+                      {AIvalidation?.status?.errorMessage}
+                    </div>
+                    <select
+                      className={`aim-select ${AIvalidation?.status?.valid ? '' : 'validation-error-border'}`}
+                      id="ai-maintenance-status"
+                      onChange={(e) => setStatus(get(e, 'target.value'))}
+                      value={selectedStatus}
+                      disabled={isReadOnly}
+                    >
+                      <option value={''}>
+                        Agenda Item Status
+                      </option>
+                      {
+                        statuses.map(a => (
+                          <option key={a.code} value={a.desc_text}>{a.desc_text}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
                 </div>
             }
             {
               !panelCatLoading && !panelCatError &&
                 <div>
-                  <label htmlFor="ai-maintenance-status">Report Category:</label>
-                  <select
-                    className="aim-select"
-                    id="ai-maintenance-category"
-                    onChange={(e) => setPanelCat(get(e, 'target.value'))}
-                    value={selectedPanelCat}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>
-                      Meeting Item Category
-                    </option>
-                    {
-                      panelCategories.map(a => (
-                        <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
-                      ))
-                    }
-                  </select>
+                  <label className="select-label" htmlFor="ai-maintenance-report-category">Report Category:</label>
+                  <div className="error-message-wrapper">
+                    <div className="validation-error-message-label validation-error-message">
+                      {AIvalidation?.reportCategory?.errorMessage}
+                    </div>
+                    <select
+                      className={`aim-select ${AIvalidation?.reportCategory?.valid ? '' : 'validation-error-border'}`}
+                      id="ai-maintenance-category"
+                      onChange={(e) => setPanelCat(get(e, 'target.value'))}
+                      value={selectedPanelCat}
+                      disabled={isReadOnly}
+                    >
+                      <option value={''}>
+                        Meeting Item Category
+                      </option>
+                      {
+                        panelCategories.map(a => (
+                          <option key={a.mic_code} value={get(a, 'mic_code')}>{get(a, 'mic_desc_text')}</option>
+                        ))
+                      }
+                    </select>
+                  </div>
                 </div>
             }
             {
               !panelDatesLoading && !panelDatesError &&
                 <div>
-                  <label htmlFor="ai-maintenance-date">Panel Date:</label>
-                  <select
-                    className="aim-select-small"
-                    id="ai-maintenance-status"
-                    onChange={(e) => setDate(get(e, 'target.value'), true)}
-                    value={selectedPanelMLDate}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>ML Dates</option>
-                    {
-                      panelDatesML.map(a => (
-                        <option
-                          key={get(a, 'pm_seq_num')}
-                          value={get(a, 'pm_seq_num')}
-                        >
-                          {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                        </option>
-                      ))
-                    }
-                  </select>
-                  <select
-                    className="aim-select-small"
-                    id="ai-maintenance-status"
-                    onChange={(e) => setDate(get(e, 'target.value'), false)}
-                    value={selectedPanelIDDate}
-                    disabled={isReadOnly}
-                  >
-                    <option value={''}>ID Dates</option>
-                    {
-                      panelDatesID.map(a => (
-                        <option
-                          key={get(a, 'pm_seq_num')}
-                          value={get(a, 'pm_seq_num')}
-                        >
-                          {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
-                        </option>
-                      ))
-                    }
-                  </select>
+                  <label className="select-label" htmlFor="ai-maintenance-date">Panel Date:</label>
+                  <div className="error-message-wrapper">
+                    <div className="validation-error-message-label validation-error-message">
+                      {AIvalidation?.panelDate?.errorMessage}
+                    </div>
+                    <div>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), true)}
+                        value={selectedPanelMLDate}
+                        disabled={isReadOnly}
+                      >
+                        <option value={''}>ML Dates</option>
+                        {
+                          panelDatesML.map(a => (
+                            <option
+                              key={get(a, 'pm_seq_num')}
+                              value={get(a, 'pm_seq_num')}
+                            >
+                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                            </option>
+                          ))
+                        }
+                      </select>
+                      <select
+                        className={`aim-select-small ${AIvalidation?.panelDate?.valid ? '' : 'validation-error-border'}`}
+                        id="ai-maintenance-status"
+                        onChange={(e) => setDate(get(e, 'target.value'), false)}
+                        value={selectedPanelIDDate}
+                        disabled={isReadOnly}
+                      >
+                        <option value={''}>ID Dates</option>
+                        {
+                          panelDatesID.map(a => (
+                            <option
+                              key={get(a, 'pm_seq_num')}
+                              value={get(a, 'pm_seq_num')}
+                            >
+                              {get(a, 'pmt_code')} - {formatDate(get(a, 'pmd_dttm'))}
+                            </option>
+                          ))
+                        }
+                      </select>
+                    </div>
+                  </div>
                 </div>
             }
           </div>
@@ -300,7 +360,11 @@ const AgendaItemMaintenancePane = (props) => {
             </div>
           </div>
           <div className="add-legs-container">
-            <div className="add-legs-header">Add Legs</div>
+            <div className="add-legs-header">Add Legs
+              <div className={`${AIvalidation?.legs?.valid ? 'hidden' : 'validation-error-message'}`}>
+                {AIvalidation?.legs?.errorMessage}
+              </div>
+            </div>
             {
               !asgSepBidLoading && !asgSepBidError &&
                 <select
@@ -399,6 +463,9 @@ AgendaItemMaintenancePane.propTypes = {
   isReadOnly: PropTypes.bool,
   updateResearchPaneTab: PropTypes.func,
   setLegsContainerExpanded: PropTypes.func,
+  AIvalidation: AI_VALIDATION,
+  AIvalidationIsLoading: PropTypes.bool,
+  AIvalidationHasErrored: PropTypes.bool,
 };
 
 AgendaItemMaintenancePane.defaultProps = {
@@ -416,6 +483,11 @@ AgendaItemMaintenancePane.defaultProps = {
   isReadOnly: false,
   updateResearchPaneTab: EMPTY_FUNCTION,
   setLegsContainerExpanded: EMPTY_FUNCTION,
+  AIvalidation: {
+    allValid: false,
+  },
+  AIvalidationIsLoading: false,
+  AIvalidationHasErrored: false,
 };
 
 export default AgendaItemMaintenancePane;

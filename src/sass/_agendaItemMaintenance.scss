@@ -79,7 +79,7 @@
       margin: 0px;
       text-align: right;
       margin-right: 5px;
-      min-width: 125px;
+      width: 125px;
     }
 
     .back-save-btns-container {
@@ -97,7 +97,7 @@
         background-color: $color-white;
         padding: 10px 20px;
         float: right;
-        font-size: 1.4rem;
+        font-size: 14px;
       }
 
       .save-ai-btn:hover {
@@ -234,13 +234,17 @@
 
     .ai-maintenance-header-dd {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
 
       div {
         display: flex;
         flex: 70%;
         align-items: baseline;
-        max-width: 36rem;
+      }
+
+      .select-label {
+        align-self: end;
+        padding-bottom: 8px;
       }
 
       select {
@@ -250,10 +254,9 @@
         height: 28px;
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
-        max-width: fit-content;
       }
       .aim-select {
-        min-width: 255px;
+        width: 280px;
       }
       .aim-select-small {
         width: 140px;
@@ -292,13 +295,6 @@
       left: 55%;
       position: absolute;
       top: 40%;
-    }
-    @media screen and (min-width: 2300px) {
-      .ai-maintenance-header label {
-        margin: 10px;
-        min-width: 0;
-        text-align: right;
-      }
     }
   }
 
@@ -609,3 +605,40 @@
     display: flex;
   }
 }
+
+// ---- start: styling for validation errors ----
+.ai-validation-errored, .ai-validation-errored:hover {
+  background-color: $color-white!important;
+  border: 2px solid $secondary-dark;
+  border-radius: 5px;
+  color: $secondary-dark;
+  float: right;
+  font-size: 14px;
+  padding: 9px 17px;
+}
+
+.validation-error-border-legs {
+  border: 2px solid $secondary-dark !important;
+}
+
+.validation-error-border {
+  border-bottom: 2px solid $secondary-dark !important;
+}
+
+.validation-error-message {
+  color: $secondary-dark;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.error-message-wrapper {
+  display: block!important;
+  .validation-error-message-label {
+    text-align: right;
+    width: 280px;
+    display: block!important;
+    height: 15px;
+  }
+}
+// ---- end: styling for validation errors ----
+

@@ -875,3 +875,16 @@ export const TRACKER_DATA = PropTypes.arrayOf(
     label: PropTypes.string,
   }),
 );
+
+export const AI_VALIDATION_ITEM = PropTypes.shape({
+  valid: PropTypes.bool,
+  errorMessage: PropTypes.string,
+});
+export const AI_VALIDATION = PropTypes.shape({
+  allValid: PropTypes.bool,
+  status: AI_VALIDATION_ITEM,
+  reportCategory: AI_VALIDATION_ITEM,
+  panelDate: AI_VALIDATION_ITEM,
+  remarks: AI_VALIDATION_ITEM,
+  legs: AI_VALIDATION_ITEM,
+});
