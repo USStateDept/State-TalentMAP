@@ -104,11 +104,22 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    07/04/2020
-    <FontAwesome
-      name="calendar"
-      onClick={[Function]}
-    />
+    <div
+      className="error-message-wrapper"
+    >
+      <div
+        className="validation-error-message-label validation-error-message"
+      />
+      <div
+        className="validation-error-border"
+      >
+        07/04/2020
+        <FontAwesome
+          name="calendar"
+          onClick={[Function]}
+        />
+      </div>
+    </div>
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-10"
@@ -117,25 +128,34 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <select
-      className="leg-dropdown"
-      disabled={false}
-      onChange={[Function]}
-      value=""
+    <div
+      className="error-message-wrapper"
     >
-      <option
-        key="null"
-        value=""
-      >
-        Keep Unselected
-      </option>
-      <option
-        key="undefined-0"
+      <div
+        className="validation-error-message-label validation-error-message"
       />
-      <option
-        key="undefined-1"
-      />
-    </select>
+      <div>
+        <select
+          className="leg-dropdown validation-error-border"
+          disabled={false}
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            key="null"
+            value=""
+          >
+            Keep Unselected
+          </option>
+          <option
+            key="undefined-0"
+          />
+          <option
+            key="undefined-1"
+          />
+        </select>
+      </div>
+    </div>
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-11"
@@ -144,25 +164,34 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <select
-      className="leg-dropdown"
-      disabled={false}
-      onChange={[Function]}
-      value=""
+    <div
+      className="error-message-wrapper"
     >
-      <option
-        key="null"
-        value=""
-      >
-        Keep Unselected
-      </option>
-      <option
-        key="undefined-0"
+      <div
+        className="validation-error-message-label validation-error-message"
       />
-      <option
-        key="undefined-1"
-      />
-    </select>
+      <div>
+        <select
+          className="leg-dropdown validation-error-border"
+          disabled={false}
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            key="null"
+            value=""
+          >
+            Keep Unselected
+          </option>
+          <option
+            key="undefined-0"
+          />
+          <option
+            key="undefined-1"
+          />
+        </select>
+      </div>
+    </div>
   </InteractiveElement>
   <InteractiveElement
     className="grid-col-3 grid-row-12"
@@ -171,25 +200,34 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     onMouseOver={[Function]}
     type="div"
   >
-    <select
-      className="leg-dropdown"
-      disabled={false}
-      onChange={[Function]}
-      value=""
+    <div
+      className="error-message-wrapper"
     >
-      <option
-        key="null"
-        value=""
-      >
-        Keep Unselected
-      </option>
-      <option
-        key="undefined-0"
+      <div
+        className="validation-error-message-label validation-error-message"
       />
-      <option
-        key="undefined-1"
-      />
-    </select>
+      <div>
+        <select
+          className="leg-dropdown validation-error-border"
+          disabled={false}
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            key="null"
+            value=""
+          >
+            Keep Unselected
+          </option>
+          <option
+            key="undefined-0"
+          />
+          <option
+            key="undefined-1"
+          />
+        </select>
+      </div>
+    </div>
   </InteractiveElement>
 </Fragment>
 `;
