@@ -69,7 +69,7 @@ const PanelMeetingAdmin = (props) => {
       <div className="admin-panel-meeting-row">
         <label htmlFor="meeting-type">Meeting Type:</label>
         <select
-          className="sophie"
+          className="select-and-input"
           value={panelMeetingType}
           onChange={(e) => setPanelMeetingType(e.target.value)}
         >
@@ -83,7 +83,7 @@ const PanelMeetingAdmin = (props) => {
           disabled
           type="text"
           value="Initiated"
-          className="sophie"
+          className="select-and-input"
         />
       </div>
       <div className="admin-panel-meeting-row">
