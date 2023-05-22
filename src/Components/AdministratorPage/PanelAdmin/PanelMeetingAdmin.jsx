@@ -3,7 +3,6 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { subMinutes } from 'date-fns';
-// eslint-disable-next-line no-unused-vars
 import FA from 'react-fontawesome';
 import CheckBox from 'Components/CheckBox';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
@@ -20,7 +19,7 @@ const PanelMeetingAdmin = (props) => {
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
   const [panelMeetingDate, setPanelMeetingDate] = useState(currentDate);
   const [prelimCutoff, setPrelimCutoff] = useState(subMinutes(currentDate, prelimCutoffMins));
-  const [addendumCutoff, setAddendumCutoff] = useState(subMinutes(currentDate, prelimCutoffMins));
+  const [addendumCutoff, setAddendumCutoff] = useState(subMinutes(currentDate, addendumCutoffMins));
   const [virtualMeeting, setVirtualMeeting] = useState(false);
 
   const createMeetingResults = useSelector(state => state.createPanelMeetingSuccess);
@@ -44,6 +43,7 @@ const PanelMeetingAdmin = (props) => {
   };
 
   const clear = () => {
+    setPanelMeetingType('interdivisional');
     setPanelMeetingDate('');
     setPrelimCutoff('');
     setAddendumCutoff('');
