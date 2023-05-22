@@ -254,6 +254,7 @@
         height: 28px;
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
+        margin-right: 0;
       }
       .aim-select {
         width: 280px;
@@ -635,7 +636,6 @@
   display: block!important;
   .validation-error-message-label {
     text-align: right;
-    width: 280px;
     display: block!important;
     height: 15px;
   }
