@@ -109,7 +109,7 @@ const AgendaLeg = props => {
   };
 
   useEffect(() => {
-    if (!isEf) {
+    if (!isEf && isReadOnly) {
       updateLeg(get(leg, 'ail_seq_num'),
         ['legActionType', 'travelFunctionCode'],
         [get(leg, 'action') || '', get(leg, 'travel') || '']);
