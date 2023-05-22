@@ -145,6 +145,7 @@
     display: inline-block;
     width: 300px;
   }
+
   .date-wrapper {
     display: inline-block;
     .fa-calendar:hover {
@@ -155,12 +156,11 @@
     }
   }
 
-
-
   .admin-panel-meeting-checkbox, .admin-panel-meeting-checkbox > * {
     display: inline;
     vertical-align: middle;
   }
+
   input:disabled {
     color: $color-gray;
     background-color: $color-gray-lighter;
