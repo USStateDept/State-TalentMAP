@@ -236,23 +236,6 @@ const AgendaLeg = props => {
   );
 
   const columnData = [
-    // for debugging - move back 🧼😵‍💫
-    {
-      title: 'TED',
-      content: (getCalendar()),
-    },
-    {
-      title: 'TOD',
-      content: (getTodDropdown()),
-    },
-    {
-      title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
-    },
-    {
-      title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
-    },
     {
       title: 'Position Title',
       content: (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
@@ -280,6 +263,22 @@ const AgendaLeg = props => {
     {
       title: '',
       content: (getArrows()),
+    },
+    {
+      title: 'TED',
+      content: (getCalendar()),
+    },
+    {
+      title: 'TOD',
+      content: (getTodDropdown()),
+    },
+    {
+      title: 'Action',
+      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
+    },
+    {
+      title: 'Travel',
+      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
     },
   ];
 

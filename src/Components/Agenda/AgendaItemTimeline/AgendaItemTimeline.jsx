@@ -1,4 +1,3 @@
-/* eslint-disable */
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
@@ -85,7 +84,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     const legToModify = temp.findIndex(l => l.ail_seq_num === legID);
     dropdowns.forEach((d, i) => {
       temp[legToModify][d] = values[i];
-    })
+    });
     setLegs(temp);
   };
 
