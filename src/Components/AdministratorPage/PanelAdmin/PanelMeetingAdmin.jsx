@@ -88,7 +88,7 @@ const PanelMeetingAdmin = (props) => {
       </div>
       <div className="admin-panel-meeting-row">
         <label htmlFor="panel-meeting-date">Panel Meeting Date:</label>
-        <div className="elsa larger-date-picker">
+        <div className="date-wrapper larger-date-picker">
           <DatePicker
             selected={panelMeetingDate}
             onChange={selectPanelMeetingDate}
@@ -103,7 +103,7 @@ const PanelMeetingAdmin = (props) => {
       </div>
       <div className="admin-panel-meeting-row">
         <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff:</label>
-        <div className="elsa larger-date-picker">
+        <div className="date-wrapper larger-date-picker">
           <DatePicker
             selected={prelimCutoff}
             onChange={(date) => setPrelimCutoff(date)}
@@ -118,7 +118,7 @@ const PanelMeetingAdmin = (props) => {
       </div>
       <div className="admin-panel-meeting-row">
         <label htmlFor="addendum-cutoff-date">Addendum Cutoff:</label>
-        <div className="elsa larger-date-picker">
+        <div className="date-wrapper larger-date-picker">
           <DatePicker
             selected={addendumCutoff}
             onChange={(date) => setAddendumCutoff(date)}

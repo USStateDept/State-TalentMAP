@@ -244,7 +244,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
         </div>
         {
           !groupLoading &&
-          <div className="usa-width-one-whole results-dropdown controls-container">
+          <div className="results-dropdown controls-container">
             <TotalResults
               total={count}
               pageNumber={page}
@@ -252,13 +252,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
               suffix="Results"
               isHidden={panelMeetingsIsLoading}
             />
-            {
-              isSuperUser &&
-              <Link to={'/profile/administrator/panel'}>
-                <FA name="sitemap" className="pma-add-meeting-icon" />
-                {'Add Panel Meeting'}
-              </Link>
-            }
             <div className="panel-results-controls">
               <SelectForm
                 className="panel-select panel-sort"
@@ -285,6 +278,15 @@ const PanelMeetingSearch = ({ isCDO }) => {
               </div>
               <ScrollUpButton />
             </div>
+          </div>
+        }
+        {
+          isSuperUser &&
+          <div className="admin-panel-meeting-add-meeting">
+            <Link to={'/profile/administrator/panel'}>
+              <FA name="sitemap" className="admin-panel-meeting-add-meeting-icon" />
+              {'Add Panel Meeting'}
+            </Link>
           </div>
         }
         {

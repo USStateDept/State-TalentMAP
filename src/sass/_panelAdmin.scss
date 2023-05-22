@@ -118,16 +118,18 @@
   }
 }
 
-
-.admin-panel-meeting-add-meeting-icon {
-  padding-right: 5px;
+.admin-panel-meeting-add-meeting {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  .admin-panel-meeting-add-meeting-icon {
+    padding-right: 10px;
+  }
 }
 
-
-
-
 .admin-panel-meeting-buttons {
-  padding: 1em 0;
+  margin-left: 283px;
+  //margin-left: 193px;
 }
 
 
@@ -143,7 +145,7 @@
     display: inline-block;
     width: 300px;
   }
-  .elsa {
+  .date-wrapper {
     display: inline-block;
     .fa-calendar:hover {
       cursor: default;
