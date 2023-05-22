@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, isEqual, sample } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { aiCreate } from 'actions/agendaItemMaintenancePane';
-import { useDataLoader } from 'hooks';
+import { aiCreate, validateAI } from 'actions/agendaItemMaintenancePane';
+import { useDataLoader, usePrevious } from 'hooks';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
@@ -21,6 +21,10 @@ import api from '../../../api';
 const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
   const researchPaneRef = useRef();
+
+  const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
+  const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
+  const AIvalidation = useSelector(state => state.aiValidation);
 
   const agendaID = get(props, 'match.params.agendaID') || '';
   const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
@@ -64,6 +68,9 @@ const AgendaItemMaintenanceContainer = (props) => {
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
   // check if leg is first leg, or separation
   const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
+
+  const prevLegs = usePrevious(legs);
+  const prevMaintenanceInfo = usePrevious(maintenanceInfo);
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
@@ -117,6 +124,19 @@ const AgendaItemMaintenanceContainer = (props) => {
     setLegsContainerExpanded(false);
     updateResearchPaneTab(RemarksGlossaryTabID);
   };
+
+  useEffect(() => {
+    if ((prevLegs && legs && !isEqual(prevLegs, legs)) ||
+      (prevMaintenanceInfo && maintenanceInfo && !isEqual(prevMaintenanceInfo, maintenanceInfo))) {
+      const personId = employeeData$?.id || id;
+
+      const efInfo = {
+        assignmentId: get(efPosition, 'asg_seq_num'),
+        assignmentVersion: get(efPosition, 'revision_num'),
+      };
+      dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
+    }
+  }, [maintenanceInfo, legs]);
 
   useEffect(() => {
     if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
@@ -188,6 +208,9 @@ const AgendaItemMaintenanceContainer = (props) => {
                           isReadOnly={isReadOnly}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
+                          AIvalidation={AIvalidation}
+                          AIvalidationIsLoading={AIvalidationIsLoading}
+                          AIvalidationHasErrored={AIvalidationHasErrored}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
@@ -197,6 +220,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
                           isReadOnly={isReadOnly}
+                          AIvalidation={AIvalidation}
                         />
                       </>
                   }

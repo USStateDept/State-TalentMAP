@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -16,6 +16,7 @@ const AgendaItemLegsForm = props => {
     onClose,
     updateLeg,
     isReadOnly,
+    AIvalidation,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
@@ -116,7 +117,7 @@ const AgendaItemLegsForm = props => {
       }
       {
         !legsLoading && !showOverlay &&
-          <div className="legs-form-container">
+          <div className={`legs-form-container ${AIvalidation?.legs?.valid ? '' : 'validation-error-border-legs'}`}>
             <div className="legs-form">
               {
                 legHeaderData.map((title, i) => (
@@ -180,6 +181,7 @@ AgendaItemLegsForm.propTypes = {
   onClose: PropTypes.func,
   updateLeg: PropTypes.func,
   isReadOnly: PropTypes.bool,
+  AIvalidation: AI_VALIDATION,
 };
 
 AgendaItemLegsForm.defaultProps = {
@@ -188,6 +190,7 @@ AgendaItemLegsForm.defaultProps = {
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
   isReadOnly: false,
+  AIvalidation: {},
 };
 
 export default AgendaItemLegsForm;

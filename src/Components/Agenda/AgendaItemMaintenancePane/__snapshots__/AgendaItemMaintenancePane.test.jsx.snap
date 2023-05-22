@@ -25,6 +25,13 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
   }
 >
   <AgendaItemMaintenancePane
+    AIvalidation={
+      Object {
+        "allValid": false,
+      }
+    }
+    AIvalidationHasErrored={false}
+    AIvalidationIsLoading={false}
     addToSelection={[Function]}
     asgSepBidData={Object {}}
     isReadOnly={false}
