@@ -4,7 +4,7 @@
   .panel-admin-content {
     margin-left: 20px;
 
-    .tm-spinner{
+    .tm-spinner {
       margin-top: 125px;
     }
 
@@ -13,9 +13,11 @@
       th {
         font-weight: bold;
       }
+
       .create-remark-button {
         text-align: center;
       }
+
       .active-column {
         text-align: center;
       }
@@ -25,6 +27,7 @@
   .hello-greeting {
     margin-bottom: 25px;
   }
+
   .navTabs {
     margin-left: 5px;
     background-color: #F7F7F7;
@@ -115,27 +118,49 @@
   }
 }
 
-.pma-add-meeting-icon {
+
+.admin-panel-meeting-add-meeting-icon {
   padding-right: 5px;
 }
-.pma-wrapper {
-  margin: 2em 0;
-}
-.pma-row {
-  display: flex;
-}
-.pma-column {
-  width: 20%;
-  align-self: center;
-}
-.pma-checkbox > * {
-  display: inline;
-  vertical-align: middle;
-}
-.pma-status-input {
-  color: $color-gray;
-  background-color: $color-gray-lighter;
-}
-.pma-buttons {
+
+
+
+
+.admin-panel-meeting-buttons {
   padding: 1em 0;
+}
+
+
+.admin-panel-meeting-row {
+  > label {
+    width: 200px;
+    text-align: right;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .sophie {
+    display: inline-block;
+    width: 300px;
+  }
+  .elsa {
+    display: inline-block;
+    .fa-calendar:hover {
+      cursor: default;
+    }
+    .react-datepicker-wrapper, .react-datepicker-ignore-onclickoutside, .react-datepicker__input-container {
+      width: 300px!important;
+    }
+  }
+
+
+
+  .admin-panel-meeting-checkbox, .admin-panel-meeting-checkbox > * {
+    display: inline;
+    vertical-align: middle;
+  }
+  input:disabled {
+    color: $color-gray;
+    background-color: $color-gray-lighter;
+  }
 }

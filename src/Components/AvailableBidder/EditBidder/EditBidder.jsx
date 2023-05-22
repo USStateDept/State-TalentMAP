@@ -225,7 +225,7 @@ const EditBidder = (props) => {
           <>
             <div>
               <dt>*Step Letter 1:</dt>
-              <span className="date-picker-validation-container">
+              <span className="date-picker-validation-container larger-date-picker">
                 <DatePicker
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
@@ -252,7 +252,7 @@ const EditBidder = (props) => {
             </div>
             <div>
               <dt>*Step Letter 2:</dt>
-              <span className="date-picker-validation-container">
+              <span className="date-picker-validation-container larger-date-picker">
                 {stepLetterOneFlag ?
                   <select
                     id="stepLetterTwo"
