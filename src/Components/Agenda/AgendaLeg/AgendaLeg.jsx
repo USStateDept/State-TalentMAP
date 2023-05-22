@@ -62,9 +62,9 @@ const AgendaLeg = props => {
     if (leg?.ail_seq_num) {
       const { ail_seq_num } = leg;
       setTod$([...customTodDropDownOption, ...tod$]);
-      updateLeg(ail_seq_num, 'tod', 'X');
-      updateLeg(ail_seq_num, 'tourOfDutyOtherText', todCode);
-      updateLeg(ail_seq_num, 'tourOfDutyMonths', customTodMonths);
+      updateLeg(ail_seq_num,
+        ['tod', 'tourOfDutyOtherText', 'tourOfDutyMonths'],
+        ['X', todCode, customTodMonths]);
     }
     swal.close();
   };
@@ -89,17 +89,20 @@ const AgendaLeg = props => {
       openTodModal();
       return;
     }
+
     if (dropdown === 'tod' && leg?.ail_seq_num) {
       setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
       const getTod = tod$.find(tod => tod.code === value);
       const { code } = getTod;
       const { ail_seq_num } = leg;
-      updateLeg(ail_seq_num, 'tourOfDutyOtherText', null);
-      updateLeg(ail_seq_num, 'tod', code);
-      updateLeg(ail_seq_num, 'tourOfDutyMonths', null);
+      updateLeg(ail_seq_num,
+        ['tourOfDutyOtherText', 'tod', 'tourOfDutyMonths'],
+        [null, code, null]);
       return;
     }
-    updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
+
+    updateLeg(get(leg, 'ail_seq_num'), [dropdown], [value]);
+
     if (dropdown === 'legEndDate') {
       swal.close();
     }
@@ -107,8 +110,9 @@ const AgendaLeg = props => {
 
   useEffect(() => {
     if (!isEf) {
-      updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
-      updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
+      updateLeg(get(leg, 'ail_seq_num'),
+        ['legActionType', 'travelFunctionCode'],
+        [get(leg, 'action') || '', get(leg, 'travel') || '']);
     }
   }, []);
 
@@ -232,6 +236,23 @@ const AgendaLeg = props => {
   );
 
   const columnData = [
+    // for debugging - move back 🧼😵‍💫
+    {
+      title: 'TED',
+      content: (getCalendar()),
+    },
+    {
+      title: 'TOD',
+      content: (getTodDropdown()),
+    },
+    {
+      title: 'Action',
+      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
+    },
+    {
+      title: 'Travel',
+      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
+    },
     {
       title: 'Position Title',
       content: (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
@@ -259,22 +280,6 @@ const AgendaLeg = props => {
     {
       title: '',
       content: (getArrows()),
-    },
-    {
-      title: 'TED',
-      content: (getCalendar()),
-    },
-    {
-      title: 'TOD',
-      content: (getTodDropdown()),
-    },
-    {
-      title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
-    },
-    {
-      title: 'Travel',
-      content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
     },
   ];
 
