@@ -32,21 +32,19 @@ export function createPanelMeeting(props) {
     dispatch(createPanelMeetingSuccess([]));
     dispatch(createPanelMeetingIsLoading(true));
     dispatch(createPanelMeetingHasErrored(false));
-    // api().post('/panelmeetingadminendpoint', {
-    //   props,
-    // })
-    api().get('/fsbid/reference/classifications/')
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(createPanelMeetingHasErrored(false));
-          dispatch(createPanelMeetingSuccess(data || []));
-          dispatch(toastSuccess(UPDATE_PANEL_MEETING_SUCCESS, UPDATE_PANEL_MEETING_SUCCESS_TITLE));
-          dispatch(createPanelMeetingIsLoading(false));
-        });
-      }).catch(() => {
-        dispatch(toastError(UPDATE_PANEL_MEETING_ERROR, UPDATE_PANEL_MEETING_ERROR_TITLE));
-        dispatch(createPanelMeetingHasErrored(true));
+    api().post('/panelmeetingadminendpoint', {
+      props,
+    }).then(({ data }) => {
+      batch(() => {
+        dispatch(createPanelMeetingHasErrored(false));
+        dispatch(createPanelMeetingSuccess(data || []));
+        dispatch(toastSuccess(UPDATE_PANEL_MEETING_SUCCESS, UPDATE_PANEL_MEETING_SUCCESS_TITLE));
         dispatch(createPanelMeetingIsLoading(false));
       });
+    }).catch(() => {
+      dispatch(toastError(UPDATE_PANEL_MEETING_ERROR, UPDATE_PANEL_MEETING_ERROR_TITLE));
+      dispatch(createPanelMeetingHasErrored(true));
+      dispatch(createPanelMeetingIsLoading(false));
+    });
   };
 }
