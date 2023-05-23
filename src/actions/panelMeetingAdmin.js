@@ -1,8 +1,8 @@
 import { batch } from 'react-redux';
-import { CREATE_PANEL_MEETING_ERROR,
-  CREATE_PANEL_MEETING_ERROR_TITLE,
-  CREATE_PANEL_MEETING_SUCCESS,
-  CREATE_PANEL_MEETING_SUCCESS_TITLE,
+import { UPDATE_PANEL_MEETING_SUCCESS_TITLE,
+  UPDATE_PANEL_MEETING_SUCCESS,
+  UPDATE_PANEL_MEETING_ERROR_TITLE,
+  UPDATE_PANEL_MEETING_ERROR,
 } from 'Constants/SystemMessages';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
@@ -26,23 +26,27 @@ export function createPanelMeetingSuccess(data) {
   };
 }
 
+// eslint-disable-next-line no-unused-vars
 export function createPanelMeeting(props) {
   return (dispatch) => {
+    dispatch(createPanelMeetingSuccess([]));
     dispatch(createPanelMeetingIsLoading(true));
     dispatch(createPanelMeetingHasErrored(false));
-    api().post('/panelmeetingadminendpoint', {
-      props,
-    }).then(({ data }) => {
-      batch(() => {
-        dispatch(createPanelMeetingHasErrored(false));
-        dispatch(createPanelMeetingSuccess(data || []));
-        dispatch(toastSuccess(CREATE_PANEL_MEETING_SUCCESS, CREATE_PANEL_MEETING_SUCCESS_TITLE));
+    // api().post('/panelmeetingadminendpoint', {
+    //   props,
+    // })
+    api().get('/fsbid/reference/classifications/')
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(createPanelMeetingHasErrored(false));
+          dispatch(createPanelMeetingSuccess(data || []));
+          dispatch(toastSuccess(UPDATE_PANEL_MEETING_SUCCESS, UPDATE_PANEL_MEETING_SUCCESS_TITLE));
+          dispatch(createPanelMeetingIsLoading(false));
+        });
+      }).catch(() => {
+        dispatch(toastError(UPDATE_PANEL_MEETING_ERROR, UPDATE_PANEL_MEETING_ERROR_TITLE));
+        dispatch(createPanelMeetingHasErrored(true));
         dispatch(createPanelMeetingIsLoading(false));
       });
-    }).catch(() => {
-      dispatch(toastError(CREATE_PANEL_MEETING_ERROR, CREATE_PANEL_MEETING_ERROR_TITLE));
-      dispatch(createPanelMeetingHasErrored(true));
-      dispatch(createPanelMeetingIsLoading(false));
-    });
   };
 }
