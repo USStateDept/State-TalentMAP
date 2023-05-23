@@ -56,3 +56,11 @@ export function panelMeetingAgendasFilters(state = {}, action) {
       return state;
   }
 }
+export function selectedEditPanelMeeting(state = {}, action) {
+  switch (action.type) {
+    case 'SAVE_SELECTED_EDIT_PANEL_MEETING_SUCCESS':
+      return action.result;
+    default:
+      return state;
+  }
+}

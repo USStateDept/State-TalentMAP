@@ -108,3 +108,14 @@ export function panelMeetingAgendasFiltersFetchData() {
     });
   };
 }
+
+export function saveSelectedEditPanelMeetingSuccess(result) {
+  return {
+    type: 'SAVE_SELECTED_EDIT_PANEL_MEETING_SUCCESS',
+    result,
+  };
+}
+
+export function saveSelectedEditPanelMeeting(panelMeeting) {
+  return (dispatch) => dispatch(saveSelectedEditPanelMeetingSuccess(panelMeeting));
+}

@@ -16,11 +16,29 @@ const PanelMeetingAdmin = (props) => {
   const prelimCutoffMins = 2875;
   const addendumCutoffMins = 1435;
 
-  const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
-  const [panelMeetingDate, setPanelMeetingDate] = useState(currentDate);
-  const [prelimCutoff, setPrelimCutoff] = useState(subMinutes(currentDate, prelimCutoffMins));
-  const [addendumCutoff, setAddendumCutoff] = useState(subMinutes(currentDate, addendumCutoffMins));
-  const [virtualMeeting, setVirtualMeeting] = useState(false);
+  const selectedEditPanelMeeting = useSelector(state => state.selectedEditPanelMeeting);
+  let isEdit = false;
+  if (Object.keys(selectedEditPanelMeeting).length > 0) {
+    isEdit = true;
+  }
+
+  const loadMeetingType = () => {
+    const meetingType = selectedEditPanelMeeting.pmt_code === 'ID' ? 'interdivisional' : 'midlevel';
+    return meetingType;
+  };
+
+  const loadPanelDate = (dateCode) => {
+    const returnDate = new Date(
+      selectedEditPanelMeeting.panelMeetingDates.find(x => x.mdt_code === dateCode).pmd_dttm);
+    return returnDate;
+  };
+
+  const [panelMeetingType, setPanelMeetingType] = useState(isEdit ? loadMeetingType() : 'interdivisional');
+  const [panelMeetingDate, setPanelMeetingDate] = useState(isEdit ? loadPanelDate('MEET') : currentDate);
+  const [panelMeetingStatus, setPanelMeetingStatus] = useState(isEdit ? selectedEditPanelMeeting.pms_desc_text : 'Initiated');
+  const [prelimCutoff, setPrelimCutoff] = useState(isEdit ? loadPanelDate('CUT') : subMinutes(currentDate, prelimCutoffMins));
+  const [addendumCutoff, setAddendumCutoff] = useState(isEdit ? loadPanelDate('ADD') : subMinutes(currentDate, addendumCutoffMins));
+  const [virtualMeeting, setVirtualMeeting] = useState(isEdit ? selectedEditPanelMeeting.pm_virtual === 'Y' : false);
 
   const createMeetingResults = useSelector(state => state.createPanelMeetingSuccess);
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
@@ -82,7 +100,8 @@ const PanelMeetingAdmin = (props) => {
         <input
           disabled
           type="text"
-          value="Initiated"
+          value={panelMeetingStatus}
+          onChange={(e) => setPanelMeetingStatus(e.target.value)}
           className="select-and-input"
         />
       </div>
