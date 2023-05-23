@@ -44,6 +44,8 @@ const PanelMeetingAdmin = (props) => {
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
 
+  const canEditFields = isEdit ? (loadPanelDate('CUT') - new Date() > 0) : true;
+
   useEffect(() => {
     if (!createMeetingLoading && !createMeetingErrored && createMeetingResults.length) {
       history.push('/profile/ao/panelmeetings');
@@ -79,6 +81,7 @@ const PanelMeetingAdmin = (props) => {
       <div className="admin-panel-meeting-row">
         <label htmlFor="virtual-meeting">Virtual Meeting:</label>
         <CheckBox
+          disabled={!canEditFields}
           value={virtualMeeting}
           className="admin-panel-meeting-checkbox"
           onCheckBoxClick={(e) => setVirtualMeeting(e)}
@@ -87,6 +90,7 @@ const PanelMeetingAdmin = (props) => {
       <div className="admin-panel-meeting-row">
         <label htmlFor="meeting-type">Meeting Type:</label>
         <select
+          disabled={!canEditFields}
           className="select-and-input"
           value={panelMeetingType}
           onChange={(e) => setPanelMeetingType(e.target.value)}
@@ -109,6 +113,7 @@ const PanelMeetingAdmin = (props) => {
         <label htmlFor="panel-meeting-date">Panel Meeting Date:</label>
         <div className="date-wrapper larger-date-picker">
           <DatePicker
+            disabled={!canEditFields}
             selected={panelMeetingDate}
             onChange={selectPanelMeetingDate}
             showTimeSelect
@@ -124,6 +129,7 @@ const PanelMeetingAdmin = (props) => {
         <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff:</label>
         <div className="date-wrapper larger-date-picker">
           <DatePicker
+            disabled={!canEditFields}
             selected={prelimCutoff}
             onChange={(date) => setPrelimCutoff(date)}
             showTimeSelect
@@ -139,6 +145,7 @@ const PanelMeetingAdmin = (props) => {
         <label htmlFor="addendum-cutoff-date">Addendum Cutoff:</label>
         <div className="date-wrapper larger-date-picker">
           <DatePicker
+            disabled={!canEditFields}
             selected={addendumCutoff}
             onChange={(date) => setAddendumCutoff(date)}
             showTimeSelect
