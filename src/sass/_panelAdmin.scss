@@ -4,7 +4,7 @@
   .panel-admin-content {
     margin-left: 20px;
 
-    .tm-spinner{
+    .tm-spinner {
       margin-top: 125px;
     }
 
@@ -13,9 +13,11 @@
       th {
         font-weight: bold;
       }
+
       .create-remark-button {
         text-align: center;
       }
+
       .active-column {
         text-align: center;
       }
@@ -29,6 +31,7 @@
   .hello-greeting {
     margin-bottom: 25px;
   }
+
   .navTabs {
     margin-left: 5px;
     background-color: #F7F7F7;
@@ -122,4 +125,51 @@
 .Toastify {
   position: absolute;
   z-index: 99999;
+}
+.admin-panel-meeting-add-meeting {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  .admin-panel-meeting-add-meeting-icon {
+    padding-right: 10px;
+  }
+}
+
+.admin-panel-meeting-buttons {
+  margin-left: 283px;
+}
+
+
+.admin-panel-meeting-row {
+  > label {
+    width: 200px;
+    text-align: right;
+    display: inline-block;
+    margin-right: 10px;
+  }
+
+  .select-and-input {
+    display: inline-block;
+    width: 300px;
+  }
+
+  .date-wrapper {
+    display: inline-block;
+    .fa-calendar:hover {
+      cursor: default;
+    }
+    .react-datepicker-wrapper, .react-datepicker-ignore-onclickoutside, .react-datepicker__input-container {
+      width: 300px!important;
+    }
+  }
+
+  .admin-panel-meeting-checkbox, .admin-panel-meeting-checkbox > * {
+    display: inline;
+    vertical-align: middle;
+  }
+
+  input:disabled {
+    color: $color-gray;
+    background-color: $color-gray-lighter;
+  }
 }

@@ -172,3 +172,9 @@ export const SAVE_ADMIN_REMARK_SUCCESS_TITLE = 'Remark Saved';
 export const SAVE_ADMIN_REMARK_SUCCESS = 'This Remark has been saved successfully.';
 export const SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE = 'Remark Save Error';
 export const SAVE_ADMIN_REMARK_HAS_ERRORED = 'There was an issue attempting to save this Remark. Please try again.';
+
+export const UPDATE_PANEL_MEETING_SUCCESS_TITLE = 'Panel Meeting Saved';
+export const UPDATE_PANEL_MEETING_SUCCESS = 'This Panel Meeting has been saved successfully.';
+export const UPDATE_PANEL_MEETING_ERROR_TITLE = 'Panel Meeting Error';
+export const UPDATE_PANEL_MEETING_ERROR = 'There was an issue attempting to save this Panel Meeting. Please try again.';
+
