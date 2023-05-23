@@ -1,8 +1,8 @@
 import { batch } from 'react-redux';
-import { UPDATE_PANEL_MEETING_SUCCESS_TITLE,
-  UPDATE_PANEL_MEETING_SUCCESS,
+import { UPDATE_PANEL_MEETING_ERROR,
   UPDATE_PANEL_MEETING_ERROR_TITLE,
-  UPDATE_PANEL_MEETING_ERROR,
+  UPDATE_PANEL_MEETING_SUCCESS,
+  UPDATE_PANEL_MEETING_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
