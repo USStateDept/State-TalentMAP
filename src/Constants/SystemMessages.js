@@ -167,3 +167,8 @@ export const UPDATE_AGENDA_ITEM_ERROR = 'There was an issue attempting to save t
 
 export const ADD_FREQUENT_POSITION_ERROR_TITLE = 'Frequent Position Error';
 export const ADD_FREQUENT_POSITION_ERROR = 'Error adding Frequent Position. Please try again.';
+
+export const UPDATE_PANEL_MEETING_SUCCESS_TITLE = 'Panel Meeting Saved';
+export const UPDATE_PANEL_MEETING_SUCCESS = 'This Panel Meeting has been saved successfully.';
+export const UPDATE_PANEL_MEETING_ERROR_TITLE = 'Panel Meeting Error';
+export const UPDATE_PANEL_MEETING_ERROR = 'There was an issue attempting to save this Panel Meeting. Please try again.';
