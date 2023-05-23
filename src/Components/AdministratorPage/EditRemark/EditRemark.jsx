@@ -19,20 +19,13 @@ const EditRemark = (props) => {
 
   const [longDescription, setLongDescription] = useState(remark.text || '');
 
-  const sortInserts = () => {
-    // Because the insertion remove functionality is index based, have to sort incoming insertions
-    // to match insertion order of the remark description. Incoming insertions are not
-    // necessarily in the same order as the insertions in the actual incoming remark description.
+  const loadInserts = () => {
     const re = new RegExp('{[^}]*}', 'g');
     const sortedInserts = longDescription.match(re) || '';
-    const loadedInserts = remark.remark_inserts;
-    const displayInsertionList = [];
-    loadedInserts.map(x => (displayInsertionList.push(x.riinsertiontext)));
-    displayInsertionList.sort((a, b) => sortedInserts.indexOf(a) - sortedInserts.indexOf(b));
-    return displayInsertionList;
+    return sortedInserts;
   };
 
-  const [rmrkInsertionList, setRmrkInsertionList] = useState(isEdit ? sortInserts() : []);
+  const [rmrkInsertionList, setRmrkInsertionList] = useState(isEdit ? loadInserts() : []);
 
   const [shortDescription, setShortDescription] = useState(remark.short_desc_text || '');
   const [insertionInput, setInsertionInput] = useState('');
@@ -87,20 +80,6 @@ const EditRemark = (props) => {
     }
   };
 
-  const updateInsertionInput = (e) => {
-    const value = e.target.value;
-    if (value) {
-      setInsertionInput(value);
-    }
-  };
-
-  const updateShortDescription = (e) => {
-    const value = e.target.value;
-    if (value) {
-      setShortDescription(value);
-    }
-  };
-
   return (
     <div className="edit-remark-modal">
       <div className="help-text">
@@ -127,7 +106,7 @@ const EditRemark = (props) => {
         <input
           id="edit-remark-description"
           placeholder="Enter Remark Description"
-          onChange={e => setLongDescription(e?.target?.value || '')}
+          onChange={e => setLongDescription(e.target.value)}
           value={longDescription}
         />
       </div>
@@ -146,7 +125,7 @@ const EditRemark = (props) => {
               <input
                 placeholder="Enter Remark Insertion"
                 onKeyDown={onInputKeyDown}
-                onChange={updateInsertionInput}
+                onChange={e => setInsertionInput(e.target.value)}
               />
               <InteractiveElement
                 onClick={submitInsertion}
@@ -167,7 +146,7 @@ const EditRemark = (props) => {
         <input
           id="edit-remark-short-description"
           placeholder="Enter Remark Short Description"
-          onChange={updateShortDescription}
+          onChange={e => setShortDescription(e.target.value)}
           value={shortDescription}
         />
       </div>
