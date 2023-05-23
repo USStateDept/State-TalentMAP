@@ -21,6 +21,10 @@
       .active-column {
         text-align: center;
       }
+      .fa {
+        color: $primary-blue;
+        margin-right: 10px;
+      }
     }
   }
 
@@ -118,6 +122,10 @@
   }
 }
 
+.Toastify {
+  position: absolute;
+  z-index: 99999;
+}
 .admin-panel-meeting-add-meeting {
   display: flex;
   justify-content: center;
