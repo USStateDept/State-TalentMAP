@@ -4,12 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, isEqual, sample } from 'lodash';
+import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { aiCreate, validateAI } from 'actions/agendaItemMaintenancePane';
-import { useDataLoader, usePrevious } from 'hooks';
+import { useDataLoader } from 'hooks';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
@@ -69,9 +69,6 @@ const AgendaItemMaintenanceContainer = (props) => {
   // check if leg is first leg, or separation
   const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
 
-  const prevLegs = usePrevious(legs);
-  const prevMaintenanceInfo = usePrevious(maintenanceInfo);
-
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
 
@@ -126,16 +123,13 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   useEffect(() => {
-    if ((prevLegs && legs && !isEqual(prevLegs, legs)) ||
-      (prevMaintenanceInfo && maintenanceInfo && !isEqual(prevMaintenanceInfo, maintenanceInfo))) {
-      const personId = employeeData$?.id || id;
+    const personId = employeeData$?.id || id;
 
-      const efInfo = {
-        assignmentId: get(efPosition, 'asg_seq_num'),
-        assignmentVersion: get(efPosition, 'revision_num'),
-      };
-      dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
-    }
+    const efInfo = {
+      assignmentId: get(efPosition, 'asg_seq_num'),
+      assignmentVersion: get(efPosition, 'revision_num'),
+    };
+    dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
   }, [maintenanceInfo, legs]);
 
   useEffect(() => {

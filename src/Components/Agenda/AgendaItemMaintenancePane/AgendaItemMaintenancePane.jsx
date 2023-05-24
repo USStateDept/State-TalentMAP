@@ -232,7 +232,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label className="select-label" htmlFor="ai-maintenance-status">Status:</label>
                   <div className="error-message-wrapper">
-                    <div className="validation-error-message-label validation-error-message">
+                    <div className="validation-error-message-label validation-error-message width-280">
                       {AIvalidation?.status?.errorMessage}
                     </div>
                     <select
@@ -259,7 +259,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label className="select-label" htmlFor="ai-maintenance-report-category">Report Category:</label>
                   <div className="error-message-wrapper">
-                    <div className="validation-error-message-label validation-error-message">
+                    <div className="validation-error-message-label validation-error-message width-280">
                       {AIvalidation?.reportCategory?.errorMessage}
                     </div>
                     <select
@@ -286,7 +286,7 @@ const AgendaItemMaintenancePane = (props) => {
                 <div>
                   <label className="select-label" htmlFor="ai-maintenance-date">Panel Date:</label>
                   <div className="error-message-wrapper">
-                    <div className="validation-error-message-label validation-error-message">
+                    <div className="validation-error-message-label validation-error-message width-280">
                       {AIvalidation?.panelDate?.errorMessage}
                     </div>
                     <div>
@@ -361,8 +361,8 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
           <div className="add-legs-container">
             <div className="add-legs-header">Add Legs
-              <div className={`${AIvalidation?.legs?.valid ? 'hidden' : 'validation-error-message'}`}>
-                {AIvalidation?.legs?.errorMessage}
+              <div className={`${AIvalidation?.legs?.allLegs?.valid ? 'hidden' : 'validation-error-message'}`}>
+                {AIvalidation?.legs?.allLegs?.errorMessage}
               </div>
             </div>
             {

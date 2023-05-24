@@ -117,7 +117,7 @@ const AgendaItemLegsForm = props => {
       }
       {
         !legsLoading && !showOverlay &&
-          <div className={`legs-form-container ${AIvalidation?.legs?.valid ? '' : 'validation-error-border-legs'}`}>
+          <div className={`legs-form-container ${AIvalidation?.legs?.allLegs?.valid ? '' : 'validation-error-border-legs'}`}>
             <div className="legs-form">
               {
                 legHeaderData.map((title, i) => (
@@ -153,6 +153,7 @@ const AgendaItemLegsForm = props => {
                   const keyId = i;
                   return (
                     <AgendaLeg
+                      AIvalidation={AIvalidation}
                       leg={leg}
                       key={`${leg.ail_seq_num}-${keyId}`}
                       legNum={i + (hasEf ? 3 : 2)}

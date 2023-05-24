@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -12,6 +12,7 @@ import TodModal from './TodModal';
 
 const AgendaLeg = props => {
   const {
+    AIvalidation,
     isEf, // check if leg is first leg, or separation
     leg,
     legNum,
@@ -61,9 +62,8 @@ const AgendaLeg = props => {
     if (leg?.ail_seq_num) {
       const { ail_seq_num } = leg;
       setTod$([...customTodDropDownOption, ...tod$]);
-      updateLeg(ail_seq_num, 'tod', 'X');
-      updateLeg(ail_seq_num, 'tourOfDutyOtherText', todCode);
-      updateLeg(ail_seq_num, 'tourOfDutyMonths', customTodMonths);
+      updateLeg(ail_seq_num,
+        { tod: 'X', tourOfDutyOtherText: todCode, tourOfDutyMonths: customTodMonths });
     }
     swal.close();
   };
@@ -88,26 +88,27 @@ const AgendaLeg = props => {
       openTodModal();
       return;
     }
+
     if (dropdown === 'tod' && leg?.ail_seq_num) {
       setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
       const getTod = tod$.find(tod => tod.code === value);
-      const { code } = getTod;
       const { ail_seq_num } = leg;
-      updateLeg(ail_seq_num, 'tourOfDutyOtherText', null);
-      updateLeg(ail_seq_num, 'tod', code);
-      updateLeg(ail_seq_num, 'tourOfDutyMonths', null);
+      updateLeg(ail_seq_num,
+        { tourOfDutyOtherText: null, tod: getTod?.code || null, tourOfDutyMonths: null });
       return;
     }
-    updateLeg(get(leg, 'ail_seq_num'), dropdown, value);
+
+    updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
+
     if (dropdown === 'legEndDate') {
       swal.close();
     }
   };
 
   useEffect(() => {
-    if (!isEf) {
-      updateLeg(get(leg, 'ail_seq_num'), 'legActionType', get(leg, 'action') || '');
-      updateLeg(get(leg, 'ail_seq_num'), 'travelFunctionCode', get(leg, 'travel') || '');
+    if (!isEf && isReadOnly) {
+      updateLeg(get(leg, 'ail_seq_num'),
+        { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
     }
   }, []);
 
@@ -144,22 +145,31 @@ const AgendaLeg = props => {
     if (isEf) {
       return get(leg, key) || defaultText;
     }
-    return (<select
-      className="leg-dropdown"
-      value={get(leg, key) || ''}
-      onChange={(e) => updateDropdown(key, e.target.value)}
-      disabled={disabled}
-    >
-      <option key={null} value={''}>
-        {defaultText}
-      </option>
-      {
-        data.map((a, i) => {
-          const keyId = `${a?.code}-${i}`;
-          return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
-        })
-      }
-    </select>);
+    return (
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key]?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.[key]?.valid ? '' : 'validation-error-border'}`}
+            value={get(leg, key) || ''}
+            onChange={(e) => updateDropdown(key, e.target.value)}
+            disabled={disabled}
+          >
+            <option key={null} value={''}>
+              {defaultText}
+            </option>
+            {
+              data.map((a, i) => {
+                const keyId = `${a?.code}-${i}`;
+                return <option key={keyId} value={get(a, 'text')}>{get(a, text)}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
+    );
   };
 
   const getTodDropdown = () => {
@@ -170,23 +180,30 @@ const AgendaLeg = props => {
     }
 
     return (
-      <select
-        className="leg-dropdown"
-        value={getTod?.code || ''}
-        onChange={(e) => updateDropdown('tod', e.target.value)}
-        disabled={disabled}
-      >
-        <option key={null} value={''}>
-          {defaultText}
-        </option>
-        {
-          tod$.map((tod, i) => {
-            const { code, long_description } = tod;
-            const todKey = `${code}-${i}`; // custom tods will have the same code as other
-            return <option key={todKey} value={code}>{long_description}</option>;
-          })
-        }
-      </select>
+      <div className="error-message-wrapper">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.errorMessage}
+        </div>
+        <div>
+          <select
+            className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.valid ? '' : 'validation-error-border'}`}
+            value={getTod?.code || ''}
+            onChange={(e) => updateDropdown('tod', e.target.value)}
+            disabled={disabled}
+          >
+            <option key={null} value={''}>
+              {defaultText}
+            </option>
+            {
+              tod$.map((tod, i) => {
+                const { code, long_description } = tod;
+                const todKey = `${code}-${i}`; // custom tods will have the same code as other
+                return <option key={todKey} value={code}>{long_description}</option>;
+              })
+            }
+          </select>
+        </div>
+      </div>
     );
   };
 
@@ -195,13 +212,17 @@ const AgendaLeg = props => {
   )).join(', ');
 
   const getCalendar = () => (
-    <>
-      {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
-      {
-        !disabled &&
-        <FA name="calendar" onClick={calendarModal} />
-      }
-    </>
+    disabled ?
+      <>{formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}</> :
+      <div className="error-message-wrapper ail-form-ted">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.errorMessage}
+        </div>
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
+          <FA name="calendar" onClick={calendarModal} />
+        </div>
+      </div>
   );
 
   const getArrows = () => (
@@ -286,6 +307,7 @@ const AgendaLeg = props => {
 };
 
 AgendaLeg.propTypes = {
+  AIvalidation: AI_VALIDATION,
   isEf: PropTypes.bool,
   leg: PropTypes.shape({
     ail_seq_num: PropTypes.number,
@@ -303,6 +325,7 @@ AgendaLeg.propTypes = {
 };
 
 AgendaLeg.defaultProps = {
+  AIvalidation: {},
   isEf: false,
   leg: {},
   onClose: EMPTY_FUNCTION,
