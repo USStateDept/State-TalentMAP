@@ -1,25 +1,55 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import { isNull } from 'lodash';
 import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
 import CheckBox from 'Components/CheckBox';
+import { saveRemark } from 'actions/editRemark';
 
 const EditRemark = (props) => {
-  const { rmrkCategories } = props;
+  const {
+    rmrkCategories,
+    dispatch,
+    saveAdminRemarkIsLoading,
+    saveAdminRemarkSuccess,
+    category,
+    remark,
+    isEdit,
+  } = props;
 
-  const [rmrkInsertionList, setRmrkInsertionList] = useState([]);
+  const [longDescription, setLongDescription] = useState(remark.text || '');
 
-  const [descriptionInput, setDescriptionInput] = useState('');
+  const loadInserts = () => {
+    const re = new RegExp('{[^}]*}', 'g');
+    const sortedInserts = longDescription.match(re) || '';
+    return sortedInserts;
+  };
+
+  const [rmrkInsertionList, setRmrkInsertionList] = useState(isEdit ? loadInserts() : []);
+
+  const [shortDescription, setShortDescription] = useState(remark.short_desc_text || '');
   const [insertionInput, setInsertionInput] = useState('');
+  const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code : '');
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
-
+  const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  const [mutuallyExclusive, setMutuallyExclusive] = useState(remark.mutually_exclusive_ind === 'Y');
 
   const closeRemarkModal = (e) => {
     e.preventDefault();
     swal.close();
+  };
+
+  const submitRemark = () => {
+    dispatch(saveRemark({
+      rmrkInsertionList,
+      longDescription,
+      activeIndicator,
+      mutuallyExclusive,
+    }));
+    if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
+      swal.close();
+    }
   };
 
   const onRemoveInsertionClick = (i) => {
@@ -30,14 +60,14 @@ const EditRemark = (props) => {
     const regex = new RegExp('{[^}]*}', 'g');
     let x = 0;
     // eslint-disable-next-line no-plusplus
-    const result = descriptionInput.replace(regex, (match) => (x++ === i ? '' : match));
-    setDescriptionInput(result);
+    const result = longDescription.replace(regex, (match) => (x++ === i ? '' : match));
+    setLongDescription(result);
   };
 
   const submitInsertion = () => {
     setShowInsertionInput(false);
     setRmrkInsertionList([...rmrkInsertionList, `{${insertionInput}}`]);
-    setDescriptionInput(`${descriptionInput}{${insertionInput}}`);
+    setLongDescription(`${longDescription}{${insertionInput}}`);
     setInsertionInput('');
   };
 
@@ -50,20 +80,6 @@ const EditRemark = (props) => {
     }
   };
 
-  const updateInsertionInput = (e) => {
-    const value = e.target.value;
-    if (!isNull(value)) {
-      setInsertionInput(value);
-    }
-  };
-
-  const updateDescriptionInput = (e) => {
-    const value = e.target.value;
-    if (!isNull(value)) {
-      setDescriptionInput(value);
-    }
-  };
-
   return (
     <div className="edit-remark-modal">
       <div className="help-text">
@@ -71,7 +87,11 @@ const EditRemark = (props) => {
       </div>
       <div className="edit-remark-input">
         <label htmlFor="edit-remark-categories">*Remark Category:</label>
-        <select id="edit-remark-categories">
+        <select
+          id="edit-remark-categories"
+          defaultValue={rmrkCategory}
+          onChange={(e) => setRmrkCategory(e?.target.value)}
+        >
           {
             rmrkCategories.map(x => (
               <option value={x.code}>
@@ -86,8 +106,8 @@ const EditRemark = (props) => {
         <input
           id="edit-remark-description"
           placeholder="Enter Remark Description"
-          onChange={updateDescriptionInput}
-          value={descriptionInput}
+          onChange={e => setLongDescription(e.target.value)}
+          value={longDescription}
         />
       </div>
       <div className="edit-remark-input">
@@ -105,7 +125,7 @@ const EditRemark = (props) => {
               <input
                 placeholder="Enter Remark Insertion"
                 onKeyDown={onInputKeyDown}
-                onChange={updateInsertionInput}
+                onChange={e => setInsertionInput(e.target.value)}
               />
               <InteractiveElement
                 onClick={submitInsertion}
@@ -126,6 +146,8 @@ const EditRemark = (props) => {
         <input
           id="edit-remark-short-description"
           placeholder="Enter Remark Short Description"
+          onChange={e => setShortDescription(e.target.value)}
+          value={shortDescription}
         />
       </div>
       <div className="edit-remark-input">
@@ -149,11 +171,21 @@ const EditRemark = (props) => {
       </div>
       <div className="edit-remark-checkboxes-controls">
         <div className="edit-remark-checkboxes">
-          <CheckBox label="Active Indicator" />
-          <CheckBox label="Mutually Exclusive Indicator" />
+          <CheckBox
+            label="Active Indicator"
+            id="active-indicator-checkbox"
+            onCheckBoxClick={e => setActiveIndicator(e)}
+            value={activeIndicator}
+          />
+          <CheckBox
+            label="Mutually Exclusive Indicator"
+            id="mutually-exclusive-checkbox"
+            onCheckBoxClick={e => setMutuallyExclusive(e)}
+            value={mutuallyExclusive}
+          />
         </div>
         <div className="modal-controls">
-          <button>Submit</button>
+          <button onClick={submitRemark}>Submit</button>
           <button className="usa-button-secondary" onClick={closeRemarkModal}>Cancel</button>
         </div>
       </div>
@@ -163,10 +195,35 @@ const EditRemark = (props) => {
 
 EditRemark.propTypes = {
   rmrkCategories: PropTypes.arrayOf(PropTypes.shape({})),
+  dispatch: PropTypes.func.isRequired,
+  remark: PropTypes.shape({
+    seq_num: PropTypes.number,
+    rc_code: PropTypes.string,
+    order_num: PropTypes.number,
+    short_desc_text: PropTypes.string,
+    mutually_exclusive_ind: PropTypes.string,
+    text: PropTypes.string,
+    active_ind: PropTypes.string,
+    remark_inserts: PropTypes.arrayOf(
+      PropTypes.shape({
+        rirmrkseqnum: PropTypes.number,
+        riseqnum: PropTypes.number,
+        riinsertiontext: PropTypes.string,
+      }),
+    ),
+  }),
+  category: PropTypes.string,
+  isEdit: PropTypes.bool.isRequired,
+  saveAdminRemarkSuccess: PropTypes.bool,
+  saveAdminRemarkIsLoading: PropTypes.bool,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
+  remark: {},
+  category: '',
+  saveAdminRemarkIsLoading: false,
+  saveAdminRemarkSuccess: false,
 };
 
 export default EditRemark;
