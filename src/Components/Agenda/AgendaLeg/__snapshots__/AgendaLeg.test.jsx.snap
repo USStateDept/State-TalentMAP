@@ -105,7 +105,7 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div
-      className="error-message-wrapper"
+      className="error-message-wrapper ail-form-ted"
     >
       <div
         className="validation-error-message-label validation-error-message"
