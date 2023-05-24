@@ -21,7 +21,7 @@ const EditRemark = (props) => {
 
   const loadInserts = () => {
     const re = new RegExp('{[^}]*}', 'g');
-    const sortedInserts = longDescription.match(re) || '';
+    const sortedInserts = longDescription.match(re) || [];
     return sortedInserts;
   };
 
