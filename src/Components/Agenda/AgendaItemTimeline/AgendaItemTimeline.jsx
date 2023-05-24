@@ -79,11 +79,11 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     setLegs(legs$);
   };
 
-  const updateLeg = (legID, dropdowns, values) => {
+  const updateLeg = (legID, dropdownValues) => {
     const temp = [...legs];
     const legToModify = temp.findIndex(l => l.ail_seq_num === legID);
-    dropdowns.forEach((d, i) => {
-      temp[legToModify][d] = values[i];
+    Object.keys(dropdownValues).forEach(d => {
+      temp[legToModify][d] = dropdownValues[d];
     });
     setLegs(temp);
   };

@@ -63,8 +63,7 @@ const AgendaLeg = props => {
       const { ail_seq_num } = leg;
       setTod$([...customTodDropDownOption, ...tod$]);
       updateLeg(ail_seq_num,
-        ['tod', 'tourOfDutyOtherText', 'tourOfDutyMonths'],
-        ['X', todCode, customTodMonths]);
+        { tod: 'X', tourOfDutyOtherText: todCode, tourOfDutyMonths: customTodMonths });
     }
     swal.close();
   };
@@ -95,12 +94,11 @@ const AgendaLeg = props => {
       const getTod = tod$.find(tod => tod.code === value);
       const { ail_seq_num } = leg;
       updateLeg(ail_seq_num,
-        ['tourOfDutyOtherText', 'tod', 'tourOfDutyMonths'],
-        [null, getTod?.code || null, null]);
+        { tourOfDutyOtherText: null, tod: getTod?.code || null, tourOfDutyMonths: null });
       return;
     }
 
-    updateLeg(get(leg, 'ail_seq_num'), [dropdown], [value]);
+    updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
 
     if (dropdown === 'legEndDate') {
       swal.close();
@@ -110,8 +108,7 @@ const AgendaLeg = props => {
   useEffect(() => {
     if (!isEf && isReadOnly) {
       updateLeg(get(leg, 'ail_seq_num'),
-        ['legActionType', 'travelFunctionCode'],
-        [get(leg, 'action') || '', get(leg, 'travel') || '']);
+        { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
     }
   }, []);
 
