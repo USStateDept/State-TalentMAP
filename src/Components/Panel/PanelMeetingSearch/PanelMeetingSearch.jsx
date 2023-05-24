@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
@@ -19,6 +20,7 @@ import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
+import { userHasPermissions } from '../../../utilities';
 
 const PanelMeetingSearch = ({ isCDO }) => {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
   const userSelections = useSelector(state => state.panelMeetingsSelections);
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
@@ -240,7 +244,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
         </div>
         {
           !groupLoading &&
-          <div className="usa-width-one-whole results-dropdown controls-container">
+          <div className="results-dropdown controls-container">
             <TotalResults
               total={count}
               pageNumber={page}
@@ -274,6 +278,15 @@ const PanelMeetingSearch = ({ isCDO }) => {
               </div>
               <ScrollUpButton />
             </div>
+          </div>
+        }
+        {
+          isSuperUser &&
+          <div className="admin-panel-meeting-add-meeting">
+            <Link to={'/profile/administrator/panel'}>
+              <FA name="sitemap" className="admin-panel-meeting-add-meeting-icon" />
+              {'Add Panel Meeting'}
+            </Link>
           </div>
         }
         {
