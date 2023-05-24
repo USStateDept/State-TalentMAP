@@ -625,6 +625,21 @@
   border-bottom: 2px solid $secondary-dark !important;
 }
 
+.legs-form-container {
+  .validation-error-border:hover {
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+  }
+}
+.ail-form-ted {
+  .validation-error-border:hover {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+}
+
 .validation-error-message {
   color: $secondary-dark;
   font-size: 12px;

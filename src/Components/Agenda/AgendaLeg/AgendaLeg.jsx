@@ -214,7 +214,7 @@ const AgendaLeg = props => {
   const getCalendar = () => (
     disabled ?
       <>{formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}</> :
-      <div className="error-message-wrapper">
+      <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
           {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.errorMessage}
         </div>
