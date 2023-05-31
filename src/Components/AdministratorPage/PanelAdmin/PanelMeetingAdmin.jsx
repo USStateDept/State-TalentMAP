@@ -22,16 +22,14 @@ const PanelMeetingAdmin = (props) => {
     isEdit = true;
   }
 
-  const loadMeetingType = () => {
-    const meetingType = selectedEditPanelMeeting.pmt_code === 'ID' ? 'interdivisional' : 'midlevel';
-    return meetingType;
-  };
+  function loadMeetingType() {
+    return selectedEditPanelMeeting.pmt_code === 'ID' ? 'interdivisional' : 'midlevel';
+  }
 
-  const loadPanelDate = (dateCode) => {
-    const returnDate = new Date(
+  function loadPanelDate(dateCode) {
+    return new Date(
       selectedEditPanelMeeting.panelMeetingDates.find(x => x.mdt_code === dateCode).pmd_dttm);
-    return returnDate;
-  };
+  }
 
   const [panelMeetingType, setPanelMeetingType] = useState(isEdit ? loadMeetingType() : 'interdivisional');
   const [panelMeetingDate, setPanelMeetingDate] = useState(isEdit ? loadPanelDate('MEET') : currentDate);
@@ -44,7 +42,7 @@ const PanelMeetingAdmin = (props) => {
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
 
-  const canEditFields = isEdit ? (loadPanelDate('CUT') - new Date() > 0) : true;
+  const canEditFields = isEdit ? (prelimCutoff - new Date() > 0) : true;
 
   useEffect(() => {
     if (!createMeetingLoading && !createMeetingErrored && createMeetingResults.length) {

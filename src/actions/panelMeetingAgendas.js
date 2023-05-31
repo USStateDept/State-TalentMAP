@@ -109,13 +109,27 @@ export function panelMeetingAgendasFiltersFetchData() {
   };
 }
 
-export function saveSelectedEditPanelMeetingSuccess(result) {
+export function selectedEditPanelMeetingSuccess(result) {
   return {
-    type: 'SAVE_SELECTED_EDIT_PANEL_MEETING_SUCCESS',
+    type: 'SELECTED_EDIT_PANEL_MEETING_SUCCESS',
     result,
   };
 }
 
+export function selectedEditPanelMeetingIsLoading(bool) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function selectedEditPanelMeetingErrored(bool) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
 export function saveSelectedEditPanelMeeting(panelMeeting) {
-  return (dispatch) => dispatch(saveSelectedEditPanelMeetingSuccess(panelMeeting));
+  return (dispatch) => dispatch(selectedEditPanelMeetingSuccess(panelMeeting));
 }

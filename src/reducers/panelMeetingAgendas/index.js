@@ -7,6 +7,8 @@ import {
   panelMeetingAgendasFiltersFetchDataLoading,
   panelMeetingAgendasSelections,
   selectedEditPanelMeeting,
+  selectedEditPanelMeetingErrored,
+  selectedEditPanelMeetingLoading,
 } from './panelMeetingAgendas';
 
 export default {
@@ -18,4 +20,6 @@ export default {
   panelMeetingAgendasFiltersFetchDataLoading,
   panelMeetingAgendasSelections,
   selectedEditPanelMeeting,
+  selectedEditPanelMeetingErrored,
+  selectedEditPanelMeetingLoading,
 };
