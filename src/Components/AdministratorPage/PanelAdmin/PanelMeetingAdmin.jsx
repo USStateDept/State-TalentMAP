@@ -100,7 +100,7 @@ const PanelMeetingAdmin = (props) => {
       <div className="admin-panel-meeting-row">
         <label htmlFor="status">Status:</label>
         <input
-          disabled
+          disabled={!canEditFields}
           type="text"
           value={panelMeetingStatus}
           onChange={(e) => setPanelMeetingStatus(e.target.value)}
