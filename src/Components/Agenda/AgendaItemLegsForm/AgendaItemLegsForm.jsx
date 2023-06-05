@@ -67,7 +67,7 @@ const AgendaItemLegsForm = props => {
   useEffect(() => {
     legs.forEach(l => {
       const isLegacyValue = (TODs.some(tod => tod.code === l.tod) === false) && l.tod !== '';
-      const isOtherTod = l.tod === 'X' && l.tod_months && l.tod_other_text;
+      const isOtherTod = l.tod === 'X' && l.tourOfDutyMonths && l.tourOfDutyOtherText;
       if (isLegacyValue) {
         TODs.push({
           code: 'LT',
