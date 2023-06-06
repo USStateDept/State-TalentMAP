@@ -14,9 +14,6 @@ const PanelMeetingAdmin = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  // const { state: { from } } = useLocation();
-  // console.log('from: ', from);
-  // const target = targets[from] ?? "/board";
 
   const currentDate = new Date();
   const prelimCutoffMins = 2875;
@@ -36,19 +33,11 @@ const PanelMeetingAdmin = (props) => {
     },
   ];
 
-  // let isEdit = false;
-  // if (Object.keys(loadedPanelMeeting).length > 0) {
-  //   isEdit = true;
-  // }
-
-
   function loadMeetingType() {
     return loadedPanelMeeting.pmt_code === 'ID' ? 'interdivisional' : 'midlevel';
   }
 
   function loadPanelDate(dateCode) {
-    console.log('loadedPanelMeeting: ', loadedPanelMeeting);
-    console.log('loadedPanelMeeting.panelMeetingDates: ', loadedPanelMeeting.panelMeetingDates);
     return new Date(
       loadedPanelMeeting?.panelMeetingDates?.find(x => x.mdt_code === dateCode).pmd_dttm);
   }
@@ -64,26 +53,16 @@ const PanelMeetingAdmin = (props) => {
   const [virtualMeeting, setVirtualMeeting] = useState(false);
 
   useEffect(() => {
-    console.log('hit useEffect hasReadMeeting: ', hasReadMeeting);
     if (Object.keys(selectedEditPanelMeeting).length) {
-      console.log('selectedEditPanelMeeting: ', selectedEditPanelMeeting);
       setLoadedPanelMeeting(selectedEditPanelMeeting);
       setLoadedPanelMeetingErrored(selectedEditPanelMeetingError);
       if (Object.keys(selectedEditPanelMeeting).length) {
         setIsEdit(true);
-        // setPanelMeetingType(loadMeetingType());
-        // setPanelMeetingDate(loadPanelDate('MEET'));
-        // setPanelMeetingStatus(loadedPanelMeeting.pms_desc_text);
-        // setPrelimCutoff(loadPanelDate('CUT'));
-        // setAddendumCutoff(loadPanelDate('ADD'));
-        // setVirtualMeeting(loadedPanelMeeting.pm_virtual === 'Y');
       }
     }
   });
 
   useEffect(() => {
-    console.log('inside second useEffect');
-    console.log('second useEffect loadedPanelMeeting: ', loadedPanelMeeting);
     if (!hasReadMeeting && Object.keys(loadedPanelMeeting).length) {
       setPanelMeetingType(loadMeetingType());
       setPanelMeetingDate(loadPanelDate('MEET'));
