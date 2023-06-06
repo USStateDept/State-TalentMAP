@@ -83,8 +83,8 @@ const AgendaLeg = props => {
     });
   };
 
-  const updateDropdown = (dropdown, value) => {
-    if (dropdown === 'tod' && value === 'X') {
+  const updateDropdown = (dropdown, value, isOldTod) => {
+    if (dropdown === 'tod' && value === 'X' && !isOldTod) { // new TOD will have falsey months
       openTodModal();
       return;
     }
@@ -188,7 +188,7 @@ const AgendaLeg = props => {
           <select
             className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.valid ? '' : 'validation-error-border'}`}
             value={getTod?.code || ''}
-            onChange={(e) => updateDropdown('tod', e.target.value)}
+            onChange={(e) => updateDropdown('tod', e.target.value, getTod?.months)}
             disabled={disabled}
           >
             <option key={null} value={''}>
