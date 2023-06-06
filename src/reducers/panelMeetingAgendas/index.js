@@ -8,7 +8,7 @@ import {
   panelMeetingAgendasSelections,
   selectedEditPanelMeeting,
   selectedEditPanelMeetingErrored,
-  selectedEditPanelMeetingLoading,
+  selectedEditPanelMeetingIsLoading,
 } from './panelMeetingAgendas';
 
 export default {
@@ -21,5 +21,5 @@ export default {
   panelMeetingAgendasSelections,
   selectedEditPanelMeeting,
   selectedEditPanelMeetingErrored,
-  selectedEditPanelMeetingLoading,
+  selectedEditPanelMeetingIsLoading,
 };

@@ -74,7 +74,7 @@ export function selectedEditPanelMeetingErrored(state = false, action) {
   }
 }
 
-export function selectedEditPanelMeetingLoading(state = false, action) {
+export function selectedEditPanelMeetingIsLoading(state = false, action) {
   switch (action.type) {
     case 'SELECTED_EDIT_PANEL_MEETING_IS_LOADING':
       return action.isLoading;

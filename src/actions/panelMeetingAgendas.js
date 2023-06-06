@@ -131,5 +131,26 @@ export function selectedEditPanelMeetingErrored(bool) {
 }
 
 export function saveSelectedEditPanelMeeting(panelMeeting) {
-  return (dispatch) => dispatch(selectedEditPanelMeetingSuccess(panelMeeting));
+  console.log('action file panel meeting: ', panelMeeting);
+  return (dispatch) => {
+    batch(() => {
+      dispatch(selectedEditPanelMeetingIsLoading(true));
+      dispatch(selectedEditPanelMeetingErrored(false));
+    });
+    if (Object.keys(panelMeeting).length) {
+      batch(() => {
+        console.log('success panel meeting: ', panelMeeting);
+        dispatch(selectedEditPanelMeetingSuccess(panelMeeting));
+        dispatch(selectedEditPanelMeetingErrored(false));
+        dispatch(selectedEditPanelMeetingIsLoading(false));
+      });
+    } else {
+      batch(() => {
+        console.log('error panel meeting: ', panelMeeting);
+        dispatch(selectedEditPanelMeetingSuccess({}));
+        dispatch(selectedEditPanelMeetingErrored(true));
+        dispatch(selectedEditPanelMeetingIsLoading(false));
+      });
+    }
+  };
 }

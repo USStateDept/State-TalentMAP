@@ -24,23 +24,23 @@ const PanelMeetingSearchRow = ({ isCDO, pm }) => {
   return (
     <div className="panel-meeting-row">
       <PanelMeetingTracker panelMeeting={pm} />
-      {
-        showPanelMeetingsAgendas &&
-        <div className="button-box-container">
-          <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>View</LinkButton>
-          {
-            isSuperUser &&
-            <Link to={'/profile/administrator/panel/'} >
-              <button
-                className="usa-button-secondary"
-                onClick={() => dispatch(saveSelectedEditPanelMeeting(pm))}
-              >
-                Edit
-              </button>
-            </Link>
-          }
-        </div>
-      }
+      <div className="button-box-container">
+        {
+          showPanelMeetingsAgendas &&
+            <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>View</LinkButton>
+        }
+        {
+          isSuperUser &&
+          <Link to={'/profile/administrator/panel/'}>
+            <button
+              className="usa-button-secondary"
+              onClick={() => dispatch(saveSelectedEditPanelMeeting(pm))}
+            >
+              Edit
+            </button>
+          </Link>
+        }
+      </div>
     </div>
   );
 };
