@@ -19,7 +19,7 @@ const THROTTLE_MS = isIE ? 1000 : 0;
 
 export function renderList({ items, selected, ...rest }) {
   const selected$ = every(selected, isObject) ? flatMap(selected, a => a.description) : selected;
-  const getIsSelected = item => selected$.includes(item);
+  const getIsSelected = item => selected$?.includes(item);
   return items.map(item => {
     const props = {
       ...rest,
