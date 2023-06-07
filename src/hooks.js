@@ -98,7 +98,6 @@ export const useDataLoader = (getData, url, execute = true) => {
 };
 
 export const useUnload = fn => {
-  console.log('useUnload function: ', fn);
   const cb = useRef(fn);
 
   useEffect(() => {
