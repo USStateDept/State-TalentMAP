@@ -59,12 +59,15 @@ const AgendaLeg = props => {
       short_description: todCode,
     }];
 
-    if (leg?.ail_seq_num) {
-      const { ail_seq_num } = leg;
-      setTod$([...customTodDropDownOption, ...tod$]);
-      updateLeg(ail_seq_num,
-        { tod: 'X', tourOfDutyOtherText: todCode, tourOfDutyMonths: customTodMonths });
-    }
+    setTod$([...customTodDropDownOption, ...tod$]);
+    updateLeg(leg?.ail_seq_num, {
+      tod: 'X',
+      tod_other_text: todCode,
+      tod_months: customTodMonths,
+      tod_long_desc: todCode,
+      tod_short_desc: todCode,
+    });
+
     swal.close();
   };
 
@@ -83,18 +86,22 @@ const AgendaLeg = props => {
     });
   };
 
-  const updateDropdown = (dropdown, value, isOldTod) => {
-    if (dropdown === 'tod' && value === 'X' && !isOldTod) { // new TOD will have falsey months
+  const updateDropdown = (dropdown, value) => {
+    const getTod = tod$.find(tod => tod.code === value);
+    if (dropdown === 'tod' && value === 'X') {
       openTodModal();
       return;
     }
 
-    if (dropdown === 'tod' && leg?.ail_seq_num) {
+    if (dropdown === 'tod') {
       setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
-      const getTod = tod$.find(tod => tod.code === value);
-      const { ail_seq_num } = leg;
-      updateLeg(ail_seq_num,
-        { tourOfDutyOtherText: null, tod: getTod?.code || null, tourOfDutyMonths: null });
+      updateLeg(leg?.ail_seq_num, {
+        tod_months: null,
+        tod_other_text: null,
+        tod: getTod?.code,
+        tod_long_desc: getTod?.long_description,
+        tod_short_desc: getTod?.short_description,
+      });
       return;
     }
 
@@ -172,11 +179,33 @@ const AgendaLeg = props => {
     );
   };
 
+  const closeTod = () => {
+    updateLeg(leg?.ail_seq_num, {
+      tod_other_text: null,
+      tod: null,
+      tod_months: null,
+      tod_long_desc: null,
+      tod_short_desc: null,
+      is_other_tod: false,
+    });
+  };
+
   const getTodDropdown = () => {
     const defaultText = isEf ? 'None listed' : 'Keep Unselected';
     const getTod = tod$.find(tod => tod.code === leg?.tod);
     if (isEf) {
-      return getTod?.long_description || defaultText;
+      return leg.tod_long_desc || defaultText;
+    }
+
+    if (leg.tod === 'X' && leg.is_other_tod) {
+      return (
+        <div className="other-tod-wrapper">
+          <div className="other-tod">
+            { leg.tod_other_text }
+            <FA name="times" className="other-tod-icon" onClick={closeTod} />
+          </div>
+        </div>
+      );
     }
 
     return (
@@ -188,7 +217,7 @@ const AgendaLeg = props => {
           <select
             className={`leg-dropdown ${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.tod?.valid ? '' : 'validation-error-border'}`}
             value={getTod?.code || ''}
-            onChange={(e) => updateDropdown('tod', e.target.value, getTod?.months)}
+            onChange={(e) => updateDropdown('tod', e.target.value)}
             disabled={disabled}
           >
             <option key={null} value={''}>
@@ -311,7 +340,10 @@ AgendaLeg.propTypes = {
   isEf: PropTypes.bool,
   leg: PropTypes.shape({
     ail_seq_num: PropTypes.number,
+    tod_other_text: PropTypes.string,
+    tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
+    is_other_tod: PropTypes.bool,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

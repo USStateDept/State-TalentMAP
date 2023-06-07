@@ -67,7 +67,6 @@ const AgendaItemLegsForm = props => {
   useEffect(() => {
     legs.forEach(l => {
       const isLegacyValue = (TODs.some(tod => tod.code === l.tod) === false) && l.tod !== '';
-      const isOtherTod = l.tod === 'X' && l.tourOfDutyMonths && l.tourOfDutyOtherText;
       if (isLegacyValue) {
         TODs.push({
           code: 'LT',
@@ -75,15 +74,6 @@ const AgendaItemLegsForm = props => {
           months: null,
           long_description: l.tod, // legacy TODs will not have descriptions
           short_description: l.tod, // legacy TODs will not have descriptions
-        });
-      }
-      if (isOtherTod) {
-        TODs.unshift({
-          code: l.tod,
-          is_active: true,
-          months: l.tod_months,
-          long_description: l.tod_long_desc,
-          short_description: l.tod_short_desc,
         });
       }
     });
