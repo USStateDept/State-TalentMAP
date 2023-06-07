@@ -108,3 +108,46 @@ export function panelMeetingAgendasFiltersFetchData() {
     });
   };
 }
+
+export function selectedEditPanelMeetingSuccess(result) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_SUCCESS',
+    result,
+  };
+}
+
+export function selectedEditPanelMeetingIsLoading(bool) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function selectedEditPanelMeetingErrored(bool) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function saveSelectedEditPanelMeeting(panelMeeting) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(selectedEditPanelMeetingIsLoading(true));
+      dispatch(selectedEditPanelMeetingErrored(false));
+    });
+    if (Object.keys(panelMeeting).length) {
+      batch(() => {
+        dispatch(selectedEditPanelMeetingSuccess(panelMeeting));
+        dispatch(selectedEditPanelMeetingErrored(false));
+        dispatch(selectedEditPanelMeetingIsLoading(false));
+      });
+    } else {
+      batch(() => {
+        dispatch(selectedEditPanelMeetingSuccess({}));
+        dispatch(selectedEditPanelMeetingErrored(true));
+        dispatch(selectedEditPanelMeetingIsLoading(false));
+      });
+    }
+  };
+}
