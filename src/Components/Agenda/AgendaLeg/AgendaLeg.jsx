@@ -87,7 +87,6 @@ const AgendaLeg = props => {
   };
 
   const updateDropdown = (dropdown, value) => {
-    const getTod = tod$.find(tod => tod.code === value);
     if (dropdown === 'tod' && value === 'X') {
       openTodModal();
       return;
@@ -95,6 +94,7 @@ const AgendaLeg = props => {
 
     if (dropdown === 'tod') {
       setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
+      const getTod = tod$.find(tod => tod.code === value);
       updateLeg(leg?.ail_seq_num, {
         tod_months: null,
         tod_other_text: null,
@@ -179,7 +179,7 @@ const AgendaLeg = props => {
     );
   };
 
-  const closeTod = () => {
+  const closeCustomTod = () => {
     updateLeg(leg?.ail_seq_num, {
       tod_other_text: null,
       tod: null,
@@ -202,7 +202,7 @@ const AgendaLeg = props => {
         <div className="other-tod-wrapper">
           <div className="other-tod">
             { leg.tod_other_text }
-            <FA name="times" className="other-tod-icon" onClick={closeTod} />
+            <FA name="times" className="other-tod-icon" onClick={closeCustomTod} />
           </div>
         </div>
       );
