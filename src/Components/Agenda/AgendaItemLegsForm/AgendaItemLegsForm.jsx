@@ -66,21 +66,6 @@ const AgendaItemLegsForm = props => {
 
   useEffect(() => {
     legs.forEach(l => {
-      const isLegacyValue = (TODs.some(tod => tod.code === l.tod) === false) && l.tod !== '';
-      if (isLegacyValue) {
-        TODs.push({
-          code: 'LT',
-          is_active: true,
-          months: null,
-          long_description: l.tod, // legacy TODs will not have descriptions
-          short_description: l.tod, // legacy TODs will not have descriptions
-        });
-      }
-    });
-  }, [TODLoading]);
-
-  useEffect(() => {
-    legs.forEach(l => {
       const isLegacyValue = (!includes(legActionTypes, l.legActionType) && l.legActionType !== '');
       if (isLegacyValue) {
         legActionTypes.push({

@@ -49,10 +49,10 @@ const AgendaLeg = props => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
     updateLeg(leg?.ail_seq_num, {
       tod: 'X',
-      tod_other_text: todCode,
       tod_months: customTodMonths,
       tod_long_desc: todCode,
       tod_short_desc: todCode,
+      tod_is_dropdown: false,
     });
     swal.close();
   };
@@ -81,12 +81,12 @@ const AgendaLeg = props => {
     if (dropdown === 'tod') {
       const getTod = TODs.find(tod => tod.code === value);
       updateLeg(leg?.ail_seq_num, {
-        // only custom/other TOD will have months and other_text
-        tod_months: null,
-        tod_other_text: null,
         tod: getTod?.code,
         tod_long_desc: getTod?.long_description,
         tod_short_desc: getTod?.short_description,
+        tod_months: null, // only custom/other TOD will have months
+        // only legacy and custom/other TOD Agenda Item Legs will render as a dropdown
+        tod_is_dropdown: true,
       });
       return;
     }
@@ -167,11 +167,11 @@ const AgendaLeg = props => {
 
   const closeOtherTod = () => {
     updateLeg(leg?.ail_seq_num, {
-      tod_other_text: null,
       tod: null,
       tod_months: null,
       tod_long_desc: null,
       tod_short_desc: null,
+      tod_is_dropdown: true,
     });
   };
 
@@ -182,11 +182,11 @@ const AgendaLeg = props => {
       return leg.tod_long_desc || defaultText;
     }
 
-    if (leg.tod === 'X') {
+    if (!leg.tod_is_dropdown) {
       return (
         <div className="other-tod-wrapper">
           <div className="other-tod">
-            { leg.tod_other_text }
+            { leg.tod_long_desc }
             {isReadOnly || <FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
@@ -328,6 +328,7 @@ AgendaLeg.propTypes = {
     tod_other_text: PropTypes.string,
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
+    tod_is_dropdown: PropTypes.bool,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
