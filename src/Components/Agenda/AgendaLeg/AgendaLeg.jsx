@@ -6,7 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import TodModal from './TodModal';
 
@@ -25,8 +25,6 @@ const AgendaLeg = props => {
     rowNum,
     isReadOnly,
   } = props;
-
-  const [tod$, setTod$] = useState(TODs);
 
   const disabled = isReadOnly || isEf;
 
@@ -49,17 +47,6 @@ const AgendaLeg = props => {
 
   const submitCustomTod = (todArray, customTodMonths) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
-
-    const customTodDropDownOption =
-    [{
-      code: 'X',
-      is_active: true,
-      months: customTodMonths,
-      long_description: todCode,
-      short_description: todCode,
-    }];
-
-    setTod$([...customTodDropDownOption, ...tod$]);
     updateLeg(leg?.ail_seq_num, {
       tod: 'X',
       tod_other_text: todCode,
@@ -67,7 +54,6 @@ const AgendaLeg = props => {
       tod_long_desc: todCode,
       tod_short_desc: todCode,
     });
-
     swal.close();
   };
 
@@ -93,9 +79,9 @@ const AgendaLeg = props => {
     }
 
     if (dropdown === 'tod') {
-      setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
-      const getTod = tod$.find(tod => tod.code === value);
+      const getTod = TODs.find(tod => tod.code === value);
       updateLeg(leg?.ail_seq_num, {
+        // only custom/other TOD will have months and other_text
         tod_months: null,
         tod_other_text: null,
         tod: getTod?.code,
@@ -179,30 +165,29 @@ const AgendaLeg = props => {
     );
   };
 
-  const closeCustomTod = () => {
+  const closeOtherTod = () => {
     updateLeg(leg?.ail_seq_num, {
       tod_other_text: null,
       tod: null,
       tod_months: null,
       tod_long_desc: null,
       tod_short_desc: null,
-      is_other_tod: false,
     });
   };
 
   const getTodDropdown = () => {
     const defaultText = isEf ? 'None listed' : 'Keep Unselected';
-    const getTod = tod$.find(tod => tod.code === leg?.tod);
+    const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
       return leg.tod_long_desc || defaultText;
     }
 
-    if (leg.tod === 'X' && leg.is_other_tod) {
+    if (leg.tod === 'X') {
       return (
         <div className="other-tod-wrapper">
           <div className="other-tod">
             { leg.tod_other_text }
-            <FA name="times" className="other-tod-icon" onClick={closeCustomTod} />
+            {isReadOnly || <FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
       );
@@ -224,7 +209,7 @@ const AgendaLeg = props => {
               {defaultText}
             </option>
             {
-              tod$.map((tod, i) => {
+              TODs.map((tod, i) => {
                 const { code, long_description } = tod;
                 const todKey = `${code}-${i}`; // custom tods will have the same code as other
                 return <option key={todKey} value={code}>{long_description}</option>;
@@ -343,7 +328,6 @@ AgendaLeg.propTypes = {
     tod_other_text: PropTypes.string,
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
-    is_other_tod: PropTypes.bool,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
