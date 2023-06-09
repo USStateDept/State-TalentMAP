@@ -121,6 +121,10 @@
 
     .button-box-container {
       order: 1;
+
+      .link-button-wrapper {
+        margin-right: 10px;
+      }
     }
   }
 }
