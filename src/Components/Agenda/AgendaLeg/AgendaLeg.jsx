@@ -6,7 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import TodModal from './TodModal';
 
@@ -25,8 +25,6 @@ const AgendaLeg = props => {
     rowNum,
     isReadOnly,
   } = props;
-
-  const [tod$, setTod$] = useState(TODs);
 
   const disabled = isReadOnly || isEf;
 
@@ -49,22 +47,13 @@ const AgendaLeg = props => {
 
   const submitCustomTod = (todArray, customTodMonths) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
-
-    const customTodDropDownOption =
-    [{
-      code: 'X',
-      is_active: true,
-      months: customTodMonths,
-      long_description: todCode,
-      short_description: todCode,
-    }];
-
-    if (leg?.ail_seq_num) {
-      const { ail_seq_num } = leg;
-      setTod$([...customTodDropDownOption, ...tod$]);
-      updateLeg(ail_seq_num,
-        { tod: 'X', tourOfDutyOtherText: todCode, tourOfDutyMonths: customTodMonths });
-    }
+    updateLeg(leg?.ail_seq_num, {
+      tod: 'X',
+      tod_months: customTodMonths,
+      tod_long_desc: todCode,
+      tod_short_desc: todCode,
+      tod_is_dropdown: false,
+    });
     swal.close();
   };
 
@@ -89,12 +78,16 @@ const AgendaLeg = props => {
       return;
     }
 
-    if (dropdown === 'tod' && leg?.ail_seq_num) {
-      setTod$(TODs); // if a non custom TOD is selected, blow away custom inputs from dropdown
-      const getTod = tod$.find(tod => tod.code === value);
-      const { ail_seq_num } = leg;
-      updateLeg(ail_seq_num,
-        { tourOfDutyOtherText: null, tod: getTod?.code || null, tourOfDutyMonths: null });
+    if (dropdown === 'tod') {
+      const getTod = TODs.find(tod => tod.code === value);
+      updateLeg(leg?.ail_seq_num, {
+        tod: getTod?.code,
+        tod_long_desc: getTod?.long_description,
+        tod_short_desc: getTod?.short_description,
+        tod_months: null, // only custom/other TOD will have months
+        // only legacy and custom/other TOD Agenda Item Legs will render as a dropdown
+        tod_is_dropdown: true,
+      });
       return;
     }
 
@@ -172,11 +165,32 @@ const AgendaLeg = props => {
     );
   };
 
+  const closeOtherTod = () => {
+    updateLeg(leg?.ail_seq_num, {
+      tod: null,
+      tod_months: null,
+      tod_long_desc: null,
+      tod_short_desc: null,
+      tod_is_dropdown: true,
+    });
+  };
+
   const getTodDropdown = () => {
     const defaultText = isEf ? 'None listed' : 'Keep Unselected';
-    const getTod = tod$.find(tod => tod.code === leg?.tod);
+    const getTod = TODs.find(tod => tod.code === leg?.tod);
     if (isEf) {
-      return getTod?.long_description || defaultText;
+      return leg.tod_long_desc || defaultText;
+    }
+
+    if (!leg.tod_is_dropdown) {
+      return (
+        <div className="other-tod-wrapper">
+          <div className="other-tod">
+            { leg.tod_long_desc }
+            {isReadOnly || <FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
+          </div>
+        </div>
+      );
     }
 
     return (
@@ -195,7 +209,7 @@ const AgendaLeg = props => {
               {defaultText}
             </option>
             {
-              tod$.map((tod, i) => {
+              TODs.map((tod, i) => {
                 const { code, long_description } = tod;
                 const todKey = `${code}-${i}`; // custom tods will have the same code as other
                 return <option key={todKey} value={code}>{long_description}</option>;
@@ -311,7 +325,10 @@ AgendaLeg.propTypes = {
   isEf: PropTypes.bool,
   leg: PropTypes.shape({
     ail_seq_num: PropTypes.number,
+    tod_other_text: PropTypes.string,
+    tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
+    tod_is_dropdown: PropTypes.bool,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

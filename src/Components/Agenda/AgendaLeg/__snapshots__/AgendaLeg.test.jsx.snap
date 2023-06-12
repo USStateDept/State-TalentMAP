@@ -129,31 +129,16 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
     type="div"
   >
     <div
-      className="error-message-wrapper"
+      className="other-tod-wrapper"
     >
       <div
-        className="validation-error-message-label validation-error-message"
-      />
-      <div>
-        <select
-          className="leg-dropdown validation-error-border"
-          disabled={false}
-          onChange={[Function]}
-          value=""
-        >
-          <option
-            key="null"
-            value=""
-          >
-            Keep Unselected
-          </option>
-          <option
-            key="undefined-0"
-          />
-          <option
-            key="undefined-1"
-          />
-        </select>
+        className="other-tod"
+      >
+        <FontAwesome
+          className="other-tod-icon"
+          name="times"
+          onClick={[Function]}
+        />
       </div>
     </div>
   </InteractiveElement>
