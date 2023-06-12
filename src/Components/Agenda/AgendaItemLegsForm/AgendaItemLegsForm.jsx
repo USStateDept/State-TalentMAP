@@ -66,21 +66,6 @@ const AgendaItemLegsForm = props => {
 
   useEffect(() => {
     legs.forEach(l => {
-      const isLegacyValue = (!includes(TODs, l.tourOfDutyCode) && l.tourOfDutyCode !== '');
-      if (isLegacyValue) {
-        TODs.push({
-          code: 'LT',
-          is_active: true,
-          months: null,
-          long_description: l.tourOfDutyCode,
-          short_description: l.tourOfDutyCode,
-        });
-      }
-    });
-  }, [TODLoading]);
-
-  useEffect(() => {
-    legs.forEach(l => {
       const isLegacyValue = (!includes(legActionTypes, l.legActionType) && l.legActionType !== '');
       if (isLegacyValue) {
         legActionTypes.push({
