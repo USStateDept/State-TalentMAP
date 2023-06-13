@@ -6,6 +6,7 @@ import shortid from 'shortid';
 import { useDidMountEffect } from 'hooks';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
+import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   asgSepBid, efPos, agendaItemLegs, isReadOnly, AIvalidation }) => {
@@ -90,13 +91,19 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
 
   return (
     !unitedLoading &&
-      <AgendaItemLegsForm
-        onClose={isReadOnly ? () => {} : onClose}
+      isReadOnly ?
+      <AgendaItemLegsFormReadOnly
+        efPos={efPos}
         legs={legs}
-        updateLeg={updateLeg}
+      />
+      :
+      <AgendaItemLegsForm
+        AIvalidation={AIvalidation}
         efPos={efPos}
         isReadOnly={isReadOnly}
-        AIvalidation={AIvalidation}
+        legs={legs}
+        onClose={isReadOnly ? () => {} : onClose}
+        updateLeg={updateLeg}
       />
   );
 };

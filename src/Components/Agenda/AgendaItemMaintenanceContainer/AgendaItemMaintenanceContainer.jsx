@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
+import { drop, filter, find, get, has, isEmpty } from 'lodash';
+// import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
@@ -140,7 +141,8 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   useEffect(() => {
     if (!agendaItemLoading) {
-      setIsReadOnly(!isEmpty(agendaItemData) && sample([true, false]));
+      setIsReadOnly(!isEmpty(agendaItemData));
+      // setIsReadOnly(!isEmpty(agendaItemData) && sample([true, false]));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
