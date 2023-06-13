@@ -15,7 +15,6 @@ const PanelMeetingAdmin = (props) => {
   const dispatch = useDispatch();
 
 
-  const currentDate = new Date();
   const prelimCutoffMins = 2875;
   const addendumCutoffMins = 1435;
 
@@ -46,10 +45,10 @@ const PanelMeetingAdmin = (props) => {
   const [hasReadMeeting, setHasReadMeeting] = useState(false);
 
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
-  const [panelMeetingDate, setPanelMeetingDate] = useState(currentDate);
+  const [panelMeetingDate, setPanelMeetingDate] = useState();
   const [panelMeetingStatus, setPanelMeetingStatus] = useState('Initiated');
-  const [prelimCutoff, setPrelimCutoff] = useState(subMinutes(currentDate, prelimCutoffMins));
-  const [addendumCutoff, setAddendumCutoff] = useState(subMinutes(currentDate, addendumCutoffMins));
+  const [prelimCutoff, setPrelimCutoff] = useState();
+  const [addendumCutoff, setAddendumCutoff] = useState();
   const [virtualMeeting, setVirtualMeeting] = useState(false);
 
   useEffect(() => {
