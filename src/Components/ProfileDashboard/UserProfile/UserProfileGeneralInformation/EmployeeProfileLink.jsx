@@ -40,7 +40,7 @@ class EmployeeProfileLink extends Component {
             type="a"
             title="Download Employee Profile PDF"
           >
-            Employee Profile ????
+            Employee Profile
           </InteractiveElement>
         }
       />
