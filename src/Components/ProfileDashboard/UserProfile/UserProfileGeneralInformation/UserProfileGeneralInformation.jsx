@@ -91,7 +91,7 @@ class UserProfileGeneralInformation extends Component {
                         type="a"
                         title="Download Employee Profile PDF"
                       >
-                        Employee Profile hello?
+                        Employee Profile
                       </InteractiveElement>
                     }
                   />
