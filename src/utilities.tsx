@@ -13,7 +13,6 @@ import Fuse from 'fuse.js';
 import shortid from 'shortid';
 import Bowser from 'bowser';
 
-//converted utilities JS file to TS
 // Focus an element on the page based on its ID. Pass an optional, positive timeout number to
 // execute the focus within a timeout.
 export const focusById = (id: string, timeout: number, config: { preventScroll?: boolean } = {}): void => {
