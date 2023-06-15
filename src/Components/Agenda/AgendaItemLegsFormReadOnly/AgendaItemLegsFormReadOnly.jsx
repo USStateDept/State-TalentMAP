@@ -1,31 +1,27 @@
-/* eslint-disable max-len */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { get, isEmpty } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-// import { formatDate } from 'utilities';
+import { formatDate } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
-// import AgendaLeg from '../AgendaLeg';
 import Alert from '../../Alert';
 
 const AgendaItemLegsFormReadOnly = props => {
-  const {
-    efPos,
-    legs,
-  } = props;
+  const { legs } = props;
 
-  const hasEf = !isEmpty(efPos);
-  const showOverlay = !legs.length && !hasEf;
+  const showOverlay = !legs.length;
   const [rowHoverNum, setRowHoverNum] = useState();
 
   const onHover = row => {
-    // this should check the row number of the
-    // Arrow Header '' to avoid highlighting the arrow row
+    // to avoid highlighting the arrow row
     if (row !== 8) {
       setRowHoverNum(row);
     }
   };
+
+  const formatLang = (langArr = []) => langArr.map(lang => (
+    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
 
   // eslint-disable-next-line no-unused-vars
   const getArrows = () => (
@@ -37,64 +33,49 @@ const AgendaItemLegsFormReadOnly = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: (a => <div>{get(a, 'pos_title') || DEFAULT_TEXT}</div>),
+      content: (a => <div>{a?.pos_title || DEFAULT_TEXT}</div>),
     },
-    // {
-    //   title: 'Position Number',
-    //   content: (<div>{get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
-    // },
-    // {
-    //   title: 'Org',
-    //   content: (<div>{get(leg, 'org') || DEFAULT_TEXT}</div>),
-    // },
-    // {
-    //   title: 'Grade',
-    //   content: (<div>{get(leg, 'grade') || DEFAULT_TEXT}</div>),
-    // },
-    // {
-    //   title: 'Languages',
-    //   content: (<div>{formatLang(get(leg, 'languages')) || DEFAULT_TEXT}</div>),
-    // },
-    // {
-    //   title: 'ETA',
-    //   content: (<div>{formatDate(get(leg, 'eta')) || DEFAULT_TEXT}</div>),
-    // },
-    // {
-    //   title: '',
-    //   content: (getArrows()),
-    // },
-    // {
-    //   title: 'TED',
-    //   content: (getCalendar()),
-    // },
-    // {
-    //   title: 'TOD',
-    //   content: (getTodDropdown()),
-    // },
-    // {
-    //   title: 'Action',
-    //   content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
-    // },
-    // {
-    //   title: 'Travel',
-    //   content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
-    // },
+    {
+      title: 'Position Number',
+      content: (a => <div>{a?.pos_num || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Org',
+      content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Grade',
+      content: (a => <div>{a?.grade || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Lang',
+      content: (a => <div>{formatLang(a?.languages) || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'ETA',
+      content: (a => <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: '',
+      content: (() => getArrows()),
+    },
+    {
+      title: 'TED',
+      content: (a => <div>{formatDate(a?.legEndDate || a?.ted) || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'TOD',
+      content: (a => <div>{a?.tod_long_desc || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Action',
+      content: (a => <div>{a?.action || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Travel',
+      content: (a => <div>{a?.travel || DEFAULT_TEXT}</div>),
+    },
   ];
-
-  const legHeaderData = [
-    'Position Title',
-    'Position Number',
-    'Org',
-    'Grade',
-    'Lang',
-    'ETA',
-    '',
-    'TED',
-    'TOD',
-    'Action',
-    'Travel',
-  ];
-
 
   return (
     <>
@@ -107,32 +88,21 @@ const AgendaItemLegsFormReadOnly = props => {
           <div className="legs-form-container">
             <div className="legs-form">
               {
-                legHeaderData.map((title, i) => (
+                columnData.map((cData, i) => (
                   <InteractiveElement
                     className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
                     onMouseOver={() => onHover(i + 2)}
                     onMouseLeave={() => onHover('')}
-                    key={title}
+                    key={cData.title}
                   >
-                    {title}
+                    {cData.title}
                   </InteractiveElement>
                 ))
               }
-              {/* { */}
-              {/*  hasEf && */}
-              {/*  <AgendaLeg */}
-              {/*    leg={efPos} */}
-              {/*    legNum={2} */}
-              {/*    isEf */}
-              {/*    onHover={onHover} */}
-              {/*    rowNum={rowHoverNum} */}
-              {/*  /> */}
-              {/* } */}
               {
-                // grid-col 2 or 3 dependent on hasEf
                 legs.map((leg, i) => {
-                  // const keyId = i;
-                  const legNum = i + (hasEf ? 3 : 2);
+                  // css grid count starts at 1 and we have to offset by 1 for the title column
+                  const legNum = i + 2;
                   return (
                     <>
                       <div className={`grid-col-${legNum} grid-row-1`} />
@@ -144,19 +114,11 @@ const AgendaItemLegsFormReadOnly = props => {
                             onMouseLeave={() => onHover('')}
                             key={cData.title}
                           >
-                            <div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>
                             {cData.content(leg)}
                           </InteractiveElement>
                         ))
                       }
                     </>
-                    // <AgendaLeg
-                    //   leg={leg}
-                    //   key={`${leg.ail_seq_num}-${keyId}`}
-                    //   legNum={i + (hasEf ? 3 : 2)}
-                    //   onHover={onHover}
-                    //   rowNum={rowHoverNum}
-                    // />
                   );
                 })
               }

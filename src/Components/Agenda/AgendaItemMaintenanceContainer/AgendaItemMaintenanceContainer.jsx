@@ -215,6 +215,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           asgSepBid={asgSepBid}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
+                          fullAgendaItemLegs={agendaItem?.legs || []}
                           readMode={readMode}
                           AIvalidation={AIvalidation}
                         />

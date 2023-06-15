@@ -9,7 +9,7 @@ import AgendaItemLegsForm from '../AgendaItemLegsForm';
 import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-  asgSepBid, efPos, agendaItemLegs, readMode, AIvalidation }) => {
+  asgSepBid, efPos, agendaItemLegs, fullAgendaItemLegs, readMode, AIvalidation }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -97,8 +97,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     !unitedLoading &&
     readMode ?
       <AgendaItemLegsFormReadOnly
-        efPos={efPos}
-        legs={legs}
+        legs={fullAgendaItemLegs}
       />
       :
       <AgendaItemLegsForm
@@ -121,6 +120,9 @@ AgendaItemTimeline.propTypes = {
   agendaItemLegs: PropTypes.arrayOf(
     PropTypes.shape({}),
   ),
+  fullAgendaItemLegs: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ),
   readMode: PropTypes.bool,
   AIvalidation: AI_VALIDATION,
 };
@@ -132,6 +134,7 @@ AgendaItemTimeline.defaultProps = {
   asgSepBid: {},
   efPos: {},
   agendaItemLegs: [],
+  fullAgendaItemLegs: [],
   readMode: false,
   AIvalidation: {},
 };
