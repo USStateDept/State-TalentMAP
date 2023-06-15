@@ -61,8 +61,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
   const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
-  // temporary until business logic is added for readOnly items
-  const [isReadOnly, setIsReadOnly] = useState(false);
+  const [readMode, setReadMode] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
@@ -141,8 +140,9 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   useEffect(() => {
     if (!agendaItemLoading) {
-      setIsReadOnly(!isEmpty(agendaItemData));
-      // setIsReadOnly(!isEmpty(agendaItemData) && sample([true, false]));
+      // If not creating a new AI, then we default initial mode to Read
+      setReadMode(!isEmpty(agendaItemData));
+      // setReadMode(!isEmpty(agendaItemData) && sample([true, false]));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
@@ -175,7 +175,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
-          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${isReadOnly ? 'aim-disabled' : ''}`}>
+          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
@@ -193,7 +193,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           perdet={id}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                          updateSelection={isReadOnly ? () => {} : updateSelection}
+                          updateSelection={readMode ? () => {} : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
@@ -201,7 +201,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           legCount={legs.length}
                           saveAI={submitAI}
                           agendaItem={agendaItem}
-                          isReadOnly={isReadOnly}
+                          isReadOnly={readMode}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
                           AIvalidation={AIvalidation}
@@ -215,7 +215,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           asgSepBid={asgSepBid}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
-                          isReadOnly={isReadOnly}
+                          isReadOnly={readMode}
                           AIvalidation={AIvalidation}
                         />
                       </>
@@ -244,10 +244,10 @@ const AgendaItemMaintenanceContainer = (props) => {
                 clientLoading={employeeLoading}
                 perdet={id}
                 ref={researchPaneRef}
-                updateSelection={isReadOnly ? () => {} : updateSelection}
+                updateSelection={readMode ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
-                isReadOnly={isReadOnly}
+                isReadOnly={readMode}
               />
             </div>
           </div>
