@@ -50,7 +50,7 @@
     "pem": "1.14.3",
     "prop-types": "^15.6.0",
     "q": "^1.5.1",
-    "query-string": "5.1.1",
+    "query-string": "7.0.0",
     "rc-steps": "^3.4.1",
     "react": "^16.14.0",
     "react-autosuggest": "^9.4.3",

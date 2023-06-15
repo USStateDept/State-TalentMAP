@@ -7,8 +7,8 @@ import {
 import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 import { NO_BID_CYCLE, NO_POST } from './Constants/SystemMessages';
 import FLAG_COLORS from './Constants/FlagColors';
-import queryString from 'query-string'; //need to check if this is compatible with typescript
-import swal from '@sweetalert/with-react'; //need to check if this is compatible with typescript
+import queryString from 'query-string'; //upgraded package
+// import swal from '@sweetalert/with-react'; //need to check if this is compatible with typescript
 import Fuse from 'fuse.js';
 import shortid from 'shortid';
 import Bowser from 'bowser';
@@ -514,22 +514,24 @@ export function getCustomLocation(loc: any, org: string): string {
   return x;
 }
 
-export const closeSwal = (): void | null => {
-  try {
-    swal.close();
-  } catch { return null; }
-  return null;
-};
 
-export const useCloseSwalOnUnmount = (): void =>
-  useEffect(() => () => {
-    closeSwal();
-  }, []);
+//These will be added back after the swal package is updated to be compatible with typescript
+// export const closeSwal = (): void | null => {
+//   try {
+//     swal.close();
+//   } catch { return null; }
+//   return null;
+// };
+
+// export const useCloseSwalOnUnmount = (): void =>
+//   useEffect(() => () => {
+//     closeSwal();
+//   }, []);
 
 export const splitByLineBreak = (text: string) => (text || '').split('\n\n\n');
 
 export const convertQueryToString = (query: Record<string, any>): string | Record<string, any> => {
-  let q: Record<string, any> = pickBy(query, identity);
+  let q: any = pickBy(query, identity);
   Object.keys(q).forEach((queryk: string) => {
     if (isArray(q[queryk])) {
       q[queryk] = q[queryk].join();
