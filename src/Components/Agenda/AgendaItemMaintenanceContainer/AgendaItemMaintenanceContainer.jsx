@@ -201,7 +201,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           legCount={legs.length}
                           saveAI={submitAI}
                           agendaItem={agendaItem}
-                          isReadOnly={readMode}
+                          readMode={readMode}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
                           AIvalidation={AIvalidation}
@@ -247,7 +247,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                 updateSelection={readMode ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
-                isReadOnly={readMode}
+                readMode={readMode}
               />
             </div>
           </div>
