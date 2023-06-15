@@ -29,16 +29,15 @@ export function saveRemark(props) {
   return (dispatch) => {
     dispatch(saveAdminRemarkIsLoading(true));
     dispatch(saveAdminRemarkHasErrored(false));
-    api().post('/remarkspage/', {
-      props,
-    }).then(({ data }) => {
-      batch(() => {
-        dispatch(saveAdminRemarkHasErrored(false));
-        dispatch(saveAdminRemarkSuccess(data || []));
-        dispatch(toastSuccess(SAVE_ADMIN_REMARK_SUCCESS, SAVE_ADMIN_REMARK_SUCCESS_TITLE));
-        dispatch(saveAdminRemarkIsLoading(false));
-      });
-    })
+    api().post('/fsbid/admin/panel/remark/', props)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(saveAdminRemarkHasErrored(false));
+          dispatch(saveAdminRemarkSuccess(data || []));
+          dispatch(toastSuccess(SAVE_ADMIN_REMARK_SUCCESS, SAVE_ADMIN_REMARK_SUCCESS_TITLE));
+          dispatch(saveAdminRemarkIsLoading(false));
+        });
+      })
       .catch(() => {
         dispatch(toastError(SAVE_ADMIN_REMARK_HAS_ERRORED, SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE));
         dispatch(saveAdminRemarkHasErrored(true));

@@ -172,4 +172,9 @@
     color: $color-gray;
     background-color: $color-gray-lighter;
   }
+
+  select:disabled {
+    color: $color-gray;
+    background-color: $color-gray-lighter;
+  }
 }

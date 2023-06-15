@@ -7,24 +7,78 @@ import FA from 'react-fontawesome';
 import CheckBox from 'Components/CheckBox';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { createPanelMeeting } from 'actions/panelMeetingAdmin';
+import { saveSelectedEditPanelMeeting } from 'actions/panelMeetingAgendas';
+import Alert from 'Components/Alert/Alert';
 
 const PanelMeetingAdmin = (props) => {
   const { history } = props;
   const dispatch = useDispatch();
 
-  const currentDate = new Date();
+
   const prelimCutoffMins = 2875;
   const addendumCutoffMins = 1435;
 
+  const selectedEditPanelMeeting = useSelector(state => state.selectedEditPanelMeeting);
+  const selectedEditPanelMeetingError = useSelector(state => state.selectedEditPanelMeetingErrored);
+  const selectedEditPanelMeetingIsLoading = useSelector(state => state.selectedEditPanelMeetingIsLoading); // eslint-disable-line
+
+  const [loadedPanelMeeting, setLoadedPanelMeeting] = useState({}); // eslint-disable-line
+  const [loadedPanelMeetingErrored, setLoadedPanelMeetingErrored] = useState(false);
+
+  const alertTitle = 'Error Loading Panel Meeting';
+  const alertBody = [
+    {
+      body: 'There was an error while attempting to load this Panel Meeting, please try again',
+    },
+  ];
+
+  function loadMeetingType() {
+    return loadedPanelMeeting.pmt_code === 'ID' ? 'interdivisional' : 'midlevel';
+  }
+
+  function loadPanelDate(dateCode) {
+    return new Date(
+      loadedPanelMeeting?.panelMeetingDates?.find(x => x.mdt_code === dateCode).pmd_dttm);
+  }
+
+  const [isEdit, setIsEdit] = useState(false);
+  const [hasReadMeeting, setHasReadMeeting] = useState(false);
+
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
-  const [panelMeetingDate, setPanelMeetingDate] = useState(currentDate);
-  const [prelimCutoff, setPrelimCutoff] = useState(subMinutes(currentDate, prelimCutoffMins));
-  const [addendumCutoff, setAddendumCutoff] = useState(subMinutes(currentDate, addendumCutoffMins));
+  const [panelMeetingDate, setPanelMeetingDate] = useState();
+  const [panelMeetingStatus, setPanelMeetingStatus] = useState('Initiated');
+  const [prelimCutoff, setPrelimCutoff] = useState();
+  const [addendumCutoff, setAddendumCutoff] = useState();
   const [virtualMeeting, setVirtualMeeting] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(selectedEditPanelMeeting).length) {
+      setLoadedPanelMeeting(selectedEditPanelMeeting);
+      setLoadedPanelMeetingErrored(selectedEditPanelMeetingError);
+      if (Object.keys(selectedEditPanelMeeting).length) {
+        setIsEdit(true);
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (!hasReadMeeting && Object.keys(loadedPanelMeeting).length) {
+      setPanelMeetingType(loadMeetingType());
+      setPanelMeetingDate(loadPanelDate('MEET'));
+      setPanelMeetingStatus(loadedPanelMeeting.pms_desc_text);
+      setPrelimCutoff(loadPanelDate('CUT'));
+      setAddendumCutoff(loadPanelDate('ADD'));
+      setVirtualMeeting(loadedPanelMeeting.pm_virtual === 'Y');
+      setHasReadMeeting(true);
+      dispatch(saveSelectedEditPanelMeeting({}));
+    }
+  }, [loadedPanelMeeting]);
 
   const createMeetingResults = useSelector(state => state.createPanelMeetingSuccess);
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
+
+  const canEditFields = isEdit ? (prelimCutoff - new Date() > 0) : true;
 
   useEffect(() => {
     if (!createMeetingLoading && !createMeetingErrored && createMeetingResults.length) {
@@ -57,85 +111,99 @@ const PanelMeetingAdmin = (props) => {
   };
 
   return (
-    <div className="admin-panel-meeting">
-      <div className="admin-panel-meeting-row">
-        <label htmlFor="virtual-meeting">Virtual Meeting:</label>
-        <CheckBox
-          value={virtualMeeting}
-          className="admin-panel-meeting-checkbox"
-          onCheckBoxClick={(e) => setVirtualMeeting(e)}
+    loadedPanelMeetingErrored ?
+      <div className="usa-width-two-thirds">
+        <Alert
+          title={alertTitle}
+          messages={alertBody}
         />
       </div>
-      <div className="admin-panel-meeting-row">
-        <label htmlFor="meeting-type">Meeting Type:</label>
-        <select
-          className="select-and-input"
-          value={panelMeetingType}
-          onChange={(e) => setPanelMeetingType(e.target.value)}
-        >
-          <option value={'interdivisional'}>Interdivisional</option>
-          <option value={'midlevel'}>Mid-Level</option>
-        </select>
-      </div>
-      <div className="admin-panel-meeting-row">
-        <label htmlFor="status">Status:</label>
-        <input
-          disabled
-          type="text"
-          value="Initiated"
-          className="select-and-input"
-        />
-      </div>
-      <div className="admin-panel-meeting-row">
-        <label htmlFor="panel-meeting-date">Panel Meeting Date:</label>
-        <div className="date-wrapper larger-date-picker">
-          <DatePicker
-            selected={panelMeetingDate}
-            onChange={selectPanelMeetingDate}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={5}
-            timeCaption="time"
-            dateFormat="MM/dd/yyyy h:mm aa"
+      :
+      <div className="admin-panel-meeting">
+        <div className="admin-panel-meeting-row">
+          <label htmlFor="virtual-meeting">Virtual Meeting:</label>
+          <CheckBox
+            disabled={!canEditFields}
+            value={virtualMeeting}
+            className="admin-panel-meeting-checkbox"
+            onCheckBoxClick={(e) => setVirtualMeeting(e)}
           />
-          <FA name="calendar" />
+        </div>
+        <div className="admin-panel-meeting-row">
+          <label htmlFor="meeting-type">Meeting Type:</label>
+          <select
+            disabled={!canEditFields}
+            className="select-and-input"
+            value={panelMeetingType}
+            onChange={(e) => setPanelMeetingType(e.target.value)}
+          >
+            <option value={'interdivisional'}>Interdivisional</option>
+            <option value={'midlevel'}>Mid-Level</option>
+          </select>
+        </div>
+        <div className="admin-panel-meeting-row">
+          <label htmlFor="status">Status:</label>
+          <input
+            disabled={!canEditFields}
+            type="text"
+            value={panelMeetingStatus}
+            onChange={(e) => setPanelMeetingStatus(e.target.value)}
+            className="select-and-input"
+          />
+        </div>
+        <div className="admin-panel-meeting-row">
+          <label htmlFor="panel-meeting-date">Panel Meeting Date:</label>
+          <div className="date-wrapper larger-date-picker">
+            <DatePicker
+              disabled={!canEditFields}
+              selected={panelMeetingDate}
+              onChange={selectPanelMeetingDate}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={5}
+              timeCaption="time"
+              dateFormat="MM/dd/yyyy h:mm aa"
+            />
+            <FA name="calendar" />
+          </div>
+        </div>
+        <div className="admin-panel-meeting-row">
+          <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff:</label>
+          <div className="date-wrapper larger-date-picker">
+            <DatePicker
+              disabled={!canEditFields}
+              selected={prelimCutoff}
+              onChange={(date) => setPrelimCutoff(date)}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={5}
+              timeCaption="time"
+              dateFormat="MM/dd/yyyy h:mm aa"
+            />
+            <FA name="calendar" />
+          </div>
+        </div>
+        <div className="admin-panel-meeting-row">
+          <label htmlFor="addendum-cutoff-date">Addendum Cutoff:</label>
+          <div className="date-wrapper larger-date-picker">
+            <DatePicker
+              disabled={!canEditFields}
+              selected={addendumCutoff}
+              onChange={(date) => setAddendumCutoff(date)}
+              showTimeSelect
+              timeFormat="HH:mm"
+              timeIntervals={5}
+              timeCaption="time"
+              dateFormat="MM/dd/yyyy h:mm aa"
+            />
+            <FA name="calendar" />
+          </div>
+        </div>
+        <div className="admin-panel-meeting-buttons">
+          <button onClick={submit} disabled={!canEditFields}>Save</button>
+          <button onClick={clear} disabled={!canEditFields}>Clear</button>
         </div>
       </div>
-      <div className="admin-panel-meeting-row">
-        <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff:</label>
-        <div className="date-wrapper larger-date-picker">
-          <DatePicker
-            selected={prelimCutoff}
-            onChange={(date) => setPrelimCutoff(date)}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={5}
-            timeCaption="time"
-            dateFormat="MM/dd/yyyy h:mm aa"
-          />
-          <FA name="calendar" />
-        </div>
-      </div>
-      <div className="admin-panel-meeting-row">
-        <label htmlFor="addendum-cutoff-date">Addendum Cutoff:</label>
-        <div className="date-wrapper larger-date-picker">
-          <DatePicker
-            selected={addendumCutoff}
-            onChange={(date) => setAddendumCutoff(date)}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={5}
-            timeCaption="time"
-            dateFormat="MM/dd/yyyy h:mm aa"
-          />
-          <FA name="calendar" />
-        </div>
-      </div>
-      <div className="admin-panel-meeting-buttons">
-        <button onClick={submit}>Save</button>
-        <button onClick={clear}>Clear</button>
-      </div>
-    </div>
   );
 };
 

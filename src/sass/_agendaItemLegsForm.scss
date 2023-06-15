@@ -213,6 +213,21 @@
     }
   }
 
+  .other-tod-wrapper {
+    min-height: 65px;
+    display: flex;
+    cursor: default;
+  }
+  .other-tod {
+    align-self: center;
+    padding-top: 13px;
+  }
+  .other-tod-icon {
+    cursor: pointer;
+    vertical-align: top;
+    color: $secondary-dark;
+  }
+
 .leg-dropdown {
   background-image: none;
   border: 2px solid transparent;
