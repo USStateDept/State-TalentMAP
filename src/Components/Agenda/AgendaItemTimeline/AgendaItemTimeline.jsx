@@ -9,7 +9,7 @@ import AgendaItemLegsForm from '../AgendaItemLegsForm';
 import AgendaItemLegsFormReadOnly from '../AgendaItemLegsFormReadOnly';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-  asgSepBid, efPos, agendaItemLegs, isReadOnly, AIvalidation }) => {
+  asgSepBid, efPos, agendaItemLegs, readMode, AIvalidation }) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -95,7 +95,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
 
   return (
     !unitedLoading &&
-      isReadOnly ?
+    readMode ?
       <AgendaItemLegsFormReadOnly
         efPos={efPos}
         legs={legs}
@@ -104,9 +104,9 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
       <AgendaItemLegsForm
         AIvalidation={AIvalidation}
         efPos={efPos}
-        isReadOnly={isReadOnly}
+        isReadOnly={readMode}
         legs={legs}
-        onClose={isReadOnly ? () => {} : onClose}
+        onClose={readMode ? () => {} : onClose}
         updateLeg={updateLeg}
       />
   );
@@ -121,7 +121,7 @@ AgendaItemTimeline.propTypes = {
   agendaItemLegs: PropTypes.arrayOf(
     PropTypes.shape({}),
   ),
-  isReadOnly: PropTypes.bool,
+  readMode: PropTypes.bool,
   AIvalidation: AI_VALIDATION,
 };
 
@@ -132,7 +132,7 @@ AgendaItemTimeline.defaultProps = {
   asgSepBid: {},
   efPos: {},
   agendaItemLegs: [],
-  isReadOnly: false,
+  readMode: false,
   AIvalidation: {},
 };
 
