@@ -148,9 +148,20 @@
     margin-right: 10px;
   }
 
-  .select-and-input {
+  .select-dropdown {
     display: inline-block;
     width: 300px;
+    font-family: Roboto;
+    font-size: 18px;
+
+    button {
+      height: 45px;
+
+      span {
+        font-family: Roboto;
+        font-size: 18px;
+      }
+    }
   }
 
   .date-wrapper {
@@ -174,6 +185,11 @@
   }
 
   select:disabled {
+    color: $color-gray;
+    background-color: $color-gray-lighter;
+  }
+
+  button:disabled {
     color: $color-gray;
     background-color: $color-gray-lighter;
   }

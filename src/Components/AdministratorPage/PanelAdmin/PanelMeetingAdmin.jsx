@@ -4,82 +4,61 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { subMinutes } from 'date-fns';
 import FA from 'react-fontawesome';
+import Picky from 'react-picky';
 import CheckBox from 'Components/CheckBox';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { createPanelMeeting } from 'actions/panelMeetingAdmin';
-import { saveSelectedEditPanelMeeting } from 'actions/panelMeetingAgendas';
-import Alert from 'Components/Alert/Alert';
+import { get } from 'lodash';
+import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 
 const PanelMeetingAdmin = (props) => {
   const { history } = props;
+  const pmSeqNum = get(props, 'match.params.pmSeqNum', false);
+  const isCreate = !pmSeqNum;
+
+  const panelMeetingsResults = useSelector(state => state.panelMeetings);
+  const panelMeetingsResults$ = get(panelMeetingsResults, 'results[0]') || {};
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+
+  const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
+  const panelMeetingsFiltersIsLoading = useSelector(state =>
+    state.panelMeetingsFiltersFetchDataLoading);
+
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+    dispatch(panelMeetingsFiltersFetchData());
+  }, []);
 
-  const currentDate = new Date();
-  const prelimCutoffMins = 2875;
-  const addendumCutoffMins = 1435;
-
-  const selectedEditPanelMeeting = useSelector(state => state.selectedEditPanelMeeting);
-  const selectedEditPanelMeetingError = useSelector(state => state.selectedEditPanelMeetingErrored);
-  const selectedEditPanelMeetingIsLoading = useSelector(state => state.selectedEditPanelMeetingIsLoading); // eslint-disable-line
-
-  const [loadedPanelMeeting, setLoadedPanelMeeting] = useState({}); // eslint-disable-line
-  const [loadedPanelMeetingErrored, setLoadedPanelMeetingErrored] = useState(false);
-
-  const alertTitle = 'Error Loading Panel Meeting';
-  const alertBody = [
-    {
-      body: 'There was an error while attempting to load this Panel Meeting, please try again',
-    },
-  ];
-
-  function loadMeetingType() {
-    return loadedPanelMeeting.pmt_code === 'ID' ? 'interdivisional' : 'midlevel';
-  }
-
-  function loadPanelDate(dateCode) {
-    return new Date(
-      loadedPanelMeeting?.panelMeetingDates?.find(x => x.mdt_code === dateCode).pmd_dttm);
-  }
-
-  const [isEdit, setIsEdit] = useState(false);
-  const [hasReadMeeting, setHasReadMeeting] = useState(false);
+  const { pmt_code, pms_desc_text, pm_virtual, panelMeetingDates } = panelMeetingsResults$;
 
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
-  const [panelMeetingDate, setPanelMeetingDate] = useState(currentDate);
-  const [panelMeetingStatus, setPanelMeetingStatus] = useState('Initiated');
-  const [prelimCutoff, setPrelimCutoff] = useState(subMinutes(currentDate, prelimCutoffMins));
-  const [addendumCutoff, setAddendumCutoff] = useState(subMinutes(currentDate, addendumCutoffMins));
+  const [panelMeetingStatus, setPanelMeetingStatus] = useState({ code: 'I', text: 'Initiated' });
   const [virtualMeeting, setVirtualMeeting] = useState(false);
+  const [panelMeetingDate, setPanelMeetingDate] = useState();
+  const [prelimCutoff, setPrelimCutoff] = useState();
+  const [addendumCutoff, setAddendumCutoff] = useState();
 
   useEffect(() => {
-    if (Object.keys(selectedEditPanelMeeting).length) {
-      setLoadedPanelMeeting(selectedEditPanelMeeting);
-      setLoadedPanelMeetingErrored(selectedEditPanelMeetingError);
-      if (Object.keys(selectedEditPanelMeeting).length) {
-        setIsEdit(true);
-      }
+    if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
+      setPanelMeetingType(pmt_code);
+      setPanelMeetingDate(new Date(panelMeetingDates?.find(x => x.mdt_code === 'MEET').pmd_dttm));
+      setPanelMeetingStatus(pms_desc_text);
+      setPrelimCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm));
+      setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
+      setVirtualMeeting(pm_virtual === 'Y');
     }
-  });
+  }, [panelMeetingsResults]);
 
-  useEffect(() => {
-    if (!hasReadMeeting && Object.keys(loadedPanelMeeting).length) {
-      setPanelMeetingType(loadMeetingType());
-      setPanelMeetingDate(loadPanelDate('MEET'));
-      setPanelMeetingStatus(loadedPanelMeeting.pms_desc_text);
-      setPrelimCutoff(loadPanelDate('CUT'));
-      setAddendumCutoff(loadPanelDate('ADD'));
-      setVirtualMeeting(loadedPanelMeeting.pm_virtual === 'Y');
-      setHasReadMeeting(true);
-      dispatch(saveSelectedEditPanelMeeting({}));
-    }
-  }, [loadedPanelMeeting]);
+  const prelimCutoffMins = 2875;
+  const addendumCutoffMins = 1435;
 
   const createMeetingResults = useSelector(state => state.createPanelMeetingSuccess);
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
 
-  const canEditFields = isEdit ? (prelimCutoff - new Date() > 0) : true;
+  const canEditFields = !isCreate ? (prelimCutoff - new Date() > 0) : true;
 
   useEffect(() => {
     if (!createMeetingLoading && !createMeetingErrored && createMeetingResults.length) {
@@ -94,6 +73,7 @@ const PanelMeetingAdmin = (props) => {
       prelimCutoff,
       addendumCutoff,
       virtualMeeting,
+      panelMeetingStatus,
     }));
   };
 
@@ -112,14 +92,7 @@ const PanelMeetingAdmin = (props) => {
   };
 
   return (
-    loadedPanelMeetingErrored ?
-      <div className="usa-width-two-thirds">
-        <Alert
-          title={alertTitle}
-          messages={alertBody}
-        />
-      </div>
-      :
+    !panelMeetingsIsLoading && !panelMeetingsFiltersIsLoading &&
       <div className="admin-panel-meeting">
         <div className="admin-panel-meeting-row">
           <label htmlFor="virtual-meeting">Virtual Meeting:</label>
@@ -134,7 +107,7 @@ const PanelMeetingAdmin = (props) => {
           <label htmlFor="meeting-type">Meeting Type:</label>
           <select
             disabled={!canEditFields}
-            className="select-and-input"
+            className="select-dropdown"
             value={panelMeetingType}
             onChange={(e) => setPanelMeetingType(e.target.value)}
           >
@@ -144,12 +117,14 @@ const PanelMeetingAdmin = (props) => {
         </div>
         <div className="admin-panel-meeting-row">
           <label htmlFor="status">Status:</label>
-          <input
-            disabled={!canEditFields}
-            type="text"
+          <Picky
+            className="select-dropdown"
             value={panelMeetingStatus}
-            onChange={(e) => setPanelMeetingStatus(e.target.value)}
-            className="select-and-input"
+            options={get(panelMeetingsFilters, 'panelStatuses')}
+            onChange={setPanelMeetingStatus}
+            valueKey="code"
+            labelKey="text"
+            disabled={isCreate || !canEditFields}
           />
         </div>
         <div className="admin-panel-meeting-row">
