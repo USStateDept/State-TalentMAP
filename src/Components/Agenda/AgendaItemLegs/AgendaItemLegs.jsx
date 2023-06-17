@@ -8,6 +8,7 @@ const AgendaItemLegs = props => {
   const {
     legs,
     isCard,
+    isPanelMeetingView,
   } = props;
 
   let legs$ = legs;
@@ -25,6 +26,14 @@ const AgendaItemLegs = props => {
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
+  const formatVice = (viceObj) => {
+    const vice = viceObj?.emp_full_name;
+    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date);
+    if (vice || vacancy) {
+      return `${vice || ''}${vice ? ', ' : ''} ${vacancy || ''}`;
+    }
+    return '-';
+  };
 
   const getData = (key, helperFunc = () => {}) => (
     <>
@@ -115,6 +124,16 @@ const AgendaItemLegs = props => {
     },
   ];
 
+  if (isPanelMeetingView) { // vice/vacancy info only shows for panel view, and in AIM
+    tableData.push(
+      {
+        title: 'Vice',
+        content: (getData('vice', formatVice)),
+        cardView: false,
+      },
+    );
+  }
+
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
@@ -140,11 +159,13 @@ const AgendaItemLegs = props => {
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
+  isPanelMeetingView: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   isCard: false,
+  isPanelMeetingView: false,
 };
 
 export default AgendaItemLegs;

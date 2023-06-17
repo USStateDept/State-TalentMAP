@@ -55,6 +55,7 @@ const AgendaItemLegsForm = props => {
     'Position Number',
     'Org',
     'Grade',
+    'Vice',
     'Lang',
     'ETA',
     '',

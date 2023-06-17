@@ -245,6 +245,15 @@ const AgendaLeg = props => {
     </div>
   );
 
+  const getVice = (viceObj) => {
+    const vice = viceObj?.emp_full_name;
+    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
+    if (vice || vacancy) {
+      return `${vice || ''}${vice ? ', ' : ''} ${vacancy || ''}`;
+    }
+    return '-';
+  };
+
   const columnData = [
     {
       title: 'Position Title',
@@ -261,6 +270,10 @@ const AgendaLeg = props => {
     {
       title: 'Grade',
       content: (<div>{get(leg, 'grade') || DEFAULT_TEXT}</div>),
+    },
+    {
+      title: 'Vice',
+      content: getVice(leg?.vice),
     },
     {
       title: 'Languages',
@@ -329,6 +342,7 @@ AgendaLeg.propTypes = {
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
     tod_is_dropdown: PropTypes.bool,
+    vice: PropTypes.shape({}),
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

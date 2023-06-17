@@ -36,7 +36,7 @@
       min-height: 105px;
     }
 
-    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
+    $cols-rows: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 ];
 
 
     @each $num in $cols-rows {
@@ -51,12 +51,12 @@
     }
 
     //TED date and date picker
-    .grid-row-9 {
+    .grid-row-10 {
       min-width: 150px;
     }
 
     // Dropdown Columns
-    .grid-col-1.grid-row-10, .grid-col-1.grid-row-11, .grid-col-1.grid-row-12 {
+    .grid-col-1.grid-row-11, .grid-col-1.grid-row-12, .grid-col-1.grid-row-13 {
       padding-top: 25px;
     }
 
