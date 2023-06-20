@@ -249,7 +249,7 @@ const AgendaLeg = props => {
     const vice = viceObj?.emp_full_name;
     const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
     if (vice || vacancy) {
-      return `${vice || ''}${vice ? ', ' : ''} ${vacancy || ''}`;
+      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents') ? ', ' : ''} ${vacancy || ''}`;
     }
     return '-';
   };
