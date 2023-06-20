@@ -19,9 +19,6 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsResults = useSelector(state => state.panelMeetings);
   const panelMeetingsResults$ = get(panelMeetingsResults, 'results[0]') || {};
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
-  const prelimCutoffMins = 2875;
-  const addendumCutoffMins = 1435;
-
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
@@ -58,6 +55,8 @@ const PanelMeetingAdmin = (props) => {
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
 
   const canEditFields = !isCreate ? (prelimCutoff - new Date() > 0) : true;
+  const prelimCutoffMins = 2875;
+  const addendumCutoffMins = 1435;
 
   useEffect(() => {
     if (!createMeetingLoading && !createMeetingErrored && createMeetingResults.length) {
