@@ -19,6 +19,8 @@ const PanelMeetingAdmin = (props) => {
   const panelMeetingsResults = useSelector(state => state.panelMeetings);
   const panelMeetingsResults$ = get(panelMeetingsResults, 'results[0]') || {};
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  const prelimCutoffMins = 2875;
+  const addendumCutoffMins = 1435;
 
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
@@ -34,7 +36,10 @@ const PanelMeetingAdmin = (props) => {
   const { pmt_code, pms_desc_text, pm_virtual, panelMeetingDates } = panelMeetingsResults$;
 
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
-  const [panelMeetingStatus, setPanelMeetingStatus] = useState({ code: 'I', text: 'Initiated' });
+  const [panelMeetingDate, setPanelMeetingDate] = useState();
+  const [panelMeetingStatus, setPanelMeetingStatus] = useState('Initiated');
+  const [prelimCutoff, setPrelimCutoff] = useState();
+  const [addendumCutoff, setAddendumCutoff] = useState();
   const [virtualMeeting, setVirtualMeeting] = useState(false);
   const [panelMeetingDate, setPanelMeetingDate] = useState();
   const [prelimCutoff, setPrelimCutoff] = useState();
