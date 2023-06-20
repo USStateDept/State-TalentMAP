@@ -31,3 +31,30 @@ export function panelMeetingAgendasSelections(state = {}, action) {
       return state;
   }
 }
+
+export function selectedEditPanelMeeting(state = {}, action) {
+  switch (action.type) {
+    case 'SELECTED_EDIT_PANEL_MEETING_SUCCESS':
+      return action.result;
+    default:
+      return state;
+  }
+}
+
+export function selectedEditPanelMeetingErrored(state = false, action) {
+  switch (action.type) {
+    case 'SELECTED_EDIT_PANEL_MEETING_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+
+export function selectedEditPanelMeetingIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'SELECTED_EDIT_PANEL_MEETING_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
