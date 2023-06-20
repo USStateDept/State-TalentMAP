@@ -14,7 +14,8 @@ const AgendaItemLegsFormReadOnly = props => {
 
   const onHover = row => {
     // to avoid highlighting the arrow row
-    if (row !== 8) {
+    // Note: varies by -1 from the editable version bc of the row of Xs to remove legs
+    if (row !== 7) {
       setRowHoverNum(row);
     }
   };
@@ -90,8 +91,8 @@ const AgendaItemLegsFormReadOnly = props => {
               {
                 columnData.map((cData, i) => (
                   <InteractiveElement
-                    className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
-                    onMouseOver={() => onHover(i + 2)}
+                    className={`grid-col-1-read-only grid-row-${i + 1}-read-only${rowHoverNum === (i + 1) ? ' grid-row-hover' : ''}`}
+                    onMouseOver={() => onHover(i + 1)}
                     onMouseLeave={() => onHover('')}
                     key={cData.title}
                   >
@@ -102,15 +103,14 @@ const AgendaItemLegsFormReadOnly = props => {
               {
                 legs.map((leg, i) => {
                   // css grid count starts at 1 and we have to offset by 1 for the title column
-                  const legNum = i + 2;
+                  const colNum = i + 2;
                   return (
                     <>
-                      <div className={`grid-col-${legNum} grid-row-1`} />
                       {
                         columnData.map((cData, ii) => (
                           <InteractiveElement
-                            className={`grid-col-${legNum} grid-row-${ii + 2}${rowHoverNum === (ii + 2) ? ' grid-row-hover' : ''}`}
-                            onMouseOver={() => onHover(ii + 2)}
+                            className={`grid-col-${colNum}-read-only grid-row-${ii + 1}-read-only${rowHoverNum === (ii + 1) ? ' grid-row-hover' : ''}`}
+                            onMouseOver={() => onHover(ii + 1)}
                             onMouseLeave={() => onHover('')}
                             key={cData.title}
                           >
