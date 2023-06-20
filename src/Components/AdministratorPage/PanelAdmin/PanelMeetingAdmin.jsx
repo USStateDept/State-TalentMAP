@@ -6,6 +6,7 @@ import { subMinutes } from 'date-fns';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import CheckBox from 'Components/CheckBox';
+import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { createPanelMeeting } from 'actions/panelMeetingAdmin';
 import { get } from 'lodash';
@@ -89,8 +90,10 @@ const PanelMeetingAdmin = (props) => {
     setAddendumCutoff(subMinutes(date, addendumCutoffMins));
   };
 
+  const loadingSpinner = (<Spinner type="panel-admin-remarks" size="small" />);
+
   return (
-    !panelMeetingsIsLoading && !panelMeetingsFiltersIsLoading &&
+    !panelMeetingsIsLoading && !panelMeetingsFiltersIsLoading ?
       <div className="admin-panel-meeting">
         <div className="admin-panel-meeting-row">
           <label htmlFor="virtual-meeting">Virtual Meeting:</label>
@@ -177,6 +180,10 @@ const PanelMeetingAdmin = (props) => {
           <button onClick={submit} disabled={!canEditFields}>Save</button>
           <button onClick={clear} disabled={!canEditFields}>Clear</button>
         </div>
+      </div>
+      :
+      <div>
+        { loadingSpinner }
       </div>
   );
 };
