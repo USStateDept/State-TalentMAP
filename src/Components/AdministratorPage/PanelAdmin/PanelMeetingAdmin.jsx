@@ -41,9 +41,6 @@ const PanelMeetingAdmin = (props) => {
   const [prelimCutoff, setPrelimCutoff] = useState();
   const [addendumCutoff, setAddendumCutoff] = useState();
   const [virtualMeeting, setVirtualMeeting] = useState(false);
-  const [panelMeetingDate, setPanelMeetingDate] = useState();
-  const [prelimCutoff, setPrelimCutoff] = useState();
-  const [addendumCutoff, setAddendumCutoff] = useState();
 
   useEffect(() => {
     if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
@@ -55,9 +52,6 @@ const PanelMeetingAdmin = (props) => {
       setVirtualMeeting(pm_virtual === 'Y');
     }
   }, [panelMeetingsResults]);
-
-  const prelimCutoffMins = 2875;
-  const addendumCutoffMins = 1435;
 
   const createMeetingResults = useSelector(state => state.createPanelMeetingSuccess);
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
