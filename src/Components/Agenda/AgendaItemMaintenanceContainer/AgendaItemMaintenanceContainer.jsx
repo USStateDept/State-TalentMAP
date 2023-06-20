@@ -5,11 +5,10 @@ import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
 import { drop, filter, find, get, has, isEmpty } from 'lodash';
-// import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { aiCreate, validateAI } from 'actions/agendaItemMaintenancePane';
+import { aiCreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
@@ -107,6 +106,10 @@ const AgendaItemMaintenanceContainer = (props) => {
     dispatch(aiCreate(maintenanceInfo, legs, personId, efInfo));
   };
 
+  const updateFormMode = () => {
+    setReadMode(false);
+  };
+
   function toggleExpand() {
     setLegsContainerExpanded(!legsContainerExpanded);
   }
@@ -123,14 +126,17 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   useEffect(() => {
-    const personId = employeeData$?.id || id;
-
-    const efInfo = {
-      assignmentId: get(efPosition, 'asg_seq_num'),
-      assignmentVersion: get(efPosition, 'revision_num'),
-    };
-    dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
-  }, [maintenanceInfo, legs]);
+    if (!readMode) {
+      const personId = employeeData$?.id || id;
+      const efInfo = {
+        assignmentId: get(efPosition, 'asg_seq_num'),
+        assignmentVersion: get(efPosition, 'revision_num'),
+      };
+      dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
+    } else {
+      dispatch(resetAIValidation());
+    }
+  }, [maintenanceInfo, legs, readMode]);
 
   useEffect(() => {
     if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
@@ -142,7 +148,6 @@ const AgendaItemMaintenanceContainer = (props) => {
     if (!agendaItemLoading) {
       // If not creating a new AI, then we default initial mode to Read
       setReadMode(!isEmpty(agendaItemData));
-      // setReadMode(!isEmpty(agendaItemData) && sample([true, false]));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
@@ -200,6 +205,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           userRemarks={userRemarks}
                           legCount={legs.length}
                           saveAI={submitAI}
+                          updateFormMode={updateFormMode}
                           agendaItem={agendaItem}
                           readMode={readMode}
                           updateResearchPaneTab={updateResearchPaneTab}

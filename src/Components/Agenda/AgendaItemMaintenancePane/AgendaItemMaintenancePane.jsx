@@ -27,6 +27,7 @@ const AgendaItemMaintenancePane = (props) => {
     sendMaintenancePaneInfo,
     legCount,
     saveAI,
+    updateFormMode,
     sendAsgSepBid,
     asgSepBidData,
     agendaItem,
@@ -159,11 +160,25 @@ const AgendaItemMaintenancePane = (props) => {
       buttonMetadata.children = (<span className="tiny-loading-spinner" />);
     }
 
+    if (readMode) {
+      buttonMetadata.classNames = 'save-ai-btn min-width-155';
+      // clicking this button will toggle from Read to Edit
+      // disabling criteria still needs to be hooked up
+      buttonMetadata.clickFunction = updateFormMode;
+      buttonMetadata.disabled = false;
+      buttonMetadata.text = 'Toggle to Edit Mode';
+    }
+
     setValidationButton(buttonMetadata);
+    /* eslint-disable no-console */
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    console.log('🦄 current: AIvalidation:', AIvalidation);
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
   }, [
     AIvalidation,
     AIvalidationIsLoading,
     AIvalidationHasErrored,
+    readMode,
   ]);
 
   const addAsgSepBid = (k) => {
@@ -461,6 +476,7 @@ AgendaItemMaintenancePane.propTypes = {
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
   readMode: PropTypes.bool,
+  updateFormMode: PropTypes.func,
   updateResearchPaneTab: PropTypes.func,
   setLegsContainerExpanded: PropTypes.func,
   AIvalidation: AI_VALIDATION,
@@ -479,8 +495,9 @@ AgendaItemMaintenancePane.defaultProps = {
   sendMaintenancePaneInfo: EMPTY_FUNCTION,
   sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
+  updateFormMode: EMPTY_FUNCTION,
   legCount: 0,
-  readMode: false,
+  readMode: true,
   updateResearchPaneTab: EMPTY_FUNCTION,
   setLegsContainerExpanded: EMPTY_FUNCTION,
   AIvalidation: {
