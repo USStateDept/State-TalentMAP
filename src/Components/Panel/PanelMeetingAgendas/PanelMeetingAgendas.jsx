@@ -9,7 +9,8 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { panelMeetingAgendasExport, panelMeetingAgendasFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingAgendasExport, panelMeetingAgendasFetchData,
+  panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -251,6 +252,7 @@ const PanelMeetingAgendas = (props) => {
 
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
+    dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
   }, []);

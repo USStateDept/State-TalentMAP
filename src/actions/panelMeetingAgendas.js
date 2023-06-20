@@ -24,6 +24,27 @@ export function panelMeetingAgendasFetchDataSuccess(results) {
   };
 }
 
+export function panelMeetingAgendasFiltersFetchDataErrored(bool) {
+  return {
+    type: 'PANEL_MEETING_AGENDAS_FILTERS_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function panelMeetingAgendasFiltersFetchDataLoading(bool) {
+  return {
+    type: 'PANEL_MEETING_AGENDAS_FILTERS_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function panelMeetingAgendasFiltersFetchDataSuccess(results) {
+  return {
+    type: 'PANEL_MEETING_AGENDAS_FILTERS_FETCH_SUCCESS',
+    results,
+  };
+}
+
 export function panelMeetingAgendasExport(pmseqnum = '') {
   const ep = `/fsbid/panel/${pmseqnum}/agendas/export/`;
   return api()
@@ -77,4 +98,56 @@ export function panelMeetingAgendasSelectionsSaveSuccess(result) {
 
 export function savePanelMeetingAgendasSelections(queryObject) {
   return (dispatch) => dispatch(panelMeetingAgendasSelectionsSaveSuccess(queryObject));
+}
+
+export function panelMeetingAgendasFiltersFetchData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(panelMeetingAgendasFiltersFetchDataSuccess({}));
+      dispatch(panelMeetingAgendasFiltersFetchDataLoading(false));
+    });
+  };
+}
+
+export function selectedEditPanelMeetingSuccess(result) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_SUCCESS',
+    result,
+  };
+}
+
+export function selectedEditPanelMeetingIsLoading(bool) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function selectedEditPanelMeetingErrored(bool) {
+  return {
+    type: 'SELECTED_EDIT_PANEL_MEETING_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function saveSelectedEditPanelMeeting(panelMeeting) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(selectedEditPanelMeetingIsLoading(true));
+      dispatch(selectedEditPanelMeetingErrored(false));
+    });
+    if (Object.keys(panelMeeting).length) {
+      batch(() => {
+        dispatch(selectedEditPanelMeetingSuccess(panelMeeting));
+        dispatch(selectedEditPanelMeetingErrored(false));
+        dispatch(selectedEditPanelMeetingIsLoading(false));
+      });
+    } else {
+      batch(() => {
+        dispatch(selectedEditPanelMeetingSuccess({}));
+        dispatch(selectedEditPanelMeetingErrored(true));
+        dispatch(selectedEditPanelMeetingIsLoading(false));
+      });
+    }
+  };
 }
