@@ -82,9 +82,7 @@ const PanelMeetingAdmin = (props) => {
     setPrelimCutoff('');
     setAddendumCutoff('');
     setVirtualMeeting(false);
-    if (!isCreate) {
-      setPanelMeetingStatus('');
-    }
+    setPanelMeetingStatus('Initiated');
   };
 
   const selectPanelMeetingDate = (date) => {
