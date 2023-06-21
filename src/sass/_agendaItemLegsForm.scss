@@ -283,3 +283,24 @@ tr:hover {
   position: absolute;
   top: 60%;
 }
+
+.search-locations-modal-container {
+
+  .search-locations-filters {
+    .filter {
+      display: flex;
+      align-items: baseline;
+      justify-content: flex-end;
+      margin-right: 20%;
+      label {
+        margin-right: 5px;
+      }
+      input[type="search"] {
+        border-right: 0.1rem solid #5b616b;
+      }
+      span {
+        margin-left: -25px;
+      }
+    }
+  }
+}
