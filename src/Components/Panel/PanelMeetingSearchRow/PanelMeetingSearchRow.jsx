@@ -3,17 +3,15 @@ import LinkButton from 'Components/LinkButton';
 import { PANEL_MEETING } from 'Constants/PropTypes';
 import { get } from 'lodash';
 import { checkFlag } from 'flags';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
-import { saveSelectedEditPanelMeeting } from 'actions/panelMeetingAgendas';
 import { userHasPermissions } from '../../../utilities';
 
 const FALLBACK = 'None listed';
 const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
 
 const PanelMeetingSearchRow = ({ isCDO, pm }) => {
-  const dispatch = useDispatch();
   const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
   const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
   const userProfile = useSelector(state => state.userProfile);
@@ -31,10 +29,9 @@ const PanelMeetingSearchRow = ({ isCDO, pm }) => {
         }
         {
           isSuperUser &&
-          <Link to={'/profile/administrator/panel/'}>
+          <Link to={`/profile/administrator/panel/${pmSeqNum}`}>
             <button
               className="usa-button-secondary"
-              onClick={() => dispatch(saveSelectedEditPanelMeeting(pm))}
             >
               Edit
             </button>
