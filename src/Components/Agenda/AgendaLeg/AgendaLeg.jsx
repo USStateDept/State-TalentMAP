@@ -23,10 +23,9 @@ const AgendaLeg = props => {
     travelFunctions,
     onHover,
     rowNum,
-    isReadOnly,
   } = props;
 
-  const disabled = isReadOnly || isEf;
+  const disabled = isEf;
 
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
@@ -99,7 +98,7 @@ const AgendaLeg = props => {
   };
 
   useEffect(() => {
-    if (!isEf && isReadOnly) {
+    if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'),
         { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
     }
@@ -187,7 +186,7 @@ const AgendaLeg = props => {
         <div className="other-tod-wrapper">
           <div className="other-tod">
             { leg.tod_long_desc }
-            {isReadOnly || <FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
+            {<FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
       );
@@ -352,7 +351,6 @@ AgendaLeg.propTypes = {
   updateLeg: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
   rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  isReadOnly: PropTypes.bool,
 };
 
 AgendaLeg.defaultProps = {
@@ -363,7 +361,6 @@ AgendaLeg.defaultProps = {
   updateLeg: EMPTY_FUNCTION,
   onHover: EMPTY_FUNCTION,
   rowNum: null,
-  isReadOnly: false,
 };
 
 export default AgendaLeg;
