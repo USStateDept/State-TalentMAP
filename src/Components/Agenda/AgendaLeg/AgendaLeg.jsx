@@ -244,6 +244,15 @@ const AgendaLeg = props => {
     </div>
   );
 
+  const getVice = (viceObj) => {
+    const vice = viceObj?.emp_full_name;
+    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
+    if (vice || vacancy) {
+      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
+    }
+    return '-';
+  };
+
   const columnData = [
     {
       title: 'Position Title',
@@ -289,6 +298,10 @@ const AgendaLeg = props => {
       title: 'Travel',
       content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
     },
+    {
+      title: 'Vice',
+      content: getVice(leg?.vice),
+    },
   ];
 
   const dropdowns = ['TOD', 'Action', 'Travel'];
@@ -328,6 +341,7 @@ AgendaLeg.propTypes = {
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
     tod_is_dropdown: PropTypes.bool,
+    vice: PropTypes.shape({}),
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
