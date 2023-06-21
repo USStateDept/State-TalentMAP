@@ -23,10 +23,9 @@ const AgendaLeg = props => {
     travelFunctions,
     onHover,
     rowNum,
-    isReadOnly,
   } = props;
 
-  const disabled = isReadOnly || isEf;
+  const disabled = isEf;
 
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
@@ -99,7 +98,7 @@ const AgendaLeg = props => {
   };
 
   useEffect(() => {
-    if (!isEf && isReadOnly) {
+    if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'),
         { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
     }
@@ -187,7 +186,7 @@ const AgendaLeg = props => {
         <div className="other-tod-wrapper">
           <div className="other-tod">
             { leg.tod_long_desc }
-            {isReadOnly || <FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
+            {<FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
       );
@@ -245,6 +244,15 @@ const AgendaLeg = props => {
     </div>
   );
 
+  const getVice = (viceObj) => {
+    const vice = viceObj?.emp_full_name;
+    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
+    if (vice || vacancy) {
+      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
+    }
+    return '-';
+  };
+
   const columnData = [
     {
       title: 'Position Title',
@@ -290,6 +298,10 @@ const AgendaLeg = props => {
       title: 'Travel',
       content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
     },
+    {
+      title: 'Vice',
+      content: getVice(leg?.vice),
+    },
   ];
 
   const dropdowns = ['TOD', 'Action', 'Travel'];
@@ -329,6 +341,7 @@ AgendaLeg.propTypes = {
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
     tod_is_dropdown: PropTypes.bool,
+    vice: PropTypes.shape({}),
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -338,7 +351,6 @@ AgendaLeg.propTypes = {
   updateLeg: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
   rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  isReadOnly: PropTypes.bool,
 };
 
 AgendaLeg.defaultProps = {
@@ -349,7 +361,6 @@ AgendaLeg.defaultProps = {
   updateLeg: EMPTY_FUNCTION,
   onHover: EMPTY_FUNCTION,
   rowNum: null,
-  isReadOnly: false,
 };
 
 export default AgendaLeg;

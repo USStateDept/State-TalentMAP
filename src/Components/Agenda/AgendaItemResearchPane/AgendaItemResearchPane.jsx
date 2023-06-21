@@ -32,12 +32,12 @@ const tabs = [
   { text: 'Classifications', value: TP },
 ];
 
-const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {}, updateSelection: '', userSelection: [], legCount: 0, isReadOnly: false }, ref) => {
+const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {}, updateSelection: '', userSelection: [], legCount: 0, readMode: true }, ref) => {
   const navTabRef = useRef();
   const dispatch = useDispatch();
 
   const { perdet, clientData, userSelections, updateSelection, legCount,
-    isReadOnly, clientLoading, clientError } = props;
+    readMode, clientLoading, clientError } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -117,7 +117,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         return (<FrequentPositions
           positions={frequentPositions}
           addFrequentPosition={addFrequentPosition}
-          disabled={((legCount >= 10) || isReadOnly)}
+          disabled={((legCount >= 10) || readMode)}
         />);
 
       case TP:
@@ -134,7 +134,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
         }
         return (<RemarksGlossary
           remarks={remarks$}
-          isReadOnly={isReadOnly}
+          isReadOnly={readMode}
           remarkCategories={rmrkCategories$}
           userSelections={userSelections}
           updateSelection={updateSelection}
@@ -187,7 +187,7 @@ AgendaItemResearchPane.propTypes = {
     }),
   ),
   legCount: PropTypes.number,
-  isReadOnly: PropTypes.bool,
+  readMode: PropTypes.bool,
   clientLoading: PropTypes.bool,
   clientError: PropTypes.bool,
 };
@@ -197,7 +197,7 @@ AgendaItemResearchPane.defaultProps = {
   updateSelection: EMPTY_FUNCTION,
   userSelections: [],
   legCount: 0,
-  isReadOnly: false,
+  readMode: true,
   clientLoading: false,
   clientError: false,
 };
