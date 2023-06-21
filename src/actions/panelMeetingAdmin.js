@@ -4,7 +4,6 @@ import { UPDATE_PANEL_MEETING_ERROR,
   UPDATE_PANEL_MEETING_SUCCESS,
   UPDATE_PANEL_MEETING_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
-import { selectedEditPanelMeetingSuccess } from 'actions/panelMeetingAgendas';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
@@ -40,7 +39,6 @@ export function createPanelMeeting(props) {
         dispatch(createPanelMeetingHasErrored(false));
         dispatch(createPanelMeetingSuccess(data || []));
         dispatch(toastSuccess(UPDATE_PANEL_MEETING_SUCCESS, UPDATE_PANEL_MEETING_SUCCESS_TITLE));
-        dispatch(selectedEditPanelMeetingSuccess({}));
         dispatch(createPanelMeetingIsLoading(false));
       });
     }).catch(() => {

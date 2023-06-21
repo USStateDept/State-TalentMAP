@@ -148,7 +148,7 @@
     margin-right: 10px;
   }
 
-  .select-and-input {
+  .select-dropdown {
     display: inline-block;
     width: 300px;
   }
@@ -168,12 +168,7 @@
     vertical-align: middle;
   }
 
-  input:disabled {
-    color: $color-gray;
-    background-color: $color-gray-lighter;
-  }
-
-  select:disabled {
+  input:disabled, select:disabled, button:disabled {
     color: $color-gray;
     background-color: $color-gray-lighter;
   }
