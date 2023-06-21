@@ -54,6 +54,7 @@ exports[`AgendaItemCard Component matches snapshot 1`] = `
     </h3>
     <AgendaItemLegs
       isCard={true}
+      isPanelMeetingView={false}
       legs={Array []}
     />
     <div
