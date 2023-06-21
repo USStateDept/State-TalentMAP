@@ -170,7 +170,6 @@ const AgendaItemMaintenancePane = (props) => {
     }
 
     setValidationButton(buttonMetadata);
-
   }, [
     AIvalidation,
     AIvalidationIsLoading,

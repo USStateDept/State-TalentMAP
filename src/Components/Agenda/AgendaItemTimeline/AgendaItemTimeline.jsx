@@ -103,7 +103,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
       <AgendaItemLegsForm
         AIvalidation={AIvalidation}
         efPos={efPos}
-        isReadOnly={readMode}
         legs={legs}
         onClose={onClose}
         updateLeg={updateLeg}
