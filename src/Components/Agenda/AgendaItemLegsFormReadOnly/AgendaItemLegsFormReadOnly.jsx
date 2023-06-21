@@ -130,12 +130,10 @@ const AgendaItemLegsFormReadOnly = props => {
 };
 
 AgendaItemLegsFormReadOnly.propTypes = {
-  efPos: PropTypes.shape({}),
   legs: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 AgendaItemLegsFormReadOnly.defaultProps = {
-  efPos: {},
   legs: [],
 };
 
