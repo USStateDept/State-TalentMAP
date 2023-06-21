@@ -170,10 +170,7 @@ const AgendaItemMaintenancePane = (props) => {
     }
 
     setValidationButton(buttonMetadata);
-    /* eslint-disable no-console */
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    console.log('🦄 current: AIvalidation:', AIvalidation);
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+
   }, [
     AIvalidation,
     AIvalidationIsLoading,
