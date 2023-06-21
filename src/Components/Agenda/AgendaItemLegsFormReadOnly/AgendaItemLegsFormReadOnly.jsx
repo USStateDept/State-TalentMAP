@@ -32,7 +32,7 @@ const AgendaItemLegsFormReadOnly = props => {
     }
     return '-';
   };
-  
+
   // eslint-disable-next-line no-unused-vars
   const getArrows = () => (
     <div className="arrow">
