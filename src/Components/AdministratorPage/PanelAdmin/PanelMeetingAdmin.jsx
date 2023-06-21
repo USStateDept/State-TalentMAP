@@ -48,8 +48,7 @@ const PanelMeetingAdmin = (props) => {
       setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
       setVirtualMeeting(pm_virtual === 'Y');
       const prelimCutoff$ = new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm);
-      const isPastPrelim = prelimCutoff$ ? (prelimCutoff$ - new Date() > 0) : true;
-      setCanEditFields(isPastPrelim);
+      setCanEditFields(prelimCutoff$ ? (prelimCutoff$ - new Date() > 0) : true);
     }
   }, [panelMeetingsResults]);
 
@@ -83,6 +82,9 @@ const PanelMeetingAdmin = (props) => {
     setPrelimCutoff('');
     setAddendumCutoff('');
     setVirtualMeeting(false);
+    if (!isCreate) {
+      setPanelMeetingStatus('');
+    }
   };
 
   const selectPanelMeetingDate = (date) => {
