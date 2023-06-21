@@ -15,7 +15,6 @@ const AgendaItemLegsForm = props => {
     legs,
     onClose,
     updateLeg,
-    isReadOnly,
     AIvalidation,
   } = props;
 
@@ -130,7 +129,6 @@ const AgendaItemLegsForm = props => {
                   isEf
                   onHover={onHover}
                   rowNum={rowHoverNum}
-                  isReadOnly={isReadOnly}
                 />
               }
               {
@@ -150,7 +148,6 @@ const AgendaItemLegsForm = props => {
                       updateLeg={updateLeg$}
                       onHover={onHover}
                       rowNum={rowHoverNum}
-                      isReadOnly={isReadOnly}
                     />
                   );
                 })
@@ -167,7 +164,6 @@ AgendaItemLegsForm.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
   updateLeg: PropTypes.func,
-  isReadOnly: PropTypes.bool,
   AIvalidation: AI_VALIDATION,
 };
 
@@ -176,7 +172,6 @@ AgendaItemLegsForm.defaultProps = {
   legs: [],
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
-  isReadOnly: false,
   AIvalidation: {},
 };
 
