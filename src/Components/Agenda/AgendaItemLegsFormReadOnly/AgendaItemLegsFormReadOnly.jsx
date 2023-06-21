@@ -24,6 +24,15 @@ const AgendaItemLegsFormReadOnly = props => {
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
 
+  const getVice = (viceObj) => {
+    const vice = viceObj?.emp_full_name;
+    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
+    if (vice || vacancy) {
+      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents') ? ', ' : ''} ${vacancy || ''}`;
+    }
+    return '-';
+  };
+  
   // eslint-disable-next-line no-unused-vars
   const getArrows = () => (
     <div className="arrow">
