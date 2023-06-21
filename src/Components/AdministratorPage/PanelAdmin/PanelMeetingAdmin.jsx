@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { subMinutes } from 'date-fns';
+import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import CheckBox from 'Components/CheckBox';
 import Spinner from 'Components/Spinner';
@@ -195,6 +196,15 @@ const PanelMeetingAdmin = (props) => {
 
 PanelMeetingAdmin.propTypes = {
   history: HISTORY_OBJECT.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      pmSeqNum: PropTypes.string,
+    }),
+  }),
+};
+
+PanelMeetingAdmin.defaultProps = {
+  match: {},
 };
 
 export default withRouter(PanelMeetingAdmin);
