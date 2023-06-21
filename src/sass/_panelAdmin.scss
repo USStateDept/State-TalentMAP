@@ -151,17 +151,6 @@
   .select-dropdown {
     display: inline-block;
     width: 300px;
-    font-family: Roboto;
-    font-size: 18px;
-
-    button {
-      height: 45px;
-
-      span {
-        font-family: Roboto;
-        font-size: 18px;
-      }
-    }
   }
 
   .date-wrapper {
@@ -179,17 +168,7 @@
     vertical-align: middle;
   }
 
-  input:disabled {
-    color: $color-gray;
-    background-color: $color-gray-lighter;
-  }
-
-  select:disabled {
-    color: $color-gray;
-    background-color: $color-gray-lighter;
-  }
-
-  button:disabled {
+  input:disabled, select:disabled, button:disabled {
     color: $color-gray;
     background-color: $color-gray-lighter;
   }

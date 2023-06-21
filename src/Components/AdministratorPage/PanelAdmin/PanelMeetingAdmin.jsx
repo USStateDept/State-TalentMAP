@@ -4,21 +4,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import { subMinutes } from 'date-fns';
 import FA from 'react-fontawesome';
-import Picky from 'react-picky';
 import CheckBox from 'Components/CheckBox';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { createPanelMeeting } from 'actions/panelMeetingAdmin';
-import { get } from 'lodash';
 import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 
 const PanelMeetingAdmin = (props) => {
   const { history } = props;
-  const pmSeqNum = get(props, 'match.params.pmSeqNum', false);
+  const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
   const isCreate = !pmSeqNum;
 
   const panelMeetingsResults = useSelector(state => state.panelMeetings);
-  const panelMeetingsResults$ = get(panelMeetingsResults, 'results[0]') || {};
+  const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
@@ -39,6 +37,7 @@ const PanelMeetingAdmin = (props) => {
   const [prelimCutoff, setPrelimCutoff] = useState();
   const [addendumCutoff, setAddendumCutoff] = useState();
   const [virtualMeeting, setVirtualMeeting] = useState(false);
+  const [canEditFields, setCanEditFields] = useState(true);
 
   useEffect(() => {
     if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
@@ -48,6 +47,9 @@ const PanelMeetingAdmin = (props) => {
       setPrelimCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm));
       setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
       setVirtualMeeting(pm_virtual === 'Y');
+      const prelimCutoff$ = new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm);
+      const isPastPrelim = prelimCutoff$ ? (prelimCutoff$ - new Date() > 0) : true;
+      setCanEditFields(isPastPrelim);
     }
   }, [panelMeetingsResults]);
 
@@ -55,7 +57,6 @@ const PanelMeetingAdmin = (props) => {
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
 
-  const canEditFields = !isCreate ? (prelimCutoff - new Date() > 0) : true;
   const prelimCutoffMins = 2875;
   const addendumCutoffMins = 1435;
 
@@ -101,7 +102,6 @@ const PanelMeetingAdmin = (props) => {
             disabled={!canEditFields}
             value={virtualMeeting}
             label="Virtual meeting"
-            id="panel-admin-virtual-meeting"
             className="admin-panel-meeting-checkbox"
             onCheckBoxClick={(e) => setVirtualMeeting(e)}
           />
@@ -120,15 +120,18 @@ const PanelMeetingAdmin = (props) => {
         </div>
         <div className="admin-panel-meeting-row">
           <label htmlFor="status">Status:</label>
-          <Picky
+          <select
+            disabled={isCreate || !canEditFields}
             className="select-dropdown"
             value={panelMeetingStatus}
-            options={get(panelMeetingsFilters, 'panelStatuses')}
-            onChange={setPanelMeetingStatus}
-            valueKey="code"
-            labelKey="text"
-            disabled={isCreate || !canEditFields}
-          />
+            onChange={(e) => setPanelMeetingStatus(e.target.value)}
+          >
+            {
+              panelMeetingsFilters?.panelStatuses?.map(a => (
+                <option value={a.text}>{a.text}</option>
+              ))
+            }
+          </select>
         </div>
         <div className="admin-panel-meeting-row">
           <label htmlFor="panel-meeting-date">Panel Meeting Date:</label>
