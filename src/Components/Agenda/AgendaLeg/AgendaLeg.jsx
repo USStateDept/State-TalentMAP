@@ -272,10 +272,6 @@ const AgendaLeg = props => {
       content: (<div>{get(leg, 'grade') || DEFAULT_TEXT}</div>),
     },
     {
-      title: 'Vice',
-      content: getVice(leg?.vice),
-    },
-    {
       title: 'Languages',
       content: (<div>{formatLang(get(leg, 'languages')) || DEFAULT_TEXT}</div>),
     },
@@ -302,6 +298,10 @@ const AgendaLeg = props => {
     {
       title: 'Travel',
       content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
+    },
+    {
+      title: 'Vice',
+      content: getVice(leg?.vice),
     },
   ];
 
