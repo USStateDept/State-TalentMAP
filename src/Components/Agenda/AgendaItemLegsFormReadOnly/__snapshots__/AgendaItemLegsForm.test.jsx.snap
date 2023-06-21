@@ -106,6 +106,15 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         Travel
       </InteractiveElement>
       <InteractiveElement
+        className="grid-col-1-read-only grid-row-12-read-only"
+        key="Vice"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        Vice
+      </InteractiveElement>
+      <InteractiveElement
         className="grid-col-2-read-only grid-row-1-read-only"
         key="Position Title"
         onMouseLeave={[Function]}
@@ -229,6 +238,15 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         <div>
           None listed
         </div>
+      </InteractiveElement>
+      <InteractiveElement
+        className="grid-col-2-read-only grid-row-12-read-only"
+        key="Vice"
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        type="div"
+      >
+        -
       </InteractiveElement>
     </div>
   </div>
