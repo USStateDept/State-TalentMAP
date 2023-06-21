@@ -113,7 +113,7 @@ const AgendaItemRow = props => {
               </div>
             </div>
           }
-          <AgendaItemLegs legs={agenda.legs} />
+          <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
