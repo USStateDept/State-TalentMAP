@@ -105,7 +105,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         efPos={efPos}
         isReadOnly={readMode}
         legs={legs}
-        onClose={readMode ? () => {} : onClose}
+        onClose={onClose}
         updateLeg={updateLeg}
       />
   );
