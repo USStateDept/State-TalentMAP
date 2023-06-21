@@ -85,6 +85,10 @@ const AgendaItemLegsFormReadOnly = props => {
       title: 'Travel',
       content: (a => <div>{a?.travel || DEFAULT_TEXT}</div>),
     },
+    {
+      title: 'Vice',
+      content: (a => getVice(a?.vice)),
+    },
   ];
 
   return (
