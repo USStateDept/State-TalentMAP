@@ -24,11 +24,15 @@ const AgendaItemLegsFormReadOnly = props => {
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
 
-  const getVice = (viceObj) => {
-    const vice = viceObj?.emp_full_name;
+  const formatVice = (viceObj) => {
+    const first = viceObj?.emp_first_name;
+    const last = viceObj?.emp_last_name;
+    const vice = (first || last)
+      ? `${first ? `${first} ` : ''}${last || ''}`
+      : '';
     const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
     if (vice || vacancy) {
-      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents') ? ', ' : ''} ${vacancy || ''}`;
+      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
     }
     return '-';
   };
@@ -87,7 +91,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'Vice',
-      content: (a => getVice(a?.vice)),
+      content: (a => formatVice(a?.vice)),
     },
   ];
 
