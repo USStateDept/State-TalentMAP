@@ -9,6 +9,7 @@ import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import TodModal from './TodModal';
+import { formatVice } from '../Constants';
 
 const AgendaLeg = props => {
   const {
@@ -244,15 +245,6 @@ const AgendaLeg = props => {
     </div>
   );
 
-  const getVice = (viceObj) => {
-    const vice = viceObj?.emp_full_name;
-    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
-    if (vice || vacancy) {
-      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
-    }
-    return '-';
-  };
-
   const columnData = [
     {
       title: 'Position Title',
@@ -300,7 +292,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Vice',
-      content: getVice(leg?.vice),
+      content: formatVice(leg?.vice),
     },
   ];
 

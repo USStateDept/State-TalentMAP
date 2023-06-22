@@ -3,6 +3,7 @@ import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
+import { formatVice } from '../Constants';
 
 const AgendaItemLegs = props => {
   const {
@@ -26,14 +27,6 @@ const AgendaItemLegs = props => {
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
-  const formatVice = (viceObj) => {
-    const vice = viceObj?.emp_full_name;
-    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date);
-    if (vice || vacancy) {
-      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
-    }
-    return '-';
-  };
 
   const getData = (key, helperFunc = () => {}) => (
     <>
