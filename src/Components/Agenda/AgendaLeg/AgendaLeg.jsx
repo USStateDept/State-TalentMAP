@@ -9,6 +9,7 @@ import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import TodModal from './TodModal';
+import { formatVice } from '../Constants';
 
 const AgendaLeg = props => {
   const {
@@ -243,19 +244,6 @@ const AgendaLeg = props => {
       <FA name="arrow-down" />
     </div>
   );
-
-  const formatVice = (viceObj) => {
-    const first = viceObj?.emp_first_name;
-    const last = viceObj?.emp_last_name;
-    const vice = (first || last)
-      ? `${first ? `${first} ` : ''}${last || ''}`
-      : '';
-    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
-    if (vice || vacancy) {
-      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
-    }
-    return '-';
-  };
 
   const columnData = [
     {

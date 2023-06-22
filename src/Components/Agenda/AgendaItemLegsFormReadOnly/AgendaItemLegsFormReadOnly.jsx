@@ -5,6 +5,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import Alert from '../../Alert';
+import { formatVice } from '../Constants';
 
 const AgendaItemLegsFormReadOnly = props => {
   const { legs } = props;
@@ -23,19 +24,6 @@ const AgendaItemLegsFormReadOnly = props => {
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
-
-  const formatVice = (viceObj) => {
-    const first = viceObj?.emp_first_name;
-    const last = viceObj?.emp_last_name;
-    const vice = (first || last)
-      ? `${first ? `${first} ` : ''}${last || ''}`
-      : '';
-    const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
-    if (vice || vacancy) {
-      return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
-    }
-    return '-';
-  };
 
   // eslint-disable-next-line no-unused-vars
   const getArrows = () => (
