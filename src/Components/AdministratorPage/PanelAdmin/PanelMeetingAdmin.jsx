@@ -102,7 +102,6 @@ const PanelMeetingAdmin = (props) => {
           <CheckBox
             disabled={!canEditFields}
             value={virtualMeeting}
-            label="Virtual meeting"
             className="admin-panel-meeting-checkbox"
             onCheckBoxClick={(e) => setVirtualMeeting(e)}
           />
