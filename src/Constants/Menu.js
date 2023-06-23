@@ -190,6 +190,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      {
+        text: 'Projected Vacancy Management',
+        route: '/profile/bureau/projectedvacancy',
+        icon: ' fa-keyboard-o',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.position_details') ?
         {
           text: 'Position Details',
