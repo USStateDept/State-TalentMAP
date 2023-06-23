@@ -6,7 +6,7 @@ import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
 import PositionInformation from '../PositionInformation';
 
-const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
+const UserProfile = ({ userProfile, showGeneralInformation,
   showContactInformation, useGroup, isPublic }) => {
   const cdo = get(userProfile, 'cdo', {});
   return (
@@ -15,7 +15,6 @@ const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
         showGeneralInformation &&
         <UserProfileGeneralInformation
           userProfile={userProfile}
-          showEditLink={showEditLink}
           useGroup={useGroup}
           isPublic={isPublic}
           colorProp="firstName"
@@ -52,7 +51,6 @@ const UserProfile = ({ userProfile, showEditLink, showGeneralInformation,
 
 UserProfile.propTypes = {
   userProfile: USER_PROFILE.isRequired,
-  showEditLink: PropTypes.bool,
   showGeneralInformation: PropTypes.bool,
   showContactInformation: PropTypes.bool,
   useGroup: PropTypes.bool,
@@ -60,7 +58,6 @@ UserProfile.propTypes = {
 };
 
 UserProfile.defaultProps = {
-  showEditLink: true,
   showGeneralInformation: true,
   showContactInformation: true,
   useGroup: false,

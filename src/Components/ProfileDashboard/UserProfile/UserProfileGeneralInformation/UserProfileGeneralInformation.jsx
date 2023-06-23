@@ -81,6 +81,7 @@ class UserProfileGeneralInformation extends Component {
           </div>
           <div className="name-group">
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
+            :)
             <ErrorBoundary fallback="Employee Profile is currently unavailable">
               {
                 get(userProfile, 'employee_profile_url') && browser.name === 'Internet Explorer' && browser.version.startsWith('11') &&
@@ -101,6 +102,7 @@ class UserProfileGeneralInformation extends Component {
               <EmployeeProfileLink userProfile={userProfile} />
               }
             </ErrorBoundary>
+            :)
             { isPublic &&
               <InformationDataPoint
                 content={`Employee ID: ${userID}`}
@@ -127,7 +129,6 @@ class UserProfileGeneralInformation extends Component {
 
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
-  showEditLink: PropTypes.bool,
   useGroup: PropTypes.bool,
   useColor: PropTypes.bool,
   colorProp: PropTypes.string,
@@ -138,7 +139,6 @@ UserProfileGeneralInformation.propTypes = {
 };
 
 UserProfileGeneralInformation.defaultProps = {
-  showEditLink: true,
   useGroup: false,
   useColor: false,
   colorProp: 'displayName',

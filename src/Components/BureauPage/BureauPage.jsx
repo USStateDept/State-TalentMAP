@@ -6,20 +6,10 @@ import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintena
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDetails';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
-import Dashboard from './Dashboard';
-import Stats from './Stats';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
 
 const BureauPage = () => {
-  const dashboardProps = {
-    placeholderText: 'I am the Bureau Dashboard',
-  };
-
-  const statsProps = {
-    placeholderText: 'I am the Bureau Stats',
-  };
-
   const posManagerProps = {
     fromBureauMenu: true,
   };
@@ -34,9 +24,7 @@ const BureauPage = () => {
         <Route path="/profile/ao/panelmeetings" render={() => <PanelMeetingSearch isCDO={false} />} />
         <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
         <Route path="/profile/ao/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isAO />} />
-        <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
-        <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/bureau/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
