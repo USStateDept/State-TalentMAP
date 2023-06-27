@@ -918,3 +918,64 @@
     }
   }
 }
+
+.cycle-management-page {
+  .cm-upper-section {
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+    padding: 20px 35px;
+    background-color: $bg-blue-dark-1;
+  }
+
+  .cm-filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(350px, 1fr));
+    .cm-filter-div {
+      align-items: center;
+      margin-right: 10px;
+      display: flex;
+      .label {
+        margin-right: 10px;
+        min-width: 115px;
+        text-align: end;
+      }
+      .picky {
+        color: $color-black;
+        width: 200px;
+      }
+      .react-datepicker-wrapper {
+        width: 200px;
+        .react-datepicker__input-container {
+          input {
+            border: 1px solid #AEB0B5;
+            color: $color-black;
+            height: 28px;
+          }
+        }
+      }
+    }
+    .cycle-search-submit-button-wrapper {
+      justify-content: center;
+      .cycle-search-submit-button {
+        width: 175px;
+        margin: 0;
+        display: flex;
+        justify-content: space-evenly;
+      }
+    }
+  }
+  .cm-lower-filters {
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 0fr));
+  }
+  .cycle-search-heading {
+    font-size: 32px;
+    padding: 35px 0;
+  }
+  .cycle-search-subheading {
+    padding-bottom: 20px;
+  }
+
+  .cm-lower-section {
+    padding: 0 35px 20px;
+  }
+}

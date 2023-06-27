@@ -6,6 +6,7 @@ import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintena
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDetails';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
+import CycleManagement from 'Components/CycleManagement';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
@@ -41,6 +42,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
         <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
+        <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement />} />
       </Switch>
     </div>
   );

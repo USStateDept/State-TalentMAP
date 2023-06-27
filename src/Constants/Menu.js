@@ -190,6 +190,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      {
+        text: 'Cycle Management',
+        route: '/profile/bureau/cyclemanagement',
+        icon: 'building',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.position_details') ?
         {
           text: 'Position Details',
