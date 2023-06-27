@@ -19,6 +19,10 @@ export function userProfilePublicIsLoading(bool) {
 }
 
 export function userProfilePublicFetchDataSuccess(userProfile) {
+  /* eslint-disable no-console */
+  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
+  console.log('🥳 current: userProfilePublic:', userProfile);
+  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
   return {
     type: 'USER_PROFILE_PUBLIC_FETCH_DATA_SUCCESS',
     userProfile,
@@ -32,7 +36,7 @@ export function unsetUserProfilePublic() {
 }
 
 // include an optional bypass for when we want to silently update the profile
-export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSort = 'status') {
+export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSort = 'status', isBureau) {
   return (dispatch, getState) => {
     if (!bypass) {
       dispatch(userProfilePublicIsLoading(true));
@@ -57,6 +61,13 @@ export function userProfilePublicFetchData(id, bypass, includeBids = true, bidSo
       .then(axios.spread((acct, bids) => {
         // form the userProfile object
         const acct$ = get(acct, 'data', {});
+
+        // Option 1: api remains consistent for all users and we remove here on FE
+        if (isBureau) {
+          delete acct$?.employee_profile_url?.internal;
+          delete acct$?.employee_profile_url?.external;
+        }
+
         if (!get(acct$, 'perdet_seq_number')) {
           dispatch(userProfilePublicHasErrored(true));
           dispatch(userProfilePublicIsLoading(false));
