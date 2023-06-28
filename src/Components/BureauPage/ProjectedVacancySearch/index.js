@@ -1,1 +1,1 @@
-export { default } from './ProjectedVacancySearch';
+export { default } from './EditProjectedVacancyDetails';
