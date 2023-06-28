@@ -19,10 +19,6 @@ export function userProfilePublicIsLoading(bool) {
 }
 
 export function userProfilePublicFetchDataSuccess(userProfile) {
-  /* eslint-disable no-console */
-  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
-  console.log('🥳 current: userProfilePublic:', userProfile);
-  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
   return {
     type: 'USER_PROFILE_PUBLIC_FETCH_DATA_SUCCESS',
     userProfile,
