@@ -6,12 +6,14 @@ import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Co
 import { editProjectedVacancyFetchDataErrored, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import { get, has, includes, sortBy, throttle, uniqBy } from 'lodash';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
-import { get, sortBy, throttle, uniqBy } from 'lodash';
 import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
 import Picky from 'react-picky';
 import { filtersFetchData } from 'actions/filters/filters';
+import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import PositionDetailsCard from '../../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 
@@ -41,13 +43,26 @@ const ProjectedVacancySearch = () => {
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const locations = genericFilters$.find(f => get(f, 'item.description') === 'post');
   const locationOptions = uniqBy(sortBy(get(locations, 'data'), [(p) => p.city]), 'code');
+  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
+  const gradesOptions = uniqBy(get(grades, 'data'), 'code');
+  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
+  const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
+  const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+
+  // Replace with real ref data endpoints
+  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
+  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
+
+  const projectVacancyFiltersIsLoading =
+  includes([orgsLoading], true);
 
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
   const pageSizes = EDIT_POSITION_DETAILS_PAGE_SIZES;
   const sorts = EDIT_POSITION_DETAILS_SORT;
-  const isLoading = genericFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
 
   const getQuery = () => ({
     limit,
@@ -61,11 +76,11 @@ const ProjectedVacancySearch = () => {
   });
 
   const getCurrentInputs = () => ({
-    limit,
-    ordering,
     selectedBureaus,
-    selectedLocations,
-    textInput,
+    selectedOrgs,
+    selectedGrade,
+    selectedLanguage,
+    selectedSkills,
     textSearch,
   });
 
@@ -88,13 +103,34 @@ const ProjectedVacancySearch = () => {
   };
 
   function renderSelectionList({ items, selected, ...rest }) {
-    const getSelected = item => !!selected.find(f => f.code === item.code);
+    let codeOrText = 'code';
+    // only Remarks needs to use 'text'
+    if (has(items[0], 'text')) {
+      codeOrText = 'text';
+    }
+    // only Item Actions/Statuses need to use 'desc_text'
+    if (has(items[0], 'desc_text')) {
+      codeOrText = 'desc_text';
+    }
+    if (has(items[0], 'abbr_desc_text') && items[0].code === 'V') {
+      codeOrText = 'abbr_desc_text';
+    }
+    // only Categories need to use 'mic_desc_text'
+    if (has(items[0], 'mic_desc_text')) {
+      codeOrText = 'mic_desc_text';
+    }
+    const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
+    else if (codeOrText === 'text') queryProp = 'text';
+    else if (codeOrText === 'desc_text') queryProp = 'desc_text';
+    else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
+    else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
+    else if (has(items[0], 'name')) queryProp = 'name';
     return items.map(item =>
       (<ListItem
-        key={item.code}
+        key={item[codeOrText]}
         item={item}
         {...rest}
         queryProp={queryProp}
@@ -144,15 +180,15 @@ const ProjectedVacancySearch = () => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Org:</div>
+                <div className="label">Organization:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select an Org"
                   value={selectedOrgs}
-                  options={locationOptions}
+                  options={organizationOptions}
                   onChange={setSelectedOrgs}
                   valueKey="code"
-                  labelKey="custom_description"
+                  labelKey="name"
                   disabled={isLoading}
                 />
               </div>
@@ -162,7 +198,7 @@ const ProjectedVacancySearch = () => {
                   {...pickyProps}
                   placeholder="Select a Grade"
                   value={selectedGrade}
-                  options={locationOptions}
+                  options={gradesOptions}
                   onChange={setSelectedGrade}
                   valueKey="code"
                   labelKey="custom_description"
@@ -175,7 +211,7 @@ const ProjectedVacancySearch = () => {
                   {...pickyProps}
                   placeholder="Select Skill(s)"
                   value={selectedSkills}
-                  options={locationOptions}
+                  options={skillsOptions}
                   onChange={setSelectedSkills}
                   valueKey="code"
                   labelKey="custom_description"
@@ -188,7 +224,7 @@ const ProjectedVacancySearch = () => {
                   {...pickyProps}
                   placeholder="Select a Language"
                   value={selectedLanguage}
-                  options={locationOptions}
+                  options={languagesOptions}
                   onChange={setSelectedLanguage}
                   valueKey="code"
                   labelKey="custom_description"
