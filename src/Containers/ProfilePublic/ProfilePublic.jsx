@@ -26,7 +26,7 @@ class ProfilePublic extends Component {
   }
 
   isView = (view) => {
-    const viewType = this.props?.match?.params?.viewType;
+    const viewType = get(this.props, 'match.params.viewType');
     return viewType === view;
   }
 
