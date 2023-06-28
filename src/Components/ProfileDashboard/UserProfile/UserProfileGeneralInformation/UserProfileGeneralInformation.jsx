@@ -31,7 +31,6 @@ class UserProfileGeneralInformation extends Component {
   getEmployeeProfile = (redactedVersion) => {
     const id = shortid.generate();
     const { onToastError, onToastInfo, onToastSuccess, userProfile } = this.props;
-    // eslint-disable-next-line no-unused-vars
     const emp_profile_urls = userProfile?.employee_profile_url;
 
     let url$ = (redactedVersion ? emp_profile_urls?.internalRedacted
