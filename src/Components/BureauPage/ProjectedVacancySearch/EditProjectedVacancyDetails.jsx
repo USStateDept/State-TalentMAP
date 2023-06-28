@@ -21,7 +21,9 @@ const ProjectedVacancySearch = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.editProjectedVacancySelections);
+
+  const userSelections = useSelector(state => state.editProjectedVacancy);
+  console.log('test', userSelections);
   const dummyPositionDetails = useSelector(state => state.editProjectedVacancy);
   console.log(dummyPositionDetails);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
@@ -49,8 +51,9 @@ const ProjectedVacancySearch = () => {
   const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
+  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
-  // Replace with real ref data endpoints
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
@@ -70,6 +73,12 @@ const ProjectedVacancySearch = () => {
     // User Filters
     [get(bureaus, 'item.SelectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
     [get(locations, 'item.SelectionRef')]: selectedLocations.map(postObject => (get(postObject, 'code'))),
+    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
+    [get(orgs, 'item.selectionRef')]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
+    [get(cycles, 'item.selectionRef')]: selectedBidCycle.map(cycleObject => (get(cycleObject, 'id'))),
+    [get(languages, 'item.selectionRef')]: selectedLanguage.map(langObject => (get(langObject, 'code'))),
+    [get(grades, 'item.selectionRef')]: selectedGrade.map(gradeObject => (get(gradeObject, 'code'))),
+    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
 
     // Free Text
     q: textInput || textSearch,
@@ -250,7 +259,7 @@ const ProjectedVacancySearch = () => {
                   {...pickyProps}
                   placeholder="Select a Bid Cycle"
                   value={selectedBidCycle}
-                  options={locationOptions}
+                  options={cycleOptions}
                   onChange={setSelectedBidCycle}
                   valueKey="code"
                   labelKey="custom_description"
@@ -283,6 +292,7 @@ const ProjectedVacancySearch = () => {
         </div>
         <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
           <div className="usa-grid-full position-list">
+            {/* using this card for now, will need to create a new one for projected vacancies */}
             <PositionDetailsCard
               result={dummyPositionDetails}
               key={dummyid}
