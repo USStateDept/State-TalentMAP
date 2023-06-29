@@ -12,8 +12,7 @@ const PositionExpandableContent = ({ sections }) => {
   const [editMode, setEditMode] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
-  const description$ = sections.textarea[Object.keys(sections.textarea)[0]];
-  const [description, setDescription] = useState(description$ ?? '');
+  const [description, setDescription] = useState(sections.textarea ?? '');
 
   // TODO: Replace edit mode elements with necessary form, buttons, and functions (diff checking)
   if (editMode) {
@@ -69,7 +68,7 @@ const PositionExpandableContent = ({ sections }) => {
           </Row>
           <div>
             <Row fluid className="position-content--description">
-              <span className="definition-title">{Object.keys(sections.textarea)[0] ?? 'Position Details'}</span>
+              <span className="definition-title">Position Details</span>
               <Linkify properties={{ target: '_blank' }}>
                 <TextareaAutosize
                   maxRows={6}

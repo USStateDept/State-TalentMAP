@@ -43,9 +43,7 @@ const PublishablePositionCard = ({ data }) => {
       'Assignee': '---',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
-    textarea: {
-      'Position Details': description$,
-    },
+    textarea: description$,
     metadata: {
       'Position Posted': getResult(pos, 'description.date_created') || NO_UPDATE_DATE,
       'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
