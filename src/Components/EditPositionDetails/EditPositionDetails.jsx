@@ -12,7 +12,7 @@ import { filtersFetchData } from 'actions/filters/filters';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import ScrollUpButton from '../ScrollUpButton';
-import PositionDetailsCard from '../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
+import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 const EditPositionDetails = () => {
   const childRef = useRef();
@@ -111,14 +111,15 @@ const EditPositionDetails = () => {
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    return items.map(item =>
-      (<ListItem
+    return items.map(item => (
+      <ListItem
         key={item.code}
         item={item}
         {...rest}
         queryProp={queryProp}
         getIsSelected={getSelected}
-      />),
+      />
+    ),
     );
   }
 
@@ -138,7 +139,6 @@ const EditPositionDetails = () => {
     setClearFilters(false);
   };
 
-  const dummyid = get(dummyPositionDetails, 'id', '');
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -158,10 +158,10 @@ const EditPositionDetails = () => {
               <div className="filterby-label">Filter by:</div>
               <div className="filterby-clear">
                 {clearFilters &&
-              <button className="unstyled-button" onClick={resetFilters}>
-                <FA name="times" />
-                  Clear Filters
-              </button>
+                  <button className="unstyled-button" onClick={resetFilters}>
+                    <FA name="times" />
+                    Clear Filters
+                  </button>
                 }
               </div>
             </div>
@@ -218,9 +218,8 @@ const EditPositionDetails = () => {
         </div>
         <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
           <div className="usa-grid-full position-list">
-            <PositionDetailsCard
-              result={dummyPositionDetails}
-              key={dummyid}
+            <PublishablePositionCard
+              data={dummyPositionDetails}
             />
           </div>
         </div>
