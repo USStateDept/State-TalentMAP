@@ -72,8 +72,8 @@ const PositionExpandableContent = ({ sections }) => {
               <span className="definition-title">{Object.keys(sections.textarea)[0] ?? 'Position Details'}</span>
               <Linkify properties={{ target: '_blank' }}>
                 <TextareaAutosize
-                  maxRows={4}
-                  minRows={4}
+                  maxRows={6}
+                  minRows={6}
                   maxlength="4000"
                   name="position-description"
                   placeholder="No Description"
