@@ -3,14 +3,14 @@ import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
-import { editProjectedVacancyFetchDataErrored, saveProjectedVacancySelections } from 'actions/projectedVacancy';
+import { editProjectedVacancyFetchData, editProjectedVacancyFiltersFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { get, has, includes, sortBy, throttle, uniqBy } from 'lodash';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
-import { bureauPositionsFetchData, saveBureauUserSelections } from 'actions/bureauPositions';
+import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { filtersFetchData } from 'actions/filters/filters';
 import api from '../../../api';
@@ -23,9 +23,7 @@ const ProjectedVacancySearch = () => {
 
 
   const userSelections = useSelector(state => state.editProjectedVacancy);
-  console.log('test', userSelections);
   const dummyPositionDetails = useSelector(state => state.editProjectedVacancy);
-  console.log(dummyPositionDetails);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
 
@@ -39,6 +37,7 @@ const ProjectedVacancySearch = () => {
   const [selectedLanguage, setSelectedLanguage] = useState(get(userSelections, 'selectedLanguage') || []);
   const [selectedBidCycle, setSelectedBidCycle] = useState(get(userSelections, 'selectedBidCycle') || []);
   const [selectedLocations, setSelectedLocations] = useState(get(userSelections, 'SelectedLocations') || []);
+  const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -84,6 +83,13 @@ const ProjectedVacancySearch = () => {
     q: textInput || textSearch,
   });
 
+  const resetFilters = () => {
+    setSelectedBureaus([]);
+    selectedLocations([]);
+    childRef.current.clearText();
+    setClearFilters(false);
+  };
+
   const getCurrentInputs = () => ({
     selectedBureaus,
     selectedOrgs,
@@ -94,10 +100,43 @@ const ProjectedVacancySearch = () => {
   });
 
   useEffect(() => {
-    dispatch(editProjectedVacancyFetchDataErrored(getQuery()));
+    dispatch(editProjectedVacancyFiltersFetchData(getQuery()));
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
   }, []);
+
+  const fetchAndSet = () => {
+    const filters = [
+      selectedBureaus,
+      selectedLocations,
+      selectedOrgs,
+      selectedGrade,
+      selectedLanguage,
+      selectedSkills,
+      textSearch,
+    ];
+    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+    dispatch(editProjectedVacancyFetchData(getQuery()));
+    dispatch(saveProjectedVacancySelections(getCurrentInputs()));
+  };
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    limit,
+    ordering,
+    selectedBureaus,
+    selectedLocations,
+    selectedOrgs,
+    selectedGrade,
+    selectedLanguage,
+    selectedSkills,
+    textSearch,
+  ]);
 
 
   function submitSearch(text) {
@@ -174,6 +213,17 @@ const ProjectedVacancySearch = () => {
               label="Search for a Position"
               placeHolder="Search using Position Number or Position Title"
             />
+            <div className="filterby-container">
+              <div className="filterby-label">Filter by:</div>
+              <div className="filterby-clear">
+                {clearFilters &&
+              <button className="unstyled-button" onClick={resetFilters}>
+                <FA name="times" />
+                  Clear Filters
+              </button>
+                }
+              </div>
+            </div>
             <div className="edit-position-details-filters">
               <div className="filter-div">
                 <div className="label">Bureau:</div>
@@ -315,20 +365,4 @@ ProjectedVacancySearch.defaultProps = {
   bureauPositionsIsLoading: false,
 };
 
-const mapStateToProps = state => ({
-  bureauPositions: state.bureauPositions,
-  bureauPositionsIsLoading: state.bureauPositionsIsLoading,
-  bureauPositionsHasErrored: state.bureauPositionsHasErrored,
-  bureauFilters: state.filters,
-  bureauFiltersIsLoading: state.filtersIsLoading,
-});
-
-export const mapDispatchToProps = dispatch => ({
-  fetchBureauPositions: (query, bureauMenu) =>
-    dispatch(bureauPositionsFetchData(query, bureauMenu)),
-  fetchFilters: (items, queryParams, savedFilters) =>
-    dispatch(filtersFetchData(items, queryParams, savedFilters)),
-  saveSelections: (selections) => dispatch(saveBureauUserSelections(selections)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectedVacancySearch);
+export default ProjectedVacancySearch;
