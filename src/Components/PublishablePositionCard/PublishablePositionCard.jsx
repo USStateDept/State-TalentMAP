@@ -34,14 +34,14 @@ const PublishablePositionCard = ({ data }) => {
     },
     deto: true,
     bodySecondary: {
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
       'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
       'TED': getResult(data, 'ted') || NO_DATE,
-      'Post Differential | Danger Pay': getDifferentials(pos),
-      'Pay Plan': '---',
       'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Assignee': '---',
+      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
+      'Pay Plan': '---',
+      'Assignee': '---',
+      'Post Differential | Danger Pay': getDifferentials(pos),
     },
     textarea: {
       'Position Details': description$,
