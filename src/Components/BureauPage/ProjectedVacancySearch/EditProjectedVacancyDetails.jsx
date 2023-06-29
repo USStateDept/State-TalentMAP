@@ -200,153 +200,156 @@ const ProjectedVacancySearch = () => {
 
   return (
     isLoading ?
-      <Spinner type="bureau-filters" size="small" /> :
+      <Spinner type="projected-vacancy-filters" size="small" /> :
       <>
-        <div className="edit-position-details-page">
-          <div className="usa-grid-full edit-position-details-upper-section search-bar-container">
+        <div className="projected-vacancy-page">
+          <div className="usa-grid-full projected-vacancy-upper-section">
             <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" />
-            <PositionManagerSearch
-              submitSearch={submitSearch}
-              onChange={setTextInputThrottled}
-              ref={childRef}
-              textSearch={textSearch}
-              label="Search for a Position"
-              placeHolder="Search using Position Number or Position Title"
-            />
-            <div className="filterby-container">
-              <div className="filterby-label">Filter by:</div>
-              <div className="filterby-clear">
-                {clearFilters &&
-              <button className="unstyled-button" onClick={resetFilters}>
-                <FA name="times" />
-                  Clear Filters
-              </button>
-                }
+            <div className="results-search-bar">
+              <div className="usa-grid-full search-bar-container">
+                <PositionManagerSearch
+                  submitSearch={submitSearch}
+                  onChange={setTextInputThrottled}
+                  ref={childRef}
+                  textSearch={textSearch}
+                  label="Search for a Position"
+                  placeHolder="Search using Position Number or Position Title"
+                />
+                <div className="filterby-container">
+                  <div className="filterby-label">Filter by:</div>
+                  <div className="filterby-clear">
+                    {clearFilters &&
+                  <button className="unstyled-button" onClick={resetFilters}>
+                    <FA name="times" />
+                      Clear Filters
+                  </button>
+                    }
+                  </div>
+                </div>
+                <div className="usa-width-one-whole projected-vacancy-filters results-dropdown">
+                  <div className="filter-div">
+                    <div className="label">Bureau:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Bureau(s)"
+                      value={selectedBureaus}
+                      options={bureausOptions}
+                      onChange={setSelectedBureaus}
+                      valueKey="code"
+                      labelKey="long_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Organization:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select an Org"
+                      value={selectedOrgs}
+                      options={organizationOptions}
+                      onChange={setSelectedOrgs}
+                      valueKey="code"
+                      labelKey="name"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Grade:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select a Grade"
+                      value={selectedGrade}
+                      options={gradesOptions}
+                      onChange={setSelectedGrade}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Skills:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Skill(s)"
+                      value={selectedSkills}
+                      options={skillsOptions}
+                      onChange={setSelectedSkills}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Language:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select a Language"
+                      value={selectedLanguage}
+                      options={languagesOptions}
+                      onChange={setSelectedLanguage}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Location:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Location(s)"
+                      value={selectedLocations}
+                      options={locationOptions}
+                      onChange={setSelectedLocations}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Bid Cycle:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select a Bid Cycle"
+                      value={selectedBidCycle}
+                      options={cycleOptions}
+                      onChange={setSelectedBidCycle}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </div>
+              </div>
+              {
+                <div className="edit-position-details-results-controls">
+                  <SelectForm
+                    className="edit-position-details-results-select"
+                    id="edit-position-details-results-sort"
+                    options={sorts.options}
+                    label="Sort by:"
+                    defaultSort={ordering}
+                    onSelectOption={value => setOrdering(value.target.value)}
+                  />
+                  <SelectForm
+                    className="edit-position-details-results-select"
+                    id="edit-position-details-num-results"
+                    options={pageSizes.options}
+                    label="Results:"
+                    defaultSort={limit}
+                    onSelectOption={value => setLimit(value.target.value)}
+                  />
+                  <ScrollUpButton />
+                </div>
+              }
+            </div>
+            <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
+              <div className="usa-grid-full position-list">
+                <PositionDetailsCard
+                  result={dummyPositionDetails}
+                  key={dummyid}
+                />
               </div>
             </div>
-            <div className="edit-position-details-filters">
-              <div className="filter-div">
-                <div className="label">Bureau:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Bureau(s)"
-                  value={selectedBureaus}
-                  options={bureausOptions}
-                  onChange={setSelectedBureaus}
-                  valueKey="code"
-                  labelKey="long_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Organization:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select an Org"
-                  value={selectedOrgs}
-                  options={organizationOptions}
-                  onChange={setSelectedOrgs}
-                  valueKey="code"
-                  labelKey="name"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Grade:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select a Grade"
-                  value={selectedGrade}
-                  options={gradesOptions}
-                  onChange={setSelectedGrade}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Skills:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Skill(s)"
-                  value={selectedSkills}
-                  options={skillsOptions}
-                  onChange={setSelectedSkills}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Language:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select a Language"
-                  value={selectedLanguage}
-                  options={languagesOptions}
-                  onChange={setSelectedLanguage}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Location:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Location(s)"
-                  value={selectedLocations}
-                  options={locationOptions}
-                  onChange={setSelectedLocations}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="label">Bid Cycle:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select a Bid Cycle"
-                  value={selectedBidCycle}
-                  options={cycleOptions}
-                  onChange={setSelectedBidCycle}
-                  valueKey="code"
-                  labelKey="custom_description"
-                  disabled={isLoading}
-                />
-              </div>
-            </div>
-          </div>
-          {
-            <div className="edit-position-details-results-controls">
-              <SelectForm
-                className="edit-position-details-results-select"
-                id="edit-position-details-results-sort"
-                options={sorts.options}
-                label="Sort by:"
-                defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
-              />
-              <SelectForm
-                className="edit-position-details-results-select"
-                id="edit-position-details-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
-              <ScrollUpButton />
-            </div>
-          }
-        </div>
-        <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
-          <div className="usa-grid-full position-list">
-            {/* using this card for now, will need to create a new one for projected vacancies */}
-            <PositionDetailsCard
-              result={dummyPositionDetails}
-              key={dummyid}
-            />
           </div>
         </div>
       </>
