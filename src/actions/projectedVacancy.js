@@ -202,8 +202,8 @@ export function editProjectedVacancyFetchData() {
   return (dispatch) => {
     batch(() => {
       dispatch(editProjectedVacancyFetchDataSuccess(dummyPositionDetails));
-      dispatch(editProjectedVacancyFetchDataLoading(false));
       dispatch(editProjectedVacancyFetchDataErrored(false));
+      dispatch(editProjectedVacancyFetchDataLoading(false));
     });
   };
 }
