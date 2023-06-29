@@ -1,33 +1,81 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
+import { useDataLoader } from 'hooks';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-// import { filtersFetchData } from 'actions/filters/filters';
-import CycleManagementSearch from './CycleManagmentSearch';
+import { filtersFetchData } from 'actions/filters/filters';
+import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
+import api from '../../api';
 
 const CycleManagement = () => {
-  // const dispatch = useDispatch();
-  // const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  // const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
+  const dispatch = useDispatch();
+  const childRef = useRef();
   // const [selectedBureaus, setSelectedBureaus] = useState(userSelections.selectedBureaus || []);
 
+  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
+  const userSelections = useSelector(state => state.panelMeetingAgendasSelections);
   const genericFilters = useSelector(state => state.filters);
 
+  const [clearFilters, setClearFilters] = useState(false);
+  const [textSearch, setTextSearch] = useState(userSelections.textSearch || '');
+
+  useEffect(() => {
+    dispatch(filtersFetchData(genericFilters));
+  }, []);
+
   const genericFilters$ = genericFilters?.filters || [];
+  // console.log(genericFilters$?.map(x => x?.item?.description));
+
   const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
-  const bureausOptions = bureaus?.data.length
+  const bureauOptions = bureaus?.data?.length
     ? [...new Set(bureaus.data)].sort(b => b.short_description) : [];
 
-  const placeHolder = [{ bureau: 'Things' }, { bureau: 'Stuff' }];
-  const [clearFilters, setClearFilters] = useState(false);
+  const grades = genericFilters$.find(f => f?.item?.description === 'grade');
+  const gradesOptions = grades?.data?.length
+    ? [...new Set(grades.data)].sort(b => b.code) : [];
+
+  const skills = genericFilters$.find(f => f?.item?.description === 'skill');
+  const skillOptions = skills?.data?.length
+    ? [...new Set(skills.data)].sort(b => b.description) : [];
+
+  const languages = genericFilters$.find(f => f?.item?.description === 'language');
+  const languageOptions = languages?.data?.length
+    ? [...new Set(languages.data)].sort(b => b.custom_description) : [];
+
+  const bidCycle = genericFilters$.find(f => f?.item?.description === 'bidCycle');
+  const bidCycleOptions = bidCycle?.data?.length
+    ? [...new Set(bidCycle.data)].sort(b => b.name) : [];
+
+  // console.log(bidCycleOptions);
+  // console.log(bureauOptions);
+
+  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
+  const organizationOptions = !orgsLoading && orgs?.data?.length
+    ? [...new Set(orgs.data)].sort(o => o.name) : [];
+
+  const statusOptions = [
+    { code: 1, name: 'Active' },
+    { code: 2, name: 'Closed' },
+    { code: 3, name: 'Merged' },
+    { code: 4, name: 'Proposed' },
+  ];
 
   const resetFilters = () => {
     setClearFilters(false);
+    childRef.current.clearText();
   };
+
+  // const submitSearch = (text) => {
+  //   console.log(text);
+  // };
+
+  const isLoading = orgsLoading || genericFiltersIsLoading;
+
+  // console.log(isLoading);
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
     // console.log(selected);
@@ -40,16 +88,17 @@ const CycleManagement = () => {
     // else if (codeOrText === 'desc_text') queryProp = 'desc_text';
     // else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     // else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    // else if (has(items[0], 'name')) queryProp = 'name';
-    return items.map(item =>
-      (<ListItem
+    else if (items?.[0]?.name) queryProp = 'name';
+    return items.map((item, index) => {
+      const keyId = `${index}-${item}`;
+      return (<ListItem
         item={item}
-        // getIsSelected={getSelected}
         {...rest}
-        key={item}
+        key={keyId}
         queryProp={queryProp}
-      />),
-    );
+        // getIsSelected={getSelected}
+      />);
+    });
   };
 
   const pickyProps = {
@@ -66,14 +115,16 @@ const CycleManagement = () => {
       <div className="usa-grid-full cm-upper-section">
         <div className="results-search-bar">
 
+
           <div className="usa-grid-full search-bar-container">
             <ProfileSectionTitle title="Cycle Search" icon="keyboard-o" />
-            <CycleManagementSearch
-              submitSearch={() => console.log('submit')}
-              // onChange={setTextInputThrottled}
-              // ref={childRef}
-              // textSearch={textSearch}
-              label="Search for a position"
+            <PositionManagerSearch
+              onChange={setTextSearch}
+              ref={childRef}
+              textSearch={textSearch}
+              label="Search for a Cycle"
+              placeholder="Search using Position Number or Position Title"
+              noButton
             />
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
@@ -87,6 +138,7 @@ const CycleManagement = () => {
               </div>
             </div>
 
+
             <div className="usa-width-one-whole cm-filters">
 
               <div className="cm-filter-div">
@@ -94,9 +146,11 @@ const CycleManagement = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Bureau(s)"
-                  options={bureausOptions}
+                  options={bureauOptions}
                   valueKey="code"
                   labelKey="long_description"
+                  key="stuff"
+                  disabled={isLoading}
                   // value={selectedBureaus}
                   // onChange={setSelectedBureaus}
                 />
@@ -105,9 +159,13 @@ const CycleManagement = () => {
                 <div className="label">ORG</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Bureau(s)"
-                  options={placeHolder}
-                  valueKey="id"
+                  placeholder="Select Organization(s)"
+                  options={organizationOptions}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={isLoading}
+                  // value={selectedOrgs}
+                  // onChange={setSelectedOrgs}
                 />
               </div>
               <div className="cm-filter-div">
@@ -115,26 +173,35 @@ const CycleManagement = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Bureau(s)"
-                  options={placeHolder}
+                  options={gradesOptions}
                   valueKey="id"
+                  disabled={isLoading}
                 />
               </div>
               <div className="cm-filter-div">
                 <div className="label">Skills</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Bureau(s)"
-                  options={placeHolder}
-                  valueKey="id"
+                  placeholder="Select Skill(s)"
+                  options={skillOptions}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  // onChange={setSelectedSkills}
+                  // value={selectedSkills}
+                  disabled={isLoading}
                 />
               </div>
               <div className="cm-filter-div">
                 <div className="label">Language</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Bureau(s)"
-                  options={placeHolder}
-                  valueKey="id"
+                  placeholder="Select Language(s)"
+                  options={languageOptions}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                  // onChange={setSelectedLanguages}
+                  // value={selectedLanguages}
                 />
               </div>
 
@@ -157,18 +224,21 @@ const CycleManagement = () => {
             <div className="label">Cycle</div>
             <Picky
               {...pickyProps}
-              placeholder="Select Bureau(s)"
-              options={placeHolder}
+              placeholder="Select Bid Cycle(s)"
+              options={bidCycleOptions}
               valueKey="id"
+              labelKey="name"
+              disabled={isLoading}
             />
           </div>
           <div className="cm-filter-div">
             <div className="label">Status</div>
             <Picky
               {...pickyProps}
-              placeholder="Select Bureau(s)"
-              options={placeHolder}
-              valueKey="id"
+              placeholder="Select Status"
+              options={statusOptions}
+              valueKey="code"
+              labelKey="name"
             />
           </div>
           <div className="cm-filter-div larger-date-picker">
