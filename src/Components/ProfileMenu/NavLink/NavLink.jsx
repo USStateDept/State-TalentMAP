@@ -96,7 +96,8 @@ class NavLink extends Component {
             <div className="list-item-wrapper">
               {
                 this.wrapInLink( // wrap our element
-                  <span>
+                /* this flex keeps our icon and title on the same line */
+                  <span style={{ display: 'flex' }}>
                     {
                       <span className="fa-container">
                         {iconName ? <FontAwesome name={iconName} /> : null}
