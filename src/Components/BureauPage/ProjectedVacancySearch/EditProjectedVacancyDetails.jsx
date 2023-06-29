@@ -320,35 +320,35 @@ const ProjectedVacancySearch = () => {
                   </div>
                 </div>
               </div>
-              {
-                <div className="edit-position-details-results-controls">
-                  <SelectForm
-                    className="edit-position-details-results-select"
-                    id="edit-position-details-results-sort"
-                    options={sorts.options}
-                    label="Sort by:"
-                    defaultSort={ordering}
-                    onSelectOption={value => setOrdering(value.target.value)}
-                  />
-                  <SelectForm
-                    className="edit-position-details-results-select"
-                    id="edit-position-details-num-results"
-                    options={pageSizes.options}
-                    label="Results:"
-                    defaultSort={limit}
-                    onSelectOption={value => setLimit(value.target.value)}
-                  />
-                  <ScrollUpButton />
-                </div>
-              }
             </div>
-            <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
-              <div className="usa-grid-full position-list">
-                <PositionDetailsCard
-                  result={dummyPositionDetails}
-                  key={dummyid}
-                />
-              </div>
+          </div>
+          {
+            <div className="edit-position-details-results-controls">
+              <SelectForm
+                className="edit-position-details-results-select"
+                id="edit-position-details-results-sort"
+                options={sorts.options}
+                label="Sort by:"
+                defaultSort={ordering}
+                onSelectOption={value => setOrdering(value.target.value)}
+              />
+              <SelectForm
+                className="edit-position-details-results-select"
+                id="edit-position-details-num-results"
+                options={pageSizes.options}
+                label="Results:"
+                defaultSort={limit}
+                onSelectOption={value => setLimit(value.target.value)}
+              />
+              <ScrollUpButton />
+            </div>
+          }
+          <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
+            <div className="usa-grid-full position-list">
+              <PositionDetailsCard
+                result={dummyPositionDetails}
+                key={dummyid}
+              />
             </div>
           </div>
         </div>
