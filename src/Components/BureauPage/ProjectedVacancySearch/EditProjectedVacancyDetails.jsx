@@ -85,7 +85,7 @@ const ProjectedVacancySearch = () => {
 
   const resetFilters = () => {
     setSelectedBureaus([]);
-    selectedLocations([]);
+    setSelectedLocations([]);
     childRef.current.clearText();
     setClearFilters(false);
   };
