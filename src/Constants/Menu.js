@@ -193,7 +193,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       {
         text: 'Cycle Management',
         route: '/profile/bureau/cyclemanagement',
-        icon: 'building',
+        icon: 'cogs',
         roles: [
           'super_user',
           'bureau_user',

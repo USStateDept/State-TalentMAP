@@ -942,14 +942,24 @@
         color: $color-black;
         width: 200px;
       }
-      .react-datepicker-wrapper {
-        width: 200px;
-        .react-datepicker__input-container {
-          input {
-            border: 1px solid #AEB0B5;
-            color: $color-black;
-            height: 28px;
-          }
+      .react-daterange-picker__calendar--open {
+        z-index: $daterange-z;
+      }
+      .react-daterange-picker {
+        align-items: center;
+        background: $color-white;
+        font-size: 1.5rem;
+        height: 28px;
+        width: 240px;
+        .react-daterange-picker__inputGroup {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+        }
+        .react-daterange-picker__range-divider,
+        .react-daterange-picker__inputGroup__leadingZero,
+        .react-date-picker__inputGroup__divider {
+          color: $color-black;
         }
       }
     }
