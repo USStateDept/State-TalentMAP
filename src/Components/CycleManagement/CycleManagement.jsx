@@ -81,7 +81,6 @@ const CycleManagement = () => {
   };
 
   useEffect(() => {
-    console.log('UE 2');
     fetchAndSet();
   }, [
     textSearch,
@@ -152,7 +151,6 @@ const CycleManagement = () => {
   };
 
   const submitSearch = () => {
-    console.log('SUBMIT');
     dispatch(cycleManagementFetchData(getQuery()));
   };
 
