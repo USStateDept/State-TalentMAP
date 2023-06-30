@@ -925,10 +925,10 @@
     padding: 20px 35px;
     background-color: $bg-blue-dark-1;
   }
-
   .cm-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill,minmax(33%, 1fr));
+    margin: 15px;
     .cm-filter-div {
       align-items: center;
       margin-right: 10px;
@@ -963,19 +963,6 @@
         }
       }
     }
-    .cycle-search-submit-button-wrapper {
-      justify-content: center;
-      .cycle-search-submit-button {
-        width: 175px;
-        margin: 0;
-        display: flex;
-        justify-content: space-evenly;
-      }
-    }
-  }
-  .cm-lower-filters {
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 0fr));
   }
   .cycle-search-heading {
     font-size: 32px;
