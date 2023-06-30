@@ -8,6 +8,7 @@ import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
+import { GSA as LocationsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 import TodModal from './TodModal';
 
 const AgendaLeg = props => {
@@ -24,9 +25,14 @@ const AgendaLeg = props => {
     onHover,
     rowNum,
     isReadOnly,
+    setLegsContainerExpanded,
+    updateResearchPaneTab,
+    setActiveAIL,
   } = props;
 
   const disabled = isReadOnly || isEf;
+  const isNewSeparation = leg?.pos_title === 'SEPARATION';
+  const defaultSepText = isNewSeparation ? '-' : false;
 
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
@@ -181,6 +187,9 @@ const AgendaLeg = props => {
     if (isEf) {
       return leg.tod_long_desc || defaultText;
     }
+    if (isNewSeparation) {
+      return ('-');
+    }
 
     if (!leg.tod_is_dropdown) {
       return (
@@ -221,6 +230,13 @@ const AgendaLeg = props => {
     );
   };
 
+  const onAddLocationClick = () => {
+    setActiveAIL(leg?.ail_seq_num);
+    setLegsContainerExpanded(false);
+    updateResearchPaneTab(LocationsTabID);
+  };
+
+
   const formatLang = (langArr = []) => langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
@@ -241,9 +257,42 @@ const AgendaLeg = props => {
 
   const getArrows = () => (
     <div className="arrow">
-      <FA name="arrow-down" />
+      {
+        !isNewSeparation &&
+        <FA name="arrow-down" />
+      }
     </div>
   );
+
+  const removeLocation = () => {
+    updateLeg(leg?.ail_seq_num, {
+      sepLocation: null,
+    });
+  };
+
+  const getLocation = () => {
+    const isLocation = leg?.sepLocation;
+    let displayText;
+    if (isLocation) {
+      const { city, country, state } = leg?.sepLocation;
+      displayText = `${city}, ${state} ${country}`;
+    }
+    return (
+      <div className="error-message-wrapper ail-form-ted">
+        <div className="validation-error-message-label validation-error-message">
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.sepLocation?.errorMessage}
+        </div>
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.sepLocation?.valid ? '' : 'validation-error-border'}`}>
+          {displayText || DEFAULT_TEXT}
+          {leg?.sepLocation ?
+            <FA name="times" className="" onClick={removeLocation} />
+            :
+            <FA name="globe" onClick={onAddLocationClick} />
+          }
+        </div>
+      </div>
+    );
+  };
 
   const columnData = [
     {
@@ -252,23 +301,26 @@ const AgendaLeg = props => {
     },
     {
       title: 'Position Number',
-      content: (<div>{get(leg, 'pos_num') || DEFAULT_TEXT}</div>),
+      content: (<div>{get(leg, 'pos_num') || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Org',
-      content: (<div>{get(leg, 'org') || DEFAULT_TEXT}</div>),
+      content: isNewSeparation ?
+        getLocation()
+        :
+        (<div>{leg?.org || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Grade',
-      content: (<div>{get(leg, 'grade') || DEFAULT_TEXT}</div>),
+      content: (<div>{get(leg, 'grade') || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages')) || DEFAULT_TEXT}</div>),
+      content: (<div>{formatLang(get(leg, 'languages')) || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',
-      content: (<div>{formatDate(get(leg, 'eta')) || DEFAULT_TEXT}</div>),
+      content: (<div>{defaultSepText || formatDate(get(leg, 'eta')) || DEFAULT_TEXT}</div>),
     },
     {
       title: '',
@@ -280,7 +332,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'TOD',
-      content: (getTodDropdown()),
+      content: (defaultSepText || getTodDropdown()),
     },
     {
       title: 'Action',
@@ -336,6 +388,9 @@ AgendaLeg.propTypes = {
   travelFunctions: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onClose: PropTypes.func.isRequired,
   updateLeg: PropTypes.func.isRequired,
+  setLegsContainerExpanded: PropTypes.func.isRequired,
+  updateResearchPaneTab: PropTypes.func.isRequired,
+  setActiveAIL: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
   rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isReadOnly: PropTypes.bool,

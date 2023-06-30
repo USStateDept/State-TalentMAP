@@ -17,6 +17,9 @@ const AgendaItemLegsForm = props => {
     updateLeg,
     isReadOnly,
     AIvalidation,
+    setLegsContainerExpanded,
+    updateResearchPaneTab,
+    setActiveAIL,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
@@ -150,6 +153,9 @@ const AgendaItemLegsForm = props => {
                       onHover={onHover}
                       rowNum={rowHoverNum}
                       isReadOnly={isReadOnly}
+                      updateResearchPaneTab={updateResearchPaneTab}
+                      setLegsContainerExpanded={setLegsContainerExpanded}
+                      setActiveAIL={setActiveAIL}
                     />
                   );
                 })
@@ -165,7 +171,10 @@ AgendaItemLegsForm.propTypes = {
   efPos: PropTypes.shape({}),
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
+  setLegsContainerExpanded: PropTypes.func,
   updateLeg: PropTypes.func,
+  updateResearchPaneTab: PropTypes.func,
+  setActiveAIL: PropTypes.func,
   isReadOnly: PropTypes.bool,
   AIvalidation: AI_VALIDATION,
 };
@@ -173,8 +182,11 @@ AgendaItemLegsForm.propTypes = {
 AgendaItemLegsForm.defaultProps = {
   efPos: {},
   legs: [],
+  setLegsContainerExpanded: EMPTY_FUNCTION,
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
+  updateResearchPaneTab: EMPTY_FUNCTION,
+  setActiveAIL: EMPTY_FUNCTION,
   isReadOnly: false,
   AIvalidation: {},
 };

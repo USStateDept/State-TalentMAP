@@ -271,6 +271,7 @@ tr:hover {
 .arrow {
   color: $bg-gray-dark-2;
   font-size: small;
+  min-height: 15px;
 
   span {
     margin-left: 15px;
@@ -284,23 +285,39 @@ tr:hover {
   top: 60%;
 }
 
-.search-locations-modal-container {
-
+.search-locations-container {
   .search-locations-filters {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+
     .filter {
-      display: flex;
+      display: inline-flex;
+      flex-wrap: wrap;
       align-items: baseline;
-      justify-content: flex-end;
-      margin-right: 20%;
+      justify-content: flex-start;
       label {
         margin-right: 5px;
       }
       input[type="search"] {
         border-right: 0.1rem solid #5b616b;
+        width: 240px;
       }
       span {
         margin-left: -25px;
       }
     }
+  }
+  .active-globe {
+    text-shadow: 0px 0px 12px $color-blue-neon;
+  }
+  .invisible {
+    visibility: hidden;
+  }
+  .fa-enabled {
+    color: $color-blue-hover;
+  }
+  .fa-enabled:hover {
+    color: $primary-blue-darkest;
   }
 }

@@ -3,17 +3,22 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { get, isEmpty } from 'lodash';
 import shortid from 'shortid';
-import { useDidMountEffect } from 'hooks';
+import { useDidMountEffect, usePrevious } from 'hooks';
 import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import AgendaItemLegsForm from '../AgendaItemLegsForm';
 
 const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
-  asgSepBid, efPos, agendaItemLegs, isReadOnly, AIvalidation }) => {
+  asgSepBid, efPos, agendaItemLegs, isReadOnly, AIvalidation, isNewSeparation,
+  updateResearchPaneTab, setLegsContainerExpanded, location, activeAIL, setActiveAIL,
+  setLocation,
+}) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
 
   const [legs, setLegs] = useState(agendaItemLegs);
+
+  const usePrevIsNewSeparation = usePrevious(isNewSeparation);
 
   useEffect(() => {
     setParentLoadingState(pos_results_loading);
@@ -78,9 +83,40 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     }
   }, [asgSepBid]);
 
+  useEffect(() => {
+    if (isNewSeparation !== usePrevIsNewSeparation) {
+      const legs$ = [...legs];
+      legs$.push({
+        ail_seq_num: shortid.generate(),
+        pos_title: 'SEPARATION',
+        pos_num: null,
+        posSeqNum: null,
+        cpId: null,
+        legAssignmentId: null,
+        legAssignmentVersion: null,
+        org: null,
+        sepLocation: null,
+        legStartDate: 'Coming Soon',
+        legEndDate: null,
+        languages: [],
+        tod: null,
+        tod_months: null,
+        tod_long_desc: null,
+        tod_short_desc: null,
+        tod_is_dropdown: false,
+        grade: null,
+        legActionType: null,
+        travelFunctionCode: 'Separation from the Service',
+      });
+      setLegs(legs$);
+    }
+  }, [isNewSeparation]);
+
+
   const onClose = leg => {
     const legs$ = legs.filter(l => l.ail_seq_num !== leg.ail_seq_num);
     setLegs(legs$);
+    setActiveAIL(null);
   };
 
   const updateLeg = (legID, dropdownValues) => {
@@ -92,15 +128,26 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     setLegs(temp);
   };
 
+  useEffect(() => {
+    if (location) {
+      updateLeg(activeAIL, { sepLocation: location });
+      setActiveAIL(null);
+      setLocation(null);
+    }
+  }, [location]);
+
   return (
     !unitedLoading &&
       <AgendaItemLegsForm
         onClose={isReadOnly ? () => {} : onClose}
         legs={legs}
+        setActiveAIL={setActiveAIL}
         updateLeg={updateLeg}
         efPos={efPos}
         isReadOnly={isReadOnly}
         AIvalidation={AIvalidation}
+        updateResearchPaneTab={updateResearchPaneTab}
+        setLegsContainerExpanded={setLegsContainerExpanded}
       />
   );
 };
@@ -108,25 +155,39 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
 AgendaItemTimeline.propTypes = {
   unitedLoading: PropTypes.bool,
   setParentLoadingState: PropTypes.func,
+  updateResearchPaneTab: PropTypes.func,
   updateLegs: PropTypes.func,
+  setLegsContainerExpanded: PropTypes.func,
+  setActiveAIL: PropTypes.func,
+  setLocation: PropTypes.func,
   asgSepBid: PropTypes.shape({}),
   efPos: PropTypes.shape({}),
+  location: PropTypes.shape({}),
   agendaItemLegs: PropTypes.arrayOf(
     PropTypes.shape({}),
   ),
   isReadOnly: PropTypes.bool,
+  isNewSeparation: PropTypes.bool,
   AIvalidation: AI_VALIDATION,
+  activeAIL: PropTypes.string,
 };
 
 AgendaItemTimeline.defaultProps = {
   unitedLoading: true,
   setParentLoadingState: EMPTY_FUNCTION,
+  updateResearchPaneTab: EMPTY_FUNCTION,
+  setLegsContainerExpanded: EMPTY_FUNCTION,
   updateLegs: EMPTY_FUNCTION,
+  setActiveAIL: EMPTY_FUNCTION,
+  setLocation: EMPTY_FUNCTION,
   asgSepBid: {},
   efPos: {},
   agendaItemLegs: [],
   isReadOnly: false,
+  isNewSeparation: false,
   AIvalidation: {},
+  activeAIL: '',
+  location: {},
 };
 
 export default AgendaItemTimeline;

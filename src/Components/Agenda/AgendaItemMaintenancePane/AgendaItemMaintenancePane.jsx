@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import InteractiveElement from 'Components/InteractiveElement';
-import { gsaLocationsFetchData } from 'actions/gsaLocations';
 import { filter, find, get, includes } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader, useDidMountEffect } from 'hooks';
 import BackButton from 'Components/BackButton';
 import FA from 'react-fontawesome';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
@@ -16,12 +13,9 @@ import RemarksPill from '../RemarksPill';
 import { dateTernary } from '../Constants';
 import api from '../../../api';
 import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
-import SearchLocationsModal from '../SearchLocationsModal';
-
 
 const AgendaItemMaintenancePane = (props) => {
   const dispatch = useDispatch();
-  const MySwal = withReactContent(Swal);
 
   const {
     onAddRemarksClick,
@@ -42,6 +36,7 @@ const AgendaItemMaintenancePane = (props) => {
     AIvalidation,
     AIvalidationIsLoading,
     AIvalidationHasErrored,
+    setIsNewSeparation,
   } = props;
 
   const defaultText = '';
@@ -55,7 +50,6 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
-  const locations = useSelector(state => state.gsaLocations);
   // local state just used for select animation
   const [validationButton, setValidationButton] = useState({});
 
@@ -93,11 +87,6 @@ const AgendaItemMaintenancePane = (props) => {
   const modifiedByFirst = agendaItem?.updaters?.first_name || '';
   const modifiedByLast = agendaItem?.updaters?.last_name ? `${agendaItem.updaters.last_name},` : '';
   const modifyDate = dateTernary(agendaItem?.modifier_date);
-
-  const [city, setCity] = useState();
-  const [state$, setState$] = useState();
-  const [country, setCountry] = useState();
-  const [page, setPage] = useState(1);
 
   const legLimit = legCount >= 10;
 
@@ -186,37 +175,6 @@ const AgendaItemMaintenancePane = (props) => {
       sendAsgSepBid({});
       setAsgSepBidSelectClass('');
     }, 2000);
-  };
-
-  const handleSearch = () => {
-    const locQuery = {
-      city,
-      state: state$,
-      country,
-      page,
-      limit: 10,
-    };
-    dispatch(gsaLocationsFetchData(locQuery));
-  };
-
-  useEffect(() => {
-    handleSearch();
-  }, [city, state$, country, page]);
-
-  const openModal = () => {
-    MySwal.fire({
-      title: <p>Search Locations</p>,
-      width: 800,
-      didRender: () => (
-        <SearchLocationsModal
-          setCity={(e) => setCity(e.target.value)}
-          setState$={(e) => setState$(e.target.value)}
-          setCountry={(e) => setCountry(e.target.value)}
-          setPage={(p) => setPage(p.page)}
-          locations={locations}
-        />
-      ),
-    });
   };
 
   const addPositionNum = () => {
@@ -461,7 +419,7 @@ const AgendaItemMaintenancePane = (props) => {
           </div>
           <button
             name=""
-            onClick={openModal}
+            onClick={setIsNewSeparation}
           >
             <FA name="plus" /> Add Separation
           </button>
@@ -505,6 +463,7 @@ AgendaItemMaintenancePane.propTypes = {
   updateSelection: PropTypes.func,
   sendMaintenancePaneInfo: PropTypes.func,
   sendAsgSepBid: PropTypes.func,
+  setIsNewSeparation: PropTypes.func,
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
@@ -520,6 +479,7 @@ AgendaItemMaintenancePane.defaultProps = {
   asgSepBidData: {},
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
+  setIsNewSeparation: EMPTY_FUNCTION,
   unitedLoading: true,
   userRemarks: [],
   addToSelection: EMPTY_FUNCTION,

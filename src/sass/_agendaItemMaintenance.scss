@@ -448,6 +448,44 @@
       flex: 12
     }
 
+    .gsa-locations {
+      thead > tr {
+        th:first-of-type {
+          position: relative;
+          .fa {
+            font-size: 1.4em;
+            left: 30%;
+            position: relative;
+          }
+        }
+      }
+
+      tr > *:nth-child(1) {
+        flex: 1
+      }
+
+      tr > *:nth-child(2) {
+        flex: 4;
+      }
+
+      tr > *:nth-child(3) {
+        flex: 4;
+      }
+
+      tr > *:nth-child(4) {
+        flex: 4;
+      }
+
+      tr > *:nth-child(5) {
+        flex: 4;
+      }
+
+      tr > *:nth-child(6) {
+        flex: 1;
+      }
+
+    }
+
     tbody > tr {
       border: 2px solid $bg-gray-dark-1;
       border-top: 0px;

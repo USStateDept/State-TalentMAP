@@ -58,10 +58,13 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
+  const [isNewSeparation, setIsNewSeparation] = useState(false);
   const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
   // temporary until business logic is added for readOnly items
   const [isReadOnly, setIsReadOnly] = useState(false);
+  const [location, setLocation] = useState();
+  const [activeAIL, setActiveAIL] = useState();
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
@@ -195,6 +198,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
+                          setIsNewSeparation={() => setIsNewSeparation(!isNewSeparation)}
                           userRemarks={userRemarks}
                           legCount={legs.length}
                           saveAI={submitAI}
@@ -211,9 +215,16 @@ const AgendaItemMaintenanceContainer = (props) => {
                           setParentLoadingState={setAgendaItemTimelineLoading}
                           updateLegs={setLegs}
                           asgSepBid={asgSepBid}
+                          activeAIL={activeAIL}
+                          setActiveAIL={setActiveAIL}
+                          location={location}
+                          setLocation={setLocation}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
                           isReadOnly={isReadOnly}
+                          isNewSeparation={isNewSeparation}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
                           AIvalidation={AIvalidation}
                         />
                       </>
@@ -237,6 +248,10 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
+                updateLegs={setLegs}
+                activeAIL={activeAIL}
+                location={location}
+                setLocation={setLocation}
                 clientData={employeeData$}
                 clientError={employeeError}
                 clientLoading={employeeLoading}
