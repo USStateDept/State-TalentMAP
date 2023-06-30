@@ -15,7 +15,6 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 const PublishablePositionCard = ({ data }) => {
   const pos = get(data, 'position') || data;
 
-  const description$ = get(pos, 'description.content') || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
 
@@ -44,7 +43,7 @@ const PublishablePositionCard = ({ data }) => {
       'Assignee': '---',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
-    textarea: description$,
+    textarea: get(pos, 'description.content') || 'No description.',
     metadata: {
       'Position Posted': getResult(pos, 'description.date_created') || NO_UPDATE_DATE,
       'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),

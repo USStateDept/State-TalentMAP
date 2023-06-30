@@ -11,8 +11,6 @@ const PositionExpandableContent = ({ sections }) => {
   const [editMode, setEditMode] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
-  const [description, setDescription] = useState(sections.textarea ?? '');
-
   // TODO: Add setViewMode prop or remove edit button from header.
   // Refer to note on PublishablePositionCard about edit state management.
   return (
@@ -55,15 +53,14 @@ const PositionExpandableContent = ({ sections }) => {
                   maxlength="4000"
                   name="position-description"
                   placeholder="No Description"
-                  defaultValue={description}
-                  onChange={e => setDescription(e.target.value)}
+                  defaultValue={sections.textarea}
                   disabled
                   className={'disabled-input'}
                   draggable={false}
                 />
               </Linkify>
               <div className="word-count">
-                {description.length} / 4,000
+                {sections.textarea.length} / 4,000
               </div>
             </Row>
           </div>
