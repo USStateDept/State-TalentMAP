@@ -6,6 +6,7 @@ import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
+import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
@@ -31,8 +32,8 @@ const PublishablePositionCard = ({ data }) => {
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
       'Status': getResult(pos, 'status') || NO_STATUS,
+      '': <CheckBox id="deto" label="DETO" value disabled />,
     },
-    deto: true,
     bodySecondary: {
       'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
       'TED': getResult(data, 'ted') || NO_DATE,
