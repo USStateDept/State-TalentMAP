@@ -64,10 +64,12 @@
   .line-separated-fields {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
     >div {
       display: flex;
       flex-direction: row;
+      flex-wrap: wrap;
 
       span:first-of-type {
         font-weight: 500;
@@ -113,7 +115,7 @@
   .position-content--details {
     dl {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
 
       >div {
         display: flex;
@@ -154,6 +156,15 @@
 
     label {
       margin-top: 0px;
+    }
+  }
+
+  .tm-checkbox {
+    margin: 0px;
+
+    label {
+      font-size: 1.5rem;
+      color: black;
     }
   }
 
