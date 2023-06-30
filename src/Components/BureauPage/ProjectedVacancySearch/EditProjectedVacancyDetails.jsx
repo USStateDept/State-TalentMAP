@@ -30,20 +30,20 @@ const ProjectedVacancySearch = () => {
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
-  const [selectedBureaus, setSelectedBureaus] = useState(get(userSelections, 'selectedBureaus') || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(get(userSelections, 'selectedOrgs') || []);
-  const [selectedGrade, setSelectedGrade] = useState(get(userSelections, 'selectedGrade') || []);
-  const [selectedSkills, setSelectedSkills] = useState(get(userSelections, 'selectedSkills') || []);
-  const [selectedLanguage, setSelectedLanguage] = useState(get(userSelections, 'selectedLanguage') || []);
-  const [selectedBidCycle, setSelectedBidCycle] = useState(get(userSelections, 'selectedBidCycle') || []);
-  const [selectedLocations, setSelectedLocations] = useState(get(userSelections, 'SelectedLocations') || []);
+  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
+  const [selectedGrade, setSelectedGrade] = useState(userSelections?.selectedGrade || []);
+  const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
+  const [selectedLanguage, setSelectedLanguage] = useState(userSelections?.selectedLanguage || []);
+  const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
+  const [selectedPost, setSelectedPost] = useState(userSelections?.selectedPost || []);
   const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const locations = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const locationOptions = uniqBy(sortBy(get(locations, 'data'), [(p) => p.city]), 'code');
+  const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
+  const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
@@ -70,14 +70,13 @@ const ProjectedVacancySearch = () => {
     limit,
     ordering,
     // User Filters
-    [get(bureaus, 'item.SelectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(locations, 'item.SelectionRef')]: selectedLocations.map(postObject => (get(postObject, 'code'))),
-    [get(bureaus, 'item.selectionRef')]: selectedBureaus.map(bureauObject => (get(bureauObject, 'code'))),
-    [get(orgs, 'item.selectionRef')]: selectedOrgs.map(orgObject => (get(orgObject, 'code'))),
-    [get(cycles, 'item.selectionRef')]: selectedBidCycle.map(cycleObject => (get(cycleObject, 'id'))),
-    [get(languages, 'item.selectionRef')]: selectedLanguage.map(langObject => (get(langObject, 'code'))),
-    [get(grades, 'item.selectionRef')]: selectedGrade.map(gradeObject => (get(gradeObject, 'code'))),
-    [get(skills, 'item.selectionRef')]: selectedSkills.map(skillObject => (get(skillObject, 'code'))),
+    'projected-vacancy-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
+    'projected-vacancy-post': selectedPost.map(postObject => (postObject?.code)),
+    'projected-vacancy-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
+    'projected-vacancy-cycles': selectedBidCycle.map(cycleObject => (cycleObject?.id)),
+    'projected-vacancy-language': selectedLanguage.map(langObject => (langObject?.code)),
+    'projected-vacancy-grades': selectedGrade.map(gradeObject => (gradeObject?.code)),
+    'projected-vacancy-skills': selectedSkills.map(skillObject => (skillObject?.code)),
 
     // Free Text
     q: textInput || textSearch,
@@ -85,7 +84,7 @@ const ProjectedVacancySearch = () => {
 
   const resetFilters = () => {
     setSelectedBureaus([]);
-    setSelectedLocations([]);
+    setSelectedPost([]);
     setSelectedOrgs([]);
     setSelectedGrade([]);
     setSelectedLanguage([]);
@@ -114,7 +113,7 @@ const ProjectedVacancySearch = () => {
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
-      selectedLocations,
+      selectedPost,
       selectedOrgs,
       selectedGrade,
       selectedLanguage,
@@ -136,7 +135,7 @@ const ProjectedVacancySearch = () => {
     limit,
     ordering,
     selectedBureaus,
-    selectedLocations,
+    selectedPost,
     selectedOrgs,
     selectedGrade,
     selectedLanguage,
@@ -302,9 +301,9 @@ const ProjectedVacancySearch = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select Location(s)"
-                      value={selectedLocations}
+                      value={selectedPost}
                       options={locationOptions}
-                      onChange={setSelectedLocations}
+                      onChange={setSelectedPost}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
