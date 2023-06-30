@@ -52,6 +52,11 @@ const PublishablePositionCard = ({ data }) => {
     /* eslint-enable quote-props */
   };
 
+  // TODO: Manage edit/view mode on this component level with statemanagement
+  // using one edit component and one view component. This will mean the edit button
+  // inside PositionExpandableContent needs to be on this level with absolute positioning
+  // OR we can pass in a setViewMode prop into PositionExpandableContent that the edit
+  // button uses to flip to the edit component
   return (
     <TabbedCard
       tabs={[{

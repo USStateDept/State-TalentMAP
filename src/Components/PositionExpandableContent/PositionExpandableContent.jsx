@@ -13,27 +13,8 @@ const PositionExpandableContent = ({ sections }) => {
 
   const [description, setDescription] = useState(sections.textarea ?? '');
 
-  // TODO: Replace edit mode elements with necessary form, buttons, and functions (diff checking)
-  if (editMode) {
-    return (
-      <div className="position-content">
-        <Row fluid className="position-content--section position-content--subheader">
-          <div className="line-separated-fields">
-            {Object.keys(sections.subheading).map(field => (
-              <div>
-                <span>{field}:</span>
-                <span>{sections.subheading[field]}</span>
-              </div>
-            ))}
-          </div>
-          <button className="toggle-edit-mode" onClick={() => { setEditMode(!editMode); }}>
-            <FA name="pencil" />
-            <div>Edit</div>
-          </button>
-        </Row>
-      </div>
-    );
-  }
+  // TODO: Add setViewMode prop or remove edit button from header.
+  // Refer to note on PublishablePositionCard about edit state management.
   return (
     <div className="position-content">
       <Row fluid className="position-content--section position-content--subheader">
