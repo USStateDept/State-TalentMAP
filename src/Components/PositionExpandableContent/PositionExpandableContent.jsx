@@ -4,7 +4,6 @@ import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
-import CheckBox from 'Components/CheckBox';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 
@@ -51,20 +50,19 @@ const PositionExpandableContent = ({ sections }) => {
           <div>Edit</div>
         </button>
       </Row>
-      <Row fluid className="position-content--section position-content--details">
-        <DefinitionList itemProps={{ excludeColon: true }} items={sections.bodyPrimary} />
-      </Row>
-      {
-        showMore && <>
-          <CheckBox
-            id="deto"
-            label="DETO"
-            onCheckBoxClick={e => { console.log(e); }}
-            value={false}
-            disabled
+      {!showMore ?
+        <Row fluid className="position-content--section position-content--details">
+          <DefinitionList
+            itemProps={{ excludeColon: true }}
+            items={sections.bodyPrimary}
           />
+        </Row> :
+        <>
           <Row fluid className="position-content--section position-content--details">
-            <DefinitionList itemProps={{ excludeColon: true }} items={sections.bodySecondary} />
+            <DefinitionList
+              itemProps={{ excludeColon: true }}
+              items={{ ...sections.bodyPrimary, ...sections.bodySecondary }}
+            />
           </Row>
           <div>
             <Row fluid className="position-content--description">
@@ -110,7 +108,6 @@ PositionExpandableContent.propTypes = {
   tabs: PropTypes.shape({
     subheading: PropTypes.shape({}),
     bodyPrimary: PropTypes.shape({}),
-    deto: PropTypes.boolean,
     bodySecondary: PropTypes.shape({}),
     textarea: PropTypes.shape({}),
     metadata: PropTypes.shape({}),
