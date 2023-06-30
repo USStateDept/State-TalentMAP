@@ -3,7 +3,7 @@ import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
-import { editProjectedVacancyFetchData, editProjectedVacancyFiltersFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
+import { editProjectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
@@ -86,6 +86,13 @@ const ProjectedVacancySearch = () => {
   const resetFilters = () => {
     setSelectedBureaus([]);
     setSelectedLocations([]);
+    setSelectedOrgs([]);
+    setSelectedGrade([]);
+    setSelectedLanguage([]);
+    setSelectedSkills([]);
+    setSelectedBidCycle([]);
+    setTextSearch('');
+    setTextInput('');
     childRef.current.clearText();
     setClearFilters(false);
   };
@@ -100,7 +107,6 @@ const ProjectedVacancySearch = () => {
   });
 
   useEffect(() => {
-    dispatch(editProjectedVacancyFiltersFetchData(getQuery()));
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
   }, []);
@@ -167,7 +173,6 @@ const ProjectedVacancySearch = () => {
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
     }
-    const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
     else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
@@ -176,15 +181,15 @@ const ProjectedVacancySearch = () => {
     else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
     else if (has(items[0], 'name')) queryProp = 'name';
-    return items.map(item =>
-      (<ListItem
-        key={item[codeOrText]}
+    return items.map((item, index) => {
+      const keyId = `${index}-${item}`;
+      return (<ListItem
         item={item}
         {...rest}
+        key={keyId}
         queryProp={queryProp}
-        getIsSelected={getSelected}
-      />),
-    );
+      />);
+    });
   }
 
   const pickyProps = {
@@ -313,8 +318,8 @@ const ProjectedVacancySearch = () => {
                       value={selectedBidCycle}
                       options={cycleOptions}
                       onChange={setSelectedBidCycle}
-                      valueKey="code"
-                      labelKey="custom_description"
+                      valueKey="id"
+                      labelKey="name"
                       disabled={isLoading}
                     />
                   </div>
