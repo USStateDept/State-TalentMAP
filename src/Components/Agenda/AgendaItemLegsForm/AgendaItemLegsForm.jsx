@@ -151,7 +151,6 @@ const AgendaItemLegsForm = props => {
                       updateLeg={updateLeg$}
                       onHover={onHover}
                       rowNum={rowHoverNum}
-                      isReadOnly={isReadOnly}
                       updateResearchPaneTab={updateResearchPaneTab}
                       setLegsContainerExpanded={setLegsContainerExpanded}
                       setActiveAIL={setActiveAIL}
@@ -174,7 +173,6 @@ AgendaItemLegsForm.propTypes = {
   updateLeg: PropTypes.func,
   updateResearchPaneTab: PropTypes.func,
   setActiveAIL: PropTypes.func,
-  isReadOnly: PropTypes.bool,
   AIvalidation: AI_VALIDATION,
 };
 
@@ -186,7 +184,6 @@ AgendaItemLegsForm.defaultProps = {
   updateLeg: EMPTY_FUNCTION,
   updateResearchPaneTab: EMPTY_FUNCTION,
   setActiveAIL: EMPTY_FUNCTION,
-  isReadOnly: false,
   AIvalidation: {},
 };
 

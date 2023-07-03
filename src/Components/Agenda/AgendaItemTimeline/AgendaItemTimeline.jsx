@@ -13,7 +13,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   updateResearchPaneTab, setLegsContainerExpanded, location, activeAIL, setActiveAIL,
   setLocation,
 }) => {
-
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
@@ -149,11 +148,8 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         AIvalidation={AIvalidation}
         efPos={efPos}
         legs={legs}
-
         setActiveAIL={setActiveAIL}
         updateLeg={updateLeg}
-        efPos={efPos}
-        AIvalidation={AIvalidation}
         updateResearchPaneTab={updateResearchPaneTab}
         setLegsContainerExpanded={setLegsContainerExpanded}
         onClose={onClose}
