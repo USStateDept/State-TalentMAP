@@ -197,6 +197,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         roles: [
           'super_user',
           'bureau_user',
+          'ao_user',
         ],
       },
       checkFlag('flags.position_details') ?
