@@ -924,6 +924,7 @@
     box-shadow: 20px 20px 20px $bg-gray-medium-2;
     padding: 20px 35px;
     background-color: $bg-blue-dark-1;
+    color: $color-white;
   }
   .cm-filters {
     display: grid;
@@ -951,6 +952,9 @@
         font-size: 1.5rem;
         height: 28px;
         width: 240px;
+        .react-daterange-picker__wrapper {
+          border: none;
+        }
         .react-daterange-picker__inputGroup {
           align-items: center;
           display: flex;
