@@ -26,18 +26,11 @@ export function cycleManagementFetchDataSuccess(results) {
 
 export function cycleManagementFetchData(query = {}) {
   return (dispatch) => {
-    // for testing
-    console.log(query);
-
     batch(() => {
       dispatch(cycleManagementFetchDataLoading(true));
       dispatch(cycleManagementFetchDataErrored(false));
     });
     const q = convertQueryToString(query);
-
-    // for testing
-    console.log(q);
-
     const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
     dispatch(cycleManagementFetchDataLoading(true));
     api().get(endpoint)
@@ -67,14 +60,11 @@ export function cycleManagementFetchData(query = {}) {
 
 export function cycleManagementSelectionsSaveSuccess(result) {
   return {
-    type: 'PANEL_MEETING_AGENDAS_SELECTIONS_SAVE_SUCCESS',
+    type: 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS',
     result,
   };
 }
 
 export function saveCycleManagementSelections(queryObject) {
-  // for testing
-  console.log(queryObject);
-
   return (dispatch) => dispatch(cycleManagementSelectionsSaveSuccess(queryObject));
 }

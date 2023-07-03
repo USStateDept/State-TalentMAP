@@ -16,6 +16,8 @@ const CycleManagement = () => {
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.cycleManagementSelections);
+  // use when adding cards
+  // const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const genericFilters = useSelector(state => state.filters);
 
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
@@ -40,7 +42,6 @@ const CycleManagement = () => {
     selectedDates,
   });
 
-  // better labeling for the URL params?
   const getQuery = () => ({
     'cycle-cycles': selectedCycles.map(bidCycleObject => (bidCycleObject?.id)),
     'cycle-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
@@ -70,7 +71,7 @@ const CycleManagement = () => {
     selectedDates,
   ]);
 
-  // Hardcoded - where should i get this data?
+  // Hardcoded - find where to get this data
   const statusOptions = [
     { code: 1, name: 'Active' },
     { code: 2, name: 'Closed' },
