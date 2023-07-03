@@ -182,7 +182,7 @@
     font-size: 1.1rem;
     padding: 10px 0px;
 
-    span:first-of-type {
+    span:not(:last-of-type) {
       margin-bottom: 5px;
     }
   }
