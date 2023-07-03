@@ -51,8 +51,8 @@ export function cycleManagementFetchData(query = {}) {
       .catch((err) => {
         if (get(err, 'message') === 'cancel') {
           batch(() => {
-            dispatch(cycleManagementFetchDataErrored(false));
             dispatch(cycleManagementFetchDataLoading(true));
+            dispatch(cycleManagementFetchDataErrored(false));
           });
         } else {
           batch(() => {
