@@ -41,6 +41,7 @@ exports[`AgendaItemMaintenancePane Component matches snapshot 1`] = `
     saveAI={[Function]}
     sendAsgSepBid={[Function]}
     sendMaintenancePaneInfo={[Function]}
+    setIsNewSeparation={[Function]}
     setLegsContainerExpanded={[Function]}
     setParentLoadingState={[Function]}
     unitedLoading={false}
