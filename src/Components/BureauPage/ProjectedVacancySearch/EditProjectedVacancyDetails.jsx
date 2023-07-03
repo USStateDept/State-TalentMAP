@@ -21,7 +21,6 @@ const ProjectedVacancySearch = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-
   const userSelections = useSelector(state => state.editProjectedVacancy);
   const dummyPositionDetails = useSelector(state => state.editProjectedVacancy);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
@@ -161,7 +160,7 @@ const ProjectedVacancySearch = () => {
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
-    // only Remarks needs to use 'text'
+
     if (has(items[0], 'text')) {
       codeOrText = 'text';
     }
