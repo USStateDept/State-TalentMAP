@@ -68,8 +68,8 @@ const PositionExpandableContent = ({ sections }) => {
       }
       <Row fluid className="position-content--section position-content--footer">
         <div className="position-content--metadata">
-          {Object.keys(sections.metadata).map(field => (
-            <span>{`${field}: ${sections.metadata[field]}`}</span>
+          {Object.entries(sections.metadata).map(([label, value]) => (
+            <span>{`${label}: ${value}`}</span>
           ))}
         </div>
       </Row>
