@@ -98,6 +98,7 @@ const ProjectedVacancySearch = () => {
 
   const getCurrentInputs = () => ({
     selectedBureaus,
+    selectedPost,
     selectedOrgs,
     selectedGrade,
     selectedLanguage,
