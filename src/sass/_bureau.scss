@@ -42,8 +42,9 @@
 
   .position-manager-upper-section {
     box-shadow: 20px 20px 20px $bg-gray-medium-2;
-    padding: 20px 35px;
+    padding: 20px 35px 30px;
     background-color: $bg-blue-dark-1;
+    color: $color-white;
   }
 
   .position-manager-filters {
@@ -273,12 +274,12 @@
       0% {opacity: 100%;}
       25% {opacity: 100%;}
       100% {opacity: 0;}
-    }
+      }
     @keyframes right-animation-initial {
       0% {opacity: 100%;}
       25% {opacity: 100%;}
       100% {opacity: 0;}
-    }
+      }
     @keyframes left-animation-secondary {
       0% {opacity: 0;}
       25% {opacity: 0;}
@@ -286,7 +287,7 @@
       50% {opacity: 100%;}
       51% {opacity: 0;}
       100% {opacity: 0;}
-    }
+      }
     @keyframes right-animation-secondary {
       0% {opacity: 0;}
       25% {opacity: 0;}
@@ -294,7 +295,7 @@
       50% {opacity: 100%;}
       51% {opacity: 0;}
       100% {opacity: 0;}
-    }
+      }
     @keyframes hs-animation-ribbon {
       0% {opacity: 0; width: 40px;}
       49% {opacity: 0;}
@@ -307,26 +308,26 @@
       90% {top:10px;}
       95% {top:-10px;}
       100% {top:0; opacity: 100%; color: black; width: 40px;}
-    }
+      }
     @keyframes temp-transparent-animation-ribbon {
       0% {opacity: 0;}
       100% {opacity: 0;}
-    }
+      }
     @keyframes hs-animation-left-ribbon {
       0% {background-color: $color-green; opacity: 100%; left:11rem; width: 40px;}
       20% {background-color: $color-green; left: 11rem;}
       30% {background-color: transparent; left: 11rem;}
       50% {left: 16rem; background-color: transparent; opacity: 100%;}
       100% {left: 16rem; background-color: transparent; opacity: 100%; width: 40px;}
-    }
+      }
     @keyframes hs-animation-right-ribbon {
       0% {background-color: $color-green; opacity: 100%; right: -17rem; width: 40px;}
       20% {background-color: $color-green; right: -17rem;}
       30% {background-color: transparent; right: -17rem;}
       50% {right: -12rem; background-color: transparent; opacity: 100%;}
       100% {right: -12rem; background-color: transparent; opacity: 100%; width: 40px;}
-    }
-  }
+      }
+      }
   .animate-hs-animation-ribbon {
     margin-left: -110px;
   }
@@ -765,12 +766,12 @@
           0% {opacity: 100%;}
           25% {opacity: 100%;}
           100% {opacity: 0;}
-        }
+          }
         @keyframes right-animation-initial {
           0% {opacity: 100%;}
           25% {opacity: 100%;}
           100% {opacity: 0;}
-        }
+          }
         @keyframes left-animation-secondary {
           0% {opacity: 0;}
           25% {opacity: 0;}
@@ -778,7 +779,7 @@
           50% {opacity: 100%;}
           51% {opacity: 0;}
           100% {opacity: 0;}
-        }
+          }
         @keyframes right-animation-secondary {
           0% {opacity: 0;}
           25% {opacity: 0;}
@@ -786,7 +787,7 @@
           50% {opacity: 100%;}
           51% {opacity: 0;}
           100% {opacity: 0;}
-        }
+          }
         @keyframes hs-animation-bidder {
           0% {opacity: 0;}
           49% {opacity: 0;}
@@ -799,14 +800,14 @@
           90% {top:10px;}
           95% {top:-10px;}
           100% {top:0; opacity: 100%; color: $tertiary-gold-lighter;}
-        }
+          }
         @keyframes hs-animation-left-bidder {
           0% {background-color: $color-green; opacity: 100%; left: 0;}
           20% {background-color: $color-green; left: 0;}
           30% {background-color: transparent; left: 0;}
           50% {left: 4rem; background-color: transparent; opacity: 100%;}
           100% {left: 4rem; background-color: transparent; opacity: 100%;}
-        }
+          }
         @keyframes hs-animation-right-bidder {
           0% {background-color: $color-green; opacity: 100%; right: -3rem;}
           20% {background-color: $color-green; right: -3rem;}
