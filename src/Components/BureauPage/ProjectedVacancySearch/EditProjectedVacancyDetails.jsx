@@ -102,6 +102,7 @@ const ProjectedVacancySearch = () => {
     selectedGrade,
     selectedLanguage,
     selectedSkills,
+    selectedBidCycle,
     textSearch,
   });
 
@@ -118,6 +119,7 @@ const ProjectedVacancySearch = () => {
       selectedGrade,
       selectedLanguage,
       selectedSkills,
+      selectedBidCycle,
       textSearch,
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
@@ -140,6 +142,7 @@ const ProjectedVacancySearch = () => {
     selectedGrade,
     selectedLanguage,
     selectedSkills,
+    selectedBidCycle,
     textSearch,
   ]);
 
