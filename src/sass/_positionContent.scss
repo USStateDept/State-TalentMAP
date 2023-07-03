@@ -116,6 +116,7 @@
     dl {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      column-gap: 15px;
 
       >div {
         display: flex;
