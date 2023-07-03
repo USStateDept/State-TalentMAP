@@ -27,10 +27,11 @@ const AgendaItemMaintenancePane = (props) => {
     sendMaintenancePaneInfo,
     legCount,
     saveAI,
+    updateFormMode,
     sendAsgSepBid,
     asgSepBidData,
     agendaItem,
-    isReadOnly,
+    readMode,
     updateResearchPaneTab,
     setLegsContainerExpanded,
     AIvalidation,
@@ -139,7 +140,7 @@ const AgendaItemMaintenancePane = (props) => {
     const buttonMetadata = {
       classNames: 'save-ai-btn',
       clickFunction: saveAI,
-      disabled: isReadOnly,
+      disabled: readMode,
       text: 'Save Agenda Item',
       children: '',
     };
@@ -159,11 +160,21 @@ const AgendaItemMaintenancePane = (props) => {
       buttonMetadata.children = (<span className="tiny-loading-spinner" />);
     }
 
+    if (readMode) {
+      buttonMetadata.classNames = 'save-ai-btn min-width-155';
+      // clicking this button will toggle from Read to Edit
+      // disabling criteria still needs to be hooked up
+      buttonMetadata.clickFunction = updateFormMode;
+      buttonMetadata.disabled = false;
+      buttonMetadata.text = 'Toggle to Edit Mode';
+    }
+
     setValidationButton(buttonMetadata);
   }, [
     AIvalidation,
     AIvalidationIsLoading,
     AIvalidationHasErrored,
+    readMode,
   ]);
 
   const addAsgSepBid = (k) => {
@@ -240,7 +251,7 @@ const AgendaItemMaintenancePane = (props) => {
                       id="ai-maintenance-status"
                       onChange={(e) => setStatus(get(e, 'target.value'))}
                       value={selectedStatus}
-                      disabled={isReadOnly}
+                      disabled={readMode}
                     >
                       <option value={''}>
                         Agenda Item Status
@@ -267,7 +278,7 @@ const AgendaItemMaintenancePane = (props) => {
                       id="ai-maintenance-category"
                       onChange={(e) => setPanelCat(get(e, 'target.value'))}
                       value={selectedPanelCat}
-                      disabled={isReadOnly}
+                      disabled={readMode}
                     >
                       <option value={''}>
                         Meeting Item Category
@@ -295,7 +306,7 @@ const AgendaItemMaintenancePane = (props) => {
                         id="ai-maintenance-status"
                         onChange={(e) => setDate(get(e, 'target.value'), true)}
                         value={selectedPanelMLDate}
-                        disabled={isReadOnly}
+                        disabled={readMode}
                       >
                         <option value={''}>ML Dates</option>
                         {
@@ -314,7 +325,7 @@ const AgendaItemMaintenancePane = (props) => {
                         id="ai-maintenance-status"
                         onChange={(e) => setDate(get(e, 'target.value'), false)}
                         value={selectedPanelIDDate}
-                        disabled={isReadOnly}
+                        disabled={readMode}
                       >
                         <option value={''}>ID Dates</option>
                         {
@@ -349,7 +360,7 @@ const AgendaItemMaintenancePane = (props) => {
               {
                 userRemarks.map(remark => (
                   <RemarksPill
-                    isEditable={!isReadOnly}
+                    isEditable={!readMode}
                     remark={remark}
                     key={remark.seq_num}
                     updateSelection={updateSelection}
@@ -371,7 +382,7 @@ const AgendaItemMaintenancePane = (props) => {
                   className={`${asgSepBidSelectClass}${legLimit ? ' asg-disabled' : ''} asg-dropdown`}
                   onChange={(e) => addAsgSepBid(get(e, 'target.value'))}
                   value={`${legLimit ? 'legLimit' : asgSepBid}`}
-                  disabled={legLimit || isReadOnly}
+                  disabled={legLimit || readMode}
                 >
                   <option value={''}>
                     Employee Assignments, Separations, and Bids
@@ -402,11 +413,11 @@ const AgendaItemMaintenancePane = (props) => {
                 onKeyPress={e => (e.key === 'Enter' ? addPositionNum() : null)}
                 type="add"
                 value={`${legLimit ? 'Leg Limit of 10' : selectedPositionNumber}`}
-                disabled={legLimit || isReadOnly}
+                disabled={legLimit || readMode}
                 placeholder="Add by Position Number"
               />
               <InteractiveElement
-                className={`add-pos-num-icon ${(legLimit || isReadOnly) ? 'icon-disabled' : ''}`}
+                className={`add-pos-num-icon ${(legLimit || readMode) ? 'icon-disabled' : ''}`}
                 onClick={addPositionNum}
                 role="button"
                 title="Add position"
@@ -467,7 +478,8 @@ AgendaItemMaintenancePane.propTypes = {
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
-  isReadOnly: PropTypes.bool,
+  readMode: PropTypes.bool,
+  updateFormMode: PropTypes.func,
   updateResearchPaneTab: PropTypes.func,
   setLegsContainerExpanded: PropTypes.func,
   AIvalidation: AI_VALIDATION,
@@ -487,8 +499,9 @@ AgendaItemMaintenancePane.defaultProps = {
   sendMaintenancePaneInfo: EMPTY_FUNCTION,
   sendAsgSepBid: EMPTY_FUNCTION,
   saveAI: EMPTY_FUNCTION,
+  updateFormMode: EMPTY_FUNCTION,
   legCount: 0,
-  isReadOnly: false,
+  readMode: true,
   updateResearchPaneTab: EMPTY_FUNCTION,
   setLegsContainerExpanded: EMPTY_FUNCTION,
   AIvalidation: {

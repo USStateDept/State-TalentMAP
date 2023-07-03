@@ -4,11 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
-import { drop, filter, find, get, has, isEmpty, sample } from 'lodash';
+import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { aiCreate, validateAI } from 'actions/agendaItemMaintenancePane';
+import { aiCreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
@@ -61,10 +61,9 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [isNewSeparation, setIsNewSeparation] = useState(false);
   const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
-  // temporary until business logic is added for readOnly items
-  const [isReadOnly, setIsReadOnly] = useState(false);
   const [location, setLocation] = useState();
   const [activeAIL, setActiveAIL] = useState();
+  const [readMode, setReadMode] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
@@ -110,6 +109,10 @@ const AgendaItemMaintenanceContainer = (props) => {
     dispatch(aiCreate(maintenanceInfo, legs, personId, efInfo));
   };
 
+  const updateFormMode = () => {
+    setReadMode(false);
+  };
+
   function toggleExpand() {
     setLegsContainerExpanded(!legsContainerExpanded);
   }
@@ -126,14 +129,17 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   useEffect(() => {
-    const personId = employeeData$?.id || id;
-
-    const efInfo = {
-      assignmentId: get(efPosition, 'asg_seq_num'),
-      assignmentVersion: get(efPosition, 'revision_num'),
-    };
-    dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
-  }, [maintenanceInfo, legs]);
+    if (!readMode) {
+      const personId = employeeData$?.id || id;
+      const efInfo = {
+        assignmentId: get(efPosition, 'asg_seq_num'),
+        assignmentVersion: get(efPosition, 'revision_num'),
+      };
+      dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
+    } else {
+      dispatch(resetAIValidation());
+    }
+  }, [maintenanceInfo, legs, readMode]);
 
   useEffect(() => {
     if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
@@ -143,7 +149,8 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   useEffect(() => {
     if (!agendaItemLoading) {
-      setIsReadOnly(!isEmpty(agendaItemData) && sample([true, false]));
+      // If not creating a new AI, then we default initial mode to Read
+      setReadMode(!isEmpty(agendaItemData));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
@@ -176,7 +183,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
-          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${isReadOnly ? 'aim-disabled' : ''}`}>
+          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
@@ -194,7 +201,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           perdet={id}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                          updateSelection={isReadOnly ? () => {} : updateSelection}
+                          updateSelection={readMode ? () => {} : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
@@ -202,8 +209,9 @@ const AgendaItemMaintenanceContainer = (props) => {
                           userRemarks={userRemarks}
                           legCount={legs.length}
                           saveAI={submitAI}
+                          updateFormMode={updateFormMode}
                           agendaItem={agendaItem}
-                          isReadOnly={isReadOnly}
+                          readMode={readMode}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
                           AIvalidation={AIvalidation}
@@ -221,10 +229,11 @@ const AgendaItemMaintenanceContainer = (props) => {
                           setLocation={setLocation}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
-                          isReadOnly={isReadOnly}
                           isNewSeparation={isNewSeparation}
                           updateResearchPaneTab={updateResearchPaneTab}
                           setLegsContainerExpanded={setLegsContainerExpanded}
+                          fullAgendaItemLegs={agendaItem?.legs || []}
+                          readMode={readMode}
                           AIvalidation={AIvalidation}
                         />
                       </>
@@ -257,10 +266,10 @@ const AgendaItemMaintenanceContainer = (props) => {
                 clientLoading={employeeLoading}
                 perdet={id}
                 ref={researchPaneRef}
-                updateSelection={isReadOnly ? () => {} : updateSelection}
+                updateSelection={readMode ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
-                isReadOnly={isReadOnly}
+                readMode={readMode}
               />
             </div>
           </div>

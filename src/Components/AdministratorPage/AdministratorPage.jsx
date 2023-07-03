@@ -56,7 +56,8 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
         <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags {...featureFlagsProps} />} />
         <Route path="/profile/administrator/cycles" render={() => <BidCycles />} />
-        <Route path="/profile/administrator/panel" render={() => <PanelAdmin />} />
+        <Route path="/profile/administrator/panel/:pmSeqNum" render={() => <PanelAdmin />} />
+        <Route path="/profile/administrator/panel/" render={() => <PanelAdmin />} />
       </Switch>
     </div>
   );

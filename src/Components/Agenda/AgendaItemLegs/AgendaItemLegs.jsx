@@ -3,11 +3,13 @@ import { shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
+import { formatVice } from '../Constants';
 
 const AgendaItemLegs = props => {
   const {
     legs,
     isCard,
+    isPanelMeetingView,
   } = props;
 
   let legs$ = legs;
@@ -115,6 +117,16 @@ const AgendaItemLegs = props => {
     },
   ];
 
+  if (isPanelMeetingView) { // vice/vacancy info only shows for panel view, and in AIM
+    tableData.push(
+      {
+        title: 'Vice',
+        content: (getData('vice', formatVice)),
+        cardView: false,
+      },
+    );
+  }
+
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
@@ -140,11 +152,13 @@ const AgendaItemLegs = props => {
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
+  isPanelMeetingView: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   isCard: false,
+  isPanelMeetingView: false,
 };
 
 export default AgendaItemLegs;

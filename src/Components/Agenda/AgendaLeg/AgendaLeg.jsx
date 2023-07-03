@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { GSA as LocationsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 import TodModal from './TodModal';
+import { formatVice } from '../Constants';
 
 const AgendaLeg = props => {
   const {
@@ -24,15 +25,15 @@ const AgendaLeg = props => {
     travelFunctions,
     onHover,
     rowNum,
-    isReadOnly,
     setLegsContainerExpanded,
     updateResearchPaneTab,
     setActiveAIL,
   } = props;
 
-  const disabled = isReadOnly || isEf;
   const isNewSeparation = leg?.pos_title === 'SEPARATION';
   const defaultSepText = isNewSeparation ? '-' : false;
+
+  const disabled = isEf;
 
   const onHover$ = (row) => {
     // this should check the row number of getArrow()
@@ -105,7 +106,7 @@ const AgendaLeg = props => {
   };
 
   useEffect(() => {
-    if (!isEf && isReadOnly) {
+    if (!isEf) {
       updateLeg(get(leg, 'ail_seq_num'),
         { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
     }
@@ -196,7 +197,7 @@ const AgendaLeg = props => {
         <div className="other-tod-wrapper">
           <div className="other-tod">
             { leg.tod_long_desc }
-            {isReadOnly || <FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
+            {<FA name="times" className="other-tod-icon" onClick={closeOtherTod} />}
           </div>
         </div>
       );
@@ -342,6 +343,10 @@ const AgendaLeg = props => {
       title: 'Travel',
       content: (getDropdown(isEf ? 'travel' : 'travelFunctionCode', travelFunctions, 'desc_text')),
     },
+    {
+      title: 'Vice',
+      content: formatVice(leg?.vice),
+    },
   ];
 
   const dropdowns = ['TOD', 'Action', 'Travel'];
@@ -381,6 +386,7 @@ AgendaLeg.propTypes = {
     tod_long_desc: PropTypes.string,
     tod: PropTypes.string,
     tod_is_dropdown: PropTypes.bool,
+    vice: PropTypes.shape({}),
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -393,7 +399,6 @@ AgendaLeg.propTypes = {
   setActiveAIL: PropTypes.func.isRequired,
   onHover: PropTypes.func.isRequired,
   rowNum: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  isReadOnly: PropTypes.bool,
 };
 
 AgendaLeg.defaultProps = {
@@ -404,7 +409,6 @@ AgendaLeg.defaultProps = {
   updateLeg: EMPTY_FUNCTION,
   onHover: EMPTY_FUNCTION,
   rowNum: null,
-  isReadOnly: false,
 };
 
 export default AgendaLeg;

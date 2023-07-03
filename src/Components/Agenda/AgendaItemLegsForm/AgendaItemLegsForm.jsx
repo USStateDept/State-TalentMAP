@@ -15,7 +15,6 @@ const AgendaItemLegsForm = props => {
     legs,
     onClose,
     updateLeg,
-    isReadOnly,
     AIvalidation,
     setLegsContainerExpanded,
     updateResearchPaneTab,
@@ -65,6 +64,7 @@ const AgendaItemLegsForm = props => {
     'TOD',
     'Action',
     'Travel',
+    'Vice',
   ];
 
   useEffect(() => {
@@ -132,7 +132,6 @@ const AgendaItemLegsForm = props => {
                   isEf
                   onHover={onHover}
                   rowNum={rowHoverNum}
-                  isReadOnly={isReadOnly}
                 />
               }
               {

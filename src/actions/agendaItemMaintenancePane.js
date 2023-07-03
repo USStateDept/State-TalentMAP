@@ -118,3 +118,27 @@ export function validateAI(panel, legs, personId, ef) {
       });
   };
 }
+
+export function resetAIValidation() {
+  // an alternative would be to do ' || readMode' at each line where we do the
+  // validation check, this is cleaner
+  const forcedAllValid = {
+    status: {
+      valid: true,
+      errorMessage: '',
+    },
+    reportCategory: {
+      valid: true,
+      errorMessage: '',
+    },
+    panelDate: {
+      valid: true,
+      errorMessage: '',
+    },
+    allValid: true,
+  };
+  return (dispatch) => {
+    dispatch(validateAISuccess(forcedAllValid));
+  };
+}
+

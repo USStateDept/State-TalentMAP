@@ -299,6 +299,7 @@ $aim-legs-sm-height-config: (
   "Org": 6,
   "ETA": 7,
   "TED": 9,
+  "VICE": 13
 );
 
 $aim-legs-lrg-height-config: (
@@ -307,15 +308,31 @@ $aim-legs-lrg-height-config: (
   "Travel": 12,
 );
 
+$aim-legs-sm-height-config-read-only: (
+  "Org": 3,
+  "Grade": 4,
+  "Language": 5,
+  "ETA": 6,
+  "TED": 8,
+  "Action": 10,
+  "Travel": 11,
+);
+
+$aim-legs-lrg-height-config-read-only: (
+  "Position Title": 1,
+  "Position Number": 2,
+  "TOD": 9,
+  "VICE": 12
+);
 //**
 //* resolution widths for .ai-legs
 //*
 $ai-legs-width-config: (
-        1000px: 67vw,
-        1300px: 73vw,
-        1500px: 75vw,
-        1700px: 80vw,
-        2000px: 83vw,
-        2400px: 95vw,
-        2700px: 98vw,
+  1000px: 67vw,
+  1300px: 73vw,
+  1500px: 75vw,
+  1700px: 80vw,
+  2000px: 83vw,
+  2400px: 95vw,
+  2700px: 98vw,
 );
