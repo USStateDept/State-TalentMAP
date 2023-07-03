@@ -20,30 +20,9 @@
   .definition-title {
     display: flex;
     font-weight: 500;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 15px;
+    margin-bottom: 7px;
     color: black;
-  }
-
-
-  // ============= HEADER =============
-
-  .position-content--header {
-    margin-bottom: .6em;
-
-    >div:nth-of-type(3) {
-      margin-left: auto;
-    }
-
-    >div {
-      &:not(:last-child) {
-        margin-right: .5em;
-      }
-
-      &:not(:first-child) {
-        margin-top: 2px;
-      }
-    }
   }
 
 
@@ -77,7 +56,7 @@
       }
 
       span {
-        font-size: 1.5rem;
+        font-size: 15px;
       }
 
       &:not(:last-child) {
@@ -95,8 +74,7 @@
     color: $primary-blue;
     padding: 0px;
     margin: 0px;
-    font-size: 1.6rem;
-    line-height: 1.7rem;
+    font-size: 16px;
 
     .fa {
       margin-right: 6px;
@@ -134,8 +112,8 @@
 
       dt {
         color: $color-black;
-        font-size: 1.5rem;
-        margin-bottom: .5em;
+        font-size: 15px;
+        margin-bottom: 7px;
       }
     }
   }
@@ -144,7 +122,7 @@
     display: flex;
     justify-content: flex-end;
     width: 100%;
-    font-size: 1.4rem;
+    font-size: 14px;
   }
 
   .disabled-input {
@@ -164,7 +142,7 @@
     margin: 0px;
 
     label {
-      font-size: 1.5rem;
+      font-size: 15px;
       color: black;
     }
   }
@@ -180,7 +158,7 @@
   .position-content--metadata {
     display: flex;
     flex-direction: column;
-    font-size: 1.1rem;
+    font-size: 12px;
     padding: 10px 0px;
 
     span:not(:last-of-type) {
