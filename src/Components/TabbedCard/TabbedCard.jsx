@@ -1,5 +1,4 @@
 import { useRef, useState } from 'react';
-import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import NavTabs from '../NavTabs/NavTabs';
@@ -7,8 +6,7 @@ import NavTabs from '../NavTabs/NavTabs';
 const TabbedCard = ({ tabs }) => {
   const tabRef = useRef();
 
-  const [activeTab, setActiveTab] = useState(get(tabs, '[0].value') || '');
-
+  const [activeTab, setActiveTab] = useState(tabs?.[0]?.value || '');
   return (
     <Row fluid className="tabbed-card">
       <Row fluid className="tabbed-card--header">
