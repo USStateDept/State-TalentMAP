@@ -108,7 +108,7 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
       </div>
       {
         locationsLoading &&
-        <Spinner type="homepage-position-results" size="small" />
+        <Spinner type="gsa-location-results" size="small" />
       }
       {
         locationsErrored &&
