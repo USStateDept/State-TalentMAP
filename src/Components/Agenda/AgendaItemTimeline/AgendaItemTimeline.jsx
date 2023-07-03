@@ -130,7 +130,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
   };
 
   useEffect(() => {
-    if (location) {
+    if (location && activeAIL) {
       updateLeg(activeAIL, { sepLocation: location });
       setActiveAIL(null);
       setLocation(null);
