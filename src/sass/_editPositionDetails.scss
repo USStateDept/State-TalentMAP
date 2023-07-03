@@ -1,7 +1,7 @@
 .edit-position-details-page {
   .position-manager-upper-section {
     .fa-lg {
-      font-size: 1.8em;
+      font-size: 28px;
     }
   }
 
@@ -23,10 +23,10 @@
   background-position-x: calc(100% - 8px);
   border: 1px solid $bg-gray-dark-2;
   border-radius: 3px;
-  font-size: 0.9em;
+  font-size: 12px !important;
   height: 28px;
   overflow: hidden;
-  padding: 0 1.5em 0 0.7em;
+  padding: 1px 18px 0 9px !important;
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 130px;
