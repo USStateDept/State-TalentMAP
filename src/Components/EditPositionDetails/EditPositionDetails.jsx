@@ -276,7 +276,7 @@ const EditPositionDetails = () => {
                     <div className="label">Organization:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select an Org"
+                      placeholder="Select Organization(s)"
                       value={selectedOrgs}
                       options={organizationOptions}
                       onChange={setSelectedOrgs}
@@ -289,7 +289,7 @@ const EditPositionDetails = () => {
                     <div className="label">Grade:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select a Grade"
+                      placeholder="Select Grade(s)"
                       value={selectedGrades}
                       options={gradeOptions}
                       onChange={setSelectedGrades}
@@ -315,7 +315,7 @@ const EditPositionDetails = () => {
                     <div className="label">Language:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select a Language"
+                      placeholder="Select Language(s)"
                       value={selectedLanguages}
                       options={languageOptions}
                       onChange={setSelectedLanguages}
@@ -341,7 +341,7 @@ const EditPositionDetails = () => {
                     <div className="label">Bid Cycle:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select a Bid Cycle"
+                      placeholder="Select Bid Cycle(s)"
                       value={selectedBidCycles}
                       options={cycleOptions}
                       onChange={setSelectedBidCycles}
