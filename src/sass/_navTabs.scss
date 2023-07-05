@@ -1,6 +1,4 @@
 .navTabs {
-  background-color: $bg-gray-medium-4;
-  border-bottom: 3px solid $color-black;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   position: sticky;
@@ -8,33 +6,63 @@
   top: 0;
   z-index: 1;
 
-  .tab {
-    background-color: $bg-gray-medium-4;
-    border-right: 1px solid $bg-gray-dark-2;
-    border-top: 3px solid $bg-gray-medium-4;
-    font-size: 13px;
-    padding: 5px 10px;
-    text-align: center;
+  .tab:hover:not(.tab-active) {
+    cursor: pointer;
   }
 
-  // special styling for first tab
-  #asgh-tab-container {
+  &.heavyBorderTop {
+    background-color: $bg-gray-medium-4;
+    border-bottom: 3px solid $color-black;
+
     .tab {
-      border-left: 1px solid $bg-gray-dark-2;
+      background-color: $bg-gray-medium-4;
+      border-right: 1px solid $bg-gray-dark-2;
+      border-top: 3px solid $bg-gray-medium-4;
+      font-size: 13px;
+      padding: 5px 10px;
+      text-align: center;
+    }
+
+    // special styling for first tab
+    #asgh-tab-container {
+      .tab {
+        border-left: 1px solid $bg-gray-dark-2;
+      }
+    }
+
+    .tab-active {
+      color: $dos-blue;
+      background-color: $color-white;
+      border-top: 3px solid $dos-blue;
+    }
+
+    .tab:hover:not(.tab-active) {
+      color: $color-black;
+      background-color: $bg-gray-medium-2;
+      border-top: 3px solid $bg-gray-medium-2;
     }
   }
 
-  .tab-active {
-    background-color: $color-white;
-    border-top: 3px solid $dos-blue;
-    color: $dos-blue;
-  }
+  &.lightBorderBottom {
+    border-bottom: 1px solid $bg-gray-dark-2;
 
-  .tab:hover:not(.tab-active) {
-    color: $color-black;
-    background-color: $bg-gray-medium-2;
-    border-top: 3px solid $bg-gray-medium-2;
-    cursor: pointer;
+    .tab {
+      padding: 5px 10px 8px;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    .tab-active {
+      color: black;
+      border-bottom: 3px solid $primary-blue;
+      padding: 5px 10px;
+      font-weight: 500;
+    }
+
+    .tab:hover:not(.tab-active) {
+      color: $color-black;
+      background-color: $bg-gray-medium-3;
+    }
   }
 }
 
