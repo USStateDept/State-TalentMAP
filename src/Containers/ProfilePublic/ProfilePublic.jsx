@@ -147,16 +147,14 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const id$ = get(ownProps, 'match.params.id');
-  const isBureau = get(ownProps, 'match.params.viewType') === 'bureau';
-  const config = {
-    fetchData: (id, includeBids) => dispatch(userProfilePublicFetchData(id, false, includeBids, 'status', isBureau)),
+  return {
+    fetchData: (id, includeBids) => dispatch(userProfilePublicFetchData(id, false, includeBids)),
     onNavigateTo: dest => dispatch(push(dest)),
     fetchClassifications: () => dispatch(fetchClassifications()),
     registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
     unregisterHandshakePosition: id => dispatch(unregisterHandshake(id, id$)),
     deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
   };
-  return config;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfilePublic));

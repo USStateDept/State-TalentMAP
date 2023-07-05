@@ -71,6 +71,7 @@ class UserProfileGeneralInformation extends Component {
     const userID = get(userProfile, 'employee_id');
 
     const browser = getBrowser();
+    const isIE11 = browser?.name === 'Internet Explorer' && browser?.version.startsWith('11');
 
     const openPdf = (redactedVersion = false) => {
       this.getEmployeeProfile(redactedVersion);
@@ -89,7 +90,7 @@ class UserProfileGeneralInformation extends Component {
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <ErrorBoundary fallback="Employee Profile is currently unavailable">
               {
-                get(userProfile, 'employee_profile_url') && browser.name === 'Internet Explorer' && browser.version.startsWith('11') &&
+                get(userProfile, 'employee_profile_url') && isIE11 &&
                   <InformationDataPoint
                     content={
                       <InteractiveElement
@@ -103,8 +104,8 @@ class UserProfileGeneralInformation extends Component {
                   />
               }
               {
-                get(userProfile, 'employee_profile_url') && !(browser.name === 'Internet Explorer' && browser.version.startsWith('11')) &&
-              <EmployeeProfileLink userProfile={userProfile} />
+                get(userProfile, 'employee_profile_url') && !isIE11 &&
+                  <EmployeeProfileLink userProfile={userProfile} />
               }
               {
                 <InteractiveElement
