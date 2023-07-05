@@ -6,7 +6,7 @@ import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Co
 import { editProjectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
@@ -21,7 +21,8 @@ const ProjectedVacancySearch = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.editProjectedVacancy);
+
+  const userSelections = useSelector(state => state.editProjectedVacancySelections);
   const dummyPositionDetails = useSelector(state => state.editProjectedVacancy);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
@@ -120,9 +121,8 @@ const ProjectedVacancySearch = () => {
       selectedLanguage,
       selectedSkills,
       selectedBidCycle,
-      textSearch,
     ];
-    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+    if (filters.flat().length === 0 && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
