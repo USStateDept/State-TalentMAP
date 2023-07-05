@@ -255,7 +255,7 @@ const EditPositionDetails = () => {
                       options={statusOptions}
                       onChange={setSelectedStatuses}
                       valueKey="code"
-                      labelKey="publishable_status"
+                      labelKey="name"
                       disabled={isLoading}
                     />
                   </div>
