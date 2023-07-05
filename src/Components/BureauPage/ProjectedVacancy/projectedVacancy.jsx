@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { withRouter } from 'react-router';
 import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -375,4 +374,4 @@ ProjectedVacancy.defaultProps = {
   bureauPositionsIsLoading: false,
 };
 
-export default withRouter(ProjectedVacancy);
+export default ProjectedVacancy;
