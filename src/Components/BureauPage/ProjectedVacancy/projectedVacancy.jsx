@@ -17,7 +17,7 @@ import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import PositionDetailsCard from '../../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 
-const ProjectedVacancySearch = () => {
+const ProjectedVacancy = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -364,15 +364,15 @@ const ProjectedVacancySearch = () => {
 };
 
 
-ProjectedVacancySearch.propTypes = {
+ProjectedVacancy.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
 };
 
-ProjectedVacancySearch.defaultProps = {
+ProjectedVacancy.defaultProps = {
   bureauFilters: { filters: [] },
   bureauPositions: { results: [] },
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
 };
 
-export default ProjectedVacancySearch;
+export default ProjectedVacancy;
