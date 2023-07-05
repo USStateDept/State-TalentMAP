@@ -21,7 +21,6 @@ const ProjectedVacancy = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const dummyPositionDetails = useSelector(state => state.projectedVacancy);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
