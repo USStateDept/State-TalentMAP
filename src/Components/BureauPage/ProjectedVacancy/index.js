@@ -1,1 +1,1 @@
-export { default } from './ProjectedVacancy';
+export { default } from './projectedVacancy';
