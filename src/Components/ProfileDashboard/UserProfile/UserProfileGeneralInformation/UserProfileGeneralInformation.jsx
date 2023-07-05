@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
+import FA from 'react-fontawesome';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
@@ -27,13 +28,18 @@ class UserProfileGeneralInformation extends Component {
       data: null,
     };
   }
-  getEmployeeProfile = () => {
+  getEmployeeProfile = (redactedVersion) => {
     const id = shortid.generate();
     const { onToastError, onToastInfo, onToastSuccess, userProfile } = this.props;
-    let url$ = get(userProfile, 'employee_profile_url.internal');
+    const emp_profile_urls = userProfile?.employee_profile_url;
+
+    let url$ = (redactedVersion ? emp_profile_urls?.internalRedacted
+      : emp_profile_urls?.internal) || emp_profile_urls?.internalRedacted;
     if (isOnProxy()) {
-      url$ = get(userProfile, 'employee_profile_url.external');
+      url$ = (redactedVersion ? emp_profile_urls?.externalRedacted
+        : emp_profile_urls?.external) || emp_profile_urls?.externalRedacted;
     }
+
     onToastInfo(id);
     axios.get(url$, {
       withCredentials: true,
@@ -65,9 +71,10 @@ class UserProfileGeneralInformation extends Component {
     const userID = get(userProfile, 'employee_id');
 
     const browser = getBrowser();
+    const isIE11 = browser?.name === 'Internet Explorer' && browser?.version.startsWith('11');
 
-    const openPdf = () => {
-      this.getEmployeeProfile();
+    const openPdf = (redactedVersion = false) => {
+      this.getEmployeeProfile(redactedVersion);
     };
 
     return (
@@ -83,7 +90,7 @@ class UserProfileGeneralInformation extends Component {
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <ErrorBoundary fallback="Employee Profile is currently unavailable">
               {
-                get(userProfile, 'employee_profile_url') && browser.name === 'Internet Explorer' && browser.version.startsWith('11') &&
+                get(userProfile, 'employee_profile_url') && isIE11 &&
                   <InformationDataPoint
                     content={
                       <InteractiveElement
@@ -97,8 +104,17 @@ class UserProfileGeneralInformation extends Component {
                   />
               }
               {
-                get(userProfile, 'employee_profile_url') && !(browser.name === 'Internet Explorer' && browser.version.startsWith('11')) &&
-              <EmployeeProfileLink userProfile={userProfile} />
+                get(userProfile, 'employee_profile_url') && !isIE11 &&
+                  <EmployeeProfileLink userProfile={userProfile} />
+              }
+              {
+                <InteractiveElement
+                  onClick={() => openPdf(true)}
+                  type="a"
+                  title="Download Employee Profile PDF"
+                >
+                  <FA name="download" />
+                </InteractiveElement>
               }
             </ErrorBoundary>
             { isPublic &&

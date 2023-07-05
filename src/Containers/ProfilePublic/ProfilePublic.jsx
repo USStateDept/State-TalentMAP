@@ -16,8 +16,8 @@ import { toggleBidPosition } from 'actions/bidList';
 class ProfilePublic extends Component {
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
-    const isBureauView = this.isBureauView();
-    const isPostView = this.isPostView();
+    const isBureauView = this.isView('bureau');
+    const isPostView = this.isView('post');
     const bureauOrPost = isBureauView || isPostView;
     this.props.fetchData(id, !bureauOrPost);
     if (!bureauOrPost) {
@@ -25,20 +25,9 @@ class ProfilePublic extends Component {
     }
   }
 
-  isBureauView = () => {
+  isView = (view) => {
     const viewType = get(this.props, 'match.params.viewType');
-    const isBureauView = viewType === 'bureau';
-    return isBureauView;
-  }
-
-  isPostView = () => {
-    const viewType = get(this.props, 'match.params.viewType');
-    return viewType === 'post';
-  }
-
-  isAOView = () => {
-    const viewType = get(this.props, 'match.params.viewType');
-    return viewType === 'ao';
+    return viewType === view;
   }
 
   render() {
@@ -57,9 +46,9 @@ class ProfilePublic extends Component {
     const clientClassifications = userProfile.classifications;
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
-    const isBureauView = this.isBureauView();
-    const isPostView = this.isPostView();
-    const isAOView = this.isAOView();
+    const isBureauView = this.isView('bureau');
+    const isPostView = this.isView('post');
+    const isAOView = this.isView('ao');
     let props = {};
     if (isBureauView) {
       props = {
@@ -158,7 +147,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
   const id$ = get(ownProps, 'match.params.id');
-  const config = {
+  return {
     fetchData: (id, includeBids) => dispatch(userProfilePublicFetchData(id, false, includeBids)),
     onNavigateTo: dest => dispatch(push(dest)),
     fetchClassifications: () => dispatch(fetchClassifications()),
@@ -166,7 +155,6 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     unregisterHandshakePosition: id => dispatch(unregisterHandshake(id, id$)),
     deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
   };
-  return config;
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfilePublic));
