@@ -191,6 +191,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
+        text: 'Projected Vacancy Management',
+        route: '/profile/bureau/projectedvacancy',
+        icon: ' fa-keyboard-o',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
+      {
         text: 'Cycle Management',
         route: '/profile/bureau/cyclemanagement',
         icon: 'cogs',
