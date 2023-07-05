@@ -213,6 +213,12 @@ export const USER_PROFILE = PropTypes.shape({
     office_address: PropTypes.string,
     office_phone: PropTypes.string,
   }),
+  employee_profile_url: PropTypes.shape({
+    internalRedacted: PropTypes.string,
+    externalRedacted: PropTypes.string,
+    internal: PropTypes.string,
+    external: PropTypes.string,
+  }),
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
   initials: PropTypes.string,
