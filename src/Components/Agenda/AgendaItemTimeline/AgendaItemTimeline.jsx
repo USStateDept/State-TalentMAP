@@ -84,7 +84,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
     }
   }, [asgSepBid]);
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     if (isNewSeparation !== usePrevIsNewSeparation) {
       const legs$ = [...legs];
       legs$.push({
