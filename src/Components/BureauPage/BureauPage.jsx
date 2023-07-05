@@ -10,7 +10,7 @@ import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
-import ProjectedVacancy from './ProjectedVacancySearch';
+import ProjectedVacancy from './ProjectedVacancy';
 
 const BureauPage = () => {
   const dashboardProps = {

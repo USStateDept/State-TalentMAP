@@ -3,7 +3,7 @@ import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
-import { editProjectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
+import { projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
@@ -22,8 +22,8 @@ const ProjectedVacancySearch = () => {
   const dispatch = useDispatch();
 
 
-  const userSelections = useSelector(state => state.editProjectedVacancySelections);
-  const dummyPositionDetails = useSelector(state => state.editProjectedVacancy);
+  const userSelections = useSelector(state => state.projectedVacancySelections);
+  const dummyPositionDetails = useSelector(state => state.projectedVacancy);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
 
@@ -127,7 +127,7 @@ const ProjectedVacancySearch = () => {
     } else {
       setClearFilters(true);
     }
-    dispatch(editProjectedVacancyFetchData(getQuery()));
+    dispatch(projectedVacancyFetchData(getQuery()));
     dispatch(saveProjectedVacancySelections(getCurrentInputs()));
   };
 

@@ -141,28 +141,28 @@ const dummyPositionDetails = {
   has_short_list: false,
 };
 
-export function editProjectedVacancyFetchDataErrored(bool) {
+export function projectedVacancyFetchDataErrored(bool) {
   return {
-    type: 'EDIT_PROJECTED_VACANCY_FETCH_HAS_ERRORED',
+    type: 'PROJECTED_VACANCY_FETCH_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
-export function editProjectedVacancyFetchDataLoading(bool) {
+export function projectedVacancyFetchDataLoading(bool) {
   return {
-    type: 'EDIT_PROJECTED_VACANCY_FETCH_IS_LOADING',
+    type: 'PROJECTED_VACANCY_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
 
-export function editProjectedVacancyFetchDataSuccess(results) {
+export function projectedVacancyFetchDataSuccess(results) {
   return {
-    type: 'EDIT_PROJECTED_VACANCY_FETCH_SUCCESS',
+    type: 'PROJECTED_VACANCY_FETCH_SUCCESS',
     results,
   };
 }
 
-export function editProjectedVacancyExport(query = {}) {
+export function projectedVacancyExport(query = {}) {
   const q = convertQueryToString(query);
   const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
   const ep = `${endpoint}?${q}`;
@@ -173,46 +173,46 @@ export function editProjectedVacancyExport(query = {}) {
     });
 }
 
-export function editProjectedVacancyFiltersFetchDataSuccess(results) {
+export function projectedVacancyFiltersFetchDataSuccess(results) {
   return {
-    type: 'EDIT_PROJECTED_VACANCY_FILTERS_FETCH_SUCCESS',
+    type: 'PROJECTED_VACANCY_FILTERS_FETCH_SUCCESS',
     results,
   };
 }
 
-export function editProjectedVacancyFiltersFetchDataLoading(bool) {
+export function projectedVacancyFiltersFetchDataLoading(bool) {
   return {
-    type: 'EDIT_PROJECTED_VACANCY_FILTERS_FETCH_IS_LOADING',
+    type: 'PROJECTED_VACANCY_FILTERS_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
 
-export function editProjectedVacancySelectionsSaveSuccess(result) {
+export function projectedVacancySelectionsSaveSuccess(result) {
   return {
-    type: 'EDIT_PROJECTED_VACANCY_SELECTIONS_SAVE_SUCCESS',
+    type: 'PROJECTED_VACANCY_SELECTIONS_SAVE_SUCCESS',
     result,
   };
 }
 
 export function saveProjectedVacancySelections(queryObject) {
-  return (dispatch) => dispatch(editProjectedVacancySelectionsSaveSuccess(queryObject));
+  return (dispatch) => dispatch(projectedVacancySelectionsSaveSuccess(queryObject));
 }
 
-export function editProjectedVacancyFetchData() {
+export function projectedVacancyFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(editProjectedVacancyFetchDataSuccess(dummyPositionDetails));
-      dispatch(editProjectedVacancyFetchDataErrored(false));
-      dispatch(editProjectedVacancyFetchDataLoading(false));
+      dispatch(projectedVacancyFetchDataSuccess(dummyPositionDetails));
+      dispatch(projectedVacancyFetchDataErrored(false));
+      dispatch(projectedVacancyFetchDataLoading(false));
     });
   };
 }
 
-export function editProjectedVacancyFiltersFetchData() {
+export function projectedVacancyFiltersFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(editProjectedVacancyFiltersFetchDataSuccess({}));
-      dispatch(editProjectedVacancyFiltersFetchDataLoading(false));
+      dispatch(projectedVacancyFiltersFetchDataSuccess({}));
+      dispatch(projectedVacancyFiltersFetchDataLoading(false));
     });
   };
 }

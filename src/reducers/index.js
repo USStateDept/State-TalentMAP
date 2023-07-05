@@ -66,7 +66,7 @@ import panelMeetingAgendas from './panelMeetingAgendas';
 import editPositionDetails from './editPositionDetails';
 import editRemark from './editRemark';
 import panelMeetingAdmin from './panelMeetingAdmin';
-import editProjectedVacancy from './editProjectedVacancy';
+import projectedVacancy from './projectedVacancy';
 
 export default (history) => combineReducers({
   ...results,
@@ -130,7 +130,7 @@ export default (history) => combineReducers({
   ...editPositionDetails,
   ...editRemark,
   ...panelMeetingAdmin,
-  ...editProjectedVacancy,
+  ...projectedVacancy,
   router: connectRouter(history),
   client,
   login,

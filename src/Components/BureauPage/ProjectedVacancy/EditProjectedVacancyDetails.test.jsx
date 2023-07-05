@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import ProjectedVacancy from './EditProjectedVacancyDetails';
+import ProjectedVacancy from './projectedVacancy';
 
 describe('EditProjectedVacancyDetails', () => {
   it('should be defined', () => {
