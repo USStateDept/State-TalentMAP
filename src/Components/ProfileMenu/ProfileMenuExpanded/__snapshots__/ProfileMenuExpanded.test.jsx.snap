@@ -242,6 +242,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search=""
         title="Position Manager"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Projected Vacancy Management"
+        link="/profile/bureau/projectedvacancy"
+        search=""
+        title="Projected Vacancy Management"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -566,6 +574,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Manager"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Projected Vacancy Management"
+        link="/profile/bureau/projectedvacancy"
+        search=""
+        title="Projected Vacancy Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
