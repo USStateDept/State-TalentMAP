@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { get } from 'lodash';
 import swal from '@sweetalert/with-react';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -15,10 +14,11 @@ class EmployeeProfileLink extends Component {
   }
   render() {
     const { userProfile } = this.props;
+    const emp_profile_urls = userProfile?.employee_profile_url;
 
-    let url$ = get(userProfile, 'employee_profile_url.internal');
+    let url$ = emp_profile_urls?.internal || emp_profile_urls?.internalRedacted;
     if (isOnProxy()) {
-      url$ = get(userProfile, 'employee_profile_url.external');
+      url$ = emp_profile_urls?.external || emp_profile_urls?.externalRedacted;
     }
 
     const openPdf = () => swal({

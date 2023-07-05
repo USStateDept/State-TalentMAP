@@ -1,133 +1,133 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Picky from 'react-picky';
-import FA from 'react-fontawesome';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
-
-import { useDataLoader } from 'hooks';
-import { filtersFetchData } from 'actions/filters/filters';
-import { editPositionDetailsFetchData, saveEditPositionDetailsSelections } from 'actions/editPositionDetails';
-import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
-import Spinner from 'Components/Spinner';
 import SelectForm from 'Components/SelectForm';
-import ScrollUpButton from 'Components/ScrollUpButton';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import api from '../../api';
-import PositionDetailsCard from '../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
-import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
+import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
+import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
+import { projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
+import Spinner from 'Components/Spinner';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDataLoader } from 'hooks';
+import PropTypes from 'prop-types';
+import FA from 'react-fontawesome';
+import Picky from 'react-picky';
+import { filtersFetchData } from 'actions/filters/filters';
+import api from '../../../api';
+import ScrollUpButton from '../../ScrollUpButton';
+import PositionDetailsCard from '../../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 
-const EditPositionDetails = () => {
+const ProjectedVacancy = () => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.editPositionDetailsSelections);
-  const dummyPositionDetails = useSelector(state => state.editPositionDetails);
-
+  const userSelections = useSelector(state => state.projectedVacancySelections);
+  const dummyPositionDetails = useSelector(state => state.projectedVacancy);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
-  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
+  const [selectedGrade, setSelectedGrade] = useState(userSelections?.selectedGrade || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedLanguages, setSelectedLanguages] =
-    useState(userSelections?.selectedLanguage || []);
-  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
-  const [selectedBidCycles, setSelectedBidCycles] =
-    useState(userSelections?.selectedBidCycle || []);
+  const [selectedLanguage, setSelectedLanguage] = useState(userSelections?.selectedLanguage || []);
+  const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
+  const [selectedPost, setSelectedPost] = useState(userSelections?.selectedPost || []);
+  const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const statusOptions = [
-    { code: 1, name: 'Vet' },
-    { code: 2, name: 'Publishable' },
-    { code: 3, name: 'Non-Publishable' },
-  ];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
-  const gradeOptions = uniqBy(get(grades, 'data'), 'code');
-  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
-  const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
   const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
+  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
+  const gradesOptions = uniqBy(get(grades, 'data'), 'code');
+  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
+  const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
+  const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
   const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
-  const additionalFiltersIsLoading = includes([orgsLoading], true);
+  const projectVacancyFiltersIsLoading =
+  includes([orgsLoading], true);
 
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
-  const [clearFilters, setClearFilters] = useState(false);
-
   const pageSizes = EDIT_POSITION_DETAILS_PAGE_SIZES;
   const sorts = EDIT_POSITION_DETAILS_SORT;
-  const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
 
   const getQuery = () => ({
     limit,
     ordering,
     // User Filters
-    'position-details-status': selectedStatuses.map(statusObject => (statusObject?.code)),
-    'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'position-details-language': selectedLanguages.map(langObject => (langObject?.code)),
-    'position-details-post': selectedPosts.map(postObject => (postObject?.code)),
-    'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
+    'projected-vacancy-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
+    'projected-vacancy-post': selectedPost.map(postObject => (postObject?.code)),
+    'projected-vacancy-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
+    'projected-vacancy-cycles': selectedBidCycle.map(cycleObject => (cycleObject?.id)),
+    'projected-vacancy-language': selectedLanguage.map(langObject => (langObject?.code)),
+    'projected-vacancy-grades': selectedGrade.map(gradeObject => (gradeObject?.code)),
+    'projected-vacancy-skills': selectedSkills.map(skillObject => (skillObject?.code)),
 
     // Free Text
     q: textInput || textSearch,
   });
 
+  const resetFilters = () => {
+    setSelectedBureaus([]);
+    setSelectedPost([]);
+    setSelectedOrgs([]);
+    setSelectedGrade([]);
+    setSelectedLanguage([]);
+    setSelectedSkills([]);
+    setSelectedBidCycle([]);
+    setTextSearch('');
+    setTextInput('');
+    childRef.current.clearText();
+    setClearFilters(false);
+  };
+
   const getCurrentInputs = () => ({
-    selectedStatus: selectedStatuses,
     selectedBureaus,
+    selectedPost,
     selectedOrgs,
-    selectedGrade: selectedGrades,
+    selectedGrade,
+    selectedLanguage,
     selectedSkills,
-    selectedLanguage: selectedLanguages,
-    selectedPost: selectedPosts,
-    selectedBidCycle: selectedBidCycles,
+    selectedBidCycle,
     textSearch,
   });
 
   useEffect(() => {
-    dispatch(saveEditPositionDetailsSelections(getCurrentInputs()));
+    dispatch(saveProjectedVacancySelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
   const fetchAndSet = () => {
     const filters = [
-      selectedStatuses,
       selectedBureaus,
+      selectedPost,
       selectedOrgs,
-      selectedGrades,
+      selectedGrade,
+      selectedLanguage,
       selectedSkills,
-      selectedLanguages,
-      selectedPosts,
-      selectedBidCycles,
-      textSearch,
+      selectedBidCycle,
     ];
-    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+    if (filters.flat().length === 0 && isEmpty(textSearch)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
     }
-    dispatch(editPositionDetailsFetchData(getQuery()));
-    dispatch(saveEditPositionDetailsSelections(getCurrentInputs()));
+    dispatch(projectedVacancyFetchData(getQuery()));
+    dispatch(saveProjectedVacancySelections(getCurrentInputs()));
   };
 
   useEffect(() => {
@@ -135,16 +135,16 @@ const EditPositionDetails = () => {
   }, [
     limit,
     ordering,
-    selectedStatuses,
     selectedBureaus,
+    selectedPost,
     selectedOrgs,
-    selectedGrades,
+    selectedGrade,
+    selectedLanguage,
     selectedSkills,
-    selectedLanguages,
-    selectedPosts,
-    selectedBidCycles,
+    selectedBidCycle,
     textSearch,
   ]);
+
 
   function submitSearch(text) {
     setTextSearch(text);
@@ -159,7 +159,7 @@ const EditPositionDetails = () => {
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
-    // only Remarks needs to use 'text'
+
     if (has(items[0], 'text')) {
       codeOrText = 'text';
     }
@@ -202,31 +202,17 @@ const EditPositionDetails = () => {
     includeSelectAll: true,
   };
 
-  const resetFilters = () => {
-    setSelectedStatuses([]);
-    setSelectedBureaus([]);
-    setSelectedOrgs([]);
-    setSelectedGrades([]);
-    setSelectedSkills([]);
-    setSelectedLanguages([]);
-    setSelectedPosts([]);
-    setSelectedBidCycles([]);
-    setTextSearch('');
-    setTextInput('');
-    childRef.current.clearText();
-    setClearFilters(false);
-  };
-
   const dummyid = get(dummyPositionDetails, 'id', '');
+
   return (
     isLoading ?
-      <Spinner type="bureau-filters" size="small" /> :
+      <Spinner type="projected-vacancy-filters" size="small" /> :
       <>
-        <div className="bureau-page edit-position-details-page">
-          <div className="usa-grid-full position-manager-upper-section">
+        <div className="projected-vacancy-page">
+          <div className="usa-grid-full projected-vacancy-upper-section">
+            <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" />
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
-                <ProfileSectionTitle title="Position Details" icon="keyboard-o" />
                 <PositionManagerSearch
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
@@ -239,34 +225,21 @@ const EditPositionDetails = () => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                      <button className="unstyled-button" onClick={resetFilters}>
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
+                  <button className="unstyled-button" onClick={resetFilters}>
+                    <FA name="times" />
+                      Clear Filters
+                  </button>
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-manager-filters results-dropdown">
-                  <div className="filter-div">
-                    <div className="label">Publishable Status:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Status(es)"
-                      value={selectedStatuses}
-                      options={statusOptions}
-                      onChange={setSelectedStatuses}
-                      valueKey="code"
-                      labelKey="name"
-                      disabled={isLoading}
-                    />
-                  </div>
+                <div className="usa-width-one-whole projected-vacancy-filters results-dropdown">
                   <div className="filter-div">
                     <div className="label">Bureau:</div>
                     <Picky
                       {...pickyProps}
                       placeholder="Select Bureau(s)"
                       value={selectedBureaus}
-                      options={bureauOptions}
+                      options={bureausOptions}
                       onChange={setSelectedBureaus}
                       valueKey="code"
                       labelKey="long_description"
@@ -277,7 +250,7 @@ const EditPositionDetails = () => {
                     <div className="label">Organization:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select Organization(s)"
+                      placeholder="Select an Org"
                       value={selectedOrgs}
                       options={organizationOptions}
                       onChange={setSelectedOrgs}
@@ -290,10 +263,10 @@ const EditPositionDetails = () => {
                     <div className="label">Grade:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select Grade(s)"
-                      value={selectedGrades}
-                      options={gradeOptions}
-                      onChange={setSelectedGrades}
+                      placeholder="Select a Grade"
+                      value={selectedGrade}
+                      options={gradesOptions}
+                      onChange={setSelectedGrade}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -305,7 +278,7 @@ const EditPositionDetails = () => {
                       {...pickyProps}
                       placeholder="Select Skill(s)"
                       value={selectedSkills}
-                      options={skillOptions}
+                      options={skillsOptions}
                       onChange={setSelectedSkills}
                       valueKey="code"
                       labelKey="custom_description"
@@ -316,10 +289,10 @@ const EditPositionDetails = () => {
                     <div className="label">Language:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select Language(s)"
-                      value={selectedLanguages}
-                      options={languageOptions}
-                      onChange={setSelectedLanguages}
+                      placeholder="Select a Language"
+                      value={selectedLanguage}
+                      options={languagesOptions}
+                      onChange={setSelectedLanguage}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -330,9 +303,9 @@ const EditPositionDetails = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select Location(s)"
-                      value={selectedPosts}
+                      value={selectedPost}
                       options={locationOptions}
-                      onChange={setSelectedPosts}
+                      onChange={setSelectedPost}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -342,10 +315,10 @@ const EditPositionDetails = () => {
                     <div className="label">Bid Cycle:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select Bid Cycle(s)"
-                      value={selectedBidCycles}
+                      placeholder="Select a Bid Cycle"
+                      value={selectedBidCycle}
                       options={cycleOptions}
-                      onChange={setSelectedBidCycles}
+                      onChange={setSelectedBidCycle}
                       valueKey="id"
                       labelKey="name"
                       disabled={isLoading}
@@ -356,9 +329,9 @@ const EditPositionDetails = () => {
             </div>
           </div>
           {
-            <div className="bureau-results-controls results-dropdown">
+            <div className="edit-position-details-results-controls">
               <SelectForm
-                className="results-select"
+                className="edit-position-details-results-select"
                 id="edit-position-details-results-sort"
                 options={sorts.options}
                 label="Sort by:"
@@ -366,7 +339,7 @@ const EditPositionDetails = () => {
                 onSelectOption={value => setOrdering(value.target.value)}
               />
               <SelectForm
-                className="results-select"
+                className="edit-position-details-results-select"
                 id="edit-position-details-num-results"
                 options={pageSizes.options}
                 label="Results:"
@@ -376,14 +349,11 @@ const EditPositionDetails = () => {
               <ScrollUpButton />
             </div>
           }
-          <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
+          <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
             <div className="usa-grid-full position-list">
               <PositionDetailsCard
                 result={dummyPositionDetails}
                 key={dummyid}
-              />
-              <PublishablePositionCard
-                result={dummyPositionDetails}
               />
             </div>
           </div>
@@ -392,10 +362,16 @@ const EditPositionDetails = () => {
   );
 };
 
-EditPositionDetails.propTypes = {
+
+ProjectedVacancy.propTypes = {
+  bureauFiltersIsLoading: PropTypes.bool,
 };
 
-EditPositionDetails.defaultProps = {
+ProjectedVacancy.defaultProps = {
+  bureauFilters: { filters: [] },
+  bureauPositions: { results: [] },
+  bureauFiltersIsLoading: false,
+  bureauPositionsIsLoading: false,
 };
 
-export default EditPositionDetails;
+export default ProjectedVacancy;
