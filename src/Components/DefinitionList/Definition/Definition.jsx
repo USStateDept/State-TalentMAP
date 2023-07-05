@@ -14,7 +14,7 @@ const Definition = (props) => {
   let { term, definition } = props;
   const { excludeColon } = props;
 
-  term = (term || '').length && `${term}`;
+  term = (term || '').length ? `${term}` : undefined;
   if (!excludeColon) term = `${term}:`;
   definition = definition || '';
 

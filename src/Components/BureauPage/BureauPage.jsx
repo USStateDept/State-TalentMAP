@@ -8,6 +8,7 @@ import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDeta
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
+import ProjectedVacancy from './ProjectedVacancy';
 
 const BureauPage = () => {
   const posManagerProps = {
@@ -28,7 +29,9 @@ const BureauPage = () => {
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/bureau/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
+        <Route path="/profile/bureau/projectedvacancy" render={() => <ProjectedVacancy isCDO={false} />} />
         <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
+        <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement />} />
       </Switch>
     </div>
   );

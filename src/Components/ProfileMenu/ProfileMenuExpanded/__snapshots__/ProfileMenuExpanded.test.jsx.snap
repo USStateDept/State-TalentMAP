@@ -189,6 +189,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Management"
+        link="/profile/ao/cyclemanagement"
+        search=""
+        title="Cycle Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="sticky-note"
         key="Employee Agendas"
         link="/profile/ao/employeeagendas"
@@ -228,6 +236,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Management"
+        link="/profile/bureau/cyclemanagement"
+        search=""
+        title="Cycle Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName=" fa-keyboard-o"
         key="Position Details"
         link="/profile/bureau/positiondetails"
@@ -241,6 +257,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Manager"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Projected Vacancy Management"
+        link="/profile/bureau/projectedvacancy"
+        search=""
+        title="Projected Vacancy Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -514,6 +538,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Management"
+        link="/profile/ao/cyclemanagement"
+        search=""
+        title="Cycle Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="sticky-note"
         key="Employee Agendas"
         link="/profile/ao/employeeagendas"
@@ -553,6 +585,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Management"
+        link="/profile/bureau/cyclemanagement"
+        search=""
+        title="Cycle Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName=" fa-keyboard-o"
         key="Position Details"
         link="/profile/bureau/positiondetails"
@@ -566,6 +606,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/positionmanager"
         search=""
         title="Position Manager"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Projected Vacancy Management"
+        link="/profile/bureau/projectedvacancy"
+        search=""
+        title="Projected Vacancy Management"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
