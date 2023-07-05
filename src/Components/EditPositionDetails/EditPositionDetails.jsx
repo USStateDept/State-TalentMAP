@@ -4,7 +4,6 @@ import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 
-import PropTypes from 'prop-types';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { editPositionDetailsFetchData, saveEditPositionDetailsSelections } from 'actions/editPositionDetails';
@@ -19,14 +18,6 @@ import api from '../../api';
 import PositionDetailsCard from '../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 
 const EditPositionDetails = () => {
-  // Props
-  // const {
-  //   filters,
-  //   positions,
-  //   filtersIsLoading,
-  //   positionsIsLoading,
-  // } = props;
-
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -45,22 +36,22 @@ const EditPositionDetails = () => {
   const [selectedGrade, setSelectedGrade] = useState(userSelections?.selectedGrade || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedLanguage, setSelectedLanguage] = useState(userSelections?.selectedLanguage || []);
-  const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
   const [selectedPost, setSelectedPost] = useState(userSelections?.selectedPost || []);
+  const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const statuses = genericFilters$.find(f => get(f, 'item.description') === 'publishableStatus');
+  const statuses = genericFilters$.find(f => get(f, 'item.description') === 'publishable_status');
   const statusOptions = uniqBy(sortBy(get(statuses, 'data'), [(b) => b.status]));
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
   const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
+  const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
   const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
   const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
@@ -82,25 +73,28 @@ const EditPositionDetails = () => {
     limit,
     ordering,
     // User Filters
-    'position-details-status': selectedBureaus.map(bureauObject => (bureauObject?.code)),
+    'position-details-status': selectedStatus.map(bureauObject => (bureauObject?.code)),
     'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'position-details-post': selectedPost.map(postObject => (postObject?.code)),
     'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'position-details-cycles': selectedBidCycle.map(cycleObject => (cycleObject?.id)),
-    'position-details-language': selectedLanguage.map(langObject => (langObject?.code)),
     'position-details-grades': selectedGrade.map(gradeObject => (gradeObject?.code)),
     'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
+    'position-details-language': selectedLanguage.map(langObject => (langObject?.code)),
+    'position-details-post': selectedPost.map(postObject => (postObject?.code)),
+    'position-details-cycles': selectedBidCycle.map(cycleObject => (cycleObject?.id)),
 
     // Free Text
     q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
+    selectedStatus,
     selectedBureaus,
     selectedOrgs,
     selectedGrade,
-    selectedLanguage,
     selectedSkills,
+    selectedLanguage,
+    selectedPost,
+    selectedBidCycle,
     textSearch,
   });
 
@@ -111,12 +105,14 @@ const EditPositionDetails = () => {
 
   const fetchAndSet = () => {
     const filters = [
+      selectedStatus,
       selectedBureaus,
-      selectedPost,
       selectedOrgs,
       selectedGrade,
-      selectedLanguage,
       selectedSkills,
+      selectedLanguage,
+      selectedPost,
+      selectedBidCycle,
       textSearch,
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
@@ -133,12 +129,14 @@ const EditPositionDetails = () => {
   }, [
     limit,
     ordering,
+    selectedStatus,
     selectedBureaus,
-    selectedPost,
     selectedOrgs,
     selectedGrade,
-    selectedLanguage,
     selectedSkills,
+    selectedLanguage,
+    selectedPost,
+    selectedBidCycle,
     textSearch,
   ]);
 
@@ -199,12 +197,13 @@ const EditPositionDetails = () => {
   };
 
   const resetFilters = () => {
+    setSelectedStatus([]);
     setSelectedBureaus([]);
-    setSelectedPost([]);
     setSelectedOrgs([]);
     setSelectedGrade([]);
-    setSelectedLanguage([]);
     setSelectedSkills([]);
+    setSelectedLanguage([]);
+    setSelectedPost([]);
     setSelectedBidCycle([]);
     setTextSearch('');
     setTextInput('');
@@ -385,17 +384,9 @@ const EditPositionDetails = () => {
 };
 
 EditPositionDetails.propTypes = {
-  filters: PropTypes.FILTERS_PARENT,
-  positions: PropTypes.POSITION_SEARCH_RESULTS,
-  filtersIsLoading: PropTypes.bool,
-  positionsIsLoading: PropTypes.bool,
 };
 
 EditPositionDetails.defaultProps = {
-  filters: { filters: [] },
-  positions: { results: [] },
-  filtersIsLoading: false,
-  positionsIsLoading: false,
 };
 
 export default EditPositionDetails;
