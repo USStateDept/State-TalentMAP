@@ -30,14 +30,16 @@ const EditPositionDetails = () => {
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
-  const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
+  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrade, setSelectedGrade] = useState(userSelections?.selectedGrade || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedLanguage, setSelectedLanguage] = useState(userSelections?.selectedLanguage || []);
-  const [selectedPost, setSelectedPost] = useState(userSelections?.selectedPost || []);
-  const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
+  const [selectedLanguages, setSelectedLanguages] =
+    useState(userSelections?.selectedLanguage || []);
+  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
+  const [selectedBidCycles, setSelectedBidCycles] =
+    useState(userSelections?.selectedBidCycle || []);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const statusOptions = [
@@ -46,13 +48,13 @@ const EditPositionDetails = () => {
     { code: 3, name: 'Non-Publishable' },
   ];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
+  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
-  const gradesOptions = uniqBy(get(grades, 'data'), 'code');
+  const gradeOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
   const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
-  const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
   const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
   const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
   const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
@@ -76,28 +78,28 @@ const EditPositionDetails = () => {
     limit,
     ordering,
     // User Filters
-    'position-details-status': selectedStatus.map(statusObject => (statusObject?.code)),
+    'position-details-status': selectedStatuses.map(statusObject => (statusObject?.code)),
     'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
     'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'position-details-grades': selectedGrade.map(gradeObject => (gradeObject?.code)),
+    'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'position-details-language': selectedLanguage.map(langObject => (langObject?.code)),
-    'position-details-post': selectedPost.map(postObject => (postObject?.code)),
-    'position-details-cycles': selectedBidCycle.map(cycleObject => (cycleObject?.id)),
+    'position-details-language': selectedLanguages.map(langObject => (langObject?.code)),
+    'position-details-post': selectedPosts.map(postObject => (postObject?.code)),
+    'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
 
     // Free Text
     q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
-    selectedStatus,
+    selectedStatus: selectedStatuses,
     selectedBureaus,
     selectedOrgs,
-    selectedGrade,
+    selectedGrade: selectedGrades,
     selectedSkills,
-    selectedLanguage,
-    selectedPost,
-    selectedBidCycle,
+    selectedLanguage: selectedLanguages,
+    selectedPost: selectedPosts,
+    selectedBidCycle: selectedBidCycles,
     textSearch,
   });
 
@@ -108,14 +110,14 @@ const EditPositionDetails = () => {
 
   const fetchAndSet = () => {
     const filters = [
-      selectedStatus,
+      selectedStatuses,
       selectedBureaus,
       selectedOrgs,
-      selectedGrade,
+      selectedGrades,
       selectedSkills,
-      selectedLanguage,
-      selectedPost,
-      selectedBidCycle,
+      selectedLanguages,
+      selectedPosts,
+      selectedBidCycles,
       textSearch,
     ];
     if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
@@ -132,14 +134,14 @@ const EditPositionDetails = () => {
   }, [
     limit,
     ordering,
-    selectedStatus,
+    selectedStatuses,
     selectedBureaus,
     selectedOrgs,
-    selectedGrade,
+    selectedGrades,
     selectedSkills,
-    selectedLanguage,
-    selectedPost,
-    selectedBidCycle,
+    selectedLanguages,
+    selectedPosts,
+    selectedBidCycles,
     textSearch,
   ]);
 
@@ -200,14 +202,14 @@ const EditPositionDetails = () => {
   };
 
   const resetFilters = () => {
-    setSelectedStatus([]);
+    setSelectedStatuses([]);
     setSelectedBureaus([]);
     setSelectedOrgs([]);
-    setSelectedGrade([]);
+    setSelectedGrades([]);
     setSelectedSkills([]);
-    setSelectedLanguage([]);
-    setSelectedPost([]);
-    setSelectedBidCycle([]);
+    setSelectedLanguages([]);
+    setSelectedPosts([]);
+    setSelectedBidCycles([]);
     setTextSearch('');
     setTextInput('');
     childRef.current.clearText();
@@ -249,9 +251,9 @@ const EditPositionDetails = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select Status(es)"
-                      value={selectedStatus}
+                      value={selectedStatuses}
                       options={statusOptions}
-                      onChange={setSelectedStatus}
+                      onChange={setSelectedStatuses}
                       valueKey="code"
                       labelKey="publishable_status"
                       disabled={isLoading}
@@ -263,7 +265,7 @@ const EditPositionDetails = () => {
                       {...pickyProps}
                       placeholder="Select Bureau(s)"
                       value={selectedBureaus}
-                      options={bureausOptions}
+                      options={bureauOptions}
                       onChange={setSelectedBureaus}
                       valueKey="code"
                       labelKey="long_description"
@@ -288,9 +290,9 @@ const EditPositionDetails = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select a Grade"
-                      value={selectedGrade}
-                      options={gradesOptions}
-                      onChange={setSelectedGrade}
+                      value={selectedGrades}
+                      options={gradeOptions}
+                      onChange={setSelectedGrades}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -302,7 +304,7 @@ const EditPositionDetails = () => {
                       {...pickyProps}
                       placeholder="Select Skill(s)"
                       value={selectedSkills}
-                      options={skillsOptions}
+                      options={skillOptions}
                       onChange={setSelectedSkills}
                       valueKey="code"
                       labelKey="custom_description"
@@ -314,9 +316,9 @@ const EditPositionDetails = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select a Language"
-                      value={selectedLanguage}
-                      options={languagesOptions}
-                      onChange={setSelectedLanguage}
+                      value={selectedLanguages}
+                      options={languageOptions}
+                      onChange={setSelectedLanguages}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -327,9 +329,9 @@ const EditPositionDetails = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select Location(s)"
-                      value={selectedPost}
+                      value={selectedPosts}
                       options={locationOptions}
-                      onChange={setSelectedPost}
+                      onChange={setSelectedPosts}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -340,9 +342,9 @@ const EditPositionDetails = () => {
                     <Picky
                       {...pickyProps}
                       placeholder="Select a Bid Cycle"
-                      value={selectedBidCycle}
+                      value={selectedBidCycles}
                       options={cycleOptions}
-                      onChange={setSelectedBidCycle}
+                      onChange={setSelectedBidCycles}
                       valueKey="id"
                       labelKey="name"
                       disabled={isLoading}
