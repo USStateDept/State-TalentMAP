@@ -83,7 +83,7 @@ const PositionExpandableContent = ({ sections }) => {
 };
 
 PositionExpandableContent.propTypes = {
-  tabs: PropTypes.shape({
+  sections: PropTypes.shape({
     subheading: PropTypes.shape({}),
     bodyPrimary: PropTypes.shape({}),
     bodySecondary: PropTypes.shape({}),
