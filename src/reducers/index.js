@@ -67,6 +67,7 @@ import editPositionDetails from './editPositionDetails';
 import editRemark from './editRemark';
 import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
+import cycleManagement from './cycleManagement';
 
 export default (history) => combineReducers({
   ...results,
@@ -131,6 +132,7 @@ export default (history) => combineReducers({
   ...editRemark,
   ...panelMeetingAdmin,
   ...projectedVacancy,
+  ...cycleManagement,
   router: connectRouter(history),
   client,
   login,

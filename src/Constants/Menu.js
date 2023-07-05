@@ -199,6 +199,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
+      {
+        text: 'Cycle Management',
+        route: '/profile/bureau/cyclemanagement',
+        icon: 'cogs',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.position_details') ?
         {
           text: 'Position Details',
@@ -280,6 +289,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         roles: [
           'ao_user',
           'superuser',
+        ],
+      },
+      {
+        text: 'Cycle Management',
+        route: '/profile/ao/cyclemanagement',
+        icon: 'cogs',
+        roles: [
+          'ao_user',
+          'super_user',
         ],
       },
     ],

@@ -6,6 +6,7 @@ import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintena
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDetails';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
+import CycleManagement from 'Components/CycleManagement';
 import Dashboard from './Dashboard';
 import Stats from './Stats';
 import PositionManager from './PositionManager';
@@ -35,6 +36,7 @@ const BureauPage = () => {
         <Route path="/profile/ao/panelmeetings" render={() => <PanelMeetingSearch isCDO={false} />} />
         <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
         <Route path="/profile/ao/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isAO />} />
+        <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement />} isAO />
         <Route path="/profile/(bureau|ao)/dashboard" render={() => <Dashboard {...dashboardProps} />} />
         <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
         <Route path="/profile/bureau/stats" render={() => <Stats {...statsProps} />} />
@@ -43,6 +45,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
         <Route path="/profile/bureau/projectedvacancy" render={() => <ProjectedVacancy isCDO={false} />} />
         <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
+        <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement />} />
       </Switch>
     </div>
   );
