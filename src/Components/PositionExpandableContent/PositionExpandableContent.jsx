@@ -60,6 +60,7 @@ const PositionExpandableContent = ({ sections }) => {
                 />
               </Linkify>
               <div className="word-count">
+                {/* eslint-disable-next-line react/prop-types */}
                 {sections.textarea.length} / 4,000
               </div>
             </Row>
