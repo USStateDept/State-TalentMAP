@@ -40,8 +40,11 @@ const EditPositionDetails = () => {
   const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const statuses = genericFilters$.find(f => get(f, 'item.description') === 'publishable_status');
-  const statusOptions = uniqBy(sortBy(get(statuses, 'data'), [(b) => b.status]));
+  const statusOptions = [
+    { code: 1, name: 'Vet' },
+    { code: 2, name: 'Publishable' },
+    { code: 3, name: 'Non-Publishable' },
+  ];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
@@ -73,7 +76,7 @@ const EditPositionDetails = () => {
     limit,
     ordering,
     // User Filters
-    'position-details-status': selectedStatus.map(bureauObject => (bureauObject?.code)),
+    'position-details-status': selectedStatus.map(statusObject => (statusObject?.code)),
     'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
     'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'position-details-grades': selectedGrade.map(gradeObject => (gradeObject?.code)),
