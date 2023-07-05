@@ -189,6 +189,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Management"
+        link="/profile/ao/cyclemanagement"
+        search=""
+        title="Cycle Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="sticky-note"
         key="Employee Agendas"
         link="/profile/ao/employeeagendas"
@@ -519,6 +527,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/ao/availablebidders"
         search=""
         title="Available Bidders"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="cogs"
+        key="Cycle Management"
+        link="/profile/ao/cyclemanagement"
+        search=""
+        title="Cycle Management"
       />
       <withRouter(NavLink)
         hidden={true}
