@@ -61,7 +61,6 @@ const ProfileDashboard = ({
                     <BoxShadow className="usa-width-one-whole user-dashboard-section current-user-section">
                       <UserProfile
                         userProfile={userProfile}
-                        showEditLink={!isPublic}
                         isPublic={isPublic}
                       />
                     </BoxShadow>

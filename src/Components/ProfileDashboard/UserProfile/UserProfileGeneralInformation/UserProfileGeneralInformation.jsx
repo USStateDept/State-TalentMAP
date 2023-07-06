@@ -143,7 +143,6 @@ class UserProfileGeneralInformation extends Component {
 
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
-  showEditLink: PropTypes.bool,
   useGroup: PropTypes.bool,
   useColor: PropTypes.bool,
   colorProp: PropTypes.string,
@@ -154,7 +153,6 @@ UserProfileGeneralInformation.propTypes = {
 };
 
 UserProfileGeneralInformation.defaultProps = {
-  showEditLink: true,
   useGroup: false,
   useColor: false,
   colorProp: 'displayName',
