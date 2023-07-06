@@ -92,7 +92,7 @@ class NavLink extends Component {
       <div>
         {
           !hidden &&
-          <li style={{ width: '300px' }} className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
+          <li style={{ maxWidth: '300px' }} className={`usa-grid-full ${children ? 'expandable-link' : ''} ${isHighlighted ? 'link-highlighted' : 'link-unhighlighted'}`}>
             <div className="list-item-wrapper">
               {
                 this.wrapInLink( // wrap our element
