@@ -129,10 +129,11 @@
     flex-flow: row wrap;
     justify-content: center;
 
-    .ted-button {
+    .ted-buttons {
       display: flex;
       justify-content: flex-end;
       flex-basis: 66%;
+      margin-right: 70px;
     }
   }
 
