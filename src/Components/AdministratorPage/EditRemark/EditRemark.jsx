@@ -168,14 +168,12 @@ const EditRemark = (props) => {
         </div>
       </div>
       <div className="edit-remark-checkboxes-controls">
-        <div className="edit-remark-checkboxes">
-          <CheckBox
-            label="Active Indicator"
-            id="active-indicator-checkbox"
-            onCheckBoxClick={e => setActiveIndicator(e)}
-            value={activeIndicator}
-          />
-        </div>
+        <CheckBox
+          label="Active Indicator"
+          id="active-indicator-checkbox"
+          onCheckBoxClick={e => setActiveIndicator(e)}
+          value={activeIndicator}
+        />
         <div className="modal-controls">
           <button onClick={submitRemark}>Submit</button>
           <button className="usa-button-secondary" onClick={closeRemarkModal}>Cancel</button>
