@@ -7,7 +7,7 @@ import Spinner from '../../Spinner';
 import SelectForm from '../../SelectForm';
 import { Column, Row } from '../../Layout';
 
-
+// we are not currently showing this page - it was previously behind static content flag
 const BureauPage = (props) => {
   const {
     placeholderText,

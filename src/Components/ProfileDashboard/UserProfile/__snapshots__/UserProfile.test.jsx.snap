@@ -7,7 +7,6 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   <Connect(UserProfileGeneralInformation)
     colorProp="firstName"
     isPublic={false}
-    showEditLink={true}
     useColor={false}
     useGroup={false}
     userProfile={
