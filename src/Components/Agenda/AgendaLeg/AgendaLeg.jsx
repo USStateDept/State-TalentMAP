@@ -106,7 +106,7 @@ const AgendaLeg = props => {
   }, []);
 
   const clearTed = () => {
-    updateLeg(get(leg, 'ail_seq_num'), { ted: '' });
+    updateLeg(leg?.ail_seq_num, { ted: '' });
     swal.close();
   };
 
@@ -233,14 +233,13 @@ const AgendaLeg = props => {
 
   const getCalendar = () => (
     disabled ?
-      <>{formatDate(get(leg, 'ted')) || DEFAULT_TEXT}</> :
+      <>{formatDate(leg?.ted) || DEFAULT_TEXT}</> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
           {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.errorMessage}
         </div>
         <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.valid ? '' : 'validation-error-border'}`}>
-          {console.log(AIvalidation)}
-          {formatDate(get(leg, 'ted')) || DEFAULT_TEXT}
+          {formatDate(leg?.ted) || DEFAULT_TEXT}
           <FA name="calendar" onClick={calendarModal} />
         </div>
       </div>
@@ -341,6 +340,7 @@ AgendaLeg.propTypes = {
     tod: PropTypes.string,
     tod_is_dropdown: PropTypes.bool,
     vice: PropTypes.shape({}),
+    ted: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
