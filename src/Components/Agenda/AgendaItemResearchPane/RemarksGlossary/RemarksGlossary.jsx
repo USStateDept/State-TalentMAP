@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { find, get, isEqual, orderBy, uniqBy } from 'lodash';
+import { find, isEqual, orderBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -52,12 +52,12 @@ const RemarksGlossary = ({ isReadOnly, remarks, remarkCategories,
       const rInsertionText = a?.riinsertiontext;
       const rTextI = rText.indexOf(rInsertionText);
       if (rTextI > -1) {
-        let remarkInsertValue = getTextInputValue(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'));
+        let remarkInsertValue = getTextInputValue(a?.rirmrkseqnum, a?.riseqnum);
         remarkInsertValue = remarkInsertValue[0] === '{' ? '' : remarkInsertValue;
 
         rText.splice(rTextI, 1, <TextInput
           value={remarkInsertValue}
-          changeText={v => setTextInput(get(a, 'rirmrkseqnum'), get(a, 'riseqnum'), v)}
+          changeText={v => setTextInput(a?.rirmrkseqnum, a?.riseqnum, v)}
           customContainerClass="remark-input"
           placeholder={rInsertionText.replace(/[{}\d]/g, '').replace(/#/g, 'number')}
           id="remarks-custom-input"
