@@ -1,3 +1,5 @@
+/* eslint-disable */
+// ProfilePrivate
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -12,10 +14,13 @@ import ProfileDashboard from 'Components/ProfileDashboard';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
 
 class DashboardContainer extends Component {
+  // DashboardContainer is basically the private counterpart to ProfilePublic.jsx
+  // so think of it as ProfilePrivate
+
   UNSAFE_componentWillMount() {
-    this.props.fetchNotifications();
     this.props.fetchBidList();
     this.props.fetchFavorites();
+    this.props.fetchNotifications();
     if (userHasPermissions(['bidder'], get(this.props.userProfile, 'permission_groups', []))) {
       this.props.fetchClassifications();
       this.props.fetchUserClassifications(this.props.userProfile.id);
@@ -46,10 +51,13 @@ class DashboardContainer extends Component {
         deleteBid={deleteBid}
         classifications={classifications}
         clientClassifications={userClassifications}
-        userClassificationsHasErrored={userClassificationsHasErrored}
-        showClassifications
-        showLanguages={false}
+        showAgendaHistory={false}
         showAssignmentHistory={false}
+        showBidTracker
+        showClassifications={!userClassificationsHasErrored}
+        showLanguages={false}
+        showSearchAsClient={false}
+        canEditClassifications={false}
       />
     );
   }
@@ -58,25 +66,25 @@ class DashboardContainer extends Component {
 DashboardContainer.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   userProfileIsLoading: PropTypes.bool.isRequired,
-  fetchNotifications: PropTypes.func.isRequired,
   notifications: NOTIFICATION_LIST.isRequired,
   notificationsIsLoading: PropTypes.bool.isRequired,
-  fetchBidList: PropTypes.func.isRequired,
   bidList: BID_LIST.isRequired,
   bidListIsLoading: PropTypes.bool.isRequired,
-  fetchFavorites: PropTypes.func.isRequired,
   favoritePositions: FAVORITE_POSITIONS,
   favoritePositionsIsLoading: PropTypes.bool,
   favoritePositionsHasErrored: PropTypes.bool,
   submitBidPosition: PropTypes.func.isRequired,
   deleteBid: PropTypes.func.isRequired,
-  fetchClassifications: PropTypes.func,
   classificationsIsLoading: PropTypes.bool,
   classifications: CLASSIFICATIONS,
-  fetchUserClassifications: PropTypes.func,
   userClassificationsHasErrored: PropTypes.bool,
   userClassificationsIsLoading: PropTypes.bool,
   userClassifications: CLIENT_CLASSIFICATIONS,
+  fetchBidList: PropTypes.func.isRequired,
+  fetchFavorites: PropTypes.func.isRequired,
+  fetchNotifications: PropTypes.func.isRequired,
+  fetchClassifications: PropTypes.func,
+  fetchUserClassifications: PropTypes.func,
 };
 
 DashboardContainer.defaultProps = {
@@ -89,14 +97,14 @@ DashboardContainer.defaultProps = {
   favoritePositions: DEFAULT_FAVORITES,
   favoritePositionsIsLoading: false,
   favoritePositionsHasErrored: false,
-  fetchClassifications: EMPTY_FUNCTION,
   classificationsIsLoading: true,
   classificationsHasErrored: false,
   classifications: [],
-  fetchUserClassifications: EMPTY_FUNCTION,
   userClassificationsHasErrored: false,
   userClassificationsIsLoading: true,
   userClassifications: [],
+  fetchClassifications: EMPTY_FUNCTION,
+  fetchUserClassifications: EMPTY_FUNCTION,
 };
 
 const mapStateToProps = state => ({
@@ -117,13 +125,13 @@ const mapStateToProps = state => ({
 });
 
 export const mapDispatchToProps = dispatch => ({
-  fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchBidList: () => dispatch(bidListFetchData()),
   fetchFavorites: () => dispatch(favoritePositionsFetchData(null, 5, 1, 'all')),
-  submitBidPosition: id => dispatch(submitBid(id)),
-  deleteBid: id => dispatch(toggleBidPosition(id, true)),
+  fetchNotifications: () => dispatch(notificationsFetchData()),
   fetchClassifications: () => dispatch(fetchClassifications()),
   fetchUserClassifications: id => dispatch(fetchUserClassifications(id)),
+  submitBidPosition: id => dispatch(submitBid(id)),
+  deleteBid: id => dispatch(toggleBidPosition(id, true)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

@@ -239,6 +239,12 @@ export const USER_PROFILE = PropTypes.shape({
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
   ),
+  permission_groups: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
+  permissions: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
 });
 
 export const ROUTER_LOCATION_OBJECT = PropTypes.shape({
