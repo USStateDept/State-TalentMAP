@@ -11,7 +11,6 @@ import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/List
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
 import CycleSearchCard from './CycleSearchCard';
-// import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 const CycleManagement = () => {
   const dispatch = useDispatch();
@@ -183,10 +182,8 @@ const CycleManagement = () => {
           <div className="cm-lower-section">
             {
               cycleManagementDataLoading ? <Spinner type="tm-spinner-bureau-results" size="small" /> :
-                (cycleManagementData.map(data => <CycleSearchCard {...data} />)
-                )
+                cycleManagementData.map(data => <CycleSearchCard {...data} />)
             }
-            {/* <PublishablePositionCard /> */}
           </div>
 
         </div>
