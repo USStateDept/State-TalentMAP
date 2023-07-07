@@ -3,6 +3,49 @@ import { get } from 'lodash';
 import { convertQueryToString } from 'utilities';
 import api from '../api';
 
+const dummyData = [
+  {
+    cycle_name: 'Fall Cycle 2023',
+    id: 1,
+    cycle_status: 'Proposed',
+    cycle_category: 'Active',
+    cycle_begin_date: '2023-09-01T21:12:12.854000Z',
+    cycle_end_date: '2025-11-30T21:12:12.854000Z',
+    cycle_excl_position: 'Y',
+    cycle_post_view: 'Y',
+  },
+  {
+    cycle_name: 'Summer Cycle 2023',
+    id: 2,
+    cycle_status: 'Complete',
+    cycle_category: 'Active',
+    cycle_begin_date: '2025-06-01T21:12:12.854000Z',
+    cycle_end_date: '2025-08-30T21:12:12.854000Z',
+    cycle_excl_position: 'Y',
+    cycle_post_view: 'Y',
+  },
+  {
+    cycle_name: 'Spring Cycle 2023',
+    id: 3,
+    cycle_status: 'Closed',
+    cycle_category: 'Closed',
+    cycle_begin_date: '2025-03-01T21:12:12.854000Z',
+    cycle_end_date: '2025-05-30T21:12:12.854000Z',
+    cycle_excl_position: 'Y',
+    cycle_post_view: 'Y',
+  },
+  {
+    cycle_name: 'Winter Cycle 2023',
+    id: 4,
+    cycle_status: 'Merged',
+    cycle_category: 'Active',
+    cycle_begin_date: '2022-12-01T21:12:12.854000Z',
+    cycle_end_date: '2023-02-28T21:12:12.854000Z',
+    cycle_excl_position: 'Y',
+    cycle_post_view: 'Y',
+  },
+];
+
 export function cycleManagementFetchDataErrored(bool) {
   return {
     type: 'CYCLE_MANAGEMENT_FETCH_HAS_ERRORED',
@@ -49,7 +92,7 @@ export function cycleManagementFetchData(query = {}) {
           });
         } else {
           batch(() => {
-            dispatch(cycleManagementFetchDataSuccess([]));
+            dispatch(cycleManagementFetchDataSuccess(dummyData));
             dispatch(cycleManagementFetchDataErrored(true));
             dispatch(cycleManagementFetchDataLoading(false));
           });

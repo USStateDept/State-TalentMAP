@@ -10,14 +10,16 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
+import CycleSearchCard from './CycleSearchCard';
+// import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 const CycleManagement = () => {
   const dispatch = useDispatch();
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.cycleManagementSelections);
-  // use when adding cards
-  // const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
+  const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
+  const cycleManagementData = useSelector(state => state.cycleManagement);
   const genericFilters = useSelector(state => state.filters);
 
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
@@ -126,9 +128,6 @@ const CycleManagement = () => {
             <div className="cycle-search-heading">
               {'Search for a Cycle'}
             </div>
-            <div className="cycle-search-subheading">
-              {'Search for an existing cycle'}
-            </div>
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
@@ -143,7 +142,19 @@ const CycleManagement = () => {
 
             <div className="usa-width-one-whole cm-filters">
               <div className="cm-filter-div">
-                <div className="label">Cycle</div>
+                <div className="label">Status:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Status"
+                  options={statusOptions}
+                  valueKey="code"
+                  labelKey="name"
+                  onChange={setSelectedStatus}
+                  value={selectedStatus}
+                />
+              </div>
+              <div className="cm-filter-div">
+                <div className="label">Cycle:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Bid Cycle(s)"
@@ -156,19 +167,7 @@ const CycleManagement = () => {
                 />
               </div>
               <div className="cm-filter-div">
-                <div className="label">Status</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Status"
-                  options={statusOptions}
-                  valueKey="code"
-                  labelKey="name"
-                  onChange={setSelectedStatus}
-                  value={selectedStatus}
-                />
-              </div>
-              <div className="cm-filter-div">
-                <div className="label">Cycle Date</div>
+                <div className="label">Cycle Date:</div>
                 <DateRangePicker
                   onChange={setSelectedDates}
                   value={selectedDates}
@@ -179,6 +178,15 @@ const CycleManagement = () => {
               </div>
             </div>
 
+          </div>
+
+          <div className="cm-lower-section">
+            {
+              cycleManagementDataLoading ? <Spinner type="tm-spinner-bureau-results" size="small" /> :
+                (cycleManagementData.map(data => <CycleSearchCard {...data} />)
+                )
+            }
+            {/* <PublishablePositionCard /> */}
           </div>
 
         </div>
