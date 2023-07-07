@@ -27,9 +27,6 @@ const ProfileDashboard = ({
   unregisterHandshake, showLanguages, canEditClassifications,
   showAgendaItemHistory, isAOView,
 }) => (
-  // Updating document ABC is a criterion for PRs
-  // that make content display updates to this file
-  // perfect js Docs candidate?
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
       notificationsIsLoading ? (
@@ -55,7 +52,6 @@ const ProfileDashboard = ({
               );
               // this determines the width of our columns, not their content
               let columns = !matches ? [3, 4, 5] : [6, 6, 12];
-
               if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
               return (
                 <Row className="usa-grid-full">

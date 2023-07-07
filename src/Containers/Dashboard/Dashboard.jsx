@@ -1,4 +1,3 @@
-/* eslint-disable */
 // ProfilePrivate
 import { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -14,8 +13,7 @@ import ProfileDashboard from 'Components/ProfileDashboard';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
 
 class DashboardContainer extends Component {
-  // DashboardContainer is basically the private counterpart to ProfilePublic.jsx
-  // so think of it as ProfilePrivate
+  // DashboardContainer is basically the ProfilePrivate counterpart to ProfilePublic.jsx
 
   UNSAFE_componentWillMount() {
     this.props.fetchBidList();
