@@ -49,7 +49,7 @@ class ProfilePublic extends Component {
     const viewType = get(this.props, 'match.params.viewType');
 
     let props = {};
-    // making the props isRequired essential makes this a living document
+    // making the props isRequired essentially makes this a living document
     // for public profiles
     switch (viewType) {
       case 'bureau':
@@ -69,9 +69,9 @@ class ProfilePublic extends Component {
           showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
+          canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          canEditClassifications: false,
         };
         break;
       case 'ao':
@@ -80,9 +80,9 @@ class ProfilePublic extends Component {
           showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: true,
+          canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
-          canEditClassifications: false,
         };
         break;
       default:
@@ -92,9 +92,9 @@ class ProfilePublic extends Component {
           showAssignmentHistory: true,
           showBidTracker: true,
           showClassifications: true,
+          canEditClassifications: true,
           showLanguages: true,
           showSearchAsClient: true,
-          canEditClassifications: true,
         };
     }
 
