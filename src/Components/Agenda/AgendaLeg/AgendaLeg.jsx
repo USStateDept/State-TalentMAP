@@ -30,8 +30,9 @@ const AgendaLeg = props => {
     setActiveAIL,
   } = props;
 
-  const isNewSeparation = leg?.pos_title === 'SEPARATION';
-  const defaultSepText = isNewSeparation ? '-' : false;
+
+  const isSeparation = leg?.pos_title === 'SEPARATION';
+  const defaultSepText = isSeparation ? '-' : false;
 
   const disabled = isEf;
 
@@ -188,7 +189,7 @@ const AgendaLeg = props => {
     if (isEf) {
       return leg.tod_long_desc || defaultText;
     }
-    if (isNewSeparation) {
+    if (isSeparation) {
       return ('-');
     }
 
@@ -259,7 +260,7 @@ const AgendaLeg = props => {
   const getArrows = () => (
     <div className="arrow">
       {
-        !isNewSeparation &&
+        !isSeparation &&
         <FA name="arrow-down" />
       }
     </div>
@@ -267,30 +268,42 @@ const AgendaLeg = props => {
 
   const removeLocation = () => {
     updateLeg(leg?.ail_seq_num, {
-      sepLocation: null,
+      separation_location: null,
     });
   };
 
   const getLocation = () => {
-    const isLocation = leg?.sepLocation;
+    const location = leg?.separation_location;
     let displayText;
-    if (isLocation) {
-      const { city, country, state } = leg?.sepLocation;
-      displayText = `${city}, ${state} ${country}`;
+
+    if (location) {
+      const { city, country } = location;
+      displayText = `${city}, ${country}`;
     }
+
     return (
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.sepLocation?.errorMessage}
-        </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.sepLocation?.valid ? '' : 'validation-error-border'}`}>
-          {displayText || DEFAULT_TEXT}
-          {leg?.sepLocation ?
-            <FA name="times" className="" onClick={removeLocation} />
-            :
-            <FA name="globe" onClick={onAddLocationClick} />
+          {
+            AIvalidation
+              ?.legs
+              ?.individualLegs?.[leg?.ail_seq_num]?.separation_location?.errorMessage
           }
         </div>
+        {
+          !isEf ?
+            <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.separation_location?.valid ? '' : 'validation-error-border'}`}>
+              {displayText || DEFAULT_TEXT}
+              {
+                displayText ?
+                  <FA name="times" className="" onClick={removeLocation} />
+                  :
+                  <FA name="globe" onClick={onAddLocationClick} />
+              }
+            </div>
+            :
+            displayText || DEFAULT_TEXT
+        }
       </div>
     );
   };
@@ -306,7 +319,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Org',
-      content: isNewSeparation ?
+      content: isSeparation ?
         getLocation()
         :
         (<div>{leg?.org || DEFAULT_TEXT}</div>),
@@ -317,7 +330,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Languages',
-      content: (<div>{formatLang(get(leg, 'languages')) || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{formatLang(get(leg, 'languages') || []) || defaultSepText || DEFAULT_TEXT}</div>),
     },
     {
       title: 'ETA',

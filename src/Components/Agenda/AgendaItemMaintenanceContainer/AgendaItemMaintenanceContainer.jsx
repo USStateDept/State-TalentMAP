@@ -10,6 +10,7 @@ import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { aiCreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
+import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
@@ -68,8 +69,21 @@ const AgendaItemMaintenanceContainer = (props) => {
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  // check if leg is first leg, or separation
-  const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
+
+  const findEffectiveAsgOrSep = (asgAndSep) => {
+    let max;
+    asgAndSep.forEach(a => {
+      if (a?.status === 'EF') {
+        if (!max) max = a;
+        if (isAfter(new Date(a?.start_date), new Date(max?.start_date))) {
+          max = a;
+        }
+      }
+    });
+    return max;
+  };
+
+  const efPosition = get(agendaItem, 'legs[0]') || findEffectiveAsgOrSep(asgSepBidResults$) || {};
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];

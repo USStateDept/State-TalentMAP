@@ -96,7 +96,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         legAssignmentId: null,
         legAssignmentVersion: null,
         org: null,
-        sepLocation: null,
+        separation_location: null,
         legStartDate: 'Coming Soon',
         legEndDate: null,
         languages: [],
@@ -131,7 +131,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
 
   useEffect(() => {
     if (location && activeAIL) {
-      updateLeg(activeAIL, { sepLocation: location });
+      updateLeg(activeAIL, { separation_location: location });
       setActiveAIL(null);
       setLocation(null);
     }
