@@ -913,4 +913,11 @@ export const determineEnv = (url) => {
   return match[0];
 };
 
+export const formatLang = (langArr) => {
+  const langArr$ = langArr || [];
+  return langArr$.map(lang => (
+    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
+};
+
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
