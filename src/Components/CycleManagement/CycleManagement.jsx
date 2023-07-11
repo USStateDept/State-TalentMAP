@@ -10,6 +10,7 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
+import CyclePositionCard from '../CyclePositionCard/CyclePositionCard';
 
 const CycleManagement = () => {
   const dispatch = useDispatch();
@@ -117,12 +118,12 @@ const CycleManagement = () => {
   };
 
   return (
-    genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
-      (
-        <div className="cycle-management-page">
+    genericFiltersIsLoading ?
+      <Spinner type="bureau-filters" size="small" /> :
+      <>
+        <div className="bureau-page cycle-management-page">
           <div className="usa-grid-full cm-upper-section">
-
-            <ProfileSectionTitle title="Cycle Search" icon="keyboard-o" />
+            <ProfileSectionTitle title="Cycle Search" icon="keyboard-o" className="xl-icon" />
             <div className="cycle-search-heading">
               {'Search for a Cycle'}
             </div>
@@ -135,12 +136,11 @@ const CycleManagement = () => {
                 {clearFilters &&
                   <button className="unstyled-button" onClick={resetFilters}>
                     <FA name="times" />
-                        Clear Filters
+                    Clear Filters
                   </button>
                 }
               </span>
             </div>
-
             <div className="usa-width-one-whole cm-filters">
               <div className="cm-filter-div">
                 <div className="label">Cycle</div>
@@ -178,11 +178,14 @@ const CycleManagement = () => {
                 />
               </div>
             </div>
-
           </div>
-
+          <div className="usa-width-one-whole bureau-page--results">
+            <div className="usa-grid-full position-list">
+              <CyclePositionCard />
+            </div>
+          </div>
         </div>
-      )
+      </>
   );
 };
 
