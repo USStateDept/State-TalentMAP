@@ -27,7 +27,7 @@ const PublishablePositionCard = ({ data }) => {
     },
     bodyPrimary: {
       'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'post') || NO_POST),
+      'Location': getPostName(get(pos, 'post')) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
       'Status': getResult(pos, 'status') || NO_STATUS,
