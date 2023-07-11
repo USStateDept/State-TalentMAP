@@ -11,6 +11,7 @@ exports[`ProfileDashboardComponent matches snapshot when loaded 1`] = `
       className="usa-grid-full dashboard-top-section"
     >
       <ProfileSectionTitle
+        className=""
         icon=""
         title="Hello, John"
       />
