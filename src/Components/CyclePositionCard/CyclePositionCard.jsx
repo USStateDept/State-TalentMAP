@@ -6,6 +6,7 @@ import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
+import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
@@ -26,7 +27,7 @@ const CyclePositionCard = ({ data }) => {
       'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
     },
     bodyPrimary: {
-      'Location': getPostName(get(pos, 'post') || NO_POST),
+      'Location': getPostName(get(pos, 'post')) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
@@ -40,6 +41,7 @@ const CyclePositionCard = ({ data }) => {
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Incumbent TED': getResult(data, 'ted') || NO_DATE,
       'Incumbent Status': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
+      'Pay Plan': '---',
       'TED': getResult(data, 'ted') || NO_DATE,
       'Post Differential | Danger Pay': getDifferentials(pos),
       'Assignee TED': getResult(data, 'ted') || NO_DATE,
