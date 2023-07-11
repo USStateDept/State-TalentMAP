@@ -126,10 +126,10 @@ export const mapDispatchToProps = dispatch => ({
   fetchBidList: () => dispatch(bidListFetchData()),
   fetchFavorites: () => dispatch(favoritePositionsFetchData(null, 5, 1, 'all')),
   fetchNotifications: () => dispatch(notificationsFetchData()),
-  fetchClassifications: () => dispatch(fetchClassifications()),
-  fetchUserClassifications: id => dispatch(fetchUserClassifications(id)),
-  submitBidPosition: id => dispatch(submitBid(id)),
   deleteBid: id => dispatch(toggleBidPosition(id, true)),
+  submitBidPosition: id => dispatch(submitBid(id)),
+  fetchClassifications: () => dispatch(fetchClassifications()),
+  fetchUserClassifications: id => dispatch(fetchUserClassifications(id)),  
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
