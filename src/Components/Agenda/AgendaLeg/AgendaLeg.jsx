@@ -31,7 +31,7 @@ const AgendaLeg = props => {
   } = props;
 
 
-  const isSeparation = leg?.isSeparation;
+  const isSeparation = leg?.is_separation;
   const defaultSepText = isSeparation ? '-' : false;
 
   const disabled = isEf;
@@ -321,7 +321,9 @@ const AgendaLeg = props => {
   const columnData = [
     {
       title: 'Position Title',
-      content: (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
+      content: isSeparation ?
+        (<div>{defaultSepText}</div>) :
+        (<div>{get(leg, 'pos_title') || DEFAULT_TEXT}</div>),
     },
     {
       title: 'Position Number',
