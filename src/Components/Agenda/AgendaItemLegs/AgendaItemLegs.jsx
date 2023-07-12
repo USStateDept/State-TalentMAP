@@ -24,9 +24,12 @@ const AgendaItemLegs = props => {
     }
     return '';
   };
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
+  const formatLang = (langArr = []) => {
+    if (langArr === '-') return '-';
+    return langArr.map(lang => (
+      `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+    )).join(', ');
+  };
 
   const getData = (key, helperFunc = () => {}) => (
     <>
@@ -51,7 +54,7 @@ const AgendaItemLegs = props => {
         legs$.map((leg, index) => {
           const keyId = index;
           return (
-            <td className="arrow" key={`${keyId}-${leg.id}`}>
+            <td className={`${leg?.is_separation ? 'hide-total-results' : ''} arrow`} key={`${keyId}-${leg.id}`}>
               <FA name="arrow-down" />
             </td>);
         })

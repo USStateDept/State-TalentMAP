@@ -89,7 +89,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
       const legs$ = [...legs];
       legs$.push({
         ail_seq_num: shortid.generate(),
-        pos_title: 'SEPARATION',
+        pos_title: null,
         pos_num: null,
         posSeqNum: null,
         cpId: null,
@@ -108,6 +108,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         grade: null,
         legActionType: null,
         travelFunctionCode: 'Separation from the Service',
+        isSeparation: true,
       });
       setLegs(legs$);
     }

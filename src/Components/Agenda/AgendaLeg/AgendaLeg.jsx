@@ -31,7 +31,7 @@ const AgendaLeg = props => {
   } = props;
 
 
-  const isSeparation = leg?.pos_title === 'SEPARATION';
+  const isSeparation = leg?.isSeparation;
   const defaultSepText = isSeparation ? '-' : false;
 
   const disabled = isEf;
@@ -52,6 +52,10 @@ const AgendaLeg = props => {
     e.preventDefault();
     swal.close();
   };
+
+  const getLegActionTypes = () => (
+    legActionTypes.filter(lat => lat.is_separation === isSeparation)
+  );
 
   const submitCustomTod = (todArray, customTodMonths) => {
     const todCode = todArray.map((tod, i, arr) => (i + 1 === arr.length ? tod : `${tod}/`)).join('').toString();
@@ -239,9 +243,15 @@ const AgendaLeg = props => {
   };
 
 
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
+  const formatLang = (langArr = []) => {
+    if (langArr === '-') return langArr;
+    if (langArr.length) {
+      return langArr.map(lang => (
+        `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+      )).join(', ');
+    }
+    return null;
+  };
 
   const getCalendar = () => (
     disabled ?
@@ -350,7 +360,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Action',
-      content: (getDropdown(isEf ? 'action' : 'legActionType', legActionTypes, 'abbr_desc_text')),
+      content: (getDropdown(isEf ? 'action' : 'legActionType', getLegActionTypes(), 'abbr_desc_text')),
     },
     {
       title: 'Travel',
