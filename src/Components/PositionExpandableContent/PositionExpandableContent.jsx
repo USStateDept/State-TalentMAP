@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -11,6 +11,30 @@ const PositionExpandableContent = ({ sections }) => {
   const [editMode, setEditMode] = useState(false);
   const [showMore, setShowMore] = useState(false);
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const getBody = () => {
+    const minScreenWidth = 1650;
+    // Append additional fields to collapsed view to fill blank space on wider screens
+    if (minScreenWidth < windowWidth) {
+      const appendSecondary = [];
+      const numFields = Math.floor((windowWidth - minScreenWidth) / 190);
+      Object.keys(sections.bodySecondary).slice(0, numFields).forEach(o => {
+        appendSecondary[o] = sections.bodySecondary[o];
+      });
+      return { ...sections.bodyPrimary, ...appendSecondary };
+    }
+    return sections.bodyPrimary;
+  };
+
   // TODO: Add setViewMode prop or remove edit button from header.
   // Refer to note on PublishablePositionCard about edit state management.
   return (
@@ -18,7 +42,7 @@ const PositionExpandableContent = ({ sections }) => {
       <Row fluid className="position-content--section position-content--subheader">
         <div className="line-separated-fields">
           {Object.keys(sections.subheading).map(field => (
-            <div>
+            <div key={`subheading-${field}`}>
               <span>{field}:</span>
               <span>{sections.subheading[field]}</span>
             </div>
@@ -33,7 +57,7 @@ const PositionExpandableContent = ({ sections }) => {
         <Row fluid className="position-content--section position-content--details">
           <DefinitionList
             itemProps={{ excludeColon: true }}
-            items={sections.bodyPrimary}
+            items={getBody()}
           />
         </Row> :
         <>
@@ -88,7 +112,7 @@ PositionExpandableContent.propTypes = {
     subheading: PropTypes.shape({}),
     bodyPrimary: PropTypes.shape({}),
     bodySecondary: PropTypes.shape({}),
-    textarea: PropTypes.shape({}),
+    textarea: PropTypes.string,
     metadata: PropTypes.shape({}),
   }).isRequired,
 };
