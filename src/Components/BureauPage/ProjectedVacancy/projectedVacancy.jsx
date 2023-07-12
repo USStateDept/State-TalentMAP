@@ -352,10 +352,6 @@ const ProjectedVacancy = () => {
           }
           <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
             <div className="usa-grid-full position-list">
-              <PositionDetailsCard
-                result={dummyPositionDetails}
-                key={dummyid}
-              />
               <ProjectedVacancyCard
                 result={dummyPositionDetails}
                 key={dummyid}
