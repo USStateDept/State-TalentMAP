@@ -54,8 +54,8 @@ const PositionExpandableContent = ({ sections }) => {
                   name="position-description"
                   placeholder="No Description"
                   defaultValue={sections.textarea}
-                  disabled={editMode}
-                  className={editMode ? 'disabled-input' : 'enabled-input'}
+                  disabled={!editMode}
+                  className={!editMode ? 'disabled-input' : 'enabled-input'}
                   draggable={false}
                 />
               </Linkify>
