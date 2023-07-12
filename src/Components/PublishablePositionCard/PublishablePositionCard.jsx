@@ -1,10 +1,9 @@
 import { get } from 'lodash';
-import { getDifferentials, getResult } from 'Components/ResultsCard/ResultsCard';
-import { getPostName } from 'utilities';
+import { getDifferentials, getPostName, getResult } from 'utilities';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import {
-  NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
+  NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
+  NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';

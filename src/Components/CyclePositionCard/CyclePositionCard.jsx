@@ -1,6 +1,5 @@
 import { get } from 'lodash';
-import { getDifferentials, getResult } from 'Components/ResultsCard/ResultsCard';
-import { getPostName } from 'utilities';
+import { getDifferentials, getPostName, getResult } from 'utilities';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
