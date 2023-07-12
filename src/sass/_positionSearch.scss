@@ -1,6 +1,6 @@
 // ============= Global =============
 
-.bureau-page {
+.position-search {
   .section {
     background-color: $color-white;
     border: 3px solid $tm-gray;
@@ -45,14 +45,14 @@
     }
   }
 
-  .bureau-page--header {
+  .position-search--header {
     box-shadow: 20px 20px 20px $bg-gray-medium-2;
     padding: 20px 35px 30px;
     background-color: $bg-blue-dark-1;
     color: $color-white;
   }
 
-  .bureau-page--filters {
+  .position-search--filters {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 
@@ -88,14 +88,14 @@
     }
   }
 
-  .bureau-controls--right {
+  .position-search-controls--right {
     display: flex;
     align-items: baseline;
     justify-content: center;
     padding-right: 30px;
   }
 
-  .bureau-controls--results {
+  .position-search-controls--results {
     align-items: center;
     display: flex;
     justify-content: flex-end;
@@ -117,7 +117,7 @@
     }
   }
 
-  .bureau-page--results {
+  .position-search--results {
     padding: 0 35px 20px;
 
     .position-list {
@@ -125,13 +125,13 @@
     }
   }
 
-  .bureau-controls--pagination {
+  .position-search-controls--pagination {
     padding-left: 35px;
   }
 }
 
 
-// ============= Bureau Cycle Management =============
+// ============= Cycle Management =============
 
 .cycle-management-page {
   .cm-upper-section {
@@ -207,7 +207,7 @@
 }
 
 
-// ============= Bureau Position Manager =============
+// ============= Position Manager =============
 
 .position-manager-details {
   background-color: initial;
@@ -877,7 +877,7 @@
 }
 
 
-// ============= Bureau Results Card =============
+// ============= Results Card =============
 
 .bureau-results-card {
   background-color: $color-white;

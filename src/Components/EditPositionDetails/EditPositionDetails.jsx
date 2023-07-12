@@ -220,8 +220,8 @@ const EditPositionDetails = () => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="bureau-page edit-position-details-page">
-          <div className="usa-grid-full bureau-page--header">
+        <div className="position-search edit-position-details-page">
+          <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
@@ -244,7 +244,7 @@ const EditPositionDetails = () => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole bureau-page--filters wide-filter-labels results-dropdown">
+                <div className="usa-width-one-whole position-search--filters wide-filter-labels results-dropdown">
                   <div className="filter-div">
                     <div className="label">Publishable Status:</div>
                     <Picky
@@ -354,7 +354,7 @@ const EditPositionDetails = () => {
             </div>
           </div>
           {
-            <div className="bureau-controls--results padding-top results-dropdown">
+            <div className="position-search-controls--results padding-top results-dropdown">
               <SelectForm
                 id="position-details-sort-results"
                 options={sorts.options}
@@ -372,7 +372,7 @@ const EditPositionDetails = () => {
               <ScrollUpButton />
             </div>
           }
-          <div className="usa-width-one-whole bureau-page--results">
+          <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
               <PublishablePositionCard
                 result={dummyPositionDetails}

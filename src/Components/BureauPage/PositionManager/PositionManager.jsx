@@ -324,8 +324,8 @@ const PositionManager = props => {
     bureauFiltersIsLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="bureau-page">
-          <div className="usa-grid-full bureau-page--header">
+        <div className="position-search">
+          <div className="usa-grid-full position-search--header">
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Position Manager" icon="map" />
@@ -347,7 +347,7 @@ const PositionManager = props => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole bureau-page--filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters results-dropdown">
                   <div className="filter-div">
                     <div className="label">Cycle:</div>
                     <Picky
@@ -564,8 +564,8 @@ const PositionManager = props => {
                     suffix="Results"
                     isHidden={bureauPositionsIsLoading}
                   />
-                  <div className="bureau-controls--right">
-                    <div className="bureau-controls--results">
+                  <div className="position-search-controls--right">
+                    <div className="position-search-controls--results">
                       <SelectForm
                         id="position-manager-num-results"
                         options={sorts.options}
@@ -593,7 +593,7 @@ const PositionManager = props => {
                     </div>
                   </div>
                 </div>
-                <div className="usa-width-one-whole bureau-page--results">
+                <div className="usa-width-one-whole position-search--results">
                   <div className="usa-grid-full position-list">
                     {bureauPositions.results.map((result) => (
                       <BureauResultsCard
@@ -604,7 +604,7 @@ const PositionManager = props => {
                     ))}
                   </div>
                 </div>
-                <div className="usa-grid-full react-paginate bureau-controls--pagination">
+                <div className="usa-grid-full react-paginate position-search-controls--pagination">
                   <PaginationWrapper
                     pageSize={limit}
                     onPageChange={p => setPage(p.page)}

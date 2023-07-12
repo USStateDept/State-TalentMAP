@@ -54,7 +54,7 @@ const PostPage = (props) => {
     'Trinidad and Tobago', 'Iceland', 'Italy', 'Panama', 'Lithuania'];
 
   return (
-    <div className="usa-grid-full profile-content-inner-container bureau-page">
+    <div className="usa-grid-full profile-content-inner-container position-search">
       { !placeholderText &&
           <Spinner type="homepage-position-results" size="big" />
       }

@@ -55,7 +55,7 @@ const BureauPage = (props) => {
 
   return (
     <div
-      className={'usa-grid-full profile-content-inner-container bureau-page'}
+      className={'usa-grid-full profile-content-inner-container position-search'}
     >
       {
         !placeholderText &&

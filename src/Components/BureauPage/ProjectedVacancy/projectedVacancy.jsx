@@ -208,8 +208,8 @@ const ProjectedVacancy = () => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="bureau-page edit-position-details-page">
-          <div className="usa-grid-full bureau-page--header">
+        <div className="position-search edit-position-details-page">
+          <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
@@ -232,7 +232,7 @@ const ProjectedVacancy = () => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole bureau-page--filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters results-dropdown">
                   <div className="filter-div">
                     <div className="label">Bid Cycle:</div>
                     <Picky
@@ -329,7 +329,7 @@ const ProjectedVacancy = () => {
             </div>
           </div>
           {
-            <div className="bureau-controls--results padding-top results-dropdown">
+            <div className="position-search-controls--results padding-top results-dropdown">
               <SelectForm
                 id="projected-vacancy-sort-results"
                 options={sorts.options}
@@ -347,7 +347,7 @@ const ProjectedVacancy = () => {
               <ScrollUpButton />
             </div>
           }
-          <div className="usa-width-one-whole bureau-page--results">
+          <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
               <PublishablePositionCard
                 data={dummyPositionDetails}
