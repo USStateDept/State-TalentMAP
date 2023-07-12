@@ -427,7 +427,7 @@ const AgendaItemMaintenancePane = (props) => {
               </InteractiveElement>
             </div>
             <a className="add-fp-link" aria-hidden="true" onClick={onAddFPClick}>Open Frequent Positions Tab</a>
-            <a className="add-fp-link" aria-hidden="true" onClick={setIsNewSeparation}>Add New Separation</a>
+            <a className="add-fp-link" aria-hidden="true" onClick={readMode ? () => {} : setIsNewSeparation}>Add New Separation</a>
           </div>
         </>
       }
