@@ -35,7 +35,7 @@ const PublishablePositionCard = ({ data }) => {
     },
     bodySecondary: {
       'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'TED': getResult(data, 'ted') || NO_DATE,
+      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
       'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
       'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,

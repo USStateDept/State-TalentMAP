@@ -10,6 +10,7 @@ import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
+import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
 
 const CyclePositionCard = ({ data }) => {
@@ -39,10 +40,10 @@ const CyclePositionCard = ({ data }) => {
       'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
       'Cycle Position': '---',
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Incumbent TED': getResult(data, 'ted') || NO_DATE,
+      'Incumbent TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
       'Incumbent Status': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
       'Pay Plan': '---',
-      'TED': getResult(data, 'ted') || NO_DATE,
+      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
       'Post Differential | Danger Pay': getDifferentials(pos),
       'Assignee TED': getResult(data, 'ted') || NO_DATE,
     },
