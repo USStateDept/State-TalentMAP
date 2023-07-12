@@ -49,13 +49,13 @@ const PositionExpandableContent = ({ sections }) => {
               <Linkify properties={{ target: '_blank' }}>
                 <TextareaAutosize
                   maxRows={6}
-                  minRows={6}
+                  minRows={10}
                   maxlength="4000"
                   name="position-description"
                   placeholder="No Description"
                   defaultValue={sections.textarea}
-                  disabled
-                  className={'disabled-input'}
+                  disabled={editMode}
+                  className={editMode ? 'disabled-input' : 'enabled-input'}
                   draggable={false}
                 />
               </Linkify>

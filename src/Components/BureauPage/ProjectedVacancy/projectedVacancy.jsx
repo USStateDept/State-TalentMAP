@@ -16,6 +16,7 @@ import { filtersFetchData } from 'actions/filters/filters';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import PositionDetailsCard from '../../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
+import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
 
 const ProjectedVacancy = () => {
   const childRef = useRef();
@@ -352,6 +353,10 @@ const ProjectedVacancy = () => {
           <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
             <div className="usa-grid-full position-list">
               <PositionDetailsCard
+                result={dummyPositionDetails}
+                key={dummyid}
+              />
+              <ProjectedVacancyCard
                 result={dummyPositionDetails}
                 key={dummyid}
               />
