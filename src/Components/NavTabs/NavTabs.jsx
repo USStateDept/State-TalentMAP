@@ -65,7 +65,7 @@ NavTabs.propTypes = {
     PropTypes.shape({}),
   ).isRequired,
   value: PropTypes.string, // default value
-  styleVariant: 'heavyBorderTop' || 'lightBorderBottom',
+  styleVariant: PropTypes.string,
 };
 
 
