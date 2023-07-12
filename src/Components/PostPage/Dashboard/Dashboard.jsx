@@ -95,7 +95,7 @@ const PostPage = (props) => {
                 <div>All: 130/150</div>
               </div>
               <div className="usa-width-three-fourths">
-                <div className="mainSelector">
+                <div className="main-selector">
                   <FA name="dot-circle-o" />
                   <span>WHA (All positions)</span>
                 </div>
