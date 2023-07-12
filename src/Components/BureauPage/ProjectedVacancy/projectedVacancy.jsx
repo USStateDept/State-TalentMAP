@@ -15,7 +15,6 @@ import Picky from 'react-picky';
 import { filtersFetchData } from 'actions/filters/filters';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
-import PositionDetailsCard from '../../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
 
 const ProjectedVacancy = () => {
