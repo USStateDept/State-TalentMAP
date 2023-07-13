@@ -46,40 +46,56 @@ class ProfilePublic extends Component {
     const clientClassifications = userProfile.classifications;
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
-    const isBureauView = this.isView('bureau');
-    const isPostView = this.isView('post');
-    const isAOView = this.isView('ao');
+    const viewType = get(this.props, 'match.params.viewType');
+
     let props = {};
-    if (isBureauView) {
-      props = {
-        ...props,
-        showBidTracker: false,
-        showAssignmentHistory: false,
-        showClassifications: false,
-        showSearchAsClient: false,
-        showAgendaItemHistory: false,
-      };
-    } else if (isPostView) {
-      props = {
-        ...props,
-        showBidTracker: false,
-        showAssignmentHistory: false,
-        showClassifications: false,
-        showSearchAsClient: false,
-        showAgendaItemHistory: false,
-      };
-    } else if (isAOView) {
-      props = {
-        ...props,
-        showBidTracker: false,
-        showAssignmentHistory: false,
-        showSearchAsClient: false,
-      };
-    } else { // CDO View
-      props = {
-        ...props,
-        canEditClassifications: true,
-      };
+    // making the props isRequired essentially makes this a living document
+    // for public profiles
+    switch (viewType) {
+      case 'bureau':
+        props = {
+          showAgendaItemHistory: false,
+          showAssignmentHistory: false,
+          showBidTracker: false,
+          showClassifications: false,
+          canEditClassifications: false,
+          showLanguages: true,
+          showSearchAsClient: false,
+        };
+        break;
+      case 'post':
+        props = {
+          showAgendaItemHistory: false,
+          showAssignmentHistory: false,
+          showBidTracker: false,
+          showClassifications: false,
+          canEditClassifications: false,
+          showLanguages: true,
+          showSearchAsClient: false,
+        };
+        break;
+      case 'ao':
+        props = {
+          showAgendaItemHistory: true,
+          showAssignmentHistory: false,
+          showBidTracker: false,
+          showClassifications: true,
+          canEditClassifications: false,
+          showLanguages: true,
+          showSearchAsClient: false,
+        };
+        break;
+      default:
+        // cdo relies on no other roles matching viewType
+        props = {
+          showAgendaItemHistory: true,
+          showAssignmentHistory: true,
+          showBidTracker: true,
+          showClassifications: true,
+          canEditClassifications: true,
+          showLanguages: true,
+          showSearchAsClient: true,
+        };
     }
 
     return (
@@ -96,7 +112,7 @@ class ProfilePublic extends Component {
           unregisterHandshake={unregisterHandshakePosition}
           deleteBid={deleteBid}
           isPublic
-          isAOView={isAOView}
+          isAOView={this.isView('ao')}
           {...props}
         />
     );

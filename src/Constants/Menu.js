@@ -42,7 +42,6 @@ function MenuConfig(config) {
 export const GET_PROFILE_MENU = () => MenuConfig([
   {
     text: 'Profile',
-    route: '/profile/dashboard/',
     icon: 'user',
     toggleMenuSection: true,
     expandedSection: true,
@@ -85,7 +84,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Administrator',
-    route: '/profile/administrator/',
     icon: 'sitemap',
     toggleMenuSection: true,
     expandedSection: true,
@@ -163,7 +161,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Bureau',
-    route: '/profile/bureau/positionmanager/',
     icon: 'building',
     toggleMenuSection: true,
     expandedSection: true,
@@ -222,7 +219,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Post',
-    route: '/profile/post/dashboard/',
     icon: 'building',
     toggleMenuSection: true,
     expandedSection: true,
@@ -253,7 +249,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'AO',
-    route: '/profile/ao/dashboard/',
     icon: 'building-o',
     toggleMenuSection: true,
     expandedSection: true,
@@ -304,7 +299,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'CDO',
-    route: '/profile/cdo/bidderportfolio',
     icon: 'street-view',
     toggleMenuSection: true,
     expandedSection: true,

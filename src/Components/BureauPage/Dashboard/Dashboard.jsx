@@ -7,7 +7,7 @@ import Spinner from '../../Spinner';
 import SelectForm from '../../SelectForm';
 import { Column, Row } from '../../Layout';
 
-
+// we are not currently showing this page - it was previously behind static content flag
 const BureauPage = (props) => {
   const {
     placeholderText,
@@ -55,7 +55,7 @@ const BureauPage = (props) => {
 
   return (
     <div
-      className={'usa-grid-full profile-content-inner-container bureau-page'}
+      className={'usa-grid-full profile-content-inner-container position-search'}
     >
       {
         !placeholderText &&
@@ -99,7 +99,7 @@ const BureauPage = (props) => {
                 <div>All: 130/150</div>
               </div>
               <div className="usa-width-three-fourths">
-                <div className="mainSelector">
+                <div className="main-selector">
                   <FA name={'dot-circle-o'} />
                   <span>WHA (All positions)</span>
                 </div>

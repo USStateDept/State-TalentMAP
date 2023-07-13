@@ -15,7 +15,7 @@ import Picky from 'react-picky';
 import { filtersFetchData } from 'actions/filters/filters';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
-import PositionDetailsCard from '../../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
+import PublishablePositionCard from '../../PublishablePositionCard/PublishablePositionCard';
 
 const ProjectedVacancy = () => {
   const childRef = useRef();
@@ -31,18 +31,20 @@ const ProjectedVacancy = () => {
 
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrade, setSelectedGrade] = useState(userSelections?.selectedGrade || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedLanguage, setSelectedLanguage] = useState(userSelections?.selectedLanguage || []);
-  const [selectedBidCycle, setSelectedBidCycle] = useState(userSelections?.selectedBidCycle || []);
-  const [selectedPost, setSelectedPost] = useState(userSelections?.selectedPost || []);
+  const [selectedLanguages, setSelectedLanguages] =
+    useState(userSelections?.selectedLanguage || []);
+  const [selectedBidCycles, setSelectedBidCycles] =
+    useState(userSelections?.selectedBidCycle || []);
+  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
   const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
+  const posts = genericFilters$.find(f => get(f, 'item.description') === 'post');
+  const locationOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
@@ -56,7 +58,7 @@ const ProjectedVacancy = () => {
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const projectVacancyFiltersIsLoading =
-  includes([orgsLoading], true);
+    includes([orgsLoading], true);
 
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
@@ -70,11 +72,11 @@ const ProjectedVacancy = () => {
     ordering,
     // User Filters
     'projected-vacancy-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'projected-vacancy-post': selectedPost.map(postObject => (postObject?.code)),
+    'projected-vacancy-post': selectedPosts.map(postObject => (postObject?.code)),
     'projected-vacancy-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'projected-vacancy-cycles': selectedBidCycle.map(cycleObject => (cycleObject?.id)),
-    'projected-vacancy-language': selectedLanguage.map(langObject => (langObject?.code)),
-    'projected-vacancy-grades': selectedGrade.map(gradeObject => (gradeObject?.code)),
+    'projected-vacancy-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
+    'projected-vacancy-language': selectedLanguages.map(langObject => (langObject?.code)),
+    'projected-vacancy-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'projected-vacancy-skills': selectedSkills.map(skillObject => (skillObject?.code)),
 
     // Free Text
@@ -83,12 +85,12 @@ const ProjectedVacancy = () => {
 
   const resetFilters = () => {
     setSelectedBureaus([]);
-    setSelectedPost([]);
+    setSelectedPosts([]);
     setSelectedOrgs([]);
-    setSelectedGrade([]);
-    setSelectedLanguage([]);
+    setSelectedGrades([]);
+    setSelectedLanguages([]);
     setSelectedSkills([]);
-    setSelectedBidCycle([]);
+    setSelectedBidCycles([]);
     setTextSearch('');
     setTextInput('');
     childRef.current.clearText();
@@ -97,12 +99,12 @@ const ProjectedVacancy = () => {
 
   const getCurrentInputs = () => ({
     selectedBureaus,
-    selectedPost,
+    selectedPost: selectedPosts,
     selectedOrgs,
-    selectedGrade,
-    selectedLanguage,
+    selectedGrade: selectedGrades,
+    selectedLanguage: selectedLanguages,
     selectedSkills,
-    selectedBidCycle,
+    selectedBidCycle: selectedBidCycles,
     textSearch,
   });
 
@@ -114,12 +116,12 @@ const ProjectedVacancy = () => {
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
-      selectedPost,
+      selectedPosts,
       selectedOrgs,
-      selectedGrade,
-      selectedLanguage,
+      selectedGrades,
+      selectedLanguages,
       selectedSkills,
-      selectedBidCycle,
+      selectedBidCycles,
     ];
     if (filters.flat().length === 0 && isEmpty(textSearch)) {
       setClearFilters(false);
@@ -136,12 +138,12 @@ const ProjectedVacancy = () => {
     limit,
     ordering,
     selectedBureaus,
-    selectedPost,
+    selectedPosts,
     selectedOrgs,
-    selectedGrade,
-    selectedLanguage,
+    selectedGrades,
+    selectedLanguages,
     selectedSkills,
-    selectedBidCycle,
+    selectedBidCycles,
     textSearch,
   ]);
 
@@ -202,15 +204,13 @@ const ProjectedVacancy = () => {
     includeSelectAll: true,
   };
 
-  const dummyid = get(dummyPositionDetails, 'id', '');
-
   return (
     isLoading ?
-      <Spinner type="projected-vacancy-filters" size="small" /> :
+      <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="projected-vacancy-page">
-          <div className="usa-grid-full projected-vacancy-upper-section">
-            <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" />
+        <div className="position-search edit-position-details-page">
+          <div className="usa-grid-full position-search--header">
+            <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
                 <PositionManagerSearch
@@ -225,14 +225,40 @@ const ProjectedVacancy = () => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                  <button className="unstyled-button" onClick={resetFilters}>
-                    <FA name="times" />
-                      Clear Filters
-                  </button>
+                      <button className="unstyled-button" onClick={resetFilters}>
+                        <FA name="times" />
+                        Clear Filters
+                      </button>
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole projected-vacancy-filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters results-dropdown">
+                  <div className="filter-div">
+                    <div className="label">Bid Cycle:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Bid Cycle(s)"
+                      value={selectedBidCycles}
+                      options={cycleOptions}
+                      onChange={setSelectedBidCycles}
+                      valueKey="id"
+                      labelKey="name"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Location:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Location(s)"
+                      value={selectedPosts}
+                      options={locationOptions}
+                      onChange={setSelectedPosts}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
                   <div className="filter-div">
                     <div className="label">Bureau:</div>
                     <Picky
@@ -250,25 +276,12 @@ const ProjectedVacancy = () => {
                     <div className="label">Organization:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select an Org"
+                      placeholder="Select Organization(s)"
                       value={selectedOrgs}
                       options={organizationOptions}
                       onChange={setSelectedOrgs}
                       valueKey="code"
                       labelKey="name"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Grade:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select a Grade"
-                      value={selectedGrade}
-                      options={gradesOptions}
-                      onChange={setSelectedGrade}
-                      valueKey="code"
-                      labelKey="custom_description"
                       disabled={isLoading}
                     />
                   </div>
@@ -286,41 +299,28 @@ const ProjectedVacancy = () => {
                     />
                   </div>
                   <div className="filter-div">
+                    <div className="label">Grade:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Grade(s)"
+                      value={selectedGrades}
+                      options={gradesOptions}
+                      onChange={setSelectedGrades}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
                     <div className="label">Language:</div>
                     <Picky
                       {...pickyProps}
-                      placeholder="Select a Language"
-                      value={selectedLanguage}
+                      placeholder="Select Language(s)"
+                      value={selectedLanguages}
                       options={languagesOptions}
-                      onChange={setSelectedLanguage}
+                      onChange={setSelectedLanguages}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Location:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Location(s)"
-                      value={selectedPost}
-                      options={locationOptions}
-                      onChange={setSelectedPost}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Bid Cycle:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select a Bid Cycle"
-                      value={selectedBidCycle}
-                      options={cycleOptions}
-                      onChange={setSelectedBidCycle}
-                      valueKey="id"
-                      labelKey="name"
                       disabled={isLoading}
                     />
                   </div>
@@ -329,18 +329,16 @@ const ProjectedVacancy = () => {
             </div>
           </div>
           {
-            <div className="edit-position-details-results-controls">
+            <div className="position-search-controls--results padding-top results-dropdown">
               <SelectForm
-                className="edit-position-details-results-select"
-                id="edit-position-details-results-sort"
+                id="projected-vacancy-sort-results"
                 options={sorts.options}
                 label="Sort by:"
                 defaultSort={ordering}
                 onSelectOption={value => setOrdering(value.target.value)}
               />
               <SelectForm
-                className="edit-position-details-results-select"
-                id="edit-position-details-num-results"
+                id="projected-vacancy-num-results"
                 options={pageSizes.options}
                 label="Results:"
                 defaultSort={limit}
@@ -349,11 +347,10 @@ const ProjectedVacancy = () => {
               <ScrollUpButton />
             </div>
           }
-          <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
+          <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
-              <PositionDetailsCard
-                result={dummyPositionDetails}
-                key={dummyid}
+              <PublishablePositionCard
+                data={dummyPositionDetails}
               />
             </div>
           </div>

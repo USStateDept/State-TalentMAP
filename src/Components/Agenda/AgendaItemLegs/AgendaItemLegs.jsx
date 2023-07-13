@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { shortenString } from 'utilities';
+import { formatLang, shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
@@ -23,12 +23,6 @@ const AgendaItemLegs = props => {
       return !isNaN(new Date(d)) && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : d;
     }
     return '';
-  };
-  const formatLang = (langArr = []) => {
-    if (langArr === '-') return '-';
-    return langArr.map(lang => (
-      `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-    )).join(', ');
   };
 
   const getData = (key, helperFunc = () => {}) => (
