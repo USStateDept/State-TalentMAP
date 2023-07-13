@@ -918,9 +918,9 @@ export const determineEnv = (url) => {
   return match[0];
 };
 
-export const formatLang = (langArr) => {
-  const langArr$ = langArr || [];
-  return langArr$.map(lang => (
+export const formatLang = (langArr = []) => {
+  if (langArr === '-') return '-';
+  return langArr.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
 };
