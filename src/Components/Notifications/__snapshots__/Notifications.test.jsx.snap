@@ -11,6 +11,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       className="favorites-title-container"
     >
       <ProfileSectionTitle
+        className=""
         icon="globe"
         title="Notifications"
       />

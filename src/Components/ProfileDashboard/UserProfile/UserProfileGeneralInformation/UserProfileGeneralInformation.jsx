@@ -55,8 +55,7 @@ class UserProfileGeneralInformation extends Component {
       });
   }
   render() {
-    const { userProfile, useGroup,
-      colorProp, useColor, isPublic } = this.props;
+    const { userProfile, colorProp, isPublic } = this.props;
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
@@ -65,7 +64,7 @@ class UserProfileGeneralInformation extends Component {
       externalSource: get(userProfile, 'avatar'),
       externalSourceToUse: 'm',
     };
-    avatar.colorString = useColor ? avatar[colorProp] : undefined;
+    avatar.colorString = isPublic ? avatar[colorProp] : undefined;
     const userGrade = get(userProfile, 'employee_info.grade') || NO_GRADE;
     const userSkills = get(userProfile, 'employee_info.skills');
     const userID = get(userProfile, 'employee_id');
@@ -108,6 +107,7 @@ class UserProfileGeneralInformation extends Component {
                   <EmployeeProfileLink userProfile={userProfile} />
               }
               {
+                get(userProfile, 'employee_profile_url') &&
                 <InteractiveElement
                   onClick={() => openPdf(true)}
                   type="a"
@@ -127,13 +127,10 @@ class UserProfileGeneralInformation extends Component {
               content={`Grade: ${userGrade}`}
               className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
             />
-            {
-              !useGroup &&
-                <InformationDataPoint
-                  content={<SkillCodeList skillCodes={userSkills} />}
-                  className="skill-code-data-point-container skill-code-data-point-container-skill"
-                />
-            }
+            <InformationDataPoint
+              content={<SkillCodeList skillCodes={userSkills} />}
+              className="skill-code-data-point-container skill-code-data-point-container-skill"
+            />
           </div>
         </div>
       </div>
@@ -143,8 +140,6 @@ class UserProfileGeneralInformation extends Component {
 
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
-  useGroup: PropTypes.bool,
-  useColor: PropTypes.bool,
   colorProp: PropTypes.string,
   onToastError: PropTypes.func,
   onToastInfo: PropTypes.func,
@@ -153,8 +148,6 @@ UserProfileGeneralInformation.propTypes = {
 };
 
 UserProfileGeneralInformation.defaultProps = {
-  useGroup: false,
-  useColor: false,
   colorProp: 'displayName',
   onToastError: EMPTY_FUNCTION,
   onToastInfo: EMPTY_FUNCTION,
