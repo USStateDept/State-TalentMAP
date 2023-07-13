@@ -7,6 +7,7 @@ import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeeting
 import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDetails';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import CycleManagement from 'Components/CycleManagement';
+import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
 import ProjectedVacancy from './ProjectedVacancy';
@@ -34,6 +35,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/projectedvacancy" render={() => <ProjectedVacancy isCDO={false} />} />
         <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
         <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement />} />
+        <Route path="/profile/bureau/cyclepositionsearch" render={() => <CyclePositionSearch />} />
       </Switch>
     </div>
   );
