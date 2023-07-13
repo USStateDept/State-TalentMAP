@@ -9,11 +9,13 @@ import { COMMON_PROPERTIES } from 'Constants/EndpointParams';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
-import { getBidStatsToUse, getDifferentials, getResult, renderBidCountMobile } from 'Components/ResultsCard/ResultsCard';
 import LanguageList from 'Components/LanguageList';
 import { HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from 'Components/Ribbon';
 import HandshakeStatus from 'Components/Handshake/HandshakeStatus';
-import { getBidStatisticsObject, getPostName, propOrDefault, shortenString } from 'utilities';
+import {
+  getBidStatisticsObject, getBidStatsToUse, getDifferentials,
+  getPostName, getResult, propOrDefault, renderBidCountMobile, shortenString,
+} from 'utilities';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_SKILL, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
@@ -62,7 +64,7 @@ class BureauResultsCard extends Component {
     </Tooltip>) : '';
 
     const sections = [
-    /* eslint-disable quote-props */
+      /* eslint-disable quote-props */
       {
         'Position number': position,
         'Skill': getResult(pos, 'skill_code') || NO_SKILL,
@@ -82,7 +84,7 @@ class BureauResultsCard extends Component {
       {
         'Location (Org)': postShort,
       },
-    /* eslint-enable quote-props */
+      /* eslint-enable quote-props */
     ];
 
     const ribbonClass = 'ribbon-results-card';

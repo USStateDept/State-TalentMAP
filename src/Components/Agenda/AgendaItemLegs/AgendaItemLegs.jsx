@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { shortenString } from 'utilities';
+import { formatLang, shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
@@ -24,9 +24,6 @@ const AgendaItemLegs = props => {
     }
     return '';
   };
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
 
   const getData = (key, helperFunc = () => {}) => (
     <>
