@@ -17,7 +17,7 @@ const AgendaItemHistoryLink = (props) => {
       {
         showAgendaItemHistory &&
       <div className="usa-grid-full small-link-container agenda-item-history-link">
-        <Link to={`/profile/${props.userRole}/agendaitemhistory/${props.perdet}`}>Go to Agenda Item History</Link>
+        <Link to={`/profile/${props?.userRole}/agendaitemhistory/${props?.perdet}`}>Go to Agenda Item History</Link>
       </div>
       }
     </div>
@@ -25,8 +25,8 @@ const AgendaItemHistoryLink = (props) => {
 };
 
 AgendaItemHistoryLink.propTypes = {
-  perdet: PropTypes.String,
-  userRole: PropTypes.String,
+  perdet: PropTypes.string,
+  userRole: PropTypes.string,
 };
 
 AgendaItemHistoryLink.defaultProps = {

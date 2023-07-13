@@ -11,6 +11,7 @@ exports[`AvailableBidderContainerComponent matches snapshot when CDO 1`] = `
       className="usa-grid-full"
     >
       <ProfileSectionTitle
+        className=""
         icon="users"
         title="Available Bidders"
       />
@@ -51,6 +52,7 @@ exports[`AvailableBidderContainerComponent matches snapshot when not CDO 1`] = `
       className="usa-grid-full"
     >
       <ProfileSectionTitle
+        className=""
         icon="users"
         title="Available Bidders"
       />

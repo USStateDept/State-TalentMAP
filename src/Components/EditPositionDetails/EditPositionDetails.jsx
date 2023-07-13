@@ -15,7 +15,6 @@ import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/List
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import api from '../../api';
-import PositionDetailsCard from '../EditPositionDetails/PositionDetailsCard/PositionDetailsCard';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 const EditPositionDetails = () => {
@@ -217,16 +216,15 @@ const EditPositionDetails = () => {
     setClearFilters(false);
   };
 
-  const dummyid = get(dummyPositionDetails, 'id', '');
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="bureau-page edit-position-details-page">
-          <div className="usa-grid-full position-manager-upper-section">
+        <div className="position-search edit-position-details-page">
+          <div className="usa-grid-full position-search--header">
+            <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
-                <ProfileSectionTitle title="Position Details" icon="keyboard-o" />
                 <PositionManagerSearch
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
@@ -246,7 +244,7 @@ const EditPositionDetails = () => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-manager-filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters wide-filter-labels results-dropdown">
                   <div className="filter-div">
                     <div className="label">Publishable Status:</div>
                     <Picky
@@ -257,6 +255,32 @@ const EditPositionDetails = () => {
                       onChange={setSelectedStatuses}
                       valueKey="code"
                       labelKey="name"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Bid Cycle:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Bid Cycle(s)"
+                      value={selectedBidCycles}
+                      options={cycleOptions}
+                      onChange={setSelectedBidCycles}
+                      valueKey="id"
+                      labelKey="name"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Location:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Location(s)"
+                      value={selectedPosts}
+                      options={locationOptions}
+                      onChange={setSelectedPosts}
+                      valueKey="code"
+                      labelKey="custom_description"
                       disabled={isLoading}
                     />
                   </div>
@@ -287,19 +311,6 @@ const EditPositionDetails = () => {
                     />
                   </div>
                   <div className="filter-div">
-                    <div className="label">Grade:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Grade(s)"
-                      value={selectedGrades}
-                      options={gradeOptions}
-                      onChange={setSelectedGrades}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
                     <div className="label">Skills:</div>
                     <Picky
                       {...pickyProps}
@@ -307,6 +318,19 @@ const EditPositionDetails = () => {
                       value={selectedSkills}
                       options={skillOptions}
                       onChange={setSelectedSkills}
+                      valueKey="code"
+                      labelKey="custom_description"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="filter-div">
+                    <div className="label">Grade:</div>
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Grade(s)"
+                      value={selectedGrades}
+                      options={gradeOptions}
+                      onChange={setSelectedGrades}
                       valueKey="code"
                       labelKey="custom_description"
                       disabled={isLoading}
@@ -325,49 +349,21 @@ const EditPositionDetails = () => {
                       disabled={isLoading}
                     />
                   </div>
-                  <div className="filter-div">
-                    <div className="label">Location:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Location(s)"
-                      value={selectedPosts}
-                      options={locationOptions}
-                      onChange={setSelectedPosts}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Bid Cycle:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Bid Cycle(s)"
-                      value={selectedBidCycles}
-                      options={cycleOptions}
-                      onChange={setSelectedBidCycles}
-                      valueKey="id"
-                      labelKey="name"
-                      disabled={isLoading}
-                    />
-                  </div>
                 </div>
               </div>
             </div>
           </div>
           {
-            <div className="bureau-results-controls results-dropdown">
+            <div className="position-search-controls--results padding-top results-dropdown">
               <SelectForm
-                className="results-select"
-                id="edit-position-details-results-sort"
+                id="position-details-sort-results"
                 options={sorts.options}
                 label="Sort by:"
                 defaultSort={ordering}
                 onSelectOption={value => setOrdering(value.target.value)}
               />
               <SelectForm
-                className="results-select"
-                id="edit-position-details-num-results"
+                id="position-details-num-results"
                 options={pageSizes.options}
                 label="Results:"
                 defaultSort={limit}
@@ -376,12 +372,8 @@ const EditPositionDetails = () => {
               <ScrollUpButton />
             </div>
           }
-          <div className="usa-width-one-whole position-manager-lower-section results-dropdown">
+          <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
-              <PositionDetailsCard
-                result={dummyPositionDetails}
-                key={dummyid}
-              />
               <PublishablePositionCard
                 result={dummyPositionDetails}
               />

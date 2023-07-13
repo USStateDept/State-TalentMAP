@@ -33,7 +33,6 @@ const EditRemark = (props) => {
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
   const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
-  const [mutuallyExclusive, setMutuallyExclusive] = useState(remark.mutually_exclusive_ind === 'Y');
 
   const closeRemarkModal = (e) => {
     e.preventDefault();
@@ -45,7 +44,6 @@ const EditRemark = (props) => {
       rmrkInsertionList,
       longDescription,
       activeIndicator,
-      mutuallyExclusive,
     }));
     if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
       swal.close();
@@ -170,20 +168,12 @@ const EditRemark = (props) => {
         </div>
       </div>
       <div className="edit-remark-checkboxes-controls">
-        <div className="edit-remark-checkboxes">
-          <CheckBox
-            label="Active Indicator"
-            id="active-indicator-checkbox"
-            onCheckBoxClick={e => setActiveIndicator(e)}
-            value={activeIndicator}
-          />
-          <CheckBox
-            label="Mutually Exclusive Indicator"
-            id="mutually-exclusive-checkbox"
-            onCheckBoxClick={e => setMutuallyExclusive(e)}
-            value={mutuallyExclusive}
-          />
-        </div>
+        <CheckBox
+          label="Active Indicator"
+          id="active-indicator-checkbox"
+          onCheckBoxClick={e => setActiveIndicator(e)}
+          value={activeIndicator}
+        />
         <div className="modal-controls">
           <button onClick={submitRemark}>Submit</button>
           <button className="usa-button-secondary" onClick={closeRemarkModal}>Cancel</button>
@@ -201,7 +191,6 @@ EditRemark.propTypes = {
     rc_code: PropTypes.string,
     order_num: PropTypes.number,
     short_desc_text: PropTypes.string,
-    mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
     remark_inserts: PropTypes.arrayOf(
