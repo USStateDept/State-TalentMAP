@@ -533,7 +533,6 @@ $profile-title-wrapper: 15px;
   font-size: 15px;
   height: 100%;
   min-width: 215px;
-  margin-right: $profile-title-wrapper;
   .fa {
     color: $blue-primary;
   }
@@ -585,11 +584,10 @@ $profile-title-wrapper: 15px;
   .expandable-link {
     border-left: unset;
     margin-bottom: 7px;
-    width: 300px;
+    max-width: 300px;
 
     .list-item-wrapper {
       padding-left: $total-padding;
-      padding-right: $border;
     }
 
     ul {
