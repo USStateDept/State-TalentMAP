@@ -13,7 +13,12 @@ import Fuse from 'fuse.js';
 import { VALID_PARAMS, VALID_TANDEM_PARAMS } from 'Constants/EndpointParams';
 import { NO_BID_CYCLE, NO_POST } from 'Constants/SystemMessages';
 import FLAG_COLORS from 'Constants/FlagColors';
+import Differentials from 'Components/Differentials';
+import OBCUrl from 'Components/OBCUrl';
+import BidCount from 'Components/BidCount';
+import { Column } from 'Components/Layout';
 import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
+
 
 const scroll = Scroll.animateScroll;
 
@@ -911,6 +916,71 @@ export const determineEnv = (url) => {
   // eslint-disable-next-line
   if (!match) console.log('no valid env found');
   return match[0];
+};
+
+export const formatLang = (langArr) => {
+  const langArr$ = langArr || [];
+  return langArr$.map(lang => (
+    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+  )).join(', ');
+};
+
+// Result card utility for retrieving card values
+export const getResult = (result, path, defaultValue, isRate = false) => {
+  let value = get(result, path, defaultValue);
+
+  if ((/_date|date_|ted/i).test(path) && value !== defaultValue) {
+    value = formatDate(value);
+  }
+
+  if (path === 'post.differential_rate' || path === 'post.danger_pay') {
+    const value$ = getDifferentialPercentage(value);
+
+    const OBCUrl$ = get(result, 'post.post_bidding_considerations_url');
+    if (OBCUrl$) {
+      return (<span> {value$} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
+    }
+
+    return value$;
+  }
+
+  if (isRate && isNumber(value)) {
+    value = `${value}%`;
+  }
+
+  if (!value) {
+    value = defaultValue;
+  }
+
+  return value;
+};
+
+// Common result card bid count column for use in multiple card components
+export const renderBidCount = stats => (
+  <Column columns="4">
+    <BidCount bidStatistics={stats} altStyle />
+  </Column>
+);
+
+// Common result card bid count for use in multiple card components
+export const renderBidCountMobile = stats => (
+  <BidCount bidStatistics={stats} altStyle />
+);
+
+
+// Result card utility to retrieve post name text
+export const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
+
+// Result card utility to retrieve bid statistics for card
+export const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
+
+// Result card utility to retrieve differentials
+export const getDifferentials = (result) => {
+  const dangerPay = get(result, 'post.danger_pay');
+  const postDifferential = get(result, 'post.differential_rate');
+  const obcUrl = get(result, 'post.post_bidding_considerations_url');
+  const props = { dangerPay, postDifferential, obcUrl };
+  return <Differentials {...props} />;
 };
 
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
