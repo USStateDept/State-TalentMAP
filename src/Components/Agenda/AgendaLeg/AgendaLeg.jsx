@@ -4,7 +4,7 @@ import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
-import { formatDate } from 'utilities';
+import { formatDate, formatLang } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
@@ -93,7 +93,7 @@ const AgendaLeg = props => {
 
     updateLeg(get(leg, 'ail_seq_num'), { [dropdown]: value });
 
-    if (dropdown === 'legEndDate') {
+    if (dropdown === 'ted') {
       swal.close();
     }
   };
@@ -104,6 +104,11 @@ const AgendaLeg = props => {
         { legActionType: get(leg, 'action') || '', travelFunctionCode: get(leg, 'travel') || '' });
     }
   }, []);
+
+  const clearTed = () => {
+    updateLeg(leg?.ail_seq_num, { ted: '' });
+    swal.close();
+  };
 
   const calendarModal = () => {
     swal({
@@ -122,11 +127,12 @@ const AgendaLeg = props => {
           <div>
             <Calendar
               className="ted-react-calendar"
-              onChange={(e) => updateDropdown('legEndDate', e)}
+              onChange={(e) => updateDropdown('ted', e)}
             />
           </div>
-          <div className="ted-button">
+          <div className="ted-buttons">
             <button onClick={cancel}>Cancel</button>
+            <button onClick={clearTed}>Clear TED</button>
           </div>
         </div>
       ),
@@ -221,19 +227,15 @@ const AgendaLeg = props => {
     );
   };
 
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
-
   const getCalendar = () => (
     disabled ?
-      <>{formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}</> :
+      <>{formatDate(leg?.ted) || DEFAULT_TEXT}</> :
       <div className="error-message-wrapper ail-form-ted">
         <div className="validation-error-message-label validation-error-message">
-          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.errorMessage}
+          {AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.errorMessage}
         </div>
-        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.legEndDate?.valid ? '' : 'validation-error-border'}`}>
-          {formatDate(get(leg, 'legEndDate') || get(leg, 'ted')) || DEFAULT_TEXT}
+        <div className={`${AIvalidation?.legs?.individualLegs?.[leg?.ail_seq_num]?.ted?.valid ? '' : 'validation-error-border'}`}>
+          {formatDate(leg?.ted) || DEFAULT_TEXT}
           <FA name="calendar" onClick={calendarModal} />
         </div>
       </div>
@@ -334,6 +336,7 @@ AgendaLeg.propTypes = {
     tod: PropTypes.string,
     tod_is_dropdown: PropTypes.bool,
     vice: PropTypes.shape({}),
+    ted: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,

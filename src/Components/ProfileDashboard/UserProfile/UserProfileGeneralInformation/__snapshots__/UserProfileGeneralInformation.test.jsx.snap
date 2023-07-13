@@ -513,6 +513,28 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         title=""
         titleOnBottom={false}
       />
+      <InformationDataPoint
+        className="skill-code-data-point-container skill-code-data-point-container-skill"
+        content={
+          <SkillCodeList
+            skillCodes={
+              Array [
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
+              ]
+            }
+          />
+        }
+        sideBySide={false}
+        title=""
+        titleOnBottom={false}
+      />
     </div>
   </div>
 </div>

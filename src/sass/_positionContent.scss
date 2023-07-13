@@ -93,7 +93,7 @@
   .position-content--details {
     dl {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
       column-gap: 15px;
 
       >div {
@@ -125,9 +125,14 @@
     font-size: 14px;
   }
 
-  .disabled-input {
-    background-color: $bg-gray-medium-2;
-    color: $color-gray;
+  textarea {
+    resize: vertical;
+    max-width: 100%;
+
+    &.disabled-input {
+      background-color: $bg-gray-medium-2;
+      color: $color-gray;
+    }
   }
 
   .enabled-input {

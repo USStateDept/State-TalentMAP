@@ -19,6 +19,7 @@ exports[`BidTrackerComponent matches snapshot 1`] = `
         className="usa-grid-full"
       >
         <ProfileSectionTitle
+          className=""
           icon="clipboard"
           title="Bid Tracker"
         />
@@ -583,6 +584,7 @@ exports[`BidTrackerComponent matches snapshot when bidListIsLoading is true 1`] 
         className="usa-grid-full"
       >
         <ProfileSectionTitle
+          className=""
           icon="clipboard"
           title="Bid Tracker"
         />

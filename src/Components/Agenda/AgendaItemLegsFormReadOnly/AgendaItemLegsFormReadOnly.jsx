@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-import { formatDate } from 'utilities';
+import { formatDate, formatLang } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import Alert from '../../Alert';
 import { formatVice } from '../Constants';
@@ -20,10 +20,6 @@ const AgendaItemLegsFormReadOnly = props => {
       setRowHoverNum(row);
     }
   };
-
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
 
   // eslint-disable-next-line no-unused-vars
   const getArrows = () => (
@@ -63,7 +59,7 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'TED',
-      content: (a => <div>{formatDate(a?.legEndDate || a?.ted) || DEFAULT_TEXT}</div>),
+      content: (a => <div>{formatDate(a?.ted) || DEFAULT_TEXT}</div>),
     },
     {
       title: 'TOD',
