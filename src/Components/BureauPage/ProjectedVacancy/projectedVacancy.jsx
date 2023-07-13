@@ -204,6 +204,8 @@ const ProjectedVacancy = () => {
     includeSelectAll: true,
   };
 
+  const dummyid = get(dummyPositionDetails, 'id', '');
+
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :

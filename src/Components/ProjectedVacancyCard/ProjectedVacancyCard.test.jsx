@@ -6,7 +6,7 @@ describe('ProjectedVacancyCard', () => {
   const result = resultsObject.results[0];
 
   it('is defined', () => {
-    const wrapper = shallow(<ProjectedVacancyCard result={result} />);
+    const wrapper = shallow(<ProjectedVacancyCard data={result} />);
     expect(wrapper).toBeDefined();
   });
 });

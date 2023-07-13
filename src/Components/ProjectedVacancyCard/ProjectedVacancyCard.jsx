@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { get } from 'lodash';
-import { getDifferentials, getResult } from 'Components/ResultsCard/ResultsCard';
-import { getPostName } from 'utilities';
+import { getDifferentials, getPostName, getResult } from 'utilities';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
@@ -13,10 +12,10 @@ import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const ProjectedVacancyCard = ({ result }) => {
+const ProjectedVacancyCard = ({ data }) => {
   const [included, setIncluded] = useState(true);
 
-  const pos = get(result, 'position') || result;
+  const pos = get(data, 'position') || data;
   // const description$ = get(pos, 'description.content') || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
@@ -40,7 +39,7 @@ const ProjectedVacancyCard = ({ result }) => {
       'Location': getPostName(get(pos, 'post') || NO_POST),
       'Status': getResult(pos, 'status') || NO_STATUS,
       'Organization': getResult(pos, 'organization') || NO_ORG,
-      'TED': getResult(result, 'ted') || NO_DATE,
+      'TED': getResult(data, 'ted') || NO_DATE,
       'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Language Offset Summer': '12 Months',
@@ -82,7 +81,7 @@ const ProjectedVacancyCard = ({ result }) => {
 };
 
 ProjectedVacancyCard.propTypes = {
-  result: POSITION_DETAILS.isRequired,
+  data: POSITION_DETAILS.isRequired,
 };
 
 export default ProjectedVacancyCard;
