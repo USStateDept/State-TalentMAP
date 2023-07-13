@@ -138,7 +138,7 @@ const CyclePositionSearch = () => {
   };
 
   return (
-    orgsLoading && genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
+    orgsLoading || genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
         <div className="cycle-management-page">
           <div className="cm-upper-section">
