@@ -129,7 +129,7 @@ export const mapDispatchToProps = dispatch => ({
   deleteBid: id => dispatch(toggleBidPosition(id, true)),
   submitBidPosition: id => dispatch(submitBid(id)),
   fetchClassifications: () => dispatch(fetchClassifications()),
-  fetchUserClassifications: id => dispatch(fetchUserClassifications(id)),  
+  fetchUserClassifications: id => dispatch(fetchUserClassifications(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
