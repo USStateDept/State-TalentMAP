@@ -20,7 +20,7 @@ const CycleSearchCard = (props) => {
   return (
     <Row fluid className="cycle-search-card">
       <Row fluid className="cyc-card--row">
-        <Column columns={3} className="cyc-card--name-col">
+        <Column columns={3}>
           {cycle_name}
         </Column>
         <Column columns={12} className="cyc-card--middle-cols">
@@ -44,11 +44,11 @@ const CycleSearchCard = (props) => {
           </Column>
         </Column>
         <Column columns={3} className="cyc-card--link-col">
-          {
-            <Link to={cycleLink}>
+          <span>
+            {<Link to={cycleLink}>
               View Cycle Positions
-            </Link>
-          }
+            </Link>}
+          </span>
         </Column>
       </Row>
     </Row>
