@@ -866,7 +866,6 @@ export const AGENDA_ITEM = PropTypes.shape({
     remark_inserts: [],
     order_num: PropTypes.number,
     short_desc_text: PropTypes.string,
-    mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
     type: null,
