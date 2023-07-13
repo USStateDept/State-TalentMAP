@@ -922,7 +922,8 @@ export const formatLang = (langArr) => {
   const langArr$ = langArr || [];
   return langArr$.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ')};
+  )).join(', ');
+};
 
 // Result card utility for retrieving card values
 export const getResult = (result, path, defaultValue, isRate = false) => {
