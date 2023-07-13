@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 import FA from 'react-fontawesome';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
+import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 
-const PositionExpandableContent = ({ sections }) => {
-  const [editMode, setEditMode] = useState(false);
+const PositionExpandableContent = ({ sections, form }) => {
   const [showMore, setShowMore] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -22,6 +23,8 @@ const PositionExpandableContent = ({ sections }) => {
   }, []);
 
   const getBody = () => {
+    if (editMode && form) return form.staticBody;
+    if (showMore) return { ...sections.bodyPrimary, ...sections.bodySecondary };
     const minScreenWidth = 1650;
     // Append additional fields to collapsed view to fill blank space on wider screens
     if (minScreenWidth < windowWidth) {
@@ -35,8 +38,25 @@ const PositionExpandableContent = ({ sections }) => {
     return sections.bodyPrimary;
   };
 
-  // TODO: Add setViewMode prop or remove edit button from header.
-  // Refer to note on PublishablePositionCard about edit state management.
+  const showCancelModal = () => {
+    swal({
+      title: 'Confirm Discard Changes',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="simple-action-modal">
+          <div className="help-text">
+            <span>Are you sure you want to discard all changes made to this position?</span>
+          </div>
+          <div className="modal-controls">
+            <button onClick={() => { setEditMode(false); swal.close(); }}>Submit</button>
+            <button className="usa-button-secondary" onClick={() => swal.close()}>Cancel</button>
+          </div>
+        </div>
+      ),
+    });
+  };
+
   return (
     <div className="position-content">
       <Row fluid className="position-content--section position-content--subheader">
@@ -48,25 +68,21 @@ const PositionExpandableContent = ({ sections }) => {
             </div>
           ))}
         </div>
-        <button className="toggle-edit-mode" onClick={() => { setEditMode(!editMode); }}>
-          <FA name="pencil" />
-          <div>Edit</div>
-        </button>
+        {(form && !editMode) &&
+          <button className="toggle-edit-mode" onClick={() => setEditMode(!editMode)}>
+            <FA name="pencil" />
+            <div>Edit</div>
+          </button>
+        }
       </Row>
-      {!showMore ?
-        <Row fluid className="position-content--section position-content--details">
-          <DefinitionList
-            itemProps={{ excludeColon: true }}
-            items={getBody()}
-          />
-        </Row> :
+      <Row fluid className="position-content--section position-content--details">
+        <DefinitionList
+          itemProps={{ excludeColon: true }}
+          items={getBody()}
+        />
+      </Row>
+      {(showMore && !editMode) &&
         <>
-          <Row fluid className="position-content--section position-content--details">
-            <DefinitionList
-              itemProps={{ excludeColon: true }}
-              items={{ ...sections.bodyPrimary, ...sections.bodySecondary }}
-            />
-          </Row>
           <div>
             <Row fluid className="position-content--description">
               <span className="definition-title">Position Details</span>
@@ -91,13 +107,25 @@ const PositionExpandableContent = ({ sections }) => {
           </div>
         </>
       }
-      <Row fluid className="position-content--section position-content--footer">
-        <div className="position-content--metadata">
-          {Object.entries(sections.metadata).map(([label, value]) => (
-            <span key={`metadata-${label}`}>{`${label}: ${value}`}</span>
-          ))}
+      {(showMore && editMode) &&
+        <div>
+          <div className="content-divider" />
+          {form.inputBody}
+          <div className="position-form--actions">
+            <button onClick={showCancelModal}>Cancel</button>
+            <button onClick={form.handleSubmit}>Save Position</button>
+          </div>
         </div>
-      </Row>
+      }
+      {!editMode &&
+        <Row fluid className="position-content--section position-content--footer">
+          <div className="position-content--metadata">
+            {Object.entries(sections.metadata).map(([label, value]) => (
+              <span key={`metadata-${label}`}>{`${label}: ${value}`}</span>
+            ))}
+          </div>
+        </Row>
+      }
       <div className="usa-grid-full toggle-more-container">
         <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
           <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
@@ -115,6 +143,15 @@ PositionExpandableContent.propTypes = {
     textarea: PropTypes.string,
     metadata: PropTypes.shape({}),
   }).isRequired,
+  form: PropTypes.shape({
+    staticBody: PropTypes.shape({}),
+    inputBody: PropTypes.element,
+    handleSubmit: PropTypes.func,
+  }),
+};
+
+PositionExpandableContent.defaultProps = {
+  form: undefined,
 };
 
 export default PositionExpandableContent;

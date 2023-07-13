@@ -191,3 +191,36 @@
     }
   }
 }
+
+.content-divider {
+  border-bottom: 1px solid $bg-gray-dark-2;
+  margin: 10px 0px 20px;
+}
+
+.position-form--actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0px;
+
+  button {
+    font-size: 16px;
+  }
+
+  button:first-of-type {
+    background-color: transparent;
+    color: $primary-blue;
+  }
+}
+
+.simple-action-modal {
+  .help-text {
+    padding: 20px 0;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    margin-top: -20px;
+  }
+
+  .modal-controls {
+    padding-top: 28px;
+  }
+}
