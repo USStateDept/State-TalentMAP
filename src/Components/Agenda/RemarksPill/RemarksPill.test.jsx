@@ -6,7 +6,6 @@ describe('RemarksPill', () => {
   const props = {
     remark: {
       active_ind: 'Y',
-      mutually_exclusive_ind: 'N',
       order_num: 7,
       rc_code: 'B',
       seq_num: 2,
