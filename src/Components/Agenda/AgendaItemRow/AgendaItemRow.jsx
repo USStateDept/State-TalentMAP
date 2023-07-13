@@ -27,6 +27,7 @@ const AgendaItemRow = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+  const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
 
   const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
@@ -97,7 +98,7 @@ const AgendaItemRow = props => {
             isPanelMeetingView &&
             <div className="panel-meeting-person-data">
               <div className="panel-meeting-agendas-profile-link">
-                <Link to={`/profile/public/${perdet$}`}>{get(clientData, 'shortened_name')}</Link>
+                <Link to={publicProfileLink}>{get(clientData, 'shortened_name')}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {cdo}</div>
@@ -156,7 +157,6 @@ AgendaItemRow.propTypes = {
         rc_code: PropTypes.string,
         order_num: PropTypes.number,
         short_desc_text: PropTypes.string,
-        mutually_exclusive_ind: PropTypes.string,
         text: PropTypes.string,
         active_ind: PropTypes.string,
         type: null,

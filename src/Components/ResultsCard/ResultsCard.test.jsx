@@ -1,7 +1,8 @@
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import ResultsCard, { renderBidCount } from './ResultsCard';
+import ResultsCard from './ResultsCard';
 import resultsObject from '../../__mocks__/resultsObject';
+import { renderBidCount } from 'utilities';
 
 describe('ResultsCardComponent', () => {
   let wrapper = null;
@@ -11,7 +12,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={resultsObject.results[0]}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.position.id).toBe(6);
@@ -22,7 +23,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={resultsObject.results[0]}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />, { context: { isProjectedVacancy: true } });
     expect(wrapper).toBeDefined();
@@ -33,7 +34,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={resultsObject.results[1]}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />);
     expect(wrapper.instance().props.result.position.id).toBe(60);
@@ -46,7 +47,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={resultsObject.results[1]}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />);
     const output = wrapper.instance().getOffsetPx();
@@ -66,7 +67,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={resultsObject.results[0]}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -77,7 +78,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={resultsObject.results[0]}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />, { context: { isClient: true } });
     expect(toJSON(wrapper)).toMatchSnapshot();
@@ -88,7 +89,7 @@ describe('ResultsCardComponent', () => {
       <ResultsCard
         id={1}
         result={{ position: { id: 1 } }}
-        onToggle={() => {}}
+        onToggle={() => { }}
         bidList={[]}
       />);
     expect(toJSON(wrapper)).toMatchSnapshot();

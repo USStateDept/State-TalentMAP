@@ -4,7 +4,7 @@ import { get, includes } from 'lodash';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 import Calendar from 'react-calendar';
-import { formatDate } from 'utilities';
+import { formatDate, formatLang } from 'utilities';
 import swal from '@sweetalert/with-react';
 import { useEffect } from 'react';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
@@ -226,10 +226,6 @@ const AgendaLeg = props => {
       </div>
     );
   };
-
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
 
   const getCalendar = () => (
     disabled ?

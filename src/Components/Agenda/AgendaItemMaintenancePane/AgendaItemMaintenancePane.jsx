@@ -452,7 +452,6 @@ AgendaItemMaintenancePane.propTypes = {
       rc_code: PropTypes.string,
       order_num: PropTypes.number,
       short_desc_text: PropTypes.string,
-      mutually_exclusive_ind: PropTypes.string,
       text: PropTypes.string,
       active_ind: PropTypes.string,
       remark_inserts: PropTypes.arrayOf(

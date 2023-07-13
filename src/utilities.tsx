@@ -258,7 +258,7 @@ export const existsInArray = (ref: any, array: any[]): boolean => {
   return found;
 };
 
-// Check if there is an object in the array with a value in the nested prop 
+// Check if there is an object in the array with a value in the nested prop
 // strictly equal to the given ref value
 // Used for checking if a position is in the user's bid list
 export const existsInNestedObject = (ref: any, array: any[], prop: string = 'position_info', nestedProp: string = 'id'): boolean => {
@@ -966,5 +966,9 @@ export const determineEnv = (url: string): string => {
   }
   return match[0];
 };
+
+export const formatLang = (langArr: any[]): string => langArr.map(lang => (
+  `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
+)).join(', ');
 
 // Search Tags: common.js, helper file, helper functions, common helper file, common file
