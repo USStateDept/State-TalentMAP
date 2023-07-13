@@ -130,7 +130,6 @@
   }
 }
 
-
 // ============= Cycle Management =============
 
 .cycle-management-page {
@@ -140,49 +139,41 @@
     background-color: $bg-blue-dark-1;
     color: $color-white;
   }
-
   .cm-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
     margin: 15px;
-
     .cm-filter-div {
       align-items: center;
       margin-right: 10px;
       display: flex;
-
       .label {
         margin-right: 10px;
         min-width: 115px;
         text-align: end;
       }
-
       .picky {
         color: $color-black;
         width: 200px;
       }
-
       .react-daterange-picker__calendar--open {
         z-index: $daterange-z;
       }
-
       .react-daterange-picker {
         align-items: center;
         background: $color-white;
         font-size: 1.5rem;
         height: 28px;
         width: 240px;
-
+        border: 1px solid $bg-gray-dark-2;
         .react-daterange-picker__wrapper {
           border: none;
         }
-
         .react-daterange-picker__inputGroup {
           align-items: center;
           display: flex;
           justify-content: center;
         }
-
         .react-daterange-picker__range-divider,
         .react-daterange-picker__inputGroup__leadingZero,
         .react-date-picker__inputGroup__divider {
@@ -191,21 +182,66 @@
       }
     }
   }
-
-  .cycle-search-heading {
-    font-size: 32px;
-    padding: 35px 0;
-  }
-
-  .cycle-search-subheading {
-    padding-bottom: 20px;
-  }
-
   .cm-lower-section {
     padding: 0 35px 20px;
   }
+  .cm-results {
+    width: 50%;
+  }
+  .cm-results-dropdown {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    padding: 0px 35px;
+
+    &.padding-top {
+      padding-top: 15px;
+      padding-bottom: 10px;
+    }
+
+    div:first-child {
+      margin-right: 10px;
+    }
+
+    div {
+      display: flex;
+      align-items: baseline;
+    }
+  }
 }
 
+.cycle-search-card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: $color-white;
+  border: 1px solid $bg-gray-dark-2;
+  border-left: 8px solid $blue-primary;
+  box-shadow: 5px 5px 10px $bg-gray-dark-2;
+  padding: 1em;
+  .cyc-card--row {
+    display: flex;
+    align-items: center;
+    .cyc-card--middle-cols {
+      display: flex;
+      align-items: center;
+      >div {
+        color: $color-gray;
+        display: flex;
+        justify-content: center;
+        font-size: 14px;
+        min-width: max-content;
+      }
+    }
+    .cyc-card--link-col {
+      display: flex;
+      justify-content: flex-end;
+      >span {
+        text-align: right;
+      }
+    }
+  }
+}
 
 // ============= Position Manager =============
 

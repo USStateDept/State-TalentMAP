@@ -4,11 +4,6 @@ exports[`NavLinkComponent matches snapshot without children 1`] = `
 <div>
   <li
     className="usa-grid-full  link-highlighted"
-    style={
-      Object {
-        "width": "300px",
-      }
-    }
   >
     <div
       className="list-item-wrapper"
@@ -24,22 +19,13 @@ exports[`NavLinkComponent matches snapshot without children 1`] = `
         }
       >
         <span
-          style={
-            Object {
-              "display": "flex",
-            }
-          }
+          className="profile-titles-wrapper"
         >
           <span
             className="fa-container"
           />
           <span
             className="title-container"
-            style={
-              Object {
-                "wordWrap": "break-word",
-              }
-            }
           >
             test
           </span>
