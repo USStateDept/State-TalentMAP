@@ -12,10 +12,10 @@ import ToggleButton from 'Components/ToggleButton';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const ProjectedVacancyCard = ({ data }) => {
+const ProjectedVacancyCard = ({ result }) => {
   const [included, setIncluded] = useState(true);
 
-  const pos = get(data, 'position') || data;
+  const pos = get(result, 'position') || result;
   // const description$ = get(pos, 'description.content') || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
@@ -39,7 +39,7 @@ const ProjectedVacancyCard = ({ data }) => {
       'Location': getPostName(get(pos, 'post') || NO_POST),
       'Status': getResult(pos, 'status') || NO_STATUS,
       'Organization': getResult(pos, 'organization') || NO_ORG,
-      'TED': getResult(data, 'ted') || NO_DATE,
+      'TED': getResult(result, 'ted') || NO_DATE,
       'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Language Offset Summer': '12 Months',
@@ -81,7 +81,7 @@ const ProjectedVacancyCard = ({ data }) => {
 };
 
 ProjectedVacancyCard.propTypes = {
-  data: POSITION_DETAILS.isRequired,
+  result: POSITION_DETAILS.isRequired,
 };
 
 export default ProjectedVacancyCard;
