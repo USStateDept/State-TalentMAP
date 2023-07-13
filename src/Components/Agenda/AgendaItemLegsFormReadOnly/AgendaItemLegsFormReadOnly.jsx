@@ -23,7 +23,7 @@ const AgendaItemLegsFormReadOnly = props => {
   };
 
   const getArrows = (hide = false) => (
-    <div className={`${hide ? 'hide-total-results' : ''} arrow`}>
+    <div className={`${hide ? 'hide' : ''} arrow`}>
       <FA name="arrow-down" />
     </div>
   );
