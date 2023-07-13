@@ -54,7 +54,7 @@ const PostPage = (props) => {
     'Trinidad and Tobago', 'Iceland', 'Italy', 'Panama', 'Lithuania'];
 
   return (
-    <div className="usa-grid-full profile-content-inner-container bureau-page">
+    <div className="usa-grid-full profile-content-inner-container position-search">
       { !placeholderText &&
           <Spinner type="homepage-position-results" size="big" />
       }
@@ -95,7 +95,7 @@ const PostPage = (props) => {
                 <div>All: 130/150</div>
               </div>
               <div className="usa-width-three-fourths">
-                <div className="mainSelector">
+                <div className="main-selector">
                   <FA name="dot-circle-o" />
                   <span>WHA (All positions)</span>
                 </div>
