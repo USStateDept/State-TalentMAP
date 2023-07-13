@@ -2,7 +2,7 @@
 
 exports[`FavoritePositionsTitleComponent matches snapshot 1`] = `
 <h2
-  className="usa-grid-full hello-greeting"
+  className="usa-grid-full hello-greeting "
 >
   test
 </h2>
