@@ -7,8 +7,6 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   <Connect(UserProfileGeneralInformation)
     colorProp="firstName"
     isPublic={false}
-    useColor={false}
-    useGroup={false}
     userProfile={
       Object {
         "bid_statistics": Array [

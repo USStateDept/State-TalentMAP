@@ -426,7 +426,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                       labelKey="name"
                     />
                   </div>
-                  <div className="filter-div handshake-filter-div">
+                  <div className="filter-div restrict-label-width">
                     <div className="label">Handshake:</div>
                     <Picky
                       {...pickyProps}

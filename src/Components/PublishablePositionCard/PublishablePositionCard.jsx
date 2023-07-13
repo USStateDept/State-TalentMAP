@@ -50,17 +50,36 @@ const PublishablePositionCard = ({ data }) => {
     /* eslint-enable quote-props */
   };
 
-  // TODO: Manage edit/view mode on this component level with statemanagement
-  // using one edit component and one view component. This will mean the edit button
-  // inside PositionExpandableContent needs to be on this level with absolute positioning
-  // OR we can pass in a setViewMode prop into PositionExpandableContent that the edit
-  // button uses to flip to the edit component
+  const form = {
+    /* eslint-disable quote-props */
+    staticBody: {
+      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+      'Location': getPostName(get(pos, 'post')) || NO_POST,
+      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
+      'Grade': getResult(pos, 'grade') || NO_GRADE,
+      'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
+      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
+      'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
+      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
+      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
+      'Pay Plan': '---',
+      'Assignee': '---',
+      'Post Differential | Danger Pay': getDifferentials(pos),
+    },
+    inputBody: <div />,
+    /* eslint-enable quote-props */
+  };
+
+
   return (
     <TabbedCard
       tabs={[{
         text: 'Position Overview',
         value: 'OVERVIEW',
-        content: <PositionExpandableContent sections={sections} />,
+        content: <PositionExpandableContent
+          sections={sections}
+          form={form}
+        />,
       }]}
     />
   );
