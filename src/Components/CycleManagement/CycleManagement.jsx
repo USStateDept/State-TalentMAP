@@ -50,6 +50,7 @@ const CycleManagement = () => {
 
   const getCurrentInputs = () => ({
     page,
+    limit,
     selectedCycles,
     selectedStatus,
     selectedDates,
@@ -141,7 +142,7 @@ const CycleManagement = () => {
     });
   };
 
-  // Overlay for error, info, and positionLoading state
+  // Overlay for error, info, and loading state
   const noResults = cycleManagementData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
@@ -235,11 +236,9 @@ const CycleManagement = () => {
                     pageSize={limit}
                     suffix="Results"
                     isHidden={cycleManagementDataLoading}
-                    className="cm-results"
                   />
                 </div>
-
-                <div className="bureau-results-controls cm-results">
+                <div className="cm-results-dropdown cm-results">
                   <SelectForm
                     options={pageSizes.options}
                     label="Results:"
