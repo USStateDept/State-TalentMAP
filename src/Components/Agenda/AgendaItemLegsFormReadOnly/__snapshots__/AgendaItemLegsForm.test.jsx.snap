@@ -188,7 +188,7 @@ exports[`AgendaItemLegs Component matches snapshot 1`] = `
         type="div"
       >
         <div
-          className="arrow"
+          className=" arrow"
         >
           <FontAwesome
             name="arrow-down"
