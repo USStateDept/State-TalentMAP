@@ -128,7 +128,7 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
                     <tr key={l.code}>
                       <td>
                         <InteractiveElement
-                          className={isEnabled ? '' : 'invisible'}
+                          className={isEnabled ? '' : 'hide'}
                           onClick={isEnabled ? () => setLocation(l) : () => {}}
                           title="Add to Agenda Item"
                         >
