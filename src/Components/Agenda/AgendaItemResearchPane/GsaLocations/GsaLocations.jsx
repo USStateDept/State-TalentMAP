@@ -17,17 +17,16 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
   const locationsLoading = useSelector(state => state.gsaLocationsFetchDataLoading);
   const locationsErrored = useSelector(state => state.gsaLocationsFetchDataErrored);
   const [city, setCity] = useState();
-  const [state$, setState$] = useState();
+  const [countryState, setCountryState] = useState();
   const [country, setCountry] = useState();
   const [page, setPage] = useState(1);
   const [isSearching, setIsSearching] = useState(false);
-  const [showAddButton, setShowAddButton] = useState();
 
   const prevPage = usePrevious(page);
 
   const getInuts = () => ({
     city,
-    state: state$,
+    countryState,
     country,
     page,
     limit: 10,
@@ -85,7 +84,7 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
             id="stateSearch"
             name="state"
             placeholder="Search state"
-            onChange={(e) => setState$(e.target.value)}
+            onChange={(e) => setCountryState(e.target.value)}
             onKeyUp={(e) => { if (ifEnter(e)) setIsSearching(!isSearching); }}
           />
           <FA name="search" />
@@ -126,14 +125,10 @@ const GsaLocations = ({ setLocation, activeAIL }) => {
               <tbody>
                 {
                   !!locationResults?.length && locationResults.map(l => (
-                    <tr
-                      key={l.code}
-                      onMouseOver={() => setShowAddButton(l)}
-                      onMouseLeave={setShowAddButton}
-                    >
+                    <tr key={l.code}>
                       <td>
                         <InteractiveElement
-                          className={isEnabled && (showAddButton === l) ? '' : 'invisible'}
+                          className={isEnabled ? '' : 'invisible'}
                           onClick={isEnabled ? () => setLocation(l) : () => {}}
                           title="Add to Agenda Item"
                         >
