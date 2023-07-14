@@ -16,17 +16,20 @@ import SelectForm from 'Components/SelectForm';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
+import { userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 
 const CycleManagement = () => {
   const dispatch = useDispatch();
 
+  const userProfile = useSelector(state => state.userProfile);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.cycleManagementSelections);
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
@@ -173,6 +176,13 @@ const CycleManagement = () => {
         <div className="cycle-management-page">
           <div className="usa-grid-full cm-upper-section">
             <ProfileSectionTitle title="Cycle Search" icon="cogs" />
+            { isSuperUser &&
+              <div className="cm-admin-button">
+                <button className="usa-button-primary">
+                  Add Cycle
+                </button>
+              </div>
+            }
             <div className="filterby-container" style={{ marginTop: '40px' }}>
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
