@@ -35,14 +35,11 @@ const CyclePositionSearch = () => {
 
   const genericFilters$ = genericFilters?.filters || [];
   const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
-  const bureauOptions = bureaus?.data?.length
-    ? [...new Set(bureaus.data)].sort(b => b.name) : [];
+  const bureauOptions = bureaus?.data?.length ? [...new Set(bureaus.data)].sort(b => b.name) : [];
   const grades = genericFilters$.find(f => f?.item?.description === 'grade');
-  const gradeOptions = grades?.data?.length
-    ? [...new Set(grades.data)].sort(b => b.name) : [];
+  const gradeOptions = grades?.data?.length ? [...new Set(grades.data)].sort(b => b.name) : [];
   const skills = genericFilters$.find(f => f?.item?.description === 'skill');
-  const skillOptions = skills?.data?.length
-    ? [...new Set(skills.data)].sort(b => b.name) : [];
+  const skillOptions = skills?.data?.length ? [...new Set(skills.data)].sort(b => b.name) : [];
 
   useEffect(() => {
     dispatch(filtersFetchData(genericFilters));
