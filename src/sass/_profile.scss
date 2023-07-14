@@ -526,13 +526,12 @@
 $total-padding: 28px;
 $border: 5px;
 $padding-no-border: $total-padding - $border;
-$profile-title-wrapper: 15px;
 
 .profile-menu {
 
   font-size: 15px;
   height: 100%;
-  min-width: 215px;
+  min-width: 230px;
   .fa {
     color: $blue-primary;
   }
@@ -562,10 +561,6 @@ $profile-title-wrapper: 15px;
   .link-highlighted {
     background-color: $tm-white-smoke-light;
     border-left: $border solid $primary-blue;
-    
-    .profile-titles-wrapper {
-      display: flex;
-    }
 
     .title-container {
       font-weight: bold;
@@ -580,7 +575,7 @@ $profile-title-wrapper: 15px;
   .profile-titles-wrapper {
     display: flex;
   }
-  
+
   .expandable-link {
     border-left: unset;
     margin-bottom: 7px;
@@ -602,7 +597,7 @@ $profile-title-wrapper: 15px;
     margin-top: .5em;
 
     .fa-container {
-      min-width: 20px;
+      min-width: 30px;
     }
 
     .list-item-wrapper {
