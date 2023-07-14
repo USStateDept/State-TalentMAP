@@ -920,7 +920,8 @@ export const determineEnv = (url) => {
 
 export const formatLang = (langArr = []) => {
   if (langArr === '-') return '-';
-  return langArr.map(lang => (
+  const langArr$ = langArr || [];
+  return langArr$.map(lang => (
     `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
   )).join(', ');
 };
