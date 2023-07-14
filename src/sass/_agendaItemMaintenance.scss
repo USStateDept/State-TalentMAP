@@ -125,6 +125,7 @@
     .add-legs-container {
       display: flex;
       flex-wrap: wrap;
+      flex-direction: column;
       border-top: 2px solid gray;
 
       .add-legs-header {
