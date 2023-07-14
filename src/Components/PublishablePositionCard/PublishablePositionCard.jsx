@@ -137,7 +137,7 @@ const PublishablePositionCard = ({ data }) => {
         <label htmlFor="publishable-position-cycle">* Cycle:</label>
         <input
           id="publishable-position-cycle"
-          placeholder="Enter Remark Description"
+          placeholder="Enter Cycle Name"
           onChange={e => setCycleName(e.target.value)}
           value={cycleName}
         />
