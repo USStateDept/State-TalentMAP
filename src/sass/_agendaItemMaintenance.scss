@@ -459,6 +459,9 @@
             position: relative;
           }
         }
+        .fa-globe {
+          color: $color-white;
+        }
       }
 
       tr > *:nth-child(1), *:nth-child(6) {
