@@ -71,6 +71,15 @@ const dummyDataToReturn = (query) => new Promise((resolve) => {
     previous: null,
   });
 });
+const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
+  const { limit } = query;
+  resolve({
+    results: dummyData.slice(0, limit),
+    count: dummyData.length,
+    next: null,
+    previous: null,
+  });
+});
 
 export function cycleManagementFetchDataErrored(bool) {
   return {
@@ -170,10 +179,10 @@ export function cyclePositionSearchFetchData(query = {}) {
     // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
     // api().get(endpoint)
     dispatch(cyclePositionSearchFetchDataLoading(true));
-    dummyDataToReturn(query)
+    cyclePosDummyDataToReturn(query)
       .then((data) => {
         batch(() => {
-          dispatch(cyclePositionSearchFetchDataSuccess(data));
+          dispatch(cyclePositionSearchFetchDataSuccess({ data, count: 5 }));
           dispatch(cyclePositionSearchFetchDataErrored(false));
           dispatch(cyclePositionSearchFetchDataLoading(false));
         });

@@ -10,6 +10,12 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import InteractiveElement from 'Components/InteractiveElement';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Spinner from 'Components/Spinner';
+import CyclePositionCard from 'Components/CyclePositionCard';
+import Alert from 'Components/Alert';
+import PaginationWrapper from 'Components/PaginationWrapper';
+import TotalResults from 'Components/TotalResults';
+import SelectForm from 'Components/SelectForm';
+import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
@@ -19,6 +25,10 @@ const CyclePositionSearch = () => {
   const dispatch = useDispatch();
   const genericFilters = useSelector(state => state.filters);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
+  const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
+  const cyclePositions = useSelector(state => state.cyclePositionSearch);
+  const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
+  const userSelections = useSelector(state => state.cycleManagementSelections);
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = orgs?.data?.sort(o => o.name) ?? [];
@@ -29,6 +39,8 @@ const CyclePositionSearch = () => {
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
+  const [ordering, setOrdering] =
+    useState(userSelections.ordering || BUREAU_POSITION_SORT.options[0].value);
 
   const [textInput, setTextInput] = useState('');
   const [textSearch, setTextSearch] = useState('');
@@ -40,6 +52,13 @@ const CyclePositionSearch = () => {
   const gradeOptions = grades?.data?.length ? [...new Set(grades.data)].sort(b => b.name) : [];
   const skills = genericFilters$.find(f => f?.item?.description === 'skill');
   const skillOptions = skills?.data?.length ? [...new Set(skills.data)].sort(b => b.name) : [];
+  const sorts = BUREAU_POSITION_SORT;
+
+  // Pagination
+  const [page, setPage] = useState(userSelections.page || 1);
+  const [limit, setLimit] = useState(userSelections.limit || 10);
+  // const prevPage = usePrevious(page); TODO
+  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
   useEffect(() => {
     dispatch(filtersFetchData(genericFilters));
@@ -54,8 +73,9 @@ const CyclePositionSearch = () => {
     'cps-orgs': selectedOrganizations.map(orgObject => (orgObject?.code)),
     'cps-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'cps-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-
     q: textInput || textSearch,
+    limit,
+    page,
   });
 
   const throttledTextInput = () =>
@@ -81,6 +101,8 @@ const CyclePositionSearch = () => {
     selectedGrade: selectedGrades,
     selectedSkills,
     textSearch,
+    limit,
+    page,
   });
 
   const fetchAndSet = () => {
@@ -107,6 +129,8 @@ const CyclePositionSearch = () => {
     selectedGrades,
     selectedSkills,
     textSearch,
+    limit,
+    page,
   ]);
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
@@ -123,6 +147,22 @@ const CyclePositionSearch = () => {
         queryProp={queryProp}
       />);
     });
+  };
+
+  // Overlay for error, info, and loading state
+  const noResults = cyclePositions?.results?.length === 0;
+  const getOverlay = () => {
+    let overlay;
+    if (cyclePositionsLoading) {
+      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    } else if (cyclePositionsError) {
+      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
+    } else if (noResults) {
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
   };
 
   const pickyProps = {
@@ -220,6 +260,56 @@ const CyclePositionSearch = () => {
               </InteractiveElement>
             </div>
           </div>
+
+          {
+            getOverlay() ||
+            <>
+              <div className="usa-grid-full results-dropdown controls-container">
+                <div className="cm-results">
+                  <TotalResults
+                    total={cyclePositions.count}
+                    pageNumber={page}
+                    pageSize={limit}
+                    suffix="Results"
+                    isHidden={cyclePositionsLoading}
+                  />
+                </div>
+                <div className="cm-results-dropdown cm-results">
+                  <SelectForm
+                    id="position-manager-num-results"
+                    options={sorts.options}
+                    label="Sort by:"
+                    defaultSort={ordering}
+                    onSelectOption={value => setOrdering(value.target.value)}
+                    disabled={cyclePositionsLoading}
+                  />
+                  <SelectForm
+                    id="position-manager-num-results"
+                    options={pageSizes.options}
+                    label="Results:"
+                    defaultSort={limit}
+                    onSelectOption={value => setLimit(value.target.value)}
+                    disabled={cyclePositionsLoading}
+                  />
+                </div>
+              </div>
+
+              <div className="cm-lower-section">
+                <CyclePositionCard />
+                <CyclePositionCard />
+                <CyclePositionCard />
+              </div>
+              <div className="usa-grid-full react-paginate bureau-pagination-controls">
+                <PaginationWrapper
+                  pageSize={limit}
+                  onPageChange={p => setPage(p.page)}
+                  forcePage={page}
+                  totalResults={cyclePositions.count}
+                />
+              </div>
+            </>
+          }
+
         </div>
       )
   );
