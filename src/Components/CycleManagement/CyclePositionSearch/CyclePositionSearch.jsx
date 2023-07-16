@@ -28,7 +28,7 @@ const CyclePositionSearch = () => {
   const cyclePositionsLoading = useSelector(state => state.cyclePositionSearchFetchDataLoading);
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
-  const userSelections = useSelector(state => state.cycleManagementSelections);
+  const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = orgs?.data?.sort(o => o.name) ?? [];
@@ -39,8 +39,8 @@ const CyclePositionSearch = () => {
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
-  const [ordering, setOrdering] =
-    useState(userSelections.ordering || BUREAU_POSITION_SORT.options[0].value);
+  const [ordering, setOrdering] = // do we need this?
+    useState(userSelections?.ordering || BUREAU_POSITION_SORT.options[0].value);
 
   const [textInput, setTextInput] = useState('');
   const [textSearch, setTextSearch] = useState('');
@@ -55,8 +55,8 @@ const CyclePositionSearch = () => {
   const sorts = BUREAU_POSITION_SORT;
 
   // Pagination
-  const [page, setPage] = useState(userSelections.page || 1);
-  const [limit, setLimit] = useState(userSelections.limit || 10);
+  const [page, setPage] = useState(userSelections?.page || 1);
+  const [limit, setLimit] = useState(userSelections?.limit || 10);
   // const prevPage = usePrevious(page); TODO
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
@@ -74,6 +74,7 @@ const CyclePositionSearch = () => {
     'cps-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'cps-skills': selectedSkills.map(skillObject => (skillObject?.code)),
     q: textInput || textSearch,
+    ordering,
     limit,
     page,
   });
@@ -101,6 +102,7 @@ const CyclePositionSearch = () => {
     selectedGrade: selectedGrades,
     selectedSkills,
     textSearch,
+    ordering,
     limit,
     page,
   });
@@ -129,6 +131,7 @@ const CyclePositionSearch = () => {
     selectedGrades,
     selectedSkills,
     textSearch,
+    ordering,
     limit,
     page,
   ]);
