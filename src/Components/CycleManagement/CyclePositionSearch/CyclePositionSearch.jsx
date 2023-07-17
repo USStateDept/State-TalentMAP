@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
-import { useDataLoader } from 'hooks';
+import { useDataLoader, usePrevious } from 'hooks';
 import { isEmpty } from 'lodash';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';
@@ -22,6 +22,7 @@ import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sor
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
+import { formatDate } from '../../../utilities';
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
@@ -43,6 +44,9 @@ const CyclePositionSearch = (props) => {
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
+
+  const cycleStartDate = formatDate(loadedCycle?.cycle_begin_date, 'M/D/YYYY');
+  const cycleEndDate = formatDate(loadedCycle?.cycle_end_date, 'M/D/YYYY');
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = orgs?.data?.sort(o => o.name) ?? [];
@@ -69,7 +73,7 @@ const CyclePositionSearch = (props) => {
   // Pagination
   const [page, setPage] = useState(userSelections?.page || 1);
   const [limit, setLimit] = useState(userSelections?.limit || 10);
-  // const prevPage = usePrevious(page); TODO
+  const prevPage = usePrevious(page);
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
   useEffect(() => {
@@ -109,7 +113,7 @@ const CyclePositionSearch = (props) => {
     page,
   });
 
-  const fetchAndSet = () => {
+  const fetchAndSet = (resetPage = false) => {
     const filters = [
       selectedCurrentBureaus,
       selectedOrganizations,
@@ -121,12 +125,17 @@ const CyclePositionSearch = (props) => {
     } else {
       setClearFilters(true);
     }
+    if (resetPage) {
+      setPage(1);
+    }
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
     dispatch(cyclePositionSearchFetchData(getQuery()));
   };
 
   useEffect(() => {
-    fetchAndSet();
+    if (prevPage) {
+      fetchAndSet(true);
+    }
   }, [
     selectedCurrentBureaus,
     selectedOrganizations,
@@ -135,6 +144,11 @@ const CyclePositionSearch = (props) => {
     textInput,
     ordering,
     limit,
+  ]);
+
+  useEffect(() => {
+    fetchAndSet(false);
+  }, [
     page,
   ]);
 
@@ -277,12 +291,15 @@ const CyclePositionSearch = (props) => {
             <div className="cps-header">
               {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
             </div>
-          </div>
-          {
-            getOverlay() ||
+            <div className="cps-subheader">
+              <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
+              <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
+            </div>
+            {
+              getOverlay() ||
             <>
-              <div className="usa-grid-full results-dropdown controls-container">
-                <div className="cm-results">
+              <div className="usa-grid-full results-dropdown">
+                <div className="cps-results">
                   <TotalResults
                     total={cyclePositions.count}
                     pageNumber={page}
@@ -290,31 +307,29 @@ const CyclePositionSearch = (props) => {
                     suffix="Results"
                     isHidden={cyclePositionsLoading}
                   />
-                </div>
-                <div className="cm-results-dropdown cm-results">
-                  <SelectForm
-                    id="position-manager-num-results"
-                    options={sorts.options}
-                    label="Sort by:"
-                    defaultSort={ordering}
-                    onSelectOption={value => setOrdering(value.target.value)}
-                    disabled={cyclePositionsLoading}
-                  />
-                  <SelectForm
-                    id="position-manager-num-results"
-                    options={pageSizes.options}
-                    label="Results:"
-                    defaultSort={limit}
-                    onSelectOption={value => setLimit(value.target.value)}
-                    disabled={cyclePositionsLoading}
-                  />
+                  <div className="cm-results-dropdown cm-results">
+                    <SelectForm
+                      id="position-manager-num-results"
+                      options={sorts.options}
+                      label="Sort by:"
+                      defaultSort={ordering}
+                      onSelectOption={value => setOrdering(value.target.value)}
+                      disabled={cyclePositionsLoading}
+                    />
+                    <SelectForm
+                      id="position-manager-num-results"
+                      options={pageSizes.options}
+                      label="Results:"
+                      defaultSort={limit}
+                      onSelectOption={value => setLimit(value.target.value)}
+                      disabled={cyclePositionsLoading}
+                    />
+                  </div>
                 </div>
               </div>
-
-              <div className="cm-lower-section">
-                <CyclePositionCard />
-                <CyclePositionCard />
-                <CyclePositionCard />
+              <div>
+                {cyclePositions?.results?.map(data =>
+                  <CyclePositionCard data={data} isAO />)}
               </div>
               <div className="usa-grid-full react-paginate bureau-pagination-controls">
                 <PaginationWrapper
@@ -325,8 +340,8 @@ const CyclePositionSearch = (props) => {
                 />
               </div>
             </>
-          }
-
+            }
+          </div>
         </div>
       )
   );

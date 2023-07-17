@@ -97,7 +97,6 @@ const CycleManagement = (props) => {
     if (prevPage) {
       fetchAndSet(true);
     }
-    fetchAndSet();
   }, [
     limit,
     selectedCycles,

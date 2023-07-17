@@ -182,7 +182,7 @@ export function cyclePositionSearchFetchData(query = {}) {
     cyclePosDummyDataToReturn(query)
       .then((data) => {
         batch(() => {
-          dispatch(cyclePositionSearchFetchDataSuccess({ data, count: 5 }));
+          dispatch(cyclePositionSearchFetchDataSuccess(data));
           dispatch(cyclePositionSearchFetchDataErrored(false));
           dispatch(cyclePositionSearchFetchDataLoading(false));
         });
