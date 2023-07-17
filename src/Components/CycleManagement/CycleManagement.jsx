@@ -195,7 +195,7 @@ const CycleManagement = () => {
               </span>
             </div>
 
-            <div className="usa-width-one-whole cm-filters">
+            <div className="usa-width-one-whole cm-filters grid-450">
               <div className="cm-filter-div">
                 <div className="label">Status:</div>
                 <Picky

@@ -139,14 +139,20 @@
     background-color: $bg-blue-dark-1;
     color: $color-white;
   }
+  .grid-450 {
+    grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
+  }
+  .grid-200 {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .cm-admin-button {
     display: flex;
     justify-content: flex-end;
   }
   .cm-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
     margin: 15px;
+
     .cm-filter-div {
       align-items: center;
       margin-right: 10px;
@@ -211,29 +217,6 @@
     div {
       display: flex;
       align-items: baseline;
-    }
-  }
-
-  .cps-filters {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    margin: 15px;
-
-    .cps-filter-div {
-      align-items: center;
-      margin-right: 10px;
-      display: flex;
-
-      .label {
-        margin-right: 10px;
-        min-width: 115px;
-        text-align: end;
-      }
-
-      .picky {
-        color: $color-black;
-        width: 200px;
-      }
     }
   }
 
