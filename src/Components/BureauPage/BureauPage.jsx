@@ -35,7 +35,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/projectedvacancy" render={() => <ProjectedVacancy isCDO={false} />} />
         <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
         <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement />} />
-        <Route path="/profile/bureau/cyclepositionsearch" render={() => <CyclePositionSearch />} />
+        <Route path="/profile/bureau/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
       </Switch>
     </div>
   );

@@ -15,7 +15,7 @@ const CycleSearchCard = (props) => {
     cycle_post_view,
   } = props;
 
-  const cycleLink = `/profile/bureau/cyclemanagement/${id}`;
+  const cycleLink = `/profile/bureau/cyclepositionsearch/${id}`;
 
   return (
     <Row fluid className="cycle-search-card">

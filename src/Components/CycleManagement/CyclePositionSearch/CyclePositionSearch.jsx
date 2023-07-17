@@ -11,12 +11,16 @@ import InteractiveElement from 'Components/InteractiveElement';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Spinner from 'Components/Spinner';
 import { filtersFetchData } from 'actions/filters/filters';
-import { cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
+// eslint-disable-next-line no-unused-vars
+import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
 
-const CyclePositionSearch = () => {
+const CyclePositionSearch = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
+  const cycleId = props.match?.params?.id ?? false;
+  console.log('cycleId: ', cycleId);
+
   const genericFilters = useSelector(state => state.filters);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
