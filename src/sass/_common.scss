@@ -5,3 +5,17 @@
 .width-280 {
   width: 280px;
 }
+
+.breadcrumb-container {
+  margin-top: 40px;
+
+  .breadcrumb-active {
+    color: $blue-primary;
+    text-decoration: none;
+  }
+
+  .breadcrumb-arrow {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
