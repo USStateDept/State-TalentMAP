@@ -58,7 +58,7 @@ const CyclePositionCard = ({ data }) => {
       tabs={[{
         text: 'Position Information',
         value: 'INFORMATION',
-        content: <PositionExpandableContent sections={sections} />,
+        content: <PositionExpandableContent sections={sections} form={{}} />,
       }]}
     />
   );
