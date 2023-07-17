@@ -28,6 +28,8 @@ const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 const CyclePositionSearch = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
+  const { isAO } = props;
+  const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
 
   // We will use this when calling cycleManagementFetchData later
   // eslint-disable-next-line no-unused-vars
@@ -265,7 +267,7 @@ const CyclePositionSearch = (props) => {
           <div className="cps-content">
             { !hideBreadcrumbs &&
               <div className="breadcrumb-container">
-                <Link to="/profile/bureau/cyclemanagement" className="breadcrumb-active">
+                <Link to={`/profile/${breadcrumbLinkRole}/cyclemanagement`} className="breadcrumb-active">
                   Cycle Search Results
                 </Link>
                 <span className="breadcrumb-arrow">&gt;</span>
@@ -336,10 +338,12 @@ CyclePositionSearch.propTypes = {
       pmSeqNum: PropTypes.string,
     }),
   }),
+  isAO: PropTypes.bool,
 };
 
 CyclePositionSearch.defaultProps = {
   match: {},
+  isAO: false,
 };
 
 export default withRouter(CyclePositionSearch);

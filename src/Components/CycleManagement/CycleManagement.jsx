@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
+import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { isDate, startOfDay } from 'date-fns-v2';
@@ -19,8 +20,9 @@ import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions
 import { userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 
-const CycleManagement = () => {
+const CycleManagement = (props) => {
   const dispatch = useDispatch();
+  const { isAO } = props;
 
   const userProfile = useSelector(state => state.userProfile);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
@@ -260,7 +262,8 @@ const CycleManagement = () => {
               </div>
 
               <div className="cm-lower-section">
-                { cycleManagementData?.results?.map(data => <CycleSearchCard {...data} />) }
+                {cycleManagementData?.results?.map(data =>
+                  <CycleSearchCard {...{ ...data, isAO }} />)}
                 <div className="usa-grid-full react-paginate bureau-pagination-controls">
                   <PaginationWrapper
                     pageSize={limit}
@@ -275,6 +278,14 @@ const CycleManagement = () => {
         </div>
       )
   );
+};
+
+CycleManagement.propTypes = {
+  isAO: PropTypes.bool,
+};
+
+CycleManagement.defaultProps = {
+  isAO: false,
 };
 
 export default withRouter(CycleManagement);
