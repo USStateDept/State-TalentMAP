@@ -186,8 +186,7 @@ export function cyclePositionSearchFetchData(query = {}) {
           });
         } else {
           batch(() => {
-            dispatch(cyclePositionSearchFetchDataSuccess(dummyDataToReturn));
-            dispatch(cyclePositionSearchFetchDataErrored(false));
+            dispatch(cyclePositionSearchFetchDataErrored(true));
             dispatch(cyclePositionSearchFetchDataLoading(false));
           });
         }

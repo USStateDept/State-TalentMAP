@@ -3,24 +3,32 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
+import { Link } from 'react-router-dom';
 import { useDataLoader } from 'hooks';
 import { isEmpty, throttle } from 'lodash';
+import { checkFlag } from 'flags';
+import PropTypes from 'prop-types';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import InteractiveElement from 'Components/InteractiveElement';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Spinner from 'Components/Spinner';
 import { filtersFetchData } from 'actions/filters/filters';
-// eslint-disable-next-line no-unused-vars
 import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
+
+const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
 const CyclePositionSearch = (props) => {
   const childRef = useRef();
   const dispatch = useDispatch();
-  const cycleId = props.match?.params?.id ?? false;
-  console.log('cycleId: ', cycleId);
 
+  // We will use this when calling cycleManagementFetchData later
+  // eslint-disable-next-line no-unused-vars
+  const cycleId = props.match?.params?.id ?? false;
+
+  const cycleManagementResults = useSelector(state => state.cycleManagement);
+  const loadedCycle = cycleManagementResults?.results?.[0] ?? {};
   const genericFilters = useSelector(state => state.filters);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
 
@@ -46,6 +54,7 @@ const CyclePositionSearch = (props) => {
   const skillOptions = skills?.data?.length ? [...new Set(skills.data)].sort(b => b.name) : [];
 
   useEffect(() => {
+    dispatch(cycleManagementFetchData()); // TODO: fix query sent to action file when EP is made
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
@@ -224,9 +233,35 @@ const CyclePositionSearch = (props) => {
               </InteractiveElement>
             </div>
           </div>
+          <div className="cps-content">
+            {hideBreadcrumbs &&
+              <div className="breadcrumb-container">
+                <Link to="/profile/bureau/cyclemanagement" className="breadcrumb-active">
+                  Cycle Search Results
+                </Link>
+                <span className="breadcrumb-arrow">&gt;</span>
+                <span>{loadedCycle?.cycle_name ?? ''}</span>
+              </div>
+            }
+            <div className="cps-header">
+              {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
+            </div>
+          </div>
         </div>
       )
   );
+};
+
+CyclePositionSearch.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      pmSeqNum: PropTypes.string,
+    }),
+  }),
+};
+
+CyclePositionSearch.defaultProps = {
+  match: {},
 };
 
 export default withRouter(CyclePositionSearch);

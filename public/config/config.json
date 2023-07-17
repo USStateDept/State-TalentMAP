@@ -17,6 +17,7 @@
     "profile_languages": true,
     "register_checklist": true,
     "settings": true,
-    "unassigned_filters": true
+    "unassigned_filters": true,
+    "breadcrumbs": true
   }
 }
