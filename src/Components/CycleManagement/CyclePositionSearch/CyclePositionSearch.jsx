@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
 import { useDataLoader } from 'hooks';
-import { isEmpty, throttle } from 'lodash';
+import { isEmpty } from 'lodash';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -40,10 +40,8 @@ const CyclePositionSearch = (props) => {
   const [selectedOrganizations, setSelectedOrganizations] = useState([]);
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [clearFilters, setClearFilters] = useState(false);
-
   const [textInput, setTextInput] = useState('');
-  const [textSearch, setTextSearch] = useState('');
+  const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = genericFilters?.filters || [];
   const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
@@ -54,13 +52,9 @@ const CyclePositionSearch = (props) => {
   const skillOptions = skills?.data?.length ? [...new Set(skills.data)].sort(b => b.name) : [];
 
   useEffect(() => {
-    dispatch(cycleManagementFetchData()); // TODO: fix query sent to action file when EP is made
+    dispatch(cycleManagementFetchData()); // TODO: cycleId gets sent here when EP is created
     dispatch(filtersFetchData(genericFilters));
   }, []);
-
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
 
   const getQuery = () => ({
     'cps-bureaus': selectedCurrentBureaus.map(bureauObject => (bureauObject?.code)),
@@ -68,22 +62,15 @@ const CyclePositionSearch = (props) => {
     'cps-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'cps-skills': selectedSkills.map(skillObject => (skillObject?.code)),
 
-    q: textInput || textSearch,
+    q: textInput,
   });
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   const resetFilters = () => {
     setSelectedCurrentBureaus([]);
     setSelectedOrganizations([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
-    setTextSearch('');
+    setTextInput('');
     childRef.current.clearText();
     setClearFilters(false);
   };
@@ -93,7 +80,7 @@ const CyclePositionSearch = (props) => {
     selectedOrganizations,
     selectedGrade: selectedGrades,
     selectedSkills,
-    textSearch,
+    textInput,
   });
 
   const fetchAndSet = () => {
@@ -103,7 +90,7 @@ const CyclePositionSearch = (props) => {
       selectedGrades,
       selectedSkills,
     ];
-    if (filters.flat().length === 0 && isEmpty(textSearch)) {
+    if (filters.flat().length === 0 && isEmpty(textInput)) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -119,7 +106,7 @@ const CyclePositionSearch = (props) => {
     selectedOrganizations,
     selectedGrades,
     selectedSkills,
-    textSearch,
+    textInput,
   ]);
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
@@ -157,10 +144,9 @@ const CyclePositionSearch = (props) => {
               <div className="expanded-content">
                 <div className="search-bar-container">
                   <PositionManagerSearch
-                    submitSearch={submitSearch}
-                    onChange={setTextInputThrottled}
+                    submitSearch={setTextInput}
                     ref={childRef}
-                    textSearch={textSearch}
+                    textSearch={textInput}
                     placeHolder="Search using Position Number or Position Title"
                   />
                 </div>
@@ -234,7 +220,7 @@ const CyclePositionSearch = (props) => {
             </div>
           </div>
           <div className="cps-content">
-            {hideBreadcrumbs &&
+            { hideBreadcrumbs &&
               <div className="breadcrumb-container">
                 <Link to="/profile/bureau/cyclemanagement" className="breadcrumb-active">
                   Cycle Search Results
