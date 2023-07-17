@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
+import Picky from 'react-picky';
 import { get } from 'lodash';
 import { getDifferentials, getPostName, getResult } from 'utilities';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { BID_CYCLES, POSITION_DETAILS } from 'Constants/PropTypes';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
@@ -15,12 +17,11 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const PublishablePositionCard = ({ data }) => {
+const PublishablePositionCard = ({ data, cycles }) => {
   const pos = get(data, 'position') || data;
 
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
-
 
   // =============== View Mode ===============
 
@@ -37,7 +38,6 @@ const PublishablePositionCard = ({ data }) => {
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
       'Status': getResult(pos, 'status') || NO_STATUS,
-      '': <CheckBox id="deto" label="DETO" value disabled />,
     },
     bodySecondary: {
       'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
@@ -59,6 +59,25 @@ const PublishablePositionCard = ({ data }) => {
 
 
   // =============== Edit Mode ===============
+  function renderSelectionList({ items, selected, ...rest }) {
+    return items.map((item, index) => {
+      const keyId = `${index}-${item}`;
+      return (<ListItem
+        item={item}
+        {...rest}
+        key={keyId}
+        queryProp={'custom_description'}
+      />);
+    });
+  }
+
+  const pickyProps = {
+    includeFilter: true,
+    dropdownHeight: 300,
+    numberDisplayed: 4,
+    multiple: true,
+    includeSelectAll: true,
+  };
 
   const statusOptions = [
     { code: 1, name: 'Vet' },
@@ -142,6 +161,21 @@ const PublishablePositionCard = ({ data }) => {
           value={cycleName}
         />
       </div>
+      <div className="position-form--input">
+        <div className="filter-div">
+          <div className="label">Bid Cycle:</div>
+          <Picky
+            {...pickyProps}
+            placeholder="Select Bid Cycle(s)"
+            value={cycleName}
+            options={cycles?.data}
+            onChange={setCycleName}
+            valueKey="id"
+            labelKey="name"
+            renderList={renderSelectionList}
+          />
+        </div>
+      </div>
       <div className="text-button">
         Add Another Cycle
       </div>
@@ -166,6 +200,7 @@ const PublishablePositionCard = ({ data }) => {
 
 PublishablePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
+  cycles: BID_CYCLES.isRequired,
 };
 
 export default PublishablePositionCard;

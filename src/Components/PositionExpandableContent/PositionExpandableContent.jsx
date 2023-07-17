@@ -22,6 +22,11 @@ const PositionExpandableContent = ({ sections, form }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (editMode) setShowMore(true);
+  }, [editMode]);
+
+
   const getBody = () => {
     if (editMode && form) return form.staticBody;
     if (showMore) return { ...sections.bodyPrimary, ...sections.bodySecondary };
@@ -56,7 +61,10 @@ const PositionExpandableContent = ({ sections, form }) => {
       ),
     });
   };
-
+  /* eslint-disable no-console */
+  console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+  console.log('🦄 current: sections.bodyPrimary:', sections.bodyPrimary);
+  console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
   return (
     <div className="position-content">
       <Row fluid className="position-content--section position-content--subheader">
