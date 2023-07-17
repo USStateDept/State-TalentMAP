@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
-import { useDataLoader } from 'hooks';
+import { useDataLoader, usePrevious } from 'hooks';
 import { isEmpty } from 'lodash';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';
@@ -69,7 +69,7 @@ const CyclePositionSearch = (props) => {
   // Pagination
   const [page, setPage] = useState(userSelections?.page || 1);
   const [limit, setLimit] = useState(userSelections?.limit || 10);
-  // const prevPage = usePrevious(page); TODO
+  const prevPage = usePrevious(page);
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const CyclePositionSearch = (props) => {
     page,
   });
 
-  const fetchAndSet = () => {
+  const fetchAndSet = (resetPage = false) => {
     const filters = [
       selectedCurrentBureaus,
       selectedOrganizations,
@@ -121,12 +121,17 @@ const CyclePositionSearch = (props) => {
     } else {
       setClearFilters(true);
     }
+    if (resetPage) {
+      setPage(1);
+    }
     dispatch(saveCyclePositionSearchSelections(getCurrentInputs()));
     dispatch(cyclePositionSearchFetchData(getQuery()));
   };
 
   useEffect(() => {
-    fetchAndSet();
+    if (prevPage) {
+      fetchAndSet(true);
+    }
   }, [
     selectedCurrentBureaus,
     selectedOrganizations,
@@ -135,6 +140,11 @@ const CyclePositionSearch = (props) => {
     textInput,
     ordering,
     limit,
+  ]);
+
+  useEffect(() => {
+    fetchAndSet(false);
+  }, [
     page,
   ]);
 
@@ -312,9 +322,8 @@ const CyclePositionSearch = (props) => {
               </div>
 
               <div className="cm-lower-section">
-                <CyclePositionCard />
-                <CyclePositionCard />
-                <CyclePositionCard />
+                {cyclePositions?.results?.map(data =>
+                  <CyclePositionCard data={data} isAO />)}
               </div>
               <div className="usa-grid-full react-paginate bureau-pagination-controls">
                 <PaginationWrapper
