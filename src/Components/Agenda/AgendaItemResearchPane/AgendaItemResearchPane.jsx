@@ -15,6 +15,7 @@ import AssignmentHistory from './AssignmentHistory';
 import FrequentPositions from './FrequentPositions';
 import RemarksGlossary from './RemarksGlossary';
 import Classifications from './Classifications';
+import GsaLocations from './GsaLocations';
 import api from '../../../api';
 
 export const ASGH = 'asgh';
@@ -24,12 +25,14 @@ export const RG = 'RG';
 export const TP = 'TP';
 export const AO = 'AO';
 export const AA = 'AA';
+export const GSA = 'GSA';
 const tabs = [
   { text: 'Assignment History', value: ASGH },
   { text: 'Frequent Positions', value: FP },
   { text: 'Languages', value: L },
   { text: 'Remarks Glossary', value: RG },
   { text: 'Classifications', value: TP },
+  { text: 'Locations', value: GSA },
 ];
 
 const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {}, updateSelection: '', userSelection: [], legCount: 0, readMode: true }, ref) => {
@@ -37,7 +40,8 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const dispatch = useDispatch();
 
   const { perdet, clientData, userSelections, updateSelection, legCount,
-    readMode, clientLoading, clientError } = props;
+    readMode, clientLoading, clientError, activeAIL, setLocation,
+  } = props;
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
   const classifications = useSelector(state => state.classifications);
@@ -71,7 +75,7 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
   const addFrequentPosition = pos => {
     const posNumber = get(pos, 'pos_num_text') || '';
     if (!legLimit) {
-      dispatch(addFrequentPositionsData(`limit=50&page=1&position_num=${posNumber}`));
+      dispatch(addFrequentPositionsData(`limit=1&page=1&position_num=${posNumber}`));
     }
   };
 
@@ -140,6 +144,12 @@ const AgendaItemResearchPane = forwardRef((props = { perdet: '', clientData: {},
           updateSelection={updateSelection}
         />);
 
+      case GSA:
+        return (<GsaLocations
+          activeAIL={activeAIL}
+          setLocation={setLocation}
+        />);
+
       default:
         return errorAlert;
     }
@@ -175,6 +185,7 @@ AgendaItemResearchPane.propTypes = {
   perdet: PropTypes.string.isRequired,
   clientData: PropTypes.shape({}),
   updateSelection: PropTypes.func,
+  setLocation: PropTypes.func,
   userSelections: PropTypes.arrayOf(
     PropTypes.shape({
       seq_num: PropTypes.number,
@@ -189,16 +200,19 @@ AgendaItemResearchPane.propTypes = {
   readMode: PropTypes.bool,
   clientLoading: PropTypes.bool,
   clientError: PropTypes.bool,
+  activeAIL: PropTypes.string,
 };
 
 AgendaItemResearchPane.defaultProps = {
   clientData: {},
   updateSelection: EMPTY_FUNCTION,
+  setLocation: EMPTY_FUNCTION,
   userSelections: [],
   legCount: 0,
   readMode: true,
   clientLoading: false,
   clientError: false,
+  activeAIL: '',
 };
 
 export default AgendaItemResearchPane;
