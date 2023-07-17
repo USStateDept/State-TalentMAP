@@ -295,12 +295,11 @@ const CyclePositionSearch = (props) => {
               <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
               <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
             </div>
-          </div>
-          {
-            getOverlay() ||
+            {
+              getOverlay() ||
             <>
-              <div className="usa-grid-full results-dropdown controls-container">
-                <div className="cm-results">
+              <div className="usa-grid-full results-dropdown">
+                <div className="cps-results">
                   <TotalResults
                     total={cyclePositions.count}
                     pageNumber={page}
@@ -308,28 +307,27 @@ const CyclePositionSearch = (props) => {
                     suffix="Results"
                     isHidden={cyclePositionsLoading}
                   />
-                </div>
-                <div className="cm-results-dropdown cm-results">
-                  <SelectForm
-                    id="position-manager-num-results"
-                    options={sorts.options}
-                    label="Sort by:"
-                    defaultSort={ordering}
-                    onSelectOption={value => setOrdering(value.target.value)}
-                    disabled={cyclePositionsLoading}
-                  />
-                  <SelectForm
-                    id="position-manager-num-results"
-                    options={pageSizes.options}
-                    label="Results:"
-                    defaultSort={limit}
-                    onSelectOption={value => setLimit(value.target.value)}
-                    disabled={cyclePositionsLoading}
-                  />
+                  <div className="cm-results-dropdown cm-results">
+                    <SelectForm
+                      id="position-manager-num-results"
+                      options={sorts.options}
+                      label="Sort by:"
+                      defaultSort={ordering}
+                      onSelectOption={value => setOrdering(value.target.value)}
+                      disabled={cyclePositionsLoading}
+                    />
+                    <SelectForm
+                      id="position-manager-num-results"
+                      options={pageSizes.options}
+                      label="Results:"
+                      defaultSort={limit}
+                      onSelectOption={value => setLimit(value.target.value)}
+                      disabled={cyclePositionsLoading}
+                    />
+                  </div>
                 </div>
               </div>
-
-              <div className="cm-lower-section">
+              <div>
                 {cyclePositions?.results?.map(data =>
                   <CyclePositionCard data={data} isAO />)}
               </div>
@@ -342,8 +340,8 @@ const CyclePositionSearch = (props) => {
                 />
               </div>
             </>
-          }
-
+            }
+          </div>
         </div>
       )
   );

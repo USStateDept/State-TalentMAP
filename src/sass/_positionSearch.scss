@@ -251,6 +251,13 @@
         font-size: 14px;
       }
     }
+    .cps-results {
+      align-items: baseline;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 15px;
+      width: 100%;
+    }
   }
 }
 
