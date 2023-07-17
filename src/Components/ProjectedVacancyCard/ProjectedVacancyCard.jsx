@@ -70,7 +70,7 @@ const ProjectedVacancyCard = ({ result }) => {
             />
             <div className="toggle-include">
               <ToggleButton
-                labelTextRight="Included"
+                labelTextRight={!included ? 'Excluded' : 'Included'}
                 checked={included}
                 onChange={() => setIncluded(!included)}
                 onColor="#0071BC"
