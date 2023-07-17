@@ -252,7 +252,7 @@
     }
 
     select {
-      padding: 0 35px 0 10.5px;
+      padding: 0 35px 0 11px;
     }
 
     label {
@@ -263,6 +263,21 @@
     }
   }
 
+  .position-form--picky {
+    >* {
+      display: inline;
+    }
+
+    .publishable-position-cycles-label {
+      font-weight: 500;
+    }
+
+    .publishable-position-cycles {
+      margin-inline-start: 10px;
+    }
+  }
+
+
   .position-form--description {
     padding: 15px 0px;
   }
@@ -271,11 +286,5 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-  }
-
-  .text-button {
-    color: $primary-blue;
-    cursor: pointer;
-    padding-top: 15px;
   }
 }

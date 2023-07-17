@@ -72,11 +72,13 @@ const PublishablePositionCard = ({ data, cycles }) => {
   }
 
   const pickyProps = {
-    includeFilter: true,
-    dropdownHeight: 300,
-    numberDisplayed: 4,
+    numberDisplayed: 2,
     multiple: true,
+    includeFilter: true,
+    dropdownHeight: 200,
     includeSelectAll: true,
+    renderList: renderSelectionList,
+    className: 'width-280',
   };
 
   const statusOptions = [
@@ -86,8 +88,9 @@ const PublishablePositionCard = ({ data, cycles }) => {
   ];
   const [status, setStatus] = useState(statusOptions[0]);
   const [exclude, setExclude] = useState(true);
-  const [cycleName, setCycleName] = useState('');
+  const [selectedCycles, setSelectedCycles] = useState([]);
 
+  /* eslint-disable no-console */
 
   const form = {
     /* eslint-disable quote-props */
@@ -152,37 +155,22 @@ const PublishablePositionCard = ({ data, cycles }) => {
         <span className="title">Future Cycle</span>
         <span className="subtitle">Please identify a cycle to add this position to.</span>
       </div>
-      <div className="position-form--input">
-        <label htmlFor="publishable-position-cycle">* Cycle:</label>
-        <input
-          id="publishable-position-cycle"
-          placeholder="Enter Cycle Name"
-          onChange={e => setCycleName(e.target.value)}
-          value={cycleName}
-        />
+      <div className="position-form--picky">
+        <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
+        <div className="publishable-position-cycles">{selectedCycles.map(a => a.name).join(', ')}</div>
       </div>
-      <div className="position-form--input">
-        <div className="filter-div">
-          <div className="label">Bid Cycle:</div>
-          <Picky
-            {...pickyProps}
-            placeholder="Select Bid Cycle(s)"
-            value={cycleName}
-            options={cycles?.data}
-            onChange={setCycleName}
-            valueKey="id"
-            labelKey="name"
-            renderList={renderSelectionList}
-          />
-        </div>
-      </div>
-      <div className="text-button">
-        Add Another Cycle
-      </div>
+      <Picky
+        {...pickyProps}
+        placeholder="Choose Bid Cycle(s)"
+        value={selectedCycles}
+        options={cycles?.data}
+        onChange={setSelectedCycles}
+        valueKey="id"
+        labelKey="name"
+      />
     </div>,
     /* eslint-enable quote-props */
   };
-
 
   return (
     <TabbedCard
