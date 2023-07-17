@@ -139,6 +139,10 @@
     background-color: $bg-blue-dark-1;
     color: $color-white;
   }
+  .cm-admin-button {
+    display: flex;
+    justify-content: flex-end;
+  }
   .cm-filters {
     display: grid;
     grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
@@ -219,6 +223,9 @@
   border-left: 8px solid $blue-primary;
   box-shadow: 5px 5px 10px $bg-gray-dark-2;
   padding: 1em;
+  .cyc-admin-link {
+    text-align: center;
+  }
   .cyc-card--row {
     display: flex;
     align-items: center;
