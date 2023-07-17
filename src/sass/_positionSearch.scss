@@ -241,6 +241,16 @@
       font-size: 25px;
       margin-top: 25px
     }
+    .cps-subheader {
+      display: flex;
+      width: 300px;
+      margin-top: 10px;
+      justify-content: space-between;
+      .cycle-dates {
+        color: $color-gray;
+        font-size: 14px;
+      }
+    }
   }
 }
 

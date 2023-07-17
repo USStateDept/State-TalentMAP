@@ -22,6 +22,7 @@ import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sor
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
+import { formatDate } from '../../../utilities';
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
@@ -43,6 +44,9 @@ const CyclePositionSearch = (props) => {
   const cyclePositions = useSelector(state => state.cyclePositionSearch);
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
+
+  const cycleStartDate = formatDate(loadedCycle?.cycle_begin_date, 'M/D/YYYY');
+  const cycleEndDate = formatDate(loadedCycle?.cycle_end_date, 'M/D/YYYY');
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = orgs?.data?.sort(o => o.name) ?? [];
@@ -286,6 +290,10 @@ const CyclePositionSearch = (props) => {
             }
             <div className="cps-header">
               {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
+            </div>
+            <div className="cps-subheader">
+              <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
+              <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
             </div>
           </div>
           {
