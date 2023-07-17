@@ -19,7 +19,7 @@ const TotalResults = ({ total, pageNumber, pageSize, suffix, isHidden }) => {
   const total$ = format(total);
 
   return (
-    <span id="total-results" className={isHidden ? 'hide-total-results' : ''}>
+    <span id="total-results" className={isHidden ? 'hide' : ''}>
       {
         isAllResults &&
           <div>

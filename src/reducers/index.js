@@ -60,6 +60,7 @@ import agendaItemHistory from './agendaItemHistory';
 import positions from './positions';
 // TODO: remove handshake2 after PR 1494 merged (bc handshake2 will be moved to handshake.js)
 import agendaEmployees from './agendaEmployees';
+import gsaLocations from './gsaLocations';
 import panelMeetings from './panelMeetings';
 import agendaItemMaintenancePane from './agendaItemMaintenancePane';
 import panelMeetingAgendas from './panelMeetingAgendas';
@@ -131,6 +132,7 @@ export default (history) => combineReducers({
   ...editPositionDetails,
   ...editRemark,
   ...panelMeetingAdmin,
+  ...gsaLocations,
   ...projectedVacancy,
   ...cycleManagement,
   router: connectRouter(history),
