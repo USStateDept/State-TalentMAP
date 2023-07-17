@@ -49,7 +49,7 @@ const PublishablePositionCard = ({ data, cycles }) => {
       'Assignee': '---',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
-    textarea: get(pos, 'description.content') || 'No description.',
+    textarea: pos?.description?.content || 'No description.',
     metadata: {
       'Position Posted': getResult(pos, 'description.date_created') || NO_UPDATE_DATE,
       'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
@@ -89,8 +89,8 @@ const PublishablePositionCard = ({ data, cycles }) => {
   const [status, setStatus] = useState(statusOptions[0]);
   const [exclude, setExclude] = useState(true);
   const [selectedCycles, setSelectedCycles] = useState([]);
+  const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
 
-  /* eslint-disable no-console */
 
   const form = {
     /* eslint-disable quote-props */
@@ -141,12 +141,13 @@ const PublishablePositionCard = ({ data, cycles }) => {
               maxlength="4000"
               name="position-description"
               placeholder="No Description"
-              defaultValue={sections.textarea}
+              defaultValue={textArea}
+              onChange={(e) => setTextArea(e.target.value)}
               draggable={false}
             />
           </Linkify>
           <div className="word-count">
-            {sections.textarea.length} / 4,000
+            {textArea.length} / 4,000
           </div>
         </Row>
       </div>
