@@ -2,7 +2,7 @@
 
 exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
 <div
-  className="usa-grid-full profile-menu profile-menu-collapsed"
+  className="profile-menu profile-menu-collapsed width-70"
 >
   <div
     className="menu-title"
@@ -60,7 +60,7 @@ exports[`ProfileMenuCollapsedComponent matches snapshot 1`] = `
 
 exports[`ProfileMenuCollapsedComponent matches snapshot when isGlossaryEditor is false 1`] = `
 <div
-  className="usa-grid-full profile-menu profile-menu-collapsed"
+  className="profile-menu profile-menu-collapsed width-70"
 >
   <div
     className="menu-title"
