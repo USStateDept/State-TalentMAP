@@ -37,6 +37,7 @@ const AgendaItemMaintenancePane = (props) => {
     AIvalidation,
     AIvalidationIsLoading,
     AIvalidationHasErrored,
+    setIsNewSeparation,
   } = props;
 
   const defaultText = '';
@@ -50,7 +51,6 @@ const AgendaItemMaintenancePane = (props) => {
   const pos_results = useSelector(state => state.positions);
   const pos_results_loading = useSelector(state => state.positionsIsLoading);
   const pos_results_errored = useSelector(state => state.positionsHasErrored);
-
   // local state just used for select animation
   const [validationButton, setValidationButton] = useState({});
 
@@ -426,7 +426,12 @@ const AgendaItemMaintenancePane = (props) => {
                 <FA name="plus" />
               </InteractiveElement>
             </div>
-            <a className="add-fp-link" aria-hidden="true" onClick={() => onAddFPClick()}>Open Frequent Positions Tab</a>
+            <div>
+              <a className="add-fp-link" aria-hidden="true" onClick={onAddFPClick}>Open Frequent Positions Tab</a>
+            </div>
+            <div>
+              <a className="add-fp-link" aria-hidden="true" onClick={legLimit || readMode ? () => {} : setIsNewSeparation}>Add New Separation</a>
+            </div>
           </div>
         </>
       }
@@ -467,6 +472,7 @@ AgendaItemMaintenancePane.propTypes = {
   updateSelection: PropTypes.func,
   sendMaintenancePaneInfo: PropTypes.func,
   sendAsgSepBid: PropTypes.func,
+  setIsNewSeparation: PropTypes.func,
   saveAI: PropTypes.func,
   legCount: PropTypes.number,
   agendaItem: AGENDA_ITEM.isRequired,
@@ -483,6 +489,7 @@ AgendaItemMaintenancePane.defaultProps = {
   asgSepBidData: {},
   onAddRemarksClick: EMPTY_FUNCTION,
   setParentLoadingState: EMPTY_FUNCTION,
+  setIsNewSeparation: EMPTY_FUNCTION,
   unitedLoading: true,
   userRemarks: [],
   addToSelection: EMPTY_FUNCTION,

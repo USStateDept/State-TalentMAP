@@ -12,6 +12,7 @@ const AgendaItemLegsFormReadOnly = props => {
 
   const showOverlay = !legs.length;
   const [rowHoverNum, setRowHoverNum] = useState();
+  const SEPARATION_DEFAULT = '-';
 
   const onHover = row => {
     // to avoid highlighting the arrow row
@@ -21,9 +22,8 @@ const AgendaItemLegsFormReadOnly = props => {
     }
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const getArrows = () => (
-    <div className="arrow">
+  const getArrows = (hide = false) => (
+    <div className={`${hide ? 'hide' : ''} arrow`}>
       <FA name="arrow-down" />
     </div>
   );
@@ -39,7 +39,16 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'Org',
-      content: (a => <div>{a?.org || DEFAULT_TEXT}</div>),
+      content: (a => {
+        if (a?.is_separation) {
+          const location = a?.separation_location;
+          if (location) {
+            const { city, country } = location;
+            return `${city}, ${country}`;
+          }
+        }
+        return <div>{a?.org || DEFAULT_TEXT}</div>;
+      }),
     },
     {
       title: 'Grade',
@@ -51,11 +60,14 @@ const AgendaItemLegsFormReadOnly = props => {
     },
     {
       title: 'ETA',
-      content: (a => <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>),
+      content: (a => a?.is_separation ?
+        <div>{SEPARATION_DEFAULT}</div> :
+        <div>{formatDate(a?.eta) || DEFAULT_TEXT}</div>
+      ),
     },
     {
       title: '',
-      content: (() => getArrows()),
+      content: ((a) => getArrows(a?.is_separation)),
     },
     {
       title: 'TED',
