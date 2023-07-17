@@ -16,7 +16,6 @@ import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
 import BidListButton from '../../Containers/BidListButton';
 import bannerImg from '../../assets/svg/card-flag.svg';
-
 import {
   getBidStatisticsObject, getBidStatsToUse, getDifferentials, getPostName, getPostNameText,
   getResult, propOrDefault, renderBidCount, renderBidCountMobile, shortenString,
