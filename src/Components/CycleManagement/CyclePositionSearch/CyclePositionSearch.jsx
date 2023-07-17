@@ -335,7 +335,7 @@ const CyclePositionSearch = (props) => {
 CyclePositionSearch.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      pmSeqNum: PropTypes.string,
+      id: PropTypes.string,
     }),
   }),
   isAO: PropTypes.bool,
