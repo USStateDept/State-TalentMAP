@@ -48,7 +48,7 @@ const AgendaItemLegs = props => {
         legs$.map((leg, index) => {
           const keyId = index;
           return (
-            <td className="arrow" key={`${keyId}-${leg.id}`}>
+            <td className={`${leg?.is_separation ? 'hide' : ''} arrow`} key={`${keyId}-${leg.id}`}>
               <FA name="arrow-down" />
             </td>);
         })
