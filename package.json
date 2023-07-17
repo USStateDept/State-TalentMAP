@@ -210,7 +210,7 @@
     "webpack-manifest-plugin": "^2.2.0",
     "webpack-plugin-ramdisk": "^0.2.0",
     "whatwg-fetch": "2.0.3",
-    "workbox-webpack-plugin": "^6.5.3",
+    "workbox-webpack-plugin": "6.5.3",
     "worker-loader": "^3.0.8",
     "yarn": "^1.22.18"
   },

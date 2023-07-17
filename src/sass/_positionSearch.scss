@@ -139,14 +139,20 @@
     background-color: $bg-blue-dark-1;
     color: $color-white;
   }
+  .grid-450 {
+    grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
+  }
+  .grid-200 {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .cm-admin-button {
     display: flex;
     justify-content: flex-end;
   }
   .cm-filters {
     display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
     margin: 15px;
+
     .cm-filter-div {
       align-items: center;
       margin-right: 10px;
@@ -211,6 +217,46 @@
     div {
       display: flex;
       align-items: baseline;
+    }
+  }
+
+  .toggle-more-container {
+    position: relative;
+  }
+
+  .toggle-more {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+
+    >span:first-child {
+      white-space: nowrap;
+    }
+  }
+
+  .cps-content {
+    margin-left: 35px;
+
+    .cps-header {
+      font-size: 25px;
+      margin-top: 25px
+    }
+    .cps-subheader {
+      display: flex;
+      width: 300px;
+      margin-top: 10px;
+      justify-content: space-between;
+      .cycle-dates {
+        color: $color-gray;
+        font-size: 14px;
+      }
+    }
+    .cps-results {
+      align-items: baseline;
+      display: flex;
+      justify-content: space-between;
+      padding-top: 15px;
+      width: 100%;
     }
   }
 }
