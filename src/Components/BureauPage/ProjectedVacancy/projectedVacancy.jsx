@@ -204,7 +204,7 @@ const ProjectedVacancy = () => {
     includeSelectAll: true,
   };
 
-  const dummyid = get(dummyPositionDetails, 'id', '');
+  const dummyid = dummyPositionDetails?.id;
 
   return (
     isLoading ?
@@ -349,7 +349,7 @@ const ProjectedVacancy = () => {
               <ScrollUpButton />
             </div>
           }
-          <div className="usa-width-one-whole projected-vacancy-lower-section results-dropdown">
+          <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
               <ProjectedVacancyCard
                 result={dummyPositionDetails}

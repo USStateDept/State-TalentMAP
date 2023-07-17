@@ -64,7 +64,10 @@ const ProjectedVacancyCard = ({ result }) => {
         value: 'OVERVIEW',
         content: (
           <div className="position-content--container">
-            <PositionExpandableContent sections={sections} />
+            <PositionExpandableContent
+              sections={sections}
+              form={{}}
+            />
             <div className="toggle-include">
               <ToggleButton
                 labelTextRight="Included"

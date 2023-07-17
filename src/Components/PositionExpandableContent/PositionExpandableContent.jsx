@@ -82,7 +82,6 @@ const PositionExpandableContent = ({ sections, form }) => {
         />
       </Row>
       {(showMore && !editMode) &&
-        <>
           <div>
             <Row fluid className="position-content--description">
               <span className="definition-title">Position Details</span>
@@ -105,7 +104,6 @@ const PositionExpandableContent = ({ sections, form }) => {
               </div>
             </Row>
           </div>
-        </>
       }
       {(showMore && editMode) &&
         <div>
