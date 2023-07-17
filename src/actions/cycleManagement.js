@@ -71,6 +71,15 @@ const dummyDataToReturn = (query) => new Promise((resolve) => {
     previous: null,
   });
 });
+const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
+  const { limit } = query;
+  resolve({
+    results: dummyData.slice(0, limit),
+    count: dummyData.length,
+    next: null,
+    previous: null,
+  });
+});
 
 export function cycleManagementFetchDataErrored(bool) {
   return {
@@ -137,4 +146,70 @@ export function cycleManagementSelectionsSaveSuccess(result) {
 
 export function saveCycleManagementSelections(queryObject) {
   return (dispatch) => dispatch(cycleManagementSelectionsSaveSuccess(queryObject));
+}
+
+export function cyclePositionSearchFetchDataErrored(bool) {
+  return {
+    type: 'CYCLE_POSITION_SEARCH_FETCH_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function cyclePositionSearchFetchDataLoading(bool) {
+  return {
+    type: 'CYCLE_POSITION_SEARCH_FETCH_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function cyclePositionSearchFetchDataSuccess(results) {
+  return {
+    type: 'CYCLE_POSITION_SEARCH_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function cyclePositionSearchFetchData(query = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(cyclePositionSearchFetchDataLoading(true));
+      dispatch(cyclePositionSearchFetchDataErrored(false));
+    });
+    // const q = convertQueryToString(query);
+    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
+    // api().get(endpoint)
+    dispatch(cyclePositionSearchFetchDataLoading(true));
+    cyclePosDummyDataToReturn(query)
+      .then((data) => {
+        batch(() => {
+          dispatch(cyclePositionSearchFetchDataSuccess({ data, count: 5 }));
+          dispatch(cyclePositionSearchFetchDataErrored(false));
+          dispatch(cyclePositionSearchFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(cyclePositionSearchFetchDataLoading(true));
+            dispatch(cyclePositionSearchFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(cyclePositionSearchFetchDataErrored(true));
+            dispatch(cyclePositionSearchFetchDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function cyclePositionSearchSelectionsSaveSuccess(result) {
+  return {
+    type: 'CYCLE_POSITION_SEARCH_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveCyclePositionSearchSelections(queryObject) {
+  return (dispatch) => dispatch(cyclePositionSearchSelectionsSaveSuccess(queryObject));
 }

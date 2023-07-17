@@ -14,9 +14,10 @@ const CycleSearchCard = (props) => {
     cycle_end_date,
     cycle_excl_position,
     cycle_post_view,
+    isAO,
   } = props;
 
-  const cycleLink = `/profile/bureau/cyclemanagement/${id}`;
+  const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/cyclepositionsearch/${id}`;
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
@@ -74,6 +75,7 @@ CycleSearchCard.propTypes = {
   cycle_end_date: PropTypes.string,
   cycle_excl_position: PropTypes.string,
   cycle_post_view: PropTypes.string,
+  isAO: PropTypes.bool,
 };
 
 CycleSearchCard.defaultProps = {
@@ -84,6 +86,7 @@ CycleSearchCard.defaultProps = {
   cycle_end_date: null,
   cycle_excl_position: null,
   cycle_post_view: '',
+  isAO: false,
 };
 
 export default CycleSearchCard;
