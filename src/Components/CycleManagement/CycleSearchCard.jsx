@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import { Column, Row } from 'Components/Layout';
-import { formatDate } from 'utilities';
+import { formatDate, userHasPermissions } from 'utilities';
 
 const CycleSearchCard = (props) => {
   const {
@@ -16,6 +17,8 @@ const CycleSearchCard = (props) => {
   } = props;
 
   const cycleLink = `/profile/bureau/cyclepositionsearch/${id}`;
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   return (
     <Row fluid className="cycle-search-card">
@@ -48,6 +51,13 @@ const CycleSearchCard = (props) => {
             {<Link to={cycleLink}>
               View Cycle Positions
             </Link>}
+            { isSuperUser &&
+            <div className="cyc-admin-link">
+              <Link to={cycleLink}>
+                Edit Cycle Details
+              </Link>
+            </div>
+            }
           </span>
         </Column>
       </Row>
