@@ -3,6 +3,10 @@ import {
   cycleManagementFetchDataErrored,
   cycleManagementFetchDataLoading,
   cycleManagementSelections,
+  cyclePositionSearch,
+  cyclePositionSearchFetchDataErrored,
+  cyclePositionSearchFetchDataLoading,
+  cyclePositionSearchSelections,
 } from './cycleManagement';
 
 export default {
@@ -10,4 +14,8 @@ export default {
   cycleManagementFetchDataErrored,
   cycleManagementFetchDataLoading,
   cycleManagementSelections,
+  cyclePositionSearch,
+  cyclePositionSearchFetchDataErrored,
+  cyclePositionSearchFetchDataLoading,
+  cyclePositionSearchSelections,
 };
