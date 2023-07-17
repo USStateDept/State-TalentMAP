@@ -10,6 +10,7 @@ import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
 import { aiCreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
+import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
@@ -58,15 +59,31 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
+  const [isNewSeparation, setIsNewSeparation] = useState(false);
   const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
+  const [location, setLocation] = useState();
+  const [activeAIL, setActiveAIL] = useState();
   const [readMode, setReadMode] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  // check if leg is first leg, or separation
-  const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
+
+  const findEffectiveAsgOrSep = (asgAndSep) => {
+    let max;
+    asgAndSep.forEach(a => {
+      if (a?.status === 'EF') {
+        if (!max) max = a;
+        if (isAfter(new Date(a?.start_date), new Date(max?.start_date))) {
+          max = a;
+        }
+      }
+    });
+    return max;
+  };
+
+  const efPosition = get(agendaItem, 'legs[0]') || findEffectiveAsgOrSep(asgSepBidResults$) || {};
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
@@ -202,6 +219,7 @@ const AgendaItemMaintenanceContainer = (props) => {
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
+                          setIsNewSeparation={() => setIsNewSeparation(!isNewSeparation)}
                           userRemarks={userRemarks}
                           legCount={legs.length}
                           saveAI={submitAI}
@@ -219,8 +237,15 @@ const AgendaItemMaintenanceContainer = (props) => {
                           setParentLoadingState={setAgendaItemTimelineLoading}
                           updateLegs={setLegs}
                           asgSepBid={asgSepBid}
+                          activeAIL={activeAIL}
+                          setActiveAIL={setActiveAIL}
+                          location={location}
+                          setLocation={setLocation}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
+                          isNewSeparation={isNewSeparation}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
                           fullAgendaItemLegs={agendaItem?.legs || []}
                           readMode={readMode}
                           AIvalidation={AIvalidation}
@@ -246,6 +271,10 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
+                updateLegs={setLegs}
+                activeAIL={activeAIL}
+                location={location}
+                setLocation={setLocation}
                 clientData={employeeData$}
                 clientError={employeeError}
                 clientLoading={employeeLoading}
