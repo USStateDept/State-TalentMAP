@@ -15,7 +15,7 @@ import Picky from 'react-picky';
 import { filtersFetchData } from 'actions/filters/filters';
 import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
-import PublishablePositionCard from '../../PublishablePositionCard/PublishablePositionCard';
+import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
 
 const ProjectedVacancy = () => {
   const childRef = useRef();
@@ -204,6 +204,8 @@ const ProjectedVacancy = () => {
     includeSelectAll: true,
   };
 
+  const dummyid = dummyPositionDetails?.id;
+
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -349,8 +351,9 @@ const ProjectedVacancy = () => {
           }
           <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
-              <PublishablePositionCard
-                data={dummyPositionDetails}
+              <ProjectedVacancyCard
+                result={dummyPositionDetails}
+                key={dummyid}
               />
             </div>
           </div>
