@@ -2,7 +2,6 @@ import { useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
-import { get } from 'lodash';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { BID_CYCLES, POSITION_DETAILS } from 'Constants/PropTypes';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -18,7 +17,7 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
 const PublishablePositionCard = ({ data, cycles }) => {
-  const pos = get(data, 'position') || data;
+  const pos = data?.position || data;
 
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
@@ -34,7 +33,7 @@ const PublishablePositionCard = ({ data, cycles }) => {
     },
     bodyPrimary: {
       'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'post')) || NO_POST,
+      'Location': getPostName(pos?.post) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
       'Status': getResult(pos, 'status') || NO_STATUS,
@@ -96,7 +95,7 @@ const PublishablePositionCard = ({ data, cycles }) => {
     /* eslint-disable quote-props */
     staticBody: {
       'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'post')) || NO_POST,
+      'Location': getPostName(pos?.post) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
       'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
