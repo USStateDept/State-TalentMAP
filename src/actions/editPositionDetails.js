@@ -1,11 +1,12 @@
 import { batch } from 'react-redux';
-import api from '../api';
 import {
-  UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE,
   UPDATE_PUBLISAHBLE_POSITION_SUCCESS,
-  UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE,
+  UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE,
   UPDATE__PUBLISAHBLE_POSITION__ERROR,
+  UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE,
 } from 'Constants/SystemMessages';
+import { toastError, toastSuccess } from './toast';
+import api from '../api';
 
 const dummyPositionDetails = {
   id: '2561',
@@ -219,7 +220,7 @@ export function editPositionDetailsEditData(id, data) {
         });
       })
       .catch((err) => {
-        if (get(err, 'message') === 'cancel') {
+        if (err?.message === 'cancel') {
           batch(() => {
             dispatch(editPositionDetailsEditDataErrored(false));
             dispatch(editPositionDetailsEditDataLoading(true));
