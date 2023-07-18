@@ -1,6 +1,11 @@
 import { batch } from 'react-redux';
-import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
 import api from '../api';
+import {
+  UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE,
+  UPDATE_PUBLISAHBLE_POSITION_SUCCESS,
+  UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE,
+  UPDATE__PUBLISAHBLE_POSITION__ERROR,
+} from 'Constants/SystemMessages';
 
 const dummyPositionDetails = {
   id: '2561',
@@ -162,6 +167,89 @@ export function editPositionDetailsFetchDataSuccess(results) {
   };
 }
 
+export function editPositionDetailsFetchData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(editPositionDetailsFetchDataSuccess(dummyPositionDetails));
+      dispatch(editPositionDetailsFetchDataLoading(false));
+      dispatch(editPositionDetailsFetchDataErrored(false));
+    });
+  };
+}
+
+
+export function editPositionDetailsEditDataErrored(bool) {
+  return {
+    type: 'PUBLISHABLE_POSITION_EDIT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function editPositionDetailsEditDataLoading(bool) {
+  return {
+    type: 'PUBLISHABLE_POSITION_EDIT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function editPositionDetailsEditDataSuccess(success) {
+  return {
+    type: 'PUBLISHABLE_POSITION_EDIT_SUCCESS',
+    success,
+  };
+}
+
+export function editPositionDetailsEditData(id, data) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(editPositionDetailsEditDataLoading(true));
+      dispatch(editPositionDetailsEditDataErrored(false));
+    });
+
+    api().patch(`ao/${id}/publishablePosition/`, data)
+      .then(() => {
+        const toastTitle = UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE;
+        const toastMessage = UPDATE_PUBLISAHBLE_POSITION_SUCCESS;
+        batch(() => {
+          dispatch(editPositionDetailsEditDataErrored(false));
+          dispatch(editPositionDetailsEditDataLoading(false));
+          dispatch(editPositionDetailsEditDataSuccess(true));
+          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(editPositionDetailsFetchData());
+        });
+      })
+      .catch((err) => {
+        if (get(err, 'message') === 'cancel') {
+          batch(() => {
+            dispatch(editPositionDetailsEditDataErrored(false));
+            dispatch(editPositionDetailsEditDataLoading(true));
+          });
+        } else {
+          const toastTitle = UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE;
+          const toastMessage = UPDATE__PUBLISAHBLE_POSITION__ERROR;
+          dispatch(toastError(toastMessage, toastTitle));
+          batch(() => {
+            dispatch(editPositionDetailsEditDataErrored(true));
+            dispatch(editPositionDetailsEditDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+
+export function editPositionDetailsSelectionsSaveSuccess(result) {
+  return {
+    type: 'EDIT_POSITION_DETAILS_SELECTIONS_SAVE_SUCCESS',
+    result,
+  };
+}
+
+export function saveEditPositionDetailsSelections(queryObject) {
+  return (dispatch) => dispatch(editPositionDetailsSelectionsSaveSuccess(queryObject));
+}
+
+
 export function editPositionDetailsFiltersFetchDataErrored(bool) {
   return {
     type: 'EDIT_POSITION_DETAILS_FILTERS_FETCH_HAS_ERRORED',
@@ -181,38 +269,6 @@ export function editPositionDetailsFiltersFetchDataSuccess(results) {
     type: 'EDIT_POSITION_DETAILS_FILTERS_FETCH_SUCCESS',
     results,
   };
-}
-
-export function editPositionDetailsExport(query = {}) {
-  const q = convertQueryToString(query);
-  const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
-  const ep = `${endpoint}?${q}`;
-  return api()
-    .get(ep)
-    .then((response) => {
-      downloadFromResponse(response, `Edit_Position_Details_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
-    });
-}
-
-export function editPositionDetailsFetchData() {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(editPositionDetailsFetchDataSuccess(dummyPositionDetails));
-      dispatch(editPositionDetailsFetchDataLoading(false));
-      dispatch(editPositionDetailsFetchDataErrored(false));
-    });
-  };
-}
-
-export function editPositionDetailsSelectionsSaveSuccess(result) {
-  return {
-    type: 'EDIT_POSITION_DETAILS_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-
-export function saveEditPositionDetailsSelections(queryObject) {
-  return (dispatch) => dispatch(editPositionDetailsSelectionsSaveSuccess(queryObject));
 }
 
 export function editPositionDetailsFiltersFetchData() {

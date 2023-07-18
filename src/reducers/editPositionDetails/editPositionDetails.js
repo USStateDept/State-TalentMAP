@@ -23,6 +23,32 @@ export function editPositionDetails(state = {}, action) {
   }
 }
 
+export function editPositionDetailsEditDataErrored(state = false, action) {
+  switch (action.type) {
+    case 'PUBLISHABLE_POSITION_EDIT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function editPositionDetailsEditDataLoading(state = false, action) {
+  switch (action.type) {
+    case 'PUBLISHABLE_POSITION_EDIT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function editPositionDetailsEdit(state = {}, action) {
+  switch (action.type) {
+    case 'PUBLISHABLE_POSITION_EDIT_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
+
 export function editPositionDetailsSelections(state = {}, action) {
   switch (action.type) {
     case 'EDIT_POSITION_DETAILS_SELECTIONS_SAVE_SUCCESS':

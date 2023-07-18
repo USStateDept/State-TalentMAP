@@ -530,6 +530,8 @@ $padding-no-border: $total-padding - $border;
 .profile-menu {
   font-size: 15px;
   height: 100%;
+  flex-shrink: 0;
+
   .fa {
     color: $blue-primary;
   }
