@@ -2,7 +2,7 @@
 
 exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is false 1`] = `
 <div
-  className="usa-grid-full profile-menu"
+  className="profile-menu width-250"
 >
   <div
     className="menu-title"
@@ -351,7 +351,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
 
 exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_admin 1`] = `
 <div
-  className="usa-grid-full profile-menu"
+  className="profile-menu width-250"
 >
   <div
     className="menu-title"

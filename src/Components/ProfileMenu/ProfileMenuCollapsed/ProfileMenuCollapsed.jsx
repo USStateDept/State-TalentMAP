@@ -12,7 +12,7 @@ const sortProfileMenu = sortBy(remove(GET_PROFILE_MENU(),
 const sortedMenu = [...getProfileOption, ...sortProfileMenu];
 
 const ProfileMenuCollapsed = ({ expand, roles, isGlossaryEditor }) => (
-  <div className="usa-grid-full profile-menu profile-menu-collapsed">
+  <div className="profile-menu profile-menu-collapsed width-70">
     <div className="menu-title">
       <button className="unstyled-button" title="Expand menu" onClick={expand}>
         <FontAwesome name="exchange" />

@@ -1,5 +1,8 @@
 import {
   editPositionDetails,
+  editPositionDetailsEdit,
+  editPositionDetailsEditDataErrored,
+  editPositionDetailsEditDataLoading,
   editPositionDetailsFetchDataErrored,
   editPositionDetailsFetchDataLoading,
   editPositionDetailsFilters,
@@ -12,8 +15,11 @@ export default {
   editPositionDetails,
   editPositionDetailsFetchDataErrored,
   editPositionDetailsFetchDataLoading,
+  editPositionDetailsEdit,
+  editPositionDetailsEditDataErrored,
+  editPositionDetailsEditDataLoading,
+  editPositionDetailsSelections,
   editPositionDetailsFilters,
   editPositionDetailsFiltersFetchDataErrored,
   editPositionDetailsFiltersFetchDataLoading,
-  editPositionDetailsSelections,
 };

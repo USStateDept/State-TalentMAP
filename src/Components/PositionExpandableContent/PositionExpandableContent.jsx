@@ -22,6 +22,11 @@ const PositionExpandableContent = ({ sections, form }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  useEffect(() => {
+    if (editMode) setShowMore(true);
+  }, [editMode]);
+
+
   const getBody = () => {
     if (editMode && form) return form.staticBody;
     if (showMore) return { ...sections.bodyPrimary, ...sections.bodySecondary };

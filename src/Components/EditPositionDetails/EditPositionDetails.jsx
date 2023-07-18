@@ -376,6 +376,7 @@ const EditPositionDetails = () => {
             <div className="usa-grid-full position-list">
               <PublishablePositionCard
                 result={dummyPositionDetails}
+                cycles={cycles}
               />
             </div>
           </div>
