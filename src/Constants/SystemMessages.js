@@ -180,6 +180,6 @@ export const UPDATE_PANEL_MEETING_ERROR = 'There was an issue attempting to save
 
 export const UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE = 'Publishable Position Saved';
 export const UPDATE_PUBLISAHBLE_POSITION_SUCCESS = 'This Publishable Position has been successfully saved.';
-export const UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE = 'Publishable Position Error';
-export const UPDATE__PUBLISAHBLE_POSITION__ERROR = 'There was an issue attempting to save this Publishable Position. Please try again.';
+export const UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE = 'Publishable Position Error';
+export const UPDATE_PUBLISAHBLE_POSITION__ERROR = 'There was an issue attempting to save this Publishable Position. Please try again.';
 
