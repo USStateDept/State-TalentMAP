@@ -222,8 +222,8 @@ export function editPositionDetailsEditData(id, data) {
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(editPositionDetailsEditDataErrored(false));
             dispatch(editPositionDetailsEditDataLoading(true));
+            dispatch(editPositionDetailsEditDataErrored(false));
           });
         } else {
           const toastTitle = UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE;
