@@ -1,25 +1,25 @@
 import {
-  editPositionDetailsFetchDataErrored,
-  editPositionDetailsFetchDataLoading,
   editPositionDetails,
+  editPositionDetailsEdit,
   editPositionDetailsEditDataErrored,
   editPositionDetailsEditDataLoading,
-  editPositionDetailsEdit,
-  editPositionDetailsSelections,
+  editPositionDetailsFetchDataErrored,
+  editPositionDetailsFetchDataLoading,
+  editPositionDetailsFilters,
   editPositionDetailsFiltersFetchDataErrored,
   editPositionDetailsFiltersFetchDataLoading,
-  editPositionDetailsFilters,
+  editPositionDetailsSelections,
 } from './editPositionDetails';
 
 export default {
+  editPositionDetails,
   editPositionDetailsFetchDataErrored,
   editPositionDetailsFetchDataLoading,
-  editPositionDetails,
+  editPositionDetailsEdit,
   editPositionDetailsEditDataErrored,
   editPositionDetailsEditDataLoading,
-  editPositionDetailsEdit,
   editPositionDetailsSelections,
+  editPositionDetailsFilters,
   editPositionDetailsFiltersFetchDataErrored,
   editPositionDetailsFiltersFetchDataLoading,
-  editPositionDetailsFilters,
 };
