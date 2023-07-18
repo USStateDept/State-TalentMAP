@@ -2,8 +2,8 @@ import { batch } from 'react-redux';
 import {
   UPDATE_PUBLISAHBLE_POSITION_SUCCESS,
   UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE,
-  UPDATE__PUBLISAHBLE_POSITION__ERROR,
-  UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE,
+  UPDATE_PUBLISAHBLE_POSITION__ERROR,
+  UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE,
 } from 'Constants/SystemMessages';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
@@ -226,8 +226,8 @@ export function editPositionDetailsEditData(id, data) {
             dispatch(editPositionDetailsEditDataLoading(true));
           });
         } else {
-          const toastTitle = UPDATE__PUBLISAHBLE_POSITION__ERROR_TITLE;
-          const toastMessage = UPDATE__PUBLISAHBLE_POSITION__ERROR;
+          const toastTitle = UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE;
+          const toastMessage = UPDATE_PUBLISAHBLE_POSITION__ERROR;
           dispatch(toastError(toastMessage, toastTitle));
           batch(() => {
             dispatch(editPositionDetailsEditDataErrored(true));
