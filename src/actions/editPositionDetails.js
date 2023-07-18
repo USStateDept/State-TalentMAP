@@ -172,8 +172,8 @@ export function editPositionDetailsFetchData() {
   return (dispatch) => {
     batch(() => {
       dispatch(editPositionDetailsFetchDataSuccess(dummyPositionDetails));
-      dispatch(editPositionDetailsFetchDataLoading(false));
       dispatch(editPositionDetailsFetchDataErrored(false));
+      dispatch(editPositionDetailsFetchDataLoading(false));
     });
   };
 }
@@ -213,10 +213,10 @@ export function editPositionDetailsEditData(id, data) {
         const toastMessage = UPDATE_PUBLISAHBLE_POSITION_SUCCESS;
         batch(() => {
           dispatch(editPositionDetailsEditDataErrored(false));
-          dispatch(editPositionDetailsEditDataLoading(false));
           dispatch(editPositionDetailsEditDataSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(editPositionDetailsFetchData());
+          dispatch(editPositionDetailsEditDataLoading(false));
         });
       })
       .catch((err) => {
