@@ -20,8 +20,6 @@ import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import FA from 'react-fontawesome';
 
-
-// eslint-disable-next-line no-unused-vars
 const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
   const dispatch = useDispatch();
 
