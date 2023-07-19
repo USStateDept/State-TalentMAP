@@ -292,4 +292,17 @@
     justify-content: space-between;
     align-items: flex-end;
   }
+
+  .left-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .cycle-card-remove {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+  }
 }

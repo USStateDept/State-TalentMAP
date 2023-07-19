@@ -183,3 +183,12 @@ export const UPDATE_PUBLISAHBLE_POSITION_SUCCESS = 'This Publishable Position ha
 export const UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE = 'Publishable Position Error';
 export const UPDATE_PUBLISAHBLE_POSITION__ERROR = 'There was an issue attempting to save this Publishable Position. Please try again.';
 
+export const REMOVE_CYCLE_POSITION_SUCCESS_TITLE = 'Position Removed';
+export const REMOVE_CYCLE_POSITION_SUCCESS = 'Position Number has been removed from the cycle';
+export const REMOVE_CYCLE_POSITION_ERROR_TITLE = 'Position Delete Error';
+export const REMOVE_CYCLE_POSITION_ERROR = 'There was an issue attempting to remove this Position Number. Please try again.';
+
+export const EDIT_CYCLE_POSITION_SUCCESS_TITLE = 'Position Updated';
+export const EDIT_CYCLE_POSITION_SUCCESS = 'The Position has been updated';
+export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Position Edit Error';
+export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Position. Please try again.';
