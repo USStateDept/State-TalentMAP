@@ -40,7 +40,9 @@ const ProjectedVacancy = () => {
   const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
   const [clearFilters, setClearFilters] = useState(false);
 
-  const [includedPositions, setIncludedPositions] = useState([]);
+  const dummyid = dummyPositionDetails?.id;
+  const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
+  const [includedPositions, setIncludedPositions] = useState(dummyIds);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -205,8 +207,6 @@ const ProjectedVacancy = () => {
     renderList: renderSelectionList,
     includeSelectAll: true,
   };
-
-  const dummyid = dummyPositionDetails?.id;
 
   const onIncludedUpdate = (id, include) => {
     if (include) {
@@ -373,11 +373,11 @@ const ProjectedVacancy = () => {
             </div>
             <div className="usa-grid-full position-list">
               {
-                [...Array(10).keys()].map(k =>
+                dummyIds.map(k =>
                   (<ProjectedVacancyCard
                     result={dummyPositionDetails}
-                    key={dummyid + k}
-                    id={dummyid + k}
+                    key={k}
+                    id={k}
                     updateIncluded={onIncludedUpdate}
                   />))
               }

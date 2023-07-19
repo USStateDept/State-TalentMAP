@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { get } from 'lodash';
 import DatePicker from 'react-datepicker';
 import { getDifferentials, getPostName, getResult } from 'utilities';
@@ -13,6 +13,7 @@ import ToggleButton from 'Components/ToggleButton';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
+import { useDidMountEffect } from 'hooks';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import FA from 'react-fontawesome';
@@ -80,7 +81,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
 
-  useEffect(() => {
+  useDidMountEffect(() => {
     updateIncluded(id, included);
   }, [included]);
 
