@@ -65,7 +65,7 @@ const CyclePositionCard = ({ data, cycle, dispatch }) => {
   const removePosition = () => {
     if (!getResult(data, 'ted')) { // adjust with real data
       swal({
-        title: 'Confirm Discard Changes',
+        title: 'Confirm Removal',
         button: false,
         closeOnEsc: true,
         content: (
@@ -73,7 +73,7 @@ const CyclePositionCard = ({ data, cycle, dispatch }) => {
             <div className="help-text">
               <span>
                 Are you sure you want to remove this position from this cycle?
-                This action cannot be undone
+                This action cannot be undone.
               </span>
             </div>
             <div className="modal-controls">
