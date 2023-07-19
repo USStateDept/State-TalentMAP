@@ -40,6 +40,8 @@ const ProjectedVacancy = () => {
   const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
   const [clearFilters, setClearFilters] = useState(false);
 
+  const [includedPositions, setIncludedPositions] = useState([]);
+
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
@@ -206,6 +208,21 @@ const ProjectedVacancy = () => {
 
   const dummyid = dummyPositionDetails?.id;
 
+  const onIncludedUpdate = (id, include) => {
+    if (include) {
+      setIncludedPositions([...includedPositions, id]);
+    } else {
+      setIncludedPositions(includedPositions.filter(x => x !== id));
+    }
+  };
+
+  const addToProposedCycle = () => {
+    /* eslint-disable no-console */
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    console.log('🦄 current: sending off:');
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+  };
+
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
@@ -350,11 +367,20 @@ const ProjectedVacancy = () => {
             </div>
           }
           <div className="usa-width-one-whole position-search--results">
+            <div className="proposed-cycle-banner">
+              {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
+              <button className="usa-button-secondary" onClick={addToProposedCycle}>Add to Proposed Cycle</button>
+            </div>
             <div className="usa-grid-full position-list">
-              <ProjectedVacancyCard
-                result={dummyPositionDetails}
-                key={dummyid}
-              />
+              {
+                [...Array(10).keys()].map(k =>
+                  (<ProjectedVacancyCard
+                    result={dummyPositionDetails}
+                    key={dummyid + k}
+                    id={dummyid + k}
+                    updateIncluded={onIncludedUpdate}
+                  />))
+              }
             </div>
           </div>
         </div>

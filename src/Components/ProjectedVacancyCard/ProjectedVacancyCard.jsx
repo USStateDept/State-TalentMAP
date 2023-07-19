@@ -1,24 +1,25 @@
-/* eslint-disable */
-import { useState, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { get } from 'lodash';
 import DatePicker from 'react-datepicker';
 import { getDifferentials, getPostName, getResult } from 'utilities';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
+  NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
+import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import Linkify from "react-linkify";
-import TextareaAutosize from "react-textarea-autosize";
-import FA from "react-fontawesome";
+import Linkify from 'react-linkify';
+import TextareaAutosize from 'react-textarea-autosize';
+import FA from 'react-fontawesome';
 
 
-const ProjectedVacancyCard = ({ result }) => {
+// eslint-disable-next-line no-unused-vars
+const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
   // Start: fake temp data
   const bidSeasons = [
     'Winter 2010', 'Summer 2010', 'Winter 2011',
@@ -37,9 +38,9 @@ const ProjectedVacancyCard = ({ result }) => {
     'Summer 2029', 'Winter 2030', 'Summer 2030',
     'Winter 2031', 'Summer 2031', 'Winter 2032',
     'Summer 2032', 'Winter 2033', 'Summer 2033',
-    'Winter 2034', 'Summer 2034'
+    'Winter 2034', 'Summer 2034',
   ];
-  const bidSeasons$ = bidSeasons.map((b, i) => ({'code': i + 1, 'name': b}));
+  const bidSeasons$ = bidSeasons.map((b, i) => ({ code: i + 1, name: b }));
   const statusOptions = [
     { code: 1, name: 'Active' },
     { code: 2, name: 'Inactive' },
@@ -62,7 +63,12 @@ const ProjectedVacancyCard = ({ result }) => {
   const datePickerRef = useRef(null);
   const openDatePicker = () => {
     datePickerRef.current.setOpen(true);
-  }
+  };
+
+  const pos = get(result, 'position') || result;
+
+  // initial states will need to pull from "pos" once we've determined the ref data structure
+  // if included defaults to true, is this something that will never be saved beyond local state?
   const [included, setIncluded] = useState(true);
   const [season, setSeason] = useState();
   const [status, setStatus] = useState();
@@ -71,12 +77,12 @@ const ProjectedVacancyCard = ({ result }) => {
   const [langOffsetWinter, setLangOffsetWinter] = useState();
   const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
 
-
-  const pos = get(result, 'position') || result;
-  // const description$ = get(pos, 'description.content') || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
 
+  useEffect(() => {
+    updateIncluded(id, included);
+  }, [included]);
 
   const sections = {
     /* eslint-disable quote-props */
@@ -137,7 +143,7 @@ const ProjectedVacancyCard = ({ result }) => {
           <select
             id="season"
             defaultValue={season}
-            onChange={(e) => setSeason(e.target.name)}
+            onChange={(e) => setSeason(e.target.value)}
           >
             {
               bidSeasons$.map(b => (
@@ -146,12 +152,12 @@ const ProjectedVacancyCard = ({ result }) => {
             }
           </select>
         </div>
-        <div  className="position-form--label-input-container">
+        <div className="position-form--label-input-container">
           <label htmlFor="status">Status</label>
           <select
             id="status"
             defaultValue={status}
-            onChange={(e) => setStatus(e.target.name)}
+            onChange={(e) => setStatus(e.target.value)}
           >
             {
               statusOptions.map(b => (
@@ -160,7 +166,7 @@ const ProjectedVacancyCard = ({ result }) => {
             }
           </select>
         </div>
-        <div  className="position-form--label-input-container">
+        <div className="position-form--label-input-container">
           <label htmlFor="overrideTED">Override TED <small>(optional)</small></label>
           <div className="date-wrapper-react larger-date-picker">
             <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
@@ -174,12 +180,12 @@ const ProjectedVacancyCard = ({ result }) => {
             />
           </div>
         </div>
-        <div  className="position-form--label-input-container">
+        <div className="position-form--label-input-container">
           <label htmlFor="status">Language Offset Summer</label>
           <select
             id="langOffsetSummer"
             defaultValue={langOffsetSummer}
-            onChange={(e) => setLangOffsetSummer(e.target.name)}
+            onChange={(e) => setLangOffsetSummer(e.target.value)}
           >
             {
               languageOffset.map(b => (
@@ -188,12 +194,12 @@ const ProjectedVacancyCard = ({ result }) => {
             }
           </select>
         </div>
-        <div  className="position-form--label-input-container">
+        <div className="position-form--label-input-container">
           <label htmlFor="status">Language Offset Winter</label>
           <select
             id="langOffsetWinter"
             defaultValue={langOffsetWinter}
-            onChange={(e) => setLangOffsetWinter(e.target.name)}
+            onChange={(e) => setLangOffsetWinter(e.target.value)}
           >
             {
               languageOffset.map(b => (
@@ -203,7 +209,7 @@ const ProjectedVacancyCard = ({ result }) => {
           </select>
         </div>
       </div>
-      <div  className="position-form--label-input-container">
+      <div className="position-form--label-input-container">
         <Row fluid className="position-form--description">
           <span className="definition-title">Position Details</span>
           <Linkify properties={{ target: '_blank' }}>
@@ -255,6 +261,13 @@ const ProjectedVacancyCard = ({ result }) => {
 
 ProjectedVacancyCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
+  updateIncluded: PropTypes.func,
+  id: PropTypes.number,
+};
+
+ProjectedVacancyCard.defaultProps = {
+  updateIncluded: EMPTY_FUNCTION,
+  id: null,
 };
 
 export default ProjectedVacancyCard;

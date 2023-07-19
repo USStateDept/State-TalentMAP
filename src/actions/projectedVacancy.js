@@ -1,6 +1,4 @@
 import { batch } from 'react-redux';
-import { convertQueryToString, downloadFromResponse, formatDate } from 'utilities';
-import api from '../api';
 
 const dummyPositionDetails = {
   id: '2561',
@@ -162,21 +160,21 @@ export function projectedVacancyFetchDataSuccess(results) {
   };
 }
 
-export function projectedVacancyExport(query = {}) {
-  const q = convertQueryToString(query);
-  const endpoint = '/fsbid/agenda_employees/export/'; // Replace with correct endpoint when available
-  const ep = `${endpoint}?${q}`;
-  return api()
-    .get(ep)
-    .then((response) => {
-      downloadFromResponse(response, `Edit_Position_Details_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+export function projectedVacancyFetchData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(projectedVacancyFetchDataSuccess(dummyPositionDetails));
+      dispatch(projectedVacancyFetchDataErrored(false));
+      dispatch(projectedVacancyFetchDataLoading(false));
     });
+  };
 }
 
-export function projectedVacancyFiltersFetchDataSuccess(results) {
+
+export function projectedVacancyFiltersFetchDataErrored(bool) {
   return {
-    type: 'PROJECTED_VACANCY_FILTERS_FETCH_SUCCESS',
-    results,
+    type: 'PROJECTED_VACANCY_FILTERS_FETCH_ERRORED',
+    hasErrored: bool,
   };
 }
 
@@ -186,6 +184,23 @@ export function projectedVacancyFiltersFetchDataLoading(bool) {
     isLoading: bool,
   };
 }
+
+export function projectedVacancyFiltersFetchDataSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_FILTERS_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function projectedVacancyFiltersFetchData() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(projectedVacancyFiltersFetchDataSuccess({}));
+      dispatch(projectedVacancyFiltersFetchDataLoading(false));
+    });
+  };
+}
+
 
 export function projectedVacancySelectionsSaveSuccess(result) {
   return {
@@ -198,21 +213,3 @@ export function saveProjectedVacancySelections(queryObject) {
   return (dispatch) => dispatch(projectedVacancySelectionsSaveSuccess(queryObject));
 }
 
-export function projectedVacancyFetchData() {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(projectedVacancyFetchDataSuccess(dummyPositionDetails));
-      dispatch(projectedVacancyFetchDataErrored(false));
-      dispatch(projectedVacancyFetchDataLoading(false));
-    });
-  };
-}
-
-export function projectedVacancyFiltersFetchData() {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(projectedVacancyFiltersFetchDataSuccess({}));
-      dispatch(projectedVacancyFiltersFetchDataLoading(false));
-    });
-  };
-}
