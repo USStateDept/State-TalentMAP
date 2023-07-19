@@ -89,6 +89,19 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
     updateIncluded(id, included);
   }, [included]);
 
+  const onCancelForm = () => {
+    // this is likely not going to be needed, as we should be
+    // re-reading from "pos" when we open Edit Form back up
+    // clear will need to set states back to the pull
+    // from "pos" once we've determined the ref data structure
+    setSeason(null);
+    setStatus(null);
+    setOverrideTED(null);
+    setLangOffsetSummer(null);
+    setLangOffsetWinter(null);
+    setTextArea(pos?.description?.content || 'No description.');
+  };
+
   const sections = {
     /* eslint-disable quote-props */
     subheading: {
@@ -236,6 +249,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
       </div>
     </div>,
     handleSubmit: () => dispatch(projectedVacancyEdit(5, {})),
+    handleCancel: () => onCancelForm(),
     /* eslint-enable quote-props */
   };
 
