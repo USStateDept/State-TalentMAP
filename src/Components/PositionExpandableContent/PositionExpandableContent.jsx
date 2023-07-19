@@ -57,7 +57,7 @@ const PositionExpandableContent = ({ sections, form }) => {
       content: (
         <div className="simple-action-modal">
           <div className="help-text">
-            <span>Are you sure you want to discard all changes made to this position?</span>
+            <span>{form.cancelText || 'Are you sure you want to discard all changes made to this position?'}</span>
           </div>
           <div className="modal-controls">
             <button onClick={() => onCancel()}>Submit</button>
@@ -155,6 +155,7 @@ PositionExpandableContent.propTypes = {
   form: PropTypes.shape({
     staticBody: PropTypes.shape({}),
     inputBody: PropTypes.element,
+    cancelText: PropTypes.string,
     handleSubmit: PropTypes.func,
     handleCancel: PropTypes.func,
   }),

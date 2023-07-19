@@ -248,6 +248,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
         </Row>
       </div>
     </div>,
+    cancelText: 'Are you sure you want to discard all changes made to this Projected Vacancy position?',
     handleSubmit: () => dispatch(projectedVacancyEdit(5, {})),
     handleCancel: () => onCancelForm(),
     /* eslint-enable quote-props */
