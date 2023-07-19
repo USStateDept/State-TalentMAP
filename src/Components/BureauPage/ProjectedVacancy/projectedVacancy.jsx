@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useRef, useState } from 'react';
 import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
@@ -42,7 +43,16 @@ const ProjectedVacancy = () => {
 
   const dummyid = dummyPositionDetails?.id;
   const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
-  const [includedPositions, setIncludedPositions] = useState(dummyIds);
+  const [includedPositions, setIncludedPositions] = useState();
+
+
+  useEffect(() => {
+    if (dummyid) {
+      setIncludedPositions([...Array(10).keys()].map(k => dummyid + k));
+    }
+  }, [dummyid]);
+
+
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');

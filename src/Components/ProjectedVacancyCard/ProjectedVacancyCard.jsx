@@ -155,7 +155,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     inputBody: <div className="position-form">
-      <div className="elsa">
+      <div className="position-form--inputs">
         <div className="position-form--label-input-container">
           <label htmlFor="status">Bid Season</label>
           <select
