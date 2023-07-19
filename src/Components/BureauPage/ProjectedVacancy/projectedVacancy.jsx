@@ -3,7 +3,7 @@ import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
-import { projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
+import { projectedVacancyAddToProposedCycle, projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
@@ -217,10 +217,7 @@ const ProjectedVacancy = () => {
   };
 
   const addToProposedCycle = () => {
-    /* eslint-disable no-console */
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    console.log('🦄 current: sending off:');
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    dispatch(projectedVacancyAddToProposedCycle());
   };
 
   return (

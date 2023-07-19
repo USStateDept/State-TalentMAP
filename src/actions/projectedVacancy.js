@@ -1,4 +1,8 @@
 import {
+  ADD_TO_PROPOSED_CYCLE_ERROR,
+  ADD_TO_PROPOSED_CYCLE_ERROR_TITLE,
+  ADD_TO_PROPOSED_CYCLE_SUCCESS,
+  ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE,
   UPDATE_PROJECTED_VACANCY_ERROR,
   UPDATE_PROJECTED_VACANCY_ERROR_TITLE,
   UPDATE_PROJECTED_VACANCY_SUCCESS,
@@ -146,6 +150,73 @@ const dummyPositionDetails = {
   isHardToFill: false,
   has_short_list: false,
 };
+
+export function projectedVacancyAddToProposedCycleErrored(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function projectedVacancyAddToProposedCycleLoading(bool) {
+  return {
+    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function projectedVacancyAddToProposedCycleSuccess(results) {
+  return {
+    type: 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_SUCCESS',
+    results,
+  };
+}
+export function projectedVacancyAddToProposedCycle(id, data) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(projectedVacancyAddToProposedCycleLoading(true));
+      dispatch(projectedVacancyAddToProposedCycleErrored(false));
+    });
+
+    api().patch(`ao/${id}/projectedVacancy/`, data)
+      .then(() => {
+        const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
+        const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
+        batch(() => {
+          dispatch(projectedVacancyAddToProposedCycleErrored(false));
+          dispatch(projectedVacancyAddToProposedCycleSuccess(true));
+          dispatch(toastSuccess(toastMessage, toastTitle));
+          dispatch(projectedVacancyAddToProposedCycleSuccess());
+          dispatch(projectedVacancyAddToProposedCycleLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(projectedVacancyAddToProposedCycleLoading(true));
+            dispatch(projectedVacancyAddToProposedCycleErrored(false));
+          });
+        } else {
+          // Start: temp toast logic
+          // temp to randomly show toast error or success
+          // when set up, just keep the error toast here
+          const randInt = Math.floor(Math.random() * 2);
+          if (randInt) {
+            const toastTitle = ADD_TO_PROPOSED_CYCLE_ERROR_TITLE;
+            const toastMessage = ADD_TO_PROPOSED_CYCLE_ERROR;
+            dispatch(toastError(toastMessage, toastTitle));
+          } else {
+            const toastTitle = ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE;
+            const toastMessage = ADD_TO_PROPOSED_CYCLE_SUCCESS;
+            dispatch(toastSuccess(toastMessage, toastTitle));
+          }
+          // End: temp toast logic
+          batch(() => {
+            dispatch(projectedVacancyAddToProposedCycleErrored(true));
+            dispatch(projectedVacancyAddToProposedCycleLoading(false));
+          });
+        }
+      });
+  };
+}
 
 
 export function projectedVacancyEditErrored(bool) {

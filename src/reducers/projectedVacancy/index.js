@@ -1,5 +1,8 @@
 import {
   projectedVacancy,
+  projectedVacancyAddToProposedCycle,
+  projectedVacancyAddToProposedCycleErrored,
+  projectedVacancyAddToProposedCycleLoading,
   projectedVacancyEdit,
   projectedVacancyEditErrored,
   projectedVacancyEditLoading,
@@ -13,6 +16,9 @@ import {
 
 export default {
   projectedVacancy,
+  projectedVacancyAddToProposedCycle,
+  projectedVacancyAddToProposedCycleErrored,
+  projectedVacancyAddToProposedCycleLoading,
   projectedVacancyEdit,
   projectedVacancyEditErrored,
   projectedVacancyEditLoading,

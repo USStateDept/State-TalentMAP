@@ -188,3 +188,8 @@ export const UPDATE_PROJECTED_VACANCY_SUCCESS = 'This Projected Vacancy Position
 export const UPDATE_PROJECTED_VACANCY_ERROR_TITLE = 'Projected Vacancy Position Error';
 export const UPDATE_PROJECTED_VACANCY_ERROR = 'There was an issue attempting to save this Projected Vacancy Position. Please try again.';
 
+export const ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE = 'Successfully Added to Proposed Cycle';
+export const ADD_TO_PROPOSED_CYCLE_SUCCESS = 'Positions have been successfully added to the proposed cycle.';
+export const ADD_TO_PROPOSED_CYCLE_ERROR_TITLE = 'Error Adding to Proposed Cycle';
+export const ADD_TO_PROPOSED_CYCLE_ERROR = 'There was an issue attempting to add the positions to the proposed cycle. Please try again.';
+
