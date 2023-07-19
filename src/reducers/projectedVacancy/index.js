@@ -1,5 +1,8 @@
 import {
   projectedVacancy,
+  projectedVacancyEdit,
+  projectedVacancyEditErrored,
+  projectedVacancyEditLoading,
   projectedVacancyFetchDataErrored,
   projectedVacancyFetchDataLoading,
   projectedVacancyFilters,
@@ -10,6 +13,9 @@ import {
 
 export default {
   projectedVacancy,
+  projectedVacancyEdit,
+  projectedVacancyEditErrored,
+  projectedVacancyEditLoading,
   projectedVacancyFetchDataErrored,
   projectedVacancyFetchDataLoading,
   projectedVacancyFilters,

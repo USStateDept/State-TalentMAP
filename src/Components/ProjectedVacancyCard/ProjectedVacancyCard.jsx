@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import { get } from 'lodash';
 import DatePicker from 'react-datepicker';
+import { useDispatch } from 'react-redux';
+import { projectedVacancyEdit } from 'actions/projectedVacancy';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
@@ -21,6 +23,8 @@ import FA from 'react-fontawesome';
 
 // eslint-disable-next-line no-unused-vars
 const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
+  const dispatch = useDispatch();
+
   // Start: fake temp data
   const bidSeasons = [
     'Winter 2010', 'Summer 2010', 'Winter 2011',
@@ -231,6 +235,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
         </Row>
       </div>
     </div>,
+    handleSubmit: () => dispatch(projectedVacancyEdit(5, {})),
     /* eslint-enable quote-props */
   };
 
