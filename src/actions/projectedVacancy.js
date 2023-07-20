@@ -169,7 +169,7 @@ export function projectedVacancyExport(query = {}) {
   return api()
     .get(ep)
     .then((response) => {
-      downloadFromResponse(response, `Edit_Position_Details_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
+      downloadFromResponse(response, `Projected_Vacancy_${formatDate(new Date().getTime(), 'YYYY_M_D_Hms')}`);
     });
 }
 
