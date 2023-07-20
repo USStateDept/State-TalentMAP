@@ -45,6 +45,7 @@ const CyclePositionSearch = (props) => {
   const cyclePositionsError = useSelector(state => state.cyclePositionSearchFetchDataErrored);
   const userSelections = useSelector(state => state.cyclePositionSearchSelections);
 
+  const cycleStatus = loadedCycle?.cycle_status || '';
   const cycleStartDate = formatDate(loadedCycle?.cycle_begin_date, 'M/D/YYYY');
   const cycleEndDate = formatDate(loadedCycle?.cycle_end_date, 'M/D/YYYY');
 
@@ -70,7 +71,6 @@ const CyclePositionSearch = (props) => {
   const skillOptions = skills?.data?.length ? [...new Set(skills.data)].sort(b => b.name) : [];
   const sorts = BUREAU_POSITION_SORT;
 
-  // Pagination
   const [page, setPage] = useState(userSelections?.page || 1);
   const [limit, setLimit] = useState(userSelections?.limit || 10);
   const prevPage = usePrevious(page);
@@ -292,6 +292,7 @@ const CyclePositionSearch = (props) => {
               {loadedCycle?.cycle_name ?? 'Error Loading Cycle'}
             </div>
             <div className="cps-subheader">
+              <div className="cycle-dates">{`Cycle Status: ${cycleStatus}`}</div>
               <div className="cycle-dates">{`Cycle Start: ${cycleStartDate}`}</div>
               <div className="cycle-dates">{`Bid Due: ${cycleEndDate}`}</div>
             </div>
