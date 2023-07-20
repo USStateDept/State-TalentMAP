@@ -4,7 +4,7 @@ import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/Employe
 import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
 import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
 import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
-import EditPositionDetails from 'Components/EditPositionDetails/EditPositionDetails';
+import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import CycleManagement from 'Components/CycleManagement';
 import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
@@ -34,7 +34,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
         <Route path="/profile/bureau/projectedvacancy" render={() => <ProjectedVacancy isCDO={false} />} />
-        <Route path="/profile/bureau/positiondetails" render={() => <EditPositionDetails />} />
+        <Route path="/profile/bureau/publishablepositions" render={() => <PublishablePositions />} />
         <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement isAO={false} />} />
         <Route path="/profile/bureau/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
       </Switch>

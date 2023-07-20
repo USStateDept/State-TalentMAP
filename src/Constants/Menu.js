@@ -205,10 +205,10 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      checkFlag('flags.position_details') ?
+      checkFlag('flags.publishable_positions') ?
         {
-          text: 'Position Details',
-          route: '/profile/bureau/positiondetails',
+          text: 'Publishable Positions',
+          route: '/profile/bureau/publishablepositions',
           icon: ' fa-keyboard-o',
           roles: [
             'superuser',
