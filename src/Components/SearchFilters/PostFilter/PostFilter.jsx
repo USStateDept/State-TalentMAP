@@ -200,11 +200,15 @@ class PostFilter extends Component {
                   overseasPosts.map((itemData) => {
                     const itemLabel = getItemLabel(itemData);
                     const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                    if (itemData.country === 'Denmark') {
+                      console.log('CHEESE', itemData);
+                      console.log(item);
+                    }
                     return (
                       <CheckBox
                         _id={itemData.id} /* when we need the original id */
-                        id={`checkbox${itemLabelNoSpaces}-overseas-post-${item.item.description}`}
-                        key={`checkbox${itemLabel}-overseas-post-${item.item.description}`}
+                        id={`checkbox${itemLabelNoSpaces}-overseas-post-${item.item.description}-${itemData.code}`}
+                        key={`checkbox${itemLabel}-overseas-post-${item.item.description}-${itemData.code}`}
                         label={itemLabel}
                         title={itemLabel}
                         name={itemLabel}
