@@ -220,7 +220,7 @@ const PublishablePositions = () => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="position-search edit-position-details-page">
+        <div className="position-search">
           <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar">
