@@ -220,8 +220,8 @@ const CyclePositionSearch = (props) => {
                     }
                   </div>
                 </div>
-                <div className="cm-filters grid-200">
-                  <div className="cm-filter-div">
+                <div className="position-search--filters--cm-pos">
+                  <div className="filter-div">
                     <div className="label">Bureau:</div>
                     <Picky
                       {...pickyProps}
@@ -233,7 +233,7 @@ const CyclePositionSearch = (props) => {
                       labelKey="long_description"
                     />
                   </div>
-                  <div className="cm-filter-div">
+                  <div className="filter-div">
                     <div className="label">Organization:</div>
                     <Picky
                       {...pickyProps}
@@ -245,7 +245,7 @@ const CyclePositionSearch = (props) => {
                       value={selectedOrganizations}
                     />
                   </div>
-                  <div className="cm-filter-div">
+                  <div className="filter-div">
                     <div className="label">Grade:</div>
                     <Picky
                       {...pickyProps}
@@ -257,7 +257,7 @@ const CyclePositionSearch = (props) => {
                       value={selectedGrades}
                     />
                   </div>
-                  <div className="cm-filter-div">
+                  <div className="filter-div">
                     <div className="label">Skills:</div>
                     <Picky
                       {...pickyProps}

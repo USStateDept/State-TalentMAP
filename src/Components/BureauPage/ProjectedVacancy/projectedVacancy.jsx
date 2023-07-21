@@ -234,7 +234,7 @@ const ProjectedVacancy = () => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-search--filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
                   <div className="filter-div">
                     <div className="label">Bid Cycle:</div>
                     <Picky

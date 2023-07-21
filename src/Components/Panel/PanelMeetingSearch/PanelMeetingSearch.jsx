@@ -203,7 +203,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
               }
             </div>
           </div>
-          <div className="usa-width-one-whole panel-meeting-search-filters">
+          <div className="usa-width-one-whole position-search--filters--panel-m">
             <div className="filter-div">
               <div className="label">Type:</div>
               <Picky

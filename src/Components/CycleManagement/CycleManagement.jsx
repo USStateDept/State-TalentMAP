@@ -196,8 +196,8 @@ const CycleManagement = (props) => {
               </span>
             </div>
 
-            <div className="usa-width-one-whole cm-filters grid-450">
-              <div className="cm-filter-div">
+            <div className="usa-width-one-whole position-search--filters--cm">
+              <div className="filter-div">
                 <div className="label">Status:</div>
                 <Picky
                   {...pickyProps}
@@ -209,7 +209,7 @@ const CycleManagement = (props) => {
                   value={selectedStatus}
                 />
               </div>
-              <div className="cm-filter-div">
+              <div className="filter-div">
                 <div className="label">Cycle:</div>
                 <Picky
                   {...pickyProps}
@@ -222,7 +222,7 @@ const CycleManagement = (props) => {
                   value={selectedCycles}
                 />
               </div>
-              <div className="cm-filter-div">
+              <div className="filter-div">
                 <div className="label">Cycle Date:</div>
                 <DateRangePicker
                   onChange={setSelectedDates}

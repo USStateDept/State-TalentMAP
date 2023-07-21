@@ -382,7 +382,7 @@ const PanelMeetingAgendas = (props) => {
                 }
               </div>
             </div>
-            <div className="usa-width-one-whole panel-meeting-agenda-filters">
+            <div className="usa-width-one-whole position-search--filters--panel-m-agendas">
               <div className="filter-div">
                 <div className="label">Bureau:</div>
                 <Picky
