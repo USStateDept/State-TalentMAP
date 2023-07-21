@@ -342,11 +342,11 @@ $ai-legs-width-config: (
 //*
 // grid-size is optional - defaults to 10px buffer between
 // longest label and input. Send in custom grid-size property
-// if more spacing is desired between label-inputs groupings
+// if more spacing is desired between label-input groupings
 // Note: To prevent shrinking of inputs or stacking of text,
-// grid-size should always be at least = label-width + picky-width + 10
+// grid-size should be at least = label-width + picky-width + 10
 // classname that will be generated: position-search--filters--${keyname}
-// ex: position-search--filters--pm
+// ex: position-search--filters--pos-man
 $filters-sizing-config: (
   pos-man: (
     label-width: 115px,
