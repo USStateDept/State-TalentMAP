@@ -50,7 +50,6 @@
   .position-search--filters--#{$group} {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax($grid-size, 1fr));
-    background-color: map-get($values, debug-color);
 
     .filter-div {
       align-items: center;
