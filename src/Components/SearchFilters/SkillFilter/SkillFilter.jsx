@@ -124,12 +124,13 @@ class BureauFilter extends Component {
                       const itemLabel = getItemLabel(itemData);
                       const itemLabelNoSpaces = formatIdSpacing(itemLabel);
                       const matchesCone = itemData.cone === cone.name;
+                      const itemData$ = { ...itemData };
                       if (matchesCone) {
                         return (
                           <CheckBox
                             _id={itemData.id} /* when we need the original id */
-                            id={`checkbox${itemLabelNoSpaces}-skill-${cone.id}${item.item.isTandem ? '-tandem' : ''}`}
-                            key={`checkbox${itemLabel}-skill-${cone.id}`}
+                            id={`checkbox${itemLabelNoSpaces}-skill-${cone.id}${item.item.isTandem ? '-tandem' : ''}-${item.item.description}-${itemData$.code}`}
+                            key={`checkbox${itemLabel}-skill-${cone.id}-${item.item.description}-${itemData$.code}`}
                             label={itemLabel}
                             title={itemLabel}
                             name={itemLabel}

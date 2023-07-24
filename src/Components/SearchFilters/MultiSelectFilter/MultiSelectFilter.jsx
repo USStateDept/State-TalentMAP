@@ -43,10 +43,11 @@ class MultiSelectFilter extends Component {
           !itemsGroupedByAlpha &&
             item.data.map((itemData) => {
               const itemLabel = getItemLabel(itemData);
+              const itemData$ = { ...itemData };
               return (<CheckBox
                 _id={itemData.id} /* when we need the original id */
-                id={`checkbox${itemLabel}-${item.item.description}`}
-                key={`checkbox${itemLabel}-${item.item.description}`}
+                id={`checkbox${itemLabel}-${item.item.description}-${itemData$.code}`}
+                key={`checkbox${itemLabel}-${item.item.description}-${itemData$.code}`}
                 label={itemLabel}
                 title={itemLabel}
                 name={itemLabel}
