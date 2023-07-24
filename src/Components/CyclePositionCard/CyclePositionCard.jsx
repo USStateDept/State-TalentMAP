@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
@@ -16,7 +17,8 @@ import swal from '@sweetalert/with-react';
 import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
 
-const CyclePositionCard = ({ data, cycle, dispatch }) => {
+const CyclePositionCard = ({ data, cycle }) => {
+  const dispatch = useDispatch();
   const pos = get(data, 'position') || data;
 
   const description$ = get(pos, 'description.content') || 'No description.';
@@ -184,7 +186,6 @@ const CyclePositionCard = ({ data, cycle, dispatch }) => {
 
 CyclePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
-  dispatch: PropTypes.func.isRequired,
   cycle: PropTypes.shape({
     cycle_name: PropTypes.string,
   }).isRequired,
