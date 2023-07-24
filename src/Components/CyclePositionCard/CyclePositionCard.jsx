@@ -129,18 +129,20 @@ const CyclePositionCard = ({ data, cycle, dispatch }) => {
       <div className="position-form">
         <div className="left-row">
           <div className="position-form--input">
-            <label htmlFor="cycle-position-incumbent">Incumbent</label>
-            <select
-              id="cycle-position-incumbent"
-              defaultValue={status}
-              onChange={(e) => setIncumbent(e?.target.value)}
-            >
-              {fakeIncumbents.map(s => (
-                <option value={s.code}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
+            <div className="cycle-card-dropdown">
+              <label htmlFor="cycle-position-incumbent">Incumbent</label>
+              <select
+                id="cycle-position-incumbent"
+                defaultValue={status}
+                onChange={(e) => setIncumbent(e?.target.value)}
+              >
+                {fakeIncumbents.map(s => (
+                  <option value={s.code}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
           <div className="position-form--input">
             <label htmlFor="cycle-position-statuses">Status</label>
