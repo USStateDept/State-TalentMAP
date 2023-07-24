@@ -330,7 +330,7 @@ const CyclePositionSearch = (props) => {
               </div>
               <div className="cps-lower-section">
                 {cyclePositions?.results?.map(data =>
-                  <CyclePositionCard data={data} cycle={loadedCycle} dispatch={dispatch} isAO />)}
+                  <CyclePositionCard data={data} cycle={loadedCycle} isAO />)}
               </div>
               <div className="usa-grid-full react-paginate bureau-pagination-controls">
                 <PaginationWrapper
