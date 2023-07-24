@@ -11,7 +11,7 @@ const mockStore = configureStore(middlewares);
 describe('Ao', () => {
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(<Provider store={mockStore({})}><MemoryRouter>
-      <Bureau />
+      <Ao />
     </MemoryRouter></Provider>);
     expect(wrapper).toBeDefined();
   });
