@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
@@ -19,9 +18,9 @@ import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
 const CyclePositionCard = ({ data, cycle }) => {
   const dispatch = useDispatch();
-  const pos = get(data, 'position') || data;
+  const pos = data?.position || data;
 
-  const description$ = get(pos, 'description.content') || 'No description.';
+  const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
 
@@ -35,7 +34,7 @@ const CyclePositionCard = ({ data, cycle }) => {
       'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
     },
     bodyPrimary: {
-      'Location': getPostName(get(pos, 'post')) || NO_POST,
+      'Location': getPostName(pos?.post) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
@@ -110,7 +109,7 @@ const CyclePositionCard = ({ data, cycle }) => {
   const form = {
     /* eslint-disable quote-props */
     staticBody: {
-      'Location': getPostName(get(pos, 'post')) || NO_POST,
+      'Location': getPostName(pos?.post) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
