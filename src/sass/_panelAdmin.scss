@@ -2,7 +2,7 @@
   padding: 20px 35px;
 
   .panel-admin-content {
-    margin-left: 20px;
+    margin-left: 10px;
 
     .tm-spinner {
       margin-top: 125px;
@@ -21,6 +21,7 @@
       .active-column {
         text-align: center;
       }
+
       .fa {
         color: $primary-blue;
         margin-right: 10px;
@@ -116,50 +117,87 @@
   position: absolute;
   z-index: 99999;
 }
+
 .admin-panel-meeting-add-meeting {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+
   .admin-panel-meeting-add-meeting-icon {
     padding-right: 10px;
   }
 }
 
 .admin-panel-meeting-buttons {
-  margin-left: 283px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0px;
+
+  button {
+    font-size: 16px;
+  }
+
+  button:first-of-type {
+    background-color: transparent;
+    color: $primary-blue;
+  }
 }
 
+.admin-panel-meeting {
+  max-width: 1500px;
+  margin-top: 20px;
+}
 
-.admin-panel-meeting-row {
-  > label {
-    width: 200px;
-    text-align: right;
+.admin-panel-grid-row {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 15px;
+
+  @media (max-width: 1250px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.admin-panel-meeting-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  >label {
     display: inline-block;
-    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
   }
 
   .select-dropdown {
     display: inline-block;
-    width: 300px;
   }
 
   .date-wrapper {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    width: 100% !important;
+
     .fa-calendar:hover {
       cursor: default;
     }
-    .react-datepicker-wrapper, .react-datepicker-ignore-onclickoutside, .react-datepicker__input-container {
-      width: 300px!important;
-    }
   }
 
-  .admin-panel-meeting-checkbox, .admin-panel-meeting-checkbox > * {
-    display: inline;
-    vertical-align: middle;
-  }
-
-  input:disabled, select:disabled, button:disabled {
+  input:disabled,
+  select:disabled,
+  button:disabled {
     color: $color-gray;
     background-color: $color-gray-lighter;
   }
+}
+
+.text-button {
+  color: $primary-blue;
+  cursor: pointer;
+  padding-top: 15px;
+  text-decoration: underline;
 }
