@@ -5,7 +5,6 @@ import DatePicker from 'react-datepicker';
 import { subMinutes } from 'date-fns';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import CheckBox from 'Components/CheckBox';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { createPanelMeeting } from 'actions/panelMeetingAdmin';
@@ -30,14 +29,18 @@ const PanelMeetingAdmin = (props) => {
     dispatch(panelMeetingsFiltersFetchData());
   }, []);
 
-  const { pmt_code, pms_desc_text, pm_virtual, panelMeetingDates } = panelMeetingsResults$;
+  const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults$;
 
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
   const [panelMeetingDate, setPanelMeetingDate] = useState();
   const [panelMeetingStatus, setPanelMeetingStatus] = useState('Initiated');
   const [prelimCutoff, setPrelimCutoff] = useState();
   const [addendumCutoff, setAddendumCutoff] = useState();
-  const [virtualMeeting, setVirtualMeeting] = useState(false);
+  const [prelimRuntime, setPrelimRuntime] = useState();
+  const [addendumRuntime, setAddendumRuntime] = useState();
+  const [postPanelStarted, setPostPanelStarted] = useState();
+  const [postPanelRunTime, setPostPanelRunTime] = useState();
+  const [agendaCompletedTime, setAgendaCompletedTime] = useState();
   const [canEditFields, setCanEditFields] = useState(true);
 
   useEffect(() => {
@@ -47,7 +50,6 @@ const PanelMeetingAdmin = (props) => {
       setPanelMeetingStatus(pms_desc_text);
       setPrelimCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm));
       setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
-      setVirtualMeeting(pm_virtual === 'Y');
       const prelimCutoff$ = new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm);
       setCanEditFields(prelimCutoff$ ? (prelimCutoff$ - new Date() > 0) : true);
     }
@@ -72,7 +74,6 @@ const PanelMeetingAdmin = (props) => {
       panelMeetingDate,
       prelimCutoff,
       addendumCutoff,
-      virtualMeeting,
       panelMeetingStatus,
     }));
   };
@@ -82,7 +83,12 @@ const PanelMeetingAdmin = (props) => {
     setPanelMeetingDate('');
     setPrelimCutoff('');
     setAddendumCutoff('');
-    setVirtualMeeting(false);
+    setPrelimRuntime('');
+    setAddendumRuntime('');
+    setPrelimRuntime('');
+    setPostPanelStarted('');
+    setPostPanelStarted('');
+    setAgendaCompletedTime('');
     setPanelMeetingStatus('Initiated');
   };
 
@@ -96,99 +102,186 @@ const PanelMeetingAdmin = (props) => {
 
   return (
     !panelMeetingsIsLoading && !panelMeetingsFiltersIsLoading ?
-      <div className="admin-panel-meeting">
-        <div className="admin-panel-meeting-row">
-          <label htmlFor="virtual-meeting">Virtual Meeting:</label>
-          <CheckBox
-            disabled={!canEditFields}
-            value={virtualMeeting}
-            className="admin-panel-meeting-checkbox"
-            onCheckBoxClick={(e) => setVirtualMeeting(e)}
-          />
-        </div>
-        <div className="admin-panel-meeting-row">
-          <label htmlFor="meeting-type">Meeting Type:</label>
-          <select
-            disabled={!canEditFields}
-            className="select-dropdown"
-            value={panelMeetingType}
-            onChange={(e) => setPanelMeetingType(e.target.value)}
-          >
-            <option value={'interdivisional'}>Interdivisional</option>
-            <option value={'midlevel'}>Mid-Level</option>
-          </select>
-        </div>
-        <div className="admin-panel-meeting-row">
-          <label htmlFor="status">Status:</label>
-          <select
-            disabled={isCreate || !canEditFields}
-            className="select-dropdown"
-            value={panelMeetingStatus}
-            onChange={(e) => setPanelMeetingStatus(e.target.value)}
-          >
-            {
-              panelMeetingsFilters?.panelStatuses?.map(a => (
-                <option value={a.text}>{a.text}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div className="admin-panel-meeting-row">
-          <label htmlFor="panel-meeting-date">Panel Meeting Date:</label>
-          <div className="date-wrapper larger-date-picker">
-            <DatePicker
-              disabled={!canEditFields}
-              selected={panelMeetingDate}
-              onChange={selectPanelMeetingDate}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={5}
-              timeCaption="time"
-              dateFormat="MM/dd/yyyy h:mm aa"
-            />
-            <FA name="calendar" />
+      <div>
+        <div className="admin-panel-meeting">
+          <div className="admin-panel-grid-row">
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="meeting-type">Meeting Type</label>
+              <select
+                disabled={!canEditFields}
+                className="select-dropdown"
+                value={panelMeetingType}
+                onChange={(e) => setPanelMeetingType(e.target.value)}
+              >
+                <option value={'interdivisional'}>Interdivisional</option>
+                <option value={'midlevel'}>Mid-Level</option>
+              </select>
+            </div>
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="status">Status</label>
+              <select
+                disabled={isCreate || !canEditFields}
+                className="select-dropdown"
+                value={panelMeetingStatus}
+                onChange={(e) => setPanelMeetingStatus(e.target.value)}
+              >
+                {
+                  panelMeetingsFilters?.panelStatuses?.map(a => (
+                    <option value={a.text}>{a.text}</option>
+                  ))
+                }
+              </select>
+            </div>
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="panel-meeting-date">Panel Meeting Date</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={panelMeetingDate}
+                  onChange={selectPanelMeetingDate}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+            </div>
+          </div>
+          <div className="admin-panel-grid-row">
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={prelimCutoff}
+                  onChange={(date) => setPrelimCutoff(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+            </div>
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Addendum Cutoff</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={addendumCutoff}
+                  onChange={(date) => setAddendumCutoff(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+            </div>
+          </div>
+          <div className="admin-panel-grid-row">
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Official Preliminary Run Time</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={prelimRuntime}
+                  onChange={(date) => setPrelimRuntime(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+              <div className="text-button">
+                Run Official Preliminary
+              </div>
+            </div>
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Official Addendum Run Time</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={addendumRuntime}
+                  onChange={(date) => setAddendumRuntime(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+              <div className="text-button">
+                Run Official Addendum
+              </div>
+            </div>
+          </div>
+          <div className="admin-panel-grid-row">
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Post Panel Started</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={postPanelStarted}
+                  onChange={(date) => setPostPanelStarted(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+            </div>
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Post Panel Run Time</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={postPanelRunTime}
+                  onChange={(date) => setPostPanelRunTime(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+            </div>
+            <div className="admin-panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Agenda Completed Time</label>
+              <div className="date-wrapper larger-date-picker">
+                <DatePicker
+                  disabled={!canEditFields}
+                  selected={agendaCompletedTime}
+                  onChange={(date) => setAgendaCompletedTime(date)}
+                  showTimeSelect
+                  timeFormat="HH:mm"
+                  timeIntervals={5}
+                  timeCaption="time"
+                  dateFormat="MM/dd/yyyy h:mm aa"
+                />
+                <FA name="calendar" />
+              </div>
+            </div>
           </div>
         </div>
-        <div className="admin-panel-meeting-row">
-          <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff:</label>
-          <div className="date-wrapper larger-date-picker">
-            <DatePicker
-              disabled={!canEditFields}
-              selected={prelimCutoff}
-              onChange={(date) => setPrelimCutoff(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={5}
-              timeCaption="time"
-              dateFormat="MM/dd/yyyy h:mm aa"
-            />
-            <FA name="calendar" />
-          </div>
-        </div>
-        <div className="admin-panel-meeting-row">
-          <label htmlFor="addendum-cutoff-date">Addendum Cutoff:</label>
-          <div className="date-wrapper larger-date-picker">
-            <DatePicker
-              disabled={!canEditFields}
-              selected={addendumCutoff}
-              onChange={(date) => setAddendumCutoff(date)}
-              showTimeSelect
-              timeFormat="HH:mm"
-              timeIntervals={5}
-              timeCaption="time"
-              dateFormat="MM/dd/yyyy h:mm aa"
-            />
-            <FA name="calendar" />
-          </div>
-        </div>
-        <div className="admin-panel-meeting-buttons">
-          <button onClick={submit} disabled={!canEditFields}>Save</button>
+        <div className="position-form--actions">
           <button onClick={clear} disabled={!canEditFields}>Clear</button>
+          <button onClick={submit} disabled={!canEditFields}>Save</button>
         </div>
       </div>
       :
       <div>
-        { loadingSpinner }
+        {loadingSpinner}
       </div>
   );
 };
