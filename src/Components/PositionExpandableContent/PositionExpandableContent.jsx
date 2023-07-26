@@ -7,8 +7,9 @@ import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
-const PositionExpandableContent = ({ sections, form }) => {
+const PositionExpandableContent = ({ sections, form, onEditMode }) => {
   const [showMore, setShowMore] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
@@ -23,7 +24,10 @@ const PositionExpandableContent = ({ sections, form }) => {
   }, []);
 
   useEffect(() => {
-    if (editMode) setShowMore(true);
+    if (editMode) {
+      setShowMore(true);
+    }
+    onEditMode(editMode);
   }, [editMode]);
 
 
@@ -151,10 +155,12 @@ PositionExpandableContent.propTypes = {
     inputBody: PropTypes.element,
     handleSubmit: PropTypes.func,
   }),
+  onEditMode: PropTypes.func,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
+  onEditMode: EMPTY_FUNCTION,
 };
 
 export default PositionExpandableContent;

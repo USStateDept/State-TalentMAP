@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -61,6 +62,8 @@ const CyclePositionSearch = (props) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [ordering, setOrdering] =
     useState(userSelections?.ordering || BUREAU_POSITION_SORT.options[0].value);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+  const disableSearch = cardsInEditMode.length > 0;
 
   const genericFilters$ = genericFilters?.filters || [];
   const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
@@ -80,6 +83,14 @@ const CyclePositionSearch = (props) => {
     dispatch(cycleManagementFetchData()); // TODO: cycleId gets sent here when EP is created
     dispatch(filtersFetchData(genericFilters));
   }, []);
+
+  const onEditModeSearch = (editMode, id) => {
+    if (editMode) {
+      setCardsInEditMode([...cardsInEditMode, id]);
+    } else {
+      setCardsInEditMode(cardsInEditMode.filter(x => x !== id));
+    }
+  };
 
   const getQuery = () => ({
     'cps-bureaus': selectedCurrentBureaus.map(bureauObject => (bureauObject?.code)),
@@ -213,7 +224,11 @@ const CyclePositionSearch = (props) => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                    <button className="unstyled-button" onClick={resetFilters}>
+                    <button
+                      className="unstyled-button"
+                      onClick={resetFilters}
+                      disabled={disableSearch}
+                    >
                       <FA name="times" />
                     Clear Filters
                     </button>
@@ -231,6 +246,7 @@ const CyclePositionSearch = (props) => {
                       onChange={setSelectedCurrentBureaus}
                       valueKey="code"
                       labelKey="long_description"
+                      disabled={disableSearch}
                     />
                   </div>
                   <div className="cm-filter-div">
@@ -243,6 +259,7 @@ const CyclePositionSearch = (props) => {
                       labelKey="name"
                       onChange={setSelectedOrganizations}
                       value={selectedOrganizations}
+                      disabled={disableSearch}
                     />
                   </div>
                   <div className="cm-filter-div">
@@ -255,6 +272,7 @@ const CyclePositionSearch = (props) => {
                       labelKey="custom_description"
                       onChange={setSelectedGrades}
                       value={selectedGrades}
+                      disabled={disableSearch}
                     />
                   </div>
                   <div className="cm-filter-div">
@@ -267,6 +285,7 @@ const CyclePositionSearch = (props) => {
                       labelKey="custom_description"
                       onChange={setSelectedSkills}
                       value={selectedSkills}
+                      disabled={disableSearch}
                     />
                   </div>
                 </div>
@@ -278,6 +297,18 @@ const CyclePositionSearch = (props) => {
               </InteractiveElement>
             </div>
           </div>
+          {
+            disableSearch &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.'
+                  }
+              ]}
+            />
+          }
           <div className="cps-content">
             { !hideBreadcrumbs &&
               <div className="breadcrumb-container">
@@ -330,14 +361,26 @@ const CyclePositionSearch = (props) => {
               </div>
               <div className="cps-lower-section">
                 {cyclePositions?.results?.map(data =>
-                  <CyclePositionCard data={data} cycle={loadedCycle} isAO />)}
+                  (
+                    <CyclePositionCard
+                      data={data}
+                      onEditModeSearch={onEditModeSearch}
+                      cycle={loadedCycle}
+                      isAO
+                    />
+                  ))}
               </div>
               <div className="usa-grid-full react-paginate bureau-pagination-controls">
+                {
+                  disableSearch &&
+                    <div className="disable-react-paginate-overlay" />
+                }
                 <PaginationWrapper
                   pageSize={limit}
                   onPageChange={p => setPage(p.page)}
                   forcePage={page}
                   totalResults={cyclePositions.count}
+                  className={`${disableSearch ? 'disable-react-paginate' : ''}`}
                 />
               </div>
             </>
