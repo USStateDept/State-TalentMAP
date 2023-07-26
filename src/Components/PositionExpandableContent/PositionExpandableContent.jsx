@@ -60,7 +60,7 @@ const PositionExpandableContent = ({ sections, form }) => {
             <span>{form.cancelText || 'Are you sure you want to discard all changes made to this position?'}</span>
           </div>
           <div className="modal-controls">
-            <button onClick={() => onCancel()}>Submit</button>
+            <button onClick={onCancel}>Submit</button>
             <button className="usa-button-secondary" onClick={() => swal.close()}>Cancel</button>
           </div>
         </div>
