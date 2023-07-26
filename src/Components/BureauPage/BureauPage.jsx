@@ -20,16 +20,6 @@ const BureauPage = () => {
   return (
     <div className="usa-grid-full profile-content-container">
       <Switch>
-        <Route path="/profile/ao/employeeagendas" render={() => <EmployeeAgendaSearch isCDO={false} viewType="ao" />} />
-        <Route path="/profile/ao/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO={false} viewType="ao" />} />
-        <Route path="/profile/ao/createagendaitem/:id/:agendaID" render={() => <AgendaItemMaintenanceContainer isCDO={false} />} />
-        <Route path="/profile/ao/createagendaitem/:id" render={() => <AgendaItemMaintenanceContainer isCDO={false} />} />
-        <Route path="/profile/ao/panelmeetings" render={() => <PanelMeetingSearch isCDO={false} />} />
-        <Route path="/profile/ao/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isAO />} />
-        <Route path="/profile/ao/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isAO />} />
-        <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement isAO />} />
-        <Route path="/profile/ao/cyclepositionsearch/:id" render={() => <CyclePositionSearch isAO />} />
-        <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
         <Route path="/profile/bureau/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/bureau/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/bureau/availablebidders" render={() => <AvailableBidderContainer isCDO={false} />} />
