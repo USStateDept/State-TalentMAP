@@ -193,3 +193,12 @@ export const ADD_TO_PROPOSED_CYCLE_SUCCESS = 'Positions have been successfully a
 export const ADD_TO_PROPOSED_CYCLE_ERROR_TITLE = 'Error Adding to Proposed Cycle';
 export const ADD_TO_PROPOSED_CYCLE_ERROR = 'There was an issue attempting to add the positions to the proposed cycle. Please try again.';
 
+export const REMOVE_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Removed';
+export const REMOVE_CYCLE_POSITION_SUCCESS = 'Cycle Position has been removed.';
+export const REMOVE_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Delete Error';
+export const REMOVE_CYCLE_POSITION_ERROR = 'There was an issue attempting to remove this Cycle Position. Please try again.';
+
+export const EDIT_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Updated';
+export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated';
+export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
+export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';

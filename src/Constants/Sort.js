@@ -251,16 +251,16 @@ export const PANEL_MEETING_AGENDAS_SORT = {
 
 PANEL_MEETING_AGENDAS_SORT.defaultSort = PANEL_MEETING_AGENDAS_SORT.options[0].value;
 
-export const EDIT_POSITION_DETAILS_SORT = {
+export const PUBLISHABLE_POSITIONS_SORT = {
   options: [
     { value: 'location', text: 'Location Asc.' },
     { value: '-location', text: 'Location Desc.' },
   ],
 };
 
-EDIT_POSITION_DETAILS_SORT.defaultSort = EDIT_POSITION_DETAILS_SORT.options[0].value;
+PUBLISHABLE_POSITIONS_SORT.defaultSort = PUBLISHABLE_POSITIONS_SORT.options[0].value;
 
-export const EDIT_POSITION_DETAILS_PAGE_SIZES = {
+export const PUBLISHABLE_POSITIONS_PAGE_SIZES = {
   options: [
     { value: 5, text: '5' },
     { value: 10, text: '10' },
@@ -270,4 +270,4 @@ export const EDIT_POSITION_DETAILS_PAGE_SIZES = {
   ],
 };
 
-EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize = EDIT_POSITION_DETAILS_PAGE_SIZES.options[2].value;
+PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize = PUBLISHABLE_POSITIONS_PAGE_SIZES.options[2].value;

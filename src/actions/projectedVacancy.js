@@ -305,6 +305,13 @@ export function projectedVacancyFetchDataSuccess(results) {
     results,
   };
 }
+<<<<<<< HEAD
+=======
+
+export function testingMergingConflictsRaisingErrors() {
+  return 'this is a test';
+}
+>>>>>>> dev
 export function projectedVacancyFetchData() {
   return (dispatch) => {
     batch(() => {

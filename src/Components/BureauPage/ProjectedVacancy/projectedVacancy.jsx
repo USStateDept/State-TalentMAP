@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import SelectForm from 'Components/SelectForm';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
+import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { projectedVacancyAddToProposedCycle, projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -23,8 +23,8 @@ const ProjectedVacancy = () => {
 
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const dummyPositionDetails = useSelector(state => state.projectedVacancy);
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
@@ -73,8 +73,8 @@ const ProjectedVacancy = () => {
   const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
   const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
-  const pageSizes = EDIT_POSITION_DETAILS_PAGE_SIZES;
-  const sorts = EDIT_POSITION_DETAILS_SORT;
+  const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
+  const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
 
   const getQuery = () => ({
@@ -230,7 +230,7 @@ const ProjectedVacancy = () => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="position-search edit-position-details-page">
+        <div className="position-search">
           <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar">
