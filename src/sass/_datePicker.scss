@@ -41,3 +41,44 @@
   }
 
 }
+
+$date-picker-width: 300px;
+
+.date-wrapper-react {
+  .fa-calendar-o, .fa-calendar {
+    color: $blue-primary;
+    font-size: 20px;
+    left: 6px;
+    position: relative;
+    top: 0;
+    z-index: 9;
+  }
+  .fa-calendar-o:before, .fa-calendar:before {
+    content: "\f133"!important;
+  }
+  .fa-times, .fa-times-circle {
+    color: $color-red;
+    font-size: 20px;
+    left: $date-picker-width - 50;
+    position: relative;
+    top: 0;
+    z-index: 9;
+  }
+  .fa-times:hover, .fa-times-circle:hover {
+    color: $secondary-darkest-2;
+  }
+  .react-datepicker-wrapper, .react-datepicker__input-container {
+    margin-inline-start: -22px;
+    width: $date-picker-width!important;
+
+    >* {
+      cursor: pointer!important;
+    }
+
+    input {
+      padding-inline-start: 50px;
+    }
+  }
+}
+
+
