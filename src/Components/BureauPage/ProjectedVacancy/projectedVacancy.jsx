@@ -372,7 +372,7 @@ const ProjectedVacancy = () => {
           <div className="usa-width-one-whole position-search--results">
             <div className="proposed-cycle-banner">
               {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
-              <button className="usa-button-secondary" onClick={addToProposedCycle}>Add to Proposed Cycle</button>
+              <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
             </div>
             <div className="usa-grid-full position-list">
               {
