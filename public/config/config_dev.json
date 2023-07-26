@@ -7,6 +7,7 @@
     "agenda_item_history": true,
     "agenda_item_maintenance": true,
     "agenda_search": true,
+    "deto": false,
     "handshake_bidding": true,
     "panel_meetings_search": true,
     "panel_meeting_agendas": true,
