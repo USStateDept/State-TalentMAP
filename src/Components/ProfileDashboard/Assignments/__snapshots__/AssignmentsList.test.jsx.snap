@@ -14,7 +14,7 @@ exports[`AssignmentsListComponent matches snapshot 1`] = `
         className=""
         icon="clipboard"
         small={false}
-        title="Position and Detail History"
+        title="Assignment History"
       />
     </div>
   </div>
@@ -71,7 +71,7 @@ exports[`AssignmentsListComponent matches snapshot when there are no bids 1`] = 
         className=""
         icon="clipboard"
         small={false}
-        title="Position and Detail History"
+        title="Assignment History"
       />
     </div>
   </div>
