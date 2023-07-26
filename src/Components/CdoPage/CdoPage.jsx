@@ -10,7 +10,7 @@ import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeeti
 const CdoPage = () => (
   <div className="usa-grid-full profile-content-container">
     <Switch>
-      <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO />} />
+      <Route path="/profile/cdo/availablebidders" render={() => <AvailableBidderContainer isCDO isAO={false} />} />
       <Route path="/profile/cdo/bidderportfolio" render={() => <BidderPortfolio />} />
       <Route path="/profile/cdo/employeeagendas" render={() => <EmployeeAgendaSearch isCDO viewType="cdo" />} />
       <Route path="/profile/cdo/agendaitemhistory/:id" render={() => <AgendaItemHistory isCDO viewType="cdo" />} />
