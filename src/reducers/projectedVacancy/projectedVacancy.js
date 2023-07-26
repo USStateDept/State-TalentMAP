@@ -1,3 +1,53 @@
+export function projectedVacancyAddToProposedCycleErrored(state = false, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function projectedVacancyAddToProposedCycleLoading(state = false, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function projectedVacancyAddToProposedCycle(state = {}, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_ADD_TO_PROPOSED_CYCLE_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
+export function projectedVacancyEditErrored(state = false, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_EDIT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function projectedVacancyEditLoading(state = false, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_EDIT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function projectedVacancyEdit(state = {}, action) {
+  switch (action.type) {
+    case 'PROJECTED_VACANCY_EDIT_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
 export function projectedVacancyFetchDataErrored(state = false, action) {
   switch (action.type) {
     case 'PROJECTED_VACANCY_FETCH_HAS_ERRORED':
