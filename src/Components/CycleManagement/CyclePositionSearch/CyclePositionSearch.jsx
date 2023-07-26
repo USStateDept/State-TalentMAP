@@ -189,9 +189,9 @@ const CyclePositionSearch = (props) => {
       (
         <div className="cycle-management-page">
           <div className="cm-upper-section">
-            <ProfileSectionTitle title="Cycle Position Search" icon="keyboard-o" className="padding-bottom-20" />
+            <ProfileSectionTitle title="Cycle Position Search" icon="keyboard-o" />
             {showMore &&
-              <div className="expanded-content">
+              <div className="expanded-content pt-20">
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">

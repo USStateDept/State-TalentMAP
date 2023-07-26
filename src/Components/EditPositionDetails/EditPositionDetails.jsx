@@ -180,8 +180,8 @@ const EditPositionDetails = () => {
       <>
         <div className="position-search edit-position-details-page">
           <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon padding-bottom-20" />
-            <div className="results-search-bar">
+            <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
+            <div className="results-search-bar pt-20">
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>
                 <div className="filterby-clear">
