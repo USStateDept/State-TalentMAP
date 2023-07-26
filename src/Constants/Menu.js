@@ -209,7 +209,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Publishable Positions',
           route: '/profile/bureau/publishablepositions',
-          icon: ' fa-keyboard-o',
+          icon: ' fa-newspaper-o',
           roles: [
             'superuser',
             'bureau_user',

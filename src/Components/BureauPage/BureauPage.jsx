@@ -1,11 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
-import EmployeeAgendaSearch from 'Components/Agenda/EmployeeAgendaSearch/EmployeeAgendaSearch';
-import AgendaItemHistory from 'Components/Agenda/AgendaItemHistory/AgendaItemHistory';
-import AgendaItemMaintenanceContainer from 'Components/Agenda/AgendaItemMaintenanceContainer/AgendaItemMaintenanceContainer';
-import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeetingSearch';
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
-import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import CycleManagement from 'Components/CycleManagement';
 import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
 import PositionManager from './PositionManager';
