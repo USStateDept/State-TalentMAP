@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -13,12 +13,10 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 const EditPositionDetails = () => {
-  const childRef = useRef();
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.editPositionDetailsSelections);
@@ -35,9 +33,6 @@ const EditPositionDetails = () => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedLanguages, setSelectedLanguages] =
-    useState(userSelections?.selectedLanguage || []);
-  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
 
@@ -53,10 +48,6 @@ const EditPositionDetails = () => {
   const gradeOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
-  const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
   const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
   const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
@@ -64,9 +55,6 @@ const EditPositionDetails = () => {
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const additionalFiltersIsLoading = includes([orgsLoading], true);
-
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
-  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
   const [clearFilters, setClearFilters] = useState(false);
 
@@ -83,12 +71,7 @@ const EditPositionDetails = () => {
     'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'position-details-language': selectedLanguages.map(langObject => (langObject?.code)),
-    'position-details-post': selectedPosts.map(postObject => (postObject?.code)),
     'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
-
-    // Free Text
-    q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
@@ -97,10 +80,7 @@ const EditPositionDetails = () => {
     selectedOrgs,
     selectedGrade: selectedGrades,
     selectedSkills,
-    selectedLanguage: selectedLanguages,
-    selectedPost: selectedPosts,
     selectedBidCycle: selectedBidCycles,
-    textSearch,
   });
 
   useEffect(() => {
@@ -115,12 +95,9 @@ const EditPositionDetails = () => {
       selectedOrgs,
       selectedGrades,
       selectedSkills,
-      selectedLanguages,
-      selectedPosts,
       selectedBidCycles,
-      textSearch,
     ];
-    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+    if (isEmpty(filter(flatten(filters)))) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -139,22 +116,8 @@ const EditPositionDetails = () => {
     selectedOrgs,
     selectedGrades,
     selectedSkills,
-    selectedLanguages,
-    selectedPosts,
     selectedBidCycles,
-    textSearch,
   ]);
-
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -207,12 +170,7 @@ const EditPositionDetails = () => {
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
-    setSelectedLanguages([]);
-    setSelectedPosts([]);
     setSelectedBidCycles([]);
-    setTextSearch('');
-    setTextInput('');
-    childRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -222,133 +180,97 @@ const EditPositionDetails = () => {
       <>
         <div className="position-search edit-position-details-page">
           <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
+            <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon padding-bottom-20" />
             <div className="results-search-bar">
-              <div className="usa-grid-full search-bar-container">
-                <PositionManagerSearch
-                  submitSearch={submitSearch}
-                  onChange={setTextInputThrottled}
-                  ref={childRef}
-                  textSearch={textSearch}
-                  label="Search for a Position"
-                  placeHolder="Search using Position Number or Position Title"
-                />
-                <div className="filterby-container">
-                  <div className="filterby-label">Filter by:</div>
-                  <div className="filterby-clear">
-                    {clearFilters &&
-                      <button className="unstyled-button" onClick={resetFilters}>
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
-                    }
-                  </div>
+              <div className="filterby-container">
+                <div className="filterby-label">Filter by:</div>
+                <div className="filterby-clear">
+                  {clearFilters &&
+                    <button className="unstyled-button" onClick={resetFilters}>
+                      <FA name="times" />
+                      Clear Filters
+                    </button>
+                  }
                 </div>
-                <div className="usa-width-one-whole position-search--filters wide-filter-labels results-dropdown">
-                  <div className="filter-div">
-                    <div className="label">Publishable Status:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Status(es)"
-                      value={selectedStatuses}
-                      options={statusOptions}
-                      onChange={setSelectedStatuses}
-                      valueKey="code"
-                      labelKey="name"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Bid Cycle:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Bid Cycle(s)"
-                      value={selectedBidCycles}
-                      options={cycleOptions}
-                      onChange={setSelectedBidCycles}
-                      valueKey="id"
-                      labelKey="name"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Location:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Location(s)"
-                      value={selectedPosts}
-                      options={locationOptions}
-                      onChange={setSelectedPosts}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Bureau:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Bureau(s)"
-                      value={selectedBureaus}
-                      options={bureauOptions}
-                      onChange={setSelectedBureaus}
-                      valueKey="code"
-                      labelKey="long_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Organization:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Organization(s)"
-                      value={selectedOrgs}
-                      options={organizationOptions}
-                      onChange={setSelectedOrgs}
-                      valueKey="code"
-                      labelKey="name"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Skills:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Skill(s)"
-                      value={selectedSkills}
-                      options={skillOptions}
-                      onChange={setSelectedSkills}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Grade:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Grade(s)"
-                      value={selectedGrades}
-                      options={gradeOptions}
-                      onChange={setSelectedGrades}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Language:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Language(s)"
-                      value={selectedLanguages}
-                      options={languageOptions}
-                      onChange={setSelectedLanguages}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={isLoading}
-                    />
-                  </div>
+              </div>
+              <div className="usa-width-one-whole position-search--filters wide-filter-labels results-dropdown">
+                <div className="filter-div">
+                  <div className="label">Publishable Status:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Status(es)"
+                    value={selectedStatuses}
+                    options={statusOptions}
+                    onChange={setSelectedStatuses}
+                    valueKey="code"
+                    labelKey="name"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Bid Cycle:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Bid Cycle(s)"
+                    value={selectedBidCycles}
+                    options={cycleOptions}
+                    onChange={setSelectedBidCycles}
+                    valueKey="id"
+                    labelKey="name"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Bureau:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Bureau(s)"
+                    value={selectedBureaus}
+                    options={bureauOptions}
+                    onChange={setSelectedBureaus}
+                    valueKey="code"
+                    labelKey="long_description"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Organization:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Organization(s)"
+                    value={selectedOrgs}
+                    options={organizationOptions}
+                    onChange={setSelectedOrgs}
+                    valueKey="code"
+                    labelKey="name"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Skills:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Skill(s)"
+                    value={selectedSkills}
+                    options={skillOptions}
+                    onChange={setSelectedSkills}
+                    valueKey="code"
+                    labelKey="custom_description"
+                    disabled={isLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Grade:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Grade(s)"
+                    value={selectedGrades}
+                    options={gradeOptions}
+                    onChange={setSelectedGrades}
+                    valueKey="code"
+                    labelKey="custom_description"
+                    disabled={isLoading}
+                  />
                 </div>
               </div>
             </div>
