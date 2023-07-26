@@ -103,9 +103,10 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   // Hardcoded - find where to get this data
   const fakeIncumbents = [
-    { code: 'JB', name: 'Barber, John' },
-    { code: 'MM', name: 'Mulberry, Morris' },
-    { code: 'DR', name: 'Riggs, Diamond' },
+    { code: 'JH', name: 'Holden, James' },
+    { code: 'NN', name: 'Nagata, Naomi' },
+    { code: 'AB', name: 'Burton, Amos' },
+    { code: 'AK', name: 'Kamal, Alex' },
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
 
