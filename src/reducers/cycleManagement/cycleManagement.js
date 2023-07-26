@@ -65,3 +65,53 @@ export function cyclePositionSearchSelections(state = {}, action) {
       return state;
   }
 }
+
+export function cyclePositionRemoveHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_POSITION_REMOVE_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cyclePositionRemoveIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_POSITION_REMOVE_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function cyclePositionRemoveSuccess(state = [], action) {
+  switch (action.type) {
+    case 'CYCLE_POSITION_REMOVE_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}
+
+export function cyclePositionEditHasErrored(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_POSITION_EDIT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function cyclePositionEditIsLoading(state = false, action) {
+  switch (action.type) {
+    case 'CYCLE_POSITION_EDIT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function cyclePositionEditSuccess(state = [], action) {
+  switch (action.type) {
+    case 'CYCLE_POSITION_EDIT_SUCCESS':
+      return action.data;
+    default:
+      return state;
+  }
+}

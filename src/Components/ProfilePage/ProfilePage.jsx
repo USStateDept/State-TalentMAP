@@ -9,6 +9,7 @@ import BidStatistics from 'Containers/BidStatistics';
 import SavedSearchesWrapper from 'Components/SavedSearches/SavedSearchesWrapper';
 import ProfilePublic from 'Containers/ProfilePublic';
 import Administrator from 'Containers/Administrator';
+import Ao from 'Containers/Ao';
 import Bureau from 'Containers/Bureau';
 import Cdo from 'Containers/Cdo';
 import Post from 'Containers/Post';
@@ -45,7 +46,7 @@ const ProfilePage = ({ user, isLoading }) => (
           <Route path="/profile/notifications" component={Notifications} />
           <Route path="/profile/administrator" component={Administrator} />
           <Route path="/profile/bureau" component={Bureau} />
-          <Route path="/profile/ao" component={Bureau} />
+          <Route path="/profile/ao" component={Ao} />
           <Route path="/profile/cdo" component={Cdo} />
           <Route path="/profile/post" component={Post} />
           <Route path="/profile/bidtracker" component={BidTracker} />
