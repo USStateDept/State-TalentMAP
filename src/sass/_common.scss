@@ -43,3 +43,9 @@
 .hide {
   visibility: hidden;
 }
+
+.box-shadow-standard {
+  box-shadow: 0 1px 4px $bg-gray-dark-3;
+  -moz-box-shadow: 0 1px 4px $bg-gray-dark-3;
+  -webkit-box-shadow: 0 1px 4px $bg-gray-dark-3;
+}
