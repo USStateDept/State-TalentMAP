@@ -6,7 +6,6 @@ import { userHasPermissions } from 'utilities';
 import { notificationsFetchData } from 'actions/notifications';
 import { bidListFetchData, submitBid, toggleBidPosition } from 'actions/bidList';
 import { favoritePositionsFetchData } from 'actions/favoritePositions';
-import { assignmentFetchData } from 'actions/assignment';
 import { get } from 'lodash';
 import { BID_LIST, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS, EMPTY_FUNCTION, FAVORITE_POSITIONS, NOTIFICATION_LIST, USER_PROFILE } from 'Constants/PropTypes';
 import { DEFAULT_FAVORITES, DEFAULT_USER_PROFILE } from 'Constants/DefaultProps';
@@ -20,7 +19,6 @@ class DashboardContainer extends Component {
     this.props.fetchBidList();
     this.props.fetchFavorites();
     this.props.fetchNotifications();
-    this.props.assignmentFetchData();
     if (userHasPermissions(['bidder'], get(this.props.userProfile, 'permission_groups', []))) {
       this.props.fetchClassifications();
       this.props.fetchUserClassifications(this.props.userProfile.id);
@@ -32,8 +30,7 @@ class DashboardContainer extends Component {
       notifications, notificationsIsLoading, bidList, bidListIsLoading, favoritePositions,
       favoritePositionsIsLoading, favoritePositionsHasErrored, submitBidPosition,
       deleteBid, classifications, classificationsIsLoading, userClassificationsHasErrored,
-      userClassificationsIsLoading, userClassifications, assignments,
-    } = this.props;
+      userClassificationsIsLoading, userClassifications } = this.props;
     const allFavorites = (favoritePositions.favorites || [])
       .concat(favoritePositions.favoritesPV || []);
 
@@ -59,7 +56,6 @@ class DashboardContainer extends Component {
         showLanguages={false}
         showSearchAsClient={false}
         canEditClassifications={false}
-        assignments={assignments}
       />
     );
   }
@@ -87,8 +83,6 @@ DashboardContainer.propTypes = {
   fetchNotifications: PropTypes.func.isRequired,
   fetchClassifications: PropTypes.func,
   fetchUserClassifications: PropTypes.func,
-  assignmentFetchData: PropTypes.func.isRequired,
-  assignments: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 DashboardContainer.defaultProps = {
@@ -109,7 +103,6 @@ DashboardContainer.defaultProps = {
   userClassifications: [],
   fetchClassifications: EMPTY_FUNCTION,
   fetchUserClassifications: EMPTY_FUNCTION,
-  assignments: [],
 };
 
 const mapStateToProps = state => ({
@@ -127,7 +120,6 @@ const mapStateToProps = state => ({
   userClassificationsHasErrored: state.userClassificationsHasErrored,
   userClassificationsIsLoading: state.userClassificationsIsLoading,
   userClassifications: state.userClassifications,
-  assignments: state.assignment,
 });
 
 export const mapDispatchToProps = dispatch => ({
@@ -138,7 +130,6 @@ export const mapDispatchToProps = dispatch => ({
   submitBidPosition: id => dispatch(submitBid(id)),
   fetchClassifications: () => dispatch(fetchClassifications()),
   fetchUserClassifications: id => dispatch(fetchUserClassifications(id)),
-  assignmentFetchData: id => dispatch(assignmentFetchData(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);

@@ -20,6 +20,7 @@ export function assignmentFetchDataSuccess(assignment) {
 }
 
 export function assignmentFetchData(id) {
+  console.log(id);
   return (dispatch) => {
     api()
       .get(`/fsbid/assignment_history/${id ? `${id}/` : ''}`)

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
   EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, NOTIFICATION_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
-import { get, includes } from 'lodash';
+import { includes } from 'lodash';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -25,7 +25,7 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
   unregisterHandshake, showLanguages, canEditClassifications,
-  showAgendaItemHistory, isAOView, assignments,
+  showAgendaItemHistory, isAOView,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -43,7 +43,9 @@ const ProfileDashboard = ({
             {(matches) => {
               const checkIsBidder = () => includes(userProfile?.permission_groups || [], 'bidder') || includes(userProfile?.permissions || [], 'bidder');
               const isBidder = checkIsBidder();
-              const perdet = get(userProfile, 'perdet_seq_number') || '';
+              // const perdet = get(userProfile, 'perdet_seq_number') || '';
+              const perdet = userProfile?.perdet_seq_number || '';
+              console.log(perdet);
               const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
@@ -154,7 +156,7 @@ const ProfileDashboard = ({
                     {
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={assignments} />
+                        <Assignments id={perdet} />
                       </BoxShadow>
                     }
                   </Column>
@@ -191,7 +193,6 @@ ProfileDashboard.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isAOView: PropTypes.bool,
-  assignments: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 ProfileDashboard.defaultProps = {
@@ -210,7 +211,6 @@ ProfileDashboard.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isAOView: false,
-  assignments: [],
 };
 
 export default ProfileDashboard;

@@ -1,88 +1,86 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AssignmentsListComponent matches snapshot 1`] = `
-<div
-  className="usa-grid-full profile-section-container"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <div
-    className="usa-grid-full section-padded-inner-container"
-  >
-    <div
-      className="usa-width-one-whole"
-    >
-      <PositionInformation
-        className=""
-        icon="clipboard"
-        small={false}
-        title="Assignment History"
-      />
-    </div>
-  </div>
-  <div
-    className="favorites-list-container"
-  >
-    <BorderedList
-      contentArray={
-        Array [
-          <FavoritesListResultsCard
-            assignment={
-              Object {
-                "end_date": "10-10-2018",
-                "estimated_end_date": "10-10-2018",
-                "position": Object {
-                  "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
-                  "position_number": "58348065",
-                  "post": Object {
-                    "location": Object {
-                      "city": "Washington",
-                      "code": "500",
-                      "country": "United States",
-                      "id": 4,
-                      "state": "DC",
-                    },
-                  },
-                  "skill": "CONSTRUCTION ENGINEERING (6218)",
-                  "title": "PROJECT DIRECTOR",
-                },
-                "start_date": "10-10-2016",
-              }
-            }
-            condensedView={true}
-            parentClassName="parent-list-container"
-          />,
-        ]
-      }
-    />
-  </div>
-</div>
+  <AssignmentList
+    assignments={
+      Array [
+        Object {
+          "end_date": "10-10-2018",
+          "estimated_end_date": "10-10-2018",
+          "position": Object {
+            "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
+            "position_number": "58348065",
+            "post": Object {
+              "location": Object {
+                "city": "Washington",
+                "code": "500",
+                "country": "United States",
+                "id": 4,
+                "state": "DC",
+              },
+            },
+            "skill": "CONSTRUCTION ENGINEERING (6218)",
+            "title": "PROJECT DIRECTOR",
+          },
+          "start_date": "10-10-2016",
+        },
+      ]
+    }
+    id={null}
+  />
+</ContextProvider>
 `;
 
 exports[`AssignmentsListComponent matches snapshot when there are no bids 1`] = `
-<div
-  className="usa-grid-full profile-section-container"
+<ContextProvider
+  value={
+    Object {
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
+    }
+  }
 >
-  <div
-    className="usa-grid-full section-padded-inner-container"
-  >
-    <div
-      className="usa-width-one-whole"
-    >
-      <PositionInformation
-        className=""
-        icon="clipboard"
-        small={false}
-        title="Assignment History"
-      />
-    </div>
-  </div>
-  <div
-    className="favorites-list-container"
-  >
-    <div
-      className="usa-grid-full section-padded-inner-container"
-    >
-      No assignments associated with this user.
-    </div>
-  </div>
-</div>
+  <AssignmentList
+    assignments={Array []}
+    id={null}
+  />
+</ContextProvider>
 `;
