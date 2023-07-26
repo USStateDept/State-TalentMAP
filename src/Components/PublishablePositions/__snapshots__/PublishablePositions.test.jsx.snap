@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EditPositionDetails Component matches snapshot 1`] = `
+exports[`PublishablePositions Component matches snapshot 1`] = `
 <ContextProvider
   value={
     Object {
@@ -25,7 +25,7 @@ exports[`EditPositionDetails Component matches snapshot 1`] = `
   }
 >
   <MemoryRouter>
-    <EditPositionDetails />
+    <PublishablePositions />
   </MemoryRouter>
 </ContextProvider>
 `;
