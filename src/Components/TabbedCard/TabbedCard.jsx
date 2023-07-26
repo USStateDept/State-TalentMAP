@@ -8,7 +8,7 @@ const TabbedCard = ({ tabs }) => {
 
   const [activeTab, setActiveTab] = useState(tabs?.[0]?.value || '');
   return (
-    <Row fluid className="tabbed-card">
+    <Row fluid className="tabbed-card box-shadow-standard">
       <Row fluid className="tabbed-card--header">
         <NavTabs
           tabs={tabs}

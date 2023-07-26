@@ -269,7 +269,6 @@
   background-color: $color-white;
   border: 1px solid $bg-gray-dark-2;
   border-left: 8px solid $blue-primary;
-  box-shadow: 5px 5px 10px $bg-gray-dark-2;
   padding: 1em;
   .cyc-admin-link {
     text-align: center;
@@ -967,6 +966,25 @@
   }
 }
 
+
+// ============= Projected Vacancy Management =============
+
+.proposed-cycle-banner {
+  background-color: $blue-primary;
+  color: $color-white;
+  padding-block: 25px;
+  padding-inline: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 20px;
+
+  button {
+    font-size: 20px;
+    font-weight: bold;
+    margin-block: 0;
+  }
+}
 
 // ============= Results Card =============
 
