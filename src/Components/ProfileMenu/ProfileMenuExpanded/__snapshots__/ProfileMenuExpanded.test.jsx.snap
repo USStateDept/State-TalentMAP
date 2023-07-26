@@ -260,7 +260,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName=" fa-keyboard-o"
+        iconName=" fa-newspaper-o"
         key="Publishable Positions"
         link="/profile/bureau/publishablepositions"
         search=""
@@ -609,7 +609,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName=" fa-keyboard-o"
+        iconName=" fa-newspaper-o"
         key="Publishable Positions"
         link="/profile/bureau/publishablepositions"
         search=""
