@@ -17,7 +17,7 @@ import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
 
-const ProjectedVacancy = () => {
+const ProjectedVacancy = ({ isAO }) => {
   const childRef = useRef();
   const dispatch = useDispatch();
 
@@ -372,7 +372,10 @@ const ProjectedVacancy = () => {
           <div className="usa-width-one-whole position-search--results">
             <div className="proposed-cycle-banner">
               {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
-              <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
+              {
+                isAO &&
+                <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
+              }
             </div>
             <div className="usa-grid-full position-list">
               {
@@ -394,6 +397,7 @@ const ProjectedVacancy = () => {
 
 ProjectedVacancy.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
+  isAO: PropTypes.bool.isRequired,
 };
 
 ProjectedVacancy.defaultProps = {
