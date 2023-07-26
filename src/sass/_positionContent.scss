@@ -266,6 +266,10 @@
       padding-bottom: 5px;
       margin-top: 0px;
     }
+
+    .cycle-card-dropdown {
+      padding-right: 20px;
+    }
   }
 
   .position-form--picky {
@@ -291,5 +295,21 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+  }
+
+  .left-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+
+  .cycle-card-remove {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(228, 229, 230, 1);
+    padding: 5px 20px;
   }
 }
