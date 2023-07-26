@@ -125,8 +125,8 @@ class LanguageFilter extends Component {
                           return (
                             <CheckBox
                               _id={itemData.id} /* when we need the original id */
-                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}${isTandem ? '-tandem' : ''}-${itemData?.short_description}-${unique}`}
-                              key={`checkbox${itemLabel}-language-${group.id}-${itemData?.short_description}-${unique}`}
+                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}${isTandem ? '-tandem' : ''}-${unique}`}
+                              key={`checkbox${itemLabel}-language-${group.id}-${unique}`}
                               label={itemLabel}
                               title={itemLabel}
                               name={itemLabel}

@@ -159,11 +159,12 @@ class PostFilter extends Component {
                     }
                     const itemLabel = getItemLabel(itemData$);
                     const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                    const unique = itemData?.code || itemData?.id;
                     return (
                       <CheckBox
                         _id={itemData.id} /* when we need the original id */
-                        id={`checkbox${itemLabelNoSpaces}-domestic-post-${item.item.description}-${itemData$.code}`}
-                        key={`checkbox${itemLabel}-domestic-post-${item.item.description}-${itemData$.code}`}
+                        id={`checkbox${itemLabelNoSpaces}-domestic-post-${item.item.description}-${unique}`}
+                        key={`checkbox${itemLabel}-domestic-post-${item.item.description}-${unique}`}
                         label={itemLabel}
                         title={itemLabel}
                         name={itemLabel}
@@ -204,8 +205,8 @@ class PostFilter extends Component {
                     return (
                       <CheckBox
                         _id={itemData.id} /* when we need the original id */
-                        id={`checkbox${itemLabelNoSpaces}-overseas-post-${item.item.description}-${unique}-${itemData?.city}`}
-                        key={`checkbox${itemLabel}-overseas-post-${item.item.description}-${unique}-${itemData?.city}`}
+                        id={`checkbox${itemLabelNoSpaces}-overseas-post-${item.item.description}-${unique}`}
+                        key={`checkbox${itemLabel}-overseas-post-${item.item.description}-${unique}`}
                         label={itemLabel}
                         title={itemLabel}
                         name={itemLabel}

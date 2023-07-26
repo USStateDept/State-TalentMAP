@@ -44,11 +44,12 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           className="usa-grid-full"
         >
           <CheckBox
+            _id={1}
             checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
-            id="checkboxName-domestic-post-post-undefined"
-            key="checkboxName-domestic-post-post-undefined"
+            id="checkboxName-domestic-post-post-1"
+            key="checkboxName-domestic-post-post-1"
             label="Name"
             labelSrOnly={false}
             name="Name"
@@ -95,11 +96,12 @@ exports[`PostFilterComponent matches snapshot 1`] = `
           className="usa-grid-full"
         >
           <CheckBox
+            _id={2}
             checkboxProps={Object {}}
             className="tm-checkbox-transparent"
             disabled={false}
-            id="checkboxName-overseas-post-post-undefined-undefined"
-            key="checkboxName-overseas-post-post-undefined-undefined"
+            id="checkboxName-overseas-post-post-2"
+            key="checkboxName-overseas-post-post-2"
             label="Name"
             labelSrOnly={false}
             name="Name"

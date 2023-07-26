@@ -13,8 +13,8 @@ describe('BureauFilterComponent', () => {
       selectionRef: 'bureau',
     },
     data: [
-      { name: 'Name1', is_regional: true },
-      { name: 'Name2', is_regional: false },
+      { id: 1, name: 'Name1', is_regional: true },
+      { id: 2, name: 'Name2', is_regional: false },
     ],
   };
 
@@ -27,8 +27,8 @@ describe('BureauFilterComponent', () => {
       selectionRef: 'functional',
     },
     data: [
-      { name: 'Name1', is_regional: true },
-      { name: 'Name2', is_regional: false },
+      { id: 1, name: 'Name1', is_regional: true },
+      { id: 2, name: 'Name2', is_regional: false },
     ],
   };
 
