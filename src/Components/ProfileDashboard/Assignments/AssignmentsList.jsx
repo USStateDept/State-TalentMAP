@@ -1,4 +1,4 @@
-import { BID_RESULTS } from '../../../Constants/PropTypes';
+import PropTypes from 'prop-types';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import AssignmentsListResultsCard from './AssignmentsListResultsCard';
@@ -19,7 +19,7 @@ const AssignmentList = ({ assignments }) => {
     <div className="usa-grid-full profile-section-container">
       <div className="usa-grid-full section-padded-inner-container">
         <div className="usa-width-one-whole">
-          <SectionTitle title="Position and Detail History" icon="clipboard" />
+          <SectionTitle title="Assignment History" icon="clipboard" />
         </div>
       </div>
       <div className="favorites-list-container">
@@ -37,7 +37,7 @@ const AssignmentList = ({ assignments }) => {
 };
 
 AssignmentList.propTypes = {
-  assignments: BID_RESULTS.isRequired,
+  assignments: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 AssignmentList.defaultProps = {

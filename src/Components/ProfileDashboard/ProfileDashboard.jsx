@@ -25,7 +25,7 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showAssignmentHistory, showSearchAsClient,
   unregisterHandshake, showLanguages, canEditClassifications,
-  showAgendaItemHistory, isAOView,
+  showAgendaItemHistory, isAOView, assignments,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -154,7 +154,7 @@ const ProfileDashboard = ({
                     {
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={userProfile.assignments} />
+                        <Assignments assignments={assignments} />
                       </BoxShadow>
                     }
                   </Column>
@@ -191,6 +191,7 @@ ProfileDashboard.propTypes = {
   classifications: CLASSIFICATIONS,
   clientClassifications: CLIENT_CLASSIFICATIONS,
   isAOView: PropTypes.bool,
+  assignments: PropTypes.arrayOf(PropTypes.shape({})),
 };
 
 ProfileDashboard.defaultProps = {
@@ -209,6 +210,7 @@ ProfileDashboard.defaultProps = {
   classifications: [],
   clientClassifications: [],
   isAOView: false,
+  assignments: [],
 };
 
 export default ProfileDashboard;

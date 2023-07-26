@@ -6,6 +6,7 @@ import { push } from 'connected-react-router';
 import { get } from 'lodash';
 import ProfileDashboard from 'Components/ProfileDashboard';
 import Alert from 'Components/Alert';
+import { assignmentFetchData } from 'actions/assignment';
 import { fetchClassifications } from 'actions/classifications';
 import { userProfilePublicFetchData } from 'actions/userProfilePublic';
 import { CLASSIFICATIONS, EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
@@ -19,6 +20,7 @@ class ProfilePublic extends Component {
     const isBureauView = this.isView('bureau');
     const isPostView = this.isView('post');
     const bureauOrPost = isBureauView || isPostView;
+    this.props.assignmentFetchData(this.props?.match?.params?.id);
     this.props.fetchData(id, !bureauOrPost);
     if (!bureauOrPost) {
       this.props.fetchClassifications();
@@ -41,6 +43,7 @@ class ProfilePublic extends Component {
       registerHandshakePosition,
       unregisterHandshakePosition,
       deleteBid,
+      assignments,
     } = this.props;
     const { bidList } = userProfile;
     const clientClassifications = userProfile.classifications;
@@ -113,6 +116,7 @@ class ProfilePublic extends Component {
           deleteBid={deleteBid}
           isPublic
           isAOView={this.isView('ao')}
+          assignments={assignments}
           {...props}
         />
     );
@@ -131,6 +135,13 @@ ProfilePublic.propTypes = {
   registerHandshakePosition: PropTypes.func,
   unregisterHandshakePosition: PropTypes.func,
   deleteBid: PropTypes.func,
+  assignments: PropTypes.arrayOf(PropTypes.shape({})),
+  assignmentFetchData: PropTypes.func.isRequired,
+  match: PropTypes.PropTypes.shape({
+    params: PropTypes.PropTypes.shape({
+      id: PropTypes.string,
+    }),
+  }).isRequired,
 };
 
 ProfilePublic.defaultProps = {
@@ -145,6 +156,7 @@ ProfilePublic.defaultProps = {
   registerHandshakePosition: EMPTY_FUNCTION,
   unregisterHandshakePosition: EMPTY_FUNCTION,
   deleteBid: EMPTY_FUNCTION,
+  assignments: [],
 };
 
 ProfilePublic.contextTypes = {
@@ -159,6 +171,7 @@ const mapStateToProps = (state, ownProps) => ({
   classificationsIsLoading: state.classificationsIsLoading,
   classificationsHasErrored: state.classificationsHasErrored,
   classifications: state.classifications,
+  assignments: state.assignment,
 });
 
 export const mapDispatchToProps = (dispatch, ownProps) => {
@@ -170,6 +183,7 @@ export const mapDispatchToProps = (dispatch, ownProps) => {
     registerHandshakePosition: id => dispatch(registerHandshake(id, id$)),
     unregisterHandshakePosition: id => dispatch(unregisterHandshake(id, id$)),
     deleteBid: id => dispatch(toggleBidPosition(id, true, false, id$, true)),
+    assignmentFetchData: id => dispatch(assignmentFetchData(id)),
   };
 };
 
