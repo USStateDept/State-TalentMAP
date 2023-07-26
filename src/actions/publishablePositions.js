@@ -1,9 +1,9 @@
 import { batch } from 'react-redux';
 import {
-  UPDATE_PUBLISAHBLE_POSITION_SUCCESS,
-  UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE,
-  UPDATE_PUBLISAHBLE_POSITION__ERROR,
-  UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE,
+  UPDATE_PUBLISHABLE_POSITION_ERROR,
+  UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE,
+  UPDATE_PUBLISHABLE_POSITION_SUCCESS,
+  UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
@@ -209,8 +209,8 @@ export function publishablePositionEdit(id, data) {
 
     api().patch(`ao/${id}/publishablePosition/`, data)
       .then(() => {
-        const toastTitle = UPDATE_PUBLISAHBLE_POSITION_SUCCESS_TITLE;
-        const toastMessage = UPDATE_PUBLISAHBLE_POSITION_SUCCESS;
+        const toastTitle = UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE;
+        const toastMessage = UPDATE_PUBLISHABLE_POSITION_SUCCESS;
         batch(() => {
           dispatch(publishablePositionEditErrored(false));
           dispatch(publishablePositionEditSuccess(true));
@@ -226,8 +226,8 @@ export function publishablePositionEdit(id, data) {
             dispatch(publishablePositionEditErrored(false));
           });
         } else {
-          const toastTitle = UPDATE_PUBLISAHBLE_POSITION__ERROR_TITLE;
-          const toastMessage = UPDATE_PUBLISAHBLE_POSITION__ERROR;
+          const toastTitle = UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE;
+          const toastMessage = UPDATE_PUBLISHABLE_POSITION_ERROR;
           dispatch(toastError(toastMessage, toastTitle));
           batch(() => {
             dispatch(publishablePositionEditErrored(true));
