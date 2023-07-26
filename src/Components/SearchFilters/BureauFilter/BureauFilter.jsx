@@ -30,10 +30,11 @@ class BureauFilter extends Component {
               {
                 sortedRegionalBureuas.map((itemData) => {
                   const itemLabel = getItemLabel(itemData);
+                  const unique = itemData?.code || itemData?.id;
                   return (<CheckBox
                     _id={itemData.id} /* when we need the original id */
-                    id={`checkbox${itemLabel}-region-${item.item.description}${isTandem ? '-tandem' : ''}`}
-                    key={`checkbox${itemLabel}-region-${item.item.description}`}
+                    id={`checkbox${itemLabel}-region-${item.item.description}${isTandem ? '-tandem' : ''}-${unique}`}
+                    key={`checkbox${itemLabel}-region-${item.item.description}${isTandem ? '-tandem' : ''}-${unique}`}
                     label={itemLabel}
                     title={itemLabel}
                     name={itemLabel}
@@ -55,8 +56,8 @@ class BureauFilter extends Component {
                 return (
                   <CheckBox
                     _id={itemData.id} /* when we need the original id */
-                    id={`checkbox-functional-bureau-${isTandem ? '-tandem' : ''}-${unique}`}
-                    key={`checkbox${itemLabel}-functional-bureau-${unique}`}
+                    id={`checkbox${itemLabel}-functional-bureau-${isTandem ? '-tandem' : ''}-${unique}`}
+                    key={`checkbox${itemLabel}-functional-bureau-${isTandem ? '-tandem' : ''}-${unique}`}
                     label={itemLabel}
                     title={itemLabel}
                     name={itemLabel}
