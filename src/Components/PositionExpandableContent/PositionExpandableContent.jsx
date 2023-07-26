@@ -26,6 +26,12 @@ const PositionExpandableContent = ({ sections, form }) => {
     if (editMode) setShowMore(true);
   }, [editMode]);
 
+  const onCancel = () => {
+    form.handleCancel();
+    setEditMode(false);
+    swal.close();
+  };
+
 
   const getBody = () => {
     if (editMode && form) return form.staticBody;
@@ -51,10 +57,10 @@ const PositionExpandableContent = ({ sections, form }) => {
       content: (
         <div className="simple-action-modal">
           <div className="help-text">
-            <span>Are you sure you want to discard all changes made to this position?</span>
+            <span>{form.cancelText || 'Are you sure you want to discard all changes made to this position?'}</span>
           </div>
           <div className="modal-controls">
-            <button onClick={() => { setEditMode(false); swal.close(); }}>Submit</button>
+            <button onClick={onCancel}>Submit</button>
             <button className="usa-button-secondary" onClick={() => swal.close()}>Cancel</button>
           </div>
         </div>
@@ -149,7 +155,9 @@ PositionExpandableContent.propTypes = {
   form: PropTypes.shape({
     staticBody: PropTypes.shape({}),
     inputBody: PropTypes.element,
+    cancelText: PropTypes.string,
     handleSubmit: PropTypes.func,
+    handleCancel: PropTypes.func,
   }),
 };
 

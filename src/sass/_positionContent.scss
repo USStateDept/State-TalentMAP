@@ -249,7 +249,7 @@
     select,
     input {
       border: 1px solid $bg-gray-dark-1;
-      border-radius: 0px;
+      border-radius: 0;
       font-size: 15px;
       height: 44px;
       max-width: 460px;
@@ -264,7 +264,7 @@
       font-weight: 500;
       font-size: 15px;
       padding-bottom: 5px;
-      margin-top: 0px;
+      margin-top: 0;
     }
 
     .cycle-card-dropdown {
@@ -286,9 +286,28 @@
     }
   }
 
+  $select-width: 300px;
+  .position-form--inputs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($select-width + 50, 1fr));
+
+    .position-form--label-input-container {
+      select {
+        width: $select-width;
+      }
+    }
+  }
+
+  .position-form--label-input-container {
+    label {
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
+
 
   .position-form--description {
-    padding: 15px 0px;
+    padding: 15px 0;
   }
 
   .spaced-row {

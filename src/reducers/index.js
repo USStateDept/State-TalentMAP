@@ -64,7 +64,7 @@ import gsaLocations from './gsaLocations';
 import panelMeetings from './panelMeetings';
 import agendaItemMaintenancePane from './agendaItemMaintenancePane';
 import panelMeetingAgendas from './panelMeetingAgendas';
-import editPositionDetails from './editPositionDetails';
+import publishablePositions from './publishablePositions';
 import editRemark from './editRemark';
 import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
@@ -129,7 +129,7 @@ export default (history) => combineReducers({
   ...agendaItemMaintenancePane,
   ...positions,
   ...panelMeetingAgendas,
-  ...editPositionDetails,
+  ...publishablePositions,
   ...editRemark,
   ...panelMeetingAdmin,
   ...gsaLocations,
