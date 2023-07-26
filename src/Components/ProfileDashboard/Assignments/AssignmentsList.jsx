@@ -12,7 +12,6 @@ const AssignmentList = ({ id }) => {
   // no ID will return the logged in user's Assignments
 
   const dispatch = useDispatch();
-  const positionArray = [];
   const assignments = useSelector(state => state.assignment);
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
 
@@ -20,8 +19,9 @@ const AssignmentList = ({ id }) => {
     dispatch(assignmentFetchData(id));
   }, [id, assignmentsLoading]);
 
+  const positionArray = [];
   assignments.forEach(assignment => (
-    positionArray.unshift(
+    positionArray.push(
       <AssignmentsListResultsCard
         assignment={assignment}
         condensedView
@@ -30,7 +30,6 @@ const AssignmentList = ({ id }) => {
       />,
     )
   ));
-
   return (
     assignmentsLoading ? <Spinner type="saved-searches" size="big" /> :
       (

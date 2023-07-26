@@ -43,9 +43,7 @@ const ProfileDashboard = ({
             {(matches) => {
               const checkIsBidder = () => includes(userProfile?.permission_groups || [], 'bidder') || includes(userProfile?.permissions || [], 'bidder');
               const isBidder = checkIsBidder();
-              // const perdet = get(userProfile, 'perdet_seq_number') || '';
               const perdet = userProfile?.perdet_seq_number || '';
-              console.log(perdet);
               const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
