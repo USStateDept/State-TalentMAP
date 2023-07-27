@@ -43,10 +43,11 @@ class MultiSelectFilter extends Component {
           !itemsGroupedByAlpha &&
             item.data.map((itemData) => {
               const itemLabel = getItemLabel(itemData);
+              const unique = itemData?.code || itemData?.id;
               return (<CheckBox
                 _id={itemData.id} /* when we need the original id */
-                id={`checkbox${itemLabel}-${item.item.description}`}
-                key={`checkbox${itemLabel}-${item.item.description}`}
+                id={`checkbox${itemLabel}-${item.item.description}-${unique}`}
+                key={`checkbox${itemLabel}-${item.item.description}-${unique}`}
                 label={itemLabel}
                 title={itemLabel}
                 name={itemLabel}
@@ -66,11 +67,12 @@ class MultiSelectFilter extends Component {
                 {
                   itemsGroupedByAlpha[group].map((itemData) => {
                     const itemLabel = getItemLabel(itemData);
+                    const unique = itemData?.code || itemData?.id;
                     return (
                       <CheckBox
                         _id={itemData.id} /* when we need the original id */
-                        id={`checkbox${itemLabel}-${item.item.description}`}
-                        key={`checkbox${itemLabel}-${item.item.description}`}
+                        id={`checkbox${itemLabel}-${item.item.description}-${unique}`}
+                        key={`checkbox${itemLabel}-${item.item.description}-${unique}`}
                         label={itemLabel}
                         title={itemLabel}
                         name={itemLabel}

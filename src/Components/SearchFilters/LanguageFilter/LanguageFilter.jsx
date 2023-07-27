@@ -120,12 +120,13 @@ class LanguageFilter extends Component {
                         const itemLabel = getItemLabel(itemData);
                         const itemLabelNoSpaces = formatIdSpacing(itemLabel);
                         const matchesCone = itemData.group === group.code;
+                        const unique = itemData?.code || itemData?.id;
                         if (matchesCone) {
                           return (
                             <CheckBox
                               _id={itemData.id} /* when we need the original id */
-                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}${isTandem ? '-tandem' : ''}`}
-                              key={`checkbox${itemLabel}-language-${group.id}`}
+                              id={`checkbox${itemLabelNoSpaces}-language-${group.id}${isTandem ? '-tandem' : ''}-${unique}`}
+                              key={`checkbox${itemLabel}-language-${group.id}-${unique}`}
                               label={itemLabel}
                               title={itemLabel}
                               name={itemLabel}
