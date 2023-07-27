@@ -250,11 +250,12 @@ class PostFilter extends Component {
                     orderBy(commuterPosts$, 'description').map((itemData) => {
                       const itemLabel = getItemLabel(itemData);
                       const itemLabelNoSpaces = formatIdSpacing(itemLabel);
+                      const unique = itemData?.code || itemData?.id;
                       return (
                         <CheckBox
                           _id={itemData.code} /* when we need the original id */
-                          id={`checkbox${itemLabelNoSpaces}-commuter-post-${item.item.description}`}
-                          key={`checkbox${itemLabel}-commuter-post-${item.item.description}`}
+                          id={`checkbox${itemLabelNoSpaces}-commuter-post-${item.item.description}-${unique}`}
+                          key={`checkbox${itemLabel}-commuter-post-${item.item.description}-${unique}`}
                           label={itemLabel}
                           title={itemLabel}
                           name={itemLabel}
