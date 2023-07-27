@@ -1,15 +1,7 @@
 .panel-meeting-agenda-page {
-  .panel-meeting-agenda-upper-section {
-    background-color: $bg-blue-dark-1;
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+  .button-back-link {
+    background-color: $primary-blue;
     color: $color-white;
-    max-width: none;
-    padding: 20px 35px 35px;
-
-    .button-back-link {
-      background-color: $primary-blue;
-      color: $color-white;
-    }
   }
 
   .pma-pm-info {
@@ -68,40 +60,6 @@
     transition: all 2s linear .5s;
   }
 
-  .panel-meeting-agenda-filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(335px, 1fr));
-    padding-right: 6em;
-
-    @media screen and (min-width: 2390px) and (max-width: 2780px) {
-      padding-right: 10em;
-    }
-
-    @media screen and (min-width: 2781px) and (max-width: 3188px) {
-      padding-right: 14em;
-    }
-
-    @media screen and (min-width: 3189px) {
-      padding-right: 18em;
-    }
-
-    .filter-div {
-      align-items: center;
-      display: flex;
-      margin-right: 10px;
-
-      .label {
-        margin-right: 10px;
-        min-width: 115px;
-        text-align: end;
-      }
-
-      .picky {
-        color: $color-black;
-        width: 200px;
-      }
-    }
-  }
   .panel-meeting-agendas-rows-container {
     .pma-category-header{
       font-family: 'Roboto';

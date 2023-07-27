@@ -174,8 +174,8 @@ const CycleManagement = (props) => {
   return (
     genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
-        <div className="cycle-management-page">
-          <div className="usa-grid-full cm-upper-section">
+        <div className="cycle-management-page position-search">
+          <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Cycle Search" icon="cogs" />
             { isSuperUser &&
               <div className="cm-admin-button">
@@ -184,7 +184,7 @@ const CycleManagement = (props) => {
                 </button>
               </div>
             }
-            <div className="filterby-container" style={{ marginTop: '40px' }}>
+            <div className="filterby-container" >
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
                 {clearFilters &&
@@ -196,8 +196,8 @@ const CycleManagement = (props) => {
               </span>
             </div>
 
-            <div className="usa-width-one-whole cm-filters grid-450">
-              <div className="cm-filter-div">
+            <div className="usa-width-one-whole position-search--filters--cm">
+              <div className="filter-div">
                 <div className="label">Status:</div>
                 <Picky
                   {...pickyProps}
@@ -209,7 +209,7 @@ const CycleManagement = (props) => {
                   value={selectedStatus}
                 />
               </div>
-              <div className="cm-filter-div">
+              <div className="filter-div">
                 <div className="label">Cycle:</div>
                 <Picky
                   {...pickyProps}
@@ -222,7 +222,7 @@ const CycleManagement = (props) => {
                   value={selectedCycles}
                 />
               </div>
-              <div className="cm-filter-div">
+              <div className="filter-div">
                 <div className="label">Cycle Date:</div>
                 <DateRangePicker
                   onChange={setSelectedDates}
