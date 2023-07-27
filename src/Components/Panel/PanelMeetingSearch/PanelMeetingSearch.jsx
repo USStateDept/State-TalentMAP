@@ -189,8 +189,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   return (
     groupLoading ?
       <Spinner type="bureau-results" class="homepage-position-results" size="big" /> :
-      <div className="panel-meeting-search-page">
-        <div className="usa-grid-full panel-meeting-search-upper-section search-bar-container">
+      <div className="panel-meeting-search-page position-search">
+        <div className="usa-grid-full position-search--header search-bar-container">
           <ProfileSectionTitle title="Panel Meeting Search" icon="calendar" />
           <div className="filterby-container">
             <div className="filterby-label">Filter by:</div>
@@ -203,7 +203,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
               }
             </div>
           </div>
-          <div className="usa-width-one-whole panel-meeting-search-filters">
+          <div className="usa-width-one-whole position-search--filters--panel-m">
             <div className="filter-div">
               <div className="label">Type:</div>
               <Picky
