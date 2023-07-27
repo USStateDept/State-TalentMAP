@@ -135,16 +135,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
             }
           }
         />
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          title="Download Employee Profile PDF"
-          type="a"
-        >
-          <FontAwesome
-            name="download"
-          />
-        </InteractiveElement>
       </ErrorBoundary>
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
@@ -315,16 +305,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
             }
           }
         />
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          title="Download Employee Profile PDF"
-          type="a"
-        >
-          <FontAwesome
-            name="download"
-          />
-        </InteractiveElement>
       </ErrorBoundary>
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
@@ -495,16 +475,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
             }
           }
         />
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          title="Download Employee Profile PDF"
-          type="a"
-        >
-          <FontAwesome
-            name="download"
-          />
-        </InteractiveElement>
       </ErrorBoundary>
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
