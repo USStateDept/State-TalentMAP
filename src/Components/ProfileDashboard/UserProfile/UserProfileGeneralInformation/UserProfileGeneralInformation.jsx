@@ -1,16 +1,9 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import FA from 'react-fontawesome';
-import axios from 'axios';
 import { connect } from 'react-redux';
-import shortid from 'shortid';
-
 import { NO_GRADE } from 'Constants/SystemMessages';
-import { EMPTY_FUNCTION, USER_PROFILE } from 'Constants/PropTypes';
-import InteractiveElement from 'Components/InteractiveElement';
-import { toastError, toastInfo, toastSuccess } from 'actions/toast';
-import { downloadPdfStream, fetchJWT, getBrowser, isOnProxy } from 'utilities';
+import { USER_PROFILE } from 'Constants/PropTypes';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
@@ -21,39 +14,13 @@ import EmployeeProfileLink from './EmployeeProfileLinkLoadable';
 class UserProfileGeneralInformation extends Component {
   constructor(props) {
     super(props);
-    this.getEmployeeProfile = this.getEmployeeProfile.bind(this);
     this.state = {
       isLoading: false,
       hasErrored: false,
       data: null,
     };
   }
-  getEmployeeProfile = (redactedVersion) => {
-    const id = shortid.generate();
-    const { onToastError, onToastInfo, onToastSuccess, userProfile } = this.props;
-    const emp_profile_urls = userProfile?.employee_profile_url;
 
-    let url$ = (redactedVersion ? emp_profile_urls?.internalRedacted
-      : emp_profile_urls?.internal) || emp_profile_urls?.internalRedacted;
-    if (isOnProxy()) {
-      url$ = (redactedVersion ? emp_profile_urls?.externalRedacted
-        : emp_profile_urls?.external) || emp_profile_urls?.externalRedacted;
-    }
-
-    onToastInfo(id);
-    axios.get(url$, {
-      withCredentials: true,
-      headers: { JWTAuthorization: fetchJWT() },
-      responseType: 'arraybuffer' },
-    )
-      .then(response => {
-        downloadPdfStream(response.data);
-        onToastSuccess(id);
-      })
-      .catch(() => {
-        onToastError(id);
-      });
-  }
   render() {
     const { userProfile, colorProp, isPublic } = this.props;
     const avatar = {
@@ -69,13 +36,6 @@ class UserProfileGeneralInformation extends Component {
     const userSkills = get(userProfile, 'employee_info.skills');
     const userID = get(userProfile, 'employee_id');
 
-    const browser = getBrowser();
-    const isIE11 = browser?.name === 'Internet Explorer' && browser?.version.startsWith('11');
-
-    const openPdf = (redactedVersion = false) => {
-      this.getEmployeeProfile(redactedVersion);
-    };
-
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
@@ -89,32 +49,10 @@ class UserProfileGeneralInformation extends Component {
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <ErrorBoundary fallback="Employee Profile is currently unavailable">
               {
-                get(userProfile, 'employee_profile_url') && isIE11 &&
-                  <InformationDataPoint
-                    content={
-                      <InteractiveElement
-                        onClick={openPdf}
-                        type="a"
-                        title="Download Employee Profile PDF"
-                      >
-                        Employee Profile
-                      </InteractiveElement>
-                    }
-                  />
-              }
-              {
-                get(userProfile, 'employee_profile_url') && !isIE11 &&
-                  <EmployeeProfileLink userProfile={userProfile} />
-              }
-              {
                 get(userProfile, 'employee_profile_url') &&
-                <InteractiveElement
-                  onClick={() => openPdf(true)}
-                  type="a"
-                  title="Download Employee Profile PDF"
-                >
-                  <FA name="download" />
-                </InteractiveElement>
+                  <EmployeeProfileLink
+                    userProfile={userProfile}
+                  />
               }
             </ErrorBoundary>
             { isPublic &&
@@ -141,24 +79,15 @@ class UserProfileGeneralInformation extends Component {
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   colorProp: PropTypes.string,
-  onToastError: PropTypes.func,
-  onToastInfo: PropTypes.func,
-  onToastSuccess: PropTypes.func,
   isPublic: PropTypes.bool,
 };
 
 UserProfileGeneralInformation.defaultProps = {
   colorProp: 'displayName',
-  onToastError: EMPTY_FUNCTION,
-  onToastInfo: EMPTY_FUNCTION,
-  onToastSuccess: EMPTY_FUNCTION,
   isPublic: false,
 };
 
-export const mapDispatchToProps = dispatch => ({
-  onToastError: (id) => dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred', id, true)),
-  onToastInfo: (id) => dispatch(toastInfo('Please wait while we process your request.', 'Loading...', id)),
-  onToastSuccess: (id) => dispatch(toastSuccess('Employee profile succesfully downloaded.', 'Success', id, true)),
+export const mapDispatchToProps = () => ({
 });
 
 export default connect(null, mapDispatchToProps)(UserProfileGeneralInformation);
