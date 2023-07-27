@@ -391,6 +391,7 @@ const ProjectedVacancy = ({ isAO }) => {
             <Alert
               type="warning"
               title={'Edit Mode (Search Disabled)'}
+              customClassName="mb-10"
               messages={[{
                 body: 'Discard or save your edits before searching. ' +
                   'Filters and Pagination are disabled if any cards are in Edit Mode.',
