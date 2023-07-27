@@ -65,8 +65,8 @@ const ProjectedVacancy = ({ isAO }) => {
   const projectVacancyFiltersIsLoading =
     includes([orgsLoading], true);
 
-  const pageSizes = EDIT_POSITION_DETAILS_PAGE_SIZES;
-  const sorts = EDIT_POSITION_DETAILS_SORT;
+  const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
+  const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
 
   const getQuery = () => ({
