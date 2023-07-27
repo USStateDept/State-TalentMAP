@@ -176,7 +176,7 @@ const CycleManagement = (props) => {
       (
         <div className="cycle-management-page">
           <div className="usa-grid-full cm-upper-section">
-            <ProfileSectionTitle title="Cycle Search" icon="cogs" />
+            <ProfileSectionTitle title="Cycle Management" icon="cogs" className="xl-icon" />
             { isSuperUser &&
               <div className="cm-admin-button">
                 <button className="usa-button-primary">

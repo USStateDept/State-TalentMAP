@@ -200,7 +200,7 @@ const ProjectedVacancy = ({ isAO }) => {
       <>
         <div className="position-search">
           <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" className="xl-icon" />
+            <ProfileSectionTitle title="Projected Vacancy Management" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar pt-20">
               <div className="filterby-container">
                 <div className="filterby-label">Filter by:</div>

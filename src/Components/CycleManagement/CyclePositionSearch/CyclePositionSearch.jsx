@@ -189,7 +189,7 @@ const CyclePositionSearch = (props) => {
       (
         <div className="cycle-management-page">
           <div className="cm-upper-section">
-            <ProfileSectionTitle title="Cycle Position Search" icon="keyboard-o" />
+            <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
             {showMore &&
               <div className="expanded-content pt-20">
                 <div className="filterby-container">
