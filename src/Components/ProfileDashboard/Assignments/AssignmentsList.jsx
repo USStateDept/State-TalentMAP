@@ -17,7 +17,7 @@ const AssignmentList = ({ id }) => {
 
   useEffect(() => {
     dispatch(assignmentFetchData(id));
-  }, [id, assignmentsLoading]);
+  }, [id]);
 
   const positionArray = [];
   assignments
