@@ -28,7 +28,6 @@ const ProjectedVacancy = ({ isAO }) => {
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
-  const disableSearch = cardsInEditMode.length > 0;
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
@@ -80,6 +79,8 @@ const ProjectedVacancy = ({ isAO }) => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
+  const disableSearch = cardsInEditMode.length > 0;
+  const disableInput = isLoading || disableSearch;
 
   const getQuery = () => ({
     limit,
@@ -273,7 +274,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedBidCycles}
                       valueKey="id"
                       labelKey="name"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -286,7 +287,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedPosts}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -299,7 +300,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedBureaus}
                       valueKey="code"
                       labelKey="long_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -312,7 +313,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedOrgs}
                       valueKey="code"
                       labelKey="name"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -325,7 +326,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedSkills}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -338,7 +339,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedGrades}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -351,7 +352,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedLanguages}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                 </div>
