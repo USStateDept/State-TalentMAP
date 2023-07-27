@@ -46,46 +46,10 @@
   }
 
   .position-search--header {
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
-    padding: 20px 35px 30px;
     background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
     color: $color-white;
-  }
-
-  .position-search--filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-
-    .filter-div {
-      align-items: center;
-      margin-right: 10px;
-      display: flex;
-
-      .label {
-        margin-right: 10px;
-        min-width: 115px;
-        text-align: end;
-      }
-
-      .picky {
-        color: $color-black;
-        width: 200px;
-      }
-
-      &.restrict-label-width {
-        .label {
-          max-width: 115px;
-        }
-      }
-    }
-
-    &.wide-filter-labels {
-      .filter-div {
-        .label {
-          min-width: 140px;
-        }
-      }
-    }
+    padding: 20px 35px 30px;
   }
 
   .position-search-controls--right {
@@ -131,64 +95,36 @@
 }
 
 // ============= Cycle Management =============
-
 .cycle-management-page {
-  .cm-upper-section {
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
-    padding: 20px 35px;
-    background-color: $bg-blue-dark-1;
-    color: $color-white;
-  }
-  .grid-450 {
-    grid-template-columns: repeat(auto-fill,minmax(450px, 1fr));
-  }
-  .grid-200 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
   .cm-admin-button {
     display: flex;
     justify-content: flex-end;
   }
-  .cm-filters {
-    display: grid;
-    margin: 15px;
 
-    .cm-filter-div {
+  .position-search--filters--cm {
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+    .react-daterange-picker {
       align-items: center;
-      margin-right: 10px;
-      display: flex;
-      .label {
-        margin-right: 10px;
-        min-width: 115px;
-        text-align: end;
+      background: $color-white;
+      font-size: 1.5rem;
+      height: 28px;
+      width: 240px;
+      border: 1px solid $bg-gray-dark-2;
+      .react-daterange-picker__wrapper {
+        border: none;
       }
-      .picky {
-        color: $color-black;
-        width: 200px;
-      }
-      .react-daterange-picker__calendar--open {
-        z-index: $daterange-z;
-      }
-      .react-daterange-picker {
+      .react-daterange-picker__inputGroup {
         align-items: center;
-        background: $color-white;
-        font-size: 1.5rem;
-        height: 28px;
-        width: 240px;
-        border: 1px solid $bg-gray-dark-2;
-        .react-daterange-picker__wrapper {
-          border: none;
-        }
-        .react-daterange-picker__inputGroup {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-        }
-        .react-daterange-picker__range-divider,
-        .react-daterange-picker__inputGroup__leadingZero,
-        .react-date-picker__inputGroup__divider {
-          color: $color-black;
-        }
+        display: flex;
+        justify-content: center;
+      }
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
       }
     }
   }

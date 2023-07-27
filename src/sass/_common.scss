@@ -44,6 +44,33 @@
   }
 }
 
+@each $group, $values in $filters-sizing-config {
+  $label-width: map-get($values, label-width);
+  $picky-width: map-get($values, picky-width);
+  $grid-size: map-get($values, grid-size) or $label-width + $picky-width + 20;
+
+  .position-search--filters--#{$group} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($grid-size, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+
+      .label {
+        margin-right: 10px;
+        text-align: end;
+        width: $label-width;
+      }
+
+      .picky {
+        color: $color-black;
+        width: $picky-width;
+      }
+    }
+  }
+}
+
 .hide {
   visibility: hidden;
 }
