@@ -77,6 +77,7 @@ const PublishablePositions = () => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+  const disableInput = isLoading || disableSearch;
 
   const getQuery = () => ({
     limit,
@@ -263,7 +264,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedStatuses}
                       valueKey="code"
                       labelKey="name"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -276,7 +277,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedBidCycles}
                       valueKey="id"
                       labelKey="name"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -289,7 +290,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedPosts}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -302,7 +303,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedBureaus}
                       valueKey="code"
                       labelKey="long_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -315,7 +316,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedOrgs}
                       valueKey="code"
                       labelKey="name"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -328,7 +329,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedSkills}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -341,7 +342,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedGrades}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                   <div className="filter-div">
@@ -354,7 +355,7 @@ const PublishablePositions = () => {
                       onChange={setSelectedLanguages}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                 </div>
