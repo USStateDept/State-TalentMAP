@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -13,14 +13,12 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import Alert from 'Components/Alert';
 import { onEditModeSearch } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 const PublishablePositions = () => {
-  const childRef = useRef();
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.publishablePositionsSelections);
@@ -37,9 +35,6 @@ const PublishablePositions = () => {
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedLanguages, setSelectedLanguages] =
-    useState(userSelections?.selectedLanguage || []);
-  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -56,10 +51,6 @@ const PublishablePositions = () => {
   const gradeOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
-  const languageOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
-  const post = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const locationOptions = uniqBy(sortBy(get(post, 'data'), [(p) => p.city]), 'code');
   const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
   const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
@@ -67,9 +58,6 @@ const PublishablePositions = () => {
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const additionalFiltersIsLoading = includes([orgsLoading], true);
-
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
-  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
 
   const [clearFilters, setClearFilters] = useState(false);
 
@@ -88,12 +76,7 @@ const PublishablePositions = () => {
     'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'position-details-language': selectedLanguages.map(langObject => (langObject?.code)),
-    'position-details-post': selectedPosts.map(postObject => (postObject?.code)),
     'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
-
-    // Free Text
-    q: textInput || textSearch,
   });
 
   const getCurrentInputs = () => ({
@@ -102,10 +85,7 @@ const PublishablePositions = () => {
     selectedOrgs,
     selectedGrade: selectedGrades,
     selectedSkills,
-    selectedLanguage: selectedLanguages,
-    selectedPost: selectedPosts,
     selectedBidCycle: selectedBidCycles,
-    textSearch,
   });
 
   useEffect(() => {
@@ -120,12 +100,9 @@ const PublishablePositions = () => {
       selectedOrgs,
       selectedGrades,
       selectedSkills,
-      selectedLanguages,
-      selectedPosts,
       selectedBidCycles,
-      textSearch,
     ];
-    if (isEmpty(filter(flatten(filters))) && isEmpty(textSearch)) {
+    if (isEmpty(filter(flatten(filters)))) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -144,22 +121,8 @@ const PublishablePositions = () => {
     selectedOrgs,
     selectedGrades,
     selectedSkills,
-    selectedLanguages,
-    selectedPosts,
     selectedBidCycles,
-    textSearch,
   ]);
-
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -212,12 +175,7 @@ const PublishablePositions = () => {
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
-    setSelectedLanguages([]);
-    setSelectedPosts([]);
     setSelectedBidCycles([]);
-    setTextSearch('');
-    setTextInput('');
-    childRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -226,18 +184,9 @@ const PublishablePositions = () => {
       <Spinner type="bureau-filters" size="small" /> :
       <>
         <div className="position-search">
-          <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
-            <div className="results-search-bar">
-              <div className="usa-grid-full search-bar-container">
-                <PositionManagerSearch
-                  submitSearch={submitSearch}
-                  onChange={setTextInputThrottled}
-                  ref={childRef}
-                  textSearch={textSearch}
-                  label="Search for a Position"
-                  placeHolder="Search using Position Number or Position Title"
-                />
+          <div className="usa-grid-full position-search--header">    
+            <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
+            <div className="results-search-bar pt-20">
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
@@ -253,7 +202,7 @@ const PublishablePositions = () => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-search--filters wide-filter-labels results-dropdown">
+                <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
                   <div className="filter-div">
                     <div className="label">Publishable Status:</div>
                     <Picky
@@ -277,19 +226,6 @@ const PublishablePositions = () => {
                       onChange={setSelectedBidCycles}
                       valueKey="id"
                       labelKey="name"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Location:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Location(s)"
-                      value={selectedPosts}
-                      options={locationOptions}
-                      onChange={setSelectedPosts}
-                      valueKey="code"
-                      labelKey="custom_description"
                       disabled={disableInput}
                     />
                   </div>
@@ -345,20 +281,6 @@ const PublishablePositions = () => {
                       disabled={disableInput}
                     />
                   </div>
-                  <div className="filter-div">
-                    <div className="label">Language:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Language(s)"
-                      value={selectedLanguages}
-                      options={languageOptions}
-                      onChange={setSelectedLanguages}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={disableInput}
-                    />
-                  </div>
-                </div>
               </div>
             </div>
           </div>

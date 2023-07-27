@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SelectForm from 'Components/SelectForm';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import { projectedVacancyAddToProposedCycle, projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
@@ -8,7 +7,7 @@ import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
 import { onEditModeSearch } from 'utilities';
-import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
+import { get, has, includes, sortBy, uniqBy } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
@@ -20,7 +19,6 @@ import ScrollUpButton from '../../ScrollUpButton';
 import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
 
 const ProjectedVacancy = ({ isAO }) => {
-  const childRef = useRef();
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.projectedVacancySelections);
@@ -40,7 +38,6 @@ const ProjectedVacancy = ({ isAO }) => {
     useState(userSelections?.selectedLanguage || []);
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
-  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPost || []);
   const [clearFilters, setClearFilters] = useState(false);
 
   const dummyid = dummyPositionDetails?.id;
@@ -56,8 +53,6 @@ const ProjectedVacancy = ({ isAO }) => {
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const posts = genericFilters$.find(f => get(f, 'item.description') === 'post');
-  const locationOptions = uniqBy(sortBy(get(posts, 'data'), [(p) => p.city]), 'code');
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
@@ -73,9 +68,6 @@ const ProjectedVacancy = ({ isAO }) => {
   const projectVacancyFiltersIsLoading =
     includes([orgsLoading], true);
 
-  const [textInput, setTextInput] = useState(get(userSelections, 'textInput') || '');
-  const [textSearch, setTextSearch] = useState(get(userSelections, 'textSearch') || '');
-
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
@@ -87,40 +79,31 @@ const ProjectedVacancy = ({ isAO }) => {
     ordering,
     // User Filters
     'projected-vacancy-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'projected-vacancy-post': selectedPosts.map(postObject => (postObject?.code)),
     'projected-vacancy-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'projected-vacancy-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
     'projected-vacancy-language': selectedLanguages.map(langObject => (langObject?.code)),
     'projected-vacancy-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'projected-vacancy-skills': selectedSkills.map(skillObject => (skillObject?.code)),
 
-    // Free Text
-    q: textInput || textSearch,
   });
 
   const resetFilters = () => {
     setSelectedBureaus([]);
-    setSelectedPosts([]);
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedLanguages([]);
     setSelectedSkills([]);
     setSelectedBidCycles([]);
-    setTextSearch('');
-    setTextInput('');
-    childRef.current.clearText();
     setClearFilters(false);
   };
 
   const getCurrentInputs = () => ({
     selectedBureaus,
-    selectedPost: selectedPosts,
     selectedOrgs,
     selectedGrade: selectedGrades,
     selectedLanguage: selectedLanguages,
     selectedSkills,
     selectedBidCycle: selectedBidCycles,
-    textSearch,
   });
 
   useEffect(() => {
@@ -131,14 +114,13 @@ const ProjectedVacancy = ({ isAO }) => {
   const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
-      selectedPosts,
       selectedOrgs,
       selectedGrades,
       selectedLanguages,
       selectedSkills,
       selectedBidCycles,
     ];
-    if (filters.flat().length === 0 && isEmpty(textSearch)) {
+    if (filters.flat().length === 0) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -153,26 +135,12 @@ const ProjectedVacancy = ({ isAO }) => {
     limit,
     ordering,
     selectedBureaus,
-    selectedPosts,
     selectedOrgs,
     selectedGrades,
     selectedLanguages,
     selectedSkills,
     selectedBidCycles,
-    textSearch,
   ]);
-
-
-  function submitSearch(text) {
-    setTextSearch(text);
-  }
-
-  const throttledTextInput = () =>
-    throttle(q => setTextInput(q), 300, { leading: false, trailing: true });
-
-  const setTextInputThrottled = (q) => {
-    throttledTextInput(q);
-  };
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -237,17 +205,8 @@ const ProjectedVacancy = ({ isAO }) => {
       <>
         <div className="position-search">
           <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" className="xl-icon" />
-            <div className="results-search-bar">
-              <div className="usa-grid-full search-bar-container">
-                <PositionManagerSearch
-                  submitSearch={submitSearch}
-                  onChange={setTextInputThrottled}
-                  ref={childRef}
-                  textSearch={textSearch}
-                  label="Search for a Position"
-                  placeHolder="Search using Position Number or Position Title"
-                />
+            <ProfileSectionTitle title="Projected Vacancy Management" icon="keyboard-o" className="xl-icon" />
+            <div className="results-search-bar pt-20">
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
@@ -260,10 +219,10 @@ const ProjectedVacancy = ({ isAO }) => {
                         <FA name="times" />
                         Clear Filters
                       </button>
-                    }
-                  </div>
+                  }
                 </div>
-                <div className="usa-width-one-whole position-search--filters results-dropdown">
+              </div>
+              <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
                   <div className="filter-div">
                     <div className="label">Bid Cycle:</div>
                     <Picky
@@ -274,19 +233,6 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedBidCycles}
                       valueKey="id"
                       labelKey="name"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Location:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Location(s)"
-                      value={selectedPosts}
-                      options={locationOptions}
-                      onChange={setSelectedPosts}
-                      valueKey="code"
-                      labelKey="custom_description"
                       disabled={disableInput}
                     />
                   </div>
