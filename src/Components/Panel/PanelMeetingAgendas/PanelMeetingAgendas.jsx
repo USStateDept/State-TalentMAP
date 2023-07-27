@@ -359,8 +359,8 @@ const PanelMeetingAgendas = (props) => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="panel-meeting-agenda-page">
-          <div className="usa-grid-full panel-meeting-agenda-upper-section search-bar-container">
+        <div className="panel-meeting-agenda-page position-search">
+          <div className="usa-grid-full position-search--header search-bar-container">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agendas" icon="calendar" />
             <PositionManagerSearch

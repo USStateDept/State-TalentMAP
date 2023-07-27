@@ -196,8 +196,8 @@ const CyclePositionSearch = (props) => {
   return (
     orgsLoading || genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
-        <div className="cycle-management-page">
-          <div className="cm-upper-section">
+        <div className="cycle-management-page position-search">
+          <div className="position-search--header">
             <ProfileSectionTitle title="Cycle Position Search" icon="keyboard-o" />
             {showMore &&
               <div className="expanded-content">

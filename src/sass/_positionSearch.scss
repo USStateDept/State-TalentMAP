@@ -46,10 +46,10 @@
   }
 
   .position-search--header {
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
-    padding: 20px 35px 30px;
     background-color: $bg-blue-dark-1;
+    box-shadow: 20px 20px 20px $bg-gray-medium-2;
     color: $color-white;
+    padding: 20px 35px 30px;
   }
 
   .position-search-controls--right {
@@ -96,12 +96,6 @@
 
 // ============= Cycle Management =============
 .cycle-management-page {
-  .cm-upper-section {
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
-    padding: 20px 35px;
-    background-color: $bg-blue-dark-1;
-    color: $color-white;
-  }
 
   .cm-admin-button {
     display: flex;

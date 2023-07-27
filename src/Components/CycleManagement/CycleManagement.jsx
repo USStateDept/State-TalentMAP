@@ -174,8 +174,8 @@ const CycleManagement = (props) => {
   return (
     genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
-        <div className="cycle-management-page">
-          <div className="usa-grid-full cm-upper-section">
+        <div className="cycle-management-page position-search">
+          <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Cycle Search" icon="cogs" />
             { isSuperUser &&
               <div className="cm-admin-button">

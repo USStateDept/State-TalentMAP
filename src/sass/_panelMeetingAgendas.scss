@@ -1,15 +1,7 @@
 .panel-meeting-agenda-page {
-  .panel-meeting-agenda-upper-section {
-    background-color: $bg-blue-dark-1;
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
+  .button-back-link {
+    background-color: $primary-blue;
     color: $color-white;
-    max-width: none;
-    padding: 20px 35px 35px;
-
-    .button-back-link {
-      background-color: $primary-blue;
-      color: $color-white;
-    }
   }
 
   .pma-pm-info {
