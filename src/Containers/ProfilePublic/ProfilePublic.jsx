@@ -77,7 +77,7 @@ class ProfilePublic extends Component {
       case 'ao':
         props = {
           showAgendaItemHistory: true,
-          showAssignmentHistory: false,
+          showAssignmentHistory: true,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
