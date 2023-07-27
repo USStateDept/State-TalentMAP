@@ -202,15 +202,14 @@ const ProjectedVacancy = ({ isAO }) => {
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
-      <>
-        <div className="position-search">
-          <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Projected Vacancy Management" icon="keyboard-o" className="xl-icon" />
-            <div className="results-search-bar pt-20">
-                <div className="filterby-container">
-                  <div className="filterby-label">Filter by:</div>
-                  <div className="filterby-clear">
-                    {clearFilters &&
+      <div className="position-search">
+        <div className="usa-grid-full position-search--header">
+          <ProfileSectionTitle title="Projected Vacancy Management" icon="keyboard-o" className="xl-icon" />
+          <div className="results-search-bar pt-20">
+            <div className="filterby-container">
+              <div className="filterby-label">Filter by:</div>
+              <div className="filterby-clear">
+                {clearFilters &&
                       <button
                         className="unstyled-button"
                         onClick={resetFilters}
@@ -219,115 +218,114 @@ const ProjectedVacancy = ({ isAO }) => {
                         <FA name="times" />
                         Clear Filters
                       </button>
-                  }
-                </div>
+                }
               </div>
-              <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
-                  <div className="filter-div">
-                    <div className="label">Bid Cycle:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Bid Cycle(s)"
-                      value={selectedBidCycles}
-                      options={cycleOptions}
-                      onChange={setSelectedBidCycles}
-                      valueKey="id"
-                      labelKey="name"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Bureau:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Bureau(s)"
-                      value={selectedBureaus}
-                      options={bureausOptions}
-                      onChange={setSelectedBureaus}
-                      valueKey="code"
-                      labelKey="long_description"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Organization:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Organization(s)"
-                      value={selectedOrgs}
-                      options={organizationOptions}
-                      onChange={setSelectedOrgs}
-                      valueKey="code"
-                      labelKey="name"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Skills:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Skill(s)"
-                      value={selectedSkills}
-                      options={skillsOptions}
-                      onChange={setSelectedSkills}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Grade:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Grade(s)"
-                      value={selectedGrades}
-                      options={gradesOptions}
-                      onChange={setSelectedGrades}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={disableInput}
-                    />
-                  </div>
-                  <div className="filter-div">
-                    <div className="label">Language:</div>
-                    <Picky
-                      {...pickyProps}
-                      placeholder="Select Language(s)"
-                      value={selectedLanguages}
-                      options={languagesOptions}
-                      onChange={setSelectedLanguages}
-                      valueKey="code"
-                      labelKey="custom_description"
-                      disabled={disableInput}
-                    />
-                  </div>
-                </div>
+            </div>
+            <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
+              <div className="filter-div">
+                <div className="label">Bid Cycle:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bid Cycle(s)"
+                  value={selectedBidCycles}
+                  options={cycleOptions}
+                  onChange={setSelectedBidCycles}
+                  valueKey="id"
+                  labelKey="name"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Bureau:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bureau(s)"
+                  value={selectedBureaus}
+                  options={bureausOptions}
+                  onChange={setSelectedBureaus}
+                  valueKey="code"
+                  labelKey="long_description"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Organization:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Organization(s)"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Skills:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Skill(s)"
+                  value={selectedSkills}
+                  options={skillsOptions}
+                  onChange={setSelectedSkills}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Grade:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Grade(s)"
+                  value={selectedGrades}
+                  options={gradesOptions}
+                  onChange={setSelectedGrades}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Language:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Language(s)"
+                  value={selectedLanguages}
+                  options={languagesOptions}
+                  onChange={setSelectedLanguages}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={disableInput}
+                />
               </div>
             </div>
           </div>
-          {
-            <div className="position-search-controls--results padding-top results-dropdown">
-              <SelectForm
-                id="projected-vacancy-sort-results"
-                options={sorts.options}
-                label="Sort by:"
-                defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
-                disabled={disableSearch}
-              />
-              <SelectForm
-                id="projected-vacancy-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-                disabled={disableSearch}
-              />
-              <ScrollUpButton />
-            </div>
-          }
-          {
-            disableSearch &&
+        </div>
+        {
+          <div className="position-search-controls--results padding-top results-dropdown">
+            <SelectForm
+              id="projected-vacancy-sort-results"
+              options={sorts.options}
+              label="Sort by:"
+              defaultSort={ordering}
+              onSelectOption={value => setOrdering(value.target.value)}
+              disabled={disableSearch}
+            />
+            <SelectForm
+              id="projected-vacancy-num-results"
+              options={pageSizes.options}
+              label="Results:"
+              defaultSort={limit}
+              onSelectOption={value => setLimit(value.target.value)}
+              disabled={disableSearch}
+            />
+            <ScrollUpButton />
+          </div>
+        }
+        {
+          disableSearch &&
             <Alert
               type="warning"
               title={'Edit Mode (Search Disabled)'}
@@ -338,36 +336,35 @@ const ProjectedVacancy = ({ isAO }) => {
               },
               ]}
             />
-          }
-          <div className="usa-width-one-whole position-search--results">
-            <div className="proposed-cycle-banner">
-              {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
-              {
-                isAO &&
+        }
+        <div className="usa-width-one-whole position-search--results">
+          <div className="proposed-cycle-banner">
+            {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
+            {
+              isAO &&
                 <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
-              }
-            </div>
-            <div className="usa-grid-full position-list">
-              {
-                dummyIds.map(k =>
-                  (<ProjectedVacancyCard
-                    result={dummyPositionDetails}
-                    key={k}
-                    id={k}
-                    updateIncluded={onIncludedUpdate}
-                    onEditModeSearch={(editMode, id) =>
-                      onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
-                  />))
-              }
-            </div>
+            }
           </div>
-          {/* placeholder for when we put in pagination */}
-          {
-            disableSearch &&
-            <div className="disable-react-paginate-overlay" />
-          }
+          <div className="usa-grid-full position-list">
+            {
+              dummyIds.map(k =>
+                (<ProjectedVacancyCard
+                  result={dummyPositionDetails}
+                  key={k}
+                  id={k}
+                  updateIncluded={onIncludedUpdate}
+                  onEditModeSearch={(editMode, id) =>
+                    onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+                />))
+            }
+          </div>
         </div>
-      </>
+        {/* placeholder for when we put in pagination */}
+        {
+          disableSearch &&
+            <div className="disable-react-paginate-overlay" />
+        }
+      </div>
   );
 };
 
