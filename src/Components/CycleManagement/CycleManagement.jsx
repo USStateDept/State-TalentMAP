@@ -184,7 +184,7 @@ const CycleManagement = (props) => {
                 </button>
               </div>
             }
-            <div className="filterby-container" style={{ marginTop: '40px' }}>
+            <div className="filterby-container" >
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
                 {clearFilters &&
