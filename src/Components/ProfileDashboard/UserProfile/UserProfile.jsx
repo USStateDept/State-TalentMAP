@@ -6,7 +6,7 @@ import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
 import PositionInformation from '../PositionInformation';
 
-const UserProfile = ({ userProfile, isPublic }) => {
+const UserProfile = ({ userProfile, isPublic, showAssignmentHistory }) => {
   const cdo = get(userProfile, 'cdo', {});
   return (
     <div className="usa-grid-full current-user">
@@ -29,7 +29,7 @@ const UserProfile = ({ userProfile, isPublic }) => {
             />
           </div>
         }
-        {
+        { !showAssignmentHistory &&
           <div className="current-user-section-border">
             <PositionInformation assignment={get(userProfile, 'current_assignment')} />
           </div>
@@ -43,10 +43,12 @@ const UserProfile = ({ userProfile, isPublic }) => {
 UserProfile.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isPublic: PropTypes.bool,
+  showAssignmentHistory: PropTypes.bool,
 };
 
 UserProfile.defaultProps = {
   isPublic: false,
+  showAssignmentHistory: false,
 };
 
 export default UserProfile;

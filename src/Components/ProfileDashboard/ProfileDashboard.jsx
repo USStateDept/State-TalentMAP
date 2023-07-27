@@ -63,8 +63,15 @@ const ProfileDashboard = ({
                       <UserProfile
                         userProfile={userProfile}
                         isPublic={isPublic}
+                        showAssignmentHistory={showAssignmentHistory}
                       />
                     </BoxShadow>
+                    {
+                      showAssignmentHistory &&
+                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
+                        <Assignments id={perdet} />
+                      </BoxShadow>
+                    }
                   </Column>
                   <Column
                     columns={columns[1]}
@@ -149,12 +156,6 @@ const ProfileDashboard = ({
                       isPublic && showAgendaItemHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <AgendaItemHistoryLink perdet={perdet} userRole={userRole} />
-                      </BoxShadow>
-                    }
-                    {
-                      showAssignmentHistory &&
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments id={perdet} />
                       </BoxShadow>
                     }
                   </Column>

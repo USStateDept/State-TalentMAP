@@ -997,6 +997,23 @@ $padding-no-border: $total-padding - $border;
     }
   }
 
+  .assignment-list-container {
+    background-color: $color-white;
+
+    .fa {
+      color: $blue-primary;
+    }
+
+    &:first-child {
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+	    border: 1px solid $blue-primary;
+    }
+
+    .bordered-list-content {
+      border-left: 5px solid $blue-primary;
+    }
+  }
+
   .favorites-card-section {
     float: left;
   }

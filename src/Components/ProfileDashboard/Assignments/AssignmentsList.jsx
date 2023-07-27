@@ -20,16 +20,19 @@ const AssignmentList = ({ id }) => {
   }, [id, assignmentsLoading]);
 
   const positionArray = [];
-  assignments.forEach(assignment => (
-    positionArray.push(
-      <AssignmentsListResultsCard
-        assignment={assignment}
-        condensedView
-        /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName="parent-list-container"
-      />,
-    )
-  ));
+  assignments
+    .sort((a, b) => new Date(a.start_date) - new Date(b.start_date))
+    .forEach(assignment => (
+      positionArray.unshift(
+        <AssignmentsListResultsCard
+          assignment={assignment}
+          condensedView
+          /* pass a parentClassName that we can use from the BorderedList component */
+          parentClassName="assignment-list-container"
+        />,
+      )
+    ));
+
   return (
     assignmentsLoading ? <Spinner type="saved-searches" size="big" /> :
       (
