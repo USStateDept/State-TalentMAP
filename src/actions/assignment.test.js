@@ -8,10 +8,10 @@ describe('async actions', () => {
   let [mock, spy, store] = Array(3);
 
   beforeEach(() => {
-    store = mockStore({ assignment: {} });
+    store = mockStore({ assignment: [] });
 
     ({ mock, spy } = spyMockAdapter({
-      url: '/profile/assignments/?status=active', response: [200, { results: [assignmentObject] }],
+      url: '/fsbid/assignment_history/', response: [200, [assignmentObject]],
     })); mock();
   });
 
@@ -21,19 +21,19 @@ describe('async actions', () => {
     expectMockWasCalled({ spy, cb: done });
   });
 
-  it('can fetch assignments where status = closed', (done) => {
+  it('can fetch assignments with an id passed in', (done) => {
     ({ mock, spy } = spyMockAdapter({
-      url: '/profile/assignments/?status=closed', response: [200, { results: [assignmentObject] }],
+      url: '/fsbid/assignment_history/12345/', response: [200, [assignmentObject]],
     })); mock();
 
-    store.dispatch(actions.assignmentFetchData('closed'));
+    store.dispatch(actions.assignmentFetchData('12345'));
     store.dispatch(actions.assignmentIsLoading());
     expectMockWasCalled({ spy, cb: done });
   });
 
   it('can handle errors when fetching assignments', (done) => {
     ({ mock, spy } = spyMockAdapter({
-      url: '/profile/assignments/?status=active', response: [404],
+      url: '/fsbid/assignment_history/', response: [404],
     })); mock();
 
     store.dispatch(actions.assignmentFetchData());

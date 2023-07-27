@@ -1,6 +1,18 @@
 import { batch } from 'react-redux';
+import { CancelToken } from 'axios';
+import {
+  EDIT_CYCLE_POSITION_ERROR,
+  EDIT_CYCLE_POSITION_ERROR_TITLE,
+  EDIT_CYCLE_POSITION_SUCCESS,
+  EDIT_CYCLE_POSITION_SUCCESS_TITLE,
+  REMOVE_CYCLE_POSITION_ERROR,
+  REMOVE_CYCLE_POSITION_ERROR_TITLE,
+  REMOVE_CYCLE_POSITION_SUCCESS,
+  REMOVE_CYCLE_POSITION_SUCCESS_TITLE,
+} from 'Constants/SystemMessages';
+import api from '../api';
+import { toastError, toastSuccess } from './toast';
 // import { convertQueryToString } from 'utilities';
-// import api from '../api';
 
 const dummyData = [
   {
@@ -212,4 +224,116 @@ export function cyclePositionSearchSelectionsSaveSuccess(result) {
 
 export function saveCyclePositionSearchSelections(queryObject) {
   return (dispatch) => dispatch(cyclePositionSearchSelectionsSaveSuccess(queryObject));
+}
+
+export function cyclePositionRemoveHasErrored(bool) {
+  return {
+    type: 'CYCLE_POSITION_REMOVE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function cyclePositionRemoveIsLoading(bool) {
+  return {
+    type: 'CYCLE_POSITION_REMOVE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function cyclePositionRemoveSuccess(data) {
+  return {
+    type: 'CYCLE_POSITION_REMOVE_SUCCESS',
+    data,
+  };
+}
+
+let cancel;
+
+export function cyclePositionRemove(position) {
+  return (dispatch) => {
+    if (cancel) { cancel('cancel'); }
+    dispatch(cyclePositionRemoveIsLoading(true));
+    dispatch(cyclePositionRemoveHasErrored(false));
+    api()
+      .post('/placeholder/POST/endpoint', {
+        position,
+      }, {
+        cancelToken: new CancelToken((c) => {
+          cancel = c;
+        }),
+      })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(cyclePositionRemoveHasErrored(false));
+          dispatch(cyclePositionRemoveSuccess(data || []));
+          dispatch(
+            toastSuccess(REMOVE_CYCLE_POSITION_SUCCESS, REMOVE_CYCLE_POSITION_SUCCESS_TITLE));
+          dispatch(cyclePositionRemoveIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          dispatch(cyclePositionRemoveHasErrored(false));
+          dispatch(cyclePositionRemoveIsLoading(false));
+        } else {
+          dispatch(toastError(REMOVE_CYCLE_POSITION_ERROR, REMOVE_CYCLE_POSITION_ERROR_TITLE));
+          dispatch(cyclePositionRemoveHasErrored(true));
+          dispatch(cyclePositionRemoveIsLoading(false));
+        }
+      });
+  };
+}
+
+export function cyclePositionEditHasErrored(bool) {
+  return {
+    type: 'CYCLE_POSITION_EDIT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function cyclePositionEditIsLoading(bool) {
+  return {
+    type: 'CYCLE_POSITION_EDIT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function cyclePositionEditSuccess(data) {
+  return {
+    type: 'CYCLE_POSITION_EDIT_SUCCESS',
+    data,
+  };
+}
+
+export function cyclePositionEdit(position, incumbent, status) {
+  return (dispatch) => {
+    if (cancel) { cancel('cancel'); }
+    dispatch(cyclePositionEditIsLoading(true));
+    dispatch(cyclePositionEditHasErrored(false));
+    api()
+      .post('/placeholder/POST/endpoint', {
+        position,
+        incumbent,
+        status,
+      }, {
+        cancelToken: new CancelToken((c) => {
+          cancel = c;
+        }),
+      })
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(cyclePositionEditHasErrored(false));
+          dispatch(cyclePositionEditSuccess(data || []));
+          dispatch(
+            toastSuccess(EDIT_CYCLE_POSITION_SUCCESS, EDIT_CYCLE_POSITION_SUCCESS_TITLE));
+          dispatch(cyclePositionEditIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          dispatch(cyclePositionEditHasErrored(false));
+          dispatch(cyclePositionEditIsLoading(false));
+        } else {
+          dispatch(toastError(EDIT_CYCLE_POSITION_ERROR, EDIT_CYCLE_POSITION_ERROR_TITLE));
+          dispatch(cyclePositionEditHasErrored(true));
+          dispatch(cyclePositionEditIsLoading(false));
+        }
+      });
+  };
 }

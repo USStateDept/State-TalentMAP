@@ -24,11 +24,12 @@ exports[`BureauFilterComponent matches snapshot 1`] = `
         className="usa-grid-full"
       >
         <CheckBox
+          _id={1}
           checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
-          id="checkboxName1-region-region"
-          key="checkboxName1-region-region"
+          id="checkboxName1-region-region-1"
+          key="checkboxName1-region-region-1"
           label="Name1"
           labelSrOnly={false}
           name="Name1"
@@ -55,11 +56,13 @@ exports[`BureauFilterComponent matches snapshot 1`] = `
       useIdClass={true}
     >
       <CheckBox
+        _id={2}
         checkboxProps={Object {}}
         className="tm-checkbox-transparent"
+        code={2}
         disabled={false}
-        id="checkbox-functional-bureau-undefined"
-        key="checkbox-functional-bureau-undefined"
+        id="checkboxName2-functional-bureau--2"
+        key="checkboxName2-functional-bureau--2"
         label="Name2"
         labelSrOnly={false}
         name="Name2"

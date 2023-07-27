@@ -22,7 +22,7 @@ const CycleSearchCard = (props) => {
   const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   return (
-    <Row fluid className="cycle-search-card">
+    <Row fluid className="cycle-search-card box-shadow-standard">
       <Row fluid className="cyc-card--row">
         <Column columns={3}>
           {cycle_name}
