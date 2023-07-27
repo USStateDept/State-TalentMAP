@@ -350,8 +350,20 @@
     word-wrap: break-word;
   }
 
+
   .current-user-top {
-    text-align: center;
+    .section-padded-inner-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      .avatar-group {
+        padding-right: 5px;
+      }
+      .name-group {
+        text-align: left;
+      }
+    }
   }
 
   .current-user-section-border {
