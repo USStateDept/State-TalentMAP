@@ -63,6 +63,7 @@ const CyclePositionSearch = (props) => {
     useState(userSelections?.ordering || BUREAU_POSITION_SORT.options[0].value);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const disableSearch = cardsInEditMode.length > 0;
+  const disableInput = cyclePositionsLoading || disableSearch;
 
   const genericFilters$ = genericFilters?.filters || [];
   const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
@@ -337,7 +338,7 @@ const CyclePositionSearch = (props) => {
                       label="Sort by:"
                       defaultSort={ordering}
                       onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={cyclePositionsLoading || disableSearch}
+                      disabled={disableInput}
                     />
                     <SelectForm
                       id="position-manager-num-results"
@@ -345,7 +346,7 @@ const CyclePositionSearch = (props) => {
                       label="Results:"
                       defaultSort={limit}
                       onSelectOption={value => setLimit(value.target.value)}
-                      disabled={cyclePositionsLoading || disableSearch}
+                      disabled={disableInput}
                     />
                   </div>
                 </div>
