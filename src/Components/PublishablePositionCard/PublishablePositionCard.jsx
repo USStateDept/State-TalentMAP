@@ -2,8 +2,9 @@ import { useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
+import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
-import { BID_CYCLES, POSITION_DETAILS } from 'Constants/PropTypes';
+import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
@@ -16,7 +17,7 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const PublishablePositionCard = ({ data, cycles }) => {
+const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   const pos = data?.position || data;
 
   const updateUser = getResult(pos, 'description.last_editing_user');
@@ -90,6 +91,10 @@ const PublishablePositionCard = ({ data, cycles }) => {
   const [selectedCycles, setSelectedCycles] = useState([]);
   const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
 
+  const onEditModeCard = (editMode) => {
+    // TODO: during integration, replace 7 with unique card identifier
+    onEditModeSearch(editMode, 7);
+  };
 
   const form = {
     /* eslint-disable quote-props */
@@ -180,6 +185,7 @@ const PublishablePositionCard = ({ data, cycles }) => {
         content: <PositionExpandableContent
           sections={sections}
           form={form}
+          onEditMode={onEditModeCard}
         />,
       }]}
     />
@@ -189,6 +195,11 @@ const PublishablePositionCard = ({ data, cycles }) => {
 PublishablePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
   cycles: BID_CYCLES.isRequired,
+  onEditModeSearch: PropTypes.func,
+};
+
+PublishablePositionCard.defaultProps = {
+  onEditModeSearch: EMPTY_FUNCTION,
 };
 
 export default PublishablePositionCard;

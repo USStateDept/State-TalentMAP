@@ -419,6 +419,7 @@ const ProjectedVacancy = ({ isAO }) => {
               }
             </div>
           </div>
+          {/* placeholder for when we put in pagination */}
           {
             disableSearch &&
             <div className="disable-react-paginate-overlay" />
