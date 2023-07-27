@@ -43,7 +43,6 @@ const PublishablePositions = () => {
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
-  const disableSearch = cardsInEditMode.length > 0;
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const statusOptions = [
@@ -77,6 +76,7 @@ const PublishablePositions = () => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+  const disableSearch = cardsInEditMode.length > 0;
   const disableInput = isLoading || disableSearch;
 
   const getQuery = () => ({
