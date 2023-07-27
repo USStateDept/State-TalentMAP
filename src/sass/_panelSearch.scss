@@ -1,40 +1,11 @@
 .panel-meeting-search-page {
-  .panel-meeting-search-upper-section {
-    background-color: $bg-blue-dark-1;
-    box-shadow: 20px 20px 20px $bg-gray-medium-2;
-    color: $color-white;
-    max-width: none;
-    padding: 20px 35px 35px;
-  }
-
-  .panel-meeting-search-filters {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-
-    .filter-div {
-      align-items: center;
-      display: flex;
-      margin-right: 10px;
-
-      .label {
-        margin: 0 10px;
-        min-width: 85px;
-        text-align: end;
-      }
-
-      .picky, .picky__input {
-        color: $color-black;
-        width: 220px;
-      }
-
-      .react-daterange-picker__clear-button {
-        padding: 2px 4px;
-      }
-      .react-daterange-picker__clear-button:hover {
-        background-color: $color-white;
-      }
+  .position-search--filters--panel-m {
+    .react-daterange-picker__clear-button {
+      padding: 2px 4px;
     }
-
+    .react-daterange-picker__clear-button:hover {
+      background-color: $color-white;
+    }
     .react-daterange-picker__calendar--open {
       z-index: $daterange-z;
     }
@@ -44,6 +15,7 @@
       background: $color-white;
       font-size: 13px;
       height: 26px;
+      width: 240px;
       margin: 7px 0;
 
       .react-daterange-picker__wrapper {

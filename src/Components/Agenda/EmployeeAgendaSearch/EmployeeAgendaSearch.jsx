@@ -307,8 +307,8 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="empl-search-page">
-          <div className="usa-grid-full empl-search-upper-section">
+        <div className="empl-search-page position-search">
+          <div className="usa-grid-full position-search--header">
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />

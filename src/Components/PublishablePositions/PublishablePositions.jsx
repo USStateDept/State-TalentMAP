@@ -244,7 +244,7 @@ const PublishablePositions = () => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-search--filters wide-filter-labels results-dropdown">
+                <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
                   <div className="filter-div">
                     <div className="label">Publishable Status:</div>
                     <Picky
