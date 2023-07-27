@@ -14,6 +14,7 @@ import { registerHandshake, unregisterHandshake } from 'actions/handshake';
 import { toggleBidPosition } from 'actions/bidList';
 
 class ProfilePublic extends Component {
+  // DashboardContainer(Dashboard.jsx) is the 'ProfilePrivate' counterpart to ProfilePublic.jsx
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isView('bureau');

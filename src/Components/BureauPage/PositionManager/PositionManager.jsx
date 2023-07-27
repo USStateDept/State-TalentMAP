@@ -347,7 +347,7 @@ const PositionManager = props => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-search--filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters--pos-man results-dropdown">
                   <div className="filter-div">
                     <div className="label">Cycle:</div>
                     <Picky
