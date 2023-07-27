@@ -7,6 +7,7 @@ import { projectedVacancyAddToProposedCycle, projectedVacancyFetchData, saveProj
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
+import { onEditModeSearch } from 'utilities';
 import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDataLoader } from 'hooks';
@@ -79,14 +80,6 @@ const ProjectedVacancy = ({ isAO }) => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
-
-  const onEditModeSearch = (editMode, id) => {
-    if (editMode) {
-      setCardsInEditMode([...cardsInEditMode, id]);
-    } else {
-      setCardsInEditMode(cardsInEditMode.filter(x => x !== id));
-    }
-  };
 
   const getQuery = () => ({
     limit,
@@ -415,7 +408,8 @@ const ProjectedVacancy = ({ isAO }) => {
                     key={k}
                     id={k}
                     updateIncluded={onIncludedUpdate}
-                    onEditModeSearch={onEditModeSearch}
+                    onEditModeSearch={(editMode, id) =>
+                      onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
                   />))
               }
             </div>

@@ -15,6 +15,7 @@ import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/List
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import Alert from 'Components/Alert';
+import { onEditModeSearch } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
@@ -76,14 +77,6 @@ const PublishablePositions = () => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
-
-  const onEditModeSearch = (editMode, id) => {
-    if (editMode) {
-      setCardsInEditMode([...cardsInEditMode, id]);
-    } else {
-      setCardsInEditMode(cardsInEditMode.filter(x => x !== id));
-    }
-  };
 
   const getQuery = () => ({
     limit,
@@ -406,7 +399,8 @@ const PublishablePositions = () => {
               <PublishablePositionCard
                 result={dummyPositionDetails}
                 cycles={cycles}
-                onEditModeSearch={onEditModeSearch}
+                onEditModeSearch={(editMode, id) =>
+                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
               />
             </div>
           </div>

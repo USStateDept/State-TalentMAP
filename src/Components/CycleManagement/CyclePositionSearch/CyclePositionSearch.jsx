@@ -19,10 +19,10 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
 import SelectForm from 'Components/SelectForm';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { formatDate, onEditModeSearch } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
-import { formatDate } from '../../../utilities';
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
@@ -82,14 +82,6 @@ const CyclePositionSearch = (props) => {
     dispatch(cycleManagementFetchData()); // TODO: cycleId gets sent here when EP is created
     dispatch(filtersFetchData(genericFilters));
   }, []);
-
-  const onEditModeSearch = (editMode, id) => {
-    if (editMode) {
-      setCardsInEditMode([...cardsInEditMode, id]);
-    } else {
-      setCardsInEditMode(cardsInEditMode.filter(x => x !== id));
-    }
-  };
 
   const getQuery = () => ({
     'cps-bureaus': selectedCurrentBureaus.map(bureauObject => (bureauObject?.code)),
@@ -363,7 +355,8 @@ const CyclePositionSearch = (props) => {
                   (
                     <CyclePositionCard
                       data={data}
-                      onEditModeSearch={onEditModeSearch}
+                      onEditModeSearch={(editMode, id) =>
+                        onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
                       cycle={loadedCycle}
                       isAO
                     />
