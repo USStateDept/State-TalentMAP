@@ -6,6 +6,7 @@ import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Co
 import { projectedVacancyAddToProposedCycle, projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import Alert from 'Components/Alert';
 import { get, has, includes, isEmpty, sortBy, throttle, uniqBy } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDataLoader } from 'hooks';
@@ -25,6 +26,8 @@ const ProjectedVacancy = ({ isAO }) => {
   const dummyPositionDetails = useSelector(state => state.projectedVacancy);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+  const disableSearch = cardsInEditMode.length > 0;
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
@@ -76,6 +79,14 @@ const ProjectedVacancy = ({ isAO }) => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || projectVacancyFiltersIsLoading;
+
+  const onEditModeSearch = (editMode, id) => {
+    if (editMode) {
+      setCardsInEditMode([...cardsInEditMode, id]);
+    } else {
+      setCardsInEditMode(cardsInEditMode.filter(x => x !== id));
+    }
+  };
 
   const getQuery = () => ({
     limit,
@@ -247,7 +258,11 @@ const ProjectedVacancy = ({ isAO }) => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                      <button className="unstyled-button" onClick={resetFilters}>
+                      <button
+                        className="unstyled-button"
+                        onClick={resetFilters}
+                        disabled={disableSearch}
+                      >
                         <FA name="times" />
                         Clear Filters
                       </button>
@@ -265,7 +280,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedBidCycles}
                       valueKey="id"
                       labelKey="name"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -278,7 +293,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedPosts}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -291,7 +306,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedBureaus}
                       valueKey="code"
                       labelKey="long_description"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -304,7 +319,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedOrgs}
                       valueKey="code"
                       labelKey="name"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -317,7 +332,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedSkills}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -330,7 +345,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedGrades}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -343,7 +358,7 @@ const ProjectedVacancy = ({ isAO }) => {
                       onChange={setSelectedLanguages}
                       valueKey="code"
                       labelKey="custom_description"
-                      disabled={isLoading}
+                      disabled={isLoading || disableSearch}
                     />
                   </div>
                 </div>
@@ -358,6 +373,7 @@ const ProjectedVacancy = ({ isAO }) => {
                 label="Sort by:"
                 defaultSort={ordering}
                 onSelectOption={value => setOrdering(value.target.value)}
+                disabled={disableSearch}
               />
               <SelectForm
                 id="projected-vacancy-num-results"
@@ -365,9 +381,22 @@ const ProjectedVacancy = ({ isAO }) => {
                 label="Results:"
                 defaultSort={limit}
                 onSelectOption={value => setLimit(value.target.value)}
+                disabled={disableSearch}
               />
               <ScrollUpButton />
             </div>
+          }
+          {
+            disableSearch &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              },
+              ]}
+            />
           }
           <div className="usa-width-one-whole position-search--results">
             <div className="proposed-cycle-banner">
@@ -385,10 +414,15 @@ const ProjectedVacancy = ({ isAO }) => {
                     key={k}
                     id={k}
                     updateIncluded={onIncludedUpdate}
+                    onEditModeSearch={onEditModeSearch}
                   />))
               }
             </div>
           </div>
+          {
+            disableSearch &&
+            <div className="disable-react-paginate-overlay" />
+          }
         </div>
       </>
   );

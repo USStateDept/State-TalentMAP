@@ -345,7 +345,7 @@ const CyclePositionSearch = (props) => {
                       label="Sort by:"
                       defaultSort={ordering}
                       onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={cyclePositionsLoading}
+                      disabled={cyclePositionsLoading || disableSearch}
                     />
                     <SelectForm
                       id="position-manager-num-results"
@@ -353,7 +353,7 @@ const CyclePositionSearch = (props) => {
                       label="Results:"
                       defaultSort={limit}
                       onSelectOption={value => setLimit(value.target.value)}
-                      disabled={cyclePositionsLoading}
+                      disabled={cyclePositionsLoading || disableSearch}
                     />
                   </div>
                 </div>
