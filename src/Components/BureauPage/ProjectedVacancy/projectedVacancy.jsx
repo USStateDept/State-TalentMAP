@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import SelectForm from 'Components/SelectForm';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
-import { projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
+import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
+import { projectedVacancyAddToProposedCycle, projectedVacancyFetchData, saveProjectedVacancySelections } from 'actions/projectedVacancy';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { get, has, includes, sortBy, uniqBy } from 'lodash';
@@ -16,13 +16,13 @@ import api from '../../../api';
 import ScrollUpButton from '../../ScrollUpButton';
 import ProjectedVacancyCard from '../../ProjectedVacancyCard/ProjectedVacancyCard';
 
-const ProjectedVacancy = () => {
+const ProjectedVacancy = ({ isAO }) => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.projectedVacancySelections);
   const dummyPositionDetails = useSelector(state => state.projectedVacancy);
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
@@ -36,6 +36,16 @@ const ProjectedVacancy = () => {
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
   const [clearFilters, setClearFilters] = useState(false);
+
+  const dummyid = dummyPositionDetails?.id;
+  const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
+  const [includedPositions, setIncludedPositions] = useState();
+
+  useEffect(() => {
+    if (dummyid) {
+      setIncludedPositions([...Array(10).keys()].map(k => dummyid + k));
+    }
+  }, [dummyid]);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -172,13 +182,23 @@ const ProjectedVacancy = () => {
     includeSelectAll: true,
   };
 
-  const dummyid = dummyPositionDetails?.id;
+  const onIncludedUpdate = (id, include) => {
+    if (include) {
+      setIncludedPositions([...includedPositions, id]);
+    } else {
+      setIncludedPositions(includedPositions.filter(x => x !== id));
+    }
+  };
+
+  const addToProposedCycle = () => {
+    dispatch(projectedVacancyAddToProposedCycle());
+  };
 
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="position-search edit-position-details-page">
+        <div className="position-search">
           <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Projected Vacancy Search" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar pt-20">
@@ -295,11 +315,23 @@ const ProjectedVacancy = () => {
             </div>
           }
           <div className="usa-width-one-whole position-search--results">
+            <div className="proposed-cycle-banner">
+              {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
+              {
+                isAO &&
+                <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
+              }
+            </div>
             <div className="usa-grid-full position-list">
-              <ProjectedVacancyCard
-                result={dummyPositionDetails}
-                key={dummyid}
-              />
+              {
+                dummyIds.map(k =>
+                  (<ProjectedVacancyCard
+                    result={dummyPositionDetails}
+                    key={k}
+                    id={k}
+                    updateIncluded={onIncludedUpdate}
+                  />))
+              }
             </div>
           </div>
         </div>
@@ -310,6 +342,7 @@ const ProjectedVacancy = () => {
 
 ProjectedVacancy.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
+  isAO: PropTypes.bool.isRequired,
 };
 
 ProjectedVacancy.defaultProps = {

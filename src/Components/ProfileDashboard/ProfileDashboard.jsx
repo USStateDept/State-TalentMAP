@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { BID_RESULTS, CLASSIFICATIONS, CLIENT_CLASSIFICATIONS,
   EMPTY_FUNCTION, FAVORITE_POSITIONS_ARRAY, NOTIFICATION_RESULTS, USER_PROFILE } from 'Constants/PropTypes';
 import SearchAsClientButton from 'Components/BidderPortfolio/SearchAsClientButton/SearchAsClientButton';
-import { get, includes } from 'lodash';
+import { includes } from 'lodash';
 import UserProfile from './UserProfile';
 import BidList from './BidList';
 import Notifications from './Notifications';
@@ -43,7 +43,7 @@ const ProfileDashboard = ({
             {(matches) => {
               const checkIsBidder = () => includes(userProfile?.permission_groups || [], 'bidder') || includes(userProfile?.permissions || [], 'bidder');
               const isBidder = checkIsBidder();
-              const perdet = get(userProfile, 'perdet_seq_number') || '';
+              const perdet = userProfile?.perdet_seq_number || '';
               const userRole = isAOView ? 'ao' : 'cdo';
               const favoritesContainer = () => (
                 <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
@@ -154,7 +154,7 @@ const ProfileDashboard = ({
                     {
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments assignments={userProfile.assignments} />
+                        <Assignments id={perdet} />
                       </BoxShadow>
                     }
                   </Column>

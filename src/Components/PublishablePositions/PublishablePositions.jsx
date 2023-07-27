@@ -6,8 +6,8 @@ import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lo
 
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { editPositionDetailsFetchData, saveEditPositionDetailsSelections } from 'actions/editPositionDetails';
-import { EDIT_POSITION_DETAILS_PAGE_SIZES, EDIT_POSITION_DETAILS_SORT } from 'Constants/Sort';
+import { publishablePositionsFetchData, savePublishablePositionsSelections } from 'actions/publishablePositions';
+import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import Spinner from 'Components/Spinner';
 import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
@@ -16,14 +16,14 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
-const EditPositionDetails = () => {
+const PublishablePositions = () => {
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.editPositionDetailsSelections);
-  const dummyPositionDetails = useSelector(state => state.editPositionDetails);
+  const userSelections = useSelector(state => state.publishablePositionsSelections);
+  const dummyPositionDetails = useSelector(state => state.publishablePositions);
 
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || EDIT_POSITION_DETAILS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || EDIT_POSITION_DETAILS_SORT.defaultSort);
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
@@ -58,8 +58,8 @@ const EditPositionDetails = () => {
 
   const [clearFilters, setClearFilters] = useState(false);
 
-  const pageSizes = EDIT_POSITION_DETAILS_PAGE_SIZES;
-  const sorts = EDIT_POSITION_DETAILS_SORT;
+  const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
+  const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
 
   const getQuery = () => ({
@@ -84,7 +84,7 @@ const EditPositionDetails = () => {
   });
 
   useEffect(() => {
-    dispatch(saveEditPositionDetailsSelections(getCurrentInputs()));
+    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
@@ -102,8 +102,8 @@ const EditPositionDetails = () => {
     } else {
       setClearFilters(true);
     }
-    dispatch(editPositionDetailsFetchData(getQuery()));
-    dispatch(saveEditPositionDetailsSelections(getCurrentInputs()));
+    dispatch(publishablePositionsFetchData(getQuery()));
+    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
@@ -178,7 +178,7 @@ const EditPositionDetails = () => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="position-search edit-position-details-page">
+        <div className="position-search">
           <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Position Details" icon="keyboard-o" className="xl-icon" />
             <div className="results-search-bar pt-20">
@@ -307,10 +307,10 @@ const EditPositionDetails = () => {
   );
 };
 
-EditPositionDetails.propTypes = {
+PublishablePositions.propTypes = {
 };
 
-EditPositionDetails.defaultProps = {
+PublishablePositions.defaultProps = {
 };
 
-export default EditPositionDetails;
+export default PublishablePositions;
