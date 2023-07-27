@@ -12,8 +12,8 @@ describe('PostFilterComponent', () => {
       selectionRef: 'post',
     },
     data: [
-      { name: 'Name', location: { city: 'City', state: 'ST', country: 'United States' } },
-      { name: 'Name', location: { city: 'City', country: 'France' } },
+      { id: 1, name: 'Name', location: { city: 'City', state: 'ST', country: 'United States' } },
+      { id: 2, name: 'Name', location: { city: 'City', country: 'France' } },
     ],
   };
 
