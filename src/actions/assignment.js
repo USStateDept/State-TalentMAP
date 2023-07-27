@@ -19,13 +19,12 @@ export function assignmentFetchDataSuccess(assignment) {
   };
 }
 
-export function assignmentFetchData(status = 'active') {
+export function assignmentFetchData(id) {
   return (dispatch) => {
     api()
-      .get(`/profile/assignments/?status=${status}`)
-      .then(({ data }) => data.results[0] || {})
-      .then((assignment) => {
-        dispatch(assignmentFetchDataSuccess(assignment));
+      .get(`/fsbid/assignment_history/${id ? `${id}/` : ''}`)
+      .then(({ data }) => {
+        dispatch(assignmentFetchDataSuccess(data));
         dispatch(assignmentIsLoading(false));
         dispatch(assignmentHasErrored(false));
       })
