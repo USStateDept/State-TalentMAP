@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { withRouter } from 'react-router';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -304,8 +303,8 @@ const CyclePositionSearch = (props) => {
               title={'Edit Mode (Search Disabled)'}
               messages={[{
                 body: 'Discard or save your edits before searching. ' +
-                  'Filters and Pagination are disabled if any cards are in Edit Mode.'
-                  }
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              },
               ]}
             />
           }
