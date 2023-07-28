@@ -309,7 +309,7 @@
 
   .assignments-section {
     .favorites-list-container {
-      max-height: 410px;
+      max-height: 500px;
       overflow-y: auto;
     }
 
@@ -727,6 +727,12 @@ $padding-no-border: $total-padding - $border;
   .bordered-list-content {
     border-left: 5px solid $blue-primary;
   }
+
+  .hide-border {
+    .bordered-list-content {
+      border-left: 5px solid transparent;
+    }
+  }
 }
 
 .cdo-container {
@@ -748,7 +754,7 @@ $padding-no-border: $total-padding - $border;
 
   .profile-picture-container {
     min-width: 50px;
-    position: relative;
+    align-self: center;
   }
 
   .picture-status-container {
