@@ -26,7 +26,7 @@ const AssignmentList = ({ id }) => {
         assignment={assignment}
         condensedView
         /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName="assignment-list-container"
+        parentClassName={`${assignment?.status !== 'EF' ? 'hide-border' : ''}`}
       />,
     )
   ));

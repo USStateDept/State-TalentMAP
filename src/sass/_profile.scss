@@ -715,6 +715,12 @@ $padding-no-border: $total-padding - $border;
   .bordered-list-content {
     border-left: 5px solid $blue-primary;
   }
+
+  .hide-border {
+    .bordered-list-content {
+      border-left: 5px solid transparent;
+    }
+  }
 }
 
 .cdo-container {
@@ -990,22 +996,6 @@ $padding-no-border: $total-padding - $border;
 
     .fa {
       color: $blue-primary;
-    }
-
-    .bordered-list-content {
-      border-left: 5px solid $blue-primary;
-    }
-  }
-
-  .assignment-list-container {
-    background-color: $color-white;
-
-    .fa {
-      color: $blue-primary;
-    }
-
-    &:first-child {
-	    border: 1px solid $blue-primary;
     }
 
     .bordered-list-content {
