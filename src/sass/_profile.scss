@@ -742,7 +742,7 @@ $padding-no-border: $total-padding - $border;
 
   .profile-picture-container {
     min-width: 50px;
-    position: relative;
+    align-self: center;
   }
 
   .picture-status-container {
