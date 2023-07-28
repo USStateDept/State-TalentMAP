@@ -62,6 +62,7 @@ exports[`GlossaryEditorPageHeaderComponent matches snapshot when glossaryPostSuc
         },
       ]
     }
+    tinyAlert={false}
     title="Success"
     type="success"
   />
