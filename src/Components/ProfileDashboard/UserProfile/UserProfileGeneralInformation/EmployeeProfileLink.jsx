@@ -6,6 +6,7 @@ import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
+import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
@@ -52,6 +53,10 @@ const EmployeeProfileLink = (props) => {
     <InformationDataPoint
       content={
         <div>
+          {
+            !unredactedUrl && !redactedUrl &&
+            <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
+          }
           {
             unredactedUrl &&
             <InteractiveElement

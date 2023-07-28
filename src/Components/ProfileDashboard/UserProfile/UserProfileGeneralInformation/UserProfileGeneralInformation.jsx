@@ -4,7 +4,6 @@ import { get } from 'lodash';
 import { connect } from 'react-redux';
 import { NO_GRADE } from 'Constants/SystemMessages';
 import { USER_PROFILE } from 'Constants/PropTypes';
-import ErrorBoundary from 'Components/ErrorBoundary';
 import SectionTitle from '../../SectionTitle';
 import InformationDataPoint from '../../InformationDataPoint';
 import Avatar from '../../../Avatar';
@@ -47,14 +46,9 @@ class UserProfileGeneralInformation extends Component {
           </div>
           <div className="name-group">
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
-            <ErrorBoundary fallback="Employee Profile is currently unavailable">
-              {
-                get(userProfile, 'employee_profile_url') &&
-                  <EmployeeProfileLink
-                    userProfile={userProfile}
-                  />
-              }
-            </ErrorBoundary>
+            <EmployeeProfileLink
+              userProfile={userProfile}
+            />
             { isPublic &&
               <InformationDataPoint
                 content={`Employee ID: ${userID}`}
