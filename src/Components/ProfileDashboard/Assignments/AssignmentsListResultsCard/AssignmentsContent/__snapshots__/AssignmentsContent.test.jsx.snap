@@ -13,13 +13,6 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
       PROJECT DIRECTOR
        
     </span>
-  </div>
-  <div>
-    <span
-      className="usa-sr-only"
-    >
-      Position number: 
-    </span>
     <span
       className="bid-list-card-title-post bid-list-card-title-lg"
     >
@@ -53,12 +46,9 @@ exports[`AssignmentsContentComponent matches snapshot 1`] = `
       propToUse="representation"
     />
   </div>
-  <div>
-    <span
-      className="bid-list-card-title-post"
-    >
-      Start date and End date: 
-    </span>
+  <div
+    className="align-right"
+  >
     <StartEnd
       end="10/10/2018"
       start="10/10/2016"
