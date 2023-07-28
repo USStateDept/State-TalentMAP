@@ -73,6 +73,7 @@ const EmployeeProfileLink = (props) => {
               onClick={downloadEmployeeProfile}
               type="a"
               title="Download Redacted Employee Profile PDF"
+              className="ml-10"
             >
               <FA name="download" />
             </InteractiveElement>
