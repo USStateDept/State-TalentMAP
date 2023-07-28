@@ -56,7 +56,6 @@ class ProfilePublic extends Component {
       case 'bureau':
         props = {
           showAgendaItemHistory: false,
-          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -67,7 +66,6 @@ class ProfilePublic extends Component {
       case 'post':
         props = {
           showAgendaItemHistory: false,
-          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -78,7 +76,6 @@ class ProfilePublic extends Component {
       case 'ao':
         props = {
           showAgendaItemHistory: true,
-          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
@@ -90,7 +87,6 @@ class ProfilePublic extends Component {
         // cdo relies on no other roles matching viewType
         props = {
           showAgendaItemHistory: true,
-          showAssignmentHistory: true,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,

@@ -9,16 +9,19 @@ import {
   NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
+import { checkFlag } from 'flags';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import swal from '@sweetalert/with-react';
 import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
+const useDeto = () => checkFlag('flags.deto');
 
 const CyclePositionCard = ({ data, cycle }) => {
   const dispatch = useDispatch();
   const pos = data?.position || data;
+  const showDeto = useDeto();
 
   const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
@@ -59,6 +62,10 @@ const CyclePositionCard = ({ data, cycle }) => {
     },
     /* eslint-enable quote-props */
   };
+
+  if (!showDeto) {
+    delete sections.bodySecondary[''];
+  }
 
 
   // =============== Edit Mode ===============
@@ -168,7 +175,6 @@ const CyclePositionCard = ({ data, cycle }) => {
     handleSubmit: () => dispatch(cyclePositionEdit(data, incumbent, status)),
     /* eslint-enable quote-props */
   };
-
 
   return (
     <TabbedCard

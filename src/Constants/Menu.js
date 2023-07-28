@@ -170,7 +170,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Manager',
+        text: 'Position Management',
         route: '/profile/bureau/positionmanager',
         icon: 'map',
         roles: [
@@ -228,7 +228,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Manager',
+        text: 'Position Management',
         route: '/profile/post/positionmanager',
         icon: 'map',
         roles: [

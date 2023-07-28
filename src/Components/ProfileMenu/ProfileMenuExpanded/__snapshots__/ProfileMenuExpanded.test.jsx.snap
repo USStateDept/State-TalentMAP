@@ -245,10 +245,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="map"
-        key="Position Manager"
+        key="Position Management"
         link="/profile/bureau/positionmanager"
         search=""
-        title="Position Manager"
+        title="Position Management"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -339,10 +339,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       <withRouter(NavLink)
         hidden={true}
         iconName="map"
-        key="Position Manager"
+        key="Position Management"
         link="/profile/post/positionmanager"
         search=""
-        title="Position Manager"
+        title="Position Management"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>
@@ -594,10 +594,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="map"
-        key="Position Manager"
+        key="Position Management"
         link="/profile/bureau/positionmanager"
         search=""
-        title="Position Manager"
+        title="Position Management"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -688,10 +688,10 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       <withRouter(NavLink)
         hidden={true}
         iconName="map"
-        key="Position Manager"
+        key="Position Management"
         link="/profile/post/positionmanager"
         search=""
-        title="Position Manager"
+        title="Position Management"
       />
     </withRouter(NavLink)>
   </NavLinksContainer>

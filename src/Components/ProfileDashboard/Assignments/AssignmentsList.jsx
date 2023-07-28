@@ -26,10 +26,11 @@ const AssignmentList = ({ id }) => {
         assignment={assignment}
         condensedView
         /* pass a parentClassName that we can use from the BorderedList component */
-        parentClassName="parent-list-container"
+        parentClassName={`${assignment?.status !== 'EF' ? 'hide-border' : ''}`}
       />,
     )
   ));
+
   return (
     assignmentsLoading ? <Spinner type="saved-searches" size="big" /> :
       (
