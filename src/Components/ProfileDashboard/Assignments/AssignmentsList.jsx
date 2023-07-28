@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import { userHasSomePermissions } from 'utilities';
 import { assignmentFetchData } from 'actions/assignment';
 import Spinner from 'Components/Spinner';
 import SectionTitle from '../SectionTitle';
@@ -14,6 +16,9 @@ const AssignmentList = ({ id }) => {
   const dispatch = useDispatch();
   const assignments = useSelector(state => state.assignment);
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
+  const userProfile = useSelector(state => state.userProfile);
+
+  const isMaintenanceActive = userHasSomePermissions(['ao_user', 'superuser'], userProfile?.permission_groups);
 
   useEffect(() => {
     dispatch(assignmentFetchData(id));
@@ -50,6 +55,12 @@ const AssignmentList = ({ id }) => {
                 <BorderedList contentArray={positionArray} />
             }
           </div>
+          {
+            isMaintenanceActive &&
+              <div className="section-padded-inner-container small-link-container view-more-link-centered">
+                <Link to={`/profile/ao/${id}/assignments`}>Maintain Assignments</Link>
+              </div>
+          }
         </div>
       )
   );

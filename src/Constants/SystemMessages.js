@@ -202,3 +202,13 @@ export const EDIT_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Updated';
 export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated';
 export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
 export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';
+
+export const EDIT_ASSIGNMENT_SUCCESS_TITLE = 'Assignment Updated';
+export const EDIT_ASSIGNMENT_SUCCESS = 'The Assignment has been updated';
+export const EDIT_ASSIGNMENT_ERROR_TITLE = 'Edit Assignment Error';
+export const EDIT_ASSIGNMENT_ERROR = 'There was an issue attempting to update this Assignment. Please try again.';
+
+export const CREATE_ASSIGNMENT_SUCCESS_TITLE = 'Assignment/Separation Created';
+export const CREATE_ASSIGNMENT_SUCCESS = 'The Assignment/Separation has been created';
+export const CREATE_ASSIGNMENT_ERROR_TITLE = 'Create Assignment Error';
+export const CREATE_ASSIGNMENT_ERROR = 'There was an issue attempting to create this Assignment/Separation. Please try again.';

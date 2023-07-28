@@ -292,7 +292,9 @@
     grid-template-columns: repeat(auto-fill, minmax($select-width + 50, 1fr));
 
     .position-form--label-input-container {
-      select {
+      align-self: end;
+
+      select, input {
         width: $select-width;
       }
     }

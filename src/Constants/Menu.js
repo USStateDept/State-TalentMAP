@@ -257,6 +257,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'superuser',
     ],
     children: [
+      {
+        text: 'Client Profiles', // aka Bidder Portfolio
+        route: '/profile/ao/bidderportfolio',
+        icon: 'address-book',
+        roles: [
+          'ao_user',
+        ],
+        params: {
+          type: 'all',
+        },
+      },
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employee Agendas',

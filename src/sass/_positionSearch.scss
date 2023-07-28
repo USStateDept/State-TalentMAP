@@ -233,6 +233,58 @@
   }
 }
 
+// ============= Assignment Maintenance =============
+.assignments-maintenance-page {
+  .asg-title {
+    font-size: 17px;
+  }
+
+  .asg-title-dash {
+    padding-left: 5px;
+  }
+  .create-new-button {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 17px;
+
+    .fa {
+      margin-right: 5px;
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  .toggle-more-container {
+    position: relative;
+  }
+
+  .toggle-more {
+    bottom: 0;
+    position: absolute;
+    right: 0;
+
+    >span:first-child {
+      white-space: nowrap;
+    }
+  }
+
+  .asg-lower-section {
+    padding: 0 35px 20px 0;
+  }
+
+  .asg-content {
+    margin-left: 35px;
+
+    .asg-header {
+      font-size: 25px;
+      margin-top: 25px;
+      margin-right: 35px;
+    }
+  }
+}
+
 // ============= Position Manager =============
 
 .position-manager-details {

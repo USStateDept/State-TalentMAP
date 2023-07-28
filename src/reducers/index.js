@@ -20,6 +20,7 @@ import descriptionEdit from './descriptionEdit';
 import missionAutocomplete from './autocomplete/missionAutocomplete';
 import postAutocomplete from './autocomplete/postAutocomplete';
 import assignment from './assignment';
+import assignmentMaintenance from './assignmentMaintenance';
 import notifications from './notifications';
 import bidderPortfolio from './bidderPortfolio';
 import shouldShowSearchBar from './showSearchBar';
@@ -89,6 +90,7 @@ export default (history) => combineReducers({
   ...missionAutocomplete,
   ...postAutocomplete,
   ...assignment,
+  ...assignmentMaintenance,
   ...notifications,
   ...bidderPortfolio,
   ...shouldShowStaticContent,

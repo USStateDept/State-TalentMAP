@@ -8,9 +8,9 @@ import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 
-const PositionExpandableContent = ({ sections, form }) => {
+const PositionExpandableContent = ({ sections, form, forceEdit }) => {
   const [showMore, setShowMore] = useState(false);
-  const [editMode, setEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(forceEdit);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -34,6 +34,7 @@ const PositionExpandableContent = ({ sections, form }) => {
 
 
   const getBody = () => {
+    if (forceEdit) return [];
     if (editMode && form) return form.staticBody;
     if (showMore) return { ...sections.bodyPrimary, ...sections.bodySecondary };
     const minScreenWidth = 1650;
@@ -72,12 +73,13 @@ const PositionExpandableContent = ({ sections, form }) => {
     <div className="position-content">
       <Row fluid className="position-content--section position-content--subheader">
         <div className="line-separated-fields">
-          {Object.keys(sections.subheading).map(field => (
-            <div key={`subheading-${field}`}>
-              <span>{field}:</span>
-              <span>{sections.subheading[field]}</span>
-            </div>
-          ))}
+          {sections?.subheading &&
+            Object.keys(sections.subheading).map(field => (
+              <div key={`subheading-${field}`}>
+                <span>{field}:</span>
+                <span>{sections.subheading[field]}</span>
+              </div>
+            ))}
         </div>
         {(form && !editMode) &&
           <button className="toggle-edit-mode" onClick={() => setEditMode(!editMode)}>
@@ -92,7 +94,7 @@ const PositionExpandableContent = ({ sections, form }) => {
           items={getBody()}
         />
       </Row>
-      {(showMore && !editMode) &&
+      {(showMore && !editMode && sections?.textarea) &&
           <div>
             <Row fluid className="position-content--description">
               <span className="definition-title">Position Details</span>
@@ -118,7 +120,7 @@ const PositionExpandableContent = ({ sections, form }) => {
       }
       {(showMore && editMode) &&
         <div>
-          <div className="content-divider" />
+          {!forceEdit && <div className="content-divider" />}
           {form.inputBody}
           <div className="position-form--actions">
             <button onClick={showCancelModal}>Cancel</button>
@@ -151,7 +153,7 @@ PositionExpandableContent.propTypes = {
     bodySecondary: PropTypes.shape({}),
     textarea: PropTypes.string,
     metadata: PropTypes.shape({}),
-  }).isRequired,
+  }),
   form: PropTypes.shape({
     staticBody: PropTypes.shape({}),
     inputBody: PropTypes.element,
@@ -159,10 +161,19 @@ PositionExpandableContent.propTypes = {
     handleSubmit: PropTypes.func,
     handleCancel: PropTypes.func,
   }),
+  forceEdit: PropTypes.bool,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
+  forceEdit: false,
+  sections: {
+    subheading: {},
+    bodyPrimary: {},
+    bodySecondary: {},
+    textarea: '',
+    metadata: {},
+  },
 };
 
 export default PositionExpandableContent;
