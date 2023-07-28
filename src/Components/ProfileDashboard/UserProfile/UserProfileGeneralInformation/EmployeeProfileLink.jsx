@@ -31,7 +31,7 @@ const EmployeeProfileLink = (props) => {
     )
       .then(response => {
         downloadPdfStream(response.data);
-        dispatch(toastSuccess('Employee profile succesfully downloaded.', 'Success'));
+        dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
       })
       .catch(() => {
         dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred'));
