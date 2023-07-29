@@ -69,6 +69,7 @@ import editRemark from './editRemark';
 import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
 import cycleManagement from './cycleManagement';
+import PostPanelProcessing from './postPanelProcessing';
 
 export default (history) => combineReducers({
   ...results,
@@ -126,6 +127,7 @@ export default (history) => combineReducers({
   ...agendaEmployees,
   ...agendaItemHistory,
   ...panelMeetings,
+  ...PostPanelProcessing,
   ...agendaItemMaintenancePane,
   ...positions,
   ...panelMeetingAgendas,
