@@ -199,7 +199,7 @@ const PanelMeetingAdmin = (props) => {
                 />
                 <FA name="calendar" />
               </div>
-              <div className="text-button">
+              <div className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
                 Run Official Preliminary
               </div>
             </div>
@@ -218,7 +218,7 @@ const PanelMeetingAdmin = (props) => {
                 />
                 <FA name="calendar" />
               </div>
-              <div className="text-button">
+              <div className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
                 Run Official Addendum
               </div>
             </div>
