@@ -2,7 +2,7 @@
   padding: 20px 35px;
 
   .panel-admin-content {
-    margin-left: 10px;
+    margin-left: 5px;
 
     .tm-spinner {
       margin-top: 125px;
@@ -200,4 +200,72 @@
   cursor: pointer;
   padding-top: 15px;
   text-decoration: underline;
+
+  &.disabled {
+    cursor: default;
+    color: $bg-gray-dark-2;
+  }
+}
+
+.post-panel-processing {
+  .post-panel-processing--table {
+    display: flex;
+    width: 100%;
+    max-width: calc(100vw - 335px);
+    overflow-x: auto;
+    margin: 20px 0px;
+  }
+
+  table {
+    width: 100%;
+    margin: 0px;
+
+    thead tr {
+      border: none
+    }
+
+    tr {
+      border-bottom: 1px $bg-gray-medium-1 solid;
+
+      th,
+      td {
+        background-color: transparent;
+        font-size: 14px;
+        border: none;
+        text-align: center;
+      }
+
+      th:nth-child(2),
+      td:nth-child(2),
+      th:nth-child(3),
+      td:nth-child(3),
+      th:nth-child(4),
+      td:nth-child(4) {
+        text-align: left;
+      }
+
+      td:nth-child(4) {
+        min-width: 150px;
+      }
+    }
+
+    input {
+      position: relative;
+      appearance: auto;
+      left: auto;
+      height: 15px;
+    }
+
+    .fa {
+      padding: 0 !important;
+      margin: 0 !important;
+      color: $color-green !important;
+    }
+  }
+
+  .item-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $primary-blue;
+  }
 }

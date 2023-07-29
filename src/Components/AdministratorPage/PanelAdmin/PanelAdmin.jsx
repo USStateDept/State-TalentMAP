@@ -12,10 +12,11 @@ import EditRemark from '../EditRemark';
 import PanelMeetingAdmin from './PanelMeetingAdmin';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import api from '../../../api';
+import PostPanelProcessing from './PostPanelProcessing';
 
 export const RG = 'RG';
 export const PM = 'PM';
-export const TST2 = 'TST2';
+export const PPP = 'PPP';
 
 const PanelAdmin = () => {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ const PanelAdmin = () => {
   const tabs = [
     { text: 'Panel Meetings', value: PM },
     { text: 'Remarks Glossary', value: RG },
-    { text: 'Test Tab 2', value: TST2 },
+    { text: 'Post Panel Processing', value: PPP },
   ];
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
@@ -117,10 +118,8 @@ const PanelAdmin = () => {
       case PM:
         return <PanelMeetingAdmin />;
 
-      case TST2:
-        return (
-          <div>TST2</div>
-        );
+      case PPP:
+        return <PostPanelProcessing />;
 
       default:
         return errorAlert;
