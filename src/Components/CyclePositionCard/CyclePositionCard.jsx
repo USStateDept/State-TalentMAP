@@ -114,6 +114,13 @@ const CyclePositionCard = ({ data, cycle }) => {
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
 
+  const fakeTODs = [
+    { code: 'TOD1', name: '2 YRS/HLRT/2 YRS' },
+    { code: 'TOD2', name: 'TOD 2' },
+    { code: 'TOD3', name: 'TOD 3' },
+  ];
+  const [tod, setTOD] = useState(fakeTODs[0]);
+
   const form = {
     /* eslint-disable quote-props */
     staticBody: {
@@ -135,20 +142,18 @@ const CyclePositionCard = ({ data, cycle }) => {
       <div className="position-form">
         <div className="left-row">
           <div className="position-form--input">
-            <div className="cycle-card-dropdown">
-              <label htmlFor="cycle-position-incumbent">Incumbent</label>
-              <select
-                id="cycle-position-incumbent"
-                defaultValue={status}
-                onChange={(e) => setIncumbent(e?.target.value)}
-              >
-                {fakeIncumbents.map(s => (
-                  <option value={s.code}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label htmlFor="cycle-position-incumbent">Incumbent</label>
+            <select
+              id="cycle-position-incumbent"
+              defaultValue={status}
+              onChange={(e) => setIncumbent(e?.target.value)}
+            >
+              {fakeIncumbents.map(s => (
+                <option value={s.code}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="position-form--input">
             <label htmlFor="cycle-position-statuses">Status</label>
@@ -160,6 +165,21 @@ const CyclePositionCard = ({ data, cycle }) => {
               {statusOptions.map(s => (
                 <option value={s.code}>
                   {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="position-form--input">
+            <label htmlFor="cycle-position-tod-override">Override TOD</label>
+            <select
+              id="cycle-position-tod-override"
+              defaultValue={tod}
+              onChange={(e) => setTOD(e?.target.value)}
+              className="cycle-position-tod-select"
+            >
+              {fakeTODs.map(t => (
+                <option value={t.code}>
+                  {t.name}
                 </option>
               ))}
             </select>
