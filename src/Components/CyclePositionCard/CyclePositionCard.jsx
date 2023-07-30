@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
@@ -114,12 +114,9 @@ const CyclePositionCard = ({ data, cycle }) => {
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
 
-  const fakeTODs = [
-    { code: 'TOD1', name: '2 YRS/HLRT/2 YRS' },
-    { code: 'TOD2', name: 'TOD 2' },
-    { code: 'TOD3', name: 'TOD 3' },
-  ];
-  const [tod, setTOD] = useState(fakeTODs[0]);
+  const filters = useSelector(state => state.filters.filters);
+  const tods = filters.find(f => f.item.description === 'tod').data;
+  const [overrideTOD, setOverrideTOD] = useState(tods[0]);
 
   const form = {
     /* eslint-disable quote-props */
@@ -173,13 +170,13 @@ const CyclePositionCard = ({ data, cycle }) => {
             <label htmlFor="cycle-position-tod-override">Override TOD</label>
             <select
               id="cycle-position-tod-override"
-              defaultValue={tod}
-              onChange={(e) => setTOD(e?.target.value)}
+              defaultValue={overrideTOD}
+              onChange={(e) => setOverrideTOD(e?.target.value)}
               className="cycle-position-tod-select"
             >
-              {fakeTODs.map(t => (
+              {tods.map(t => (
                 <option value={t.code}>
-                  {t.name}
+                  {t.long_description}
                 </option>
               ))}
             </select>
