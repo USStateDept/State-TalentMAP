@@ -112,6 +112,11 @@ const AgendaItemLegs = props => {
       content: (getData('travel')),
       cardView: false,
     },
+    {
+      title: 'Pay Plan',
+      content: (getData('pay_plan')),
+      cardView: false,
+    },
   ];
 
   if (isPanelMeetingView) { // vice/vacancy info only shows for panel view, and in AIM

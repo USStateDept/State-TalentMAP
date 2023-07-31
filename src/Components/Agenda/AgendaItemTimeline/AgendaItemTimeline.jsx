@@ -50,6 +50,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
           grade: get(pos_results, 'grade'),
           legActionType: null,
           travelFunctionCode: null,
+          pay_plan: null,
         });
         setLegs(legs$);
       }
@@ -79,6 +80,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         grade: get(asgSepBid, 'grade'),
         legActionType: null,
         travelFunctionCode: null,
+        pay_plan: null,
       });
       setLegs(legs$);
     }
@@ -109,6 +111,7 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         legActionType: null,
         travelFunctionCode: 'Separation from the Service',
         is_separation: true,
+        pay_plan: null,
       });
       setLegs(legs$);
     }
