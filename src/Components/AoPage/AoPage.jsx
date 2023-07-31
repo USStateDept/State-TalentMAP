@@ -7,6 +7,7 @@ import PanelMeetingSearch from 'Components/Panel/PanelMeetingSearch/PanelMeeting
 import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeetingAgendas';
 import CycleManagement from 'Components/CycleManagement';
 import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
+import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
 
 const AoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -20,6 +21,7 @@ const AoPage = () => (
       <Route path="/profile/ao/panelmeetingagendas/:pmID" render={() => <PanelMeetingAgendas isAO />} />
       <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement isAO />} />
       <Route path="/profile/ao/cyclepositionsearch/:id" render={() => <CyclePositionSearch isAO />} />
+      <Route path="/profile/ao/publishablepositions" render={() => <PublishablePositions viewType="ao" />} />
     </Switch>
   </div>
 );

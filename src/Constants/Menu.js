@@ -295,6 +295,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'super_user',
         ],
       },
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Publishable Positions',
+          route: '/profile/ao/publishablepositions',
+          icon: ' fa-newspaper-o',
+          roles: [
+            'superuser',
+            'ao_user',
+          ],
+        } : null,
     ],
   },
   {

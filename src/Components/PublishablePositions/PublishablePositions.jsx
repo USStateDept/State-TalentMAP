@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
+import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 
@@ -16,7 +17,8 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
-const PublishablePositions = () => {
+/* eslint-disable-next-line no-unused-vars */
+const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.publishablePositionsSelections);
@@ -308,6 +310,7 @@ const PublishablePositions = () => {
 };
 
 PublishablePositions.propTypes = {
+  viewType: PropTypes.string.isRequired,
 };
 
 PublishablePositions.defaultProps = {
