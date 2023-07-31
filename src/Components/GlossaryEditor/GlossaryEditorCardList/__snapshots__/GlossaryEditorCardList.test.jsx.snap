@@ -119,6 +119,7 @@ exports[`GlossaryEditorCardListComponent matches snapshot when there are no term
         },
       ]
     }
+    tinyAlert={false}
     title="No glossary terms within your search criteria."
     type="info"
   />

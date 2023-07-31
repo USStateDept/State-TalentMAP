@@ -11,9 +11,6 @@ const AssignmentsContent = ({ assignment }) => (
   <div className="usa-grid-full bid-content-container">
     <div className="bid-list-card-title-lg">
       <span className="bid-list-card-title-post">{get(assignment, 'position.title')} </span>
-    </div>
-    <div>
-      <span className="usa-sr-only">Position number: </span>
       <span className="bid-list-card-title-post bid-list-card-title-lg">
         {
           get(assignment, 'position.position_number') ?
@@ -46,8 +43,7 @@ const AssignmentsContent = ({ assignment }) => (
         {get(assignment, 'tod_desc_text') || DEFAULT_TEXT}
       </div>
     }
-    <div>
-      <span className="bid-list-card-title-post">Start date and End date: </span>
+    <div className="align-right">
       <StartEnd
         start={formatDate(get(assignment, 'start_date')) || DEFAULT_TEXT}
         end={formatDate(get(assignment, 'end_date')) || DEFAULT_TEXT}

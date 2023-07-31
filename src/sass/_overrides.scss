@@ -185,3 +185,19 @@ button,
     color: $bg-gray-dark-2;
   }
 }
+
+.tiny-alert-error {
+  background-color: $secondary-lightest;
+  margin-top: 0;
+  padding: 5px 15px;
+
+  ::before {
+    background-color: $secondary-dark;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1rem;
+  }
+}
