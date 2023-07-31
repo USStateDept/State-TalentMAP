@@ -17,10 +17,10 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
 import SelectForm from 'Components/SelectForm';
 import { BUREAU_POSITION_SORT, POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
+import { formatDate, onEditModeSearch } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, cyclePositionSearchFetchData, saveCyclePositionSearchSelections } from 'actions/cycleManagement';
 import api from '../../../api';
-import { formatDate } from '../../../utilities';
 
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
@@ -55,6 +55,9 @@ const CyclePositionSearch = ({ isAO, match }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [ordering, setOrdering] =
     useState(userSelections?.ordering || BUREAU_POSITION_SORT.options[0].value);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+  const disableSearch = cardsInEditMode.length > 0;
+  const disableInput = cyclePositionsLoading || disableSearch;
 
   const genericFilters$ = genericFilters?.filters || [];
   const bureaus = genericFilters$.find(f => f?.item?.description === 'region');
@@ -194,7 +197,11 @@ const CyclePositionSearch = ({ isAO, match }) => {
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
                     {clearFilters &&
-                    <button className="unstyled-button" onClick={resetFilters}>
+                    <button
+                      className="unstyled-button"
+                      onClick={resetFilters}
+                      disabled={disableSearch}
+                    >
                       <FA name="times" />
                     Clear Filters
                     </button>
@@ -212,6 +219,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       onChange={setSelectedCurrentBureaus}
                       valueKey="code"
                       labelKey="long_description"
+                      disabled={disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -224,6 +232,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       labelKey="name"
                       onChange={setSelectedOrganizations}
                       value={selectedOrganizations}
+                      disabled={disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -236,6 +245,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       labelKey="custom_description"
                       onChange={setSelectedGrades}
                       value={selectedGrades}
+                      disabled={disableSearch}
                     />
                   </div>
                   <div className="filter-div">
@@ -248,6 +258,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       labelKey="custom_description"
                       onChange={setSelectedSkills}
                       value={selectedSkills}
+                      disabled={disableSearch}
                     />
                   </div>
                 </div>
@@ -259,6 +270,18 @@ const CyclePositionSearch = ({ isAO, match }) => {
               </InteractiveElement>
             </div>
           </div>
+          {
+            disableSearch &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              },
+              ]}
+            />
+          }
           <div className="cps-content">
             { !hideBreadcrumbs &&
               <div className="breadcrumb-container">
@@ -296,7 +319,7 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       label="Sort by:"
                       defaultSort={ordering}
                       onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={cyclePositionsLoading}
+                      disabled={disableInput}
                     />
                     <SelectForm
                       id="position-manager-num-results"
@@ -304,21 +327,34 @@ const CyclePositionSearch = ({ isAO, match }) => {
                       label="Results:"
                       defaultSort={limit}
                       onSelectOption={value => setLimit(value.target.value)}
-                      disabled={cyclePositionsLoading}
+                      disabled={disableInput}
                     />
                   </div>
                 </div>
               </div>
               <div className="cps-lower-section">
                 {cyclePositions?.results?.map(data =>
-                  <CyclePositionCard data={data} cycle={loadedCycle} isAO />)}
+                  (
+                    <CyclePositionCard
+                      data={data}
+                      onEditModeSearch={(editMode, id) =>
+                        onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+                      cycle={loadedCycle}
+                      isAO
+                    />
+                  ))}
               </div>
               <div className="usa-grid-full react-paginate bureau-pagination-controls">
+                {
+                  disableSearch &&
+                    <div className="disable-react-paginate-overlay" />
+                }
                 <PaginationWrapper
                   pageSize={limit}
                   onPageChange={p => setPage(p.page)}
                   forcePage={page}
                   totalResults={cyclePositions.count}
+                  className={`${disableSearch ? 'disable-react-paginate' : ''}`}
                 />
               </div>
             </>

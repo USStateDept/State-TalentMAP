@@ -16,6 +16,8 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
+import Alert from 'Components/Alert';
+import { onEditModeSearch } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
@@ -40,6 +42,7 @@ const PublishablePositions = ({ viewType }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const statusOptions = [
@@ -71,6 +74,8 @@ const PublishablePositions = ({ viewType }) => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   // const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+  const disableSearch = cardsInEditMode.length > 0;
+  const disableInput = isLoading || disableSearch;
 
   const getQuery = () => ({
     limit,
@@ -195,10 +200,14 @@ const PublishablePositions = ({ viewType }) => {
               <div className="filterby-label">Filter by:</div>
               <div className="filterby-clear">
                 {clearFilters &&
-                  <button className="unstyled-button" onClick={resetFilters}>
-                    <FA name="times" />
-                    Clear Filters
-                  </button>
+                    <button
+                  className="unstyled-button"
+                  onClick={resetFilters}
+                  disabled={disableSearch}
+                >
+                  <FA name="times" />
+                  Clear Filters
+                </button>
                 }
               </div>
             </div>
@@ -213,7 +222,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedStatuses}
                   valueKey="code"
                   labelKey="name"
-                  disabled={isLoading}
+                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -226,7 +235,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedBidCycles}
                   valueKey="id"
                   labelKey="name"
-                  disabled={isLoading}
+                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -239,7 +248,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedBureaus}
                   valueKey="code"
                   labelKey="long_description"
-                  disabled={isLoading}
+                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -252,7 +261,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedOrgs}
                   valueKey="code"
                   labelKey="name"
-                  disabled={isLoading}
+                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -265,7 +274,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedSkills}
                   valueKey="code"
                   labelKey="custom_description"
-                  disabled={isLoading}
+                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -278,7 +287,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedGrades}
                   valueKey="code"
                   labelKey="custom_description"
-                  disabled={isLoading}
+                  disabled={disableInput}
                 />
               </div>
             </div>
@@ -303,6 +312,7 @@ const PublishablePositions = ({ viewType }) => {
               label="Sort by:"
               defaultSort={ordering}
               onSelectOption={value => setOrdering(value.target.value)}
+              disabled={disableSearch}
             />
             <SelectForm
               id="position-details-num-results"
@@ -310,19 +320,39 @@ const PublishablePositions = ({ viewType }) => {
               label="Results:"
               defaultSort={limit}
               onSelectOption={value => setLimit(value.target.value)}
+              disabled={disableSearch}
             />
             <ScrollUpButton />
           </div>
           <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
-              <PublishablePositionCard
-                result={dummyPositionDetails}
-                cycles={cycles}
-              />
+            <PublishablePositionCard
+              result={dummyPositionDetails}
+              cycles={cycles}
+              onEditModeSearch={(editMode, id) =>
+                onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+            />
             </div>
           </div>
         </>
       }
+        {
+          disableSearch &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              },
+              ]}
+            />
+        }
+                      {/* placeholder for when we put in pagination */}
+        {
+          disableSearch &&
+            <div className="disable-react-paginate-overlay" />
+        }
   </div>
   );
 };
