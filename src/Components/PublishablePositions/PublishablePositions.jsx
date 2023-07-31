@@ -1,14 +1,16 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Picky from 'react-picky';
+import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
+import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 
-import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { publishablePositionsFetchData, savePublishablePositionsSelections } from 'actions/publishablePositions';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
+import Alert from 'Components/Alert/Alert';
 import Spinner from 'Components/Spinner';
 import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
@@ -20,13 +22,11 @@ import PublishablePositionCard from '../PublishablePositionCard/PublishablePosit
 /* eslint-disable-next-line no-unused-vars */
 const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
+  const hasErrored = false;
+  const isLoading = false;
 
   const userSelections = useSelector(state => state.publishablePositionsSelections);
   const dummyPositionDetails = useSelector(state => state.publishablePositions);
-
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
-
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
@@ -37,6 +37,9 @@ const PublishablePositions = ({ viewType }) => {
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
+  const [clearFilters, setClearFilters] = useState(false);
+  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
+  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const statusOptions = [
@@ -58,11 +61,16 @@ const PublishablePositions = ({ viewType }) => {
 
   const additionalFiltersIsLoading = includes([orgsLoading], true);
 
-  const [clearFilters, setClearFilters] = useState(false);
+  const alertTitle = 'Error displaying Publishable Positions';
+  const alertBody = [
+    {
+      body: 'Please try again.',
+    },
+  ];
 
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
-  const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+  // const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
 
   const getQuery = () => ({
     limit,
@@ -85,11 +93,6 @@ const PublishablePositions = ({ viewType }) => {
     selectedBidCycle: selectedBidCycles,
   });
 
-  useEffect(() => {
-    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
-    dispatch(filtersFetchData(genericFilters));
-  }, []);
-
   const fetchAndSet = () => {
     const filters = [
       selectedStatuses,
@@ -107,19 +110,6 @@ const PublishablePositions = ({ viewType }) => {
     dispatch(publishablePositionsFetchData(getQuery()));
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   };
-
-  useEffect(() => {
-    fetchAndSet();
-  }, [
-    limit,
-    ordering,
-    selectedStatuses,
-    selectedBureaus,
-    selectedOrgs,
-    selectedGrades,
-    selectedSkills,
-    selectedBidCycles,
-  ]);
 
   function renderSelectionList({ items, selected, ...rest }) {
     let codeOrText = 'code';
@@ -176,126 +166,153 @@ const PublishablePositions = ({ viewType }) => {
     setClearFilters(false);
   };
 
+  useEffect(() => {
+    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
+    dispatch(filtersFetchData(genericFilters));
+  }, []);
+
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    limit,
+    ordering,
+    selectedStatuses,
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+    selectedBidCycles,
+  ]);
+
   return (
-    isLoading ?
-      <Spinner type="bureau-filters" size="small" /> :
-      <>
-        <div className="position-search">
-          <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
-            <div className="results-search-bar pt-20">
-              <div className="filterby-container">
-                <div className="filterby-label">Filter by:</div>
-                <div className="filterby-clear">
-                  {clearFilters &&
-                    <button className="unstyled-button" onClick={resetFilters}>
-                      <FA name="times" />
-                      Clear Filters
-                    </button>
-                  }
-                </div>
+    <div className="position-search">
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
+        {
+          !isLoading && !hasErrored &&
+          <div className="results-search-bar pt-20">
+            <div className="filterby-container">
+              <div className="filterby-label">Filter by:</div>
+              <div className="filterby-clear">
+                {clearFilters &&
+                  <button className="unstyled-button" onClick={resetFilters}>
+                    <FA name="times" />
+                    Clear Filters
+                  </button>
+                }
               </div>
-              <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
-                <div className="filter-div">
-                  <div className="label">Publishable Status:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Status(es)"
-                    value={selectedStatuses}
-                    options={statusOptions}
-                    onChange={setSelectedStatuses}
-                    valueKey="code"
-                    labelKey="name"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Bid Cycle:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Bid Cycle(s)"
-                    value={selectedBidCycles}
-                    options={cycleOptions}
-                    onChange={setSelectedBidCycles}
-                    valueKey="id"
-                    labelKey="name"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Bureau:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Bureau(s)"
-                    value={selectedBureaus}
-                    options={bureauOptions}
-                    onChange={setSelectedBureaus}
-                    valueKey="code"
-                    labelKey="long_description"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Organization(s)"
-                    value={selectedOrgs}
-                    options={organizationOptions}
-                    onChange={setSelectedOrgs}
-                    valueKey="code"
-                    labelKey="name"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Skills:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Skill(s)"
-                    value={selectedSkills}
-                    options={skillOptions}
-                    onChange={setSelectedSkills}
-                    valueKey="code"
-                    labelKey="custom_description"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Grade:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Grade(s)"
-                    value={selectedGrades}
-                    options={gradeOptions}
-                    onChange={setSelectedGrades}
-                    valueKey="code"
-                    labelKey="custom_description"
-                    disabled={isLoading}
-                  />
-                </div>
+            </div>
+            <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
+              <div className="filter-div">
+                <div className="label">Publishable Status:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Status(es)"
+                  value={selectedStatuses}
+                  options={statusOptions}
+                  onChange={setSelectedStatuses}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Bid Cycle:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bid Cycle(s)"
+                  value={selectedBidCycles}
+                  options={cycleOptions}
+                  onChange={setSelectedBidCycles}
+                  valueKey="id"
+                  labelKey="name"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Bureau:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bureau(s)"
+                  value={selectedBureaus}
+                  options={bureauOptions}
+                  onChange={setSelectedBureaus}
+                  valueKey="code"
+                  labelKey="long_description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Organization:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Organization(s)"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Skills:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Skill(s)"
+                  value={selectedSkills}
+                  options={skillOptions}
+                  onChange={setSelectedSkills}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Grade:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Grade(s)"
+                  value={selectedGrades}
+                  options={gradeOptions}
+                  onChange={setSelectedGrades}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={isLoading}
+                />
               </div>
             </div>
           </div>
-          {
-            <div className="position-search-controls--results padding-top results-dropdown">
-              <SelectForm
-                id="position-details-sort-results"
-                options={sorts.options}
-                label="Sort by:"
-                defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
-              />
-              <SelectForm
-                id="position-details-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
-              <ScrollUpButton />
-            </div>
-          }
+        }
+      </div>
+      {
+        isLoading &&
+        <Spinner type="standard-center" />
+      }
+      {
+        hasErrored && !isLoading &&
+        <Alert title={alertTitle} messages={alertBody} />
+      }
+      {
+        !isLoading && !hasErrored &&
+        <>
+          <div className="position-search-controls--results padding-top results-dropdown">
+            <SelectForm
+              id="position-details-sort-results"
+              options={sorts.options}
+              label="Sort by:"
+              defaultSort={ordering}
+              onSelectOption={value => setOrdering(value.target.value)}
+            />
+            <SelectForm
+              id="position-details-num-results"
+              options={pageSizes.options}
+              label="Results:"
+              defaultSort={limit}
+              onSelectOption={value => setLimit(value.target.value)}
+            />
+            <ScrollUpButton />
+          </div>
           <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
               <PublishablePositionCard
@@ -304,8 +321,9 @@ const PublishablePositions = ({ viewType }) => {
               />
             </div>
           </div>
-        </div>
-      </>
+        </>
+      }
+  </div>
   );
 };
 

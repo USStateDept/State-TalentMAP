@@ -102,6 +102,20 @@
   z-index: $bureau-spinner-z;
 }
 
+.tm-spinner-standard-center {
+  left: 50%;
+  position: absolute;
+  top: 40%;
+}
+
+@media screen and (max-width: 1400px) {
+  .tm-spinner-standard-center {
+    position: absolute;
+    top: 40%;
+    left: 60%;
+  }
+}
+
 .tm-spinner-bureau-filters {
   left: 45%;
   position: absolute;
