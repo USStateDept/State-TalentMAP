@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
@@ -10,28 +11,23 @@ import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import PaginationWrapper from 'Components/PaginationWrapper';
-import TotalResults from 'Components/TotalResults';
 import Alert from 'Components/Alert';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import SelectForm from 'Components/SelectForm';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
-import { userHasPermissions } from 'utilities';
-import CycleSearchCard from './CycleSearchCard';
+import ManageBidSeasonCard from './ManageBidSeasonsCard';
 
-const CycleManagement = (props) => {
+
+const ManageBidSeasons = (props) => {
   const dispatch = useDispatch();
   const { isAO } = props;
 
-  const userProfile = useSelector(state => state.userProfile);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.cycleManagementSelections);
   const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
   const cycleManagementData = useSelector(state => state.cycleManagement);
   const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
-  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
@@ -43,8 +39,6 @@ const CycleManagement = (props) => {
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
   const prevPage = usePrevious(page);
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
-
   const currentInputs = {
     page,
     limit,
@@ -118,16 +112,12 @@ const CycleManagement = (props) => {
     { code: 4, name: 'Proposed' },
   ];
 
-  const genericFilters$ = genericFilters?.filters || [];
-  const bidCycle = genericFilters$.find(f => f?.item?.description === 'bidCycle');
-  const bidCycleOptions = bidCycle?.data?.length
-    ? [...new Set(bidCycle.data)].sort(b => b.name) : [];
-
   const resetFilters = () => {
     setSelectedCycles([]);
     setSelectedStatus([]);
     setSelectedDates(null);
     setClearFilters(false);
+    setLimit(0);
   };
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
@@ -176,14 +166,7 @@ const CycleManagement = (props) => {
       (
         <div className="cycle-management-page">
           <div className="usa-grid-full cm-upper-section">
-            <ProfileSectionTitle title="Cycle Search" icon="cogs" />
-            { isSuperUser &&
-              <div className="cm-admin-button">
-                <button className="usa-button-primary">
-                  Add Cycle
-                </button>
-              </div>
-            }
+            <ProfileSectionTitle title="Bid Season Search" icon="cogs" />
             <div className="filterby-container" style={{ marginTop: '40px' }}>
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
@@ -198,10 +181,10 @@ const CycleManagement = (props) => {
 
             <div className="usa-width-one-whole cm-filters grid-450">
               <div className="cm-filter-div">
-                <div className="label">Status:</div>
+                <div className="label">Season:</div>
                 <Picky
                   {...pickyProps}
-                  placeholder="Select Status"
+                  placeholder="Type to filter seasons"
                   options={statusOptions}
                   valueKey="code"
                   labelKey="name"
@@ -210,20 +193,7 @@ const CycleManagement = (props) => {
                 />
               </div>
               <div className="cm-filter-div">
-                <div className="label">Cycle:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Bid Cycle(s)"
-                  options={bidCycleOptions}
-                  valueKey="id"
-                  labelKey="name"
-                  disabled={genericFiltersIsLoading}
-                  onChange={setSelectedCycles}
-                  value={selectedCycles}
-                />
-              </div>
-              <div className="cm-filter-div">
-                <div className="label">Cycle Date:</div>
+                <div className="label">Season Date:</div>
                 <DateRangePicker
                   onChange={setSelectedDates}
                   value={selectedDates}
@@ -231,6 +201,19 @@ const CycleManagement = (props) => {
                   calendarIcon={null}
                   showLeadingZeros
                 />
+              </div>
+              <div className="cm-filter-div">
+                <button
+                  className="usa-button-disabled"
+                  disabled="true"
+                  type="submit"
+                  id="disabled-search-button"
+                  title="search button disabled"
+                >
+                  <span className="usa-search-submit-text usa-button-disabled">
+                    Search
+                  </span>
+                </button>
               </div>
             </div>
 
@@ -241,28 +224,20 @@ const CycleManagement = (props) => {
             <>
               <div className="usa-grid-full results-dropdown controls-container">
                 <div className="cm-results">
-                  <TotalResults
-                    total={cycleManagementData.count}
-                    pageNumber={page}
-                    pageSize={limit}
-                    suffix="Results"
-                    isHidden={cycleManagementDataLoading}
-                  />
+                  <h2>Search for a Bid Season</h2>
+                  <p>Search for an existing bid season or add a new one.</p>
                 </div>
                 <div className="cm-results-dropdown cm-results">
-                  <SelectForm
-                    options={pageSizes.options}
-                    label="Results:"
-                    defaultSort={limit}
-                    onSelectOption={value => setLimit(value.target.value)}
-                    disabled={cycleManagementDataLoading}
-                  />
+                  <Link to={'/'}>
+                    <FA className="fa-solid fa-plus" />
+                    {' Add New Bid Season'}
+                  </Link>
                 </div>
               </div>
 
               <div className="cm-lower-section">
                 {cycleManagementData?.results?.map(data =>
-                  <CycleSearchCard {...{ ...data, isAO }} />)}
+                  <ManageBidSeasonCard {...{ ...data, isAO }} />)}
                 <div className="usa-grid-full react-paginate bureau-pagination-controls">
                   <PaginationWrapper
                     pageSize={limit}
@@ -279,12 +254,12 @@ const CycleManagement = (props) => {
   );
 };
 
-CycleManagement.propTypes = {
+ManageBidSeasons.propTypes = {
   isAO: PropTypes.bool,
 };
 
-CycleManagement.defaultProps = {
+ManageBidSeasons.defaultProps = {
   isAO: false,
 };
 
-export default withRouter(CycleManagement);
+export default withRouter(ManageBidSeasons);
