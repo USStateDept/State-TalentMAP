@@ -142,6 +142,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         ],
       },
       {
+        text: 'Manage Bid Seasons',
+        route: '/profile/administrator/manage/',
+        icon: 'hourglass-start',
+        roles: [
+          'superuser',
+          'bidcycle_admin',
+        ],
+      },
+      {
         text: 'Glossary Editor',
         route: '/profile/glossaryeditor/',
         icon: 'book',
