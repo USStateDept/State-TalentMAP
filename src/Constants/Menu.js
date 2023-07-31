@@ -149,14 +149,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
-      {
-        text: 'Panel',
-        route: '/profile/administrator/panel/',
-        icon: 'calendar',
-        roles: [
-          'superuser',
-        ],
-      },
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Panel',
+          route: '/profile/administrator/panel/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
     ],
   },
   {
@@ -187,24 +188,26 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      {
-        text: 'Projected Vacancy Management',
-        route: '/profile/bureau/projectedvacancy',
-        icon: ' fa-keyboard-o',
-        roles: [
-          'super_user',
-          'bureau_user',
-        ],
-      },
-      {
-        text: 'Cycle Management',
-        route: '/profile/bureau/cyclemanagement',
-        icon: 'cogs',
-        roles: [
-          'super_user',
-          'bureau_user',
-        ],
-      },
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Projected Vacancy Management',
+          route: '/profile/bureau/projectedvacancy',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/bureau/cyclemanagement',
+          icon: 'cogs',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.publishable_positions') ?
         {
           text: 'Publishable Positions',
@@ -286,15 +289,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
-      {
-        text: 'Cycle Management',
-        route: '/profile/ao/cyclemanagement',
-        icon: 'cogs',
-        roles: [
-          'ao_user',
-          'super_user',
-        ],
-      },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/ao/cyclemanagement',
+          icon: 'cogs',
+          roles: [
+            'ao_user',
+            'super_user',
+          ],
+        } : null,
     ],
   },
   {
