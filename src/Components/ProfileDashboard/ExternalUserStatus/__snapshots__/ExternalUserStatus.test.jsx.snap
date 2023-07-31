@@ -10,22 +10,9 @@ exports[`ExternalUserStatusComponent matches snapshot 1`] = `
     <div
       className="profile-picture-container"
     >
-      <Avatar
-        className=""
-        colorString=""
-        externalSource={Object {}}
-        externalSourceToUse={null}
-        fallback={
-          <FontAwesome
-            name="user-o"
-          />
-        }
-        firstName="John"
-        initials="JD"
-        lastName="Doe"
-        onClick={[Function]}
-        small={true}
-        useExternalImg={false}
+      <FontAwesome
+        className="fa-2x"
+        name="street-view"
       />
     </div>
     <div
@@ -64,22 +51,9 @@ exports[`ExternalUserStatusComponent matches snapshot when showMail is true 1`] 
     <div
       className="profile-picture-container"
     >
-      <Avatar
-        className=""
-        colorString=""
-        externalSource={Object {}}
-        externalSourceToUse={null}
-        fallback={
-          <FontAwesome
-            name="user-o"
-          />
-        }
-        firstName="John"
-        initials="JD"
-        lastName="Doe"
-        onClick={[Function]}
-        small={true}
-        useExternalImg={false}
+      <FontAwesome
+        className="fa-2x"
+        name="street-view"
       />
     </div>
     <div

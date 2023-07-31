@@ -1,15 +1,13 @@
 import { withRouter } from 'react-router';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
 import { useDataLoader, usePrevious } from 'hooks';
-import { isEmpty } from 'lodash';
 import { checkFlag } from 'flags';
 import PropTypes from 'prop-types';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import InteractiveElement from 'Components/InteractiveElement';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Spinner from 'Components/Spinner';
@@ -27,7 +25,6 @@ import { formatDate } from '../../../utilities';
 const hideBreadcrumbs = checkFlag('flags.breadcrumbs');
 
 const CyclePositionSearch = (props) => {
-  const childRef = useRef();
   const dispatch = useDispatch();
   const { isAO } = props;
   const breadcrumbLinkRole = isAO ? 'ao' : 'bureau';
@@ -57,7 +54,6 @@ const CyclePositionSearch = (props) => {
   const [selectedOrganizations, setSelectedOrganizations] = useState([]);
   const [selectedGrades, setSelectedGrades] = useState([]);
   const [selectedSkills, setSelectedSkills] = useState([]);
-  const [textInput, setTextInput] = useState('');
   const [clearFilters, setClearFilters] = useState(false);
   const [ordering, setOrdering] =
     useState(userSelections?.ordering || BUREAU_POSITION_SORT.options[0].value);
@@ -86,7 +82,6 @@ const CyclePositionSearch = (props) => {
     'cps-orgs': selectedOrganizations.map(orgObject => (orgObject?.code)),
     'cps-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
     'cps-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    q: textInput,
     ordering,
     limit,
     page,
@@ -97,8 +92,6 @@ const CyclePositionSearch = (props) => {
     setSelectedOrganizations([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
-    setTextInput('');
-    childRef.current.clearText();
     setClearFilters(false);
   };
 
@@ -107,7 +100,6 @@ const CyclePositionSearch = (props) => {
     selectedOrganizations,
     selectedGrade: selectedGrades,
     selectedSkills,
-    textInput,
     ordering,
     limit,
     page,
@@ -120,7 +112,7 @@ const CyclePositionSearch = (props) => {
       selectedGrades,
       selectedSkills,
     ];
-    if (filters.flat().length === 0 && isEmpty(textInput)) {
+    if (filters.flat().length === 0) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -141,7 +133,6 @@ const CyclePositionSearch = (props) => {
     selectedOrganizations,
     selectedGrades,
     selectedSkills,
-    textInput,
     ordering,
     limit,
   ]);
@@ -196,19 +187,11 @@ const CyclePositionSearch = (props) => {
   return (
     orgsLoading || genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
-        <div className="cycle-management-page">
-          <div className="cm-upper-section">
-            <ProfileSectionTitle title="Cycle Position Search" icon="keyboard-o" />
+        <div className="cycle-management-page position-search">
+          <div className="position-search--header">
+            <ProfileSectionTitle title="Cycle Management Positions" icon="cogs" className="xl-icon" />
             {showMore &&
-              <div className="expanded-content">
-                <div className="search-bar-container">
-                  <PositionManagerSearch
-                    submitSearch={setTextInput}
-                    ref={childRef}
-                    textSearch={textInput}
-                    placeHolder="Search using Position Number or Position Title"
-                  />
-                </div>
+              <div className="expanded-content pt-20">
                 <div className="filterby-container">
                   <div className="filterby-label">Filter by:</div>
                   <div className="filterby-clear">
@@ -220,8 +203,8 @@ const CyclePositionSearch = (props) => {
                     }
                   </div>
                 </div>
-                <div className="cm-filters grid-200">
-                  <div className="cm-filter-div">
+                <div className="position-search--filters--cm-pos">
+                  <div className="filter-div">
                     <div className="label">Bureau:</div>
                     <Picky
                       {...pickyProps}
@@ -233,7 +216,7 @@ const CyclePositionSearch = (props) => {
                       labelKey="long_description"
                     />
                   </div>
-                  <div className="cm-filter-div">
+                  <div className="filter-div">
                     <div className="label">Organization:</div>
                     <Picky
                       {...pickyProps}
@@ -245,7 +228,7 @@ const CyclePositionSearch = (props) => {
                       value={selectedOrganizations}
                     />
                   </div>
-                  <div className="cm-filter-div">
+                  <div className="filter-div">
                     <div className="label">Grade:</div>
                     <Picky
                       {...pickyProps}
@@ -257,7 +240,7 @@ const CyclePositionSearch = (props) => {
                       value={selectedGrades}
                     />
                   </div>
-                  <div className="cm-filter-div">
+                  <div className="filter-div">
                     <div className="label">Skills:</div>
                     <Picky
                       {...pickyProps}
@@ -328,9 +311,9 @@ const CyclePositionSearch = (props) => {
                   </div>
                 </div>
               </div>
-              <div>
+              <div className="cps-lower-section">
                 {cyclePositions?.results?.map(data =>
-                  <CyclePositionCard data={data} isAO />)}
+                  <CyclePositionCard data={data} cycle={loadedCycle} isAO />)}
               </div>
               <div className="usa-grid-full react-paginate bureau-pagination-controls">
                 <PaginationWrapper

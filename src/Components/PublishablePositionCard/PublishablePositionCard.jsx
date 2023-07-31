@@ -50,7 +50,6 @@ const PublishablePositionCard = ({ data, cycles }) => {
     },
     textarea: pos?.description?.content || 'No description.',
     metadata: {
-      'Position Posted': getResult(pos, 'description.date_created') || NO_UPDATE_DATE,
       'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
     },
     /* eslint-enable quote-props */

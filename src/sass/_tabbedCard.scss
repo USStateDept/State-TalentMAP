@@ -1,24 +1,25 @@
 .tabbed-card {
     background-color: $color-white;
-    border: 1px solid $bg-gray-dark-2;
+    border: 1px solid $bg-gray-dark-3;
     border-left: 8px solid $blue-primary;
+    margin-block: 20px;
     padding: 1em;
-  
+
     .tabbed-card--header {
       display: flex;
     }
-  
+
     .navTabs {
       display: flex;
       flex-direction: row;
       align-items: flex-end;
       width: 100%;
-  
+
       .tab {
         padding-left: 0px;
         padding-right: 0px;
       }
-  
+
       >div:not(:last-child) {
         margin-right: 15px;
       }

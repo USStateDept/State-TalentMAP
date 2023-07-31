@@ -1,13 +1,13 @@
+import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
-import Avatar from '../../Avatar';
 import USER_TYPES from '../../../Constants/UserTypes';
 import MailToButton from '../../MailToButton';
 
-const ExternalUserStatus = ({ initials, firstName, lastName, type, showMail, email }) => (
+const ExternalUserStatus = ({ firstName, lastName, type, showMail, email }) => (
   <div className="usa-grid-full cdo-container">
     <div className="usa-grid-full cdo-container-inner section-padded-inner-container">
       <div className="profile-picture-container">
-        <Avatar initials={initials} firstName={firstName} lastName={lastName} small />
+        <FA name="street-view" className="fa-2x" />
       </div>
       <div className="cdo-text-container">
         <div className="usa-grid-full">
@@ -25,7 +25,6 @@ const ExternalUserStatus = ({ initials, firstName, lastName, type, showMail, ema
 );
 
 ExternalUserStatus.propTypes = {
-  initials: PropTypes.string,
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   type: PropTypes.oneOf(['cdo', 'ao', 'hr']).isRequired,
@@ -34,7 +33,6 @@ ExternalUserStatus.propTypes = {
 };
 
 ExternalUserStatus.defaultProps = {
-  initials: '',
   firstName: '',
   lastName: '',
   showMail: false,

@@ -170,7 +170,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Manager',
+        text: 'Position Management',
         route: '/profile/bureau/positionmanager',
         icon: 'map',
         roles: [
@@ -205,11 +205,11 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      checkFlag('flags.position_details') ?
+      checkFlag('flags.publishable_positions') ?
         {
-          text: 'Position Details',
-          route: '/profile/bureau/positiondetails',
-          icon: ' fa-keyboard-o',
+          text: 'Publishable Positions',
+          route: '/profile/bureau/publishablepositions',
+          icon: ' fa-newspaper-o',
           roles: [
             'superuser',
             'bureau_user',
@@ -228,7 +228,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
     ],
     children: [
       {
-        text: 'Position Manager',
+        text: 'Position Management',
         route: '/profile/post/positionmanager',
         icon: 'map',
         roles: [

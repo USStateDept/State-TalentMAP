@@ -6,9 +6,9 @@ import MultiSelectFilter from './MultiSelectFilter';
 describe('MultiSelectFilterComponent', () => {
   const item = {
     item: { title: 'title', selectionRef: 'ref', description: 'filterType' },
-    data: [{ isSelected: true, long_description: 'description', description: 'description', title: 'title', name: 'name' },
-      { isSelected: true, long_description: 'description', description: 'a description', title: 'title', name: 'name' },
-      { isSelected: true, long_description: 'description 2', description: '#a number description', title: 'title 2', name: 'name 2' }],
+    data: [{ id: 1, isSelected: true, long_description: 'description', description: 'description', title: 'title', name: 'name' },
+      { id: 2, isSelected: true, long_description: 'description', description: 'a description', title: 'title', name: 'name' },
+      { id: 3, isSelected: true, long_description: 'description 2', description: '#a number description', title: 'title 2', name: 'name 2' }],
   };
 
   it('can receive props', () => {

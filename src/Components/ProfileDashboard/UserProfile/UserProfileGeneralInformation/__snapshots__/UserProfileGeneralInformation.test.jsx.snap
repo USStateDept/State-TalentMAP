@@ -38,114 +38,99 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         small={true}
         title="Doe, John"
       />
-      <ErrorBoundary
-        fallback="Employee Profile is currently unavailable"
-        onCatch={[Function]}
-      >
-        <EPLLoadable
-          userProfile={
-            Object {
-              "bid_statistics": Array [
-                Object {
-                  "draft": 1,
-                  "submitted": 1,
-                },
-              ],
-              "cdo": Object {
-                "email": "shadtrachl@state.gov",
-                "first_name": "Leah",
-                "initials": "LS",
-                "last_name": "Shadtrach",
-                "username": "shadtrachl",
+      <EPLLoadable
+        userProfile={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "draft": 1,
+                "submitted": 1,
               },
-              "display_name": "John",
-              "emp_id": "1",
-              "employee_info": Object {
-                "grade": "00",
-                "skills": Array [
-                  Object {
-                    "code": "6218",
-                    "description": "CONSTRUCTION ENGINEERING",
-                  },
-                  Object {
-                    "code": "6211",
-                    "description": "COMPUTER SCIENCE",
-                  },
-                ],
-              },
-              "employee_profile_url": Object {
-                "external": "https://external.com",
-                "internal": "https://internal.com",
-              },
-              "favorite_positions": Array [
-                Object {
-                  "id": 1,
-                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                },
-                Object {
-                  "id": 4,
-                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                },
-              ],
-              "favorite_positions_pv": Array [
-                Object {
-                  "id": 10,
-                },
-                Object {
-                  "id": 20,
-                },
-              ],
-              "favorite_tandem_positions": Array [
-                Object {
-                  "id": 1,
-                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                },
-                Object {
-                  "id": 4,
-                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                },
-              ],
-              "favorite_tandem_positions_pv": Array [
-                Object {
-                  "id": 10,
-                },
-                Object {
-                  "id": 20,
-                },
-              ],
-              "grade": "03",
-              "id": 1,
-              "initials": "JD",
-              "is_cdo": false,
+            ],
+            "cdo": Object {
+              "email": "shadtrachl@state.gov",
+              "first_name": "Leah",
+              "initials": "LS",
+              "last_name": "Shadtrach",
+              "username": "shadtrachl",
+            },
+            "display_name": "John",
+            "emp_id": "1",
+            "employee_info": Object {
+              "grade": "00",
               "skills": Array [
-                63,
-                40,
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
               ],
-              "user": Object {
-                "email": "doej@state.gov",
-                "first_name": "John",
-                "initials": "JD",
-                "last_name": "Doe",
-                "username": "jdoe",
+            },
+            "employee_profile_url": Object {
+              "external": "https://external.com",
+              "internal": "https://internal.com",
+            },
+            "favorite_positions": Array [
+              Object {
+                "id": 1,
+                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
               },
-              "user_info": Object {
-                "office_address": "1234 Apple St. NW Washington, DC 20010",
-                "office_phone": "202-876-5432",
+              Object {
+                "id": 4,
+                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
               },
-            }
+            ],
+            "favorite_positions_pv": Array [
+              Object {
+                "id": 10,
+              },
+              Object {
+                "id": 20,
+              },
+            ],
+            "favorite_tandem_positions": Array [
+              Object {
+                "id": 1,
+                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+              },
+              Object {
+                "id": 4,
+                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+              },
+            ],
+            "favorite_tandem_positions_pv": Array [
+              Object {
+                "id": 10,
+              },
+              Object {
+                "id": 20,
+              },
+            ],
+            "grade": "03",
+            "id": 1,
+            "initials": "JD",
+            "is_cdo": false,
+            "skills": Array [
+              63,
+              40,
+            ],
+            "user": Object {
+              "email": "doej@state.gov",
+              "first_name": "John",
+              "initials": "JD",
+              "last_name": "Doe",
+              "username": "jdoe",
+            },
+            "user_info": Object {
+              "office_address": "1234 Apple St. NW Washington, DC 20010",
+              "office_phone": "202-876-5432",
+            },
           }
-        />
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          title="Download Employee Profile PDF"
-          type="a"
-        >
-          <FontAwesome
-            name="download"
-          />
-        </InteractiveElement>
-      </ErrorBoundary>
+        }
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"
@@ -218,114 +203,99 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         small={true}
         title="Doe, John"
       />
-      <ErrorBoundary
-        fallback="Employee Profile is currently unavailable"
-        onCatch={[Function]}
-      >
-        <EPLLoadable
-          userProfile={
-            Object {
-              "bid_statistics": Array [
-                Object {
-                  "draft": 1,
-                  "submitted": 1,
-                },
-              ],
-              "cdo": Object {
-                "email": "shadtrachl@state.gov",
-                "first_name": "Leah",
-                "initials": "LS",
-                "last_name": "Shadtrach",
-                "username": "shadtrachl",
+      <EPLLoadable
+        userProfile={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "draft": 1,
+                "submitted": 1,
               },
-              "display_name": "John",
-              "emp_id": "1",
-              "employee_info": Object {
-                "grade": "00",
-                "skills": Array [
-                  Object {
-                    "code": "6218",
-                    "description": "CONSTRUCTION ENGINEERING",
-                  },
-                  Object {
-                    "code": "6211",
-                    "description": "COMPUTER SCIENCE",
-                  },
-                ],
-              },
-              "employee_profile_url": Object {
-                "external": "https://external.com",
-                "internal": "https://internal.com",
-              },
-              "favorite_positions": Array [
-                Object {
-                  "id": 1,
-                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                },
-                Object {
-                  "id": 4,
-                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                },
-              ],
-              "favorite_positions_pv": Array [
-                Object {
-                  "id": 10,
-                },
-                Object {
-                  "id": 20,
-                },
-              ],
-              "favorite_tandem_positions": Array [
-                Object {
-                  "id": 1,
-                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                },
-                Object {
-                  "id": 4,
-                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                },
-              ],
-              "favorite_tandem_positions_pv": Array [
-                Object {
-                  "id": 10,
-                },
-                Object {
-                  "id": 20,
-                },
-              ],
-              "grade": "03",
-              "id": 1,
-              "initials": "JD",
-              "is_cdo": false,
+            ],
+            "cdo": Object {
+              "email": "shadtrachl@state.gov",
+              "first_name": "Leah",
+              "initials": "LS",
+              "last_name": "Shadtrach",
+              "username": "shadtrachl",
+            },
+            "display_name": "John",
+            "emp_id": "1",
+            "employee_info": Object {
+              "grade": "00",
               "skills": Array [
-                63,
-                40,
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
               ],
-              "user": Object {
-                "email": "doej@state.gov",
-                "first_name": "John",
-                "initials": "JD",
-                "last_name": "Doe",
-                "username": "jdoe",
+            },
+            "employee_profile_url": Object {
+              "external": "https://external.com",
+              "internal": "https://internal.com",
+            },
+            "favorite_positions": Array [
+              Object {
+                "id": 1,
+                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
               },
-              "user_info": Object {
-                "office_address": "1234 Apple St. NW Washington, DC 20010",
-                "office_phone": "202-876-5432",
+              Object {
+                "id": 4,
+                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
               },
-            }
+            ],
+            "favorite_positions_pv": Array [
+              Object {
+                "id": 10,
+              },
+              Object {
+                "id": 20,
+              },
+            ],
+            "favorite_tandem_positions": Array [
+              Object {
+                "id": 1,
+                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+              },
+              Object {
+                "id": 4,
+                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+              },
+            ],
+            "favorite_tandem_positions_pv": Array [
+              Object {
+                "id": 10,
+              },
+              Object {
+                "id": 20,
+              },
+            ],
+            "grade": "03",
+            "id": 1,
+            "initials": "JD",
+            "is_cdo": false,
+            "skills": Array [
+              63,
+              40,
+            ],
+            "user": Object {
+              "email": "doej@state.gov",
+              "first_name": "John",
+              "initials": "JD",
+              "last_name": "Doe",
+              "username": "jdoe",
+            },
+            "user_info": Object {
+              "office_address": "1234 Apple St. NW Washington, DC 20010",
+              "office_phone": "202-876-5432",
+            },
           }
-        />
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          title="Download Employee Profile PDF"
-          type="a"
-        >
-          <FontAwesome
-            name="download"
-          />
-        </InteractiveElement>
-      </ErrorBoundary>
+        }
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"
@@ -398,114 +368,99 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         small={true}
         title="Doe, John"
       />
-      <ErrorBoundary
-        fallback="Employee Profile is currently unavailable"
-        onCatch={[Function]}
-      >
-        <EPLLoadable
-          userProfile={
-            Object {
-              "bid_statistics": Array [
-                Object {
-                  "draft": 1,
-                  "submitted": 1,
-                },
-              ],
-              "cdo": Object {
-                "email": "shadtrachl@state.gov",
-                "first_name": "Leah",
-                "initials": "LS",
-                "last_name": "Shadtrach",
-                "username": "shadtrachl",
+      <EPLLoadable
+        userProfile={
+          Object {
+            "bid_statistics": Array [
+              Object {
+                "draft": 1,
+                "submitted": 1,
               },
-              "display_name": "John",
-              "emp_id": "1",
-              "employee_info": Object {
-                "grade": "00",
-                "skills": Array [
-                  Object {
-                    "code": "6218",
-                    "description": "CONSTRUCTION ENGINEERING",
-                  },
-                  Object {
-                    "code": "6211",
-                    "description": "COMPUTER SCIENCE",
-                  },
-                ],
-              },
-              "employee_profile_url": Object {
-                "external": "https://external.com",
-                "internal": "https://internal.com",
-              },
-              "favorite_positions": Array [
-                Object {
-                  "id": 1,
-                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                },
-                Object {
-                  "id": 4,
-                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                },
-              ],
-              "favorite_positions_pv": Array [
-                Object {
-                  "id": 10,
-                },
-                Object {
-                  "id": 20,
-                },
-              ],
-              "favorite_tandem_positions": Array [
-                Object {
-                  "id": 1,
-                  "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
-                },
-                Object {
-                  "id": 4,
-                  "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
-                },
-              ],
-              "favorite_tandem_positions_pv": Array [
-                Object {
-                  "id": 10,
-                },
-                Object {
-                  "id": 20,
-                },
-              ],
-              "grade": "03",
-              "id": 1,
-              "initials": "JD",
-              "is_cdo": false,
+            ],
+            "cdo": Object {
+              "email": "shadtrachl@state.gov",
+              "first_name": "Leah",
+              "initials": "LS",
+              "last_name": "Shadtrach",
+              "username": "shadtrachl",
+            },
+            "display_name": "John",
+            "emp_id": "1",
+            "employee_info": Object {
+              "grade": "00",
               "skills": Array [
-                63,
-                40,
+                Object {
+                  "code": "6218",
+                  "description": "CONSTRUCTION ENGINEERING",
+                },
+                Object {
+                  "code": "6211",
+                  "description": "COMPUTER SCIENCE",
+                },
               ],
-              "user": Object {
-                "email": "doej@state.gov",
-                "first_name": "John",
-                "initials": "JD",
-                "last_name": "Doe",
-                "username": "jdoe",
+            },
+            "employee_profile_url": Object {
+              "external": "https://external.com",
+              "internal": "https://internal.com",
+            },
+            "favorite_positions": Array [
+              Object {
+                "id": 1,
+                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
               },
-              "user_info": Object {
-                "office_address": "1234 Apple St. NW Washington, DC 20010",
-                "office_phone": "202-876-5432",
+              Object {
+                "id": 4,
+                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
               },
-            }
+            ],
+            "favorite_positions_pv": Array [
+              Object {
+                "id": 10,
+              },
+              Object {
+                "id": 20,
+              },
+            ],
+            "favorite_tandem_positions": Array [
+              Object {
+                "id": 1,
+                "representation": "[00003026] OMS (COM) (Freetown, Sierra Leone)",
+              },
+              Object {
+                "id": 4,
+                "representation": "[00180000] OMS (DCM) (Addis Ababa, Ethiopia)",
+              },
+            ],
+            "favorite_tandem_positions_pv": Array [
+              Object {
+                "id": 10,
+              },
+              Object {
+                "id": 20,
+              },
+            ],
+            "grade": "03",
+            "id": 1,
+            "initials": "JD",
+            "is_cdo": false,
+            "skills": Array [
+              63,
+              40,
+            ],
+            "user": Object {
+              "email": "doej@state.gov",
+              "first_name": "John",
+              "initials": "JD",
+              "last_name": "Doe",
+              "username": "jdoe",
+            },
+            "user_info": Object {
+              "office_address": "1234 Apple St. NW Washington, DC 20010",
+              "office_phone": "202-876-5432",
+            },
           }
-        />
-        <InteractiveElement
-          className=""
-          onClick={[Function]}
-          title="Download Employee Profile PDF"
-          type="a"
-        >
-          <FontAwesome
-            name="download"
-          />
-        </InteractiveElement>
-      </ErrorBoundary>
+        }
+      />
       <InformationDataPoint
         className="skill-code-data-point-container skill-code-data-point-container-gen-spec"
         content="Grade: 00"

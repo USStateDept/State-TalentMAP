@@ -15,6 +15,7 @@ exports[`SaveNewSearchAlertComponent matches snapshot 1`] = `
         },
       ]
     }
+    tinyAlert={false}
     title="Title"
     type="success"
   />

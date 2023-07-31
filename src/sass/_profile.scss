@@ -309,7 +309,7 @@
 
   .assignments-section {
     .favorites-list-container {
-      max-height: 410px;
+      max-height: 500px;
       overflow-y: auto;
     }
 
@@ -350,8 +350,20 @@
     word-wrap: break-word;
   }
 
+
   .current-user-top {
-    text-align: center;
+    .section-padded-inner-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .avatar-group {
+        padding-right: 5px;
+      }
+      .name-group {
+        text-align: left;
+      }
+    }
   }
 
   .current-user-section-border {
@@ -715,6 +727,12 @@ $padding-no-border: $total-padding - $border;
   .bordered-list-content {
     border-left: 5px solid $blue-primary;
   }
+
+  .hide-border {
+    .bordered-list-content {
+      border-left: 5px solid transparent;
+    }
+  }
 }
 
 .cdo-container {
@@ -736,7 +754,7 @@ $padding-no-border: $total-padding - $border;
 
   .profile-picture-container {
     min-width: 50px;
-    position: relative;
+    align-self: center;
   }
 
   .picture-status-container {
