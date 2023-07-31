@@ -16,7 +16,6 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import Alert from 'Components/Alert';
 import { onEditModeSearch } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
@@ -199,15 +198,16 @@ const PublishablePositions = ({ viewType }) => {
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
               <div className="filterby-clear">
-                {clearFilters &&
-                    <button
+                {
+                  clearFilters &&
+                  <button
                   className="unstyled-button"
                   onClick={resetFilters}
                   disabled={disableSearch}
-                >
-                  <FA name="times" />
-                  Clear Filters
-                </button>
+                  >
+                    <FA name="times" />
+                    Clear Filters
+                  </button>
                 }
               </div>
             </div>
@@ -324,6 +324,18 @@ const PublishablePositions = ({ viewType }) => {
             />
             <ScrollUpButton />
           </div>
+          {
+            disableSearch &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              },
+              ]}
+            />
+          }
           <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
             <PublishablePositionCard
@@ -336,24 +348,12 @@ const PublishablePositions = ({ viewType }) => {
           </div>
         </>
       }
-        {
-          disableSearch &&
-            <Alert
-              type="warning"
-              title={'Edit Mode (Search Disabled)'}
-              messages={[{
-                body: 'Discard or save your edits before searching. ' +
-                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
-              },
-              ]}
-            />
-        }
-                      {/* placeholder for when we put in pagination */}
-        {
-          disableSearch &&
-            <div className="disable-react-paginate-overlay" />
-        }
-  </div>
+      {/* placeholder for when we put in pagination */}
+      {
+        disableSearch &&
+        <div className="disable-react-paginate-overlay" />
+      }
+    </div>
   );
 };
 
