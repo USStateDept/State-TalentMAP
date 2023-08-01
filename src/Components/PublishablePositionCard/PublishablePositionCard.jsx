@@ -199,7 +199,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
         valueKey="id"
         labelKey="name"
       />
-      <div className="functional-bureau-section">
+      <div className="pt-20">
         <div className="content-divider" />
         <div className="position-form--heading">
           <span className="title">Add a Functional Bureau</span>
