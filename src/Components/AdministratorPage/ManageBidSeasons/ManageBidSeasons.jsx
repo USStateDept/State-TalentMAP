@@ -24,16 +24,15 @@ const ManageBidSeasons = (props) => {
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.cycleManagementSelections);
-  const cycleManagementDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
-  const cycleManagementData = useSelector(state => state.cycleManagement);
-  const cycleManagementError = useSelector(state => state.cycleManagementFetchDataErrored);
+  const ManageBidSeasonsDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
+  const ManageBidSeasonsData = useSelector(state => state.cycleManagement);
+  const ManageBidSeasonsError = useSelector(state => state.cycleManagementFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
 
   // Filters
   const [selectedCycles, setSelectedCycles] = useState(userSelections?.selectedCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
   const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
-  const [clearFilters, setClearFilters] = useState(false);
 
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
@@ -69,11 +68,7 @@ const ManageBidSeasons = (props) => {
       selectedCycles,
       selectedStatus,
     ];
-    if (filters.flat().length === 0 && !selectedDates) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
+    console.log(filters);
     if (resetPage) {
       setPage(1);
     }
@@ -116,10 +111,9 @@ const ManageBidSeasons = (props) => {
     setSelectedCycles([]);
     setSelectedStatus([]);
     setSelectedDates(null);
-    setClearFilters(false);
     setLimit(0);
   };
-
+  console.log(resetFilters);
   const renderSelectionList = ({ items, selected, ...rest }) => {
     let queryProp = 'description';
     if (items?.[0]?.custom_description) queryProp = 'custom_description';
@@ -137,12 +131,12 @@ const ManageBidSeasons = (props) => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = cycleManagementData?.results?.length === 0;
+  const noResults = ManageBidSeasonsData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
-    if (cycleManagementDataLoading) {
+    if (ManageBidSeasonsDataLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (cycleManagementError) {
+    } else if (ManageBidSeasonsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
@@ -166,19 +160,7 @@ const ManageBidSeasons = (props) => {
       (
         <div className="cycle-management-page">
           <div className="usa-grid-full cm-upper-section">
-            <ProfileSectionTitle title="Bid Season Search" icon="cogs" />
-            <div className="filterby-container" style={{ marginTop: '40px' }}>
-              <div className="filterby-label">Filter by:</div>
-              <span className="filterby-clear">
-                {clearFilters &&
-                  <button className="unstyled-button" onClick={resetFilters}>
-                    <FA name="times" />
-                        Clear Filters
-                  </button>
-                }
-              </span>
-            </div>
-
+            <ProfileSectionTitle title="Bid Season Search" icon="calendar" />
             <div className="usa-width-one-whole cm-filters grid-450">
               <div className="cm-filter-div">
                 <div className="label">Season:</div>
@@ -236,14 +218,14 @@ const ManageBidSeasons = (props) => {
               </div>
 
               <div className="cm-lower-section">
-                {cycleManagementData?.results?.map(data =>
+                {ManageBidSeasonsData?.results?.map(data =>
                   <ManageBidSeasonCard {...{ ...data, isAO }} />)}
                 <div className="usa-grid-full react-paginate bureau-pagination-controls">
                   <PaginationWrapper
                     pageSize={limit}
                     onPageChange={p => setPage(p.page)}
                     forcePage={page}
-                    totalResults={cycleManagementData.count}
+                    totalResults={ManageBidSeasonsData.count}
                   />
                 </div>
               </div>
@@ -256,6 +238,7 @@ const ManageBidSeasons = (props) => {
 
 ManageBidSeasons.propTypes = {
   isAO: PropTypes.bool,
+  id: PropTypes.string.isRequired,
 };
 
 ManageBidSeasons.defaultProps = {
