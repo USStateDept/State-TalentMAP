@@ -10,6 +10,7 @@ import { userHasPermissions } from '../../../utilities';
 
 const FALLBACK = 'None listed';
 const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
+const useEditPanelMeeting = () => checkFlag('flags.panel_admin');
 
 const PanelMeetingSearchRow = ({ isCDO, pm }) => {
   const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
@@ -28,7 +29,7 @@ const PanelMeetingSearchRow = ({ isCDO, pm }) => {
             <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>View</LinkButton>
         }
         {
-          isSuperUser &&
+          (isSuperUser && useEditPanelMeeting()) &&
           <Link to={`/profile/administrator/panel/${pmSeqNum}`}>
             <button
               className="usa-button-secondary"

@@ -128,6 +128,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
     page,
   ]);
 
+  console.log(useAddPanelMeeting);
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
@@ -284,7 +285,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
           </div>
         }
         {
-          (isSuperUser && useAddPanelMeeting) &&
+          (isSuperUser && useAddPanelMeeting()) &&
           <div className="admin-panel-meeting-add-meeting">
             <Link to={'/profile/administrator/panel'}>
               <FA name="sitemap" className="admin-panel-meeting-add-meeting-icon" />
