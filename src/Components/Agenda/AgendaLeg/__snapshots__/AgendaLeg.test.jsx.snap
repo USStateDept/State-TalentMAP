@@ -223,5 +223,16 @@ exports[`AgendaLeg Component matches snapshot 1`] = `
   >
     -
   </InteractiveElement>
+  <InteractiveElement
+    className="grid-col-3 grid-row-14"
+    key="Pay Plan"
+    onMouseLeave={[Function]}
+    onMouseOver={[Function]}
+    type="div"
+  >
+    <div>
+      None listed
+    </div>
+  </InteractiveElement>
 </Fragment>
 `;
