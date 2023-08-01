@@ -4,7 +4,6 @@ import { USER_PROFILE } from 'Constants/PropTypes';
 import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
-import PositionInformation from '../PositionInformation';
 
 const UserProfile = ({ userProfile, isPublic }) => {
   const cdo = get(userProfile, 'cdo', {});
@@ -27,11 +26,6 @@ const UserProfile = ({ userProfile, isPublic }) => {
               showMail
               small
             />
-          </div>
-        }
-        {
-          <div className="current-user-section-border">
-            <PositionInformation assignment={get(userProfile, 'current_assignment')} />
           </div>
         }
         <UserProfileContactInformation userProfile={userProfile} />

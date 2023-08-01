@@ -107,6 +107,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       >
         <PaginationWrapper
           activeClassName="active"
+          className=""
           containerClassName="pagination"
           forcePage={1}
           marginPagesDisplayed={2}

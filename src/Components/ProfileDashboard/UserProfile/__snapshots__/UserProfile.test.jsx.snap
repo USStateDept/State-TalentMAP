@@ -122,34 +122,6 @@ exports[`UserProfileComponent matches snapshot 1`] = `
   <div
     className="current-user-bottom"
   >
-    <div
-      className="current-user-section-border"
-    >
-      <PositionInformation
-        assignment={
-          Object {
-            "end_date": "10-10-2018",
-            "estimated_end_date": "10-10-2018",
-            "position": Object {
-              "bureau": "(NEA) BUREAU NEAR EASTERN AFFAIRS",
-              "position_number": "58348065",
-              "post": Object {
-                "location": Object {
-                  "city": "Washington",
-                  "code": "500",
-                  "country": "United States",
-                  "id": 4,
-                  "state": "DC",
-                },
-              },
-              "skill": "CONSTRUCTION ENGINEERING (6218)",
-              "title": "PROJECT DIRECTOR",
-            },
-            "start_date": "10-10-2016",
-          }
-        }
-      />
-    </div>
     <UserProfileContactInformation
       showEditLink={true}
       userProfile={
