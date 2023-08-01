@@ -28,8 +28,8 @@ const PanelAdmin = () => {
   const navTabRef = useRef();
   const tabs = [
     { text: 'Panel Meetings', value: PM },
-    { text: 'Remarks Glossary', value: RG },
     { text: 'Post Panel Processing', value: PPP },
+    { text: 'Remarks Glossary', value: RG },
   ];
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
