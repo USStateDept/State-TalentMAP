@@ -48,6 +48,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Pay Plan': '---',
       'Assignee': '---',
+      'Functional Bureau': 'None Listed',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     textarea: pos?.description?.content || 'No description.',
@@ -118,6 +119,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Pay Plan': '---',
       'Assignee': '---',
+      'Functional Bureau': 'None Listed',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     inputBody: <div className="position-form">
@@ -138,7 +140,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
             </select>
           </div>
           <div className="position-form--input">
-            <label htmlFor="publishable-pos-tod-override">Override TOD</label>
+            <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
             <select
               id="publishable-pos-tod-override"
               defaultValue={overrideTOD}
