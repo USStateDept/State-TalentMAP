@@ -8,6 +8,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
+import { checkFlag } from 'flags';
 import EditRemark from '../EditRemark';
 import PanelMeetingAdmin from './PanelMeetingAdmin';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
@@ -15,9 +16,11 @@ import api from '../../../api';
 
 export const RG = 'RG';
 export const PM = 'PM';
-export const TST2 = 'TST2';
 
 const PanelAdmin = () => {
+  const usePanelAdminRemarks = () => checkFlag('flags.panel_admin_remarks');
+  const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
+
   const dispatch = useDispatch();
 
   const saveAdminRemarkHasErrored = useSelector(state => state.saveAdminRemarkHasErrored);
@@ -25,11 +28,15 @@ const PanelAdmin = () => {
   const saveAdminRemarkSuccess = useSelector(state => state.saveAdminRemarkSuccess);
 
   const navTabRef = useRef();
-  const tabs = [
-    { text: 'Panel Meetings', value: PM },
-    { text: 'Remarks Glossary', value: RG },
-    { text: 'Test Tab 2', value: TST2 },
-  ];
+  const tabs = [];
+
+  if (usePanelAdminPanelMeeting()) {
+    tabs.push({ text: 'Panel Meetings', value: PM });
+  }
+  if (usePanelAdminRemarks()) {
+    tabs.push({ text: 'Remarks Glossary', value: RG });
+  }
+
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
 
@@ -116,11 +123,6 @@ const PanelAdmin = () => {
 
       case PM:
         return <PanelMeetingAdmin />;
-
-      case TST2:
-        return (
-          <div>TST2</div>
-        );
 
       default:
         return errorAlert;
