@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
@@ -114,10 +114,6 @@ const CyclePositionCard = ({ data, cycle }) => {
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
 
-  const filters = useSelector(state => state.filters.filters);
-  const tods = filters.find(f => f.item.description === 'tod').data;
-  const [overrideTOD, setOverrideTOD] = useState(tods[0]);
-
   const form = {
     /* eslint-disable quote-props */
     staticBody: {
@@ -162,21 +158,6 @@ const CyclePositionCard = ({ data, cycle }) => {
               {statusOptions.map(s => (
                 <option value={s.code}>
                   {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="position-form--input">
-            <label htmlFor="cycle-position-tod-override">Override TOD</label>
-            <select
-              id="cycle-position-tod-override"
-              defaultValue={overrideTOD}
-              onChange={(e) => setOverrideTOD(e?.target.value)}
-              className="cycle-position-tod-select"
-            >
-              {tods.map(t => (
-                <option value={t.code}>
-                  {t.long_description}
                 </option>
               ))}
             </select>

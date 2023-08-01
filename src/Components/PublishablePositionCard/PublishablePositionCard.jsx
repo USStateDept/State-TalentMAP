@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
+import { useSelector } from 'react-redux';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { BID_CYCLES, POSITION_DETAILS } from 'Constants/PropTypes';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -88,6 +89,13 @@ const PublishablePositionCard = ({ data, cycles }) => {
   const [exclude, setExclude] = useState(true);
   const [selectedCycles, setSelectedCycles] = useState([]);
   const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
+  const [selectedFuncBureau, setSelectedFuncBureau] = useState('');
+
+  const filters = useSelector(state => state.filters.filters);
+  const tods = filters.find(f => f.item.description === 'tod').data;
+  const functionalBureaus = filters.find(f => f.item.description === 'functionalRegion');
+  const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
+  const [overrideTOD, setOverrideTOD] = useState('');
 
 
   const form = {
@@ -108,19 +116,36 @@ const PublishablePositionCard = ({ data, cycles }) => {
     },
     inputBody: <div className="position-form">
       <div className="spaced-row">
-        <div className="position-form--input">
-          <label htmlFor="publishable-position-statuses">Status</label>
-          <select
-            id="publishable-position-statuses"
-            defaultValue={status}
-            onChange={(e) => setStatus(e?.target.value)}
-          >
-            {statusOptions.map(s => (
-              <option value={s.code}>
-                {s.name}
-              </option>
-            ))}
-          </select>
+        <div className="dropdown-container">
+          <div className="position-form--input">
+            <label htmlFor="publishable-position-statuses">Status</label>
+            <select
+              id="publishable-position-statuses"
+              defaultValue={status}
+              onChange={(e) => setStatus(e?.target.value)}
+            >
+              {statusOptions.map(s => (
+                <option value={s.code}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="position-form--input">
+            <label htmlFor="cycle-position-tod-override">Override TOD</label>
+            <select
+              id="cycle-position-tod-override"
+              defaultValue={overrideTOD}
+              onChange={(e) => setOverrideTOD(e?.target.value)}
+              className="cycle-position-tod-select"
+            >
+              {tods.map(t => (
+                <option value={t.code}>
+                  {t.long_description}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <CheckBox
           id="exclude-checkbox"
@@ -167,6 +192,27 @@ const PublishablePositionCard = ({ data, cycles }) => {
         valueKey="id"
         labelKey="name"
       />
+      <div className="functional-bureau-section">
+        <div className="content-divider" />
+        <div className="position-form--heading">
+          <span className="title">Add a Functional Bureau</span>
+          <span className="subtitle">Add a Functional Bureau to this Position</span>
+        </div>
+        <div className="position-form--input">
+          <label htmlFor="cycle-position-func-bureaus">Bureau</label>
+          <select
+            id="cycle-position-func-bureaus"
+            defaultValue={selectedFuncBureau}
+            onChange={(e) => setSelectedFuncBureau(e?.target.value)}
+          >
+            {functionalBureaus$.map(b => (
+              <option value={b.code}>
+                {b.long_description}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>,
     /* eslint-enable quote-props */
   };

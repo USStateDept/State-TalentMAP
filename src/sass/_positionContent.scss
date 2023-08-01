@@ -315,7 +315,17 @@
   .spaced-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+
+    .dropdown-container {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-end;
+    }
+  }
+
+  .functional-bureau-section {
+    margin-top: 20px;
   }
 
   .left-row {
