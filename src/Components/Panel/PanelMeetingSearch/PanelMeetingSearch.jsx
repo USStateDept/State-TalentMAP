@@ -128,7 +128,6 @@ const PanelMeetingSearch = ({ isCDO }) => {
     page,
   ]);
 
-  console.log(useAddPanelMeeting);
   const exportPanelMeetings = () => {
     if (!exportIsLoading) {
       setExportIsLoading(true);
