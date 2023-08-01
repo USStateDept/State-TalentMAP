@@ -16,7 +16,7 @@ import api from '../../../api';
 import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
 const AgendaItemMaintenancePane = (props) => {
-  const useAgendaItemMaintenanceEditToggle = () => checkFlag('flags.agenda_item_maintenance_edit_toggle');
+  const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
 
   const dispatch = useDispatch();
 
@@ -166,7 +166,7 @@ const AgendaItemMaintenancePane = (props) => {
     if (readMode) {
       buttonMetadata.classNames = 'save-ai-btn min-width-155';
       buttonMetadata.clickFunction = updateFormMode;
-      buttonMetadata.disabled = !useAgendaItemMaintenanceEditToggle();
+      buttonMetadata.disabled = !useAgendaItemMaintenanceCreate();
       buttonMetadata.text = 'Toggle to Edit Mode';
     }
 
