@@ -9,6 +9,7 @@ import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { createPanelMeeting } from 'actions/panelMeetingAdmin';
 import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import InteractiveElement from '../../InteractiveElement/InteractiveElement';
 
 const PanelMeetingAdmin = (props) => {
   const { history } = props;
@@ -198,9 +199,9 @@ const PanelMeetingAdmin = (props) => {
                 />
                 <FA name="calendar" />
               </div>
-              <div className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
+              <InteractiveElement title="Run Official Preliminary" type="span" className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
                 Run Official Preliminary
-              </div>
+              </InteractiveElement>
             </div>
             <div className="admin-panel-meeting-field">
               <label htmlFor="addendum-cutoff-date">Official Addendum Run Time</label>
@@ -217,9 +218,9 @@ const PanelMeetingAdmin = (props) => {
                 />
                 <FA name="calendar" />
               </div>
-              <div className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
+              <InteractiveElement title="Run Official Addendum " type="span" className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
                 Run Official Addendum
-              </div>
+              </InteractiveElement>
             </div>
           </div>
           <div className="admin-panel-grid-row">
