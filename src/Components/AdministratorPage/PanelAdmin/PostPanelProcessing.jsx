@@ -44,38 +44,6 @@ const PostPanelProcessing = () => {
     dispatch(postPanelProcessingFetchData());
   }, []);
 
-  const statusOptions = [{
-    value: 'APR',
-    label: 'APR',
-  }, {
-    value: 'DEF',
-    label: 'DEF',
-  }, {
-    value: 'XXX',
-    label: 'XXX',
-  }, {
-    value: 'DIS',
-    label: 'DIS',
-  }, {
-    value: 'HLD',
-    label: 'HLD',
-  }, {
-    value: 'MOV',
-    label: 'MOV',
-  }, {
-    value: 'OOO',
-    label: 'OOO',
-  }, {
-    value: 'PIP',
-    label: 'PIP',
-  }, {
-    value: 'RDY',
-    label: 'RDY',
-  }, {
-    value: 'WDR',
-    label: 'WDR',
-  }];
-
   const loadingSpinner = (<Spinner type="panel-admin-remarks" size="small" />);
 
   // ============= Form Management =============
