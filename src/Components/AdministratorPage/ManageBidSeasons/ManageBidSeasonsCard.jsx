@@ -1,14 +1,11 @@
-import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
-import { Tooltip } from 'react-tippy';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
-import {
-  NO_DATE, NO_GRADE, NO_NOTES,
-} from 'Constants/SystemMessages';
+import { NO_DATE } from 'Constants/SystemMessages';
 import { availableBidderEditData } from 'actions/availableBidders';
 import EditBidSeasons from './EditBidSeasons';
 
@@ -21,79 +18,22 @@ const ManageBidSeasonsCard = (props) => {
     cycle_excl_position,
     id,
     bidder,
-    bureaus,
     sort,
-    isPost,
-    isInternalCDA,
+    displayNewModal,
   } = props;
+
 
   const shared = get(bidder, 'available_bidder_details.is_shared', false);
   const ocBureau = get(bidder, 'available_bidder_details.oc_bureau');
   const ocReason = get(bidder, 'available_bidder_details.oc_reason');
   const status = get(bidder, 'available_bidder_details.status');
   const languages = get(bidder, 'languages') || [];
-  const name = get(bidder, 'name');
   const bidderBureau = get(bidder, 'current_assignment.position.bureau_code');
   const created = get(bidder, 'available_bidder_details.date_created');
   const formattedCreated = created ? formatDate(created) : NO_DATE;
   const stepLetterOne = get(bidder, 'available_bidder_details.step_letter_one');
   const stepLetterTwo = get(bidder, 'available_bidder_details.step_letter_two');
-  const notes = get(bidder, 'available_bidder_details.comments') || NO_NOTES;
-  const tedToolTip =
-  (<Tooltip
-    html={
-      <div>
-        <div className="ab-row-tooltip-wrapper">
-          <div>
-            <span className="title">TED: <span className="ab-row-tooltip-data">TEST</span></span>
-          </div>
-        </div>
-      </div>
-    }
-    theme="ab-row"
-    arrow
-    tabIndex="0"
-    interactive
-    useContext
-  >
-    TEST
-  </Tooltip>);
-  const notesToolTip = notes !== NO_NOTES ?
-    (<Tooltip
-      html={
-        <div>
-          <div className="ab-row-tooltip-wrapper">
-            <div>
-              <span className="title">Notes: <span className="ab-row-tooltip-data">{notes}</span></span>
-            </div>
-          </div>
-        </div>
-      }
-      theme="ab-row"
-      arrow
-      tabIndex="0"
-      interactive
-      useContext
-    >
-      <FA name="comments" className="fa-lg comments-icon" />
-    </Tooltip>) : notes;
-  const getSections = (isModal = false) => {
-    // when adding/removing columns, make sure to update the
-    // $abl-actions-td and $abl-gray-config variables
-    const notes$ = isModal ? get(bidder, 'available_bidder_details.comments') || NO_NOTES : notesToolTip;
-    const ted$ = tedToolTip;
-    return isInternalCDA ? {
-      grade: get(bidder, 'grade') || NO_GRADE,
-      ted: ted$,
-      notes: notes$,
-    } : {
-      name: (<Link to={`/profile/public/${id}/${isPost ? 'post' : 'bureau'}`}>{name}</Link>),
-      grade: get(bidder, 'grade') || NO_GRADE,
-      ted: ted$,
-    };
-  };
 
-  const modalSections = getSections(true);
   const dispatch = useDispatch();
   const submitAction = (userInputs) => {
     dispatch(availableBidderEditData(id, userInputs, sort));
@@ -101,17 +41,16 @@ const ManageBidSeasonsCard = (props) => {
   };
 
   // =============== View Mode ===============
-  const editSeason = () => {
+  const editSeason = (seasonInfo, isNew) => {
     swal({
       title: 'Bid Season Information',
       button: false,
       content: (
         <EditBidSeasons
-          name={name}
-          sections={modalSections}
           submitAction={submitAction}
-          bureaus={bureaus}
-          details={{ ocBureau,
+          id={isNew ? '' : id}
+          seasonInfo={isNew ? {} : seasonInfo}
+          details={isNew ? {} : { ocBureau,
             ocReason,
             status,
             shared,
@@ -124,6 +63,12 @@ const ManageBidSeasonsCard = (props) => {
       ),
     });
   };
+
+  useEffect(() => {
+    if (displayNewModal) {
+      editSeason({}, true);
+    }
+  }, [displayNewModal]);
 
   return (
     <div className="position-form">
@@ -146,7 +91,7 @@ const ManageBidSeasonsCard = (props) => {
               {`Future Vacancy: ${cycle_excl_position}`}
             </Column>
           </Column>
-          <Column onClick={() => editSeason(props)} columns={3} className="cyc-card--link-col">
+          <Column onClick={() => editSeason({ cycle_begin_date, cycle_end_date, cycle_name, cycle_category, cycle_excl_position }, false)} columns={3} className="cyc-card--link-col">
             <span>
               <FA className="fa-solid fa-plus" />
               {' Edit'}

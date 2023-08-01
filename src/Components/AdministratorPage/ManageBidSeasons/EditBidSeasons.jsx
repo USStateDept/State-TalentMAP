@@ -13,7 +13,7 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
-  const { sections, submitAction, details } = props;
+  const { sections, submitAction, details, seasonInfo, id } = props;
   const [status, setStatus] = useState(details.status);
   const [note, setNote] = useState(sections.notes);
   const [ocReason, setOCReason] = useState(details.ocReason);
@@ -21,7 +21,6 @@ const EditBidSeasons = (props) => {
   const stepLetterTwoDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));
   const [stepLetterOne, setStepLetterOne] = useState(stepLetterOneDate);
   const [stepLetterTwo, setStepLetterTwo] = useState(stepLetterTwoDate);
-
   // To Do: Move these to the DB/Django backend after more user feedback
 
   const submit = (e) => {
@@ -47,7 +46,6 @@ const EditBidSeasons = (props) => {
     e.preventDefault();
     swal.close();
   };
-
 
   const ocSelected = status === 'OC';
   const ocReasonError = ocSelected && !ocReason;
@@ -98,7 +96,7 @@ const EditBidSeasons = (props) => {
             maxlength="255"
             name="note"
             placeholder="Type to filter seasons"
-            defaultValue={note === 'None' ? '' : note}
+            defaultValue={id === '' ? '' : `${id} - ${seasonInfo.cycle_name} - ${seasonInfo.cycle_begin_date} - ${seasonInfo.cycle_end_date}`}
             onChange={(e) => setNote(e.target.value)}
           />
         </div>
@@ -115,11 +113,12 @@ const EditBidSeasons = (props) => {
             <select
               id="ocReason"
               className={ocReasonError ? 'select-error' : ''}
-              defaultValue={ocReason}
+              defaultValue={seasonInfo.cycle_name}
               onChange={(e) => setOCReason(e.target.value)}
               aria-describedby={ocReasonError ? 'ocReason-error' : ''}
               value={ocReason}
             >
+              <option value="">{seasonInfo.cycle_name}</option>
               <option value="">None listed</option>
             </select>
             {!!ocReasonError && <span className="usa-input-error-message" role="alert">OC Reason is required.</span>}
@@ -134,7 +133,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="None listed"
+                  placeholderText={id === '' ? 'None listed' : seasonInfo.cycle_begin_date}
                   className={stepLetterOneError ? 'select-error' : ''}
                 />
                 {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
@@ -161,7 +160,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterTwo}
                   onChange={updateStepLetterTwo}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="None listed"
+                  placeholderText={id === '' ? 'None listed' : seasonInfo.cycle_end_date}
                   className={stepLetterTwoError ? 'select-error' : ''}
                   minDate={stepLetterOne}
                 />
@@ -187,7 +186,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="None listed"
+                  placeholderText={id === '' ? 'None listed' : seasonInfo.cycle_end_date}
                   className={stepLetterOneError ? 'select-error' : ''}
                 />
                 {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
