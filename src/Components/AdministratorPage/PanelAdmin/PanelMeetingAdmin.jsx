@@ -85,9 +85,8 @@ const PanelMeetingAdmin = (props) => {
     setAddendumCutoff('');
     setPrelimRuntime('');
     setAddendumRuntime('');
-    setPrelimRuntime('');
     setPostPanelStarted('');
-    setPostPanelStarted('');
+    setPostPanelRunTime('');
     setAgendaCompletedTime('');
     setPanelMeetingStatus('Initiated');
   };
