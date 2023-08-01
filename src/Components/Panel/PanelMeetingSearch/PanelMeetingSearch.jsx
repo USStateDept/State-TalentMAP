@@ -8,6 +8,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import { isDate, startOfDay } from 'date-fns-v2';
 import { usePrevious } from 'hooks';
+import { checkFlag } from 'flags';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -21,6 +22,8 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
 import { userHasPermissions } from '../../../utilities';
+
+const useAddPanelMeeting = () => checkFlag('flags.panel_admin');
 
 const PanelMeetingSearch = ({ isCDO }) => {
   const dispatch = useDispatch();
@@ -281,7 +284,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
           </div>
         }
         {
-          isSuperUser &&
+          (isSuperUser && useAddPanelMeeting) &&
           <div className="admin-panel-meeting-add-meeting">
             <Link to={'/profile/administrator/panel'}>
               <FA name="sitemap" className="admin-panel-meeting-add-meeting-icon" />
