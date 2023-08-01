@@ -149,7 +149,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
-      checkFlag('flags.publishable_positions') ?
+      checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
           route: '/profile/administrator/panel/',
@@ -188,7 +188,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      checkFlag('flags.publishable_positions') ?
+      checkFlag('flags.projected_vacancy') ?
         {
           text: 'Projected Vacancy Management',
           route: '/profile/bureau/projectedvacancy',
