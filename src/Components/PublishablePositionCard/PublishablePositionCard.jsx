@@ -91,13 +91,13 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   const [selectedCycles, setSelectedCycles] = useState([]);
   const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
   const [selectedFuncBureau, setSelectedFuncBureau] = useState('');
+  const [overrideTOD, setOverrideTOD] = useState('');
 
   const filters = useSelector(state => state.filters);
   const filters$ = filters?.filters;
   const tods = filters$.find(f => f.item.description === 'tod').data;
   const functionalBureaus = filters$.find(f => f.item.description === 'functionalRegion');
   const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
-  const [overrideTOD, setOverrideTOD] = useState('');
 
   const onEditModeCard = (editMode) => {
     // TODO: during integration, replace 7 with unique card identifier
