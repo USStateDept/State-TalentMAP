@@ -45,6 +45,7 @@ class PaginationWrapper extends Component {
                 subContainerClassName={subContainerClassName}
                 forcePage={forcePage - 1/* reconciles zero-based pagination */}
                 activeClassName={activeClassName}
+                className={this.props.className}
               />
             </nav>
             : null
@@ -67,6 +68,7 @@ PaginationWrapper.propTypes = {
   activeClassName: PropTypes.string,
   paginationStyle: PropTypes.string,
   totalResults: PropTypes.number.isRequired,
+  className: PropTypes.string,
 };
 
 PaginationWrapper.defaultProps = {
@@ -78,6 +80,7 @@ PaginationWrapper.defaultProps = {
   subContainerClassName: 'pages pagination',
   activeClassName: 'active',
   paginationStyle: 'pagination',
+  className: '',
 };
 
 export default PaginationWrapper;

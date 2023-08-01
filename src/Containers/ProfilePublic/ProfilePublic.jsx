@@ -14,6 +14,7 @@ import { registerHandshake, unregisterHandshake } from 'actions/handshake';
 import { toggleBidPosition } from 'actions/bidList';
 
 class ProfilePublic extends Component {
+  // DashboardContainer(Dashboard.jsx) is the 'ProfilePrivate' counterpart to ProfilePublic.jsx
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isView('bureau');
@@ -55,7 +56,6 @@ class ProfilePublic extends Component {
       case 'bureau':
         props = {
           showAgendaItemHistory: false,
-          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -66,7 +66,6 @@ class ProfilePublic extends Component {
       case 'post':
         props = {
           showAgendaItemHistory: false,
-          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -77,7 +76,6 @@ class ProfilePublic extends Component {
       case 'ao':
         props = {
           showAgendaItemHistory: true,
-          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
@@ -89,7 +87,6 @@ class ProfilePublic extends Component {
         // cdo relies on no other roles matching viewType
         props = {
           showAgendaItemHistory: true,
-          showAssignmentHistory: true,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,

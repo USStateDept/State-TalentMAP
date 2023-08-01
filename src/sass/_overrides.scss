@@ -163,3 +163,41 @@ button,
 .flex {
   display: flex;
 }
+
+// this is to fake a disable on react-paginate.
+// the overlay is a clear box that goes on top of the pagination
+// to block clicks
+.disable-react-paginate-overlay {
+  position: absolute;
+  height: 100px;
+  width: 500px;
+}
+
+.disable-react-paginate {
+  .active {
+    background: $bg-gray-dark-2;
+    a {
+      color: white;
+    }
+  }
+
+  a {
+    color: $bg-gray-dark-2;
+  }
+}
+
+.tiny-alert-error {
+  background-color: $secondary-lightest;
+  margin-top: 0;
+  padding: 5px 15px;
+
+  ::before {
+    background-color: $secondary-dark;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1rem;
+  }
+}
