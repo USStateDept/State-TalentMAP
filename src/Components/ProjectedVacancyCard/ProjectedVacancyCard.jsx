@@ -20,7 +20,7 @@ import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import FA from 'react-fontawesome';
 
-const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
+const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) => {
   const dispatch = useDispatch();
 
   // Start: fake temp data
@@ -86,6 +86,10 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
   useDidMountEffect(() => {
     updateIncluded(id, included);
   }, [included]);
+
+  const onEditModeCard = (editMode) => {
+    onEditModeSearch(editMode, id);
+  };
 
   const onCancelForm = () => {
     // this is likely not going to be needed, as we should be
@@ -262,6 +266,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id }) => {
             <PositionExpandableContent
               sections={sections}
               form={form}
+              onEditMode={onEditModeCard}
             />
             <div className="toggle-include">
               <ToggleButton
@@ -282,11 +287,13 @@ ProjectedVacancyCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   updateIncluded: PropTypes.func,
   id: PropTypes.number,
+  onEditModeSearch: PropTypes.func,
 };
 
 ProjectedVacancyCard.defaultProps = {
   updateIncluded: EMPTY_FUNCTION,
   id: null,
+  onEditModeSearch: EMPTY_FUNCTION,
 };
 
 export default ProjectedVacancyCard;

@@ -13,6 +13,8 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
+import Alert from 'Components/Alert';
+import { onEditModeSearch } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
@@ -35,6 +37,7 @@ const PublishablePositions = () => {
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycle || []);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const statusOptions = [
@@ -61,6 +64,8 @@ const PublishablePositions = () => {
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
   const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+  const disableSearch = cardsInEditMode.length > 0;
+  const disableInput = isLoading || disableSearch;
 
   const getQuery = () => ({
     limit,
@@ -177,133 +182,156 @@ const PublishablePositions = () => {
   return (
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
-      <>
-        <div className="position-search">
-          <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
-            <div className="results-search-bar pt-20">
-              <div className="filterby-container">
-                <div className="filterby-label">Filter by:</div>
-                <div className="filterby-clear">
-                  {clearFilters &&
-                    <button className="unstyled-button" onClick={resetFilters}>
-                      <FA name="times" />
-                      Clear Filters
-                    </button>
-                  }
-                </div>
-              </div>
-              <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
-                <div className="filter-div">
-                  <div className="label">Publishable Status:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Status(es)"
-                    value={selectedStatuses}
-                    options={statusOptions}
-                    onChange={setSelectedStatuses}
-                    valueKey="code"
-                    labelKey="name"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Bid Cycle:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Bid Cycle(s)"
-                    value={selectedBidCycles}
-                    options={cycleOptions}
-                    onChange={setSelectedBidCycles}
-                    valueKey="id"
-                    labelKey="name"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Bureau:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Bureau(s)"
-                    value={selectedBureaus}
-                    options={bureauOptions}
-                    onChange={setSelectedBureaus}
-                    valueKey="code"
-                    labelKey="long_description"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Organization(s)"
-                    value={selectedOrgs}
-                    options={organizationOptions}
-                    onChange={setSelectedOrgs}
-                    valueKey="code"
-                    labelKey="name"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Skills:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Skill(s)"
-                    value={selectedSkills}
-                    options={skillOptions}
-                    onChange={setSelectedSkills}
-                    valueKey="code"
-                    labelKey="custom_description"
-                    disabled={isLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Grade:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Grade(s)"
-                    value={selectedGrades}
-                    options={gradeOptions}
-                    onChange={setSelectedGrades}
-                    valueKey="code"
-                    labelKey="custom_description"
-                    disabled={isLoading}
-                  />
-                </div>
+      <div className="position-search">
+        <div className="usa-grid-full position-search--header">
+          <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
+          <div className="results-search-bar pt-20">
+            <div className="filterby-container">
+              <div className="filterby-label">Filter by:</div>
+              <div className="filterby-clear">
+                {clearFilters &&
+                      <button
+                        className="unstyled-button"
+                        onClick={resetFilters}
+                        disabled={disableSearch}
+                      >
+                        <FA name="times" />
+                        Clear Filters
+                      </button>
+                }
               </div>
             </div>
-          </div>
-          {
-            <div className="position-search-controls--results padding-top results-dropdown">
-              <SelectForm
-                id="position-details-sort-results"
-                options={sorts.options}
-                label="Sort by:"
-                defaultSort={ordering}
-                onSelectOption={value => setOrdering(value.target.value)}
-              />
-              <SelectForm
-                id="position-details-num-results"
-                options={pageSizes.options}
-                label="Results:"
-                defaultSort={limit}
-                onSelectOption={value => setLimit(value.target.value)}
-              />
-              <ScrollUpButton />
-            </div>
-          }
-          <div className="usa-width-one-whole position-search--results">
-            <div className="usa-grid-full position-list">
-              <PublishablePositionCard
-                result={dummyPositionDetails}
-                cycles={cycles}
-              />
+            <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
+              <div className="filter-div">
+                <div className="label">Publishable Status:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Status(es)"
+                  value={selectedStatuses}
+                  options={statusOptions}
+                  onChange={setSelectedStatuses}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Bid Cycle:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bid Cycle(s)"
+                  value={selectedBidCycles}
+                  options={cycleOptions}
+                  onChange={setSelectedBidCycles}
+                  valueKey="id"
+                  labelKey="name"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Bureau:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bureau(s)"
+                  value={selectedBureaus}
+                  options={bureauOptions}
+                  onChange={setSelectedBureaus}
+                  valueKey="code"
+                  labelKey="long_description"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Organization:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Organization(s)"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Skills:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Skill(s)"
+                  value={selectedSkills}
+                  options={skillOptions}
+                  onChange={setSelectedSkills}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={disableInput}
+                />
+              </div>
+              <div className="filter-div">
+                <div className="label">Grade:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Grade(s)"
+                  value={selectedGrades}
+                  options={gradeOptions}
+                  onChange={setSelectedGrades}
+                  valueKey="code"
+                  labelKey="custom_description"
+                  disabled={disableInput}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </>
+        {
+          <div className="position-search-controls--results padding-top results-dropdown">
+            <SelectForm
+              id="position-details-sort-results"
+              options={sorts.options}
+              label="Sort by:"
+              defaultSort={ordering}
+              onSelectOption={value => setOrdering(value.target.value)}
+              disabled={disableSearch}
+            />
+            <SelectForm
+              id="position-details-num-results"
+              options={pageSizes.options}
+              label="Results:"
+              defaultSort={limit}
+              onSelectOption={value => setLimit(value.target.value)}
+              disabled={disableSearch}
+            />
+            <ScrollUpButton />
+          </div>
+        }
+        {
+          disableSearch &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
+              },
+              ]}
+            />
+        }
+        <div className="usa-width-one-whole position-search--results">
+          <div className="usa-grid-full position-list">
+            <PublishablePositionCard
+              result={dummyPositionDetails}
+              cycles={cycles}
+              onEditModeSearch={(editMode, id) =>
+                onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+            />
+          </div>
+        </div>
+        {/* placeholder for when we put in pagination */}
+        {
+          disableSearch &&
+            <div className="disable-react-paginate-overlay" />
+        }
+      </div>
   );
 };
 
