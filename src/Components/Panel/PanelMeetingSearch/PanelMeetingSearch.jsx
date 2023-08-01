@@ -23,10 +23,13 @@ import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
 import { userHasPermissions } from '../../../utilities';
 
-const useAddPanelMeeting = () => checkFlag('flags.panel_admin');
+const usePanelAdmin = () => checkFlag('flags.panel_admin');
+const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
 
 const PanelMeetingSearch = ({ isCDO }) => {
   const dispatch = useDispatch();
+
+  const showAddPanelMeeting = usePanelAdmin() && usePanelAdminPanelMeeting();
 
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
@@ -284,7 +287,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
           </div>
         }
         {
-          (isSuperUser && useAddPanelMeeting()) &&
+          isSuperUser && showAddPanelMeeting &&
           <div className="admin-panel-meeting-add-meeting">
             <Link to={'/profile/administrator/panel'}>
               <FA name="sitemap" className="admin-panel-meeting-add-meeting-icon" />
