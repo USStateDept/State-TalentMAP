@@ -137,12 +137,11 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
             </select>
           </div>
           <div className="position-form--input">
-            <label htmlFor="cycle-position-tod-override">Override TOD</label>
+            <label htmlFor="publishable-pos-tod-override">Override TOD</label>
             <select
-              id="cycle-position-tod-override"
+              id="publishable-pos-tod-override"
               defaultValue={overrideTOD}
               onChange={(e) => setOverrideTOD(e?.target.value)}
-              className="cycle-position-tod-select"
             >
               {tods.map(t => (
                 <option value={t.code}>
@@ -204,9 +203,9 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
           <span className="subtitle">Add a Functional Bureau to this Position</span>
         </div>
         <div className="position-form--input">
-          <label htmlFor="cycle-position-func-bureaus">Bureau</label>
+          <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
           <select
-            id="cycle-position-func-bureaus"
+            id="publishable-pos-func-bureaus"
             defaultValue={selectedFuncBureau}
             onChange={(e) => setSelectedFuncBureau(e?.target.value)}
           >
