@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
@@ -47,6 +48,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Pay Plan': '---',
       'Assignee': '---',
+      'Functional Bureau': 'None Listed',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     textarea: pos?.description?.content || 'No description.',
@@ -89,6 +91,14 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   const [exclude, setExclude] = useState(true);
   const [selectedCycles, setSelectedCycles] = useState([]);
   const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
+  const [selectedFuncBureau, setSelectedFuncBureau] = useState('');
+  const [overrideTOD, setOverrideTOD] = useState('');
+
+  const filters = useSelector(state => state.filters);
+  const filters$ = filters?.filters;
+  const tods = filters$.find(f => f.item.description === 'tod').data;
+  const functionalBureaus = filters$.find(f => f.item.description === 'functionalRegion');
+  const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
 
   const onEditModeCard = (editMode) => {
     // TODO: during integration, replace 7 with unique card identifier
@@ -109,23 +119,40 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
       'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
       'Pay Plan': '---',
       'Assignee': '---',
+      'Functional Bureau': 'None Listed',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     inputBody: <div className="position-form">
       <div className="spaced-row">
-        <div className="position-form--input">
-          <label htmlFor="publishable-position-statuses">Status</label>
-          <select
-            id="publishable-position-statuses"
-            defaultValue={status}
-            onChange={(e) => setStatus(e?.target.value)}
-          >
-            {statusOptions.map(s => (
-              <option value={s.code}>
-                {s.name}
-              </option>
-            ))}
-          </select>
+        <div className="dropdown-container">
+          <div className="position-form--input">
+            <label htmlFor="publishable-position-statuses">Status</label>
+            <select
+              id="publishable-position-statuses"
+              defaultValue={status}
+              onChange={(e) => setStatus(e?.target.value)}
+            >
+              {statusOptions.map(s => (
+                <option value={s.code}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="position-form--input">
+            <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
+            <select
+              id="publishable-pos-tod-override"
+              defaultValue={overrideTOD}
+              onChange={(e) => setOverrideTOD(e?.target.value)}
+            >
+              {tods.map(t => (
+                <option value={t.code}>
+                  {t.long_description}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <CheckBox
           id="exclude-checkbox"
@@ -172,6 +199,27 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
         valueKey="id"
         labelKey="name"
       />
+      <div className="pt-20">
+        <div className="content-divider" />
+        <div className="position-form--heading">
+          <span className="title">Add a Functional Bureau</span>
+          <span className="subtitle">Add a Functional Bureau to this Position</span>
+        </div>
+        <div className="position-form--input">
+          <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
+          <select
+            id="publishable-pos-func-bureaus"
+            defaultValue={selectedFuncBureau}
+            onChange={(e) => setSelectedFuncBureau(e?.target.value)}
+          >
+            {functionalBureaus$.map(b => (
+              <option value={b.code}>
+                {b.long_description}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
     </div>,
     /* eslint-enable quote-props */
   };
