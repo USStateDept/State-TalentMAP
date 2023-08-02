@@ -229,6 +229,12 @@
       >span {
         text-align: right;
       }
+      .editHover {
+        &:hover {
+          cursor: pointer;
+          color: blue;
+        }
+      }
     }
   }
 }

@@ -13,9 +13,9 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
-  const { sections, submitAction, details, seasonInfo, id } = props;
+  const { submitAction, details, seasonInfo, id } = props;
   const [status, setStatus] = useState(details.status);
-  const [description, setDescription] = useState(sections.notes);
+  const [description, setDescription] = useState();
   const [season, setSeason] = useState(details.ocReason);
   const stepLetterOneDate = !get(details, 'stepLetterOne') ? null : new Date(get(details, 'stepLetterOne'));
   const stepLetterTwoDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));

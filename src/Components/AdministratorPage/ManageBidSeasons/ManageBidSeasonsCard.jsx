@@ -83,7 +83,7 @@ const ManageBidSeasonsCard = (props) => {
             </Column>
           </Column>
           <Column onClick={() => editSeason({ cycle_begin_date, cycle_end_date, cycle_name, cycle_category, cycle_excl_position }, false)} columns={3} className="cyc-card--link-col">
-            <span>
+            <span className="editHover">
               <FA className="fa-solid fa-plus" />
               {' Edit'}
             </span>
