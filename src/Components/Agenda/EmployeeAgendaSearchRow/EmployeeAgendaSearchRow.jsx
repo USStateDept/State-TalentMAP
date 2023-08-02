@@ -10,11 +10,13 @@ import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
 const useAgendaItemHistory = () => checkFlag('flags.agenda_item_history');
 const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
+const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
 const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
 
-const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
+const EmployeeAgendaSearchRow = ({ isCDO, result, viewType }) => {
   const showAgendaItemHistory = useAgendaItemHistory();
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
+  const showAgendaItemMaintenanceCreate = useAgendaItemMaintenanceCreate();
   const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
 
   // will need to update during integration
@@ -137,7 +139,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             </div>
           }
           {
-            !!showCreate &&
+            showAgendaItemMaintenance && showAgendaItemMaintenanceCreate &&
             <div className="button-box-container">
               <LinkButton className="button-box" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
             </div>
@@ -161,14 +163,12 @@ EmployeeAgendaSearchRow.propTypes = {
       panelDate: PropTypes.string,
     }),
   }),
-  showCreate: PropTypes.bool,
   viewType: PropTypes.string,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
   isCDO: false,
   result: {},
-  showCreate: true,
   viewType: '',
 };
 

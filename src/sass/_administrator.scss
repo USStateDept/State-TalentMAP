@@ -459,4 +459,11 @@
       margin-top: 14px;
     }
   }
+
+  &.feature-flags-editor {
+    .jsoneditor-frame {
+      display: flex;
+      flex-direction: row;
+    }
+  }
 }

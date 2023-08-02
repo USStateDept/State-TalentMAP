@@ -19,7 +19,6 @@ import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
 import ToggleButton from 'Components/ToggleButton';
-import { checkFlag } from 'flags';
 import { usePrevious } from 'hooks';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSearchRow';
@@ -27,16 +26,12 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
-
-const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
-
 const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const searchLastNameRef = useRef();
   const searchFirstNameRef = useRef();
   const searchEmpIDRef = useRef();
 
   const dispatch = useDispatch();
-  const showAgendaItemMaintenance = useAgendaItemMaintenance();
 
   const agendaEmployeesFilters = useSelector(state => state.agendaEmployeesFilters);
   const agendaEmployeesFiltersIsLoading = useSelector(state =>
@@ -521,7 +516,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                             key={shortid.generate()}
                             result={emp}
                             isCDO={isCDO}
-                            showCreate={showAgendaItemMaintenance}
                             viewType={viewType}
                           />
                         ))
@@ -537,7 +531,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                             key={shortid.generate()}
                             result={emp}
                             isCDO={isCDO}
-                            showCreate={showAgendaItemMaintenance}
                             viewType={viewType}
                           />
                         ))
