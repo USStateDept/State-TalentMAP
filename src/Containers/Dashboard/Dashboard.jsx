@@ -13,8 +13,8 @@ import ProfileDashboard from 'Components/ProfileDashboard';
 import { fetchClassifications, fetchUserClassifications } from 'actions/classifications';
 
 class DashboardContainer extends Component {
-  // DashboardContainer(this component) is basically the
-  // ProfilePrivate counterpart to ProfilePublic.jsx
+  // DashboardContainer(Dashboard.jsx - this component) is
+  // the 'ProfilePrivate' counterpart to ProfilePublic.jsx
 
   UNSAFE_componentWillMount() {
     this.props.fetchBidList();
@@ -50,12 +50,12 @@ class DashboardContainer extends Component {
         deleteBid={deleteBid}
         classifications={classifications}
         clientClassifications={userClassifications}
-        showAgendaHistory={false}
+        showAgendaItemHistory={false}
         showBidTracker
         showClassifications={!userClassificationsHasErrored}
+        canEditClassifications={false}
         showLanguages={false}
         showSearchAsClient={false}
-        canEditClassifications={false}
       />
     );
   }

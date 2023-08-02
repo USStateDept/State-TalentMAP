@@ -14,7 +14,9 @@ import { registerHandshake, unregisterHandshake } from 'actions/handshake';
 import { toggleBidPosition } from 'actions/bidList';
 
 class ProfilePublic extends Component {
-  // DashboardContainer(Dashboard.jsx) is the 'ProfilePrivate' counterpart to ProfilePublic.jsx
+  // DashboardContainer(Dashboard.jsx) is the 'ProfilePrivate'
+  // counterpart to ProfilePublic.jsx(this component)
+
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isView('bureau');
@@ -48,7 +50,10 @@ class ProfilePublic extends Component {
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
     const viewType = get(this.props, 'match.params.viewType');
-
+    /* eslint-disable no-console */
+    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+    console.log('🐙 current: viewType:', viewType);
+    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
     let props = {};
     // making the props isRequired essentially makes this a living document
     // for public profiles
