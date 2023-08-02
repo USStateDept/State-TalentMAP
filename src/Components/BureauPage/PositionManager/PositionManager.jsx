@@ -328,7 +328,7 @@ const PositionManager = props => {
           <div className="usa-grid-full position-search--header">
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
-                <ProfileSectionTitle title="Position Manager" icon="map" />
+                <ProfileSectionTitle title="Position Management" icon="map" />
                 <PositionManagerSearch
                   submitSearch={submitSearch}
                   onChange={setTextInputThrottled}
@@ -347,7 +347,7 @@ const PositionManager = props => {
                     }
                   </div>
                 </div>
-                <div className="usa-width-one-whole position-search--filters results-dropdown">
+                <div className="usa-width-one-whole position-search--filters--pos-man results-dropdown">
                   <div className="filter-div">
                     <div className="label">Cycle:</div>
                     <Picky

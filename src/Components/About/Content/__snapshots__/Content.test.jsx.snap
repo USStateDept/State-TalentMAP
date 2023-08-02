@@ -58,6 +58,7 @@ exports[`Content matches snapshot 1`] = `
         },
       ]
     }
+    tinyAlert={false}
     title="TalentMAP Progress is Ongoing"
     type="info"
   />

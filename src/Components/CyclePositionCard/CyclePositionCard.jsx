@@ -3,22 +3,29 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from 'Constants/SystemMessages';
 import CheckBox from 'Components/CheckBox';
+import { checkFlag } from 'flags';
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import swal from '@sweetalert/with-react';
 import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
+const useDeto = () => checkFlag('flags.deto');
 
-const CyclePositionCard = ({ data, cycle }) => {
+const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const dispatch = useDispatch();
   const pos = data?.position || data;
+  const showDeto = useDeto();
+
+  const onEditModeCard = (editMode) => {
+    onEditModeSearch(editMode, pos?.id);
+  };
 
   const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
@@ -59,6 +66,10 @@ const CyclePositionCard = ({ data, cycle }) => {
     },
     /* eslint-enable quote-props */
   };
+
+  if (!showDeto) {
+    delete sections.bodySecondary[''];
+  }
 
 
   // =============== Edit Mode ===============
@@ -169,13 +180,16 @@ const CyclePositionCard = ({ data, cycle }) => {
     /* eslint-enable quote-props */
   };
 
-
   return (
     <TabbedCard
       tabs={[{
         text: 'Position Information',
         value: 'INFORMATION',
-        content: <PositionExpandableContent sections={sections} form={form} />,
+        content: <PositionExpandableContent
+          sections={sections}
+          form={form}
+          onEditMode={onEditModeCard}
+        />,
       }]}
     />
   );
@@ -186,6 +200,11 @@ CyclePositionCard.propTypes = {
   cycle: PropTypes.shape({
     cycle_name: PropTypes.string,
   }).isRequired,
+  onEditModeSearch: PropTypes.func,
+};
+
+CyclePositionCard.defaultProps = {
+  onEditModeSearch: EMPTY_FUNCTION,
 };
 
 export default CyclePositionCard;

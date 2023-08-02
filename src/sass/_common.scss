@@ -1,3 +1,15 @@
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.pt-20 {
+  padding-top: 20px;
+}
+
 .min-width-155 {
   min-width: 155px;
 }
@@ -40,8 +52,39 @@
   }
 }
 
+@each $group, $values in $filters-sizing-config {
+  $label-width: map-get($values, label-width);
+  $picky-width: map-get($values, picky-width);
+  $grid-size: map-get($values, grid-size) or $label-width + $picky-width + 20;
+
+  .position-search--filters--#{$group} {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($grid-size, 1fr));
+
+    .filter-div {
+      align-items: center;
+      display: flex;
+
+      .label {
+        margin-right: 10px;
+        text-align: end;
+        width: $label-width;
+      }
+
+      .picky {
+        color: $color-black;
+        width: $picky-width;
+      }
+    }
+  }
+}
+
 .hide {
   visibility: hidden;
+}
+
+.align-right {
+  text-align: right;
 }
 
 .box-shadow-standard {

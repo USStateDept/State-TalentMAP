@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
 import { fetchJWT, getAssetPath } from 'utilities';
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
 
@@ -23,8 +22,6 @@ const EmployeeProfileModal = props => {
     return null;
   };
 
-  const defaultLayoutPluginInstance = defaultLayoutPlugin();
-
   return (
     <div>
       <InteractiveElement className="modal-close-icon" onClick={cancel}><FA name="times" /></InteractiveElement>
@@ -35,7 +32,6 @@ const EmployeeProfileModal = props => {
               fileUrl={url}
               httpHeaders={{ JWTAuthorization: fetchJWT() }}
               withCredentials
-              plugins={[defaultLayoutPluginInstance]}
             />
           </Worker>
         </div>
