@@ -23,17 +23,10 @@ const ManageBidSeasonsCard = (props) => {
     displayNewModal,
   } = props;
 
-
-  const shared = get(bidder, 'available_bidder_details.is_shared', false);
-  const ocBureau = get(bidder, 'available_bidder_details.oc_bureau');
-  const ocReason = get(bidder, 'available_bidder_details.oc_reason');
-  const status = get(bidder, 'available_bidder_details.status');
-  const languages = get(bidder, 'languages') || [];
-  const bidderBureau = get(bidder, 'current_assignment.position.bureau_code');
-  const created = get(bidder, 'available_bidder_details.date_created');
+  const created = get(bidder, 'bid-seasons.date_created');
   const formattedCreated = created ? formatDate(created) : NO_DATE;
-  const stepLetterOne = get(bidder, 'available_bidder_details.step_letter_one');
-  const stepLetterTwo = get(bidder, 'available_bidder_details.step_letter_two');
+  const stepLetterOne = get(bidder, 'bid-seasons.step_letter_one');
+  const stepLetterTwo = get(bidder, 'bid-seasons.step_letter_two');
 
   const dispatch = useDispatch();
   const submitAction = (userInputs) => {
@@ -51,15 +44,12 @@ const ManageBidSeasonsCard = (props) => {
           submitAction={submitAction}
           id={isNew ? '' : id}
           seasonInfo={isNew ? {} : seasonInfo}
-          details={isNew ? {} : { ocBureau,
-            ocReason,
-            status,
-            shared,
-            languages,
-            bidderBureau,
-            formattedCreated,
-            stepLetterOne,
-            stepLetterTwo }}
+          details={
+            isNew ? {} : {
+              formattedCreated,
+              stepLetterOne,
+              stepLetterTwo,
+            }}
         />
       ),
     });
@@ -114,22 +104,12 @@ ManageBidSeasonsCard.propTypes = {
   sort: PropTypes.string.isRequired,
   displayNewModal: PropTypes.bool.isRequired,
   bidder: PropTypes.shape({
-    available_bidder_details: PropTypes.shape({
-      is_shared: PropTypes.bool,
-      oc_bureau: PropTypes.string,
-      oc_reason: PropTypes.string,
-      status: PropTypes.string,
+    'bid-seasons': PropTypes.shape({
       date_created: PropTypes.string,
       step_letter_one: PropTypes.string,
       step_letter_two: PropTypes.string,
     }),
-    languages: PropTypes.arrayOf(PropTypes.shape({})),
-    current_assignment: PropTypes.shape({
-      position: PropTypes.shape({
-        bureau_code: PropTypes.string,
-      }),
-    }),
-  }),
+  }).isRequired,
 };
 
 ManageBidSeasonsCard.defaultProps = {
@@ -141,23 +121,6 @@ ManageBidSeasonsCard.defaultProps = {
   id: '',
   sort: '',
   displayNewModal: false,
-  bidder: {
-    available_bidder_details: {
-      is_shared: false,
-      oc_bureau: '',
-      oc_reason: '',
-      status: '',
-      date_created: '',
-      step_letter_one: '',
-      step_letter_two: '',
-    },
-    languages: [],
-    current_assignment: {
-      position: {
-        bureau_code: '',
-      },
-    },
-  },
 };
 
 export default ManageBidSeasonsCard;

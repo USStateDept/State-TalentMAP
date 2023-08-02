@@ -202,3 +202,13 @@ export const EDIT_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Updated';
 export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated';
 export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
 export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';
+
+export const REMOVE_BID_SEASON_POSITION_SUCCESS_TITLE = 'Bid Season Position Removed';
+export const REMOVE_BID_SEASON_POSITION_SUCCESS = 'Bid Season Position has been removed.';
+export const REMOVE_BID_SEASON_POSITION_ERROR_TITLE = 'Bid Season Position Delete Error';
+export const REMOVE_BID_SEASON_POSITION_ERROR = 'There was an issue attempting to remove this Bid Season Position. Please try again.';
+
+export const EDIT_BID_SEASON_POSITION_SUCCESS_TITLE = 'Bid Season Position Updated';
+export const EDIT_BID_SEASON_POSITION_SUCCESS = 'The Bid Season Position has been updated';
+export const EDIT_BID_SEASON_POSITION_ERROR_TITLE = 'Bid Season Position Edit Error';
+export const EDIT_BID_SEASON_POSITION_ERROR = 'There was an issue attempting to update this Bid Season Position. Please try again.';
