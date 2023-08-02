@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AB_EDIT_DETAILS_OBJECT, AB_EDIT_SECTIONS_OBJECT, EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AB_EDIT_DETAILS_OBJECT, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { forEach, get } from 'lodash';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
@@ -133,7 +133,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'None listed' : seasonInfo.cycle_begin_date}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : seasonInfo.cycle_begin_date}
                   className={stepLetterOneError ? 'select-error' : ''}
                 />
                 {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
@@ -160,7 +160,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterTwo}
                   onChange={updateStepLetterTwo}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'None listed' : seasonInfo.cycle_end_date}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : seasonInfo.cycle_end_date}
                   className={stepLetterTwoError ? 'select-error' : ''}
                   minDate={stepLetterOne}
                 />
@@ -186,7 +186,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'None listed' : seasonInfo.cycle_end_date}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : seasonInfo.cycle_end_date}
                   className={stepLetterOneError ? 'select-error' : ''}
                 />
                 {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
@@ -220,11 +220,19 @@ const EditBidSeasons = (props) => {
   );
 };
 
-EditBidSeasons.propTypes = {
-  sections: AB_EDIT_SECTIONS_OBJECT,
+EditBidSeasons.PropTypes = {
+  sections: {
+    notes: PropTypes.string,
+  },
+  name: PropTypes.string,
   submitAction: PropTypes.func,
+  bureaus: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string,
+    name: PropTypes.string,
+  })),
   details: AB_EDIT_DETAILS_OBJECT,
 };
+
 
 EditBidSeasons.defaultProps = {
   sections: {},

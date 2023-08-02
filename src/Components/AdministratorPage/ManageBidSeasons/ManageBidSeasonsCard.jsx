@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
@@ -103,5 +104,60 @@ const ManageBidSeasonsCard = (props) => {
   );
 };
 
+ManageBidSeasonsCard.propTypes = {
+  cycle_name: PropTypes.string,
+  cycle_category: PropTypes.string,
+  cycle_begin_date: PropTypes.string,
+  cycle_end_date: PropTypes.string,
+  cycle_excl_position: PropTypes.string,
+  id: PropTypes.string,
+  sort: PropTypes.string.isRequired,
+  displayNewModal: PropTypes.bool.isRequired,
+  bidder: PropTypes.shape({
+    available_bidder_details: PropTypes.shape({
+      is_shared: PropTypes.bool,
+      oc_bureau: PropTypes.string,
+      oc_reason: PropTypes.string,
+      status: PropTypes.string,
+      date_created: PropTypes.string,
+      step_letter_one: PropTypes.string,
+      step_letter_two: PropTypes.string,
+    }),
+    languages: PropTypes.arrayOf(PropTypes.shape({})),
+    current_assignment: PropTypes.shape({
+      position: PropTypes.shape({
+        bureau_code: PropTypes.string,
+      }),
+    }),
+  }),
+};
+
+ManageBidSeasonsCard.defaultProps = {
+  cycle_name: '',
+  cycle_category: '',
+  cycle_begin_date: '',
+  cycle_end_date: '',
+  cycle_excl_position: '',
+  id: '',
+  sort: '',
+  displayNewModal: false,
+  bidder: {
+    available_bidder_details: {
+      is_shared: false,
+      oc_bureau: '',
+      oc_reason: '',
+      status: '',
+      date_created: '',
+      step_letter_one: '',
+      step_letter_two: '',
+    },
+    languages: [],
+    current_assignment: {
+      position: {
+        bureau_code: '',
+      },
+    },
+  },
+};
 
 export default ManageBidSeasonsCard;
