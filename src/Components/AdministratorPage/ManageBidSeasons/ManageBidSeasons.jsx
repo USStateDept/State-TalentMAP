@@ -143,11 +143,11 @@ const ManageBidSeasons = (props) => {
   return (
     genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
-        <div className="cycle-management-page">
-          <div className="usa-grid-full cm-upper-section">
-            <ProfileSectionTitle title="Bid Season Search" icon="calendar" />
-            <div className="usa-width-one-whole cm-filters grid-450">
-              <div className="cm-filter-div">
+        <div className="cycle-management-page position-search">
+          <div className="usa-grid-full position-search--header">
+            <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
+            <div className="usa-width-one-whole position-search--filters--cm">
+              <div className="filter-div">
                 <div className="label">Season:</div>
                 <Picky
                   {...pickyProps}
@@ -159,17 +159,19 @@ const ManageBidSeasons = (props) => {
                   value={selectedStatus}
                 />
               </div>
-              <div className="cm-filter-div">
+              <div className="filter-div">
                 <div className="label">Season Date:</div>
-                <DateRangePicker
-                  onChange={setSelectedDates}
-                  value={selectedDates}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  showLeadingZeros
-                />
+                <div style={{ marginTop: '7px' }}>
+                  <DateRangePicker
+                    onChange={setSelectedDates}
+                    value={selectedDates}
+                    maxDetail="month"
+                    calendarIcon={null}
+                    showLeadingZeros
+                  />
+                </div>
               </div>
-              <div className="cm-filter-div">
+              <div className="filter-div">
                 <button>
                     Search
                 </button>
