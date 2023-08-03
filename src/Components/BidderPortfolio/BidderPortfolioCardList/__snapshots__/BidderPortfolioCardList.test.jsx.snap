@@ -51,6 +51,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
           },
         }
       }
+      viewType=""
     />
   </div>
   <div
@@ -85,6 +86,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
           },
         }
       }
+      viewType=""
     />
   </div>
   <div
@@ -119,6 +121,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
           },
         }
       }
+      viewType=""
     />
   </div>
   <div
@@ -168,6 +171,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
           },
         }
       }
+      viewType=""
     />
   </div>
   <div
@@ -202,6 +206,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
           },
         }
       }
+      viewType=""
     />
   </div>
   <div
@@ -251,6 +256,7 @@ exports[`BidderPortfolioCardListComponent matches snapshot 1`] = `
           },
         }
       }
+      viewType=""
     />
   </div>
 </div>

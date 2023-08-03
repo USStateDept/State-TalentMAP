@@ -15,7 +15,9 @@ describe('Assignments Component', () => {
     const wrapper = TestUtils.renderIntoDocument(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <Assignments />
+          <Assignments
+            match={{ params: { id: '1' } }}
+          />
         </MemoryRouter>
       </Provider>,
     );
@@ -26,7 +28,9 @@ describe('Assignments Component', () => {
     const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <Assignments />
+          <Assignments
+            match={{ params: { id: '1' } }}
+          />
         </MemoryRouter>
       </Provider>,
     );

@@ -10,6 +10,18 @@ describe('assignment maintenance reducers', () => {
   });
 
   it('can set reducer EDIT_ASSIGNMENT_SUCCESS', () => {
-    expect(reducers.editAssignment({}, { type: 'EDIT_ASSIGNMENT_SUCCESS', assignment: true })).toBe(true);
+    expect(reducers.editAssignment({}, { type: 'EDIT_ASSIGNMENT_SUCCESS', editAssignment: true })).toBe(true);
+  });
+
+  it('can set reducer CREATE_ASSIGNMENT_HAS_ERRORED', () => {
+    expect(reducers.createAssignmentHasErrored(false, { type: 'CREATE_ASSIGNMENT_HAS_ERRORED', hasErrored: true })).toBe(true);
+  });
+
+  it('can set reducer CREATE_ASSIGNMENT_IS_LOADING', () => {
+    expect(reducers.createAssignmentIsLoading(false, { type: 'CREATE_ASSIGNMENT_IS_LOADING', isLoading: true })).toBe(true);
+  });
+
+  it('can set reducer CREATE_ASSIGNMENT_SUCCESS', () => {
+    expect(reducers.createAssignmentSeparation({}, { type: 'CREATE_ASSIGNMENT_SUCCESS', createAssignmentSeparation: true })).toBe(true);
   });
 });

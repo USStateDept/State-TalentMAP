@@ -2,8 +2,8 @@ import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
 import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
-import CyclePositionCard from './CyclePositionCard';
-import resultsObject from '../../__mocks__/resultsObject';
+import AssignmentCard from './AssignmentCard';
+import resultsObject from '../../../__mocks__/resultsObject';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
