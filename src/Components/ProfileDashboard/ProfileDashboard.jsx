@@ -97,7 +97,7 @@ const ProfileDashboard = ({
                     }
                     { !isPublic && isBidder && favoritesContainer() }
                     {
-                      showClassifications &&
+                      isPublic && showClassifications &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Classifications
                           classifications={classifications}
