@@ -25,7 +25,7 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showSearchAsClient,
   unregisterHandshake, showLanguages, canEditClassifications,
-  showAgendaItemHistory, showAssignmentHistory, isAOView,
+  showAgendaItemHistory, showAssignmentHistory, showEmployeeProfileLinks, isAOView,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -62,6 +62,7 @@ const ProfileDashboard = ({
                       <UserProfile
                         userProfile={userProfile}
                         isPublic={isPublic}
+                        showEmployeeProfileLinks={showEmployeeProfileLinks}
                       />
                     </BoxShadow>
                     {
@@ -175,6 +176,7 @@ ProfileDashboard.propTypes = {
   canEditClassifications: PropTypes.bool.isRequired,
   showLanguages: PropTypes.bool.isRequired,
   showSearchAsClient: PropTypes.bool.isRequired,
+  showEmployeeProfileLinks: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_RESULTS,
   notificationsIsLoading: PropTypes.bool,
   bidList: BID_RESULTS,

@@ -11,7 +11,7 @@ import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
-const EmployeeProfileLink = ({ isPublic, userProfile }) => {
+const EmployeeProfileLink = ({ isPublic, userProfile, showEmployeeProfileLinks }) => {
   const dispatch = useDispatch();
   const emp_profile_urls = userProfile?.employee_profile_url;
   let redactedUrl = emp_profile_urls?.internalRedacted;
@@ -54,11 +54,11 @@ const EmployeeProfileLink = ({ isPublic, userProfile }) => {
       content={
         <div>
           {
-            isPublic && !unredactedUrl && !redactedUrl &&
+            showEmployeeProfileLinks && !unredactedUrl && !redactedUrl &&
             <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
-            isPublic && unredactedUrl &&
+            showEmployeeProfileLinks && unredactedUrl &&
             <InteractiveElement
               onClick={openPdf}
               type="a"
@@ -68,7 +68,7 @@ const EmployeeProfileLink = ({ isPublic, userProfile }) => {
             </InteractiveElement>
           }
           {
-            isPublic && redactedUrl &&
+            showEmployeeProfileLinks && redactedUrl &&
             <InteractiveElement
               onClick={downloadEmployeeProfile}
               type="a"
@@ -86,6 +86,7 @@ const EmployeeProfileLink = ({ isPublic, userProfile }) => {
 
 EmployeeProfileLink.propTypes = {
   userProfile: USER_PROFILE.isRequired,
+  showEmployeeProfileLinks: PropTypes.bool.isRequired,
   isPublic: PropTypes.bool,
 };
 

@@ -57,6 +57,7 @@ class DashboardContainer extends Component {
         canEditClassifications={false}
         showLanguages={false}
         showSearchAsClient={false}
+        showEmployeeProfileLinks={false}
       />
     );
   }
