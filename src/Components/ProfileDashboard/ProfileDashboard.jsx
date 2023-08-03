@@ -25,7 +25,7 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showSearchAsClient,
   unregisterHandshake, showLanguages, canEditClassifications,
-  showAgendaItemHistory, isAOView,
+  showAgendaItemHistory, showAssignmentHistory, isAOView,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -65,6 +65,7 @@ const ProfileDashboard = ({
                       />
                     </BoxShadow>
                     {
+                      showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments id={perdet} />
                       </BoxShadow>
@@ -167,12 +168,13 @@ const ProfileDashboard = ({
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  showAgendaItemHistory: PropTypes.bool.isRequired,
+  showAssignmentHistory: PropTypes.bool.isRequired,
   showBidTracker: PropTypes.bool.isRequired,
-  showSearchAsClient: PropTypes.bool.isRequired,
-  showLanguages: PropTypes.bool.isRequired,
   showClassifications: PropTypes.bool.isRequired,
   canEditClassifications: PropTypes.bool.isRequired,
-  showAgendaItemHistory: PropTypes.bool.isRequired,
+  showLanguages: PropTypes.bool.isRequired,
+  showSearchAsClient: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_RESULTS,
   notificationsIsLoading: PropTypes.bool,
   bidList: BID_RESULTS,

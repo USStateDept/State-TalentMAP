@@ -56,11 +56,12 @@ class ProfilePublic extends Component {
     console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
     let props = {};
     // making the props isRequired essentially makes this a living document
-    // for public profiles
+    // for profiles
     switch (viewType) {
       case 'bureau':
         props = {
           showAgendaItemHistory: false,
+          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -71,6 +72,7 @@ class ProfilePublic extends Component {
       case 'post':
         props = {
           showAgendaItemHistory: false,
+          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -81,6 +83,7 @@ class ProfilePublic extends Component {
       case 'ao':
         props = {
           showAgendaItemHistory: true,
+          showAssignmentHistory: true,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
@@ -92,6 +95,7 @@ class ProfilePublic extends Component {
         // cdo relies on no other roles matching viewType
         props = {
           showAgendaItemHistory: true,
+          showAssignmentHistory: true,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,

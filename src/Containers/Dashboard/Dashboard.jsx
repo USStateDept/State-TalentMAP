@@ -51,6 +51,7 @@ class DashboardContainer extends Component {
         classifications={classifications}
         clientClassifications={userClassifications}
         showAgendaItemHistory={false}
+        showAssignmentHistory
         showBidTracker
         showClassifications={!userClassificationsHasErrored}
         canEditClassifications={false}
