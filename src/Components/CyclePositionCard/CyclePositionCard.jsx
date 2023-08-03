@@ -139,20 +139,18 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
       <div className="position-form">
         <div className="left-row">
           <div className="position-form--input">
-            <div className="cycle-card-dropdown">
-              <label htmlFor="cycle-position-incumbent">Incumbent</label>
-              <select
-                id="cycle-position-incumbent"
-                defaultValue={status}
-                onChange={(e) => setIncumbent(e?.target.value)}
-              >
-                {fakeIncumbents.map(s => (
-                  <option value={s.code}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label htmlFor="cycle-position-incumbent">Incumbent</label>
+            <select
+              id="cycle-position-incumbent"
+              defaultValue={status}
+              onChange={(e) => setIncumbent(e?.target.value)}
+            >
+              {fakeIncumbents.map(s => (
+                <option value={s.code}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="position-form--input">
             <label htmlFor="cycle-position-statuses">Status</label>
