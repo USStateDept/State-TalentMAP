@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { cyclePositionEdit, cyclePositionRemove } from 'actions/cycleManagement';
-import { POSITION_DETAILS } from 'Constants/PropTypes';
+import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
   NO_SKILL, NO_STATUS, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
@@ -18,10 +18,14 @@ import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
 const useDeto = () => checkFlag('flags.deto');
 
-const CyclePositionCard = ({ data, cycle }) => {
+const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const dispatch = useDispatch();
   const pos = data?.position || data;
   const showDeto = useDeto();
+
+  const onEditModeCard = (editMode) => {
+    onEditModeSearch(editMode, pos?.id);
+  };
 
   const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
@@ -135,20 +139,18 @@ const CyclePositionCard = ({ data, cycle }) => {
       <div className="position-form">
         <div className="left-row">
           <div className="position-form--input">
-            <div className="cycle-card-dropdown">
-              <label htmlFor="cycle-position-incumbent">Incumbent</label>
-              <select
-                id="cycle-position-incumbent"
-                defaultValue={status}
-                onChange={(e) => setIncumbent(e?.target.value)}
-              >
-                {fakeIncumbents.map(s => (
-                  <option value={s.code}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <label htmlFor="cycle-position-incumbent">Incumbent</label>
+            <select
+              id="cycle-position-incumbent"
+              defaultValue={status}
+              onChange={(e) => setIncumbent(e?.target.value)}
+            >
+              {fakeIncumbents.map(s => (
+                <option value={s.code}>
+                  {s.name}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="position-form--input">
             <label htmlFor="cycle-position-statuses">Status</label>
@@ -181,7 +183,11 @@ const CyclePositionCard = ({ data, cycle }) => {
       tabs={[{
         text: 'Position Information',
         value: 'INFORMATION',
-        content: <PositionExpandableContent sections={sections} form={form} />,
+        content: <PositionExpandableContent
+          sections={sections}
+          form={form}
+          onEditMode={onEditModeCard}
+        />,
       }]}
     />
   );
@@ -192,6 +198,11 @@ CyclePositionCard.propTypes = {
   cycle: PropTypes.shape({
     cycle_name: PropTypes.string,
   }).isRequired,
+  onEditModeSearch: PropTypes.func,
+};
+
+CyclePositionCard.defaultProps = {
+  onEditModeSearch: EMPTY_FUNCTION,
 };
 
 export default CyclePositionCard;

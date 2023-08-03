@@ -9,12 +9,15 @@ import FA from 'react-fontawesome';
 import { AGENDA_ITEM, AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { formatDate } from 'utilities';
 import { positionsFetchData } from 'actions/positions';
+import { checkFlag } from 'flags';
 import RemarksPill from '../RemarksPill';
 import { dateTernary } from '../Constants';
 import api from '../../../api';
 import { FP as FrequentPositionsTabID } from '../AgendaItemResearchPane/AgendaItemResearchPane';
 
 const AgendaItemMaintenancePane = (props) => {
+  const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
+
   const dispatch = useDispatch();
 
   const {
@@ -162,10 +165,8 @@ const AgendaItemMaintenancePane = (props) => {
 
     if (readMode) {
       buttonMetadata.classNames = 'save-ai-btn min-width-155';
-      // clicking this button will toggle from Read to Edit
-      // disabling criteria still needs to be hooked up
       buttonMetadata.clickFunction = updateFormMode;
-      buttonMetadata.disabled = false;
+      buttonMetadata.disabled = !useAgendaItemMaintenanceCreate();
       buttonMetadata.text = 'Toggle to Edit Mode';
     }
 

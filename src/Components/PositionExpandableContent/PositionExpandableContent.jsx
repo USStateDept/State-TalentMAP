@@ -7,8 +7,9 @@ import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
-const PositionExpandableContent = ({ sections, form, forceEdit }) => {
+const PositionExpandableContent = ({ sections, form, onEditMode, forceEdit }) => {
   const [showMore, setShowMore] = useState(false);
   const [editMode, setEditMode] = useState(forceEdit);
 
@@ -23,7 +24,10 @@ const PositionExpandableContent = ({ sections, form, forceEdit }) => {
   }, []);
 
   useEffect(() => {
-    if (editMode) setShowMore(true);
+    if (editMode) {
+      setShowMore(true);
+    }
+    onEditMode(editMode);
   }, [editMode]);
 
   const onCancel = () => {
@@ -162,6 +166,7 @@ PositionExpandableContent.propTypes = {
     handleCancel: PropTypes.func,
   }),
   forceEdit: PropTypes.bool,
+  onEditMode: PropTypes.func,
 };
 
 PositionExpandableContent.defaultProps = {
@@ -174,6 +179,7 @@ PositionExpandableContent.defaultProps = {
     textarea: '',
     metadata: {},
   },
+  onEditMode: EMPTY_FUNCTION,
 };
 
 export default PositionExpandableContent;
