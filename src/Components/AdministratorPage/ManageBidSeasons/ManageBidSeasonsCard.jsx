@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
 import { NO_DATE } from 'Constants/SystemMessages';
-import { availableBidderEditData } from 'actions/availableBidders';
 import EditBidSeasons from './EditBidSeasons';
 
 const ManageBidSeasonsCard = (props) => {
@@ -19,7 +17,6 @@ const ManageBidSeasonsCard = (props) => {
     cycle_excl_position,
     id,
     bidder,
-    sort,
     displayNewModal,
   } = props;
 
@@ -28,9 +25,7 @@ const ManageBidSeasonsCard = (props) => {
   const stepLetterOne = get(bidder, 'bid-seasons.step_letter_one');
   const stepLetterTwo = get(bidder, 'bid-seasons.step_letter_two');
 
-  const dispatch = useDispatch();
-  const submitAction = (userInputs) => {
-    dispatch(availableBidderEditData(id, userInputs, sort));
+  const submitAction = () => {
     swal.close();
   };
 
@@ -101,7 +96,6 @@ ManageBidSeasonsCard.propTypes = {
   cycle_end_date: PropTypes.string,
   cycle_excl_position: PropTypes.string,
   id: PropTypes.string,
-  sort: PropTypes.string.isRequired,
   displayNewModal: PropTypes.bool.isRequired,
   bidder: PropTypes.shape({
     'bid-seasons': PropTypes.shape({
@@ -119,7 +113,6 @@ ManageBidSeasonsCard.defaultProps = {
   cycle_end_date: '',
   cycle_excl_position: '',
   id: '',
-  sort: '',
   displayNewModal: false,
 };
 

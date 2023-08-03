@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
-import { forEach, get } from 'lodash';
+import { get } from 'lodash';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import CheckBox from 'Components/CheckBox';
@@ -13,9 +13,9 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
-  const { submitAction, details, seasonInfo, id } = props;
+  const { details, seasonInfo, id } = props;
   const [status, setStatus] = useState(details.status);
-  const [description, setDescription] = useState();
+  const [description, setDescription] = useState('');
   const [season, setSeason] = useState(details.ocReason);
   const stepLetterOneDate = !get(details, 'stepLetterOne') ? null : new Date(get(details, 'stepLetterOne'));
   const stepLetterTwoDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));
@@ -25,19 +25,15 @@ const EditBidSeasons = (props) => {
 
   const submit = (e) => {
     e.preventDefault();
+    swal.close();
+    // Doing nothing for now but closing.
     const userInputs = {
       // 'notes' on ui
       comments: description || '',
       step_letter_one: stepLetterOne,
       step_letter_two: stepLetterTwo,
     };
-    setStatus('');
-    // Remap unmodified local defaults from None Listed to empty string for patch
-    forEach(userInputs, (v, k) => {
-      if (v === 'None listed') userInputs[k] = '';
-    });
-
-    submitAction(userInputs);
+    setStatus(userInputs);
   };
 
   const cancel = (e) => {
@@ -116,6 +112,10 @@ const EditBidSeasons = (props) => {
               value={season}
             >
               <option value="">{seasonInfo.cycle_name}</option>
+              <opton value="Fall Cycle 2023">Fall Cycle 2023</opton>
+              <option value="Winter Cycle 2022">Winter Cycle 2022</option>
+              <option value="Spring Cycle 2021">Spring Cycle 2021</option>
+              <option value="Summer Cycle 2020">Summer Cycle 2020</option>
               <option value="">None listed</option>
             </select>
             {!!seasonError && <span className="usa-input-error-message" role="alert">Season is required.</span>}
