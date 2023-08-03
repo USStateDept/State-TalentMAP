@@ -39,7 +39,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
         title="Doe, John"
       />
       <EPLLoadable
-        isPublic={false}
         userProfile={
           Object {
             "bid_statistics": Array [
@@ -205,7 +204,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
         title="Doe, John"
       />
       <EPLLoadable
-        isPublic={false}
         userProfile={
           Object {
             "bid_statistics": Array [
@@ -371,7 +369,6 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
         title="Doe, John"
       />
       <EPLLoadable
-        isPublic={false}
         userProfile={
           Object {
             "bid_statistics": Array [
