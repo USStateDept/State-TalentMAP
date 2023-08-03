@@ -309,6 +309,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'ao_user',
           ],
         } : null,
+    ],
+  },
   {
     text: 'CDO',
     icon: 'street-view',
