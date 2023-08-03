@@ -5,17 +5,17 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { shallow } from 'enzyme';
 import toJSON from 'enzyme-to-json';
-import PublishablePositions from './PublishablePositions';
+import Assignments from './Assignments';
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
 
-describe('PublishablePositions Component', () => {
+describe('Assignments Component', () => {
   it('is defined', () => {
     const wrapper = TestUtils.renderIntoDocument(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <PublishablePositions isCDO />
+          <Assignments />
         </MemoryRouter>
       </Provider>,
     );
@@ -26,7 +26,7 @@ describe('PublishablePositions Component', () => {
     const wrapper = shallow(
       <Provider store={mockStore({})}>
         <MemoryRouter>
-          <PublishablePositions />
+          <Assignments />
         </MemoryRouter>
       </Provider>,
     );
