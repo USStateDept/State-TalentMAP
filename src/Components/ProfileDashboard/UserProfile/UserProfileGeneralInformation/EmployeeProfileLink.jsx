@@ -11,7 +11,7 @@ import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
-const EmployeeProfileLink = ({ isPublic, userProfile, showEmployeeProfileLinks }) => {
+const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
   const dispatch = useDispatch();
   const emp_profile_urls = userProfile?.employee_profile_url;
   let redactedUrl = emp_profile_urls?.internalRedacted;
@@ -87,11 +87,9 @@ const EmployeeProfileLink = ({ isPublic, userProfile, showEmployeeProfileLinks }
 EmployeeProfileLink.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   showEmployeeProfileLinks: PropTypes.bool.isRequired,
-  isPublic: PropTypes.bool,
 };
 
 EmployeeProfileLink.defaultProps = {
-  isPublic: false,
 };
 
 export default EmployeeProfileLink;

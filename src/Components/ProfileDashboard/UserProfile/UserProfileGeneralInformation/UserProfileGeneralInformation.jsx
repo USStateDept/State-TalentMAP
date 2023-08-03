@@ -48,7 +48,6 @@ class UserProfileGeneralInformation extends Component {
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <EmployeeProfileLink
               userProfile={userProfile}
-              isPublic={isPublic}
               showEmployeeProfileLinks={showEmployeeProfileLinks}
             />
             { isPublic &&
