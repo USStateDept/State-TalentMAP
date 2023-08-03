@@ -50,10 +50,7 @@ class ProfilePublic extends Component {
     const combinedLoading = isLoading || classificationsIsLoading;
     const combinedErrored = hasErrored || classificationsHasErrored;
     const viewType = get(this.props, 'match.params.viewType');
-    /* eslint-disable no-console */
-    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-    console.log('🐙 current: viewType:', viewType);
-    console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+
     let props = {};
     // making the props isRequired essentially makes this a living document
     // for profiles
