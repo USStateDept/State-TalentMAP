@@ -21,6 +21,7 @@ const dummyData = [
     bid_seasons_begin_date: '2023-09-01T21:12:12.854000Z',
     bid_seasons_end_date: '2025-11-30T21:12:12.854000Z',
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
+    bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
   },
   {
@@ -29,6 +30,7 @@ const dummyData = [
     bid_seasons_begin_date: '2023-09-01T21:12:12.854000Z',
     bid_seasons_end_date: '2025-11-30T21:12:12.854000Z',
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
+    bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
   },
   {
@@ -37,6 +39,7 @@ const dummyData = [
     bid_seasons_begin_date: '2023-09-01T21:12:12.854000Z',
     bid_seasons_end_date: '2025-11-30T21:12:12.854000Z',
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
+    bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
   },
   {
@@ -45,6 +48,7 @@ const dummyData = [
     bid_seasons_begin_date: '2023-09-01T21:12:12.854000Z',
     bid_seasons_end_date: '2025-11-30T21:12:12.854000Z',
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
+    bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
   },
 ];
@@ -52,10 +56,13 @@ const dummyData = [
 for (let index = 2022; index > 1975; index -= 1) {
   const monthInt = Math.floor(Math.random() * 10) + 1;
   const seasons = ['Fall', 'Winter', 'Summer', 'Spring'];
+  const statuses = ['Proposed', 'Complete', 'Closed', 'Merged'];
   const randomSeason = seasons[Math.floor(Math.random() * seasons.length)];
+  const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
   dummyData.push({
     bid_seasons_name: `${randomSeason} Cycle ${index}`,
     id: index,
+    bid_seasons_status: randomStatus,
     bid_seasons_begin_date: `${index}-${monthInt < 10 ? (`0${monthInt}`) : monthInt}-01T21:12:12.854000Z`,
     bid_seasons_end_date: `${index}-${monthInt < 10 ? (`0${monthInt}`) : monthInt + 2}-28T21:12:12.854000Z`,
     bid_seasons_panel_cutoff: `${index}-${monthInt < 10 ? (`0${monthInt}`) : monthInt + 3}-28T21:12:12.854000Z`,
@@ -97,7 +104,7 @@ export function bidSeasonsFetchDataLoading(bool) {
 
 export function bidSeasonsFetchDataSuccess(results) {
   return {
-    type: 'BID_SEASON_FETCH_SUCCESS',
+    type: 'BID_SEASONS_FETCH_SUCCESS',
     results,
   };
 }

@@ -10,21 +10,21 @@ import EditBidSeasons from './EditBidSeasons';
 
 const ManageBidSeasonsCard = (props) => {
   const {
-    cycle_name,
-    cycle_category,
-    cycle_begin_date,
-    cycle_end_date,
-    cycle_excl_position,
+    bid_seasons_name,
+    bid_seasons_category,
+    bid_seasons_begin_date,
+    bid_seasons_end_date,
+    bid_seasons_future_vacancy,
+    bid_seasons_panel_cutoff,
     id,
     bidder,
     displayNewModal,
   } = props;
-
+  console.log('props', props);
   const created = get(bidder, 'bid-seasons.date_created');
   const formattedCreated = created ? formatDate(created) : NO_DATE;
   const stepLetterOne = get(bidder, 'bid-seasons.step_letter_one');
   const stepLetterTwo = get(bidder, 'bid-seasons.step_letter_two');
-
   const submitAction = () => {
     swal.close();
   };
@@ -61,23 +61,23 @@ const ManageBidSeasonsCard = (props) => {
       <Row fluid className="cycle-search-card box-shadow-standard">
         <Row fluid className="cyc-card--row">
           <Column columns={3}>
-            {cycle_name}
+            {bid_seasons_name}
           </Column>
           <Column columns={12} className="cyc-card--middle-cols">
             <Column>
-              {`Start Date: ${cycle_begin_date ? formatDate(cycle_begin_date) : ''}`}
+              {`Start Date: ${bid_seasons_begin_date ? formatDate(bid_seasons_begin_date) : ''}`}
             </Column>
             <Column>
-              {`End Date: ${cycle_end_date ? formatDate(cycle_end_date) : ''}`}
+              {`End Date: ${bid_seasons_end_date ? formatDate(bid_seasons_end_date) : ''}`}
             </Column>
             <Column>
-              {`Panel Cutoff: ${cycle_category}`}
+              {`Panel Cutoff: ${bid_seasons_panel_cutoff ? formatDate(bid_seasons_panel_cutoff) : ''}`}
             </Column>
             <Column>
-              {`Future Vacancy: ${cycle_excl_position}`}
+              {`Future Vacancy: ${bid_seasons_future_vacancy}`}
             </Column>
           </Column>
-          <Column onClick={() => editSeason({ cycle_begin_date, cycle_end_date, cycle_name, cycle_category, cycle_excl_position }, false)} columns={3} className="cyc-card--link-col">
+          <Column onClick={() => editSeason({ bid_seasons_begin_date, bid_seasons_end_date, bid_seasons_name, bid_seasons_category, bid_seasons_future_vacancy }, false)} columns={3} className="cyc-card--link-col">
             <span className="editHover">
               <FA className="fa-solid fa-plus" />
               {' Edit'}
@@ -90,11 +90,11 @@ const ManageBidSeasonsCard = (props) => {
 };
 
 ManageBidSeasonsCard.propTypes = {
-  cycle_name: PropTypes.string,
-  cycle_category: PropTypes.string,
-  cycle_begin_date: PropTypes.string,
-  cycle_end_date: PropTypes.string,
-  cycle_excl_position: PropTypes.string,
+  bid_seasons_name: PropTypes.string,
+  bid_seasons_category: PropTypes.string,
+  bid_seasons_begin_date: PropTypes.string,
+  bid_seasons_end_date: PropTypes.string,
+  bid_seasons_panel_cutoff: PropTypes.string,
   id: PropTypes.string,
   displayNewModal: PropTypes.bool.isRequired,
   bidder: PropTypes.shape({
@@ -107,11 +107,11 @@ ManageBidSeasonsCard.propTypes = {
 };
 
 ManageBidSeasonsCard.defaultProps = {
-  cycle_name: '',
-  cycle_category: '',
-  cycle_begin_date: '',
-  cycle_end_date: '',
-  cycle_excl_position: '',
+  bid_seasons_name: '',
+  bid_seasons_category: '',
+  bid_seasons_begin_date: '',
+  bid_seasons_end_date: '',
+  bid_seasons_panel_cutoff: '',
   id: '',
   displayNewModal: false,
 };

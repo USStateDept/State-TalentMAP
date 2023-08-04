@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
+import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import CheckBox from 'Components/CheckBox';
@@ -19,8 +20,10 @@ const EditBidSeasons = (props) => {
   const [season, setSeason] = useState(details.ocReason);
   const stepLetterOneDate = !get(details, 'stepLetterOne') ? null : new Date(get(details, 'stepLetterOne'));
   const stepLetterTwoDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));
+  const stepLetterThreeDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));
   const [stepLetterOne, setStepLetterOne] = useState(stepLetterOneDate);
   const [stepLetterTwo, setStepLetterTwo] = useState(stepLetterTwoDate);
+  const [stepLetterThree, setStepLetterThree] = useState(stepLetterThreeDate);
   // To Do: Move these to the DB/Django backend after more user feedback
 
   const submit = (e) => {
@@ -45,12 +48,14 @@ const EditBidSeasons = (props) => {
   const seasonError = ocSelected && !season;
   const stepLetterOneFlag = stepLetterOne === null;
   const stepLetterTwoFlag = stepLetterTwo === null;
+  const stepLetterThreeFlag = stepLetterThree === null;
   const stepLetterOneError = stepLetterOneFlag && !stepLetterTwoFlag;
   const stepLetterTwoError = !stepLetterTwoFlag && stepLetterOne > stepLetterTwo;
+  const stepLetterThreeError = stepLetterOneError || stepLetterTwoError;
   const stepLetterOneClearIconInactive = stepLetterOneFlag ||
     (!stepLetterOneFlag && !stepLetterTwoFlag);
   const submitDisabled = seasonError ||
-    stepLetterOneError || stepLetterTwoError;
+    stepLetterOneError || stepLetterTwoError || stepLetterThreeError;
 
 
   const getStepLetterOneErrorText = () => {
@@ -70,6 +75,10 @@ const EditBidSeasons = (props) => {
     setStepLetterTwo(date);
   };
 
+  const updateStepLetterThree = (date) => {
+    setStepLetterThree(date);
+  };
+
   const clearStepLetterOneDate = () => {
     setStepLetterOne(null);
   };
@@ -77,6 +86,18 @@ const EditBidSeasons = (props) => {
   const clearStepLetterTwoDate = () => {
     setStepLetterTwo(null);
   };
+
+  const clearStepLetterThreeDate = () => {
+    setStepLetterThree(null);
+  };
+
+  const seasonOptions = [
+    { value: 'Fall Cycle 2023', label: 'Fall Cycle 2023' },
+    { value: 'Winter Cycle 2022', label: 'Winter Cycle 2022' },
+    { value: 'Spring Cycle 2021', label: 'Spring Cycle 2021' },
+    { value: 'Summer Cycle 2020', label: 'Summer Cycle 2020' },
+    { value: 'None listed', label: 'None listed' },
+  ];
 
   return (
     <div>
@@ -89,7 +110,7 @@ const EditBidSeasons = (props) => {
             maxlength="255"
             name="description"
             placeholder="Type to filter seasons"
-            defaultValue={id === '' ? '' : `${id} - ${seasonInfo.cycle_name} - ${seasonInfo.cycle_begin_date} - ${seasonInfo.cycle_end_date}`}
+            defaultValue={id === '' ? '' : `${id} - ${seasonInfo.bid_seasons_name} - ${seasonInfo.bid_seasons_begin_date} - ${seasonInfo.bid_seasons_end_date}`}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -106,17 +127,17 @@ const EditBidSeasons = (props) => {
             <select
               id="season"
               className={seasonError ? 'select-error' : ''}
-              defaultValue={seasonInfo.cycle_name}
+              defaultValue={seasonInfo.bid_seasons_name}
               onChange={(e) => setSeason(e.target.value)}
               aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
-              <option value="">{seasonInfo.cycle_name}</option>
-              <opton value="Fall Cycle 2023">Fall Cycle 2023</opton>
-              <option value="Winter Cycle 2022">Winter Cycle 2022</option>
-              <option value="Spring Cycle 2021">Spring Cycle 2021</option>
-              <option value="Summer Cycle 2020">Summer Cycle 2020</option>
-              <option value="">None listed</option>
+              <option value="">{seasonInfo.bid_seasons_name}</option>
+              {seasonOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
             </select>
             {!!seasonError && <span className="usa-input-error-message" role="alert">Season is required.</span>}
           </span>
@@ -130,7 +151,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterOne}
                   onChange={updateStepLetterOne}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : seasonInfo.cycle_begin_date}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo.bid_seasons_begin_date)}
                   className={stepLetterOneError ? 'select-error' : ''}
                 />
                 {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
@@ -157,7 +178,7 @@ const EditBidSeasons = (props) => {
                   selected={stepLetterTwo}
                   onChange={updateStepLetterTwo}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : seasonInfo.cycle_end_date}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo.bid_seasons_end_date)}
                   className={stepLetterTwoError ? 'select-error' : ''}
                   minDate={stepLetterOne}
                 />
@@ -180,27 +201,26 @@ const EditBidSeasons = (props) => {
               <dt>Panel Cutoff Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <DatePicker
-                  selected={stepLetterOne}
-                  onChange={updateStepLetterOne}
+                  selected={stepLetterThree}
+                  onChange={updateStepLetterThree}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : seasonInfo.cycle_end_date}
-                  className={stepLetterOneError ? 'select-error' : ''}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo.bid_seasons_panel_cutoff)}
+                  className={stepLetterThreeError ? 'select-error' : ''}
+                  minDate={stepLetterThree}
                 />
-                {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
               </span>
-              {stepLetterOneClearIconInactive &&
-              <div className="step-letter-clear-icon">
-                <FA name="times-circle fa-lg inactive" />
-              </div>
-              }
-              {!stepLetterOneFlag && stepLetterTwoFlag &&
-              <div className="step-letter-clear-icon">
-                <InteractiveElement
-                  onClick={clearStepLetterOneDate}
-                >
-                  <FA name="times-circle fa-lg active" />
-                </InteractiveElement>
-              </div>
+              {stepLetterThreeFlag ?
+                <div className="step-letter-clear-icon">
+                  <FA name="times-circle fa-lg inactive" />
+                </div>
+                :
+                <div className="step-letter-clear-icon">
+                  <InteractiveElement
+                    onClick={clearStepLetterThreeDate}
+                  >
+                    <FA name="times-circle fa-lg active" />
+                  </InteractiveElement>
+                </div>
               }
             </div>
             <div>
@@ -227,11 +247,12 @@ EditBidSeasons.PropTypes = {
     stepLetterTwo: PropTypes.string,
   }),
   seasonInfo: PropTypes.shape({
-    cycle_name: PropTypes.string,
-    cycle_category: PropTypes.string,
-    cycle_begin_date: PropTypes.string,
-    cycle_end_date: PropTypes.string,
-    cycle_excl_position: PropTypes.string,
+    bid_seasons_name: PropTypes.string,
+    bid_seasons_category: PropTypes.string,
+    bid_seasons_begin_date: PropTypes.string,
+    bid_seasons_panel_cutoff: PropTypes.string,
+    bid_seasons_end_date: PropTypes.string,
+    bid_seasons_future_vacancy: PropTypes.string,
     id: PropTypes.number,
   }),
 };
