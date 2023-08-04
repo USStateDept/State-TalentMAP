@@ -13,7 +13,8 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
+import { cycleManagementFetchData } from 'actions/cycleManagement';
+import { saveBidSeasonsSelections } from 'actions/BidSeasons';
 import ManageBidSeasonCard from './ManageBidSeasonsCard';
 
 
@@ -22,10 +23,10 @@ const ManageBidSeasons = (props) => {
   const { isAO } = props;
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const userSelections = useSelector(state => state.cycleManagementSelections);
-  const ManageBidSeasonsDataLoading = useSelector(state => state.cycleManagementFetchDataLoading);
+  const userSelections = useSelector(state => state.bidSeasonsSelections);
+  const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
   const ManageBidSeasonsData = useSelector(state => state.cycleManagement);
-  const ManageBidSeasonsError = useSelector(state => state.cycleManagementFetchDataErrored);
+  const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
 
   // Filters
@@ -59,14 +60,14 @@ const ManageBidSeasons = (props) => {
     if (resetPage) {
       setPage(1);
     }
-    dispatch(saveCycleManagementSelections(getCurrentInputs()));
+    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
     dispatch(cycleManagementFetchData(getQuery()));
   };
 
   // initial render
   useEffect(() => {
     dispatch(filtersFetchData(genericFilters));
-    dispatch(saveCycleManagementSelections(currentInputs));
+    dispatch(saveBidSeasonsSelections(currentInputs));
   }, []);
 
   useEffect(() => {
