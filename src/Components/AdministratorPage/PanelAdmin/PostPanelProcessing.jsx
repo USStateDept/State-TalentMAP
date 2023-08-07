@@ -227,7 +227,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={!canEditFields && !postPanelRuntime$}
+                disabled={!canEditFields || !postPanelRuntime$}
                 selected={agendaCompletedTime}
                 onChange={(date) => setAgendaCompletedTime(date)}
                 showTimeSelect
