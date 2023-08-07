@@ -21,7 +21,7 @@ class UserProfileGeneralInformation extends Component {
   }
 
   render() {
-    const { userProfile, colorProp, isPublic } = this.props;
+    const { userProfile, colorProp, isPublic, showEmployeeProfileLinks } = this.props;
     const avatar = {
       firstName: get(userProfile, 'user.first_name'),
       lastName: get(userProfile, 'user.last_name'),
@@ -48,6 +48,7 @@ class UserProfileGeneralInformation extends Component {
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <EmployeeProfileLink
               userProfile={userProfile}
+              showEmployeeProfileLinks={showEmployeeProfileLinks}
             />
             { isPublic &&
               <InformationDataPoint
@@ -72,6 +73,7 @@ class UserProfileGeneralInformation extends Component {
 
 UserProfileGeneralInformation.propTypes = {
   userProfile: USER_PROFILE.isRequired,
+  showEmployeeProfileLinks: PropTypes.bool.isRequired,
   colorProp: PropTypes.string,
   isPublic: PropTypes.bool,
 };
