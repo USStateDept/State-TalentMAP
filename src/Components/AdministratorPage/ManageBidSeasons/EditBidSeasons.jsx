@@ -9,7 +9,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
 
-const DATE_FORMAT = 'MM/DD/YYYY';
+const DATE_FORMAT = 'MMMM d, yyyy';
 
 // eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
@@ -140,7 +140,7 @@ const EditBidSeasons = (props) => {
                   selected={startDate}
                   onChange={updateStartDate}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? DATE_FORMAT : formatDate(seasonInfo?.bid_seasons_begin_date)}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_begin_date)}
                   className={startDateError ? 'select-error' : ''}
                 />
                 {!!startDateErrorText && <span className="usa-input-error-message" role="alert">{startDateErrorText}</span>}
@@ -167,7 +167,7 @@ const EditBidSeasons = (props) => {
                   selected={endDate}
                   onChange={updateEndDate}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? DATE_FORMAT : formatDate(seasonInfo?.bid_seasons_end_date)}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_end_date)}
                   className={endDateError ? 'select-error' : ''}
                   minDate={startDate}
                 />
@@ -193,7 +193,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={updatePanelCutOff}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? DATE_FORMAT : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
                   className={panelCutOffError ? 'select-error' : ''}
                   minDate={panelCutoff}
                 />
