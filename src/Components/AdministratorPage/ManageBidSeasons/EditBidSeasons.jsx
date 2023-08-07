@@ -117,12 +117,11 @@ const EditBidSeasons = (props) => {
             <select
               id="season"
               className={seasonError ? 'select-error' : ''}
-              defaultValue={seasonInfo?.bid_seasons_name}
+              defaultValue="None Selected"
               onChange={(e) => setSeason(e.target.value)}
               aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
-              <option value="">{seasonInfo?.bid_seasons_name}</option>
               {seasonOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
