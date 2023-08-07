@@ -82,8 +82,11 @@ const PostPanelProcessing = (props) => {
   const [canEditFields, setCanEditFields] = useState(true);
 
   useEffect(() => {
-    // Including conditions for all 3 dates because some Panels in Post Panel status and after
-    // have post panel runtime and agenda completed dates but no post panel started
+    // - Submits current date as Post Panel Started upon opening this tab
+    // if Post Panel Processing has not started yet
+    // - Can be removed by the cancel button if Post Panel has not ran yet
+    // - Including conditions for all 3 dates because some Panels have post panel runtime 
+    // and agenda completed dates but no post panel started date
     if (!postPanelStarted$ && !postPanelRuntime$ && !agendaCompletedTime$) {
       dispatch(submitPanelMeeting(panelMeetingsResults$,
         { postPanelStarted: new Date() },
