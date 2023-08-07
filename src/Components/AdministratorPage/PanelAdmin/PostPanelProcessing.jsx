@@ -90,7 +90,8 @@ const PostPanelProcessing = (props) => {
       ));
     }
     setFormData(postPanelResults);
-    setCanEditFields(true);
+    const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
+    setCanEditFields(prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true);
   }, [postPanelResults]);
 
   const runPostPanelProcessing = () => {
