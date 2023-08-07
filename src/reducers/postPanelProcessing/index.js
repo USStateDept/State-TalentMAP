@@ -1,13 +1,23 @@
 import {
-  postPanelProcessing,
-  postPanelProcessingErrored,
-  postPanelProcessingLoading,
-  postPanelProcessingSelections,
+  createPostPanelProcessingHasErrored,
+  createPostPanelProcessingIsLoading,
+  createPostPanelProcessingSuccess,
+  postPanelProcessingFetchDataErrored,
+  postPanelProcessingFetchDataLoading,
+  postPanelProcessingFetchDataSuccess,
+  postPanelStatusesFetchDataErrored,
+  postPanelStatusesFetchDataLoading,
+  postPanelStatusesFetchDataSuccess,
 } from './postPanelProcessing';
 
 export default {
-  postPanelProcessing,
-  postPanelProcessingErrored,
-  postPanelProcessingLoading,
-  postPanelProcessingSelections,
+  createPostPanelProcessingHasErrored,
+  createPostPanelProcessingIsLoading,
+  createPostPanelProcessingSuccess,
+  postPanelProcessingFetchDataErrored,
+  postPanelProcessingFetchDataLoading,
+  postPanelProcessingFetchDataSuccess,
+  postPanelStatusesFetchDataErrored,
+  postPanelStatusesFetchDataLoading,
+  postPanelStatusesFetchDataSuccess,
 };
