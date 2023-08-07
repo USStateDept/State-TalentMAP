@@ -36,6 +36,7 @@
   .navTabs {
     margin-left: 5px;
     background-color: #F7F7F7;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
 
@@ -128,21 +129,6 @@
   }
 }
 
-.admin-panel-meeting-buttons {
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px 0px;
-
-  button {
-    font-size: 16px;
-  }
-
-  button:first-of-type {
-    background-color: transparent;
-    color: $primary-blue;
-  }
-}
-
 .admin-panel-meeting {
   max-width: 1500px;
   margin-top: 20px;
@@ -160,10 +146,15 @@
   }
 }
 
-.admin-panel-meeting-field {
+.panel-meeting-field {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  input,
+  select {
+    max-width: none;
+  }
 
   >label {
     display: inline-block;
@@ -196,18 +187,42 @@
 }
 
 .text-button {
+  background-color: transparent !important;
   color: $primary-blue;
   cursor: pointer;
-  padding-top: 15px;
+  margin-top: 15px;
   text-decoration: underline;
+  width: max-content;
+  padding: 0px;
 
-  &.disabled {
+  &:hover {
+    background-color: transparent !important;
+    color: $primary-blue;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: transparent !important;
     cursor: default;
-    color: $bg-gray-dark-2;
+    color: $bg-gray-dark-2 !important;
+    text-decoration: underline;
   }
 }
 
 .post-panel-processing {
+  max-width: 1500px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .post-panel-grid-row {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    margin-bottom: 15px;
+  }
+
   .post-panel-processing--table {
     display: flex;
     width: 100%;

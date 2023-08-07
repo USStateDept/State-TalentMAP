@@ -1,55 +1,71 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import DatePicker from 'react-datepicker';
+import FA from 'react-fontawesome';
+import PropTypes from 'prop-types';
 import Spinner from 'Components/Spinner';
-import { postPanelProcessingFetchData } from 'actions/postPanelProcessing';
-import FontAwesome from 'react-fontawesome';
-import { statusOptions } from '../../Panel/Constants';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
+import { postPanelProcessingFetchData, postPanelStatusesFetchData } from 'actions/postPanelProcessing';
+import { createPostPanelProcessing } from '../../../actions/postPanelProcessing';
+import { submitPanelMeeting } from '../../Panel/helpers';
 
-const PostPanelProcessing = () => {
+
+const PostPanelProcessing = (props) => {
+  // const { history } = props;
+  const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
+
   const dispatch = useDispatch();
 
   // ============= Table Context =============
 
-  // Replace with return value from API data retrieval
-  const data = [{
-    value: true,
-    item: '0',
-    label: 'EUR',
-    name: 'Favro, Michelle',
-    status: 'APR',
-  }, {
-    value: true,
-    item: '1',
-    label: 'KYIV',
-    name: 'Favro, Michelle',
-    status: 'APR',
-  }, {
-    value: false,
-    item: '2',
-    label: 'Paris',
-    name: 'Favro, Michelle',
-    status: 'APR',
-  }, {
-    value: false,
-    item: '3',
-    label: 'GTM/CDA/EL',
-    name: 'Favro, Michelle',
-    status: 'APR',
-  }];
+  const panelMeetingsResults = useSelector(state => state.panelMeetings);
+  const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
+  const { panelMeetingDates } = panelMeetingsResults$;
 
-  const results = useSelector(state => state.postPanelProcessing);
-  const isLoading = useSelector(state => state.postPanelProcessingLoading);
+  const postPanelStarted$ = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
+  const postPanelRuntime$ = panelMeetingDates?.find(x => x.mdt_code === 'POST');
+  const agendaCompletedTime$ = panelMeetingDates?.find(x => x.mdt_code === 'COMP');
+
+  const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
+  const postPanelIsLoading = useSelector(state => state.postPanelProcessingFetchDataLoading);
+  const postPanelStatusesResults =
+    useSelector(state => state.postPanelStatusesFetchDataSuccess);
+  const postPanelStatusesIsLoading = useSelector(state => state.postPanelStatusesFetchDataLoading);
+
+  const [postPanelStarted, setPostPanelStarted] = useState();
+  const [postPanelRuntime, setPostPanelRuntime] = useState();
+  const [agendaCompletedTime, setAgendaCompletedTime] = useState();
 
   useEffect(() => {
-    dispatch(postPanelProcessingFetchData());
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+    dispatch(postPanelProcessingFetchData({ id: pmSeqNum }));
+    dispatch(postPanelStatusesFetchData());
   }, []);
 
-  const loadingSpinner = (<Spinner type="panel-admin-remarks" size="small" />);
+  useEffect(() => {
+    if (!!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
+      if (postPanelStarted$) {
+        setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
+      }
+      if (postPanelRuntime$) {
+        setPostPanelRuntime(new Date(postPanelRuntime$.pmd_dttm));
+      }
+      if (agendaCompletedTime$) {
+        setAgendaCompletedTime(new Date(agendaCompletedTime$.pmd_dttm));
+      }
+    }
+  }, [panelMeetingsResults]);
+
+  const datePickerRef = useRef(null);
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  };
 
   // ============= Form Management =============
 
-  const [formData, setFormData] = useState(data);
+  const [formData, setFormData] = useState(postPanelResults);
 
   const handleStatusSelection = (objLabel, newStatus) => {
     const newFormData = formData.map(o => {
@@ -67,24 +83,93 @@ const PostPanelProcessing = () => {
   const [canEditFields, setCanEditFields] = useState(true);
 
   useEffect(() => {
+    // Including conditions for all 3 dates because some Panels in Post Panel status and after
+    // have post panel runtime and agenda completed dates but no post panel started
+    if (!postPanelStarted$ && !postPanelRuntime$ && !agendaCompletedTime$) {
+      dispatch(submitPanelMeeting(panelMeetingsResults$,
+        { postPanelStarted: new Date() },
+      ));
+    }
+    setFormData(postPanelResults);
     setCanEditFields(true);
-  }, [results]);
+  }, [postPanelResults]);
+
+  const runPostPanelProcessing = () => {
+    dispatch(createPostPanelProcessing(formData));
+    dispatch(submitPanelMeeting(panelMeetingsResults$,
+      { postPanelRuntime: new Date() },
+    ));
+  };
 
   const submit = () => {
-    dispatch();
+    dispatch(createPostPanelProcessing(formData));
+    dispatch(submitPanelMeeting(panelMeetingsResults$,
+      {
+        postPanelStarted,
+        postPanelRuntime,
+        agendaCompletedTime,
+      },
+    ));
   };
 
-  const clear = () => {
-    const clearedFormData = formData.map(o => ({
-      ...o,
-      status: undefined,
-    }));
-    setFormData(clearedFormData);
+  const cancel = () => {
+    // Depending on how the API works, this will need to handle removing these fields
+    // instead of setting them to undefined
+    if (!postPanelRuntime$ && !agendaCompletedTime$) {
+      dispatch(submitPanelMeeting(panelMeetingsResults$,
+        {
+          postPanelStarted: undefined,
+          postPanelRuntime: undefined,
+          agendaCompletedTime: undefined,
+        },
+      ));
+    }
   };
+
+  // Remove second half of this when loading states are implemented with the api call in actions
+  const isLoading = (postPanelIsLoading || postPanelStatusesIsLoading) ||
+    (!postPanelStatusesResults.length || !formData.length);
 
   return (
-    !isLoading ?
+    isLoading ?
+      <Spinner type="panel-admin-remarks" size="small" /> :
       <div className="post-panel-processing">
+        <div className="post-panel-grid-row">
+          <div className="panel-meeting-field">
+            <label htmlFor="addendum-cutoff-date">Post Panel Started</label>
+            <div className="date-picker-wrapper larger-date-picker">
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <DatePicker
+                disabled={!canEditFields}
+                selected={postPanelStarted}
+                onChange={(date) => setPostPanelStarted(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={5}
+                timeCaption="time"
+                dateFormat="MM/dd/yyyy h:mm aa"
+                ref={datePickerRef}
+              />
+            </div>
+          </div>
+          <div className="panel-meeting-field">
+            <label htmlFor="addendum-cutoff-date">Post Panel Run Time</label>
+            <div className="date-picker-wrapper larger-date-picker">
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <DatePicker
+                disabled={!canEditFields}
+                selected={postPanelRuntime}
+                onChange={(date) => setPostPanelRuntime(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={5}
+                timeCaption="time"
+                dateFormat="MM/dd/yyyy h:mm aa"
+                ref={datePickerRef}
+              />
+            </div>
+          </div>
+        </div>
         <div className="post-panel-processing--table">
           <table>
             <thead>
@@ -93,17 +178,17 @@ const PostPanelProcessing = () => {
                 <th>Item</th>
                 <th>Label</th>
                 <th>Name</th>
-                {statusOptions.map((o) => (
+                {postPanelStatusesResults.map((o) => (
                   <th key={o.label}>{o.label}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {formData.map(d => (
-                <tr>
+                <tr key={d.label}>
                   <td>
                     {d.value ?
-                      <FontAwesome name="check" /> :
+                      <FA name="check" /> :
                       '---'
                     }
                   </td>
@@ -114,7 +199,7 @@ const PostPanelProcessing = () => {
                   </td>
                   <td>{d.label}</td>
                   <td>{d.name}</td>
-                  {statusOptions.map((o) => (
+                  {postPanelStatusesResults.map((o) => (
                     <td key={o.label}>
                       <input
                         type="radio"
@@ -130,25 +215,52 @@ const PostPanelProcessing = () => {
             </tbody>
           </table>
         </div>
-        <div className="text-button">
+        <button
+          disabled={!postPanelStarted$ || postPanelRuntime$}
+          className="text-button mb-20"
+          onClick={runPostPanelProcessing}
+        >
           Run Post Panel Processing
+        </button>
+        <div className="post-panel-grid-row">
+          <div className="panel-meeting-field">
+            <label htmlFor="addendum-cutoff-date">Agenda Completed Time</label>
+            <div className="date-picker-wrapper larger-date-picker">
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <DatePicker
+                disabled={!canEditFields && !postPanelRuntime$}
+                selected={agendaCompletedTime}
+                onChange={(date) => setAgendaCompletedTime(date)}
+                showTimeSelect
+                timeFormat="HH:mm"
+                timeIntervals={5}
+                timeCaption="time"
+                dateFormat="MM/dd/yyyy h:mm aa"
+                ref={datePickerRef}
+              />
+            </div>
+          </div>
         </div>
         <div className="position-form--actions">
-          <button onClick={clear} disabled={!canEditFields}>Clear</button>
+          <button onClick={cancel} disabled={postPanelRuntime$ || agendaCompletedTime$}>
+            Cancel
+          </button>
           <button onClick={submit} disabled={!canEditFields}>Save</button>
         </div>
-      </div>
-      :
-      <div>
-        {loadingSpinner}
       </div>
   );
 };
 
 PostPanelProcessing.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      pmSeqNum: PropTypes.string,
+    }),
+  }),
 };
 
 PostPanelProcessing.defaultProps = {
+  match: {},
 };
 
 export default withRouter(PostPanelProcessing);

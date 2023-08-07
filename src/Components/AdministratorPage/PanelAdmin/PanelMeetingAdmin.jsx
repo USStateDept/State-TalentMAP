@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
@@ -7,9 +7,8 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { createPanelMeeting } from 'actions/panelMeetingAdmin';
 import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
-import InteractiveElement from '../../InteractiveElement/InteractiveElement';
+import { submitPanelMeeting } from '../../Panel/helpers';
 
 const PanelMeetingAdmin = (props) => {
   const { history } = props;
@@ -39,20 +38,32 @@ const PanelMeetingAdmin = (props) => {
   const [addendumCutoff, setAddendumCutoff] = useState();
   const [prelimRuntime, setPrelimRuntime] = useState();
   const [addendumRuntime, setAddendumRuntime] = useState();
-  const [postPanelStarted, setPostPanelStarted] = useState();
-  const [postPanelRunTime, setPostPanelRunTime] = useState();
-  const [agendaCompletedTime, setAgendaCompletedTime] = useState();
   const [canEditFields, setCanEditFields] = useState(true);
+
+  const setInitialInputResults = () => {
+    setPanelMeetingType(pmt_code);
+    setPanelMeetingDate(new Date(panelMeetingDates?.find(x => x.mdt_code === 'MEET').pmd_dttm));
+    setPanelMeetingStatus(pms_desc_text);
+
+    const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
+    const prelimRuntime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFF');
+    const addendumRuntime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
+
+    setPrelimCutoff(new Date(prelimCutoff$.pmd_dttm));
+    setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
+    setCanEditFields(prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true);
+
+    if (prelimRuntime$) {
+      setPrelimRuntime(new Date(prelimRuntime$.pmd_dttm));
+    }
+    if (addendumRuntime$) {
+      setAddendumRuntime(new Date(addendumRuntime$.pmd_dttm));
+    }
+  };
 
   useEffect(() => {
     if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
-      setPanelMeetingType(pmt_code);
-      setPanelMeetingDate(new Date(panelMeetingDates?.find(x => x.mdt_code === 'MEET').pmd_dttm));
-      setPanelMeetingStatus(pms_desc_text);
-      setPrelimCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm));
-      setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
-      const prelimCutoff$ = new Date(panelMeetingDates?.find(x => x.mdt_code === 'CUT').pmd_dttm);
-      setCanEditFields(prelimCutoff$ ? (prelimCutoff$ - new Date() > 0) : true);
+      setInitialInputResults();
     }
   }, [panelMeetingsResults]);
 
@@ -69,27 +80,46 @@ const PanelMeetingAdmin = (props) => {
     }
   }, [createMeetingResults]);
 
+  // Submit current timestamp for specified field without saving other pending changes
+  const handleRun = (field) => {
+    dispatch(submitPanelMeeting(panelMeetingsResults$,
+      {
+        prelimRuntime: field === 'prelimRuntime' ?
+          new Date() :
+          new Date(panelMeetingDates?.find(x => x.mdt_code === 'OFF').pmd_dttm),
+        addendumRuntime: field === 'addendumRuntime' ?
+          new Date() :
+          new Date(panelMeetingDates?.find(x => x.mdt_code === 'OFFA').pmd_dttm),
+      },
+    ));
+  };
+
   const submit = () => {
-    dispatch(createPanelMeeting({
-      panelMeetingType,
-      panelMeetingDate,
-      prelimCutoff,
-      addendumCutoff,
-      panelMeetingStatus,
-    }));
+    dispatch(submitPanelMeeting(panelMeetingsResults$,
+      {
+        panelMeetingType,
+        panelMeetingDate,
+        prelimCutoff,
+        addendumCutoff,
+        prelimRuntime,
+        addendumRuntime,
+        panelMeetingStatus,
+      },
+    ));
   };
 
   const clear = () => {
-    setPanelMeetingType('interdivisional');
-    setPanelMeetingDate('');
-    setPrelimCutoff('');
-    setAddendumCutoff('');
-    setPrelimRuntime('');
-    setAddendumRuntime('');
-    setPostPanelStarted('');
-    setPostPanelRunTime('');
-    setAgendaCompletedTime('');
-    setPanelMeetingStatus('Initiated');
+    if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
+      setInitialInputResults();
+    } else {
+      setPanelMeetingType('interdivisional');
+      setPanelMeetingDate('');
+      setPrelimCutoff('');
+      setAddendumCutoff('');
+      setPrelimRuntime('');
+      setAddendumRuntime('');
+      setPanelMeetingStatus('Initiated');
+    }
   };
 
   const selectPanelMeetingDate = (date) => {
@@ -98,14 +128,18 @@ const PanelMeetingAdmin = (props) => {
     setAddendumCutoff(subMinutes(date, addendumCutoffMins));
   };
 
-  const loadingSpinner = (<Spinner type="panel-admin-remarks" size="small" />);
+  const datePickerRef = useRef(null);
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  };
 
   return (
-    !panelMeetingsIsLoading && !panelMeetingsFiltersIsLoading ?
-      <div>
-        <div className="admin-panel-meeting">
+    (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
+      <Spinner type="panel-admin-remarks" size="small" /> :
+      <div className="admin-panel-meeting">
+        <div>
           <div className="admin-panel-grid-row">
-            <div className="admin-panel-meeting-field">
+            <div className="panel-meeting-field">
               <label htmlFor="meeting-type">Meeting Type</label>
               <select
                 disabled={!canEditFields}
@@ -117,7 +151,7 @@ const PanelMeetingAdmin = (props) => {
                 <option value={'midlevel'}>Mid-Level</option>
               </select>
             </div>
-            <div className="admin-panel-meeting-field">
+            <div className="panel-meeting-field">
               <label htmlFor="status">Status</label>
               <select
                 disabled={isCreate || !canEditFields}
@@ -127,14 +161,15 @@ const PanelMeetingAdmin = (props) => {
               >
                 {
                   panelMeetingsFilters?.panelStatuses?.map(a => (
-                    <option value={a.text}>{a.text}</option>
+                    <option value={a.text} key={a.text}>{a.text}</option>
                   ))
                 }
               </select>
             </div>
-            <div className="admin-panel-meeting-field">
+            <div className="panel-meeting-field">
               <label htmlFor="panel-meeting-date">Panel Meeting Date</label>
-              <div className="date-wrapper larger-date-picker">
+              <div className="date-picker-wrapper larger-date-picker">
+                <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
                   disabled={!canEditFields}
                   selected={panelMeetingDate}
@@ -144,15 +179,16 @@ const PanelMeetingAdmin = (props) => {
                   timeIntervals={5}
                   timeCaption="time"
                   dateFormat="MM/dd/yyyy h:mm aa"
+                  ref={datePickerRef}
                 />
-                <FA name="calendar" />
               </div>
             </div>
           </div>
           <div className="admin-panel-grid-row">
-            <div className="admin-panel-meeting-field">
+            <div className="panel-meeting-field">
               <label htmlFor="preliminary-cutoff-date">Official Preliminary Cutoff</label>
-              <div className="date-wrapper larger-date-picker">
+              <div className="date-picker-wrapper larger-date-picker">
+                <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
                   disabled={!canEditFields}
                   selected={prelimCutoff}
@@ -162,13 +198,14 @@ const PanelMeetingAdmin = (props) => {
                   timeIntervals={5}
                   timeCaption="time"
                   dateFormat="MM/dd/yyyy h:mm aa"
+                  ref={datePickerRef}
                 />
-                <FA name="calendar" />
               </div>
             </div>
-            <div className="admin-panel-meeting-field">
-              <label htmlFor="addendum-cutoff-date">Addendum Cutoff</label>
-              <div className="date-wrapper larger-date-picker">
+            <div className="panel-meeting-field">
+              <label htmlFor="addendum-cutoff-date">Official Addendum Cutoff</label>
+              <div className="date-picker-wrapper larger-date-picker">
+                <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
                   disabled={!canEditFields}
                   selected={addendumCutoff}
@@ -178,17 +215,18 @@ const PanelMeetingAdmin = (props) => {
                   timeIntervals={5}
                   timeCaption="time"
                   dateFormat="MM/dd/yyyy h:mm aa"
+                  ref={datePickerRef}
                 />
-                <FA name="calendar" />
               </div>
             </div>
           </div>
           <div className="admin-panel-grid-row">
-            <div className="admin-panel-meeting-field">
+            <div className="panel-meeting-field">
               <label htmlFor="addendum-cutoff-date">Official Preliminary Run Time</label>
-              <div className="date-wrapper larger-date-picker">
+              <div className="date-picker-wrapper larger-date-picker">
+                <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields}
+                  disabled={!canEditFields || panelMeetingDates?.find(x => x.mdt_code === 'OFF')}
                   selected={prelimRuntime}
                   onChange={(date) => setPrelimRuntime(date)}
                   showTimeSelect
@@ -196,18 +234,23 @@ const PanelMeetingAdmin = (props) => {
                   timeIntervals={5}
                   timeCaption="time"
                   dateFormat="MM/dd/yyyy h:mm aa"
+                  ref={datePickerRef}
                 />
-                <FA name="calendar" />
               </div>
-              <InteractiveElement title="Run Official Preliminary" type="span" className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
+              <button
+                disabled={!canEditFields || isCreate}
+                className="text-button"
+                onClick={() => { handleRun('prelimRuntime'); }}
+              >
                 Run Official Preliminary
-              </InteractiveElement>
+              </button>
             </div>
-            <div className="admin-panel-meeting-field">
+            <div className="panel-meeting-field">
               <label htmlFor="addendum-cutoff-date">Official Addendum Run Time</label>
-              <div className="date-wrapper larger-date-picker">
+              <div className="date-picker-wrapper larger-date-picker">
+                <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields}
+                  disabled={!canEditFields || panelMeetingDates?.find(x => x.mdt_code === 'OFFA')}
                   selected={addendumRuntime}
                   onChange={(date) => setAddendumRuntime(date)}
                   showTimeSelect
@@ -215,62 +258,16 @@ const PanelMeetingAdmin = (props) => {
                   timeIntervals={5}
                   timeCaption="time"
                   dateFormat="MM/dd/yyyy h:mm aa"
+                  ref={datePickerRef}
                 />
-                <FA name="calendar" />
               </div>
-              <InteractiveElement title="Run Official Addendum " type="span" className={`text-button ${!canEditFields ? 'disabled' : ''}`}>
+              <button
+                disabled={!canEditFields || isCreate}
+                className="text-button"
+                onClick={() => { handleRun('addendumRuntime'); }}
+              >
                 Run Official Addendum
-              </InteractiveElement>
-            </div>
-          </div>
-          <div className="admin-panel-grid-row">
-            <div className="admin-panel-meeting-field">
-              <label htmlFor="addendum-cutoff-date">Post Panel Started</label>
-              <div className="date-wrapper larger-date-picker">
-                <DatePicker
-                  disabled={!canEditFields}
-                  selected={postPanelStarted}
-                  onChange={(date) => setPostPanelStarted(date)}
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={5}
-                  timeCaption="time"
-                  dateFormat="MM/dd/yyyy h:mm aa"
-                />
-                <FA name="calendar" />
-              </div>
-            </div>
-            <div className="admin-panel-meeting-field">
-              <label htmlFor="addendum-cutoff-date">Post Panel Run Time</label>
-              <div className="date-wrapper larger-date-picker">
-                <DatePicker
-                  disabled={!canEditFields}
-                  selected={postPanelRunTime}
-                  onChange={(date) => setPostPanelRunTime(date)}
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={5}
-                  timeCaption="time"
-                  dateFormat="MM/dd/yyyy h:mm aa"
-                />
-                <FA name="calendar" />
-              </div>
-            </div>
-            <div className="admin-panel-meeting-field">
-              <label htmlFor="addendum-cutoff-date">Agenda Completed Time</label>
-              <div className="date-wrapper larger-date-picker">
-                <DatePicker
-                  disabled={!canEditFields}
-                  selected={agendaCompletedTime}
-                  onChange={(date) => setAgendaCompletedTime(date)}
-                  showTimeSelect
-                  timeFormat="HH:mm"
-                  timeIntervals={5}
-                  timeCaption="time"
-                  dateFormat="MM/dd/yyyy h:mm aa"
-                />
-                <FA name="calendar" />
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -278,10 +275,6 @@ const PanelMeetingAdmin = (props) => {
           <button onClick={clear} disabled={!canEditFields}>Clear</button>
           <button onClick={submit} disabled={!canEditFields}>Save</button>
         </div>
-      </div>
-      :
-      <div>
-        {loadingSpinner}
       </div>
   );
 };
