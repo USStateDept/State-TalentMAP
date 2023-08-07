@@ -12,7 +12,6 @@ import { submitPanelMeeting } from '../../Panel/helpers';
 
 
 const PostPanelProcessing = (props) => {
-  // const { history } = props;
   const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
 
   const dispatch = useDispatch();
