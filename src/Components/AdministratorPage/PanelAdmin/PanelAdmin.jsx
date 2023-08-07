@@ -11,6 +11,7 @@ import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
+import { checkFlag } from 'flags';
 import EditRemark from '../EditRemark';
 import PanelMeetingAdmin from './PanelMeetingAdmin';
 import PostPanelProcessing from './PostPanelProcessing';
@@ -22,6 +23,10 @@ export const PM = 'PM';
 export const PPP = 'PPP';
 
 const PanelAdmin = (props) => {
+  const usePanelAdminRemarks = () => checkFlag('flags.panel_admin_remarks');
+  const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
+  const usePostPanelProcessing = () => checkFlag('flags.panel_admin_panel_meeting');
+
   const dispatch = useDispatch();
 
   const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
@@ -38,11 +43,19 @@ const PanelAdmin = (props) => {
   const saveAdminRemarkSuccess = useSelector(state => state.saveAdminRemarkSuccess);
 
   const navTabRef = useRef();
-  const tabs = [
-    { text: 'Panel Meetings', value: PM },
-    { text: 'Post Panel Processing', value: PPP, disabled: !enablePostPanelProcessing },
-    { text: 'Remarks Glossary', value: RG },
-  ];
+
+  const tabs = [];
+
+  if (usePanelAdminPanelMeeting()) {
+    tabs.push({ text: 'Panel Meetings', value: PM });
+  }
+  if (usePostPanelProcessing()) {
+    tabs.push({ text: 'Post Panel Processing', value: PPP, disabled: !enablePostPanelProcessing });
+  }
+  if (usePanelAdminRemarks()) {
+    tabs.push({ text: 'Remarks Glossary', value: RG });
+  }
+
 
   const [selectedNav, setSelectedNav] = useState(get(tabs, '[0].value') || '');
 

@@ -249,6 +249,7 @@
     display: flex;
     align-items: baseline;
     flex-direction: column;
+    padding-right: 20px;
 
     select,
     input {
@@ -271,9 +272,6 @@
       margin-top: 0;
     }
 
-    .cycle-card-dropdown {
-      padding-right: 20px;
-    }
   }
 
   .position-form--picky {
@@ -318,7 +316,11 @@
   .spaced-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
+
+    .dropdown-container {
+      display: flex;
+    }
   }
 
   .left-row {

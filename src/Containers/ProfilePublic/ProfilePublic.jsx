@@ -14,7 +14,9 @@ import { registerHandshake, unregisterHandshake } from 'actions/handshake';
 import { toggleBidPosition } from 'actions/bidList';
 
 class ProfilePublic extends Component {
-  // DashboardContainer(Dashboard.jsx) is the 'ProfilePrivate' counterpart to ProfilePublic.jsx
+  // DashboardContainer(Dashboard.jsx) is the 'ProfilePrivate'
+  // counterpart to ProfilePublic.jsx(this component)
+
   UNSAFE_componentWillMount() {
     const id = get(this.props, 'match.params.id');
     const isBureauView = this.isView('bureau');
@@ -51,47 +53,55 @@ class ProfilePublic extends Component {
 
     let props = {};
     // making the props isRequired essentially makes this a living document
-    // for public profiles
+    // for profiles
     switch (viewType) {
       case 'bureau':
         props = {
           showAgendaItemHistory: false,
+          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
+          showEmployeeProfileLinks: false,
         };
         break;
       case 'post':
         props = {
           showAgendaItemHistory: false,
+          showAssignmentHistory: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
+          showEmployeeProfileLinks: false,
         };
         break;
       case 'ao':
         props = {
           showAgendaItemHistory: true,
+          showAssignmentHistory: true,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
           showLanguages: true,
           showSearchAsClient: false,
+          showEmployeeProfileLinks: true,
         };
         break;
       default:
         // cdo relies on no other roles matching viewType
         props = {
           showAgendaItemHistory: true,
+          showAssignmentHistory: true,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,
           showLanguages: true,
           showSearchAsClient: true,
+          showEmployeeProfileLinks: true,
         };
     }
 
