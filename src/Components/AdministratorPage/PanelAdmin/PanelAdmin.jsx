@@ -25,7 +25,7 @@ export const PPP = 'PPP';
 const PanelAdmin = (props) => {
   const usePanelAdminRemarks = () => checkFlag('flags.panel_admin_remarks');
   const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
-  const usePostPanelProcessing = () => checkFlag('flags.panel_admin_panel_meeting');
+  const usePaneAdminPostPanel = () => checkFlag('flags.panel_admin_post_panel');
 
   const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ const PanelAdmin = (props) => {
   if (usePanelAdminPanelMeeting()) {
     tabs.push({ text: 'Panel Meetings', value: PM });
   }
-  if (usePostPanelProcessing()) {
+  if (usePaneAdminPostPanel()) {
     tabs.push({ text: 'Post Panel Processing', value: PPP, disabled: !enablePostPanelProcessing });
   }
   if (usePanelAdminRemarks()) {
