@@ -54,6 +54,10 @@ export const formatPanelMeetingTrackerData = (meetingDates = []) => {
   return trackerData;
 };
 
+/**
+ * Utility for creating/editing a panel meeting with only the new fields specified
+ * and retaining all of the other original fields.
+ */
 export const submitPanelMeeting = (panelMeetingsResults, newFields) => {
   const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults;
 
