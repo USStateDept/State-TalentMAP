@@ -14,9 +14,8 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 // eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
   const { details, seasonInfo, id } = props;
-  const [status, setStatus] = useState('');
   const [description, setDescription] = useState(seasonInfo?.description);
-  const [season, setSeason] = useState(seasonInfo?.bid_seasons_name);
+  const [season, setSeason] = useState('None Selected');
   const startDateInfo = !get(details, 'startDate') ? null : new Date(get(details, 'startDate'));
   const endDateInfo = !get(details, 'endDate') ? null : new Date(get(details, 'endDate'));
   const panelCutoffInfo = !get(details, 'panelCutoff') ? null : new Date(get(details, 'panelCutoff'));
@@ -29,14 +28,6 @@ const EditBidSeasons = (props) => {
     e.preventDefault();
     swal.close();
     // Doing nothing for now but closing.
-    const userInputs = {
-      // 'notes' on ui
-      comments: description || '',
-      start_date: startDate,
-      end_date: endDate,
-      panel_cutOff: panelCutoff,
-    };
-    setStatus(userInputs);
   };
 
   const cancel = (e) => {
@@ -44,8 +35,7 @@ const EditBidSeasons = (props) => {
     swal.close();
   };
 
-  const ocSelected = status === 'OC';
-  const seasonError = ocSelected && !season;
+  const seasonError = season === '';
   const startDateFlag = startDate === null;
   const endDateFlag = endDate === null;
   const panelCutOffFlag = panelCutoff === null;
@@ -110,7 +100,7 @@ const EditBidSeasons = (props) => {
             maxlength="255"
             name="description"
             placeholder="Please provide a description of the bid season."
-            defaultValue={id === '' ? '' : `${seasonInfo?.description}`}
+            defaultValue={id === '' ? '' : `${description}`}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>

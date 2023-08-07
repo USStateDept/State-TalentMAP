@@ -102,11 +102,11 @@ const ManageBidSeasons = (props) => {
   ]);
 
   // Hardcoded - find where to get this data
-  const statusOptions = [
-    { code: 1, name: 'Active' },
-    { code: 2, name: 'Closed' },
-    { code: 3, name: 'Merged' },
-    { code: 4, name: 'Proposed' },
+  const seasonOptions = [
+    { code: 1, name: 'Winter' },
+    { code: 2, name: 'Spring' },
+    { code: 3, name: 'Fall' },
+    { code: 4, name: 'Summer' },
   ];
 
   const resetFilters = () => {
@@ -187,7 +187,7 @@ const ManageBidSeasons = (props) => {
                 <Picky
                   {...pickyProps}
                   placeholder="Type to filter seasons"
-                  options={statusOptions}
+                  options={seasonOptions}
                   valueKey="code"
                   labelKey="name"
                   onChange={setSelectedStatus}
