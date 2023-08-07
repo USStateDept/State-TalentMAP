@@ -97,7 +97,7 @@ const ManageBidSeasonsCard = (props) => {
               className="editHover"
               to="#"
             >
-              <FA className="fa-solid fa-plus" />
+              <FA className="fa-solid fa-pencil" />
               {' Edit'}
             </Link>
           </Column>
