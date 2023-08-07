@@ -5,22 +5,19 @@ import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import PropTypes from 'prop-types';
 import Spinner from 'Components/Spinner';
-import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { postPanelProcessingFetchData, postPanelStatusesFetchData } from 'actions/postPanelProcessing';
 import { createPostPanelProcessing } from '../../../actions/postPanelProcessing';
 import { submitPanelMeeting } from '../../Panel/helpers';
 
 
 const PostPanelProcessing = (props) => {
-  const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
+  const { panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
 
   const dispatch = useDispatch();
 
   // ============= Table Context =============
 
-  const panelMeetingsResults = useSelector(state => state.panelMeetings);
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
-  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const { panelMeetingDates } = panelMeetingsResults$;
 
   const postPanelStarted$ = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
@@ -38,7 +35,6 @@ const PostPanelProcessing = (props) => {
   const [agendaCompletedTime, setAgendaCompletedTime] = useState();
 
   useEffect(() => {
-    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     dispatch(postPanelProcessingFetchData({ id: pmSeqNum }));
     dispatch(postPanelStatusesFetchData());
   }, []);
@@ -255,15 +251,18 @@ const PostPanelProcessing = (props) => {
 };
 
 PostPanelProcessing.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      pmSeqNum: PropTypes.string,
-    }),
-  }),
+  pmSeqNum: PropTypes.number,
+  panelMeetingsResults: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
+  panelMeetingsIsLoading: PropTypes.bool,
 };
 
 PostPanelProcessing.defaultProps = {
   match: {},
+  pmSeqNum: undefined,
+  panelMeetingsResults: undefined,
+  panelMeetingsIsLoading: undefined,
 };
 
 export default withRouter(PostPanelProcessing);

@@ -27,6 +27,7 @@ const PanelAdmin = (props) => {
   const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
   const panelMeetingsResults = useSelector(state => state.panelMeetings);
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
+  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const enablePostPanelProcessing = pmSeqNum && panelMeetingsResults$.panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
   useEffect(() => {
     dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
@@ -127,10 +128,22 @@ const PanelAdmin = (props) => {
         return remarksTable;
 
       case PM:
-        return <PanelMeetingAdmin />;
+        return (
+          <PanelMeetingAdmin
+            pmSeqNum={pmSeqNum}
+            panelMeetingsResults={panelMeetingsResults}
+            panelMeetingsIsLoading={panelMeetingsIsLoading}
+          />
+        );
 
       case PPP:
-        return <PostPanelProcessing />;
+        return (
+          <PostPanelProcessing
+            pmSeqNum={pmSeqNum}
+            panelMeetingsResults={panelMeetingsResults}
+            panelMeetingsIsLoading={panelMeetingsIsLoading}
+          />
+        );
 
       default:
         return errorAlert;

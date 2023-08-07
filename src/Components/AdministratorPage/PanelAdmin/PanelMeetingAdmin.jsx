@@ -7,17 +7,14 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
-import { panelMeetingsFetchData, panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
+import { panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import { submitPanelMeeting } from '../../Panel/helpers';
 
 const PanelMeetingAdmin = (props) => {
-  const { history } = props;
-  const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
+  const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
   const isCreate = !pmSeqNum;
 
-  const panelMeetingsResults = useSelector(state => state.panelMeetings);
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
-  const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
@@ -25,7 +22,6 @@ const PanelMeetingAdmin = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
     dispatch(panelMeetingsFiltersFetchData());
   }, []);
 
@@ -281,15 +277,18 @@ const PanelMeetingAdmin = (props) => {
 
 PanelMeetingAdmin.propTypes = {
   history: HISTORY_OBJECT.isRequired,
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      pmSeqNum: PropTypes.string,
-    }),
-  }),
+  pmSeqNum: PropTypes.number,
+  panelMeetingsResults: PropTypes.arrayOf(
+    PropTypes.shape(),
+  ),
+  panelMeetingsIsLoading: PropTypes.bool,
 };
 
 PanelMeetingAdmin.defaultProps = {
   match: {},
+  pmSeqNum: undefined,
+  panelMeetingsResults: undefined,
+  panelMeetingsIsLoading: undefined,
 };
 
 export default withRouter(PanelMeetingAdmin);
