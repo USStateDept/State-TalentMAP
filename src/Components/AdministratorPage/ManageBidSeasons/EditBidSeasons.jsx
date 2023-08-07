@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
@@ -15,15 +14,15 @@ const DATE_FORMAT = 'MMMM d, yyyy';
 // eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
   const { details, seasonInfo, id } = props;
-  const [status, setStatus] = useState(details.status);
-  const [description, setDescription] = useState('');
-  const [season, setSeason] = useState(details.ocReason);
-  const stepLetterOneDate = !get(details, 'stepLetterOne') ? null : new Date(get(details, 'stepLetterOne'));
-  const stepLetterTwoDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));
-  const stepLetterThreeDate = !get(details, 'stepLetterTwo') ? null : new Date(get(details, 'stepLetterTwo'));
-  const [stepLetterOne, setStepLetterOne] = useState(stepLetterOneDate);
-  const [stepLetterTwo, setStepLetterTwo] = useState(stepLetterTwoDate);
-  const [stepLetterThree, setStepLetterThree] = useState(stepLetterThreeDate);
+  const [status, setStatus] = useState('');
+  const [description, setDescription] = useState(seasonInfo?.description);
+  const [season, setSeason] = useState(seasonInfo?.bid_seasons_name);
+  const startDateInfo = !get(details, 'startDate') ? null : new Date(get(details, 'startDate'));
+  const endDateInfo = !get(details, 'endDate') ? null : new Date(get(details, 'endDate'));
+  const panelCutoffInfo = !get(details, 'panelCutoff') ? null : new Date(get(details, 'panelCutoff'));
+  const [startDate, setStartDate] = useState(startDateInfo);
+  const [endDate, setEndDate] = useState(endDateInfo);
+  const [panelCutoff, setPanelCutoff] = useState(panelCutoffInfo);
   // To Do: Move these to the DB/Django backend after more user feedback
 
   const submit = (e) => {
@@ -33,8 +32,9 @@ const EditBidSeasons = (props) => {
     const userInputs = {
       // 'notes' on ui
       comments: description || '',
-      step_letter_one: stepLetterOne,
-      step_letter_two: stepLetterTwo,
+      start_date: startDate,
+      end_date: endDate,
+      panel_cutOff: panelCutoff,
     };
     setStatus(userInputs);
   };
@@ -46,49 +46,49 @@ const EditBidSeasons = (props) => {
 
   const ocSelected = status === 'OC';
   const seasonError = ocSelected && !season;
-  const stepLetterOneFlag = stepLetterOne === null;
-  const stepLetterTwoFlag = stepLetterTwo === null;
-  const stepLetterThreeFlag = stepLetterThree === null;
-  const stepLetterOneError = stepLetterOneFlag && !stepLetterTwoFlag;
-  const stepLetterTwoError = !stepLetterTwoFlag && stepLetterOne > stepLetterTwo;
-  const stepLetterThreeError = stepLetterOneError || stepLetterTwoError;
-  const stepLetterOneClearIconInactive = stepLetterOneFlag ||
-    (!stepLetterOneFlag && !stepLetterTwoFlag);
+  const startDateFlag = startDate === null;
+  const endDateFlag = endDate === null;
+  const panelCutOffFlag = panelCutoff === null;
+  const startDateError = startDateFlag && !endDateFlag;
+  const endDateError = !endDateFlag && startDate > endDate;
+  const panelCutOffError = startDateError || endDateError;
+  const startDateClearIconInactive = startDateFlag ||
+    (!startDateFlag && !endDateFlag);
   const submitDisabled = seasonError ||
-    stepLetterOneError || stepLetterTwoError || stepLetterThreeError;
+    startDateError || endDateError || panelCutOffError;
 
 
   const getStepLetterOneErrorText = () => {
-    if (stepLetterOneError) {
+    if (startDateError) {
       return 'You must delete Step Letter 2 or add back a Step Letter 1 date before saving.';
     }
     return null;
   };
 
-  const stepLetterOneErrorText = getStepLetterOneErrorText();
+  const startDateErrorText = getStepLetterOneErrorText();
 
-  const updateStepLetterOne = (date) => {
-    setStepLetterOne(date);
+  const updateStartDate = (date) => {
+    setStartDate(date);
   };
 
-  const updateStepLetterTwo = (date) => {
-    setStepLetterTwo(date);
+  const updateEndDate = (date) => {
+    setEndDate(date);
   };
 
-  const updateStepLetterThree = (date) => {
-    setStepLetterThree(date);
+  const updatePanelCutOff = (date) => {
+    setPanelCutoff(date);
   };
 
-  const clearStepLetterOneDate = () => {
-    setStepLetterOne(null);
+  const clearStartDate = () => {
+    setStartDate(null);
   };
 
-  const clearStepLetterTwoDate = () => {
-    setStepLetterTwo(null);
+  const clearEndDate = () => {
+    setEndDate(null);
   };
 
-  const clearStepLetterThreeDate = () => {
-    setStepLetterThree(null);
+  const clearPanelCutOff = () => {
+    setPanelCutoff(null);
   };
 
   const seasonOptions = [
@@ -109,8 +109,8 @@ const EditBidSeasons = (props) => {
             minRows={4}
             maxlength="255"
             name="description"
-            placeholder="Type to filter seasons"
-            defaultValue={id === '' ? '' : `${id} - ${seasonInfo.bid_seasons_name} - ${seasonInfo.bid_seasons_begin_date} - ${seasonInfo.bid_seasons_end_date}`}
+            placeholder="Please provide a description of the bid season."
+            defaultValue={id === '' ? '' : `${seasonInfo?.description}`}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -127,12 +127,12 @@ const EditBidSeasons = (props) => {
             <select
               id="season"
               className={seasonError ? 'select-error' : ''}
-              defaultValue={seasonInfo.bid_seasons_name}
+              defaultValue={seasonInfo?.bid_seasons_name}
               onChange={(e) => setSeason(e.target.value)}
               aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
-              <option value="">{seasonInfo.bid_seasons_name}</option>
+              <option value="">{seasonInfo?.bid_seasons_name}</option>
               {seasonOptions.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -148,23 +148,23 @@ const EditBidSeasons = (props) => {
               <dt>Start Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <DatePicker
-                  selected={stepLetterOne}
-                  onChange={updateStepLetterOne}
+                  selected={startDate}
+                  onChange={updateStartDate}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo.bid_seasons_begin_date)}
-                  className={stepLetterOneError ? 'select-error' : ''}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_begin_date)}
+                  className={startDateError ? 'select-error' : ''}
                 />
-                {!!stepLetterOneErrorText && <span className="usa-input-error-message" role="alert">{stepLetterOneErrorText}</span>}
+                {!!startDateErrorText && <span className="usa-input-error-message" role="alert">{startDateErrorText}</span>}
               </span>
-              {stepLetterOneClearIconInactive &&
+              {startDateClearIconInactive &&
               <div className="step-letter-clear-icon">
                 <FA name="times-circle fa-lg inactive" />
               </div>
               }
-              {!stepLetterOneFlag && stepLetterTwoFlag &&
+              {!startDateFlag && endDateFlag &&
               <div className="step-letter-clear-icon">
                 <InteractiveElement
-                  onClick={clearStepLetterOneDate}
+                  onClick={clearStartDate}
                 >
                   <FA name="times-circle fa-lg active" />
                 </InteractiveElement>
@@ -175,22 +175,22 @@ const EditBidSeasons = (props) => {
               <dt>End Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <DatePicker
-                  selected={stepLetterTwo}
-                  onChange={updateStepLetterTwo}
+                  selected={endDate}
+                  onChange={updateEndDate}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo.bid_seasons_end_date)}
-                  className={stepLetterTwoError ? 'select-error' : ''}
-                  minDate={stepLetterOne}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_end_date)}
+                  className={endDateError ? 'select-error' : ''}
+                  minDate={startDate}
                 />
               </span>
-              {stepLetterTwoFlag ?
+              {endDateFlag ?
                 <div className="step-letter-clear-icon">
                   <FA name="times-circle fa-lg inactive" />
                 </div>
                 :
                 <div className="step-letter-clear-icon">
                   <InteractiveElement
-                    onClick={clearStepLetterTwoDate}
+                    onClick={clearEndDate}
                   >
                     <FA name="times-circle fa-lg active" />
                   </InteractiveElement>
@@ -201,22 +201,22 @@ const EditBidSeasons = (props) => {
               <dt>Panel Cutoff Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <DatePicker
-                  selected={stepLetterThree}
-                  onChange={updateStepLetterThree}
+                  selected={panelCutoff}
+                  onChange={updatePanelCutOff}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo.bid_seasons_panel_cutoff)}
-                  className={stepLetterThreeError ? 'select-error' : ''}
-                  minDate={stepLetterThree}
+                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
+                  className={panelCutOffError ? 'select-error' : ''}
+                  minDate={panelCutoff}
                 />
               </span>
-              {stepLetterThreeFlag ?
+              {panelCutOffFlag ?
                 <div className="step-letter-clear-icon">
                   <FA name="times-circle fa-lg inactive" />
                 </div>
                 :
                 <div className="step-letter-clear-icon">
                   <InteractiveElement
-                    onClick={clearStepLetterThreeDate}
+                    onClick={clearPanelCutOff}
                   >
                     <FA name="times-circle fa-lg active" />
                   </InteractiveElement>
@@ -237,14 +237,13 @@ const EditBidSeasons = (props) => {
   );
 };
 
-EditBidSeasons.PropTypes = {
-  id: PropTypes.string,
-  name: PropTypes.string,
-  submitAction: PropTypes.func,
+EditBidSeasons.propTypes = {
+  id: PropTypes.string.is,
   details: PropTypes.shape({
     formattedCreated: PropTypes.string,
-    stepLetterOne: PropTypes.string,
-    stepLetterTwo: PropTypes.string,
+    startDate: PropTypes.string,
+    endDate: PropTypes.string,
+    panelCutOff: PropTypes.string,
   }),
   seasonInfo: PropTypes.shape({
     bid_seasons_name: PropTypes.string,
@@ -253,17 +252,28 @@ EditBidSeasons.PropTypes = {
     bid_seasons_panel_cutoff: PropTypes.string,
     bid_seasons_end_date: PropTypes.string,
     bid_seasons_future_vacancy: PropTypes.string,
-    id: PropTypes.number,
+    description: PropTypes.string,
   }),
 };
 
 
 EditBidSeasons.defaultProps = {
   id: '',
-  name: '',
-  submitAction: EMPTY_FUNCTION,
-  details: {},
-  seasonInfo: {},
+  details: {
+    formattedCreated: '',
+    startDate: '',
+    endDate: '',
+    panelCutOff: '',
+  },
+  seasonInfo: {
+    bid_seasons_name: '',
+    bid_seasons_category: '',
+    bid_seasons_begin_date: '',
+    bid_seasons_panel_cutoff: '',
+    bid_seasons_end_date: '',
+    bid_seasons_future_vacancy: '',
+    description: '',
+  },
 };
 
 export default EditBidSeasons;

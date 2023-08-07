@@ -23,6 +23,7 @@ const dummyData = [
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
     bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
+    description: 'This is a description for Fall Cycle 2023',
   },
   {
     bid_seasons_name: 'Summer Cycle 2023',
@@ -32,6 +33,7 @@ const dummyData = [
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
     bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
+    description: 'This is a description for Summer Cycle 2023',
   },
   {
     bid_seasons_name: 'Spring Cycle 2023',
@@ -41,6 +43,7 @@ const dummyData = [
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
     bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
+    description: 'This is a description for Spring Cycle 2023',
   },
   {
     bid_seasons_name: 'Winter Cycle 2023',
@@ -50,6 +53,7 @@ const dummyData = [
     bid_seasons_panel_cutoff: '2025-11-30T21:12:12.854000Z',
     bid_season_excl_position: 'Y',
     bid_seasons_future_vacancy: 'Y',
+    description: 'This is a description for Winter Cycle 2023',
   },
 ];
 // eslint-disable-next-line no-loops/no-loops

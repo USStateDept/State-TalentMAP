@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
@@ -17,14 +18,15 @@ const ManageBidSeasonsCard = (props) => {
     bid_seasons_future_vacancy,
     bid_seasons_panel_cutoff,
     id,
+    description,
     bidder,
     displayNewModal,
   } = props;
-  console.log('props', props);
   const created = get(bidder, 'bid-seasons.date_created');
   const formattedCreated = created ? formatDate(created) : NO_DATE;
-  const stepLetterOne = get(bidder, 'bid-seasons.step_letter_one');
-  const stepLetterTwo = get(bidder, 'bid-seasons.step_letter_two');
+  const startDate = get(bidder, 'bid-seasons.start_date');
+  const endDate = get(bidder, 'bid-seasons.end_date');
+  const panelCutoff = get(bidder, 'bid-seasons.panel_cutOff');
   const submitAction = () => {
     swal.close();
   };
@@ -42,8 +44,9 @@ const ManageBidSeasonsCard = (props) => {
           details={
             isNew ? {} : {
               formattedCreated,
-              stepLetterOne,
-              stepLetterTwo,
+              startDate,
+              endDate,
+              panelCutoff,
             }}
         />
       ),
@@ -77,11 +80,26 @@ const ManageBidSeasonsCard = (props) => {
               {`Future Vacancy: ${bid_seasons_future_vacancy}`}
             </Column>
           </Column>
-          <Column onClick={() => editSeason({ bid_seasons_begin_date, bid_seasons_end_date, bid_seasons_name, bid_seasons_category, bid_seasons_future_vacancy }, false)} columns={3} className="cyc-card--link-col">
-            <span className="editHover">
+          <Column columns={3} className="cyc-card--link-col">
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                editSeason({
+                  bid_seasons_begin_date,
+                  bid_seasons_end_date,
+                  bid_seasons_name,
+                  bid_seasons_category,
+                  bid_seasons_future_vacancy,
+                  description,
+                }, false);
+              }
+              }
+              className="editHover"
+              to="#"
+            >
               <FA className="fa-solid fa-plus" />
               {' Edit'}
-            </span>
+            </Link>
           </Column>
         </Row>
       </Row>
@@ -95,13 +113,16 @@ ManageBidSeasonsCard.propTypes = {
   bid_seasons_begin_date: PropTypes.string,
   bid_seasons_end_date: PropTypes.string,
   bid_seasons_panel_cutoff: PropTypes.string,
+  bid_seasons_future_vacancy: PropTypes.string,
   id: PropTypes.string,
+  description: PropTypes.string.isRequired,
   displayNewModal: PropTypes.bool.isRequired,
   bidder: PropTypes.shape({
     'bid-seasons': PropTypes.shape({
       date_created: PropTypes.string,
-      step_letter_one: PropTypes.string,
-      step_letter_two: PropTypes.string,
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+      panelCutoff: PropTypes.string,
     }),
   }).isRequired,
 };
@@ -112,7 +133,9 @@ ManageBidSeasonsCard.defaultProps = {
   bid_seasons_begin_date: '',
   bid_seasons_end_date: '',
   bid_seasons_panel_cutoff: '',
+  bid_seasons_future_vacancy: '',
   id: '',
+  description: '',
   displayNewModal: false,
 };
 

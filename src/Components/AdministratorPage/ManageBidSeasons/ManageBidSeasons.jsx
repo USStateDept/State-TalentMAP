@@ -3,6 +3,7 @@ import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { isDate, startOfDay } from 'date-fns-v2';
@@ -155,7 +156,8 @@ const ManageBidSeasons = (props) => {
     includeSelectAll: true,
   };
 
-  const openNewModal = () => {
+  const openNewModal = (e) => {
+    e.preventDefault();
     setNewModalOpen(true);
     setTimeout(() => {
       setNewModalOpen(false);
@@ -222,10 +224,13 @@ const ManageBidSeasons = (props) => {
                   <p>Search for an existing bid season or add a new one.</p>
                 </div>
                 <div className="cm-results-dropdown cm-results">
-                  <button onClick={openNewModal} to="#" >
+                  <Link
+                    onClick={(e) => openNewModal(e)}
+                    to="#"
+                  >
                     <FA className="fa-solid fa-plus" />
                     {' Add New Bid Season'}
-                  </button>
+                  </Link>
                 </div>
               </div>
 
@@ -250,7 +255,6 @@ const ManageBidSeasons = (props) => {
 
 ManageBidSeasons.propTypes = {
   isAO: PropTypes.bool,
-  id: PropTypes.string.isRequired,
 };
 
 ManageBidSeasons.defaultProps = {
