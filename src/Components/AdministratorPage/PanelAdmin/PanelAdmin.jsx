@@ -1,25 +1,36 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import { get, orderBy, uniqBy } from 'lodash';
 import { useDataLoader } from 'hooks';
 import { useDispatch, useSelector } from 'react-redux';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
+import PropTypes from 'prop-types';
 import InteractiveElement from 'Components/InteractiveElement';
 import Spinner from 'Components/Spinner';
 import NavTabs from 'Components/NavTabs';
 import Alert from 'Components/Alert';
+import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import EditRemark from '../EditRemark';
 import PanelMeetingAdmin from './PanelMeetingAdmin';
+import PostPanelProcessing from './PostPanelProcessing';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 import api from '../../../api';
-import PostPanelProcessing from './PostPanelProcessing';
 
 export const RG = 'RG';
 export const PM = 'PM';
 export const PPP = 'PPP';
 
-const PanelAdmin = () => {
+const PanelAdmin = (props) => {
   const dispatch = useDispatch();
+
+  const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
+  const panelMeetingsResults = useSelector(state => state.panelMeetings);
+  const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
+  const enablePostPanelProcessing = pmSeqNum && panelMeetingsResults$.panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
+  useEffect(() => {
+    dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
+  }, []);
 
   const saveAdminRemarkHasErrored = useSelector(state => state.saveAdminRemarkHasErrored);
   const saveAdminRemarkIsLoading = useSelector(state => state.saveAdminRemarkIsLoading);
@@ -28,7 +39,7 @@ const PanelAdmin = () => {
   const navTabRef = useRef();
   const tabs = [
     { text: 'Panel Meetings', value: PM },
-    { text: 'Post Panel Processing', value: PPP },
+    { text: 'Post Panel Processing', value: PPP, disabled: !enablePostPanelProcessing },
     { text: 'Remarks Glossary', value: RG },
   ];
 
@@ -142,4 +153,16 @@ const PanelAdmin = () => {
   );
 };
 
-export default PanelAdmin;
+PanelAdmin.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      pmSeqNum: PropTypes.string,
+    }),
+  }),
+};
+
+PanelAdmin.defaultProps = {
+  match: {},
+};
+
+export default withRouter(PanelAdmin);
