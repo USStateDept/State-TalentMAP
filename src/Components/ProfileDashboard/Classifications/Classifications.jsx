@@ -80,7 +80,7 @@ const Classifications = props => {
         </div>
       </div>
       {
-        !editView && isPublic && canEditClassifications &&
+        !editView && canEditClassifications &&
         <div className="section-padded-inner-container small-link-container view-more-link-centered">
           <button className="unstyled-button classifications-checkbox" onClick={() => setEditView(true)}>
             <FA
