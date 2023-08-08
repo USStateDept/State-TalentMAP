@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
-import CheckBox from 'Components/CheckBox';
+// import CheckBox from 'Components/CheckBox';
 import { saveRemark } from 'actions/editRemark';
 
 const EditRemark = (props) => {
@@ -29,10 +29,11 @@ const EditRemark = (props) => {
 
   const [shortDescription, setShortDescription] = useState(remark.short_desc_text || '');
   const [insertionInput, setInsertionInput] = useState('');
-  const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code : '');
+  const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code :
+    rmrkCategories[0]?.code);
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
-  const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  // const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
 
   const closeRemarkModal = (e) => {
     e.preventDefault();
@@ -42,8 +43,10 @@ const EditRemark = (props) => {
   const submitRemark = () => {
     dispatch(saveRemark({
       rmrkInsertionList,
+      rmrkCategory,
       longDescription,
-      activeIndicator,
+      shortDescription,
+      // activeIndicator,
     }));
     if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
       swal.close();
@@ -167,13 +170,14 @@ const EditRemark = (props) => {
           ))}
         </div>
       </div>
-      <div className="edit-remark-checkboxes-controls">
-        <CheckBox
+      <div className="edit-remark-checkboxes-controls pt-20">
+        {/*   Commented out for Release 11.0
+          <CheckBox
           label="Active Indicator"
           id="active-indicator-checkbox"
           onCheckBoxClick={e => setActiveIndicator(e)}
           value={activeIndicator}
-        />
+        /> */}
         <div className="modal-controls">
           <button onClick={submitRemark}>Submit</button>
           <button className="usa-button-secondary" onClick={closeRemarkModal}>Cancel</button>
@@ -184,7 +188,11 @@ const EditRemark = (props) => {
 };
 
 EditRemark.propTypes = {
-  rmrkCategories: PropTypes.arrayOf(PropTypes.shape({})),
+  rmrkCategories: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+    }),
+  ),
   dispatch: PropTypes.func.isRequired,
   remark: PropTypes.shape({
     seq_num: PropTypes.number,
