@@ -5,7 +5,7 @@ import UserProfileGeneralInformation from './UserProfileGeneralInformation';
 import UserProfileContactInformation from './UserProfileContactInformation';
 import ExternalUserStatus from '../ExternalUserStatus';
 
-const UserProfile = ({ userProfile, isPublic }) => {
+const UserProfile = ({ userProfile, isPublic, showEmployeeProfileLinks }) => {
   const cdo = get(userProfile, 'cdo', {});
   return (
     <div className="usa-grid-full current-user">
@@ -13,6 +13,7 @@ const UserProfile = ({ userProfile, isPublic }) => {
         userProfile={userProfile}
         isPublic={isPublic}
         colorProp="firstName"
+        showEmployeeProfileLinks={showEmployeeProfileLinks}
       />
       <div className="current-user-bottom">
         {
@@ -36,6 +37,7 @@ const UserProfile = ({ userProfile, isPublic }) => {
 
 UserProfile.propTypes = {
   userProfile: USER_PROFILE.isRequired,
+  showEmployeeProfileLinks: PropTypes.bool.isRequired,
   isPublic: PropTypes.bool,
 };
 
