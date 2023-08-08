@@ -9,23 +9,39 @@ import Spinner from 'Components/Spinner';
 import { HISTORY_OBJECT } from 'Constants/PropTypes';
 import { panelMeetingsFiltersFetchData } from 'actions/panelMeetings';
 import { submitPanelMeeting } from '../../Panel/helpers';
+import { userHasPermissions } from '../../../utilities';
 
 const PanelMeetingAdmin = (props) => {
   const { history, panelMeetingsResults, panelMeetingsIsLoading, pmSeqNum } = props;
   const isCreate = !pmSeqNum;
 
+  const dispatch = useDispatch();
+
+
+  // ============= Retrieve Data =============
+
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
+  const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults$;
+
+  const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
+  const prelimRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFF');
+  const addendumCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'ADD');
+  const addendumRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
+
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
     state.panelMeetingsFiltersFetchDataLoading);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(panelMeetingsFiltersFetchData());
   }, []);
 
-  const { pmt_code, pms_desc_text, panelMeetingDates } = panelMeetingsResults$;
+  // ============= Input Management =============
+
+  const datePickerRef = useRef(null);
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  };
 
   const [panelMeetingType, setPanelMeetingType] = useState('interdivisional');
   const [panelMeetingDate, setPanelMeetingDate] = useState();
@@ -34,26 +50,20 @@ const PanelMeetingAdmin = (props) => {
   const [addendumCutoff, setAddendumCutoff] = useState();
   const [prelimRuntime, setPrelimRuntime] = useState();
   const [addendumRuntime, setAddendumRuntime] = useState();
-  const [canEditFields, setCanEditFields] = useState(true);
 
   const setInitialInputResults = () => {
     setPanelMeetingType(pmt_code);
     setPanelMeetingDate(new Date(panelMeetingDates?.find(x => x.mdt_code === 'MEET').pmd_dttm));
     setPanelMeetingStatus(pms_desc_text);
 
-    const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
-    const prelimRuntime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFF');
-    const addendumRuntime$ = panelMeetingDates?.find(x => x.mdt_code === 'OFFA');
-
     setPrelimCutoff(new Date(prelimCutoff$.pmd_dttm));
     setAddendumCutoff(new Date(panelMeetingDates?.find(x => x.mdt_code === 'ADD').pmd_dttm));
-    setCanEditFields(prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true);
 
-    if (prelimRuntime$) {
-      setPrelimRuntime(new Date(prelimRuntime$.pmd_dttm));
+    if (prelimRunTime$) {
+      setPrelimRuntime(new Date(prelimRunTime$.pmd_dttm));
     }
-    if (addendumRuntime$) {
-      setAddendumRuntime(new Date(addendumRuntime$.pmd_dttm));
+    if (addendumRunTime$) {
+      setAddendumRuntime(new Date(addendumRunTime$.pmd_dttm));
     }
   };
 
@@ -63,12 +73,35 @@ const PanelMeetingAdmin = (props) => {
     }
   }, [panelMeetingsResults]);
 
+  const selectPanelMeetingDate = (date) => {
+    const prelimCutoffMins = 2875;
+    const addendumCutoffMins = 1435;
+
+    setPanelMeetingDate(date);
+    setPrelimCutoff(subMinutes(date, prelimCutoffMins));
+    setAddendumCutoff(subMinutes(date, addendumCutoffMins));
+  };
+
+  const clear = () => {
+    if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
+      setInitialInputResults();
+    } else {
+      setPanelMeetingType('interdivisional');
+      setPanelMeetingDate('');
+      setPrelimCutoff('');
+      setAddendumCutoff('');
+      setPrelimRuntime('');
+      setAddendumRuntime('');
+      setPanelMeetingStatus('Initiated');
+    }
+  };
+
+
+  // ============= Submission Management =============
+
   const createMeetingResults = useSelector(state => state.createPanelMeetingSuccess);
   const createMeetingLoading = useSelector(state => state.createPanelMeetingIsLoading);
   const createMeetingErrored = useSelector(state => state.createPanelMeetingHasErrored);
-
-  const prelimCutoffMins = 2875;
-  const addendumCutoffMins = 1435;
 
   useEffect(() => {
     if (!createMeetingLoading && !createMeetingErrored && createMeetingResults.length) {
@@ -104,30 +137,53 @@ const PanelMeetingAdmin = (props) => {
     ));
   };
 
-  const clear = () => {
-    if (!isCreate && !!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
-      setInitialInputResults();
-    } else {
-      setPanelMeetingType('interdivisional');
-      setPanelMeetingDate('');
-      setPrelimCutoff('');
-      setAddendumCutoff('');
-      setPrelimRuntime('');
-      setAddendumRuntime('');
-      setPanelMeetingStatus('Initiated');
-    }
-  };
+  // ============= Form Conditions =============
 
-  const selectPanelMeetingDate = (date) => {
-    setPanelMeetingDate(date);
-    setPrelimCutoff(subMinutes(date, prelimCutoffMins));
-    setAddendumCutoff(subMinutes(date, addendumCutoffMins));
-  };
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
-  const datePickerRef = useRef(null);
-  const openDatePicker = () => {
-    datePickerRef.current.setOpen(true);
-  };
+  const beforePrelimCutoff = (
+    prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true
+  );
+  const beforeAddendumCutoff = (
+    addendumCutoff$ ? (new Date(addendumCutoff$.pmd_dttm) - new Date() > 0) : true
+  );
+
+  // Super Admins can manually edit any field, otherwise, certain fields
+  // are restricted by preconditions determined by prior steps
+
+  const disableMeetingType = !isSuperUser &&
+    (!beforePrelimCutoff);
+
+  const disableStatus = !isSuperUser &&
+    (isCreate || !beforePrelimCutoff);
+
+  const disablePanelMeetingDate = !isSuperUser &&
+    (!beforePrelimCutoff);
+
+  const disablePrelimCutoff = !isSuperUser &&
+    (!beforePrelimCutoff);
+
+  const disableAddendumCutoff = !isSuperUser &&
+    (!beforePrelimCutoff);
+
+  const disablePrelimRunTime = !isSuperUser &&
+    (isCreate || !beforePrelimCutoff || prelimRunTime$);
+
+  const disableRunPrelim =
+    (isCreate || !beforePrelimCutoff);
+
+  const disableAddendumRunTime = !isSuperUser &&
+    (isCreate || !beforeAddendumCutoff || addendumRunTime$);
+
+  const disableRunAddendum =
+    (isCreate || !beforeAddendumCutoff);
+
+  const disableClear = !isSuperUser &&
+    (!beforeAddendumCutoff);
+
+  const disableSave = !isSuperUser &&
+    (!beforeAddendumCutoff);
 
   return (
     (panelMeetingsIsLoading || panelMeetingsFiltersIsLoading) ?
@@ -138,7 +194,7 @@ const PanelMeetingAdmin = (props) => {
             <div className="panel-meeting-field">
               <label htmlFor="meeting-type">Meeting Type</label>
               <select
-                disabled={!canEditFields}
+                disabled={disableMeetingType}
                 className="select-dropdown"
                 value={panelMeetingType}
                 onChange={(e) => setPanelMeetingType(e.target.value)}
@@ -150,7 +206,7 @@ const PanelMeetingAdmin = (props) => {
             <div className="panel-meeting-field">
               <label htmlFor="status">Status</label>
               <select
-                disabled={isCreate || !canEditFields}
+                disabled={disableStatus}
                 className="select-dropdown"
                 value={panelMeetingStatus}
                 onChange={(e) => setPanelMeetingStatus(e.target.value)}
@@ -167,7 +223,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields}
+                  disabled={disablePanelMeetingDate}
                   selected={panelMeetingDate}
                   onChange={selectPanelMeetingDate}
                   showTimeSelect
@@ -186,7 +242,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields}
+                  disabled={disablePrelimCutoff}
                   selected={prelimCutoff}
                   onChange={(date) => setPrelimCutoff(date)}
                   showTimeSelect
@@ -203,7 +259,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields}
+                  disabled={disableAddendumCutoff}
                   selected={addendumCutoff}
                   onChange={(date) => setAddendumCutoff(date)}
                   showTimeSelect
@@ -222,7 +278,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields || panelMeetingDates?.find(x => x.mdt_code === 'OFF')}
+                  disabled={disablePrelimRunTime}
                   selected={prelimRuntime}
                   onChange={(date) => setPrelimRuntime(date)}
                   showTimeSelect
@@ -234,7 +290,7 @@ const PanelMeetingAdmin = (props) => {
                 />
               </div>
               <button
-                disabled={!canEditFields || isCreate}
+                disabled={disableRunPrelim}
                 className="text-button"
                 onClick={() => { handleRun('prelimRuntime'); }}
               >
@@ -246,7 +302,7 @@ const PanelMeetingAdmin = (props) => {
               <div className="date-picker-wrapper larger-date-picker">
                 <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
                 <DatePicker
-                  disabled={!canEditFields || panelMeetingDates?.find(x => x.mdt_code === 'OFFA')}
+                  disabled={disableAddendumRunTime}
                   selected={addendumRuntime}
                   onChange={(date) => setAddendumRuntime(date)}
                   showTimeSelect
@@ -258,7 +314,7 @@ const PanelMeetingAdmin = (props) => {
                 />
               </div>
               <button
-                disabled={!canEditFields || isCreate}
+                disabled={disableRunAddendum}
                 className="text-button"
                 onClick={() => { handleRun('addendumRuntime'); }}
               >
@@ -268,8 +324,8 @@ const PanelMeetingAdmin = (props) => {
           </div>
         </div>
         <div className="position-form--actions">
-          <button onClick={clear} disabled={!canEditFields}>Clear</button>
-          <button onClick={submit} disabled={!canEditFields}>Save</button>
+          <button onClick={clear} disabled={disableClear}>Clear</button>
+          <button onClick={submit} disabled={disableSave}>Save</button>
         </div>
       </div>
   );

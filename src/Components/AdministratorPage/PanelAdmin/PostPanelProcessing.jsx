@@ -8,6 +8,7 @@ import Spinner from 'Components/Spinner';
 import { postPanelProcessingFetchData, postPanelStatusesFetchData } from 'actions/postPanelProcessing';
 import { createPostPanelProcessing } from '../../../actions/postPanelProcessing';
 import { submitPanelMeeting } from '../../Panel/helpers';
+import { userHasPermissions } from '../../../utilities';
 
 
 const PostPanelProcessing = (props) => {
@@ -15,13 +16,14 @@ const PostPanelProcessing = (props) => {
 
   const dispatch = useDispatch();
 
-  // ============= Table Context =============
+
+  // ============= Retrieve Data =============
 
   const panelMeetingsResults$ = panelMeetingsResults?.results?.[0] ?? {};
   const { panelMeetingDates } = panelMeetingsResults$;
 
   const postPanelStarted$ = panelMeetingDates?.find(x => x.mdt_code === 'POSS');
-  const postPanelRuntime$ = panelMeetingDates?.find(x => x.mdt_code === 'POST');
+  const postPanelRunTime$ = panelMeetingDates?.find(x => x.mdt_code === 'POST');
   const agendaCompletedTime$ = panelMeetingDates?.find(x => x.mdt_code === 'COMP');
 
   const postPanelResults = useSelector(state => state.postPanelProcessingFetchDataSuccess);
@@ -30,22 +32,31 @@ const PostPanelProcessing = (props) => {
     useSelector(state => state.postPanelStatusesFetchDataSuccess);
   const postPanelStatusesIsLoading = useSelector(state => state.postPanelStatusesFetchDataLoading);
 
-  const [postPanelStarted, setPostPanelStarted] = useState();
-  const [postPanelRuntime, setPostPanelRuntime] = useState();
-  const [agendaCompletedTime, setAgendaCompletedTime] = useState();
-
   useEffect(() => {
     dispatch(postPanelProcessingFetchData({ id: pmSeqNum }));
     dispatch(postPanelStatusesFetchData());
   }, []);
+
+
+  // ============= Input Management =============
+
+  const datePickerRef = useRef(null);
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  };
+
+  const [postPanelStarted, setPostPanelStarted] = useState();
+  const [postPanelRuntime, setPostPanelRuntime] = useState();
+  const [agendaCompletedTime, setAgendaCompletedTime] = useState();
+  const [formData, setFormData] = useState();
 
   useEffect(() => {
     if (!!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
-      if (postPanelRuntime$) {
-        setPostPanelRuntime(new Date(postPanelRuntime$.pmd_dttm));
+      if (postPanelRunTime$) {
+        setPostPanelRuntime(new Date(postPanelRunTime$.pmd_dttm));
       }
       if (agendaCompletedTime$) {
         setAgendaCompletedTime(new Date(agendaCompletedTime$.pmd_dttm));
@@ -53,14 +64,19 @@ const PostPanelProcessing = (props) => {
     }
   }, [panelMeetingsResults]);
 
-  const datePickerRef = useRef(null);
-  const openDatePicker = () => {
-    datePickerRef.current.setOpen(true);
-  };
-
-  // ============= Form Management =============
-
-  const [formData, setFormData] = useState(postPanelResults);
+  useEffect(() => {
+    // - Submits current date as Post Panel Started upon opening this tab
+    // if Post Panel Processing has not started yet
+    // - Can be removed by the cancel button if Post Panel has not ran yet
+    // - Including conditions for all 3 dates because some Panels have post panel runtime
+    // and agenda completed dates but no post panel started date
+    if (!postPanelStarted$ && !postPanelRunTime$ && !agendaCompletedTime$) {
+      dispatch(submitPanelMeeting(panelMeetingsResults$,
+        { postPanelStarted: new Date() },
+      ));
+    }
+    setFormData(postPanelResults);
+  }, [postPanelResults]);
 
   const handleStatusSelection = (objLabel, newStatus) => {
     const newFormData = formData.map(o => {
@@ -75,29 +91,28 @@ const PostPanelProcessing = (props) => {
     setFormData(newFormData);
   };
 
-  const [canEditFields, setCanEditFields] = useState(true);
 
-  useEffect(() => {
-    // - Submits current date as Post Panel Started upon opening this tab
-    // if Post Panel Processing has not started yet
-    // - Can be removed by the cancel button if Post Panel has not ran yet
-    // - Including conditions for all 3 dates because some Panels have post panel runtime
-    // and agenda completed dates but no post panel started date
-    if (!postPanelStarted$ && !postPanelRuntime$ && !agendaCompletedTime$) {
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        { postPanelStarted: new Date() },
-      ));
-    }
-    setFormData(postPanelResults);
-    const prelimCutoff$ = panelMeetingDates?.find(x => x.mdt_code === 'CUT');
-    setCanEditFields(prelimCutoff$ ? (new Date(prelimCutoff$.pmd_dttm) - new Date() > 0) : true);
-  }, [postPanelResults]);
+  // ============= Submission Management =============
 
   const runPostPanelProcessing = () => {
     dispatch(createPostPanelProcessing(formData));
     dispatch(submitPanelMeeting(panelMeetingsResults$,
       { postPanelRuntime: new Date() },
     ));
+  };
+
+  const cancel = () => {
+    // Depending on how the API works, this will need to handle removing these fields
+    // instead of setting them to undefined
+    if (!postPanelRunTime$ && !agendaCompletedTime$) {
+      dispatch(submitPanelMeeting(panelMeetingsResults$,
+        {
+          postPanelStarted: undefined,
+          postPanelRuntime: undefined,
+          agendaCompletedTime: undefined,
+        },
+      ));
+    }
   };
 
   const submit = () => {
@@ -111,26 +126,48 @@ const PostPanelProcessing = (props) => {
     ));
   };
 
-  const cancel = () => {
-    // Depending on how the API works, this will need to handle removing these fields
-    // instead of setting them to undefined
-    if (!postPanelRuntime$ && !agendaCompletedTime$) {
-      dispatch(submitPanelMeeting(panelMeetingsResults$,
-        {
-          postPanelStarted: undefined,
-          postPanelRuntime: undefined,
-          agendaCompletedTime: undefined,
-        },
-      ));
-    }
-  };
+
+  // ============= Form Conditions =============
 
   // Remove second half of this when loading states are implemented with the api call in actions
-  const isLoading = (postPanelIsLoading || postPanelStatusesIsLoading) ||
-    (!postPanelStatusesResults.length || !formData.length);
+  const isLoading = (postPanelIsLoading || postPanelStatusesIsLoading) || (
+    (postPanelStatusesResults && !postPanelStatusesResults.length) ||
+    (formData && !formData.length)
+  );
+
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+
+  const beforeAgendaCompletedTime = (
+    agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
+  );
+
+  // Super Admins can manually edit any field, otherwise, certain fields
+  // are restricted by preconditions determined by prior steps
+
+  const disablePostPanelStarted = !isSuperUser &&
+    (postPanelRunTime$ && !beforeAgendaCompletedTime);
+
+  const disablePostPanelRunTime = !isSuperUser &&
+    (postPanelRunTime$ && !beforeAgendaCompletedTime);
+
+  const disableTable = !isSuperUser &&
+    (!beforeAgendaCompletedTime);
+
+  const disableRunPostPanel =
+    (postPanelRunTime$ || !beforeAgendaCompletedTime);
+
+  const disableAgendaCompletedTime = !isSuperUser &&
+    (!postPanelRunTime$ && !beforeAgendaCompletedTime);
+
+  const disableCancel = !isSuperUser &&
+    (postPanelRunTime$ || agendaCompletedTime$);
+
+  const disableSave = !isSuperUser &&
+    (!beforeAgendaCompletedTime);
 
   return (
-    isLoading ?
+    (isLoading) ?
       <Spinner type="panel-admin-remarks" size="small" /> :
       <div className="post-panel-processing">
         <div className="post-panel-grid-row">
@@ -139,7 +176,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={!canEditFields}
+                disabled={disablePostPanelStarted}
                 selected={postPanelStarted}
                 onChange={(date) => setPostPanelStarted(date)}
                 showTimeSelect
@@ -156,7 +193,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={!canEditFields}
+                disabled={disablePostPanelRunTime}
                 selected={postPanelRuntime}
                 onChange={(date) => setPostPanelRuntime(date)}
                 showTimeSelect
@@ -205,7 +242,7 @@ const PostPanelProcessing = (props) => {
                         name={`${o.label} ${d.label}`}
                         checked={d.status === o.value}
                         onChange={() => handleStatusSelection(d.label, o.value)}
-                        disabled={!canEditFields}
+                        disabled={disableTable}
                       />
                     </td>
                   ))}
@@ -215,7 +252,7 @@ const PostPanelProcessing = (props) => {
           </table>
         </div>
         <button
-          disabled={!postPanelStarted$ || postPanelRuntime$}
+          disabled={disableRunPostPanel}
           className="text-button mb-20"
           onClick={runPostPanelProcessing}
         >
@@ -227,7 +264,7 @@ const PostPanelProcessing = (props) => {
             <div className="date-picker-wrapper larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <DatePicker
-                disabled={!canEditFields || !postPanelRuntime$}
+                disabled={disableAgendaCompletedTime}
                 selected={agendaCompletedTime}
                 onChange={(date) => setAgendaCompletedTime(date)}
                 showTimeSelect
@@ -241,10 +278,8 @@ const PostPanelProcessing = (props) => {
           </div>
         </div>
         <div className="position-form--actions">
-          <button onClick={cancel} disabled={postPanelRuntime$ || agendaCompletedTime$}>
-            Cancel
-          </button>
-          <button onClick={submit} disabled={!canEditFields}>Save</button>
+          <button onClick={cancel} disabled={disableCancel}>Cancel</button>
+          <button onClick={submit} disabled={disableSave}>Save</button>
         </div>
       </div>
   );
