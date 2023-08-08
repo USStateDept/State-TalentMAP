@@ -20,6 +20,7 @@ export const PM = 'PM';
 const PanelAdmin = () => {
   const usePanelAdminRemarks = () => checkFlag('flags.panel_admin_remarks');
   const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
+  const editEnabled = false;
 
   const dispatch = useDispatch();
 
@@ -98,9 +99,12 @@ const PanelAdmin = () => {
                 <tr key={r.seq_num}>
                   <td>{category.desc_text}</td>
                   <td>
-                    <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
-                      <FA name="pencil" />
-                    </InteractiveElement>
+                    {
+                      editEnabled &&
+                      <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
+                        <FA name="pencil" />
+                      </InteractiveElement>
+                    }
                     {r.text}
                   </td>
                   <td className="active-column">{r.active_ind}</td>

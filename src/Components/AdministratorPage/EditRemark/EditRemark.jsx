@@ -42,7 +42,9 @@ const EditRemark = (props) => {
   const submitRemark = () => {
     dispatch(saveRemark({
       rmrkInsertionList,
+      rmrkCategory,
       longDescription,
+      shortDescription,
       activeIndicator,
     }));
     if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
