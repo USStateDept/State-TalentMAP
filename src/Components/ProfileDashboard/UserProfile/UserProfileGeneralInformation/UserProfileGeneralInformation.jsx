@@ -40,13 +40,18 @@ class UserProfileGeneralInformation extends Component {
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
           <MediaQueryWrapper breakpoint="screenXlgMin" widthType="min">
-            {(matches) => (matches &&
-              <div className="avatar-group">
-                <Avatar
-                  className="dashboard-user-profile-picture"
-                  {...avatar}
-                />
-              </div>
+            {(matches) => (
+              <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
+                {(matches2) => ((matches || matches2) &&
+                  <div className="avatar-group">
+                    <Avatar
+                      className="dashboard-user-profile-picture"
+                      {...avatar}
+                    />
+                  </div>
+                )
+                }
+              </MediaQueryWrapper>
             )
             }
           </MediaQueryWrapper>
