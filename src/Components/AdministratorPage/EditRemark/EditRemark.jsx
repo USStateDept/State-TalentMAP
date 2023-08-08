@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
-import CheckBox from 'Components/CheckBox';
+// import CheckBox from 'Components/CheckBox';
 import { saveRemark } from 'actions/editRemark';
 
 const EditRemark = (props) => {
@@ -32,7 +32,7 @@ const EditRemark = (props) => {
   const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code : '');
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
-  const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  // const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
 
   const closeRemarkModal = (e) => {
     e.preventDefault();
@@ -45,7 +45,7 @@ const EditRemark = (props) => {
       rmrkCategory,
       longDescription,
       shortDescription,
-      activeIndicator,
+      // activeIndicator,
     }));
     if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
       swal.close();
@@ -169,13 +169,14 @@ const EditRemark = (props) => {
           ))}
         </div>
       </div>
-      <div className="edit-remark-checkboxes-controls">
-        <CheckBox
+      <div className="edit-remark-checkboxes-controls pt-20">
+        {/*   Commented out for Release 11.0
+          <CheckBox
           label="Active Indicator"
           id="active-indicator-checkbox"
           onCheckBoxClick={e => setActiveIndicator(e)}
           value={activeIndicator}
-        />
+        /> */}
         <div className="modal-controls">
           <button onClick={submitRemark}>Submit</button>
           <button className="usa-button-secondary" onClick={closeRemarkModal}>Cancel</button>
