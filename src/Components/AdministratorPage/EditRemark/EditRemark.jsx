@@ -29,7 +29,8 @@ const EditRemark = (props) => {
 
   const [shortDescription, setShortDescription] = useState(remark.short_desc_text || '');
   const [insertionInput, setInsertionInput] = useState('');
-  const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code : '');
+  const [rmrkCategory, setRmrkCategory] = useState(isEdit ? category.code :
+    rmrkCategories[0]?.code);
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
   // const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
