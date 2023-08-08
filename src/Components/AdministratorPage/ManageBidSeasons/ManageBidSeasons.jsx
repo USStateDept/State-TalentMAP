@@ -136,7 +136,7 @@ const ManageBidSeasons = (props) => {
   const getOverlay = () => {
     let overlay;
     if (ManageBidSeasonsDataLoading) {
-      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+      overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
     } else if (ManageBidSeasonsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -165,7 +165,7 @@ const ManageBidSeasons = (props) => {
   };
 
   return (
-    genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
+    genericFiltersIsLoading ? <Spinner type="bid-season-filters" size="small" /> :
       (
         <div className="bid-seasons-page bid-seasons-search">
           <div className="usa-grid-full bid-seasons-search--header">
