@@ -188,7 +188,11 @@ const EditRemark = (props) => {
 };
 
 EditRemark.propTypes = {
-  rmrkCategories: PropTypes.arrayOf(PropTypes.shape({})),
+  rmrkCategories: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+    }),
+  ),
   dispatch: PropTypes.func.isRequired,
   remark: PropTypes.shape({
     seq_num: PropTypes.number,
