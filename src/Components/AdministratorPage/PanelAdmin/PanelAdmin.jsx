@@ -35,7 +35,7 @@ const PanelAdmin = () => {
     tabs.push({ text: 'Panel Meetings', value: PM });
   }
   if (usePanelAdminRemarks()) {
-    tabs.push({ text: 'Remarks Glossary', value: RG });
+    tabs.push({ text: 'Maintain Remarks', value: RG });
   }
 
 
