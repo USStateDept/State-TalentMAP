@@ -6,9 +6,9 @@ const HrOnlineIFrame = ({ env }) => {
   const [url, setUrl] = useState(`https://gtm${domain}hronline-usdos.msappproxy.net/${env}/HRData/api/v1/getuser`);
 
   useLayoutEffect(() => {
-      setTimeout(() => {
-        setUrl(`https://gtm${domain}hronline-usdos.msappproxy.net/${env}/hrdata/handshakechild.html`);
-      }, 2000);
+    setTimeout(() => {
+      setUrl(`https://gtm${domain}hronline-usdos.msappproxy.net/${env}/hrdata/handshakechild.html`);
+    }, 2000);
   }, []);
 
   return (
