@@ -61,12 +61,12 @@ const ManageBidSeasonsCard = (props) => {
 
   return (
     <div className="position-form">
-      <Row fluid className="cycle-search-card box-shadow-standard">
-        <Row fluid className="cyc-card--row">
+      <Row fluid className="bid-seasons-search-card box-shadow-standard">
+        <Row fluid className="bs-card--row">
           <Column columns={3}>
             {bid_seasons_name}
           </Column>
-          <Column columns={12} className="cyc-card--middle-cols">
+          <Column columns={12} className="bs-card--middle-cols">
             <Column>
               {`Start Date: ${bid_seasons_begin_date ? formatDate(bid_seasons_begin_date) : ''}`}
             </Column>
@@ -80,7 +80,7 @@ const ManageBidSeasonsCard = (props) => {
               {`Future Vacancy: ${bid_seasons_future_vacancy}`}
             </Column>
           </Column>
-          <Column columns={3} className="cyc-card--link-col">
+          <Column columns={3} className="bs-card--link-col">
             <Link
               onClick={(e) => {
                 e.preventDefault();
@@ -94,7 +94,6 @@ const ManageBidSeasonsCard = (props) => {
                 }, false);
               }
               }
-              className="editHover"
               to="#"
             >
               <FA className="fa-solid fa-pencil" />

@@ -91,7 +91,7 @@ const EditBidSeasons = (props) => {
 
   return (
     <div>
-      <form className="available-bidder-form">
+      <form className="bid-seasons-form">
         <div>
           <label htmlFor="status">Description</label>
           <TextareaAutosize
@@ -113,7 +113,7 @@ const EditBidSeasons = (props) => {
               Required
             </span>
           }
-          <span className="oc-validation-container">
+          <span className="bs-validation-container">
             <select
               id="season"
               className={seasonError ? 'select-error' : ''}
@@ -146,12 +146,12 @@ const EditBidSeasons = (props) => {
                 {!!startDateErrorText && <span className="usa-input-error-message" role="alert">{startDateErrorText}</span>}
               </span>
               {startDateClearIconInactive &&
-              <div className="step-letter-clear-icon">
+              <div className="bs-clear-icon">
                 <FA name="times-circle fa-lg inactive" />
               </div>
               }
               {!startDateFlag && endDateFlag &&
-              <div className="step-letter-clear-icon">
+              <div className="bs-clear-icon">
                 <InteractiveElement
                   onClick={clearStartDate}
                 >

@@ -1,0 +1,311 @@
+// ============= Global =============
+
+.bid-seasons-search {
+    .section {
+      background-color: $color-white;
+      border: 3px solid $tm-gray;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1em;
+      min-height: 200px;
+      padding: 25px;
+      box-shadow: rgba(0, 0, 0, 0.15) 3px 2px 10px 1px;
+    }
+  
+    .padded-section {
+      padding: 25px;
+    }
+  
+    .no-padding {
+      padding: 0;
+    }
+  
+    .align-middle {
+      margin: auto;
+      text-align: center
+    }
+  
+    .all-inline {
+      display: flex;
+      margin-bottom: 20px;
+    }
+  
+    .main-selector {
+      font-size: 2.5rem;
+      margin: 0 0 20px -30px;
+    }
+  
+    .usa-width-one-sixth {
+      margin-bottom: 10px;
+    }
+  
+    .xl-icon {
+      .fa-lg {
+        font-size: 28px;
+      }
+    }
+  
+    .bid-seasons-search--header {
+      background-color: $bg-blue-dark-1;
+      box-shadow: 20px 20px 20px $bg-gray-medium-2;
+      color: $color-white;
+      padding: 20px 35px 30px;
+    }
+  
+    .bid-seasons-search-controls--right {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      padding-right: 30px;
+    }
+  
+    .bid-seasons-search-controls--results {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      padding: 0px 35px;
+  
+      &.padding-top {
+        padding-top: 15px;
+        padding-bottom: 10px;
+      }
+  
+      div:first-child {
+        margin-right: 10px;
+      }
+  
+      div {
+        display: flex;
+        align-items: baseline;
+      }
+    }
+  
+    .bid-seasons-search--results {
+      padding: 0 35px 20px;
+  
+      .position-list {
+        margin-top: 1em;
+      }
+    }
+  
+    .bid-seasons-search-controls--pagination {
+      padding-left: 35px;
+    }
+  }
+  // =============== Bid Seasons Page ===============
+
+  .bid-seasons-page {
+    .bid-seasons-search--filters {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 10px;
+        flex-wrap: wrap;
+        .react-daterange-picker__calendar--open {
+            z-index: $daterange-z;
+        }
+        .filter-div {
+            align-items: center;
+            display: flex;
+      
+            .bslabel {
+              margin-right: 10px;
+              text-align: end;
+            }
+      
+            .picky {
+              color: $color-black;
+            }
+          }
+          .seasonpos{
+            margin-bottom: 7.5px;
+          }
+        .react-daterange-picker {
+          align-items: center;
+          background: $color-white;
+          font-size: 1.5rem;
+          height: 28px;
+          width: 240px;
+          border: 1px solid $bg-gray-dark-2;
+          .react-daterange-picker__wrapper {
+            border: none;
+          }
+          .react-daterange-picker__inputGroup {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+          }
+          .react-daterange-picker__range-divider,
+          .react-daterange-picker__inputGroup__leadingZero,
+          .react-date-picker__inputGroup__divider {
+            color: $color-black;
+          }
+        }
+    }
+    .bs-lower-section {
+      padding: 0 35px 20px;
+    }
+    .bs-results {
+      width: 50%;
+    }
+    .bs-results-dropdown {
+      align-items: center;
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 10px;
+      padding: 0px 35px;
+  
+      &.padding-top {
+        padding-top: 15px;
+        padding-bottom: 10px;
+      }
+  
+      div:first-child {
+        margin-right: 10px;
+      }
+  
+      div {
+        display: flex;
+        align-items: baseline;
+      }
+    }
+  
+    .toggle-more-container {
+      position: relative;
+    }
+  
+    .toggle-more {
+      bottom: 0;
+      position: absolute;
+      right: 0;
+  
+      >span:first-child {
+        white-space: nowrap;
+      }
+    }
+    .cps-lower-section {
+      padding: 0 35px 20px 0;
+    }
+    .cps-content {
+      margin-left: 35px;
+  
+      .cps-header {
+        font-size: 25px;
+        margin-top: 25px
+      }
+      .cps-subheader {
+        display: flex;
+        width: 550px;
+        margin-top: 10px;
+        justify-content: space-between;
+        .cycle-dates {
+          color: $color-gray;
+          font-size: 14px;
+        }
+      }
+      .cps-results {
+        align-items: baseline;
+        display: flex;
+        justify-content: space-between;
+        padding-top: 15px;
+        width: 100%;
+      }
+    }
+  }
+  
+  .bid-seasons-search-card {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: $color-white;
+    border: 1px solid $bg-gray-dark-2;
+    border-left: 8px solid $blue-primary;
+    padding: 1em;
+    .cyc-admin-link {
+      text-align: center;
+    }
+    .bs-card--row {
+      display: flex;
+      align-items: center;
+      .bs-card--middle-cols {
+        display: flex;
+        align-items: center;
+        >div {
+          color: $color-gray;
+          display: flex;
+          justify-content: center;
+          font-size: 14px;
+          min-width: max-content;
+        }
+      }
+      .bs-card--link-col {
+        display: flex;
+        justify-content: flex-end;
+        >span {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  .bs-validation-container {
+    width: 100%;
+  }
+  
+  .bs-clear-icon {
+    margin-left: 5px;
+  
+    .active {
+      color: $alert-red;
+    }
+  
+    .inactive {
+      color: $color-gray-light;
+    }
+  }
+
+  .bid-seasons-form {
+    input[type="text"]:disabled {
+      border: None;
+      background: none;
+    }
+  
+    // styling for step letter date picker
+    div:not(.react-datepicker-wrapper, .react-datepicker-wrapper div,
+     .react-datepicker__tab-loop, .react-datepicker__tab-loop div) {
+      display: flex;
+      align-items: baseline;
+    }
+    // for the Share Bureau icon
+    div:nth-child(14) {
+      justify-content: flex-start;
+    }
+  
+    dd {
+      margin-inline-start: 30;
+      text-align: justify;
+      margin-right: auto;
+      margin-left: 0;
+    }
+  
+    label, dt {
+      display: block;
+      margin-top: 3rem;
+      min-width: 7em;
+      text-align: left;
+    }
+  
+    .select-error {
+      border-color: $alert-red;
+      box-shadow: 0px 0px 0px 2px $alert-red;
+    }
+  
+    .date-picker-validation-container,
+    .oc-validation-container {
+      width: 100%;
+    }
+  
+    .usa-input-error-message {
+      text-align: left;
+    }
+  }

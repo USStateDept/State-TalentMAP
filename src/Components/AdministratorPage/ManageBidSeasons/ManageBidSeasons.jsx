@@ -167,8 +167,8 @@ const ManageBidSeasons = (props) => {
   return (
     genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
-        <div className="cycle-management-page position-search">
-          <div className="usa-grid-full position-search--header">
+        <div className="bid-seasons-page bid-seasons-search">
+          <div className="usa-grid-full bid-seasons-search--header">
             <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
             <div className="filterby-container" >
               <div className="filterby-label">Filter by:</div>
@@ -181,9 +181,9 @@ const ManageBidSeasons = (props) => {
                 }
               </span>
             </div>
-            <div className="usa-width-one-whole position-search--filters--cm">
+            <div className="usa-width-one-whole bid-seasons-search--filters">
               <div className="filter-div">
-                <div className="label">Season:</div>
+                <div className="bslabel">Season:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Type to filter seasons"
@@ -195,16 +195,14 @@ const ManageBidSeasons = (props) => {
                 />
               </div>
               <div className="filter-div">
-                <div className="label">Season Date:</div>
-                <div style={{ marginTop: '7px' }}>
-                  <DateRangePicker
-                    onChange={setSelectedDates}
-                    value={selectedDates}
-                    maxDetail="month"
-                    calendarIcon={null}
-                    showLeadingZeros
-                  />
-                </div>
+                <div className="bslabel">Season Date:</div>
+                <DateRangePicker
+                  onChange={setSelectedDates}
+                  value={selectedDates}
+                  maxDetail="month"
+                  calendarIcon={null}
+                  showLeadingZeros
+                />
               </div>
               <div className="filter-div">
                 <button>
@@ -219,11 +217,11 @@ const ManageBidSeasons = (props) => {
             getOverlay() ||
             <>
               <div className="usa-grid-full results-dropdown controls-container">
-                <div className="cm-results">
+                <div className="bs-results">
                   <h2>Search for a Bid Season</h2>
                   <p>Search for an existing bid season or add a new one.</p>
                 </div>
-                <div className="cm-results-dropdown cm-results">
+                <div className="bs-results-dropdown bs-results">
                   <Link
                     onClick={(e) => openNewModal(e)}
                     to="#"
@@ -234,10 +232,10 @@ const ManageBidSeasons = (props) => {
                 </div>
               </div>
 
-              <div className="cm-lower-section">
+              <div className="bs-lower-section">
                 {ManageBidSeasonsData?.results?.map(data =>
                   <ManageBidSeasonCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
-                <div className="usa-grid-full react-paginate bureau-pagination-controls">
+                <div className="usa-grid-full react-paginate">
                   <PaginationWrapper
                     pageSize={5}
                     onPageChange={p => setPage(p.page)}
