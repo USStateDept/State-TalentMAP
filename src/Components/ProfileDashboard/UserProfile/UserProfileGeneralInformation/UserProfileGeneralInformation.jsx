@@ -9,6 +9,7 @@ import InformationDataPoint from '../../InformationDataPoint';
 import Avatar from '../../../Avatar';
 import SkillCodeList from '../../../SkillCodeList';
 import EmployeeProfileLink from './EmployeeProfileLinkLoadable';
+import MediaQueryWrapper from '../../../MediaQuery';
 
 class UserProfileGeneralInformation extends Component {
   constructor(props) {
@@ -38,12 +39,22 @@ class UserProfileGeneralInformation extends Component {
     return (
       <div className="current-user-top current-user-section-border current-user-section-container">
         <div className="section-padded-inner-container">
-          <div className="avatar-group">
-            <Avatar
-              className="dashboard-user-profile-picture"
-              {...avatar}
-            />
-          </div>
+          <MediaQueryWrapper breakpoint="screenXlgMin" widthType="min">
+            {(matches) => (
+              <MediaQueryWrapper breakpoint="screenLgMin" widthType="max">
+                {(matches2) => ((matches || matches2) &&
+                  <div className="avatar-group">
+                    <Avatar
+                      className="dashboard-user-profile-picture"
+                      {...avatar}
+                    />
+                  </div>
+                )
+                }
+              </MediaQueryWrapper>
+            )
+            }
+          </MediaQueryWrapper>
           <div className="name-group">
             <SectionTitle small title={`${userProfile.user.last_name ? `${userProfile.user.last_name}, ` : ''}${userProfile.user.first_name}`} className="current-user-name" />
             <EmployeeProfileLink
