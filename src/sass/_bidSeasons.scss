@@ -1,5 +1,3 @@
-// ============= Global =============
-
 .bid-seasons-search {
     .section {
       background-color: $color-white;
@@ -93,7 +91,6 @@
       padding-left: 35px;
     }
   }
-  // =============== Bid Seasons Page ===============
 
   .bid-seasons-page {
     .bid-seasons-search--filters {
@@ -270,13 +267,11 @@
       background: none;
     }
   
-    // styling for step letter date picker
     div:not(.react-datepicker-wrapper, .react-datepicker-wrapper div,
      .react-datepicker__tab-loop, .react-datepicker__tab-loop div) {
       display: flex;
       align-items: baseline;
     }
-    // for the Share Bureau icon
     div:nth-child(14) {
       justify-content: flex-start;
     }
@@ -309,3 +304,4 @@
       text-align: left;
     }
   }
+  
