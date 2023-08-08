@@ -9,8 +9,7 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import Picky from 'react-picky';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import { panelMeetingAgendasExport, panelMeetingAgendasFetchData,
-  panelMeetingAgendasFiltersFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
+import { panelMeetingAgendasExport, panelMeetingAgendasFetchData, savePanelMeetingAgendasSelections } from 'actions/panelMeetingAgendas';
 import { panelMeetingsFetchData } from 'actions/panelMeetings';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
@@ -59,7 +58,7 @@ const fuseOptions = {
     'user.skills.code',
     'user.grade',
     'user.languages.code',
-    'user.cdo.name',
+    'user.cdos.cdo_fullname',
     'user.name',
     'user.shortened_name',
     'pmi_official_item_num',
@@ -201,7 +200,7 @@ const PanelMeetingAgendas = (props) => {
         { 'updaters.first_name': t },
         { 'updaters.emp_user.emp_user_last_name': t },
         { 'updaters.emp_user.emp_user_first_name': t },
-        { 'user.cdo.name': t },
+        { 'user.cdos.cdo_fullname': t },
         { 'user.name': t },
         { 'user.shortened_name': t },
         { pmi_official_item_num: `^${t}` },
@@ -252,7 +251,6 @@ const PanelMeetingAgendas = (props) => {
 
   useEffect(() => {
     dispatch(panelMeetingAgendasFetchData({}, pmSeqNum));
-    dispatch(panelMeetingAgendasFiltersFetchData());
     dispatch(filtersFetchData(genericFilters));
     dispatch(panelMeetingsFetchData({ id: pmSeqNum }));
   }, []);
@@ -300,10 +298,6 @@ const PanelMeetingAgendas = (props) => {
     if (has(items[0], 'mic_desc_text')) {
       codeOrText = 'mic_desc_text';
     }
-    // Used for handshake-organizations - Replace with comprehensive org ref data
-    if (has(items[0], 'name')) {
-      codeOrText = 'name';
-    }
     const getSelected = item => !!selected.find(f => f[codeOrText] === item[codeOrText]);
     let queryProp = 'description';
     if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
@@ -312,7 +306,7 @@ const PanelMeetingAgendas = (props) => {
     else if (codeOrText === 'desc_text') queryProp = 'desc_text';
     else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
     else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    else if (codeOrText === 'name') queryProp = 'name';
+    else if (has(items[0], 'name')) queryProp = 'name';
     return items.map(item =>
       (<ListItem
         key={item[codeOrText]}
@@ -365,8 +359,8 @@ const PanelMeetingAgendas = (props) => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="panel-meeting-agenda-page">
-          <div className="usa-grid-full panel-meeting-agenda-upper-section search-bar-container">
+        <div className="panel-meeting-agenda-page position-search">
+          <div className="usa-grid-full position-search--header search-bar-container">
             <BackButton />
             <ProfileSectionTitle title="Panel Meeting Agendas" icon="calendar" />
             <PositionManagerSearch
@@ -388,7 +382,7 @@ const PanelMeetingAgendas = (props) => {
                 }
               </div>
             </div>
-            <div className="usa-width-one-whole panel-meeting-agenda-filters">
+            <div className="usa-width-one-whole position-search--filters--panel-m-agendas">
               <div className="filter-div">
                 <div className="label">Bureau:</div>
                 <Picky
@@ -410,7 +404,7 @@ const PanelMeetingAgendas = (props) => {
                   value={selectedOrgs}
                   options={organizationOptions}
                   onChange={setSelectedOrgs}
-                  valueKey="name"
+                  valueKey="code"
                   labelKey="name"
                   disabled={isLoading}
                 />
@@ -529,12 +523,16 @@ const PanelMeetingAgendas = (props) => {
                   {/* eslint-disable-next-line max-len */}
                   Viewing <strong>{agendas$.length}</strong> of <strong>{agendas.length}</strong> Total Results
                 </div>
-                <div className="export-button-container">
-                  <ExportButton
-                    onClick={exportPanelMeetingAgendas}
-                    isLoading={exportIsLoading}
-                  />
-                </div>
+                {
+                  false &&
+                  <div className="export-button-container">
+                    <ExportButton
+                      onClick={exportPanelMeetingAgendas}
+                      isLoading={exportIsLoading}
+                      disabled
+                    />
+                  </div>
+                }
               </div>
               {
                 Object.keys(categorizeAgendas()).map(header => (

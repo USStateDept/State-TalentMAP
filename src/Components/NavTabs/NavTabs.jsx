@@ -12,6 +12,7 @@ const NavTabs = forwardRef((props, ref) => {
     passNavValue,
     tabs,
     value,
+    styleVariant,
   } = props;
 
   const [menuItem, setMenuItem] = useState(value || get(tabs, '[0].value') || '');
@@ -32,11 +33,11 @@ const NavTabs = forwardRef((props, ref) => {
   }));
 
   return (
-    <div className={`${!collapseToDd ? 'navTabs' : 'navDropdown'}`}>
+    <div className={`${!collapseToDd ? 'navTabs' : 'navDropdown'} ${styleVariant}`}>
       {
         !collapseToDd &&
         tabs.map(tab => (
-          <InteractiveElement onClick={() => setMenuItem(tab.value)} id={`${tab.value}-tab-container`}>
+          <InteractiveElement key={tab.text} onClick={() => setMenuItem(tab.value)} id={`${tab.value}-tab-container`}>
             <div className={`tab ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} `} id={tab.value}> {tab.text} </div>
           </InteractiveElement>
         ))
@@ -60,8 +61,11 @@ NavTabs.propTypes = {
   collapseToDd: PropTypes.bool,
   ddStyle: PropTypes.shape({}),
   passNavValue: PropTypes.func,
-  tabs: PropTypes.arrayOf(PropTypes.string).isRequired,
+  tabs: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ).isRequired,
   value: PropTypes.string, // default value
+  styleVariant: PropTypes.string,
 };
 
 
@@ -72,6 +76,7 @@ NavTabs.defaultProps = {
   passNavValue: EMPTY_FUNCTION,
   tabs: [],
   value: '',
+  styleVariant: 'heavyBorderTop',
 };
 
 export default NavTabs;

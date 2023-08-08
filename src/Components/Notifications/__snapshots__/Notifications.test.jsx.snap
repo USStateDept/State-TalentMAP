@@ -11,6 +11,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       className="favorites-title-container"
     >
       <ProfileSectionTitle
+        className=""
         icon="globe"
         title="Notifications"
       />
@@ -106,6 +107,7 @@ exports[`NotificationsComponent matches snapshot 1`] = `
       >
         <PaginationWrapper
           activeClassName="active"
+          className=""
           containerClassName="pagination"
           forcePage={1}
           marginPagesDisplayed={2}

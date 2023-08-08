@@ -10,16 +10,17 @@ import { FALLBACK } from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 
 const useAgendaItemHistory = () => checkFlag('flags.agenda_item_history');
 const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
+const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
 const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
 
-const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
+const EmployeeAgendaSearchRow = ({ isCDO, result, viewType }) => {
   const showAgendaItemHistory = useAgendaItemHistory();
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
+  const showAgendaItemMaintenanceCreate = useAgendaItemMaintenanceCreate();
   const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
 
   // will need to update during integration
   const { person, currentAssignment, hsAssignment, agenda } = result;
-  const agendaStatus = get(agenda, 'status') || FALLBACK;
   // const author = get(result, 'author') || 'Coming soon';
   const bidder = get(person, 'fullName') || FALLBACK;
   const cdo = get(person, 'cdo.name') || FALLBACK;
@@ -38,8 +39,9 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
   const employeeID = get(person, 'employeeID', '') || FALLBACK;
   const pmSeqNum = get(agenda, 'pmSeqNum') || FALLBACK;
   const panelMeetingExist = (panelDate !== FALLBACK) && (pmSeqNum !== FALLBACK);
-  const agendaID = get(agenda, 'agendaID') || FALLBACK;
-  const agendaIDExist = (agendaID !== FALLBACK);
+  const agendaStatus = get(agenda, 'status');
+  const agendaID = get(agenda, 'agendaID');
+  const agendaIDExist = !!agendaID;
 
   // handles error where some employees have no Profile
   const employeeHasCDO = !isNil(get(person, 'cdo'));
@@ -100,14 +102,6 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             <dt>CDO:</dt>
             <dd>{cdo}</dd>
           </div>
-          {/*
-            // TODO - do we want to include and/or filter by Author?
-            <div className="employee-agenda-row-data-point">
-            <FA name="pencil-square" />
-            <dt>Author:</dt>
-            <dd>{author}</dd>
-          </div>
-          */}
           <div className="employee-agenda-row-data-point">
             <FA name="calendar" />
             <dt>Panel Date:</dt>
@@ -129,11 +123,11 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
               (showAgendaItemMaintenance && agendaIDExist) ?
                 <dd>
                   <Link to={`/profile/${userRole}/createagendaitem/${perdet}/${agendaID}`} className="agenda-edit-button">
-                    {agendaStatus}
+                    {agendaStatus || 'No Status'}
                   </Link>
                 </dd>
                 :
-                <dd>{agendaStatus}</dd>
+                <dd>{agendaStatus || FALLBACK}</dd>
             }
           </div>
         </div>
@@ -145,7 +139,7 @@ const EmployeeAgendaSearchRow = ({ isCDO, result, showCreate, viewType }) => {
             </div>
           }
           {
-            !!showCreate &&
+            showAgendaItemMaintenance && showAgendaItemMaintenanceCreate &&
             <div className="button-box-container">
               <LinkButton className="button-box" toLink={`/profile/${userRole}/createagendaitem/${perdet}`}>Create Agenda Item</LinkButton>
             </div>
@@ -169,14 +163,12 @@ EmployeeAgendaSearchRow.propTypes = {
       panelDate: PropTypes.string,
     }),
   }),
-  showCreate: PropTypes.bool,
   viewType: PropTypes.string,
 };
 
 EmployeeAgendaSearchRow.defaultProps = {
   isCDO: false,
   result: {},
-  showCreate: true,
   viewType: '',
 };
 

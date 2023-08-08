@@ -6,6 +6,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 import { formatDate } from 'utilities';
 import { POS_LANGUAGES } from 'Constants/PropTypes';
 import { checkFlag } from 'flags';
+import { dateTernary } from '../Constants';
 import AgendaItemLegs from '../AgendaItemLegs';
 import RemarksPill from '../RemarksPill';
 import SkillCodeList from '../../SkillCodeList';
@@ -26,30 +27,26 @@ const AgendaItemRow = props => {
 
   const userRole = isCDO ? 'cdo' : 'ao';
   const perdet$ = perdet || get(agenda, 'perdet');
+  const publicProfileLink = `/profile/public/${perdet$}${!isCDO ? '/ao' : ''}`;
 
   const userSkill = <SkillCodeList skillCodes={get(clientData, 'skills') || []} />;
   const userLanguage = get(clientData, 'languages') || [];
   const userBureau = get(clientData, 'current_assignment.position.bureau') || 'None Listed';
   const userGrade = get(clientData, 'grade') || 'None Listed';
-  const cdo = get(clientData, 'cdo.name') || 'None Listed';
+  const cdo = get(clientData, 'cdos[0].cdo_fullname') || 'None Listed';
 
   const agendaStatus = get(agenda, 'status_short') || 'None Listed';
-  const updaterMiddleInitial = get(agenda, 'updaters.middle_name')?.slice(0, 1) || '';
-  const creatorMiddleInitial = get(agenda, 'creators.middle_name')?.slice(0, 1) || '';
   const remarks = get(agenda, 'remarks') || [];
 
-  const updateDate = get(agenda, 'modifier_date')
-    ? `${formatDate(get(agenda, 'modifier_date'), 'MM/DD/YY')}`
-    : '--/--/--';
-
-  const createDate = get(agenda, 'creator_date')
-    ? `${formatDate(get(agenda, 'creator_date'), 'MM/DD/YY')}`
-    : '--/--/--';
+  const createdByLast = agenda?.creators?.last_name ? `${agenda.creators.last_name},` : '';
+  const createDate = dateTernary(agenda?.creator_date);
+  const updateByLast = agenda?.updaters?.last_name ? `${agenda.updaters.last_name},` : '';
+  const updateDate = dateTernary(agenda?.modifier_date);
 
   const pmi = (<>
     {
-      agenda?.pmi_official_item_num &&
-      <div className="pmiNum">{agenda?.pmi_official_item_num}</div>
+      agenda?.pmi_official_item_num && isPanelMeetingView &&
+      <>{agenda?.pmi_official_item_num}</>
     }
     <FA name="sticky-note" />
   </>);
@@ -72,24 +69,19 @@ const AgendaItemRow = props => {
         !isCreate &&
         <div className={`ai-history-row agenda-border-row--${agendaStatus} `}>
           <div className="ai-history-status">
-            {
-              isPanelMeetingView &&
-                <>
-                  <div className={`status-tag agenda-tag--${agendaStatus} pmi-official-item-number`}>
-                    {
-                      showAgendaItemMaintenance ?
-                        <Link
-                          className="ai-id-link"
-                          to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
-                        >
-                          {pmi}
-                        </Link>
-                        :
-                        pmi
-                    }
-                  </div>
-                </>
-            }
+            <div className={`agenda-tag--${agendaStatus} pmi-official-item-number`}>
+              {
+                showAgendaItemMaintenance ?
+                  <Link
+                    className="ai-id-link"
+                    to={`/profile/${userRole}/createagendaitem/${perdet$}/${agenda?.id}`}
+                  >
+                    {pmi}
+                  </Link>
+                  :
+                  pmi
+              }
+            </div>
             <div className={`status-tag agenda-tag--${agendaStatus}`}>
               {get(agenda, 'status_full') || 'Default'}
             </div>
@@ -106,7 +98,7 @@ const AgendaItemRow = props => {
             isPanelMeetingView &&
             <div className="panel-meeting-person-data">
               <div className="panel-meeting-agendas-profile-link">
-                <Link to={`/profile/public/${perdet$}`}>{get(clientData, 'shortened_name')}</Link>
+                <Link to={publicProfileLink}>{get(clientData, 'shortened_name')}</Link>
               </div>
               <div className="panel-meeting-agendas-user-info">
                 <div className="item"><span className="label">CDO: </span> {cdo}</div>
@@ -122,7 +114,7 @@ const AgendaItemRow = props => {
               </div>
             </div>
           }
-          <AgendaItemLegs legs={agenda.legs} />
+          <AgendaItemLegs legs={agenda.legs} isPanelMeetingView={isPanelMeetingView} />
           <div className="agenda-bottom-row">
             <div className="remarks-container">
               <div className="remarks-text">Remarks:</div>
@@ -134,14 +126,14 @@ const AgendaItemRow = props => {
             </div>
             <div className="ai-updater-creator">
               <div className="wrapper">
-                <span>
-                  Created: {get(agenda, 'creators.last_name') || ''}, {get(agenda, 'creators.first_name') || ''} {creatorMiddleInitial}
+                <span className="ai-updater-creator-name">
+                  Created: {createdByLast} {get(agenda, 'creators.first_name') || ''}
                 </span>
                 <span className="date">{createDate}</span>
               </div>
               <div className="wrapper">
-                <span>
-                  Modified: {get(agenda, 'updaters.last_name') || ''}, {get(agenda, 'updaters.first_name') || ''} {updaterMiddleInitial}
+                <span className="ai-updater-creator-name">
+                  Modified: {updateByLast} {get(agenda, 'updaters.first_name') || ''}
                 </span>
                 <span className="date">{updateDate}</span>
               </div>
@@ -157,13 +149,14 @@ AgendaItemRow.propTypes = {
   isCreate: PropTypes.bool,
   agenda: PropTypes.shape({
     id: PropTypes.number,
+    creator_date: PropTypes.string,
+    modifier_date: PropTypes.string,
     remarks: PropTypes.arrayOf(
       PropTypes.shape({
         seq_num: PropTypes.number,
         rc_code: PropTypes.string,
         order_num: PropTypes.number,
         short_desc_text: PropTypes.string,
-        mutually_exclusive_ind: PropTypes.string,
         text: PropTypes.string,
         active_ind: PropTypes.string,
         type: null,
@@ -211,7 +204,7 @@ AgendaItemRow.propTypes = {
     }),
   }),
   isCDO: PropTypes.bool,
-  perdet: PropTypes.number,
+  perdet: PropTypes.string,
   isPanelMeetingView: PropTypes.bool,
 };
 

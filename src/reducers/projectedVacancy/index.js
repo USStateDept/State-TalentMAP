@@ -1,0 +1,31 @@
+import {
+  projectedVacancy,
+  projectedVacancyAddToProposedCycle,
+  projectedVacancyAddToProposedCycleErrored,
+  projectedVacancyAddToProposedCycleLoading,
+  projectedVacancyEdit,
+  projectedVacancyEditErrored,
+  projectedVacancyEditLoading,
+  projectedVacancyFetchDataErrored,
+  projectedVacancyFetchDataLoading,
+  projectedVacancyFilters,
+  projectedVacancyFiltersFetchDataErrored,
+  projectedVacancyFiltersFetchDataLoading,
+  projectedVacancySelections,
+} from './projectedVacancy';
+
+export default {
+  projectedVacancy,
+  projectedVacancyAddToProposedCycle,
+  projectedVacancyAddToProposedCycleErrored,
+  projectedVacancyAddToProposedCycleLoading,
+  projectedVacancyEdit,
+  projectedVacancyEditErrored,
+  projectedVacancyEditLoading,
+  projectedVacancyFetchDataErrored,
+  projectedVacancyFetchDataLoading,
+  projectedVacancyFilters,
+  projectedVacancyFiltersFetchDataErrored,
+  projectedVacancyFiltersFetchDataLoading,
+  projectedVacancySelections,
+};

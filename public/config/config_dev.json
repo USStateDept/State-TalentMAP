@@ -6,17 +6,29 @@
   "flags": {
     "agenda_item_history": true,
     "agenda_item_maintenance": true,
+    "agenda_item_maintenance_create": true,
     "agenda_search": true,
+    "bid_season_management": true,
+    "cycle_management": true,
+    "deto": false,
     "handshake_bidding": true,
+    "maintain_assignment": true,
+    "panel_admin": true,
+    "panel_admin_post_panel": true,
+    "panel_admin_remarks": true,
+    "panel_admin_panel_meeting": true,
     "panel_meetings_search": true,
     "panel_meeting_agendas": true,
     "persona_auth": true,
     "post_handshake": false,
-    "position_details": true,
+    "publishable_positions": true,
+    "projected_vacancy": true,
     "profile_assignments": true,
     "profile_languages": true,
     "register_checklist": true,
+    "settings": true,
     "static_content": true,
-    "unassigned_filters": true
+    "unassigned_filters": true,
+    "breadcrumbs": true
   }
 }

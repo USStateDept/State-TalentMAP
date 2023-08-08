@@ -9,7 +9,10 @@ type Props = {
 };
 
 const MediaQueryWrapper: React.FC<Props> = props => {
-  const mediaProps = {
+  const mediaProps: {
+    maxWidth: number | undefined,
+    minWidth: number | undefined,
+  } = {
     maxWidth: undefined,
     minWidth: undefined,
   };

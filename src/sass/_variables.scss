@@ -65,6 +65,7 @@ $bg-blue-dark-0: #112E51; //# Base
 $bg-blue-dark-1: #00293F;
 $bg-blue-dark-2: #DCE4EF; //# Lightest
 
+
 // Special State
 $progress: $tertiary-success;
 $progress-medium: $tertiary-success-light;
@@ -97,6 +98,7 @@ $color-blue-active: $blue-primary-darker;
 $color-blue-hover: #0071BB;
 $color-primary-alt-lightest: $primary-alt-lightest;
 $color-blue-light: #E6F0F9;
+$color-blue-neon: #00fff5;
 $color-green: #4DA365;
 $color-green-dark: $tertiary-success;
 $color-green-dark-opacity50: #95BE9D;
@@ -297,6 +299,7 @@ $aim-legs-sm-height-config: (
   "Org": 6,
   "ETA": 7,
   "TED": 9,
+  "VICE": 13
 );
 
 $aim-legs-lrg-height-config: (
@@ -305,15 +308,73 @@ $aim-legs-lrg-height-config: (
   "Travel": 12,
 );
 
+$aim-legs-sm-height-config-read-only: (
+  "Org": 3,
+  "Grade": 4,
+  "Language": 5,
+  "ETA": 6,
+  "TED": 8,
+  "Action": 10,
+  "Travel": 11,
+);
+
+$aim-legs-lrg-height-config-read-only: (
+  "Position Title": 1,
+  "Position Number": 2,
+  "TOD": 9,
+  "VICE": 12
+);
 //**
 //* resolution widths for .ai-legs
 //*
 $ai-legs-width-config: (
-        1000px: 67vw,
-        1300px: 73vw,
-        1500px: 75vw,
-        1700px: 80vw,
-        2000px: 83vw,
-        2400px: 95vw,
-        2700px: 98vw,
+  1000px: 67vw,
+  1300px: 73vw,
+  1500px: 75vw,
+  1700px: 80vw,
+  2000px: 83vw,
+  2400px: 95vw,
+  2700px: 98vw,
+);
+
+//**
+//* Filters using Grid configurations
+//*
+// grid-size is optional - defaults to 10px buffer between
+// longest label and input. Send in custom grid-size property
+// if more spacing is desired between label-input groupings
+// Note: To prevent shrinking of inputs or stacking of text,
+// grid-size should be at least = label-width + picky-width + 10
+// classname that will be generated: position-search--filters--${keyname}
+// ex: position-search--filters--pos-man
+$filters-sizing-config: (
+  pos-man: (
+    label-width: 115px,
+    picky-width: 200px,
+  ),
+  cm: (
+    label-width: 80px,
+    picky-width: 240px,
+    grid-size: 400px,
+  ),
+  cm-pos: (
+    label-width: 100px,
+    picky-width: 240px,
+  ),
+  panel-m: (
+    label-width: 85px,
+    picky-width: 240px,
+  ),
+  panel-m-agendas: (
+    label-width: 100px,
+    picky-width: 200px,
+  ),
+  pp: (
+    label-width: 100px,
+    picky-width: 200px,
+  ),
+  pv-man: (
+    label-width: 100px,
+    picky-width: 200px,
+  ),
 );

@@ -1,3 +1,4 @@
+import { formatDate } from 'utilities';
 
 /* eslint-disable import/prefer-default-export */
 // TODO: remove
@@ -30,3 +31,18 @@ export const statusRenaming = [
   { value: 'WDR', text: 'Withdrawn' },
 ];
 /* eslint-enable import/prefer-default-export */
+
+export const dateTernary = date => date ? `${formatDate(date, 'MM/DD/YY')}` : '--/--/--';
+
+export const formatVice = (viceObj) => {
+  const first = viceObj?.emp_first_name;
+  const last = viceObj?.emp_last_name;
+  const vice = (first || last)
+    ? `${first ? `${first} ` : ''}${last || ''}`
+    : '';
+  const vacancy = viceObj?.asgd_etd_ted_date && formatDate(viceObj.asgd_etd_ted_date, 'MM/YY');
+  if (vice || vacancy) {
+    return `${vice || ''}${(vice && vice !== 'Multiple Incumbents' && vacancy) ? ', ' : ''} ${vacancy || ''}`;
+  }
+  return '-';
+};

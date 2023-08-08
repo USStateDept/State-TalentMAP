@@ -42,7 +42,7 @@ class FeatureFlags extends Component {
     const isSuperUser = userHasPermissions(['superuser'], userProfile.permission_groups);
     return (
       <div
-        className={`usa-grid-full profile-content-inner-container administrator-page
+        className={`usa-grid-full profile-content-inner-container administrator-page feature-flags-editor
         ${(featureFlagsIsLoading) ? 'results-loading' : ''}`}
       >
         {

@@ -18,7 +18,9 @@ exports[`NavLinkComponent matches snapshot without children 1`] = `
           }
         }
       >
-        <span>
+        <span
+          className="profile-titles-wrapper"
+        >
           <span
             className="fa-container"
           />

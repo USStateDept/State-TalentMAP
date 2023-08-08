@@ -108,7 +108,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
         *Step Letter 1:
       </dt>
       <span
-        className="date-picker-validation-container"
+        className="date-picker-validation-container larger-date-picker"
       >
         <r
           allowSameDay={false}
@@ -181,7 +181,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
         *Step Letter 2:
       </dt>
       <span
-        className="date-picker-validation-container"
+        className="date-picker-validation-container larger-date-picker"
       >
         <select
           disabled={true}

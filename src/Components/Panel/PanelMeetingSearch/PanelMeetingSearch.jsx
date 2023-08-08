@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import Picky from 'react-picky';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { filter, flatten, get, isEmpty } from 'lodash';
 import { isDate, startOfDay } from 'date-fns-v2';
 import { usePrevious } from 'hooks';
+import { checkFlag } from 'flags';
 import { panelMeetingsExport, panelMeetingsFetchData, panelMeetingsFiltersFetchData, savePanelMeetingsSelections } from 'actions/panelMeetings';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
@@ -19,9 +21,15 @@ import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
 import ScrollUpButton from '../../ScrollUpButton';
+import { userHasPermissions } from '../../../utilities';
+
+const usePanelAdmin = () => checkFlag('flags.panel_admin');
+const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
 
 const PanelMeetingSearch = ({ isCDO }) => {
   const dispatch = useDispatch();
+
+  const showAddPanelMeeting = usePanelAdmin() && usePanelAdminPanelMeeting();
 
   const panelMeetingsFilters = useSelector(state => state.panelMeetingsFilters);
   const panelMeetingsFiltersIsLoading = useSelector(state =>
@@ -33,6 +41,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   const panelMeetingsIsLoading = useSelector(state => state.panelMeetingsFetchDataLoading);
   const panelMeetingsHasErrored = useSelector(state => state.panelMeetingsFetchDataErrored);
   const userSelections = useSelector(state => state.panelMeetingsSelections);
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   const panelMeetings = get(panelMeetings$, 'results') || [];
 
@@ -185,8 +195,8 @@ const PanelMeetingSearch = ({ isCDO }) => {
   return (
     groupLoading ?
       <Spinner type="bureau-results" class="homepage-position-results" size="big" /> :
-      <div className="panel-meeting-search-page">
-        <div className="usa-grid-full panel-meeting-search-upper-section search-bar-container">
+      <div className="panel-meeting-search-page position-search">
+        <div className="usa-grid-full position-search--header search-bar-container">
           <ProfileSectionTitle title="Panel Meeting Search" icon="calendar" />
           <div className="filterby-container">
             <div className="filterby-label">Filter by:</div>
@@ -199,7 +209,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
               }
             </div>
           </div>
-          <div className="usa-width-one-whole panel-meeting-search-filters">
+          <div className="usa-width-one-whole position-search--filters--panel-m">
             <div className="filter-div">
               <div className="label">Type:</div>
               <Picky
@@ -240,7 +250,7 @@ const PanelMeetingSearch = ({ isCDO }) => {
         </div>
         {
           !groupLoading &&
-          <div className="usa-width-one-whole results-dropdown controls-container">
+          <div className="results-dropdown controls-container">
             <TotalResults
               total={count}
               pageNumber={page}
@@ -274,6 +284,15 @@ const PanelMeetingSearch = ({ isCDO }) => {
               </div>
               <ScrollUpButton />
             </div>
+          </div>
+        }
+        {
+          isSuperUser && showAddPanelMeeting &&
+          <div className="admin-panel-meeting-add-meeting">
+            <Link to={'/profile/administrator/panel'}>
+              <FA name="sitemap" className="admin-panel-meeting-add-meeting-icon" />
+              {'Add Panel Meeting'}
+            </Link>
           </div>
         }
         {

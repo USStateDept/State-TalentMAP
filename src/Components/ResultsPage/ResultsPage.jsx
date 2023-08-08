@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import Joyride, { STATUS } from 'react-joyride';
 import FA from 'react-fontawesome';
 import InteractiveElement from 'Components/InteractiveElement';
-import { ACCORDION_SELECTION_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
+import { ACCORDION_SELECTION_OBJECT, BIDDER_OBJECT, BID_RESULTS, EMPTY_FUNCTION,
   FILTER_ITEMS_ARRAY, MISSION_DETAILS_ARRAY, PILL_ITEM_ARRAY, POSITION_SEARCH_RESULTS,
   POST_DETAILS_ARRAY, SORT_BY_PARENT_OBJECT, USER_PROFILE } from '../../Constants/PropTypes';
 import { filterPVSorts, filterTandemSorts } from '../../Constants/Sort';
@@ -64,8 +64,9 @@ class Results extends Component {
       fetchMissionAutocomplete, missionSearchResults, missionSearchIsLoading,
       missionSearchHasErrored, fetchPostAutocomplete,
       postSearchResults, postSearchIsLoading, postSearchHasErrored, shouldShowSearchBar,
-      bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter }
+      bidList, isProjectedVacancy, filtersIsLoading, showClear, shouldShowMobileFilter, client }
       = this.props;
+
     const { isTandemSearch } = this.context;
     const hasLoaded = !isLoading && results.results && !!results.results.length;
     const { steps } = this.state;
@@ -92,6 +93,7 @@ class Results extends Component {
         postSearchIsLoading={postSearchIsLoading}
         postSearchHasErrored={postSearchHasErrored}
         showClear={showClear}
+        client={client}
       />
     );
     return (
@@ -159,6 +161,7 @@ class Results extends Component {
             scrollToTop={scrollToTop}
             userProfile={userProfile}
             bidList={bidList}
+            client={client}
           />
         </div>
       </div>
@@ -201,6 +204,7 @@ Results.propTypes = {
   showClear: PropTypes.bool,
   shouldShowMobileFilter: PropTypes.bool,
   isClient: PropTypes.bool,
+  client: BIDDER_OBJECT,
 };
 
 Results.defaultProps = {
@@ -223,6 +227,7 @@ Results.defaultProps = {
   showClear: false,
   shouldShowMobileFilter: false,
   isClient: false,
+  client: {},
 };
 
 Results.contextTypes = {
@@ -237,6 +242,7 @@ Results.childContextTypes = {
 
 export const mapStateToProps = state => ({
   shouldShowMobileFilter: state.shouldShowMobileFilter,
+  client: state.clientView.client,
 });
 
 export default connect(mapStateToProps, null, null, { forwardRef: true })(Results);

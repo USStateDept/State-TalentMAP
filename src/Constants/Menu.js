@@ -42,7 +42,6 @@ function MenuConfig(config) {
 export const GET_PROFILE_MENU = () => MenuConfig([
   {
     text: 'Profile',
-    route: '/profile/dashboard/',
     icon: 'user',
     toggleMenuSection: true,
     expandedSection: true,
@@ -75,7 +74,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidder',
         ],
       },
-      checkFlag('flags.static_content') ?
+      checkFlag('flags.settings') ?
         {
           text: 'Settings',
           route: '/profile/settings/',
@@ -85,7 +84,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Administrator',
-    route: '/profile/administrator/',
     icon: 'sitemap',
     toggleMenuSection: true,
     expandedSection: true,
@@ -151,11 +149,19 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.panel_admin') ?
+        {
+          text: 'Panel',
+          route: '/profile/administrator/panel/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
     ],
   },
   {
     text: 'Bureau',
-    route: '/profile/bureau/positionmanager/',
     icon: 'building',
     toggleMenuSection: true,
     expandedSection: true,
@@ -164,28 +170,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'bureau_user',
     ],
     children: [
-      checkFlag('flags.static_content') ?
-        {
-          text: 'Dashboard',
-          route: '/profile/bureau/dashboard/',
-          icon: 'tachometer',
-          roles: [
-            'superuser',
-            'bureau_user',
-          ],
-        } : null,
-      checkFlag('flags.static_content') ?
-        {
-          text: 'Statistics',
-          route: '/profile/bureau/stats/',
-          icon: 'bar-chart',
-          roles: [
-            'superuser',
-            'bureau_user',
-          ],
-        } : null,
       {
-        text: 'Position Manager',
+        text: 'Position Management',
         route: '/profile/bureau/positionmanager',
         icon: 'map',
         roles: [
@@ -202,11 +188,31 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bureau_user',
         ],
       },
-      checkFlag('flags.position_details') ?
+      checkFlag('flags.projected_vacancy') ?
         {
-          text: 'Position Details',
-          route: '/profile/bureau/positiondetails',
+          text: 'Projected Vacancy Management',
+          route: '/profile/bureau/projectedvacancy',
           icon: ' fa-keyboard-o',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/bureau/cyclemanagement',
+          icon: 'cogs',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Publishable Positions',
+          route: '/profile/bureau/publishablepositions',
+          icon: ' fa-newspaper-o',
           roles: [
             'superuser',
             'bureau_user',
@@ -216,7 +222,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Post',
-    route: '/profile/post/dashboard/',
     icon: 'building',
     toggleMenuSection: true,
     expandedSection: true,
@@ -225,18 +230,8 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'post_user',
     ],
     children: [
-      checkFlag('flags.static_content') ?
-        {
-          text: 'Dashboard',
-          route: '/profile/post/dashboard/',
-          icon: 'tachometer',
-          roles: [
-            'superuser',
-            'post_user',
-          ],
-        } : null,
       {
-        text: 'Position Manager',
+        text: 'Position Management',
         route: '/profile/post/positionmanager',
         icon: 'map',
         roles: [
@@ -257,7 +252,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'AO',
-    route: '/profile/ao/dashboard/',
     icon: 'building-o',
     toggleMenuSection: true,
     expandedSection: true,
@@ -266,16 +260,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'superuser',
     ],
     children: [
-      checkFlag('flags.static_content') ?
-        {
-          text: 'Dashboard',
-          route: '/profile/ao/dashboard/',
-          icon: 'tachometer',
-          roles: [
-            'ao_user',
-            'superuser',
-          ],
-        } : null,
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employee Agendas',
@@ -305,11 +289,20 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
+      checkFlag('flags.cycle_management') ?
+        {
+          text: 'Cycle Management',
+          route: '/profile/ao/cyclemanagement',
+          icon: 'cogs',
+          roles: [
+            'ao_user',
+            'super_user',
+          ],
+        } : null,
     ],
   },
   {
     text: 'CDO',
-    route: '/profile/cdo/bidderportfolio',
     icon: 'street-view',
     toggleMenuSection: true,
     expandedSection: true,

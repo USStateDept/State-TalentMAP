@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get, isNull, isNumber } from 'lodash';
-import Differentials from 'Components/Differentials';
+import { get, isNull } from 'lodash';
 import PositionSkillCodeList from 'Components/PositionSkillCodeList';
 import { COMMON_PROPERTIES } from '../../Constants/EndpointParams';
 import { Column, Row } from '../Layout';
@@ -11,74 +10,22 @@ import Favorite from '../../Containers/Favorite';
 import MediaQueryWrapper from '../MediaQuery';
 import CompareCheck from '../CompareCheck/CompareCheck';
 import LanguageList from '../LanguageList';
-import BidCount from '../BidCount';
 import BoxShadow from '../BoxShadow';
 import { Handshake, HistDiffToStaff, IsHardToFill, ServiceNeedDifferential } from '../Ribbon';
 import InBidListContainer from './InBidList';
 import HoverDescription from './HoverDescription';
-import OBCUrl from '../OBCUrl';
 import BidListButton from '../../Containers/BidListButton';
 import bannerImg from '../../assets/svg/card-flag.svg';
-
-import { formatDate, getBidStatisticsObject, getDifferentialPercentage, getPostName,
-  propOrDefault, shortenString } from '../../utilities';
+import {
+  getBidStatisticsObject, getBidStatsToUse, getDifferentials, getPostName, getPostNameText,
+  getResult, propOrDefault, renderBidCount, renderBidCountMobile, shortenString,
+} from '../../utilities';
 
 import { FAVORITE_POSITIONS_ARRAY, POSITION_DETAILS } from '../../Constants/PropTypes';
 import {
   NO_BID_CYCLE, NO_BUREAU, NO_DATE, NO_GRADE,
   NO_POSITION_NUMBER, NO_POST, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
 } from '../../Constants/SystemMessages';
-
-export const getPostNameText = pos => `${getPostName(pos.post, NO_POST)}${pos.organization ? `: ${pos.organization}` : ''}`;
-
-export const getBidStatsToUse = (result, pos) => result.bid_statistics || pos.bid_statistics;
-
-export const getDifferentials = (result) => {
-  const dangerPay = get(result, 'post.danger_pay');
-  const postDifferential = get(result, 'post.differential_rate');
-  const obcUrl = get(result, 'post.post_bidding_considerations_url');
-  const props = { dangerPay, postDifferential, obcUrl };
-  return <Differentials {...props} />;
-};
-
-export const getResult = (result, path, defaultValue, isRate = false) => {
-  let value = get(result, path, defaultValue);
-
-  if ((/_date|date_|ted/i).test(path) && value !== defaultValue) {
-    value = formatDate(value);
-  }
-
-  if (path === 'post.differential_rate' || path === 'post.danger_pay') {
-    const value$ = getDifferentialPercentage(value);
-
-    const OBCUrl$ = get(result, 'post.post_bidding_considerations_url');
-    if (OBCUrl$) {
-      return (<span> {value$} | <OBCUrl url={OBCUrl$} type="post-data" label="View OBC Data" /></span>);
-    }
-
-    return value$;
-  }
-
-  if (isRate && isNumber(value)) {
-    value = `${value}%`;
-  }
-
-  if (!value) {
-    value = defaultValue;
-  }
-
-  return value;
-};
-
-export const renderBidCount = stats => (
-  <Column columns="4">
-    <BidCount bidStatistics={stats} altStyle />
-  </Column>
-);
-
-export const renderBidCountMobile = stats => (
-  <BidCount bidStatistics={stats} altStyle />
-);
 
 class ResultsCard extends Component {
   getInnerId = () => {
@@ -140,7 +87,7 @@ class ResultsCard extends Component {
     const commuterPostFreq = get(pos, 'commuterPost.frequency');
 
     const sections = [
-    /* eslint-disable quote-props */
+      /* eslint-disable quote-props */
       {
         'TED': getResult(result, 'ted', NO_DATE),
         [bidTypeTitle]: getResult(result, 'bidcycle.name', NO_BID_CYCLE),
@@ -158,7 +105,7 @@ class ResultsCard extends Component {
         'Posted': getResult(result, COMMON_PROPERTIES.posted, NO_UPDATE_DATE),
         'Position number': position,
       },
-    /* eslint-enable quote-props */
+      /* eslint-enable quote-props */
     ];
 
     if (isProjectedVacancy) {
@@ -322,7 +269,7 @@ class ResultsCard extends Component {
                 <Column columns={matches ? 8 : 6} as="section">
                   {
                     !!favorites && !isClient &&
-                      <Favorite {...options.favorite} />
+                    <Favorite {...options.favorite} />
                   }
                   {
                     isClient && !isProjectedVacancy && renderBidListButton()

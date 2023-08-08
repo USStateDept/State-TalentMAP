@@ -12,6 +12,7 @@ exports[`BidCycleList Component matches snapshot 1`] = `
     columns={12}
   >
     <ProfileSectionTitle
+      className=""
       icon="hourglass-start"
       title="Bid Cycles"
     />

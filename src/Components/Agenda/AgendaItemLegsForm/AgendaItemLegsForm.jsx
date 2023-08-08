@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get, includes, isEmpty } from 'lodash';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
+import { AI_VALIDATION, EMPTY_FUNCTION } from 'Constants/PropTypes';
 import { useDataLoader } from 'hooks';
 import Spinner from 'Components/Spinner';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -15,11 +15,14 @@ const AgendaItemLegsForm = props => {
     legs,
     onClose,
     updateLeg,
-    isReadOnly,
+    AIvalidation,
+    setLegsContainerExpanded,
+    updateResearchPaneTab,
+    setActiveAIL,
   } = props;
 
   // eslint-disable-next-line no-unused-vars
-  const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/tourofduties/');
+  const { data: todData, error: todError, loading: TODLoading } = useDataLoader(api().get, '/fsbid/reference/toursofduty/');
   // eslint-disable-next-line no-unused-vars
   const { data: legATData, error: legATError, loading: legATLoading } = useDataLoader(api().get, '/fsbid/agenda/leg_action_types/');
   // eslint-disable-next-line no-unused-vars
@@ -61,23 +64,8 @@ const AgendaItemLegsForm = props => {
     'TOD',
     'Action',
     'Travel',
+    'Vice',
   ];
-
-  useEffect(() => {
-    legs.forEach(l => {
-      const isLegacyValue = (!includes(TODs, l.tourOfDutyCode) && l.tourOfDutyCode !== '');
-      if (isLegacyValue) {
-        TODs.push({
-          id: 'LT',
-          code: 'LT',
-          is_active: true,
-          months: null,
-          long_description: l.tourOfDutyCode,
-          short_description: l.tourOfDutyCode,
-        });
-      }
-    });
-  }, [TODLoading]);
 
   useEffect(() => {
     legs.forEach(l => {
@@ -117,7 +105,7 @@ const AgendaItemLegsForm = props => {
       }
       {
         !legsLoading && !showOverlay &&
-          <div className="legs-form-container">
+          <div className={`legs-form-container ${AIvalidation?.legs?.allLegs?.valid ? '' : 'validation-error-border-legs'}`}>
             <div className="legs-form">
               {
                 legHeaderData.map((title, i) => (
@@ -125,6 +113,7 @@ const AgendaItemLegsForm = props => {
                     className={`grid-col-1 grid-row-${i + 2}${rowHoverNum === (i + 2) ? ' grid-row-hover' : ''}`}
                     onMouseOver={() => onHover(i + 2)}
                     onMouseLeave={() => onHover('')}
+                    key={title}
                   >
                     {title}
                   </InteractiveElement>
@@ -143,24 +132,31 @@ const AgendaItemLegsForm = props => {
                   isEf
                   onHover={onHover}
                   rowNum={rowHoverNum}
-                  isReadOnly={isReadOnly}
                 />
               }
               {
                 // grid-col 2 or 3 dependent on hasEf
-                legs.map((leg, i) => (
-                  <AgendaLeg
-                    leg={leg}
-                    legNum={i + (hasEf ? 3 : 2)}
-                    TODs={TODs}
-                    legActionTypes={legActionTypes}
-                    travelFunctions={travelFunctions}
-                    onClose={onClose$}
-                    updateLeg={updateLeg$}
-                    onHover={onHover}
-                    rowNum={rowHoverNum}
-                  />
-                ))
+                legs.map((leg, i) => {
+                  const keyId = i;
+                  return (
+                    <AgendaLeg
+                      AIvalidation={AIvalidation}
+                      leg={leg}
+                      key={`${leg.ail_seq_num}-${keyId}`}
+                      legNum={i + (hasEf ? 3 : 2)}
+                      TODs={TODs}
+                      legActionTypes={legActionTypes}
+                      travelFunctions={travelFunctions}
+                      onClose={onClose$}
+                      updateLeg={updateLeg$}
+                      onHover={onHover}
+                      rowNum={rowHoverNum}
+                      updateResearchPaneTab={updateResearchPaneTab}
+                      setLegsContainerExpanded={setLegsContainerExpanded}
+                      setActiveAIL={setActiveAIL}
+                    />
+                  );
+                })
               }
             </div>
           </div>
@@ -173,16 +169,22 @@ AgendaItemLegsForm.propTypes = {
   efPos: PropTypes.shape({}),
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   onClose: PropTypes.func,
+  setLegsContainerExpanded: PropTypes.func,
   updateLeg: PropTypes.func,
-  isReadOnly: PropTypes.bool,
+  updateResearchPaneTab: PropTypes.func,
+  setActiveAIL: PropTypes.func,
+  AIvalidation: AI_VALIDATION,
 };
 
 AgendaItemLegsForm.defaultProps = {
   efPos: {},
   legs: [],
+  setLegsContainerExpanded: EMPTY_FUNCTION,
   onClose: EMPTY_FUNCTION,
   updateLeg: EMPTY_FUNCTION,
-  isReadOnly: false,
+  updateResearchPaneTab: EMPTY_FUNCTION,
+  setActiveAIL: EMPTY_FUNCTION,
+  AIvalidation: {},
 };
 
 export default AgendaItemLegsForm;

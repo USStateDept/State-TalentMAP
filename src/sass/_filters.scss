@@ -10,10 +10,16 @@
 
     .filterby-clear {
       font-weight: bold;
+      padding-left: 5px;
 
       .fa-times {
         color: $color-red;
         margin-right: 5px;
+        padding-left: 0px;
+      }
+
+      .hide-clear-filters {
+        visibility: hidden;
       }
     }
 }

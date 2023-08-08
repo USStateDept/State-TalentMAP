@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import FontAwesome from 'react-fontawesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Tooltip } from 'react-tippy';
 import { withRouter } from 'react-router';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -8,8 +8,9 @@ import { drop, filter, find, get, has, isEmpty } from 'lodash';
 import MediaQuery from 'Components/MediaQuery';
 import Spinner from 'Components/Spinner';
 import { Link } from 'react-router-dom';
-import { aiCreate } from 'actions/agendaItemMaintenancePane';
+import { aiCreate, resetAIValidation, validateAI } from 'actions/agendaItemMaintenancePane';
 import { useDataLoader } from 'hooks';
+import { isAfter } from 'date-fns-v2';
 import shortid from 'shortid';
 import Alert from 'Components/Alert';
 import AgendaItemResearchPane from '../AgendaItemResearchPane';
@@ -20,17 +21,29 @@ import api from '../../../api';
 
 const AgendaItemMaintenanceContainer = (props) => {
   const dispatch = useDispatch();
-
   const researchPaneRef = useRef();
-  const agendaID = get(props, 'match.params.agendaID') || '';
-  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`);
-  const agendaItem = get(agendaItemData, 'data') || {};
-  // temporary until business logic is added for readOnly items
-  const isReadOnly = !isEmpty(agendaItemData);
 
-  const id = get(props, 'match.params.id'); // client's perdet
+  const AIvalidationHasErrored = useSelector(state => state.validateAIHasErrored);
+  const AIvalidationIsLoading = useSelector(state => state.validateAIIsLoading);
+  const AIvalidation = useSelector(state => state.aiValidation);
+
+  const agendaID = get(props, 'match.params.agendaID') || '';
+  const { data: agendaItemData, error: agendaItemError, loading: agendaItemLoading } = useDataLoader(api().get, `/fsbid/agenda/agenda_items/${agendaID}/`, !!agendaID);
+  const agendaItem = get(agendaItemData, 'data') || {};
+
+  const id = get(props, 'match.params.id');
   const isCDO = get(props, 'isCDO');
-  const client_data = useDataLoader(api().get, `/fsbid/client/${id}/`);
+
+  const { data: employeeData, error: employeeDataError, loading: employeeDataLoading } = useDataLoader(api().get, `/fsbid/client/${id}/`);
+  const { data: employeeDataFallback, error: employeeDataFallbackError, loading: employeeDataFallbackLoading } = useDataLoader(api().get, `/fsbid/persons/${id}`);
+
+  const employeeLoading = employeeDataLoading || employeeDataFallbackLoading;
+  const employeeError = employeeDataError && employeeDataFallbackError;
+
+  const employeeData$ = employeeData?.data || employeeDataFallback?.data?.results?.[0];
+  const employeeName = employeeLoading ? '' : employeeData$?.name;
+  // handles error where some employees have no Profile
+  const employeeHasCDO = employeeLoading ? false : !!(employeeData$?.cdo?.name);
 
   const agendaItemLegs = drop(get(agendaItem, 'legs')) || [];
   const agendaItemLegs$ = agendaItemLegs.map(ail => ({
@@ -46,13 +59,31 @@ const AgendaItemMaintenanceContainer = (props) => {
   const [legs, setLegs] = useState([]);
   const [maintenanceInfo, setMaintenanceInfo] = useState([]);
   const [asgSepBid, setAsgSepBid] = useState({}); // pass through from AIMPane to AITimeline
+  const [isNewSeparation, setIsNewSeparation] = useState(false);
   const [userRemarks, setUserRemarks] = useState(agendaItemRemarks);
   const [spinner, setSpinner] = useState(true);
+  const [location, setLocation] = useState();
+  const [activeAIL, setActiveAIL] = useState();
+  const [readMode, setReadMode] = useState(true);
 
   const { data: asgSepBidResults, error: asgSepBidError, loading: asgSepBidLoading } = useDataLoader(api().get, `/fsbid/employee/assignments_separations_bids/${id}/`);
   const asgSepBidResults$ = get(asgSepBidResults, 'data') || [];
   const asgSepBidData = { asgSepBidResults$, asgSepBidError, asgSepBidLoading };
-  const efPosition = get(agendaItem, 'legs[0]') || find(asgSepBidResults$, ['status', 'EF']) || {};
+
+  const findEffectiveAsgOrSep = (asgAndSep) => {
+    let max;
+    asgAndSep.forEach(a => {
+      if (a?.status === 'EF') {
+        if (!max) max = a;
+        if (isAfter(new Date(a?.start_date), new Date(max?.start_date))) {
+          max = a;
+        }
+      }
+    });
+    return max;
+  };
+
+  const efPosition = get(agendaItem, 'legs[0]') || findEffectiveAsgOrSep(asgSepBidResults$) || {};
 
   const updateSelection = (remark, textInputs) => {
     const userRemarks$ = [...userRemarks];
@@ -69,6 +100,13 @@ const AgendaItemMaintenanceContainer = (props) => {
         remark$.ari_insertions = textInputs[tempKey];
       }
 
+      remark$.user_remark_inserts = [];
+      remark$.remark_inserts.forEach(ri => (remark$.user_remark_inserts.push({
+        airiinsertiontext: textInputs[ri.rirmrkseqnum][ri.riseqnum],
+        airirmrkseqnum: ri.rirmrkseqnum,
+        aiririseqnum: ri.riseqnum,
+      })));
+
       userRemarks$.push(remark$);
       setUserRemarks(userRemarks$);
     } else {
@@ -77,7 +115,7 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   const submitAI = () => {
-    const personId = get(client_data, 'data.data.id', '') || get(client_data, 'data.data.employee_id', '');
+    const personId = employeeData$?.id || id;
     const efInfo = {
       assignmentId: get(efPosition, 'asg_seq_num'),
       assignmentVersion: get(efPosition, 'revision_num'),
@@ -85,15 +123,15 @@ const AgendaItemMaintenanceContainer = (props) => {
     dispatch(aiCreate(maintenanceInfo, legs, personId, efInfo));
   };
 
+  const updateFormMode = () => {
+    setReadMode(false);
+  };
+
   function toggleExpand() {
     setLegsContainerExpanded(!legsContainerExpanded);
   }
 
   const rotate = legsContainerExpanded ? 'rotate(0)' : 'rotate(-180deg)';
-
-  const employeeName = client_data.loading ? '' : (client_data?.data?.data?.name || '');
-  // handles error where some employees have no Profile
-  const employeeHasCDO = client_data.loading ? false : !!(client_data?.data?.data?.cdo?.name);
 
   const updateResearchPaneTab = tabID => {
     researchPaneRef.current.setSelectedNav(tabID);
@@ -105,6 +143,19 @@ const AgendaItemMaintenanceContainer = (props) => {
   };
 
   useEffect(() => {
+    if (!readMode) {
+      const personId = employeeData$?.id || id;
+      const efInfo = {
+        assignmentId: get(efPosition, 'asg_seq_num'),
+        assignmentVersion: get(efPosition, 'revision_num'),
+      };
+      dispatch(validateAI(maintenanceInfo, legs, personId, efInfo));
+    } else {
+      dispatch(resetAIValidation());
+    }
+  }, [maintenanceInfo, legs, readMode]);
+
+  useEffect(() => {
     if (!agendaItemMaintenancePaneLoading && !agendaItemTimelineLoading) {
       setSpinner(false);
     }
@@ -112,6 +163,8 @@ const AgendaItemMaintenanceContainer = (props) => {
 
   useEffect(() => {
     if (!agendaItemLoading) {
+      // If not creating a new AI, then we default initial mode to Read
+      setReadMode(!isEmpty(agendaItemData));
       setUserRemarks(agendaItemRemarks);
     }
   }, [agendaItemLoading]);
@@ -144,7 +197,7 @@ const AgendaItemMaintenanceContainer = (props) => {
       </div>
       <MediaQuery breakpoint="screenXlgMin" widthType="max">
         {matches => (
-          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${isReadOnly ? 'aim-disabled' : ''}`}>
+          <div className={`ai-maintenance-container${matches ? ' stacked' : ''} ${readMode ? 'aim-disabled' : ''}`}>
             <div className={`maintenance-container-left${(legsContainerExpanded || matches) ? '-expanded' : ''}`}>
               {
                 spinner &&
@@ -162,24 +215,40 @@ const AgendaItemMaintenanceContainer = (props) => {
                           perdet={id}
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemMaintenancePaneLoading}
-                          updateSelection={isReadOnly ? () => {} : updateSelection}
+                          updateSelection={readMode ? () => {} : updateSelection}
                           sendMaintenancePaneInfo={setMaintenanceInfo}
                           sendAsgSepBid={setAsgSepBid}
                           asgSepBidData={asgSepBidData}
+                          setIsNewSeparation={() => setIsNewSeparation(!isNewSeparation)}
                           userRemarks={userRemarks}
                           legCount={legs.length}
                           saveAI={submitAI}
+                          updateFormMode={updateFormMode}
                           agendaItem={agendaItem}
-                          isReadOnly={isReadOnly}
+                          readMode={readMode}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
+                          AIvalidation={AIvalidation}
+                          AIvalidationIsLoading={AIvalidationIsLoading}
+                          AIvalidationHasErrored={AIvalidationHasErrored}
                         />
                         <AgendaItemTimeline
                           unitedLoading={spinner}
                           setParentLoadingState={setAgendaItemTimelineLoading}
                           updateLegs={setLegs}
                           asgSepBid={asgSepBid}
+                          activeAIL={activeAIL}
+                          setActiveAIL={setActiveAIL}
+                          location={location}
+                          setLocation={setLocation}
                           efPos={efPosition}
                           agendaItemLegs={agendaItemLegs$}
-                          isReadOnly={isReadOnly}
+                          isNewSeparation={isNewSeparation}
+                          updateResearchPaneTab={updateResearchPaneTab}
+                          setLegsContainerExpanded={setLegsContainerExpanded}
+                          fullAgendaItemLegs={agendaItem?.legs || []}
+                          readMode={readMode}
+                          AIvalidation={AIvalidation}
                         />
                       </>
                   }
@@ -202,13 +271,19 @@ const AgendaItemMaintenanceContainer = (props) => {
             </div>
             <div className={`maintenance-container-right${(legsContainerExpanded && !matches) ? ' hidden' : ''}`}>
               <AgendaItemResearchPane
-                clientData={client_data}
+                updateLegs={setLegs}
+                activeAIL={activeAIL}
+                location={location}
+                setLocation={setLocation}
+                clientData={employeeData$}
+                clientError={employeeError}
+                clientLoading={employeeLoading}
                 perdet={id}
                 ref={researchPaneRef}
-                updateSelection={isReadOnly ? () => {} : updateSelection}
+                updateSelection={readMode ? () => {} : updateSelection}
                 userSelections={userRemarks}
                 legCount={legs.length}
-                isReadOnly={isReadOnly}
+                readMode={readMode}
               />
             </div>
           </div>

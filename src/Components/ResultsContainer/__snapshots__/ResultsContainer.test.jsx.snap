@@ -467,6 +467,7 @@ exports[`ResultsContainerComponent matches snapshot 1`] = `
   >
     <PaginationWrapper
       activeClassName="active"
+      className=""
       containerClassName="pagination"
       forcePage={0}
       marginPagesDisplayed={2}

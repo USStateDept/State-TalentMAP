@@ -17,6 +17,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
         className="usa-width-one-half"
       >
         <ProfileSectionTitle
+          className=""
           icon="users"
           title="Clients"
         />
@@ -30,7 +31,6 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           }
         }
       >
-        <Connect(StaticDevContent) />
         <Connect(ExportLink)
           disabled={true}
         />

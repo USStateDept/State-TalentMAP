@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
-import { shortenString } from 'utilities';
+import { formatLang, shortenString } from 'utilities';
 import { filter, take, takeRight } from 'lodash';
 import { format, isDate } from 'date-fns-v2';
 import FA from 'react-fontawesome';
+import { formatVice } from '../Constants';
 
 const AgendaItemLegs = props => {
   const {
     legs,
     isCard,
+    isPanelMeetingView,
   } = props;
 
   let legs$ = legs;
@@ -16,22 +18,26 @@ const AgendaItemLegs = props => {
   }
   const strLimit = isCard ? 15 : 50;
   const formatStr = (d) => shortenString(d, strLimit);
-  // TO-DO - better date checking. isDate() with null or bad string not guaranteed to work.
-  const formatDate = (d) => d && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : '';
-  const formatLang = (langArr = []) => langArr.map(lang => (
-    `${lang.code} ${lang.spoken_proficiency}/${lang.reading_proficiency}`
-  )).join(', ');
+  const formatDate = (d) => {
+    if (d) {
+      return !isNaN(new Date(d)) && isDate(new Date(d)) ? format(new Date(d), 'MM/yy') : d;
+    }
+    return '';
+  };
 
   const getData = (key, helperFunc = () => {}) => (
     <>
       {
-        legs$.map((leg) => (
-          <td>
-            {
-              <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
-            }
-          </td>
-        ))
+        legs$.map((leg, index) => {
+          const keyId = index;
+          return (
+            <td key={`${leg.id}-${keyId}`}>
+              {
+                <dd>{helperFunc(leg[key]) ?? leg[key] ?? 'None listed'}</dd>
+              }
+            </td>
+          );
+        })
       }
     </>
   );
@@ -39,9 +45,13 @@ const AgendaItemLegs = props => {
   const getArrows = () => (
     <>
       {
-        legs$.map(() => (<td className="arrow">
-          <FA name="arrow-down" />
-        </td>))
+        legs$.map((leg, index) => {
+          const keyId = index;
+          return (
+            <td className={`${leg?.is_separation ? 'hide' : ''} arrow`} key={`${keyId}-${leg.id}`}>
+              <FA name="arrow-down" />
+            </td>);
+        })
       }
     </>
   );
@@ -89,7 +99,7 @@ const AgendaItemLegs = props => {
     },
     {
       title: 'TOD',
-      content: (getData('tod')),
+      content: (getData('tod_short_desc')),
       cardView: false,
     },
     {
@@ -104,6 +114,16 @@ const AgendaItemLegs = props => {
     },
   ];
 
+  if (isPanelMeetingView) { // vice/vacancy info only shows for panel view, and in AIM
+    tableData.push(
+      {
+        title: 'Vice',
+        content: (getData('vice', formatVice)),
+        cardView: false,
+      },
+    );
+  }
+
   const tableData$ = isCard ? filter(tableData, 'cardView') : tableData;
 
   return (
@@ -112,7 +132,7 @@ const AgendaItemLegs = props => {
         <tbody>
           {
             tableData$.map(tr => (
-              <tr>
+              <tr key={tr.title}>
                 <th>
                   <dt>{tr.title}</dt>
                 </th>
@@ -129,11 +149,13 @@ const AgendaItemLegs = props => {
 AgendaItemLegs.propTypes = {
   legs: PropTypes.arrayOf(PropTypes.shape({})),
   isCard: PropTypes.bool,
+  isPanelMeetingView: PropTypes.bool,
 };
 
 AgendaItemLegs.defaultProps = {
   legs: [],
   isCard: false,
+  isPanelMeetingView: false,
 };
 
 export default AgendaItemLegs;

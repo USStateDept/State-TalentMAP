@@ -19,6 +19,7 @@ import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
 const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
+const useAgendaItemMaintenanceCreate = () => checkFlag('flags.agenda_item_maintenance_create');
 
 const AgendaItemHistory = (props) => {
   const sorts = AGENDA_ITEM_HISTORY_FILTERS;
@@ -26,6 +27,7 @@ const AgendaItemHistory = (props) => {
   const isCDO = get(props, 'isCDO');
   const viewType = get(props, 'viewType');
   const showAgendaItemMaintenance = useAgendaItemMaintenance();
+  const showAgendaItemMaintenanceCreate = useAgendaItemMaintenanceCreate();
 
   const [cardView, setCardView] = useState(false);
   const [sort, setSort] = useState(sorts.defaultSort);
@@ -134,13 +136,16 @@ const AgendaItemHistory = (props) => {
                 defaultSort={sort}
                 onSelectOption={e => setSort(get(e, 'target.value'))}
               />
-              <div className="export-button-container">
-                <ExportButton
-                  onClick={exportAgendaItem}
-                  isLoading={exportIsLoading}
-                  disabled={exportDisabled}
-                />
-              </div>
+              {
+                false &&
+                <div className="export-button-container">
+                  <ExportButton
+                    onClick={exportAgendaItem}
+                    isLoading={exportIsLoading}
+                    disabled={exportDisabled}
+                  />
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -162,7 +167,7 @@ const AgendaItemHistory = (props) => {
                 cardView &&
                 <div className="ai-history-cards-container">
                   {
-                    showAgendaItemMaintenance &&
+                    showAgendaItemMaintenance && showAgendaItemMaintenanceCreate &&
                       <AgendaItemCard
                         isCreate
                         isCDO={isCDO}
@@ -185,7 +190,7 @@ const AgendaItemHistory = (props) => {
                 !cardView &&
                 <div className="agenda-item-row-container">
                   {
-                    showAgendaItemMaintenance &&
+                    showAgendaItemMaintenance && showAgendaItemMaintenanceCreate &&
                       <AgendaItemRow
                         isCreate
                         isCDO={isCDO}

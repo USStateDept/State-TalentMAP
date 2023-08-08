@@ -14,6 +14,7 @@ type DefaultProps = {
   isAriaLive?: boolean;
   isDivided?: boolean;
   customClassName?: string;
+  tinyAlert?: boolean;
 };
 
 type Props = DefaultProps;
@@ -28,6 +29,7 @@ class Alert extends Component<Props> {
     isAriaLive: false,
     isDivided: false,
     customClassName: '',
+    tinyAlert: false,
   };
 
   // prevent unneeded rerenders, which can cause accessibility issues
@@ -36,7 +38,7 @@ class Alert extends Component<Props> {
   }
 
   render(): React.ReactNode {
-    const { type, title, messages, isAriaLive, isDivided, customClassName } = this.props;
+    const { type, title, messages, isAriaLive, isDivided, customClassName, tinyAlert } = this.props;
     // 'type' is injected into the class name
     // type 'error' requires an ARIA role
 
@@ -49,7 +51,9 @@ class Alert extends Component<Props> {
       };
     }
 
-    const h3 = <h3 className="usa-alert-heading">{title}</h3>;
+    const header = tinyAlert ? <p className="usa-alert-heading">{title}</p>
+      : <h3 className="usa-alert-heading">{title}</h3>;
+
     const body = map(messages, (message: Message) =>
       (<p className="usa-alert-text" key={shortid.generate()}>
         {message.body}
@@ -57,20 +61,26 @@ class Alert extends Component<Props> {
     );
 
     return (
-      <div className={`usa-alert usa-alert-${type} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
+      <div className={`usa-alert ${tinyAlert ? 'tiny-alert-error' : `usa-alert-${type}`} ${customClassName}`} role={type === 'error' ? 'alert' : undefined} {...ariaLiveProps}>
         {isDivided ?
           <div>
             <div className="usa-alert-body">
-              {h3}
+              {header}
             </div>
             <div className="divider" />
             <div className="usa-alert-body">
-              {body}
+              {
+                !tinyAlert &&
+                  body
+              }
             </div>
           </div> :
           <div className="usa-alert-body">
-            {h3}
-            {body}
+            {header}
+            {
+              !tinyAlert &&
+               body
+            }
           </div>}
       </div>
     );

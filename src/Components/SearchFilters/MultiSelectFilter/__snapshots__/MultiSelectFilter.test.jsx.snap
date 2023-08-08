@@ -8,11 +8,12 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
   legendSrOnly={true}
 >
   <CheckBox
+    _id={1}
     checkboxProps={Object {}}
     className="tm-checkbox-transparent"
     disabled={false}
-    id="checkboxdescription-filterType"
-    key="checkboxdescription-filterType"
+    id="checkboxdescription-filterType-1"
+    key="checkboxdescription-filterType-1"
     label="description"
     labelSrOnly={false}
     name="description"
@@ -25,11 +26,12 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     value={true}
   />
   <CheckBox
+    _id={2}
     checkboxProps={Object {}}
     className="tm-checkbox-transparent"
     disabled={false}
-    id="checkboxdescription-filterType"
-    key="checkboxdescription-filterType"
+    id="checkboxdescription-filterType-2"
+    key="checkboxdescription-filterType-2"
     label="description"
     labelSrOnly={false}
     name="description"
@@ -42,11 +44,12 @@ exports[`MultiSelectFilterComponent matches snapshot 1`] = `
     value={true}
   />
   <CheckBox
+    _id={3}
     checkboxProps={Object {}}
     className="tm-checkbox-transparent"
     disabled={false}
-    id="checkboxdescription 2-filterType"
-    key="checkboxdescription 2-filterType"
+    id="checkboxdescription 2-filterType-3"
+    key="checkboxdescription 2-filterType-3"
     label="description 2"
     labelSrOnly={false}
     name="description 2"
@@ -78,11 +81,12 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       D
     </div>
     <CheckBox
+      _id={1}
       checkboxProps={Object {}}
       className="tm-checkbox-transparent"
       disabled={false}
-      id="checkboxdescription-filterType"
-      key="checkboxdescription-filterType"
+      id="checkboxdescription-filterType-1"
+      key="checkboxdescription-filterType-1"
       label="description"
       labelSrOnly={false}
       name="description"
@@ -105,11 +109,12 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       A
     </div>
     <CheckBox
+      _id={2}
       checkboxProps={Object {}}
       className="tm-checkbox-transparent"
       disabled={false}
-      id="checkboxdescription-filterType"
-      key="checkboxdescription-filterType"
+      id="checkboxdescription-filterType-2"
+      key="checkboxdescription-filterType-2"
       label="description"
       labelSrOnly={false}
       name="description"
@@ -132,11 +137,12 @@ exports[`MultiSelectFilterComponent matches snapshot when groupAlpha is true 1`]
       #
     </div>
     <CheckBox
+      _id={3}
       checkboxProps={Object {}}
       className="tm-checkbox-transparent"
       disabled={false}
-      id="checkboxdescription 2-filterType"
-      key="checkboxdescription 2-filterType"
+      id="checkboxdescription 2-filterType-3"
+      key="checkboxdescription 2-filterType-3"
       label="description 2"
       labelSrOnly={false}
       name="description 2"

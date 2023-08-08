@@ -167,3 +167,38 @@ export const UPDATE_AGENDA_ITEM_ERROR = 'There was an issue attempting to save t
 
 export const ADD_FREQUENT_POSITION_ERROR_TITLE = 'Frequent Position Error';
 export const ADD_FREQUENT_POSITION_ERROR = 'Error adding Frequent Position. Please try again.';
+
+export const SAVE_ADMIN_REMARK_SUCCESS_TITLE = 'Remark Saved';
+export const SAVE_ADMIN_REMARK_SUCCESS = 'This Remark has been saved successfully.';
+export const SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE = 'Remark Save Error';
+export const SAVE_ADMIN_REMARK_HAS_ERRORED = 'There was an issue attempting to save this Remark. Please try again.';
+
+export const UPDATE_PANEL_MEETING_SUCCESS_TITLE = 'Panel Meeting Saved';
+export const UPDATE_PANEL_MEETING_SUCCESS = 'This Panel Meeting has been saved successfully.';
+export const UPDATE_PANEL_MEETING_ERROR_TITLE = 'Panel Meeting Error';
+export const UPDATE_PANEL_MEETING_ERROR = 'There was an issue attempting to save this Panel Meeting. Please try again.';
+
+export const UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE = 'Publishable Position Saved';
+export const UPDATE_PUBLISHABLE_POSITION_SUCCESS = 'This Publishable Position has been successfully saved.';
+export const UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE = 'Publishable Position Error';
+export const UPDATE_PUBLISHABLE_POSITION_ERROR = 'There was an issue attempting to save this Publishable Position. Please try again.';
+
+export const UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE = 'Projected Vacancy Position Saved';
+export const UPDATE_PROJECTED_VACANCY_SUCCESS = 'This Projected Vacancy Position has been successfully saved.';
+export const UPDATE_PROJECTED_VACANCY_ERROR_TITLE = 'Projected Vacancy Position Error';
+export const UPDATE_PROJECTED_VACANCY_ERROR = 'There was an issue attempting to save this Projected Vacancy Position. Please try again.';
+
+export const ADD_TO_PROPOSED_CYCLE_SUCCESS_TITLE = 'Successfully Added to Proposed Cycle';
+export const ADD_TO_PROPOSED_CYCLE_SUCCESS = 'Positions have been successfully added to the proposed cycle.';
+export const ADD_TO_PROPOSED_CYCLE_ERROR_TITLE = 'Error Adding to Proposed Cycle';
+export const ADD_TO_PROPOSED_CYCLE_ERROR = 'There was an issue attempting to add the positions to the proposed cycle. Please try again.';
+
+export const REMOVE_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Removed';
+export const REMOVE_CYCLE_POSITION_SUCCESS = 'Cycle Position has been removed.';
+export const REMOVE_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Delete Error';
+export const REMOVE_CYCLE_POSITION_ERROR = 'There was an issue attempting to remove this Cycle Position. Please try again.';
+
+export const EDIT_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Updated';
+export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated';
+export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
+export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';

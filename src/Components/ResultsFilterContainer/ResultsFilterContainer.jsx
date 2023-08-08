@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ErrorBoundary from 'Components/ErrorBoundary';
 import { isEmpty } from 'lodash';
 import Sticky from 'react-sticky-el';
-import { connect } from 'react-redux';
 import { ACCORDION_SELECTION_OBJECT, BIDDER_OBJECT, FILTER_ITEMS_ARRAY,
   MISSION_DETAILS_ARRAY, POST_DETAILS_ARRAY } from '../../Constants/PropTypes';
 import { ACCORDION_SELECTION } from '../../Constants/DefaultProps';
@@ -12,7 +11,7 @@ import ResetFilters from '../ResetFilters/ResetFilters';
 import MobileControls from './MobileControls';
 import Spinner from '../Spinner';
 
-export class ResultsFilterContainer extends Component {
+class ResultsFilterContainer extends Component {
   shouldComponentUpdate(nextProps) {
     if (this.props !== nextProps) {
       return true;
@@ -26,6 +25,7 @@ export class ResultsFilterContainer extends Component {
       missionSearchHasErrored, fetchPostAutocomplete, onQueryParamUpdate, onQueryParamToggle,
       postSearchResults, postSearchIsLoading, postSearchHasErrored, showClear,
       client } = this.props;
+
     return (
       <div className={`filter-container ${isLoading ? 'is-loading' : ''}`}>
         {isLoading && <Spinner type="results-filter" size="small" />}
@@ -96,10 +96,4 @@ ResultsFilterContainer.defaultProps = {
   client: {},
 };
 
-const mapStateToProps = ({
-  clientView: { client },
-}) => ({
-  client,
-});
-
-export default connect(mapStateToProps, null)(ResultsFilterContainer);
+export default ResultsFilterContainer;

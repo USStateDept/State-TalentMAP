@@ -60,7 +60,7 @@ const ProfileMenuExpanded = (props) => {
 
   getProfileMenuSort = [...getProfileMenuSort, ...getProfileMenuSort$];
   return (
-    <div className="usa-grid-full profile-menu">
+    <div className="profile-menu width-250">
       <div className="menu-title">
         <div className="menu-title-text">Menu</div>
         <button className="unstyled-button" title="Collapse menu" onClick={props.collapse}>

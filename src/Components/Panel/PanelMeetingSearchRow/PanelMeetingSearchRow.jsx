@@ -3,26 +3,44 @@ import LinkButton from 'Components/LinkButton';
 import { PANEL_MEETING } from 'Constants/PropTypes';
 import { get } from 'lodash';
 import { checkFlag } from 'flags';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PanelMeetingTracker from 'Components/Panel/PanelMeetingTracker';
+import { userHasPermissions } from '../../../utilities';
 
 const FALLBACK = 'None listed';
 const usePanelMeetingsAgendas = () => checkFlag('flags.panel_meeting_agendas');
+const usePanelAdmin = () => checkFlag('flags.panel_admin');
+const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
+const showEditPanelMeeting = usePanelAdmin() && usePanelAdminPanelMeeting();
 
 const PanelMeetingSearchRow = ({ isCDO, pm }) => {
   const pmSeqNum = get(pm, 'pm_seq_num') || FALLBACK;
   const showPanelMeetingsAgendas = usePanelMeetingsAgendas();
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = userHasPermissions(['superuser'], userProfile?.permission_groups);
 
   const userRole = isCDO ? 'cdo' : 'ao';
 
   return (
     <div className="panel-meeting-row">
       <PanelMeetingTracker panelMeeting={pm} />
-      {
-        showPanelMeetingsAgendas &&
-        <div className="button-box-container">
-          <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>View</LinkButton>
-        </div>
-      }
+      <div className="button-box-container">
+        {
+          showPanelMeetingsAgendas &&
+            <LinkButton className="button-box" toLink={`/profile/${userRole}/panelmeetingagendas/${pmSeqNum}`}>View</LinkButton>
+        }
+        {
+          isSuperUser && showEditPanelMeeting &&
+          <Link to={`/profile/administrator/panel/${pmSeqNum}`}>
+            <button
+              className="usa-button-secondary"
+            >
+              Edit
+            </button>
+          </Link>
+        }
+      </div>
     </div>
   );
 };

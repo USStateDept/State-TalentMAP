@@ -35,7 +35,7 @@ describe('ProfileDashboardComponent', () => {
 
   it('displays the Search as Client button when isPublic', () => {
     const wrapper = shallow(
-      <ProfileDashboard {...props} isPublic />);
+      <ProfileDashboard {...props} isPublic showSearchAsClient />);
 
     // Really hacky.
     // This did not work: wrapper.find('Connect(withRouter(SearchAsClientButton))').exists()

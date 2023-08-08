@@ -9,7 +9,7 @@ const Stats = (props) => {
 
   return (
     <div
-      className={'usa-grid-full profile-content-inner-container bureau-page'}
+      className={'usa-grid-full profile-content-inner-container position-search'}
     >
       {
         !placeholderText &&
@@ -18,7 +18,7 @@ const Stats = (props) => {
       <div className="usa-grid-full">
         <ProfileSectionTitle title="Bureau Statistics" icon="bar-chart" />
       </div>
-      <div className="usa-grid-full bureau-page">
+      <div className="usa-grid-full position-search">
         {placeholderText}
       </div>
     </div>

@@ -19,7 +19,6 @@ import shortid from 'shortid';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import Alert from 'Components/Alert';
 import ToggleButton from 'Components/ToggleButton';
-import { checkFlag } from 'flags';
 import { usePrevious } from 'hooks';
 import EmployeeAgendaSearchCard from '../EmployeeAgendaSearchCard/EmployeeAgendaSearchCard';
 import EmployeeAgendaSearchRow from '../EmployeeAgendaSearchRow/EmployeeAgendaSearchRow';
@@ -27,16 +26,12 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 import ResultsViewBy from '../../ResultsViewBy/ResultsViewBy';
 import ScrollUpButton from '../../ScrollUpButton';
 
-
-const useAgendaItemMaintenance = () => checkFlag('flags.agenda_item_maintenance');
-
 const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
   const searchLastNameRef = useRef();
   const searchFirstNameRef = useRef();
   const searchEmpIDRef = useRef();
 
   const dispatch = useDispatch();
-  const showAgendaItemMaintenance = useAgendaItemMaintenance();
 
   const agendaEmployeesFilters = useSelector(state => state.agendaEmployeesFilters);
   const agendaEmployeesFiltersIsLoading = useSelector(state =>
@@ -307,13 +302,18 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
     isLoading ?
       <Spinner type="bureau-filters" size="small" /> :
       <>
-        <div className="empl-search-page">
-          <div className="usa-grid-full empl-search-upper-section">
+        <div className="empl-search-page position-search">
+          <div className="usa-grid-full position-search--header">
             <div className="results-search-bar">
               <div className="usa-grid-full search-bar-container">
                 <ProfileSectionTitle title="Employee Agenda Search" icon="user-circle-o" />
-                <div className="search-header">
-                  Search For An Employee
+                <div className="filterby-container">
+                  <div className="filterby-clear">
+                    <button className={`unstyled-button ${clearFilters ? '' : 'hide-clear-filters'}`} onClick={resetFilters}>
+                      <FA name="times" />
+                      Clear Filters
+                    </button>
+                  </div>
                 </div>
                 <div className="eas-inactive-toggle">
                   <ToggleButton
@@ -376,16 +376,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                     </div>
                   </div>
                 </div>
-                <div className="filterby-container">
-                  <div className="filterby-clear">
-                    {clearFilters &&
-                      <button className="unstyled-button" onClick={resetFilters}>
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
-                    }
-                  </div>
-                </div>
                 <div className="usa-width-one-whole empl-search-filters results-dropdown">
                   <div className="filter-div split-filter-div">
                     <div className="label">Post:</div>
@@ -431,7 +421,7 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                       labelKey="name"
                     />
                   </div>
-                  <div className="filter-div handshake-filter-div">
+                  <div className="filter-div restrict-label-width">
                     <div className="label">Handshake:</div>
                     <Picky
                       {...pickyProps}
@@ -526,7 +516,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                             key={shortid.generate()}
                             result={emp}
                             isCDO={isCDO}
-                            showCreate={showAgendaItemMaintenance}
                             viewType={viewType}
                           />
                         ))
@@ -542,7 +531,6 @@ const EmployeeAgendaSearch = ({ isCDO, viewType }) => {
                             key={shortid.generate()}
                             result={emp}
                             isCDO={isCDO}
-                            showCreate={showAgendaItemMaintenance}
                             viewType={viewType}
                           />
                         ))

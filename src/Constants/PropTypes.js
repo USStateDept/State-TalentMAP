@@ -213,16 +213,37 @@ export const USER_PROFILE = PropTypes.shape({
     office_address: PropTypes.string,
     office_phone: PropTypes.string,
   }),
+  employee_profile_url: PropTypes.shape({
+    internalRedacted: PropTypes.string,
+    externalRedacted: PropTypes.string,
+    internal: PropTypes.string,
+    external: PropTypes.string,
+  }),
   id: PropTypes.number,
   skill_code: USER_SKILL_CODE_ARRAY,
   initials: PropTypes.string,
   display_name: PropTypes.string,
   user: USER_NESTED_OBJECT,
   is_cdo: PropTypes.bool,
-  languages: LANGUAGE_QUALIFICATIONS,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      custom_description: PropTypes.string,
+      language: PropTypes.string,
+      reading_score: PropTypes.string,
+      speaking_score: PropTypes.string,
+      test_date: PropTypes.string,
+    }),
+  ),
   favorite_positions: FAVORITE_POSITIONS_ARRAY,
   received_shares: PropTypes.arrayOf(
     PropTypes.number,
+  ),
+  permission_groups: PropTypes.arrayOf(
+    PropTypes.string,
+  ),
+  permissions: PropTypes.arrayOf(
+    PropTypes.string,
   ),
 });
 
@@ -626,7 +647,7 @@ export const CLASSIFICATION = PropTypes.shape({
 
 export const CLASSIFICATIONS = PropTypes.arrayOf(CLASSIFICATION);
 
-export const CLIENT_CLASSIFICATION = PropTypes.string;
+export const CLIENT_CLASSIFICATION = PropTypes.oneOfType([PropTypes.string, PropTypes.number]);
 
 export const CLIENT_CLASSIFICATIONS = PropTypes.arrayOf(CLIENT_CLASSIFICATION);
 
@@ -777,8 +798,8 @@ export const PANEL_MEETING = PropTypes.shape({
 export const POS_LANGUAGES = PropTypes.arrayOf(
   PropTypes.shape({
     language: PropTypes.string,
-    spoken_proficiency: PropTypes.number,
-    reading_proficiency: PropTypes.number,
+    spoken_proficiency: PropTypes.string,
+    reading_proficiency: PropTypes.string,
     code: PropTypes.string,
     representation: PropTypes.string,
   }),
@@ -851,7 +872,6 @@ export const AGENDA_ITEM = PropTypes.shape({
     remark_inserts: [],
     order_num: PropTypes.number,
     short_desc_text: PropTypes.string,
-    mutually_exclusive_ind: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
     type: null,
@@ -866,3 +886,21 @@ export const TRACKER_DATA = PropTypes.arrayOf(
     label: PropTypes.string,
   }),
 );
+
+export const AI_VALIDATION_ITEM = PropTypes.shape({
+  valid: PropTypes.bool,
+  errorMessage: PropTypes.string,
+});
+
+export const AI_VALIDATION_LEGS = PropTypes.shape({
+  allLegs: AI_VALIDATION_ITEM,
+  individualLegs: PropTypes.shape({}),
+});
+export const AI_VALIDATION = PropTypes.shape({
+  allValid: PropTypes.bool,
+  status: AI_VALIDATION_ITEM,
+  reportCategory: AI_VALIDATION_ITEM,
+  panelDate: AI_VALIDATION_ITEM,
+  remarks: AI_VALIDATION_ITEM,
+  legs: AI_VALIDATION_LEGS,
+});

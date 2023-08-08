@@ -35,6 +35,7 @@
 
     .fa {
       padding-right: 10px;
+      padding-left: 0px;
     }
   }
 
@@ -308,7 +309,7 @@
 
   .assignments-section {
     .favorites-list-container {
-      max-height: 410px;
+      max-height: 500px;
       overflow-y: auto;
     }
 
@@ -349,8 +350,20 @@
     word-wrap: break-word;
   }
 
+
   .current-user-top {
-    text-align: center;
+    .section-padded-inner-container {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .avatar-group {
+        padding-right: 5px;
+      }
+      .name-group {
+        text-align: left;
+      }
+    }
   }
 
   .current-user-section-border {
@@ -527,10 +540,9 @@ $border: 5px;
 $padding-no-border: $total-padding - $border;
 
 .profile-menu {
-
   font-size: 15px;
   height: 100%;
-  min-width: 215px;
+  flex-shrink: 0;
 
   .fa {
     color: $blue-primary;
@@ -543,6 +555,7 @@ $padding-no-border: $total-padding - $border;
 
   .title-container {
     float: left;
+    padding-right: 5px;
   }
 
   .angle-container {
@@ -563,12 +576,16 @@ $padding-no-border: $total-padding - $border;
 
     .title-container {
       font-weight: bold;
+      word-wrap: break-word;
     }
   }
 
   .list-item-wrapper {
     padding-left: $padding-no-border;
-    padding-top: 5px;
+  }
+
+  .profile-titles-wrapper {
+    display: flex;
   }
 
   .expandable-link {
@@ -591,7 +608,7 @@ $padding-no-border: $total-padding - $border;
     margin-top: .5em;
 
     .fa-container {
-      min-width: 20px;
+      min-width: 30px;
     }
 
     .list-item-wrapper {
@@ -637,7 +654,6 @@ $padding-no-border: $total-padding - $border;
 }
 
 .profile-menu-collapsed {
-  min-width: 65px;
 
   .menu-title {
     padding-bottom: 2px;
@@ -711,6 +727,12 @@ $padding-no-border: $total-padding - $border;
   .bordered-list-content {
     border-left: 5px solid $blue-primary;
   }
+
+  .hide-border {
+    .bordered-list-content {
+      border-left: 5px solid transparent;
+    }
+  }
 }
 
 .cdo-container {
@@ -732,7 +754,7 @@ $padding-no-border: $total-padding - $border;
 
   .profile-picture-container {
     min-width: 50px;
-    position: relative;
+    align-self: center;
   }
 
   .picture-status-container {

@@ -41,10 +41,19 @@
   }
 
   .ai-research-pane {
-    .fa, .fa-disabled, .fa-disabled:hover {
-      color: $color-gray;
-      cursor: not-allowed;
+    .frequent-positions-table, .remarks-glossary-container {
+      .fa, .fa-disabled, .fa-disabled:hover {
+        color: $color-gray;
+        cursor: not-allowed;
+      }
     }
+  }
+}
+
+.remarks-glossary-container {
+  .fa-disabled, .fa-disabled:hover {
+    color: $color-gray!important;
+    cursor: not-allowed;
   }
 }
 
@@ -67,9 +76,10 @@
 
     label {
       font-weight: bold;
-      margin: 10px;
+      margin: 0px;
       text-align: right;
-      min-width: 160px;
+      margin-right: 5px;
+      width: 125px;
     }
 
     .back-save-btns-container {
@@ -87,7 +97,7 @@
         background-color: $color-white;
         padding: 10px 20px;
         float: right;
-        font-size: 1.4rem;
+        font-size: 14px;
       }
 
       .save-ai-btn:hover {
@@ -97,7 +107,7 @@
     }
 
     .remarks {
-      margin: 10px 0;
+      margin: 10px 0 15px;
 
       label {
         display: inline;
@@ -112,11 +122,29 @@
         display: inline-block;
       }
     }
+    .add-legs-container {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column;
+      border-top: 2px solid gray;
 
-    .ai-maintenance-header-dd {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-
+      .add-legs-header {
+        margin: 5px 0 10px 0;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+      }
+      select {
+        border: 1px solid $bg-gray-dark-2;
+        border-radius: 3px;
+        font-size: 0.8em;
+        height: 28px;
+        padding: 0 28px 0 5px;
+        text-overflow: ellipsis;
+      }
+      .asg-dropdown {
+        width: 351px;
+      }
       .asg-disabled {
         background-color: $color-gray-lighter;
         border: 1px solid $color-gray-light;
@@ -148,51 +176,77 @@
         }
       }
 
-      .add-pos-num-input {
-        border-radius: 3px;
-        height: 28px;
-        padding: 0 30px 0 5px;
-        max-width: 180px;
-        font-size: 13px;
-      }
-      .input-default {
-        background-color: $color-white;
-        border: 1px solid $bg-gray-dark-2;
-      }
-      .input-error {
-        background-color: $color-red-lightest;
-        border: 1px solid $color-red;
-      }
-      .input-disabled {
-        background-color: $color-gray-lighter;
-        border: 1px solid $color-gray-light;
-      }
+      .position-number-container {
+        display: flex;
+        align-items: baseline;
+        width: 100%;
 
-      .add-pos-num-icon {
-        color: $primary-blue;
-        margin-left: -25px;
-        position: relative;
-        top: 1px
-      }
-      .add-pos-num-icon:hover {
-        color: $primary-blue-darkest;
-      }
-      .icon-disabled {
-        color: $color-gray;
-        .fa {
+        .add-pos-num-input {
+          border-radius: 3px;
+          height: 28px;
+          padding: 0 30px 0 5px;
+          width: 351px;
+          font-size: 13px;
+        }
+        .input-default {
+          background-color: $color-white;
+          border: 1px solid $bg-gray-dark-2;
+        }
+        .input-error {
+          background-color: $color-red-lightest;
+          border: 1px solid $color-red;
+        }
+        .input-disabled {
+          background-color: $color-gray-lighter;
+          border: 1px solid $color-gray-light;
+        }
+
+        .add-pos-num-icon {
+          color: $primary-blue;
+          margin-left: -25px;
+          position: relative;
+          top: 1px
+        }
+        .add-pos-num-icon:hover {
+          color: $primary-blue-darkest;
+        }
+        .icon-disabled {
+          color: $color-gray;
+          .fa {
+            cursor: not-allowed;
+          }
+        }
+        .icon-disabled:hover {
+          color: $color-gray;
           cursor: not-allowed;
         }
+        label {
+          display: flex;
+        }
+        .fa {
+          padding-left: 0px;
+        }
       }
-      .icon-disabled:hover {
-        color: $color-gray;
-        cursor: not-allowed;
+      .add-fp-link {
+        cursor: pointer;
+        margin-top: 5px;
+        width: 100%;
       }
+    }
+
+    .ai-maintenance-header-dd {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
 
       div {
         display: flex;
         flex: 70%;
         align-items: baseline;
-        max-width: 36rem;
+      }
+
+      .select-label {
+        align-self: end;
+        padding-bottom: 8px;
       }
 
       select {
@@ -202,17 +256,12 @@
         height: 28px;
         padding: 0 28px 0 5px;
         text-overflow: ellipsis;
-        max-width: fit-content;
-      }
-      .asg-dropdown {
-        width: 351px;
-        margin-left: 10px;
       }
       .aim-select {
-        width: 180px;
+        width: 280px;
       }
       .aim-select-small {
-        width: 90px;
+        width: 140px;
       }
     }
   }
@@ -249,12 +298,22 @@
       position: absolute;
       top: 40%;
     }
-    @media screen and (min-width: 2300px) {
-      .ai-maintenance-header label {
-        margin: 10px;
-        min-width: 0;
-        text-align: right;
-      }
+  }
+
+  .aim-timestamp-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    font-size: 12px;
+    .aim-timestamp {
+      display: flex;
+      justify-content: space-around;
+    }
+    .date {
+      padding-left: 2px;
+      font-size: 10px;
+      align-self: center;
     }
   }
 
@@ -314,6 +373,10 @@
       .classifications-client-badges-container {
         max-height: initial;
       }
+    }
+
+    .tm-spinner {
+      margin-top: 100px;
     }
   }
 
@@ -385,6 +448,31 @@
 
     tr > *:nth-child(4) {
       flex: 12
+    }
+
+    .gsa-locations {
+      thead > tr {
+        th:first-of-type {
+          position: relative;
+          .fa {
+            font-size: 1.4em;
+            left: 30%;
+            position: relative;
+          }
+        }
+        .fa-globe {
+          color: $color-white;
+        }
+      }
+
+      tr > *:nth-child(1), *:nth-child(6) {
+        flex: 1
+      }
+
+      tr > *:nth-child(2), *:nth-child(3), *:nth-child(4), *:nth-child(5) {
+        flex: 4;
+      }
+
     }
 
     tbody > tr {
@@ -544,3 +632,54 @@
     display: flex;
   }
 }
+
+// ---- start: styling for validation errors ----
+.ai-validation-errored, .ai-validation-errored:hover {
+  background-color: $color-white!important;
+  border: 2px solid $secondary-dark;
+  border-radius: 5px;
+  color: $secondary-dark;
+  float: right;
+  font-size: 14px;
+  padding: 9px 17px;
+}
+
+.validation-error-border-legs {
+  border: 2px solid $secondary-dark !important;
+}
+
+.validation-error-border {
+  border-bottom: 2px solid $secondary-dark !important;
+}
+
+.legs-form-container {
+  .validation-error-border:hover {
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
+  }
+}
+.ail-form-ted {
+  .validation-error-border:hover {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+.validation-error-message {
+  color: $secondary-dark;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.error-message-wrapper {
+  display: block!important;
+  .validation-error-message-label {
+    text-align: right;
+    display: block!important;
+    height: 15px;
+  }
+}
+// ---- end: styling for validation errors ----
+
