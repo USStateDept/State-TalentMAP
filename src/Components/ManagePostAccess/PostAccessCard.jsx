@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import CheckBox from '../CheckBox/CheckBox';
-import './styles.css';
 
 const PostAccessCard = (props) => {
   const { data, headers } = props;

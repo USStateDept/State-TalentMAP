@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
-
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { publishablePositionsFetchData, savePublishablePositionsSelections } from 'actions/publishablePositions';
@@ -21,13 +20,13 @@ const ManagePostAccess = () => {
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
-  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
-  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
+  const [selectedCountries, setSelectedCountries] =
+   useState(userSelections?.selectedCountries || []);
+  const [selectedPositions, setSelectedPositions] =
+   useState(userSelections?.selectedPositions || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
-  const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedBidCycles, setSelectedBidCycles] =
-    useState(userSelections?.selectedBidCycle || []);
+  const [selectedPersons, setSelectedPersons] = useState(userSelections?.selectedGrade || []);
+  const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedSkills || []);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
@@ -40,8 +39,6 @@ const ManagePostAccess = () => {
   const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
   const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
@@ -56,21 +53,19 @@ const ManagePostAccess = () => {
 
   const getQuery = () => ({
     // User Filters
-    'position-details-status': selectedStatuses.map(statusObject => (statusObject?.code)),
-    'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
+    'post-access-status': selectedCountries.map(statusObject => (statusObject?.code)),
+    'post-access-bureaus': selectedPositions.map(bureauObject => (bureauObject?.code)),
+    'post-access-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
+    'post-access-grades': selectedPersons.map(gradeObject => (gradeObject?.code)),
+    'post-access-skills': selectedRoles.map(skillObject => (skillObject?.code)),
   });
 
   const getCurrentInputs = () => ({
-    selectedStatus: selectedStatuses,
-    selectedBureaus,
+    selectedCountries,
+    selectedPositions,
     selectedOrgs,
-    selectedGrade: selectedGrades,
-    selectedSkills,
-    selectedBidCycle: selectedBidCycles,
+    selectedPersons,
+    selectedRoles,
   });
 
   useEffect(() => {
@@ -81,12 +76,11 @@ const ManagePostAccess = () => {
 
   const fetchAndSet = () => {
     const filters = [
-      selectedStatuses,
-      selectedBureaus,
+      selectedCountries,
+      selectedPositions,
       selectedOrgs,
-      selectedGrades,
-      selectedSkills,
-      selectedBidCycles,
+      selectedPersons,
+      selectedRoles,
     ];
     if (isEmpty(filter(flatten(filters)))) {
       setClearFilters(false);
@@ -100,12 +94,11 @@ const ManagePostAccess = () => {
   useEffect(() => {
     fetchAndSet();
   }, [
-    selectedStatuses,
-    selectedBureaus,
+    selectedCountries,
+    selectedPositions,
     selectedOrgs,
-    selectedGrades,
-    selectedSkills,
-    selectedBidCycles,
+    selectedPersons,
+    selectedRoles,
   ]);
 
   function renderSelectionList({ items, selected, ...rest }) {
@@ -154,12 +147,11 @@ const ManagePostAccess = () => {
   };
 
   const resetFilters = () => {
-    setSelectedStatuses([]);
-    setSelectedBureaus([]);
+    setSelectedCountries([]);
+    setSelectedPositions([]);
     setSelectedOrgs([]);
-    setSelectedGrades([]);
-    setSelectedSkills([]);
-    setSelectedBidCycles([]);
+    setSelectedPersons([]);
+    setSelectedRoles([]);
     setClearFilters(false);
   };
 
@@ -206,9 +198,9 @@ const ManagePostAccess = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Countries"
-                  value={selectedStatuses}
+                  value={selectedCountries}
                   options={statusOptions}
-                  onChange={setSelectedStatuses}
+                  onChange={setSelectedCountries}
                   valueKey="code"
                   labelKey="name"
                   disabled={disableInput}
@@ -219,10 +211,10 @@ const ManagePostAccess = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Org(s)"
-                  value={selectedBidCycles}
-                  options={cycleOptions}
-                  onChange={setSelectedBidCycles}
-                  valueKey="id"
+                  value={selectedOrgs}
+                  options={organizationOptions}
+                  onChange={setSelectedOrgs}
+                  valueKey="code"
                   labelKey="name"
                   disabled={disableInput}
                 />
@@ -232,9 +224,9 @@ const ManagePostAccess = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Position(s)"
-                  value={selectedBureaus}
+                  value={selectedPositions}
                   options={bureauOptions}
-                  onChange={setSelectedBureaus}
+                  onChange={setSelectedPositions}
                   valueKey="code"
                   labelKey="long_description"
                   disabled={disableInput}
@@ -245,9 +237,9 @@ const ManagePostAccess = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Person(s)"
-                  value={selectedOrgs}
+                  value={selectedPersons}
                   options={organizationOptions}
-                  onChange={setSelectedOrgs}
+                  onChange={setSelectedPersons}
                   valueKey="code"
                   labelKey="name"
                   disabled={disableInput}
@@ -258,9 +250,9 @@ const ManagePostAccess = () => {
                 <Picky
                   {...pickyProps}
                   placeholder="Select Role(s)"
-                  value={selectedSkills}
+                  value={selectedRoles}
                   options={skillOptions}
-                  onChange={setSelectedSkills}
+                  onChange={setSelectedRoles}
                   valueKey="code"
                   labelKey="custom_description"
                   disabled={disableInput}

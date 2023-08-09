@@ -1,0 +1,38 @@
+.custom-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse borders */
+    border-spacing: 0;
+    th {
+      border: none;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 8px; /* Add padding to cells for better readability */
+    }
+    tbody {
+      td {
+        border: none;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+      }
+    }
+    .main-checkbox{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+    .description{
+        min-width: 100px;
+      }
+    
+    .checkbox-pac {
+        min-width: 30px;
+      }
+    
+    .checkbox-pos {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+}
