@@ -28,7 +28,7 @@ const ManagePostAccess = () => {
   const [selectedPersons, setSelectedPersons] = useState(userSelections?.selectedGrade || []);
   const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedSkills || []);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
-
+  const [selectedCount, setSelectedCount] = useState(0);
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const statusOptions = [
     { code: 1, name: 'Vet' },
@@ -163,12 +163,16 @@ const ManagePostAccess = () => {
     { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
     { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
     { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 8, name: 'Row 8', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 9, name: 'Row 9', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 10, name: 'Row 10', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
   ];
 
   const headerNames = ['Post/Org', 'Person', 'Role', 'Position'];
+  const grantAccess = () => {
+    console.log(`Grant Access for ${selectedCount} positions}`);
+  };
+
+  const checkCount = (count) => {
+    setSelectedCount(count);
+  };
 
   return (
     isLoading ?
@@ -263,8 +267,16 @@ const ManagePostAccess = () => {
         </div>
         <div className="usa-width-one-whole position-search--results">
           <div className="usa-grid-full position-list">
-            <PostAccessCard data={dummyData} headers={headerNames} />
+            <PostAccessCard data={dummyData} headers={headerNames} checkCount={checkCount} />
           </div>
+        </div>
+        {/* placeholder for now */}
+        <div className="proposed-cycle-banner">
+          {selectedCount} {selectedCount < 2 ? 'Position' : 'Positions'} Selected
+          {
+            selectedCount > 0 &&
+              <button className="usa-button-secondary" onClick={grantAccess}>Grant Access</button>
+          }
         </div>
         {/* placeholder for when we put in pagination */}
         {
