@@ -18,7 +18,7 @@ const PostAccessCard = (props) => {
   const handleCheckboxChange = (itemData) => {
     setRowData((prevData) =>
       prevData.map((item) =>
-        item.id === itemData ? { ...item, isChecked: !item.isChecked } : item,
+        item.id === itemData.id ? { ...item, isChecked: !item.isChecked } : item,
       ),
     );
     // Check if all checkboxes are checked, set "Select All" checkbox
