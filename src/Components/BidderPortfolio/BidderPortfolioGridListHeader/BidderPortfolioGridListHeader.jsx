@@ -11,7 +11,7 @@ const BidderPortfolioGridListHeader = () => (
               id="grid-header-select-all"
               label="Select all"
               value={false}
-              labelSrOnly
+              labelSrOnly={false}
               small
             />
           </div>
