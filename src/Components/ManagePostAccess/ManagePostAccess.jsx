@@ -9,6 +9,7 @@ import { publishablePositionsFetchData, savePublishablePositionsSelections } fro
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
+import { toastError, toastSuccess } from 'actions/toast';
 import api from '../../api';
 import PostAccessCard from './PostAccessCard';
 
@@ -167,7 +168,8 @@ const ManagePostAccess = () => {
 
   const headerNames = ['Post/Org', 'Person', 'Role', 'Position'];
   const grantAccess = () => {
-    console.log(`Grant Access for ${selectedCount} positions}`);
+    if (selectedCount !== 0) dispatch(toastSuccess('Access has been granted!', 'Success'));
+    if (selectedCount === 0) dispatch(toastError('Please select at least one person to grant access.', 'Error'));
   };
 
   const checkCount = (count) => {
