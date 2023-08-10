@@ -6,6 +6,7 @@ import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch'
 import PositionManager from './PositionManager';
 import PositionManagerDetails from './PositionManagerDetails';
 import ProjectedVacancy from './ProjectedVacancy';
+import SearchPostAccess from './SearchPostAccess';
 
 const BureauPage = () => {
   const posManagerProps = {
@@ -22,6 +23,7 @@ const BureauPage = () => {
         <Route path="/profile/bureau/publishablepositions" render={() => <PublishablePositions />} />
         <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement isAO={false} />} />
         <Route path="/profile/bureau/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
+        <Route path="/profile/bureau/searchpostaccess" render={() => <SearchPostAccess />} />
       </Switch>
     </div>
   );
