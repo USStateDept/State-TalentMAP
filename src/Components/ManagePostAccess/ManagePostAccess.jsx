@@ -176,9 +176,9 @@ const ManagePostAccess = () => {
 
   return (
     isLoading ?
-      <Spinner type="bureau-filters" size="small" /> :
-      <div className="position-search">
-        <div className="usa-grid-full position-search--header">
+      <Spinner type="post-access-filters" size="small" /> :
+      <div className="post-access-search">
+        <div className="usa-grid-full post-access-search--header">
           <ProfileSectionTitle title="Manage Post Access" icon="newspaper-o" className="xl-icon" />
           <div className="results-search-bar pt-20">
             <div className="filterby-container">
@@ -196,7 +196,7 @@ const ManagePostAccess = () => {
                 }
               </div>
             </div>
-            <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
+            <div className="usa-width-one-whole post-access--filters--pp results-dropdown">
               <div className="filter-div">
                 <div className="label">Country:</div>
                 <Picky
@@ -265,8 +265,8 @@ const ManagePostAccess = () => {
             </div>
           </div>
         </div>
-        <div className="usa-width-one-whole position-search--results">
-          <div className="usa-grid-full position-list">
+        <div className="usa-width-one-whole post-access-search--results">
+          <div className="usa-grid-full post-access-list">
             <PostAccessCard data={dummyData} headers={headerNames} checkCount={checkCount} />
           </div>
         </div>

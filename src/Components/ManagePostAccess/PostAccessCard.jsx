@@ -45,7 +45,7 @@ const PostAccessCard = (props) => {
           <tr>
             <th className="checkbox-pos">
               <CheckBox
-                checked={selectAll}
+                checked={!selectAll}
                 onCheckBoxClick={handleSelectAllChange}
               />
             </th>
