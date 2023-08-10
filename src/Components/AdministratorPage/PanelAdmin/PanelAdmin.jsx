@@ -26,6 +26,8 @@ const PanelAdmin = (props) => {
   const usePanelAdminRemarks = () => checkFlag('flags.panel_admin_remarks');
   const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
   const usePaneAdminPostPanel = () => checkFlag('flags.panel_admin_post_panel');
+  
+  const editEnabled = false;
 
   const dispatch = useDispatch();
 
@@ -53,7 +55,7 @@ const PanelAdmin = (props) => {
     tabs.push({ text: 'Post Panel Processing', value: PPP, disabled: !enablePostPanelProcessing });
   }
   if (usePanelAdminRemarks()) {
-    tabs.push({ text: 'Remarks Glossary', value: RG });
+    tabs.push({ text: 'Maintain Remarks', value: RG });
   }
 
 
@@ -117,9 +119,12 @@ const PanelAdmin = (props) => {
                 <tr key={r.seq_num}>
                   <td>{category.desc_text}</td>
                   <td>
-                    <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
-                      <FA name="pencil" />
-                    </InteractiveElement>
+                    {
+                      editEnabled &&
+                      <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
+                        <FA name="pencil" />
+                      </InteractiveElement>
+                    }
                     {r.text}
                   </td>
                   <td className="active-column">{r.active_ind}</td>

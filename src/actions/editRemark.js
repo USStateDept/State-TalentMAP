@@ -29,7 +29,7 @@ export function saveRemark(props) {
   return (dispatch) => {
     dispatch(saveAdminRemarkIsLoading(true));
     dispatch(saveAdminRemarkHasErrored(false));
-    api().post('/fsbid/admin/panel/remark/', props)
+    api().post('/fsbid/remark/', props)
       .then(({ data }) => {
         batch(() => {
           dispatch(saveAdminRemarkHasErrored(false));
