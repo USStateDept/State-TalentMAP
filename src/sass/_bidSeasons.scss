@@ -94,11 +94,24 @@
 
   .bid-seasons-page {
     .bid-seasons-search--filters {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  
+      .filter-div {
+        align-items: center;
         display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 10px;
-        flex-wrap: wrap;
+  
+        .label {
+          margin-right: 10px;
+          text-align: end;
+          width: 150px;
+        }
+  
+        .picky {
+          color: black;
+          width: 200px;
+        }
+      }
         .react-daterange-picker__calendar--open {
             z-index: $daterange-z;
         }
