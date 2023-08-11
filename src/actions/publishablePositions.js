@@ -30,7 +30,59 @@ const dummyPositionDetails = {
     bureau_short_desc: 'EUR',
     organization: '(A/LM/OPS/TTM) TRANSPORTATION & TRAVEL MANAGEMENT DIVISION',
     tour_of_duty: '2 YRS/HLRT/2 YRS',
-    classifications: null,
+    classifications: [{
+      id: '1',
+      label: '15-20%',
+      value: true,
+    }, {
+      id: '2',
+      label: 'CN',
+      value: true,
+    }, {
+      id: '3',
+      label: 'DCM',
+      value: true,
+    }, {
+      id: '4',
+      label: 'FICA',
+      value: true,
+    }, {
+      id: '5',
+      label: 'HDS Pos',
+      value: true,
+    }, {
+      id: '6',
+      label: 'Iraqtax',
+      value: true,
+    }, {
+      id: '7',
+      label: 'KEY',
+      value: true,
+    }, {
+      id: '8',
+      label: 'ML-C',
+      value: true,
+    }, {
+      id: '9',
+      label: 'PrgDir',
+      value: true,
+    }, {
+      id: '10',
+      label: 'SL-C',
+      value: true,
+    }, {
+      id: '11',
+      label: 'SND pos',
+      value: true,
+    }, {
+      id: '12',
+      label: 'x S/O',
+      value: true,
+    }, {
+      id: '13',
+      label: 'x-Recap',
+      value: true,
+    }],
     representation: null,
     availability: {
       availability: null,
@@ -249,7 +301,6 @@ export function publishablePositionsSelectionsSuccess(result) {
 export function savePublishablePositionsSelections(queryObject) {
   return (dispatch) => dispatch(publishablePositionsSelectionsSuccess(queryObject));
 }
-
 
 export function publishablePositionsFiltersFetchDataErrored(bool) {
   return {
