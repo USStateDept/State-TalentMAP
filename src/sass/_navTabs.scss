@@ -6,6 +6,18 @@
   top: 0;
   z-index: 1;
 
+  .tab {
+    &.disabled {
+      color: $bg-gray-dark-1;
+
+      &:hover {
+        cursor: default;
+        color: $bg-gray-dark-1 !important;
+        background-color: transparent !important;
+      }
+    }
+  }
+
   .tab:hover:not(.tab-active) {
     cursor: pointer;
   }

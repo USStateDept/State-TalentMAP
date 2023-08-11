@@ -103,9 +103,22 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   const functionalBureaus = filters$.find(f => f.item.description === 'functionalRegion');
   const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
 
-  const onEditModeCard = (editMode) => {
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
     // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, 7);
+  }, [editMode]);
+
+  const onSubmitForm = () => {
+    console.log('submit');
+  };
+
+  const onCancelForm = () => {
+    // this is likely not going to be needed, as we should be
+    // re-reading from "pos" when we open Edit Form back up
+    // clear will need to set states back to the pull
+    // from "pos" once we've determined the ref data structure
+    console.log('cancel');
   };
 
   const form = {
@@ -125,105 +138,113 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
       'Functional Bureau': 'None Listed',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
-    inputBody: <div className="position-form">
-      <div className="spaced-row">
-        <div className="dropdown-container">
-          <div className="position-form--input">
-            <label htmlFor="publishable-position-statuses">Status</label>
-            <select
-              id="publishable-position-statuses"
-              defaultValue={status}
-              onChange={(e) => setStatus(e?.target.value)}
-            >
-              {statusOptions.map(s => (
-                <option value={s.code}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
+    inputBody: (
+      <div className="position-form">
+        <div className="spaced-row">
+          <div className="dropdown-container">
+            <div className="position-form--input">
+              <label htmlFor="publishable-position-statuses">Status</label>
+              <select
+                id="publishable-position-statuses"
+                defaultValue={status}
+                onChange={(e) => setStatus(e?.target.value)}
+              >
+                {statusOptions.map(s => (
+                  <option value={s.code}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="position-form--input">
+              <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
+              <select
+                id="publishable-pos-tod-override"
+                defaultValue={overrideTOD}
+                onChange={(e) => setOverrideTOD(e?.target.value)}
+              >
+                {tods.map(t => (
+                  <option value={t.code}>
+                    {t.long_description}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="position-form--input">
-            <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
-            <select
-              id="publishable-pos-tod-override"
-              defaultValue={overrideTOD}
-              onChange={(e) => setOverrideTOD(e?.target.value)}
-            >
-              {tods.map(t => (
-                <option value={t.code}>
-                  {t.long_description}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CheckBox
+            id="exclude-checkbox"
+            label="Exclude Position from Bid Audit"
+            value={exclude}
+            onCheckBoxClick={e => setExclude(e)}
+          />
         </div>
-        <CheckBox
-          id="exclude-checkbox"
-          label="Exclude Position from Bid Audit"
-          value={exclude}
-          onCheckBoxClick={e => setExclude(e)}
-        />
-      </div>
-      <div>
-        <Row fluid className="position-form--description">
-          <span className="definition-title">Position Details</span>
-          <Linkify properties={{ target: '_blank' }}>
-            <TextareaAutosize
-              maxRows={6}
-              minRows={6}
-              maxlength="4000"
-              name="position-description"
-              placeholder="No Description"
-              defaultValue={textArea}
-              onChange={(e) => setTextArea(e.target.value)}
-              draggable={false}
-            />
-          </Linkify>
-          <div className="word-count">
-            {textArea.length} / 4,000
-          </div>
-        </Row>
-      </div>
-      <div className="content-divider" />
-      <div className="position-form--heading">
-        <span className="title">Future Cycle</span>
-        <span className="subtitle">Please identify a cycle to add this position to.</span>
-      </div>
-      <div className="position-form--picky">
-        <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
-        <div className="publishable-position-cycles">{selectedCycles.map(a => a.name).join(', ')}</div>
-      </div>
-      <Picky
-        {...pickyProps}
-        placeholder="Choose Bid Cycle(s)"
-        value={selectedCycles}
-        options={cycles?.data}
-        onChange={setSelectedCycles}
-        valueKey="id"
-        labelKey="name"
-      />
-      <div className="pt-20">
+        <div>
+          <Row fluid className="position-form--description">
+            <span className="definition-title">Position Details</span>
+            <Linkify properties={{ target: '_blank' }}>
+              <TextareaAutosize
+                maxRows={6}
+                minRows={6}
+                maxlength="4000"
+                name="position-description"
+                placeholder="No Description"
+                defaultValue={textArea}
+                onChange={(e) => setTextArea(e.target.value)}
+                draggable={false}
+              />
+            </Linkify>
+            <div className="word-count">
+              {textArea.length} / 4,000
+            </div>
+          </Row>
+        </div>
         <div className="content-divider" />
         <div className="position-form--heading">
-          <span className="title">Add a Functional Bureau</span>
-          <span className="subtitle">Add a Functional Bureau to this Position</span>
+          <span className="title">Future Cycle</span>
+          <span className="subtitle">Please identify a cycle to add this position to.</span>
         </div>
-        <div className="position-form--input">
-          <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
-          <select
-            id="publishable-pos-func-bureaus"
-            defaultValue={selectedFuncBureau}
-            onChange={(e) => setSelectedFuncBureau(e?.target.value)}
-          >
-            {functionalBureaus$.map(b => (
-              <option value={b.code}>
-                {b.long_description}
-              </option>
-            ))}
-          </select>
+        <div className="position-form--picky">
+          <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
+          <div className="publishable-position-cycles">{selectedCycles.map(a => a.name).join(', ')}</div>
+        </div>
+        <Picky
+          {...pickyProps}
+          placeholder="Choose Bid Cycle(s)"
+          value={selectedCycles}
+          options={cycles?.data}
+          onChange={setSelectedCycles}
+          valueKey="id"
+          labelKey="name"
+        />
+        <div className="pt-20">
+          <div className="content-divider" />
+          <div className="position-form--heading">
+            <span className="title">Add a Functional Bureau</span>
+            <span className="subtitle">Add a Functional Bureau to this Position</span>
+          </div>
+          <div className="position-form--input">
+            <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
+            <select
+              id="publishable-pos-func-bureaus"
+              defaultValue={selectedFuncBureau}
+              onChange={(e) => setSelectedFuncBureau(e?.target.value)}
+            >
+              {functionalBureaus$.map(b => (
+                <option value={b.code}>
+                  {b.long_description}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-    </div>,
+    ),
+    handleSubmit: onSubmitForm,
+    handleCancel: onCancelForm,
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
     /* eslint-enable quote-props */
   };
 
@@ -297,12 +318,12 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
         content: <PositionExpandableContent
           sections={sections}
           form={form}
-          onEditMode={onEditModeCard}
         />,
       }, {
         text: 'Position Classification',
         value: 'CLASSIFICATION',
         content: classificationTable(),
+        disabled: editMode,
       }]}
     />
   );

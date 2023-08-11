@@ -30,6 +30,7 @@ TabbedCard.propTypes = {
       text: PropTypes.string,
       value: PropTypes.string,
       content: PropTypes.element,
+      disabled: PropTypes.bool,
     }),
   ).isRequired,
 };

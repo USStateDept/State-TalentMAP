@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
-const PositionExpandableContent = ({ sections, form, onEditMode }) => {
+const PositionExpandableContent = ({ sections, form }) => {
+  const { handleSubmit, handleCancel, handleEdit } = form;
+  const { editMode, setEditMode } = handleEdit;
+
   const [showMore, setShowMore] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -27,11 +27,10 @@ const PositionExpandableContent = ({ sections, form, onEditMode }) => {
     if (editMode) {
       setShowMore(true);
     }
-    onEditMode(editMode);
   }, [editMode]);
 
   const onCancel = () => {
-    form.handleCancel();
+    handleCancel();
     setEditMode(false);
     swal.close();
   };
@@ -97,28 +96,28 @@ const PositionExpandableContent = ({ sections, form, onEditMode }) => {
         />
       </Row>
       {(showMore && !editMode) &&
-          <div>
-            <Row fluid className="position-content--description">
-              <span className="definition-title">Position Details</span>
-              <Linkify properties={{ target: '_blank' }}>
-                <TextareaAutosize
-                  maxRows={6}
-                  minRows={6}
-                  maxlength="4000"
-                  name="position-description"
-                  placeholder="No Description"
-                  defaultValue={sections.textarea}
-                  disabled={!editMode}
-                  className={!editMode ? 'disabled-input' : 'enabled-input'}
-                  draggable={false}
-                />
-              </Linkify>
-              <div className="word-count">
-                {/* eslint-disable-next-line react/prop-types */}
-                {sections.textarea.length} / 4,000
-              </div>
-            </Row>
-          </div>
+        <div>
+          <Row fluid className="position-content--description">
+            <span className="definition-title">Position Details</span>
+            <Linkify properties={{ target: '_blank' }}>
+              <TextareaAutosize
+                maxRows={6}
+                minRows={6}
+                maxlength="4000"
+                name="position-description"
+                placeholder="No Description"
+                defaultValue={sections.textarea}
+                disabled={!editMode}
+                className={!editMode ? 'disabled-input' : 'enabled-input'}
+                draggable={false}
+              />
+            </Linkify>
+            <div className="word-count">
+              {/* eslint-disable-next-line react/prop-types */}
+              {sections.textarea.length} / 4,000
+            </div>
+          </Row>
+        </div>
       }
       {(showMore && editMode) &&
         <div>
@@ -126,7 +125,7 @@ const PositionExpandableContent = ({ sections, form, onEditMode }) => {
           {form.inputBody}
           <div className="position-form--actions">
             <button onClick={showCancelModal}>Cancel</button>
-            <button onClick={form.handleSubmit}>Save Position</button>
+            <button onClick={handleSubmit}>Save Position</button>
           </div>
         </div>
       }
@@ -162,13 +161,13 @@ PositionExpandableContent.propTypes = {
     cancelText: PropTypes.string,
     handleSubmit: PropTypes.func,
     handleCancel: PropTypes.func,
+    editMode: PropTypes.bool,
+    setEditMode: PropTypes.func,
   }),
-  onEditMode: PropTypes.func,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
-  onEditMode: EMPTY_FUNCTION,
 };
 
 export default PositionExpandableContent;
