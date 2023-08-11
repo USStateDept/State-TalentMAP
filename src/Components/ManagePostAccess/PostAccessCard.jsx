@@ -56,7 +56,7 @@ const PostAccessCard = (props) => {
           </tr>
         </thead>
         <tbody>
-          {rowData.map((item) => (
+          {rowData.length && rowData.map((item) => (
             <tr key={item.id}>
               <td className="checkbox-pac checkbox-pos">
                 <CheckBox
