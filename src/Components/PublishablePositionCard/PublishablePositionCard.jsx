@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
@@ -23,18 +23,20 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
 
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
+  const positionNumber = getResult(pos, 'position_number') || NO_POSITION_NUMBER;
+  const bureau = getResult(pos, 'bureau_short_desc') || NO_BUREAU;
 
-  // =============== View Mode ===============
+  // =============== Overview: View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
     subheading: {
-      'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER),
+      'Position Number': positionNumber,
       'Skill': getResult(pos, 'skill_code') || NO_SKILL,
       'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
     },
     bodyPrimary: {
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+      'Bureau': bureau,
       'Location': getPostName(pos?.post) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
@@ -59,7 +61,8 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   };
 
 
-  // =============== Edit Mode ===============
+  // =============== Overview: Edit Mode ===============
+
   function renderSelectionList({ items, selected, ...rest }) {
     return items.map((item, index) => {
       const keyId = `${index}-${item}`;
@@ -224,6 +227,68 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
     /* eslint-enable quote-props */
   };
 
+  // =============== Classification ===============
+
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    if (data.position) {
+      setFormData(data.position?.classifications);
+    }
+  }, [data]);
+
+  const handleSelection = (id) => {
+    const newFormData = formData.map(o => {
+      if (o.id === id) {
+        return {
+          ...o,
+          value: !o.value,
+        };
+      }
+      return o;
+    });
+    setFormData(newFormData);
+  };
+
+  const classificationTable = () => (
+    <div className="position-classifications">
+      <div className="line-separated-fields">
+        <div>
+          <span>Position:</span>
+          <span>{bureau} {positionNumber}</span>
+        </div>
+      </div>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              {formData.map((o) => (
+                <th key={o.id}>{o.label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {formData.map((o) => (
+                <td key={o.label}>
+                  <input
+                    type="checkbox"
+                    name={`${o.id}`}
+                    checked={o.value}
+                    onChange={() => handleSelection(o.id)}
+                  />
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="position-classifications--actions">
+        <button onClick={form.handleSubmit}>Save</button>
+      </div>
+    </div>
+  );
+
   return (
     <TabbedCard
       tabs={[{
@@ -234,6 +299,10 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
           form={form}
           onEditMode={onEditModeCard}
         />,
+      }, {
+        text: 'Position Classification',
+        value: 'CLASSIFICATION',
+        content: classificationTable(),
       }]}
     />
   );
