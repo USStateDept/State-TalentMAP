@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
 import { useDataLoader, usePrevious } from 'hooks';
@@ -7,19 +7,22 @@ import FA from 'react-fontawesome';
 import { filtersFetchData } from 'actions/filters/filters';
 import { getGenericFilterOptions, nameSort, renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import PostAccessCard from 'Components/ManagePostAccess/PostAccessCard';
 import SelectForm from 'Components/SelectForm';
 import TotalResults from 'Components/TotalResults';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { searchPostAccessFetchData, searchPostAccessSaveSelections } from 'actions/searchPostAccess';
+import { searchPostAccessFetchData, searchPostAccessRemove, searchPostAccessSaveSelections } from 'actions/searchPostAccess';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
+import CheckBox from 'Components/CheckBox';
+import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import api from '../../../api';
 
 
 const SearchPostAccess = () => {
   const dispatch = useDispatch();
+  const searchLastNameRef = useRef();
+  const searchFirstNameRef = useRef();
 
   // State
   const userSelections = useSelector(state => state.searchPostAccessSelections);
@@ -30,17 +33,19 @@ const SearchPostAccess = () => {
     useSelector(state => state.searchPostAccessFetchDataLoading);
   const searchPostAccessFetchDataError =
     useSelector(state => state.searchPostAccessFetchDataErrored);
-  // const [ordering, setOrdering] =
-  //   useState(userSelections.ordering || BUREAU_POSITION_SORT.options[0].value);
 
-  const headerNames = ['Access Type', 'Bureau', 'Post/Org', 'Employee', 'Role', 'Position', 'Title'];
-
-  // Filters
+  // Local State & Filters
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPosts || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedRole || []);
+  const [searchTextLastName, setSearchTextLastName] = useState(userSelections?.searchTextLastName || '');
+  const [searchTextFirstName, setSearchTextFirstName] = useState(userSelections?.searchTextFirstName || '');
+  const [searchInputLastName, setSearchInputLastName] = useState(userSelections?.searchInputLastName || '');
+  const [searchInputFirstName, setSearchInputFirstName] = useState(userSelections?.searchInputFirstName || '');
   const [clearFilters, setClearFilters] = useState(false);
+  const [checkedPostIds, setCheckedPostIds] = useState([]);
+  const [selectAll, setSelectAll] = useState(false);
 
   // Pagination
   const [page, setPage] = useState(userSelections?.page || 1);
@@ -48,30 +53,29 @@ const SearchPostAccess = () => {
   const prevPage = usePrevious(page);
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
 
-  const currentInputs = {
-    page,
-    limit,
-    // ordering,
-    selectedBureaus,
-    selectedPosts,
-    selectedOrgs,
-    selectedRoles,
-  };
 
   const getCurrentInputs = () => ({
     page,
     limit,
-    // ordering,
     selectedBureaus,
     selectedPosts,
     selectedOrgs,
     selectedRoles,
+    searchTextLastName,
+    searchTextFirstName,
+    searchInputLastName,
+    searchInputFirstName,
   });
 
   const getQuery = () => ({
+    bureaus: selectedBureaus.map(bureau => (bureau?.code)),
+    posts: selectedPosts.map(post => (post?.code)),
+    orgs: selectedOrgs.map(org => (org?.code)),
+    roles: selectedRoles.map(role => (role?.code)),
+    lastName: searchTextLastName,
+    firstName: searchTextFirstName,
     page,
     limit,
-    // ordering,
   });
 
   const fetchAndSet = (resetPage = false) => {
@@ -81,7 +85,10 @@ const SearchPostAccess = () => {
       selectedOrgs,
       selectedRoles,
     ];
-    if (filters.flat().length === 0) {
+    if (filters.flat().length === 0
+    && searchTextLastName.length === 0
+    && searchTextFirstName.length === 0
+    ) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -97,29 +104,33 @@ const SearchPostAccess = () => {
   // Initial Render
   useEffect(() => {
     dispatch(filtersFetchData(genericFilters));
-    dispatch(searchPostAccessSaveSelections(currentInputs));
-
-    dispatch(searchPostAccessFetchData(getQuery()));
+    dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
   }, []);
 
-  // Re-Render on Selections
+  // Re-Render on Filter Selections
   useEffect(() => {
+    setCheckedPostIds([]);
+    setSelectAll(false);
     if (prevPage) {
       fetchAndSet(true);
     }
   }, [
     limit,
-    // ordering,
     selectedBureaus,
     selectedPosts,
     selectedOrgs,
     selectedRoles,
+    searchTextLastName,
+    searchTextFirstName,
   ]);
 
   // Handle Pagination
   useEffect(() => {
+    setCheckedPostIds([]);
+    setSelectAll(false);
     fetchAndSet(false);
   }, [page]);
+
 
   // Filter Options
   const genericFilters$ = genericFilters?.filters || [];
@@ -129,11 +140,19 @@ const SearchPostAccess = () => {
   const organizationOptions = (orgs?.data?.length && nameSort(orgs?.data, 'name')) || [];
 
   const resetFilters = () => {
-    setSelectedBureaus([]);
-    setSelectedPosts([]);
-    setSelectedOrgs([]);
-    setSelectedRoles([]);
-    setClearFilters(false);
+    Promise.resolve().then(() => {
+      setSelectedBureaus([]);
+      setSelectedPosts([]);
+      setSelectedOrgs([]);
+      setSelectedRoles([]);
+      setCheckedPostIds([]);
+      setSelectAll(false);
+      setSearchTextLastName('');
+      setSearchTextFirstName('');
+      searchFirstNameRef.current.clearText();
+      searchLastNameRef.current.clearText();
+      setClearFilters(false);
+    });
   };
 
   // Overlay for error, info, and loading state
@@ -161,7 +180,35 @@ const SearchPostAccess = () => {
     includeSelectAll: true,
   };
 
-  // const sorts = BUREAU_POSITION_SORT;
+  const submitSearch = () => {
+    setSearchTextLastName(searchInputLastName);
+    setSearchTextFirstName(searchInputFirstName);
+  };
+
+  const submitRemoveAccess = () => {
+    dispatch(searchPostAccessRemove(checkedPostIds));
+  };
+
+  const tableHeaderNames = ['Access Type', 'Bureau', 'Post/Org', 'Employee', 'Role', 'Position', 'Title'];
+
+  const handleSelectAll = () => {
+    if (!selectAll) {
+      setSelectAll(true);
+      setCheckedPostIds(
+        searchPostAccessData?.results?.map(post => post.id),
+      );
+    } else {
+      setSelectAll(false);
+      setCheckedPostIds([]);
+    }
+  };
+
+  const handleSelectPost = (post => {
+    if (checkedPostIds.includes(post.id)) {
+      const filteredPosts = checkedPostIds.filter(x => x !== post.id);
+      setCheckedPostIds(filteredPosts);
+    } else setCheckedPostIds([...checkedPostIds, post.id]);
+  });
 
   // Hardcoded - find where to get this data
   const roleOptions = [
@@ -169,16 +216,13 @@ const SearchPostAccess = () => {
     { code: 2, name: 'FSBid Organization Capsule Positions' },
   ];
 
-  console.log(searchPostAccessFetchDataLoading);
-  console.log(searchPostAccessData);
 
   return (
     genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
         <div className="position-search">
           <div className="usa-grid-full position-search--header">
-            {/* TODO change ICON */}
-            <ProfileSectionTitle title="Search Post Access" icon="keyboard-o" className="xl-icon" />
+            <ProfileSectionTitle title="Search Post Access" icon="search-minus" className="xl-icon" />
             <div className="results-search-bar pt-20">
 
               <div className="filterby-container">
@@ -188,7 +232,6 @@ const SearchPostAccess = () => {
                     <button
                       className="unstyled-button"
                       onClick={resetFilters}
-                      // disabled={disableSearch}
                     >
                       <FA name="times" />
                       Clear Filters
@@ -197,8 +240,41 @@ const SearchPostAccess = () => {
                 </div>
               </div>
 
-              {/* TODO check GRID */}
               <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
+                <div className="filter-div">
+                  <div className="label">
+                    Last Name:
+                  </div>
+                  <div className="post-access-emp-search-div">
+                    <PositionManagerSearch
+                      id="last-name-search"
+                      submitSearch={submitSearch}
+                      onChange={setSearchInputLastName}
+                      ref={searchLastNameRef}
+                      placeHolder="Search by Last Name"
+                      textSearch={searchTextLastName}
+                      noButton
+                      showIcon={false}
+                    />
+                  </div>
+                </div>
+                <div className="filter-div">
+                  <div htmlFor="first-name-search" className="label">
+                    First Name:
+                  </div>
+                  <div className="post-access-emp-search-div">
+                    <PositionManagerSearch
+                      id="first-name-search"
+                      submitSearch={submitSearch}
+                      onChange={setSearchInputFirstName}
+                      ref={searchFirstNameRef}
+                      placeHolder="Search by First Name"
+                      textSearch={searchTextFirstName}
+                      noButton
+                      showIcon={false}
+                    />
+                  </div>
+                </div>
                 <div className="filter-div">
                   <div className="label">Bureau:</div>
                   <Picky
@@ -234,7 +310,7 @@ const SearchPostAccess = () => {
                     options={organizationOptions}
                     onChange={setSelectedOrgs}
                     valueKey="code"
-                    labelKey="long_description"
+                    labelKey="name"
                     disabled={orgsLoading}
                   />
                 </div>
@@ -247,7 +323,7 @@ const SearchPostAccess = () => {
                     options={roleOptions}
                     onChange={setSelectedRoles}
                     valueKey="code"
-                    labelKey="long_description"
+                    labelKey="name"
                   />
                 </div>
               </div>
@@ -268,14 +344,6 @@ const SearchPostAccess = () => {
                   />
                   <div className="position-search-controls--right">
                     <div className="position-search-controls--results">
-                      {/* <SelectForm
-                      id="position-manager-num-results"
-                      options={sorts.options}
-                      label="Sort by:"
-                      defaultSort={ordering}
-                      onSelectOption={value => setOrdering(value.target.value)}
-                      disabled={searchPostAccessFetchDataLoading}
-                    /> */}
                       <SelectForm
                         id="position-manager-num-results"
                         options={pageSizes.options}
@@ -290,19 +358,50 @@ const SearchPostAccess = () => {
 
                 <div className="usa-width-one-whole position-search--results">
                   <div className="usa-grid-full position-list">
-                    {searchPostAccessData?.results?.map((result) => (
-                      <PostAccessCard
-                        data={result}
-                        header={headerNames}
-                        key={result.id}
-                      />
-                    ))}
+
+                    <table className="custom-table">
+                      <thead>
+                        <tr>
+                          <th className="checkbox-pos">
+                            <CheckBox
+                              checked={!selectAll}
+                              onCheckBoxClick={handleSelectAll}
+                            />
+                          </th>
+                          {
+                            tableHeaderNames.map((item) => (
+                              <th key={item}>{item}</th>
+                            ))
+                          }
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          searchPostAccessData?.results?.length &&
+                            searchPostAccessData.results.map(post => (
+                              <tr key={post.id}>
+                                <td className="checkbox-pac checkbox-pos">
+                                  <CheckBox
+                                    value={checkedPostIds.includes(post.id)}
+                                    onCheckBoxClick={() => handleSelectPost(post)}
+                                  />
+                                </td>
+                                <td>{post?.access_type || '---'}</td>
+                                <td>{post?.bureau || '---'}</td>
+                                <td>{post?.post || '---'}</td>
+                                <td>{post?.employee || '---'}</td>
+                                <td>{post?.role || '---'}</td>
+                                <td>{post?.position || '---'}</td>
+                                <td>{post?.title || '---'}</td>
+                              </tr>
+                            ))
+                        }
+                      </tbody>
+                    </table>
+
                   </div>
                 </div>
-
-                <div className="usa-grid-full
-                react-paginate position-search-controls--pagination"
-                >
+                <div className="usa-grid-full react-paginate position-search-controls--pagination">
                   <PaginationWrapper
                     pageSize={limit}
                     onPageChange={p => setPage(p.page)}
@@ -312,6 +411,17 @@ const SearchPostAccess = () => {
                 </div>
               </>
           }
+
+          { checkedPostIds.length > 0 &&
+            <div className="proposed-cycle-banner">
+              {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
+              {
+                checkedPostIds.length > 0 &&
+                <button className="usa-button-secondary" onClick={submitRemoveAccess}>Grant Access</button>
+              }
+            </div>
+          }
+
         </div>
       )
   );

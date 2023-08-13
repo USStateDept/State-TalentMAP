@@ -10,41 +10,26 @@ import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
 const dummyData = [
-  { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
+  { id: 1, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 2, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 3, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 4, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 11, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 21, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 31, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 41, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 112, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 212, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 312, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 412, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 1123, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 2123, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 3123, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 4123, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 1124, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 2124, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
+  { id: 3124, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
+  { id: 4124, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
 ];
 const dummyDataToReturn = (query) => new Promise((resolve) => {
   const { limit } = query;
@@ -147,14 +132,14 @@ export function searchPostAccessRemoveSuccess(results) {
   };
 }
 
-export function searchPostAccessRemove(position) {
+export function searchPostAccessRemove(positions) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(searchPostAccessRemoveIsLoading(true));
     dispatch(searchPostAccessRemoveHasErrored(false));
     api()
       .post('/placeholder/POST/endpoint', {
-        position,
+        positions,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;

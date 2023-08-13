@@ -222,7 +222,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Search Post Access',
           route: '/profile/bureau/searchpostaccess',
-          icon: ' fa-newspaper-o',
+          icon: ' fa-search-minus',
           roles: [
             'superuser',
             'bureau_user',

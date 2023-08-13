@@ -8,6 +8,9 @@
       border-bottom: 1px solid #ddd;
       padding: 8px; /* Add padding to cells for better readability */
     }
+    tr {
+      height: 50px;
+    }
     tbody {
       td {
         border: none;
@@ -21,20 +24,22 @@
         justify-content: center;
         align-items: center;
       }
-    
+
     .description{
         min-width: 100px;
       }
-    
+
     .checkbox-pac {
         min-width: 30px;
       }
-    
+
     .checkbox-pos {
-        display: flex;
-        justify-content: center;
-        align-items: center;
+      >div{
+        >label {
+          margin-top: 0;
+        }
       }
+    }
 }
 
 .post-access-search {
@@ -91,17 +96,17 @@
     .post-access--filters--pp {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  
+
       .filter-div {
         align-items: center;
         display: flex;
-  
+
         .label {
           margin-right: 10px;
           text-align: end;
           width: 150px;
         }
-  
+
         .picky {
           color: black;
           width: 200px;
@@ -149,5 +154,24 @@
 
   .post-access-search-controls--pagination {
     padding-left: 35px;
+  }
+}
+
+.post-access-emp-search-div {
+  input {
+    border-radius: 0px;
+    height: 28px;
+    max-width: none;
+    width: 240px;
+    border-right: 1px solid $color-gray-lighter;
+  }
+  .searchbar {
+    .text-input-wrapper {
+      > span {
+        font-size: 15px;
+        left: 210px;
+        top: 5px;
+      }
+    }
   }
 }
