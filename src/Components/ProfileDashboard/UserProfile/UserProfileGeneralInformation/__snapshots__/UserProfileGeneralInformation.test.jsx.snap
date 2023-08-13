@@ -7,28 +7,12 @@ exports[`UserProfileGeneralInformationComponent matches snapshot 1`] = `
   <div
     className="section-padded-inner-container"
   >
-    <div
-      className="avatar-group"
+    <MediaQueryWrapper
+      breakpoint="screenXlgMin"
+      widthType="min"
     >
-      <Avatar
-        className="dashboard-user-profile-picture"
-        colorString=""
-        displayName="John"
-        externalSource={Object {}}
-        externalSourceToUse="m"
-        fallback={
-          <FontAwesome
-            name="user-o"
-          />
-        }
-        firstName="John"
-        initials="JD"
-        lastName="Doe"
-        onClick={[Function]}
-        small={false}
-        useExternalImg={false}
-      />
-    </div>
+      <Component />
+    </MediaQueryWrapper>
     <div
       className="name-group"
     >
@@ -172,28 +156,12 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when showEditLi
   <div
     className="section-padded-inner-container"
   >
-    <div
-      className="avatar-group"
+    <MediaQueryWrapper
+      breakpoint="screenXlgMin"
+      widthType="min"
     >
-      <Avatar
-        className="dashboard-user-profile-picture"
-        colorString=""
-        displayName="John"
-        externalSource={Object {}}
-        externalSourceToUse="m"
-        fallback={
-          <FontAwesome
-            name="user-o"
-          />
-        }
-        firstName="John"
-        initials="JD"
-        lastName="Doe"
-        onClick={[Function]}
-        small={false}
-        useExternalImg={false}
-      />
-    </div>
+      <Component />
+    </MediaQueryWrapper>
     <div
       className="name-group"
     >
@@ -337,28 +305,12 @@ exports[`UserProfileGeneralInformationComponent matches snapshot when useGroup i
   <div
     className="section-padded-inner-container"
   >
-    <div
-      className="avatar-group"
+    <MediaQueryWrapper
+      breakpoint="screenXlgMin"
+      widthType="min"
     >
-      <Avatar
-        className="dashboard-user-profile-picture"
-        colorString=""
-        displayName="John"
-        externalSource={Object {}}
-        externalSourceToUse="m"
-        fallback={
-          <FontAwesome
-            name="user-o"
-          />
-        }
-        firstName="John"
-        initials="JD"
-        lastName="Doe"
-        onClick={[Function]}
-        small={false}
-        useExternalImg={false}
-      />
-    </div>
+      <Component />
+    </MediaQueryWrapper>
     <div
       className="name-group"
     >

@@ -28,7 +28,6 @@
     "register_checklist": true,
     "search_post_access": true,
     "settings": true,
-    "static_content": true,
     "unassigned_filters": true,
     "breadcrumbs": true
   }
