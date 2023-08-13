@@ -54,11 +54,11 @@ const ManagePostAccess = () => {
 
   const getQuery = () => ({
     // User Filters
-    'post-access-status': selectedCountries.map(statusObject => (statusObject?.code)),
-    'post-access-bureaus': selectedPositions.map(bureauObject => (bureauObject?.code)),
+    'post-access-countries': selectedCountries.map(statusObject => (statusObject?.code)),
+    'post-access-positions': selectedPositions.map(bureauObject => (bureauObject?.code)),
     'post-access-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'post-access-grades': selectedPersons.map(gradeObject => (gradeObject?.code)),
-    'post-access-skills': selectedRoles.map(skillObject => (skillObject?.code)),
+    'post-access-persons': selectedPersons.map(gradeObject => (gradeObject?.code)),
+    'post-access-roles': selectedRoles.map(skillObject => (skillObject?.code)),
   });
 
   const getCurrentInputs = () => ({
