@@ -60,6 +60,7 @@ const PostAccessCard = (props) => {
             <tr key={item.id}>
               <td className="checkbox-pac checkbox-pos">
                 <CheckBox
+                  id={`post-access-${item.id}`}
                   value={item.isChecked}
                   onCheckBoxClick={() => handleCheckboxChange(item)}
                 />

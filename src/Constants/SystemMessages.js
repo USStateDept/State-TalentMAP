@@ -202,3 +202,13 @@ export const EDIT_CYCLE_POSITION_SUCCESS_TITLE = 'Cycle Position Updated';
 export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated';
 export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
 export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';
+
+export const MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE = 'Access Added for Post(s)';
+export const MANAGE_POST_ACCESS_ADD_SUCCESS = 'Access added to post(s) successfully';
+export const MANAGE_POST_ACCESS_ADD_ERROR_TITLE = 'Access Add Error';
+export const MANAGE_POST_ACCESS_ADD_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
+
+export const MANAGE_POST_ACCESS_REMOVE_SUCCESS_TITLE = 'Access Removed for Post(s)';
+export const MANAGE_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) successfully';
+export const MANAGE_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
+export const MANAGE_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';

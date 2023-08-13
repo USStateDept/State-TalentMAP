@@ -5,7 +5,7 @@ import FA from 'react-fontawesome';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { publishablePositionsFetchData, savePublishablePositionsSelections } from 'actions/publishablePositions';
+import { managePostFetchData, saveManagePostSelections } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
@@ -17,10 +17,9 @@ const ManagePostAccess = () => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.publishablePositionsSelections);
-
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
-
+  const managePost = useSelector(state => state.managePost);
   const [selectedCountries, setSelectedCountries] =
    useState(userSelections?.selectedCountries || []);
   const [selectedPositions, setSelectedPositions] =
@@ -45,7 +44,6 @@ const ManagePostAccess = () => {
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
   const additionalFiltersIsLoading = includes([orgsLoading], true);
-
   const [clearFilters, setClearFilters] = useState(false);
 
   const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
@@ -61,6 +59,14 @@ const ManagePostAccess = () => {
     'post-access-roles': selectedRoles.map(skillObject => (skillObject?.code)),
   });
 
+  const currentInputs = {
+    selectedCountries,
+    selectedPositions,
+    selectedOrgs,
+    selectedPersons,
+    selectedRoles,
+  };
+
   const getCurrentInputs = () => ({
     selectedCountries,
     selectedPositions,
@@ -70,7 +76,7 @@ const ManagePostAccess = () => {
   });
 
   useEffect(() => {
-    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
+    dispatch(saveManagePostSelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
     setCardsInEditMode([]);
   }, []);
@@ -88,8 +94,8 @@ const ManagePostAccess = () => {
     } else {
       setClearFilters(true);
     }
-    dispatch(publishablePositionsFetchData(getQuery()));
-    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
+    dispatch(managePostFetchData(getQuery()));
+    dispatch(saveManagePostSelections(currentInputs));
   };
 
   useEffect(() => {
@@ -155,16 +161,6 @@ const ManagePostAccess = () => {
     setSelectedRoles([]);
     setClearFilters(false);
   };
-
-  const dummyData = [
-    { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-    { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  ];
 
   const headerNames = ['Post/Org', 'Person', 'Role', 'Position'];
   const grantAccess = () => {
@@ -269,7 +265,7 @@ const ManagePostAccess = () => {
         </div>
         <div className="usa-width-one-whole post-access-search--results">
           <div className="usa-grid-full post-access-list">
-            <PostAccessCard data={dummyData} headers={headerNames} checkCount={checkCount} />
+            <PostAccessCard data={managePost} headers={headerNames} checkCount={checkCount} />
           </div>
         </div>
         {/* placeholder for now */}
