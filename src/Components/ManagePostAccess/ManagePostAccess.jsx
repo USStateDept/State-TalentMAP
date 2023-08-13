@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
+import { filter, flatten, get, includes, isEmpty, sortBy, uniqBy } from 'lodash';
 import { useDataLoader } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { managePostFetchData, saveManagePostSelections } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import { toastError, toastSuccess } from 'actions/toast';
 import api from '../../api';
@@ -32,10 +31,10 @@ const ManagePostAccess = () => {
   const genericFilters$ = get(genericFilters, 'filters') || [];
 
   // placeholder data that will be replaced by API call
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  const positions = genericFilters$.find(f => get(f, 'item.description') === 'region');
+  const positionOptions = uniqBy(sortBy(get(positions, 'data'), [(b) => b.short_description]));
+  const roles = genericFilters$.find(f => get(f, 'item.description') === 'skill');
+  const roleOptions = uniqBy(sortBy(get(roles, 'data'), [(s) => s.description]), 'code');
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
@@ -105,48 +104,11 @@ const ManagePostAccess = () => {
     selectedRoles,
   ]);
 
-  function renderSelectionList({ items, selected, ...rest }) {
-    let codeOrText = 'code';
-    // only Remarks needs to use 'text'
-    if (has(items[0], 'text')) {
-      codeOrText = 'text';
-    }
-    // only Item Actions/Statuses need to use 'desc_text'
-    if (has(items[0], 'desc_text')) {
-      codeOrText = 'desc_text';
-    }
-    if (has(items[0], 'abbr_desc_text') && items[0].code === 'V') {
-      codeOrText = 'abbr_desc_text';
-    }
-    // only Categories need to use 'mic_desc_text'
-    if (has(items[0], 'mic_desc_text')) {
-      codeOrText = 'mic_desc_text';
-    }
-    let queryProp = 'description';
-    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
-    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    else if (codeOrText === 'text') queryProp = 'text';
-    else if (codeOrText === 'desc_text') queryProp = 'desc_text';
-    else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
-    else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    else if (has(items[0], 'name')) queryProp = 'name';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
-  }
-
   const pickyProps = {
     numberDisplayed: 2,
     multiple: true,
     includeFilter: true,
     dropdownHeight: 255,
-    renderList: renderSelectionList,
     includeSelectAll: true,
   };
 
@@ -224,7 +186,7 @@ const ManagePostAccess = () => {
                   {...pickyProps}
                   placeholder="Select Position(s)"
                   value={selectedPositions}
-                  options={bureauOptions}
+                  options={positionOptions}
                   onChange={setSelectedPositions}
                   valueKey="code"
                   labelKey="long_description"
@@ -250,7 +212,7 @@ const ManagePostAccess = () => {
                   {...pickyProps}
                   placeholder="Select Role(s)"
                   value={selectedRoles}
-                  options={skillOptions}
+                  options={roleOptions}
                   onChange={setSelectedRoles}
                   valueKey="code"
                   labelKey="custom_description"
