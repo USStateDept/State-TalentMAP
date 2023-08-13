@@ -18,6 +18,57 @@ const dummyData = [
   { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
 ];
 
+const dummyCountries = [
+  { code: 1, name: 'Bahamas' },
+  { code: 2, name: 'Andorra' },
+  { code: 3, name: 'Vanuatu' },
+  { code: 4, name: 'Malawi' },
+  { code: 5, name: 'Equatorial Guinea' },
+  { code: 6, name: 'Sierra Leone' },
+  { code: 7, name: 'Mozambique' },
+  { code: 8, name: 'France' },
+  { code: 9, name: 'Sudan' },
+  { code: 10, name: 'Iran' },
+  { code: 11, name: 'Malta' },
+  { code: 12, name: 'Papua New Guinea' },
+  { code: 13, name: 'Congo' },
+  { code: 14, name: 'Nauru' },
+  { code: 15, name: 'Guatemala' },
+  { code: 16, name: 'Wallis and Futuna' },
+  { code: 17, name: 'Madagascar' },
+  { code: 18, name: 'Virgin Islands' },
+  { code: 19, name: 'Saint Pierre and Miquelon' },
+  { code: 20, name: 'Tajikistan' },
+  { code: 21, name: 'Trinidad and Tobago' },
+  { code: 22, name: 'Iceland' },
+  { code: 23, name: 'Italy' },
+  { code: 24, name: 'Panama' },
+  { code: 25, name: 'Lithuania' },
+];
+
+const dummyPeople = [
+  { code: 1, name: 'John Smith' },
+  { code: 2, name: 'Emily Johnson' },
+  { code: 3, name: 'Michael Williams' },
+  { code: 4, name: 'Emma Jones' },
+  { code: 5, name: 'William Brown' },
+  { code: 6, name: 'Olivia Davis' },
+  { code: 7, name: 'James Miller' },
+  { code: 8, name: 'Sophia Wilson' },
+  { code: 9, name: 'Benjamin Taylor' },
+  { code: 10, name: 'Ava Martinez' },
+  { code: 11, name: 'Alexander Anderson' },
+  { code: 12, name: 'Isabella Garcia' },
+  { code: 13, name: 'Daniel Rodriguez' },
+  { code: 14, name: 'Mia Martinez' },
+  { code: 15, name: 'David Davis' },
+  { code: 16, name: 'Charlotte Johnson' },
+  { code: 17, name: 'Joseph Smith' },
+  { code: 18, name: 'Sophia Wilson' },
+  { code: 19, name: 'Matthew Anderson' },
+  { code: 20, name: 'Olivia Taylor' },
+];
+
 export function managePostEditErrored(bool) {
   return {
     type: 'MANAGE_POST_EDIT_HAS_ERRORED',
@@ -62,9 +113,6 @@ export function managePostEdit(id, data) {
             dispatch(managePostEditErrored(false));
           });
         } else {
-          // Start: temp toast logic
-          // temp to randomly show toast error or success
-          // when set up, just keep the error toast here
           const randInt = Math.floor(Math.random() * 2);
           if (randInt) {
             const toastTitle = MANAGE_POST_ACCESS_ADD_ERROR_TITLE;
@@ -75,7 +123,6 @@ export function managePostEdit(id, data) {
             const toastMessage = MANAGE_POST_ACCESS_ADD_SUCCESS;
             dispatch(toastSuccess(toastMessage, toastTitle));
           }
-          // End: temp toast logic
           batch(() => {
             dispatch(managePostEditErrored(true));
             dispatch(managePostEditLoading(false));
@@ -110,7 +157,7 @@ export function managePostFetchDataSuccess(results) {
 export function managePostFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(managePostFetchDataSuccess(dummyData));
+      dispatch(managePostFetchDataSuccess({ dummyData, dummyPeople, dummyCountries }));
       dispatch(managePostFetchDataErrored(false));
       dispatch(managePostFetchDataLoading(false));
     });

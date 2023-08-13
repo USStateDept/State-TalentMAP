@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import CheckBox from '../CheckBox/CheckBox';
 
 const PostAccessCard = (props) => {
-  // Will change this checkCount call, currently using to pass the count to parent component
   const { data, headers, checkCount } = props;
 
   const [selectAll, setSelectAll] = useState(false);
@@ -15,7 +14,6 @@ const PostAccessCard = (props) => {
     setRowData((prevData) =>
       prevData.map((item) => ({ ...item, isChecked: !selectAll })),
     );
-    // Will change this, currently using to pass the count to parent component
     if (selectAll) setCheckedCountAmount(0);
     if (!selectAll) setCheckedCountAmount(rowData.length);
   };
@@ -26,7 +24,6 @@ const PostAccessCard = (props) => {
         item.id === itemData.id ? { ...item, isChecked: !item.isChecked } : item,
       ),
     );
-    // Will change this, currently using to pass the count to parent component
     if (itemData.isChecked) setCheckedCountAmount(checkedCountAmount - 1);
     if (!itemData.isChecked) setCheckedCountAmount(checkedCountAmount + 1);
 
@@ -45,6 +42,7 @@ const PostAccessCard = (props) => {
           <tr>
             <th className="checkbox-pos">
               <CheckBox
+                id="post-access-select-all"
                 checked={!selectAll}
                 onCheckBoxClick={handleSelectAllChange}
               />

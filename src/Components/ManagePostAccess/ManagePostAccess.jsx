@@ -16,25 +16,22 @@ import PostAccessCard from './PostAccessCard';
 const ManagePostAccess = () => {
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.publishablePositionsSelections);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
   const managePost = useSelector(state => state.managePost);
+  const managePostSelections = useSelector(state => state.managePostSelections);
   const [selectedCountries, setSelectedCountries] =
-   useState(userSelections?.selectedCountries || []);
+   useState(managePostSelections?.selectedCountries || []);
   const [selectedPositions, setSelectedPositions] =
-   useState(userSelections?.selectedPositions || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedPersons, setSelectedPersons] = useState(userSelections?.selectedGrade || []);
-  const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedSkills || []);
+   useState(managePostSelections?.selectedPositions || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(managePostSelections?.selectedOrgs || []);
+  const [selectedPersons, setSelectedPersons] = useState(managePostSelections?.selectedGrade || []);
+  const [selectedRoles, setSelectedRoles] = useState(managePostSelections?.selectedSkills || []);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const [selectedCount, setSelectedCount] = useState(0);
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const statusOptions = [
-    { code: 1, name: 'Vet' },
-    { code: 2, name: 'Publishable' },
-    { code: 3, name: 'Non-Publishable' },
-  ];
+
+  // placeholder data that will be replaced by API call
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
   const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
@@ -201,7 +198,7 @@ const ManagePostAccess = () => {
                   {...pickyProps}
                   placeholder="Select Countries"
                   value={selectedCountries}
-                  options={statusOptions}
+                  options={managePost?.dummyCountries}
                   onChange={setSelectedCountries}
                   valueKey="code"
                   labelKey="name"
@@ -240,7 +237,7 @@ const ManagePostAccess = () => {
                   {...pickyProps}
                   placeholder="Select Person(s)"
                   value={selectedPersons}
-                  options={organizationOptions}
+                  options={managePost?.dummyPeople}
                   onChange={setSelectedPersons}
                   valueKey="code"
                   labelKey="name"
@@ -265,10 +262,13 @@ const ManagePostAccess = () => {
         </div>
         <div className="usa-width-one-whole post-access-search--results">
           <div className="usa-grid-full post-access-list">
-            <PostAccessCard data={managePost} headers={headerNames} checkCount={checkCount} />
+            <PostAccessCard
+              data={managePost?.dummyData}
+              headers={headerNames}
+              checkCount={checkCount}
+            />
           </div>
         </div>
-        {/* placeholder for now */}
         <div className="proposed-cycle-banner">
           {selectedCount} {selectedCount < 2 ? 'Position' : 'Positions'} Selected
           {
