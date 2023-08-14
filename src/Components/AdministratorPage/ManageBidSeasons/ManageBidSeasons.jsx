@@ -204,11 +204,6 @@ const ManageBidSeasons = (props) => {
                 showLeadingZeros
               />
             </div>
-            <div className="filter-div">
-              <button>
-                Search
-              </button>
-            </div>
           </div>
 
         </div>
