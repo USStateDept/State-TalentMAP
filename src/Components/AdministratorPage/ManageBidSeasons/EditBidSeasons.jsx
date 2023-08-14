@@ -80,10 +80,10 @@ const EditBidSeasons = (props) => {
   };
 
   const seasonOptions = [
-    { value: 'Fall Cycle 2023', label: 'Fall Cycle 2023' },
-    { value: 'Winter Cycle 2022', label: 'Winter Cycle 2022' },
-    { value: 'Spring Cycle 2021', label: 'Spring Cycle 2021' },
-    { value: 'Summer Cycle 2020', label: 'Summer Cycle 2020' },
+    { value: 'Fall', label: 'Fall' },
+    { value: 'Winter', label: 'Winter' },
+    { value: 'Spring', label: 'Spring' },
+    { value: 'Summer', label: 'Summer' },
     { value: 'None listed', label: 'None listed' },
   ];
 

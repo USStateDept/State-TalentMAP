@@ -213,10 +213,6 @@ const ManageBidSeasons = (props) => {
           <>
             <div className="usa-grid-full results-dropdown controls-container">
               <div className="bs-results">
-                <h2>Search for a Bid Season</h2>
-                <p>Search for an existing bid season or add a new one.</p>
-              </div>
-              <div className="bs-results-dropdown bs-results">
                 <Link
                   onClick={(e) => openNewModal(e)}
                   to="#"

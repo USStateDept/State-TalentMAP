@@ -57,28 +57,6 @@
     padding-right: 30px;
   }
 
-  .bid-seasons-search-controls--results {
-    align-items: center;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px;
-    padding: 0px 35px;
-
-    &.padding-top {
-      padding-top: 15px;
-      padding-bottom: 10px;
-    }
-
-    div:first-child {
-      margin-right: 10px;
-    }
-
-    div {
-      display: flex;
-      align-items: baseline;
-    }
-  }
-
   .bid-seasons-search--results {
     padding: 0 35px 20px;
 
