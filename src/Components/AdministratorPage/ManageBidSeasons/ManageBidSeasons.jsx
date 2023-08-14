@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { get, sortBy, uniqBy } from 'lodash';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -28,6 +29,7 @@ const ManageBidSeasons = (props) => {
   const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
   const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
+  const genericFilters$ = get(genericFilters, 'filters') || [];
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] =
@@ -61,6 +63,9 @@ const ManageBidSeasons = (props) => {
     'bid-seasons-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
     page,
   });
+
+  const bidSeasons = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
+  const bidSeasonsOptions = uniqBy(sortBy(get(bidSeasons, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const fetchAndSet = (resetPage = false) => {
     setSelectedBidSeasons([]);
@@ -100,14 +105,6 @@ const ManageBidSeasons = (props) => {
   }, [
     page,
   ]);
-
-  // Hardcoded - find where to get this data
-  const seasonOptions = [
-    { code: 1, name: 'Winter' },
-    { code: 2, name: 'Spring' },
-    { code: 3, name: 'Fall' },
-    { code: 4, name: 'Summer' },
-  ];
 
   const resetFilters = () => {
     setSelectedStatus([]);
@@ -187,7 +184,7 @@ const ManageBidSeasons = (props) => {
               <Picky
                 {...pickyProps}
                 placeholder="Type to filter seasons"
-                options={seasonOptions}
+                options={bidSeasonsOptions}
                 valueKey="code"
                 labelKey="name"
                 onChange={setSelectedStatus}
