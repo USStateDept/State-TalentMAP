@@ -11,7 +11,6 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
 
-// eslint-disable-next-line complexity
 const EditBidSeasons = (props) => {
   const { details, seasonInfo, id } = props;
   const [description, setDescription] = useState(seasonInfo?.description);
@@ -22,7 +21,6 @@ const EditBidSeasons = (props) => {
   const [startDate, setStartDate] = useState(startDateInfo);
   const [endDate, setEndDate] = useState(endDateInfo);
   const [panelCutoff, setPanelCutoff] = useState(panelCutoffInfo);
-  // To Do: Move these to the DB/Django backend after more user feedback
 
   const submit = (e) => {
     e.preventDefault();
@@ -48,14 +46,14 @@ const EditBidSeasons = (props) => {
     startDateError || endDateError || panelCutOffError;
 
 
-  const getStepLetterOneErrorText = () => {
+  const getStartDateErrorText = () => {
     if (startDateError) {
-      return 'You must delete Step Letter 2 or add back a Step Letter 1 date before saving.';
+      return 'You must delete end date or add back a start date before saving.';
     }
     return null;
   };
 
-  const startDateErrorText = getStepLetterOneErrorText();
+  const startDateErrorText = getStartDateErrorText();
 
   const updateStartDate = (date) => {
     setStartDate(date);
@@ -173,11 +171,11 @@ const EditBidSeasons = (props) => {
                 />
               </span>
               {endDateFlag ?
-                <div className="step-letter-clear-icon">
+                <div className="date-clear-icon">
                   <FA name="times-circle fa-lg inactive" />
                 </div>
                 :
-                <div className="step-letter-clear-icon">
+                <div className="date-clear-icon">
                   <InteractiveElement
                     onClick={clearEndDate}
                   >
@@ -199,11 +197,11 @@ const EditBidSeasons = (props) => {
                 />
               </span>
               {panelCutOffFlag ?
-                <div className="step-letter-clear-icon">
+                <div className="date-clear-icon">
                   <FA name="times-circle fa-lg inactive" />
                 </div>
                 :
-                <div className="step-letter-clear-icon">
+                <div className="date-clear-icon">
                   <InteractiveElement
                     onClick={clearPanelCutOff}
                   >

@@ -144,7 +144,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Manage Bid Seasons',
-          route: '/profile/administrator/manage/',
+          route: '/profile/administrator/managebidseasons/',
           icon: 'hourglass-start',
           roles: [
             'superuser',
