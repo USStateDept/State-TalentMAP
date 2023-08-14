@@ -165,89 +165,88 @@ const ManageBidSeasons = (props) => {
   };
 
   return (
-    genericFiltersIsLoading ? <Spinner type="bid-season-filters" size="small" /> :
-      (
-        <div className="bid-seasons-page bid-seasons-search">
-          <div className="usa-grid-full bid-seasons-search--header">
-            <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
-            <div className="filterby-container" >
-              <div className="filterby-label">Filter by:</div>
-              <span className="filterby-clear">
-                {clearFilters &&
-                  <button className="unstyled-button" onClick={resetFilters}>
-                    <FA name="times" />
-                        Clear Filters
-                  </button>
-                }
-              </span>
-            </div>
-            <div className="usa-width-one-whole bid-seasons-search--filters">
-              <div className="filter-div">
-                <div className="bslabel">Season:</div>
-                <Picky
-                  {...pickyProps}
-                  placeholder="Type to filter seasons"
-                  options={seasonOptions}
-                  valueKey="code"
-                  labelKey="name"
-                  onChange={setSelectedStatus}
-                  value={selectedStatus}
-                />
-              </div>
-              <div className="filter-div">
-                <div className="bslabel">Season Date:</div>
-                <DateRangePicker
-                  onChange={setSelectedDates}
-                  value={selectedDates}
-                  maxDetail="month"
-                  calendarIcon={null}
-                  showLeadingZeros
-                />
-              </div>
-              <div className="filter-div">
-                <button>
-                    Search
+    genericFiltersIsLoading ?
+      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
+      <div className="bid-seasons-page position-search">
+        <div className="usa-grid-full position-search--header">
+          <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
+          <div className="filterby-container" >
+            <div className="filterby-label">Filter by:</div>
+            <span className="filterby-clear">
+              {clearFilters &&
+                <button className="unstyled-button" onClick={resetFilters}>
+                  <FA name="times" />
+                  Clear Filters
                 </button>
-              </div>
+              }
+            </span>
+          </div>
+          <div className="usa-width-one-whole position-search--filters--bs">
+            <div className="filter-div">
+              <div className="label">Season:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Type to filter seasons"
+                options={seasonOptions}
+                valueKey="code"
+                labelKey="name"
+                onChange={setSelectedStatus}
+                value={selectedStatus}
+              />
             </div>
-
+            <div className="filter-div">
+              <div className="label">Season Date:</div>
+              <DateRangePicker
+                onChange={setSelectedDates}
+                value={selectedDates}
+                maxDetail="month"
+                calendarIcon={null}
+                showLeadingZeros
+              />
+            </div>
+            <div className="filter-div">
+              <button>
+                Search
+              </button>
+            </div>
           </div>
 
-          {
-            getOverlay() ||
-            <>
-              <div className="usa-grid-full results-dropdown controls-container">
-                <div className="bs-results">
-                  <h2>Search for a Bid Season</h2>
-                  <p>Search for an existing bid season or add a new one.</p>
-                </div>
-                <div className="bs-results-dropdown bs-results">
-                  <Link
-                    onClick={(e) => openNewModal(e)}
-                    to="#"
-                  >
-                    <FA className="fa-solid fa-plus" />
-                    {' Add New Bid Season'}
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bs-lower-section">
-                {ManageBidSeasonsData?.results?.map(data =>
-                  <ManageBidSeasonCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
-                <div className="usa-grid-full react-paginate">
-                  <PaginationWrapper
-                    pageSize={5}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={ManageBidSeasonsData.count}
-                  />
-                </div>
-              </div>
-            </>
-          }
         </div>
-      )
+
+        {
+          getOverlay() ||
+          <>
+            <div className="usa-grid-full results-dropdown controls-container">
+              <div className="bs-results">
+                <h2>Search for a Bid Season</h2>
+                <p>Search for an existing bid season or add a new one.</p>
+              </div>
+              <div className="bs-results-dropdown bs-results">
+                <Link
+                  onClick={(e) => openNewModal(e)}
+                  to="#"
+                >
+                  <FA className="fa-solid fa-plus" />
+                  {' Add New Bid Season'}
+                </Link>
+              </div>
+            </div>
+
+            <div className="bs-lower-section">
+              {ManageBidSeasonsData?.results?.map(data =>
+                <ManageBidSeasonCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
+              <div className="usa-grid-full react-paginate">
+                <PaginationWrapper
+                  pageSize={5}
+                  onPageChange={p => setPage(p.page)}
+                  forcePage={page}
+                  totalResults={ManageBidSeasonsData.count}
+                />
+              </div>
+            </div>
+          </>
+        }
+      </div>
   );
 };
 

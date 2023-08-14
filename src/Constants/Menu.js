@@ -141,15 +141,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidcycle_admin',
         ],
       },
-      {
-        text: 'Manage Bid Seasons',
-        route: '/profile/administrator/manage/',
-        icon: 'hourglass-start',
-        roles: [
-          'superuser',
-          'bidcycle_admin',
-        ],
-      },
+      checkFlag('flags.bid_seasons') ?
+        {
+          text: 'Manage Bid Seasons',
+          route: '/profile/administrator/manage/',
+          icon: 'hourglass-start',
+          roles: [
+            'superuser',
+            'bidcycle_admin',
+          ],
+        } : null,
       {
         text: 'Glossary Editor',
         route: '/profile/glossaryeditor/',
