@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import CheckBox from 'Components/CheckBox';
-import InteractiveElement from 'Components/InteractiveElement';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
 
@@ -36,12 +35,9 @@ const EditBidSeasons = (props) => {
   const seasonError = season === '';
   const startDateFlag = startDate === null;
   const endDateFlag = endDate === null;
-  const panelCutOffFlag = panelCutoff === null;
   const startDateError = startDateFlag && !endDateFlag;
   const endDateError = !endDateFlag && startDate > endDate;
   const panelCutOffError = startDateError || endDateError;
-  const startDateClearIconInactive = startDateFlag ||
-    (!startDateFlag && !endDateFlag);
   const submitDisabled = seasonError ||
     startDateError || endDateError || panelCutOffError;
 
@@ -54,7 +50,16 @@ const EditBidSeasons = (props) => {
     return null;
   };
 
+  const getEndDateErrorText = () => {
+    if (endDateError) {
+      return 'An Start Date has not been provided or is before End Date.';
+    }
+
+    return null;
+  };
+
   const startDateErrorText = getStartDateErrorText();
+  const endDateErrorText = getEndDateErrorText();
 
   const updateStartDate = (date) => {
     setStartDate(date);
@@ -68,18 +73,6 @@ const EditBidSeasons = (props) => {
     setPanelCutoff(date);
   };
 
-  const clearStartDate = () => {
-    setStartDate(null);
-  };
-
-  const clearEndDate = () => {
-    setEndDate(null);
-  };
-
-  const clearPanelCutOff = () => {
-    setPanelCutoff(null);
-  };
-
   const seasonOptions = [
     { value: 'Fall', label: 'Fall' },
     { value: 'Winter', label: 'Winter' },
@@ -88,6 +81,10 @@ const EditBidSeasons = (props) => {
     { value: 'None listed', label: 'None listed' },
   ];
 
+  const datePickerRef = useRef(null);
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  };
   return (
     <div>
       <form className="bid-seasons-form">
@@ -135,80 +132,48 @@ const EditBidSeasons = (props) => {
             <div>
               <dt>Start Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openDatePicker()} />
+                <FA name="times" className={`${startDate ? '' : 'hide'} fa-close`} onClick={() => setStartDate(null)} />
                 <DatePicker
                   selected={startDate}
                   onChange={updateStartDate}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_begin_date)}
+                  placeholderText={id === '' ? 'Select a start date' : formatDate(seasonInfo?.bid_seasons_begin_date)}
                   className={startDateError ? 'select-error' : ''}
                 />
                 {!!startDateErrorText && <span className="usa-input-error-message" role="alert">{startDateErrorText}</span>}
               </span>
-              {startDateClearIconInactive &&
-              <div className="bs-clear-icon">
-                <FA name="times-circle fa-lg inactive" />
-              </div>
-              }
-              {!startDateFlag && endDateFlag &&
-              <div className="bs-clear-icon">
-                <InteractiveElement
-                  onClick={clearStartDate}
-                >
-                  <FA name="times-circle fa-lg active" />
-                </InteractiveElement>
-              </div>
-              }
             </div>
             <div>
               <dt>End Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openDatePicker()} />
+                <FA name="times" className={`${endDate ? '' : 'hide'} fa-close`} onClick={() => setEndDate(null)} />
                 <DatePicker
                   selected={endDate}
                   onChange={updateEndDate}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_end_date)}
+                  placeholderText={id === '' ? 'Select a end date' : formatDate(seasonInfo?.bid_seasons_end_date)}
                   className={endDateError ? 'select-error' : ''}
                   minDate={startDate}
+                  ref={datePickerRef}
                 />
+                {!!endDateErrorText && <span className="usa-input-error-message" role="alert">{endDateErrorText}</span>}
               </span>
-              {endDateFlag ?
-                <div className="date-clear-icon">
-                  <FA name="times-circle fa-lg inactive" />
-                </div>
-                :
-                <div className="date-clear-icon">
-                  <InteractiveElement
-                    onClick={clearEndDate}
-                  >
-                    <FA name="times-circle fa-lg active" />
-                  </InteractiveElement>
-                </div>
-              }
             </div>
             <div>
               <dt>Panel Cutoff Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openDatePicker()} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
                 <DatePicker
                   selected={panelCutoff}
                   onChange={updatePanelCutOff}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
                   minDate={panelCutoff}
                 />
               </span>
-              {panelCutOffFlag ?
-                <div className="date-clear-icon">
-                  <FA name="times-circle fa-lg inactive" />
-                </div>
-                :
-                <div className="date-clear-icon">
-                  <InteractiveElement
-                    onClick={clearPanelCutOff}
-                  >
-                    <FA name="times-circle fa-lg active" />
-                  </InteractiveElement>
-                </div>
-              }
             </div>
             <div>
               <span className="date-picker-validation-container larger-date-picker">

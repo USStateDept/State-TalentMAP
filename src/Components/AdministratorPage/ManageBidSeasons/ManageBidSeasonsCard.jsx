@@ -90,6 +90,7 @@ const ManageBidSeasonsCard = (props) => {
                   bid_seasons_name,
                   bid_seasons_category,
                   bid_seasons_future_vacancy,
+                  bid_seasons_panel_cutoff,
                   description,
                 }, false);
               }
