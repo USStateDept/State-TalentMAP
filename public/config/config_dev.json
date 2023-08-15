@@ -15,6 +15,7 @@
     "handshake_bidding": true,
     "maintain_assignment": true,
     "panel_admin": true,
+    "bid_seasons": true,
     "panel_admin_panel_meeting": true,
     "panel_admin_post_panel": true,
     "panel_admin_remarks": true,
