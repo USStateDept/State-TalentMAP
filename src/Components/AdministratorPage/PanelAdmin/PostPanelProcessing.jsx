@@ -48,7 +48,7 @@ const PostPanelProcessing = (props) => {
   const [postPanelStarted, setPostPanelStarted] = useState();
   const [postPanelRuntime, setPostPanelRuntime] = useState();
   const [agendaCompletedTime, setAgendaCompletedTime] = useState();
-  const [formData, setFormData] = useState();
+  const [formData, setFormData] = useState(postPanelResults);
 
   useEffect(() => {
     if (!!Object.keys(panelMeetingsResults).length && !panelMeetingsIsLoading) {
@@ -134,6 +134,9 @@ const PostPanelProcessing = (props) => {
     (postPanelStatusesResults && !postPanelStatusesResults.length) ||
     (formData && !formData.length)
   );
+
+  console.log(postPanelStatusesResults);
+  console.log(formData);
 
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
@@ -286,10 +289,8 @@ const PostPanelProcessing = (props) => {
 };
 
 PostPanelProcessing.propTypes = {
-  pmSeqNum: PropTypes.number,
-  panelMeetingsResults: PropTypes.arrayOf(
-    PropTypes.shape(),
-  ),
+  pmSeqNum: PropTypes.string,
+  panelMeetingsResults: PropTypes.shape(),
   panelMeetingsIsLoading: PropTypes.bool,
 };
 
@@ -297,7 +298,7 @@ PostPanelProcessing.defaultProps = {
   match: {},
   pmSeqNum: undefined,
   panelMeetingsResults: undefined,
-  panelMeetingsIsLoading: undefined,
+  panelMeetingsIsLoading: false,
 };
 
 export default withRouter(PostPanelProcessing);

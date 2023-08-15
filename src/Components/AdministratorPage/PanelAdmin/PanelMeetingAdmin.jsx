@@ -333,10 +333,8 @@ const PanelMeetingAdmin = (props) => {
 
 PanelMeetingAdmin.propTypes = {
   history: HISTORY_OBJECT.isRequired,
-  pmSeqNum: PropTypes.number,
-  panelMeetingsResults: PropTypes.arrayOf(
-    PropTypes.shape(),
-  ),
+  pmSeqNum: PropTypes.string,
+  panelMeetingsResults: PropTypes.shape(),
   panelMeetingsIsLoading: PropTypes.bool,
 };
 
@@ -344,7 +342,7 @@ PanelMeetingAdmin.defaultProps = {
   match: {},
   pmSeqNum: undefined,
   panelMeetingsResults: undefined,
-  panelMeetingsIsLoading: undefined,
+  panelMeetingsIsLoading: false,
 };
 
 export default withRouter(PanelMeetingAdmin);
