@@ -107,10 +107,10 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   // Hardcoded - find where to get this data
   const fakeIncumbents = [
-    { code: 'JH', name: 'Holden, James' },
-    { code: 'NN', name: 'Nagata, Naomi' },
-    { code: 'AB', name: 'Burton, Amos' },
-    { code: 'AK', name: 'Kamal, Alex' },
+    { code: 'CURR', name: 'Holden, James' },
+    { code: 'TBD', name: 'TBD' },
+    { code: 'VAC', name: 'Vacant' },
+    { code: 'NEW', name: 'New' },
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
 
@@ -144,7 +144,7 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
             <label htmlFor="cycle-position-incumbent">Incumbent</label>
             <select
               id="cycle-position-incumbent"
-              defaultValue={status}
+              defaultValue={incumbent}
               onChange={(e) => setIncumbent(e?.target.value)}
             >
               {fakeIncumbents.map(s => (
