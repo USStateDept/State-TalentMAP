@@ -1,0 +1,52 @@
+.custom-table {
+    width: 100%;
+    border-collapse: collapse; /* Collapse borders */
+    border-spacing: 0;
+    th {
+      border: none;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 8px; /* Add padding to cells for better readability */
+    }
+    tr {
+      height: 50px;
+    }
+    tbody {
+      td {
+        border: none;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        padding: 8px;
+      }
+    }
+    .checkbox-pac {
+        min-width: 30px;
+      }
+      .checkbox-pos {
+        >div{
+          >label {
+            margin-top: 0;
+          }
+        }
+      }
+}
+
+.post-access-emp-search-div {
+  input {
+    border-radius: 0px;
+    height: 28px;
+    max-width: none;
+    width: 240px;
+    border-right: 1px solid $color-gray-lighter;
+    font-size: 1.3rem;
+  }
+  .searchbar {
+    .text-input-wrapper {
+      > span {
+        font-size: 15px;
+        left: 210px;
+        top: 5px;
+      }
+    }
+  }
+}

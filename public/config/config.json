@@ -25,6 +25,7 @@
     "projected_vacancy": true,
     "publishable_positions": true,
     "register_checklist": true,
+    "search_post_access": true,
     "settings": true,
     "unassigned_filters": true
   }
