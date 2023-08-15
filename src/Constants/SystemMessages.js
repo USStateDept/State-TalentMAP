@@ -212,3 +212,9 @@ export const EDIT_BID_SEASON_SUCCESS_TITLE = 'Bid Season Position Updated';
 export const EDIT_BID_SEASON_SUCCESS = 'The Bid Season Position has been updated';
 export const EDIT_BID_SEASON_ERROR_TITLE = 'Bid Season Position Edit Error';
 export const EDIT_BID_SEASON_ERROR = 'There was an issue attempting to update this Bid Season Position. Please try again.';
+
+export const SEARCH_POST_ACCESS_REMOVE_SUCCESS_TITLE = 'Access Removed for Post(s)';
+export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) successfully';
+export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
+export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
+
