@@ -8,7 +8,6 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { isDate, startOfDay } from 'date-fns-v2';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import TotalResults from 'Components/TotalResults';
 import Alert from 'Components/Alert';
@@ -17,7 +16,7 @@ import SelectForm from 'Components/SelectForm';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
-import { userHasPermissions } from 'utilities';
+import { nameSort, renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
 
 const CycleManagement = (props) => {
@@ -121,29 +120,13 @@ const CycleManagement = (props) => {
   const genericFilters$ = genericFilters?.filters || [];
   const bidCycle = genericFilters$.find(f => f?.item?.description === 'bidCycle');
   const bidCycleOptions = bidCycle?.data?.length
-    ? [...new Set(bidCycle.data)].sort(b => b.name) : [];
+    ? nameSort([...new Set(bidCycle.data)], 'name') : [];
 
   const resetFilters = () => {
     setSelectedCycles([]);
     setSelectedStatus([]);
     setSelectedDates(null);
     setClearFilters(false);
-  };
-
-  const renderSelectionList = ({ items, selected, ...rest }) => {
-    let queryProp = 'description';
-    if (items?.[0]?.custom_description) queryProp = 'custom_description';
-    else if (items?.[0]?.long_description) queryProp = 'long_description';
-    else if (items?.[0]?.name) queryProp = 'name';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
   };
 
   // Overlay for error, info, and loading state

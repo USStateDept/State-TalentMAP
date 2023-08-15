@@ -218,6 +218,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
+      checkFlag('flags.search_post_access') ?
+        {
+          text: 'Search Post Access',
+          route: '/profile/bureau/searchpostaccess',
+          icon: ' fa-search-minus',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
     ],
   },
   {
