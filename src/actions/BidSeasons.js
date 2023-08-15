@@ -1,14 +1,14 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
 import {
+  ADD_BID_SEASON_ERROR,
+  ADD_BID_SEASON_ERROR_TITLE,
+  ADD_BID_SEASON_SUCCESS,
+  ADD_BID_SEASON_SUCCESS_TITLE,
   EDIT_BID_SEASON_ERROR,
   EDIT_BID_SEASON_ERROR_TITLE,
   EDIT_BID_SEASON_SUCCESS,
   EDIT_BID_SEASON_SUCCESS_TITLE,
-  REMOVE_BID_SEASON_ERROR,
-  REMOVE_BID_SEASON_ERROR_TITLE,
-  REMOVE_BID_SEASON_SUCCESS,
-  REMOVE_BID_SEASON_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
@@ -264,8 +264,8 @@ export function bidSeasonsPositionRemove(position) {
           dispatch(bidSeasonsPositionRemoveHasErrored(false));
           dispatch(bidSeasonsPositionRemoveSuccess(data || []));
           dispatch(
-            toastSuccess(REMOVE_BID_SEASON_SUCCESS,
-              REMOVE_BID_SEASON_SUCCESS_TITLE));
+            toastSuccess(ADD_BID_SEASON_SUCCESS,
+              ADD_BID_SEASON_SUCCESS_TITLE));
           dispatch(bidSeasonsPositionRemoveIsLoading(false));
         });
       })
@@ -274,8 +274,8 @@ export function bidSeasonsPositionRemove(position) {
           dispatch(bidSeasonsPositionRemoveHasErrored(false));
           dispatch(bidSeasonsPositionRemoveIsLoading(false));
         } else {
-          dispatch(toastError(REMOVE_BID_SEASON_ERROR,
-            REMOVE_BID_SEASON_ERROR_TITLE));
+          dispatch(toastError(ADD_BID_SEASON_ERROR,
+            ADD_BID_SEASON_ERROR_TITLE));
           dispatch(bidSeasonsPositionRemoveHasErrored(true));
           dispatch(bidSeasonsPositionRemoveIsLoading(false));
         }

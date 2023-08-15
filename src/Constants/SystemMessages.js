@@ -203,15 +203,15 @@ export const EDIT_CYCLE_POSITION_SUCCESS = 'The Cycle Position has been updated'
 export const EDIT_CYCLE_POSITION_ERROR_TITLE = 'Cycle Position Edit Error';
 export const EDIT_CYCLE_POSITION_ERROR = 'There was an issue attempting to update this Cycle Position. Please try again.';
 
-export const REMOVE_BID_SEASON_SUCCESS_TITLE = 'Bid Season Position Removed';
-export const REMOVE_BID_SEASON_SUCCESS = 'Bid Season Position has been removed.';
-export const REMOVE_BID_SEASON_ERROR_TITLE = 'Bid Season Position Delete Error';
-export const REMOVE_BID_SEASON_ERROR = 'There was an issue attempting to remove this Bid Season Position. Please try again.';
+export const ADD_BID_SEASON_SUCCESS_TITLE = 'Bid Season Added';
+export const ADD_BID_SEASON_SUCCESS = 'Bid Season has been added.';
+export const ADD_BID_SEASON_ERROR_TITLE = 'Bid Season Add Error';
+export const ADD_BID_SEASON_ERROR = 'There was an issue attempting to add this Bid Season. Please try again.';
 
-export const EDIT_BID_SEASON_SUCCESS_TITLE = 'Bid Season Position Updated';
-export const EDIT_BID_SEASON_SUCCESS = 'The Bid Season Position has been updated';
-export const EDIT_BID_SEASON_ERROR_TITLE = 'Bid Season Position Edit Error';
-export const EDIT_BID_SEASON_ERROR = 'There was an issue attempting to update this Bid Season Position. Please try again.';
+export const EDIT_BID_SEASON_SUCCESS_TITLE = 'Bid Season Updated';
+export const EDIT_BID_SEASON_SUCCESS = 'The Bid Season has been updated';
+export const EDIT_BID_SEASON_ERROR_TITLE = 'Bid Season Edit Error';
+export const EDIT_BID_SEASON_ERROR = 'There was an issue attempting to update this Bid Season. Please try again.';
 
 export const SEARCH_POST_ACCESS_REMOVE_SUCCESS_TITLE = 'Access Removed for Post(s)';
 export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) successfully';
