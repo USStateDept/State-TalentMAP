@@ -1,73 +1,60 @@
+import { batch } from 'react-redux';
+import { CancelToken } from 'axios';
 import {
   MANAGE_POST_ACCESS_ADD_ERROR,
   MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
   MANAGE_POST_ACCESS_ADD_SUCCESS,
   MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
-import { batch } from 'react-redux';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
 const dummyData = [
-  { id: 1, name: 'Row 1', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 2, name: 'Row 2', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 3, name: 'Row 3', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 4, name: 'Row 4', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 5, name: 'Row 5', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 6, name: 'Row 6', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
-  { id: 7, name: 'Row 7', description: 'FSBid Organization Bidders', value: 'Frank Jones', date: '00000005 (Trade Negot)', isChecked: false },
+  { id: 1, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 2, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 3, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 4, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 5, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 6, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 7, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 11, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 21, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 31, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 41, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 51, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 61, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 71, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 12, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 22, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 32, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 42, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 52, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 62, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 72, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 13, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 23, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 33, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 43, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 53, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 63, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 73, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 14, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 24, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 34, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 44, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 54, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 64, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
+  { id: 74, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
 ];
-
-const dummyCountries = [
-  { code: 1, name: 'Bahamas' },
-  { code: 2, name: 'Andorra' },
-  { code: 3, name: 'Vanuatu' },
-  { code: 4, name: 'Malawi' },
-  { code: 5, name: 'Equatorial Guinea' },
-  { code: 6, name: 'Sierra Leone' },
-  { code: 7, name: 'Mozambique' },
-  { code: 8, name: 'France' },
-  { code: 9, name: 'Sudan' },
-  { code: 10, name: 'Iran' },
-  { code: 11, name: 'Malta' },
-  { code: 12, name: 'Papua New Guinea' },
-  { code: 13, name: 'Congo' },
-  { code: 14, name: 'Nauru' },
-  { code: 15, name: 'Guatemala' },
-  { code: 16, name: 'Wallis and Futuna' },
-  { code: 17, name: 'Madagascar' },
-  { code: 18, name: 'Virgin Islands' },
-  { code: 19, name: 'Saint Pierre and Miquelon' },
-  { code: 20, name: 'Tajikistan' },
-  { code: 21, name: 'Trinidad and Tobago' },
-  { code: 22, name: 'Iceland' },
-  { code: 23, name: 'Italy' },
-  { code: 24, name: 'Panama' },
-  { code: 25, name: 'Lithuania' },
-];
-
-const dummyPeople = [
-  { code: 1, name: 'John Smith' },
-  { code: 2, name: 'Emily Johnson' },
-  { code: 3, name: 'Michael Williams' },
-  { code: 4, name: 'Emma Jones' },
-  { code: 5, name: 'William Brown' },
-  { code: 6, name: 'Olivia Davis' },
-  { code: 7, name: 'James Miller' },
-  { code: 8, name: 'Sophia Wilson' },
-  { code: 9, name: 'Benjamin Taylor' },
-  { code: 10, name: 'Ava Martinez' },
-  { code: 11, name: 'Alexander Anderson' },
-  { code: 12, name: 'Isabella Garcia' },
-  { code: 13, name: 'Daniel Rodriguez' },
-  { code: 14, name: 'Mia Martinez' },
-  { code: 15, name: 'David Davis' },
-  { code: 16, name: 'Charlotte Johnson' },
-  { code: 17, name: 'Joseph Smith' },
-  { code: 18, name: 'Sophia Wilson' },
-  { code: 19, name: 'Matthew Anderson' },
-  { code: 20, name: 'Olivia Taylor' },
-];
+const dummyDataToReturn = (query) => new Promise((resolve) => {
+  const { limit } = query;
+  resolve({
+    results: dummyData.slice(0, limit),
+    count: dummyData.length,
+    next: null,
+    previous: null,
+  });
+});
 
 export function managePostEditErrored(bool) {
   return {
@@ -87,46 +74,42 @@ export function managePostEditSuccess(results) {
     results,
   };
 }
-export function managePostEdit(id, data) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(managePostEditLoading(true));
-      dispatch(managePostEditErrored(false));
-    });
 
-    api().patch(`ao/${id}/managePost/`, data)
-      .then(() => {
-        const toastTitle = MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE;
-        const toastMessage = MANAGE_POST_ACCESS_ADD_SUCCESS;
+let cancel;
+export function managePostEdit(positions) {
+  return (dispatch) => {
+    if (cancel) { cancel('cancel'); }
+    dispatch(managePostEditLoading(true));
+    dispatch(managePostEditErrored(false));
+    api()
+      .post('/placeholder/POST/endpoint', {
+        positions,
+      }, {
+        cancelToken: new CancelToken((c) => {
+          cancel = c;
+        }),
+      })
+      .then(({ data }) => {
         batch(() => {
           dispatch(managePostEditErrored(false));
-          dispatch(managePostEditSuccess(true));
-          dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(managePostEditSuccess());
+          dispatch(managePostEditSuccess(data || []));
+          dispatch(
+            toastSuccess(
+              MANAGE_POST_ACCESS_ADD_SUCCESS, MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE,
+            ));
           dispatch(managePostEditLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(managePostEditLoading(true));
-            dispatch(managePostEditErrored(false));
-          });
+          dispatch(managePostEditErrored(false));
+          dispatch(managePostEditLoading(false));
         } else {
-          const randInt = Math.floor(Math.random() * 2);
-          if (randInt) {
-            const toastTitle = MANAGE_POST_ACCESS_ADD_ERROR_TITLE;
-            const toastMessage = MANAGE_POST_ACCESS_ADD_ERROR;
-            dispatch(toastError(toastMessage, toastTitle));
-          } else {
-            const toastTitle = MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE;
-            const toastMessage = MANAGE_POST_ACCESS_ADD_SUCCESS;
-            dispatch(toastSuccess(toastMessage, toastTitle));
-          }
-          batch(() => {
-            dispatch(managePostEditErrored(true));
-            dispatch(managePostEditLoading(false));
-          });
+          dispatch(toastError(
+            MANAGE_POST_ACCESS_ADD_ERROR, MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
+          ));
+          dispatch(managePostEditErrored(true));
+          dispatch(managePostEditLoading(false));
         }
       });
   };
@@ -154,16 +137,40 @@ export function managePostFetchDataSuccess(results) {
   };
 }
 
-export function managePostFetchData() {
+export function managePostFetchData(query = {}) {
   return (dispatch) => {
     batch(() => {
-      dispatch(managePostFetchDataSuccess({ dummyData, dummyPeople, dummyCountries }));
+      dispatch(managePostFetchDataLoading(true));
       dispatch(managePostFetchDataErrored(false));
-      dispatch(managePostFetchDataLoading(false));
     });
+    // const q = convertQueryToString(query);
+    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
+    // api().get(endpoint)
+    dispatch(managePostFetchDataLoading(true));
+    dummyDataToReturn(query)
+      .then((data) => {
+        batch(() => {
+          dispatch(managePostFetchDataSuccess(data));
+          dispatch(managePostFetchDataErrored(false));
+          dispatch(managePostFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(managePostFetchDataLoading(true));
+            dispatch(managePostFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(managePostFetchDataSuccess(dummyDataToReturn));
+            dispatch(managePostFetchDataErrored(false));
+            dispatch(managePostFetchDataLoading(false));
+          });
+        }
+      });
   };
 }
-
 
 export function managePostSelectionsSaveSuccess(result) {
   return {
