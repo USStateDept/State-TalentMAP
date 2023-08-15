@@ -2,7 +2,7 @@
   .controls-container {
     display: flex;
     justify-content: flex-end;
-    margin-right: 15px;
+    margin-right: 45px;
   }
   .position-search--filters--bs {
     .react-daterange-picker__clear-button {
@@ -43,6 +43,7 @@
   }
 }
 .bs-lower-section {
+  padding: 0 35px 20px;
   min-width: 1000px;
 }
 
