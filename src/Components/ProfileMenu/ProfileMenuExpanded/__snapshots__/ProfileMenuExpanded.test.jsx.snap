@@ -274,6 +274,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         search=""
         title="Publishable Positions"
       />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-search-minus"
+        key="Search Post Access"
+        link="/profile/bureau/searchpostaccess"
+        search=""
+        title="Search Post Access"
+      />
     </withRouter(NavLink)>
     <withRouter(NavLink)
       expandedSection={
@@ -630,6 +638,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/publishablepositions"
         search=""
         title="Publishable Positions"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-search-minus"
+        key="Search Post Access"
+        link="/profile/bureau/searchpostaccess"
+        search=""
+        title="Search Post Access"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
