@@ -110,7 +110,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   }, [editMode]);
 
   const onSubmitForm = () => {
-    console.log('submit');
+    editMode(false);
   };
 
   const onCancelForm = () => {
@@ -118,7 +118,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
     // re-reading from "pos" when we open Edit Form back up
     // clear will need to set states back to the pull
     // from "pos" once we've determined the ref data structure
-    console.log('cancel');
+    editMode(false);
   };
 
   const form = {
