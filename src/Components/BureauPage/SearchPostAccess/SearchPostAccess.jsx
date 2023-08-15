@@ -218,17 +218,15 @@ const SearchPostAccess = () => {
 
 
   return (
-    genericFiltersIsLoading ? <Spinner type="bureau-filters" size="small" /> :
-      (
-        <div className="position-search">
-          <div className="usa-grid-full position-search--header">
-            <ProfileSectionTitle title="Search Post Access" icon="search-minus" className="xl-icon" />
-            <div className="results-search-bar pt-20">
+    <div className="position-search">
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Search Post Access" icon="search-minus" className="xl-icon" />
+        <div className="results-search-bar pt-20">
 
-              <div className="filterby-container">
-                <div className="filterby-label">Filter by:</div>
-                <div className="filterby-clear">
-                  {clearFilters &&
+          <div className="filterby-container">
+            <div className="filterby-label">Filter by:</div>
+            <div className="filterby-clear">
+              {clearFilters &&
                     <button
                       className="unstyled-button"
                       onClick={resetFilters}
@@ -236,103 +234,103 @@ const SearchPostAccess = () => {
                       <FA name="times" />
                       Clear Filters
                     </button>
-                  }
-                </div>
-              </div>
-
-              <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
-                <div className="filter-div">
-                  <div className="label">
-                    Last Name:
-                  </div>
-                  <div className="post-access-emp-search-div">
-                    <PositionManagerSearch
-                      id="last-name-search"
-                      submitSearch={submitSearch}
-                      onChange={setSearchInputLastName}
-                      ref={searchLastNameRef}
-                      placeHolder="Search by Last Name"
-                      textSearch={searchTextLastName}
-                      noButton
-                      showIcon={false}
-                    />
-                  </div>
-                </div>
-                <div className="filter-div">
-                  <div htmlFor="first-name-search" className="label">
-                    First Name:
-                  </div>
-                  <div className="post-access-emp-search-div">
-                    <PositionManagerSearch
-                      id="first-name-search"
-                      submitSearch={submitSearch}
-                      onChange={setSearchInputFirstName}
-                      ref={searchFirstNameRef}
-                      placeHolder="Search by First Name"
-                      textSearch={searchTextFirstName}
-                      noButton
-                      showIcon={false}
-                    />
-                  </div>
-                </div>
-                <div className="filter-div">
-                  <div className="label">Bureau:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Bureau(s)"
-                    value={selectedBureaus}
-                    options={bureausOptions}
-                    onChange={setSelectedBureaus}
-                    valueKey="code"
-                    labelKey="long_description"
-                    disabled={genericFiltersIsLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Location:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Location(s)"
-                    value={selectedPosts}
-                    options={postOptions}
-                    onChange={setSelectedPosts}
-                    valueKey="code"
-                    labelKey="custom_description"
-                    disabled={genericFiltersIsLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Organization:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Organization(s)"
-                    value={selectedOrgs}
-                    options={organizationOptions}
-                    onChange={setSelectedOrgs}
-                    valueKey="code"
-                    labelKey="name"
-                    disabled={orgsLoading}
-                  />
-                </div>
-                <div className="filter-div">
-                  <div className="label">Role:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Role(s)"
-                    value={selectedRoles}
-                    options={roleOptions}
-                    onChange={setSelectedRoles}
-                    valueKey="code"
-                    labelKey="name"
-                  />
-                </div>
-              </div>
+              }
             </div>
           </div>
 
+          <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
+            <div className="filter-div">
+              <div className="label">
+                    Last Name:
+              </div>
+              <div className="post-access-emp-search-div">
+                <PositionManagerSearch
+                  id="last-name-search"
+                  submitSearch={submitSearch}
+                  onChange={setSearchInputLastName}
+                  ref={searchLastNameRef}
+                  placeHolder="Search by Last Name"
+                  textSearch={searchTextLastName}
+                  noButton
+                  showIcon={false}
+                />
+              </div>
+            </div>
+            <div className="filter-div">
+              <div htmlFor="first-name-search" className="label">
+                    First Name:
+              </div>
+              <div className="post-access-emp-search-div">
+                <PositionManagerSearch
+                  id="first-name-search"
+                  submitSearch={submitSearch}
+                  onChange={setSearchInputFirstName}
+                  ref={searchFirstNameRef}
+                  placeHolder="Search by First Name"
+                  textSearch={searchTextFirstName}
+                  noButton
+                  showIcon={false}
+                />
+              </div>
+            </div>
+            <div className="filter-div">
+              <div className="label">Bureau:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Bureau(s)"
+                value={selectedBureaus}
+                options={bureausOptions}
+                onChange={setSelectedBureaus}
+                valueKey="code"
+                labelKey="long_description"
+                disabled={genericFiltersIsLoading}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Location:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Location(s)"
+                value={selectedPosts}
+                options={postOptions}
+                onChange={setSelectedPosts}
+                valueKey="code"
+                labelKey="custom_description"
+                disabled={genericFiltersIsLoading}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Organization:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Organization(s)"
+                value={selectedOrgs}
+                options={organizationOptions}
+                onChange={setSelectedOrgs}
+                valueKey="code"
+                labelKey="name"
+                disabled={orgsLoading}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Role:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Role(s)"
+                value={selectedRoles}
+                options={roleOptions}
+                onChange={setSelectedRoles}
+                valueKey="code"
+                labelKey="name"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
-          {
-            getOverlay() ||
+
+      {
+        getOverlay() ||
               <>
                 <div className="usa-width-one-whole results-dropdown controls-container">
                   <TotalResults
@@ -410,9 +408,9 @@ const SearchPostAccess = () => {
                   />
                 </div>
               </>
-          }
+      }
 
-          { checkedPostIds.length > 0 &&
+      { checkedPostIds.length > 0 &&
             <div className="proposed-cycle-banner">
               {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
               {
@@ -420,10 +418,9 @@ const SearchPostAccess = () => {
                 <button className="usa-button-secondary" onClick={submitRemoveAccess}>Grant Access</button>
               }
             </div>
-          }
+      }
 
-        </div>
-      )
+    </div>
   );
 };
 
