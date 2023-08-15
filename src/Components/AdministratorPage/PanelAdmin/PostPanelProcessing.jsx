@@ -135,9 +135,6 @@ const PostPanelProcessing = (props) => {
     (formData && !formData.length)
   );
 
-  console.log(postPanelStatusesResults);
-  console.log(formData);
-
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
