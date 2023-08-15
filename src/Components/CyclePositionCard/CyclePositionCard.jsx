@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
@@ -22,10 +22,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const dispatch = useDispatch();
   const pos = data?.position || data;
   const showDeto = useDeto();
-
-  const onEditModeCard = (editMode) => {
-    onEditModeSearch(editMode, pos?.id);
-  };
 
   const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
@@ -118,6 +114,12 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
 
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
+    // TODO: during integration, replace 7 with unique card identifier
+    onEditModeSearch(editMode, pos?.id);
+  }, [editMode]);
+
   const form = {
     /* eslint-disable quote-props */
     staticBody: {
@@ -175,6 +177,10 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
         </div>
       </div>,
     handleSubmit: () => dispatch(cyclePositionEdit(data, incumbent, status)),
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
     /* eslint-enable quote-props */
   };
 
@@ -186,7 +192,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
         content: <PositionExpandableContent
           sections={sections}
           form={form}
-          onEditMode={onEditModeCard}
         />,
       }]}
     />
