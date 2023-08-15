@@ -1,4 +1,9 @@
 .bid-seasons-page {
+  .controls-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 15px;
+  }
   .position-search--filters--bs {
     .react-daterange-picker__clear-button {
       padding: 2px 4px;
