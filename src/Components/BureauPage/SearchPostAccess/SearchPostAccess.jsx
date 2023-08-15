@@ -38,7 +38,7 @@ const SearchPostAccess = () => {
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPosts || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedRole || []);
+  const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedRoles || []);
   const [searchTextLastName, setSearchTextLastName] = useState(userSelections?.searchTextLastName || '');
   const [searchTextFirstName, setSearchTextFirstName] = useState(userSelections?.searchTextFirstName || '');
   const [searchInputLastName, setSearchInputLastName] = useState(userSelections?.searchInputLastName || '');
@@ -103,8 +103,8 @@ const SearchPostAccess = () => {
 
   // Initial Render
   useEffect(() => {
-    dispatch(filtersFetchData(genericFilters));
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
+    dispatch(filtersFetchData(genericFilters));
   }, []);
 
   // Re-Render on Filter Selections
