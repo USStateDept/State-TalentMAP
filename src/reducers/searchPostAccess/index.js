@@ -5,6 +5,7 @@ import {
   searchPostAccessRemoveHasErrored,
   searchPostAccessRemoveIsLoading,
   searchPostAccessRemoveSuccess,
+  searchPostAccessSelections,
 } from './searchPostAccess';
 
 export default {
@@ -14,4 +15,5 @@ export default {
   searchPostAccessRemoveIsLoading,
   searchPostAccessRemoveHasErrored,
   searchPostAccessRemoveSuccess,
+  searchPostAccessSelections,
 };
