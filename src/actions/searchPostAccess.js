@@ -102,7 +102,7 @@ export function searchPostAccessFetchData(query = {}) {
 
 export function searchPostAccessSelectionsSaveSuccess(result) {
   return {
-    type: 'CYCLE_MANAGEMENT_SELECTIONS_SAVE_SUCCESS',
+    type: 'SEARCH_POST_ACCESS_SELECTIONS_SAVE_SUCCESS',
     result,
   };
 }
