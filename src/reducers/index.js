@@ -70,6 +70,7 @@ import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
 import cycleManagement from './cycleManagement';
 import bidSeasons from './bidSeasons';
+import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
 
 export default (history) => combineReducers({
@@ -138,6 +139,7 @@ export default (history) => combineReducers({
   ...projectedVacancy,
   ...cycleManagement,
   ...bidSeasons,
+  ...managePostAccess,
   ...searchPostAccess,
   router: connectRouter(history),
   client,

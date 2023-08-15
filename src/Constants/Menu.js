@@ -207,6 +207,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
+      {
+        text: 'Manage Post Access',
+        route: '/profile/bureau/managepostaccess',
+        icon: 'building',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
