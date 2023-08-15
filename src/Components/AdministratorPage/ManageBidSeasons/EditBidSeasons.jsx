@@ -48,8 +48,9 @@ const EditBidSeasons = (props) => {
 
   const getStartDateErrorText = () => {
     if (startDateError) {
-      return 'You must delete end date or add back a start date before saving.';
+      return 'A Start Date has not been provided, please add a Start Date.';
     }
+
     return null;
   };
 
