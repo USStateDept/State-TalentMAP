@@ -26,7 +26,6 @@ const SearchPostAccess = () => {
 
   // State
   const userSelections = useSelector(state => state.searchPostAccessSelections);
-  console.log(userSelections);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
   const searchPostAccessData = useSelector(state => state.searchPostAccess);
