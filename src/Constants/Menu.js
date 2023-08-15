@@ -141,16 +141,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'bidcycle_admin',
         ],
       },
-      checkFlag('flags.bid_seasons') ?
-        {
-          text: 'Bid Season Management',
-          route: '/profile/administrator/managebidseasons/',
-          icon: 'calendar',
-          roles: [
-            'superuser',
-            'bidcycle_admin',
-          ],
-        } : null,
       {
         text: 'Glossary Editor',
         route: '/profile/glossaryeditor/',
@@ -159,6 +149,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bid_seasons') ?
+        {
+          text: 'Bid Season Management',
+          route: '/profile/administrator/managebidseasons/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',

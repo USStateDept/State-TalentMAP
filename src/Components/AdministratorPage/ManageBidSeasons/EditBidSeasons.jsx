@@ -192,7 +192,6 @@ const EditBidSeasons = (props) => {
                   onChange={updatePanelCutOff}
                   dateFormat={DATE_FORMAT}
                   placeholderText={id === '' ? 'MM/DD/YYYY' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
-                  className={panelCutOffError ? 'select-error' : ''}
                   minDate={panelCutoff}
                 />
               </span>
