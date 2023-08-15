@@ -26,7 +26,7 @@ const PanelAdmin = (props) => {
   const usePanelAdminRemarks = () => checkFlag('flags.panel_admin_remarks');
   const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
   const usePaneAdminPostPanel = () => checkFlag('flags.panel_admin_post_panel');
-  
+
   const editEnabled = false;
 
   const dispatch = useDispatch();
