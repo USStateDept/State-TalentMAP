@@ -368,7 +368,7 @@ const AgendaLeg = props => {
     },
     {
       title: 'Pay Plan',
-      content: (<div>{get(leg, 'pay_plan') || defaultSepText || DEFAULT_TEXT}</div>),
+      content: (<div>{get(leg, 'pay_plan') || DEFAULT_TEXT}</div>),
     },
   ];
 
