@@ -9,7 +9,7 @@ import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
 
 const PositionExpandableContent = ({ sections, form }) => {
-  const { handleSubmit, handleCancel, handleEdit } = form;
+  const handleEdit = form?.handleEdit ?? {};
   const { editMode, setEditMode } = handleEdit;
 
   const [showMore, setShowMore] = useState(false);
@@ -30,7 +30,7 @@ const PositionExpandableContent = ({ sections, form }) => {
   }, [editMode]);
 
   const onCancel = () => {
-    handleCancel();
+    form.handleCancel();
     setEditMode(false);
     swal.close();
   };
@@ -125,7 +125,7 @@ const PositionExpandableContent = ({ sections, form }) => {
           {form.inputBody}
           <div className="position-form--actions">
             <button onClick={showCancelModal}>Cancel</button>
-            <button onClick={handleSubmit}>Save Position</button>
+            <button onClick={form.handleSubmit}>Save Position</button>
           </div>
         </div>
       }
@@ -161,8 +161,10 @@ PositionExpandableContent.propTypes = {
     cancelText: PropTypes.string,
     handleSubmit: PropTypes.func,
     handleCancel: PropTypes.func,
-    editMode: PropTypes.bool,
-    setEditMode: PropTypes.func,
+    handleEdit: PropTypes.shape({
+      editMode: PropTypes.bool,
+      setEditMode: PropTypes.func,
+    }),
   }),
 };
 
