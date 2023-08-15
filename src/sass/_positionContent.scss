@@ -209,6 +209,10 @@
   button:first-of-type {
     background-color: transparent;
     color: $primary-blue;
+
+    &:disabled {
+      color: $bg-gray-dark-2 !important;
+    }
   }
 }
 
@@ -285,6 +289,7 @@
   }
 
   $select-width: 300px;
+
   .position-form--inputs {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax($select-width + 50, 1fr));

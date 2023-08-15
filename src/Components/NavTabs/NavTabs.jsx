@@ -37,21 +37,26 @@ const NavTabs = forwardRef((props, ref) => {
       {
         !collapseToDd &&
         tabs.map(tab => (
-          <InteractiveElement key={tab.text} onClick={() => setMenuItem(tab.value)} id={`${tab.value}-tab-container`}>
+          <InteractiveElement
+            id={`${tab.value}-tab-container`}
+            key={tab.text}
+            onClick={() => { if (!tab.disabled) setMenuItem(tab.value); }}
+            className={tab.disabled ? 'disabled' : ''}
+          >
             <div className={`tab ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} `} id={tab.value}> {tab.text} </div>
           </InteractiveElement>
         ))
       }
       {
         collapseToDd &&
-          <div className="dd-style" style={ddStyle}>
-            <SelectForm
-              id="navTabs-dd"
-              options={tabs}
-              defaultSort={menuItem}
-              onSelectOption={e => setMenuItem(e.target.value)}
-            />
-          </div>
+        <div className="dd-style" style={ddStyle}>
+          <SelectForm
+            id="navTabs-dd"
+            options={tabs}
+            defaultSort={menuItem}
+            onSelectOption={e => setMenuItem(e.target.value)}
+          />
+        </div>
       }
     </div>
   );
