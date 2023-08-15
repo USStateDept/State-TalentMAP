@@ -61,18 +61,6 @@ const EditBidSeasons = (props) => {
   const startDateErrorText = getStartDateErrorText();
   const endDateErrorText = getEndDateErrorText();
 
-  const updateStartDate = (date) => {
-    setStartDate(date);
-  };
-
-  const updateEndDate = (date) => {
-    setEndDate(date);
-  };
-
-  const updatePanelCutOff = (date) => {
-    setPanelCutoff(date);
-  };
-
   const seasonOptions = [
     { value: 'Fall', label: 'Fall' },
     { value: 'Winter', label: 'Winter' },
@@ -136,7 +124,7 @@ const EditBidSeasons = (props) => {
                 <FA name="times" className={`${startDate ? '' : 'hide'} fa-close`} onClick={() => setStartDate(null)} />
                 <DatePicker
                   selected={startDate}
-                  onChange={updateStartDate}
+                  onChange={(date) => setStartDate(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText={id === '' ? 'Select a start date' : formatDate(seasonInfo?.bid_seasons_begin_date)}
                   className={startDateError ? 'select-error' : ''}
@@ -151,7 +139,7 @@ const EditBidSeasons = (props) => {
                 <FA name="times" className={`${endDate ? '' : 'hide'} fa-close`} onClick={() => setEndDate(null)} />
                 <DatePicker
                   selected={endDate}
-                  onChange={updateEndDate}
+                  onChange={(date) => setEndDate(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText={id === '' ? 'Select a end date' : formatDate(seasonInfo?.bid_seasons_end_date)}
                   className={endDateError ? 'select-error' : ''}
@@ -168,7 +156,7 @@ const EditBidSeasons = (props) => {
                 <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
                 <DatePicker
                   selected={panelCutoff}
-                  onChange={updatePanelCutOff}
+                  onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
                   minDate={panelCutoff}

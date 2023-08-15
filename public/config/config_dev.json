@@ -8,7 +8,6 @@
     "agenda_item_maintenance": true,
     "agenda_item_maintenance_create": true,
     "agenda_search": true,
-    "bid_season_management": true,
     "breadcrumbs": true,
     "cycle_management": true,
     "deto": false,
