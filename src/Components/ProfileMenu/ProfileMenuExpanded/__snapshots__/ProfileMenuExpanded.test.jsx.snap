@@ -118,6 +118,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="calendar"
+        key="Bid Season Management"
+        link="/profile/administrator/managebidseasons/"
+        search=""
+        title="Bid Season Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -139,14 +147,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="hourglass-start"
-        key="Manage Bid Seasons"
-        link="/profile/administrator/manage/"
-        search=""
-        title="Manage Bid Seasons"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -491,6 +491,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="calendar"
+        key="Bid Season Management"
+        link="/profile/administrator/managebidseasons/"
+        search=""
+        title="Bid Season Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -512,14 +520,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
-      />
-      <withRouter(NavLink)
-        hidden={false}
-        iconName="hourglass-start"
-        key="Manage Bid Seasons"
-        link="/profile/administrator/manage/"
-        search=""
-        title="Manage Bid Seasons"
       />
       <withRouter(NavLink)
         hidden={true}
