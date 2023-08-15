@@ -139,7 +139,6 @@ AgendaItemCard.propTypes = {
         action: PropTypes.string,
         travel: PropTypes.string,
         languages: POS_LANGUAGES,
-        pay_plan: PropTypes.string,
       }),
     ),
     update_date: PropTypes.string,

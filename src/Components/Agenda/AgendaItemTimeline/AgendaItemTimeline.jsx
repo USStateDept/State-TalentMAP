@@ -111,7 +111,6 @@ const AgendaItemTimeline = ({ unitedLoading, setParentLoadingState, updateLegs,
         legActionType: null,
         travelFunctionCode: 'Separation from the Service',
         is_separation: true,
-        pay_plan: null,
       });
       setLegs(legs$);
     }
