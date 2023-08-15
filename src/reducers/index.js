@@ -69,6 +69,9 @@ import editRemark from './editRemark';
 import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
 import cycleManagement from './cycleManagement';
+import PostPanelProcessing from './postPanelProcessing';
+import managePostAccess from './managePostAccess';
+import searchPostAccess from './searchPostAccess';
 
 export default (history) => combineReducers({
   ...results,
@@ -126,6 +129,7 @@ export default (history) => combineReducers({
   ...agendaEmployees,
   ...agendaItemHistory,
   ...panelMeetings,
+  ...PostPanelProcessing,
   ...agendaItemMaintenancePane,
   ...positions,
   ...panelMeetingAgendas,
@@ -135,6 +139,8 @@ export default (history) => combineReducers({
   ...gsaLocations,
   ...projectedVacancy,
   ...cycleManagement,
+  ...managePostAccess,
+  ...searchPostAccess,
   router: connectRouter(history),
   client,
   login,
