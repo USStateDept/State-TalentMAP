@@ -40,33 +40,6 @@
     }
   }
 
-  .line-separated-fields {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-    >div {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-
-      span:first-of-type {
-        font-weight: 500;
-        padding-right: 5px;
-      }
-
-      span {
-        font-size: 15px;
-      }
-
-      &:not(:last-child) {
-        padding-right: 7px;
-        margin-right: 7px;
-        border-right: 1px solid black;
-      }
-    }
-  }
-
   .toggle-edit-mode {
     display: flex;
     flex-direction: row;
@@ -337,5 +310,92 @@
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(228, 229, 230, 1);
     padding: 5px 20px;
+  }
+}
+
+.line-separated-fields {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  >div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    span:first-of-type {
+      font-weight: 500;
+      padding-right: 5px;
+    }
+
+    span {
+      font-size: 15px;
+    }
+
+    &:not(:last-child) {
+      padding-right: 7px;
+      margin-right: 7px;
+      border-right: 1px solid black;
+    }
+  }
+}
+
+.position-classifications {
+  max-width: 1500px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .table-container {
+    display: flex;
+    width: 100%;
+    max-width: calc(100vw - 335px);
+    overflow-x: auto;
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    margin: 0px;
+
+    thead tr {
+      border: none
+    }
+
+    tr {
+      th,
+      td {
+        background-color: transparent;
+        font-size: 14px;
+        border: none;
+        text-align: center;
+        min-width: 80px;
+        padding: 10px 5px;
+      }
+    }
+
+    input {
+      position: relative;
+      appearance: auto;
+      left: auto;
+      height: 15px;
+    }
+
+    .fa {
+      padding: 0 !important;
+      margin: 0 !important;
+      color: $color-green !important;
+    }
+  }
+
+  .position-classifications--actions {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0px 0px 10px;
+  
+    button {
+      font-size: 16px;
+    }
   }
 }

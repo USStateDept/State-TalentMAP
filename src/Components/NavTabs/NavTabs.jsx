@@ -34,16 +34,22 @@ const NavTabs = forwardRef((props, ref) => {
 
   return (
     <div className={`${!collapseToDd ? 'navTabs' : 'navDropdown'} ${styleVariant}`}>
-      {
-        !collapseToDd &&
+      {!collapseToDd &&
         tabs.map(tab => (
           <InteractiveElement
             id={`${tab.value}-tab-container`}
             key={tab.text}
             onClick={() => { if (!tab.disabled) setMenuItem(tab.value); }}
-            className={tab.disabled ? 'disabled' : ''}
           >
-            <div className={`tab ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} `} id={tab.value}> {tab.text} </div>
+            <div
+              id={tab.value}
+              className={`tab 
+              ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} 
+              ${tab.disabled ? 'disabled' : ''}
+              `}
+            >
+              {tab.text}
+            </div>
           </InteractiveElement>
         ))
       }
