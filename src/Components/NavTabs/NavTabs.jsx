@@ -53,7 +53,8 @@ const NavTabs = forwardRef((props, ref) => {
           </InteractiveElement>
         ))
       }
-      {collapseToDd &&
+      {
+        collapseToDd &&
         <div className="dd-style" style={ddStyle}>
           <SelectForm
             id="navTabs-dd"
