@@ -273,10 +273,10 @@ const ManagePostAccess = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Org:</div>
+              <div className="label">Organization:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Org(s)"
+                placeholder="Select Organization(s)"
                 value={selectedOrgs}
                 options={organizationOptions}
                 onChange={setSelectedOrgs}

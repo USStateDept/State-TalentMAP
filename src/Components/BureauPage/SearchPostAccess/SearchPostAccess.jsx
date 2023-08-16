@@ -238,7 +238,7 @@ const SearchPostAccess = () => {
             </div>
           </div>
 
-          <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
+          <div className="usa-width-one-whole position-search--filters--spa results-dropdown">
             <div className="filter-div">
               <div className="label">
                     Last Name:
