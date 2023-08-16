@@ -190,14 +190,14 @@ const PublishablePositions = () => {
               <div className="filterby-label">Filter by:</div>
               <div className="filterby-clear">
                 {clearFilters &&
-                      <button
-                        className="unstyled-button"
-                        onClick={resetFilters}
-                        disabled={disableSearch}
-                      >
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
+                  <button
+                    className="unstyled-button"
+                    onClick={resetFilters}
+                    disabled={disableSearch}
+                  >
+                    <FA name="times" />
+                    Clear Filters
+                  </button>
                 }
               </div>
             </div>
@@ -306,20 +306,20 @@ const PublishablePositions = () => {
         }
         {
           disableSearch &&
-            <Alert
-              type="warning"
-              title={'Edit Mode (Search Disabled)'}
-              messages={[{
-                body: 'Discard or save your edits before searching. ' +
-                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
-              },
-              ]}
-            />
+          <Alert
+            type="warning"
+            title={'Edit Mode (Search Disabled)'}
+            messages={[{
+              body: 'Discard or save your edits before searching. ' +
+                'Filters and Pagination are disabled if any cards are in Edit Mode.',
+            },
+            ]}
+          />
         }
         <div className="usa-width-one-whole position-search--results">
           <div className="usa-grid-full position-list">
             <PublishablePositionCard
-              result={dummyPositionDetails}
+              data={dummyPositionDetails}
               cycles={cycles}
               onEditModeSearch={(editMode, id) =>
                 onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
@@ -329,7 +329,7 @@ const PublishablePositions = () => {
         {/* placeholder for when we put in pagination */}
         {
           disableSearch &&
-            <div className="disable-react-paginate-overlay" />
+          <div className="disable-react-paginate-overlay" />
         }
       </div>
   );
