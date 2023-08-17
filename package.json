@@ -1,6 +1,6 @@
 {
   "name": "talentmap",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.17.9",
@@ -175,7 +175,7 @@
     "jsdom": "11.12",
     "mini-css-extract-plugin": "^1.6.0",
     "mock-local-storage": "^1.1.21",
-    "node-mocks-http": "^1.11.0",
+    "node-mocks-http": "1.12.2",
     "object-assign": "4.1.1",
     "object.entries": "^1.1.5",
     "postcss-flexbugs-fixes": "4.2.1",

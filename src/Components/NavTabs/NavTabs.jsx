@@ -34,24 +34,35 @@ const NavTabs = forwardRef((props, ref) => {
 
   return (
     <div className={`${!collapseToDd ? 'navTabs' : 'navDropdown'} ${styleVariant}`}>
-      {
-        !collapseToDd &&
+      {!collapseToDd &&
         tabs.map(tab => (
-          <InteractiveElement key={tab.text} onClick={() => setMenuItem(tab.value)} id={`${tab.value}-tab-container`}>
-            <div className={`tab ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} `} id={tab.value}> {tab.text} </div>
+          <InteractiveElement
+            id={`${tab.value}-tab-container`}
+            key={tab.text}
+            onClick={() => { if (!tab.disabled) setMenuItem(tab.value); }}
+          >
+            <div
+              id={tab.value}
+              className={`tab 
+              ${isEqual(tab.value, menuItem) ? ' tab-active' : ''} 
+              ${tab.disabled ? 'disabled' : ''}
+              `}
+            >
+              {tab.text}
+            </div>
           </InteractiveElement>
         ))
       }
       {
         collapseToDd &&
-          <div className="dd-style" style={ddStyle}>
-            <SelectForm
-              id="navTabs-dd"
-              options={tabs}
-              defaultSort={menuItem}
-              onSelectOption={e => setMenuItem(e.target.value)}
-            />
-          </div>
+        <div className="dd-style" style={ddStyle}>
+          <SelectForm
+            id="navTabs-dd"
+            options={tabs}
+            defaultSort={menuItem}
+            onSelectOption={e => setMenuItem(e.target.value)}
+          />
+        </div>
       }
     </div>
   );

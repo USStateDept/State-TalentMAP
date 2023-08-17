@@ -137,7 +137,6 @@ export function savePublishablePositionsSelections(queryObject) {
   return (dispatch) => dispatch(publishablePositionsSelectionsSuccess(queryObject));
 }
 
-
 export function publishablePositionsFiltersFetchDataErrored(bool) {
   return {
     type: 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_HAS_ERRORED',

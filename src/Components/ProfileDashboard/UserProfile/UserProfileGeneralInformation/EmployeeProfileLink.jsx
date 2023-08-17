@@ -1,5 +1,6 @@
 import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import axios from 'axios';
 import { USER_PROFILE } from 'Constants/PropTypes';
@@ -10,8 +11,7 @@ import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
-const EmployeeProfileLink = (props) => {
-  const { userProfile } = props;
+const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
   const dispatch = useDispatch();
   const emp_profile_urls = userProfile?.employee_profile_url;
   let redactedUrl = emp_profile_urls?.internalRedacted;
@@ -54,11 +54,11 @@ const EmployeeProfileLink = (props) => {
       content={
         <div>
           {
-            !unredactedUrl && !redactedUrl &&
+            showEmployeeProfileLinks && !unredactedUrl && !redactedUrl &&
             <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
-            unredactedUrl &&
+            showEmployeeProfileLinks && unredactedUrl &&
             <InteractiveElement
               onClick={openPdf}
               type="a"
@@ -68,7 +68,7 @@ const EmployeeProfileLink = (props) => {
             </InteractiveElement>
           }
           {
-            redactedUrl &&
+            showEmployeeProfileLinks && redactedUrl &&
             <InteractiveElement
               onClick={downloadEmployeeProfile}
               type="a"
@@ -86,6 +86,10 @@ const EmployeeProfileLink = (props) => {
 
 EmployeeProfileLink.propTypes = {
   userProfile: USER_PROFILE.isRequired,
+  showEmployeeProfileLinks: PropTypes.bool.isRequired,
+};
+
+EmployeeProfileLink.defaultProps = {
 };
 
 export default EmployeeProfileLink;

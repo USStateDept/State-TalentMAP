@@ -201,9 +201,9 @@ const PublishablePositions = ({ viewType }) => {
                 {
                   clearFilters &&
                   <button
-                  className="unstyled-button"
-                  onClick={resetFilters}
-                  disabled={disableSearch}
+                    className="unstyled-button"
+                    onClick={resetFilters}
+                    disabled={disableSearch}
                   >
                     <FA name="times" />
                     Clear Filters
@@ -339,7 +339,7 @@ const PublishablePositions = ({ viewType }) => {
           <div className="usa-width-one-whole position-search--results">
             <div className="usa-grid-full position-list">
             <PublishablePositionCard
-              result={dummyPositionDetails}
+              data={dummyPositionDetails}
               cycles={cycles}
               onEditModeSearch={(editMode, id) =>
                 onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}

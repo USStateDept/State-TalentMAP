@@ -25,7 +25,7 @@ const ProfileDashboard = ({
   submitBidPosition, deleteBid, classifications, clientClassifications, registerHandshake,
   showBidTracker, showClassifications, showSearchAsClient,
   unregisterHandshake, showLanguages, canEditClassifications,
-  showAgendaItemHistory, isAOView,
+  showAgendaItemHistory, showAssignmentHistory, showEmployeeProfileLinks, isAOView,
 }) => (
   <div className="usa-grid-full user-dashboard user-dashboard-main profile-content-inner-container">
     {isLoading || favoritePositionsIsLoading ||
@@ -35,7 +35,7 @@ const ProfileDashboard = ({
         <div className="usa-grid-full">
           <div className="usa-grid-full dashboard-top-section">
             { isPublic ? <BackButton /> : <ProfileSectionTitle title={`Hello, ${userProfile.display_name}`} /> }
-            { isPublic && showSearchAsClient &&
+            { showSearchAsClient &&
               <SearchAsClientButton user={userProfile} />
             }
           </div>
@@ -51,8 +51,7 @@ const ProfileDashboard = ({
                 </BoxShadow>
               );
               // this determines the width of our columns, not their content
-              let columns = !matches ? [3, 4, 5] : [6, 6, 12];
-              if (isPublic) { columns = !matches ? [3, 4, 5] : [12, 12, 12]; }
+              const columns = !matches ? [3, 4, 5] : [12, 12, 12];
               return (
                 <Row className="usa-grid-full">
                   <Column
@@ -63,9 +62,11 @@ const ProfileDashboard = ({
                       <UserProfile
                         userProfile={userProfile}
                         isPublic={isPublic}
+                        showEmployeeProfileLinks={showEmployeeProfileLinks}
                       />
                     </BoxShadow>
                     {
+                      showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <Assignments id={perdet} />
                       </BoxShadow>
@@ -85,15 +86,14 @@ const ProfileDashboard = ({
                     }
                     {
                       !isPublic &&
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
-                        <Notifications notifications={notifications} />
-                      </BoxShadow>
-                    }
-                    {
-                      !isPublic &&
-                      <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
-                        <SavedSearches />
-                      </BoxShadow>
+                      <>
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section notifications-section">
+                          <Notifications notifications={notifications} />
+                        </BoxShadow>
+                        <BoxShadow className="usa-width-one-whole user-dashboard-section favorites-section">
+                          <SavedSearches />
+                        </BoxShadow>
+                      </>
                     }
                     { !isPublic && isBidder && favoritesContainer() }
                     {
@@ -114,7 +114,7 @@ const ProfileDashboard = ({
                     className="user-dashboard-section-container user-dashboard-column-3"
                   >
                     {
-                      !isPublic && isBidder &&
+                      !isPublic && showBidTracker && isBidder &&
                         <BoxShadow className="usa-width-one-whole user-dashboard-section bidlist-section">
                           <BidList
                             bids={bidList}
@@ -151,7 +151,7 @@ const ProfileDashboard = ({
                       </BoxShadow>
                     }
                     {
-                      isPublic && showAgendaItemHistory &&
+                      showAgendaItemHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
                         <AgendaItemHistoryLink perdet={perdet} userRole={userRole} />
                       </BoxShadow>
@@ -169,12 +169,14 @@ const ProfileDashboard = ({
 ProfileDashboard.propTypes = {
   userProfile: USER_PROFILE.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  showAgendaItemHistory: PropTypes.bool.isRequired,
+  showAssignmentHistory: PropTypes.bool.isRequired,
   showBidTracker: PropTypes.bool.isRequired,
-  showSearchAsClient: PropTypes.bool.isRequired,
-  showLanguages: PropTypes.bool.isRequired,
   showClassifications: PropTypes.bool.isRequired,
   canEditClassifications: PropTypes.bool.isRequired,
-  showAgendaItemHistory: PropTypes.bool.isRequired,
+  showLanguages: PropTypes.bool.isRequired,
+  showSearchAsClient: PropTypes.bool.isRequired,
+  showEmployeeProfileLinks: PropTypes.bool.isRequired,
   notifications: NOTIFICATION_RESULTS,
   notificationsIsLoading: PropTypes.bool,
   bidList: BID_RESULTS,
