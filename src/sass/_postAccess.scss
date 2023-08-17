@@ -23,8 +23,8 @@
         min-width: 30px;
       }
       .checkbox-pos {
-        >div{
-          >label {
+        > div{
+          > label {
             margin-top: 0;
           }
         }
@@ -37,8 +37,12 @@
     height: 28px;
     max-width: none;
     width: 240px;
-    border-right: 1px solid $color-gray-lighter;
-    font-size: 1.3rem;
+    border: 1px solid $bg-gray-dark-2;
+    font-size: 13px;
+    font-weight: 300;
+    &::placeholder {
+      color: #B4B4B4 // match picky
+    }
   }
   .searchbar {
     .text-input-wrapper {
