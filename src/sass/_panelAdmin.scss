@@ -2,7 +2,7 @@
   padding: 20px 35px;
 
   .panel-admin-content {
-    margin-left: 20px;
+    margin-left: 5px;
 
     .tm-spinner {
       margin-top: 125px;
@@ -21,6 +21,7 @@
       .active-column {
         text-align: center;
       }
+
       .fa {
         color: $primary-blue;
         margin-right: 10px;
@@ -35,6 +36,7 @@
   .navTabs {
     margin-left: 5px;
     background-color: #F7F7F7;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   }
 }
 
@@ -116,50 +118,169 @@
   position: absolute;
   z-index: 99999;
 }
+
 .admin-panel-meeting-add-meeting {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+
   .admin-panel-meeting-add-meeting-icon {
     padding-right: 10px;
   }
 }
 
-.admin-panel-meeting-buttons {
-  margin-left: 283px;
+.admin-panel-meeting {
+  max-width: 1500px;
+  margin-top: 20px;
 }
 
+.admin-panel-grid-row {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 15px;
 
-.admin-panel-meeting-row {
-  > label {
-    width: 200px;
-    text-align: right;
+  @media (max-width: 1250px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.panel-meeting-field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  input,
+  select {
+    max-width: none;
+  }
+
+  >label {
     display: inline-block;
-    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
   }
 
   .select-dropdown {
     display: inline-block;
-    width: 300px;
   }
 
   .date-wrapper {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    width: 100% !important;
+
     .fa-calendar:hover {
       cursor: default;
     }
-    .react-datepicker-wrapper, .react-datepicker-ignore-onclickoutside, .react-datepicker__input-container {
-      width: 300px!important;
+  }
+
+  input:disabled,
+  select:disabled,
+  button:disabled {
+    color: $color-gray;
+    background-color: $color-gray-lighter;
+  }
+}
+
+.text-button {
+  background-color: transparent !important;
+  color: $primary-blue;
+  cursor: pointer;
+  margin-top: 15px;
+  text-decoration: underline;
+  width: max-content;
+  padding: 0px;
+
+  &:hover {
+    background-color: transparent !important;
+    color: $primary-blue;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: transparent !important;
+    cursor: default;
+    color: $bg-gray-dark-2 !important;
+    text-decoration: underline;
+  }
+}
+
+.post-panel-processing {
+  max-width: 1500px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .post-panel-grid-row {
+    display: grid;
+    gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    margin-bottom: 15px;
+  }
+
+  .post-panel-processing--table {
+    display: flex;
+    width: 100%;
+    max-width: calc(100vw - 335px);
+    overflow-x: auto;
+    margin: 20px 0px;
+  }
+
+  table {
+    width: 100%;
+    margin: 0px;
+
+    thead tr {
+      border: none
+    }
+
+    tr {
+      border-bottom: 1px $bg-gray-medium-1 solid;
+
+      th,
+      td {
+        background-color: transparent;
+        font-size: 14px;
+        border: none;
+        text-align: center;
+      }
+
+      th:nth-child(2),
+      td:nth-child(2),
+      th:nth-child(3),
+      td:nth-child(3),
+      th:nth-child(4),
+      td:nth-child(4) {
+        text-align: left;
+      }
+
+      td:nth-child(4) {
+        min-width: 150px;
+      }
+    }
+
+    input {
+      position: relative;
+      appearance: auto;
+      left: auto;
+      height: 15px;
+    }
+
+    .fa {
+      padding: 0 !important;
+      margin: 0 !important;
+      color: $color-green !important;
     }
   }
 
-  .admin-panel-meeting-checkbox, .admin-panel-meeting-checkbox > * {
-    display: inline;
-    vertical-align: middle;
-  }
-
-  input:disabled, select:disabled, button:disabled {
-    color: $color-gray;
-    background-color: $color-gray-lighter;
+  .item-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $primary-blue;
   }
 }

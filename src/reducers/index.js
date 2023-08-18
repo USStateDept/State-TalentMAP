@@ -70,6 +70,7 @@ import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
 import cycleManagement from './cycleManagement';
 import bidSeasons from './bidSeasons';
+import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
 
@@ -129,6 +130,7 @@ export default (history) => combineReducers({
   ...agendaEmployees,
   ...agendaItemHistory,
   ...panelMeetings,
+  ...PostPanelProcessing,
   ...agendaItemMaintenancePane,
   ...positions,
   ...panelMeetingAgendas,

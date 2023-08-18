@@ -30,7 +30,6 @@ const AgendaLeg = props => {
     setActiveAIL,
   } = props;
 
-
   const isSeparation = leg?.is_separation;
   const defaultSepText = isSeparation ? '-' : false;
 
@@ -367,6 +366,10 @@ const AgendaLeg = props => {
       title: 'Vice',
       content: formatVice(leg?.vice),
     },
+    {
+      title: 'Pay Plan',
+      content: (<div>{get(leg, 'pay_plan') || defaultSepText || DEFAULT_TEXT}</div>),
+    },
   ];
 
   const dropdowns = ['TOD', 'Action', 'Travel'];
@@ -411,6 +414,7 @@ AgendaLeg.propTypes = {
     is_separation: PropTypes.bool,
     separation_location: PropTypes.shape({}),
     org: PropTypes.string,
+    pay_plan: PropTypes.string,
   }),
   legNum: PropTypes.number.isRequired,
   TODs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
