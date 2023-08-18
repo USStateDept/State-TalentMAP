@@ -118,6 +118,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="calendar"
+        key="Bid Season Management"
+        link="/profile/administrator/managebidseasons/"
+        search=""
+        title="Bid Season Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -480,6 +488,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/cycles/"
         search=""
         title="Bid Cycles"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName="calendar"
+        key="Bid Season Management"
+        link="/profile/administrator/managebidseasons/"
+        search=""
+        title="Bid Season Management"
       />
       <withRouter(NavLink)
         hidden={true}
