@@ -68,16 +68,16 @@ const ManageBidSeasonsCard = (props) => {
           </Column>
           <Column columns={12} className="bs-card--middle-cols">
             <Column>
-              Start Date: ${bid_seasons_begin_date ? formatDate(bid_seasons_begin_date) : ''}
+              Start Date: {bid_seasons_begin_date ? formatDate(bid_seasons_begin_date) : ''}
             </Column>
             <Column>
-              End Date: ${bid_seasons_end_date ? formatDate(bid_seasons_end_date) : ''}
+              End Date: {bid_seasons_end_date ? formatDate(bid_seasons_end_date) : ''}
             </Column>
             <Column>
-              Panel Cutoff: ${bid_seasons_panel_cutoff ? formatDate(bid_seasons_panel_cutoff) : ''}
+              Panel Cutoff: {bid_seasons_panel_cutoff ? formatDate(bid_seasons_panel_cutoff) : ''}
             </Column>
             <Column>
-              Future Vacancy: ${bid_seasons_future_vacancy}
+              Future Vacancy: {bid_seasons_future_vacancy}
             </Column>
           </Column>
           <Column columns={3} className="bs-card--link-col">

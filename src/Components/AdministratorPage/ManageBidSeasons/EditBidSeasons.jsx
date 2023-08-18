@@ -69,10 +69,20 @@ const EditBidSeasons = (props) => {
     { value: 'None listed', label: 'None listed' },
   ];
 
-  const datePickerRef = useRef(null);
-  const openDatePicker = () => {
-    datePickerRef.current.setOpen(true);
+  const startDatePicker = useRef(null);
+  const endDatePicker = useRef(null);
+  const panelCutoffPicker = useRef(null);
+
+  const openStartDatePicker = () => {
+    startDatePicker.current.setOpen(true);
   };
+  const openEndDatePicker = () => {
+    endDatePicker.current.setOpen(true);
+  };
+  const openPanelCutoffPicker = () => {
+    panelCutoffPicker.current.setOpen(true);
+  };
+
   return (
     <div>
       <form className="bid-seasons-form">
@@ -120,7 +130,7 @@ const EditBidSeasons = (props) => {
             <div>
               <dt>Start Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openDatePicker()} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openStartDatePicker()} />
                 <FA name="times" className={`${startDate ? '' : 'hide'} fa-close`} onClick={() => setStartDate(null)} />
                 <DatePicker
                   selected={startDate}
@@ -128,6 +138,7 @@ const EditBidSeasons = (props) => {
                   dateFormat={DATE_FORMAT}
                   placeholderText={id === '' ? 'Select a start date' : formatDate(seasonInfo?.bid_seasons_begin_date)}
                   className={startDateError ? 'select-error' : ''}
+                  ref={startDatePicker}
                 />
                 {!!startDateErrorText && <span className="usa-input-error-message" role="alert">{startDateErrorText}</span>}
               </span>
@@ -135,7 +146,7 @@ const EditBidSeasons = (props) => {
             <div>
               <dt>End Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openDatePicker()} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openEndDatePicker()} />
                 <FA name="times" className={`${endDate ? '' : 'hide'} fa-close`} onClick={() => setEndDate(null)} />
                 <DatePicker
                   selected={endDate}
@@ -144,7 +155,7 @@ const EditBidSeasons = (props) => {
                   placeholderText={id === '' ? 'Select a end date' : formatDate(seasonInfo?.bid_seasons_end_date)}
                   className={endDateError ? 'select-error' : ''}
                   minDate={startDate}
-                  ref={datePickerRef}
+                  ref={endDatePicker}
                 />
                 {!!endDateErrorText && <span className="usa-input-error-message" role="alert">{endDateErrorText}</span>}
               </span>
@@ -152,14 +163,15 @@ const EditBidSeasons = (props) => {
             <div>
               <dt>Panel Cutoff Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openDatePicker()} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => openPanelCutoffPicker()} />
                 <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
                 <DatePicker
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
-                  minDate={panelCutoff}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
                 />
               </span>
             </div>
