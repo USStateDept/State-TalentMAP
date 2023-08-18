@@ -66,7 +66,6 @@ const EditBidSeasons = (props) => {
     { value: 'Winter', label: 'Winter' },
     { value: 'Spring', label: 'Spring' },
     { value: 'Summer', label: 'Summer' },
-    { value: 'None listed', label: 'None listed' },
   ];
 
   const startDatePicker = useRef(null);
@@ -106,11 +105,12 @@ const EditBidSeasons = (props) => {
               aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
-              {seasonOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
+              {seasonOptions.length === 0 ?
+                <option value="">None Listed</option> : seasonOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
             </select>
             {!!seasonError && <span className="usa-input-error-message" role="alert">Season is required.</span>}
           </span>
