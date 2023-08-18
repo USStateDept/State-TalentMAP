@@ -52,7 +52,7 @@ const EditBidSeasons = (props) => {
 
   const getEndDateErrorText = () => {
     if (endDateError) {
-      return 'An Start Date has not been provided or is before End Date.';
+      return 'A Start Date has not been provided or is before End Date.';
     }
 
     return null;
