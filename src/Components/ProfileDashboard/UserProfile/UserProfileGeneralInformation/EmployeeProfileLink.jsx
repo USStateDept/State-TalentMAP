@@ -5,30 +5,28 @@ import FA from 'react-fontawesome';
 import axios from 'axios';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
-import { downloadPdfStream, fetchJWT, isOnProxy } from 'utilities';
+import { downloadPdfStream } from 'utilities';
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
+import { useDataLoader } from 'hooks';
 import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
+import api from '../../../../api';
 
 const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
   const dispatch = useDispatch();
-  const emp_profile_urls = userProfile?.employee_profile_url;
-  let redactedUrl = emp_profile_urls?.internalRedacted;
-  let unredactedUrl = emp_profile_urls?.internal;
-
-  if (isOnProxy()) {
-    redactedUrl = emp_profile_urls?.externalRedacted;
-    unredactedUrl = emp_profile_urls?.external;
-  }
+  const { data: reportData, error: reportError, loading: reportLoading } = useDataLoader(api().get, `/fsbid/employee/${userProfile?.user_info?.hru_id}/employee_profile_report/`);
 
   const downloadEmployeeProfile = () => {
     dispatch(toastInfo('Please wait while we process your request.', 'Loading...'));
-    axios.get(redactedUrl, {
-      withCredentials: true,
-      headers: { JWTAuthorization: fetchJWT() },
-      responseType: 'arraybuffer' },
-    )
+    /* eslint-disable no-console */
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    console.log('🦄 current: reportData:', reportData);
+    console.log('🦄 current: reportError:', reportError);
+    console.log('🦄 current: reportLoading:', reportLoading);
+    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+
+    axios.get(reportData)
       .then(response => {
         downloadPdfStream(response.data);
         dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
@@ -44,7 +42,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
     className: 'modal-1300',
     content: (
       <EmployeeProfileModal
-        url={unredactedUrl}
+        url={'unredactedUrl'}
       />
     ),
   });
@@ -54,11 +52,11 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
       content={
         <div>
           {
-            showEmployeeProfileLinks && !unredactedUrl && !redactedUrl &&
+            showEmployeeProfileLinks &&
             <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
-            showEmployeeProfileLinks && unredactedUrl &&
+            showEmployeeProfileLinks &&
             <InteractiveElement
               onClick={openPdf}
               type="a"
@@ -68,7 +66,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
             </InteractiveElement>
           }
           {
-            showEmployeeProfileLinks && redactedUrl &&
+            showEmployeeProfileLinks &&
             <InteractiveElement
               onClick={downloadEmployeeProfile}
               type="a"
