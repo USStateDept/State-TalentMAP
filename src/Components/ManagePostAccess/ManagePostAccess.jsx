@@ -287,29 +287,41 @@ const ManagePostAccess = () => {
             </div>
             <div className="filter-div">
               <div className="label">Position:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Position(s)"
-                value={selectedPositions}
-                options={positionOptions}
-                onChange={setSelectedPositions}
-                valueKey="code"
-                labelKey="long_description"
-                disabled={filtersLoading}
-              />
+              <div className="post-access-container-cb">
+                <CheckBox
+                  label="HRO/MO Only"
+                  small
+                />
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Position(s)"
+                  value={selectedPositions}
+                  options={positionOptions}
+                  onChange={setSelectedPositions}
+                  valueKey="code"
+                  labelKey="long_description"
+                  disabled={filtersLoading}
+                />
+              </div>
             </div>
             <div className="filter-div">
               <div className="label">Person:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Person(s)"
-                value={selectedPersons}
-                options={peopleOptions}
-                onChange={setSelectedPersons}
-                valueKey="code"
-                labelKey="name"
-                disabled={filtersLoading}
-              />
+              <div className="post-access-container-cb">
+                <CheckBox
+                  label="HRO/MO Only"
+                  small
+                />
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Person(s)"
+                  value={selectedPersons}
+                  options={peopleOptions}
+                  onChange={setSelectedPersons}
+                  valueKey="code"
+                  labelKey="name"
+                  disabled={filtersLoading}
+                />
+              </div>
             </div>
             <div className="filter-div">
               <div className="label">Role:</div>
