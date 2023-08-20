@@ -174,6 +174,20 @@ const ManagePostAccess = () => {
     } else setCheckedPostIds([...checkedPostIds, post.id]);
   });
 
+  const positionFilterToggle = () => {
+    // nothing happening for this yet. UI Only.
+    if (selectedPositions.length > 0) {
+      setSelectedPositions([]);
+    }
+  };
+
+  const personFilterToggle = () => {
+    // nothing happening for this yet. UI Only.
+    if (selectedPersons.length > 0) {
+      setSelectedPersons([]);
+    }
+  };
+
   const pickyProps = {
     numberDisplayed: 2,
     multiple: true,
@@ -291,6 +305,7 @@ const ManagePostAccess = () => {
                 <CheckBox
                   label="HRO/MO Only"
                   small
+                  onCheckBoxClick={positionFilterToggle}
                 />
                 <Picky
                   {...pickyProps}
@@ -310,6 +325,7 @@ const ManagePostAccess = () => {
                 <CheckBox
                   label="HRO/MO Only"
                   small
+                  onCheckBoxClick={personFilterToggle}
                 />
                 <Picky
                   {...pickyProps}
