@@ -2,10 +2,11 @@ import swal from '@sweetalert/with-react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-import axios from 'axios';
+// import axios from 'axios';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { downloadPdfStream } from 'utilities';
+// eslint-disable-next-line no-unused-vars
 import { toastError, toastInfo, toastSuccess } from 'actions/toast';
 import { useDataLoader } from 'hooks';
 import Alert from '../../../Alert';
@@ -15,25 +16,33 @@ import api from '../../../../api';
 
 const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
   const dispatch = useDispatch();
-  const { data: reportData, error: reportError, loading: reportLoading } = useDataLoader(api().get, `/fsbid/employee/${userProfile?.user_info?.hru_id}/employee_profile_report/`);
+  const { data: reportDataSave, error: reportDataSaveError, loading: reportDataSaveLoading } = useDataLoader(api().get, `/fsbid/employee/${userProfile?.user_info?.hru_id}/employee_profile_report/?redacted_report=true`);
+  const { data: reportDataView, error: reportDataViewError, loading: reportDataViewLoading } = useDataLoader(api().get, `/fsbid/employee/${userProfile?.user_info?.hru_id}/employee_profile_report/`);
 
   const downloadEmployeeProfile = () => {
     dispatch(toastInfo('Please wait while we process your request.', 'Loading...'));
     /* eslint-disable no-console */
     console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    console.log('🦄 current: reportData:', reportData);
-    console.log('🦄 current: reportError:', reportError);
-    console.log('🦄 current: reportLoading:', reportLoading);
+    console.log('🦄 current: reportDataSave:', reportDataSave);
+    console.log('🦄 current: reportDataSaveError:', reportDataSaveError);
+    console.log('🦄 current: reportDataSaveLoading:', reportDataSaveLoading);
+    console.log('🦄 current: reportDataView:', reportDataView);
+    console.log('🦄 current: reportDataViewError:', reportDataViewError);
+    console.log('🦄 current: reportDataViewLoading:', reportDataViewLoading);
     console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
+    downloadPdfStream(reportDataSave.data);
+    dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
 
-    axios.get(reportData)
-      .then(response => {
-        downloadPdfStream(response.data);
-        dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
-      })
-      .catch(() => {
-        dispatch(toastError('We were unable to process your Employee Profile download. Please try again later.', 'An error has occurred'));
-      });
+
+    // axios.get(reportData)
+    //   .then(response => {
+    //     downloadPdfStream(response.data);
+    //     dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
+    //   })
+    //   .catch(() => {
+    //     dispatch(toastError('We were unable to process your E
+    //     mployee Profile download. Please try again later.', 'An error has occurred'));
+    //   });
   };
 
   const openPdf = () => swal({
@@ -42,7 +51,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
     className: 'modal-1300',
     content: (
       <EmployeeProfileModal
-        url={'unredactedUrl'}
+        url={reportDataView}
       />
     ),
   });
