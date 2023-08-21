@@ -306,6 +306,7 @@ const ManagePostAccess = () => {
                   label="HRO/MO Only"
                   small
                   onCheckBoxClick={positionFilterToggle}
+                  id="position-filter-toggle"
                 />
                 <Picky
                   {...pickyProps}
@@ -326,6 +327,7 @@ const ManagePostAccess = () => {
                   label="HRO/MO Only"
                   small
                   onCheckBoxClick={personFilterToggle}
+                  id="person-filter-toggle"
                 />
                 <Picky
                   {...pickyProps}
