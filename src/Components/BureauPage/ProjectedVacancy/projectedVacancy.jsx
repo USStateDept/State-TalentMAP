@@ -22,7 +22,8 @@ const ProjectedVacancy = ({ isAO }) => {
   const dispatch = useDispatch();
 
   const userSelections = useSelector(state => state.projectedVacancySelections);
-  const dummyPositionDetails = useSelector(state => state.projectedVacancy);
+  const positions = useSelector(state => state.projectedVacancy);
+  const positions$ = positions?.results;
   const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
   const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
@@ -40,15 +41,13 @@ const ProjectedVacancy = ({ isAO }) => {
     useState(userSelections?.selectedBidCycle || []);
   const [clearFilters, setClearFilters] = useState(false);
 
-  const dummyid = dummyPositionDetails?.id;
-  const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
-  const [includedPositions, setIncludedPositions] = useState();
+  const [includedPositions, setIncludedPositions] = useState([]);
 
   useEffect(() => {
-    if (dummyid) {
-      setIncludedPositions([...Array(10).keys()].map(k => dummyid + k));
+    if (positions$) {
+      setIncludedPositions(positions$.map(k => k.id));
     }
-  }, [dummyid]);
+  }, [positions]);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
@@ -78,13 +77,12 @@ const ProjectedVacancy = ({ isAO }) => {
     limit,
     ordering,
     // User Filters
-    'projected-vacancy-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'projected-vacancy-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'projected-vacancy-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
-    'projected-vacancy-language': selectedLanguages.map(langObject => (langObject?.code)),
-    'projected-vacancy-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'projected-vacancy-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-
+    position__bureau__code__in: selectedBureaus.map(bureauObject => (bureauObject?.code)),
+    position__org__code__in: selectedOrgs.map(orgObject => (orgObject?.code)),
+    is_available_in_bidcycle: selectedBidCycles.map(cycleObject => (cycleObject?.id)),
+    language_codes: selectedLanguages.map(langObject => (langObject?.code)),
+    position__grade__code__in: selectedGrades.map(gradeObject => (gradeObject?.code)),
+    position__skill__code__in: selectedSkills.map(skillObject => (skillObject?.code)),
   });
 
   const resetFilters = () => {
@@ -210,14 +208,14 @@ const ProjectedVacancy = ({ isAO }) => {
               <div className="filterby-label">Filter by:</div>
               <div className="filterby-clear">
                 {clearFilters &&
-                      <button
-                        className="unstyled-button"
-                        onClick={resetFilters}
-                        disabled={disableSearch}
-                      >
-                        <FA name="times" />
-                        Clear Filters
-                      </button>
+                  <button
+                    className="unstyled-button"
+                    onClick={resetFilters}
+                    disabled={disableSearch}
+                  >
+                    <FA name="times" />
+                    Clear Filters
+                  </button>
                 }
               </div>
             </div>
@@ -326,43 +324,41 @@ const ProjectedVacancy = ({ isAO }) => {
         }
         {
           disableSearch &&
-            <Alert
-              type="warning"
-              title={'Edit Mode (Search Disabled)'}
-              customClassName="mb-10"
-              messages={[{
-                body: 'Discard or save your edits before searching. ' +
-                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
-              },
-              ]}
-            />
+          <Alert
+            type="warning"
+            title={'Edit Mode (Search Disabled)'}
+            customClassName="mb-10"
+            messages={[{
+              body: 'Discard or save your edits before searching. ' +
+                'Filters and Pagination are disabled if any cards are in Edit Mode.',
+            }]}
+          />
         }
         <div className="usa-width-one-whole position-search--results">
           <div className="proposed-cycle-banner">
             {includedPositions.length} {includedPositions.length === 1 ? 'Position' : 'Positions'} Selected
             {
               isAO &&
-                <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
+              <button className="usa-button-secondary" onClick={addToProposedCycle} disabled={!includedPositions.length}>Add to Proposed Cycle</button>
             }
           </div>
           <div className="usa-grid-full position-list">
-            {
-              dummyIds.map(k =>
-                (<ProjectedVacancyCard
-                  result={dummyPositionDetails}
-                  key={k}
-                  id={k}
-                  updateIncluded={onIncludedUpdate}
-                  onEditModeSearch={(editMode, id) =>
-                    onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
-                />))
-            }
+            {positions$ && positions$.map(k => (
+              <ProjectedVacancyCard
+                result={k}
+                key={k.id}
+                id={k.id}
+                updateIncluded={onIncludedUpdate}
+                onEditModeSearch={(editMode, id) =>
+                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+              />
+            ))}
           </div>
         </div>
         {/* placeholder for when we put in pagination */}
         {
           disableSearch &&
-            <div className="disable-react-paginate-overlay" />
+          <div className="disable-react-paginate-overlay" />
         }
       </div>
   );
