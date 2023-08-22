@@ -185,7 +185,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxLength="4000"
                 name="position-description"
                 placeholder="No Description"
                 defaultValue={textArea}

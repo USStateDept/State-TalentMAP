@@ -246,7 +246,7 @@ exports[`EditBidders Component matches snapshot 1`] = `
       </label>
       <ForwardRef(TextareaAutosize)
         maxRows={4}
-        maxlength="255"
+        maxLength="255"
         minRows={4}
         name="note"
         onChange={[Function]}
