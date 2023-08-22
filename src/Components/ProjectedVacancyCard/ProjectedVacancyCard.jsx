@@ -169,7 +169,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
           >
             {
               bidSeasons$.map(b => (
-                <option value={b.code}>{b.name}</option>
+                <option key={b.code} value={b.code}>{b.name}</option>
               ))
             }
           </select>
@@ -238,7 +238,7 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
             <TextareaAutosize
               maxRows={6}
               minRows={6}
-              maxlength="4000"
+              maxLength="4000"
               name="position-description"
               placeholder="No Description"
               defaultValue={textArea}
