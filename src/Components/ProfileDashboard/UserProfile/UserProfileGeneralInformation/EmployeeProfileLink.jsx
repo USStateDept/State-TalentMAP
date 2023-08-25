@@ -1,8 +1,8 @@
+/* eslint-disable */
 import swal from '@sweetalert/with-react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
-// import axios from 'axios';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { downloadPdfStream } from 'utilities';
@@ -15,35 +15,21 @@ import EmployeeProfileModal from './EmployeeProfileModal';
 import api from '../../../../api';
 
 const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
-  const dispatch = useDispatch();
-  const { data: reportDataSave, error: reportDataSaveError, loading: reportDataSaveLoading } = useDataLoader(api().get, `/fsbid/employee/${userProfile?.user_info?.hru_id}/employee_profile_report/?redacted_report=true`);
-  const { data: reportDataView, error: reportDataViewError, loading: reportDataViewLoading } = useDataLoader(api().get, `/fsbid/employee/${userProfile?.user_info?.hru_id}/employee_profile_report/`);
 
   const downloadEmployeeProfile = () => {
-    dispatch(toastInfo('Please wait while we process your request.', 'Loading...'));
-    /* eslint-disable no-console */
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    console.log('🦄 current: reportDataSave:', reportDataSave);
-    console.log('🦄 current: reportDataSaveError:', reportDataSaveError);
-    console.log('🦄 current: reportDataSaveLoading:', reportDataSaveLoading);
-    console.log('🦄 current: reportDataView:', reportDataView);
-    console.log('🦄 current: reportDataViewError:', reportDataViewError);
-    console.log('🦄 current: reportDataViewLoading:', reportDataViewLoading);
-    console.log('🦄🦄🦄🦄🦄🦄🦄🦄🦄🦄');
-    downloadPdfStream(reportDataSave.data);
-    dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
-
-
-    // axios.get(reportData)
-    //   .then(response => {
-    //     downloadPdfStream(response.data);
-    //     dispatch(toastSuccess('Employee profile successfully downloaded.', 'Success'));
-    //   })
-    //   .catch(() => {
-    //     dispatch(toastError('We were unable to process your E
-    //     mployee Profile download. Please try again later.', 'An error has occurred'));
-    //   });
+    downloadPdfStream(userProfile.redactedReport.data);
   };
+
+  /* eslint-disable no-console */
+  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
+  console.log('🥳 current: userProfile.redactedReport:', userProfile.redactedReport);
+  console.log('🥳 current: userProfile.unredactedReport:', userProfile.unredactedReport);
+  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
+
+
+  const redactedBlob = new Blob([userProfile?.redactedReport?.data], { type: 'application/pdf' });
+  const unredactedBlob = new Blob([userProfile?.unredactedReport?.data], { type: 'application/pdf' });
+  const bloburl = window.URL.createObjectURL(unredactedBlob);
 
   const openPdf = () => swal({
     title: 'Employee Profile Report:',
@@ -51,7 +37,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
     className: 'modal-1300',
     content: (
       <EmployeeProfileModal
-        url={reportDataView}
+        url={bloburl}
       />
     ),
   });
@@ -61,11 +47,11 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
       content={
         <div>
           {
-            showEmployeeProfileLinks &&
+            showEmployeeProfileLinks && !unredactedBlob?.size && !redactedBlob?.size &&
             <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
-            showEmployeeProfileLinks &&
+            showEmployeeProfileLinks && !!unredactedBlob?.size &&
             <InteractiveElement
               onClick={openPdf}
               type="a"
@@ -75,7 +61,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
             </InteractiveElement>
           }
           {
-            showEmployeeProfileLinks &&
+            showEmployeeProfileLinks && !!redactedBlob.size &&
             <InteractiveElement
               onClick={downloadEmployeeProfile}
               type="a"
