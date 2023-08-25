@@ -170,3 +170,57 @@ export function searchPostAccessRemove(positions) {
       });
   };
 }
+
+export function searchPostAccessFetchFiltersErrored(bool) {
+  return {
+    type: 'SEARCH_POST_ACCESS_FETCH_FILTERS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function searchPostAccessFetchFiltersLoading(bool) {
+  return {
+    type: 'SEARCH_POST_ACCESS_FETCH_FILTERS_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function searchPostAccessFetchFiltersSuccess(results) {
+  return {
+    type: 'SEARCH_POST_ACCESS_FETCH_FILTERS_SUCCESS',
+    results,
+  };
+}
+
+export function searchPostAccessFetchFilters() {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(searchPostAccessFetchFiltersLoading(true));
+      dispatch(searchPostAccessFetchFiltersErrored(false));
+    });
+    const endpoint = 'fsbid/search_post_access/filters/';
+    dispatch(searchPostAccessFetchFiltersLoading(true));
+    api().get(endpoint)
+      .then((data) => {
+        batch(() => {
+          dispatch(searchPostAccessFetchFiltersSuccess(data));
+          dispatch(searchPostAccessFetchFiltersErrored(false));
+          dispatch(searchPostAccessFetchFiltersLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(searchPostAccessFetchFiltersLoading(true));
+            dispatch(searchPostAccessFetchFiltersErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(searchPostAccessFetchFiltersSuccess([]));
+            dispatch(searchPostAccessFetchFiltersErrored(true));
+            dispatch(searchPostAccessFetchFiltersLoading(false));
+          });
+        }
+      });
+  };
+}

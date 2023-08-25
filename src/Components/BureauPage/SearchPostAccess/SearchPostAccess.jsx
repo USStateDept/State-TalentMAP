@@ -10,7 +10,7 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import SelectForm from 'Components/SelectForm';
 import TotalResults from 'Components/TotalResults';
 import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
-import { searchPostAccessFetchData, searchPostAccessRemove, searchPostAccessSaveSelections } from 'actions/searchPostAccess';
+import { searchPostAccessFetchData, searchPostAccessFetchFilters, searchPostAccessRemove, searchPostAccessSaveSelections } from 'actions/searchPostAccess';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
@@ -29,6 +29,15 @@ const SearchPostAccess = () => {
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
   const searchPostAccessData = useSelector(state => state.searchPostAccess);
+
+
+  const searchPostAccessFilters = useSelector(state => state.searchPostAccessFetchFilterData);
+  const searchPostAccessFiltersLoading = useSelector(
+    state => state.searchPostAccessFetchFiltersLoading);
+  console.log(searchPostAccessFiltersLoading);
+  console.log(searchPostAccessFilters);
+
+
   const searchPostAccessFetchDataLoading =
     useSelector(state => state.searchPostAccessFetchDataLoading);
   const searchPostAccessFetchDataError =
@@ -98,6 +107,7 @@ const SearchPostAccess = () => {
     }
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
     dispatch(searchPostAccessFetchData(getQuery()));
+    dispatch(searchPostAccessFetchFilters()); // FOR TESTING ATM
   };
 
 
