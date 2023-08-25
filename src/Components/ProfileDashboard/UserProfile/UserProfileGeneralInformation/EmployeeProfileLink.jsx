@@ -1,31 +1,18 @@
-/* eslint-disable */
 import swal from '@sweetalert/with-react';
-import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { USER_PROFILE } from 'Constants/PropTypes';
 import InteractiveElement from 'Components/InteractiveElement';
 import { downloadPdfStream } from 'utilities';
-// eslint-disable-next-line no-unused-vars
-import { toastError, toastInfo, toastSuccess } from 'actions/toast';
-import { useDataLoader } from 'hooks';
 import Alert from '../../../Alert';
 import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
-import api from '../../../../api';
 
 const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
 
   const downloadEmployeeProfile = () => {
     downloadPdfStream(userProfile.redactedReport.data);
   };
-
-  /* eslint-disable no-console */
-  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
-  console.log('🥳 current: userProfile.redactedReport:', userProfile.redactedReport);
-  console.log('🥳 current: userProfile.unredactedReport:', userProfile.unredactedReport);
-  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
-
 
   const redactedBlob = new Blob([userProfile?.redactedReport?.data], { type: 'application/pdf' });
   const unredactedBlob = new Blob([userProfile?.unredactedReport?.data], { type: 'application/pdf' });

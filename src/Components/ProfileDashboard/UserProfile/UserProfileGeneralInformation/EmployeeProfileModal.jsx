@@ -1,4 +1,3 @@
-/* eslint-disable */
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
 import { Viewer, Worker } from '@react-pdf-viewer/core';
