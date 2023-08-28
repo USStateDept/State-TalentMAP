@@ -66,7 +66,7 @@ export function userProfileFetchData(bypass, cb) {
     /**
      * create functions to fetch user's profile and permissions
      */
-    // profile
+      // profile
     const getUserAccount = () => api().get('/profile/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // permissions
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
@@ -102,12 +102,6 @@ export function userProfileFetchData(bypass, cb) {
         const orgPermissions = get(results, '[6].value.data', []);
         const account = get(results, '[7].value.data', {});
 
-        /* eslint-disable no-console */
-        console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
-        console.log('🧁 current: bureauPermissions:', bureauPermissions);
-        console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
-
-
         let newProfileObject = {
           is_superuser: indexOf(permissions.groups, 'superuser') > -1,
           permission_groups: permissions.groups,
@@ -128,45 +122,30 @@ export function userProfileFetchData(bypass, cb) {
           };
         }
 
-        // profile reports
-        const hru_id = newProfileObject?.user_info?.hru_id;
-        const getEmployeeProfileReportRedacted = () => api().get(`/fsbid/employee/${hru_id}/employee_profile_report/?redacted_report=true`,
-          { responseType: 'arraybuffer' });
-        const getEmployeeProfileReportUnredacted = () => api().get(`/fsbid/employee/${hru_id}/employee_profile_report/`,
-          { responseType: 'arraybuffer' });
-
-        const proms2 = [getEmployeeProfileReportRedacted(),
-          getEmployeeProfileReportUnredacted(), newProfileObject];
-
-        return Promise.all(proms2);
-      })
-      .then(axios.spread((redactedReport, unredactedReport, newProfileObject) => {
-        let newProfileObject$ = { ...newProfileObject, redactedReport, unredactedReport };
-
         // function to success perform dispatches
         const dispatchSuccess = () => {
           if (cb) {
             dispatch(cb());
           }
           batch(() => {
-            dispatch(userProfileFetchDataSuccess(newProfileObject$));
+            dispatch(userProfileFetchDataSuccess(newProfileObject));
             dispatch(userProfileIsLoading(false));
             dispatch(userProfileHasErrored(false));
             dispatch(userProfileFavoritePositionHasErrored(false));
           });
         };
 
-        function unsetAvatar() { newProfileObject$.avatar = {}; }
+        function unsetAvatar() { newProfileObject.avatar = {}; }
 
         // Compare the images in the compare array. One of the URLs
         // is a link to a default profile picture. If the user's
         // profile picture (the other URL in the array)
         // is the same as the default, then return an empty object so that
         // it doesn't get displayed.
-        const compare = get(newProfileObject$, 'avatar.compare', []);
+        const compare = get(newProfileObject, 'avatar.compare', []);
 
         if (bypass) { // use existing avatar and let reducer use it
-          newProfileObject$ = omit(newProfileObject$, ['avatar']);
+          newProfileObject = omit(newProfileObject, ['avatar']);
           dispatchSuccess();
         } else if (compare.length) {
           const proms = compare.map(path => (
@@ -194,7 +173,7 @@ export function userProfileFetchData(bypass, cb) {
               dispatchSuccess();
             });
         }
-      }))
+      })
       .catch(() => {
         if (cb) {
           dispatch(cb());
@@ -216,11 +195,11 @@ export function userProfileFetchData(bypass, cb) {
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false,
-  isPV = false, sortType, isTandem = false) {
+                                                  isPV = false, sortType, isTandem = false) {
   const idString = id.toString();
   return (dispatch) => {
     const apiURL =
-    `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
+      `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
       url: apiURL,
@@ -229,7 +208,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     /**
      * create functions for creating the action and fetching position data to supply to message
      */
-    // action
+      // action
     const getAction = () => api()(config);
 
     // position
