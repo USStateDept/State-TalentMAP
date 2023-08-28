@@ -66,7 +66,7 @@ export function userProfileFetchData(bypass, cb) {
     /**
      * create functions to fetch user's profile and permissions
      */
-      // profile
+    // profile
     const getUserAccount = () => api().get('/profile/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
     // permissions
     const getUserPermissions = () => api().get('/permission/user/', { headers: { [INTERCEPTORS.PUT_PERDET.value]: true } });
@@ -195,11 +195,11 @@ export function userProfileFetchData(bypass, cb) {
 // If we need a full refresh of Favorite Positions, such as for the profile's favorite sub-section,
 // we can pass a third arg, refreshFavorites.
 export function userProfileToggleFavoritePosition(id, remove, refreshFavorites = false,
-                                                  isPV = false, sortType, isTandem = false) {
+  isPV = false, sortType, isTandem = false) {
   const idString = id.toString();
   return (dispatch) => {
     const apiURL =
-      `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
+     `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
       url: apiURL,
@@ -208,7 +208,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
     /**
      * create functions for creating the action and fetching position data to supply to message
      */
-      // action
+    // action
     const getAction = () => api()(config);
 
     // position
