@@ -140,7 +140,7 @@ const PositionExpandableContent = ({ sections, form }) => {
       }
       <div className="usa-grid-full toggle-more-container">
         <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
-          <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
+          <FA name={`chevron-${showMore ? 'down' : 'down'}`} />
         </InteractiveElement>
       </div>
     </div>

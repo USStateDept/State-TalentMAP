@@ -175,6 +175,15 @@
     }
   }
 
+  .stat-card-comments {
+    width: '100%';
+  }
+
+  .stat-card-data-space {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .client-badge-list {
     display: flex;
 
@@ -196,6 +205,19 @@
     display: flex;
     flex-direction: row;
     line-height: 1.3em;
+  }
+
+  .stat-card-btn-container {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .stat-card-cancel-btn {
+    background-color: transparent;
+  }
+
+  .toggle-more-container {
+    text-align: right;
   }
 
   .button-container {
