@@ -200,7 +200,16 @@
   dd {
     margin-left: 5px;
   }
-
+  .stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid $color-gray-light;
+  }
+  .stat-card-client {
+    margin: 0px;
+  }
   .stat-card-data-point {
     display: flex;
     flex-direction: row;

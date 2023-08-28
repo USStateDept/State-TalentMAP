@@ -6,6 +6,7 @@ import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/Syst
 import { formatDate } from 'utilities';
 import FA from 'react-fontawesome';
 import { toastSuccess } from 'actions/toast';
+import ToggleButton from 'Components/ToggleButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';
@@ -25,6 +26,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
   const [edit, setEdit] = useState(false);
   const [showMore, setShowMore] = useState(false);
+  const [included, setIncluded] = useState(true);
 
   const editClient = (e) => {
     e.preventDefault();
@@ -41,6 +43,15 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
 
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
+      <div className="stat-card-header">
+        <h3 className="stat-card-client">Client Overview</h3>
+        <ToggleButton
+          labelTextRight={!included ? 'Excluded' : 'Included'}
+          checked={included}
+          onChange={() => setIncluded(!included)}
+          onColor="#0071BC"
+        />
+      </div>
       { showMore &&
         <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
           <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
