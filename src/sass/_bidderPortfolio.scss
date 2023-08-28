@@ -84,6 +84,17 @@
   display: flex;
   flex-direction: column;
   padding: 12px 20px;
+  .bidder-portfolio-ribbon-container {
+    float: right;
+    width: auto;
+    .ribbon-container-condensed {
+      position: absolute;
+      right: 0;
+      top: 20;
+      z-index: 2;
+      padding: 20px;
+    }
+  }
 
   h4 {
     font-family: inherit;

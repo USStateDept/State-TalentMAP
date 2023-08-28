@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Handshake } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import FA from 'react-fontawesome';
@@ -30,6 +31,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
 
   const editClient = (e) => {
     e.preventDefault();
+    console.log('expand all', userProfile);
     setEdit(previous => !previous);
   };
 
@@ -61,6 +63,13 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           </Link>
         </div>
       }
+      <div className="bidder-portfolio-ribbon-container">
+        <div className="ribbon-container-condensed">
+          {true &&
+              <Handshake />
+          }
+        </div>
+      </div>
       <div>
         <div>
           <div className="stat-card-data-point">

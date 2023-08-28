@@ -52,6 +52,7 @@ class BidderPortfolioPage extends Component {
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
       classificationsIsLoading, updatePagination,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
+    console.log('Handshake', defaultHandshake);
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
       classificationsIsLoading) && !bidderPortfolioHasErrored && !classificationsHasErrored;
