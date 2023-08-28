@@ -199,7 +199,7 @@ export function userProfileToggleFavoritePosition(id, remove, refreshFavorites =
   const idString = id.toString();
   return (dispatch) => {
     const apiURL =
-     `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
+    `/${isPV ? 'projected_vacancy' : 'available_position'}/${isTandem ? 'tandem/' : ''}${idString}/favorite/`;
     const config = {
       method: remove ? 'delete' : 'put',
       url: apiURL,
