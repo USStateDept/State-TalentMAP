@@ -10,7 +10,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 
 const PositionExpandableContent = ({ sections, form }) => {
   const handleEdit = form?.handleEdit ?? {};
-  const { editMode, setEditMode } = handleEdit;
+  const { editMode, setEditMode, forceEdit = false } = handleEdit;
 
   const [showMore, setShowMore] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);

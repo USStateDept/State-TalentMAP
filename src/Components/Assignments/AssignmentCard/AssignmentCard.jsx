@@ -20,6 +20,8 @@ const useDeto = () => checkFlag('flags.deto');
 
 const AssignmentCard = (props) => {
   const { data, refFilters, isNew, setNewAsgSep } = props;
+  const [editMode, setEditMode] = useState(isNew);
+
   // const dispatch = useDispatch();
   const pos = data?.position || data;
   const altPos = data?.pos;
@@ -297,6 +299,11 @@ const AssignmentCard = (props) => {
     cancelText: 'Are you sure you want to discard all changes made to this Assignment?',
     handleSubmit: () => onSubmitForm(),
     handleCancel: () => onCancelForm(),
+    handleEdit: {
+      editMode,
+      setEditMode,
+      forceEdit: isNew,
+    },
     // TO-DO: DIP, MEMO, NOTE
     /* eslint-enable quote-props */
   };
@@ -311,7 +318,7 @@ const AssignmentCard = (props) => {
       tabs={[{
         text: isNew ? 'New Assignment/Separation' : 'Assignment Overview',
         value: 'INFORMATION',
-        content: <PositionExpandableContent forceEdit={isNew} sections={sections} form={form} />,
+        content: <PositionExpandableContent sections={sections} form={form} />,
       }]}
     />
   );
