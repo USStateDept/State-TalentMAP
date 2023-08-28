@@ -9,7 +9,6 @@ import InformationDataPoint from '../../InformationDataPoint';
 import EmployeeProfileModal from './EmployeeProfileModal';
 
 const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
-
   const downloadEmployeeProfile = () => {
     downloadPdfStream(userProfile.redactedReport.data);
   };
