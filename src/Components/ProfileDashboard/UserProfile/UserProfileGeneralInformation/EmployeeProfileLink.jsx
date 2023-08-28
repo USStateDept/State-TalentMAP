@@ -34,7 +34,7 @@ const EmployeeProfileLink = ({ userProfile, showEmployeeProfileLinks }) => {
         <div>
           {
             showEmployeeProfileLinks && !unredactedBlob?.size && !redactedBlob?.size &&
-            <Alert type="error" title="Error grabbing Employee Profile" messages={[{ body: 'Please try again.' }]} tinyAlert />
+            <Alert type="error" title="Error grabbing Profile PDF" messages={[{ body: 'Please try again.' }]} tinyAlert />
           }
           {
             showEmployeeProfileLinks && !!unredactedBlob?.size &&
