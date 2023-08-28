@@ -149,6 +149,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bid_seasons') ?
+        {
+          text: 'Bid Season Management',
+          route: '/profile/administrator/managebidseasons/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
@@ -198,6 +207,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
+      {
+        text: 'Manage Post Access',
+        route: '/profile/bureau/managepostaccess',
+        icon: 'building',
+        roles: [
+          'super_user',
+          'bureau_user',
+        ],
+      },
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
@@ -213,6 +231,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Publishable Positions',
           route: '/profile/bureau/publishablepositions',
           icon: ' fa-newspaper-o',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.search_post_access') ?
+        {
+          text: 'Search Post Access',
+          route: '/profile/bureau/searchpostaccess',
+          icon: ' fa-search-minus',
           roles: [
             'superuser',
             'bureau_user',

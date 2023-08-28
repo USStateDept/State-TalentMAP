@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { get } from 'lodash';
 import DatePicker from 'react-datepicker';
 import { useDispatch } from 'react-redux';
@@ -87,9 +87,11 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
     updateIncluded(id, included);
   }, [included]);
 
-  const onEditModeCard = (editMode) => {
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
+    // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, id);
-  };
+  }, [editMode]);
 
   const onCancelForm = () => {
     // this is likely not going to be needed, as we should be
@@ -253,6 +255,10 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
     cancelText: 'Are you sure you want to discard all changes made to this Projected Vacancy position?',
     handleSubmit: () => dispatch(projectedVacancyEdit(5, {})),
     handleCancel: () => onCancelForm(),
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
     /* eslint-enable quote-props */
   };
 
@@ -266,7 +272,6 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
             <PositionExpandableContent
               sections={sections}
               form={form}
-              onEditMode={onEditModeCard}
             />
             <div className="toggle-include">
               <ToggleButton

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
@@ -23,18 +23,20 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
 
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
+  const positionNumber = getResult(pos, 'position_number') || NO_POSITION_NUMBER;
+  const bureau = getResult(pos, 'bureau_short_desc') || NO_BUREAU;
 
-  // =============== View Mode ===============
+  // =============== Overview: View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
     subheading: {
-      'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER),
+      'Position Number': positionNumber,
       'Skill': getResult(pos, 'skill_code') || NO_SKILL,
       'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
     },
     bodyPrimary: {
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
+      'Bureau': bureau,
       'Location': getPostName(pos?.post) || NO_POST,
       'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
       'Grade': getResult(pos, 'grade') || NO_GRADE,
@@ -59,7 +61,8 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   };
 
 
-  // =============== Edit Mode ===============
+  // =============== Overview: Edit Mode ===============
+
   function renderSelectionList({ items, selected, ...rest }) {
     return items.map((item, index) => {
       const keyId = `${index}-${item}`;
@@ -100,9 +103,22 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
   const functionalBureaus = filters$.find(f => f.item.description === 'functionalRegion');
   const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
 
-  const onEditModeCard = (editMode) => {
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
     // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, 7);
+  }, [editMode]);
+
+  const onSubmitForm = () => {
+    editMode(false);
+  };
+
+  const onCancelForm = () => {
+    // this is likely not going to be needed, as we should be
+    // re-reading from "pos" when we open Edit Form back up
+    // clear will need to set states back to the pull
+    // from "pos" once we've determined the ref data structure
+    editMode(false);
   };
 
   const form = {
@@ -122,107 +138,177 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
       'Functional Bureau': 'None Listed',
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
-    inputBody: <div className="position-form">
-      <div className="spaced-row">
-        <div className="dropdown-container">
-          <div className="position-form--input">
-            <label htmlFor="publishable-position-statuses">Status</label>
-            <select
-              id="publishable-position-statuses"
-              defaultValue={status}
-              onChange={(e) => setStatus(e?.target.value)}
-            >
-              {statusOptions.map(s => (
-                <option value={s.code}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
+    inputBody: (
+      <div className="position-form">
+        <div className="spaced-row">
+          <div className="dropdown-container">
+            <div className="position-form--input">
+              <label htmlFor="publishable-position-statuses">Status</label>
+              <select
+                id="publishable-position-statuses"
+                defaultValue={status}
+                onChange={(e) => setStatus(e?.target.value)}
+              >
+                {statusOptions.map(s => (
+                  <option value={s.code}>
+                    {s.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="position-form--input">
+              <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
+              <select
+                id="publishable-pos-tod-override"
+                defaultValue={overrideTOD}
+                onChange={(e) => setOverrideTOD(e?.target.value)}
+              >
+                {tods.map(t => (
+                  <option value={t.code}>
+                    {t.long_description}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-          <div className="position-form--input">
-            <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
-            <select
-              id="publishable-pos-tod-override"
-              defaultValue={overrideTOD}
-              onChange={(e) => setOverrideTOD(e?.target.value)}
-            >
-              {tods.map(t => (
-                <option value={t.code}>
-                  {t.long_description}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CheckBox
+            id="exclude-checkbox"
+            label="Exclude Position from Bid Audit"
+            value={exclude}
+            onCheckBoxClick={e => setExclude(e)}
+          />
         </div>
-        <CheckBox
-          id="exclude-checkbox"
-          label="Exclude Position from Bid Audit"
-          value={exclude}
-          onCheckBoxClick={e => setExclude(e)}
-        />
-      </div>
-      <div>
-        <Row fluid className="position-form--description">
-          <span className="definition-title">Position Details</span>
-          <Linkify properties={{ target: '_blank' }}>
-            <TextareaAutosize
-              maxRows={6}
-              minRows={6}
-              maxlength="4000"
-              name="position-description"
-              placeholder="No Description"
-              defaultValue={textArea}
-              onChange={(e) => setTextArea(e.target.value)}
-              draggable={false}
-            />
-          </Linkify>
-          <div className="word-count">
-            {textArea.length} / 4,000
-          </div>
-        </Row>
-      </div>
-      <div className="content-divider" />
-      <div className="position-form--heading">
-        <span className="title">Future Cycle</span>
-        <span className="subtitle">Please identify a cycle to add this position to.</span>
-      </div>
-      <div className="position-form--picky">
-        <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
-        <div className="publishable-position-cycles">{selectedCycles.map(a => a.name).join(', ')}</div>
-      </div>
-      <Picky
-        {...pickyProps}
-        placeholder="Choose Bid Cycle(s)"
-        value={selectedCycles}
-        options={cycles?.data}
-        onChange={setSelectedCycles}
-        valueKey="id"
-        labelKey="name"
-      />
-      <div className="pt-20">
+        <div>
+          <Row fluid className="position-form--description">
+            <span className="definition-title">Position Details</span>
+            <Linkify properties={{ target: '_blank' }}>
+              <TextareaAutosize
+                maxRows={6}
+                minRows={6}
+                maxlength="4000"
+                name="position-description"
+                placeholder="No Description"
+                defaultValue={textArea}
+                onChange={(e) => setTextArea(e.target.value)}
+                draggable={false}
+              />
+            </Linkify>
+            <div className="word-count">
+              {textArea.length} / 4,000
+            </div>
+          </Row>
+        </div>
         <div className="content-divider" />
         <div className="position-form--heading">
-          <span className="title">Add a Functional Bureau</span>
-          <span className="subtitle">Add a Functional Bureau to this Position</span>
+          <span className="title">Future Cycle</span>
+          <span className="subtitle">Please identify a cycle to add this position to.</span>
         </div>
-        <div className="position-form--input">
-          <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
-          <select
-            id="publishable-pos-func-bureaus"
-            defaultValue={selectedFuncBureau}
-            onChange={(e) => setSelectedFuncBureau(e?.target.value)}
-          >
-            {functionalBureaus$.map(b => (
-              <option value={b.code}>
-                {b.long_description}
-              </option>
-            ))}
-          </select>
+        <div className="position-form--picky">
+          <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
+          <div className="publishable-position-cycles">{selectedCycles.map(a => a.name).join(', ')}</div>
+        </div>
+        <Picky
+          {...pickyProps}
+          placeholder="Choose Bid Cycle(s)"
+          value={selectedCycles}
+          options={cycles?.data}
+          onChange={setSelectedCycles}
+          valueKey="id"
+          labelKey="name"
+        />
+        <div className="pt-20">
+          <div className="content-divider" />
+          <div className="position-form--heading">
+            <span className="title">Add a Functional Bureau</span>
+            <span className="subtitle">Add a Functional Bureau to this Position</span>
+          </div>
+          <div className="position-form--input">
+            <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
+            <select
+              id="publishable-pos-func-bureaus"
+              defaultValue={selectedFuncBureau}
+              onChange={(e) => setSelectedFuncBureau(e?.target.value)}
+            >
+              {functionalBureaus$.map(b => (
+                <option value={b.code}>
+                  {b.long_description}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
-    </div>,
+    ),
+    handleSubmit: onSubmitForm,
+    handleCancel: onCancelForm,
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
     /* eslint-enable quote-props */
   };
+
+  // =============== Classification ===============
+
+  const [formData, setFormData] = useState([]);
+
+  useEffect(() => {
+    if (data.position) {
+      setFormData(data.position?.classifications);
+    }
+  }, [data]);
+
+  const handleSelection = (id) => {
+    const newFormData = formData.map(o => {
+      if (o.id === id) {
+        return {
+          ...o,
+          value: !o.value,
+        };
+      }
+      return o;
+    });
+    setFormData(newFormData);
+  };
+
+  const classificationTable = () => (
+    <div className="position-classifications">
+      <div className="line-separated-fields">
+        <div>
+          <span>Position:</span>
+          <span>{bureau} {positionNumber}</span>
+        </div>
+      </div>
+      <div className="table-container">
+        <table>
+          <thead>
+            <tr>
+              {formData.map((o) => (
+                <th key={o.id}>{o.label}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {formData.map((o) => (
+                <td key={o.label}>
+                  <input
+                    type="checkbox"
+                    name={`${o.id}`}
+                    checked={o.value}
+                    onChange={() => handleSelection(o.id)}
+                  />
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div className="position-classifications--actions">
+        <button onClick={form.handleSubmit}>Save</button>
+      </div>
+    </div>
+  );
 
   return (
     <TabbedCard
@@ -232,8 +318,12 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
         content: <PositionExpandableContent
           sections={sections}
           form={form}
-          onEditMode={onEditModeCard}
         />,
+      }, {
+        text: 'Position Classification',
+        value: 'CLASSIFICATION',
+        content: classificationTable(),
+        disabled: editMode,
       }]}
     />
   );

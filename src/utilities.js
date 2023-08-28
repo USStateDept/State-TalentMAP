@@ -17,6 +17,7 @@ import Differentials from 'Components/Differentials';
 import OBCUrl from 'Components/OBCUrl';
 import BidCount from 'Components/BidCount';
 import { Column } from 'Components/Layout';
+import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { LOGIN_REDIRECT, LOGIN_ROUTE, LOGOUT_ROUTE } from './login/routes';
 
 
@@ -997,6 +998,56 @@ export const onEditModeSearch = (editMode, id, setStateFun, stateList) => {
   } else {
     setStateFun(stateList.filter(x => x !== id));
   }
+};
+
+// Passed through Picky Props - decides how to render values
+export const renderSelectionList = ({ items, selected, ...rest }) => {
+  let codeOrText = 'code';
+  if (items?.[0]?.text) codeOrText = 'text';
+  // only Item Actions/Statuses need to use 'desc_text'
+  if (items?.[0]?.desc_text) codeOrText = 'desc_text';
+  if (items?.[0]?.abbr_desc_text && items[0].code === 'V') codeOrText = 'abbr_desc_text';
+  // only Categories need to use 'mic_desc_text'
+  if (items?.[0]?.mic_desc_text) codeOrText = 'mic_desc_text';
+
+  let queryProp = 'description';
+  if (items?.[0]?.custom_description) queryProp = 'custom_description';
+  else if (items?.[0]?.long_description) queryProp = 'long_description';
+  else if (codeOrText === 'text') queryProp = 'text';
+  else if (codeOrText === 'desc_text') queryProp = 'desc_text';
+  else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
+  else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
+  else if (items?.[0]?.name) queryProp = 'name';
+  return items.map((item, index) => {
+    const keyId = `${index}-${item}`;
+    return (<ListItem
+      item={item}
+      {...rest}
+      key={keyId}
+      queryProp={queryProp}
+    />);
+  });
+};
+
+// Simple sort function
+export const nameSort = (items, value) => items.sort((a, b) => {
+  const nameA = a[value];
+  const nameB = b[value];
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  // names must be equal
+  return 0;
+});
+
+// Pass in generic filters to return clean, sorted list
+export const getGenericFilterOptions = (genericFilters, description, sortBy) => {
+  const category = genericFilters.find(filter => filter?.item?.description === description);
+  return category?.data?.length
+    ? nameSort([...new Set(category.data)], sortBy) : [];
 };
 
 // Search Tags: common.js, helper file, helper functions, common helper file, common file

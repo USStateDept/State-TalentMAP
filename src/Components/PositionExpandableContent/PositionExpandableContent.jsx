@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import DefinitionList from 'Components/DefinitionList';
 import InteractiveElement from 'Components/InteractiveElement';
-import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 
-const PositionExpandableContent = ({ sections, form, onEditMode, forceEdit }) => {
+const PositionExpandableContent = ({ sections, form }) => {
+  const handleEdit = form?.handleEdit ?? {};
+  const { editMode, setEditMode } = handleEdit;
+
   const [showMore, setShowMore] = useState(false);
-  const [editMode, setEditMode] = useState(forceEdit);
-
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -27,7 +27,6 @@ const PositionExpandableContent = ({ sections, form, onEditMode, forceEdit }) =>
     if (editMode) {
       setShowMore(true);
     }
-    onEditMode(editMode);
   }, [editMode]);
 
   const onCancel = () => {
@@ -164,14 +163,15 @@ PositionExpandableContent.propTypes = {
     cancelText: PropTypes.string,
     handleSubmit: PropTypes.func,
     handleCancel: PropTypes.func,
+    handleEdit: PropTypes.shape({
+      editMode: PropTypes.bool,
+      setEditMode: PropTypes.func,
+    }),
   }),
-  forceEdit: PropTypes.bool,
-  onEditMode: PropTypes.func,
 };
 
 PositionExpandableContent.defaultProps = {
   form: undefined,
-  forceEdit: false,
   sections: {
     subheading: {},
     bodyPrimary: {},
@@ -179,7 +179,6 @@ PositionExpandableContent.defaultProps = {
     textarea: '',
     metadata: {},
   },
-  onEditMode: EMPTY_FUNCTION,
 };
 
 export default PositionExpandableContent;

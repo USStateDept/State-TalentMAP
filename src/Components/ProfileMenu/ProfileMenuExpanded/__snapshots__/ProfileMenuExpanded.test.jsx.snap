@@ -118,6 +118,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="calendar"
+        key="Bid Season Management"
+        link="/profile/administrator/managebidseasons/"
+        search=""
+        title="Bid Season Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -252,6 +260,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="building"
+        key="Manage Post Access"
+        link="/profile/bureau/managepostaccess"
+        search=""
+        title="Manage Post Access"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/bureau/positionmanager"
@@ -273,6 +289,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/bureau/publishablepositions"
         search=""
         title="Publishable Positions"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-search-minus"
+        key="Search Post Access"
+        link="/profile/bureau/searchpostaccess"
+        search=""
+        title="Search Post Access"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
@@ -475,6 +499,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="calendar"
+        key="Bid Season Management"
+        link="/profile/administrator/managebidseasons/"
+        search=""
+        title="Bid Season Management"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -609,6 +641,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="building"
+        key="Manage Post Access"
+        link="/profile/bureau/managepostaccess"
+        search=""
+        title="Manage Post Access"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="map"
         key="Position Management"
         link="/profile/bureau/positionmanager"
@@ -630,6 +670,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/bureau/publishablepositions"
         search=""
         title="Publishable Positions"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-search-minus"
+        key="Search Post Access"
+        link="/profile/bureau/searchpostaccess"
+        search=""
+        title="Search Post Access"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)

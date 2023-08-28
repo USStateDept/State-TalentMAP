@@ -178,6 +178,11 @@ export const UPDATE_PANEL_MEETING_SUCCESS = 'This Panel Meeting has been saved s
 export const UPDATE_PANEL_MEETING_ERROR_TITLE = 'Panel Meeting Error';
 export const UPDATE_PANEL_MEETING_ERROR = 'There was an issue attempting to save this Panel Meeting. Please try again.';
 
+export const UPDATE_POST_PANEL_PROCESSING_SUCCESS_TITLE = 'Post Panel Processing Saved';
+export const UPDATE_POST_PANEL_PROCESSING_SUCCESS = 'This Post Panel Processing has been saved successfully.';
+export const UPDATE_POST_PANEL_PROCESSING_ERROR_TITLE = 'Post Panel Processing Error';
+export const UPDATE_POST_PANEL_PROCESSING_ERROR = 'There was an issue attempting to save this Post Panel Processing. Please try again.';
+
 export const UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE = 'Publishable Position Saved';
 export const UPDATE_PUBLISHABLE_POSITION_SUCCESS = 'This Publishable Position has been successfully saved.';
 export const UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE = 'Publishable Position Error';
@@ -212,3 +217,24 @@ export const CREATE_ASSIGNMENT_SUCCESS_TITLE = 'Assignment/Separation Created';
 export const CREATE_ASSIGNMENT_SUCCESS = 'The Assignment/Separation has been created';
 export const CREATE_ASSIGNMENT_ERROR_TITLE = 'Create Assignment Error';
 export const CREATE_ASSIGNMENT_ERROR = 'There was an issue attempting to create this Assignment/Separation. Please try again.';
+
+export const ADD_BID_SEASON_SUCCESS_TITLE = 'Bid Season Added';
+export const ADD_BID_SEASON_SUCCESS = 'Bid Season has been added.';
+export const ADD_BID_SEASON_ERROR_TITLE = 'Bid Season Add Error';
+export const ADD_BID_SEASON_ERROR = 'There was an issue attempting to add this Bid Season. Please try again.';
+
+export const EDIT_BID_SEASON_SUCCESS_TITLE = 'Bid Season Updated';
+export const EDIT_BID_SEASON_SUCCESS = 'The Bid Season has been updated';
+export const EDIT_BID_SEASON_ERROR_TITLE = 'Bid Season Edit Error';
+export const EDIT_BID_SEASON_ERROR = 'There was an issue attempting to update this Bid Season. Please try again.';
+
+export const MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE = 'Access Granted for Post(s)';
+export const MANAGE_POST_ACCESS_ADD_SUCCESS = 'Access granted to post(s) successfully';
+export const MANAGE_POST_ACCESS_ADD_ERROR_TITLE = 'Access Grant Error';
+export const MANAGE_POST_ACCESS_ADD_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
+
+export const SEARCH_POST_ACCESS_REMOVE_SUCCESS_TITLE = 'Access Removed for Post(s)';
+export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) successfully';
+export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
+export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
+

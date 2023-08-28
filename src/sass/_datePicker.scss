@@ -11,7 +11,8 @@
     margin: 0.4em 1em;
   }
 
-  .react-datepicker__day-name, .react-datepicker__day {
+  .react-datepicker__day-name,
+  .react-datepicker__day {
     width: 1.9em;
     line-height: 1.9em;
     margin: 0.166em;
@@ -45,7 +46,9 @@
 $date-picker-width: 300px;
 
 .date-wrapper-react {
-  .fa-calendar-o, .fa-calendar {
+
+  .fa-calendar-o,
+  .fa-calendar {
     color: $blue-primary;
     font-size: 20px;
     left: 6px;
@@ -53,10 +56,14 @@ $date-picker-width: 300px;
     top: 0;
     z-index: 9;
   }
-  .fa-calendar-o:before, .fa-calendar:before {
-    content: "\f133"!important;
+
+  .fa-calendar-o:before,
+  .fa-calendar:before {
+    content: "\f133" !important;
   }
-  .fa-times, .fa-times-circle {
+
+  .fa-times,
+  .fa-times-circle {
     color: $color-red;
     font-size: 20px;
     left: $date-picker-width - 50;
@@ -64,15 +71,19 @@ $date-picker-width: 300px;
     top: 0;
     z-index: 9;
   }
-  .fa-times:hover, .fa-times-circle:hover {
+
+  .fa-times:hover,
+  .fa-times-circle:hover {
     color: $secondary-darkest-2;
   }
-  .react-datepicker-wrapper, .react-datepicker__input-container {
+
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container {
     margin-inline-start: -22px;
-    width: $date-picker-width!important;
+    width: $date-picker-width !important;
 
     >* {
-      cursor: pointer!important;
+      cursor: pointer !important;
     }
 
     input {
@@ -81,4 +92,37 @@ $date-picker-width: 300px;
   }
 }
 
+.date-picker-wrapper {
+  position: relative;
+  width: 100%;
 
+  .fa-calendar-o,
+  .fa-calendar {
+    color: $blue-primary;
+    font-size: 20px;
+    left: 6px;
+    position: absolute;
+    top: 15px;
+    z-index: 1;
+  }
+
+  .fa-calendar-o:before,
+  .fa-calendar:before {
+    content: "\f133" !important;
+  }
+
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container {
+    >* {
+      cursor: pointer !important;
+    }
+
+    input {
+      padding-inline-start: 50px;
+    }
+  }
+
+  .react-datepicker-popper {
+    z-index: 2;
+  }
+}

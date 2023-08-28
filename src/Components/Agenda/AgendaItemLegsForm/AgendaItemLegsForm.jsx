@@ -65,6 +65,7 @@ const AgendaItemLegsForm = props => {
     'Action',
     'Travel',
     'Vice',
+    'Pay Plan',
   ];
 
   useEffect(() => {
