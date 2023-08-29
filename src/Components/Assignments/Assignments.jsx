@@ -5,7 +5,6 @@ import { checkFlag } from 'flags';
 import FA from 'react-fontawesome';
 import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
-import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 // import InteractiveElement from 'Components/InteractiveElement';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
@@ -140,9 +139,6 @@ const Assignments = (props) => {
     assignmentsLoading ? <Spinner type="bureau-filters" size="small" /> :
       (
         <div className="assignments-maintenance-page position-search">
-          <div className="position-search--header">
-            <ProfileSectionTitle title="Assignments" icon="clipboard" className="xl-icon" />
-          </div>
           <div className="asg-content">
             { false &&
               <div className="breadcrumb-container">
@@ -154,6 +150,7 @@ const Assignments = (props) => {
               </div>
             }
             <div className="asg-header">
+              <FA name="clipboard" className="fa-lg" />
               Assignments
               <span className="asg-title-dash">
                 {'- '}

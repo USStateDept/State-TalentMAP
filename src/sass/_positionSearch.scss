@@ -278,9 +278,13 @@
     margin-left: 35px;
 
     .asg-header {
-      font-size: 25px;
+      font-size: 22px;
       margin-top: 25px;
       margin-right: 35px;
+      .fa-lg {
+        font-size: 22px;
+        padding-right: 5px;
+      }
     }
   }
 }
