@@ -160,8 +160,9 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         <div>
           <div className="stat-card-data-point stat-card-comments">
             <dt>Comments:</dt>
-            <dd>
+            <dd className="stat-card-dd">
               <TextareaAutosize
+                className="stat-card-textarea"
                 maxRows={4}
                 minRows={4}
                 disabled={!edit}
