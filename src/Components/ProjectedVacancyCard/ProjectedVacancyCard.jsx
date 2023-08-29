@@ -253,7 +253,23 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
       </div>
     </div>,
     cancelText: 'Are you sure you want to discard all changes made to this Projected Vacancy position?',
-    handleSubmit: () => dispatch(projectedVacancyEdit(5, {})),
+    handleSubmit: () => dispatch(projectedVacancyEdit({
+      id,
+      ...result,
+      ted: overrideTED,
+      position: {
+        ...result.position,
+        description: {
+          content: textArea,
+          date_updated: new Date(),
+        },
+        bid_cycle: {
+          ...result.bidcycle,
+          name: bidSeasons,
+          active: status === 1,
+        },
+      },
+    })),
     handleCancel: () => onCancelForm(),
     handleEdit: {
       editMode,

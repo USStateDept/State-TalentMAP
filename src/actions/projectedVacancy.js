@@ -9,10 +9,11 @@ import {
   UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
 import { batch } from 'react-redux';
-import { get } from 'lodash';
+import { get, keys, orderBy } from 'lodash';
+import Q from 'q';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
-import { convertQueryToString } from '../utilities';
+import { convertQueryToString, mapDuplicates } from '../utilities';
 
 
 export function projectedVacancyAddToProposedCycleErrored(bool) {
@@ -101,14 +102,14 @@ export function projectedVacancyEditSuccess(results) {
     results,
   };
 }
-export function projectedVacancyEdit(id, data) {
+export function projectedVacancyEdit(data) {
   return (dispatch) => {
     batch(() => {
       dispatch(projectedVacancyEditLoading(true));
       dispatch(projectedVacancyEditErrored(false));
     });
 
-    api().patch(`ao/${id}/projectedVacancy/`, data)
+    api().put('/fsbid/projected_vacancies/edit/', data)
       .then(() => {
         const toastTitle = UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE;
         const toastMessage = UPDATE_PROJECTED_VACANCY_SUCCESS;
@@ -116,7 +117,6 @@ export function projectedVacancyEdit(id, data) {
           dispatch(projectedVacancyEditErrored(false));
           dispatch(projectedVacancyEditSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(projectedVacancyEditSuccess());
           dispatch(projectedVacancyEditLoading(false));
         });
       })
@@ -236,8 +236,59 @@ export function projectedVacancyFiltersFetchDataSuccess(results) {
 export function projectedVacancyFiltersFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(projectedVacancyFiltersFetchDataSuccess({}));
-      dispatch(projectedVacancyFiltersFetchDataLoading(false));
+      dispatch(projectedVacancyFiltersFetchDataLoading(true));
+      dispatch(projectedVacancyFiltersFetchDataErrored(false));
     });
+    const ep = [
+      '/fsbid/reference/cycles/',
+      '/fsbid/reference/bureaus/',
+      '/fsbid/reference/organizations/',
+      '/fsbid/reference/skills/',
+      '/fsbid/reference/grades/',
+      '/fsbid/reference/locations/',
+    ];
+    const queryProms = ep.map(url =>
+      api().get(url)
+        .then((r) => r)
+        .catch((e) => e),
+    );
+    Q.allSettled(queryProms)
+      .then((results) => {
+        const successCount = results.filter(r => get(r, 'state') === 'fulfilled' && get(r, 'value')).length || 0;
+        const queryPromsLen = queryProms.length || 0;
+        const countDiff = queryPromsLen - successCount;
+        if (countDiff > 0) {
+          batch(() => {
+            dispatch(projectedVacancyFiltersFetchDataErrored(true));
+            dispatch(projectedVacancyFiltersFetchDataLoading(false));
+          });
+        } else {
+          const cycles = get(results, '[0].value.data', []);
+          const bureaus = get(results, '[1].value.data', []);
+          const organizations = get(results, '[2].value.data', []);
+          const skills = get(results, '[3].value.data', []);
+          const grades = get(results, '[4].value.data', []);
+          const locations = get(results, '[5].value.data', []);
+          const filters = {
+            cycles, bureaus, organizations, skills, grades, locations,
+          };
+          const transformFunction = e => ({ ...e, name: get(e, 'code') ? `${get(e, 'name')} (${get(e, 'code')})` : get(e, 'name') });
+          keys(filters).forEach(k => {
+            filters[k] = mapDuplicates(filters[k], 'name', transformFunction);
+            filters[k] = orderBy(filters[k], 'name');
+          });
+          batch(() => {
+            dispatch(projectedVacancyFiltersFetchDataSuccess(filters));
+            dispatch(projectedVacancyFiltersFetchDataErrored(false));
+            dispatch(projectedVacancyFiltersFetchDataLoading(false));
+          });
+        }
+      })
+      .catch(() => {
+        batch(() => {
+          dispatch(projectedVacancyFiltersFetchDataErrored(true));
+          dispatch(projectedVacancyFiltersFetchDataLoading(false));
+        });
+      });
   };
 }
