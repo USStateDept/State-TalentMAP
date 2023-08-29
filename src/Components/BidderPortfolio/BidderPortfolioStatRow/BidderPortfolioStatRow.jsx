@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Handshake } from 'Components/Ribbon';
+import { Eligible } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import FA from 'react-fontawesome';
+import TextareaAutosize from 'react-textarea-autosize';
 import { toastSuccess } from 'actions/toast';
 import ToggleButton from 'Components/ToggleButton';
 import InteractiveElement from 'Components/InteractiveElement';
@@ -15,8 +17,10 @@ import ClientBadgeList from '../ClientBadgeList';
 import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
+import { Cusp } from '../../Ribbon';
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
+  const dispatch = useDispatch();
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
@@ -25,23 +29,31 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
+  const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const [edit, setEdit] = useState(false);
   const [showMore, setShowMore] = useState(false);
   const [included, setIncluded] = useState(true);
+  const [comments, setComments] = useState('');
+  const [altEmail, setAltEmail] = useState('');
 
   const editClient = (e) => {
     e.preventDefault();
-    console.log('expand all', userProfile);
     setEdit(previous => !previous);
   };
 
   const saveEdit = () => {
     // Nothing to do yet, will add later
-    toastSuccess('Changes saved.');
+    dispatch(toastSuccess(`Changes saved for ${bidder}.`));
     setEdit(false);
   };
 
   const showSaveAndCancel = edit && showMore;
+  const ribbon = () => {
+    if (userProfile.is_cdo) {
+      return <Cusp />;
+    }
+    return <Eligible />;
+  };
 
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
@@ -65,9 +77,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       }
       <div className="bidder-portfolio-ribbon-container">
         <div className="ribbon-container-condensed">
-          {true &&
-              <Handshake />
-          }
+          {ribbon()}
         </div>
       </div>
       <div>
@@ -116,15 +126,27 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       { showMore &&
         <div>
           <div className="stat-card-data-point stat-card-comments">
-            <dt>Comments:</dt><dd><textarea disabled={!edit} /></dd>
+            <dt>Comments:</dt>
+            <dd>
+              <TextareaAutosize
+                /* make sure this matches height in _availableBidders.scss */
+                maxRows={4}
+                minRows={4}
+                maxlength="255"
+                name="note"
+                placeholder="No Notes"
+                defaultValue={comments === '' ? '' : comments}
+                onChange={(e) => setComments(e.target.value)}
+              />
+            </dd>
           </div>
           <div className="stat-card-data-point">
-            <dt>DOS Email:</dt><dd><a href="mailto: example@gmail.com">example@gmail.com</a></dd>
+            <dt>DOS Email:</dt><dd><a href="mailto: example@gmail.com">{email}</a></dd>
           </div>
           <div className={!edit && 'stat-card-data-point'} >
             <dt>Alt Email:</dt>
-            {edit ? <input type="text" defaultValue="" placeholder="example@gmail.com" /> :
-              <a href="mailto: example@gmail.com">example@gmail.com</a>
+            {edit ? <input type="text" defaultValue="" placeholder="example@gmail.com" onChange={(e) => setAltEmail(e.target.value)} /> :
+              <a href={`mailto: ${altEmail}`}>{altEmail}</a>
             }
           </div>
         </div>
@@ -132,7 +154,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       { showSaveAndCancel &&
         <div className="stat-card-btn-container">
           <button className="stat-card-cancel-btn" onClick={() => setEdit(false)}>Cancel</button>
-          <button onClick={saveEdit}>Save</button>
+          <button onClick={saveEdit} disabled={!comments && !altEmail}>Save</button>
         </div>
       }
       <div className="toggle-more-container">

@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
 import Ribbon from '../Ribbon';
 
-const Eligible = ({ shortName, ...props }) => {
-  const text = shortName ? 'SND' : 'Eligible';
+const Cusp = ({ shortName, ...props }) => {
+  const text = shortName ? 'SND' : 'Cusp';
   return (
     <Ribbon icon="line-chart" text={text} type="htf" {...props} />
   );
 };
 
-Eligible.propTypes = {
+Cusp.propTypes = {
   shortName: PropTypes.bool,
 };
 
-Eligible.defaultProps = {
+Cusp.defaultProps = {
   shortName: false,
 };
 
-export default Eligible;
+export default Cusp;
