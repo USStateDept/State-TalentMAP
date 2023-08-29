@@ -9,7 +9,7 @@ import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import AssignmentsListResultsCard from './AssignmentsListResultsCard';
 
-const AssignmentList = ({ id }) => {
+const AssignmentList = ({ id, isPublic }) => {
   // if ID is passed down will render that user's Assignments
   // no ID will return the logged in user's Assignments
 
@@ -18,7 +18,8 @@ const AssignmentList = ({ id }) => {
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
   const userProfile = useSelector(state => state.userProfile);
 
-  const isMaintenanceActive = userHasSomePermissions(['ao_user', 'superuser'], userProfile?.permission_groups);
+  const isMaintenanceActive = isPublic &&
+    userHasSomePermissions(['ao_user', 'superuser'], userProfile?.permission_groups);
 
   useEffect(() => {
     dispatch(assignmentFetchData(id));
@@ -68,10 +69,12 @@ const AssignmentList = ({ id }) => {
 
 AssignmentList.propTypes = {
   id: PropTypes.string,
+  isPublic: PropTypes.bool,
 };
 
 AssignmentList.defaultProps = {
   id: null,
+  isPublic: true,
 };
 
 export default AssignmentList;

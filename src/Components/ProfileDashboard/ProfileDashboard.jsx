@@ -68,7 +68,7 @@ const ProfileDashboard = ({
                     {
                       showAssignmentHistory &&
                       <BoxShadow className="usa-width-one-whole user-dashboard-section assignments-section">
-                        <Assignments id={perdet} />
+                        <Assignments id={perdet} isPublic={isPublic} />
                       </BoxShadow>
                     }
                   </Column>
