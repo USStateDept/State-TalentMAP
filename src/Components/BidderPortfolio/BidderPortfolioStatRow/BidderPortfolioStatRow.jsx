@@ -3,6 +3,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tippy';
 import { Cusp, Eligible } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
@@ -51,12 +52,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   };
 
   const showSaveAndCancel = edit && showMore;
-  const ribbon = () => {
-    if (userProfile.is_cdo) {
-      return <Cusp />;
-    }
-    return <Eligible />;
-  };
+
   const showSearch = !showEdit && !edit;
   const collapseCard = () => {
     setShowMore(!showMore);
@@ -68,6 +64,36 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
     setVerifyAltEmail('');
     setEdit(false);
   };
+
+  // const cusp = get(userProfile, 'cusp', false);
+  // using this as a placeholder
+  const cusp = true;
+  const eligible = get(userProfile, 'eligible', false);
+
+  const ribbons = (
+    <div>
+      {
+        eligible &&
+        <Tooltip
+          title="Handshake"
+          arrow
+          offset={-60}
+        >
+          <Eligible />
+        </Tooltip>
+      }
+      {
+        cusp &&
+        <Tooltip
+          title="Hist. Diff. to Staff"
+          arrow
+          offset={-60}
+        >
+          <Cusp />
+        </Tooltip>
+      }
+    </div>
+  );
 
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
@@ -91,7 +117,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       }
       <div className="bidder-portfolio-ribbon-container">
         <div className="ribbon-container-condensed">
-          {ribbon()}
+          {ribbons}
         </div>
       </div>
       <div>
@@ -151,20 +177,15 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             <dt>DOS Email:</dt><dd><a href="mailto: example@gmail.com">{email}</a></dd>
           </div>
           <div className={!edit && 'stat-card-data-point'} >
-            <dt>Alt Email:</dt>
-            {edit ? (
-              <div>
-                <a href={`mailto: ${altEmail}`}>{altEmail}</a>
-                <input
-                  type="text"
-                  defaultValue=""
-                  placeholder="example@gmail.com"
-                  onChange={(e) => setVerifyAltEmail(e.target.value)}
-                />
-              </div>
-            ) : (
-              <a href={`mailto: ${altEmail}`}>{altEmail}</a>
-            )}
+            <dt>Alt Email:</dt><dd><a href={`mailto: ${altEmail}`}>{altEmail}</a></dd>
+            {edit &&
+              <input
+                type="text"
+                defaultValue=""
+                placeholder="example@gmail.com"
+                onChange={(e) => setVerifyAltEmail(e.target.value)}
+              />
+            }
           </div>
         </div>
       }
