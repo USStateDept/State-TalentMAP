@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Eligible } from 'Components/Ribbon';
+import { Cusp, Eligible } from 'Components/Ribbon';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import FA from 'react-fontawesome';
@@ -17,7 +17,6 @@ import ClientBadgeList from '../ClientBadgeList';
 import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
-import { Cusp } from '../../Ribbon';
 
 const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const dispatch = useDispatch();
@@ -129,7 +128,6 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             <dt>Comments:</dt>
             <dd>
               <TextareaAutosize
-                /* make sure this matches height in _availableBidders.scss */
                 maxRows={4}
                 minRows={4}
                 maxLength="255"
