@@ -1,5 +1,6 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
+import { convertQueryToString } from 'utilities';
 import {
   SEARCH_POST_ACCESS_REMOVE_ERROR,
   SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE,
@@ -9,37 +10,20 @@ import {
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
-const dummyData = [
-  { id: 1, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 2, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 3, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 4, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 11, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 21, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 31, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 41, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 112, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 212, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 312, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 412, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 1123, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 2123, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 3123, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 4123, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 1124, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Holden, James', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 2124, access_type: 'Employee Access', bureau: 'AF', post: 'Senegal', employee: 'Nagata, Naomi', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-  { id: 3124, access_type: 'Employee Access', bureau: 'AF', post: 'Azerbaijan', employee: 'Burton, Amos', role: 'FSBid Organization Bidders', position: '---', title: '---' },
-  { id: 4124, access_type: 'Employee Access', bureau: 'AF', post: 'Germany', employee: 'Kamal, Alex', role: 'FSBid Organization Capsule Positions', position: '---', title: '---' },
-];
-const dummyDataToReturn = (query) => new Promise((resolve) => {
-  const { limit } = query;
-  resolve({
-    results: dummyData.slice(0, limit),
-    count: dummyData.length,
-    next: null,
-    previous: null,
-  });
-});
+// const dummyData = [
+//   { id: 1, access_type: 'Employee Access',
+// bureau: 'AF', post: 'Azerbaijan',employee: 'Holden, James',
+// role: 'FSBid Organization Bidders', position: '---', title: '---' },
+// ];
+// const dummyDataToReturn = (data, query) => new Promise((resolve) => {
+//   const { limit } = query;
+//   resolve({
+//     results: data.length && data.slice(0, limit),
+//     count: data.length,
+//     next: null,
+//     previous: null,
+//   });
+// });
 
 export function searchPostAccessFetchDataErrored(bool) {
   return {
@@ -70,12 +54,11 @@ export function searchPostAccessFetchData(query = {}) {
       dispatch(searchPostAccessFetchDataLoading(true));
       dispatch(searchPostAccessFetchDataErrored(false));
     });
-    // const q = convertQueryToString(query);
-    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
-    // api().get(endpoint)
     dispatch(searchPostAccessFetchDataLoading(true));
-    dummyDataToReturn(query)
-      .then((data) => {
+    const q = convertQueryToString(query);
+    const endpoint = `fsbid/search_post_access/data/?${q}`;
+    api().get(endpoint)
+      .then(({ data }) => {
         batch(() => {
           dispatch(searchPostAccessFetchDataSuccess(data));
           dispatch(searchPostAccessFetchDataErrored(false));
@@ -90,7 +73,7 @@ export function searchPostAccessFetchData(query = {}) {
           });
         } else {
           batch(() => {
-            dispatch(searchPostAccessFetchDataSuccess(dummyDataToReturn));
+            dispatch(searchPostAccessFetchDataSuccess([]));
             dispatch(searchPostAccessFetchDataErrored(false));
             dispatch(searchPostAccessFetchDataLoading(false));
           });
@@ -201,7 +184,7 @@ export function searchPostAccessFetchFilters() {
     const endpoint = 'fsbid/search_post_access/filters/';
     dispatch(searchPostAccessFetchFiltersLoading(true));
     api().get(endpoint)
-      .then((data) => {
+      .then(({ data }) => {
         batch(() => {
           dispatch(searchPostAccessFetchFiltersSuccess(data));
           dispatch(searchPostAccessFetchFiltersErrored(false));

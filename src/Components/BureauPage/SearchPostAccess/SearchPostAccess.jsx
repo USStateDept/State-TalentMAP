@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import { useDataLoader, usePrevious } from 'hooks';
+import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { filtersFetchData } from 'actions/filters/filters';
-import { getGenericFilterOptions, nameSort, renderSelectionList } from 'utilities';
+import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import SelectForm from 'Components/SelectForm';
 import TotalResults from 'Components/TotalResults';
@@ -16,7 +15,6 @@ import Alert from 'Components/Alert';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import CheckBox from 'Components/CheckBox';
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
-import api from '../../../api';
 
 
 const SearchPostAccess = () => {
@@ -26,9 +24,12 @@ const SearchPostAccess = () => {
 
   // State
   const userSelections = useSelector(state => state.searchPostAccessSelections);
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const genericFilters = useSelector(state => state.filters);
+  // const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
+  // const genericFilters = useSelector(state => state.filters);
+  // const searchPostAccessDataLoading = useSelector(
+  //   state => state.searchPostAccessFetchDataLoading);
   const searchPostAccessData = useSelector(state => state.searchPostAccess);
+  console.log(searchPostAccessData);
 
 
   const searchPostAccessFilters = useSelector(state => state.searchPostAccessFetchFilterData);
@@ -114,7 +115,7 @@ const SearchPostAccess = () => {
   // Initial Render
   useEffect(() => {
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
-    dispatch(filtersFetchData(genericFilters));
+    // dispatch(filtersFetchData(genericFilters));
   }, []);
 
   // Re-Render on Filter Selections
@@ -143,11 +144,17 @@ const SearchPostAccess = () => {
 
 
   // Filter Options
-  const genericFilters$ = genericFilters?.filters || [];
-  const bureausOptions = getGenericFilterOptions(genericFilters$, 'region', 'short_description');
-  const postOptions = getGenericFilterOptions(genericFilters$, 'post', 'city');
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = (orgs?.data?.length && nameSort(orgs?.data, 'name')) || [];
+  // const genericFilters$ = genericFilters?.filters || [];
+  // const bureausOptions = getGenericFilterOptions(genericFilters$, 'region', 'short_description');
+  // const postOptions = getGenericFilterOptions(genericFilters$, 'post', 'city');
+  // const {
+  // data: orgs, loading: orgsLoading }
+  // = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
+  // const organizationOptions = (orgs?.data?.length && nameSort(orgs?.data, 'name')) || [];
+  const bureauOptions = searchPostAccessFilters?.bureauFilters || [];
+  const organizationOptions = searchPostAccessFilters?.orgFilters || [];
+  const roleOptions = searchPostAccessFilters?.roleFilters || [];
+  const postOptions = searchPostAccessFilters?.locationFilters || [];
 
   const resetFilters = () => {
     Promise.resolve().then(() => {
@@ -166,7 +173,7 @@ const SearchPostAccess = () => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = searchPostAccessData?.results?.length === 0;
+  const noResults = searchPostAccessData?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (searchPostAccessFetchDataLoading) {
@@ -205,7 +212,7 @@ const SearchPostAccess = () => {
     if (!selectAll) {
       setSelectAll(true);
       setCheckedPostIds(
-        searchPostAccessData?.results?.map(post => post.id),
+        searchPostAccessData?.map(post => post.id),
       );
     } else {
       setSelectAll(false);
@@ -219,12 +226,6 @@ const SearchPostAccess = () => {
       setCheckedPostIds(filteredPosts);
     } else setCheckedPostIds([...checkedPostIds, post.id]);
   });
-
-  // Hardcoded - find where to get this data
-  const roleOptions = [
-    { code: 1, name: 'FSBid Organization Bidders' },
-    { code: 2, name: 'FSBid Organization Capsule Positions' },
-  ];
 
 
   return (
@@ -289,11 +290,11 @@ const SearchPostAccess = () => {
                 {...pickyProps}
                 placeholder="Select Bureau(s)"
                 value={selectedBureaus}
-                options={bureausOptions}
+                options={bureauOptions}
                 onChange={setSelectedBureaus}
                 valueKey="code"
-                labelKey="long_description"
-                disabled={genericFiltersIsLoading}
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
               />
             </div>
             <div className="filter-div">
@@ -305,8 +306,8 @@ const SearchPostAccess = () => {
                 options={postOptions}
                 onChange={setSelectedPosts}
                 valueKey="code"
-                labelKey="custom_description"
-                disabled={genericFiltersIsLoading}
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
               />
             </div>
             <div className="filter-div">
@@ -318,8 +319,8 @@ const SearchPostAccess = () => {
                 options={organizationOptions}
                 onChange={setSelectedOrgs}
                 valueKey="code"
-                labelKey="name"
-                disabled={orgsLoading}
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
               />
             </div>
             <div className="filter-div">
@@ -331,7 +332,8 @@ const SearchPostAccess = () => {
                 options={roleOptions}
                 onChange={setSelectedRoles}
                 valueKey="code"
-                labelKey="name"
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
               />
             </div>
           </div>
@@ -344,7 +346,7 @@ const SearchPostAccess = () => {
               <>
                 <div className="usa-width-one-whole results-dropdown controls-container">
                   <TotalResults
-                    total={searchPostAccessData.count}
+                    total={searchPostAccessData.length}
                     pageNumber={page}
                     pageSize={limit}
                     suffix="Results"
@@ -385,8 +387,8 @@ const SearchPostAccess = () => {
                       </thead>
                       <tbody>
                         {
-                          searchPostAccessData?.results?.length &&
-                            searchPostAccessData.results.map(post => (
+                          searchPostAccessData?.length &&
+                            searchPostAccessData.map(post => (
                               <tr key={post.id}>
                                 <td className="checkbox-pac checkbox-pos">
                                   <CheckBox
@@ -414,7 +416,7 @@ const SearchPostAccess = () => {
                     pageSize={limit}
                     onPageChange={p => setPage(p.page)}
                     forcePage={page}
-                    totalResults={searchPostAccessData.count}
+                    totalResults={searchPostAccessData.length}
                   />
                 </div>
               </>
