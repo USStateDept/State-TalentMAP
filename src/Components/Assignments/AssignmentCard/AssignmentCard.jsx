@@ -301,8 +301,7 @@ const AssignmentCard = (props) => {
     handleCancel: () => onCancelForm(),
     handleEdit: {
       editMode,
-      setEditMode,
-      forceEdit: isNew,
+      setEditMode: isNew ? false : setEditMode,
     },
     // TO-DO: DIP, MEMO, NOTE
     /* eslint-enable quote-props */

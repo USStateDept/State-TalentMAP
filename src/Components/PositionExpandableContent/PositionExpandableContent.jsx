@@ -10,7 +10,7 @@ import InteractiveElement from 'Components/InteractiveElement';
 
 const PositionExpandableContent = ({ sections, form }) => {
   const handleEdit = form?.handleEdit ?? {};
-  const { editMode, setEditMode, forceEdit = false } = handleEdit;
+  const { editMode, setEditMode } = handleEdit;
 
   const [showMore, setShowMore] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -37,7 +37,7 @@ const PositionExpandableContent = ({ sections, form }) => {
 
 
   const getBody = () => {
-    if (forceEdit) return [];
+    if (!setEditMode) return [];
     if (editMode && form) return form.staticBody;
     if (showMore) return { ...sections.bodyPrimary, ...sections.bodySecondary };
     const minScreenWidth = 1650;
@@ -123,7 +123,7 @@ const PositionExpandableContent = ({ sections, form }) => {
       }
       {(showMore && editMode) &&
         <div>
-          {!forceEdit && <div className="content-divider" />}
+          {setEditMode && <div className="content-divider" />}
           {form.inputBody}
           <div className="position-form--actions">
             <button onClick={showCancelModal}>Cancel</button>
