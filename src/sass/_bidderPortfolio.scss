@@ -245,8 +245,8 @@
 
   .button-container {
     display: flex;
-    justify-content: flex-end;
-    margin-top: 0;
+    justify-content: flex-start;
+    margin-top: 10px;
 
     @media screen and (max-width: 1260px) {
       justify-content: center;

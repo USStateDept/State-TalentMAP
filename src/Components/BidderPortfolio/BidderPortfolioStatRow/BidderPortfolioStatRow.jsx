@@ -54,6 +54,10 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
     return <Eligible />;
   };
   const showSearch = !showEdit && !edit;
+  const collapseCard = () => {
+    setShowMore(!showMore);
+    setEdit(false);
+  };
 
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
@@ -165,7 +169,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         </div>
       }
       <div className="toggle-more-container">
-        <InteractiveElement className="toggle-more" onClick={() => setShowMore(!showMore)}>
+        <InteractiveElement className="toggle-more" onClick={collapseCard}>
           <FA name={`chevron-${showMore ? 'up' : 'down'}`} />
         </InteractiveElement>
       </div>
