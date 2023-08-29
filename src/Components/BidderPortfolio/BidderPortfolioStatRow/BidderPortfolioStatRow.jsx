@@ -75,7 +75,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       {
         eligible &&
         <Tooltip
-          title="Handshake"
+          title="Eligible"
           arrow
           offset={-60}
         >
@@ -85,7 +85,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       {
         cusp &&
         <Tooltip
-          title="Hist. Diff. to Staff"
+          title="Cusp"
           arrow
           offset={-60}
         >
