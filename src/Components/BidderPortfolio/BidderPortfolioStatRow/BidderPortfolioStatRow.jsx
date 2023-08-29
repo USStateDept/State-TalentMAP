@@ -53,6 +53,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
     }
     return <Eligible />;
   };
+  const showSearch = !showEdit && !edit;
 
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
@@ -111,13 +112,6 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           </div>
         }
         {
-          !showEdit &&
-          <div className="button-container">
-            <SearchAsClientButton user={userProfile} />
-            <AddToInternalListButton refKey={perdet} />
-          </div>
-        }
-        {
           showEdit &&
           <CheckboxList id={userProfile.id} />
         }
@@ -130,6 +124,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
               <TextareaAutosize
                 maxRows={4}
                 minRows={4}
+                disabled={!edit}
                 maxLength="255"
                 name="note"
                 placeholder="No Notes"
@@ -160,6 +155,13 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         <div className="stat-card-btn-container">
           <button className="stat-card-cancel-btn" onClick={() => setEdit(false)}>Cancel</button>
           <button onClick={saveEdit} disabled={!comments && !altEmail}>Save</button>
+        </div>
+      }
+      {
+        showSearch &&
+        <div className="button-container">
+          <SearchAsClientButton user={userProfile} />
+          <AddToInternalListButton refKey={perdet} />
         </div>
       }
       <div className="toggle-more-container">
