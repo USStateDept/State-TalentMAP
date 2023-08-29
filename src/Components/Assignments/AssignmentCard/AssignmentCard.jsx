@@ -237,36 +237,32 @@ const AssignmentCard = (props) => {
             />
           </div>
           <div className="position-form--label-input-container">
-            <label htmlFor="assignment-salary-reimbursement" />
             <CheckBox
-              id="salary-reimbursement"
+              id={`salary-reimbursement-${data.id ?? 'create'}`}
               label="Salary Reimbursement"
               value={salaryReimbursement}
               onChange={() => setSalaryReimbursement(!salaryReimbursement)}
             />
           </div>
           <div className="position-form--label-input-container">
-            <label htmlFor="assignment-travel-reimbursement" />
             <CheckBox
-              id="travel-reimbursement"
+              id={`travel-reimbursement-${data.id ?? 'create'}`}
               label="Travel Reimbursement"
               value={travelReimbursement}
               onChange={() => setTravelReimbursement(!travelReimbursement)}
             />
           </div>
           <div className="position-form--label-input-container">
-            <label htmlFor="assignment-training" />
             <CheckBox
-              id="training"
+              id={`training-${data.id ?? 'create'}`}
               label="Training"
               value={training}
               onChange={() => setTraining(!training)}
             />
           </div>
           <div className="position-form--label-input-container">
-            <label htmlFor="assignment-critical-need" />
             <CheckBox
-              id="critical-need"
+              id={`critical-need-${data.id ?? 'create'}`}
               label="Critical Need"
               value={criticalNeed}
               onChange={() => setCriticalNeed(!criticalNeed)}
