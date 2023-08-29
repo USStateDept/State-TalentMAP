@@ -74,7 +74,7 @@ AssignmentList.propTypes = {
 
 AssignmentList.defaultProps = {
   id: null,
-  isPublic: true,
+  isPublic: false,
 };
 
 export default AssignmentList;
