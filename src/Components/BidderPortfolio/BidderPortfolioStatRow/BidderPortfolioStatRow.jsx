@@ -132,7 +132,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
                 /* make sure this matches height in _availableBidders.scss */
                 maxRows={4}
                 minRows={4}
-                maxlength="255"
+                maxLength="255"
                 name="note"
                 placeholder="No Notes"
                 defaultValue={comments === '' ? '' : comments}
