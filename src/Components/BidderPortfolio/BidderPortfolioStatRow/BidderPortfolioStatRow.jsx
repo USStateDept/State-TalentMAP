@@ -34,6 +34,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const [included, setIncluded] = useState(true);
   const [comments, setComments] = useState('');
   const [altEmail, setAltEmail] = useState('');
+  const [verifyComments, setVerifyComments] = useState('');
+  const [verifyAltEmail, setVerifyAltEmail] = useState('');
 
   const editClient = (e) => {
     e.preventDefault();
@@ -41,6 +43,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   };
 
   const saveEdit = () => {
+    setComments(verifyComments);
+    setAltEmail(verifyAltEmail);
     // Nothing to do yet, will add later
     dispatch(toastSuccess(`Changes saved for ${bidder}.`));
     setEdit(false);
@@ -56,6 +60,12 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   const showSearch = !showEdit && !edit;
   const collapseCard = () => {
     setShowMore(!showMore);
+    setEdit(false);
+  };
+
+  const onCancel = () => {
+    setVerifyComments('');
+    setVerifyAltEmail('');
     setEdit(false);
   };
 
@@ -132,8 +142,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
                 maxLength="255"
                 name="note"
                 placeholder="No Notes"
-                defaultValue={comments === '' ? '' : comments}
-                onChange={(e) => setComments(e.target.value)}
+                defaultValue={!comments ? '' : comments}
+                onChange={(e) => setVerifyComments(e.target.value)}
               />
             </dd>
           </div>
@@ -143,12 +153,15 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           <div className={!edit && 'stat-card-data-point'} >
             <dt>Alt Email:</dt>
             {edit ? (
-              <input
-                type="text"
-                defaultValue=""
-                placeholder="example@gmail.com"
-                onChange={(e) => setAltEmail(e.target.value)}
-              />
+              <div>
+                <a href={`mailto: ${altEmail}`}>{altEmail}</a>
+                <input
+                  type="text"
+                  defaultValue=""
+                  placeholder="example@gmail.com"
+                  onChange={(e) => setVerifyAltEmail(e.target.value)}
+                />
+              </div>
             ) : (
               <a href={`mailto: ${altEmail}`}>{altEmail}</a>
             )}
@@ -157,8 +170,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       }
       { showSaveAndCancel &&
         <div className="stat-card-btn-container">
-          <button className="stat-card-cancel-btn" onClick={() => setEdit(false)}>Cancel</button>
-          <button onClick={saveEdit} disabled={!comments && !altEmail}>Save</button>
+          <button className="stat-card-cancel-btn" onClick={onCancel}>Cancel</button>
+          <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
         </div>
       }
       {
