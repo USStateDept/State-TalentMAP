@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 import BidCycles from 'Containers/BidCycles';
-import Assignments from 'Components/Assignments';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Dashboard from './Dashboard';
 import Logs from './Logs';
@@ -61,7 +60,6 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/managebidseasons" render={() => <ManageBidSeasons />} />
         <Route path="/profile/administrator/panel/:pmSeqNum" render={() => <PanelAdmin />} />
         <Route path="/profile/administrator/panel/" render={() => <PanelAdmin />} />
-        <Route path="/profile/administrator/:id/assignments" render={() => <Assignments {...props} />} />
       </Switch>
     </div>
   );
