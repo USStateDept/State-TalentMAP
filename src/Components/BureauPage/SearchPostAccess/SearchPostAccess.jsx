@@ -64,22 +64,25 @@ const SearchPostAccess = () => {
     persons: selectedPersons.map(person => (person?.code)),
   });
 
+  const filters = [
+    selectedBureaus,
+    selectedPosts,
+    selectedOrgs,
+    selectedRoles,
+    selectedPersons,
+  ];
+
   const fetchAndSet = () => {
-    const filters = [
-      selectedBureaus,
-      selectedPosts,
-      selectedOrgs,
-      selectedRoles,
-      selectedPersons,
-    ];
     if (filters.flat().length === 0
     ) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
     }
+    if (filters.flat().length === 2) {
+      dispatch(searchPostAccessFetchData(getQuery()));
+    }
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
-    dispatch(searchPostAccessFetchData(getQuery()));
   };
 
 
@@ -112,12 +115,12 @@ const SearchPostAccess = () => {
 
   const resetFilters = () => {
     Promise.resolve().then(() => {
+      setSelectedPersons([]);
       setSelectedBureaus([]);
       setSelectedPosts([]);
       setSelectedOrgs([]);
       setSelectedRoles([]);
       setCheckedPostIds([]);
-      setSelectedPersons([]);
       setSelectAll(false);
       setClearFilters(false);
     });
@@ -131,6 +134,8 @@ const SearchPostAccess = () => {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
     } else if (searchPostAccessFetchDataError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
+    } else if (filters.flat().length < 2) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
     } else {
