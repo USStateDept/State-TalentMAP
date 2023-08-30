@@ -55,6 +55,11 @@ const PostPanelProcessing = (props) => {
       if (postPanelStarted$) {
         setPostPanelStarted(new Date(postPanelStarted$.pmd_dttm));
       }
+      /* eslint-disable no-console */
+      console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
+      console.log('🍭 current: postPanelRunTime$:', postPanelRunTime$);
+      console.log('🍭🍭🍭🍭🍭🍭🍭🍭🍭🍭');
+
       if (postPanelRunTime$) {
         setPostPanelRuntime(new Date(postPanelRunTime$.pmd_dttm));
       }
@@ -141,6 +146,13 @@ const PostPanelProcessing = (props) => {
   const beforeAgendaCompletedTime = (
     agendaCompletedTime$ ? (new Date(agendaCompletedTime$.pmd_dttm) - new Date() > 0) : true
   );
+  /* eslint-disable no-console */
+  console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+  console.log('🐈 current: beforeAgendaCompletedTime:', beforeAgendaCompletedTime);
+  console.log('🐈 current: agendaCompletedTime$.pmd_dttm:', agendaCompletedTime$?.pmd_dttm);
+  console.log('🐈 current: postPanelRunTime$:', postPanelRunTime$);
+  console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+
 
   // Super Admins can manually edit any field, otherwise, certain fields
   // are restricted by preconditions determined by prior steps

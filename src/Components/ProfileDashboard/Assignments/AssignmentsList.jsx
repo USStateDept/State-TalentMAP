@@ -2,24 +2,19 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { userHasSomePermissions } from 'utilities';
 import { assignmentFetchData } from 'actions/assignment';
 import Spinner from 'Components/Spinner';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import AssignmentsListResultsCard from './AssignmentsListResultsCard';
 
-const AssignmentList = ({ id, isPublic }) => {
+const AssignmentList = ({ id, showMaintainAssignmentLink }) => {
   // if ID is passed down will render that user's Assignments
   // no ID will return the logged in user's Assignments
 
   const dispatch = useDispatch();
   const assignments = useSelector(state => state.assignment);
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
-  const userProfile = useSelector(state => state.userProfile);
-
-  const isMaintenanceActive = isPublic &&
-    userHasSomePermissions(['ao_user', 'superuser'], userProfile?.permission_groups);
 
   useEffect(() => {
     dispatch(assignmentFetchData(id));
@@ -57,7 +52,7 @@ const AssignmentList = ({ id, isPublic }) => {
             }
           </div>
           {
-            isMaintenanceActive &&
+            showMaintainAssignmentLink &&
               <div className="section-padded-inner-container small-link-container view-more-link-centered">
                 <Link to={`/profile/ao/${id}/assignments`}>Maintain Assignments</Link>
               </div>
@@ -69,12 +64,12 @@ const AssignmentList = ({ id, isPublic }) => {
 
 AssignmentList.propTypes = {
   id: PropTypes.string,
-  isPublic: PropTypes.bool,
+  showMaintainAssignmentLink: PropTypes.bool,
 };
 
 AssignmentList.defaultProps = {
   id: null,
-  isPublic: false,
+  showMaintainAssignmentLink: false,
 };
 
 export default AssignmentList;
