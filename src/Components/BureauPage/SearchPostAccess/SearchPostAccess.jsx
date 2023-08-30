@@ -36,6 +36,7 @@ const SearchPostAccess = () => {
     useSelector(state => state.searchPostAccessFetchDataLoading);
   const searchPostAccessFetchDataError =
     useSelector(state => state.searchPostAccessFetchDataErrored);
+  const searchPostAccessRemoveSuccess = useSelector(state => state.searchPostAccessRemoveSuccess);
 
   // Local State & Filters
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
@@ -79,7 +80,7 @@ const SearchPostAccess = () => {
     } else {
       setClearFilters(true);
     }
-    if (filters.flat().length === 2) {
+    if (filters.flat().length >= 2) {
       dispatch(searchPostAccessFetchData(getQuery()));
     }
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
@@ -103,6 +104,7 @@ const SearchPostAccess = () => {
     selectedOrgs,
     selectedRoles,
     selectedPersons,
+    searchPostAccessRemoveSuccess,
   ]);
 
 
@@ -274,7 +276,7 @@ const SearchPostAccess = () => {
       {
         getOverlay() ||
               <>
-                <div className="usa-width-one-whole results-dropdown controls-container">
+                <div className="usa-width-one-whole results-dropdown controls-container mb-10">
                   <TotalResults
                     total={searchPostAccessData.length}
                     pageSize={'all'}
@@ -283,7 +285,7 @@ const SearchPostAccess = () => {
                   />
                 </div>
                 <div className="usa-width-one-whole position-search--results">
-                  <div className="usa-grid-full position-list">
+                  <div className="post-access-scroll-container">
 
                     <table className="custom-table">
                       <thead>
@@ -335,7 +337,7 @@ const SearchPostAccess = () => {
               {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
               {
                 checkedPostIds.length > 0 &&
-                <button className="usa-button-secondary" onClick={submitRemoveAccess}>Grant Access</button>
+                <button className="usa-button-secondary" onClick={submitRemoveAccess}>Remove Access</button>
               }
             </div>
       }
