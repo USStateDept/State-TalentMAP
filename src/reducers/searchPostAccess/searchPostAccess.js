@@ -53,7 +53,7 @@ export function searchPostAccessRemoveIsLoading(state = false, action) {
 export function searchPostAccessRemoveSuccess(state = [], action) {
   switch (action.type) {
     case 'SEARCH_POST_ACCESS_REMOVE_SUCCESS':
-      return action.data;
+      return action.results;
     default:
       return state;
   }

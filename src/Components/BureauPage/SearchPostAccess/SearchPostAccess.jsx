@@ -1,40 +1,33 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router';
-import { usePrevious } from 'hooks';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import { renderSelectionList } from 'utilities';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import SelectForm from 'Components/SelectForm';
 import TotalResults from 'Components/TotalResults';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import { searchPostAccessFetchData, searchPostAccessFetchFilters, searchPostAccessRemove, searchPostAccessSaveSelections } from 'actions/searchPostAccess';
 import Spinner from 'Components/Spinner';
 import Alert from 'Components/Alert';
-import PaginationWrapper from 'Components/PaginationWrapper';
 import CheckBox from 'Components/CheckBox';
-import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 
 
 const SearchPostAccess = () => {
   const dispatch = useDispatch();
-  const searchLastNameRef = useRef();
-  const searchFirstNameRef = useRef();
 
   // State
   const userSelections = useSelector(state => state.searchPostAccessSelections);
-  // const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  // const genericFilters = useSelector(state => state.filters);
-  // const searchPostAccessDataLoading = useSelector(
-  //   state => state.searchPostAccessFetchDataLoading);
   const searchPostAccessData = useSelector(state => state.searchPostAccess);
+
+  // for testing on dev - remove when done
   console.log(searchPostAccessData);
 
 
   const searchPostAccessFilters = useSelector(state => state.searchPostAccessFetchFilterData);
   const searchPostAccessFiltersLoading = useSelector(
     state => state.searchPostAccessFetchFiltersLoading);
+
+  // for testing on dev - remove when done
   console.log(searchPostAccessFiltersLoading);
   console.log(searchPostAccessFilters);
 
@@ -49,32 +42,18 @@ const SearchPostAccess = () => {
   const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPosts || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedRoles || []);
-  const [searchTextLastName, setSearchTextLastName] = useState(userSelections?.searchTextLastName || '');
-  const [searchTextFirstName, setSearchTextFirstName] = useState(userSelections?.searchTextFirstName || '');
-  const [searchInputLastName, setSearchInputLastName] = useState(userSelections?.searchInputLastName || '');
-  const [searchInputFirstName, setSearchInputFirstName] = useState(userSelections?.searchInputFirstName || '');
+  const [selectedPersons, setSelectedPersons] = useState(userSelections?.selectedPersons || []);
   const [clearFilters, setClearFilters] = useState(false);
   const [checkedPostIds, setCheckedPostIds] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
 
-  // Pagination
-  const [page, setPage] = useState(userSelections?.page || 1);
-  const [limit, setLimit] = useState(userSelections?.limit || 10);
-  const prevPage = usePrevious(page);
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
-
 
   const getCurrentInputs = () => ({
-    page,
-    limit,
     selectedBureaus,
     selectedPosts,
     selectedOrgs,
     selectedRoles,
-    searchTextLastName,
-    searchTextFirstName,
-    searchInputLastName,
-    searchInputFirstName,
+    selectedPersons,
   });
 
   const getQuery = () => ({
@@ -82,79 +61,54 @@ const SearchPostAccess = () => {
     posts: selectedPosts.map(post => (post?.code)),
     orgs: selectedOrgs.map(org => (org?.code)),
     roles: selectedRoles.map(role => (role?.code)),
-    lastName: searchTextLastName,
-    firstName: searchTextFirstName,
-    page,
-    limit,
+    persons: selectedPersons.map(person => (person?.code)),
   });
 
-  const fetchAndSet = (resetPage = false) => {
+  const fetchAndSet = () => {
     const filters = [
       selectedBureaus,
       selectedPosts,
       selectedOrgs,
       selectedRoles,
+      selectedPersons,
     ];
     if (filters.flat().length === 0
-    && searchTextLastName.length === 0
-    && searchTextFirstName.length === 0
     ) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
     }
-    if (resetPage) {
-      setPage(1);
-    }
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
     dispatch(searchPostAccessFetchData(getQuery()));
-    dispatch(searchPostAccessFetchFilters()); // FOR TESTING ATM
   };
 
 
   // Initial Render
   useEffect(() => {
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
-    // dispatch(filtersFetchData(genericFilters));
+    dispatch(searchPostAccessFetchFilters());
   }, []);
 
   // Re-Render on Filter Selections
   useEffect(() => {
     setCheckedPostIds([]);
     setSelectAll(false);
-    if (prevPage) {
-      fetchAndSet(true);
-    }
+    fetchAndSet();
   }, [
-    limit,
     selectedBureaus,
     selectedPosts,
     selectedOrgs,
     selectedRoles,
-    searchTextLastName,
-    searchTextFirstName,
+    selectedPersons,
   ]);
-
-  // Handle Pagination
-  useEffect(() => {
-    setCheckedPostIds([]);
-    setSelectAll(false);
-    fetchAndSet(false);
-  }, [page]);
 
 
   // Filter Options
-  // const genericFilters$ = genericFilters?.filters || [];
-  // const bureausOptions = getGenericFilterOptions(genericFilters$, 'region', 'short_description');
-  // const postOptions = getGenericFilterOptions(genericFilters$, 'post', 'city');
-  // const {
-  // data: orgs, loading: orgsLoading }
-  // = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  // const organizationOptions = (orgs?.data?.length && nameSort(orgs?.data, 'name')) || [];
   const bureauOptions = searchPostAccessFilters?.bureauFilters || [];
   const organizationOptions = searchPostAccessFilters?.orgFilters || [];
   const roleOptions = searchPostAccessFilters?.roleFilters || [];
   const postOptions = searchPostAccessFilters?.locationFilters || [];
+  const personOptions = searchPostAccessFilters?.personFilters || [];
 
   const resetFilters = () => {
     Promise.resolve().then(() => {
@@ -163,11 +117,8 @@ const SearchPostAccess = () => {
       setSelectedOrgs([]);
       setSelectedRoles([]);
       setCheckedPostIds([]);
+      setSelectedPersons([]);
       setSelectAll(false);
-      setSearchTextLastName('');
-      setSearchTextFirstName('');
-      searchFirstNameRef.current.clearText();
-      searchLastNameRef.current.clearText();
       setClearFilters(false);
     });
   };
@@ -195,11 +146,6 @@ const SearchPostAccess = () => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
-  };
-
-  const submitSearch = () => {
-    setSearchTextLastName(searchInputLastName);
-    setSearchTextFirstName(searchInputFirstName);
   };
 
   const submitRemoveAccess = () => {
@@ -251,38 +197,17 @@ const SearchPostAccess = () => {
 
           <div className="usa-width-one-whole position-search--filters--spa results-dropdown">
             <div className="filter-div">
-              <div className="label">
-                    Last Name:
-              </div>
-              <div className="post-access-emp-search-div">
-                <PositionManagerSearch
-                  id="last-name-search"
-                  submitSearch={submitSearch}
-                  onChange={setSearchInputLastName}
-                  ref={searchLastNameRef}
-                  placeHolder="Search by Last Name"
-                  textSearch={searchTextLastName}
-                  noButton
-                  showIcon={false}
-                />
-              </div>
-            </div>
-            <div className="filter-div">
-              <div htmlFor="first-name-search" className="label">
-                    First Name:
-              </div>
-              <div className="post-access-emp-search-div">
-                <PositionManagerSearch
-                  id="first-name-search"
-                  submitSearch={submitSearch}
-                  onChange={setSearchInputFirstName}
-                  ref={searchFirstNameRef}
-                  placeHolder="Search by First Name"
-                  textSearch={searchTextFirstName}
-                  noButton
-                  showIcon={false}
-                />
-              </div>
+              <div className="label">Name:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Person(s)"
+                value={selectedPersons}
+                options={personOptions}
+                onChange={setSelectedPersons}
+                valueKey="code"
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
+              />
             </div>
             <div className="filter-div">
               <div className="label">Bureau:</div>
@@ -347,25 +272,11 @@ const SearchPostAccess = () => {
                 <div className="usa-width-one-whole results-dropdown controls-container">
                   <TotalResults
                     total={searchPostAccessData.length}
-                    pageNumber={page}
-                    pageSize={limit}
+                    pageSize={'all'}
                     suffix="Results"
                     isHidden={searchPostAccessFetchDataLoading}
                   />
-                  <div className="position-search-controls--right">
-                    <div className="position-search-controls--results">
-                      <SelectForm
-                        id="position-manager-num-results"
-                        options={pageSizes.options}
-                        label="Results:"
-                        defaultSort={limit}
-                        onSelectOption={value => setLimit(value.target.value)}
-                        disabled={searchPostAccessFetchDataLoading}
-                      />
-                    </div>
-                  </div>
                 </div>
-
                 <div className="usa-width-one-whole position-search--results">
                   <div className="usa-grid-full position-list">
 
@@ -410,14 +321,6 @@ const SearchPostAccess = () => {
                     </table>
 
                   </div>
-                </div>
-                <div className="usa-grid-full react-paginate position-search-controls--pagination">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={searchPostAccessData.length}
-                  />
                 </div>
               </>
       }

@@ -1,6 +1,5 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
-import { convertQueryToString } from 'utilities';
 import {
   SEARCH_POST_ACCESS_REMOVE_ERROR,
   SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE,
@@ -9,21 +8,6 @@ import {
 } from 'Constants/SystemMessages';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
-
-// const dummyData = [
-//   { id: 1, access_type: 'Employee Access',
-// bureau: 'AF', post: 'Azerbaijan',employee: 'Holden, James',
-// role: 'FSBid Organization Bidders', position: '---', title: '---' },
-// ];
-// const dummyDataToReturn = (data, query) => new Promise((resolve) => {
-//   const { limit } = query;
-//   resolve({
-//     results: data.length && data.slice(0, limit),
-//     count: data.length,
-//     next: null,
-//     previous: null,
-//   });
-// });
 
 export function searchPostAccessFetchDataErrored(bool) {
   return {
@@ -55,9 +39,8 @@ export function searchPostAccessFetchData(query = {}) {
       dispatch(searchPostAccessFetchDataErrored(false));
     });
     dispatch(searchPostAccessFetchDataLoading(true));
-    const q = convertQueryToString(query);
-    const endpoint = `fsbid/search_post_access/data/?${q}`;
-    api().get(endpoint)
+    const endpoint = 'fsbid/search_post_access/data/';
+    api().post(endpoint, query)
       .then(({ data }) => {
         batch(() => {
           dispatch(searchPostAccessFetchDataSuccess(data));
@@ -121,7 +104,7 @@ export function searchPostAccessRemove(positions) {
     dispatch(searchPostAccessRemoveIsLoading(true));
     dispatch(searchPostAccessRemoveHasErrored(false));
     api()
-      .post('/placeholder/POST/endpoint', {
+      .post('fsbid/search_post_access/remove/', {
         positions,
       }, {
         cancelToken: new CancelToken((c) => {
@@ -131,7 +114,7 @@ export function searchPostAccessRemove(positions) {
       .then(({ data }) => {
         batch(() => {
           dispatch(searchPostAccessRemoveHasErrored(false));
-          dispatch(searchPostAccessRemoveSuccess(data || []));
+          dispatch(searchPostAccessRemoveSuccess(data));
           dispatch(
             toastSuccess(
               SEARCH_POST_ACCESS_REMOVE_SUCCESS, SEARCH_POST_ACCESS_REMOVE_SUCCESS_TITLE,
