@@ -41,7 +41,6 @@ const SearchPostAccess = () => {
   // Local State & Filters
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPosts || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedRoles || []);
   const [selectedPersons, setSelectedPersons] = useState(userSelections?.selectedPersons || []);
   const [clearFilters, setClearFilters] = useState(false);
@@ -52,7 +51,6 @@ const SearchPostAccess = () => {
   const getCurrentInputs = () => ({
     selectedBureaus,
     selectedPosts,
-    selectedOrgs,
     selectedRoles,
     selectedPersons,
   });
@@ -60,7 +58,6 @@ const SearchPostAccess = () => {
   const getQuery = () => ({
     bureaus: selectedBureaus.map(bureau => (bureau?.code)),
     posts: selectedPosts.map(post => (post?.code)),
-    orgs: selectedOrgs.map(org => (org?.code)),
     roles: selectedRoles.map(role => (role?.code)),
     persons: selectedPersons.map(person => (person?.code)),
   });
@@ -68,7 +65,6 @@ const SearchPostAccess = () => {
   const filters = [
     selectedBureaus,
     selectedPosts,
-    selectedOrgs,
     selectedRoles,
     selectedPersons,
   ];
@@ -101,7 +97,6 @@ const SearchPostAccess = () => {
   }, [
     selectedBureaus,
     selectedPosts,
-    selectedOrgs,
     selectedRoles,
     selectedPersons,
     searchPostAccessRemoveSuccess,
@@ -110,7 +105,6 @@ const SearchPostAccess = () => {
 
   // Filter Options
   const bureauOptions = searchPostAccessFilters?.bureauFilters || [];
-  const organizationOptions = searchPostAccessFilters?.orgFilters || [];
   const roleOptions = searchPostAccessFilters?.roleFilters || [];
   const postOptions = searchPostAccessFilters?.locationFilters || [];
   const personOptions = searchPostAccessFilters?.personFilters || [];
@@ -120,7 +114,6 @@ const SearchPostAccess = () => {
       setSelectedPersons([]);
       setSelectedBureaus([]);
       setSelectedPosts([]);
-      setSelectedOrgs([]);
       setSelectedRoles([]);
       setCheckedPostIds([]);
       setSelectAll(false);
@@ -152,14 +145,13 @@ const SearchPostAccess = () => {
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
 
   const submitRemoveAccess = () => {
     dispatch(searchPostAccessRemove(checkedPostIds));
   };
 
-  const tableHeaderNames = ['Access Type', 'Bureau', 'Post/Org', 'Employee', 'Role', 'Position', 'Title'];
+  const tableHeaderNames = ['Access Type', 'Bureau', 'Post', 'Employee', 'Role', 'Position', 'Title'];
 
   const handleSelectAll = () => {
     if (!selectAll) {
@@ -230,26 +222,13 @@ const SearchPostAccess = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Location:</div>
+              <div className="label">Post:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Location(s)"
+                placeholder="Select Posts(s)"
                 value={selectedPosts}
                 options={postOptions}
                 onChange={setSelectedPosts}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Organization:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Organization(s)"
-                value={selectedOrgs}
-                options={organizationOptions}
-                onChange={setSelectedOrgs}
                 valueKey="code"
                 labelKey="description"
                 disabled={searchPostAccessFiltersLoading}
