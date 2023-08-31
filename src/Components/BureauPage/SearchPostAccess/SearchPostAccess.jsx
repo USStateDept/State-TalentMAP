@@ -18,20 +18,9 @@ const SearchPostAccess = () => {
   // State
   const userSelections = useSelector(state => state.searchPostAccessSelections);
   const searchPostAccessData = useSelector(state => state.searchPostAccess);
-
-  // for testing on dev - remove when done
-  console.log(searchPostAccessData);
-
-
   const searchPostAccessFilters = useSelector(state => state.searchPostAccessFetchFilterData);
   const searchPostAccessFiltersLoading = useSelector(
     state => state.searchPostAccessFetchFiltersLoading);
-
-  // for testing on dev - remove when done
-  console.log(searchPostAccessFiltersLoading);
-  console.log(searchPostAccessFilters);
-
-
   const searchPostAccessFetchDataLoading =
     useSelector(state => state.searchPostAccessFetchDataLoading);
   const searchPostAccessFetchDataError =
@@ -40,9 +29,13 @@ const SearchPostAccess = () => {
 
   // Local State & Filters
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
-  const [selectedPosts, setSelectedPosts] = useState(userSelections?.selectedPosts || []);
+  const [selectedLocations, setSelectedLocations] =
+    useState(userSelections?.selectedLocations || []);
   const [selectedRoles, setSelectedRoles] = useState(userSelections?.selectedRoles || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
   const [selectedPersons, setSelectedPersons] = useState(userSelections?.selectedPersons || []);
+  const [selectedPositions, setSelectedPositions] =
+    useState(userSelections?.selectedPositions || []);
   const [clearFilters, setClearFilters] = useState(false);
   const [checkedPostIds, setCheckedPostIds] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
@@ -50,33 +43,35 @@ const SearchPostAccess = () => {
 
   const getCurrentInputs = () => ({
     selectedBureaus,
-    selectedPosts,
+    selectedLocations,
+    selectedOrgs,
     selectedRoles,
     selectedPersons,
+    selectedPositions,
   });
 
   const getQuery = () => ({
     bureaus: selectedBureaus.map(bureau => (bureau?.code)),
-    posts: selectedPosts.map(post => (post?.code)),
+    org: selectedOrgs.map(org => (org?.code)),
+    locations: selectedLocations.map(loc => (loc?.code)),
     roles: selectedRoles.map(role => (role?.code)),
     persons: selectedPersons.map(person => (person?.code)),
+    positions: selectedPositions.map(pos => (pos?.code)),
   });
 
   const filters = [
     selectedBureaus,
-    selectedPosts,
+    selectedLocations,
+    selectedOrgs,
     selectedRoles,
     selectedPersons,
+    selectedPositions,
   ];
 
   const fetchAndSet = () => {
-    if (filters.flat().length === 0
-    ) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    if (filters.flat().length >= 2) {
+    const filterCount = filters.flat().length;
+    setClearFilters(!!filterCount);
+    if (filterCount > 1) {
       dispatch(searchPostAccessFetchData(getQuery()));
     }
     dispatch(searchPostAccessSaveSelections(getCurrentInputs()));
@@ -96,9 +91,11 @@ const SearchPostAccess = () => {
     fetchAndSet();
   }, [
     selectedBureaus,
-    selectedPosts,
+    selectedOrgs,
+    selectedLocations,
     selectedRoles,
     selectedPersons,
+    selectedPositions,
     searchPostAccessRemoveSuccess,
   ]);
 
@@ -106,23 +103,24 @@ const SearchPostAccess = () => {
   // Filter Options
   const bureauOptions = searchPostAccessFilters?.bureauFilters || [];
   const roleOptions = searchPostAccessFilters?.roleFilters || [];
-  const postOptions = searchPostAccessFilters?.locationFilters || [];
+  const locationOptions = searchPostAccessFilters?.locationFilters || [];
+  const orgOptions = searchPostAccessFilters?.orgFilters || [];
   const personOptions = searchPostAccessFilters?.personFilters || [];
+  const positionOptions = searchPostAccessFilters?.positionFilters || [];
 
   const resetFilters = () => {
-    Promise.resolve().then(() => {
-      setSelectedPersons([]);
-      setSelectedBureaus([]);
-      setSelectedPosts([]);
-      setSelectedRoles([]);
-      setCheckedPostIds([]);
-      setSelectAll(false);
-      setClearFilters(false);
-    });
+    setSelectedPersons([]);
+    setSelectedBureaus([]);
+    setSelectedOrgs([]);
+    setSelectedLocations([]);
+    setSelectedRoles([]);
+    setCheckedPostIds([]);
+    setSelectAll(false);
+    setClearFilters(false);
   };
 
   // Overlay for error, info, and loading state
-  const noResults = searchPostAccessData?.length === 0;
+  const noResults = !searchPostAccessData?.length;
   const getOverlay = () => {
     let overlay;
     if (searchPostAccessFetchDataLoading) {
@@ -151,7 +149,7 @@ const SearchPostAccess = () => {
     dispatch(searchPostAccessRemove(checkedPostIds));
   };
 
-  const tableHeaderNames = ['Access Type', 'Bureau', 'Post', 'Employee', 'Role', 'Position', 'Title'];
+  const tableHeaderNames = ['Access Type', 'Bureau', 'Org', 'Employee', 'Role', 'Position', 'Title'];
 
   const handleSelectAll = () => {
     if (!selectAll) {
@@ -169,40 +167,53 @@ const SearchPostAccess = () => {
     if (checkedPostIds.includes(post.id)) {
       const filteredPosts = checkedPostIds.filter(x => x !== post.id);
       setCheckedPostIds(filteredPosts);
-    } else setCheckedPostIds([...checkedPostIds, post.id]);
+    } else {
+      setCheckedPostIds([...checkedPostIds, post.id]);
+    }
   });
-
 
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
         <ProfileSectionTitle title="Search Post Access" icon="search-minus" className="xl-icon" />
         <div className="results-search-bar pt-20">
-
           <div className="filterby-container">
             <div className="filterby-label">Filter by:</div>
             <div className="filterby-clear">
-              {clearFilters &&
-                    <button
-                      className="unstyled-button"
-                      onClick={resetFilters}
-                    >
-                      <FA name="times" />
-                      Clear Filters
-                    </button>
+              {
+                clearFilters &&
+                <button
+                  className="unstyled-button"
+                  onClick={resetFilters}
+                >
+                  <FA name="times" />
+                  Clear Filters
+                </button>
               }
             </div>
           </div>
-
           <div className="usa-width-one-whole position-search--filters--spa results-dropdown">
             <div className="filter-div">
-              <div className="label">Name:</div>
+              <div className="label">Person:</div>
               <Picky
                 {...pickyProps}
                 placeholder="Person(s)"
                 value={selectedPersons}
                 options={personOptions}
                 onChange={setSelectedPersons}
+                valueKey="code"
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Location:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select Location(s)"
+                value={selectedLocations}
+                options={locationOptions}
+                onChange={setSelectedLocations}
                 valueKey="code"
                 labelKey="description"
                 disabled={searchPostAccessFiltersLoading}
@@ -222,13 +233,26 @@ const SearchPostAccess = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Post:</div>
+              <div className="label">Org:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Posts(s)"
-                value={selectedPosts}
-                options={postOptions}
-                onChange={setSelectedPosts}
+                placeholder="Select Org(s)"
+                value={selectedOrgs}
+                options={orgOptions}
+                onChange={setSelectedOrgs}
+                valueKey="code"
+                labelKey="description"
+                disabled={searchPostAccessFiltersLoading}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Position:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Position(s)"
+                value={selectedPositions}
+                options={positionOptions}
+                onChange={setSelectedPositions}
                 valueKey="code"
                 labelKey="description"
                 disabled={searchPostAccessFiltersLoading}
@@ -250,77 +274,71 @@ const SearchPostAccess = () => {
           </div>
         </div>
       </div>
-
-
       {
         getOverlay() ||
-              <>
-                <div className="usa-width-one-whole results-dropdown controls-container mb-10">
-                  <TotalResults
-                    total={searchPostAccessData.length}
-                    pageSize={'all'}
-                    suffix="Results"
-                    isHidden={searchPostAccessFetchDataLoading}
-                  />
-                </div>
-                <div className="usa-width-one-whole position-search--results">
-                  <div className="post-access-scroll-container">
-
-                    <table className="custom-table">
-                      <thead>
-                        <tr>
-                          <th className="checkbox-pos">
-                            <CheckBox
-                              checked={!selectAll}
-                              onCheckBoxClick={handleSelectAll}
-                            />
-                          </th>
-                          {
-                            tableHeaderNames.map((item) => (
-                              <th key={item}>{item}</th>
-                            ))
-                          }
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
-                          searchPostAccessData?.length &&
-                            searchPostAccessData.map(post => (
-                              <tr key={post.id}>
-                                <td className="checkbox-pac checkbox-pos">
-                                  <CheckBox
-                                    value={checkedPostIds.includes(post.id)}
-                                    onCheckBoxClick={() => handleSelectPost(post)}
-                                  />
-                                </td>
-                                <td>{post?.access_type || '---'}</td>
-                                <td>{post?.bureau || '---'}</td>
-                                <td>{post?.post || '---'}</td>
-                                <td>{post?.employee || '---'}</td>
-                                <td>{post?.role || '---'}</td>
-                                <td>{post?.position || '---'}</td>
-                                <td>{post?.title || '---'}</td>
-                              </tr>
-                            ))
-                        }
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-              </>
-      }
-
-      { checkedPostIds.length > 0 &&
-            <div className="proposed-cycle-banner">
-              {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
-              {
-                checkedPostIds.length > 0 &&
-                <button className="usa-button-secondary" onClick={submitRemoveAccess}>Remove Access</button>
-              }
+        <>
+          <div className="usa-width-one-whole results-dropdown controls-container mb-10">
+            <TotalResults
+              total={searchPostAccessData.length}
+              pageSize={'all'}
+              suffix="Results"
+              isHidden={searchPostAccessFetchDataLoading}
+            />
+          </div>
+          <div className="usa-width-one-whole position-search--results">
+            <div className="post-access-scroll-container">
+              <table className="custom-table">
+                <thead>
+                  <tr>
+                    <th className="checkbox-pos">
+                      <CheckBox
+                        checked={!selectAll}
+                        onCheckBoxClick={handleSelectAll}
+                      />
+                    </th>
+                    {
+                      tableHeaderNames.map((item) => (
+                        <th key={item}>{item}</th>
+                      ))
+                    }
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    searchPostAccessData?.map(post => (
+                      <tr key={post.id}>
+                        <td className="checkbox-pac checkbox-pos">
+                          <CheckBox
+                            value={checkedPostIds.includes(post.id)}
+                            onCheckBoxClick={() => handleSelectPost(post)}
+                          />
+                        </td>
+                        <td>{post?.access_type || '---'}</td>
+                        <td>{post?.bureau || '---'}</td>
+                        <td>{post?.post || '---'}</td>
+                        <td>{post?.employee || '---'}</td>
+                        <td>{post?.role || '---'}</td>
+                        <td>{post?.position || '---'}</td>
+                        <td>{post?.title || '---'}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
             </div>
+          </div>
+        </>
       }
-
+      {
+        !!checkedPostIds.length &&
+          <div className="proposed-cycle-banner">
+            {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
+            {
+              !!checkedPostIds.length &&
+              <button className="usa-button-secondary" onClick={submitRemoveAccess}>Remove Access</button>
+            }
+          </div>
+      }
     </div>
   );
 };
