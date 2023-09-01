@@ -52,7 +52,7 @@ const SearchPostAccess = () => {
 
   const getQuery = () => ({
     bureaus: selectedBureaus.map(bureau => (bureau?.code)),
-    org: selectedOrgs.map(org => (org?.code)),
+    org: selectedOrgs.map(org => (org?.description)),
     locations: selectedLocations.map(loc => (loc?.code)),
     roles: selectedRoles.map(role => (role?.code)),
     persons: selectedPersons.map(person => (person?.code)),
@@ -313,13 +313,13 @@ const SearchPostAccess = () => {
                             onCheckBoxClick={() => handleSelectPost(post)}
                           />
                         </td>
-                        <td>{post?.access_type || '---'}</td>
-                        <td>{post?.bureau || '---'}</td>
-                        <td>{post?.post || '---'}</td>
-                        <td>{post?.employee || '---'}</td>
-                        <td>{post?.role || '---'}</td>
-                        <td>{post?.position || '---'}</td>
-                        <td>{post?.title || '---'}</td>
+                        <td>{post?.access_type}</td>
+                        <td>{post?.bureau}</td>
+                        <td>{post?.post}</td>
+                        <td>{post?.employee}</td>
+                        <td>{post?.role}</td>
+                        <td>{post?.position}</td>
+                        <td>{post?.title}</td>
                       </tr>
                     ))
                   }
