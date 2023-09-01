@@ -20,6 +20,7 @@
     "panel_meeting_agendas": true,
     "panel_meetings_search": true,
     "bid_seasons": true,
+    "bureau_exception": true,
     "persona_auth": true,
     "post_handshake": false,
     "projected_vacancy": true,

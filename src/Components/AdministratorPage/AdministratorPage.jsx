@@ -52,6 +52,7 @@ const AdministratorPage = (props) => {
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/administrator/dashboard" render={() => <Dashboard {...dashboardProps} />} />
+        <Route path="/profile/administrator/bureauexception" render={() => <h1>TEST</h1>} />
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
