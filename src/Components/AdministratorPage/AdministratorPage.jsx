@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import BidCycles from 'Containers/BidCycles';
 import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import Dashboard from './Dashboard';
+import BureauExceptionList from './BureauExceptionList/';
 import Logs from './Logs';
 import Stats from './Stats';
 import UserRoles from './UserRoles';
@@ -52,7 +53,7 @@ const AdministratorPage = (props) => {
     <div className="usa-grid-full profile-content-container">
       <Switch>
         <Route path="/profile/administrator/dashboard" render={() => <Dashboard {...dashboardProps} />} />
-        <Route path="/profile/administrator/bureauexception" render={() => <h1>TEST</h1>} />
+        <Route path="/profile/administrator/bureauexception" render={() => <BureauExceptionList />} />
         <Route path="/profile/administrator/logs" render={() => <Logs {...logsProps} />} />
         <Route path="/profile/administrator/stats" render={() => <Stats />} />
         <Route path="/profile/administrator/userroles" render={() => <UserRoles {...userProps} />} />
