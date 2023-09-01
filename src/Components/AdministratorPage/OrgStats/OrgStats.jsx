@@ -30,14 +30,6 @@ const OrgStats = () => {
   const orgStatsIsLoading = useSelector(state => state.orgStatsIsLoading);
   const orgStatsError = useSelector(state => state.orgStatsError);
 
-  console.log(orgStatsData);
-  console.log(orgStatsIsLoading);
-  console.log(orgStatsError);
-
-  const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
-  const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
-  const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
-
   // ================= FILTER/PAGINATION =================
 
   const [clearFilters, setClearFilters] = useState(false);
@@ -116,12 +108,12 @@ const OrgStats = () => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = ManageBidSeasonsData?.results?.length === 0;
+  const noResults = orgStatsData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
-    if (ManageBidSeasonsDataLoading) {
+    if (orgStatsIsLoading) {
       overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
-    } else if (ManageBidSeasonsError) {
+    } else if (orgStatsError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
