@@ -229,3 +229,12 @@ export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) su
 export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
 export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
 
+export const ADD_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to add this Bureau Exception. Please try again.';
+export const ADD_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Add Error';
+export const ADD_BUREAU_EXCEPTION_SUCCESS = 'Bureau Exception has been added.';
+export const ADD_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Added';
+
+export const EDIT_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to update this Bureau Exception. Please try again.';
+export const EDIT_BUREAU_EXCEPTION_SUCCESS = 'The Bureau Exception has been updated';
+export const EDIT_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Edit Error';
+export const EDIT_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Updated';

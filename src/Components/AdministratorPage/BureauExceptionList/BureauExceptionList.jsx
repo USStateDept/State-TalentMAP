@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get, sortBy, uniqBy } from 'lodash';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { isDate, startOfDay } from 'date-fns-v2';
@@ -15,7 +14,7 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
+import { bureauExceptionFetchData, saveBureauExceptionSelections } from 'actions/bureauException';
 import BureauExceptionListCard from './BureauExceptionListCard';
 
 
@@ -24,18 +23,18 @@ const BureauExceptionList = (props) => {
   const { isAO } = props;
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const userSelections = useSelector(state => state.bidSeasonsSelections);
-  const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
-  const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
-  const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
+  const userSelections = useSelector(state => state.bureauExceptionsSelections);
+  const BureauExceptionDataLoading = useSelector(state => state.bureauExceptionsFetchDataLoading);
+  const BureauExceptionData = useSelector(state => state.bureauExceptions);
+  const BureauExceptionError = useSelector(state => state.bureauExceptionsFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
   const genericFilters$ = get(genericFilters, 'filters') || [];
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] =
     useState(userSelections?.selectedBidSeasons || []);
-  const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
-  const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
+  const [selectedStatus, setSelectedStatus] = useState(userSelections?.name || []);
+  const [selectedDates, setSelectedDates] = useState(userSelections?.BureauNames || null);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
@@ -80,15 +79,15 @@ const BureauExceptionList = (props) => {
     if (resetPage) {
       setPage(1);
     }
-    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
-    dispatch(bidSeasonsFetchData(getQuery()));
+    dispatch(saveBureauExceptionSelections(getCurrentInputs()));
+    dispatch(bureauExceptionFetchData(getQuery()));
   };
 
 
   // initial render
   useEffect(() => {
     dispatch(filtersFetchData(genericFilters));
-    dispatch(saveBidSeasonsSelections(currentInputs));
+    dispatch(saveBureauExceptionSelections(currentInputs));
   }, []);
 
   useEffect(() => {
@@ -129,12 +128,12 @@ const BureauExceptionList = (props) => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = ManageBidSeasonsData?.results?.length === 0;
+  const noResults = BureauExceptionData?.results?.length === 0;
   const getOverlay = () => {
     let overlay;
-    if (ManageBidSeasonsDataLoading) {
+    if (BureauExceptionDataLoading) {
       overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
-    } else if (ManageBidSeasonsError) {
+    } else if (BureauExceptionError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
@@ -161,6 +160,8 @@ const BureauExceptionList = (props) => {
     }, 200);
   };
 
+  // will delete in a bit
+  console.log(openNewModal);
   return (
     genericFiltersIsLoading ?
       <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
@@ -208,27 +209,15 @@ const BureauExceptionList = (props) => {
         {
           getOverlay() ||
           <>
-            <div className="usa-grid-full results-dropdown controls-container">
-              <div className="bs-results">
-                <Link
-                  onClick={(e) => openNewModal(e)}
-                  to="#"
-                >
-                  <FA className="fa-solid fa-plus" />
-                  {' Add New Bid Season'}
-                </Link>
-              </div>
-            </div>
-
             <div className="bs-lower-section">
-              {ManageBidSeasonsData?.results?.map(data =>
+              {BureauExceptionData?.results?.map(data =>
                 <BureauExceptionListCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
               <div className="usa-grid-full react-paginate">
                 <PaginationWrapper
                   pageSize={5}
                   onPageChange={p => setPage(p.page)}
                   forcePage={page}
-                  totalResults={ManageBidSeasonsData.count}
+                  totalResults={BureauExceptionData.count}
                 />
               </div>
             </div>
