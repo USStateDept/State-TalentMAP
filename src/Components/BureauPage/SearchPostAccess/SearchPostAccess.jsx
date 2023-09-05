@@ -110,6 +110,7 @@ const SearchPostAccess = () => {
 
   const resetFilters = () => {
     setSelectedPersons([]);
+    setSelectedPositions([]);
     setSelectedBureaus([]);
     setSelectedOrgs([]);
     setSelectedLocations([]);
