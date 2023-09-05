@@ -1,5 +1,7 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
+import { get } from 'lodash';
+import { convertQueryToString } from 'utilities';
 import {
   SEARCH_POST_ACCESS_REMOVE_ERROR,
   SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE,
@@ -30,17 +32,23 @@ export function searchPostAccessFetchDataSuccess(results) {
   };
 }
 
-let cancel;
+let cancelSearchPostAccess;
 
 export function searchPostAccessFetchData(query = {}) {
   return (dispatch) => {
+    if (cancelSearchPostAccess) { cancelSearchPostAccess('cancel'); }
     batch(() => {
       dispatch(searchPostAccessFetchDataLoading(true));
       dispatch(searchPostAccessFetchDataErrored(false));
     });
-    dispatch(searchPostAccessFetchDataLoading(true));
-    const endpoint = 'fsbid/search_post_access/data/';
-    api().post(endpoint, query)
+    const endpoint = 'fsbid/post_access/';
+    const q = convertQueryToString(query);
+    const ep = `${endpoint}?${q}`;
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => {
+        cancelSearchPostAccess = c;
+      }),
+    })
       .then(({ data }) => {
         batch(() => {
           dispatch(searchPostAccessFetchDataSuccess(data));
@@ -49,15 +57,15 @@ export function searchPostAccessFetchData(query = {}) {
         });
       })
       .catch((err) => {
-        if (err?.message === 'cancel') {
+        if (get(err, 'message') === 'cancel') {
           batch(() => {
-            dispatch(searchPostAccessFetchDataLoading(true));
             dispatch(searchPostAccessFetchDataErrored(false));
+            dispatch(searchPostAccessFetchDataLoading(true));
           });
         } else {
           batch(() => {
             dispatch(searchPostAccessFetchDataSuccess([]));
-            dispatch(searchPostAccessFetchDataErrored(false));
+            dispatch(searchPostAccessFetchDataErrored(true));
             dispatch(searchPostAccessFetchDataLoading(false));
           });
         }
@@ -100,17 +108,10 @@ export function searchPostAccessRemoveSuccess(results) {
 
 export function searchPostAccessRemove(positions) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
     dispatch(searchPostAccessRemoveIsLoading(true));
     dispatch(searchPostAccessRemoveHasErrored(false));
     api()
-      .post('fsbid/search_post_access/remove/', {
-        positions,
-      }, {
-        cancelToken: new CancelToken((c) => {
-          cancel = c;
-        }),
-      })
+      .delete('fsbid/post_access/permissions/', { data: positions })
       .then(({ data }) => {
         batch(() => {
           dispatch(searchPostAccessRemoveHasErrored(false));
@@ -122,17 +123,12 @@ export function searchPostAccessRemove(positions) {
           dispatch(searchPostAccessRemoveIsLoading(false));
         });
       })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          dispatch(searchPostAccessRemoveHasErrored(false));
-          dispatch(searchPostAccessRemoveIsLoading(false));
-        } else {
-          dispatch(toastError(
-            SEARCH_POST_ACCESS_REMOVE_ERROR, SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE,
-          ));
-          dispatch(searchPostAccessRemoveHasErrored(true));
-          dispatch(searchPostAccessRemoveIsLoading(false));
-        }
+      .catch(() => {
+        dispatch(toastError(
+          SEARCH_POST_ACCESS_REMOVE_ERROR, SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE,
+        ));
+        dispatch(searchPostAccessRemoveHasErrored(true));
+        dispatch(searchPostAccessRemoveIsLoading(false));
       });
   };
 }
@@ -164,7 +160,7 @@ export function searchPostAccessFetchFilters() {
       dispatch(searchPostAccessFetchFiltersLoading(true));
       dispatch(searchPostAccessFetchFiltersErrored(false));
     });
-    const endpoint = 'fsbid/search_post_access/filters/';
+    const endpoint = 'fsbid/post_access/filters/';
     dispatch(searchPostAccessFetchFiltersLoading(true));
     api().get(endpoint)
       .then(({ data }) => {
