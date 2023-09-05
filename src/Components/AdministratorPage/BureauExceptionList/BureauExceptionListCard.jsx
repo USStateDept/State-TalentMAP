@@ -50,7 +50,14 @@ const BureauExceptionListCard = (props) => {
             Bureau Access: {BureauNames.toString()}
           </Column>
           <Column columns={3} className="bs-card--link-col">
-            <Link to="#">
+            <Link
+              onClick={(e) => {
+                e.preventDefault();
+                editSeason({}, false);
+              }
+              }
+              to="#"
+            >
               <FA className="fa-solid fa-pencil" />
                Edit
             </Link>
