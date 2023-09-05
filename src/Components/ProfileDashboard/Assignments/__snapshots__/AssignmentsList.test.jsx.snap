@@ -50,7 +50,7 @@ exports[`AssignmentsListComponent matches snapshot 1`] = `
       ]
     }
     id={null}
-    isPublic={false}
+    showMaintainAssignmentLink={false}
   />
 </ContextProvider>
 `;
@@ -82,7 +82,7 @@ exports[`AssignmentsListComponent matches snapshot when there are no bids 1`] = 
   <AssignmentList
     assignments={Array []}
     id={null}
-    isPublic={false}
+    showMaintainAssignmentLink={false}
   />
 </ContextProvider>
 `;

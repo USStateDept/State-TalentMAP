@@ -21,7 +21,6 @@ const Assignments = (props) => {
 
   const [newAsgSep, setNewAsgSep] = useState(false);
 
-  const isCDO = !window.location.pathname.includes('/ao/');
   const id = props?.match.params.id;
 
   // TO-DO: replace fake data
@@ -154,7 +153,7 @@ const Assignments = (props) => {
               Assignments
               <span className="asg-title-dash">
                 {'- '}
-                <Link to={`/profile/public/${id}${isCDO ? '' : '/ao'}`}>
+                <Link to={`/profile/public/${id}/ao`}>
                   <span className="asg-title">
                     {`${employeeName}`}
                   </span>
