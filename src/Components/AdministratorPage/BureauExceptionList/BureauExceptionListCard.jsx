@@ -10,7 +10,6 @@ const BureauExceptionListCard = (props) => {
   const {
     Name,
     BureauNames,
-    NameAbbreviation,
     displayNewModal,
   } = props;
 
@@ -19,14 +18,14 @@ const BureauExceptionListCard = (props) => {
   };
 
   // =============== View Mode ===============
-  const editSeason = (seasonInfo, isNew) => {
+  const editSeason = (name) => {
     swal({
-      title: 'Bid Season Information',
+      title: 'Bureau',
       button: false,
       content: (
         <EditBureauExceptionList
           submitAction={submitAction}
-          seasonInfo={isNew ? {} : seasonInfo}
+          Name={name}
         />
       ),
     });
@@ -35,7 +34,6 @@ const BureauExceptionListCard = (props) => {
   useEffect(() => {
     if (displayNewModal) {
       editSeason({}, true);
-      console.log(NameAbbreviation);
     }
   }, [displayNewModal]);
 
@@ -53,7 +51,7 @@ const BureauExceptionListCard = (props) => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                editSeason({}, false);
+                editSeason(Name);
               }
               }
               to="#"
@@ -71,7 +69,6 @@ const BureauExceptionListCard = (props) => {
 BureauExceptionListCard.propTypes = {
   Name: PropTypes.string.isRequired,
   BureauNames: PropTypes.string.isRequired,
-  NameAbbreviation: PropTypes.string.isRequired,
   displayNewModal: PropTypes.bool.isRequired,
   bidder: PropTypes.shape({
     'bid-seasons': PropTypes.shape({
@@ -86,7 +83,6 @@ BureauExceptionListCard.propTypes = {
 BureauExceptionListCard.defaultProps = {
   Name: '',
   BureauNames: '',
-  NameAbbreviation: '',
   displayNewModal: false,
 };
 

@@ -1,15 +1,16 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
 import CheckBox from '../../CheckBox/CheckBox';
+import TextInput from '../../TextInput/TextInput';
 
 
 const EditBureauExceptionList = (props) => {
-  const { details, seasonInfo, id } = props;
+  const { Name } = props;
 
   const submit = (e) => {
     e.preventDefault();
     swal.close();
-    console.log(details, seasonInfo, id);
     // Doing nothing for now but closing.
   };
 
@@ -17,18 +18,91 @@ const EditBureauExceptionList = (props) => {
     e.preventDefault();
     swal.close();
   };
-  const data = ['AO', 'FB', 'EO', 'AS', 'FG', 'UO'];
+
+
+  const data = [
+    { id: 1, bureaus: ['AO'] },
+    { id: 2, bureaus: ['FB'] },
+    { id: 3, bureaus: ['EO'] },
+    { id: 4, bureaus: ['AS'] },
+    { id: 5, bureaus: ['FG'] },
+    { id: 6, bureaus: ['UO'] },
+  ];
+
+  const [selectAll, setSelectAll] = useState(false);
+  const [checkedBureauIds, setCheckedBureauIds] = useState(data);
+  const [bureau, setBureau] = useState('');
+
+  const onChangeText = (e) => {
+    console.log(e);
+    setBureau(e);
+  };
+
+  const handleSelectAll = () => {
+    if (!selectAll) {
+      setSelectAll(true);
+      setCheckedBureauIds(
+        data.map(bu => bu.id),
+      );
+    } else {
+      setSelectAll(false);
+      setCheckedBureauIds([]);
+    }
+  };
+
+  const handleSelectBureau = (bu => {
+    if (checkedBureauIds.includes(bu.id)) {
+      const filteredBureau = checkedBureauIds.filter(x => x !== bu.id);
+      setCheckedBureauIds(filteredBureau);
+    } else setCheckedBureauIds([...checkedBureauIds, bu.id]);
+  });
+
   return (
     <div>
-      <form className="bid-seasons-form">
-        <div>
-          <label htmlFor="status">Description</label>
-          {data.map((item) => (
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <CheckBox id={item} label={item} />
-            </div>
-          ))}
-        </div>
+      <form>
+        <table className="custom-table">
+          <thead>
+            <tr>
+              <th className="checkbox-pos">
+                <CheckBox
+                  checked={!selectAll}
+                  onCheckBoxClick={handleSelectAll}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <div style={{ padding: '10px' }}>
+                <TextInput
+                  changeText={(e) => onChangeText(e)}
+                  label={`F/S Employee Name: ${Name}`}
+                  placeholder="Filter by Bureau"
+                  value={bureau}
+                  id="bureau"
+                  inputProps={{
+                    autoComplete: 'off',
+                  }}
+                />
+              </div>
+            </tr>
+            {
+              data.length &&
+                data.filter(item => item.bureaus.some(x =>
+                  x.includes(bureau))).map(post => (
+                  <tr key={post.id}>
+                    <td className="checkbox-pac checkbox-pos">
+                      <CheckBox
+                        label={post.bureaus}
+                        value={checkedBureauIds.includes(post.id)}
+                        onCheckBoxClick={() => handleSelectBureau(post)}
+                      />
+                    </td>
+                  </tr>
+                ))
+            }
+          </tbody>
+        </table>
         <button onClick={cancel}>Cancel</button>
         <button onClick={submit} type="submit">Save</button>
       </form>
@@ -37,42 +111,12 @@ const EditBureauExceptionList = (props) => {
 };
 
 EditBureauExceptionList.propTypes = {
-  id: PropTypes.string.is,
-  details: PropTypes.shape({
-    formattedCreated: PropTypes.string,
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
-    panelCutOff: PropTypes.string,
-  }),
-  seasonInfo: PropTypes.shape({
-    bid_seasons_name: PropTypes.string,
-    bid_seasons_category: PropTypes.string,
-    bid_seasons_begin_date: PropTypes.string,
-    bid_seasons_panel_cutoff: PropTypes.string,
-    bid_seasons_end_date: PropTypes.string,
-    bid_seasons_future_vacancy: PropTypes.string,
-    description: PropTypes.string,
-  }),
+  Name: PropTypes.string.isRequired,
 };
 
 
 EditBureauExceptionList.defaultProps = {
-  id: '',
-  details: {
-    formattedCreated: '',
-    startDate: '',
-    endDate: '',
-    panelCutOff: '',
-  },
-  seasonInfo: {
-    bid_seasons_name: '',
-    bid_seasons_category: '',
-    bid_seasons_begin_date: '',
-    bid_seasons_panel_cutoff: '',
-    bid_seasons_end_date: '',
-    bid_seasons_future_vacancy: '',
-    description: '',
-  },
+  Name: '',
 };
 
 export default EditBureauExceptionList;

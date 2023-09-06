@@ -106,13 +106,17 @@ const BureauExceptionList = (props) => {
         <div className="usa-grid-full position-search--header">
           <ProfileSectionTitle title="Bureau Exception List" icon="calendar" className="xl-icon" />
         </div>
-
         {
           getOverlay() ||
           <>
             <div className="bs-lower-section">
-              {BureauExceptionData?.results?.map(data =>
-                <BureauExceptionListCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
+              {BureauExceptionData?.results?.map(data => (
+                <BureauExceptionListCard
+                  {...{ ...data, isAO }}
+                  displayNewModal={newModalOpen}
+                />),
+              )
+              }
               <div className="usa-grid-full react-paginate">
                 <PaginationWrapper
                   pageSize={5}

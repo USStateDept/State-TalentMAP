@@ -16,76 +16,91 @@ import { toastError, toastSuccess } from './toast';
 
 const dummyData = [
   {
+    id: 1,
     Name: 'John Doe',
     BureauNames: ['OBO', 'ENR'],
     NameAbbreviation: 'JD',
   },
   {
+    id: 2,
     Name: 'Jane Smith',
     BureauNames: ['NEA', 'AF'],
     NameAbbreviation: 'JS',
   },
   {
+    id: 3,
     Name: 'Alice Johnson',
     BureauNames: ['SCA', 'IO'],
     NameAbbreviation: 'AJ',
   },
   {
+    id: 4,
     Name: 'Bob Anderson',
     BureauNames: ['BRM', 'EUR'],
     NameAbbreviation: 'BA',
   },
   {
+    id: 5,
     Name: 'Eve Williams',
     BureauNames: ['NEA', 'AF'],
     NameAbbreviation: 'EW',
   },
   {
+    id: 6,
     Name: 'Michael Brown',
     BureauNames: ['OBO', 'ENR'],
     NameAbbreviation: 'MB',
   },
   {
+    id: 7,
     Name: 'Sophia Lee',
     BureauNames: ['BVB', 'SCA'],
     NameAbbreviation: 'SL',
   },
   {
+    id: 8,
     Name: 'William Johnson',
     BureauNames: ['NEA', 'AF'],
     NameAbbreviation: 'WJ',
   },
   {
+    id: 9,
     Name: 'Olivia Davis',
     BureauNames: ['BRM', 'EUR'],
     NameAbbreviation: 'OD',
   },
   {
+    id: 10,
     Name: 'James Miller',
     BureauNames: ['NEA', 'AF'],
     NameAbbreviation: 'JM',
   },
   {
+    id: 11,
     Name: 'Ava Wilson',
     BureauNames: ['BDM', 'ESS'],
     NameAbbreviation: 'AW',
   },
   {
+    id: 12,
     Name: 'David Moore',
     BureauNames: ['BRM', 'EUR'],
     NameAbbreviation: 'DM',
   },
   {
+    id: 13,
     Name: 'Liam Taylor',
     BureauNames: ['NEA', 'AF'],
     NameAbbreviation: 'LT',
   },
   {
+    id: 14,
     Name: 'Emma Harris',
     BureauNames: ['OVO'],
     NameAbbreviation: 'EH',
   },
   {
+    id: 15,
     Name: 'Mia Martin',
     BureauNames: ['NEA', 'AF'],
     NameAbbreviation: 'MM',
