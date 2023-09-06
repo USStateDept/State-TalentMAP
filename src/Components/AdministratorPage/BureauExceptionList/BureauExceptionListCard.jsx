@@ -20,7 +20,7 @@ const BureauExceptionListCard = (props) => {
   // =============== View Mode ===============
   const editSeason = (name) => {
     swal({
-      title: 'Bureau',
+      title: 'Bureaus',
       button: false,
       content: (
         <EditBureauExceptionList

@@ -30,7 +30,15 @@ const EditBureauExceptionList = (props) => {
     { id: 7, bureaus: ['XA'] },
     { id: 8, bureaus: ['YY'] },
     { id: 9, bureaus: ['ZA'] },
-
+    { id: 10, bureaus: ['OO'] },
+    { id: 11, bureaus: ['RR'] },
+    { id: 12, bureaus: ['BO'] },
+    { id: 13, bureaus: ['FS'] },
+    { id: 14, bureaus: ['FX'] },
+    { id: 15, bureaus: ['UL'] },
+    { id: 16, bureaus: ['BX'] },
+    { id: 17, bureaus: ['FY'] },
+    { id: 18, bureaus: ['ZW'] },
   ];
 
   const [selectAll, setSelectAll] = useState(false);
@@ -92,25 +100,27 @@ const EditBureauExceptionList = (props) => {
             </tr>
           </thead>
           <tbody>
-            {
-              data.length &&
-                data.filter(item => item.bureaus.some(x =>
-                  x.includes(bureau))).map(post => (
-                  <tr key={post.id}>
-                    <td className="checkbox-pac checkbox-pos">
-                      <CheckBox
-                        label={post.bureaus}
-                        value={checkedBureauIds.includes(post.id)}
-                        onCheckBoxClick={() => handleSelectBureau(post)}
-                      />
-                    </td>
-                  </tr>
-                ))
-            }
+            <div className="bureau-exception-text-table">
+              {
+                data.length &&
+                  data.filter(item => item.bureaus.some(x =>
+                    x.includes(bureau))).map(post => (
+                    <tr key={post.id}>
+                      <td className="checkbox-pac checkbox-pos">
+                        <CheckBox
+                          label={post.bureaus}
+                          value={checkedBureauIds.includes(post.id)}
+                          onCheckBoxClick={() => handleSelectBureau(post)}
+                        />
+                      </td>
+                    </tr>
+                  ))
+              }
+            </div>
           </tbody>
         </table>
+        <button onClick={submit} type="submit">Add Bureau(s)</button>
         <button onClick={cancel}>Cancel</button>
-        <button onClick={submit} type="submit">Add Bureau</button>
       </form>
     </div>
   );
