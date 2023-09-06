@@ -52,7 +52,7 @@ const SearchPostAccess = () => {
 
   const getQuery = () => ({
     bureaus: selectedBureaus.map(bureau => (bureau?.code)),
-    org: selectedOrgs.map(org => (org?.description)),
+    orgs: selectedOrgs.map(org => (org?.description)),
     locations: selectedLocations.map(loc => (loc?.code)),
     roles: selectedRoles.map(role => (role?.code)),
     persons: selectedPersons.map(person => (person?.code)),
