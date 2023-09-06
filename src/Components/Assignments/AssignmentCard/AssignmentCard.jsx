@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
-// import { createAssignmentSeparation, editAssignment } from 'actions/assignmentMaintenance';
+// import { createAssignment, editAssignment } from 'actions/assignmentMaintenance';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
@@ -107,7 +107,7 @@ const AssignmentCard = (props) => {
     setNewAsgSep(false);
   };
   const onSubmitForm = () => {
-    // createAssignmentSeparation(data)
+    // createAssignment(data)
     // editAssignment(data)
     // TO-DO: refresh assignments and separations after?
     setNewAsgSep(false);

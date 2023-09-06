@@ -71,11 +71,11 @@ export function createAssignmentSuccess(data) {
 }
 
 // eslint-disable-next-line arrow-body-style
-export const createAssignmentSeparation = (data) => {
+export const createAssignment = (data) => {
   return (dispatch) => {
     dispatch(createAssignmentIsLoading(true));
     dispatch(createAssignmentHasErrored(false));
-    api().put('/new/assginment/separation/ep/TBD/', data)
+    api().put('/new/assginment/ep/TBD/', data)
       .then(({ res }) => {
         batch(() => {
           dispatch(createAssignmentHasErrored(false));

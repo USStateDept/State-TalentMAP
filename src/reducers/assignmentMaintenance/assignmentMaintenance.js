@@ -38,10 +38,10 @@ export function createAssignmentIsLoading(state = true, action) {
       return state;
   }
 }
-export function createAssignmentSeparation(state = {}, action) {
+export function createAssignment(state = {}, action) {
   switch (action.type) {
     case 'CREATE_ASSIGNMENT_SUCCESS':
-      return action.createAssignmentSeparation;
+      return action.createAssignment;
     default:
       return state;
   }

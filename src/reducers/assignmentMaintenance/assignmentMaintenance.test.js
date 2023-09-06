@@ -22,6 +22,6 @@ describe('assignment maintenance reducers', () => {
   });
 
   it('can set reducer CREATE_ASSIGNMENT_SUCCESS', () => {
-    expect(reducers.createAssignmentSeparation({}, { type: 'CREATE_ASSIGNMENT_SUCCESS', createAssignmentSeparation: true })).toBe(true);
+    expect(reducers.createAssignment({}, { type: 'CREATE_ASSIGNMENT_SUCCESS', createAssignment: true })).toBe(true);
   });
 });
