@@ -9,6 +9,8 @@ import Spinner from 'Components/Spinner';
 import PaginationWrapper from 'Components/PaginationWrapper';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import DefinitionList from 'Components/DefinitionList';
+import { Row } from 'Components/Layout';
 import { useDataLoader } from 'hooks';
 import OrgStatsCard from './OrgStatsCard';
 import api from '../../../api';
@@ -27,6 +29,8 @@ const OrgStats = () => {
   const userSelections = useSelector(state => state.orgStatsSelections);
 
   const orgStatsData = useSelector(state => state.orgStats);
+  const orgStatsData$ = orgStatsData.results || [];
+  const orgStatsSummary$ = orgStatsData.bureau_summary || [];
   const orgStatsIsLoading = useSelector(state => state.orgStatsIsLoading);
   const orgStatsError = useSelector(state => state.orgStatsError);
 
@@ -108,7 +112,7 @@ const OrgStats = () => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = orgStatsData?.results?.length === 0;
+  const noResults = orgStatsData?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (orgStatsIsLoading) {
@@ -123,90 +127,118 @@ const OrgStats = () => {
     return overlay;
   };
 
-  return (
-    genericFiltersIsLoading ?
-      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
-      <div className="bid-seasons-page position-search">
-        <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Org Stats Search" icon="building" className="xl-icon" />
-          <div className="filterby-container" >
-            <div className="filterby-label">Filter by:</div>
-            <span className="filterby-clear">
-              {clearFilters &&
-                <button className="unstyled-button" onClick={resetFilters}>
-                  <FA name="times" />
-                  Clear Filters
-                </button>
-              }
-            </span>
+  return (!genericFiltersIsLoading ?
+    <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
+    <div className="bid-seasons-page position-search">
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Org Stats Search" icon="building" className="xl-icon" />
+        <div className="filterby-container" >
+          <div className="filterby-label">Filter by:</div>
+          <span className="filterby-clear">
+            {clearFilters &&
+              <button className="unstyled-button" onClick={resetFilters}>
+                <FA name="times" />
+                Clear Filters
+              </button>
+            }
+          </span>
+        </div>
+        <div className="usa-width-one-whole position-search--filters--pos-man results-dropdown">
+          <div className="filter-div">
+            <div className="label">Bureau:</div>
+            <Picky
+              placeholder="Select Bureau(s)"
+              value={selectedBureaus.filter(f => f)}
+              options={bureauOptions}
+              onChange={setSelectedBureaus}
+              numberDisplayed={2}
+              multiple
+              includeFilter
+              dropdownHeight={255}
+              renderList={renderSelectionList}
+              valueKey="code"
+              labelKey="long_description"
+            />
           </div>
-          <div className="usa-width-one-whole position-search--filters--pos-man results-dropdown">
-            <div className="filter-div">
-              <div className="label">Bureau:</div>
-              <Picky
-                placeholder="Select Bureau(s)"
-                value={selectedBureaus.filter(f => f)}
-                options={bureauOptions}
-                onChange={setSelectedBureaus}
-                numberDisplayed={2}
-                multiple
-                includeFilter
-                dropdownHeight={255}
-                renderList={renderSelectionList}
-                valueKey="code"
-                labelKey="long_description"
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Organization:</div>
-              <Picky
-                placeholder="Select Organization(s)"
-                value={selectedOrgs}
-                options={organizationOptions}
-                onChange={setSelectedOrgs}
-                numberDisplayed={2}
-                multiple
-                includeFilter
-                dropdownHeight={255}
-                renderList={renderSelectionList}
-                valueKey="code"
-                labelKey="long_description"
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Cycle:</div>
-              <Picky
-                placeholder="Select Cycle(s)"
-                value={selectedCycles}
-                options={cycleOptions}
-                onChange={setSelectedCycles}
-                numberDisplayed={2}
-                multiple
-                includeFilter
-                dropdownHeight={255}
-                renderList={renderSelectionList}
-                valueKey="id"
-                labelKey="custom_description"
-              />
-            </div>
+          <div className="filter-div">
+            <div className="label">Organization:</div>
+            <Picky
+              placeholder="Select Organization(s)"
+              value={selectedOrgs}
+              options={organizationOptions}
+              onChange={setSelectedOrgs}
+              numberDisplayed={2}
+              multiple
+              includeFilter
+              dropdownHeight={255}
+              renderList={renderSelectionList}
+              valueKey="code"
+              labelKey="long_description"
+            />
+          </div>
+          <div className="filter-div">
+            <div className="label">Cycle:</div>
+            <Picky
+              placeholder="Select Cycle(s)"
+              value={selectedCycles}
+              options={cycleOptions}
+              onChange={setSelectedCycles}
+              numberDisplayed={2}
+              multiple
+              includeFilter
+              dropdownHeight={255}
+              renderList={renderSelectionList}
+              valueKey="id"
+              labelKey="custom_description"
+            />
           </div>
         </div>
-        {
-          getOverlay() ||
-          <div className="bs-lower-section">
-            {orgStatsData?.map(data =>
-              <OrgStatsCard {...data} />)}
-            <div className="usa-grid-full react-paginate">
-              <PaginationWrapper
-                pageSize={5}
-                onPageChange={p => setPage(p.page)}
-                forcePage={page}
-                totalResults={orgStatsData.length}
-              />
-            </div>
-          </div>
-        }
       </div>
+      {getOverlay() ||
+        <div className="bs-lower-section">
+          {orgStatsData$ && orgStatsData$?.map((data, index) => {
+            const bureauSummary = orgStatsSummary$.find(s => s.bureau === data.bureau);
+            const currBureau = data.bureau;
+            const nextBureau = orgStatsData$[index + 1]?.bureau;
+            if (currBureau !== nextBureau) {
+              const summaryBody = {
+                'Bureau: ': bureauSummary.bureau_short_desc,
+                'Total POS': bureauSummary.total_pos,
+                'Total Filled': bureauSummary.total_filled,
+                '% POS': bureauSummary.total_percent,
+                'Overseas POS': bureauSummary.overseas_pos,
+                'Overseas Filled': bureauSummary.overseas_filled,
+                '% Overseas': bureauSummary.overseas_percent,
+                'Domestic POS': bureauSummary.domestic_pos,
+                'Domestic Filled': bureauSummary.domestic_filled,
+                '% Domestic': bureauSummary.domestic_percent,
+              };
+              return (
+                <Row fluid className="tabbed-card dark box-shadow-standard">
+                  <div className="position-content pt-12">
+                    <Row fluid className="position-content--section position-content--details condensed">
+                      <DefinitionList
+                        itemProps={{ excludeColon: true }}
+                        items={summaryBody}
+                      />
+                    </Row>
+                  </div>
+                </Row>
+              );
+            }
+            return <OrgStatsCard {...data} />;
+          })}
+          <div className="usa-grid-full react-paginate">
+            <PaginationWrapper
+              pageSize={5}
+              onPageChange={p => setPage(p.page)}
+              forcePage={page}
+              totalResults={orgStatsData.length}
+            />
+          </div>
+        </div>
+      }
+    </div>
   );
 };
 
