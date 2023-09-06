@@ -236,35 +236,43 @@ const AssignmentCard = (props) => {
               onChange={(e) => setAdj(e?.target.value)}
             />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container height-100">
             <CheckBox
               id={`salary-reimbursement-${data.id ?? 'create'}`}
               label="Salary Reimbursement"
               value={salaryReimbursement}
+              className="mt-40"
+              excludeTmCheckboxClass
               onChange={() => setSalaryReimbursement(!salaryReimbursement)}
             />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container height-100">
             <CheckBox
               id={`travel-reimbursement-${data.id ?? 'create'}`}
               label="Travel Reimbursement"
               value={travelReimbursement}
+              className="mt-40"
+              excludeTmCheckboxClass
               onChange={() => setTravelReimbursement(!travelReimbursement)}
             />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container height-100">
             <CheckBox
               id={`training-${data.id ?? 'create'}`}
               label="Training"
               value={training}
+              className="mt-40"
+              excludeTmCheckboxClass
               onChange={() => setTraining(!training)}
             />
           </div>
-          <div className="position-form--label-input-container">
+          <div className="position-form--label-input-container height-100">
             <CheckBox
               id={`critical-need-${data.id ?? 'create'}`}
               label="Critical Need"
               value={criticalNeed}
+              className="mt-40"
+              excludeTmCheckboxClass
               onChange={() => setCriticalNeed(!criticalNeed)}
             />
           </div>
