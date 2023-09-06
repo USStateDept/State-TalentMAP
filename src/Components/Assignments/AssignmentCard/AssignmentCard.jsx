@@ -319,7 +319,7 @@ const AssignmentCard = (props) => {
   return (
     <TabbedCard
       tabs={[{
-        text: isNew ? 'New Assignment/Separation' : 'Assignment Overview',
+        text: isNew ? 'New Assignment' : 'Assignment Overview',
         value: 'INFORMATION',
         content: <PositionExpandableContent sections={sections} form={form} />,
       }]}
