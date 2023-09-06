@@ -73,7 +73,6 @@ export function createAssignmentSuccess(data) {
 // eslint-disable-next-line arrow-body-style
 export const createAssignmentSeparation = (data) => {
   return (dispatch) => {
-    dispatch(createAssignmentSuccess());
     dispatch(createAssignmentIsLoading(true));
     dispatch(createAssignmentHasErrored(false));
     api().put('/new/assginment/separation/ep/TBD/', data)
