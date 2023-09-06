@@ -186,7 +186,7 @@ const AssignmentCard = (props) => {
             </div>
           </div>
           <div className="position-form--label-input-container">
-            <label htmlFor="assignment-tod">TOD</label>
+            <label htmlFor="assignment-tod">Tour of Duty</label>
             <select
               id="assignment-tod"
               defaultValue={tod}
