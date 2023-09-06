@@ -33,7 +33,6 @@ export function editAssignmentSuccess(data) {
 // eslint-disable-next-line arrow-body-style
 export const editAssignment = (data) => {
   return (dispatch) => {
-    dispatch(editAssignmentSuccess());
     dispatch(editAssignmentIsLoading(true));
     dispatch(editAssignmentHasErrored(false));
     api().post('/assignment-maintenance-endpoint-TBD/', data)
