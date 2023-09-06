@@ -8,6 +8,8 @@ import PanelMeetingAgendas from 'Components/Panel/PanelMeetingAgendas/PanelMeeti
 import CycleManagement from 'Components/CycleManagement';
 import CyclePositionSearch from 'Components/CycleManagement/CyclePositionSearch';
 import PublishablePositions from 'Components/PublishablePositions/PublishablePositions';
+import Assignments from 'Components/Assignments';
+import BidderPortfolio from 'Containers/BidderPortfolio';
 
 const AoPage = () => (
   <div className="usa-grid-full profile-content-container">
@@ -22,6 +24,8 @@ const AoPage = () => (
       <Route path="/profile/ao/cyclemanagement" render={() => <CycleManagement isAO />} />
       <Route path="/profile/ao/cyclepositionsearch/:id" render={() => <CyclePositionSearch isAO />} />
       <Route path="/profile/ao/publishablepositions" render={() => <PublishablePositions viewType="ao" />} />
+      <Route path="/profile/ao/:id/assignments" render={(props) => <Assignments {...props} />} />
+      <Route path="/profile/ao/bidderportfolio" render={() => <BidderPortfolio viewType="ao" />} />
     </Switch>
   </div>
 );

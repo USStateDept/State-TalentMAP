@@ -149,6 +149,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bid_seasons') ?
+        {
+          text: 'Bid Season Management',
+          route: '/profile/administrator/managebidseasons/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
@@ -279,6 +288,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'superuser',
     ],
     children: [
+      {
+        text: 'Client Profiles', // aka Bidder Portfolio
+        route: '/profile/ao/bidderportfolio',
+        icon: 'address-book',
+        roles: [
+          'ao_user',
+        ],
+        params: {
+          type: 'all',
+        },
+      },
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employee Agendas',
