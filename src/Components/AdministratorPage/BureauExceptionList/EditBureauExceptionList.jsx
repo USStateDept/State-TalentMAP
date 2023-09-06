@@ -22,19 +22,22 @@ const EditBureauExceptionList = (props) => {
 
   const data = [
     { id: 1, bureaus: ['AO'] },
-    { id: 2, bureaus: ['FB'] },
+    { id: 2, bureaus: ['FA'] },
     { id: 3, bureaus: ['EO'] },
     { id: 4, bureaus: ['AS'] },
     { id: 5, bureaus: ['FG'] },
     { id: 6, bureaus: ['UO'] },
+    { id: 7, bureaus: ['XA'] },
+    { id: 8, bureaus: ['YY'] },
+    { id: 9, bureaus: ['ZA'] },
+
   ];
 
   const [selectAll, setSelectAll] = useState(false);
-  const [checkedBureauIds, setCheckedBureauIds] = useState(data);
+  const [checkedBureauIds, setCheckedBureauIds] = useState([]);
   const [bureau, setBureau] = useState('');
 
   const onChangeText = (e) => {
-    console.log(e);
     setBureau(e);
   };
 
@@ -54,7 +57,9 @@ const EditBureauExceptionList = (props) => {
     if (checkedBureauIds.includes(bu.id)) {
       const filteredBureau = checkedBureauIds.filter(x => x !== bu.id);
       setCheckedBureauIds(filteredBureau);
-    } else setCheckedBureauIds([...checkedBureauIds, bu.id]);
+    } else {
+      setCheckedBureauIds([...checkedBureauIds, bu.id]);
+    }
   });
 
   return (
@@ -63,17 +68,7 @@ const EditBureauExceptionList = (props) => {
         <table className="custom-table">
           <thead>
             <tr>
-              <th className="checkbox-pos">
-                <CheckBox
-                  checked={!selectAll}
-                  onCheckBoxClick={handleSelectAll}
-                />
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <div style={{ padding: '10px' }}>
+              <div className="bureau-exception-text-input">
                 <TextInput
                   changeText={(e) => onChangeText(e)}
                   label={`F/S Employee Name: ${Name}`}
@@ -86,6 +81,17 @@ const EditBureauExceptionList = (props) => {
                 />
               </div>
             </tr>
+            <tr>
+              <th className="checkbox-pos">
+                <CheckBox
+                  label="ID"
+                  checked={!selectAll}
+                  onCheckBoxClick={handleSelectAll}
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
             {
               data.length &&
                 data.filter(item => item.bureaus.some(x =>
@@ -104,7 +110,7 @@ const EditBureauExceptionList = (props) => {
           </tbody>
         </table>
         <button onClick={cancel}>Cancel</button>
-        <button onClick={submit} type="submit">Save</button>
+        <button onClick={submit} type="submit">Add Bureau</button>
       </form>
     </div>
   );
