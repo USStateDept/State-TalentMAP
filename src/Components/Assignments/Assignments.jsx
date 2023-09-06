@@ -16,7 +16,7 @@ import api from '../../api';
 
 const Assignments = (props) => {
   const assignments = useSelector(state => state.assignment);
-  const assignmentsErrored = useSelector(state => state.assignmentsHasErrored);
+  const assignmentsErrored = useSelector(state => state.assignmentHasErrored);
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
 
   const [newAsgSep, setNewAsgSep] = useState(false);
@@ -122,8 +122,8 @@ const Assignments = (props) => {
 
   const getOverlay = () => {
     let overlay;
-    if (assignmentsLoading) {
-      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
+    if (assignmentsLoading || employeeDataLoading) {
+      overlay = <Spinner type="center" class="homepage-position-results" size="big" />;
     } else if (assignmentsErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
@@ -135,11 +135,10 @@ const Assignments = (props) => {
   };
 
   return (
-    assignmentsLoading ? <Spinner type="bureau-filters" size="small" /> :
-      (
-        <div className="assignments-maintenance-page position-search">
-          <div className="asg-content">
-            { false &&
+    getOverlay() ||
+    <div className="assignments-maintenance-page position-search">
+      <div className="asg-content">
+        { false &&
               <div className="breadcrumb-container">
                 <Link to={`/profile/public/${breadcrumbLinkRole}/`} className="breadcrumb-active">
                   Bidder Portfolio
@@ -147,37 +146,33 @@ const Assignments = (props) => {
                 <span className="breadcrumb-arrow">&gt;</span>
                 <span>{id}</span>
               </div>
-            }
-            <div className="asg-header">
-              <FA name="clipboard" className="fa-lg" />
+        }
+        <div className="asg-header">
+          <FA name="clipboard" className="fa-lg" />
               Assignments
-              <span className="asg-title-dash">
-                {'- '}
-                <Link to={`/profile/public/${id}/ao`}>
-                  <span className="asg-title">
-                    {`${employeeName}`}
-                  </span>
-                </Link>
+          <span className="asg-title-dash">
+            {'- '}
+            <Link to={`/profile/public/${id}/ao`}>
+              <span className="asg-title">
+                {`${employeeName}`}
               </span>
-              <div className="create-new-button">
-                <a role="button" tabIndex={0} onClick={() => setNewAsgSep(true)}>
-                  <FA name="briefcase" />
+            </Link>
+          </span>
+          <div className="create-new-button">
+            <a role="button" tabIndex={0} onClick={() => setNewAsgSep(true)}>
+              <FA name="briefcase" />
                   Add New Assignment/Separation
-                </a>
-              </div>
-            </div>
-            {
-              getOverlay() ||
-              <div className="asg-lower-section">
-                {newAsgSep &&
-                  <AssignmentCard isNew setNewAsgSep={setNewAsgSep} refFilters={refFilters} />}
-                {assignments?.map(data =>
-                  <AssignmentCard data={data} refFilters={refFilters} />)}
-              </div>
-            }
+            </a>
           </div>
         </div>
-      )
+        <div className="asg-lower-section">
+          {newAsgSep &&
+            <AssignmentCard isNew setNewAsgSep={setNewAsgSep} refFilters={refFilters} />}
+          {assignments?.map(data =>
+            <AssignmentCard data={data} refFilters={refFilters} />)}
+        </div>
+      </div>
+    </div>
   );
 };
 
