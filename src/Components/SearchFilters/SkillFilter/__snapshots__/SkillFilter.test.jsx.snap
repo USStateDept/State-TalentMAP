@@ -28,6 +28,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
             }
           }
           disabled={false}
+          excludeTmCheckboxClass={false}
           id="select-all-cone-1"
           label="Toggle filter by all positions with cone name Cone1"
           labelSrOnly={true}
@@ -52,6 +53,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
           checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
+          excludeTmCheckboxClass={false}
           id="checkboxName1-skill-1-skill-1"
           key="checkboxName1-skill-1-skill-1"
           label="Name1"
@@ -87,6 +89,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
             }
           }
           disabled={false}
+          excludeTmCheckboxClass={false}
           id="select-all-cone-2"
           label="Toggle filter by all positions with cone name Cone2"
           labelSrOnly={true}
@@ -111,6 +114,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
           checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
+          excludeTmCheckboxClass={false}
           id="checkboxName2-skill-2-skill-2"
           key="checkboxName2-skill-2-skill-2"
           label="Name2"
@@ -129,6 +133,7 @@ exports[`SkillFilterComponent matches snapshot 1`] = `
           checkboxProps={Object {}}
           className="tm-checkbox-transparent"
           disabled={false}
+          excludeTmCheckboxClass={false}
           id="checkboxName2-skill-2-skill-3"
           key="checkboxName2-skill-2-skill-3"
           label="Name2"

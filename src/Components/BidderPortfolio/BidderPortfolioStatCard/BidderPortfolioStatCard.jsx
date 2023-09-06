@@ -1,15 +1,17 @@
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, getBidderPortfolioUrl } from 'utilities';
 import BoxShadow from '../../BoxShadow';
 import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
+const BidderPortfolioStatCard = (props) => {
+  const { userProfile, classifications, viewType } = props;
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
@@ -24,7 +26,7 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
       <div className="bidder-portfolio-stat-card-top">
         <div>
           <h3>
-            <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+            <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
           </h3>
         </div>
         <div className="stat-card-data-point">
@@ -66,10 +68,12 @@ const BidderPortfolioStatCard = ({ userProfile, classifications }) => {
 BidderPortfolioStatCard.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioStatCard.defaultProps = {
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioStatCard;
