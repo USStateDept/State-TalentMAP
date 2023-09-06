@@ -59,6 +59,7 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: false,
           showAssignmentHistory: false,
+          showMaintainAssignmentLink: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -71,6 +72,7 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: false,
           showAssignmentHistory: false,
+          showMaintainAssignmentLink: false,
           showBidTracker: false,
           showClassifications: false,
           canEditClassifications: false,
@@ -83,6 +85,7 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: true,
           showAssignmentHistory: true,
+          showMaintainAssignmentLink: true,
           showBidTracker: false,
           showClassifications: true,
           canEditClassifications: false,
@@ -96,6 +99,7 @@ class ProfilePublic extends Component {
         props = {
           showAgendaItemHistory: true,
           showAssignmentHistory: true,
+          showMaintainAssignmentLink: false,
           showBidTracker: true,
           showClassifications: true,
           canEditClassifications: true,

@@ -102,6 +102,13 @@
   z-index: $bureau-spinner-z;
 }
 
+.tm-spinner-center {
+  left: 45%;
+  position: absolute;
+  top: 50%;
+  z-index: $bureau-spinner-z;
+}
+
 .tm-spinner-bureau-filters {
   left: 45%;
   position: absolute;

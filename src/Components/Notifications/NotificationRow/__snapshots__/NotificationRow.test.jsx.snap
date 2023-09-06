@@ -21,6 +21,7 @@ exports[`NotificationRowComponent matches snapshot 1`] = `
       checkboxProps={Object {}}
       className=""
       disabled={false}
+      excludeTmCheckboxClass={false}
       id="notification-checkbox-1"
       label="Mark notification"
       labelSrOnly={true}

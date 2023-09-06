@@ -2,7 +2,7 @@ import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, getBidderPortfolioUrl } from 'utilities';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import SkillCodeList from '../../SkillCodeList';
 import ClientBadgeList from '../ClientBadgeList';
@@ -10,7 +10,7 @@ import CheckboxList from '../CheckboxList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
+const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications, viewType }) => {
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
   const perdet = get(userProfile, 'perdet_seq_number');
@@ -23,7 +23,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   return (
     <div className="usa-grid-full bidder-portfolio-stat-row">
       <div className="stat-card-data-point stat-card-data-point--name">
-        <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+        <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
       </div>
       <div>
         <div>
@@ -76,11 +76,13 @@ BidderPortfolioStatRow.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioStatRow.defaultProps = {
   showEdit: false,
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioStatRow;
