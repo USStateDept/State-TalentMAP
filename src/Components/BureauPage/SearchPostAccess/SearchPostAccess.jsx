@@ -234,7 +234,7 @@ const SearchPostAccess = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Org:</div>
+              <div className="label">Organization:</div>
               <Picky
                 {...pickyProps}
                 placeholder="Select Org(s)"
