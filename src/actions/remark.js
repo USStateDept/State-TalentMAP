@@ -1,4 +1,5 @@
 import { batch } from 'react-redux';
+import swal from '@sweetalert/with-react';
 import { SAVE_ADMIN_REMARK_HAS_ERRORED,
   SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE, SAVE_ADMIN_REMARK_SUCCESS,
   SAVE_ADMIN_REMARK_SUCCESS_TITLE,
@@ -113,6 +114,7 @@ export function saveRemark(props) {
           dispatch(saveAdminRemarkSuccess(true));
           dispatch(toastSuccess(SAVE_ADMIN_REMARK_SUCCESS, SAVE_ADMIN_REMARK_SUCCESS_TITLE));
           dispatch(saveAdminRemarkIsLoading(false));
+          swal.close();
         });
       })
       .catch(() => {

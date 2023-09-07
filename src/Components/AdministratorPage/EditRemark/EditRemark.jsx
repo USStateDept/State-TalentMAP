@@ -10,7 +10,6 @@ const EditRemark = (props) => {
   const {
     rmrkCategories,
     dispatch,
-    saveAdminRemarkSuccess,
     category,
     remark,
     isEdit,
@@ -47,9 +46,6 @@ const EditRemark = (props) => {
       shortDescription,
       // activeIndicator,
     }));
-    if (saveAdminRemarkSuccess) {
-      swal.close();
-    }
   };
 
   const onRemoveInsertionClick = (i) => {
@@ -210,14 +206,12 @@ EditRemark.propTypes = {
   }),
   category: PropTypes.string,
   isEdit: PropTypes.bool.isRequired,
-  saveAdminRemarkSuccess: PropTypes.bool,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
   remark: {},
   category: '',
-  saveAdminRemarkSuccess: false,
 };
 
 export default EditRemark;
