@@ -1,0 +1,39 @@
+.cycle-job-category {
+  margin: 15px;
+  padding: 15px;
+  background-color: white;
+
+  .cycle-job-category__header {
+    display: flex;
+    flex-direction: column;
+
+    border-bottom: 1px solid $bg-gray-dark-2;
+
+    .header-title {
+      font-size: 24px;
+      font-weight: 500;
+      padding-top: 10px;
+    }
+
+    .header-subtitle {
+      font-size: 14px;
+      line-height: 18px;
+      padding: 15px 0px;
+    }
+
+    .filter-div {
+      padding: 5px 0px 15px;
+    }
+  }
+}
+
+.job-category-table {
+  .category-type {
+    padding-top: 20px;
+
+    span:first-of-type {
+      padding-right: 8px;
+      font-weight: 500;
+    }
+  }
+}
