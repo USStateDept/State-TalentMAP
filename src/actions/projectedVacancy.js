@@ -102,14 +102,14 @@ export function projectedVacancyEditSuccess(results) {
     results,
   };
 }
-export function projectedVacancyEdit(data) {
+export function projectedVacancyEdit(id, data) {
   return (dispatch) => {
     batch(() => {
       dispatch(projectedVacancyEditLoading(true));
       dispatch(projectedVacancyEditErrored(false));
     });
 
-    api().put('/fsbid/projected_vacancies/edit/', data)
+    api().put(`/fsbid/projected_vacancies/${id}/`, data)
       .then(() => {
         const toastTitle = UPDATE_PROJECTED_VACANCY_SUCCESS_TITLE;
         const toastMessage = UPDATE_PROJECTED_VACANCY_SUCCESS;
