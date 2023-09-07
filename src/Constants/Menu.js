@@ -149,6 +149,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      {
+        text: 'Cycle Job Category',
+        route: '/profile/administrator/cyclejobcategory/',
+        icon: 'book',
+        roles: [
+          'superuser',
+        ],
+      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
