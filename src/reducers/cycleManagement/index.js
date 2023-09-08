@@ -13,6 +13,9 @@ import {
   cyclePositionSearchFetchDataErrored,
   cyclePositionSearchFetchDataLoading,
   cyclePositionSearchSelections,
+  jobCategoriesAdminFetchData,
+  jobCategoriesAdminFetchDataErrored,
+  jobCategoriesAdminFetchDataIsLoading,
 
 
 } from './cycleManagement';
@@ -32,4 +35,7 @@ export default {
   cyclePositionSearchFetchDataErrored,
   cyclePositionSearchFetchDataLoading,
   cyclePositionSearchSelections,
+  jobCategoriesAdminFetchDataErrored,
+  jobCategoriesAdminFetchDataIsLoading,
+  jobCategoriesAdminFetchData,
 };

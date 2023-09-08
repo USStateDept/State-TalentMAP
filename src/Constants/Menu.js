@@ -167,6 +167,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      {
+        text: 'Job Categories',
+        route: '/profile/administrator/jobcategories/',
+        icon: 'map',
+        roles: [
+          'superuser',
+        ],
+      },
     ],
   },
   {

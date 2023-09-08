@@ -56,6 +56,48 @@ const dummyData = [
     cycle_post_view: 'Y',
   },
 ];
+
+const dummyCategoryData = [
+  {
+    pos_title_desc: 'SENIOR EXECUTIVE CHEF',
+    pos_location_code: '110010001',
+    cycle_id: 119,
+    cycle_status: 'C',
+    pos_skill_desc: 'MANAGEMENT OFFICER',
+    pos_job_category_desc: 'Management',
+  },
+  {
+    pos_title_desc: 'SENIOR EXECUTIVE CHEF',
+    pos_location_code: '110010001',
+    cycle_id: 119,
+    cycle_status: 'C',
+    pos_skill_desc: 'Executive (PAS)',
+    pos_job_category_desc: 'Management',
+  },
+  {
+    pos_title_desc: 'SENIOR EXECUTIVE CHEF',
+    pos_location_code: '110010001',
+    cycle_id: 119,
+    cycle_status: 'C',
+    pos_skill_desc: 'Multifunctional',
+    pos_job_category_desc: 'Construction Engineers',
+  },
+  {
+    pos_title_desc: 'SENIOR EXECUTIVE CHEF',
+    pos_location_code: '110010001',
+    cycle_id: 119,
+    cycle_status: 'C',
+    pos_skill_desc: 'Employee Relations',
+    pos_job_category_desc: 'Construction Engineers',
+  },
+  {
+    pos_title_desc: 'SENIOR EXECUTIVE CHEF',
+    pos_location_code: '110010001',
+    cycle_id: 119,
+    cycle_status: 'C',
+    pos_skill_desc: 'General Services',
+    pos_job_category_desc: 'Construction Engineers',
+  }];
 // eslint-disable-next-line no-loops/no-loops
 for (let index = 2022; index > 1975; index -= 1) {
   const monthInt = Math.floor(Math.random() * 10) + 1;
@@ -88,6 +130,15 @@ const cyclePosDummyDataToReturn = (query) => new Promise((resolve) => {
   resolve({
     results: dummyData.slice(0, limit),
     count: dummyData.length,
+    next: null,
+    previous: null,
+  });
+});
+const jobCategoriesAdminDummyDataToReturn = (query) => new Promise((resolve) => {
+  const { limit } = query;
+  resolve({
+    results: dummyCategoryData.slice(0, limit),
+    count: dummyCategoryData.length,
     next: null,
     previous: null,
   });
@@ -333,6 +384,59 @@ export function cyclePositionEdit(position, incumbent, status) {
           dispatch(toastError(EDIT_CYCLE_POSITION_ERROR, EDIT_CYCLE_POSITION_ERROR_TITLE));
           dispatch(cyclePositionEditHasErrored(true));
           dispatch(cyclePositionEditIsLoading(false));
+        }
+      });
+  };
+}
+
+export function jobCategoriesAdminFetchDataHasErrored(bool) {
+  return {
+    type: 'JOB_CATEGORIES_ADMIN_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function jobCategoriesAdminFetchDataIsLoading(bool) {
+  return {
+    type: 'JOB_CATEGORIES_ADMIN_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function jobCategoriesAdminFetchDataSuccess(data) {
+  return {
+    type: 'JOB_CATEGORIES_ADMIN_SUCCESS',
+    data,
+  };
+}
+export function jobCategoriesAdminFetchData(query = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(jobCategoriesAdminFetchDataIsLoading(true));
+      dispatch(jobCategoriesAdminFetchDataHasErrored(false));
+    });
+    // const q = convertQueryToString(query);
+    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
+    // api().get(endpoint)
+    dispatch(jobCategoriesAdminFetchDataIsLoading(true));
+    jobCategoriesAdminDummyDataToReturn(query)
+      .then((data) => {
+        batch(() => {
+          dispatch(jobCategoriesAdminFetchDataSuccess(data));
+          dispatch(jobCategoriesAdminFetchDataHasErrored(false));
+          dispatch(jobCategoriesAdminFetchDataIsLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(jobCategoriesAdminFetchDataHasErrored(false));
+            dispatch(jobCategoriesAdminFetchDataIsLoading(true));
+          });
+        } else {
+          batch(() => {
+            dispatch(jobCategoriesAdminFetchDataSuccess(jobCategoriesAdminDummyDataToReturn));
+            dispatch(jobCategoriesAdminFetchDataHasErrored(false));
+            dispatch(jobCategoriesAdminFetchDataIsLoading(false));
+          });
         }
       });
   };
