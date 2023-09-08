@@ -34,13 +34,19 @@ const ManagePostAccess = () => {
   const [checkedPostIds, setCheckedPostIds] = useState([]);
   const [clearFilters, setClearFilters] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
+  const [personHRO, setPersonHRO] = useState(false);
+  const [positionHRO, setPositionHRO] = useState(false);
 
   // Filter Options
-  const positionOptions = managePostFilters?.personFilters || [];
+  const peopleOptionsHRO = managePostFilters?.personFilters
+    ?.filter(person => person.skillCode === '2010') || [];
+  const positionOptionsHRO = managePostFilters?.positionFilters
+    ?.filter(position => position.skillCode === '2201') || [];
+  const peopleOptions = personHRO ? peopleOptionsHRO : managePostFilters?.personFilters || [];
+  const positionOptions = positionHRO ? positionOptionsHRO : managePostFilters?.personFilters || [];
   const roleOptions = managePostFilters?.roleFilters || [];
   const organizationOptions = managePostFilters?.orgFilters || [];
   const countryOptions = managePostFilters?.locationFilters || [];
-  const peopleOptions = managePostFilters?.personFilters || [];
 
 
   const getQuery = () => ({
@@ -150,18 +156,6 @@ const ManagePostAccess = () => {
     } else setCheckedPostIds([...checkedPostIds, post.id]);
   });
 
-  const roleFilterToggle = (checked) => {
-    if (checked) {
-      setSelectedRoles([{ code: 2010, description: 'HRO/MO' }]);
-    } else setSelectedRoles([]);
-  };
-  // TODO - How should these work?
-  const personFilterToggle = (checked) => {
-    if (checked) {
-      setSelectedPersons([{ code: 2010, description: 'HRO/MO' }]);
-    } else setSelectedPersons([]);
-  };
-
   const pickyProps = {
     numberDisplayed: 2,
     multiple: true,
@@ -193,96 +187,98 @@ const ManagePostAccess = () => {
           </div>
 
           <div className="usa-width-one-whole position-search--filters--pv-man results-dropdown">
-            <div className="filter-div">
-              <div className="label">Country:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Country or Countries"
-                value={selectedCountries}
-                options={countryOptions}
-                onChange={setSelectedCountries}
-                valueKey="code"
-                labelKey="description"
-                disabled={managePostFiltersIsLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Organization:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Organization(s)"
-                value={selectedOrgs}
-                options={organizationOptions}
-                onChange={setSelectedOrgs}
-                valueKey="code"
-                labelKey="description"
-                disabled={managePostFiltersIsLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Position:</div>
-              {/* DOUBLE CHECK THIS IS SUPPOSED TO BE ROLE NOT POSITION */}
-              {/* <div className="post-access-container-cb">
-                <CheckBox
-                  label="HRO/MO Only"
-                  small
-                  onCheckBoxClick={roleFilterToggle}
-                  id="position-filter-toggle"
-                /> */}
-              <Picky
-                {...pickyProps}
-                placeholder="Select Position(s)"
-                value={selectedPositions}
-                options={positionOptions}
-                onChange={setSelectedPositions}
-                valueKey="code"
-                labelKey="description"
-                disabled={managePostFiltersIsLoading}
-              />
-              {/* </div> */}
-            </div>
-            <div className="filter-div">
-              <div className="label">Person:</div>
-              <div className="post-access-container-cb">
-                <CheckBox
-                  label="HRO/MO Only"
-                  small
-                  onCheckBoxClick={personFilterToggle}
-                  id="person-filter-toggle"
-                />
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Person(s)"
-                  value={selectedPersons}
-                  options={peopleOptions}
-                  onChange={setSelectedPersons}
-                  valueKey="code"
-                  labelKey="description"
-                  disabled={managePostFiltersIsLoading}
-                />
-              </div>
-            </div>
-            <div className="filter-div">
-              <div className="label">Role:</div>
-              <div className="post-access-container-cb">
-                <CheckBox
-                  label="HRO/MO Only"
-                  small
-                  onCheckBoxClick={roleFilterToggle}
-                  id="role-filter-toggle"
-                />
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Role(s)"
-                  value={selectedRoles}
-                  options={roleOptions}
-                  onChange={setSelectedRoles}
-                  valueKey="code"
-                  labelKey="description"
-                  disabled={managePostFiltersIsLoading}
-                />
-              </div>
-            </div>
+
+            { managePostFiltersIsLoading
+              ?
+              <Spinner type="post-access-filters" size="small" />
+              :
+              <>
+                <div className="filter-div">
+                  <div className="label">Country:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Country or Countries"
+                    value={selectedCountries}
+                    options={countryOptions}
+                    onChange={setSelectedCountries}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={managePostFiltersIsLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Organization:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Organization(s)"
+                    value={selectedOrgs}
+                    options={organizationOptions}
+                    onChange={setSelectedOrgs}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={managePostFiltersIsLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Position:</div>
+                  <div className="post-access-container-cb">
+                    <CheckBox
+                      label="HRO/MO Only"
+                      small
+                      value={positionHRO}
+                      onCheckBoxClick={() => setPositionHRO(!positionHRO)}
+                      id="position-filter-toggle"
+                    />
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Position(s)"
+                      value={selectedPositions}
+                      options={positionOptions}
+                      onChange={setSelectedPositions}
+                      valueKey="code"
+                      labelKey="description"
+                      disabled={managePostFiltersIsLoading}
+                    />
+                  </div>
+                </div>
+                <div className="filter-div">
+                  <div className="label">Person:</div>
+                  <div className="post-access-container-cb">
+                    <CheckBox
+                      label="HRO/MO Only"
+                      small
+                      value={personHRO}
+                      onCheckBoxClick={() => setPersonHRO(!personHRO)}
+                      id="person-filter-toggle"
+                    />
+                    <Picky
+                      {...pickyProps}
+                      placeholder="Select Person(s)"
+                      value={selectedPersons}
+                      options={peopleOptions}
+                      onChange={setSelectedPersons}
+                      valueKey="code"
+                      labelKey="description"
+                      disabled={managePostFiltersIsLoading}
+                    />
+                  </div>
+                </div>
+                <div className="filter-div">
+                  <div className="label">Role:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Role(s)"
+                    value={selectedRoles}
+                    options={roleOptions}
+                    onChange={setSelectedRoles}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={managePostFiltersIsLoading}
+                  />
+                </div>
+              </>
+            }
+
           </div>
         </div>
       </div>
