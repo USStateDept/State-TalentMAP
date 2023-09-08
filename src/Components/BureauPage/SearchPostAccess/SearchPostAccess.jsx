@@ -194,84 +194,93 @@ const SearchPostAccess = () => {
             </div>
           </div>
           <div className="usa-width-one-whole position-search--filters--spa results-dropdown">
-            <div className="filter-div">
-              <div className="label">Person:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Person(s)"
-                value={selectedPersons}
-                options={personOptions}
-                onChange={setSelectedPersons}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Country:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select a Country or Countries"
-                value={selectedLocations}
-                options={locationOptions}
-                onChange={setSelectedLocations}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Bureau:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Bureau(s)"
-                value={selectedBureaus}
-                options={bureauOptions}
-                onChange={setSelectedBureaus}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Org:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Org(s)"
-                value={selectedOrgs}
-                options={orgOptions}
-                onChange={setSelectedOrgs}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Position:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Position(s)"
-                value={selectedPositions}
-                options={positionOptions}
-                onChange={setSelectedPositions}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Role:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Role(s)"
-                value={selectedRoles}
-                options={roleOptions}
-                onChange={setSelectedRoles}
-                valueKey="code"
-                labelKey="description"
-                disabled={searchPostAccessFiltersLoading}
-              />
-            </div>
+
+            { searchPostAccessFiltersLoading
+              ?
+              <Spinner type="post-access-filters" size="small" />
+              :
+              <>
+                <div className="filter-div">
+                  <div className="label">Person:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Person(s)"
+                    value={selectedPersons}
+                    options={personOptions}
+                    onChange={setSelectedPersons}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={searchPostAccessFiltersLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Location:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Location(s)"
+                    value={selectedLocations}
+                    options={locationOptions}
+                    onChange={setSelectedLocations}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={searchPostAccessFiltersLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Bureau:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Bureau(s)"
+                    value={selectedBureaus}
+                    options={bureauOptions}
+                    onChange={setSelectedBureaus}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={searchPostAccessFiltersLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Organization:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Org(s)"
+                    value={selectedOrgs}
+                    options={orgOptions}
+                    onChange={setSelectedOrgs}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={searchPostAccessFiltersLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Position:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Position(s)"
+                    value={selectedPositions}
+                    options={positionOptions}
+                    onChange={setSelectedPositions}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={searchPostAccessFiltersLoading}
+                  />
+                </div>
+                <div className="filter-div">
+                  <div className="label">Role:</div>
+                  <Picky
+                    {...pickyProps}
+                    placeholder="Select Role(s)"
+                    value={selectedRoles}
+                    options={roleOptions}
+                    onChange={setSelectedRoles}
+                    valueKey="code"
+                    labelKey="description"
+                    disabled={searchPostAccessFiltersLoading}
+                  />
+                </div>
+              </>
+            }
+
           </div>
         </div>
       </div>
