@@ -150,7 +150,7 @@ const SearchPostAccess = () => {
     dispatch(searchPostAccessRemove(checkedPostIds));
   };
 
-  const tableHeaderNames = ['Access Type', 'Bureau', 'Org', 'Employee', 'Role', 'Position', 'Title'];
+  const tableHeaderNames = ['Access Type', 'Bureau', 'Post/Org', 'Employee', 'Role', 'Position', 'Title'];
 
   const handleSelectAll = () => {
     if (!selectAll) {
@@ -208,10 +208,10 @@ const SearchPostAccess = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Location:</div>
+              <div className="label">Country:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Location(s)"
+                placeholder="Select a Country or Countries"
                 value={selectedLocations}
                 options={locationOptions}
                 onChange={setSelectedLocations}

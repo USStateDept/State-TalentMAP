@@ -5,9 +5,9 @@ import {
   managePostEditLoading,
   managePostFetchDataErrored,
   managePostFetchDataLoading,
-  managePostFilters,
-  managePostFiltersFetchDataErrored,
-  managePostFiltersFetchDataLoading,
+  managePostFetchFilterData,
+  managePostFetchFiltersErrored,
+  managePostFetchFiltersLoading,
   managePostSelections,
 } from './managePostAccess';
 
@@ -16,10 +16,10 @@ export default {
   managePostEdit,
   managePostEditErrored,
   managePostEditLoading,
+  managePostFetchFilterData,
+  managePostFetchFiltersErrored,
+  managePostFetchFiltersLoading,
   managePostFetchDataErrored,
   managePostFetchDataLoading,
-  managePostFilters,
-  managePostFiltersFetchDataErrored,
-  managePostFiltersFetchDataLoading,
   managePostSelections,
 };

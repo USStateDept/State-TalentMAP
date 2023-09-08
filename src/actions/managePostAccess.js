@@ -1,5 +1,6 @@
 import { batch } from 'react-redux';
 import { CancelToken } from 'axios';
+import { convertQueryToString } from 'utilities';
 import {
   MANAGE_POST_ACCESS_ADD_ERROR,
   MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
@@ -9,52 +10,6 @@ import {
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
 
-const dummyData = [
-  { id: 1, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 2, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 3, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 4, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 5, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 6, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 7, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 11, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 21, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 31, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 41, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 51, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 61, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 71, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 12, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 22, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 32, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 42, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 52, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 62, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 72, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 13, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 23, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 33, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 43, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 53, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 63, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 73, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 14, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 24, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 34, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 44, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 54, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 64, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-  { id: 74, role: 'FSBid Organization Bidders', person: 'Frank Jones', position: '00000005 (Trade Negot)', post: 'Abidjan' },
-];
-const dummyDataToReturn = (query) => new Promise((resolve) => {
-  const { limit } = query;
-  resolve({
-    results: dummyData.slice(0, limit),
-    count: dummyData.length,
-    next: null,
-    previous: null,
-  });
-});
 
 export function managePostEditErrored(bool) {
   return {
@@ -137,18 +92,24 @@ export function managePostFetchDataSuccess(results) {
   };
 }
 
+let cancelManagePostAccess;
+
 export function managePostFetchData(query = {}) {
   return (dispatch) => {
+    if (cancelManagePostAccess) { cancelManagePostAccess('cancel'); }
     batch(() => {
       dispatch(managePostFetchDataLoading(true));
       dispatch(managePostFetchDataErrored(false));
     });
-    // const q = convertQueryToString(query);
-    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
-    // api().get(endpoint)
-    dispatch(managePostFetchDataLoading(true));
-    dummyDataToReturn(query)
-      .then((data) => {
+    const endpoint = 'fsbid/post_access/';
+    const q = convertQueryToString(query);
+    const ep = `${endpoint}?${q}`;
+    api().get(ep, {
+      cancelToken: new CancelToken((c) => {
+        cancelManagePostAccess = c;
+      }),
+    })
+      .then(({ data }) => {
         batch(() => {
           dispatch(managePostFetchDataSuccess(data));
           dispatch(managePostFetchDataErrored(false));
@@ -163,7 +124,7 @@ export function managePostFetchData(query = {}) {
           });
         } else {
           batch(() => {
-            dispatch(managePostFetchDataSuccess(dummyDataToReturn));
+            dispatch(managePostFetchDataSuccess([]));
             dispatch(managePostFetchDataErrored(false));
             dispatch(managePostFetchDataLoading(false));
           });
@@ -190,25 +151,57 @@ export function managePostFiltersFetchDataErrored(bool) {
   };
 }
 
-export function managePostFiltersFetchDataLoading(bool) {
+
+export function managePostFetchFiltersErrored(bool) {
   return {
-    type: 'MANAGE_POST_FILTERS_FETCH_IS_LOADING',
+    type: 'MANAGE_POST_FETCH_FILTERS_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function managePostFetchFiltersLoading(bool) {
+  return {
+    type: 'MANAGE_POST_FETCH_FILTERS_IS_LOADING',
     isLoading: bool,
   };
 }
 
-export function managePostFiltersFetchDataSuccess(results) {
+export function managePostFetchFiltersSuccess(results) {
   return {
-    type: 'MANAGE_POST_FILTERS_FETCH_SUCCESS',
+    type: 'MANAGE_POST_FETCH_FILTERS_SUCCESS',
     results,
   };
 }
 
-export function managePostFiltersFetchData() {
+export function managePostFetchFilters() {
   return (dispatch) => {
     batch(() => {
-      dispatch(managePostFiltersFetchDataSuccess({}));
-      dispatch(managePostFiltersFetchDataLoading(false));
+      dispatch(managePostFetchFiltersLoading(true));
+      dispatch(managePostFetchFiltersErrored(false));
     });
+    const endpoint = 'fsbid/post_access/filters/';
+    dispatch(managePostFetchFiltersLoading(true));
+    api().get(endpoint)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(managePostFetchFiltersSuccess(data));
+          dispatch(managePostFetchFiltersErrored(false));
+          dispatch(managePostFetchFiltersLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(managePostFetchFiltersLoading(true));
+            dispatch(managePostFetchFiltersErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(managePostFetchFiltersSuccess([]));
+            dispatch(managePostFetchFiltersErrored(true));
+            dispatch(managePostFetchFiltersLoading(false));
+          });
+        }
+      });
   };
 }

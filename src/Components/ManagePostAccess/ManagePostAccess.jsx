@@ -2,30 +2,26 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { useDataLoader, usePrevious } from 'hooks';
-import { filtersFetchData } from 'actions/filters/filters';
-import { managePostEdit, managePostFetchData, saveManagePostSelections } from 'actions/managePostAccess';
+import { managePostEdit, managePostFetchData, managePostFetchFilters, saveManagePostSelections } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import CheckBox from 'Components/CheckBox';
-import SelectForm from 'Components/SelectForm';
 import TotalResults from 'Components/TotalResults';
-import PaginationWrapper from 'Components/PaginationWrapper';
-import { POSITION_MANAGER_PAGE_SIZES } from 'Constants/Sort';
 import Alert from 'Components/Alert';
-import { getGenericFilterOptions, nameSort, renderSelectionList } from 'utilities';
-import api from '../../api';
+import { renderSelectionList } from 'utilities';
 
 const ManagePostAccess = () => {
   const dispatch = useDispatch();
 
   // State
-  const managePostSelections = useSelector(state => state.managePostSelections);
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const genericFilters = useSelector(state => state.filters);
   const managePostData = useSelector(state => state.managePost);
   const managePostFetchDataLoading = useSelector(state => state.managePostFetchDataLoading);
   const managePostFetchDataError = useSelector(state => state.managePostFetchDataErrored);
+  const managePostSelections = useSelector(state => state.managePostSelections);
+  const managePostFilters = useSelector(state => state.managePostFetchFilterData);
+  const managePostEditSuccess = useSelector(state => state.managePostEdit);
+  const managePostFiltersIsLoading =
+    useSelector(state => state.managePostFetchFiltersLoading);
 
   // Local State & Filters
   const [selectedCountries, setSelectedCountries] =
@@ -40,28 +36,19 @@ const ManagePostAccess = () => {
   const [selectAll, setSelectAll] = useState(false);
 
   // Filter Options
-  const genericFilters$ = genericFilters?.filters || [];
-  const positionOptions = getGenericFilterOptions(genericFilters$, 'region', 'short_description');
-  const roleOptions = getGenericFilterOptions(genericFilters$, 'skill', 'code');
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = (orgs?.data?.length && nameSort(orgs?.data, 'name')) || [];
+  const positionOptions = managePostFilters?.personFilters || [];
+  const roleOptions = managePostFilters?.roleFilters || [];
+  const organizationOptions = managePostFilters?.orgFilters || [];
+  const countryOptions = managePostFilters?.locationFilters || [];
+  const peopleOptions = managePostFilters?.personFilters || [];
 
-  // Pagination
-  const [page, setPage] = useState(managePostSelections?.page || 1);
-  const [limit, setLimit] = useState(managePostSelections?.limit || 10);
-  const prevPage = usePrevious(page);
-  const pageSizes = POSITION_MANAGER_PAGE_SIZES;
-
-  const filtersLoading = genericFiltersIsLoading || orgsLoading;
 
   const getQuery = () => ({
-    'post-access-countries': selectedCountries.map(statusObject => (statusObject?.code)),
-    'post-access-positions': selectedPositions.map(bureauObject => (bureauObject?.code)),
-    'post-access-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'post-access-persons': selectedPersons.map(gradeObject => (gradeObject?.code)),
-    'post-access-roles': selectedRoles.map(skillObject => (skillObject?.code)),
-    page,
-    limit,
+    locations: selectedCountries.map(location => (location?.code)),
+    positions: selectedPositions.map(bureau => (bureau?.code)),
+    orgs: selectedOrgs.map(org => (org?.code)),
+    persons: selectedPersons.map(person => (person?.code)),
+    roles: selectedRoles.map(role => (role?.code)),
   });
 
   const getCurrentInputs = () => ({
@@ -70,59 +57,45 @@ const ManagePostAccess = () => {
     selectedOrgs,
     selectedPersons,
     selectedRoles,
-    page,
-    limit,
   });
 
-  const fetchAndSet = (resetPage = false) => {
-    const filters = [
-      selectedCountries,
-      selectedPositions,
-      selectedOrgs,
-      selectedPersons,
-      selectedRoles,
-    ];
-    if (filters.flat().length === 0) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    if (resetPage) {
-      setPage(1);
+  const filters = [
+    selectedCountries,
+    selectedPositions,
+    selectedOrgs,
+    selectedPersons,
+    selectedRoles,
+  ];
+
+  const fetchAndSet = () => {
+    const filterCount = filters.flat().length;
+    setClearFilters(!!filterCount);
+    if (filterCount > 1) {
+      dispatch(managePostFetchData(getQuery()));
     }
     dispatch(saveManagePostSelections(getCurrentInputs()));
-    dispatch(managePostFetchData(getQuery()));
   };
 
 
   // Initial Render
   useEffect(() => {
     dispatch(saveManagePostSelections(getCurrentInputs()));
-    dispatch(filtersFetchData(genericFilters));
+    dispatch(managePostFetchFilters());
   }, []);
 
   // Re-Render on Filter Selections
   useEffect(() => {
     setCheckedPostIds([]);
     setSelectAll(false);
-    if (prevPage) {
-      fetchAndSet(true);
-    }
+    fetchAndSet();
   }, [
     selectedCountries,
     selectedPositions,
     selectedOrgs,
     selectedPersons,
     selectedRoles,
-    limit,
+    managePostEditSuccess,
   ]);
-
-  // Handle Pagination
-  useEffect(() => {
-    setCheckedPostIds([]);
-    setSelectAll(false);
-    fetchAndSet(false);
-  }, [page]);
 
 
   const resetFilters = () => {
@@ -131,16 +104,19 @@ const ManagePostAccess = () => {
     setSelectedOrgs([]);
     setSelectedPersons([]);
     setSelectedRoles([]);
+    setCheckedPostIds([]);
     setClearFilters(false);
   };
 
-  const noResults = managePostData?.results?.length === 0;
+  const noResults = !managePostData?.length;
   const getOverlay = () => {
     let overlay;
     if (managePostFetchDataLoading) {
       overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
     } else if (managePostFetchDataError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
+    } else if (filters.flat().length < 2) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
     } else {
@@ -159,7 +135,7 @@ const ManagePostAccess = () => {
     if (!selectAll) {
       setSelectAll(true);
       setCheckedPostIds(
-        managePostData?.results?.map(post => post.id),
+        managePostData?.map(post => post.id),
       );
     } else {
       setSelectAll(false);
@@ -180,7 +156,7 @@ const ManagePostAccess = () => {
       setSelectedPositions([]);
     }
   };
-
+  // TODO
   const personFilterToggle = () => {
     // nothing happening for this yet. UI Only.
     if (selectedPersons.length > 0) {
@@ -194,61 +170,7 @@ const ManagePostAccess = () => {
     includeFilter: true,
     dropdownHeight: 255,
     renderList: renderSelectionList,
-    includeSelectAll: true,
   };
-
-
-  // Hardcoded - find where to get this data
-  const peopleOptions = [
-    { code: 1, name: 'John Smith' },
-    { code: 2, name: 'Emily Johnson' },
-    { code: 3, name: 'Michael Williams' },
-    { code: 4, name: 'Emma Jones' },
-    { code: 5, name: 'William Brown' },
-    { code: 6, name: 'Olivia Davis' },
-    { code: 7, name: 'James Miller' },
-    { code: 8, name: 'Sophia Wilson' },
-    { code: 9, name: 'Benjamin Taylor' },
-    { code: 10, name: 'Ava Martinez' },
-    { code: 11, name: 'Alexander Anderson' },
-    { code: 12, name: 'Isabella Garcia' },
-    { code: 13, name: 'Daniel Rodriguez' },
-    { code: 14, name: 'Mia Martinez' },
-    { code: 15, name: 'David Davis' },
-    { code: 16, name: 'Charlotte Johnson' },
-    { code: 17, name: 'Joseph Smith' },
-    { code: 18, name: 'Sophia Wilson' },
-    { code: 19, name: 'Matthew Anderson' },
-    { code: 20, name: 'Olivia Taylor' },
-  ];
-  // Hardcoded - find where to get this data
-  const countryOptions = [
-    { code: 1, name: 'Bahamas' },
-    { code: 2, name: 'Andorra' },
-    { code: 3, name: 'Vanuatu' },
-    { code: 4, name: 'Malawi' },
-    { code: 5, name: 'Equatorial Guinea' },
-    { code: 6, name: 'Sierra Leone' },
-    { code: 7, name: 'Mozambique' },
-    { code: 8, name: 'France' },
-    { code: 9, name: 'Sudan' },
-    { code: 10, name: 'Iran' },
-    { code: 11, name: 'Malta' },
-    { code: 12, name: 'Papua New Guinea' },
-    { code: 13, name: 'Congo' },
-    { code: 14, name: 'Nauru' },
-    { code: 15, name: 'Guatemala' },
-    { code: 16, name: 'Wallis and Futuna' },
-    { code: 17, name: 'Madagascar' },
-    { code: 18, name: 'Virgin Islands' },
-    { code: 19, name: 'Saint Pierre and Miquelon' },
-    { code: 20, name: 'Tajikistan' },
-    { code: 21, name: 'Trinidad and Tobago' },
-    { code: 22, name: 'Iceland' },
-    { code: 23, name: 'Italy' },
-    { code: 24, name: 'Panama' },
-    { code: 25, name: 'Lithuania' },
-  ];
 
 
   return (
@@ -277,13 +199,13 @@ const ManagePostAccess = () => {
               <div className="label">Country:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Countries"
+                placeholder="Select Country or Countries"
                 value={selectedCountries}
                 options={countryOptions}
                 onChange={setSelectedCountries}
                 valueKey="code"
-                labelKey="name"
-                disabled={filtersLoading}
+                labelKey="description"
+                disabled={managePostFiltersIsLoading}
               />
             </div>
             <div className="filter-div">
@@ -295,8 +217,8 @@ const ManagePostAccess = () => {
                 options={organizationOptions}
                 onChange={setSelectedOrgs}
                 valueKey="code"
-                labelKey="name"
-                disabled={filtersLoading}
+                labelKey="description"
+                disabled={managePostFiltersIsLoading}
               />
             </div>
             <div className="filter-div">
@@ -315,8 +237,8 @@ const ManagePostAccess = () => {
                   options={positionOptions}
                   onChange={setSelectedPositions}
                   valueKey="code"
-                  labelKey="long_description"
-                  disabled={filtersLoading}
+                  labelKey="description"
+                  disabled={managePostFiltersIsLoading}
                 />
               </div>
             </div>
@@ -336,8 +258,8 @@ const ManagePostAccess = () => {
                   options={peopleOptions}
                   onChange={setSelectedPersons}
                   valueKey="code"
-                  labelKey="name"
-                  disabled={filtersLoading}
+                  labelKey="description"
+                  disabled={managePostFiltersIsLoading}
                 />
               </div>
             </div>
@@ -350,8 +272,8 @@ const ManagePostAccess = () => {
                 options={roleOptions}
                 onChange={setSelectedRoles}
                 valueKey="code"
-                labelKey="custom_description"
-                disabled={filtersLoading}
+                labelKey="description"
+                disabled={managePostFiltersIsLoading}
               />
             </div>
           </div>
@@ -362,26 +284,13 @@ const ManagePostAccess = () => {
       {
         getOverlay() ||
               <>
-                <div className="usa-width-one-whole results-dropdown controls-container">
+                <div className="usa-width-one-whole results-dropdown controls-container mb-10">
                   <TotalResults
-                    total={managePostData.count}
-                    pageNumber={page}
-                    pageSize={limit}
+                    total={managePostData.length}
+                    pageSize={'all'}
                     suffix="Results"
                     isHidden={managePostFetchDataLoading}
                   />
-                  <div className="position-search-controls--right">
-                    <div className="position-search-controls--results">
-                      <SelectForm
-                        id="position-manager-num-results"
-                        options={pageSizes.options}
-                        label="Results:"
-                        defaultSort={limit}
-                        onSelectOption={value => setLimit(value.target.value)}
-                        disabled={managePostFetchDataLoading}
-                      />
-                    </div>
-                  </div>
                 </div>
                 <div className="usa-width-one-whole post-access-search--results">
                   <div className="usa-grid-full post-access-list">
@@ -404,8 +313,8 @@ const ManagePostAccess = () => {
                       </thead>
                       <tbody>
                         {
-                          managePostData?.results?.length &&
-                            managePostData.results.map(post => (
+                          managePostData?.length &&
+                            managePostData.map(post => (
                               <tr key={post.id}>
                                 <td className="checkbox-pac checkbox-pos">
                                   <CheckBox
@@ -413,10 +322,10 @@ const ManagePostAccess = () => {
                                     onCheckBoxClick={() => handleSelectPost(post)}
                                   />
                                 </td>
-                                <td>{post?.post || '---'}</td>
-                                <td>{post?.person || '---'}</td>
-                                <td>{post?.role || '---'}</td>
-                                <td>{post?.position || '---'}</td>
+                                <td>{post?.post}</td>
+                                <td>{post?.employee}</td>
+                                <td>{post?.role}</td>
+                                <td>{post?.position}</td>
                               </tr>
                             ))
                         }
@@ -424,14 +333,6 @@ const ManagePostAccess = () => {
                     </table>
 
                   </div>
-                </div>
-                <div className="usa-grid-full react-paginate position-search-controls--pagination">
-                  <PaginationWrapper
-                    pageSize={limit}
-                    onPageChange={p => setPage(p.page)}
-                    forcePage={page}
-                    totalResults={managePostData.count}
-                  />
                 </div>
               </>
       }
