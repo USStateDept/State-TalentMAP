@@ -150,18 +150,16 @@ const ManagePostAccess = () => {
     } else setCheckedPostIds([...checkedPostIds, post.id]);
   });
 
-  const positionFilterToggle = () => {
-    // nothing happening for this yet. UI Only.
-    if (selectedPositions.length > 0) {
-      setSelectedPositions([]);
-    }
+  const roleFilterToggle = (checked) => {
+    if (checked) {
+      setSelectedRoles([{ code: 2010, description: 'HRO/MO' }]);
+    } else setSelectedRoles([]);
   };
-  // TODO
-  const personFilterToggle = () => {
-    // nothing happening for this yet. UI Only.
-    if (selectedPersons.length > 0) {
-      setSelectedPersons([]);
-    }
+  // TODO - How should these work?
+  const personFilterToggle = (checked) => {
+    if (checked) {
+      setSelectedPersons([{ code: 2010, description: 'HRO/MO' }]);
+    } else setSelectedPersons([]);
   };
 
   const pickyProps = {
@@ -223,24 +221,25 @@ const ManagePostAccess = () => {
             </div>
             <div className="filter-div">
               <div className="label">Position:</div>
-              <div className="post-access-container-cb">
+              {/* DOUBLE CHECK THIS IS SUPPOSED TO BE ROLE NOT POSITION */}
+              {/* <div className="post-access-container-cb">
                 <CheckBox
                   label="HRO/MO Only"
                   small
-                  onCheckBoxClick={positionFilterToggle}
+                  onCheckBoxClick={roleFilterToggle}
                   id="position-filter-toggle"
-                />
-                <Picky
-                  {...pickyProps}
-                  placeholder="Select Position(s)"
-                  value={selectedPositions}
-                  options={positionOptions}
-                  onChange={setSelectedPositions}
-                  valueKey="code"
-                  labelKey="description"
-                  disabled={managePostFiltersIsLoading}
-                />
-              </div>
+                /> */}
+              <Picky
+                {...pickyProps}
+                placeholder="Select Position(s)"
+                value={selectedPositions}
+                options={positionOptions}
+                onChange={setSelectedPositions}
+                valueKey="code"
+                labelKey="description"
+                disabled={managePostFiltersIsLoading}
+              />
+              {/* </div> */}
             </div>
             <div className="filter-div">
               <div className="label">Person:</div>
@@ -265,16 +264,24 @@ const ManagePostAccess = () => {
             </div>
             <div className="filter-div">
               <div className="label">Role:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Role(s)"
-                value={selectedRoles}
-                options={roleOptions}
-                onChange={setSelectedRoles}
-                valueKey="code"
-                labelKey="description"
-                disabled={managePostFiltersIsLoading}
-              />
+              <div className="post-access-container-cb">
+                <CheckBox
+                  label="HRO/MO Only"
+                  small
+                  onCheckBoxClick={roleFilterToggle}
+                  id="role-filter-toggle"
+                />
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Role(s)"
+                  value={selectedRoles}
+                  options={roleOptions}
+                  onChange={setSelectedRoles}
+                  valueKey="code"
+                  labelKey="description"
+                  disabled={managePostFiltersIsLoading}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -293,26 +300,26 @@ const ManagePostAccess = () => {
                   />
                 </div>
                 <div className="usa-width-one-whole post-access-search--results">
-                  <div className="usa-grid-full post-access-list">
-
-                    <table className="custom-table">
-                      <thead>
-                        <tr>
-                          <th className="checkbox-pos">
-                            <CheckBox
-                              checked={selectAll}
-                              onCheckBoxClick={handleSelectAll}
-                            />
-                          </th>
+                  <div className="post-access-scroll-container">
+                    <div className="usa-grid-full post-access-list">
+                      <table className="custom-table">
+                        <thead>
+                          <tr>
+                            <th className="checkbox-pos">
+                              <CheckBox
+                                checked={selectAll}
+                                onCheckBoxClick={handleSelectAll}
+                              />
+                            </th>
+                            {
+                              tableHeaderNames.map((item) => (
+                                <th key={item}>{item}</th>
+                              ))
+                            }
+                          </tr>
+                        </thead>
+                        <tbody>
                           {
-                            tableHeaderNames.map((item) => (
-                              <th key={item}>{item}</th>
-                            ))
-                          }
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {
                           managePostData?.length &&
                             managePostData.map(post => (
                               <tr key={post.id}>
@@ -328,10 +335,10 @@ const ManagePostAccess = () => {
                                 <td>{post?.position}</td>
                               </tr>
                             ))
-                        }
-                      </tbody>
-                    </table>
-
+                          }
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
               </>

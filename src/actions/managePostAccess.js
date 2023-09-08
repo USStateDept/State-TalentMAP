@@ -30,24 +30,16 @@ export function managePostEditSuccess(results) {
   };
 }
 
-let cancel;
 export function managePostEdit(positions) {
   return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
     dispatch(managePostEditLoading(true));
     dispatch(managePostEditErrored(false));
     api()
-      .post('/placeholder/POST/endpoint', {
-        positions,
-      }, {
-        cancelToken: new CancelToken((c) => {
-          cancel = c;
-        }),
-      })
+      .post('fsbid/post_access/permissions/', { data: positions })
       .then(({ data }) => {
         batch(() => {
           dispatch(managePostEditErrored(false));
-          dispatch(managePostEditSuccess(data || []));
+          dispatch(managePostEditSuccess(data));
           dispatch(
             toastSuccess(
               MANAGE_POST_ACCESS_ADD_SUCCESS, MANAGE_POST_ACCESS_ADD_SUCCESS_TITLE,
@@ -55,17 +47,12 @@ export function managePostEdit(positions) {
           dispatch(managePostEditLoading(false));
         });
       })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          dispatch(managePostEditErrored(false));
-          dispatch(managePostEditLoading(false));
-        } else {
-          dispatch(toastError(
-            MANAGE_POST_ACCESS_ADD_ERROR, MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
-          ));
-          dispatch(managePostEditErrored(true));
-          dispatch(managePostEditLoading(false));
-        }
+      .catch(() => {
+        dispatch(toastError(
+          MANAGE_POST_ACCESS_ADD_ERROR, MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
+        ));
+        dispatch(managePostEditErrored(true));
+        dispatch(managePostEditLoading(false));
       });
   };
 }
