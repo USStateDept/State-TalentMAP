@@ -281,7 +281,8 @@
   border-top: 8px solid $primary-blue;
   display: flex;
   flex-direction: column;
-  height: 386px;
+  min-height: 400px;
+  max-height: 800px;
   margin-bottom: 25px;
   margin-left: 15px;
   margin-right: 25px;
@@ -967,6 +968,21 @@ $cdo-search-container-padding: 10px;
       margin-right: 5px;
     }
     }
+  }
+}
+
+.bidder-portfolio-stat-card-top {
+  min-height: 250px;
+  .bidder-compact-card-head{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.bidder-portfolio-stat-card-bottom {
+  padding: 10px;
+  .toggle-more-container {
+    text-align: right;
   }
 }
 

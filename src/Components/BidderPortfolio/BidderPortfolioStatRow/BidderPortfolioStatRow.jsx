@@ -106,15 +106,15 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
           onColor="#0071BC"
         />
       </div>
-      { showMore &&
-        <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
-          <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+      <div className="stat-card-data-point stat-card-data-point--name stat-card-data-space">
+        <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+        { showMore &&
           <Link to="#" onClick={(e) => editClient(e)}>
             <FA name="pencil" />
             Edit
           </Link>
-        </div>
-      }
+        }
+      </div>
       <div className="bidder-portfolio-ribbon-container">
         <div className="ribbon-container-condensed">
           {ribbons}
@@ -175,7 +175,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             </dd>
           </div>
           <div className="stat-card-data-point">
-            <dt>DOS Email:</dt><a href="mailto: example@gmail.com">{email}</a>
+            <dt>DOS Email:</dt><a href={`mailto: ${email}`}>{email}</a>
           </div>
           <div className={!edit && 'stat-card-data-point'} >
             <dt>Alt Email:</dt>
