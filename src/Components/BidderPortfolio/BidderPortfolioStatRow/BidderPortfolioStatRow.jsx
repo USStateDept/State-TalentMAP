@@ -9,7 +9,7 @@ import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/Syst
 import { formatDate } from 'utilities';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
-import { toastSuccess } from 'actions/toast';
+import { bidderPortfolioDataSuccess } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
@@ -47,7 +47,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
     setComments(verifyComments);
     setAltEmail(verifyAltEmail);
     // Nothing to do yet, will add later
-    dispatch(toastSuccess(`Changes saved for ${bidder}.`));
+    dispatch(bidderPortfolioDataSuccess(bidder));
     setEdit(false);
   };
 

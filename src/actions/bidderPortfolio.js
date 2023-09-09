@@ -2,6 +2,7 @@ import { batch } from 'react-redux';
 import { stringify } from 'query-string';
 import { find, get, includes, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
+import { toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
 import api from '../api';
@@ -351,4 +352,10 @@ export function bidderPortfolioSelectionsSaveSuccess(result) {
 
 export function bidderPortfolioSelections(queryObject) {
   return (dispatch) => dispatch(bidderPortfolioSelectionsSaveSuccess(queryObject));
+}
+
+export function bidderPortfolioDataSuccess(bidder) {
+  return (dispatch) => {
+    dispatch(toastSuccess(`Changes saved for ${bidder}.`));
+  };
 }
