@@ -35,7 +35,6 @@ const EditBureauExceptionList = (props) => {
   const [bureauUser, setBureauUser] = useState(user);
 
   const submit = (e) => {
-    console.log('bureauUser', bureauUser);
     // bureauUser stores the user and bureaus to be added
     // Doing nothing for now but closing.
     e.preventDefault();
