@@ -33,11 +33,11 @@ class CheckBox extends Component {
 
   render() {
     const { id, label, title, name, labelSrOnly, small, className, disabled,
-      checkboxProps } = this.props;
+      checkboxProps, excludeTmCheckboxClass } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
-      <div className={`usa-grid-full ${className} tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
+      <div className={`usa-grid-full ${className} ${excludeTmCheckboxClass ? '' : 'tm-checkbox'} ${small ? 'tm-checkbox-small' : ''}`}>
         <input
           type="checkbox"
           id={formattedId}
@@ -69,6 +69,7 @@ CheckBox.propTypes = {
   checkboxProps: PropTypes.shape({}),
   overrideLifecycle: PropTypes.bool,
   onChange: PropTypes.func,
+  excludeTmCheckboxClass: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
@@ -82,6 +83,7 @@ CheckBox.defaultProps = {
   checkboxProps: {},
   overrideLifecycle: false,
   onChange: EMPTY_FUNCTION,
+  excludeTmCheckboxClass: false,
 };
 
 export default CheckBox;
