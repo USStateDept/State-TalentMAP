@@ -33,7 +33,7 @@ const BureauExceptionListCard = (props) => {
 
   return (
     <div className="position-form">
-      <Row fluid className="bid-seasons-search-card box-shadow-standard">
+      <Row fluid className="bureau-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column>
             Person: {Name}

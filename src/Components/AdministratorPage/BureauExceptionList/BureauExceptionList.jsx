@@ -23,29 +23,22 @@ const BureauExceptionList = (props) => {
   const BureauExceptionError = useSelector(state => state.bureauExceptionsFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
 
-  // Filters
-  const [selectedBidSeasons, setSelectedBidSeasons] =
-    useState(userSelections?.selectedBidSeasons || []);
-
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
   const prevPage = usePrevious(page);
   const currentInputs = {
     page,
-    selectedBidSeasons,
   };
 
   const getCurrentInputs = () => ({
     page,
-    selectedBidSeasons,
   });
 
   const getQuery = () => ({
-    'bid-seasons': selectedBidSeasons.map(bidCycleObject => (bidCycleObject?.id)),
+    'bureau-exception-list': true,
   });
 
   const fetchAndSet = (resetPage = false) => {
-    setSelectedBidSeasons([]);
     if (resetPage) {
       setPage(1);
     }
@@ -91,7 +84,7 @@ const BureauExceptionList = (props) => {
   return (
     genericFiltersIsLoading ?
       <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
-      <div className="bid-seasons-page position-search">
+      <div className="position-search">
         <div className="usa-grid-full position-search--header">
           <ProfileSectionTitle title="Bureau Exception List" icon="calendar" className="xl-icon" />
         </div>
