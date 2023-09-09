@@ -141,7 +141,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
             </div>
             <div className={!edit && 'stat-card-data-point'} >
               <dt>Alt Email:</dt>
-              <a href={`mailto: ${altEmail}`}>{altEmail}</a>
+              <a href={`mailto:${altEmail}`}>{altEmail}</a>
               {edit &&
                 <input
                   type="text"

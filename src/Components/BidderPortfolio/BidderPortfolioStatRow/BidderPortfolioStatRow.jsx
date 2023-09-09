@@ -175,7 +175,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
             </dd>
           </div>
           <div className="stat-card-data-point">
-            <dt>DOS Email:</dt><a href={`mailto: ${email}`}>{email}</a>
+            <dt>DOS Email:</dt><a href={`mailto:${email}`}>{email}</a>
           </div>
           <div className={!edit && 'stat-card-data-point'} >
             <dt>Alt Email:</dt>
