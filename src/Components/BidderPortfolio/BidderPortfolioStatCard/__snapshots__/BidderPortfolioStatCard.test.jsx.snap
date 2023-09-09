@@ -26,6 +26,7 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
 >
   <BidderPortfolioStatCard
     classifications={Array []}
+    showEdit={false}
     userProfile={
       Object {
         "assignments": Array [
