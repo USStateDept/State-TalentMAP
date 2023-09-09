@@ -171,10 +171,12 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
 
 BidderPortfolioStatCard.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
+  showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
 };
 
 BidderPortfolioStatCard.defaultProps = {
+  showEdit: false,
   classifications: [],
 };
 
