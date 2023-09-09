@@ -6,19 +6,7 @@ import TextInput from '../../TextInput/TextInput';
 
 
 const EditBureauExceptionList = (props) => {
-  const { Name } = props;
-
-  const submit = (e) => {
-    e.preventDefault();
-    swal.close();
-    // Doing nothing for now but closing.
-  };
-
-  const cancel = (e) => {
-    e.preventDefault();
-    swal.close();
-  };
-
+  const { user } = props;
 
   const data = [
     { id: 1, bureaus: ['AO'] },
@@ -44,6 +32,19 @@ const EditBureauExceptionList = (props) => {
   const [selectAll, setSelectAll] = useState(false);
   const [checkedBureauIds, setCheckedBureauIds] = useState([]);
   const [bureau, setBureau] = useState('');
+  const [bureauUser, setBureauUser] = useState(user);
+
+  const submit = (e) => {
+    // bureauUser stores the user and bureaus to be added
+    // Doing nothing for now but closing.
+    e.preventDefault();
+    swal.close();
+  };
+
+  const cancel = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
 
   const onChangeText = (e) => {
     setBureau(e);
@@ -64,9 +65,14 @@ const EditBureauExceptionList = (props) => {
   const handleSelectBureau = (bu => {
     if (checkedBureauIds.includes(bu.id)) {
       const filteredBureau = checkedBureauIds.filter(x => x !== bu.id);
+      const filteredBureauNames = bureauUser.BureauNames.filter(x => x !== bu.bureaus[0]);
       setCheckedBureauIds(filteredBureau);
+      setBureauUser({ ...bureauUser, BureauNames: filteredBureauNames });
     } else {
       setCheckedBureauIds([...checkedBureauIds, bu.id]);
+      setBureauUser({
+        ...bureauUser, BureauNames: [...bureauUser.BureauNames, bu.bureaus[0]],
+      });
     }
   });
 
@@ -79,7 +85,7 @@ const EditBureauExceptionList = (props) => {
               <div className="bureau-exception-text-input">
                 <TextInput
                   changeText={(e) => onChangeText(e)}
-                  label={`F/S Employee Name: ${Name}`}
+                  label={`F/S Employee Name: ${user.Name}`}
                   placeholder="Filter by Bureau"
                   value={bureau}
                   id="bureau"
@@ -127,12 +133,20 @@ const EditBureauExceptionList = (props) => {
 };
 
 EditBureauExceptionList.propTypes = {
-  Name: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    Name: PropTypes.string,
+    BureauNames: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 
 EditBureauExceptionList.defaultProps = {
-  Name: '',
+  user: {
+    id: 0,
+    Name: '',
+    BureauNames: [],
+  },
 };
 
 export default EditBureauExceptionList;

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
@@ -8,9 +7,9 @@ import EditBureauExceptionList from './EditBureauExceptionList';
 
 const BureauExceptionListCard = (props) => {
   const {
+    id,
     Name,
     BureauNames,
-    displayNewModal,
   } = props;
 
   const submitAction = () => {
@@ -18,24 +17,19 @@ const BureauExceptionListCard = (props) => {
   };
 
   // =============== View Mode ===============
-  const editSeason = (name) => {
+  const editBureau = (bureauUser) => {
     swal({
       title: 'Bureaus',
       button: false,
       content: (
         <EditBureauExceptionList
-          submitAction={submitAction}
-          Name={name}
+          submitActioaddn={submitAction}
+          user={bureauUser}
         />
       ),
     });
   };
 
-  useEffect(() => {
-    if (displayNewModal) {
-      editSeason({}, true);
-    }
-  }, [displayNewModal]);
 
   return (
     <div className="position-form">
@@ -51,7 +45,7 @@ const BureauExceptionListCard = (props) => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                editSeason(Name);
+                editBureau({ id, Name, BureauNames });
               }
               }
               to="#"
@@ -67,23 +61,15 @@ const BureauExceptionListCard = (props) => {
 };
 
 BureauExceptionListCard.propTypes = {
+  id: PropTypes.number.isRequired,
   Name: PropTypes.string.isRequired,
   BureauNames: PropTypes.string.isRequired,
-  displayNewModal: PropTypes.bool.isRequired,
-  bidder: PropTypes.shape({
-    'bid-seasons': PropTypes.shape({
-      date_created: PropTypes.string,
-      startDate: PropTypes.string,
-      endDate: PropTypes.string,
-      panelCutoff: PropTypes.string,
-    }),
-  }).isRequired,
 };
 
 BureauExceptionListCard.defaultProps = {
+  id: 0,
   Name: '',
   BureauNames: '',
-  displayNewModal: false,
 };
 
 export default BureauExceptionListCard;

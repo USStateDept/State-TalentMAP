@@ -26,7 +26,6 @@ const BureauExceptionList = (props) => {
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] =
     useState(userSelections?.selectedBidSeasons || []);
-  const [newModalOpen, setNewModalOpen] = useState(false);
 
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
@@ -89,16 +88,6 @@ const BureauExceptionList = (props) => {
     return overlay;
   };
 
-  const openNewModal = (e) => {
-    e.preventDefault();
-    setNewModalOpen(true);
-    setTimeout(() => {
-      setNewModalOpen(false);
-    }, 200);
-  };
-
-  // will delete in a bit
-  console.log(openNewModal);
   return (
     genericFiltersIsLoading ?
       <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
@@ -113,7 +102,6 @@ const BureauExceptionList = (props) => {
               {BureauExceptionData?.results?.map(data => (
                 <BureauExceptionListCard
                   {...{ ...data, isAO }}
-                  displayNewModal={newModalOpen}
                 />),
               )
               }
