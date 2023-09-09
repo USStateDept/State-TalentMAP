@@ -35,6 +35,7 @@ const EditBureauExceptionList = (props) => {
   const [bureauUser, setBureauUser] = useState(user);
 
   const submit = (e) => {
+    console.log('bureauUser', bureauUser);
     // bureauUser stores the user and bureaus to be added
     // Doing nothing for now but closing.
     e.preventDefault();
@@ -56,6 +57,7 @@ const EditBureauExceptionList = (props) => {
       setCheckedBureauIds(
         data.map(bu => bu.id),
       );
+      setBureauUser({ ...bureauUser, BureauNames: data.map(bu => bu.bureaus[0]) });
     } else {
       setSelectAll(false);
       setCheckedBureauIds([]);

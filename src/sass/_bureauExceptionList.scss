@@ -1,12 +1,20 @@
 .swal-modal {
     width: 500px;
 }
-
+.custom-table {
+    .checkbox-pos {
+        width: 100%;
+    }
+    .bureau-exception-text-table {
+        overflow-y: scroll;
+        height: 300px;
+    }
+    .checkbox-pac {
+        min-width: 450px;
+        text-align: left;
+    }
+}
 .bureau-exception-text-input {
     padding: 20px 0px;
 }
 
-.bureau-exception-text-table {
-    overflow-y: scroll;
-    height: 300px;
-}
