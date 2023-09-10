@@ -31,8 +31,8 @@ const AssignmentCycles = (props) => {
   const genericFilters$ = get(genericFilters, 'filters') || [];
 
   // Filters
-  const [selectedBidSeasons, setSelectedBidSeasons] =
-    useState(userSelections?.selectedBidSeasons || []);
+  const [selectedAssignmentCycles, setSelectedAssignmentCycles] =
+    useState(userSelections?.selectedAssignmentCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
   const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
   const [newModalOpen, setNewModalOpen] = useState(false);
@@ -53,22 +53,29 @@ const AssignmentCycles = (props) => {
     { code: 3, name: 'Merged' },
     { code: 4, name: 'Proposed' },
   ];
+
+  const cycleCategoryOptions = [
+    { code: 0, name: 'O (Other)' },
+    { code: 1, name: 'Bid' },
+    { code: 2, name: 'Handshake' },
+    { code: 3, name: 'Handshake' },
+  ];
   const currentInputs = {
     page,
-    selectedBidSeasons,
+    selectedAssignmentCycles,
     selectedStatus,
     selectedDates,
   };
 
   const getCurrentInputs = () => ({
     page,
-    selectedBidSeasons,
+    selectedAssignmentCycles,
     selectedStatus,
     selectedDates,
   });
 
   const getQuery = () => ({
-    'assignment-cycles': selectedBidSeasons.map(bidCycleObject => (bidCycleObject?.id)),
+    'assignment-cycles': selectedAssignmentCycles.map(bidCycleObject => (bidCycleObject?.id)),
     'assignment-cycles-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
     'assignment-cycles-date-start': isDate(selectedDates?.[0]) ? startOfDay(selectedDates?.[0]).toJSON() : '',
     'assignment-cycles-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
@@ -79,7 +86,7 @@ const AssignmentCycles = (props) => {
   const bidSeasonsOptions = uniqBy(sortBy(get(bidSeasons, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const fetchAndSet = (resetPage = false) => {
-    setSelectedBidSeasons([]);
+    setSelectedAssignmentCycles([]);
     const filters = [
       selectedStatus,
     ];
@@ -207,7 +214,7 @@ const AssignmentCycles = (props) => {
               <Picky
                 {...pickyProps}
                 placeholder="Select cycle category(s)"
-                options={bidSeasonsOptions}
+                options={cycleCategoryOptions}
                 valueKey="code"
                 labelKey="name"
                 onChange={setSelectedStatus}
