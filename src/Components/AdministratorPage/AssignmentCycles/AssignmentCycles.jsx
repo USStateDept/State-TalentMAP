@@ -35,6 +35,12 @@ const AssignmentCycles = (props) => {
     useState(userSelections?.selectedAssignmentCycles || []);
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
   const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
+  const [assignmentCycle, setAssignmentCycle] = useState(userSelections?.selectedDates || null);
+  const [cycleCategory, setCycleCategory] = useState(userSelections?.selectedDates || null);
+  const [cycleStatus, setCycleStatus] = useState(userSelections?.selectedDates || null);
+  const [exclusivePosition, setExclusivePosition] =
+   useState(userSelections?.selectedDates || null);
+  const [postView, setPostView] = useState(userSelections?.selectedDates || null);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
@@ -43,8 +49,8 @@ const AssignmentCycles = (props) => {
   const prevPage = usePrevious(page);
 
   const choices = [
-    { name: 'Yes' },
-    { name: 'No' },
+    { code: 1, name: 'Yes' },
+    { code: 2, name: 'No' },
   ];
 
   const statusOptions = [
@@ -205,8 +211,8 @@ const AssignmentCycles = (props) => {
                 options={bidSeasonsOptions}
                 valueKey="code"
                 labelKey="name"
-                onChange={setSelectedStatus}
-                value={selectedStatus}
+                onChange={setAssignmentCycle}
+                value={assignmentCycle}
               />
             </div>
             <div className="filter-div">
@@ -217,8 +223,8 @@ const AssignmentCycles = (props) => {
                 options={cycleCategoryOptions}
                 valueKey="code"
                 labelKey="name"
-                onChange={setSelectedStatus}
-                value={selectedStatus}
+                onChange={setCycleCategory}
+                value={cycleCategory}
               />
             </div>
             <div className="filter-div">
@@ -229,8 +235,8 @@ const AssignmentCycles = (props) => {
                 options={statusOptions}
                 valueKey="code"
                 labelKey="name"
-                onChange={setSelectedStatus}
-                value={selectedStatus}
+                onChange={setCycleStatus}
+                value={cycleStatus}
               />
             </div>
             <div className="filter-div">
@@ -243,8 +249,8 @@ const AssignmentCycles = (props) => {
                 options={choices}
                 valueKey="code"
                 labelKey="name"
-                onChange={setSelectedStatus}
-                value={selectedStatus}
+                onChange={setExclusivePosition}
+                value={exclusivePosition}
               />
             </div>
             <div className="filter-div">
@@ -257,8 +263,8 @@ const AssignmentCycles = (props) => {
                 options={choices}
                 valueKey="code"
                 labelKey="name"
-                onChange={setSelectedStatus}
-                value={selectedStatus}
+                onChange={setPostView}
+                value={postView}
               />
             </div>
           </div>
