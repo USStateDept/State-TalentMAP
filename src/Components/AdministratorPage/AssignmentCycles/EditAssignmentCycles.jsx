@@ -145,7 +145,7 @@ const EditAssignmentCycles = (props) => {
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a end date"
+                  placeholderText="Select a 6 month language date"
                   minDate={startDate}
                   ref={endDatePicker}
                 />
@@ -160,7 +160,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a 12 month language date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -175,7 +175,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a 24 month language date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -190,7 +190,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bureau position review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -205,7 +205,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bid due date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -220,7 +220,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bureau pre-season bid review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -235,7 +235,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bureau early season bid review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -250,7 +250,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bureau bid review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -265,7 +265,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bid audit date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -280,7 +280,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bid book review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -295,7 +295,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a bid count review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -310,7 +310,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a HTF review date date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -325,7 +325,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a organization count review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -340,7 +340,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a MDS review date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -355,7 +355,7 @@ const EditAssignmentCycles = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a panel cutoff date"
+                  placeholderText="Select a assigned bidder date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
