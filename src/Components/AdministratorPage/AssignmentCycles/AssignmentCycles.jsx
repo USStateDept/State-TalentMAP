@@ -6,7 +6,6 @@ import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
-import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import { isDate, startOfDay } from 'date-fns-v2';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
@@ -15,19 +14,19 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
+import { assignmentCycleFetchData, saveAssignmentCycleSelections } from 'actions/assignmentCycle';
 import AssignmentCyclesCard from './AssignmentCyclesCard';
 
 
-const ManageBidSeasons = (props) => {
+const AssignmentCycles = (props) => {
   const dispatch = useDispatch();
   const { isAO } = props;
 
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const userSelections = useSelector(state => state.bidSeasonsSelections);
-  const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
-  const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
-  const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
+  const userSelections = useSelector(state => state.assignmentCycleSelections);
+  const AssignmentCycleDataLoading = useSelector(state => state.assignmentCycleFetchDataLoading);
+  const AssignmentCycleData = useSelector(state => state.assignmentCycle);
+  const AssignmentCycleError = useSelector(state => state.assignmentCycleFetchDataErrored);
   const genericFilters = useSelector(state => state.filters);
   const genericFilters$ = get(genericFilters, 'filters') || [];
 
@@ -42,6 +41,18 @@ const ManageBidSeasons = (props) => {
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
   const prevPage = usePrevious(page);
+
+  const choices = [
+    { name: 'Yes' },
+    { name: 'No' },
+  ];
+
+  const statusOptions = [
+    { code: 1, name: 'Active' },
+    { code: 2, name: 'Closed' },
+    { code: 3, name: 'Merged' },
+    { code: 4, name: 'Proposed' },
+  ];
   const currentInputs = {
     page,
     selectedBidSeasons,
@@ -57,10 +68,10 @@ const ManageBidSeasons = (props) => {
   });
 
   const getQuery = () => ({
-    'bid-seasons': selectedBidSeasons.map(bidCycleObject => (bidCycleObject?.id)),
-    'bid-seasons-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
-    'bid-seasons-date-start': isDate(selectedDates?.[0]) ? startOfDay(selectedDates?.[0]).toJSON() : '',
-    'bid-seasons-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
+    'assignment-cycles': selectedBidSeasons.map(bidCycleObject => (bidCycleObject?.id)),
+    'assignment-cycles-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
+    'assignment-cycles-date-start': isDate(selectedDates?.[0]) ? startOfDay(selectedDates?.[0]).toJSON() : '',
+    'assignment-cycles-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
     page,
   });
 
@@ -80,15 +91,15 @@ const ManageBidSeasons = (props) => {
     if (resetPage) {
       setPage(1);
     }
-    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
-    dispatch(bidSeasonsFetchData(getQuery()));
+    dispatch(saveAssignmentCycleSelections(getCurrentInputs()));
+    dispatch(assignmentCycleFetchData(getQuery()));
   };
 
 
   // initial render
   useEffect(() => {
     dispatch(filtersFetchData(genericFilters));
-    dispatch(saveBidSeasonsSelections(currentInputs));
+    dispatch(saveAssignmentCycleSelections(currentInputs));
   }, []);
 
   useEffect(() => {
@@ -129,12 +140,13 @@ const ManageBidSeasons = (props) => {
   };
 
   // Overlay for error, info, and loading state
-  const noResults = ManageBidSeasonsData?.results?.length === 0;
+  const noResults = AssignmentCycleData?.results?.length === 0;
+  console.log('Results', AssignmentCycleData?.results);
   const getOverlay = () => {
     let overlay;
-    if (ManageBidSeasonsDataLoading) {
+    if (AssignmentCycleDataLoading) {
       overlay = <Spinner type="bid-season-filters" class="homepage-position-results" size="big" />;
-    } else if (ManageBidSeasonsError) {
+    } else if (AssignmentCycleError) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
@@ -143,7 +155,6 @@ const ManageBidSeasons = (props) => {
     }
     return overlay;
   };
-
   const pickyProps = {
     numberDisplayed: 2,
     multiple: true,
@@ -180,10 +191,10 @@ const ManageBidSeasons = (props) => {
           </div>
           <div className="usa-width-one-whole position-search--filters--bs">
             <div className="filter-div">
-              <div className="label">Season:</div>
+              <div className="label">Assignment Cycle:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Type to filter seasons"
+                placeholder="Select assignment cycle(s)"
                 options={bidSeasonsOptions}
                 valueKey="code"
                 labelKey="name"
@@ -192,13 +203,55 @@ const ManageBidSeasons = (props) => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Season Date:</div>
-              <DateRangePicker
-                onChange={setSelectedDates}
-                value={selectedDates}
-                maxDetail="month"
-                calendarIcon={null}
-                showLeadingZeros
+              <div className="label">Cycle Category:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select cycle category(s)"
+                options={bidSeasonsOptions}
+                valueKey="code"
+                labelKey="name"
+                onChange={setSelectedStatus}
+                value={selectedStatus}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Cycle Status:</div>
+              <Picky
+                {...pickyProps}
+                placeholder="Select cycle status"
+                options={statusOptions}
+                valueKey="code"
+                labelKey="name"
+                onChange={setSelectedStatus}
+                value={selectedStatus}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Exclusive Position:</div>
+              <Picky
+                {...pickyProps}
+                includeSelectAll={false}
+                includeFilter={false}
+                placeholder="Select an option"
+                options={choices}
+                valueKey="code"
+                labelKey="name"
+                onChange={setSelectedStatus}
+                value={selectedStatus}
+              />
+            </div>
+            <div className="filter-div">
+              <div className="label">Post Viewable:</div>
+              <Picky
+                {...pickyProps}
+                includeSelectAll={false}
+                includeFilter={false}
+                placeholder="Select an option"
+                options={choices}
+                valueKey="code"
+                labelKey="name"
+                onChange={setSelectedStatus}
+                value={selectedStatus}
               />
             </div>
           </div>
@@ -215,20 +268,20 @@ const ManageBidSeasons = (props) => {
                   to="#"
                 >
                   <FA className="fa-solid fa-plus" />
-                  {' Add New Bid Season'}
+                  {' Add New Assignment Cycle'}
                 </Link>
               </div>
             </div>
 
             <div className="bs-lower-section">
-              {ManageBidSeasonsData?.results?.map(data =>
+              {AssignmentCycleData?.results?.map(data =>
                 <AssignmentCyclesCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
               <div className="usa-grid-full react-paginate">
                 <PaginationWrapper
                   pageSize={5}
                   onPageChange={p => setPage(p.page)}
                   forcePage={page}
-                  totalResults={ManageBidSeasonsData.count}
+                  totalResults={AssignmentCycleData.count}
                 />
               </div>
             </div>
@@ -238,12 +291,12 @@ const ManageBidSeasons = (props) => {
   );
 };
 
-ManageBidSeasons.propTypes = {
+AssignmentCycles.propTypes = {
   isAO: PropTypes.bool,
 };
 
-ManageBidSeasons.defaultProps = {
+AssignmentCycles.defaultProps = {
   isAO: false,
 };
 
-export default withRouter(ManageBidSeasons);
+export default withRouter(AssignmentCycles);

@@ -4,15 +4,14 @@ import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
-import CheckBox from 'Components/CheckBox';
 import DatePicker from 'react-datepicker';
 import TextareaAutosize from 'react-textarea-autosize';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
 
 const EditBidSeasons = (props) => {
-  const { details, seasonInfo, id } = props;
-  const [description, setDescription] = useState(seasonInfo?.description);
+  const { details, currentAssignmentInfo, id } = props;
+  const [description, setDescription] = useState(currentAssignmentInfo?.description);
   const [season, setSeason] = useState('None Selected');
   const startDateInfo = !get(details, 'startDate') ? null : new Date(get(details, 'startDate'));
   const endDateInfo = !get(details, 'endDate') ? null : new Date(get(details, 'endDate'));
@@ -74,9 +73,9 @@ const EditBidSeasons = (props) => {
 
   return (
     <div>
-      <form className="bid-seasons-form">
+      <form className="assignment-cycle-form">
         <div>
-          <label htmlFor="status">Description</label>
+          <label className="label-desc" htmlFor="status">Assignment Cycle</label>
           <TextareaAutosize
             maxRows={4}
             minRows={4}
@@ -88,7 +87,7 @@ const EditBidSeasons = (props) => {
           />
         </div>
         <div>
-          <label htmlFor="season">Season</label>
+          <label htmlFor="season">Cycle Category</label>
           {
             // for accessibility only
             seasonError &&
@@ -115,10 +114,62 @@ const EditBidSeasons = (props) => {
             {!!seasonError && <span className="usa-input-error-message" role="alert">Season is required.</span>}
           </span>
         </div>
+        <div>
+          <label htmlFor="season">Cycle Status</label>
+          <span className="bs-validation-container">
+            <select
+              id="season"
+              className={seasonError ? 'select-error' : ''}
+              defaultValue="None Selected"
+              onChange={(e) => setSeason(e.target.value)}
+              aria-describedby={seasonError ? 'season-error' : ''}
+              value={season}
+            >
+              {seasonOptions.length === 0 ?
+                <option value="">None Listed</option> : seasonOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+            </select>
+          </span>
+        </div>
+        <div>
+          <label htmlFor="season">Exclusive Positions</label>
+          <span className="bs-validation-container">
+            <select
+              id="season"
+              className={seasonError ? 'select-error' : ''}
+              defaultValue="None Selected"
+              onChange={(e) => setSeason(e.target.value)}
+              aria-describedby={seasonError ? 'season-error' : ''}
+              value={season}
+            >
+              <option key="Yes" value="Yes">Yes</option>
+              <option key="No" value="No">No</option>
+            </select>
+          </span>
+        </div>
+        <div>
+          <label htmlFor="season">Post Viewable</label>
+          <span className="bs-validation-container">
+            <select
+              id="season"
+              className={seasonError ? 'select-error' : ''}
+              defaultValue="None Selected"
+              onChange={(e) => setSeason(e.target.value)}
+              aria-describedby={seasonError ? 'season-error' : ''}
+              value={season}
+            >
+              <option key="Yes" value="Yes">Yes</option>
+              <option key="No" value="No">No</option>
+            </select>
+          </span>
+        </div>
         {
           <>
             <div>
-              <dt>Start Date</dt>
+              <dt>Cycle Boundary Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => startDatePicker.current.setOpen(true)} />
                 <FA name="times" className={`${startDate ? '' : 'hide'} fa-close`} onClick={() => setStartDate(null)} />
@@ -126,7 +177,7 @@ const EditBidSeasons = (props) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a start date' : formatDate(seasonInfo?.bid_seasons_begin_date)}
+                  placeholderText={id === '' ? 'Select a start date' : formatDate(currentAssignmentInfo?.bid_seasons_begin_date)}
                   className={startDateError ? 'select-error' : ''}
                   ref={startDatePicker}
                 />
@@ -134,7 +185,7 @@ const EditBidSeasons = (props) => {
               </span>
             </div>
             <div>
-              <dt>End Date</dt>
+              <dt>6 Month Language Dates </dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => endDatePicker.current.setOpen(true)} />
                 <FA name="times" className={`${endDate ? '' : 'hide'} fa-close`} onClick={() => setEndDate(null)} />
@@ -142,7 +193,7 @@ const EditBidSeasons = (props) => {
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a end date' : formatDate(seasonInfo?.bid_seasons_end_date)}
+                  placeholderText={id === '' ? 'Select a end date' : formatDate(currentAssignmentInfo?.bid_seasons_end_date)}
                   className={endDateError ? 'select-error' : ''}
                   minDate={startDate}
                   ref={endDatePicker}
@@ -151,7 +202,7 @@ const EditBidSeasons = (props) => {
               </span>
             </div>
             <div>
-              <dt>Panel Cutoff Date</dt>
+              <dt>12 Month Language Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
                 <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
@@ -159,21 +210,213 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(seasonInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
               </span>
             </div>
             <div>
+              <dt>24 Month Language Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <CheckBox id="deto" label="Future Vacancy" value />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bureau Position Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bid Due Date </dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bureau Pre-Season Bid Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bureau Early Season Bid Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bureau Bid Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bid Audit Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bid Book Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Bid Count Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>HTF Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Organization Count Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>MDS Review Date</dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
+              </span>
+            </div>
+            <div>
+              <dt>Assigned Bidder Date </dt>
+              <span className="date-picker-validation-container larger-date-picker">
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
+                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <DatePicker
+                  selected={panelCutoff}
+                  onChange={(date) => setPanelCutoff(date)}
+                  dateFormat={DATE_FORMAT}
+                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  minDate={panelCutoffPicker}
+                  ref={panelCutoffPicker}
+                />
               </span>
             </div>
           </>
         }
+        <button onClick={cancel}>Save Button</button>
+        <button onClick={submit}>Delete Assignment Cycle</button>
+        <button onClick={submit} type="submit" disabled={submitDisabled}>Post Open Positions</button>
         <button onClick={cancel}>Cancel</button>
-        <button onClick={submit} type="submit" disabled={submitDisabled}>Save Bid Season</button>
       </form>
     </div>
   );
@@ -187,7 +430,7 @@ EditBidSeasons.propTypes = {
     endDate: PropTypes.string,
     panelCutOff: PropTypes.string,
   }),
-  seasonInfo: PropTypes.shape({
+  currentAssignmentInfo: PropTypes.shape({
     bid_seasons_name: PropTypes.string,
     bid_seasons_category: PropTypes.string,
     bid_seasons_begin_date: PropTypes.string,
@@ -207,7 +450,7 @@ EditBidSeasons.defaultProps = {
     endDate: '',
     panelCutOff: '',
   },
-  seasonInfo: {
+  currentAssignmentInfo: {
     bid_seasons_name: '',
     bid_seasons_category: '',
     bid_seasons_begin_date: '',

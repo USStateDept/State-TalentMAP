@@ -1,0 +1,106 @@
+.swal-modal {
+    overflow-y: scroll;
+    height: 700px;
+    .swal-title {
+        margin: 0;
+    }
+    .assignment-cycle-form {
+        width: 100%;
+        .label-desc {
+            width: 152px;
+        }
+        input[type="text"]:disabled {
+          border: None;
+          background: none;
+        }
+      
+        div:not(.react-datepicker-wrapper, .react-datepicker-wrapper div,
+         .react-datepicker__tab-loop, .react-datepicker__tab-loop div) {
+          display: flex;
+          align-items: baseline;
+        }
+        div:nth-child(14) {
+          justify-content: flex-start;
+        }
+      
+        dd {
+          margin-inline-start: 30;
+          text-align: justify;
+          margin-right: auto;
+          margin-left: 0;
+        }
+      
+        label, dt {
+          display: block;
+          margin-top: 3rem;
+          width: 200px;
+          text-align: left;
+        }
+      
+        .select-error {
+          border-color: $alert-red;
+          box-shadow: 0px 0px 0px 2px $alert-red;
+        }
+      
+        .date-picker-validation-container {
+          position: relative;
+          width: 100%;
+          .fa-calendar {
+            position: absolute;
+            left: 5px;
+            top: 18px;
+            color: gray;
+            z-index: 1;
+          }
+          .fa-close {
+            position: absolute;
+            left: 430px;
+            top: 18px;
+            color: gray;
+            z-index: 1;
+          }
+      
+          input {
+            padding-inline-start: 50px;
+          }
+        }
+      
+        .usa-input-error-message {
+          text-align: left;
+        }
+      }
+}
+
+.assignment-cycle-search-card {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    background-color: $color-white;
+    border: 1px solid $bg-gray-dark-2;
+    border-left: 8px solid $blue-primary;
+    padding: 1em;
+    .cyc-admin-link {
+      text-align: center;
+    }
+    .bs-card--row {
+      display: flex;
+      align-items: center;
+      .bs-card--middle-cols {
+        display: flex;
+        align-items: center;
+        >div {
+          color: $color-gray;
+          display: flex;
+          justify-content: center;
+          font-size: 14px;
+          min-width: max-content;
+        }
+      }
+      .bs-card--link-col {
+        display: flex;
+        justify-content: flex-end;
+        >span {
+          text-align: right;
+        }
+      }
+    }
+  }
