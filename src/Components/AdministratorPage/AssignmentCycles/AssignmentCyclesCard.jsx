@@ -3,13 +3,11 @@ import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
-import { NO_DATE } from 'Constants/SystemMessages';
 import EditAssignmentCycles from './EditAssignmentCycles';
 
-const ManageBidSeasonsCard = (props) => {
+const AssignmentCyclesCard = (props) => {
   const {
     cycle_begin_date,
     cycle_end_date,
@@ -20,14 +18,9 @@ const ManageBidSeasonsCard = (props) => {
     cycle_status,
     id,
     description,
-    bidder,
     displayNewModal,
   } = props;
-  const created = get(bidder, 'bid-seasons.date_created');
-  const formattedCreated = created ? formatDate(created) : NO_DATE;
-  const startDate = get(bidder, 'bid-seasons.start_date');
-  const endDate = get(bidder, 'bid-seasons.end_date');
-  const panelCutoff = get(bidder, 'bid-seasons.panel_cutOff');
+
   const submitAction = () => {
     swal.close();
   };
@@ -44,10 +37,14 @@ const ManageBidSeasonsCard = (props) => {
           currentAssignmentInfo={isNew ? {} : currentAssignmentInfo}
           details={
             isNew ? {} : {
-              formattedCreated,
-              startDate,
-              endDate,
-              panelCutoff,
+              cycle_name,
+              cycle_category,
+              cycle_begin_date,
+              cycle_end_date,
+              cycle_excl_position,
+              cycle_post_view,
+              cycle_status,
+              description,
             }}
         />
       ),
@@ -112,7 +109,7 @@ const ManageBidSeasonsCard = (props) => {
   );
 };
 
-ManageBidSeasonsCard.propTypes = {
+AssignmentCyclesCard.propTypes = {
   cycle_begin_date: PropTypes.string.isRequired,
   cycle_end_date: PropTypes.string.isRequired,
   cycle_name: PropTypes.string.isRequired,
@@ -125,7 +122,7 @@ ManageBidSeasonsCard.propTypes = {
   displayNewModal: PropTypes.bool.isRequired,
 };
 
-ManageBidSeasonsCard.defaultProps = {
+AssignmentCyclesCard.defaultProps = {
   cycle_begin_date: '',
   cycle_end_date: '',
   cycle_name: '',
@@ -138,4 +135,4 @@ ManageBidSeasonsCard.defaultProps = {
   displayNewModal: false,
 };
 
-export default ManageBidSeasonsCard;
+export default AssignmentCyclesCard;

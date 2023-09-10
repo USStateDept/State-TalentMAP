@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { get } from 'lodash';
-import { formatDate } from 'utilities';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
@@ -9,7 +8,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
 
-const EditBidSeasons = (props) => {
+const EditAssignmentCycles = (props) => {
   const { details, currentAssignmentInfo, id } = props;
   const [description, setDescription] = useState(currentAssignmentInfo?.description);
   const [season, setSeason] = useState('None Selected');
@@ -30,35 +29,6 @@ const EditBidSeasons = (props) => {
     e.preventDefault();
     swal.close();
   };
-
-  const seasonError = season === '';
-  const startDateFlag = startDate === null;
-  const endDateFlag = endDate === null;
-  const startDateError = startDateFlag && !endDateFlag;
-  const endDateError = !endDateFlag && startDate > endDate;
-  const panelCutOffError = startDateError || endDateError;
-  const submitDisabled = seasonError ||
-    startDateError || endDateError || panelCutOffError;
-
-
-  const getStartDateErrorText = () => {
-    if (startDateError) {
-      return 'A Start Date has not been provided, please add a Start Date.';
-    }
-
-    return null;
-  };
-
-  const getEndDateErrorText = () => {
-    if (endDateError) {
-      return 'A Start Date has not been provided or is before End Date.';
-    }
-
-    return null;
-  };
-
-  const startDateErrorText = getStartDateErrorText();
-  const endDateErrorText = getEndDateErrorText();
 
   const seasonOptions = [
     { value: 'Fall', label: 'Fall' },
@@ -81,27 +51,18 @@ const EditBidSeasons = (props) => {
             minRows={4}
             maxlength="255"
             name="description"
-            placeholder="Please provide a description of the bid season."
+            placeholder="Please provide a description of the assignment cycle."
             defaultValue={id === '' ? '' : `${description}`}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
         <div>
           <label htmlFor="season">Cycle Category</label>
-          {
-            // for accessibility only
-            seasonError &&
-            <span className="usa-sr-only" id="season-error" role="alert">
-              Required
-            </span>
-          }
           <span className="bs-validation-container">
             <select
               id="season"
-              className={seasonError ? 'select-error' : ''}
               defaultValue="None Selected"
               onChange={(e) => setSeason(e.target.value)}
-              aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
               {seasonOptions.length === 0 ?
@@ -111,7 +72,6 @@ const EditBidSeasons = (props) => {
                   </option>
                 ))}
             </select>
-            {!!seasonError && <span className="usa-input-error-message" role="alert">Season is required.</span>}
           </span>
         </div>
         <div>
@@ -119,10 +79,8 @@ const EditBidSeasons = (props) => {
           <span className="bs-validation-container">
             <select
               id="season"
-              className={seasonError ? 'select-error' : ''}
               defaultValue="None Selected"
               onChange={(e) => setSeason(e.target.value)}
-              aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
               {seasonOptions.length === 0 ?
@@ -139,10 +97,8 @@ const EditBidSeasons = (props) => {
           <span className="bs-validation-container">
             <select
               id="season"
-              className={seasonError ? 'select-error' : ''}
               defaultValue="None Selected"
               onChange={(e) => setSeason(e.target.value)}
-              aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
               <option key="Yes" value="Yes">Yes</option>
@@ -155,10 +111,8 @@ const EditBidSeasons = (props) => {
           <span className="bs-validation-container">
             <select
               id="season"
-              className={seasonError ? 'select-error' : ''}
               defaultValue="None Selected"
               onChange={(e) => setSeason(e.target.value)}
-              aria-describedby={seasonError ? 'season-error' : ''}
               value={season}
             >
               <option key="Yes" value="Yes">Yes</option>
@@ -177,11 +131,9 @@ const EditBidSeasons = (props) => {
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a start date' : formatDate(currentAssignmentInfo?.bid_seasons_begin_date)}
-                  className={startDateError ? 'select-error' : ''}
+                  placeholderText="Select a cycle boundary date"
                   ref={startDatePicker}
                 />
-                {!!startDateErrorText && <span className="usa-input-error-message" role="alert">{startDateErrorText}</span>}
               </span>
             </div>
             <div>
@@ -193,12 +145,10 @@ const EditBidSeasons = (props) => {
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a end date' : formatDate(currentAssignmentInfo?.bid_seasons_end_date)}
-                  className={endDateError ? 'select-error' : ''}
+                  placeholderText="Select a end date"
                   minDate={startDate}
                   ref={endDatePicker}
                 />
-                {!!endDateErrorText && <span className="usa-input-error-message" role="alert">{endDateErrorText}</span>}
               </span>
             </div>
             <div>
@@ -210,7 +160,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -225,7 +175,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -240,7 +190,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -255,7 +205,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -270,7 +220,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -285,7 +235,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -300,7 +250,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -315,7 +265,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -330,7 +280,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -345,7 +295,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -360,7 +310,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -375,7 +325,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -390,7 +340,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -405,7 +355,7 @@ const EditBidSeasons = (props) => {
                   selected={panelCutoff}
                   onChange={(date) => setPanelCutoff(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText={id === '' ? 'Select a panel cutoff date' : formatDate(currentAssignmentInfo?.bid_seasons_panel_cutoff)}
+                  placeholderText="Select a panel cutoff date"
                   minDate={panelCutoffPicker}
                   ref={panelCutoffPicker}
                 />
@@ -415,50 +365,60 @@ const EditBidSeasons = (props) => {
         }
         <button onClick={cancel}>Save Button</button>
         <button onClick={submit}>Delete Assignment Cycle</button>
-        <button onClick={submit} type="submit" disabled={submitDisabled}>Post Open Positions</button>
+        <button onClick={submit} type="submit">Post Open Positions</button>
         <button onClick={cancel}>Cancel</button>
       </form>
     </div>
   );
 };
 
-EditBidSeasons.propTypes = {
+EditAssignmentCycles.propTypes = {
   id: PropTypes.string.is,
   details: PropTypes.shape({
-    formattedCreated: PropTypes.string,
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
-    panelCutOff: PropTypes.string,
+    cycle_name: PropTypes.string,
+    cycle_category: PropTypes.string,
+    cycle_begin_date: PropTypes.string,
+    cycle_end_date: PropTypes.string,
+    cycle_excl_position: PropTypes.string,
+    cycle_post_view: PropTypes.string,
+    cycle_status: PropTypes.string,
+    description: PropTypes.string,
   }),
   currentAssignmentInfo: PropTypes.shape({
-    bid_seasons_name: PropTypes.string,
-    bid_seasons_category: PropTypes.string,
-    bid_seasons_begin_date: PropTypes.string,
-    bid_seasons_panel_cutoff: PropTypes.string,
-    bid_seasons_end_date: PropTypes.string,
-    bid_seasons_future_vacancy: PropTypes.string,
+    cycle_name: PropTypes.string,
+    cycle_category: PropTypes.string,
+    cycle_begin_date: PropTypes.string,
+    cycle_end_date: PropTypes.string,
+    cycle_excl_position: PropTypes.string,
+    cycle_post_view: PropTypes.string,
+    cycle_status: PropTypes.string,
     description: PropTypes.string,
   }),
 };
 
 
-EditBidSeasons.defaultProps = {
+EditAssignmentCycles.defaultProps = {
   id: '',
   details: {
-    formattedCreated: '',
-    startDate: '',
-    endDate: '',
-    panelCutOff: '',
+    cycle_name: '',
+    cycle_category: '',
+    cycle_begin_date: '',
+    cycle_end_date: '',
+    cycle_excl_position: '',
+    cycle_post_view: '',
+    cycle_status: '',
+    description: '',
   },
   currentAssignmentInfo: {
-    bid_seasons_name: '',
-    bid_seasons_category: '',
-    bid_seasons_begin_date: '',
-    bid_seasons_panel_cutoff: '',
-    bid_seasons_end_date: '',
-    bid_seasons_future_vacancy: '',
+    cycle_name: '',
+    cycle_category: '',
+    cycle_begin_date: '',
+    cycle_end_date: '',
+    cycle_excl_position: '',
+    cycle_post_view: '',
+    cycle_status: '',
     description: '',
   },
 };
 
-export default EditBidSeasons;
+export default EditAssignmentCycles;

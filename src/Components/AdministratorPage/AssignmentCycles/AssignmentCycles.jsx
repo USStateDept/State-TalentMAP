@@ -33,14 +33,13 @@ const AssignmentCycles = (props) => {
   // Filters
   const [selectedAssignmentCycles, setSelectedAssignmentCycles] =
     useState(userSelections?.selectedAssignmentCycles || []);
-  const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
-  const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
-  const [assignmentCycle, setAssignmentCycle] = useState(userSelections?.selectedDates || null);
-  const [cycleCategory, setCycleCategory] = useState(userSelections?.selectedDates || null);
-  const [cycleStatus, setCycleStatus] = useState(userSelections?.selectedDates || null);
+  const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || []);
+  const [assignmentCycle, setAssignmentCycle] = useState(userSelections?.assignmentCycle || []);
+  const [cycleCategory, setCycleCategory] = useState(userSelections?.cycleCategory || []);
+  const [cycleStatus, setCycleStatus] = useState(userSelections?.cycleStatus || []);
   const [exclusivePosition, setExclusivePosition] =
-   useState(userSelections?.selectedDates || null);
-  const [postView, setPostView] = useState(userSelections?.selectedDates || null);
+   useState(userSelections?.exclusivePosition || []);
+  const [postView, setPostView] = useState(userSelections?.postView || []);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
@@ -49,54 +48,63 @@ const AssignmentCycles = (props) => {
   const prevPage = usePrevious(page);
 
   const choices = [
-    { code: 1, name: 'Yes' },
-    { code: 2, name: 'No' },
+    { id: 1, name: 'Yes' },
+    { id: 2, name: 'No' },
   ];
 
   const statusOptions = [
-    { code: 1, name: 'Active' },
-    { code: 2, name: 'Closed' },
-    { code: 3, name: 'Merged' },
-    { code: 4, name: 'Proposed' },
+    { id: 1, name: 'Active' },
+    { id: 2, name: 'Closed' },
+    { id: 3, name: 'Merged' },
+    { id: 4, name: 'Proposed' },
   ];
 
   const cycleCategoryOptions = [
-    { code: 0, name: 'O (Other)' },
-    { code: 1, name: 'Bid' },
-    { code: 2, name: 'Handshake' },
-    { code: 3, name: 'Handshake' },
+    { id: 0, name: 'O (Other)' },
+    { id: 1, name: 'Bid' },
+    { id: 2, name: 'Handshake' },
+    { id: 3, name: 'Handshake' },
   ];
   const currentInputs = {
     page,
-    selectedAssignmentCycles,
-    selectedStatus,
-    selectedDates,
+    assignmentCycle,
+    cycleCategory,
+    cycleStatus,
+    exclusivePosition,
+    postView,
   };
 
   const getCurrentInputs = () => ({
     page,
-    selectedAssignmentCycles,
-    selectedStatus,
-    selectedDates,
+    assignmentCycle,
+    cycleCategory,
+    cycleStatus,
+    exclusivePosition,
+    postView,
   });
 
   const getQuery = () => ({
-    'assignment-cycles': selectedAssignmentCycles.map(bidCycleObject => (bidCycleObject?.id)),
-    'assignment-cycles-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
+    'assignment-cycles': selectedAssignmentCycles.map(obj => (obj?.id)),
+    'assignment-cycles-statuses': cycleStatus.map(obj => (obj?.id)),
     'assignment-cycles-date-start': isDate(selectedDates?.[0]) ? startOfDay(selectedDates?.[0]).toJSON() : '',
     'assignment-cycles-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
     page,
   });
 
-  const bidSeasons = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const bidSeasonsOptions = uniqBy(sortBy(get(bidSeasons, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const assignmentCycles = genericFilters$.find(f => get(f, 'item.description') === 'assignmentCycle');
+  const assignmentCycleOptions = uniqBy(sortBy(get(assignmentCycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const fetchAndSet = (resetPage = false) => {
     setSelectedAssignmentCycles([]);
     const filters = [
-      selectedStatus,
+      assignmentCycle,
+      cycleCategory,
+      cycleStatus,
+      exclusivePosition,
+      postView,
     ];
-    if (filters.flat().length === 0 && !selectedDates) {
+
+    if (filters.flat().length === 0) {
       setClearFilters(false);
     } else {
       setClearFilters(true);
@@ -120,8 +128,11 @@ const AssignmentCycles = (props) => {
       fetchAndSet(true);
     }
   }, [
-    selectedStatus,
-    selectedDates,
+    assignmentCycle,
+    cycleCategory,
+    cycleStatus,
+    exclusivePosition,
+    postView,
   ]);
 
   useEffect(() => {
@@ -131,8 +142,12 @@ const AssignmentCycles = (props) => {
   ]);
 
   const resetFilters = () => {
-    setSelectedStatus([]);
     setSelectedDates(null);
+    setAssignmentCycle([]);
+    setCycleCategory([]);
+    setCycleStatus([]);
+    setExclusivePosition([]);
+    setPostView([]);
     setClearFilters(false);
   };
 
@@ -154,7 +169,6 @@ const AssignmentCycles = (props) => {
 
   // Overlay for error, info, and loading state
   const noResults = AssignmentCycleData?.results?.length === 0;
-  console.log('Results', AssignmentCycleData?.results);
   const getOverlay = () => {
     let overlay;
     if (AssignmentCycleDataLoading) {
@@ -208,8 +222,8 @@ const AssignmentCycles = (props) => {
               <Picky
                 {...pickyProps}
                 placeholder="Select assignment cycle(s)"
-                options={bidSeasonsOptions}
-                valueKey="code"
+                options={assignmentCycleOptions}
+                valueKey="id"
                 labelKey="name"
                 onChange={setAssignmentCycle}
                 value={assignmentCycle}
@@ -221,7 +235,7 @@ const AssignmentCycles = (props) => {
                 {...pickyProps}
                 placeholder="Select cycle category(s)"
                 options={cycleCategoryOptions}
-                valueKey="code"
+                valueKey="id"
                 labelKey="name"
                 onChange={setCycleCategory}
                 value={cycleCategory}
@@ -233,7 +247,7 @@ const AssignmentCycles = (props) => {
                 {...pickyProps}
                 placeholder="Select cycle status"
                 options={statusOptions}
-                valueKey="code"
+                valueKey="id"
                 labelKey="name"
                 onChange={setCycleStatus}
                 value={cycleStatus}
@@ -247,7 +261,7 @@ const AssignmentCycles = (props) => {
                 includeFilter={false}
                 placeholder="Select an option"
                 options={choices}
-                valueKey="code"
+                valueKey="id"
                 labelKey="name"
                 onChange={setExclusivePosition}
                 value={exclusivePosition}
@@ -261,7 +275,7 @@ const AssignmentCycles = (props) => {
                 includeFilter={false}
                 placeholder="Select an option"
                 options={choices}
-                valueKey="code"
+                valueKey="id"
                 labelKey="name"
                 onChange={setPostView}
                 value={postView}
