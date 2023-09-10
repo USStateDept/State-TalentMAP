@@ -9,6 +9,7 @@ import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
 import PanelAdmin from './PanelAdmin';
 import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
+import AssignmentCycles from './AssignmentCycles/AssignmentCycles';
 
 const AdministratorPage = (props) => {
   const {
@@ -58,6 +59,7 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/featureflags" render={() => <FeatureFlags {...featureFlagsProps} />} />
         <Route path="/profile/administrator/cycles" render={() => <BidCycles />} />
         <Route path="/profile/administrator/managebidseasons" render={() => <ManageBidSeasons />} />
+        <Route path="/profile/administrator/assignmentcycles" render={() => <AssignmentCycles />} />
         <Route path="/profile/administrator/panel/:pmSeqNum" render={() => <PanelAdmin />} />
         <Route path="/profile/administrator/panel/" render={() => <PanelAdmin />} />
       </Switch>
