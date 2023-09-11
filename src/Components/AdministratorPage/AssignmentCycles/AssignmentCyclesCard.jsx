@@ -20,8 +20,32 @@ const AssignmentCyclesCard = (props) => {
     displayNewModal,
   } = props;
 
+  const dummyInfo = {
+    assignmentCycle: 'This is a dummy assignment cycle',
+    cycleCategory: 'Summer',
+    cycleStatus: 'Winter',
+    excludePosition: 'Yes',
+    postView: 'Yes',
+    cycleBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
+    sixMonthBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2022-31-12T21:12:12.854000Z')],
+    twelveMonthBoundary: [formatDate('2005-10-01T21:12:12.854000Z'), formatDate('2018-31-12T21:12:12.854000Z')],
+    twentyFourMonthBoundary: [formatDate('2003-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
+    bureaPositionReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    bidDueDate: formatDate('1976-10-01T21:12:12.854000Z'),
+    bureauPreSeasonBidReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    bureauEarlySeasonBidReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    bureauBidReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    bidAudit: formatDate('1976-10-01T21:12:12.854000Z'),
+    bidBookReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    bidCountReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    htfReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    organizationCountReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    mdsReview: formatDate('1976-10-01T21:12:12.854000Z'),
+    assignedBidder: formatDate('1976-10-01T21:12:12.854000Z'),
+  };
+
   // =============== View Mode ===============
-  const editSeason = (currentAssignmentInfo, isNew) => {
+  const editSeason = (details, isNew) => {
     swal({
       title: 'Assignment Cycle',
       button: false,
@@ -30,13 +54,8 @@ const AssignmentCyclesCard = (props) => {
           id={isNew ? '' : id}
           details={
             isNew ? {} : {
-              cycle_name,
-              cycle_category,
-              cycle_begin_date,
-              cycle_end_date,
-              cycle_excl_position,
-              cycle_post_view,
-              cycle_status,
+              assignmentCycle: dummyInfo,
+              details,
             }}
         />
       ),

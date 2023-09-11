@@ -2,6 +2,7 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
+import { formatDate } from 'utilities';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -74,7 +75,7 @@ const EditAssignmentCycles = (props) => {
             maxlength="255"
             name="description"
             placeholder="Please provide a description of the assignment cycle."
-            defaultValue={id === '' ? '' : `${assignmentCycle}`}
+            defaultValue={id === '' ? assignmentCycle : details?.assignmentCycle?.assignmentCycle}
             onChange={(e) => setAssignmentCycle(e.target.value)}
           />
         </div>
@@ -85,7 +86,7 @@ const EditAssignmentCycles = (props) => {
               id="cycleCategory"
               defaultValue="None Selected"
               onChange={(e) => setCycleCategory(e.target.value)}
-              value={cycleCategory}
+              value={id === '' ? cycleCategory : details?.assignmentCycle?.cycleCategory}
             >
               {seasonOptions.length === 0 ?
                 <option value="">None Listed</option> : seasonOptions.map((option) => (
@@ -103,7 +104,7 @@ const EditAssignmentCycles = (props) => {
               id="cycleStatus"
               defaultValue="None Selected"
               onChange={(e) => setCycleStatus(e.target.value)}
-              value={cycleStatus}
+              value={id === '' ? cycleStatus : details?.assignmentCycle?.cycleStatus}
             >
               {seasonOptions.length === 0 ?
                 <option value="">None Listed</option> : seasonOptions.map((option) => (
@@ -121,7 +122,7 @@ const EditAssignmentCycles = (props) => {
               id="ExclusivePositions"
               defaultValue="None Selected"
               onChange={(e) => setExclusivePositions(e.target.value)}
-              value={exclusivePositions}
+              value={id === '' ? exclusivePositions : details?.assignmentCycle?.exclusivePosition}
             >
               <option key="Yes" value="Yes">Yes</option>
               <option key="No" value="No">No</option>
@@ -135,7 +136,7 @@ const EditAssignmentCycles = (props) => {
               id="postViewable"
               defaultValue="None Selected"
               onChange={(e) => setPostViewable(e.target.value)}
-              value={postViewable}
+              value={id === '' ? postViewable : details?.assignmentCycle?.postView}
             >
               <option key="Yes" value="Yes">Yes</option>
               <option key="No" value="No">No</option>
@@ -151,7 +152,7 @@ const EditAssignmentCycles = (props) => {
                 <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setCycleBoundries(null)} />
                 <DateRangePicker
                   onChange={setCycleBoundries}
-                  value={cycleBoundries}
+                  value={id === '' ? cycleBoundries : details?.assignmentCycle?.cycleBoundary}
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
@@ -165,7 +166,7 @@ const EditAssignmentCycles = (props) => {
                 <FA name="times" className={`${sixMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setSixMonthLanguage(null)} />
                 <DateRangePicker
                   onChange={setSixMonthLanguage}
-                  value={sixMonthLanguage}
+                  value={id === '' ? sixMonthLanguage : details?.assignmentCycle?.sixMonthBoundary}
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
@@ -179,7 +180,7 @@ const EditAssignmentCycles = (props) => {
                 <FA name="times" className={`${twelveMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setTwelveMonthLanguage(null)} />
                 <DateRangePicker
                   onChange={setTwelveMonthLanguage}
-                  value={twelveMonthLanguage}
+                  value={id === '' ? twelveMonthLanguage : details?.assignmentCycle?.twelveMonthBoundary}
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
@@ -193,7 +194,7 @@ const EditAssignmentCycles = (props) => {
                 <FA name="times" className={`${twentyFourMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setTwentyFourMonthLanguage(null)} />
                 <DateRangePicker
                   onChange={setTwentyFourMonthLanguage}
-                  value={twentyFourMonthLanguage}
+                  value={id === '' ? twentyFourMonthLanguage : details?.assignmentCycle?.twentyFourMonthBoundary}
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
@@ -209,7 +210,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bureauPositionReview}
                   onChange={(date) => setBureauPositionReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bureau position review date"
+                  placeholderText={id === '' ? 'Select a bureau position review date' : formatDate(details?.assignmentCycle?.bureaPositionReview)}
                   minDate={bureauPositionReview}
                 />
               </span>
@@ -223,7 +224,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bidDue}
                   onChange={(date) => setBidDue(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bid due date"
+                  placeholderText={id === '' ? 'Select a bid due date' : formatDate(details?.assignmentCycle?.bidDueDate)}
                   minDate={bidDue}
                 />
               </span>
@@ -237,7 +238,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bureauPreSeasonBidReview}
                   onChange={(date) => setBureauPreSeasonBidReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bureau pre-season bid review date"
+                  placeholderText={id === '' ? 'Select a bureau pre-season bid review date' : formatDate(details?.assignmentCycle?.bureauPreSeasonBidReview)}
                   minDate={bureauPreSeasonBidReview}
                 />
               </span>
@@ -251,7 +252,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bureauEarlySeasonBidReview}
                   onChange={(date) => setBureauEarlySeasonBidReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bureau early season bid review date"
+                  placeholderText={id === '' ? 'Select a bureau early season bid review date' : formatDate(details?.assignmentCycle?.bureauEarlySeasonBidReview)}
                   minDate={bureauEarlySeasonBidReview}
                 />
               </span>
@@ -265,7 +266,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bureauBidReview}
                   onChange={(date) => setBureauBidReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bureau bid review date"
+                  placeholderText={id === '' ? 'Select a bureau bid review date' : formatDate(details?.assignmentCycle?.bureauBidReview)}
                   minDate={bureauBidReview}
                 />
               </span>
@@ -279,7 +280,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bidAudit}
                   onChange={(date) => setBidAudit(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bid audit date"
+                  placeholderText={id === '' ? 'Select a bid audit date' : formatDate(details?.assignmentCycle?.bidAudit)}
                   minDate={bidAudit}
                 />
               </span>
@@ -293,7 +294,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bidBookReview}
                   onChange={(date) => setBidBookReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bid book review date"
+                  placeholderText={id === '' ? 'Select a bid book review date' : formatDate(details?.assignmentCycle?.bidBookReview)}
                   minDate={bidBookReview}
                 />
               </span>
@@ -307,7 +308,7 @@ const EditAssignmentCycles = (props) => {
                   selected={bidCountReview}
                   onChange={(date) => setBidCountReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a bid count review date"
+                  placeholderText={id === '' ? 'Select a bid count review date' : formatDate(details?.assignmentCycle?.bidCountReview)}
                   minDate={bidCountReview}
                 />
               </span>
@@ -321,7 +322,7 @@ const EditAssignmentCycles = (props) => {
                   selected={htfReview}
                   onChange={(date) => setHtfReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a HTF review date date"
+                  placeholderText={id === '' ? 'Select a HTF review date' : formatDate(details?.assignmentCycle?.htfReview)}
                   minDate={htfReview}
                 />
               </span>
@@ -335,7 +336,7 @@ const EditAssignmentCycles = (props) => {
                   selected={organizationCountReview}
                   onChange={(date) => setOrganizationCountReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a organization count review date"
+                  placeholderText={id === '' ? 'Select a organization count review date' : formatDate(details?.assignmentCycle?.organizationCountReview)}
                   minDate={organizationCountReview}
                 />
               </span>
@@ -349,7 +350,7 @@ const EditAssignmentCycles = (props) => {
                   selected={mdsReview}
                   onChange={(date) => setMdsReview(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a MDS review date"
+                  placeholderText={id === '' ? 'Select a MDS review date' : formatDate(details?.assignmentCycle?.mdsReview)}
                   minDate={mdsReview}
                 />
               </span>
@@ -363,7 +364,7 @@ const EditAssignmentCycles = (props) => {
                   selected={assignedBidder}
                   onChange={(date) => setAssignedBidder(date)}
                   dateFormat={DATE_FORMAT}
-                  placeholderText="Select a assigned bidder date"
+                  placeholderText={id === '' ? 'Select a assigned bidder date' : formatDate(details?.assignmentCycle?.assignedBidder)}
                   minDate={assignedBidder}
                 />
               </span>
@@ -382,14 +383,27 @@ const EditAssignmentCycles = (props) => {
 EditAssignmentCycles.propTypes = {
   id: PropTypes.string.is,
   details: PropTypes.shape({
-    cycle_name: PropTypes.string,
-    cycle_category: PropTypes.string,
-    cycle_begin_date: PropTypes.string,
-    cycle_end_date: PropTypes.string,
-    cycle_excl_position: PropTypes.string,
-    cycle_post_view: PropTypes.string,
-    cycle_status: PropTypes.string,
-    description: PropTypes.string,
+    assignmentCycle: PropTypes.string,
+    cycleCategory: PropTypes.string,
+    cycleStatus: PropTypes.string,
+    exclusivePosition: PropTypes.string,
+    postView: PropTypes.string,
+    cycleBoundary: PropTypes.string,
+    sixMonthBoundary: PropTypes.string,
+    twelveMonthBoundary: PropTypes.string,
+    twentyFourMonthBoundary: PropTypes.string,
+    bureaPositionReview: PropTypes.string,
+    bidDueDate: PropTypes.string,
+    bureauPreSeasonBidReview: PropTypes.string,
+    bureauEarlySeasonBidReview: PropTypes.string,
+    bureauBidReview: PropTypes.string,
+    bidAudit: PropTypes.string,
+    bidBookReview: PropTypes.string,
+    bidCountReview: PropTypes.string,
+    htfReview: PropTypes.string,
+    organizationCountReview: PropTypes.string,
+    mdsReview: PropTypes.string,
+    assignedBidder: PropTypes.string,
   }),
   currentAssignmentInfo: PropTypes.shape({
     cycle_name: PropTypes.string,
@@ -407,14 +421,27 @@ EditAssignmentCycles.propTypes = {
 EditAssignmentCycles.defaultProps = {
   id: '',
   details: {
-    cycle_name: '',
-    cycle_category: '',
-    cycle_begin_date: '',
-    cycle_end_date: '',
-    cycle_excl_position: '',
-    cycle_post_view: '',
-    cycle_status: '',
-    description: '',
+    assignmentCycle: '',
+    cycleCategory: '',
+    cycleStatus: '',
+    exclusivePosition: '',
+    postView: '',
+    cycleBoundary: '',
+    sixMonthBoundary: '',
+    twelveMonthBoundary: '',
+    twentyFourMonthBoundary: '',
+    bureaPositionReview: '',
+    bidDueDate: '',
+    bureauPreSeasonBidReview: '',
+    bureauEarlySeasonBidReview: '',
+    bureauBidReview: '',
+    bidAudit: '',
+    bidBookReview: '',
+    bidCountReview: '',
+    htfReview: '',
+    organizationCountReview: '',
+    mdsReview: '',
+    assignedBidder: '',
   },
   currentAssignmentInfo: {
     cycle_name: '',
