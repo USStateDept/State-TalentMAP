@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
 import swal from '@sweetalert/with-react';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
@@ -9,26 +8,29 @@ import TextareaAutosize from 'react-textarea-autosize';
 const DATE_FORMAT = 'MMMM d, yyyy';
 
 const EditAssignmentCycles = (props) => {
-  const { details, currentAssignmentInfo, id } = props;
-  const [description, setDescription] = useState(currentAssignmentInfo?.description);
-  const [season, setSeason] = useState('None Selected');
-  const startDateInfo = !get(details, 'startDate') ? null : new Date(get(details, 'startDate'));
-  const endDateInfo = !get(details, 'endDate') ? null : new Date(get(details, 'endDate'));
-  const panelCutoffInfo = !get(details, 'panelCutoff') ? null : new Date(get(details, 'panelCutoff'));
-  const [startDate, setStartDate] = useState(startDateInfo);
-  const [endDate, setEndDate] = useState(endDateInfo);
-  const [panelCutoff, setPanelCutoff] = useState(panelCutoffInfo);
+  const { id } = props;
 
-  const submit = (e) => {
-    e.preventDefault();
-    swal.close();
-    // Doing nothing for now but closing.
-  };
-
-  const cancel = (e) => {
-    e.preventDefault();
-    swal.close();
-  };
+  const [assignmentCycle, setAssignmentCycle] = useState('');
+  const [cycleCategory, setCycleCategory] = useState('');
+  const [cycleStatus, setCycleStatus] = useState('');
+  const [exclusivePositions, setExclusivePositions] = useState('');
+  const [postViewable, setPostViewable] = useState('');
+  const [cycleBoundries, setCycleBoundries] = useState('');
+  const [sixMonthLanguage, setSixMonthLanguage] = useState('');
+  const [twelveMonthLanguage, setTwelveMonthLanguage] = useState('');
+  const [twentyFourMonthLanguage, setTwentyFourMonthLanguage] = useState('');
+  const [bureauPositionReview, setBureauPositionReview] = useState('');
+  const [bidDue, setBidDue] = useState('');
+  const [bureauPreSeasonBidReview, setBureauPreSeasonBidReview] = useState('');
+  const [bureauEarlySeasonBidReview, setBureauEarlySeasonBidReview] = useState('');
+  const [bureauBidReview, setBureauBidReview] = useState('');
+  const [bidAudit, setBidAudit] = useState('');
+  const [bidBookReview, setBidBookReview] = useState('');
+  const [bidCountReview, setBidCountReview] = useState('');
+  const [htfReview, setHtfReview] = useState('');
+  const [organizationCountReview, setOrganizationCountReview] = useState('');
+  const [mdsReview, setMdsReview] = useState('');
+  const [assignedBidder, setAssignedBidder] = useState('');
 
   const seasonOptions = [
     { value: 'Fall', label: 'Fall' },
@@ -37,9 +39,43 @@ const EditAssignmentCycles = (props) => {
     { value: 'Summer', label: 'Summer' },
   ];
 
-  const startDatePicker = useRef(null);
-  const endDatePicker = useRef(null);
-  const panelCutoffPicker = useRef(null);
+  const cycleBoundaryDates = useRef(null);
+  const sixMonthLanguageDates = useRef(null);
+  const twelveMonthLanguageDates = useRef(null);
+  const twentyFourMonthLanguageDates = useRef(null);
+  const bureauPositionReviewDate = useRef(null);
+  const bidDueDate = useRef(null);
+  const bureauPreSeasonBidReviewDate = useRef(null);
+  const bureauEarlySeasonBidReviewDate = useRef(null);
+  const bureauBidReviewDate = useRef(null);
+  const bidAuditDate = useRef(null);
+  const bidBookReviewDate = useRef(null);
+  const bidCountReviewDate = useRef(null);
+  const htfReviewDate = useRef(null);
+  const organizationCountReviewDate = useRef(null);
+  const mdsReviewDate = useRef(null);
+  const assignedBidderDate = useRef(null);
+
+  // These functions arent functional for now.
+  const saveAC = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const deleteAC = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const postAC = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
+
+  const cancelAC = (e) => {
+    e.preventDefault();
+    swal.close();
+  };
 
   return (
     <div>
@@ -52,8 +88,8 @@ const EditAssignmentCycles = (props) => {
             maxlength="255"
             name="description"
             placeholder="Please provide a description of the assignment cycle."
-            defaultValue={id === '' ? '' : `${description}`}
-            onChange={(e) => setDescription(e.target.value)}
+            defaultValue={id === '' ? '' : `${assignmentCycle}`}
+            onChange={(e) => setAssignmentCycle(e.target.value)}
           />
         </div>
         <div>
@@ -62,8 +98,8 @@ const EditAssignmentCycles = (props) => {
             <select
               id="season"
               defaultValue="None Selected"
-              onChange={(e) => setSeason(e.target.value)}
-              value={season}
+              onChange={(e) => setCycleCategory(e.target.value)}
+              value={cycleCategory}
             >
               {seasonOptions.length === 0 ?
                 <option value="">None Listed</option> : seasonOptions.map((option) => (
@@ -80,8 +116,8 @@ const EditAssignmentCycles = (props) => {
             <select
               id="season"
               defaultValue="None Selected"
-              onChange={(e) => setSeason(e.target.value)}
-              value={season}
+              onChange={(e) => setCycleStatus(e.target.value)}
+              value={cycleStatus}
             >
               {seasonOptions.length === 0 ?
                 <option value="">None Listed</option> : seasonOptions.map((option) => (
@@ -98,8 +134,8 @@ const EditAssignmentCycles = (props) => {
             <select
               id="season"
               defaultValue="None Selected"
-              onChange={(e) => setSeason(e.target.value)}
-              value={season}
+              onChange={(e) => setExclusivePositions(e.target.value)}
+              value={exclusivePositions}
             >
               <option key="Yes" value="Yes">Yes</option>
               <option key="No" value="No">No</option>
@@ -112,8 +148,8 @@ const EditAssignmentCycles = (props) => {
             <select
               id="season"
               defaultValue="None Selected"
-              onChange={(e) => setSeason(e.target.value)}
-              value={season}
+              onChange={(e) => setPostViewable(e.target.value)}
+              value={postViewable}
             >
               <option key="Yes" value="Yes">Yes</option>
               <option key="No" value="No">No</option>
@@ -125,248 +161,248 @@ const EditAssignmentCycles = (props) => {
             <div>
               <dt>Cycle Boundary Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => startDatePicker.current.setOpen(true)} />
-                <FA name="times" className={`${startDate ? '' : 'hide'} fa-close`} onClick={() => setStartDate(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => cycleBoundaryDates.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setCycleBoundries(null)} />
                 <DatePicker
-                  selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  selected={cycleBoundries}
+                  onChange={(date) => setCycleBoundries(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a cycle boundary date"
-                  ref={startDatePicker}
+                  ref={cycleBoundaryDates}
                 />
               </span>
             </div>
             <div>
               <dt>6 Month Language Dates </dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => endDatePicker.current.setOpen(true)} />
-                <FA name="times" className={`${endDate ? '' : 'hide'} fa-close`} onClick={() => setEndDate(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => sixMonthLanguageDates.current.setOpen(true)} />
+                <FA name="times" className={`${sixMonthLanguageDates ? '' : 'hide'} fa-close`} onClick={() => setSixMonthLanguage(null)} />
                 <DatePicker
-                  selected={endDate}
-                  onChange={(date) => setEndDate(date)}
+                  selected={sixMonthLanguage}
+                  onChange={(date) => setSixMonthLanguage(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a 6 month language date"
-                  minDate={startDate}
-                  ref={endDatePicker}
+                  minDate={sixMonthLanguageDates}
+                  ref={sixMonthLanguageDates}
                 />
               </span>
             </div>
             <div>
               <dt>12 Month Language Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => twelveMonthLanguageDates.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setTwelveMonthLanguage(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={twelveMonthLanguage}
+                  onChange={(date) => setTwelveMonthLanguage(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a 12 month language date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={twelveMonthLanguageDates}
+                  ref={twelveMonthLanguageDates}
                 />
               </span>
             </div>
             <div>
               <dt>24 Month Language Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => twentyFourMonthLanguageDates.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setTwentyFourMonthLanguage(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={twentyFourMonthLanguage}
+                  onChange={(date) => setTwentyFourMonthLanguage(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a 24 month language date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={twentyFourMonthLanguageDates}
+                  ref={twentyFourMonthLanguageDates}
                 />
               </span>
             </div>
             <div>
               <dt>Bureau Position Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bureauPositionReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauPositionReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bureauPositionReview}
+                  onChange={(date) => setBureauPositionReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bureau position review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bureauPositionReviewDate}
+                  ref={bureauPositionReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bid Due Date </dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bidDueDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bidDue}
+                  onChange={(date) => setBidDue(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bid due date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bidDueDate}
+                  ref={bidDueDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bureau Pre-Season Bid Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bureauPreSeasonBidReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauPreSeasonBidReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bureauPreSeasonBidReview}
+                  onChange={(date) => setBureauPreSeasonBidReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bureau pre-season bid review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bureauPreSeasonBidReviewDate}
+                  ref={bureauPreSeasonBidReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bureau Early Season Bid Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bureauEarlySeasonBidReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauEarlySeasonBidReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bureauEarlySeasonBidReview}
+                  onChange={(date) => setBureauEarlySeasonBidReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bureau early season bid review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bureauEarlySeasonBidReviewDate}
+                  ref={bureauEarlySeasonBidReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bureau Bid Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bureauBidReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauBidReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bureauBidReview}
+                  onChange={(date) => setBureauBidReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bureau bid review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bureauBidReviewDate}
+                  ref={bureauBidReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bid Audit Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bidAuditDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidAudit(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bidAudit}
+                  onChange={(date) => setBidAudit(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bid audit date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bidAuditDate}
+                  ref={bidAuditDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bid Book Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bidBookReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidBookReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bidBookReview}
+                  onChange={(date) => setBidBookReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bid book review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bidBookReviewDate}
+                  ref={bidBookReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Bid Count Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => bidCountReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidCountReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={bidCountReview}
+                  onChange={(date) => setBidCountReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a bid count review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={bidCountReviewDate}
+                  ref={bidCountReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>HTF Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => htfReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setHtfReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={htfReview}
+                  onChange={(date) => setHtfReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a HTF review date date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={htfReviewDate}
+                  ref={htfReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Organization Count Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => organizationCountReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setOrganizationCountReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={organizationCountReview}
+                  onChange={(date) => setOrganizationCountReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a organization count review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={organizationCountReviewDate}
+                  ref={organizationCountReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>MDS Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => mdsReviewDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setMdsReview(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={mdsReview}
+                  onChange={(date) => setMdsReview(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a MDS review date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={mdsReviewDate}
+                  ref={mdsReviewDate}
                 />
               </span>
             </div>
             <div>
               <dt>Assigned Bidder Date </dt>
               <span className="date-picker-validation-container larger-date-picker">
-                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => panelCutoffPicker.current.setOpen(true)} />
-                <FA name="times" className={`${panelCutoff ? '' : 'hide'} fa-close`} onClick={() => setPanelCutoff(null)} />
+                <FA name="fa-regular fa-calendar" className="fa fa-calendar" onClick={() => assignedBidderDate.current.setOpen(true)} />
+                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidder(null)} />
                 <DatePicker
-                  selected={panelCutoff}
-                  onChange={(date) => setPanelCutoff(date)}
+                  selected={assignedBidder}
+                  onChange={(date) => setAssignedBidder(date)}
                   dateFormat={DATE_FORMAT}
                   placeholderText="Select a assigned bidder date"
-                  minDate={panelCutoffPicker}
-                  ref={panelCutoffPicker}
+                  minDate={assignedBidderDate}
+                  ref={assignedBidderDate}
                 />
               </span>
             </div>
           </>
         }
-        <button onClick={cancel}>Save Button</button>
-        <button onClick={submit}>Delete Assignment Cycle</button>
-        <button onClick={submit} type="submit">Post Open Positions</button>
-        <button onClick={cancel}>Cancel</button>
+        <button onClick={saveAC}>Save Button</button>
+        <button onClick={deleteAC}>Delete Assignment Cycle</button>
+        <button onClick={postAC} type="submit">Post Open Positions</button>
+        <button onClick={cancelAC}>Cancel</button>
       </form>
     </div>
   );
