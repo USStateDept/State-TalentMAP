@@ -77,12 +77,12 @@ const ProjectedVacancy = ({ isAO }) => {
     limit,
     ordering,
     // User Filters
-    'bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'organizations': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'bidSeasons': selectedBidSeasons.map(seasonObject => (seasonObject?.id)),
-    'languages': selectedLanguages.map(langObject => (langObject?.code)),
-    'grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'skills': selectedSkills.map(skillObject => (skillObject?.code)),
+    bureaus: selectedBureaus.map(bureauObject => (bureauObject?.code)),
+    organizations: selectedOrgs.map(orgObject => (orgObject?.code)),
+    bidSeasons: selectedBidSeasons.map(seasonObject => (seasonObject?.id)),
+    languages: selectedLanguages.map(langObject => (langObject?.code)),
+    grades: selectedGrades.map(gradeObject => (gradeObject?.code)),
+    skills: selectedSkills.map(skillObject => (skillObject?.code)),
   });
 
   const resetFilters = () => {
@@ -101,7 +101,7 @@ const ProjectedVacancy = ({ isAO }) => {
     selectedGrade: selectedGrades,
     selectedLanguage: selectedLanguages,
     selectedSkills,
-    selectedBidSeasons: selectedBidSeasons,
+    selectedBidSeasons,
   });
 
   useEffect(() => {
