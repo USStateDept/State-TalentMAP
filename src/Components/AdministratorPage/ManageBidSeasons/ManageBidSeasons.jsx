@@ -1,21 +1,16 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { get, sortBy, uniqBy } from 'lodash';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
-import { isDate, startOfDay } from 'date-fns-v2';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
-import { usePrevious } from 'hooks';
-import { filtersFetchData } from 'actions/filters/filters';
 import { bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
+import { renderSelectionList } from 'utilities';
 import ManageBidSeasonCard from './ManageBidSeasonsCard';
 
 
@@ -23,113 +18,77 @@ const ManageBidSeasons = (props) => {
   const dispatch = useDispatch();
   const { isAO } = props;
 
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.bidSeasonsSelections);
   const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
   const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
   const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
-  const genericFilters = useSelector(state => state.filters);
-  const genericFilters$ = get(genericFilters, 'filters') || [];
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] =
     useState(userSelections?.selectedBidSeasons || []);
-  const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
   const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
+  const [bidSeasonData$, setBidSeasonData$] = useState(ManageBidSeasonsData);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
-  // Pagination
-  const [page, setPage] = useState(userSelections.page || 1);
-  const prevPage = usePrevious(page);
-  const currentInputs = {
-    page,
+  const getCurrentInputs = () => ({
     selectedBidSeasons,
-    selectedStatus,
     selectedDates,
+  });
+
+  const noFiltersSelected = selectedBidSeasons.flat().length === 0 && !selectedDates;
+  const bidSeasonOptions = ManageBidSeasonsData || [];
+
+
+  const filterSeasonsByDateRange = (seasons, dateRange) => {
+    const startDateRange = dateRange[0].getTime();
+    const endDateRange = dateRange[1].getTime();
+
+    const filteredSeasons = seasons.filter(season => {
+      const startDate = new Date(season.bid_seasons_begin_date).getTime();
+      const endDate = new Date(season.bid_seasons_end_date).getTime();
+
+      return startDate >= startDateRange && endDate <= endDateRange;
+    });
+
+    return filteredSeasons;
   };
 
-  const getCurrentInputs = () => ({
-    page,
-    selectedBidSeasons,
-    selectedStatus,
-    selectedDates,
-  });
-
-  const getQuery = () => ({
-    'bid-seasons': selectedBidSeasons.map(bidCycleObject => (bidCycleObject?.id)),
-    'bid-seasons-statuses': selectedStatus.map(statusObject => (statusObject?.code)),
-    'bid-seasons-date-start': isDate(selectedDates?.[0]) ? startOfDay(selectedDates?.[0]).toJSON() : '',
-    'bid-seasons-date-end': isDate(selectedDates?.[1]) ? startOfDay(selectedDates?.[1]).toJSON() : '',
-    page,
-  });
-
-  const bidSeasons = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const bidSeasonsOptions = uniqBy(sortBy(get(bidSeasons, 'data'), [(c) => c.custom_description]), 'custom_description');
-
-  const fetchAndSet = (resetPage = false) => {
-    setSelectedBidSeasons([]);
-    const filters = [
-      selectedStatus,
-    ];
-    if (filters.flat().length === 0 && !selectedDates) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    if (resetPage) {
-      setPage(1);
-    }
-    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
-    dispatch(bidSeasonsFetchData(getQuery()));
+  const bidSeasonDataFiltered = () => {
+    if (noFiltersSelected) return ManageBidSeasonsData;
+    const seasons = selectedBidSeasons.length > 0 ? selectedBidSeasons : ManageBidSeasonsData;
+    if (selectedDates) return filterSeasonsByDateRange(seasons, selectedDates);
+    return seasons;
   };
 
 
   // initial render
   useEffect(() => {
-    dispatch(filtersFetchData(genericFilters));
-    dispatch(saveBidSeasonsSelections(currentInputs));
+    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
+    dispatch(bidSeasonsFetchData());
   }, []);
 
   useEffect(() => {
-    if (prevPage) {
-      fetchAndSet(true);
+    setBidSeasonData$(bidSeasonDataFiltered);
+    if (noFiltersSelected) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
     }
   }, [
-    selectedStatus,
+    selectedBidSeasons,
     selectedDates,
   ]);
 
-  useEffect(() => {
-    fetchAndSet(false);
-  }, [
-    page,
-  ]);
-
   const resetFilters = () => {
-    setSelectedStatus([]);
     setSelectedDates(null);
+    setSelectedBidSeasons([]);
     setClearFilters(false);
   };
 
-  const renderSelectionList = ({ items, selected, ...rest }) => {
-    let queryProp = 'description';
-    if (items?.[0]?.custom_description) queryProp = 'custom_description';
-    else if (items?.[0]?.long_description) queryProp = 'long_description';
-    else if (items?.[0]?.name) queryProp = 'name';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
-  };
 
   // Overlay for error, info, and loading state
-  const noResults = ManageBidSeasonsData?.results?.length === 0;
+  const noResults = bidSeasonData$?.length === 0;
   const getOverlay = () => {
     let overlay;
     if (ManageBidSeasonsDataLoading) {
@@ -162,8 +121,10 @@ const ManageBidSeasons = (props) => {
   };
 
   return (
-    genericFiltersIsLoading ?
-      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
+    ManageBidSeasonsDataLoading
+      ?
+      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" />
+      :
       <div className="bid-seasons-page position-search">
         <div className="usa-grid-full position-search--header">
           <ProfileSectionTitle title="Bid Season Search" icon="calendar" className="xl-icon" />
@@ -184,11 +145,11 @@ const ManageBidSeasons = (props) => {
               <Picky
                 {...pickyProps}
                 placeholder="Type to filter seasons"
-                options={bidSeasonsOptions}
-                valueKey="code"
-                labelKey="name"
-                onChange={setSelectedStatus}
-                value={selectedStatus}
+                options={bidSeasonOptions}
+                valueKey="id"
+                labelKey="description"
+                onChange={setSelectedBidSeasons}
+                value={selectedBidSeasons}
               />
             </div>
             <div className="filter-div">
@@ -221,18 +182,11 @@ const ManageBidSeasons = (props) => {
             </div>
 
             <div className="bs-lower-section">
-              {ManageBidSeasonsData?.results?.map(data =>
+              {bidSeasonData$?.map(data =>
                 <ManageBidSeasonCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
-              <div className="usa-grid-full react-paginate">
-                <PaginationWrapper
-                  pageSize={5}
-                  onPageChange={p => setPage(p.page)}
-                  forcePage={page}
-                  totalResults={ManageBidSeasonsData.count}
-                />
-              </div>
             </div>
           </>
+
         }
       </div>
   );

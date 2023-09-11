@@ -23,6 +23,7 @@ export function bidSeasons(state = [], action) {
   }
 }
 
+
 export function bidSeasonsSelections(state = {}, action) {
   switch (action.type) {
     case 'BID_SEASONS_SELECTIONS_SAVE_SUCCESS':
@@ -32,30 +33,31 @@ export function bidSeasonsSelections(state = {}, action) {
   }
 }
 
-export function bidSeasonsPositionSearchFetchDataErrored(state = false, action) {
-  switch (action.type) {
-    case 'BID_SEASONS_POSITION_SEARCH_FETCH_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-export function bidSeasonsPositionSearchFetchDataLoading(state = false, action) {
-  switch (action.type) {
-    case 'BID_SEASONS_POSITION_SEARCH_FETCH_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function bidSeasonsPositionSearch(state = [], action) {
-  switch (action.type) {
-    case 'BID_SEASONS_POSITION_SEARCH_FETCH_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
+
+// export function bidSeasonsPositionSearchFetchDataErrored(state = false, action) {
+//   switch (action.type) {
+//     case 'BID_SEASONS_POSITION_SEARCH_FETCH_HAS_ERRORED':
+//       return action.hasErrored;
+//     default:
+//       return state;
+//   }
+// }
+// export function bidSeasonsPositionSearchFetchDataLoading(state = false, action) {
+//   switch (action.type) {
+//     case 'BID_SEASONS_POSITION_SEARCH_FETCH_IS_LOADING':
+//       return action.isLoading;
+//     default:
+//       return state;
+//   }
+// }
+// export function bidSeasonsPositionSearch(state = [], action) {
+//   switch (action.type) {
+//     case 'BID_SEASONS_POSITION_SEARCH_FETCH_SUCCESS':
+//       return action.results;
+//     default:
+//       return state;
+//   }
+// }
 
 export function bidSeasonsPositionSearchSelections(state = {}, action) {
   switch (action.type) {
@@ -65,6 +67,7 @@ export function bidSeasonsPositionSearchSelections(state = {}, action) {
       return state;
   }
 }
+
 
 export function bidSeasonsPositionRemoveHasErrored(state = false, action) {
   switch (action.type) {

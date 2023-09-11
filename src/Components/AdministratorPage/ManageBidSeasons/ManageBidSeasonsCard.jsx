@@ -11,7 +11,6 @@ import EditBidSeasons from './EditBidSeasons';
 
 const ManageBidSeasonsCard = (props) => {
   const {
-    bid_seasons_name,
     bid_seasons_category,
     bid_seasons_begin_date,
     bid_seasons_end_date,
@@ -64,7 +63,7 @@ const ManageBidSeasonsCard = (props) => {
       <Row fluid className="bid-seasons-search-card box-shadow-standard">
         <Row fluid className="bs-card--row">
           <Column columns={3}>
-            {bid_seasons_name}
+            {description}
           </Column>
           <Column columns={12} className="bs-card--middle-cols">
             <Column>
@@ -87,7 +86,6 @@ const ManageBidSeasonsCard = (props) => {
                 editSeason({
                   bid_seasons_begin_date,
                   bid_seasons_end_date,
-                  bid_seasons_name,
                   bid_seasons_category,
                   bid_seasons_future_vacancy,
                   bid_seasons_panel_cutoff,
@@ -108,7 +106,6 @@ const ManageBidSeasonsCard = (props) => {
 };
 
 ManageBidSeasonsCard.propTypes = {
-  bid_seasons_name: PropTypes.string,
   bid_seasons_category: PropTypes.string,
   bid_seasons_begin_date: PropTypes.string,
   bid_seasons_end_date: PropTypes.string,
@@ -128,7 +125,6 @@ ManageBidSeasonsCard.propTypes = {
 };
 
 ManageBidSeasonsCard.defaultProps = {
-  bid_seasons_name: '',
   bid_seasons_category: '',
   bid_seasons_begin_date: '',
   bid_seasons_end_date: '',
