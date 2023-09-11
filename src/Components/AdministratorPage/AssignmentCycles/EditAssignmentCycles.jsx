@@ -156,6 +156,7 @@ const EditAssignmentCycles = (props) => {
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
+                  className="date-picker-validation-container"
                 />
               </span>
             </div>
@@ -170,6 +171,7 @@ const EditAssignmentCycles = (props) => {
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
+                  className="date-picker-validation-container"
                 />
               </span>
             </div>
@@ -184,6 +186,7 @@ const EditAssignmentCycles = (props) => {
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
+                  className="date-picker-validation-container"
                 />
               </span>
             </div>
@@ -198,6 +201,7 @@ const EditAssignmentCycles = (props) => {
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
+                  className="date-picker-validation-container"
                 />
               </span>
             </div>

@@ -41,6 +41,38 @@
           border-color: $alert-red;
           box-shadow: 0px 0px 0px 2px $alert-red;
         }
+      
+        .date-picker-validation-container {
+          position: relative;
+          width: 100%;
+          .fa-calendar {
+            position: absolute;
+            left: 5px;
+            top: 18px;
+            color: gray;
+            z-index: 1;
+          }
+          .fa-close {
+            position: absolute;
+            left: 430px;
+            top: 18px;
+            color: gray;
+            z-index: 1;
+          }
+          .date-picker-validation-container {
+            input {
+              padding-inline-start: 1px;
+            }
+          }
+          input {
+            padding-inline-start: 30px;
+          }
+        }
+      
+        .usa-input-error-message {
+          text-align: left;
+        }
+
         .react-daterange-picker {
           align-items: center;
           background: $color-white;
@@ -65,55 +97,28 @@
           .react-date-picker__inputGroup__divider {
             color: $color-black;
           }
-        }
-        .date-picker-validation-container {
-          position: relative;
-          width: 100%;
-          .fa-calendar {
-            position: absolute;
-            left: 5px;
-            top: 18px;
-            color: gray;
-            z-index: 1;
+          .react-daterange-picker__calendar--open {
+            z-index: $daterange-z;
           }
-          .fa-close {
-            position: absolute;
-            left: 430px;
-            top: 18px;
-            color: gray;
-            z-index: 1;
+          .react-daterange-picker__clear-button {
+            padding: 2px 4px;
           }
-      
-          input {
-            padding-inline-start: 1px;
+          .react-daterange-picker__clear-button:hover {
+            background-color: $color-white;
+          }
+          .react-daterange-picker__calendar--open {
+            z-index: $daterange-z;
+          }
+  
+          .react-calendar__navigation {
+            background-color: $bg-gray-medium-3;
+            margin-bottom: 0;
+          }
+          .react-calendar--selectRange .react-calendar__tile--hover {
+            background-color: #e6e6e6;
           }
         }
-      
-        .usa-input-error-message {
-          text-align: left;
-        }
-
-    .react-daterange-picker__calendar--open {
-      z-index: $daterange-z;
-    }
-    .react-daterange-picker__clear-button {
-      padding: 2px 4px;
-    }
-    .react-daterange-picker__clear-button:hover {
-      background-color: $color-white;
-    }
-    .react-daterange-picker__calendar--open {
-      z-index: $daterange-z;
-    }
-
-    .react-calendar__navigation {
-      background-color: $bg-gray-medium-3;
-      margin-bottom: 0;
-    }
-    .react-calendar--selectRange .react-calendar__tile--hover {
-      background-color: #e6e6e6;
-    }
-  }
+      }
 }
 
 .assignment-cycle-search-card {
