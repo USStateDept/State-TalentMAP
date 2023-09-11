@@ -8,7 +8,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 const DATE_FORMAT = 'MMMM d, yyyy';
 
 const EditAssignmentCycles = (props) => {
-  const { id } = props;
+  const { details, id } = props;
 
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
@@ -31,6 +31,8 @@ const EditAssignmentCycles = (props) => {
   const [organizationCountReview, setOrganizationCountReview] = useState('');
   const [mdsReview, setMdsReview] = useState('');
   const [assignedBidder, setAssignedBidder] = useState('');
+
+  console.log(id, 'details', details);
 
   const seasonOptions = [
     { value: 'Fall', label: 'Fall' },
@@ -96,7 +98,7 @@ const EditAssignmentCycles = (props) => {
           <label htmlFor="season">Cycle Category</label>
           <span className="bs-validation-container">
             <select
-              id="season"
+              id="cycleCategory"
               defaultValue="None Selected"
               onChange={(e) => setCycleCategory(e.target.value)}
               value={cycleCategory}
@@ -114,7 +116,7 @@ const EditAssignmentCycles = (props) => {
           <label htmlFor="season">Cycle Status</label>
           <span className="bs-validation-container">
             <select
-              id="season"
+              id="cycleStatus"
               defaultValue="None Selected"
               onChange={(e) => setCycleStatus(e.target.value)}
               value={cycleStatus}
@@ -132,7 +134,7 @@ const EditAssignmentCycles = (props) => {
           <label htmlFor="season">Exclusive Positions</label>
           <span className="bs-validation-container">
             <select
-              id="season"
+              id="ExclusivePositions"
               defaultValue="None Selected"
               onChange={(e) => setExclusivePositions(e.target.value)}
               value={exclusivePositions}
@@ -146,7 +148,7 @@ const EditAssignmentCycles = (props) => {
           <label htmlFor="season">Post Viewable</label>
           <span className="bs-validation-container">
             <select
-              id="season"
+              id="postViewable"
               defaultValue="None Selected"
               onChange={(e) => setPostViewable(e.target.value)}
               value={postViewable}

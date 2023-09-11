@@ -91,7 +91,7 @@ const AssignmentCycles = (props) => {
     page,
   });
 
-  const assignmentCycles = genericFilters$.find(f => get(f, 'item.description') === 'assignmentCycle');
+  const assignmentCycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
   const assignmentCycleOptions = uniqBy(sortBy(get(assignmentCycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const fetchAndSet = (resetPage = false) => {

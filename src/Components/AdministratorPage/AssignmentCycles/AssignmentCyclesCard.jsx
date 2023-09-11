@@ -21,10 +21,6 @@ const AssignmentCyclesCard = (props) => {
     displayNewModal,
   } = props;
 
-  const submitAction = () => {
-    swal.close();
-  };
-
   // =============== View Mode ===============
   const editSeason = (currentAssignmentInfo, isNew) => {
     swal({
@@ -32,9 +28,7 @@ const AssignmentCyclesCard = (props) => {
       button: false,
       content: (
         <EditAssignmentCycles
-          submitAction={submitAction}
           id={isNew ? '' : id}
-          currentAssignmentInfo={isNew ? {} : currentAssignmentInfo}
           details={
             isNew ? {} : {
               cycle_name,
@@ -44,7 +38,6 @@ const AssignmentCyclesCard = (props) => {
               cycle_excl_position,
               cycle_post_view,
               cycle_status,
-              description,
             }}
         />
       ),
@@ -86,6 +79,7 @@ const AssignmentCyclesCard = (props) => {
               onClick={(e) => {
                 e.preventDefault();
                 editSeason({
+                  id,
                   cycle_name,
                   cycle_category,
                   cycle_begin_date,
@@ -118,7 +112,6 @@ AssignmentCyclesCard.propTypes = {
   cycle_post_view: PropTypes.string.isRequired,
   cycle_status: PropTypes.string.isRequired,
   id: PropTypes.string,
-  description: PropTypes.string.isRequired,
   displayNewModal: PropTypes.bool.isRequired,
 };
 
@@ -131,7 +124,6 @@ AssignmentCyclesCard.defaultProps = {
   cycle_post_view: '',
   cycle_status: '',
   id: '',
-  description: '',
   displayNewModal: false,
 };
 
