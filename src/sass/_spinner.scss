@@ -102,8 +102,21 @@
   z-index: $bureau-spinner-z;
 }
 
+.tm-spinner-center {
+  left: 45%;
+  position: absolute;
+  top: 50%;
+  z-index: $bureau-spinner-z;
+}
+
 .tm-spinner-bureau-filters {
   left: 45%;
+  position: absolute;
+  top: 50px;
+}
+
+.tm-spinner-post-access-filters {
+  left: 50%;
   position: absolute;
   top: 50px;
 }

@@ -95,9 +95,11 @@ const PostPanelProcessing = (props) => {
   // ============= Submission Management =============
 
   const runPostPanelProcessing = () => {
+    const currTimestamp = new Date();
+    setPostPanelRuntime(currTimestamp);
     dispatch(createPostPanelProcessing(formData));
     dispatch(submitPanelMeeting(panelMeetingsResults$,
-      { postPanelRuntime: new Date() },
+      { postPanelRuntime: currTimestamp },
     ));
   };
 

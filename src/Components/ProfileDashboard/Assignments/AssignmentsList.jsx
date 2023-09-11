@@ -1,15 +1,20 @@
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { assignmentFetchData } from 'actions/assignment';
 import Spinner from 'Components/Spinner';
+import { checkFlag } from 'flags';
 import SectionTitle from '../SectionTitle';
 import BorderedList from '../../BorderedList';
 import AssignmentsListResultsCard from './AssignmentsListResultsCard';
 
-const AssignmentList = ({ id }) => {
+const useMaintainAssignments = () => checkFlag('flags.maintain_assignment');
+
+const AssignmentList = ({ id, showMaintainAssignmentLink }) => {
   // if ID is passed down will render that user's Assignments
   // no ID will return the logged in user's Assignments
+  const showMaintainAssignments = useMaintainAssignments();
 
   const dispatch = useDispatch();
   const assignments = useSelector(state => state.assignment);
@@ -50,6 +55,12 @@ const AssignmentList = ({ id }) => {
                 <BorderedList contentArray={positionArray} />
             }
           </div>
+          {
+            showMaintainAssignmentLink && showMaintainAssignments &&
+              <div className="section-padded-inner-container small-link-container view-more-link-centered">
+                <Link to={`/profile/ao/${id}/assignments`}>Maintain Assignments</Link>
+              </div>
+          }
         </div>
       )
   );
@@ -57,10 +68,12 @@ const AssignmentList = ({ id }) => {
 
 AssignmentList.propTypes = {
   id: PropTypes.string,
+  showMaintainAssignmentLink: PropTypes.bool,
 };
 
 AssignmentList.defaultProps = {
   id: null,
+  showMaintainAssignmentLink: false,
 };
 
 export default AssignmentList;

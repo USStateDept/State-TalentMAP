@@ -1,4 +1,5 @@
 .custom-table {
+    position: relative;
     width: 100%;
     border-collapse: collapse; /* Collapse borders */
     border-spacing: 0;
@@ -29,6 +30,11 @@
           }
         }
       }
+}
+
+.post-access-scroll-container {
+  overflow: auto;
+  height: 800px;
 }
 
 .post-access-emp-search-div {

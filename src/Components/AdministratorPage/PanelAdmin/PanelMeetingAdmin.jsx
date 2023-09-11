@@ -111,16 +111,19 @@ const PanelMeetingAdmin = (props) => {
 
   // Submit current timestamp for specified field without saving other pending changes
   const handleRun = (field) => {
-    dispatch(submitPanelMeeting(panelMeetingsResults$,
-      {
-        prelimRuntime: field === 'prelimRuntime' ?
-          new Date() :
-          new Date(panelMeetingDates?.find(x => x.mdt_code === 'OFF').pmd_dttm),
-        addendumRuntime: field === 'addendumRuntime' ?
-          new Date() :
-          new Date(panelMeetingDates?.find(x => x.mdt_code === 'OFFA').pmd_dttm),
-      },
-    ));
+    const currTimestamp = new Date();
+    if (field === 'prelimRuntime') {
+      setPrelimRuntime(currTimestamp);
+      dispatch(submitPanelMeeting(panelMeetingsResults$,
+        { prelimRuntime: currTimestamp },
+      ));
+    }
+    if (field === 'addendumRuntime') {
+      setAddendumRuntime(currTimestamp);
+      dispatch(submitPanelMeeting(panelMeetingsResults$,
+        { addendumRuntime: currTimestamp },
+      ));
+    }
   };
 
   const submit = () => {
@@ -333,14 +336,17 @@ const PanelMeetingAdmin = (props) => {
 
 PanelMeetingAdmin.propTypes = {
   history: HISTORY_OBJECT.isRequired,
-  pmSeqNum: PropTypes.string,
+  pmSeqNum: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   panelMeetingsResults: PropTypes.shape(),
   panelMeetingsIsLoading: PropTypes.bool,
 };
 
 PanelMeetingAdmin.defaultProps = {
   match: {},
-  pmSeqNum: undefined,
+  pmSeqNum: false,
   panelMeetingsResults: undefined,
   panelMeetingsIsLoading: false,
 };

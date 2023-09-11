@@ -985,6 +985,13 @@ export const getDifferentials = (result) => {
   return <Differentials {...props} />;
 };
 
+
+export const getBidderPortfolioUrl = (perdet, viewType) => {
+  let url = `/profile/public/${perdet}`;
+  if (viewType) url += `/${viewType}`;
+  return url;
+};
+
 export const onEditModeSearch = (editMode, id, setStateFun, stateList) => {
   if (editMode) {
     setStateFun([...stateList, id]);
