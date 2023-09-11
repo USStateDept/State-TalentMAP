@@ -1,17 +1,26 @@
 import { withRouter } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { jobCategoriesAdminFetchData } from 'actions/cycleManagement';
+import { jobCategoriesAdminFetchData, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import CheckBox from 'Components/CheckBox';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 
 const JobCategories = () => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.jobCategoriesAdminFetchData);
+  const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
+  const jobCategoriesResults = jobCategories?.results?.QRY_LSTJOBCATS_REF;
+  const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
+  // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
+  const jobCategorySkillsResults = jobCategorySkills?.results?.QRY_LSTSKILLS_REF;
+  // console.log('results: ', jobCategorySkillsResults);
+
+
+  const [selectedJobCategory, setSelectedJobCategory] = useState('');
+  // const jobCategories = ['management', 'test'];
+
+  // console.log(test[1]);
   // const cyclePositions = data.results;
-  const jobCategories = ['Management', 'Construction Engineers', 'Consular', 'Diplomatic Courier'];
   // const [jobCategories, setJobCategories] = useState([]);
-  console.log(data.results);
   // const getJobCategories = () => {
   //   const categoriesToReturn = [];
   //   cyclePositions.forEach((position) => {
@@ -32,8 +41,13 @@ const JobCategories = () => {
   // const tableHeaders = ['Skill Codes', 'Skill Description'];
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
+    // dispatch(jobCategoriesFetchSkills());
     // getJobCategories();
   }, []);
+  useEffect(() => {
+    dispatch(jobCategoriesFetchSkills());
+    console.log('selected category id: ', selectedJobCategory);
+  }, [selectedJobCategory]);
   return (
     <div className="admin-job-categories-page">
       <ProfileSectionTitle title="Job Categories" icon="map" />
@@ -43,12 +57,12 @@ const JobCategories = () => {
           // disabled={disableMeetingType}
           className="select-dropdown"
           // value={panelMeetingType}
-          // onChange={(e) => setPanelMeetingType(e.target.value)}
+          onChange={(e) => setSelectedJobCategory(e.target.value)}
         >
           {
-            jobCategories.map(category => (
-              <option value={category}>
-                {category}
+            jobCategoriesResults?.map(category => (
+              <option value={category.id}>
+                {category.description}
               </option>
             ))
           }
@@ -57,9 +71,11 @@ const JobCategories = () => {
       <div>
         <table className="custom-table">
           <thead>
-            <tr>
+            <tr className="jc-table-row">
               <th className="checkbox-pos">
                 <CheckBox />
+              </th>
+              <th>
                 Skill Code
               </th>
               <th>
@@ -69,7 +85,15 @@ const JobCategories = () => {
           </thead>
           <tbody>
             {
-              'hello world'
+              jobCategorySkillsResults?.map(skill => (
+                <tr key={skill?.SKL_CODE}>
+                  <td className="checkbox-pac checkbox-pos">
+                    <CheckBox />
+                  </td>
+                  <td>{skill?.SKL_CODE}</td>
+                  <td>{skill?.SKL_DESC}</td>
+                </tr>
+              ))
             }
           </tbody>
         </table>
