@@ -18,6 +18,7 @@ exports[`BidControlsComponent matches snapshot 1`] = `
     }
     className=""
     disabled={false}
+    excludeTmCheckboxClass={false}
     id="label 1"
     label="label 1"
     labelSrOnly={false}

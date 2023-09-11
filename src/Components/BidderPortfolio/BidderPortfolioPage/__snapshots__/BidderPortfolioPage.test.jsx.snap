@@ -267,6 +267,7 @@ exports[`BidderPortfolioPageComponent matches snapshot 1`] = `
           showEdit={false}
           showListView={false}
           updatePagination={[Function]}
+          viewType=""
         />
       </ErrorBoundary>
     </div>

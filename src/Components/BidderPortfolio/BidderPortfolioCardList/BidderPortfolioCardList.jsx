@@ -1,7 +1,8 @@
+import PropTypes from 'prop-types';
 import { BIDDER_RESULTS, CLASSIFICATIONS } from '../../../Constants/PropTypes';
 import BidderPortfolioStatCard from '../BidderPortfolioStatCard';
 
-const BidderPortfolioCardList = ({ results, classifications }) => (
+const BidderPortfolioCardList = ({ results, classifications, viewType }) => (
   <div className="usa-grid-full user-dashboard bidder-portfolio-stat-card-list">
     {
       results.map(result => (
@@ -9,6 +10,7 @@ const BidderPortfolioCardList = ({ results, classifications }) => (
           <BidderPortfolioStatCard
             userProfile={result}
             classifications={classifications}
+            viewType={viewType}
           />
         </div>
       ))
@@ -19,11 +21,13 @@ const BidderPortfolioCardList = ({ results, classifications }) => (
 BidderPortfolioCardList.propTypes = {
   results: BIDDER_RESULTS.isRequired,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 
 BidderPortfolioCardList.defaultProps = {
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioCardList;
