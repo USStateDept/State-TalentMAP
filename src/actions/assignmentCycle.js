@@ -86,7 +86,6 @@ export function assignmentCycleFetchDataLoading(bool) {
 }
 
 export function assignmentCycleFetchDataSuccess(results) {
-  console.log('assignmentCycleFetchDataSuccess', results);
   return {
     type: 'ASSIGNMENT_CYCLE_FETCH_SUCCESS',
     results,

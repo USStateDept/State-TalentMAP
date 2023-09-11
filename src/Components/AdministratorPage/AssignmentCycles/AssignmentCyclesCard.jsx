@@ -17,7 +17,6 @@ const AssignmentCyclesCard = (props) => {
     cycle_post_view,
     cycle_status,
     id,
-    description,
     displayNewModal,
   } = props;
 
@@ -87,7 +86,6 @@ const AssignmentCyclesCard = (props) => {
                   cycle_excl_position,
                   cycle_post_view,
                   cycle_status,
-                  description,
                 }, false);
               }
               }
