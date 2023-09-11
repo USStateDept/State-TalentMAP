@@ -4,14 +4,12 @@ import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
 // import CheckBox from 'Components/CheckBox';
-import { saveRemark } from 'actions/editRemark';
+import { saveRemark } from 'actions/remark';
 
 const EditRemark = (props) => {
   const {
     rmrkCategories,
     dispatch,
-    saveAdminRemarkIsLoading,
-    saveAdminRemarkSuccess,
     category,
     remark,
     isEdit,
@@ -48,9 +46,6 @@ const EditRemark = (props) => {
       shortDescription,
       // activeIndicator,
     }));
-    if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
-      swal.close();
-    }
   };
 
   const onRemoveInsertionClick = (i) => {
@@ -211,16 +206,12 @@ EditRemark.propTypes = {
   }),
   category: PropTypes.string,
   isEdit: PropTypes.bool.isRequired,
-  saveAdminRemarkSuccess: PropTypes.bool,
-  saveAdminRemarkIsLoading: PropTypes.bool,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
   remark: {},
   category: '',
-  saveAdminRemarkIsLoading: false,
-  saveAdminRemarkSuccess: false,
 };
 
 export default EditRemark;
