@@ -153,7 +153,6 @@ const EditAssignmentCycles = (props) => {
                   value={id === '' ? cycleBoundries : details?.assignmentCycle?.cycleBoundary}
                   maxDetail="month"
                   calendarIcon={null}
-                  showLeadingZeros
                   className="date-picker-validation-container"
                 />
               </span>
@@ -168,7 +167,6 @@ const EditAssignmentCycles = (props) => {
                   value={id === '' ? sixMonthLanguage : details?.assignmentCycle?.sixMonthBoundary}
                   maxDetail="month"
                   calendarIcon={null}
-                  showLeadingZeros
                   className="date-picker-validation-container"
                 />
               </span>
@@ -183,7 +181,6 @@ const EditAssignmentCycles = (props) => {
                   value={id === '' ? twelveMonthLanguage : details?.assignmentCycle?.twelveMonthBoundary}
                   maxDetail="month"
                   calendarIcon={null}
-                  showLeadingZeros
                   className="date-picker-validation-container"
                 />
               </span>
@@ -198,7 +195,6 @@ const EditAssignmentCycles = (props) => {
                   value={id === '' ? twentyFourMonthLanguage : details?.assignmentCycle?.twentyFourMonthBoundary}
                   maxDetail="month"
                   calendarIcon={null}
-                  showLeadingZeros
                   className="date-picker-validation-container"
                 />
               </span>
