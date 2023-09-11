@@ -1,4 +1,5 @@
 import { batch } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
 import { convertQueryToString } from 'utilities';
 // eslint-disable-next-line no-unused-vars
 import api from '../api';
@@ -157,6 +158,7 @@ export function jobCategoriesFetchSkillsSuccess(data) {
   };
 }
 export function jobCategoriesFetchSkills(query = {}) {
+  console.log('query: ', query);
   return (dispatch) => {
     batch(() => {
       dispatch(jobCategoriesFetchSkillsIsLoading(true));

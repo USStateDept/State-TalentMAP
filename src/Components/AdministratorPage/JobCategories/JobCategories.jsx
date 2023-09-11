@@ -8,14 +8,20 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 const JobCategories = () => {
   const dispatch = useDispatch();
   const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
-  const jobCategoriesResults = jobCategories?.results?.QRY_LSTJOBCATS_REF;
+  // remove QRY_LSTJOB etc.
+  // TODO: change SKL_CODE etc to id and description
+  // make sure request for skills is sent back correctly
+  const jobCategoriesResults = jobCategories?.results;
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
-  const jobCategorySkillsResults = jobCategorySkills?.results?.QRY_LSTSKILLS_REF;
+  const jobCategorySkillsResults = jobCategorySkills?.results;
   // console.log('results: ', jobCategorySkillsResults);
 
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
+  const [checkedSkillIds, setCheckedSkillIds] = useState([]);
+  console.log('checkedSkillIds: ', checkedSkillIds);
+  const [selectAll, setSelectAll] = useState(false);
   // const jobCategories = ['management', 'test'];
 
   // console.log(test[1]);
@@ -39,15 +45,42 @@ const JobCategories = () => {
   //   setJobCategories(['Management', 'Construction Engineers']);
   // };
   // const tableHeaders = ['Skill Codes', 'Skill Description'];
+  const getQuery = () => ({
+    category_id: selectedJobCategory,
+  });
+
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
     // dispatch(jobCategoriesFetchSkills());
     // getJobCategories();
   }, []);
   useEffect(() => {
-    dispatch(jobCategoriesFetchSkills());
+    dispatch(jobCategoriesFetchSkills(getQuery()));
     console.log('selected category id: ', selectedJobCategory);
   }, [selectedJobCategory]);
+  const handleSelectAll = () => {
+    if (!selectAll) {
+      setSelectAll(true);
+      setCheckedSkillIds(
+        jobCategorySkillsResults?.map(skill => skill.id),
+      );
+    } else {
+      setSelectAll(false);
+      setCheckedSkillIds([]);
+    }
+  };
+  const handleSelectSkill = (skill => {
+    if (checkedSkillIds.includes(skill.id)) {
+      const filteredSkills = checkedSkillIds.filter(x => x !== skill.id);
+      setCheckedSkillIds(filteredSkills);
+    } else {
+      setCheckedSkillIds([...checkedSkillIds, skill.id]);
+    }
+  });
+  const handleSubmit = (() => {
+    console.log('hello world!');
+  });
+
   return (
     <div className="admin-job-categories-page">
       <ProfileSectionTitle title="Job Categories" icon="map" />
@@ -73,7 +106,10 @@ const JobCategories = () => {
           <thead>
             <tr className="jc-table-row">
               <th className="checkbox-pos">
-                <CheckBox />
+                <CheckBox
+                  checked={!selectAll}
+                  onCheckBoxClick={handleSelectAll}
+                />
               </th>
               <th>
                 Skill Code
@@ -86,17 +122,23 @@ const JobCategories = () => {
           <tbody>
             {
               jobCategorySkillsResults?.map(skill => (
-                <tr key={skill?.SKL_CODE}>
+                <tr key={skill?.id}>
                   <td className="checkbox-pac checkbox-pos">
-                    <CheckBox />
+                    <CheckBox
+                      value={checkedSkillIds.includes(skill.id)}
+                      onCheckBoxClick={() => handleSelectSkill(skill)}
+                    />
                   </td>
-                  <td>{skill?.SKL_CODE}</td>
-                  <td>{skill?.SKL_DESC}</td>
+                  <td>{skill?.id}</td>
+                  <td>{skill?.id}</td>
                 </tr>
               ))
             }
           </tbody>
         </table>
+        <div className="modal-controls">
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
       </div>
     </div>
   );
