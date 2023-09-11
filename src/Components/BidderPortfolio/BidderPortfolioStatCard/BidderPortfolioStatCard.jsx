@@ -121,8 +121,8 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
       <div className="bidder-portfolio-stat-card-bottom">
         { showMore &&
           <div>
+            <dt>Comments:</dt>
             <div className="stat-card-data-point stat-card-comments">
-              <dt>Comments:</dt>
               <dd className="stat-card-dd">
                 <TextareaAutosize
                   className="stat-card-textarea"
