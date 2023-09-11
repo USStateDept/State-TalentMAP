@@ -3,7 +3,7 @@ import { get } from 'lodash';
 import DatePicker from 'react-datepicker';
 import { useDispatch } from 'react-redux';
 import { projectedVacancyEdit } from 'actions/projectedVacancy';
-import { getDifferentials, getPostName, getResult } from 'utilities';
+import { getPostName, getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_DATE, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
@@ -12,6 +12,7 @@ import {
 import TabbedCard from 'Components/TabbedCard';
 import LanguageList from 'Components/LanguageList';
 import ToggleButton from 'Components/ToggleButton';
+import Differentials from 'Components/Differentials';
 import PropTypes from 'prop-types';
 import { Row } from 'Components/Layout';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
@@ -19,6 +20,7 @@ import { useDidMountEffect } from 'hooks';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import FA from 'react-fontawesome';
+import { NO_TOUR_END_DATE } from '../../Constants/SystemMessages';
 
 const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) => {
   const dispatch = useDispatch();
@@ -73,15 +75,15 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
   // initial states will need to pull from "pos" once we've determined the ref data structure
   // if included defaults to true, is this something that will never be saved beyond local state?
   const [included, setIncluded] = useState(true);
-  const [season, setSeason] = useState();
-  const [status, setStatus] = useState();
-  const [overrideTED, setOverrideTED] = useState();
+  const [season, setSeason] = useState(getResult(pos, 'bid_season_description'));
+  const [status, setStatus] = useState(getResult(pos, 'future_vacancy_status_description'));
+  const [overrideTED, setOverrideTED] = useState(getResult(result, 'future_vacancy_override_tour_end_date'));
   const [langOffsetSummer, setLangOffsetSummer] = useState();
   const [langOffsetWinter, setLangOffsetWinter] = useState();
-  const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
+  const [textArea, setTextArea] = useState(getResult(result, 'capsule_description'));
 
-  const updateUser = getResult(pos, 'description.last_editing_user');
-  const updateDate = getResult(pos, 'description.date_updated');
+  const updateUser = getResult(pos, 'updated_user');
+  const updateDate = getResult(pos, 'update_date');
 
   useDidMountEffect(() => {
     updateIncluded(id, included);
@@ -106,38 +108,46 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
     setTextArea(pos?.description?.content || 'No description.');
   };
 
+  const getDifferentials = (result) => {
+    const dangerPay = get(result, 'bidding_tool_danger_rate_number');
+    const postDifferential = get(result, 'bidding_tool_differential_rate_number');
+    const props = { dangerPay, postDifferential };
+    return <Differentials {...props} />;
+  };
+
   const sections = {
     /* eslint-disable quote-props */
     subheading: {
-      'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER),
-      'Skill': getResult(pos, 'skill_code') || NO_SKILL,
-      'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
+      'Position Number': getResult(pos, 'position_number') || NO_POSITION_NUMBER,
+      'Skill': getResult(pos, 'position_skill_code') || NO_SKILL,
+      'Position Title': getResult(pos, 'position_title') || NO_POSITION_TITLE,
     },
     bodyPrimary: {
-      'Assignee TED': getResult(pos, 'assignee') || NO_USER_LISTED,
-      'Incumbent TED': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Bid Season': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
+      'Assignee TED': getResult(pos, 'assignee_tour_end_date') || NO_TOUR_END_DATE,
+      'Incumbent TED': getResult(pos, 'incumbent') || NO_TOUR_END_DATE,
+      'Bid Season': getResult(pos, 'bid_season_description') || 'None Listed',
+      'Tour of Duty': getResult(pos, 'tour_of_duty_description') || NO_TOUR_OF_DUTY,
+      'Language': <LanguageList
+        languages={[getResult(pos, 'positon_language1_code'), getResult(pos, 'positon_language1_code')]}
+        propToUse="representation"
+      />,
     },
     bodySecondary: {
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'post') || NO_POST),
-      'Status': getResult(pos, 'status') || NO_STATUS,
-      'Organization': getResult(pos, 'organization') || NO_ORG,
-      'TED': getResult(result, 'ted') || NO_DATE,
-      'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
+      'Bureau': getResult(pos, 'bureau_short_description') || NO_BUREAU,
+      'Location': getPostName(get(pos, 'location_description') || NO_POST),
+      'Status': getResult(pos, 'future_vacancy_status_description') || NO_STATUS,
+      'Organization': getResult(pos, 'organization_short_description') || NO_ORG,
+      'TED': getResult(result, 'future_vacancy_override_tour_end_date') || NO_TOUR_END_DATE,
+      'Incumbent': getResult(pos, 'incumbent') || NO_USER_LISTED,
       'Language Offset Summer': '12 Months',
       'Language Offset Winter': '3 Months',
-      'Skill': getResult(pos, 'skill_code') || NO_SKILL,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Pay Plan': '---',
+      'Grade': getResult(pos, 'position_grade_code') || NO_GRADE,
+      'Pay Plan': getResult(pos, 'position_pay_plan_code') || NO_GRADE,
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     textarea: get(pos, 'description.content') || 'No description.',
     metadata: {
-      'Position Posted': getResult(pos, 'description.date_created') || NO_UPDATE_DATE,
+      'Position Posted': getResult(pos, 'posted_date') || NO_UPDATE_DATE,
       'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
     },
     /* eslint-enable quote-props */
@@ -146,16 +156,18 @@ const ProjectedVacancyCard = ({ result, updateIncluded, id, onEditModeSearch }) 
     /* eslint-disable quote-props */
     staticBody: {
       'Assignee TED': getResult(pos, 'assignee') || NO_USER_LISTED,
-      'Incumbent TED': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(get(pos, 'post') || NO_POST),
-      'Organization': getResult(pos, 'organization') || NO_ORG,
+      'Incumbent TED': getResult(pos, 'incumbent') || NO_USER_LISTED,
+      'Tour of Duty': getResult(pos, 'tour_of_duty_description') || NO_TOUR_OF_DUTY,
+      'Language': <LanguageList
+        languages={[getResult(pos, 'positon_language1_code'), getResult(pos, 'positon_language1_code')]}
+        propToUse="representation"
+      />,
+      'Bureau': getResult(pos, 'bureau_short_description') || NO_BUREAU,
+      'Location': getPostName(get(pos, 'location_description') || NO_POST),
+      'Organization': getResult(pos, 'organization_short_description') || NO_ORG,
       'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Skill': getResult(pos, 'skill_code') || NO_SKILL,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Pay Plan': '---',
+      'Grade': getResult(pos, 'position_grade_code') || NO_GRADE,
+      'Pay Plan': getResult(pos, 'position_pay_plan_code') || NO_GRADE,
       'Post Differential | Danger Pay': getDifferentials(pos),
     },
     inputBody: <div className="position-form">
@@ -318,3 +330,4 @@ ProjectedVacancyCard.defaultProps = {
 };
 
 export default ProjectedVacancyCard;
+
