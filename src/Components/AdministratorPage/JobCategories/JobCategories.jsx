@@ -11,10 +11,10 @@ const JobCategories = () => {
   // remove QRY_LSTJOB etc.
   // TODO: change SKL_CODE etc to id and description
   // make sure request for skills is sent back correctly
-  const jobCategoriesResults = jobCategories?.results?.QRY_LSTJOBCATS_REF;
+  const jobCategoriesResults = jobCategories?.results;
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
-  const jobCategorySkillsResults = jobCategorySkills?.results?.QRY_LSTSKILLS_REF;
+  const jobCategorySkillsResults = jobCategorySkills?.results;
   // console.log('results: ', jobCategorySkillsResults);
 
 
@@ -40,7 +40,7 @@ const JobCategories = () => {
     if (!selectAll) {
       setSelectAll(true);
       setCheckedSkillIds(
-        jobCategorySkillsResults?.map(skill => skill.SKL_CODE),
+        jobCategorySkillsResults?.map(skill => skill.id),
       );
     } else {
       setSelectAll(false);
@@ -49,11 +49,11 @@ const JobCategories = () => {
   };
 
   const handleSelectSkill = (skill => {
-    if (checkedSkillIds.includes(skill.SKL_CODE)) {
-      const filteredSkills = checkedSkillIds.filter(x => x !== skill.SKL_CODE);
+    if (checkedSkillIds.includes(skill.code)) {
+      const filteredSkills = checkedSkillIds.filter(x => x !== skill.code);
       setCheckedSkillIds(filteredSkills);
     } else {
-      setCheckedSkillIds([...checkedSkillIds, skill.SKL_CODE]);
+      setCheckedSkillIds([...checkedSkillIds, skill.code]);
     }
   });
 
@@ -77,8 +77,8 @@ const JobCategories = () => {
           >
             {
               jobCategoriesResults?.map(category => (
-                <option value={category.JC_ID}>
-                  {category.JC_NM_TXT}
+                <option value={category.id}>
+                  {category.description}
                 </option>
               ))
             }
@@ -106,15 +106,15 @@ const JobCategories = () => {
           <tbody>
             {
               jobCategorySkillsResults?.map(skill => (
-                <tr key={skill?.SKL_CODE}>
+                <tr key={skill?.code}>
                   <td className="checkbox-pac checkbox-pos">
                     <CheckBox
-                      value={checkedSkillIds.includes(skill.SKL_CODE)}
+                      value={checkedSkillIds.includes(skill.code)}
                       onCheckBoxClick={() => handleSelectSkill(skill)}
                     />
                   </td>
-                  <td>{skill?.SKL_CODE}</td>
-                  <td>{skill?.SKL_DESC}</td>
+                  <td>{skill?.code}</td>
+                  <td>{skill?.description}</td>
                 </tr>
               ))
             }

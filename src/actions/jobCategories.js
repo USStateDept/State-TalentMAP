@@ -112,10 +112,10 @@ export function jobCategoriesAdminFetchData() {
       dispatch(jobCategoriesAdminFetchDataHasErrored(false));
     });
     // const q = convertQueryToString();
-    // const endpoint = 'fsbid/job_categories/';
+    const endpoint = 'fsbid/job_categories/';
     // const ep = `${endpoint}?${q}`;
-    // api().get(endpoint)
-    jobCategoriesAdminDummyDataToReturn()
+    api().get(endpoint)
+    // jobCategoriesAdminDummyDataToReturn()
       .then((data) => {
         batch(() => {
           dispatch(jobCategoriesAdminFetchDataSuccess(data));
@@ -164,10 +164,10 @@ export function jobCategoriesFetchSkills(query = {}) {
       dispatch(jobCategoriesFetchSkillsIsLoading(true));
       dispatch(jobCategoriesFetchSkillsHasErrored(false));
     });
-    // const q = convertQueryToString(query);
-    // const endpoint = `fsbid/job_categories/skills?${q}`;
-    // api().get(endpoint)
-    jobCategoriesFetchSkillsDataToReturn(query)
+    const q = convertQueryToString(query);
+    const endpoint = `fsbid/job_categories/skills?${q}`;
+    api().get(endpoint)
+    // jobCategoriesFetchSkillsDataToReturn(query)
       .then((data) => {
         batch(() => {
           dispatch(jobCategoriesFetchSkillsSuccess(data));
