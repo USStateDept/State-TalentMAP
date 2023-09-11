@@ -41,8 +41,6 @@ const EditAssignmentCycles = (props) => {
     { value: 'Summer', label: 'Summer' },
   ];
 
-  console.log(id, details);
-
   // These functions arent functional for now.
   const saveAC = (e) => {
     e.preventDefault();
