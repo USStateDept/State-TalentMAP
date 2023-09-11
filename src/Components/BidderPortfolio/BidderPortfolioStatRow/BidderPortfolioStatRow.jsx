@@ -193,7 +193,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       }
       { showSaveAndCancel &&
         <div className="stat-card-btn-container">
-          <button className="stat-card-cancel-btn" onClick={onCancel}>Cancel</button>
+          <button onClick={onCancel}>Cancel</button>
           <button onClick={saveEdit} disabled={!verifyComments && !verifyAltEmail}>Save</button>
         </div>
       }
