@@ -11,10 +11,10 @@ const JobCategories = () => {
   // remove QRY_LSTJOB etc.
   // TODO: change SKL_CODE etc to id and description
   // make sure request for skills is sent back correctly
-  const jobCategoriesResults = jobCategories?.results;
+  const jobCategoriesResults = jobCategories?.results?.QRY_LSTJOBCATS_REF;
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
-  const jobCategorySkillsResults = jobCategorySkills?.results;
+  const jobCategorySkillsResults = jobCategorySkills?.results?.QRY_LSTSKILLS_REF;
   // console.log('results: ', jobCategorySkillsResults);
 
 
@@ -22,61 +22,41 @@ const JobCategories = () => {
   const [checkedSkillIds, setCheckedSkillIds] = useState([]);
   console.log('checkedSkillIds: ', checkedSkillIds);
   const [selectAll, setSelectAll] = useState(false);
-  // const jobCategories = ['management', 'test'];
 
-  // console.log(test[1]);
-  // const cyclePositions = data.results;
-  // const [jobCategories, setJobCategories] = useState([]);
-  // const getJobCategories = () => {
-  //   const categoriesToReturn = [];
-  //   cyclePositions.forEach((position) => {
-  //     // if (!categoriesSoFar) categoriesSoFar = [];
-  //     if (!categoriesToReturn.includes(position.pos_job_category_desc)) {
-  //     //   categoriesToReturn.push(position.pos_job_category_desc);
-  //     // }
-  //       categoriesToReturn.push(
-  //         <option value={position.pos_job_category_desc}>
-  //           {position.pos_job_category_desc}
-  //         </option>,
-  //       );
-  //     }
-  //   });
-  //   console.log(categoriesToReturn);
-  //   setJobCategories(['Management', 'Construction Engineers']);
-  // };
-  // const tableHeaders = ['Skill Codes', 'Skill Description'];
   const getQuery = () => ({
     category_id: selectedJobCategory,
   });
 
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
-    // dispatch(jobCategoriesFetchSkills());
-    // getJobCategories();
   }, []);
+
   useEffect(() => {
     dispatch(jobCategoriesFetchSkills(getQuery()));
     console.log('selected category id: ', selectedJobCategory);
   }, [selectedJobCategory]);
+
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
       setCheckedSkillIds(
-        jobCategorySkillsResults?.map(skill => skill.id),
+        jobCategorySkillsResults?.map(skill => skill.SKL_CODE),
       );
     } else {
       setSelectAll(false);
       setCheckedSkillIds([]);
     }
   };
+
   const handleSelectSkill = (skill => {
-    if (checkedSkillIds.includes(skill.id)) {
-      const filteredSkills = checkedSkillIds.filter(x => x !== skill.id);
+    if (checkedSkillIds.includes(skill.SKL_CODE)) {
+      const filteredSkills = checkedSkillIds.filter(x => x !== skill.SKL_CODE);
       setCheckedSkillIds(filteredSkills);
     } else {
-      setCheckedSkillIds([...checkedSkillIds, skill.id]);
+      setCheckedSkillIds([...checkedSkillIds, skill.SKL_CODE]);
     }
   });
+
   const handleSubmit = (() => {
     console.log('hello world!');
   });
@@ -84,22 +64,26 @@ const JobCategories = () => {
   return (
     <div className="admin-job-categories-page">
       <ProfileSectionTitle title="Job Categories" icon="map" />
-      <div className="select-container">
-        <label htmlFor="categories-select">Select A Job Category</label>
-        <select
-          // disabled={disableMeetingType}
-          className="select-dropdown"
-          // value={panelMeetingType}
-          onChange={(e) => setSelectedJobCategory(e.target.value)}
-        >
-          {
-            jobCategoriesResults?.map(category => (
-              <option value={category.id}>
-                {category.description}
-              </option>
-            ))
-          }
-        </select>
+      <div>
+        <div className="modal-controls">
+          <button onClick={handleSubmit}>Create New Job Category</button>
+          <button onClick={handleSubmit}>Delete Selected Job Category</button>
+        </div>
+        <div className="select-container">
+          <label htmlFor="categories-select">Select A Job Category</label>
+          <select
+            className="select-dropdown"
+            onChange={(e) => setSelectedJobCategory(e.target.value)}
+          >
+            {
+              jobCategoriesResults?.map(category => (
+                <option value={category.JC_ID}>
+                  {category.JC_NM_TXT}
+                </option>
+              ))
+            }
+          </select>
+        </div>
       </div>
       <div>
         <table className="custom-table">
@@ -122,15 +106,15 @@ const JobCategories = () => {
           <tbody>
             {
               jobCategorySkillsResults?.map(skill => (
-                <tr key={skill?.id}>
+                <tr key={skill?.SKL_CODE}>
                   <td className="checkbox-pac checkbox-pos">
                     <CheckBox
-                      value={checkedSkillIds.includes(skill.id)}
+                      value={checkedSkillIds.includes(skill.SKL_CODE)}
                       onCheckBoxClick={() => handleSelectSkill(skill)}
                     />
                   </td>
-                  <td>{skill?.id}</td>
-                  <td>{skill?.id}</td>
+                  <td>{skill?.SKL_CODE}</td>
+                  <td>{skill?.SKL_DESC}</td>
                 </tr>
               ))
             }
