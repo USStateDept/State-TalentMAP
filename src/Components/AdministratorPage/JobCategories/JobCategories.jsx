@@ -2,6 +2,7 @@ import { withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { jobCategoriesAdminFetchData, jobCategoriesFetchSkills } from 'actions/jobCategories';
+import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
 
@@ -9,9 +10,6 @@ const JobCategories = () => {
   const dispatch = useDispatch();
   const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
   console.log('jobCategories: ', jobCategories);
-  // remove QRY_LSTJOB etc.
-  // TODO: change SKL_CODE etc to id and description
-  // make sure request for skills is sent back correctly
   const jobCategoriesResults = jobCategories?.data;
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   console.log('skills: ', jobCategorySkills);
@@ -22,6 +20,7 @@ const JobCategories = () => {
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
   const [checkedSkillIds, setCheckedSkillIds] = useState([]);
+  const [isEditMode, setIsEditMode] = useState(false);
   // console.log('checkedSkillIds: ', checkedSkillIds);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -68,8 +67,8 @@ const JobCategories = () => {
       <ProfileSectionTitle title="Job Categories" icon="map" />
       <div>
         <div className="modal-controls">
-          <button onClick={handleSubmit}>Create New Job Category</button>
-          <button onClick={handleSubmit}>Delete Selected Job Category</button>
+          {/* <button onClick={handleSubmit}>Create New Job Category</button> */}
+          {/* <button onClick={setIsEditMode(!isEditMode)}>Toggle Edit Mode</button> */}
         </div>
         <div className="select-container">
           <label htmlFor="categories-select">Select A Job Category</label>
@@ -95,31 +94,39 @@ const JobCategories = () => {
                 <CheckBox
                   checked={!selectAll}
                   onCheckBoxClick={handleSelectAll}
+                  disabled={isEditMode}
                 />
               </th>
-              <th>
+              <th className="skill-code-column">
                 Skill Code
               </th>
-              <th>
+              <th className="skill-desc-column">
                 Skill Description
+              </th>
+              <th>
+                <ToggleButton
+                  labelTextRight="Toggle Edit Mode"
+                  onChange={() => setIsEditMode(!isEditMode)}
+                  checked={isEditMode}
+                  onColor="#0071BC"
+                />
               </th>
             </tr>
           </thead>
           <tbody>
             {
               jobCategorySkillsResults?.map(skill => (
-                (skill.display_skill === '1') ?
-                  <tr key={skill.code}>
-                    <td className="checkbox-pac checkbox-pos">
-                      <CheckBox
-                        value={checkedSkillIds.includes(skill.code)}
-                        onCheckBoxClick={() => handleSelectSkill(skill)}
-                      />
-                    </td>
-                    <td>{skill.code}</td>
-                    <td>{skill.description}</td>
-                  </tr>
-                  : ''
+                <tr key={skill.code}>
+                  <td className="checkbox-pac checkbox-pos">
+                    <CheckBox
+                      value={checkedSkillIds.includes(skill.code) || skill.display_skill === '1'}
+                      onCheckBoxClick={() => handleSelectSkill(skill)}
+                      disabled={isEditMode}
+                    />
+                  </td>
+                  <td>{skill.code}</td>
+                  <td>{skill.description}</td>
+                </tr>
               ))
             }
           </tbody>
