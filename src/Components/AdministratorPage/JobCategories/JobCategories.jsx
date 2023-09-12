@@ -12,11 +12,11 @@ const JobCategories = () => {
   // remove QRY_LSTJOB etc.
   // TODO: change SKL_CODE etc to id and description
   // make sure request for skills is sent back correctly
-  const jobCategoriesResults = jobCategories?.results;
+  const jobCategoriesResults = jobCategories?.data;
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
   console.log('skills: ', jobCategorySkills);
   // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
-  const jobCategorySkillsResults = jobCategorySkills?.results;
+  const jobCategorySkillsResults = jobCategorySkills?.data;
   // console.log('results: ', jobCategorySkillsResults);
 
 
