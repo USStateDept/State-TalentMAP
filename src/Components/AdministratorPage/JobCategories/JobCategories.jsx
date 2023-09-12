@@ -8,11 +8,13 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 const JobCategories = () => {
   const dispatch = useDispatch();
   const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
+  console.log('jobCategories: ', jobCategories);
   // remove QRY_LSTJOB etc.
   // TODO: change SKL_CODE etc to id and description
   // make sure request for skills is sent back correctly
   const jobCategoriesResults = jobCategories?.results;
   const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
+  console.log('skills: ', jobCategorySkills);
   // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
   const jobCategorySkillsResults = jobCategorySkills?.results;
   // console.log('results: ', jobCategorySkillsResults);
@@ -20,7 +22,7 @@ const JobCategories = () => {
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
   const [checkedSkillIds, setCheckedSkillIds] = useState([]);
-  console.log('checkedSkillIds: ', checkedSkillIds);
+  // console.log('checkedSkillIds: ', checkedSkillIds);
   const [selectAll, setSelectAll] = useState(false);
 
   const getQuery = () => ({
@@ -33,7 +35,7 @@ const JobCategories = () => {
 
   useEffect(() => {
     dispatch(jobCategoriesFetchSkills(getQuery()));
-    console.log('selected category id: ', selectedJobCategory);
+    // console.log('selected category id: ', selectedJobCategory);
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {

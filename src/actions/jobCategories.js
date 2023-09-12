@@ -117,6 +117,9 @@ export function jobCategoriesAdminFetchData() {
     api().get(endpoint)
     // jobCategoriesAdminDummyDataToReturn()
       .then((data) => {
+        console.log('***DATA***');
+        console.log(data);
+        console.log('***DATA***');
         batch(() => {
           dispatch(jobCategoriesAdminFetchDataSuccess(data));
           dispatch(jobCategoriesAdminFetchDataHasErrored(false));
