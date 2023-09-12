@@ -42,7 +42,7 @@ const JobCategories = () => {
     if (!selectAll) {
       setSelectAll(true);
       setCheckedSkillIds(
-        jobCategorySkillsResults?.map(skill => skill.id),
+        jobCategorySkillsResults?.map(skill => skill.code),
       );
     } else {
       setSelectAll(false);
@@ -108,16 +108,18 @@ const JobCategories = () => {
           <tbody>
             {
               jobCategorySkillsResults?.map(skill => (
-                <tr key={skill?.code}>
-                  <td className="checkbox-pac checkbox-pos">
-                    <CheckBox
-                      value={checkedSkillIds.includes(skill.code)}
-                      onCheckBoxClick={() => handleSelectSkill(skill)}
-                    />
-                  </td>
-                  <td>{skill?.code}</td>
-                  <td>{skill?.description}</td>
-                </tr>
+                (skill.display_skill === '1') ?
+                  <tr key={skill.code}>
+                    <td className="checkbox-pac checkbox-pos">
+                      <CheckBox
+                        value={checkedSkillIds.includes(skill.code)}
+                        onCheckBoxClick={() => handleSelectSkill(skill)}
+                      />
+                    </td>
+                    <td>{skill.code}</td>
+                    <td>{skill.description}</td>
+                  </tr>
+                  : ''
               ))
             }
           </tbody>

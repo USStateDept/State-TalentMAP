@@ -35,7 +35,7 @@ const dummyCategorySkillsData =
         SKL_DESC: 'EXECUTIVE (PAS)',
         JCS_LAST_UPDT_USER_ID: 0,
         JCS_LAST_UPDT_TMSMP_DT: null,
-        INCLUSION_IND: '0',
+        INCLUSION_IND: '1',
       },
       {
         SKL_CODE: '0020',
