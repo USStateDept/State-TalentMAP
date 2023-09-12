@@ -6,7 +6,6 @@ import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
-import PaginationWrapper from 'Components/PaginationWrapper';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import DefinitionList from 'Components/DefinitionList';
@@ -49,10 +48,7 @@ const OrgStats = () => {
   const { data: orgs } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
-  const [page, setPage] = useState(userSelections.page || 1);
-
   const getCurrentInputs = () => ({
-    page,
     selectedBureaus,
     selectedOrgs,
     selectedCycles,
@@ -62,7 +58,6 @@ const OrgStats = () => {
     'org-stats-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
     'org-stats-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
     'org-stats-cycles': selectedCycles.map(cycleObject => (cycleObject?.id)),
-    page,
   });
 
   const fetchAndSet = () => {
@@ -83,7 +78,6 @@ const OrgStats = () => {
   useEffect(() => {
     fetchAndSet();
   }, [
-    page,
     selectedBureaus,
     selectedOrgs,
     selectedCycles,
@@ -228,14 +222,6 @@ const OrgStats = () => {
             }
             return <OrgStatsCard {...data} />;
           })}
-          <div className="usa-grid-full react-paginate">
-            <PaginationWrapper
-              pageSize={5}
-              onPageChange={p => setPage(p.page)}
-              forcePage={page}
-              totalResults={orgStatsData.length}
-            />
-          </div>
         </div>
       }
     </div>
