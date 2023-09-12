@@ -7,14 +7,13 @@ import FA from 'react-fontawesome';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import DefinitionList from 'Components/DefinitionList';
 import { Row } from 'Components/Layout';
 import { useDataLoader } from 'hooks';
+import { renderSelectionList } from 'utilities';
 import OrgStatsCard from './OrgStatsCard';
 import api from '../../../api';
 import { orgStatsFetchData, saveOrgStatsSelections } from '../../../actions/orgStats';
-
 
 const OrgStats = () => {
   const dispatch = useDispatch();
@@ -87,22 +86,6 @@ const OrgStats = () => {
     setSelectedBureaus([]);
     setSelectedOrgs([]);
     setSelectedCycles([]);
-  };
-
-  const renderSelectionList = ({ items, selected, ...rest }) => {
-    let queryProp = 'description';
-    if (items?.[0]?.custom_description) queryProp = 'custom_description';
-    else if (items?.[0]?.long_description) queryProp = 'long_description';
-    else if (items?.[0]?.name) queryProp = 'name';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
   };
 
   // Overlay for error, info, and loading state
