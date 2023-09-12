@@ -1,91 +1,6 @@
 import { batch } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
 import { convertQueryToString } from 'utilities';
-// eslint-disable-next-line no-unused-vars
 import api from '../api';
-
-// eslint-disable-next-line no-unused-vars
-const dummyCategoryData =
-  {
-    QRY_LSTJOBCATS_REF: [
-      {
-        JC_ID: '17',
-        JC_NM_TXT: 'Construction Engineers',
-        JC_STS_IND: 'Active',
-      },
-      {
-        JC_ID: '2',
-        JC_NM_TXT: 'Consular',
-        JC_STS_IND: 'Active',
-      },
-    ],
-  };
-
-// eslint-disable-next-line no-unused-vars
-const dummyCategorySkillsData =
-  {
-    O_JC_ID: '2',
-    O_JC_NM_TXT: 'Consular',
-    O_JC_STS_IND: '1',
-    O_JC_LAST_UPDT_TMSMP_DT: '20030807190449',
-    O_JC_LAST_UPDT_USER_ID: 2,
-    QRY_LSTSKILLS_REF: [
-      {
-        SKL_CODE: '0010',
-        SKL_DESC: 'EXECUTIVE (PAS)',
-        JCS_LAST_UPDT_USER_ID: 0,
-        JCS_LAST_UPDT_TMSMP_DT: null,
-        INCLUSION_IND: '1',
-      },
-      {
-        SKL_CODE: '0020',
-        SKL_DESC: 'EXECUTIVE (CAREER)',
-        JCS_LAST_UPDT_USER_ID: 0,
-        JCS_LAST_UPDT_TMSMP_DT: null,
-        INCLUSION_IND: '0',
-      },
-      {
-        SKL_CODE: '0060',
-        SKL_DESC: 'MULTIFUNCTIONAL',
-        JCS_LAST_UPDT_USER_ID: 0,
-        JCS_LAST_UPDT_TMSMP_DT: null,
-        INCLUSION_IND: '0',
-      },
-      {
-        SKL_CODE: '2010',
-        SKL_DESC: 'MANAGEMENT OFFICER',
-        JCS_LAST_UPDT_USER_ID: 0,
-        JCS_LAST_UPDT_TMSMP_DT: null,
-        INCLUSION_IND: '0',
-      },
-      {
-        SKL_CODE: '2050',
-        SKL_DESC: 'INSPECTION (FUNCTIONAL)',
-        JCS_LAST_UPDT_USER_ID: 0,
-        JCS_LAST_UPDT_TMSMP_DT: null,
-        INCLUSION_IND: '0',
-      }],
-  };
-
-// eslint-disable-next-line no-unused-vars
-const jobCategoriesAdminDummyDataToReturn = () => new Promise((resolve) => {
-  resolve({
-    results: dummyCategoryData,
-    count: dummyCategoryData.length,
-    next: null,
-    previous: null,
-  });
-});
-
-// eslint-disable-next-line no-unused-vars
-const jobCategoriesFetchSkillsDataToReturn = () => new Promise((resolve) => {
-  resolve({
-    results: dummyCategorySkillsData,
-    count: dummyCategorySkillsData.length,
-    next: null,
-    previous: null,
-  });
-});
 
 export function jobCategoriesAdminFetchDataHasErrored(bool) {
   return {
@@ -111,11 +26,8 @@ export function jobCategoriesAdminFetchData() {
       dispatch(jobCategoriesAdminFetchDataIsLoading(true));
       dispatch(jobCategoriesAdminFetchDataHasErrored(false));
     });
-    // const q = convertQueryToString();
     const endpoint = 'fsbid/job_categories/';
-    // const ep = `${endpoint}?${q}`;
     api().get(endpoint)
-    // jobCategoriesAdminDummyDataToReturn()
       .then((data) => {
         console.log('***DATA***');
         console.log(data);
@@ -170,7 +82,6 @@ export function jobCategoriesFetchSkills(query = {}) {
     const q = convertQueryToString(query);
     const endpoint = `fsbid/job_categories/skills?${q}`;
     api().get(endpoint)
-    // jobCategoriesFetchSkillsDataToReturn(query)
       .then((data) => {
         batch(() => {
           dispatch(jobCategoriesFetchSkillsSuccess(data));
