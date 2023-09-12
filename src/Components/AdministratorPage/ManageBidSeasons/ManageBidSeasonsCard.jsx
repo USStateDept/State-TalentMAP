@@ -1,62 +1,46 @@
-import { useEffect } from 'react';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { get } from 'lodash';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
-import { NO_DATE } from 'Constants/SystemMessages';
+import { bidSeasonsPositionEdit } from 'actions/BidSeasons';
 import EditBidSeasons from './EditBidSeasons';
 
 const ManageBidSeasonsCard = (props) => {
+  const dispatch = useDispatch();
   const {
-    bid_seasons_category,
+    id,
+    description,
     bid_seasons_begin_date,
     bid_seasons_end_date,
     bid_seasons_future_vacancy,
     bid_seasons_panel_cutoff,
-    id,
-    description,
-    bidder,
-    displayNewModal,
   } = props;
-  const created = get(bidder, 'bid-seasons.date_created');
-  const formattedCreated = created ? formatDate(created) : NO_DATE;
-  const startDate = get(bidder, 'bid-seasons.start_date');
-  const endDate = get(bidder, 'bid-seasons.end_date');
-  const panelCutoff = get(bidder, 'bid-seasons.panel_cutOff');
-  const submitAction = () => {
-    swal.close();
+
+  const submit = (data) => {
+    dispatch(bidSeasonsPositionEdit(data));
   };
 
-  // =============== View Mode ===============
-  const editSeason = (seasonInfo, isNew) => {
+
+  const editSeason = () => {
     swal({
       title: 'Bid Season Information',
       button: false,
       content: (
         <EditBidSeasons
-          submitAction={submitAction}
-          id={isNew ? '' : id}
-          seasonInfo={isNew ? {} : seasonInfo}
-          details={
-            isNew ? {} : {
-              formattedCreated,
-              startDate,
-              endDate,
-              panelCutoff,
-            }}
+          id={id}
+          description={description}
+          bid_seasons_begin_date={bid_seasons_begin_date}
+          bid_seasons_end_date={bid_seasons_end_date}
+          bid_seasons_future_vacancy={bid_seasons_future_vacancy}
+          bid_seasons_panel_cutoff={bid_seasons_panel_cutoff}
+          submitAction={submit}
         />
       ),
     });
   };
-
-  useEffect(() => {
-    if (displayNewModal) {
-      editSeason({}, true);
-    }
-  }, [displayNewModal]);
 
   return (
     <div className="position-form">
@@ -83,16 +67,8 @@ const ManageBidSeasonsCard = (props) => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                editSeason({
-                  bid_seasons_begin_date,
-                  bid_seasons_end_date,
-                  bid_seasons_category,
-                  bid_seasons_future_vacancy,
-                  bid_seasons_panel_cutoff,
-                  description,
-                }, false);
-              }
-              }
+                editSeason();
+              }}
               to="#"
             >
               <FA className="fa-solid fa-pencil" />
@@ -106,33 +82,12 @@ const ManageBidSeasonsCard = (props) => {
 };
 
 ManageBidSeasonsCard.propTypes = {
-  bid_seasons_category: PropTypes.string,
-  bid_seasons_begin_date: PropTypes.string,
-  bid_seasons_end_date: PropTypes.string,
-  bid_seasons_panel_cutoff: PropTypes.string,
-  bid_seasons_future_vacancy: PropTypes.string,
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  displayNewModal: PropTypes.bool.isRequired,
-  bidder: PropTypes.shape({
-    'bid-seasons': PropTypes.shape({
-      date_created: PropTypes.string,
-      startDate: PropTypes.string,
-      endDate: PropTypes.string,
-      panelCutoff: PropTypes.string,
-    }),
-  }).isRequired,
-};
-
-ManageBidSeasonsCard.defaultProps = {
-  bid_seasons_category: '',
-  bid_seasons_begin_date: '',
-  bid_seasons_end_date: '',
-  bid_seasons_panel_cutoff: '',
-  bid_seasons_future_vacancy: '',
-  id: '',
-  description: '',
-  displayNewModal: false,
+  bid_seasons_begin_date: PropTypes.string.isRequired,
+  bid_seasons_end_date: PropTypes.string.isRequired,
+  bid_seasons_panel_cutoff: PropTypes.string.isRequired,
+  bid_seasons_future_vacancy: PropTypes.string.isRequired,
 };
 
 export default ManageBidSeasonsCard;

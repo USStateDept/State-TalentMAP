@@ -2,21 +2,21 @@ import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
+import { bidSeasonsFetchData, bidSeasonsPositionEdit, saveBidSeasonsSelections } from 'actions/BidSeasons';
 import { renderSelectionList } from 'utilities';
+import swal from '@sweetalert/with-react';
 import ManageBidSeasonCard from './ManageBidSeasonsCard';
+import EditBidSeasons from './EditBidSeasons';
 
 
-const ManageBidSeasons = (props) => {
+const ManageBidSeasons = () => {
   const dispatch = useDispatch();
-  const { isAO } = props;
 
   const userSelections = useSelector(state => state.bidSeasonsSelections);
   const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
@@ -28,7 +28,6 @@ const ManageBidSeasons = (props) => {
     useState(userSelections?.selectedBidSeasons || []);
   const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
   const [bidSeasonData$, setBidSeasonData$] = useState(ManageBidSeasonsData);
-  const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
   const getCurrentInputs = () => ({
@@ -47,7 +46,6 @@ const ManageBidSeasons = (props) => {
     const filteredSeasons = seasons.filter(season => {
       const startDate = new Date(season.bid_seasons_begin_date).getTime();
       const endDate = new Date(season.bid_seasons_end_date).getTime();
-
       return startDate >= startDateRange && endDate <= endDateRange;
     });
 
@@ -60,7 +58,6 @@ const ManageBidSeasons = (props) => {
     if (selectedDates) return filterSeasonsByDateRange(seasons, selectedDates);
     return seasons;
   };
-
 
   // initial render
   useEffect(() => {
@@ -78,6 +75,7 @@ const ManageBidSeasons = (props) => {
   }, [
     selectedBidSeasons,
     selectedDates,
+    ManageBidSeasonsDataLoading,
   ]);
 
   const resetFilters = () => {
@@ -112,12 +110,20 @@ const ManageBidSeasons = (props) => {
     includeSelectAll: true,
   };
 
-  const openNewModal = (e) => {
-    e.preventDefault();
-    setNewModalOpen(true);
-    setTimeout(() => {
-      setNewModalOpen(false);
-    }, 200);
+  const submit = (data) => {
+    dispatch(bidSeasonsPositionEdit(data));
+  };
+
+  const newSeason = () => {
+    swal({
+      title: 'Bid Season Information',
+      button: false,
+      content: (
+        <EditBidSeasons
+          submitAction={submit}
+        />
+      ),
+    });
   };
 
   return (
@@ -172,7 +178,10 @@ const ManageBidSeasons = (props) => {
             <div className="usa-grid-full results-dropdown controls-container">
               <div className="bs-results">
                 <Link
-                  onClick={(e) => openNewModal(e)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    newSeason();
+                  }}
                   to="#"
                 >
                   <FA className="fa-solid fa-plus" />
@@ -183,21 +192,13 @@ const ManageBidSeasons = (props) => {
 
             <div className="bs-lower-section">
               {bidSeasonData$?.map(data =>
-                <ManageBidSeasonCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
+                <ManageBidSeasonCard {...data} />)}
             </div>
           </>
 
         }
       </div>
   );
-};
-
-ManageBidSeasons.propTypes = {
-  isAO: PropTypes.bool,
-};
-
-ManageBidSeasons.defaultProps = {
-  isAO: false,
 };
 
 export default withRouter(ManageBidSeasons);

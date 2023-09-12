@@ -12,19 +12,18 @@ import {
 } from 'Constants/SystemMessages';
 import api from '../api';
 import { toastError, toastSuccess } from './toast';
-// import { convertQueryToString } from 'utilities';
 
 
 export function bidSeasonsFetchDataErrored(bool) {
   return {
-    type: 'BID_SEASON_FETCH_HAS_ERRORED',
+    type: 'BID_SEASONS_FETCH_HAS_ERRORED',
     hasErrored: bool,
   };
 }
 
 export function bidSeasonsFetchDataLoading(bool) {
   return {
-    type: 'BID_SEASON_FETCH_IS_LOADING',
+    type: 'BID_SEASONS_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
@@ -47,9 +46,7 @@ export function bidSeasonsFetchData() {
       dispatch(bidSeasonsFetchDataLoading(true));
       dispatch(bidSeasonsFetchDataErrored(false));
     });
-    dispatch(bidSeasonsFetchDataLoading(true));
-    const endpoint = 'fsbid/manage_bid_seasons/';
-    api().get(endpoint)
+    api().get('fsbid/manage_bid_seasons/')
       .then(({ data }) => {
         batch(() => {
           dispatch(bidSeasonsFetchDataSuccess(data));
@@ -84,75 +81,6 @@ export function bidSeasonsSelectionsSaveSuccess(result) {
 export function saveBidSeasonsSelections(queryObject) {
   return (dispatch) => dispatch(bidSeasonsSelectionsSaveSuccess(queryObject));
 }
-
-
-// // DROP
-// export function bidSeasonsPositionSearchFetchDataErrored(bool) {
-//   return {
-//     type: 'BID_SEASON_POSITION_SEARCH_FETCH_HAS_ERRORED',
-//     hasErrored: bool,
-//   };
-// }
-
-// export function bidSeasonsPositionSearchFetchDataLoading(bool) {
-//   return {
-//     type: 'BID_SEASON_POSITION_SEARCH_FETCH_IS_LOADING',
-//     isLoading: bool,
-//   };
-// }
-
-// export function bidSeasonsPositionSearchFetchDataSuccess(results) {
-//   return {
-//     type: 'BID_SEASON_POSITION_SEARCH_FETCH_SUCCESS',
-//     results,
-//   };
-// }
-
-
-// export function bidSeasonsPositionSearchFetchData() {
-//   return (dispatch) => {
-//     batch(() => {
-//       dispatch(bidSeasonsPositionSearchFetchDataLoading(true));
-//       dispatch(bidSeasonsPositionSearchFetchDataErrored(false));
-//     });
-//     dispatch(bidSeasonsPositionSearchFetchDataLoading(true));
-//     const endpoint = 'fsbid/manage_bid_seasons/';
-//     api().get(endpoint)
-//       .then(({ data }) => {
-//         batch(() => {
-//           dispatch(bidSeasonsPositionSearchFetchDataSuccess(data));
-//           dispatch(bidSeasonsPositionSearchFetchDataErrored(false));
-//           dispatch(bidSeasonsPositionSearchFetchDataLoading(false));
-//         });
-//       })
-//       .catch((err) => {
-//         if (err?.message === 'cancel') {
-//           batch(() => {
-//             dispatch(bidSeasonsPositionSearchFetchDataLoading(true));
-//             dispatch(bidSeasonsPositionSearchFetchDataErrored(false));
-//           });
-//         } else {
-//           batch(() => {
-//             dispatch(bidSeasonsPositionSearchFetchDataErrored(true));
-//             dispatch(bidSeasonsPositionSearchFetchDataLoading(false));
-//           });
-//         }
-//       });
-//   };
-// }
-
-
-// export function bidSeasonsPositionSearchSelectionsSaveSuccess(result) {
-//   return {
-//     type: 'BID_SEASON_POSITION_SEARCH_SELECTIONS_SAVE_SUCCESS',
-//     result,
-//   };
-// }
-
-// export function saveBidSeasonsPositionSearchSelections(queryObject) {
-//   return (dispatch) => dispatch(bidSeasonsPositionSearchSelectionsSaveSuccess(queryObject));
-// }
-// // DROP ^^
 
 
 export function bidSeasonsPositionRemoveHasErrored(bool) {
@@ -211,6 +139,7 @@ export function bidSeasonsPositionRemove(position) {
   };
 }
 
+
 export function bidSeasonsPositionEditHasErrored(bool) {
   return {
     type: 'BID_SEASON_POSITION_EDIT_HAS_ERRORED',
@@ -230,16 +159,14 @@ export function bidSeasonsPositionEditSuccess(data) {
   };
 }
 
-export function bidSeasonsPositionEdit(position, incumbent, status) {
+export function bidSeasonsPositionEdit(seasonInfo) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(bidSeasonsPositionEditIsLoading(true));
     dispatch(bidSeasonsPositionEditHasErrored(false));
     api()
-      .post('/placeholder/POST/endpoint', {
-        position,
-        incumbent,
-        status,
+      .post('fsbid/manage_bid_seasons/', {
+        data: seasonInfo,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;
