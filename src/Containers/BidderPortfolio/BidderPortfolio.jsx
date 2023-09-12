@@ -117,7 +117,7 @@ class BidderPortfolio extends Component {
     const { bidderPortfolio, bidderPortfolioIsLoading, bidderPortfolioHasErrored,
       bidderPortfolioCounts, bidderPortfolioCountsIsLoading, availableBiddersIdsLoading,
       bidderPortfolioCountsHasErrored, cdos, bidderPortfolioCDOsIsLoading,
-      updatePagination, bidderPortfolioPagination,
+      updatePagination, bidderPortfolioPagination, viewType,
       classifications, classificationsIsLoading, classificationsHasErrored } = this.props;
     const { hasHandshake, ordering, bidderIdsHasLoaded } = this.state;
     const isLoading = (bidderPortfolioCDOsIsLoading || bidderPortfolioIsLoading
@@ -141,6 +141,7 @@ class BidderPortfolio extends Component {
           defaultHandshake={hasHandshake.value}
           defaultOrdering={ordering.value}
           updatePagination={updatePagination}
+          viewType={viewType}
         />
       </div>
     );
@@ -174,6 +175,7 @@ BidderPortfolio.propTypes = {
     pageNumber: PropTypes.number,
     pageSize: PropTypes.string,
   }),
+  viewType: PropTypes.string,
 };
 
 BidderPortfolio.defaultProps = {
@@ -200,6 +202,7 @@ BidderPortfolio.defaultProps = {
   bidderPortfolioPagination: {},
   updatePagination: EMPTY_FUNCTION,
   defaultPageSize: CLIENTS_PAGE_SIZES.defaultSort,
+  viewType: '',
 };
 
 const mapStateToProps = state => ({

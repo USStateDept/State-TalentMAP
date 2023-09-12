@@ -50,7 +50,7 @@ class BidderPortfolioPage extends Component {
     const { editType } = this.state;
     const { bidderPortfolio, bidderPortfolioIsLoading, cdosLength, pageNumber,
       bidderPortfolioHasErrored, pageSize, queryParamUpdate,
-      classificationsIsLoading, updatePagination,
+      classificationsIsLoading, updatePagination, viewType,
       classificationsHasErrored, classifications, defaultHandshake, defaultOrdering } = this.props;
     // for bidder results, however, we'll wait until everything is loaded
     const bidderPortfolioIsLoadingNotErrored = (bidderPortfolioIsLoading ||
@@ -133,6 +133,7 @@ class BidderPortfolioPage extends Component {
                     hideControls={hideControls}
                     hasErrored={bidderPortfolioHasErrored}
                     updatePagination={updatePagination}
+                    viewType={viewType}
                   />
                 </ErrorBoundary>
             }
@@ -157,6 +158,7 @@ BidderPortfolioPage.propTypes = {
   defaultHandshake: PropTypes.string.isRequired,
   defaultOrdering: PropTypes.string.isRequired,
   updatePagination: PropTypes.func,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioPage.defaultProps = {
@@ -164,6 +166,7 @@ BidderPortfolioPage.defaultProps = {
   cdosLength: 0,
   pageNumber: 1,
   updatePagination: EMPTY_FUNCTION,
+  viewType: '',
 };
 
 export default BidderPortfolioPage;

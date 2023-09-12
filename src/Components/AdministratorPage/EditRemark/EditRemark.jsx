@@ -3,15 +3,13 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import InteractiveElement from 'Components/InteractiveElement';
-// import CheckBox from 'Components/CheckBox';
-import { saveRemark } from 'actions/editRemark';
+import CheckBox from 'Components/CheckBox';
+import { editRemark, saveRemark } from 'actions/remark';
 
 const EditRemark = (props) => {
   const {
     rmrkCategories,
     dispatch,
-    saveAdminRemarkIsLoading,
-    saveAdminRemarkSuccess,
     category,
     remark,
     isEdit,
@@ -33,25 +31,37 @@ const EditRemark = (props) => {
     rmrkCategories[0]?.code);
 
   const [showInsertionInput, setShowInsertionInput] = useState(false);
-  // const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  const [activeIndicator, setActiveIndicator] = useState(remark.active_ind === 'Y');
+  const update_date = remark?.update_date;
+  const seq_num = remark?.seq_num;
+  const create_id = remark?.create_id;
 
   const closeRemarkModal = (e) => {
     e.preventDefault();
     swal.close();
   };
 
-  const submitRemark = () => {
-    dispatch(saveRemark({
-      rmrkInsertionList,
-      rmrkCategory,
-      longDescription,
-      shortDescription,
-      // activeIndicator,
-    }));
-    if (saveAdminRemarkSuccess.length && !saveAdminRemarkIsLoading) {
-      swal.close();
-    }
-  };
+  const submitRemark = () => (
+    isEdit ?
+      dispatch(editRemark({
+        seq_num,
+        rmrkInsertionList,
+        rmrkCategory,
+        longDescription,
+        shortDescription,
+        activeIndicator,
+        update_date,
+        create_id,
+      }))
+      :
+      dispatch(saveRemark({
+        rmrkInsertionList,
+        rmrkCategory,
+        longDescription,
+        shortDescription,
+        activeIndicator,
+      }))
+  );
 
   const onRemoveInsertionClick = (i) => {
     const returnArray = [...rmrkInsertionList];
@@ -92,10 +102,12 @@ const EditRemark = (props) => {
           id="edit-remark-categories"
           defaultValue={rmrkCategory}
           onChange={(e) => setRmrkCategory(e?.target.value)}
+          className={`${isEdit ? 'disabled-bg' : ''}`}
+          disabled={isEdit}
         >
           {
             rmrkCategories.map(x => (
-              <option value={x.code}>
+              <option disabled={isEdit} value={x.code}>
                 {x.desc_text}
               </option>
             ))
@@ -109,6 +121,8 @@ const EditRemark = (props) => {
           placeholder="Enter Remark Description"
           onChange={e => setLongDescription(e.target.value)}
           value={longDescription}
+          disabled={isEdit}
+          className={`${isEdit ? 'disabled-bg' : ''}`}
         />
       </div>
       <div className="edit-remark-input">
@@ -118,6 +132,7 @@ const EditRemark = (props) => {
             id="add-insertion-button"
             onClick={() => setShowInsertionInput(true)}
             className="add-insertion-button"
+            disabled={isEdit}
           >
             Add Remark Insertion
           </button>
@@ -127,6 +142,8 @@ const EditRemark = (props) => {
                 placeholder="Enter Remark Insertion"
                 onKeyDown={onInputKeyDown}
                 onChange={e => setInsertionInput(e.target.value)}
+                disabled={isEdit}
+                className={`${isEdit ? 'disabled-bg' : ''}`}
               />
               <InteractiveElement
                 onClick={submitInsertion}
@@ -135,6 +152,7 @@ const EditRemark = (props) => {
                 role="button"
                 title="Add Insertion"
                 id="add-insertion"
+                disabled={isEdit}
               >
                 <FA name="plus" />
               </InteractiveElement>
@@ -149,6 +167,8 @@ const EditRemark = (props) => {
           placeholder="Enter Remark Short Description"
           onChange={e => setShortDescription(e.target.value)}
           value={shortDescription}
+          disabled={isEdit}
+          className={`${isEdit ? 'disabled-bg' : ''}`}
         />
       </div>
       <div className="edit-remark-input">
@@ -163,6 +183,7 @@ const EditRemark = (props) => {
                 role="button"
                 title="Remove Insertion"
                 onClick={() => onRemoveInsertionClick(i)}
+                disabled={isEdit}
               >
                 <FA name="minus" />
               </InteractiveElement>
@@ -171,13 +192,12 @@ const EditRemark = (props) => {
         </div>
       </div>
       <div className="edit-remark-checkboxes-controls pt-20">
-        {/*   Commented out for Release 11.0
-          <CheckBox
+        <CheckBox
           label="Active Indicator"
           id="active-indicator-checkbox"
           onCheckBoxClick={e => setActiveIndicator(e)}
           value={activeIndicator}
-        /> */}
+        />
         <div className="modal-controls">
           <button onClick={submitRemark}>Submit</button>
           <button className="usa-button-secondary" onClick={closeRemarkModal}>Cancel</button>
@@ -201,6 +221,8 @@ EditRemark.propTypes = {
     short_desc_text: PropTypes.string,
     text: PropTypes.string,
     active_ind: PropTypes.string,
+    update_date: PropTypes.string,
+    create_id: PropTypes.string,
     remark_inserts: PropTypes.arrayOf(
       PropTypes.shape({
         rirmrkseqnum: PropTypes.number,
@@ -211,16 +233,12 @@ EditRemark.propTypes = {
   }),
   category: PropTypes.string,
   isEdit: PropTypes.bool.isRequired,
-  saveAdminRemarkSuccess: PropTypes.bool,
-  saveAdminRemarkIsLoading: PropTypes.bool,
 };
 
 EditRemark.defaultProps = {
   rmrkCategories: [],
   remark: {},
   category: '',
-  saveAdminRemarkIsLoading: false,
-  saveAdminRemarkSuccess: false,
 };
 
 export default EditRemark;
