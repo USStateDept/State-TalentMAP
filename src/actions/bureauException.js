@@ -107,22 +107,39 @@ const dummyData = [
   },
 ];
 
+const editDummyData = [
+  { id: 1, bureaus: ['AO'] },
+  { id: 2, bureaus: ['FA'] },
+  { id: 3, bureaus: ['EO'] },
+  { id: 4, bureaus: ['AS'] },
+  { id: 5, bureaus: ['FG'] },
+  { id: 6, bureaus: ['UO'] },
+  { id: 7, bureaus: ['XA'] },
+  { id: 8, bureaus: ['YY'] },
+  { id: 9, bureaus: ['ZA'] },
+  { id: 10, bureaus: ['OO'] },
+  { id: 11, bureaus: ['RR'] },
+  { id: 12, bureaus: ['BO'] },
+  { id: 13, bureaus: ['FS'] },
+  { id: 14, bureaus: ['FX'] },
+  { id: 15, bureaus: ['UL'] },
+  { id: 16, bureaus: ['BX'] },
+  { id: 17, bureaus: ['FY'] },
+  { id: 18, bureaus: ['ZW'] },
+];
+
 const dummyDataToReturn = (query) => new Promise((resolve) => {
   const { limit } = query;
   resolve({
     results: dummyData.slice(0, limit),
     count: dummyData.length,
-    next: null,
-    previous: null,
   });
 });
 const bureauExceptionPosDummyDataToReturn = (query) => new Promise((resolve) => {
   const { limit } = query;
   resolve({
-    results: dummyData.slice(0, limit),
-    count: dummyData.length,
-    next: null,
-    previous: null,
+    results: editDummyData.slice(0, limit),
+    count: editDummyData.length,
   });
 });
 
@@ -214,7 +231,7 @@ export function bureauExceptionPositionSearchFetchDataSuccess(results) {
   };
 }
 
-export function bureauExceptionPositionSearchFetchData(query = {}) {
+export function bureauExceptionEditFetchData(query = {}) {
   return (dispatch) => {
     batch(() => {
       dispatch(bureauExceptionPositionSearchFetchDataLoading(true));
@@ -336,16 +353,14 @@ export function bureauExceptionPositionEditSuccess(data) {
   };
 }
 
-export function bureauExceptionPositionEdit(position, incumbent, status) {
+export function bureauExceptionPositionEdit(user) {
   return (dispatch) => {
     if (cancel) { cancel('cancel'); }
     dispatch(bureauExceptionPositionEditIsLoading(true));
     dispatch(bureauExceptionPositionEditHasErrored(false));
     api()
       .post('/placeholder/POST/endpoint', {
-        position,
-        incumbent,
-        status,
+        user,
       }, {
         cancelToken: new CancelToken((c) => {
           cancel = c;
