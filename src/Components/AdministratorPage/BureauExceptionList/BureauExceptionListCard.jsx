@@ -39,7 +39,7 @@ const BureauExceptionListCard = (props) => {
             Person: {Name}
           </Column>
           <Column>
-            Bureau Access: {BureauNames.toString()}
+            Bureau Access: {BureauNames.toString().split(',').join(', ')}
           </Column>
           <Column columns={3} className="bs-card--link-col">
             <Link
