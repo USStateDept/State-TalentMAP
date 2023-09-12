@@ -124,3 +124,26 @@ export function saveRemark(props) {
       });
   };
 }
+
+export function editRemark(props) {
+  return (dispatch) => {
+    dispatch(saveAdminRemarkSuccess(false));
+    dispatch(saveAdminRemarkIsLoading(true));
+    dispatch(saveAdminRemarkHasErrored(false));
+    api().put(`/fsbid/remark/${props.seq_num}/`, props)
+      .then(() => {
+        batch(() => {
+          dispatch(saveAdminRemarkHasErrored(false));
+          dispatch(saveAdminRemarkSuccess(true));
+          dispatch(toastSuccess(SAVE_ADMIN_REMARK_SUCCESS, SAVE_ADMIN_REMARK_SUCCESS_TITLE));
+          dispatch(saveAdminRemarkIsLoading(false));
+          swal.close();
+        });
+      })
+      .catch(() => {
+        dispatch(toastError(SAVE_ADMIN_REMARK_HAS_ERRORED, SAVE_ADMIN_REMARK_HAS_ERRORED_TITLE));
+        dispatch(saveAdminRemarkHasErrored(true));
+        dispatch(saveAdminRemarkIsLoading(false));
+      });
+  };
+}
