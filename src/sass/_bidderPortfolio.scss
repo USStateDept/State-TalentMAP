@@ -79,6 +79,11 @@
     display: inline;
   }
 
+.ribbon-container-condensed-min {
+  float:right;
+  max-width: 200px;
+}
+
 .bidder-portfolio-stat-row {
   border: 1px solid $color-gray-light;
   display: flex;
@@ -93,6 +98,9 @@
       top: 20;
       z-index: 2;
       padding: 20px;
+      .ribbon-htf {
+        max-width: 150px;
+      }
     }
   }
 

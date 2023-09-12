@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
+import { Tooltip } from 'react-tippy';
+import { Cusp, Eligible } from 'Components/Ribbon';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
@@ -63,6 +65,36 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
     setEdit(false);
   };
 
+  // const cusp = get(userProfile, 'cusp', false);
+  // using this as a placeholder
+  const cusp = true;
+  const eligible = get(userProfile, 'eligible', false);
+
+  const ribbons = (
+    <div>
+      {
+        eligible &&
+        <Tooltip
+          title="Eligible"
+          arrow
+          offset={-60}
+        >
+          <Eligible />
+        </Tooltip>
+      }
+      {
+        cusp &&
+        <Tooltip
+          title="Cusp"
+          arrow
+          offset={-60}
+        >
+          <Cusp />
+        </Tooltip>
+      }
+    </div>
+  );
+
   return (
     <BoxShadow className="usa-grid-full bidder-portfolio-stat-card">
       <div className="bidder-portfolio-stat-card-top">
@@ -83,6 +115,11 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
                 Edit
             </Link>
           }
+        </div>
+        <div className="bidder-portfolio-ribbon-container">
+          <div className="ribbon-container-condensed-min">
+            {ribbons}
+          </div>
         </div>
         <div className="stat-card-data-point">
           <dt>Employee ID:</dt><dd>{id}</dd>
