@@ -264,7 +264,6 @@
       padding-bottom: 5px;
       margin-top: 0;
     }
-
   }
 
   .position-form--picky {
@@ -332,6 +331,23 @@
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(228, 229, 230, 1);
     padding: 5px 20px;
+  }
+
+  .position-form--inputs-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 500px;
+    margin-top: 30px;
+
+    div {
+      padding-right: 10px;
+    }
   }
 }
 

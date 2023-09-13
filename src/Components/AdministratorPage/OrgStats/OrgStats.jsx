@@ -182,7 +182,7 @@ const OrgStats = () => {
                 'Bureau: ': bureauSummary.bureau_short_desc,
                 'Total POS': bureauSummary.total_pos,
                 'Total Filled': bureauSummary.total_filled,
-                '% POS': bureauSummary.total_percent,
+                '% Filled': bureauSummary.total_percent,
                 'Overseas POS': bureauSummary.overseas_pos,
                 'Overseas Filled': bureauSummary.overseas_filled,
                 '% Overseas': bureauSummary.overseas_percent,

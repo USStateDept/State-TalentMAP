@@ -252,3 +252,8 @@ export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS_TITLE = 'Bureau Exception Po
 export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS = 'The Bureau Exception Position has been updated';
 export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE = 'Bureau Exception Position Edit Error';
 export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception Position. Please try again.';
+
+export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
+export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
+export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
+export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';

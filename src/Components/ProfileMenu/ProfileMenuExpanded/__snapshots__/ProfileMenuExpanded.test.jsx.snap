@@ -150,11 +150,27 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="map"
+        key="Job Categories"
+        link="/profile/administrator/jobcategories/"
+        search=""
+        title="Job Categories"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="sitemap"
         key="Logs"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Manage Entry Level"
+        link="/profile/administrator/manageentrylevel/"
+        search=""
+        title="Manage Entry Level"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -547,11 +563,27 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="map"
+        key="Job Categories"
+        link="/profile/administrator/jobcategories/"
+        search=""
+        title="Job Categories"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="sitemap"
         key="Logs"
         link="/profile/administrator/logs/"
         search=""
         title="Logs"
+      />
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Manage Entry Level"
+        link="/profile/administrator/manageentrylevel/"
+        search=""
+        title="Manage Entry Level"
       />
       <withRouter(NavLink)
         hidden={true}

@@ -90,6 +90,10 @@ $date-picker-width: 300px;
       padding-inline-start: 50px;
     }
   }
+
+  .react-datepicker-popper {
+    z-index: 2;
+  }
 }
 
 .date-picker-wrapper {
