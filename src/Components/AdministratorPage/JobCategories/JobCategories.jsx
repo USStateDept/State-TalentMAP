@@ -86,6 +86,14 @@ const JobCategories = () => {
           </select>
         </div>
       </div>
+      <div className="jc-toggle-container">
+        <ToggleButton
+          labelTextRight="Toggle Edit Mode"
+          onChange={() => setIsEditMode(!isEditMode)}
+          checked={isEditMode}
+          onColor="#0071BC"
+        />
+      </div>
       <div>
         <table className="custom-table">
           <thead>
@@ -94,7 +102,7 @@ const JobCategories = () => {
                 <CheckBox
                   checked={!selectAll}
                   onCheckBoxClick={handleSelectAll}
-                  disabled={isEditMode}
+                  disabled={!isEditMode}
                 />
               </th>
               <th className="skill-code-column">
@@ -102,14 +110,6 @@ const JobCategories = () => {
               </th>
               <th className="skill-desc-column">
                 Skill Description
-              </th>
-              <th>
-                <ToggleButton
-                  labelTextRight="Toggle Edit Mode"
-                  onChange={() => setIsEditMode(!isEditMode)}
-                  checked={isEditMode}
-                  onColor="#0071BC"
-                />
               </th>
             </tr>
           </thead>
@@ -121,7 +121,7 @@ const JobCategories = () => {
                     <CheckBox
                       value={checkedSkillIds.includes(skill.code) || skill.display_skill === '1'}
                       onCheckBoxClick={() => handleSelectSkill(skill)}
-                      disabled={isEditMode}
+                      disabled={!isEditMode}
                     />
                   </td>
                   <td>{skill.code}</td>
