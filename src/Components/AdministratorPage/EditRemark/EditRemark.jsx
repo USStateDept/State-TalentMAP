@@ -126,39 +126,42 @@ const EditRemark = (props) => {
         />
       </div>
       <div className="edit-remark-input">
-        <label htmlFor="add-insertion-container" />
-        <div className="add-insertion-container">
-          <button
-            id="add-insertion-button"
-            onClick={() => setShowInsertionInput(true)}
-            className="add-insertion-button"
-            disabled={isEdit}
-          >
-            Add Remark Insertion
-          </button>
-          {showInsertionInput &&
-            <div className="add-insertion-input-container">
-              <input
-                placeholder="Enter Remark Insertion"
-                onKeyDown={onInputKeyDown}
-                onChange={e => setInsertionInput(e.target.value)}
-                disabled={isEdit}
-                className={`${isEdit ? 'disabled-bg' : ''}`}
-              />
-              <InteractiveElement
-                onClick={submitInsertion}
-                className="insertion-icon"
-                type="span"
-                role="button"
-                title="Add Insertion"
-                id="add-insertion"
-                disabled={isEdit}
+        {!isEdit &&
+          <>
+            <label htmlFor="add-insertion-container" />
+            <div className="add-insertion-container">
+              <button
+                id="add-insertion-button"
+                onClick={() => setShowInsertionInput(true)}
+                className="add-insertion-button"
               >
-                <FA name="plus" />
-              </InteractiveElement>
+                Add Remark Insertion
+              </button>
+              {showInsertionInput &&
+                <div className="add-insertion-input-container">
+                  <input
+                    placeholder="Enter Remark Insertion"
+                    onKeyDown={onInputKeyDown}
+                    onChange={e => setInsertionInput(e.target.value)}
+                    disabled={isEdit}
+                    className={`${isEdit ? 'disabled-bg' : ''}`}
+                  />
+                  <InteractiveElement
+                    onClick={submitInsertion}
+                    className="insertion-icon"
+                    type="span"
+                    role="button"
+                    title="Add Insertion"
+                    id="add-insertion"
+                    disabled={isEdit}
+                  >
+                    <FA name="plus" />
+                  </InteractiveElement>
+                </div>
+              }
             </div>
-          }
-        </div>
+          </>
+        }
       </div>
       <div className="edit-remark-input">
         <label htmlFor="edit-remark-short-description">Remark Short Description:</label>
