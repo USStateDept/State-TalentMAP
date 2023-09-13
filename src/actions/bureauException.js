@@ -1,4 +1,12 @@
 import { batch } from 'react-redux';
+import { toastError, toastSuccess } from './toast';
+import api from '../api';
+import {
+  BUREAU_EXCEPTION_POSITION_EDIT_ERROR,
+  BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE,
+  BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS,
+  BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS_TITLE,
+} from '../Constants/SystemMessages';
 // import { convertQueryToString } from 'utilities';
 
 const dummyData = [
@@ -279,5 +287,29 @@ export function bureauExceptionPositionEditSuccess(data) {
   return {
     type: 'BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS',
     data,
+  };
+}
+
+export function saveBureauExceptionSelections(data) {
+  return (dispatch) => {
+    dispatch(bureauExceptionPositionEditIsLoading(true));
+    dispatch(bureauExceptionPositionEditHasErrored(false));
+    api().post('/Placeholder/', data)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(bureauExceptionPositionEditHasErrored(false));
+          dispatch(bureauExceptionPositionEditSuccess(res));
+          dispatch(toastSuccess(BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS,
+            BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS_TITLE));
+          dispatch(bureauExceptionPositionEditIsLoading(false));
+        });
+      }).catch(() => {
+        batch(() => {
+          dispatch(toastError(BUREAU_EXCEPTION_POSITION_EDIT_ERROR,
+            BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE));
+          dispatch(bureauExceptionPositionEditHasErrored(true));
+          dispatch(bureauExceptionPositionEditIsLoading(false));
+        });
+      });
   };
 }

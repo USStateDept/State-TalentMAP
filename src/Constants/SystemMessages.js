@@ -247,3 +247,8 @@ export const EDIT_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to upd
 export const EDIT_BUREAU_EXCEPTION_SUCCESS = 'The Bureau Exception has been updated';
 export const EDIT_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Edit Error';
 export const EDIT_BUREAU_EXCEPTION_SUCCESS_TITLE = 'Bureau Exception Updated';
+
+export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS_TITLE = 'Bureau Exception Position Updated';
+export const BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS = 'The Bureau Exception Position has been updated';
+export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR_TITLE = 'Bureau Exception Position Edit Error';
+export const BUREAU_EXCEPTION_POSITION_EDIT_ERROR = 'There was an issue attempting to update this Bureau Exception Position. Please try again.';

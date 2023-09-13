@@ -58,6 +58,7 @@ const BureauExceptionList = () => {
                   Name={data?.Name}
                   BureauNames={data?.BureauNames}
                   BureauExceptionOptionsData={BureauExceptionOptionsData?.results}
+                  dispatch={dispatch}
                 />),
               )
               }

@@ -11,6 +11,7 @@ const BureauExceptionListCard = (props) => {
     Name,
     BureauNames,
     BureauExceptionOptionsData,
+    dispatch,
   } = props;
 
   const submitAction = () => {
@@ -27,6 +28,7 @@ const BureauExceptionListCard = (props) => {
           submitActioaddn={submitAction}
           user={bureauUser}
           BureauExceptionOptionsData={BureauExceptionOptionsData}
+          dispatch={dispatch}
         />
       ),
     });

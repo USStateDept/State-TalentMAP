@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
+import { saveBureauExceptionSelections } from 'actions/bureauException';
 import CheckBox from '../../CheckBox/CheckBox';
 import TextInput from '../../TextInput/TextInput';
 
 
 const EditBureauExceptionList = (props) => {
-  const { BureauExceptionOptionsData, user } = props;
+  const { BureauExceptionOptionsData, dispatch, user } = props;
   const data = BureauExceptionOptionsData;
   const [selectAll, setSelectAll] = useState(false);
   const [checkedBureauIds, setCheckedBureauIds] = useState([]);
@@ -16,6 +17,7 @@ const EditBureauExceptionList = (props) => {
   const submit = (e) => {
     // bureauUser stores the user and bureau to be added
     // Doing nothing for now but closing.
+    dispatch(saveBureauExceptionSelections(bureauUser));
     e.preventDefault();
     swal.close();
   };
