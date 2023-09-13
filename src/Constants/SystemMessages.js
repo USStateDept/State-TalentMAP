@@ -238,3 +238,7 @@ export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) su
 export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
 export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
 
+export const UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS_TITLE = 'Cycle Job Categories Saved';
+export const UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS = 'This Cycle Job Categories has been successfully saved.';
+export const UPDATE_CYCLE_JOB_CATEGORIES_ERROR_TITLE = 'Cycle Job Categories Error';
+export const UPDATE_CYCLE_JOB_CATEGORIES_ERROR = 'There was an issue attempting to save this Cycle Job Categories. Please try again.';
