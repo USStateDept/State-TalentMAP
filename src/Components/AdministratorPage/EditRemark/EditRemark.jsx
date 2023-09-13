@@ -177,16 +177,18 @@ const EditRemark = (props) => {
           {rmrkInsertionList?.map((insertion, i) => (
             <div className="remark-insertion">
               {insertion}
-              <InteractiveElement
-                className="insertion-icon"
-                type="span"
-                role="button"
-                title="Remove Insertion"
-                onClick={() => onRemoveInsertionClick(i)}
-                disabled={isEdit}
-              >
-                <FA name="minus" />
-              </InteractiveElement>
+              {!isEdit &&
+                <InteractiveElement
+                  className="insertion-icon"
+                  type="span"
+                  role="button"
+                  title="Remove Insertion"
+                  onClick={() => onRemoveInsertionClick(i)}
+                  disabled={isEdit}
+                >
+                  <FA name="minus" />
+                </InteractiveElement>
+              }
             </div>
           ))}
         </div>
