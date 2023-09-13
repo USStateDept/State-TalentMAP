@@ -14,7 +14,7 @@ const EditBureauExceptionList = (props) => {
   const [bureauUser, setBureauUser] = useState(user);
 
   const submit = (e) => {
-    // bureauUser stores the user and bureaus to be added
+    // bureauUser stores the user and bureau to be added
     // Doing nothing for now but closing.
     e.preventDefault();
     swal.close();
