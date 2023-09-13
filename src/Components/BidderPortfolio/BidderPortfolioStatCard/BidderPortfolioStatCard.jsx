@@ -10,7 +10,7 @@ import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
 import { formatDate } from 'utilities';
 import TextareaAutosize from 'react-textarea-autosize';
-import { bidderPortfolioDataSuccess } from 'actions/bidderPortfolio';
+import { bidderPortfolioEditDataSuccess } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import BoxShadow from '../../BoxShadow';
@@ -47,7 +47,12 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
     setComments(verifyComments);
     setAltEmail(verifyAltEmail);
     // Nothing to do yet, will add later
-    dispatch(bidderPortfolioDataSuccess(bidder));
+    const clientData = {
+      id,
+      verifyComments,
+      verifyAltEmail,
+    };
+    dispatch(bidderPortfolioEditDataSuccess(clientData));
     setEdit(false);
   };
 

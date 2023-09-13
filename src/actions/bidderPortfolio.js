@@ -5,7 +5,9 @@ import { CancelToken } from 'axios';
 import { toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
+import { BIDDER_PORTFOLIO_ADD_ERROR, BIDDER_PORTFOLIO_ADD_SUCCESS } from '../Constants/SystemMessages';
 import api from '../api';
+import { toastError } from './toast';
 
 let cancelCDOs;
 let cancelPortfolio;
@@ -181,6 +183,29 @@ export function bidderPortfolioSeasonsFetchData() {
   };
 }
 
+// export function savebidderPortfolioSeasonsSelections(data) {
+//   return (dispatch) => {
+//     dispatch(shareIsSending(true));
+//     dispatch(shareSuccess(false));
+//     dispatch(shareHasErrored(false));
+//     api().post('/Placeholder/', data)
+//       .then((response) => {
+//         dispatch(shareIsSending(false));
+//         dispatch(shareHasErrored(false));
+//         return response.data;
+//       })
+//       .then(share => dispatch(shareSuccess(share)))
+//       .catch((err) => {
+//         dispatch(shareHasErrored(
+//           err.response.data.message || 'An error occurred trying to share this position.',
+//         ));
+//         dispatch(shareIsSending(false));
+//         dispatch(shareSuccess(false));
+//         return err.response.data.message;
+//       });
+//   };
+// }
+
 export function lookupAndSetCDO(id) {
   return (dispatch, getState) => {
     const cdo = find(get(getState(), 'bidderPortfolioCDOs', []), f => f.hru_id === id);
@@ -354,8 +379,25 @@ export function bidderPortfolioSelections(queryObject) {
   return (dispatch) => dispatch(bidderPortfolioSelectionsSaveSuccess(queryObject));
 }
 
-export function bidderPortfolioDataSuccess(bidder) {
+export function bidderPortfolioEditDataSuccess(client) {
+  console.log('client', client);
   return (dispatch) => {
-    dispatch(toastSuccess(`Changes saved for ${bidder}.`));
+    dispatch(bidderPortfolioSeasonsIsLoading(true));
+    dispatch(bidderPortfolioSeasonsHasErrored(false));
+    api()
+      .post('Placeholder/', client)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bidderPortfolioSeasonsHasErrored(false));
+          dispatch(bidderPortfolioSeasonsSuccess(data));
+          dispatch(toastSuccess(BIDDER_PORTFOLIO_ADD_SUCCESS));
+          dispatch(bidderPortfolioIsLoading(false));
+        });
+      })
+      .catch(() => {
+        dispatch(toastError(BIDDER_PORTFOLIO_ADD_ERROR));
+        dispatch(bidderPortfolioSeasonsHasErrored(true));
+        dispatch(bidderPortfolioIsLoading(false));
+      });
   };
 }
