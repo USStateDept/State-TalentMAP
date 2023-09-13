@@ -53,10 +53,6 @@ const JobCategories = () => {
     }
   });
 
-  const handleSubmit = (() => {
-    console.log('hello world!');
-  });
-
   return (
     <div className="admin-job-categories-page">
       <ProfileSectionTitle title="Job Categories" icon="map" />
@@ -131,7 +127,7 @@ const JobCategories = () => {
         </table>
         <div className="modal-controls">
           <button
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
             disabled={!isEditMode}
           >
               Submit
