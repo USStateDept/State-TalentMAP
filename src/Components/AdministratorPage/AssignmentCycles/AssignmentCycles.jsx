@@ -202,7 +202,7 @@ const AssignmentCycles = (props) => {
   return (
     genericFiltersIsLoading ?
       <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
-      <div className="bid-seasons-page position-search">
+      <div className="assignment-cycle-page position-search">
         <div className="usa-grid-full position-search--header">
           <ProfileSectionTitle title="Assignment Cycles" icon="calendar" className="xl-icon" />
           <div className="filterby-container" >
@@ -216,7 +216,7 @@ const AssignmentCycles = (props) => {
               }
             </span>
           </div>
-          <div className="usa-width-one-whole position-search--filters--bs">
+          <div className="usa-width-one-whole position-search--filters--ac">
             <div className="filter-div">
               <div className="label">Assignment Cycle:</div>
               <Picky
