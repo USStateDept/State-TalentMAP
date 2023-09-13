@@ -8,6 +8,8 @@
     .select-dropdown {
       display: inline-block;
       max-width: 300px;
+      max-height: 50px;
+      font-size: 17px;
     }
   }
   .custom-table {
@@ -24,5 +26,9 @@
 
   .jc-toggle-container {
     margin-top: 25px;
+    [type=checkbox] {
+      accent-color: red;
+      background-color: red;
+    }
   }
 }

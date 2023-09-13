@@ -8,20 +8,16 @@ import ProfileSectionTitle from '../../ProfileSectionTitle';
 
 const JobCategories = () => {
   const dispatch = useDispatch();
-  const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
-  console.log('jobCategories: ', jobCategories);
-  const jobCategoriesResults = jobCategories?.data;
-  const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
-  console.log('skills: ', jobCategorySkills);
-  // console.log('skills: ', jobCategorySkills?.results?.QRY_LSTSKILLS_REF);
-  const jobCategorySkillsResults = jobCategorySkills?.data;
-  // console.log('results: ', jobCategorySkillsResults);
 
+  const jobCategories = useSelector(state => state.jobCategoriesAdminFetchData);
+  const jobCategorySkills = useSelector(state => state.jobCategoriesFetchSkills);
+
+  const jobCategoriesResults = jobCategories?.data;
+  const jobCategorySkillsResults = jobCategorySkills?.data;
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
   const [checkedSkillIds, setCheckedSkillIds] = useState([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  // console.log('checkedSkillIds: ', checkedSkillIds);
   const [selectAll, setSelectAll] = useState(false);
 
   const getQuery = () => ({
@@ -34,7 +30,6 @@ const JobCategories = () => {
 
   useEffect(() => {
     dispatch(jobCategoriesFetchSkills(getQuery()));
-    // console.log('selected category id: ', selectedJobCategory);
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {
@@ -76,6 +71,7 @@ const JobCategories = () => {
             className="select-dropdown"
             onChange={(e) => setSelectedJobCategory(e.target.value)}
           >
+            <option>--Please Select a Job Category--</option>
             {
               jobCategoriesResults?.map(category => (
                 <option value={category.id}>
@@ -100,6 +96,7 @@ const JobCategories = () => {
             <tr className="jc-table-row">
               <th className="checkbox-pos">
                 <CheckBox
+                  className="tm-checkbox-transparent"
                   checked={!selectAll}
                   onCheckBoxClick={handleSelectAll}
                   disabled={!isEditMode}
@@ -119,6 +116,7 @@ const JobCategories = () => {
                 <tr key={skill.code}>
                   <td className="checkbox-pac checkbox-pos">
                     <CheckBox
+                      className="tm-checkbox-transparent"
                       value={checkedSkillIds.includes(skill.code) || skill.display_skill === '1'}
                       onCheckBoxClick={() => handleSelectSkill(skill)}
                       disabled={!isEditMode}
@@ -132,7 +130,12 @@ const JobCategories = () => {
           </tbody>
         </table>
         <div className="modal-controls">
-          <button onClick={handleSubmit}>Submit</button>
+          <button
+            onClick={handleSubmit}
+            disabled={!isEditMode}
+          >
+              Submit
+          </button>
         </div>
       </div>
     </div>

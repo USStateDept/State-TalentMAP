@@ -29,9 +29,6 @@ export function jobCategoriesAdminFetchData() {
     const endpoint = 'fsbid/job_categories/';
     api().get(endpoint)
       .then((data) => {
-        console.log('***DATA***');
-        console.log(data);
-        console.log('***DATA***');
         batch(() => {
           dispatch(jobCategoriesAdminFetchDataSuccess(data));
           dispatch(jobCategoriesAdminFetchDataHasErrored(false));
@@ -73,7 +70,6 @@ export function jobCategoriesFetchSkillsSuccess(data) {
   };
 }
 export function jobCategoriesFetchSkills(query = {}) {
-  console.log('query: ', query);
   return (dispatch) => {
     batch(() => {
       dispatch(jobCategoriesFetchSkillsIsLoading(true));
