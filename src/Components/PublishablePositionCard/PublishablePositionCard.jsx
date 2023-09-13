@@ -30,33 +30,33 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
 
   const sections = {
     /* eslint-disable quote-props */
-    subheading: {
-      'Position Number': positionNumber,
-      'Skill': getResult(pos, 'skill_code') || NO_SKILL,
-      'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
-    },
-    bodyPrimary: {
-      'Bureau': bureau,
-      'Location': getPostName(pos?.post) || NO_POST,
-      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Status': getResult(pos, 'status') || NO_STATUS,
-    },
-    bodySecondary: {
-      'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
-      'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Pay Plan': '---',
-      'Assignee': '---',
-      'Functional Bureau': 'None Listed',
-      'Post Differential | Danger Pay': getDifferentials(pos),
-    },
+    subheading: [
+      { 'Position Number': positionNumber },
+      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
+      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { 'Bureau': bureau },
+      { 'Location': getPostName(pos?.post) || NO_POST },
+      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
+      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
+      { 'Status': getResult(pos, 'status') || NO_STATUS },
+    ],
+    bodySecondary: [
+      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
+      { 'TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
+      { 'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
+      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
+      { 'Pay Plan': '---' },
+      { 'Assignee': '---' },
+      { 'Functional Bureau': 'None Listed' },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+    ],
     textarea: pos?.description?.content || 'No description.',
-    metadata: {
-      'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
-    },
+    metadata: [
+      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+    ],
     /* eslint-enable quote-props */
   };
 

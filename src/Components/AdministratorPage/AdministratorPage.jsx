@@ -9,6 +9,9 @@ import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
 import PanelAdmin from './PanelAdmin';
 import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
+import ManageEntryLevel from './ManageEntryLevel/ManageEntryLevel';
+import JobCategories from './JobCategories/JobCategories';
+import OrgStats from './OrgStats/OrgStats';
 
 const AdministratorPage = (props) => {
   const {
@@ -60,6 +63,9 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/managebidseasons" render={() => <ManageBidSeasons />} />
         <Route path="/profile/administrator/panel/:pmSeqNum" render={() => <PanelAdmin />} />
         <Route path="/profile/administrator/panel/" render={() => <PanelAdmin />} />
+        <Route path="/profile/administrator/manageentrylevel/" render={() => <ManageEntryLevel />} />
+        <Route path="/profile/administrator/jobcategories/" render={() => <JobCategories />} />
+        <Route path="/profile/administrator/orgstats" render={() => <OrgStats />} />
       </Switch>
     </div>
   );
