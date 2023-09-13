@@ -30,6 +30,7 @@ const JobCategories = () => {
 
   useEffect(() => {
     dispatch(jobCategoriesFetchSkills(getQuery()));
+    setCheckedSkillIds([]);
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {
