@@ -65,8 +65,6 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
     setEdit(false);
   };
 
-  // const cusp = get(userProfile, 'cusp', false);
-  // using this as a placeholder
   const cusp = included;
   const eligible = !included;
 
@@ -139,6 +137,29 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
         <div className="stat-card-data-point">
           <dt className="location-label">Location (Org):</dt><dd>{currentAssignmentText || NO_POST} ({orgShortDesc})</dd>
         </div>
+        <div className="stat-card-data-point">
+          <dt>DOS Email:</dt>
+          <dd>
+            <a href={`mailto: ${email}`}>{email}</a>
+          </dd>
+        </div>
+        <div className={!edit && 'stat-card-data-point'} >
+          <dt>Alt Email:</dt>
+          <dd>
+            {altEmail !== '' ?
+              <a href={`mailto:${altEmail}`}>{altEmail}</a> :
+              'None Listed'
+            }
+          </dd>
+          {edit &&
+            <input
+              type="text"
+              defaultValue=""
+              placeholder="example@gmail.com"
+              onChange={(e) => setVerifyAltEmail(e.target.value)}
+            />
+          }
+        </div>
       </div>
       <div className="bidder-portfolio-stat-card-bottom">
         <div>
@@ -160,34 +181,15 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
           <div>
             <dt>Comments:</dt>
             <div className="stat-card-data-point stat-card-comments">
-              <dd className="stat-card-dd">
-                <TextareaAutosize
-                  className="stat-card-textarea"
-                  maxRows={4}
-                  minRows={4}
-                  disabled={!edit}
-                  maxLength="255"
-                  name="note"
-                  placeholder="No Notes"
-                  defaultValue={!comments ? '' : comments}
-                  onChange={(e) => setVerifyComments(e.target.value)}
-                />
-              </dd>
-            </div>
-            <div className="stat-card-data-point">
-              <dt>DOS Email:</dt><a href={`mailto: ${email}`}>{email}</a>
-            </div>
-            <div className={!edit && 'stat-card-data-point'} >
-              <dt>Alt Email:</dt>
-              <a href={`mailto:${altEmail}`}>{altEmail}</a>
-              {edit &&
-                <input
-                  type="text"
-                  defaultValue=""
-                  placeholder="example@gmail.com"
-                  onChange={(e) => setVerifyAltEmail(e.target.value)}
-                />
-              }
+              <TextareaAutosize
+                className="stat-card-textarea"
+                disabled={!edit}
+                maxLength="255"
+                name="note"
+                placeholder="No Notes"
+                defaultValue={!comments ? '' : comments}
+                onChange={(e) => setVerifyComments(e.target.value)}
+              />
             </div>
           </div>
         }
