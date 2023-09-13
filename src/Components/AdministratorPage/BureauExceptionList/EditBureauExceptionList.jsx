@@ -8,7 +8,6 @@ import TextInput from '../../TextInput/TextInput';
 const EditBureauExceptionList = (props) => {
   const { BureauExceptionOptionsData, user } = props;
   const data = BureauExceptionOptionsData;
-  console.log('data', data);
   const [selectAll, setSelectAll] = useState(false);
   const [checkedBureauIds, setCheckedBureauIds] = useState([]);
   const [bureau, setBureau] = useState('');
