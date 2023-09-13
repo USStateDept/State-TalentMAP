@@ -8,31 +8,30 @@ import {
 describe('PositionExpandableContent', () => {
   const sections = {
     /* eslint-disable quote-props */
-    subheading: {
-      'Position Number': NO_POSITION_NUMBER,
-      'Skill': NO_SKILL,
-      'Position Title': NO_POSITION_TITLE,
-    },
-    bodyPrimary: {
-      'Bureau': NO_BUREAU,
-      'Location': NO_POST,
-      'Org/Code': NO_ORG,
-      'Grade': NO_GRADE,
-      'Status': NO_STATUS,
-    },
-    deto: true,
-    bodySecondary: {
-      'TED': NO_DATE,
-      'Incumbent': NO_USER_LISTED,
-      'Tour of Duty': NO_TOUR_OF_DUTY,
-    },
+    subheading: [
+      { 'Position Number': NO_POSITION_NUMBER },
+      { 'Skill': NO_SKILL },
+      { 'Position Title': NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { 'Bureau': NO_BUREAU },
+      { 'Location': NO_POST },
+      { 'Org/Code': NO_ORG },
+      { 'Grade': NO_GRADE },
+      { 'Status': NO_STATUS },
+    ],
+    bodySecondary: [
+      { 'TED': NO_DATE },
+      { 'Incumbent': NO_USER_LISTED },
+      { 'Tour of Duty': NO_TOUR_OF_DUTY },
+    ],
     textarea: {
       'Position Details': 'No Details',
     },
-    metadata: {
-      'Position Posted': NO_UPDATE_DATE,
-      'Last Updated': NO_UPDATE_DATE,
-    },
+    metadata: [
+      { 'Position Posted': NO_UPDATE_DATE },
+      { 'Last Updated': NO_UPDATE_DATE },
+    ],
     /* eslint-enable quote-props */
   };
 

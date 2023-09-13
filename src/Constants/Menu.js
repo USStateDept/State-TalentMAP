@@ -157,6 +157,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
+      {
+        text: 'Manage Entry Level',
+        route: '/profile/administrator/manageentrylevel/',
+        icon: ' fa-keyboard-o',
+        roles: [
+          'superuser',
+        ],
+      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
