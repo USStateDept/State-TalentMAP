@@ -173,7 +173,7 @@ const OrgStats = () => {
       </div>
       {getOverlay() ||
         <div className="bs-lower-section">
-          {orgStatsData$ && orgStatsData$?.map((data, index) => {
+          {orgStatsData$?.map((data, index) => {
             const bureauSummary = orgStatsSummary$.find(s => s.bureau === data.bureau);
             const currBureau = data.bureau;
             const nextBureau = orgStatsData$[index + 1]?.bureau;
