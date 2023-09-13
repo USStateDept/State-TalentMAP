@@ -2,91 +2,66 @@ import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
+import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
-import { get, has, sortBy, uniqBy } from 'lodash';
-import { filtersFetchData } from 'actions/filters/filters';
-import { bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
 import Spinner from 'Components/Spinner';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import TabbedCard from '../../TabbedCard/TabbedCard';
 import CheckBox from '../../CheckBox/CheckBox';
+import { cycleJobCategoriesData, cycleJobCategoriesEdit, cycleJobCategoriesFilters } from '../../../actions/cycleJobCategories';
+import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem/ListItem';
 
 const CycleJobCategory = () => {
   const dispatch = useDispatch();
 
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const userSelections = useSelector(state => state.bidSeasonsSelections);
-  const genericFilters = useSelector(state => state.filters);
-  const [selectedCycles, setSelectedCycles] = useState(userSelections.selectedCycles || []);
+  const cycleCategories = useSelector(state => state.cycleJobCategoriesFilters) || [];
+  const cycleCategoriesIsLoading = useSelector(state => state.cycleJobCategoriesFiltersLoading);
+  const jobCategories = useSelector(state => state.cycleJobCategoriesData) || [];
+  const jobCategoriesIsLoading = useSelector(state => state.cycleJobCategoriesDataLoading);
 
-  const cycles = [].find(f => get(f, 'item.description') === 'bidCycle');
-  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
+  const [selectedCycle, setSelectedCycle] = useState([]);
+  const [selectedJobCategories, setSelectedJobCategories] = useState([]);
+  const [jobCategorySearch, setJobCategorySearch] = useState('');
 
-  // Filters
-  const [selectedBidSeasons, setSelectedBidSeasons] =
-    useState(userSelections?.selectedBidSeasons || []);
+  console.log(cycleCategories);
 
-  // Pagination
-  const [page, setPage] = useState(userSelections.page || 1);
-  const currentInputs = {
-    page,
-    selectedBidSeasons,
-  };
-
-  const getCurrentInputs = () => ({
-    page,
-    selectedBidSeasons,
-  });
-
-  const getQuery = () => ({
-    'bid-seasons': selectedBidSeasons.map(bidCycleObject => (bidCycleObject?.id)),
-    page,
-  });
-
-
-  const fetchAndSet = (resetPage = false) => {
-    setSelectedBidSeasons([]);
-    if (resetPage) {
-      setPage(1);
-    }
-    dispatch(saveBidSeasonsSelections(getCurrentInputs()));
-    dispatch(bidSeasonsFetchData(getQuery()));
-  };
-
-
-  // initial render
   useEffect(() => {
-    dispatch(filtersFetchData(genericFilters));
-    dispatch(saveBidSeasonsSelections(currentInputs));
+    dispatch(cycleJobCategoriesFilters());
   }, []);
 
   useEffect(() => {
-    fetchAndSet(false);
-  }, [
-    page,
-  ]);
+    dispatch(cycleJobCategoriesData(selectedCycle.id));
+  }, [selectedCycle]);
 
-  function renderSelectionList({ items, selected, ...rest }) {
-    let codeOrID = 'code';
-    // only Cycle needs to use 'id'
-    if (!has(items[0], 'code')) {
-      codeOrID = 'id';
+  useEffect(() => {
+    if (cycleCategories && cycleCategories.length) {
+      setSelectedCycle(cycleCategories[0]);
     }
-    const getSelected = item => !!selected.find(f => f[codeOrID] === item[codeOrID]);
-    let queryProp = 'description';
-    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
-    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    return items.map(item => (
-      <ListItem
-        key={item[codeOrID]}
-        item={item}
-        {...rest}
-        queryProp={queryProp}
-        getIsSelected={getSelected}
-      />
-    ),
-    );
-  }
+  }, [cycleCategories]);
+
+  useEffect(() => {
+    if (jobCategories && jobCategories.length) {
+      setSelectedJobCategories(jobCategories.filter(j => j.selected).map(j => j.id));
+    }
+  }, [jobCategories]);
+
+  const getDisplayedJobCategories = () => {
+    if (jobCategories.length > 0) {
+      if (jobCategorySearch === '') {
+        return jobCategories;
+      }
+      return jobCategories.filter(j => j.description.includes(jobCategorySearch));
+    }
+    return [];
+  };
+
+  const handleSelectAllJobs = () => {
+    const allSelected = jobCategories?.length === selectedJobCategories?.length;
+    if (allSelected) {
+      setSelectedJobCategories([]);
+    } else {
+      setSelectedJobCategories(jobCategories?.map(j => j.id));
+    }
+  };
 
   const showCancelModal = () => {
     swal({
@@ -101,6 +76,9 @@ const CycleJobCategory = () => {
           <div className="modal-controls">
             <button
               onClick={() => {
+                setSelectedJobCategories(
+                  jobCategories?.filter(j => j.selected).map(j => j.id),
+                );
                 swal.close();
               }}
             >
@@ -113,7 +91,27 @@ const CycleJobCategory = () => {
     });
   };
 
-  return (genericFiltersIsLoading ?
+  const handleSubmit = () => {
+    dispatch(cycleJobCategoriesEdit(selectedJobCategories));
+  };
+
+  const renderSelectionList = ({ items, selected, ...rest }) => {
+    const queryProp = 'description';
+    return items.map((item, index) => {
+      const keyId = `${index}-${item}`;
+      return (<ListItem
+        item={item}
+        {...rest}
+        key={keyId}
+        queryProp={queryProp}
+      />);
+    });
+  };
+
+
+  console.log(jobCategories?.length);
+  console.log(selectedJobCategories);
+  return ((cycleCategoriesIsLoading || jobCategoriesIsLoading) ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="cycle-job-category">
       <div className="cycle-job-category__header position-search--filters--cjc">
@@ -128,15 +126,14 @@ const CycleJobCategory = () => {
           <div className="label">Cycle Category</div>
           <Picky
             placeholder="Select a Cycle Category"
-            value={selectedCycles}
-            options={cycleOptions}
-            onChange={setSelectedCycles}
-            numberDisplayed={2}
+            value={selectedCycle}
+            options={[]}
+            onChange={setSelectedCycle}
             includeFilter
             dropdownHeight={255}
             renderList={renderSelectionList}
             valueKey="id"
-            labelKey="custom_description"
+            labelKey="description"
           />
         </div>
       </div>
@@ -148,41 +145,69 @@ const CycleJobCategory = () => {
             <div className="job-category-table">
               <div className="category-type">
                 <span>Category Type:</span>
-                <span>(A) A100 Class</span>
+                <span>{selectedCycle.description ?? 'No Cycle Category Selected'}</span>
               </div>
-              <table>
-                <tr>
-                  <th>
-                    <CheckBox
-                      id="select-all"
-                      value
-                    />
-                  </th>
-                  <th>Job Category Description</th>
-                  <th>
-                    <div>
-                      Status
-                    </div>
-                  </th>
-                </tr>
-                <tr>
-                  <td>
-                    <CheckBox
-                      id="select-all"
-                      value
-                    />
-                  </td>
-                  <td>
-                    Description
-                  </td>
-                  <td>
-                    Description
-                  </td>
-                </tr>
-              </table>
+              {selectedCycle && <>
+                <input
+                  id="job-category-search"
+                  value={jobCategorySearch}
+                  onChange={(event) => setJobCategorySearch(event.target.value)}
+                  type="search"
+                  name="search"
+                  placeholder="Filter by Job Category Description"
+                  className="job-category-search"
+                />
+                <table>
+                  <tr>
+                    <th>
+                      <CheckBox
+                        id="select-all"
+                        value={jobCategories?.length === selectedJobCategories?.length}
+                        onCheckBoxClick={() => handleSelectAllJobs()}
+                      />
+                    </th>
+                    <th>Job Category Descriptions</th>
+                    <th>
+                      <div>
+                        <div>
+                          Status
+                        </div>
+                        <div className="new-category-button">
+                          <FA className="fa-solid fa-plus" />
+                          <p>New Job Category</p>
+                        </div>
+                      </div>
+                    </th>
+                  </tr>
+                  {getDisplayedJobCategories().map(job => (
+                    <tr>
+                      <td>
+                        <CheckBox
+                          id={`selected-${job.id}`}
+                          value={selectedJobCategories.find(o => o === job.id)}
+                          onCheckBoxClick={() => {
+                            if (selectedJobCategories.find(o => o === job.id)) {
+                              setSelectedJobCategories([
+                                ...selectedJobCategories,
+                                job.id,
+                              ]);
+                            } else {
+                              const newSelection =
+                                selectedJobCategories.filter(o => o.id !== job.id);
+                              setSelectedJobCategories(newSelection);
+                            }
+                          }}
+                        />
+                      </td>
+                      <td>{job.description}</td>
+                      <td>{job.active ? 'Active' : 'Inactive'}</td>
+                    </tr>
+                  ))}
+                </table>
+              </>}
               <div className="position-form--actions">
                 <button onClick={showCancelModal}>Cancel</button>
-                <button onClick={() => console.log('Save')}>Save</button>
+                <button onClick={handleSubmit}>Save</button>
               </div>
             </div>
           ),
