@@ -65,10 +65,8 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
     setEdit(false);
   };
 
-  // const cusp = get(userProfile, 'cusp', false);
-  // using this as a placeholder
-  const cusp = true;
-  const eligible = get(userProfile, 'eligible', false);
+  const cusp = included;
+  const eligible = !included;
 
   const ribbons = (
     <div>
