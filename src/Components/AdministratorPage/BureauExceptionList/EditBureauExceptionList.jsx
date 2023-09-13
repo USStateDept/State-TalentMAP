@@ -6,28 +6,8 @@ import TextInput from '../../TextInput/TextInput';
 
 
 const EditBureauExceptionList = (props) => {
-  const { user } = props;
-
-  const data = [
-    { id: 1, bureaus: ['AO'] },
-    { id: 2, bureaus: ['FA'] },
-    { id: 3, bureaus: ['EO'] },
-    { id: 4, bureaus: ['AS'] },
-    { id: 5, bureaus: ['FG'] },
-    { id: 6, bureaus: ['UO'] },
-    { id: 7, bureaus: ['XA'] },
-    { id: 8, bureaus: ['YY'] },
-    { id: 9, bureaus: ['ZA'] },
-    { id: 10, bureaus: ['OO'] },
-    { id: 11, bureaus: ['RR'] },
-    { id: 12, bureaus: ['BO'] },
-    { id: 13, bureaus: ['FS'] },
-    { id: 14, bureaus: ['FX'] },
-    { id: 15, bureaus: ['UL'] },
-    { id: 16, bureaus: ['BX'] },
-    { id: 17, bureaus: ['FY'] },
-    { id: 18, bureaus: ['ZW'] },
-  ];
+  const { BureauExceptionOptionsData, user } = props;
+  const data = BureauExceptionOptionsData;
 
   const [selectAll, setSelectAll] = useState(false);
   const [checkedBureauIds, setCheckedBureauIds] = useState([]);
@@ -109,7 +89,7 @@ const EditBureauExceptionList = (props) => {
           <tbody>
             <div className="bureau-exception-text-table">
               {
-                data.length &&
+                data?.length &&
                   data.filter(item => item.bureaus.some(x =>
                     x.includes(bureau))).map(post => (
                     <tr key={post.id}>

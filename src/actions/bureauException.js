@@ -1,17 +1,4 @@
 import { batch } from 'react-redux';
-import { CancelToken } from 'axios';
-import {
-  ADD_BUREAU_EXCEPTION_ERROR,
-  ADD_BUREAU_EXCEPTION_ERROR_TITLE,
-  ADD_BUREAU_EXCEPTION_SUCCESS,
-  ADD_BUREAU_EXCEPTION_SUCCESS_TITLE,
-  EDIT_BUREAU_EXCEPTION_ERROR,
-  EDIT_BUREAU_EXCEPTION_ERROR_TITLE,
-  EDIT_BUREAU_EXCEPTION_SUCCESS,
-  EDIT_BUREAU_EXCEPTION_SUCCESS_TITLE,
-} from 'Constants/SystemMessages';
-import api from '../api';
-import { toastError, toastSuccess } from './toast';
 // import { convertQueryToString } from 'utilities';
 
 const dummyData = [
@@ -107,7 +94,7 @@ const dummyData = [
   },
 ];
 
-const editDummyData = [
+const bureauListdata = [
   { id: 1, bureaus: ['AO'] },
   { id: 2, bureaus: ['FA'] },
   { id: 3, bureaus: ['EO'] },
@@ -135,11 +122,12 @@ const dummyDataToReturn = (query) => new Promise((resolve) => {
     count: dummyData.length,
   });
 });
-const bureauExceptionPosDummyDataToReturn = (query) => new Promise((resolve) => {
+
+const dummyBureauListDataToReturn = (query) => new Promise((resolve) => {
   const { limit } = query;
   resolve({
-    results: editDummyData.slice(0, limit),
-    count: editDummyData.length,
+    results: bureauListdata.slice(0, limit),
+    count: bureauListdata.length,
   });
 });
 
@@ -160,6 +148,13 @@ export function bureauExceptionFetchDataLoading(bool) {
 export function bureauExceptionFetchDataSuccess(results) {
   return {
     type: 'BUREAU_EXCEPTIONS_FETCH_SUCCESS',
+    results,
+  };
+}
+
+export function bureauExceptionOptionsFetchDataSuccess(results) {
+  return {
+    type: 'BUREAU_EXCEPTIONS_OPTIONS_FETCH_SUCCESS',
     results,
   };
 }
@@ -199,15 +194,39 @@ export function bureauExceptionFetchData(query = {}) {
   };
 }
 
-export function bureauExceptionSelectionsSaveSuccess(result) {
-  return {
-    type: 'BUREAU_EXCEPTION_SELECTIONS_SAVE_SUCCESS',
-    result,
+export function bureauExceptionBureauDataFetchData(query = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(bureauExceptionFetchDataLoading(true));
+      dispatch(bureauExceptionFetchDataErrored(false));
+    });
+    // const q = convertQueryToString(query);
+    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
+    // api().get(endpoint)
+    dispatch(bureauExceptionFetchDataLoading(true));
+    dummyBureauListDataToReturn(query)
+      .then((data) => {
+        batch(() => {
+          dispatch(bureauExceptionOptionsFetchDataSuccess(data));
+          dispatch(bureauExceptionFetchDataErrored(false));
+          dispatch(bureauExceptionFetchDataLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(bureauExceptionFetchDataLoading(true));
+            dispatch(bureauExceptionFetchDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(bureauExceptionFetchDataSuccess(dummyDataToReturn));
+            dispatch(bureauExceptionFetchDataErrored(false));
+            dispatch(bureauExceptionFetchDataLoading(false));
+          });
+        }
+      });
   };
-}
-
-export function saveBureauExceptionSelections(queryObject) {
-  return (dispatch) => dispatch(bureauExceptionSelectionsSaveSuccess(queryObject));
 }
 
 export function bureauExceptionPositionSearchFetchDataErrored(bool) {
@@ -222,58 +241,6 @@ export function bureauExceptionPositionSearchFetchDataLoading(bool) {
     type: 'BUREAU_EXCEPTION_POSITION_SEARCH_FETCH_IS_LOADING',
     isLoading: bool,
   };
-}
-
-export function bureauExceptionPositionSearchFetchDataSuccess(results) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_SEARCH_FETCH_SUCCESS',
-    results,
-  };
-}
-
-export function bureauExceptionEditFetchData(query = {}) {
-  return (dispatch) => {
-    batch(() => {
-      dispatch(bureauExceptionPositionSearchFetchDataLoading(true));
-      dispatch(bureauExceptionPositionSearchFetchDataErrored(false));
-    });
-    // const q = convertQueryToString(query);
-    // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
-    // api().get(endpoint)
-    dispatch(bureauExceptionPositionSearchFetchDataLoading(true));
-    bureauExceptionPosDummyDataToReturn(query)
-      .then((data) => {
-        batch(() => {
-          dispatch(bureauExceptionPositionSearchFetchDataSuccess(data));
-          dispatch(bureauExceptionPositionSearchFetchDataErrored(false));
-          dispatch(bureauExceptionPositionSearchFetchDataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(bureauExceptionPositionSearchFetchDataLoading(true));
-            dispatch(bureauExceptionPositionSearchFetchDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(bureauExceptionPositionSearchFetchDataErrored(true));
-            dispatch(bureauExceptionPositionSearchFetchDataLoading(false));
-          });
-        }
-      });
-  };
-}
-
-export function bureauExceptionPositionSearchSelectionsSaveSuccess(result) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_SEARCH_SELECTIONS_SAVE_SUCCESS',
-    result,
-  };
-}
-
-export function saveBureauExceptionPositionSearchSelections(queryObject) {
-  return (dispatch) => dispatch(bureauExceptionPositionSearchSelectionsSaveSuccess(queryObject));
 }
 
 export function bureauExceptionPositionRemoveHasErrored(bool) {
@@ -295,44 +262,6 @@ export function bureauExceptionPositionRemoveSuccess(data) {
   };
 }
 
-let cancel;
-
-export function bureauExceptionPositionRemove(position) {
-  return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
-    dispatch(bureauExceptionPositionRemoveIsLoading(true));
-    dispatch(bureauExceptionPositionRemoveHasErrored(false));
-    api()
-      .post('/placeholder/POST/endpoint', {
-        position,
-      }, {
-        cancelToken: new CancelToken((c) => {
-          cancel = c;
-        }),
-      })
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(bureauExceptionPositionRemoveHasErrored(false));
-          dispatch(bureauExceptionPositionRemoveSuccess(data || []));
-          dispatch(
-            toastSuccess(ADD_BUREAU_EXCEPTION_SUCCESS,
-              ADD_BUREAU_EXCEPTION_SUCCESS_TITLE));
-          dispatch(bureauExceptionPositionRemoveIsLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          dispatch(bureauExceptionPositionRemoveHasErrored(false));
-          dispatch(bureauExceptionPositionRemoveIsLoading(false));
-        } else {
-          dispatch(toastError(ADD_BUREAU_EXCEPTION_ERROR,
-            ADD_BUREAU_EXCEPTION_ERROR_TITLE));
-          dispatch(bureauExceptionPositionRemoveHasErrored(true));
-          dispatch(bureauExceptionPositionRemoveIsLoading(false));
-        }
-      });
-  };
-}
 
 export function bureauExceptionPositionEditHasErrored(bool) {
   return {
@@ -350,41 +279,5 @@ export function bureauExceptionPositionEditSuccess(data) {
   return {
     type: 'BUREAU_EXCEPTION_POSITION_EDIT_SUCCESS',
     data,
-  };
-}
-
-export function bureauExceptionPositionEdit(user) {
-  return (dispatch) => {
-    if (cancel) { cancel('cancel'); }
-    dispatch(bureauExceptionPositionEditIsLoading(true));
-    dispatch(bureauExceptionPositionEditHasErrored(false));
-    api()
-      .post('/placeholder/POST/endpoint', {
-        user,
-      }, {
-        cancelToken: new CancelToken((c) => {
-          cancel = c;
-        }),
-      })
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(bureauExceptionPositionEditHasErrored(false));
-          dispatch(bureauExceptionPositionEditSuccess(data || []));
-          dispatch(
-            toastSuccess(EDIT_BUREAU_EXCEPTION_SUCCESS, EDIT_BUREAU_EXCEPTION_SUCCESS_TITLE));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          dispatch(bureauExceptionPositionEditHasErrored(false));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
-        } else {
-          dispatch(toastError(EDIT_BUREAU_EXCEPTION_ERROR,
-            EDIT_BUREAU_EXCEPTION_ERROR_TITLE));
-          dispatch(bureauExceptionPositionEditHasErrored(true));
-          dispatch(bureauExceptionPositionEditIsLoading(false));
-        }
-      });
   };
 }

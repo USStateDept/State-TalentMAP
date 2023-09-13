@@ -23,6 +23,15 @@ export function bureauExceptions(state = [], action) {
   }
 }
 
+export function bureauExceptionsOptions(state = [], action) {
+  switch (action.type) {
+    case 'BUREAU_EXCEPTIONS_OPTIONS_FETCH_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
 export function bureauExceptionsSelections(state = {}, action) {
   switch (action.type) {
     case 'BUREAU_EXCEPTIONS_SELECTIONS_SAVE_SUCCESS':
@@ -44,14 +53,6 @@ export function bureauExceptionsPositionSearchFetchDataLoading(state = false, ac
   switch (action.type) {
     case 'BUREAU_EXCEPTIONS_POSITION_SEARCH_FETCH_IS_LOADING':
       return action.isLoading;
-    default:
-      return state;
-  }
-}
-export function bureauExceptionsPositionSearch(state = [], action) {
-  switch (action.type) {
-    case 'BUREAU_EXCEPTIONS_POSITION_SEARCH_FETCH_SUCCESS':
-      return action.results;
     default:
       return state;
   }

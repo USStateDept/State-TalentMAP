@@ -10,6 +10,7 @@ const BureauExceptionListCard = (props) => {
     id,
     Name,
     BureauNames,
+    BureauExceptionOptionsData,
   } = props;
 
   const submitAction = () => {
@@ -25,6 +26,7 @@ const BureauExceptionListCard = (props) => {
         <EditBureauExceptionList
           submitActioaddn={submitAction}
           user={bureauUser}
+          BureauExceptionOptionsData={BureauExceptionOptionsData}
         />
       ),
     });
@@ -64,12 +66,18 @@ BureauExceptionListCard.propTypes = {
   id: PropTypes.number.isRequired,
   Name: PropTypes.string.isRequired,
   BureauNames: PropTypes.string.isRequired,
+  BureauExceptionOptionsData: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    Name: PropTypes.string,
+    BureauNames: PropTypes.arrayOf(PropTypes.string),
+  })),
 };
 
 BureauExceptionListCard.defaultProps = {
   id: 0,
   Name: '',
   BureauNames: '',
+  BureauExceptionOptionsData: [],
 };
 
 export default BureauExceptionListCard;
