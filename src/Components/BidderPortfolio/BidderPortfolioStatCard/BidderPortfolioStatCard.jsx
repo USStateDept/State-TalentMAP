@@ -151,7 +151,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
         <div className={!edit && 'stat-card-data-point'} >
           <dt>Alt Email:</dt>
           <dd>
-            {altEmail !== '' ?
+            {altEmail ?
               <a href={`mailto:${altEmail}`}>{altEmail}</a> :
               'None Listed'
             }
