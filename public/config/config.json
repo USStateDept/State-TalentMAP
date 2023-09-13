@@ -12,6 +12,7 @@
     "cycle_management": true,
     "deto": false,
     "handshake_bidding": true,
+    "job_categories": true,
     "maintain_assignment": true,
     "panel_admin": true,
     "panel_admin_panel_meeting": true,

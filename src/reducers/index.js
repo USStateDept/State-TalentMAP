@@ -74,6 +74,7 @@ import bidSeasons from './bidSeasons';
 import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
+import jobCategories from './jobCategories';
 import orgStats from './orgStats';
 
 export default (history) => combineReducers({
@@ -146,6 +147,7 @@ export default (history) => combineReducers({
   ...bidSeasons,
   ...managePostAccess,
   ...searchPostAccess,
+  ...jobCategories,
   ...orgStats,
   router: connectRouter(history),
   client,

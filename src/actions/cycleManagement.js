@@ -56,6 +56,7 @@ const dummyData = [
     cycle_post_view: 'Y',
   },
 ];
+
 // eslint-disable-next-line no-loops/no-loops
 for (let index = 2022; index > 1975; index -= 1) {
   const monthInt = Math.floor(Math.random() * 10) + 1;
