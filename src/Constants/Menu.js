@@ -149,6 +149,22 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      {
+        text: 'Org Stats',
+        route: '/profile/administrator/orgstats/',
+        icon: 'building',
+        roles: [
+          'superuser',
+        ],
+      },
+      {
+        text: 'Manage Entry Level',
+        route: '/profile/administrator/manageentrylevel/',
+        icon: ' fa-keyboard-o',
+        roles: [
+          'superuser',
+        ],
+      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
@@ -172,6 +188,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Panel',
           route: '/profile/administrator/panel/',
           icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.job_categories') ?
+        {
+          text: 'Job Categories',
+          route: '/profile/administrator/jobcategories/',
+          icon: 'map',
           roles: [
             'superuser',
           ],

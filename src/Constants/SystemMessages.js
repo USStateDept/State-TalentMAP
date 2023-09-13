@@ -238,3 +238,7 @@ export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) su
 export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
 export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
 
+export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
+export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
+export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
+export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
