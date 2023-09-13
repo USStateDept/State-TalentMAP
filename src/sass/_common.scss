@@ -116,3 +116,8 @@
   -moz-box-shadow: 0 1px 4px $bg-gray-dark-3;
   -webkit-box-shadow: 0 1px 4px $bg-gray-dark-3;
 }
+
+.disabled-bg {
+  background: $color-gray-lightest;
+  color: $color-gray;
+}
