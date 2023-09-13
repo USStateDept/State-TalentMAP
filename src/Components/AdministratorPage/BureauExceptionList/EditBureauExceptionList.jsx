@@ -8,7 +8,7 @@ import TextInput from '../../TextInput/TextInput';
 const EditBureauExceptionList = (props) => {
   const { BureauExceptionOptionsData, user } = props;
   const data = BureauExceptionOptionsData;
-
+  console.log('data', data);
   const [selectAll, setSelectAll] = useState(false);
   const [checkedBureauIds, setCheckedBureauIds] = useState([]);
   const [bureau, setBureau] = useState('');
@@ -119,6 +119,10 @@ EditBureauExceptionList.propTypes = {
     Name: PropTypes.string,
     BureauNames: PropTypes.arrayOf(PropTypes.string),
   }),
+  BureauExceptionOptionsData: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    bureaus: PropTypes.arrayOf(PropTypes.string),
+  })),
 };
 
 
@@ -128,6 +132,7 @@ EditBureauExceptionList.defaultProps = {
     Name: '',
     BureauNames: [],
   },
+  BureauExceptionOptionsData: [],
 };
 
 export default EditBureauExceptionList;
