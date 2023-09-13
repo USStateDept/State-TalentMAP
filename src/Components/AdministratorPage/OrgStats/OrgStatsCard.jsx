@@ -13,7 +13,7 @@ const OrgStatsCard = (props) => {
     body: {
       'Total POS': getResult(props, 'total_pos'),
       'Total Filled': getResult(props, 'total_filled'),
-      '% POS': getResult(props, 'total_percent'),
+      '% Filled': getResult(props, 'total_percent'),
       'Overseas POS': getResult(props, 'overseas_pos'),
       'Overseas Filled': getResult(props, 'overseas_filled'),
       '% Overseas': getResult(props, 'overseas_percent'),
