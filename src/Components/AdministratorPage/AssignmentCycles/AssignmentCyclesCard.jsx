@@ -124,26 +124,21 @@ const AssignmentCyclesCard = (props) => {
 };
 
 AssignmentCyclesCard.propTypes = {
-  cycle_begin_date: PropTypes.string.isRequired,
-  cycle_end_date: PropTypes.string.isRequired,
-  cycle_name: PropTypes.string.isRequired,
-  cycle_category: PropTypes.string.isRequired,
-  cycle_excl_position: PropTypes.string.isRequired,
-  cycle_post_view: PropTypes.string.isRequired,
-  cycle_status: PropTypes.string.isRequired,
-  id: PropTypes.string,
-  displayNewModal: PropTypes.bool.isRequired,
+  data: PropTypes.shape({
+    cycle_begin_date: PropTypes.string,
+    cycle_end_date: PropTypes.string,
+    cycle_name: PropTypes.string,
+    cycle_category: PropTypes.string,
+    cycle_excl_position: PropTypes.string,
+    cycle_post_view: PropTypes.string,
+    cycle_status: PropTypes.string,
+    id: PropTypes.string,
+  }),
+  displayNewModal: PropTypes.bool,
 };
 
 AssignmentCyclesCard.defaultProps = {
-  cycle_begin_date: '',
-  cycle_end_date: '',
-  cycle_name: '',
-  cycle_category: '',
-  cycle_excl_position: '',
-  cycle_post_view: '',
-  cycle_status: '',
-  id: '',
+  data: {},
   displayNewModal: false,
 };
 
