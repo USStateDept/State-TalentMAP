@@ -26,8 +26,6 @@ const PanelAdmin = (props) => {
   const usePanelAdminPanelMeeting = () => checkFlag('flags.panel_admin_panel_meeting');
   const usePaneAdminPostPanel = () => checkFlag('flags.panel_admin_post_panel');
 
-  const editEnabled = false;
-
   const dispatch = useDispatch();
 
   const pmSeqNum = props.match?.params?.pmSeqNum ?? false;
@@ -133,12 +131,9 @@ const PanelAdmin = (props) => {
                 <tr key={r.seq_num}>
                   <td>{category.desc_text}</td>
                   <td>
-                    {
-                      editEnabled &&
-                      <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
-                        <FA name="pencil" />
-                      </InteractiveElement>
-                    }
+                    <InteractiveElement title="Edit this Remark" type="span" onClick={() => showRemarkModal(true, category, r)}>
+                      <FA name="pencil" />
+                    </InteractiveElement>
                     {r.text}
                   </td>
                   <td className="active-column">{r.active_ind}</td>
