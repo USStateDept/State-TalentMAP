@@ -3,16 +3,6 @@ import {
   bureauExceptionsFetchDataErrored,
   bureauExceptionsFetchDataLoading,
   bureauExceptionsOptions,
-  bureauExceptionsPositionEditHasErrored,
-  bureauExceptionsPositionEditIsLoading,
-  bureauExceptionsPositionEditSuccess,
-  bureauExceptionsPositionRemoveHasErrored,
-  bureauExceptionsPositionRemoveIsLoading,
-  bureauExceptionsPositionRemoveSuccess,
-  bureauExceptionsPositionSearchFetchDataErrored,
-  bureauExceptionsPositionSearchFetchDataLoading,
-  bureauExceptionsPositionSearchSelections,
-  bureauExceptionsSelections,
 } from './bureauException';
 
 export default {
@@ -20,14 +10,4 @@ export default {
   bureauExceptionsFetchDataErrored,
   bureauExceptionsFetchDataLoading,
   bureauExceptionsOptions,
-  bureauExceptionsPositionEditHasErrored,
-  bureauExceptionsPositionEditIsLoading,
-  bureauExceptionsPositionEditSuccess,
-  bureauExceptionsPositionRemoveHasErrored,
-  bureauExceptionsPositionRemoveIsLoading,
-  bureauExceptionsPositionRemoveSuccess,
-  bureauExceptionsPositionSearchFetchDataErrored,
-  bureauExceptionsPositionSearchFetchDataLoading,
-  bureauExceptionsPositionSearchSelections,
-  bureauExceptionsSelections,
 };

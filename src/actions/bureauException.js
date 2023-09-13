@@ -237,39 +237,6 @@ export function bureauExceptionBureauDataFetchData(query = {}) {
   };
 }
 
-export function bureauExceptionPositionSearchFetchDataErrored(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_SEARCH_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function bureauExceptionPositionSearchFetchDataLoading(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_SEARCH_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function bureauExceptionPositionRemoveHasErrored(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_REMOVE_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-export function bureauExceptionPositionRemoveIsLoading(bool) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_REMOVE_IS_LOADING',
-    isLoading: bool,
-  };
-}
-export function bureauExceptionPositionRemoveSuccess(data) {
-  return {
-    type: 'BUREAU_EXCEPTION_POSITION_REMOVE_SUCCESS',
-    data,
-  };
-}
-
 
 export function bureauExceptionPositionEditHasErrored(bool) {
   return {

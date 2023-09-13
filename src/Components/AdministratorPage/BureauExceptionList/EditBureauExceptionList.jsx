@@ -27,10 +27,6 @@ const EditBureauExceptionList = (props) => {
     swal.close();
   };
 
-  const onChangeText = (e) => {
-    setBureau(e);
-  };
-
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
@@ -66,7 +62,7 @@ const EditBureauExceptionList = (props) => {
             <tr>
               <div className="bureau-exception-text-input">
                 <TextInput
-                  changeText={(e) => onChangeText(e)}
+                  changeText={(e) => setBureau(e)}
                   label={`F/S Employee Name: ${user.Name}`}
                   placeholder="Filter by Bureau"
                   value={bureau}

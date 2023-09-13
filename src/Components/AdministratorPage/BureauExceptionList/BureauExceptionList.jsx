@@ -41,31 +41,29 @@ const BureauExceptionList = () => {
   };
 
   return (
-    BureauExceptionDataLoading ?
-      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
-      <div className="position-search">
-        <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Bureau Exception List" icon="calendar" className="xl-icon" />
-        </div>
-        {
-          getOverlay() ||
-          <>
-            <div className="bs-lower-section">
-              {BureauExceptionData?.results?.map(data => (
-                <BureauExceptionListCard
-                  key={data?.id}
-                  id={data?.id}
-                  Name={data?.Name}
-                  BureauNames={data?.BureauNames}
-                  BureauExceptionOptionsData={BureauExceptionOptionsData?.results}
-                  dispatch={dispatch}
-                />),
-              )
-              }
-            </div>
-          </>
-        }
+    <div className="position-search">
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Bureau Exception List" icon="calendar" className="xl-icon" />
       </div>
+      {
+        getOverlay() ||
+        <>
+          <div className="bs-lower-section">
+            {BureauExceptionData?.results?.map(data => (
+              <BureauExceptionListCard
+                key={data?.id}
+                id={data?.id}
+                Name={data?.Name}
+                BureauNames={data?.BureauNames}
+                BureauExceptionOptionsData={BureauExceptionOptionsData?.results}
+                dispatch={dispatch}
+              />),
+            )
+            }
+          </div>
+        </>
+      }
+    </div>
   );
 };
 
