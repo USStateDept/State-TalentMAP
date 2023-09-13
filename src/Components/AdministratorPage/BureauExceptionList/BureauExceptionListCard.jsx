@@ -73,6 +73,7 @@ BureauExceptionListCard.propTypes = {
     Name: PropTypes.string,
     BureauNames: PropTypes.arrayOf(PropTypes.string),
   })),
+  dispatch: PropTypes.func.isRequired,
 };
 
 BureauExceptionListCard.defaultProps = {
@@ -80,6 +81,7 @@ BureauExceptionListCard.defaultProps = {
   Name: '',
   BureauNames: '',
   BureauExceptionOptionsData: [],
+  dispatch: () => {},
 };
 
 export default BureauExceptionListCard;
