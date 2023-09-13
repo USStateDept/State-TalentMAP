@@ -38,6 +38,20 @@
     &::after {
       content: none;
     }
+
+    &.no-space {
+      justify-content: flex-start !important;
+    }
+  }
+
+  .title-link {
+    text-decoration: underline;
+    color: $primary-blue;
+    cursor: pointer;
+
+    padding-right: 7px;
+    margin-right: 7px;
+    border-right: 1px solid black;
   }
 
   .toggle-edit-mode {
@@ -84,9 +98,15 @@
       }
 
       dt {
-        color: $color-black;
+        color: inherit;
         font-size: 15px;
         margin-bottom: 7px;
+      }
+    }
+
+    &.condensed {
+      dl {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)) !important;
       }
     }
   }
@@ -366,6 +386,7 @@
     }
 
     tr {
+
       th,
       td {
         background-color: transparent;
@@ -395,7 +416,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 0px 0px 10px;
-  
+
     button {
       font-size: 16px;
     }

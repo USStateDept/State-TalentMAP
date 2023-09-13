@@ -158,6 +158,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      {
+        text: 'Org Stats',
+        route: '/profile/administrator/orgstats/',
+        icon: 'building',
+        roles: [
+          'superuser',
+        ],
+      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
