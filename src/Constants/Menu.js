@@ -149,6 +149,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      {
+        text: 'Org Stats',
+        route: '/profile/administrator/orgstats/',
+        icon: 'building',
+        roles: [
+          'superuser',
+        ],
+      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
