@@ -3,7 +3,6 @@ import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { get, sortBy, uniqBy } from 'lodash';
 import Picky from 'react-picky';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { isDate, startOfDay } from 'date-fns-v2';
@@ -18,11 +17,9 @@ import { assignmentCycleFetchData, saveAssignmentCycleSelections } from 'actions
 import AssignmentCyclesCard from './AssignmentCyclesCard';
 
 
-const AssignmentCycles = (props) => {
+const AssignmentCycles = () => {
   const dispatch = useDispatch();
-  const { isAO } = props;
 
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const userSelections = useSelector(state => state.assignmentCycleSelections);
   const AssignmentCycleDataLoading = useSelector(state => state.assignmentCycleFetchDataLoading);
   const AssignmentCycleData = useSelector(state => state.assignmentCycle);
@@ -200,130 +197,120 @@ const AssignmentCycles = (props) => {
   };
 
   return (
-    genericFiltersIsLoading ?
-      <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
-      <div className="assignment-cycle-page position-search">
-        <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Assignment Cycles" icon="calendar" className="xl-icon" />
-          <div className="filterby-container" >
-            <div className="filterby-label">Filter by:</div>
-            <span className="filterby-clear">
-              {clearFilters &&
-                <button className="unstyled-button" onClick={resetFilters}>
-                  <FA name="times" />
-                  Clear Filters
-                </button>
-              }
-            </span>
+    <div className="assignment-cycle-page position-search">
+      <div className="usa-grid-full position-search--header">
+        <ProfileSectionTitle title="Assignment Cycles" icon="calendar" className="xl-icon" />
+        <div className="filterby-container" >
+          <div className="filterby-label">Filter by:</div>
+          <span className="filterby-clear">
+            {clearFilters &&
+              <button className="unstyled-button" onClick={resetFilters}>
+                <FA name="times" />
+                Clear Filters
+              </button>
+            }
+          </span>
+        </div>
+        <div className="usa-width-one-whole position-search--filters--ac">
+          <div className="filter-div">
+            <div className="label">Assignment Cycle:</div>
+            <Picky
+              {...pickyProps}
+              placeholder="Select assignment cycle(s)"
+              options={assignmentCycleOptions}
+              valueKey="id"
+              labelKey="name"
+              onChange={setAssignmentCycle}
+              value={assignmentCycle}
+            />
           </div>
-          <div className="usa-width-one-whole position-search--filters--ac">
-            <div className="filter-div">
-              <div className="label">Assignment Cycle:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select assignment cycle(s)"
-                options={assignmentCycleOptions}
-                valueKey="id"
-                labelKey="name"
-                onChange={setAssignmentCycle}
-                value={assignmentCycle}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Cycle Category:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select cycle category(s)"
-                options={cycleCategoryOptions}
-                valueKey="id"
-                labelKey="name"
-                onChange={setCycleCategory}
-                value={cycleCategory}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Cycle Status:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select cycle status"
-                options={statusOptions}
-                valueKey="id"
-                labelKey="name"
-                onChange={setCycleStatus}
-                value={cycleStatus}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Exclusive Position:</div>
-              <Picky
-                {...pickyProps}
-                includeSelectAll={false}
-                includeFilter={false}
-                placeholder="Select an option"
-                options={choices}
-                valueKey="id"
-                labelKey="name"
-                onChange={setExclusivePosition}
-                value={exclusivePosition}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Post Viewable:</div>
-              <Picky
-                {...pickyProps}
-                includeSelectAll={false}
-                includeFilter={false}
-                placeholder="Select an option"
-                options={choices}
-                valueKey="id"
-                labelKey="name"
-                onChange={setPostView}
-                value={postView}
-              />
-            </div>
+          <div className="filter-div">
+            <div className="label">Cycle Category:</div>
+            <Picky
+              {...pickyProps}
+              placeholder="Select cycle category(s)"
+              options={cycleCategoryOptions}
+              valueKey="id"
+              labelKey="name"
+              onChange={setCycleCategory}
+              value={cycleCategory}
+            />
           </div>
-
+          <div className="filter-div">
+            <div className="label">Cycle Status:</div>
+            <Picky
+              {...pickyProps}
+              placeholder="Select cycle status"
+              options={statusOptions}
+              valueKey="id"
+              labelKey="name"
+              onChange={setCycleStatus}
+              value={cycleStatus}
+            />
+          </div>
+          <div className="filter-div">
+            <div className="label">Exclusive Position:</div>
+            <Picky
+              {...pickyProps}
+              includeSelectAll={false}
+              includeFilter={false}
+              placeholder="Select an option"
+              options={choices}
+              valueKey="id"
+              labelKey="name"
+              onChange={setExclusivePosition}
+              value={exclusivePosition}
+            />
+          </div>
+          <div className="filter-div">
+            <div className="label">Post Viewable:</div>
+            <Picky
+              {...pickyProps}
+              includeSelectAll={false}
+              includeFilter={false}
+              placeholder="Select an option"
+              options={choices}
+              valueKey="id"
+              labelKey="name"
+              onChange={setPostView}
+              value={postView}
+            />
+          </div>
         </div>
 
-        {
-          getOverlay() ||
-          <>
-            <div className="usa-grid-full results-dropdown controls-container">
-              <div className="bs-results">
-                <Link
-                  onClick={(e) => openNewModal(e)}
-                  to="#"
-                >
-                  <FA className="fa-solid fa-plus" />
-                  {' Add New Assignment Cycle'}
-                </Link>
-              </div>
-            </div>
-
-            <div className="bs-lower-section">
-              {AssignmentCycleData?.results?.map(data =>
-                <AssignmentCyclesCard {...{ ...data, isAO }} displayNewModal={newModalOpen} />)}
-              <div className="usa-grid-full react-paginate">
-                <PaginationWrapper
-                  pageSize={5}
-                  onPageChange={p => setPage(p.page)}
-                  forcePage={page}
-                  totalResults={AssignmentCycleData.count}
-                />
-              </div>
-            </div>
-          </>
-        }
       </div>
+
+      {
+        getOverlay() ||
+        <>
+          <div className="usa-grid-full results-dropdown controls-container">
+            <div className="bs-results">
+              <Link
+                onClick={(e) => openNewModal(e)}
+                to="#"
+              >
+                <FA className="fa-solid fa-plus" />
+                {' Add New Assignment Cycle'}
+              </Link>
+            </div>
+          </div>
+
+          <div className="bs-lower-section">
+            {AssignmentCycleData?.results?.map(data =>
+              <AssignmentCyclesCard data={data} displayNewModal={newModalOpen} />)}
+            <div className="usa-grid-full react-paginate">
+              <PaginationWrapper
+                pageSize={5}
+                onPageChange={p => setPage(p.page)}
+                forcePage={page}
+                totalResults={AssignmentCycleData.count}
+              />
+            </div>
+          </div>
+        </>
+      }
+    </div>
   );
-};
-
-AssignmentCycles.propTypes = {
-  isAO: PropTypes.bool,
-};
-
-AssignmentCycles.defaultProps = {
-  isAO: false,
 };
 
 export default withRouter(AssignmentCycles);

@@ -131,10 +131,10 @@
     .cyc-admin-link {
       text-align: center;
     }
-    .bs-card--row {
+    .ac-card--row {
       display: flex;
       align-items: center;
-      .bs-card--middle-cols {
+      .ac-card--middle-cols {
         display: flex;
         align-items: center;
         >div {
@@ -145,12 +145,20 @@
           min-width: max-content;
         }
       }
-      .bs-card--link-col {
+      .ac-card--link-col {
         display: flex;
         justify-content: flex-end;
         >span {
           text-align: right;
         }
       }
+    }
+  }
+
+  .assignment-cycle-page {
+    .controls-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 45px;
     }
   }

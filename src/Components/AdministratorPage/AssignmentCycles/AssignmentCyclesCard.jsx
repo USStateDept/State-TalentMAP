@@ -9,6 +9,10 @@ import EditAssignmentCycles from './EditAssignmentCycles';
 
 const AssignmentCyclesCard = (props) => {
   const {
+    data,
+    displayNewModal,
+  } = props;
+  const {
     cycle_begin_date,
     cycle_end_date,
     cycle_name,
@@ -17,8 +21,7 @@ const AssignmentCyclesCard = (props) => {
     cycle_post_view,
     cycle_status,
     id,
-    displayNewModal,
-  } = props;
+  } = data;
 
   const dummyInfo = {
     assignmentCycle: 'This is a dummy assignment cycle',
@@ -71,8 +74,8 @@ const AssignmentCyclesCard = (props) => {
   return (
     <div className="position-form">
       <Row fluid className="assignment-cycle-search-card box-shadow-standard">
-        <Row fluid className="bs-card--row">
-          <Column columns={12} className="bs-card--middle-cols">
+        <Row fluid className="ac-card--row">
+          <Column columns={12} className="ac-card--middle-cols">
             <Column>
               Cycle Name: {cycle_name}
             </Column>
@@ -92,7 +95,7 @@ const AssignmentCyclesCard = (props) => {
               Post View: {cycle_post_view}
             </Column>
           </Column>
-          <Column columns={3} className="bs-card--link-col">
+          <Column columns={3} className="ac-card--link-col">
             <Link
               onClick={(e) => {
                 e.preventDefault();
