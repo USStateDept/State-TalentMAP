@@ -47,7 +47,12 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
     setComments(verifyComments);
     setAltEmail(verifyAltEmail);
     // Nothing to do yet, will add later
-    dispatch(bidderPortfolioEditDataSuccess(bidder));
+    const clientData = {
+      id,
+      verifyComments,
+      verifyAltEmail,
+    };
+    dispatch(bidderPortfolioEditDataSuccess(clientData));
     setEdit(false);
   };
 
