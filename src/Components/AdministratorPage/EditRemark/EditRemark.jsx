@@ -184,7 +184,6 @@ const EditRemark = (props) => {
                   role="button"
                   title="Remove Insertion"
                   onClick={() => onRemoveInsertionClick(i)}
-                  disabled={isEdit}
                 >
                   <FA name="minus" />
                 </InteractiveElement>
