@@ -380,7 +380,6 @@ export function bidderPortfolioSelections(queryObject) {
 }
 
 export function bidderPortfolioEditDataSuccess(client) {
-  console.log('client', client);
   return (dispatch) => {
     dispatch(bidderPortfolioSeasonsIsLoading(true));
     dispatch(bidderPortfolioSeasonsHasErrored(false));
