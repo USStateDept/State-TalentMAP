@@ -124,6 +124,7 @@ EditBureauExceptionList.propTypes = {
     id: PropTypes.number,
     bureaus: PropTypes.arrayOf(PropTypes.string),
   })),
+  dispatch: PropTypes.func.isRequired,
 };
 
 
@@ -134,6 +135,7 @@ EditBureauExceptionList.defaultProps = {
     BureauNames: [],
   },
   BureauExceptionOptionsData: [],
+  dispatch: () => {},
 };
 
 export default EditBureauExceptionList;
