@@ -75,7 +75,6 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
   }, [currentBidderType]);
 
   const onToggleChange = () => {
-    console.log(currentBidderType);
     if (currentBidderType === 'cusp') {
       setCurrentBidderType('eligible');
     }
