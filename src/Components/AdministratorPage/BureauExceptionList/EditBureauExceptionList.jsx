@@ -57,7 +57,7 @@ const EditBureauExceptionList = (props) => {
   return (
     <div>
       <form>
-        <table className="custom-bureau-table">
+        <table className="bureau-exception-table">
           <thead>
             <tr>
               <div className="bureau-exception-text-input">
