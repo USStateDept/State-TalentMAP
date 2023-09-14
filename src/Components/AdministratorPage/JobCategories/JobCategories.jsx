@@ -30,6 +30,7 @@ const JobCategories = () => {
 
   useEffect(() => {
     dispatch(jobCategoriesFetchSkills(getQuery()));
+    setCheckedSkillIds([]);
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {
@@ -58,7 +59,7 @@ const JobCategories = () => {
       <ProfileSectionTitle title="Job Categories" icon="map" />
       <div>
         <div className="modal-controls">
-          {/* <button onClick={handleSubmit}>Create New Job Category</button> */}
+          <button>Create New Job Category</button>
           {/* <button onClick={setIsEditMode(!isEditMode)}>Toggle Edit Mode</button> */}
         </div>
         <div className="select-container">
@@ -131,6 +132,12 @@ const JobCategories = () => {
             disabled={!isEditMode}
           >
               Submit
+          </button>
+          <button
+            disabled={!isEditMode}
+            className="usa-button-secondary saved-search-form-secondary-button"
+          >
+              Cancel
           </button>
         </div>
       </div>
