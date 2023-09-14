@@ -4,13 +4,13 @@
 .custom-bureau-table {
   position: relative;
   width: 100%;
-  border-collapse: collapse; /* Collapse borders */
+  border-collapse: collapse;
   border-spacing: 0;
   th {
     border: none;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    padding: 8px; /* Add padding to cells for better readability */
+    padding: 8px;
   }
   tr {
     height: 50px;
