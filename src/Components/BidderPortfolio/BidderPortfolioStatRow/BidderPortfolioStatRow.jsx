@@ -59,7 +59,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       id,
       verifyComments,
       verifyAltEmail,
-      bidder: currentBidderType,
+      bidder_type: currentBidderType,
     };
     dispatch(saveBidderPortfolioSelections(clientData));
     setEdit(false);
