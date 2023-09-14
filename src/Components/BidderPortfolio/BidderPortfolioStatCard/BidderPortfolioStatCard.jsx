@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { get } from 'lodash';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tippy';
@@ -28,15 +28,23 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
   const ted = formatDate(get(userProfile, 'current_assignment.end_date'));
   const languages = get(userProfile, 'current_assignment.position.language');
   const bidder = get(userProfile, 'shortened_name') || 'None listed';
+  // This is the new key bidder_types. It returns a string of either 'cusp' or 'eligible'
+  const bidderType = get(userProfile, 'bidder_types') || null;
   const email = get(userProfile, 'cdos')[0]?.cdo_email || 'None listed';
   const orgShortDesc = get(userProfile, 'current_assignment.position.organization');
-  const [included, setIncluded] = useState(true);
+  const [currentBidderType, setCurrentBidderType] = useState(bidderType);
+  const [included, setIncluded] = useState(bidderType === 'cusp');
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
   const [comments, setComments] = useState('');
   const [altEmail, setAltEmail] = useState('');
   const [verifyComments, setVerifyComments] = useState('');
   const [verifyAltEmail, setVerifyAltEmail] = useState('');
+
+  const cusp = included;
+  const eligible = !included;
+  const showToggle = bidderType !== null;
+  const showSaveAndCancel = edit && showMore;
 
   const editClient = (e) => {
     e.preventDefault();
@@ -56,7 +64,24 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
     setEdit(false);
   };
 
-  const showSaveAndCancel = edit && showMore;
+  useEffect(() => {
+    if (currentBidderType === 'eligible') {
+      setIncluded(false);
+    }
+    if (currentBidderType === 'cusp') {
+      setIncluded(true);
+    }
+  }, [currentBidderType]);
+
+  const onToggleChange = () => {
+    console.log(currentBidderType);
+    if (currentBidderType === 'cusp') {
+      setCurrentBidderType('eligible');
+    }
+    if (currentBidderType === 'eligible') {
+      setCurrentBidderType('cusp');
+    }
+  };
 
   const showSearch = !showEdit && !edit;
   const collapseCard = () => {
@@ -69,9 +94,6 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
     setVerifyAltEmail('');
     setEdit(false);
   };
-
-  const cusp = included;
-  const eligible = !included;
 
   const ribbons = (
     <div>
@@ -103,12 +125,14 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
       <div className="bidder-portfolio-stat-card-top">
         <div className="bidder-compact-card-head">
           <h3 className="stat-card-client">Client Overview</h3>
-          <ToggleButton
-            labelTextRight={!included ? 'Excluded' : 'Included'}
-            checked={included}
-            onChange={() => setIncluded(!included)}
-            onColor="#0071BC"
-          />
+          {showToggle &&
+            <ToggleButton
+              labelTextRight={!included ? 'Excluded' : 'Included'}
+              checked={included}
+              onChange={onToggleChange}
+              onColor="#0071BC"
+            />
+          }
         </div>
         <div className="stat-card-data-point bidder-compact-card-head">
           <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
@@ -119,11 +143,13 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
             </Link>
           }
         </div>
-        <div className="bidder-portfolio-ribbon-container">
-          <div className="ribbon-container-condensed-min">
-            {ribbons}
+        {showToggle &&
+          <div className="bidder-portfolio-ribbon-container">
+            <div className="ribbon-container-condensed-min">
+              {ribbons}
+            </div>
           </div>
-        </div>
+        }
         <div className="stat-card-data-point">
           <dt>Employee ID:</dt><dd>{id}</dd>
         </div>
