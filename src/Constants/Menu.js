@@ -149,6 +149,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bureau_exception') ?
+        {
+          text: 'Bureau Exception Access',
+          route: '/profile/administrator/bureauexception/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       {
         text: 'Org Stats',
         route: '/profile/administrator/orgstats/',
