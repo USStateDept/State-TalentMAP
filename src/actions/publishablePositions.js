@@ -167,7 +167,7 @@ export function publishablePositionsFiltersFetchData() {
           });
         } else {
           batch(() => {
-            dispatch(publishablePositionsFiltersSuccess([]));
+            dispatch(publishablePositionsFiltersSuccess({}));
             dispatch(publishablePositionsFiltersErrored(true));
             dispatch(publishablePositionsFiltersLoading(false));
           });

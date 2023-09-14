@@ -34,13 +34,17 @@ const PublishablePositions = ({ viewType }) => {
   const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
   const filters = useSelector(state => state.publishablePositionsFilters);
 
-  // const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
-  // const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
-  // const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  // const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
-  // const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  // const [selectedBidCycles, setSelectedBidCycles] =
-  //   useState(userSelections?.selectedBidCycle || []);
+  /* eslint-disable no-console */
+
+
+
+  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
+  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
+  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
+  const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
+  const [selectedBidCycles, setSelectedBidCycles] =
+    useState(userSelections?.selectedBidCycle || []);
   // const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
   // const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
 
@@ -48,22 +52,30 @@ const PublishablePositions = ({ viewType }) => {
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
 
-  // const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  // const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  // const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
-  // const gradeOptions = uniqBy(get(grades, 'data'), 'code');
-  // const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  // const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  // const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  // const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
-  //
-  // const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
-  //
-  // const additionalFiltersIsLoading = includes([orgsLoading], true);
+  const statuses = filters?.statusFilters;
+  const bureaus = filters?.bureauFilters;
+  const orgs = filters?.orgFilters;
+  const grades = filters?.gradeFilters;
+  const skills = filters?.skillsFilters;
+  const cycles = filters?.cycleFilters;
+  const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
+  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
+  const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
+  const gradeOptions = uniqBy(grades, 'code');
+  const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
+  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
+  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+  console.log('👾 current: statusOptions:', statusOptions);
+  console.log('👾 current: bureauOptions:', bureauOptions);
+  console.log('👾 current: gradeOptions:', gradeOptions);
+  console.log('👾 current: skillOptions:', skillOptions);
+  console.log('👾 current: cycleOptions:', cycleOptions);
+  console.log('👾 current: orgOptions:', orgOptions);
+  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
 
-  const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
-  const sorts = PUBLISHABLE_POSITIONS_SORT;
-
+  // const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
+  // const sorts = PUBLISHABLE_POSITIONS_SORT;
+  // update:
   const disableSearch = cardsInEditMode.length > 0;
   // update to filters loading once pulled in
   const disableInput = dataIsLoading || disableSearch;
@@ -71,40 +83,39 @@ const PublishablePositions = ({ viewType }) => {
   const getQuery = () => ({
     // limit,
     // ordering,
-    // // User Filters
-    // 'position-details-status': selectedStatuses.map(statusObject => (statusObject?.code)),
-    // 'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    // 'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    // 'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    // 'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    // 'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
+    'Statuses': selectedStatuses.map(f => (f?.code)),
+    'Bureaus': selectedBureaus.map(f => (f?.description)),
+    'Orgs': selectedOrgs.map(f => (f?.code)),
+    'Grades': selectedGrades.map(f => (f?.code)),
+    'Skills': selectedSkills.map(f => (f?.code)),
+    'BidCycles': selectedBidCycles.map(f => (f?.code)),
   });
 
   const getCurrentInputs = () => ({
-    // selectedStatus: selectedStatuses,
-    // selectedBureaus,
-    // selectedOrgs,
-    // selectedGrade: selectedGrades,
-    // selectedSkills,
-    // selectedBidCycle: selectedBidCycles,
+    selectedStatuses,
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+    selectedBidCycles,
   });
 
   const fetchAndSet = () => {
-    // const filters = [
-    //   selectedStatuses,
-    //   selectedBureaus,
-    //   selectedOrgs,
-    //   selectedGrades,
-    //   selectedSkills,
-    //   selectedBidCycles,
-    // ];
-    // if (isEmpty(filter(flatten(filters)))) {
-    //   setClearFilters(false);
-    // } else {
-    //   setClearFilters(true);
-    // }
-    // dispatch(publishablePositionsFetchData(getQuery()));
-    // dispatch(savePublishablePositionsSelections(getCurrentInputs()));
+    const filters = [
+      selectedStatuses,
+      selectedBureaus,
+      selectedOrgs,
+      selectedGrades,
+      selectedSkills,
+      selectedBidCycles,
+    ];
+    if (isEmpty(filter(flatten(filters)))) {
+      setClearFilters(false);
+    } else {
+      setClearFilters(true);
+    }
+    dispatch(publishablePositionsFetchData(getQuery()));
+    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   };
 
   const pickyProps = {
@@ -117,16 +128,18 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   const resetFilters = () => {
-    // setSelectedStatuses([]);
-    // setSelectedBureaus([]);
-    // setSelectedOrgs([]);
-    // setSelectedGrades([]);
-    // setSelectedSkills([]);
-    // setSelectedBidCycles([]);
-    // setClearFilters(false);
+    setSelectedStatuses([]);
+    setSelectedBureaus([]);
+    setSelectedOrgs([]);
+    setSelectedGrades([]);
+    setSelectedSkills([]);
+    setSelectedBidCycles([]);
+    setClearFilters(false);
   };
 
   const getOverlay = () => {
+    return false;
+    // noinspection UnreachableCodeJS
     let overlay;
     if (dataIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
@@ -145,24 +158,21 @@ const PublishablePositions = ({ viewType }) => {
     //hold off on calling unless 2 <= filters selected
     // noinspection PointlessBooleanExpressionJS
     if (false) {
-      dispatch(savePublishablePositionsSelections(publishablePositionsFetchData()));
+      dispatch(publishablePositionsFiltersFetchData());
     }
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
-    dispatch(publishablePositionsFiltersFetchData());
   }, []);
 
-  // useEffect(() => {
-  //   fetchAndSet();
-  // }, [
-  //   limit,
-  //   ordering,
-  //   selectedStatuses,
-  //   selectedBureaus,
-  //   selectedOrgs,
-  //   selectedGrades,
-  //   selectedSkills,
-  //   selectedBidCycles,
-  // ]);
+  useEffect(() => {
+    fetchAndSet();
+  }, [
+    selectedStatuses,
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+    selectedBidCycles,
+  ]);
 
   return (
     <div className="position-search">
@@ -188,16 +198,16 @@ const PublishablePositions = ({ viewType }) => {
               </div>
             </div>
             <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
-{/*              <div className="filter-div">
+            <div className="filter-div">
                 <div className="label">Publishable Status:</div>
                 <Picky
                   {...pickyProps}
                   placeholder="Select Status(es)"
                   value={selectedStatuses}
-                  options={statusOptions}
                   onChange={setSelectedStatuses}
+                  options={statusOptions}
                   valueKey="code"
-                  labelKey="name"
+                  // labelKey="name"
                   disabled={disableInput}
                 />
               </div>
@@ -207,10 +217,10 @@ const PublishablePositions = ({ viewType }) => {
                   {...pickyProps}
                   placeholder="Select Bid Cycle(s)"
                   value={selectedBidCycles}
-                  options={cycleOptions}
                   onChange={setSelectedBidCycles}
-                  valueKey="id"
-                  labelKey="name"
+                  options={cycleOptions}
+                  valueKey="code"
+                  // labelKey="name"
                   disabled={disableInput}
                 />
               </div>
@@ -220,10 +230,10 @@ const PublishablePositions = ({ viewType }) => {
                   {...pickyProps}
                   placeholder="Select Bureau(s)"
                   value={selectedBureaus}
-                  options={bureauOptions}
                   onChange={setSelectedBureaus}
-                  valueKey="code"
-                  labelKey="long_description"
+                  options={bureauOptions}
+                  valueKey="description"
+                  // labelKey="long_description"
                   disabled={disableInput}
                 />
               </div>
@@ -233,10 +243,10 @@ const PublishablePositions = ({ viewType }) => {
                   {...pickyProps}
                   placeholder="Select Organization(s)"
                   value={selectedOrgs}
-                  options={organizationOptions}
                   onChange={setSelectedOrgs}
+                  options={orgOptions}
                   valueKey="code"
-                  labelKey="name"
+                  // labelKey="name"
                   disabled={disableInput}
                 />
               </div>
@@ -246,10 +256,10 @@ const PublishablePositions = ({ viewType }) => {
                   {...pickyProps}
                   placeholder="Select Skill(s)"
                   value={selectedSkills}
-                  options={skillOptions}
                   onChange={setSelectedSkills}
+                  options={skillOptions}
                   valueKey="code"
-                  labelKey="custom_description"
+                  // labelKey="custom_description"
                   disabled={disableInput}
                 />
               </div>
@@ -259,13 +269,13 @@ const PublishablePositions = ({ viewType }) => {
                   {...pickyProps}
                   placeholder="Select Grade(s)"
                   value={selectedGrades}
-                  options={gradeOptions}
                   onChange={setSelectedGrades}
+                  options={gradeOptions}
                   valueKey="code"
-                  labelKey="custom_description"
+                  // labelKey="custom_description"
                   disabled={disableInput}
                 />
-              </div>*/}
+              </div>
             </div>
           </div>
         }
