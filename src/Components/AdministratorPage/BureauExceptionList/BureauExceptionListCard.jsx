@@ -1,5 +1,6 @@
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Column, Row } from 'Components/Layout';
@@ -11,9 +12,9 @@ const BureauExceptionListCard = (props) => {
     Name,
     BureauNames,
     BureauExceptionOptionsData,
-    dispatch,
   } = props;
 
+  const dispatch = useDispatch();
   const submitAction = () => {
     swal.close();
   };
@@ -73,7 +74,6 @@ BureauExceptionListCard.propTypes = {
     Name: PropTypes.string,
     BureauNames: PropTypes.arrayOf(PropTypes.string),
   })),
-  dispatch: PropTypes.func.isRequired,
 };
 
 BureauExceptionListCard.defaultProps = {
@@ -81,7 +81,6 @@ BureauExceptionListCard.defaultProps = {
   Name: '',
   BureauNames: '',
   BureauExceptionOptionsData: [],
-  dispatch: () => {},
 };
 
 export default BureauExceptionListCard;

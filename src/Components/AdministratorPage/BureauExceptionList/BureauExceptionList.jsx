@@ -21,7 +21,7 @@ const BureauExceptionList = () => {
   };
 
   useEffect(() => {
-    fetchAndSet(false);
+    fetchAndSet();
   }, []);
 
   // Overlay for error, info, and loading state
@@ -56,7 +56,6 @@ const BureauExceptionList = () => {
                 Name={data?.Name}
                 BureauNames={data?.BureauNames}
                 BureauExceptionOptionsData={BureauExceptionOptionsData?.results}
-                dispatch={dispatch}
               />),
             )
             }
