@@ -9,7 +9,7 @@ import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/Syst
 import { formatDate } from 'utilities';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
-import { bidderPortfolioEditDataSuccess } from 'actions/bidderPortfolio';
+import { saveBidderPortfolioSelections } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
 import InteractiveElement from 'Components/InteractiveElement';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from '../../../Constants/PropTypes';
@@ -52,7 +52,7 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
       verifyComments,
       verifyAltEmail,
     };
-    dispatch(bidderPortfolioEditDataSuccess(clientData));
+    dispatch(saveBidderPortfolioSelections(clientData));
     setEdit(false);
   };
 
@@ -153,8 +153,12 @@ const BidderPortfolioStatRow = ({ userProfile, showEdit, classifications }) => {
         <div className={!edit && 'stat-card-data-point'} >
           <dt>Alt Email:</dt>
           {altEmail ?
-            <a href={`mailto:${altEmail}`}>{altEmail}</a> :
-            'None Listed'
+            <dd>
+              <a href={`mailto:${altEmail}`}>{altEmail}</a>
+            </dd> :
+            <dd>
+              None Listed
+            </dd>
           }
           {edit &&
             <input

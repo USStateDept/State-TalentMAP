@@ -183,29 +183,6 @@ export function bidderPortfolioSeasonsFetchData() {
   };
 }
 
-// export function savebidderPortfolioSeasonsSelections(data) {
-//   return (dispatch) => {
-//     dispatch(shareIsSending(true));
-//     dispatch(shareSuccess(false));
-//     dispatch(shareHasErrored(false));
-//     api().post('/Placeholder/', data)
-//       .then((response) => {
-//         dispatch(shareIsSending(false));
-//         dispatch(shareHasErrored(false));
-//         return response.data;
-//       })
-//       .then(share => dispatch(shareSuccess(share)))
-//       .catch((err) => {
-//         dispatch(shareHasErrored(
-//           err.response.data.message || 'An error occurred trying to share this position.',
-//         ));
-//         dispatch(shareIsSending(false));
-//         dispatch(shareSuccess(false));
-//         return err.response.data.message;
-//       });
-//   };
-// }
-
 export function lookupAndSetCDO(id) {
   return (dispatch, getState) => {
     const cdo = find(get(getState(), 'bidderPortfolioCDOs', []), f => f.hru_id === id);
@@ -379,7 +356,7 @@ export function bidderPortfolioSelections(queryObject) {
   return (dispatch) => dispatch(bidderPortfolioSelectionsSaveSuccess(queryObject));
 }
 
-export function bidderPortfolioEditDataSuccess(client) {
+export function saveBidderPortfolioSelections(client) {
   return (dispatch) => {
     dispatch(bidderPortfolioSeasonsIsLoading(true));
     dispatch(bidderPortfolioSeasonsHasErrored(false));
