@@ -22,8 +22,6 @@ const CycleJobCategory = () => {
   const [selectedJobCategories, setSelectedJobCategories] = useState([]);
   const [jobCategorySearch, setJobCategorySearch] = useState('');
 
-  console.log(cycleCategories);
-
   useEffect(() => {
     dispatch(cycleJobCategoriesFilters());
   }, []);
@@ -49,7 +47,8 @@ const CycleJobCategory = () => {
       if (jobCategorySearch === '') {
         return jobCategories;
       }
-      return jobCategories.filter(j => j.description.includes(jobCategorySearch));
+      return jobCategories.filter(j =>
+        j.description.toLowerCase().includes(jobCategorySearch.toLowerCase()));
     }
     return [];
   };
@@ -109,8 +108,6 @@ const CycleJobCategory = () => {
   };
 
 
-  console.log(jobCategories?.length);
-  console.log(selectedJobCategories);
   return ((cycleCategoriesIsLoading || jobCategoriesIsLoading) ?
     <Spinner type="homepage-position-results" class="homepage-position-results" size="big" /> :
     <div className="cycle-job-category">
@@ -127,7 +124,7 @@ const CycleJobCategory = () => {
           <Picky
             placeholder="Select a Cycle Category"
             value={selectedCycle}
-            options={[]}
+            options={cycleCategories.length ? cycleCategories : []}
             onChange={setSelectedCycle}
             includeFilter
             dropdownHeight={255}
@@ -158,51 +155,55 @@ const CycleJobCategory = () => {
                   className="job-category-search"
                 />
                 <table>
-                  <tr>
-                    <th>
-                      <CheckBox
-                        id="select-all"
-                        value={jobCategories?.length === selectedJobCategories?.length}
-                        onCheckBoxClick={() => handleSelectAllJobs()}
-                      />
-                    </th>
-                    <th>Job Category Descriptions</th>
-                    <th>
-                      <div>
-                        <div>
-                          Status
-                        </div>
-                        <div className="new-category-button">
-                          <FA className="fa-solid fa-plus" />
-                          <p>New Job Category</p>
-                        </div>
-                      </div>
-                    </th>
-                  </tr>
-                  {getDisplayedJobCategories().map(job => (
+                  <thead>
                     <tr>
-                      <td>
+                      <th>
                         <CheckBox
-                          id={`selected-${job.id}`}
-                          value={selectedJobCategories.find(o => o === job.id)}
-                          onCheckBoxClick={() => {
-                            if (selectedJobCategories.find(o => o === job.id)) {
-                              setSelectedJobCategories([
-                                ...selectedJobCategories,
-                                job.id,
-                              ]);
-                            } else {
-                              const newSelection =
-                                selectedJobCategories.filter(o => o.id !== job.id);
-                              setSelectedJobCategories(newSelection);
-                            }
-                          }}
+                          id="select-all"
+                          value={jobCategories?.length === selectedJobCategories?.length}
+                          onCheckBoxClick={() => handleSelectAllJobs()}
                         />
-                      </td>
-                      <td>{job.description}</td>
-                      <td>{job.active ? 'Active' : 'Inactive'}</td>
+                      </th>
+                      <th>Job Category Descriptions</th>
+                      <th>
+                        <div>
+                          <div>
+                            Status
+                          </div>
+                          <div className="new-category-button">
+                            <FA className="fa-solid fa-plus" name="new-job-category" />
+                            <p>New Job Category</p>
+                          </div>
+                        </div>
+                      </th>
                     </tr>
-                  ))}
+                  </thead>
+                  <tbody>
+                    {getDisplayedJobCategories().map(job => (
+                      <tr key={job.id}>
+                        <td>
+                          <CheckBox
+                            id={`selected-${job.id}`}
+                            value={selectedJobCategories.find(o => o === job.id) !== undefined}
+                            onCheckBoxClick={() => {
+                              if (selectedJobCategories.find(o => o === job.id)) {
+                                setSelectedJobCategories([
+                                  ...selectedJobCategories,
+                                  job.id,
+                                ]);
+                              } else {
+                                const newSelection =
+                                  selectedJobCategories.filter(o => o.id !== job.id);
+                                setSelectedJobCategories(newSelection);
+                              }
+                            }}
+                          />
+                        </td>
+                        <td>{job.description}</td>
+                        <td>{job.active ? 'Active' : 'Inactive'}</td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </>}
               <div className="position-form--actions">

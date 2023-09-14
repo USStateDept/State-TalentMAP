@@ -49,7 +49,9 @@ class CheckBox extends Component {
           disabled={disabled}
           {...checkboxProps}
         />
-        <label htmlFor={formattedId}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
+        <label htmlFor={formattedId}>
+          <span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span>
+        </label>
       </div>
     );
   }
@@ -57,7 +59,7 @@ class CheckBox extends Component {
 
 CheckBox.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.node.isRequired,
+  label: PropTypes.node,
   title: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
@@ -75,6 +77,7 @@ CheckBox.propTypes = {
 CheckBox.defaultProps = {
   title: '',
   name: '',
+  label: undefined,
   onCheckBoxClick: EMPTY_FUNCTION,
   labelSrOnly: false,
   small: false,

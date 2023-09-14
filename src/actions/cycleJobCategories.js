@@ -129,6 +129,7 @@ export function cycleJobCategoriesData(id) {
   }];
 
   return (dispatch) => {
+    dispatch(cycleJobCategoriesDataSuccess([]));
     dispatch(cycleJobCategoriesDataLoading(true));
     batch(() => {
       dispatch(cycleJobCategoriesDataSuccess(dummyCategories));
@@ -168,6 +169,7 @@ export function cycleJobCategoriesFilters() {
   }];
 
   return (dispatch) => {
+    dispatch(cycleJobCategoriesFiltersSuccess([]));
     dispatch(cycleJobCategoriesFiltersLoading(true));
     batch(() => {
       dispatch(cycleJobCategoriesFiltersSuccess(dummyCategories));
