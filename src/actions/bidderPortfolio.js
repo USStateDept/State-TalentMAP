@@ -357,7 +357,6 @@ export function bidderPortfolioSelections(queryObject) {
 }
 
 export function saveBidderPortfolioSelections(client) {
-  console.log('saveBidderPortfolioSelections', client);
   return (dispatch) => {
     dispatch(bidderPortfolioSeasonsIsLoading(true));
     dispatch(bidderPortfolioSeasonsHasErrored(false));
