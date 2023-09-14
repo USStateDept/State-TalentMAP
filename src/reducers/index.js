@@ -75,6 +75,7 @@ import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
 import cycleJobCategories from './cycleJobCategories';
+import bureauException from './bureauException';
 import entryLevel from './entryLevel';
 import jobCategories from './jobCategories';
 import orgStats from './orgStats';
@@ -150,6 +151,7 @@ export default (history) => combineReducers({
   ...managePostAccess,
   ...searchPostAccess,
   ...cycleJobCategories,
+  ...bureauException,
   ...entryLevel,
   ...jobCategories,
   ...orgStats,
