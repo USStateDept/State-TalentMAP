@@ -16,15 +16,13 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import { onEditModeSearch } from 'utilities';
+import { onEditModeSearch, renderSelectionList } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
 /* eslint-disable-next-line no-unused-vars */
 const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
-  const hasErrored = false;
-  const isLoading = false;
 
   const userSelections = useSelector(state => state.publishablePositionsSelections);
   const dummyPositionDetails = useSelector(state => state.publishablePositions);
@@ -115,47 +113,11 @@ const PublishablePositions = ({ viewType }) => {
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   };
 
-  function renderSelectionList({ items, selected, ...rest }) {
-    let codeOrText = 'code';
-    // only Remarks needs to use 'text'
-    if (has(items[0], 'text')) {
-      codeOrText = 'text';
-    }
-    // only Item Actions/Statuses need to use 'desc_text'
-    if (has(items[0], 'desc_text')) {
-      codeOrText = 'desc_text';
-    }
-    if (has(items[0], 'abbr_desc_text') && items[0].code === 'V') {
-      codeOrText = 'abbr_desc_text';
-    }
-    // only Categories need to use 'mic_desc_text'
-    if (has(items[0], 'mic_desc_text')) {
-      codeOrText = 'mic_desc_text';
-    }
-    let queryProp = 'description';
-    if (get(items, '[0].custom_description', false)) queryProp = 'custom_description';
-    else if (get(items, '[0].long_description', false)) queryProp = 'long_description';
-    else if (codeOrText === 'text') queryProp = 'text';
-    else if (codeOrText === 'desc_text') queryProp = 'desc_text';
-    else if (codeOrText === 'abbr_desc_text') queryProp = 'abbr_desc_text';
-    else if (codeOrText === 'mic_desc_text') queryProp = 'mic_desc_text';
-    else if (has(items[0], 'name')) queryProp = 'name';
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={queryProp}
-      />);
-    });
-  }
-
   const pickyProps = {
     numberDisplayed: 2,
     multiple: true,
     includeFilter: true,
-    dropdownHeight: 255,
+    dropdownHeight: 300,
     renderList: renderSelectionList,
     includeSelectAll: true,
   };

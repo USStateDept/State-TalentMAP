@@ -8,27 +8,24 @@ import {
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
-export function publishablePositionsFetchDataErrored(bool) {
+export function publishablePositionsErrored(bool) {
   return {
-    type: 'PUBLISHABLE_POSITIONS_FETCH_HAS_ERRORED',
+    type: 'PUBLISHABLE_POSITIONS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-
-export function publishablePositionsFetchDataLoading(bool) {
+export function publishablePositionsLoading(bool) {
   return {
-    type: 'PUBLISHABLE_POSITIONS_FETCH_IS_LOADING',
+    type: 'PUBLISHABLE_POSITIONS_IS_LOADING',
     isLoading: bool,
   };
 }
-
-export function publishablePositionsFetchDataSuccess(results) {
+export function publishablePositionsSuccess(results) {
   return {
-    type: 'PUBLISHABLE_POSITIONS_FETCH_SUCCESS',
+    type: 'PUBLISHABLE_POSITIONS_SUCCESS',
     results,
   };
 }
-
 export function publishablePositionsFetchData(query = {}) {
   /* eslint-disable no-console */
   console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
@@ -37,28 +34,28 @@ export function publishablePositionsFetchData(query = {}) {
 
   return (dispatch) => {
     batch(() => {
-      dispatch(publishablePositionsFetchDataLoading(true));
-      dispatch(publishablePositionsFetchDataErrored(false));
+      dispatch(publishablePositionsLoading(true));
+      dispatch(publishablePositionsErrored(false));
     });
     api().get('publishable_positions/')
       .then(({ data }) => {
         batch(() => {
-          dispatch(publishablePositionsFetchDataSuccess(data));
-          dispatch(publishablePositionsFetchDataErrored(false));
-          dispatch(publishablePositionsFetchDataLoading(false));
+          dispatch(publishablePositionsSuccess(data));
+          dispatch(publishablePositionsErrored(false));
+          dispatch(publishablePositionsLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(publishablePositionsFetchDataLoading(true));
-            dispatch(publishablePositionsFetchDataErrored(false));
+            dispatch(publishablePositionsLoading(true));
+            dispatch(publishablePositionsErrored(false));
           });
         } else {
           batch(() => {
-            dispatch(publishablePositionsFetchDataSuccess([]));
-            dispatch(publishablePositionsFetchDataErrored(true));
-            dispatch(publishablePositionsFetchDataLoading(false));
+            dispatch(publishablePositionsSuccess([]));
+            dispatch(publishablePositionsErrored(true));
+            dispatch(publishablePositionsLoading(false));
           });
         }
       });
@@ -66,32 +63,13 @@ export function publishablePositionsFetchData(query = {}) {
 }
 
 
-export function publishablePositionEditErrored(bool) {
-  return {
-    type: 'PUBLISHABLE_POSITION_EDIT_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function publishablePositionEditLoading(bool) {
-  return {
-    type: 'PUBLISHABLE_POSITION_EDIT_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function publishablePositionEditSuccess(success) {
-  return {
-    type: 'PUBLISHABLE_POSITION_EDIT_SUCCESS',
-    success,
-  };
-}
-
-export function publishablePositionEdit(id, data) {
+export function publishablePositionsEdit(id, data) {
   return (dispatch) => {
     batch(() => {
-      dispatch(publishablePositionEditLoading(true));
-      dispatch(publishablePositionEditErrored(false));
+      // here we are just recalling the read after
+      // dispatching a toast for error or success for Edit
+      dispatch(publishablePositionsEditLoading(true));
+      dispatch(publishablePositionsEditErrored(false));
     });
 
     api().patch(`ao/${id}/publishablePosition/`, data)
@@ -99,26 +77,26 @@ export function publishablePositionEdit(id, data) {
         const toastTitle = UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE;
         const toastMessage = UPDATE_PUBLISHABLE_POSITION_SUCCESS;
         batch(() => {
-          dispatch(publishablePositionEditErrored(false));
-          dispatch(publishablePositionEditSuccess(true));
+          dispatch(publishablePositionsEditErrored(false));
+          dispatch(publishablePositionsEditSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
           dispatch(publishablePositionsFetchData());
-          dispatch(publishablePositionEditLoading(false));
+          dispatch(publishablePositionsEditLoading(false));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(publishablePositionEditLoading(true));
-            dispatch(publishablePositionEditErrored(false));
+            dispatch(publishablePositionsEditLoading(true));
+            dispatch(publishablePositionsEditErrored(false));
           });
         } else {
           const toastTitle = UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE;
           const toastMessage = UPDATE_PUBLISHABLE_POSITION_ERROR;
           dispatch(toastError(toastMessage, toastTitle));
           batch(() => {
-            dispatch(publishablePositionEditErrored(true));
-            dispatch(publishablePositionEditLoading(false));
+            dispatch(publishablePositionsEditErrored(true));
+            dispatch(publishablePositionsEditLoading(false));
           });
         }
       });
@@ -126,43 +104,40 @@ export function publishablePositionEdit(id, data) {
 }
 
 
-export function publishablePositionsSelectionsSuccess(result) {
+export function publishablePositionsSelections(result) {
   return {
     type: 'PUBLISHABLE_POSITIONS_SELECTIONS_SUCCESS',
     result,
   };
 }
-
 export function savePublishablePositionsSelections(queryObject) {
-  return (dispatch) => dispatch(publishablePositionsSelectionsSuccess(queryObject));
+  return (dispatch) => dispatch(publishablePositionsSelections(queryObject));
 }
 
-export function publishablePositionsFiltersFetchDataErrored(bool) {
+
+export function publishablePositionsFiltersErrored(bool) {
   return {
-    type: 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_HAS_ERRORED',
+    type: 'PUBLISHABLE_POSITIONS_FILTERS_HAS_ERRORED',
     hasErrored: bool,
   };
 }
-
-export function publishablePositionsFiltersFetchDataLoading(bool) {
+export function publishablePositionsFiltersLoading(bool) {
   return {
-    type: 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_IS_LOADING',
+    type: 'PUBLISHABLE_POSITIONS_FILTERS_IS_LOADING',
     isLoading: bool,
   };
 }
-
-export function publishablePositionsFiltersFetchDataSuccess(results) {
+export function publishablePositionsFiltersSuccess(results) {
   return {
-    type: 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_SUCCESS',
+    type: 'PUBLISHABLE_POSITIONS_FILTERS_SUCCESS',
     results,
   };
 }
-
 export function publishablePositionsFiltersFetchData() {
   return (dispatch) => {
     batch(() => {
-      dispatch(publishablePositionsFiltersFetchDataSuccess({}));
-      dispatch(publishablePositionsFiltersFetchDataLoading(false));
+      dispatch(publishablePositionsFiltersSuccess({}));
+      dispatch(publishablePositionsFiltersLoading(false));
     });
   };
 }
