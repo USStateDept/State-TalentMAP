@@ -59,6 +59,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
       id,
       verifyComments,
       verifyAltEmail,
+      bidder_type: currentBidderType,
     };
     dispatch(saveBidderPortfolioSelections(clientData));
     setEdit(false);
