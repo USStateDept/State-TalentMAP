@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { batch } from 'react-redux';
 import {
   UPDATE_PUBLISHABLE_POSITION_ERROR,
@@ -134,10 +135,44 @@ export function publishablePositionsFiltersSuccess(results) {
   };
 }
 export function publishablePositionsFiltersFetchData() {
+  /* eslint-disable no-console */
+  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+  console.log('👾 current: in publishablePositionsFiltersFetchData:');
+  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+
+
   return (dispatch) => {
     batch(() => {
-      dispatch(publishablePositionsFiltersSuccess({}));
-      dispatch(publishablePositionsFiltersLoading(false));
+      dispatch(publishablePositionsFiltersLoading(true));
+      dispatch(publishablePositionsFiltersErrored(false));
     });
+    api().get('/fsbid/publishable_positions/filters/')
+      .then(({ data }) => {
+        /* eslint-disable no-console */
+        console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+        console.log('👾 current: filter data:', data);
+        console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
+
+        batch(() => {
+          dispatch(publishablePositionsFiltersSuccess(data));
+          dispatch(publishablePositionsFiltersErrored(false));
+          dispatch(publishablePositionsFiltersLoading(false));
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(publishablePositionsFiltersLoading(true));
+            dispatch(publishablePositionsFiltersErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(publishablePositionsFiltersSuccess([]));
+            dispatch(publishablePositionsFiltersErrored(true));
+            dispatch(publishablePositionsFiltersLoading(false));
+          });
+        }
+      });
   };
 }
+

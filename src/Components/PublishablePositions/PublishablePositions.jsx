@@ -1,14 +1,16 @@
 /* eslint-disable */
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDataLoader } from 'hooks';
 import PropTypes from 'prop-types';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
 import { filter, flatten, get, has, includes, isEmpty, sortBy, uniqBy } from 'lodash';
-
-import { filtersFetchData } from 'actions/filters/filters';
-import { publishablePositionsFetchData, savePublishablePositionsSelections } from 'actions/publishablePositions';
+import {
+  publishablePositionsFetchData,
+  publishablePositionsEdit,
+  savePublishablePositionsSelections,
+  publishablePositionsFiltersFetchData,
+} from 'actions/publishablePositions';
 import { PUBLISHABLE_POSITIONS_PAGE_SIZES, PUBLISHABLE_POSITIONS_SORT } from 'Constants/Sort';
 import Alert from 'Components/Alert/Alert';
 import Spinner from 'Components/Spinner';
@@ -24,93 +26,85 @@ import PublishablePositionCard from '../PublishablePositionCard/PublishablePosit
 const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
 
+  const dataHasErrored = useSelector(state => state.publishablePositionsHasErrored);
+  const dataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
+  const data = useSelector(state => state.publishablePositions);
   const userSelections = useSelector(state => state.publishablePositionsSelections);
-  const dummyPositionDetails = useSelector(state => state.publishablePositions);
-  const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
-  const genericFilters = useSelector(state => state.filters);
+  const filtersHasErrored = useSelector(state => state.publishablePositionsFiltersHasErrored);
+  const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
+  const filters = useSelector(state => state.publishablePositionsFilters);
 
-  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
-  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
-  const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedBidCycles, setSelectedBidCycles] =
-    useState(userSelections?.selectedBidCycle || []);
+  // const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
+  // const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
+  // const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
+  // const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
+  // const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
+  // const [selectedBidCycles, setSelectedBidCycles] =
+  //   useState(userSelections?.selectedBidCycle || []);
+  // const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
+  // const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
+
   const [clearFilters, setClearFilters] = useState(false);
-  const [limit, setLimit] = useState(get(userSelections, 'limit') || PUBLISHABLE_POSITIONS_PAGE_SIZES.defaultSize);
-  const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
 
-  const genericFilters$ = get(genericFilters, 'filters') || [];
-  const statusOptions = [
-    { code: 1, name: 'Vet' },
-    { code: 2, name: 'Publishable' },
-    { code: 3, name: 'Non-Publishable' },
-  ];
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
-  const gradeOptions = uniqBy(get(grades, 'data'), 'code');
-  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
 
-  const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
-
-  const additionalFiltersIsLoading = includes([orgsLoading], true);
-
-  const alertTitle = 'Error displaying Publishable Positions';
-  const alertBody = [
-    {
-      body: 'Please try again.',
-    },
-  ];
+  // const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
+  // const bureauOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
+  // const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
+  // const gradeOptions = uniqBy(get(grades, 'data'), 'code');
+  // const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
+  // const skillOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
+  // const cycles = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
+  // const cycleOptions = uniqBy(sortBy(get(cycles, 'data'), [(c) => c.custom_description]), 'custom_description');
+  //
+  // const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
+  //
+  // const additionalFiltersIsLoading = includes([orgsLoading], true);
 
   const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   const sorts = PUBLISHABLE_POSITIONS_SORT;
-  // const isLoading = genericFiltersIsLoading || additionalFiltersIsLoading;
+
   const disableSearch = cardsInEditMode.length > 0;
-  const disableInput = isLoading || disableSearch;
+  // update to filters loading once pulled in
+  const disableInput = dataIsLoading || disableSearch;
 
   const getQuery = () => ({
-    limit,
-    ordering,
-    // User Filters
-    'position-details-status': selectedStatuses.map(statusObject => (statusObject?.code)),
-    'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
+    // limit,
+    // ordering,
+    // // User Filters
+    // 'position-details-status': selectedStatuses.map(statusObject => (statusObject?.code)),
+    // 'position-details-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
+    // 'position-details-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
+    // 'position-details-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
+    // 'position-details-skills': selectedSkills.map(skillObject => (skillObject?.code)),
+    // 'position-details-cycles': selectedBidCycles.map(cycleObject => (cycleObject?.id)),
   });
 
   const getCurrentInputs = () => ({
-    selectedStatus: selectedStatuses,
-    selectedBureaus,
-    selectedOrgs,
-    selectedGrade: selectedGrades,
-    selectedSkills,
-    selectedBidCycle: selectedBidCycles,
+    // selectedStatus: selectedStatuses,
+    // selectedBureaus,
+    // selectedOrgs,
+    // selectedGrade: selectedGrades,
+    // selectedSkills,
+    // selectedBidCycle: selectedBidCycles,
   });
 
   const fetchAndSet = () => {
-    const filters = [
-      selectedStatuses,
-      selectedBureaus,
-      selectedOrgs,
-      selectedGrades,
-      selectedSkills,
-      selectedBidCycles,
-    ];
-    if (isEmpty(filter(flatten(filters)))) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
-    }
-    dispatch(publishablePositionsFetchData(getQuery()));
-    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
+    // const filters = [
+    //   selectedStatuses,
+    //   selectedBureaus,
+    //   selectedOrgs,
+    //   selectedGrades,
+    //   selectedSkills,
+    //   selectedBidCycles,
+    // ];
+    // if (isEmpty(filter(flatten(filters)))) {
+    //   setClearFilters(false);
+    // } else {
+    //   setClearFilters(true);
+    // }
+    // dispatch(publishablePositionsFetchData(getQuery()));
+    // dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   };
 
   const pickyProps = {
@@ -123,39 +117,59 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   const resetFilters = () => {
-    setSelectedStatuses([]);
-    setSelectedBureaus([]);
-    setSelectedOrgs([]);
-    setSelectedGrades([]);
-    setSelectedSkills([]);
-    setSelectedBidCycles([]);
-    setClearFilters(false);
+    // setSelectedStatuses([]);
+    // setSelectedBureaus([]);
+    // setSelectedOrgs([]);
+    // setSelectedGrades([]);
+    // setSelectedSkills([]);
+    // setSelectedBidCycles([]);
+    // setClearFilters(false);
   };
 
-  useEffect(() => {
-    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
-    dispatch(filtersFetchData(genericFilters));
-  }, []);
+  const getOverlay = () => {
+    let overlay;
+    if (dataIsLoading) {
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
+    } else if (dataHasErrored) {
+      overlay = <Alert type="error" title="Error displaying Publishable Positions" messages={[{ body: 'Please try again.' }]} />;
+    } else if (data.length === 0) {
+      overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
+    } else {
+      return false;
+    }
+    return overlay;
+  };
+
 
   useEffect(() => {
-    fetchAndSet();
-  }, [
-    limit,
-    ordering,
-    selectedStatuses,
-    selectedBureaus,
-    selectedOrgs,
-    selectedGrades,
-    selectedSkills,
-    selectedBidCycles,
-  ]);
+    //hold off on calling unless 2 <= filters selected
+    // noinspection PointlessBooleanExpressionJS
+    if (false) {
+      dispatch(savePublishablePositionsSelections(publishablePositionsFetchData()));
+    }
+    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
+    dispatch(publishablePositionsFiltersFetchData());
+  }, []);
+
+  // useEffect(() => {
+  //   fetchAndSet();
+  // }, [
+  //   limit,
+  //   ordering,
+  //   selectedStatuses,
+  //   selectedBureaus,
+  //   selectedOrgs,
+  //   selectedGrades,
+  //   selectedSkills,
+  //   selectedBidCycles,
+  // ]);
 
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
         <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
         {
-          !isLoading && !hasErrored &&
+          getOverlay() ||
           <div className="results-search-bar pt-20">
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
@@ -174,7 +188,7 @@ const PublishablePositions = ({ viewType }) => {
               </div>
             </div>
             <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
-              <div className="filter-div">
+{/*              <div className="filter-div">
                 <div className="label">Publishable Status:</div>
                 <Picky
                   {...pickyProps}
@@ -251,70 +265,52 @@ const PublishablePositions = ({ viewType }) => {
                   labelKey="custom_description"
                   disabled={disableInput}
                 />
-              </div>
+              </div>*/}
             </div>
           </div>
         }
       </div>
-      {
-        isLoading &&
-        <Spinner type="standard-center" />
-      }
-      {
-        hasErrored && !isLoading &&
-        <Alert title={alertTitle} messages={alertBody} />
-      }
-      {
-        !isLoading && !hasErrored &&
-        <>
-          <div className="position-search-controls--results padding-top results-dropdown">
-            <SelectForm
-              id="position-details-sort-results"
-              options={sorts.options}
-              label="Sort by:"
-              defaultSort={ordering}
-              onSelectOption={value => setOrdering(value.target.value)}
-              disabled={disableSearch}
-            />
-            <SelectForm
-              id="position-details-num-results"
-              options={pageSizes.options}
-              label="Results:"
-              defaultSort={limit}
-              onSelectOption={value => setLimit(value.target.value)}
-              disabled={disableSearch}
-            />
-            <ScrollUpButton />
+        <div className="position-search-controls--results padding-top results-dropdown">
+{/*          <SelectForm
+            id="position-details-sort-results"
+            options={sorts.options}
+            label="Sort by:"
+            defaultSort={ordering}
+            onSelectOption={value => setOrdering(value.target.value)}
+            disabled={disableSearch}
+          />
+          <SelectForm
+            id="position-details-num-results"
+            options={pageSizes.options}
+            label="Results:"
+            defaultSort={limit}
+            onSelectOption={value => setLimit(value.target.value)}
+            disabled={disableSearch}
+          />*/}
+          <ScrollUpButton />
+        </div>
+        {
+          disableSearch &&
+          <Alert
+            type="warning"
+            title={'Edit Mode (Search Disabled)'}
+            messages={[{
+              body: 'Discard or save your edits before searching. ' +
+                'Filters and Pagination are disabled if any cards are in Edit Mode.',
+            },
+            ]}
+          />
+        }
+        <div className="usa-width-one-whole position-search--results">
+          <div className="usa-grid-full position-list">
+{/*          <PublishablePositionCard
+            data={dummyPositionDetails}
+            cycles={cycles}
+            onEditModeSearch={(editMode, id) =>
+              onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+          />*/}
           </div>
-          {
-            disableSearch &&
-            <Alert
-              type="warning"
-              title={'Edit Mode (Search Disabled)'}
-              messages={[{
-                body: 'Discard or save your edits before searching. ' +
-                  'Filters and Pagination are disabled if any cards are in Edit Mode.',
-              },
-              ]}
-            />
-          }
-          <div className="usa-width-one-whole position-search--results">
-            <div className="usa-grid-full position-list">
-            <PublishablePositionCard
-              data={dummyPositionDetails}
-              cycles={cycles}
-              onEditModeSearch={(editMode, id) =>
-                onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
-            />
-            </div>
-          </div>
-        </>
-      }
-      {/* placeholder for when we put in pagination */}
-      {
-        disableSearch &&
-        <div className="disable-react-paginate-overlay" />
-      }
+        </div>
     </div>
   );
 };
