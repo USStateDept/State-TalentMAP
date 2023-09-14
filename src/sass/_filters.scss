@@ -21,6 +21,11 @@
       .hide-clear-filters {
         visibility: hidden;
       }
+
+      button:disabled {
+        background-color: transparent !important;
+        color: $bg-gray-medium-1;
+      }
     }
 }
 

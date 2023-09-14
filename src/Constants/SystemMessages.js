@@ -242,3 +242,8 @@ export const UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS_TITLE = 'Cycle Job Categories S
 export const UPDATE_CYCLE_JOB_CATEGORIES_SUCCESS = 'This Cycle Job Categories has been successfully saved.';
 export const UPDATE_CYCLE_JOB_CATEGORIES_ERROR_TITLE = 'Cycle Job Categories Error';
 export const UPDATE_CYCLE_JOB_CATEGORIES_ERROR = 'There was an issue attempting to save this Cycle Job Categories. Please try again.';
+
+export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
+export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
+export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
+export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
