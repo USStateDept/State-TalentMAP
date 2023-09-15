@@ -79,11 +79,30 @@
     display: inline;
   }
 
+.ribbon-container-condensed-min {
+  float:right;
+  max-width: 200px;
+}
+
 .bidder-portfolio-stat-row {
   border: 1px solid $color-gray-light;
   display: flex;
   flex-direction: column;
   padding: 12px 20px;
+  .bidder-portfolio-ribbon-container {
+    float: right;
+    width: auto;
+    .ribbon-container-condensed {
+      position: absolute;
+      right: 0;
+      top: 20;
+      z-index: 2;
+      padding: 20px;
+      .ribbon-htf {
+        max-width: 150px;
+      }
+    }
+  }
 
   h4 {
     font-family: inherit;
@@ -175,6 +194,18 @@
     }
   }
 
+  .stat-card-comments {
+    width: '100%';
+    dd {
+      width: 100%;
+    }
+  }
+
+  .stat-card-data-space {
+    display: flex;
+    justify-content: space-between;
+  }
+
   .client-badge-list {
     display: flex;
 
@@ -191,17 +222,39 @@
   dd {
     margin-left: 5px;
   }
-
+  .stat-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    border-bottom: 1px solid $color-gray-light;
+  }
+  .stat-card-client {
+    margin: 0px;
+  }
   .stat-card-data-point {
     display: flex;
     flex-direction: row;
     line-height: 1.3em;
   }
 
-  .button-container {
+  .stat-card-btn-container {
     display: flex;
     justify-content: flex-end;
-    margin-top: 0;
+  }
+
+  .stat-card-cancel-btn {
+    background-color: transparent;
+  }
+
+  .toggle-more-container {
+    text-align: right;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 10px;
 
     @media screen and (max-width: 1260px) {
       justify-content: center;
@@ -236,7 +289,8 @@
   border-top: 8px solid $primary-blue;
   display: flex;
   flex-direction: column;
-  height: 386px;
+  min-height: 400px;
+  max-height: 800px;
   margin-bottom: 25px;
   margin-left: 15px;
   margin-right: 25px;
@@ -922,6 +976,20 @@ $cdo-search-container-padding: 10px;
       margin-right: 5px;
     }
     }
+  }
+}
+
+.bidder-portfolio-stat-card-top {
+  min-height: 250px;
+  .bidder-compact-card-head{
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.bidder-portfolio-stat-card-bottom {
+  .toggle-more-container {
+    text-align: right;
   }
 }
 

@@ -26,6 +26,10 @@
   margin-left: 10px;
 }
 
+.pt-12 {
+  padding-top: 12px;
+}
+
 .pt-20 {
   padding-top: 20px;
 }
@@ -115,4 +119,9 @@
   box-shadow: 0 1px 4px $bg-gray-dark-3;
   -moz-box-shadow: 0 1px 4px $bg-gray-dark-3;
   -webkit-box-shadow: 0 1px 4px $bg-gray-dark-3;
+}
+
+.disabled-bg {
+  background: $color-gray-lightest;
+  color: $color-gray;
 }

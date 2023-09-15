@@ -66,7 +66,7 @@ import panelMeetings from './panelMeetings';
 import agendaItemMaintenancePane from './agendaItemMaintenancePane';
 import panelMeetingAgendas from './panelMeetingAgendas';
 import publishablePositions from './publishablePositions';
-import editRemark from './editRemark';
+import remark from './remark';
 import panelMeetingAdmin from './panelMeetingAdmin';
 import projectedVacancy from './projectedVacancy';
 import cycleManagement from './cycleManagement';
@@ -74,6 +74,10 @@ import bidSeasons from './bidSeasons';
 import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
+import bureauException from './bureauException';
+import entryLevel from './entryLevel';
+import jobCategories from './jobCategories';
+import orgStats from './orgStats';
 
 export default (history) => combineReducers({
   ...results,
@@ -137,7 +141,7 @@ export default (history) => combineReducers({
   ...positions,
   ...panelMeetingAgendas,
   ...publishablePositions,
-  ...editRemark,
+  ...remark,
   ...panelMeetingAdmin,
   ...gsaLocations,
   ...projectedVacancy,
@@ -145,6 +149,10 @@ export default (history) => combineReducers({
   ...bidSeasons,
   ...managePostAccess,
   ...searchPostAccess,
+  ...bureauException,
+  ...entryLevel,
+  ...jobCategories,
+  ...orgStats,
   router: connectRouter(history),
   client,
   login,
