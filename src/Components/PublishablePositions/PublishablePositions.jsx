@@ -59,19 +59,10 @@ const PublishablePositions = ({ viewType }) => {
   const skills = filters?.skillsFilters;
   const cycles = filters?.cycleFilters;
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
-  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
+  const bureauAndSkillsOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
   const gradeOptions = uniqBy(grades, 'code');
-  const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
   const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
-  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-  console.log('👾 current: statusOptions:', statusOptions);
-  console.log('👾 current: bureauOptions:', bureauOptions);
-  console.log('👾 current: gradeOptions:', gradeOptions);
-  console.log('👾 current: skillOptions:', skillOptions);
-  console.log('👾 current: cycleOptions:', cycleOptions);
-  console.log('👾 current: orgOptions:', orgOptions);
-  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
 
   // const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
   // const sorts = PUBLISHABLE_POSITIONS_SORT;
@@ -119,7 +110,7 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   const pickyProps = {
-    numberDisplayed: 2,
+    numberDisplayed: 1,
     multiple: true,
     includeFilter: true,
     dropdownHeight: 300,
@@ -157,9 +148,9 @@ const PublishablePositions = ({ viewType }) => {
   useEffect(() => {
     //hold off on calling unless 2 <= filters selected
     // noinspection PointlessBooleanExpressionJS
-    if (false) {
-      dispatch(publishablePositionsFiltersFetchData());
-    }
+    // if (false) {
+    dispatch(publishablePositionsFiltersFetchData());
+    // }
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   }, []);
 
@@ -207,7 +198,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedStatuses}
                   options={statusOptions}
                   valueKey="code"
-                  // labelKey="name"
+                  labelKey="description"
                   disabled={disableInput}
                 />
               </div>
@@ -220,7 +211,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedBidCycles}
                   options={cycleOptions}
                   valueKey="code"
-                  // labelKey="name"
+                  labelKey="description"
                   disabled={disableInput}
                 />
               </div>
@@ -231,9 +222,9 @@ const PublishablePositions = ({ viewType }) => {
                   placeholder="Select Bureau(s)"
                   value={selectedBureaus}
                   onChange={setSelectedBureaus}
-                  options={bureauOptions}
+                  options={bureauAndSkillsOptions}
                   valueKey="description"
-                  // labelKey="long_description"
+                  labelKey="description"
                   disabled={disableInput}
                 />
               </div>
@@ -246,7 +237,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedOrgs}
                   options={orgOptions}
                   valueKey="code"
-                  // labelKey="name"
+                  labelKey="description"
                   disabled={disableInput}
                 />
               </div>
@@ -257,9 +248,9 @@ const PublishablePositions = ({ viewType }) => {
                   placeholder="Select Skill(s)"
                   value={selectedSkills}
                   onChange={setSelectedSkills}
-                  options={skillOptions}
-                  valueKey="code"
-                  // labelKey="custom_description"
+                  options={bureauAndSkillsOptions}
+                  valueKey="description"
+                  labelKey="description"
                   disabled={disableInput}
                 />
               </div>
@@ -272,7 +263,7 @@ const PublishablePositions = ({ viewType }) => {
                   onChange={setSelectedGrades}
                   options={gradeOptions}
                   valueKey="code"
-                  // labelKey="custom_description"
+                  labelKey="description"
                   disabled={disableInput}
                 />
               </div>

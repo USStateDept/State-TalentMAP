@@ -135,12 +135,6 @@ export function publishablePositionsFiltersSuccess(results) {
   };
 }
 export function publishablePositionsFiltersFetchData() {
-  /* eslint-disable no-console */
-  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-  console.log('👾 current: in publishablePositionsFiltersFetchData:');
-  console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-
-
   return (dispatch) => {
     batch(() => {
       dispatch(publishablePositionsFiltersLoading(true));
