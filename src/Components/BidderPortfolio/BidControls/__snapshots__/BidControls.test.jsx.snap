@@ -102,6 +102,14 @@ exports[`BidControlsComponent matches snapshot when isLoading is false 1`] = `
                 "text": "Unassigned Filters",
                 "value": "unassigned_filters",
               },
+              Object {
+                "text": "Eligible Bidders",
+                "value": "eligible_bidders",
+              },
+              Object {
+                "text": "Cusp Bidders",
+                "value": "cusp_bidders",
+              },
             ]
           }
           transformValue={[Function]}
@@ -310,6 +318,14 @@ exports[`BidControlsComponent matches snapshot when isLoading is true 1`] = `
               Object {
                 "text": "Unassigned Filters",
                 "value": "unassigned_filters",
+              },
+              Object {
+                "text": "Eligible Bidders",
+                "value": "eligible_bidders",
+              },
+              Object {
+                "text": "Cusp Bidders",
+                "value": "cusp_bidders",
               },
             ]
           }
