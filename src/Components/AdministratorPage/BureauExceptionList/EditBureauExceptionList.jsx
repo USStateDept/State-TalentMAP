@@ -74,9 +74,9 @@ const EditBureauExceptionList = (props) => {
               </div>
             </tr>
             <tr>
-              <th className="checkbox-pos">
+              <th className="checkbox-pac checkbox-pos">
                 <CheckBox
-                  label="ID"
+                  label="Bureau"
                   checked={!selectAll}
                   onCheckBoxClick={handleSelectAll}
                 />
