@@ -174,6 +174,14 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
+      {
+        text: 'Bidding Tool',
+        route: '/profile/administrator/biddingtool/',
+        icon: ' fa-keyboard-o',
+        roles: [
+          'superuser',
+        ],
+      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
