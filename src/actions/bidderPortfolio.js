@@ -2,9 +2,12 @@ import { batch } from 'react-redux';
 import { stringify } from 'query-string';
 import { find, get, includes, isArray, join, omit, replace } from 'lodash';
 import { CancelToken } from 'axios';
+import { toastSuccess } from 'actions/toast';
 import { downloadFromResponse } from 'utilities';
 import { BID_PORTFOLIO_SORTS } from 'Constants/Sort';
+import { BIDDER_PORTFOLIO_ADD_ERROR, BIDDER_PORTFOLIO_ADD_SUCCESS } from '../Constants/SystemMessages';
 import api from '../api';
+import { toastError } from './toast';
 
 let cancelCDOs;
 let cancelPortfolio;
@@ -351,4 +354,26 @@ export function bidderPortfolioSelectionsSaveSuccess(result) {
 
 export function bidderPortfolioSelections(queryObject) {
   return (dispatch) => dispatch(bidderPortfolioSelectionsSaveSuccess(queryObject));
+}
+
+export function saveBidderPortfolioSelections(client) {
+  return (dispatch) => {
+    dispatch(bidderPortfolioSeasonsIsLoading(true));
+    dispatch(bidderPortfolioSeasonsHasErrored(false));
+    api()
+      .post('Placeholder/', client)
+      .then(({ data }) => {
+        batch(() => {
+          dispatch(bidderPortfolioSeasonsHasErrored(false));
+          dispatch(bidderPortfolioSeasonsSuccess(data));
+          dispatch(toastSuccess(BIDDER_PORTFOLIO_ADD_SUCCESS));
+          dispatch(bidderPortfolioIsLoading(false));
+        });
+      })
+      .catch(() => {
+        dispatch(toastError(BIDDER_PORTFOLIO_ADD_ERROR));
+        dispatch(bidderPortfolioSeasonsHasErrored(true));
+        dispatch(bidderPortfolioIsLoading(false));
+      });
+  };
 }
