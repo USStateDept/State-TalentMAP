@@ -17,14 +17,44 @@ const EditBureauExceptionList = (props) => {
   const submit = (e) => {
     // bureauUser stores the user and bureau to be added
     // Doing nothing for now but closing.
+    console.log('bureauUser', bureauUser);
     dispatch(saveBureauExceptionSelections(bureauUser));
     e.preventDefault();
     swal.close();
   };
 
-  const cancel = (e) => {
-    e.preventDefault();
-    swal.close();
+  const editBureau = () => {
+    console.log('currentUser', user);
+    swal({
+      title: 'Bureaus',
+      button: false,
+      content: (
+        <EditBureauExceptionList
+          user={user}
+          BureauExceptionOptionsData={BureauExceptionOptionsData}
+          dispatch={dispatch}
+        />
+      ),
+    });
+  };
+
+  const cancel = () => {
+    swal({
+      title: 'Confirm Discard Changes',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="simple-action-modal">
+          <div className="help-text">
+            <span>{'Are you sure you want to discard all changes made to this list?'}</span>
+          </div>
+          <div className="modal-controls">
+            <button onClick={() => swal.close()}>Yes</button>
+            <button className="usa-button-secondary" onClick={() => editBureau()}>Cancel</button>
+          </div>
+        </div>
+      ),
+    });
   };
 
   const handleSelectAll = () => {
