@@ -33,33 +33,7 @@ export function bidSeasonsSelections(state = {}, action) {
   }
 }
 
-
-// export function bidSeasonsPositionSearchFetchDataErrored(state = false, action) {
-//   switch (action.type) {
-//     case 'BID_SEASONS_POSITION_SEARCH_FETCH_HAS_ERRORED':
-//       return action.hasErrored;
-//     default:
-//       return state;
-//   }
-// }
-// export function bidSeasonsPositionSearchFetchDataLoading(state = false, action) {
-//   switch (action.type) {
-//     case 'BID_SEASONS_POSITION_SEARCH_FETCH_IS_LOADING':
-//       return action.isLoading;
-//     default:
-//       return state;
-//   }
-// }
-// export function bidSeasonsPositionSearch(state = [], action) {
-//   switch (action.type) {
-//     case 'BID_SEASONS_POSITION_SEARCH_FETCH_SUCCESS':
-//       return action.results;
-//     default:
-//       return state;
-//   }
-// }
-
-export function bidSeasonsPositionSearchSelections(state = {}, action) {
+export function bidSeasonsSearchSelections(state = {}, action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_SEARCH_SELECTIONS_SAVE_SUCCESS':
       return action.result;
@@ -69,7 +43,7 @@ export function bidSeasonsPositionSearchSelections(state = {}, action) {
 }
 
 
-export function bidSeasonsPositionRemoveHasErrored(state = false, action) {
+export function bidSeasonsCreateHasErrored(state = false, action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_REMOVE_HAS_ERRORED':
       return action.hasErrored;
@@ -77,7 +51,7 @@ export function bidSeasonsPositionRemoveHasErrored(state = false, action) {
       return state;
   }
 }
-export function bidSeasonsPositionRemoveIsLoading(state = false, action) {
+export function bidSeasonsCreateIsLoading(state = false, action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_REMOVE_IS_LOADING':
       return action.isLoading;
@@ -85,7 +59,7 @@ export function bidSeasonsPositionRemoveIsLoading(state = false, action) {
       return state;
   }
 }
-export function bidSeasonsPositionRemoveSuccess(state = [], action) {
+export function bidSeasonsCreateSuccess(state = [], action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_REMOVE_SUCCESS':
       return action.data;
@@ -94,7 +68,7 @@ export function bidSeasonsPositionRemoveSuccess(state = [], action) {
   }
 }
 
-export function bidSeasonsPositionEditHasErrored(state = false, action) {
+export function bidSeasonsEditHasErrored(state = false, action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_EDIT_HAS_ERRORED':
       return action.hasErrored;
@@ -102,7 +76,7 @@ export function bidSeasonsPositionEditHasErrored(state = false, action) {
       return state;
   }
 }
-export function bidSeasonsPositionEditIsLoading(state = false, action) {
+export function bidSeasonsEditIsLoading(state = false, action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_EDIT_IS_LOADING':
       return action.isLoading;
@@ -110,7 +84,7 @@ export function bidSeasonsPositionEditIsLoading(state = false, action) {
       return state;
   }
 }
-export function bidSeasonsPositionEditSuccess(state = [], action) {
+export function bidSeasonsEditSuccess(state = [], action) {
   switch (action.type) {
     case 'BID_SEASONS_POSITION_EDIT_SUCCESS':
       return action.data;

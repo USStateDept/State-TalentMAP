@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { formatDate } from 'utilities';
 import { Column, Row } from 'Components/Layout';
-import { bidSeasonsPositionEdit } from 'actions/BidSeasons';
+import { bidSeasonsEdit } from 'actions/BidSeasons';
 import EditBidSeasons from './EditBidSeasons';
 
 const ManageBidSeasonsCard = (props) => {
@@ -20,7 +20,7 @@ const ManageBidSeasonsCard = (props) => {
   } = props;
 
   const submit = (data) => {
-    dispatch(bidSeasonsPositionEdit(data));
+    dispatch(bidSeasonsEdit(data));
   };
 
 

@@ -34,12 +34,6 @@ const EditBidSeasons = (props) => {
   const submit = (e) => {
     e.preventDefault();
     swal.close();
-    console.log(description);
-    console.log(startDate);
-    console.log(endDate);
-    console.log(panelCutoffDate);
-    console.log(futureVacancy);
-
     submitAction({
       id,
       name,

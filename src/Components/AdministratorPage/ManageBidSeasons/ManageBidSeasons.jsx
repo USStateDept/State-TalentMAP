@@ -8,7 +8,7 @@ import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle';
 import Alert from 'Components/Alert';
-import { bidSeasonsFetchData, bidSeasonsPositionEdit, saveBidSeasonsSelections } from 'actions/BidSeasons';
+import { bidSeasonsCreate, bidSeasonsFetchData, saveBidSeasonsSelections } from 'actions/BidSeasons';
 import { renderSelectionList } from 'utilities';
 import swal from '@sweetalert/with-react';
 import ManageBidSeasonCard from './ManageBidSeasonsCard';
@@ -22,6 +22,8 @@ const ManageBidSeasons = () => {
   const ManageBidSeasonsDataLoading = useSelector(state => state.bidSeasonsFetchDataLoading);
   const ManageBidSeasonsData = useSelector(state => state.bidSeasons);
   const ManageBidSeasonsError = useSelector(state => state.bidSeasonsFetchDataErrored);
+  const bidSeasonCreateSuccess = useSelector(state => state.bidSeasonsCreateSuccess);
+  const bidSeasonEditSuccess = useSelector(state => state.bidSeasonsEditSuccess);
 
   // Filters
   const [selectedBidSeasons, setSelectedBidSeasons] =
@@ -64,6 +66,14 @@ const ManageBidSeasons = () => {
     dispatch(saveBidSeasonsSelections(getCurrentInputs()));
     dispatch(bidSeasonsFetchData());
   }, []);
+
+  // re-fetch on successful edit or create
+  useEffect(() => {
+    dispatch(bidSeasonsFetchData());
+  }, [
+    bidSeasonCreateSuccess,
+    bidSeasonEditSuccess,
+  ]);
 
   useEffect(() => {
     setBidSeasonData$(bidSeasonDataFiltered);
@@ -111,7 +121,7 @@ const ManageBidSeasons = () => {
   };
 
   const submit = (data) => {
-    dispatch(bidSeasonsPositionEdit(data));
+    dispatch(bidSeasonsCreate(data));
   };
 
   const newSeason = () => {
