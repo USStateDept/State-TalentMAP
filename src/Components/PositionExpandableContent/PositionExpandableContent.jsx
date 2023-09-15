@@ -38,7 +38,8 @@ const PositionExpandableContent = ({ sections, form }) => {
 
   const getBody = () => {
     if (!setEditMode) return [];
-    if (editMode && form) return form.staticBody;
+    if (editMode && form && form.staticBody) return form.staticBody;
+    if (editMode && form && !form.staticBody) return [];
     if (showMore && sections.bodySecondary) {
       return [...sections.bodyPrimary, ...sections.bodySecondary];
     }
@@ -115,7 +116,7 @@ const PositionExpandableContent = ({ sections, form }) => {
       {(showMore && !editMode && sections?.textarea) &&
         <div>
           <Row fluid className="position-content--description">
-            <span className="definition-title">Position Details</span>
+            <span className="definition-title">School Year</span>
             <Linkify properties={{ target: '_blank' }}>
               <TextareaAutosize
                 maxRows={6}
@@ -142,7 +143,7 @@ const PositionExpandableContent = ({ sections, form }) => {
           {form.inputBody}
           <div className="position-form--actions">
             <button onClick={showCancelModal}>Cancel</button>
-            <button onClick={form.handleSubmit}>Save Position</button>
+            <button onClick={form.handleSubmit}>Save</button>
           </div>
         </div>
       }
@@ -181,6 +182,7 @@ PositionExpandableContent.propTypes = {
     staticBody: PropTypes.arrayOf(PropTypes.shape({})),
     inputBody: PropTypes.element,
     cancelText: PropTypes.string,
+    formOnly: PropTypes.bool,
     handleSubmit: PropTypes.func,
     handleCancel: PropTypes.func,
     handleEdit: PropTypes.shape({
