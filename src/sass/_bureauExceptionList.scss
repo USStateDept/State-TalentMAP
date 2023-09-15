@@ -29,7 +29,8 @@
     }
     .checkbox-pos {
       > div{
-        [type=checkbox]:not(:checked) + label::before {
+        [type=checkbox]:not(:checked) + label::before,
+        [type=checkbox]:checked + label::before {
           margin-right: 1.5em;
         }
       }
