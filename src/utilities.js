@@ -323,11 +323,6 @@ export const getTimeDistanceInWords = (dateToCompare, date = new Date(), options
 export const formatDate = (date, dateFormat = 'MM/DD/YYYY') => {
   if (date) {
     // then format the date with dateFormat
-    /* eslint-disable no-console */
-    console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
-    console.log('🧁 current: date:', date);
-    console.log('🧁🧁🧁🧁🧁🧁🧁🧁🧁🧁');
-
     const formattedDate = format(new Date(date), dateFormat);
     // and finally return the formatted date
     return formattedDate;
