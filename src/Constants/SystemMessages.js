@@ -238,6 +238,11 @@ export const SEARCH_POST_ACCESS_REMOVE_SUCCESS = 'Access removed from post(s) su
 export const SEARCH_POST_ACCESS_REMOVE_ERROR_TITLE = 'Access Remove Error';
 export const SEARCH_POST_ACCESS_REMOVE_ERROR = 'There was an issue attempting to update access for these post(s). Please try again.';
 
+export const BIDDER_PORTFOLIO_ADD_SUCCESS_TITLE = 'Bidder Portfolio Added';
+export const BIDDER_PORTFOLIO_ADD_SUCCESS = 'Bidder Portfolio has been added.';
+export const BIDDER_PORTFOLIO_ADD_ERROR_TITLE = 'Bidder Portfolio Add Error';
+export const BIDDER_PORTFOLIO_ADD_ERROR = 'There was an issue attempting to add this Bidder Portfolio. Please try again.';
+
 export const ADD_BUREAU_EXCEPTION_ERROR = 'There was an issue attempting to add this Bureau Exception. Please try again.';
 export const ADD_BUREAU_EXCEPTION_ERROR_TITLE = 'Bureau Exception Add Error';
 export const ADD_BUREAU_EXCEPTION_SUCCESS = 'Bureau Exception has been added.';
