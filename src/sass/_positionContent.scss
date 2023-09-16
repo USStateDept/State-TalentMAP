@@ -73,6 +73,17 @@
       }
     }
   }
+  .toggle-edit-mode-disabled {
+    color: gray;
+    cursor: not-allowed;
+
+    &:hover {
+      div, span {
+        cursor: not-allowed;
+        text-decoration: none;
+      }
+    }
+  }
 
 
   // ========== BODY ==========

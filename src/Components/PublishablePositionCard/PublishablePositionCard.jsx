@@ -16,7 +16,7 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const PublishablePositionCard = ({ data, onEditModeSearch }) => {
+const PublishablePositionCard = ({ data, onEditModeSearch, disableEdit }) => {
 /*    {
       "positionNumber": "57344000",
       "skill": "DIPLOMATIC COURIER (2580)",
@@ -79,12 +79,11 @@ const PublishablePositionCard = ({ data, onEditModeSearch }) => {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    // TODO: during integration, replace 7 with unique card identifier
-    onEditModeSearch(editMode, 7);
+    onEditModeSearch(editMode);
   }, [editMode]);
 
   const onSubmitForm = () => {
-    editMode(false);
+    setEditMode(false);
   };
 
   const onCancelForm = () => {
@@ -92,7 +91,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch }) => {
     // re-reading from "pos" when we open Edit Form back up
     // clear will need to set states back to the pull
     // from "pos" once we've determined the ref data structure
-    editMode(false);
+    setEditMode(false);
   };
   const form = {
     /* eslint-disable quote-props */
@@ -133,6 +132,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch }) => {
     handleEdit: {
       editMode,
       setEditMode,
+      disableEdit,
     },
     /* eslint-enable quote-props */
   };
@@ -178,10 +178,12 @@ PublishablePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
   // cycles: BID_CYCLES.isRequired,
   onEditModeSearch: PropTypes.func,
+  disableEdit: PropTypes.bool,
 };
 
 PublishablePositionCard.defaultProps = {
   onEditModeSearch: EMPTY_FUNCTION,
+  disableEdit: false,
 };
 
 export default PublishablePositionCard;

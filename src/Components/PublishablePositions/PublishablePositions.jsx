@@ -18,7 +18,7 @@ import SelectForm from 'Components/SelectForm';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
-import { onEditModeSearch, renderSelectionList } from 'utilities';
+import { renderSelectionList } from 'utilities';
 import api from '../../api';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
@@ -45,7 +45,7 @@ const PublishablePositions = ({ viewType }) => {
   // const [ordering, setOrdering] = useState(get(userSelections, 'ordering') || PUBLISHABLE_POSITIONS_SORT.defaultSort);
 
   const [clearFilters, setClearFilters] = useState(false);
-  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+  const [editMode, setEditMode] = useState(false);
 
 
   const statuses = filters?.statusFilters;
@@ -59,13 +59,6 @@ const PublishablePositions = ({ viewType }) => {
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
   const gradeOptions = uniqBy(grades, 'code');
   const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
-
-  // const pageSizes = PUBLISHABLE_POSITIONS_PAGE_SIZES;
-  // const sorts = PUBLISHABLE_POSITIONS_SORT;
-  // update:
-  const disableSearch = cardsInEditMode.length > 0;
-  // update to filters loading once pulled in
-  const disableInput = dataIsLoading || disableSearch;
 
   const getQuery = () => ({
     'statuses': selectedStatuses.map(f => (f?.code)),
@@ -85,16 +78,15 @@ const PublishablePositions = ({ viewType }) => {
     selectedBidCycles,
   });
 
+  const numSelectedFilters = [
+    selectedStatuses,
+    selectedBureaus,
+    selectedOrgs,
+    selectedGrades,
+    selectedSkills,
+    selectedBidCycles,
+  ].flat().length;
   const fetchAndSet = () => {
-    const numSelectedFilters = [
-      selectedStatuses,
-      selectedBureaus,
-      selectedOrgs,
-      selectedGrades,
-      selectedSkills,
-      selectedBidCycles,
-    ].flat().length;
-
     setClearFilters(!!numSelectedFilters);
 
     if (numSelectedFilters > 1) {
@@ -123,14 +115,14 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   const getOverlay = () => {
-    return false;
-    // noinspection UnreachableCodeJS
     let overlay;
-    if (dataIsLoading) {
+    if (dataIsLoading || filtersIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
     } else if (dataHasErrored) {
       overlay = <Alert type="error" title="Error displaying Publishable Positions" messages={[{ body: 'Please try again.' }]} />;
-    } else if (data.length === 0) {
+    } else if (numSelectedFilters < 2) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
+    } else if (!data.length) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
     } else {
       return false;
@@ -159,9 +151,7 @@ const PublishablePositions = ({ viewType }) => {
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
         <ProfileSectionTitle title="Publishable Positions" icon="newspaper-o" className="xl-icon" />
-        {
-          getOverlay() ||
-          <div className="results-search-bar pt-20">
+        <div className="results-search-bar pt-20">
             <div className="filterby-container">
               <div className="filterby-label">Filter by:</div>
               <div className="filterby-clear">
@@ -170,7 +160,7 @@ const PublishablePositions = ({ viewType }) => {
                   <button
                     className="unstyled-button"
                     onClick={resetFilters}
-                    disabled={disableSearch}
+                    disabled={editMode}
                   >
                     <FA name="times" />
                     Clear Filters
@@ -189,7 +179,7 @@ const PublishablePositions = ({ viewType }) => {
                   options={statusOptions}
                   valueKey="code"
                   labelKey="description"
-                  disabled={disableInput}
+                  disabled={editMode}
                 />
               </div>
               <div className="filter-div">
@@ -202,7 +192,7 @@ const PublishablePositions = ({ viewType }) => {
                   options={cycleOptions}
                   valueKey="code"
                   labelKey="description"
-                  disabled={disableInput}
+                  disabled={editMode}
                 />
               </div>
               <div className="filter-div">
@@ -215,7 +205,7 @@ const PublishablePositions = ({ viewType }) => {
                   options={bureauAndSkillsOptions}
                   valueKey="description"
                   labelKey="description"
-                  disabled={disableInput}
+                  disabled={editMode}
                 />
               </div>
               <div className="filter-div">
@@ -228,7 +218,7 @@ const PublishablePositions = ({ viewType }) => {
                   options={orgOptions}
                   valueKey="code"
                   labelKey="description"
-                  disabled={disableInput}
+                  disabled={editMode}
                 />
               </div>
               <div className="filter-div">
@@ -241,7 +231,7 @@ const PublishablePositions = ({ viewType }) => {
                   options={bureauAndSkillsOptions}
                   valueKey="description"
                   labelKey="description"
-                  disabled={disableInput}
+                  disabled={editMode}
                 />
               </div>
               <div className="filter-div">
@@ -254,57 +244,46 @@ const PublishablePositions = ({ viewType }) => {
                   options={gradeOptions}
                   valueKey="code"
                   labelKey="description"
-                  disabled={disableInput}
+                  disabled={editMode}
                 />
               </div>
             </div>
           </div>
-        }
       </div>
-        <div className="position-search-controls--results padding-top results-dropdown">
-{/*          <SelectForm
-            id="position-details-sort-results"
-            options={sorts.options}
-            label="Sort by:"
-            defaultSort={ordering}
-            onSelectOption={value => setOrdering(value.target.value)}
-            disabled={disableSearch}
-          />
-          <SelectForm
-            id="position-details-num-results"
-            options={pageSizes.options}
-            label="Results:"
-            defaultSort={limit}
-            onSelectOption={value => setLimit(value.target.value)}
-            disabled={disableSearch}
-          />*/}
-          <ScrollUpButton />
-        </div>
-        {
-          disableSearch &&
-          <Alert
-            type="warning"
-            title={'Edit Mode (Search Disabled)'}
-            messages={[{
-              body: 'Discard or save your edits before searching. ' +
-                'Filters and Pagination are disabled if any cards are in Edit Mode.',
-            },
-            ]}
-          />
-        }
-        <div className="usa-width-one-whole position-search--results">
-          <div className="usa-grid-full position-list">
-          {
-            data.map(pubPos => (
-              <PublishablePositionCard
-                data={pubPos}
-                onEditModeSearch={(editMode, id) =>
-                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
-              />
-            ))
-          }
+      {
+        getOverlay() ||
+        <>
+          <div className="position-search-controls--results padding-top results-dropdown">
+            <ScrollUpButton/>
           </div>
-        </div>
+          {
+            editMode &&
+            <Alert
+              type="warning"
+              title={'Edit Mode (Search Disabled)'}
+              messages={[{
+                body: 'Discard or save your edits before searching. ' +
+                  'Filters and Pagination are disabled while in Edit Mode.',
+              },
+              ]}
+            />
+          }
+          <div className="usa-width-one-whole position-search--results">
+            <div className="usa-grid-full position-list">
+              {
+                data.map(pubPos => (
+                  <PublishablePositionCard
+                    data={pubPos}
+                    onEditModeSearch={editState =>
+                      setEditMode(editState)}
+                    disableEdit={editMode}
+                  />
+                ))
+              }
+            </div>
+          </div>
+        </>
+      }
     </div>
   );
 };
