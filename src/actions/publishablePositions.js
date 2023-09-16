@@ -6,6 +6,7 @@ import {
   UPDATE_PUBLISHABLE_POSITION_SUCCESS,
   UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE,
 } from 'Constants/SystemMessages';
+import { convertQueryToString } from 'utilities';
 import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
@@ -30,16 +31,20 @@ export function publishablePositionsSuccess(results) {
 export function publishablePositionsFetchData(query = {}) {
   /* eslint-disable no-console */
   console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-  console.log('🐙 current: query:', query);
+  console.log('🐙 current: publishablePositionsFetchData query:', query);
   console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-
   return (dispatch) => {
     batch(() => {
       dispatch(publishablePositionsLoading(true));
       dispatch(publishablePositionsErrored(false));
     });
-    api().get('publishable_positions/')
+    const q = convertQueryToString(query);
+    api().get(`/fsbid/publishable_positions/?${q}`)
       .then(({ data }) => {
+        /* eslint-disable no-console */
+        console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+        console.log('🐙 current: data:', data);
+        console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
         batch(() => {
           dispatch(publishablePositionsSuccess(data));
           dispatch(publishablePositionsErrored(false));
@@ -142,11 +147,6 @@ export function publishablePositionsFiltersFetchData() {
     });
     api().get('/fsbid/publishable_positions/filters/')
       .then(({ data }) => {
-        /* eslint-disable no-console */
-        console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-        console.log('👾 current: filter data:', data);
-        console.log('👾👾👾👾👾👾👾👾👾👾👾👾');
-
         batch(() => {
           dispatch(publishablePositionsFiltersSuccess(data));
           dispatch(publishablePositionsFiltersErrored(false));

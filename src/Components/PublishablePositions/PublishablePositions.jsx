@@ -72,14 +72,12 @@ const PublishablePositions = ({ viewType }) => {
   const disableInput = dataIsLoading || disableSearch;
 
   const getQuery = () => ({
-    // limit,
-    // ordering,
-    'Statuses': selectedStatuses.map(f => (f?.code)),
-    'Bureaus': selectedBureaus.map(f => (f?.description)),
-    'Orgs': selectedOrgs.map(f => (f?.code)),
-    'Grades': selectedGrades.map(f => (f?.code)),
-    'Skills': selectedSkills.map(f => (f?.code)),
-    'BidCycles': selectedBidCycles.map(f => (f?.code)),
+    'statuses': selectedStatuses.map(f => (f?.code)),
+    'bureaus': selectedBureaus.map(f => (f?.description)),
+    'orgs': selectedOrgs.map(f => (f?.code)),
+    'grades': selectedGrades.map(f => (f?.code)),
+    'skills': selectedSkills.map(f => (f?.description)),
+    'bidCycles': selectedBidCycles.map(f => (f?.code)),
   });
 
   const getCurrentInputs = () => ({
@@ -92,21 +90,21 @@ const PublishablePositions = ({ viewType }) => {
   });
 
   const fetchAndSet = () => {
-    const filters = [
+    const numSelectedFilters = [
       selectedStatuses,
       selectedBureaus,
       selectedOrgs,
       selectedGrades,
       selectedSkills,
       selectedBidCycles,
-    ];
-    if (isEmpty(filter(flatten(filters)))) {
-      setClearFilters(false);
-    } else {
-      setClearFilters(true);
+    ].flat().length;
+
+    setClearFilters(!!numSelectedFilters);
+
+    if (numSelectedFilters > 1) {
+      dispatch(publishablePositionsFetchData(getQuery()));
+      dispatch(savePublishablePositionsSelections(getCurrentInputs()));
     }
-    dispatch(publishablePositionsFetchData(getQuery()));
-    dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   };
 
   const pickyProps = {
@@ -146,11 +144,7 @@ const PublishablePositions = ({ viewType }) => {
 
 
   useEffect(() => {
-    //hold off on calling unless 2 <= filters selected
-    // noinspection PointlessBooleanExpressionJS
-    // if (false) {
     dispatch(publishablePositionsFiltersFetchData());
-    // }
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   }, []);
 
