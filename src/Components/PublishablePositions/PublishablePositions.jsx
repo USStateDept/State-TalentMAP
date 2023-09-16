@@ -262,8 +262,8 @@ const PublishablePositions = ({ viewType }) => {
               type="warning"
               title={'Edit Mode (Search Disabled)'}
               messages={[{
-                body: 'Discard or save your edits before searching. ' +
-                  'Filters and Pagination are disabled while in Edit Mode.',
+                body: 'Filters are disabled while in Edit Mode. ' +
+                  'Discard or save your edits to enable searching. ',
               },
               ]}
             />
