@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getDifferentials, getPostName, getResult } from 'utilities';
+import { getDifferentials, formatDateFromStr } from 'utilities';
 import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
@@ -67,7 +67,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, disableEdit }) => {
     ],
     textarea: data?.positionDetails || 'No description.',
     metadata: [
-      { 'Last Updated': data?.lastUpdated },
+      { 'Last Updated': formatDateFromStr(data?.lastUpdated) },
     ],
     /* eslint-enable quote-props */
   };
