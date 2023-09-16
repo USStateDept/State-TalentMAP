@@ -14,7 +14,7 @@ export function publishablePositionsIsLoading(state = false, action) {
       return state;
   }
 }
-export function publishablePositions(state = {}, action) {
+export function publishablePositions(state = [], action) {
   switch (action.type) {
     case 'PUBLISHABLE_POSITIONS_SUCCESS':
       return action.results;

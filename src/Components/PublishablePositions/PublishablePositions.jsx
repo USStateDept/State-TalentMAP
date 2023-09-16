@@ -34,10 +34,6 @@ const PublishablePositions = ({ viewType }) => {
   const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
   const filters = useSelector(state => state.publishablePositionsFilters);
 
-  /* eslint-disable no-console */
-
-
-
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
@@ -298,12 +294,15 @@ const PublishablePositions = ({ viewType }) => {
         }
         <div className="usa-width-one-whole position-search--results">
           <div className="usa-grid-full position-list">
-{/*          <PublishablePositionCard
-            data={dummyPositionDetails}
-            cycles={cycles}
-            onEditModeSearch={(editMode, id) =>
-              onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
-          />*/}
+          {
+            data.map(pubPos => (
+              <PublishablePositionCard
+                data={pubPos}
+                onEditModeSearch={(editMode, id) =>
+                  onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)}
+              />
+            ))
+          }
           </div>
         </div>
     </div>

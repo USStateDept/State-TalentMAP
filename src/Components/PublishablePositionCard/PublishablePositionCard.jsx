@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useEffect, useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
@@ -7,10 +8,7 @@ import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
-import {
-  NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_STATUS, NO_TOUR_END_DATE, NO_TOUR_OF_DUTY, NO_UPDATE_DATE, NO_USER_LISTED,
-} from 'Constants/SystemMessages';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
 import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
@@ -18,44 +16,58 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
-  const pos = data?.position || data;
-
-  const updateUser = getResult(pos, 'description.last_editing_user');
-  const updateDate = getResult(pos, 'description.date_updated');
-  const positionNumber = getResult(pos, 'position_number') || NO_POSITION_NUMBER;
-  const bureau = getResult(pos, 'bureau_short_desc') || NO_BUREAU;
+const PublishablePositionCard = ({ data, onEditModeSearch }) => {
+/*    {
+      "positionNumber": "57344000",
+      "skill": "DIPLOMATIC COURIER (2580)",
+      "positionTitle": "Lead Financial Management Anal",
+      "bureau": "EUR",
+      "org": "DS/DC/FRDCD (324066)",
+      "grade": "03",
+      "status": "P",
+      "language": null,
+      "payPlan": "FP",
+      "positionDetails": "Real data have been MASKED!",
+      "positionDetailsLastUpdated": "20220615141432",
+      "lastUpdated": "20220615141432",
+      "lastUpdatedUserID": 38353,
+      "posSeqNum": 3123,
+      "aptSeqNum": null,
+      "aptDesc": null,
+      "psCD": "A",
+      "posLtext": null,
+      "lrDesc": " ",
+      "posAuditExclusionInd": "N"
+    }*/
 
   // =============== Overview: View Mode ===============
 
   const sections = {
     /* eslint-disable quote-props */
     subheading: [
-      { 'Position Number': positionNumber },
-      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
-      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+      { 'Position Number': data?.positionNumber || DEFAULT_TEXT },
+      { 'Skill': data?.skill || DEFAULT_TEXT },
+      { 'Position Title': data?.positionTitle || DEFAULT_TEXT },
     ],
     bodyPrimary: [
-      { 'Bureau': bureau },
-      { 'Location': getPostName(pos?.post) || NO_POST },
-      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Status': getResult(pos, 'status') || NO_STATUS },
+      { 'Bureau': data?.bureau || DEFAULT_TEXT },
+      { 'Organization': data?.org || DEFAULT_TEXT },
+      { 'Grade': data?.grade || DEFAULT_TEXT },
+      { 'Status': data?.status || DEFAULT_TEXT },
+      { 'Language': data?.language || DEFAULT_TEXT },
+      { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
     ],
     bodySecondary: [
-      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
-      { 'TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
-      { 'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
-      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
-      { 'Pay Plan': '---' },
-      { 'Assignee': '---' },
-      { 'Functional Bureau': 'None Listed' },
-      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+      // { 'Bid Cycle': data?.status || DEFAULT_TEXT },
+      // { 'TED': data?.status || DEFAULT_TEXT },
+      // { 'Incumbent': data?.status || DEFAULT_TEXT },
+      // { 'Tour of Duty': data?.status || DEFAULT_TEXT },
+      // { 'Assignee': data?.status || DEFAULT_TEXT },
+      // { 'Post Differential | Danger Pay': data?.status || DEFAULT_TEXT },
     ],
-    textarea: pos?.description?.content || 'No description.',
+    textarea: data?.positionDetails || 'No description.',
     metadata: [
-      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+      { 'Last Updated': data?.lastUpdated },
     ],
     /* eslint-enable quote-props */
   };
@@ -63,47 +75,9 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
 
   // =============== Overview: Edit Mode ===============
 
-  function renderSelectionList({ items, selected, ...rest }) {
-    return items.map((item, index) => {
-      const keyId = `${index}-${item}`;
-      return (<ListItem
-        item={item}
-        {...rest}
-        key={keyId}
-        queryProp={'custom_description'}
-      />);
-    });
-  }
-
-  const pickyProps = {
-    numberDisplayed: 2,
-    multiple: true,
-    includeFilter: true,
-    dropdownHeight: 200,
-    includeSelectAll: true,
-    renderList: renderSelectionList,
-    className: 'width-280',
-  };
-
-  const statusOptions = [
-    { code: 1, name: 'Vet' },
-    { code: 2, name: 'Publishable' },
-    { code: 3, name: 'Non-Publishable' },
-  ];
-  const [status, setStatus] = useState(statusOptions[0]);
-  const [exclude, setExclude] = useState(true);
-  const [selectedCycles, setSelectedCycles] = useState([]);
-  const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
-  const [selectedFuncBureau, setSelectedFuncBureau] = useState('');
-  const [overrideTOD, setOverrideTOD] = useState('');
-
-  const filters = useSelector(state => state.filters);
-  const filters$ = filters?.filters;
-  const tods = filters$.find(f => f.item.description === 'tod').data;
-  const functionalBureaus = filters$.find(f => f.item.description === 'functionalRegion');
-  const functionalBureaus$ = functionalBureaus.data.filter(b => !b.is_regional);
-
+  const [textArea, setTextArea] = useState(data?.positionDetails || 'No description.');
   const [editMode, setEditMode] = useState(false);
+
   useEffect(() => {
     // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, 7);
@@ -120,64 +94,18 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
     // from "pos" once we've determined the ref data structure
     editMode(false);
   };
-
   const form = {
     /* eslint-disable quote-props */
-    staticBody: {
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(pos?.post) || NO_POST,
-      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
-      'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Pay Plan': '---',
-      'Assignee': '---',
-      'Functional Bureau': 'None Listed',
-      'Post Differential | Danger Pay': getDifferentials(pos),
-    },
+    staticBody: [
+      { 'Bureau': data?.bureau || DEFAULT_TEXT },
+      { 'Organization': data?.org || DEFAULT_TEXT },
+      { 'Grade': data?.grade || DEFAULT_TEXT },
+      { 'Status': data?.status || DEFAULT_TEXT },
+      { 'Language': data?.language || DEFAULT_TEXT },
+      { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
+    ],
     inputBody: (
       <div className="position-form">
-        <div className="spaced-row">
-          <div className="dropdown-container">
-            <div className="position-form--input">
-              <label htmlFor="publishable-position-statuses">Status</label>
-              <select
-                id="publishable-position-statuses"
-                defaultValue={status}
-                onChange={(e) => setStatus(e?.target.value)}
-              >
-                {statusOptions.map(s => (
-                  <option value={s.code}>
-                    {s.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="position-form--input">
-              <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
-              <select
-                id="publishable-pos-tod-override"
-                defaultValue={overrideTOD}
-                onChange={(e) => setOverrideTOD(e?.target.value)}
-              >
-                {tods.map(t => (
-                  <option value={t.code}>
-                    {t.long_description}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          <CheckBox
-            id="exclude-checkbox"
-            label="Exclude Position from Bid Audit"
-            value={exclude}
-            onCheckBoxClick={e => setExclude(e)}
-          />
-        </div>
         <div>
           <Row fluid className="position-form--description">
             <span className="definition-title">Position Details</span>
@@ -197,45 +125,6 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
               {textArea.length} / 4,000
             </div>
           </Row>
-        </div>
-        <div className="content-divider" />
-        <div className="position-form--heading">
-          <span className="title">Future Cycle</span>
-          <span className="subtitle">Please identify a cycle to add this position to.</span>
-        </div>
-        <div className="position-form--picky">
-          <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
-          <div className="publishable-position-cycles">{selectedCycles.map(a => a.name).join(', ')}</div>
-        </div>
-        <Picky
-          {...pickyProps}
-          placeholder="Choose Bid Cycle(s)"
-          value={selectedCycles}
-          options={cycles?.data}
-          onChange={setSelectedCycles}
-          valueKey="id"
-          labelKey="name"
-        />
-        <div className="pt-20">
-          <div className="content-divider" />
-          <div className="position-form--heading">
-            <span className="title">Add a Functional Bureau</span>
-            <span className="subtitle">Add a Functional Bureau to this Position</span>
-          </div>
-          <div className="position-form--input">
-            <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
-            <select
-              id="publishable-pos-func-bureaus"
-              defaultValue={selectedFuncBureau}
-              onChange={(e) => setSelectedFuncBureau(e?.target.value)}
-            >
-              {functionalBureaus$.map(b => (
-                <option value={b.code}>
-                  {b.long_description}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
       </div>
     ),
@@ -271,45 +160,6 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
     setFormData(newFormData);
   };
 
-  const classificationTable = () => (
-    <div className="position-classifications">
-      <div className="line-separated-fields">
-        <div>
-          <span>Position:</span>
-          <span>{bureau} {positionNumber}</span>
-        </div>
-      </div>
-      <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              {formData.map((o) => (
-                <th key={o.id}>{o.label}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              {formData.map((o) => (
-                <td key={o.label}>
-                  <input
-                    type="checkbox"
-                    name={`${o.id}`}
-                    checked={o.value}
-                    onChange={() => handleSelection(o.id)}
-                  />
-                </td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div className="position-classifications--actions">
-        <button onClick={form.handleSubmit}>Save</button>
-      </div>
-    </div>
-  );
-
   return (
     <TabbedCard
       tabs={[{
@@ -319,11 +169,6 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
           sections={sections}
           form={form}
         />,
-      }, {
-        text: 'Position Classification',
-        value: 'CLASSIFICATION',
-        content: classificationTable(),
-        disabled: editMode,
       }]}
     />
   );
@@ -331,7 +176,7 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
 
 PublishablePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
-  cycles: BID_CYCLES.isRequired,
+  // cycles: BID_CYCLES.isRequired,
   onEditModeSearch: PropTypes.func,
 };
 
