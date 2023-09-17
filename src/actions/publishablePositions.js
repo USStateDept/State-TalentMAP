@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { batch } from 'react-redux';
 import {
   UPDATE_PUBLISHABLE_POSITION_ERROR,
