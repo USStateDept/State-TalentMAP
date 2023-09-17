@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Picky from 'react-picky';
@@ -14,6 +14,7 @@ import Alert from 'Components/Alert/Alert';
 import Spinner from 'Components/Spinner';
 import ScrollUpButton from 'Components/ScrollUpButton';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
+import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
@@ -21,6 +22,7 @@ import PublishablePositionCard from '../PublishablePositionCard/PublishablePosit
 // eslint-disable-next-line no-unused-vars
 const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
+  const searchPosNumRef = useRef();
 
   const dataHasErrored = useSelector(state => state.publishablePositionsHasErrored);
   const dataIsLoading = useSelector(state => state.publishablePositionsIsLoading);
@@ -30,6 +32,9 @@ const PublishablePositions = ({ viewType }) => {
   const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
   const filters = useSelector(state => state.publishablePositionsFilters);
 
+  const [searchPosNum, setSearchPosNum] = useState(userSelections?.searchPosNum || '');
+  // const [searchPosNumEntered, setSearchPosNumEntered] =
+  // useState(userSelections?.searchPosNum || '');
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
@@ -52,6 +57,7 @@ const PublishablePositions = ({ viewType }) => {
   const gradeOptions = uniqBy(grades, 'code');
 
   const getQuery = () => ({
+    posNum: searchPosNum,
     statuses: selectedStatuses.map(f => (f?.code)),
     bureaus: selectedBureaus.map(f => (f?.description)),
     orgs: selectedOrgs.map(f => (f?.code)),
@@ -60,6 +66,7 @@ const PublishablePositions = ({ viewType }) => {
   });
 
   const getCurrentInputs = () => ({
+    searchPosNum,
     selectedStatuses,
     selectedBureaus,
     selectedOrgs,
@@ -68,16 +75,18 @@ const PublishablePositions = ({ viewType }) => {
   });
 
   const numSelectedFilters = [
+    searchPosNum,
     selectedStatuses,
     selectedBureaus,
     selectedOrgs,
     selectedGrades,
     selectedSkills,
-  ].flat().length;
+  ].flat().filter(text => text !== '').length;
+
   const fetchAndSet = () => {
     setClearFilters(!!numSelectedFilters);
 
-    if (numSelectedFilters > 1) {
+    if (numSelectedFilters > 1 || searchPosNum) {
       dispatch(publishablePositionsFetchData(getQuery()));
       dispatch(savePublishablePositionsSelections(getCurrentInputs()));
     }
@@ -93,6 +102,8 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   const resetFilters = () => {
+    setSearchPosNum('');
+    searchPosNumRef.current.clearText();
     setSelectedStatuses([]);
     setSelectedBureaus([]);
     setSelectedOrgs([]);
@@ -107,7 +118,7 @@ const PublishablePositions = ({ viewType }) => {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
     } else if (dataHasErrored || filtersHasErrored) {
       overlay = <Alert type="error" title="Error displaying Publishable Positions" messages={[{ body: 'Please try again.' }]} />;
-    } else if (numSelectedFilters < 2) {
+    } else if ((numSelectedFilters < 2) && !searchPosNum) {
       overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
     } else if (!data.length) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
@@ -158,6 +169,21 @@ const PublishablePositions = ({ viewType }) => {
             </div>
           </div>
           <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
+            <div className="filter-div">
+              <div className="label">Position Number:</div>
+              <div className="filter-search-bar">
+                <PositionManagerSearch
+                  id="emp-id-search"
+                  submitSearch={fetchAndSet}
+                  onChange={setSearchPosNum}
+                  ref={searchPosNumRef}
+                  textSearch={searchPosNum}
+                  placeHolder="Search by Position Number"
+                  noButton
+                  showIcon={false}
+                />
+              </div>
+            </div>
             <div className="filter-div">
               <div className="label">Publishable Status:</div>
               <Picky
