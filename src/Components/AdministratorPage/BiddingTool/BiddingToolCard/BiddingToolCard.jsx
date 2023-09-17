@@ -1,19 +1,19 @@
 import { useRef, useState } from 'react';
-import { get } from 'lodash';
+import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
-import { useDispatch } from 'react-redux';
+import Linkify from 'react-linkify';
+import FA from 'react-fontawesome';
+import TextareaAutosize from 'react-textarea-autosize';
+import swal from '@sweetalert/with-react';
+import { get } from 'lodash';
+import shortid from 'shortid';
+import { getResult, userHasPermissions } from 'utilities';
 import { projectedVacancyEdit } from 'actions/projectedVacancy';
-import { getResult } from 'utilities';
 import { POSITION_DETAILS } from 'Constants/PropTypes';
-import {
-  NO_TOUR_OF_DUTY, NO_USER_LISTED,
-} from 'Constants/SystemMessages';
+import { NO_TOUR_OF_DUTY, NO_USER_LISTED } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
 import { Row } from 'Components/Layout';
-import PositionExpandableContent from 'Components/PositionExpandableContent';
-import Linkify from 'react-linkify';
-import TextareaAutosize from 'react-textarea-autosize';
-import FA from 'react-fontawesome';
+import { Definition } from '../../../DefinitionList';
 
 const dummyData = {
   id: 1,
@@ -40,6 +40,9 @@ const dummyData = {
 };
 
 const BiddingToolCard = ({ data }) => {
+  const userProfile = useSelector(state => state.userProfile);
+  const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
+
   const dispatch = useDispatch();
   console.log(data);
   const result = dummyData;
@@ -98,7 +101,7 @@ const BiddingToolCard = ({ data }) => {
   const [overrideTED, setOverrideTED] = useState();
   const [langOffsetSummer, setLangOffsetSummer] = useState();
   const [langOffsetWinter, setLangOffsetWinter] = useState();
-  const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
+  const [schoolYear, setSchoolYear] = useState(pos?.description?.content || 'No description.');
 
   const [editMode, setEditMode] = useState(false);
   const onCancelForm = () => {
@@ -111,137 +114,234 @@ const BiddingToolCard = ({ data }) => {
     setOverrideTED(null);
     setLangOffsetSummer(null);
     setLangOffsetWinter(null);
-    setTextArea(pos?.description?.content || 'No description.');
+    setSchoolYear(pos?.description?.content || 'No description.');
   };
 
-  const sections = {
-    /* eslint-disable quote-props */
-    subheading: [
-      { 'Post/Country/Code': `${getResult(pos, 'post')}, ${getResult(pos, 'post_code')}` },
-    ],
-    bodyPrimary: [
-      { 'TOD': getResult(pos, 'tod') || NO_USER_LISTED },
-      { 'R & R Point': getResult(pos, 'r_point') || NO_USER_LISTED },
-      { 'COLA': getResult(pos, 'cola') },
-      { 'Differential Rate': getResult(pos, 'differential_rate') || NO_TOUR_OF_DUTY },
-      { 'Consumable Allowance': getResult(pos, 'consumable_allowance') ? 'Yes' : 'No' },
-      { 'APO/FPO/DPO': getResult(pos, 'apo_fpo_dpo') ? 'Yes' : 'No' },
-      { 'Danger Pay': getResult(pos, 'danger_pay') || NO_TOUR_OF_DUTY },
-      { 'SND': getResult(pos, 'snd') ? 'Yes' : 'No' },
-      { 'HDS': getResult(pos, 'hds') ? 'Yes' : 'No' },
-      { 'Unaccompanied Status': getResult(pos, 'unaccompanied_status') || NO_TOUR_OF_DUTY },
-      { 'Housing Type': getResult(pos, 'housing_type') || NO_TOUR_OF_DUTY },
-      { 'Quarters': getResult(pos, 'quarters') || NO_TOUR_OF_DUTY },
-    ],
-    textarea: get(pos, 'description.content') || 'No description.',
-    /* eslint-enable quote-props */
+  /* eslint-disable quote-props */
+  const sections = [
+    { 'TOD': pos?.tod ?? NO_USER_LISTED },
+    { 'R & R Point': pos?.r_point ?? NO_USER_LISTED },
+    { 'COLA': pos?.cola },
+    { 'Differential Rate': pos?.differential_rate || NO_TOUR_OF_DUTY },
+    { 'Consumable Allowance': pos?.consumable_allowance ? 'Yes' : 'No' },
+    { 'APO/FPO/DPO': pos?.apo_fpo_dpo ? 'Yes' : 'No' },
+    { 'Danger Pay': pos?.danger_pay || NO_TOUR_OF_DUTY },
+    { 'SND': pos?.snd ? 'Yes' : 'No' },
+    { 'HDS': pos?.hds ? 'Yes' : 'No' },
+    { 'Unaccompanied Status': pos?.unaccompanied_status || NO_TOUR_OF_DUTY },
+    { 'Housing Type': pos?.housing_type || NO_TOUR_OF_DUTY },
+    { 'Quarters': pos?.quarters || NO_TOUR_OF_DUTY },
+  ];
+  const textAreas = [{
+    label: 'School Year',
+    name: 'school-year',
+    value: pos?.school_year,
+  }, {
+    label: 'Grade, Adequater Education at Post',
+    name: 'grade-adequater',
+    value: pos?.grade_adequater_education,
+  }, {
+    label: 'EFM Employment Opportunities',
+    name: 'efm-employment-opportunities',
+    value: pos?.efm_employment_opportunities,
+  }, {
+    label: 'EFM Issues',
+    name: 'efm-issues',
+    value: pos?.efm_issues,
+  }, {
+    label: 'Medical',
+    name: 'medical',
+    value: pos?.medical,
+  }, {
+    label: 'Remarks',
+    name: 'remarks',
+    value: pos?.remarks,
+  }];
+  /* eslint-enable quote-props */
+
+  const onCancel = () => {
+    onCancelForm();
+    if (setEditMode) setEditMode(false);
+    swal.close();
   };
-  const form = {
-    /* eslint-disable quote-props */
-    inputBody: <div className="position-form">
-      <div className="position-form--inputs">
-        <div className="position-form--label-input-container">
-          <label htmlFor="status">Bid Season</label>
-          <select
-            id="season"
-            defaultValue={season}
-            onChange={(e) => setSeason(e.target.value)}
-          >
-            {
-              bidSeasons$.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))
-            }
-          </select>
+
+  const showCancelModal = () => {
+    swal({
+      title: 'Confirm Discard Changes',
+      button: false,
+      closeOnEsc: true,
+      content: (
+        <div className="simple-action-modal">
+          <div className="help-text">
+            <span>Are you sure you want to discard all changes made to this Bidding Tool?</span>
+          </div>
+          <div className="modal-controls">
+            <button onClick={onCancel}>Submit</button>
+            <button className="usa-button-secondary" onClick={() => swal.close()}>Cancel</button>
+          </div>
         </div>
-        <div className="position-form--label-input-container">
-          <label htmlFor="status">Status</label>
-          <select
-            id="status"
-            defaultValue={status}
-            onChange={(e) => setStatus(e.target.value)}
-          >
-            {
-              statusOptions.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))
-            }
-          </select>
+      ),
+    });
+  };
+
+  const readView = (
+    <div>
+      <Row fluid className="position-content--section position-content--subheader">
+        <div className="line-separated-fields">
+          <div>
+            <span>Post/Country/Code:</span>
+            <span>{getResult(pos, 'post')}, {getResult(pos, 'post_code')}</span>
+          </div>
         </div>
-        <div className="position-form--label-input-container">
-          <label htmlFor="overrideTED">Override TED <small>(optional)</small></label>
-          <div className="date-wrapper-react larger-date-picker">
-            <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
-            <FA name="times" className={`${overrideTED ? '' : 'hide'}`} onClick={() => setOverrideTED(null)} />
-            <DatePicker
-              selected={overrideTED}
-              onChange={setOverrideTED}
-              dateFormat="MM/dd/yyyy"
-              placeholderText={'MM/DD/YYY'}
-              ref={datePickerRef}
-            />
+        {(!isSuperUser && !editMode) &&
+          <button className="toggle-edit-mode" onClick={() => setEditMode(!editMode)}>
+            <FA name="pencil" />
+            <div>Edit</div>
+          </button>
+        }
+      </Row>
+      <Row fluid className="position-content--section position-content--details">
+        <dl className="definitions">
+          {sections.map(item => {
+            const key = Object.keys(item)[0];
+            return (
+              <Definition
+                key={shortid.generate()}
+                term={key}
+                definition={item[key]}
+                excludeColon
+              />
+            );
+          })}
+        </dl>
+      </Row>
+      <div>
+        {textAreas.map(t => (
+          <Row fluid className="position-content--description">
+            <span className="definition-title">{t.label}</span>
+            <Linkify properties={{ target: '_blank' }}>
+              <TextareaAutosize
+                maxRows={6}
+                minRows={6}
+                maxlength="4000"
+                name={t.name}
+                placeholder="No Description"
+                defaultValue={t.value}
+                disabled
+                className="disabled-input"
+                draggable={false}
+              />
+            </Linkify>
+            <div className="word-count">
+              {schoolYear.length} / 4,000
+            </div>
+          </Row>
+        ))}
+      </div>
+    </div>
+  );
+  const editView = (
+    <div>
+      <div className="position-form">
+        <div className="position-form--inputs">
+          <div className="position-form--label-input-container">
+            <label htmlFor="status">Bid Season</label>
+            <select
+              id="season"
+              defaultValue={season}
+              onChange={(e) => setSeason(e.target.value)}
+            >
+              {
+                bidSeasons$.map(b => (
+                  <option value={b.code}>{b.name}</option>
+                ))
+              }
+            </select>
+          </div>
+          <div className="position-form--label-input-container">
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              defaultValue={status}
+              onChange={(e) => setStatus(e.target.value)}
+            >
+              {
+                statusOptions.map(b => (
+                  <option value={b.code}>{b.name}</option>
+                ))
+              }
+            </select>
+          </div>
+          <div className="position-form--label-input-container">
+            <label htmlFor="overrideTED">Override TED <small>(optional)</small></label>
+            <div className="date-wrapper-react larger-date-picker">
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <FA name="times" className={`${overrideTED ? '' : 'hide'}`} onClick={() => setOverrideTED(null)} />
+              <DatePicker
+                selected={overrideTED}
+                onChange={setOverrideTED}
+                dateFormat="MM/dd/yyyy"
+                placeholderText={'MM/DD/YYY'}
+                ref={datePickerRef}
+              />
+            </div>
+          </div>
+          <div className="position-form--label-input-container">
+            <label htmlFor="status">Language Offset Summer</label>
+            <select
+              id="langOffsetSummer"
+              defaultValue={langOffsetSummer}
+              onChange={(e) => setLangOffsetSummer(e.target.value)}
+            >
+              {
+                languageOffset.map(b => (
+                  <option value={b.code}>{b.name}</option>
+                ))
+              }
+            </select>
+          </div>
+          <div className="position-form--label-input-container">
+            <label htmlFor="status">Language Offset Winter</label>
+            <select
+              id="langOffsetWinter"
+              defaultValue={langOffsetWinter}
+              onChange={(e) => setLangOffsetWinter(e.target.value)}
+            >
+              {
+                languageOffset.map(b => (
+                  <option value={b.code}>{b.name}</option>
+                ))
+              }
+            </select>
           </div>
         </div>
         <div className="position-form--label-input-container">
-          <label htmlFor="status">Language Offset Summer</label>
-          <select
-            id="langOffsetSummer"
-            defaultValue={langOffsetSummer}
-            onChange={(e) => setLangOffsetSummer(e.target.value)}
-          >
-            {
-              languageOffset.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))
-            }
-          </select>
-        </div>
-        <div className="position-form--label-input-container">
-          <label htmlFor="status">Language Offset Winter</label>
-          <select
-            id="langOffsetWinter"
-            defaultValue={langOffsetWinter}
-            onChange={(e) => setLangOffsetWinter(e.target.value)}
-          >
-            {
-              languageOffset.map(b => (
-                <option value={b.code}>{b.name}</option>
-              ))
-            }
-          </select>
+          <Row fluid className="position-form--description">
+            <span className="definition-title">Position Details</span>
+            <Linkify properties={{ target: '_blank' }}>
+              <TextareaAutosize
+                maxRows={6}
+                minRows={6}
+                maxlength="4000"
+                name="position-description"
+                placeholder="No Description"
+                defaultValue={schoolYear}
+                onChange={(e) => setSchoolYear(e.target.value)}
+                draggable={false}
+              />
+            </Linkify>
+            <div className="word-count">
+              {schoolYear.length} / 4,000
+            </div>
+          </Row>
         </div>
       </div>
-      <div className="position-form--label-input-container">
-        <Row fluid className="position-form--description">
-          <span className="definition-title">Position Details</span>
-          <Linkify properties={{ target: '_blank' }}>
-            <TextareaAutosize
-              maxRows={6}
-              minRows={6}
-              maxlength="4000"
-              name="position-description"
-              placeholder="No Description"
-              defaultValue={textArea}
-              onChange={(e) => setTextArea(e.target.value)}
-              draggable={false}
-            />
-          </Linkify>
-          <div className="word-count">
-            {textArea.length} / 4,000
-          </div>
-        </Row>
+      <div className="position-form--actions">
+        <button onClick={showCancelModal}>Cancel</button>
+        <button onClick={() => dispatch(projectedVacancyEdit(5, {}))}>Save</button>
       </div>
-    </div>,
-    cancelText: 'Are you sure you want to discard all changes made to this Bidding Tool?',
-    formOnly: true,
-    handleSubmit: () => dispatch(projectedVacancyEdit(5, {})),
-    handleCancel: () => onCancelForm(),
-    handleEdit: {
-      editMode,
-      setEditMode,
-    },
-    /* eslint-enable quote-props */
-  };
+    </div>
+  );
 
   return (
     <TabbedCard
@@ -250,11 +350,10 @@ const BiddingToolCard = ({ data }) => {
         value: 'OVERVIEW',
         content: (
           <div className="position-content--container">
-            <PositionExpandableContent
-              sections={sections}
-              form={form}
-            />
-          </div>
+            <div className="position-content">
+              {editMode ? editView : readView}
+            </div>
+          </div >
         ),
       }]}
     />
