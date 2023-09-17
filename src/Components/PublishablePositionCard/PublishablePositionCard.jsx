@@ -1,23 +1,15 @@
-/* eslint-disable */
 import { useEffect, useState } from 'react';
 import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
-import Picky from 'react-picky';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getDifferentials, formatDateFromStr } from 'utilities';
-import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
-import ListItem from 'Components/BidderPortfolio/BidControls/BidCyclePicker/ListItem';
+import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
+import { formatDateFromStr } from 'utilities';
 import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
-import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
-
 const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit }) => {
-
   // =============== Overview: View Mode ===============
 
   const sections = {
@@ -124,6 +116,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
 
   // =============== Classification ===============
 
+  // eslint-disable-next-line no-unused-vars
   const [formData, setFormData] = useState([]);
 
   useEffect(() => {
@@ -131,19 +124,6 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
       setFormData(data.position?.classifications);
     }
   }, [data]);
-
-  const handleSelection = (id) => {
-    const newFormData = formData.map(o => {
-      if (o.id === id) {
-        return {
-          ...o,
-          value: !o.value,
-        };
-      }
-      return o;
-    });
-    setFormData(newFormData);
-  };
 
   return (
     <TabbedCard
@@ -169,7 +149,7 @@ PublishablePositionCard.propTypes = {
 
 PublishablePositionCard.defaultProps = {
   onEditModeSearch: EMPTY_FUNCTION,
-  onSumbit: EMPTY_FUNCTION,
+  onSubmit: EMPTY_FUNCTION,
   disableEdit: false,
 };
 
