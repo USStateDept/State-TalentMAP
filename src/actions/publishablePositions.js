@@ -11,6 +11,11 @@ import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
 export function publishablePositionsErrored(bool) {
+  /* eslint-disable no-console */
+  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
+  console.log('🥳 current: bool:', bool);
+  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
+
   return {
     type: 'PUBLISHABLE_POSITIONS_HAS_ERRORED',
     hasErrored: bool,
@@ -29,10 +34,6 @@ export function publishablePositionsSuccess(results) {
   };
 }
 export function publishablePositionsFetchData(query = {}) {
-  /* eslint-disable no-console */
-  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-  console.log('🐙 current: publishablePositionsFetchData query:', query);
-  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
   return (dispatch) => {
     batch(() => {
       dispatch(publishablePositionsLoading(true));
@@ -69,40 +70,44 @@ export function publishablePositionsFetchData(query = {}) {
 }
 
 
-export function publishablePositionsEdit(id, data) {
+export function publishablePositionsEdit(query, data) {
+  /* eslint-disable no-console */
+  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+  console.log('🐙 current: publishablePositionsEdit query:', query);
+  console.log('🐙 current: publishablePositionsEdit data:', data);
+  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+
   return (dispatch) => {
     batch(() => {
-      // here we are just recalling the read after
-      // dispatching a toast for error or success for Edit
-      dispatch(publishablePositionsEditLoading(true));
-      dispatch(publishablePositionsEditErrored(false));
+      dispatch(publishablePositionsLoading(true));
+      dispatch(publishablePositionsErrored(false));
     });
 
-    api().patch(`ao/${id}/publishablePosition/`, data)
+    api().post('/fsbid/publishable_positions/edit/', data)
       .then(() => {
         const toastTitle = UPDATE_PUBLISHABLE_POSITION_SUCCESS_TITLE;
         const toastMessage = UPDATE_PUBLISHABLE_POSITION_SUCCESS;
         batch(() => {
-          dispatch(publishablePositionsEditErrored(false));
-          dispatch(publishablePositionsEditSuccess(true));
           dispatch(toastSuccess(toastMessage, toastTitle));
-          dispatch(publishablePositionsFetchData());
-          dispatch(publishablePositionsEditLoading(false));
+          dispatch(publishablePositionsFetchData(query));
         });
       })
       .catch((err) => {
         if (err?.message === 'cancel') {
           batch(() => {
-            dispatch(publishablePositionsEditLoading(true));
-            dispatch(publishablePositionsEditErrored(false));
+            dispatch(publishablePositionsLoading(true));
+            dispatch(publishablePositionsErrored(false));
           });
         } else {
           const toastTitle = UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE;
           const toastMessage = UPDATE_PUBLISHABLE_POSITION_ERROR;
           dispatch(toastError(toastMessage, toastTitle));
+          // how should I handle an edit error - just cancel the form?
+          dispatch(publishablePositionsFetchData(query));
+
           batch(() => {
-            dispatch(publishablePositionsEditErrored(true));
-            dispatch(publishablePositionsEditLoading(false));
+            dispatch(publishablePositionsErrored(true));
+            dispatch(publishablePositionsLoading(false));
           });
         }
       });
@@ -148,6 +153,8 @@ export function publishablePositionsFiltersFetchData() {
     api().get('/fsbid/publishable_positions/filters/')
       .then(({ data }) => {
         batch(() => {
+          dispatch(publishablePositionsErrored(false));
+          dispatch(publishablePositionsLoading(false));
           dispatch(publishablePositionsFiltersSuccess(data));
           dispatch(publishablePositionsFiltersErrored(false));
           dispatch(publishablePositionsFiltersLoading(false));

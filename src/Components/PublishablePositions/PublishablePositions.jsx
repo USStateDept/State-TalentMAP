@@ -33,7 +33,11 @@ const PublishablePositions = ({ viewType }) => {
   const filtersHasErrored = useSelector(state => state.publishablePositionsFiltersHasErrored);
   const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
   const filters = useSelector(state => state.publishablePositionsFilters);
-
+  /* eslint-disable no-console */
+  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+  console.log('🐙 current: userSelections:', userSelections);
+  console.log('🐙 current: dataHasErrored:', dataHasErrored);
+  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
@@ -118,7 +122,7 @@ const PublishablePositions = ({ viewType }) => {
     let overlay;
     if (dataIsLoading || filtersIsLoading) {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
-    } else if (dataHasErrored) {
+    } else if (dataHasErrored || filtersHasErrored) {
       overlay = <Alert type="error" title="Error displaying Publishable Positions" messages={[{ body: 'Please try again.' }]} />;
     } else if (numSelectedFilters < 2) {
       overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
@@ -130,6 +134,9 @@ const PublishablePositions = ({ viewType }) => {
     return overlay;
   };
 
+  const submitEdit = (editData) => {
+    dispatch(publishablePositionsEdit(getQuery(), editData));
+  };
 
   useEffect(() => {
     dispatch(publishablePositionsFiltersFetchData());
@@ -277,6 +284,7 @@ const PublishablePositions = ({ viewType }) => {
                     onEditModeSearch={editState =>
                       setEditMode(editState)}
                     disableEdit={editMode}
+                    onSubmit={editData => submitEdit(editData)}
                   />
                 ))
               }

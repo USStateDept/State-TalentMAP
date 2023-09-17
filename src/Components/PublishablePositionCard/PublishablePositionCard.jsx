@@ -16,7 +16,7 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const PublishablePositionCard = ({ data, onEditModeSearch, disableEdit }) => {
+const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit }) => {
 /*    {
       "positionNumber": "57344000",
       "skill": "DIPLOMATIC COURIER (2580)",
@@ -83,6 +83,13 @@ const PublishablePositionCard = ({ data, onEditModeSearch, disableEdit }) => {
   }, [editMode]);
 
   const onSubmitForm = () => {
+    const editData = {
+      posSeqNum: data?.posSeqNum,
+      positionDetails: data?.positionDetails,
+      lastUpdatedUserID: data?.lastUpdatedUserID,
+      lastUpdated: data?.lastUpdated,
+    };
+    onSubmit(editData);
     setEditMode(false);
   };
 
@@ -178,11 +185,13 @@ PublishablePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
   // cycles: BID_CYCLES.isRequired,
   onEditModeSearch: PropTypes.func,
+  onSubmit: PropTypes.func,
   disableEdit: PropTypes.bool,
 };
 
 PublishablePositionCard.defaultProps = {
   onEditModeSearch: EMPTY_FUNCTION,
+  onSumbit: EMPTY_FUNCTION,
   disableEdit: false,
 };
 
