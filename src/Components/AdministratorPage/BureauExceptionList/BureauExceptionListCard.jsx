@@ -46,7 +46,6 @@ const BureauExceptionListCard = (props) => {
       Name,
       bureauCode,
     };
-    console.log(currentUser);
     dispatch(saveBureauExceptionSelections(currentUser));
   };
 
