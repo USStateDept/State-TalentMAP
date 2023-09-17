@@ -45,7 +45,6 @@ const PublishablePositions = ({ viewType }) => {
   const orgs = filters?.orgFilters;
   const grades = filters?.gradeFilters;
   const skills = filters?.skillsFilters;
-  const cycles = filters?.cycleFilters;
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
   const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
   const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
