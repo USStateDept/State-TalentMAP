@@ -33,11 +33,7 @@ const PublishablePositions = ({ viewType }) => {
   const filtersHasErrored = useSelector(state => state.publishablePositionsFiltersHasErrored);
   const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
   const filters = useSelector(state => state.publishablePositionsFilters);
-  /* eslint-disable no-console */
-  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-  console.log('🐙 current: userSelections:', userSelections);
-  console.log('🐙 current: dataHasErrored:', dataHasErrored);
-  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
+
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
@@ -59,7 +55,8 @@ const PublishablePositions = ({ viewType }) => {
   const skills = filters?.skillsFilters;
   const cycles = filters?.cycleFilters;
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
-  const bureauAndSkillsOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
+  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
+  const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
   const gradeOptions = uniqBy(grades, 'code');
   const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
@@ -69,7 +66,7 @@ const PublishablePositions = ({ viewType }) => {
     'bureaus': selectedBureaus.map(f => (f?.description)),
     'orgs': selectedOrgs.map(f => (f?.code)),
     'grades': selectedGrades.map(f => (f?.code)),
-    'skills': selectedSkills.map(f => (f?.description)),
+    'skills': selectedSkills.map(f => (f?.code)),
     'bidCycles': selectedBidCycles.map(f => (f?.code)),
   });
 
@@ -139,20 +136,11 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   useEffect(() => {
-    /* eslint-disable no-console */
-    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-    console.log('🐥 current: in initial:');
-    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-
     dispatch(publishablePositionsFiltersFetchData());
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   }, []);
 
   useEffect(() => {
-    /* eslint-disable no-console */
-    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-    console.log('🐥 current: in fetchAndSet:');
-    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
     fetchAndSet();
   }, [
     selectedStatuses,
@@ -218,7 +206,7 @@ const PublishablePositions = ({ viewType }) => {
                   placeholder="Select Bureau(s)"
                   value={selectedBureaus}
                   onChange={setSelectedBureaus}
-                  options={bureauAndSkillsOptions}
+                  options={bureauOptions}
                   valueKey="description"
                   labelKey="description"
                   disabled={editMode}
@@ -244,8 +232,8 @@ const PublishablePositions = ({ viewType }) => {
                   placeholder="Select Skill(s)"
                   value={selectedSkills}
                   onChange={setSelectedSkills}
-                  options={bureauAndSkillsOptions}
-                  valueKey="description"
+                  options={skillOptions}
+                  valueKey="code"
                   labelKey="description"
                   disabled={editMode}
                 />
