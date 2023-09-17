@@ -139,11 +139,20 @@ const PublishablePositions = ({ viewType }) => {
   };
 
   useEffect(() => {
+    /* eslint-disable no-console */
+    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+    console.log('🐥 current: in initial:');
+    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+
     dispatch(publishablePositionsFiltersFetchData());
     dispatch(savePublishablePositionsSelections(getCurrentInputs()));
   }, []);
 
   useEffect(() => {
+    /* eslint-disable no-console */
+    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+    console.log('🐥 current: in fetchAndSet:');
+    console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
     fetchAndSet();
   }, [
     selectedStatuses,

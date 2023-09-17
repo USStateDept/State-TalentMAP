@@ -42,10 +42,6 @@ export function publishablePositionsFetchData(query = {}) {
     const q = convertQueryToString(query);
     api().get(`/fsbid/publishable_positions/?${q}`)
       .then(({ data }) => {
-        /* eslint-disable no-console */
-        console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-        console.log('🐙 current: data:', data);
-        console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
         batch(() => {
           dispatch(publishablePositionsSuccess(data));
           dispatch(publishablePositionsErrored(false));
@@ -71,15 +67,8 @@ export function publishablePositionsFetchData(query = {}) {
 
 
 export function publishablePositionsEdit(query, data) {
-  /* eslint-disable no-console */
-  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-  console.log('🐙 current: publishablePositionsEdit query:', query);
-  console.log('🐙 current: publishablePositionsEdit data:', data);
-  console.log('🐙🐙🐙🐙🐙🐙🐙🐙🐙🐙');
-
   return (dispatch) => {
     batch(() => {
-      dispatch(publishablePositionsLoading(true));
       dispatch(publishablePositionsErrored(false));
     });
 
@@ -102,13 +91,6 @@ export function publishablePositionsEdit(query, data) {
           const toastTitle = UPDATE_PUBLISHABLE_POSITION_ERROR_TITLE;
           const toastMessage = UPDATE_PUBLISHABLE_POSITION_ERROR;
           dispatch(toastError(toastMessage, toastTitle));
-          // how should I handle an edit error - just cancel the form?
-          dispatch(publishablePositionsFetchData(query));
-
-          batch(() => {
-            dispatch(publishablePositionsErrored(true));
-            dispatch(publishablePositionsLoading(false));
-          });
         }
       });
   };
@@ -145,6 +127,12 @@ export function publishablePositionsFiltersSuccess(results) {
   };
 }
 export function publishablePositionsFiltersFetchData() {
+  /* eslint-disable no-console */
+  console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+  console.log('🐈 current: publishablePositionsFiltersFetchData:');
+  console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+
+
   return (dispatch) => {
     batch(() => {
       dispatch(publishablePositionsFiltersLoading(true));

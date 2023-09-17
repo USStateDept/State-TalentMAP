@@ -17,6 +17,10 @@ const PositionExpandableContent = ({ sections, form }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
+    /* eslint-disable no-console */
+    console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+    console.log('🐈 current: useEffect win:');
+    console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
     };
@@ -25,6 +29,11 @@ const PositionExpandableContent = ({ sections, form }) => {
   }, []);
 
   useEffect(() => {
+    /* eslint-disable no-console */
+    console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+    console.log('🐈 current: useEffect:');
+    console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
+
     if (editMode) {
       setShowMore(true);
     }

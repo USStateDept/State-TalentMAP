@@ -90,7 +90,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
       lastUpdated: data?.lastUpdated,
     };
     onSubmit(editData);
-    setEditMode(false);
+    // setEditMode(false);
   };
 
   const onCancelForm = () => {
