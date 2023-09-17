@@ -17,28 +17,6 @@ import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
 const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit }) => {
-/*    {
-      "positionNumber": "57344000",
-      "skill": "DIPLOMATIC COURIER (2580)",
-      "positionTitle": "Lead Financial Management Anal",
-      "bureau": "EUR",
-      "org": "DS/DC/FRDCD (324066)",
-      "grade": "03",
-      "status": "P",
-      "language": null,
-      "payPlan": "FP",
-      "positionDetails": "Real data have been MASKED!",
-      "positionDetailsLastUpdated": "20220615141432",
-      "lastUpdated": "20220615141432",
-      "lastUpdatedUserID": 38353,
-      "posSeqNum": 3123,
-      "aptSeqNum": null,
-      "aptDesc": null,
-      "psCD": "A",
-      "posLtext": null,
-      "lrDesc": " ",
-      "posAuditExclusionInd": "N"
-    }*/
 
   // =============== Overview: View Mode ===============
 
