@@ -34,8 +34,6 @@ const AssignmentCyclesCard = (props) => {
     assignmentCycle: 'This is a dummy assignment cycle',
     cycleCategory: 'Summer',
     cycleStatus: 'Winter',
-    excludePosition: 'Yes',
-    postView: 'Yes',
     cycleBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
     sixMonthBoundary: [formatDate('1976-11-11T21:12:12.854000Z'), formatDate('2022-31-17T21:12:12.854000Z')],
     twelveMonthBoundary: [formatDate('2005-10-25T21:12:12.854000Z'), formatDate('2018-31-14T21:12:12.854000Z')],
@@ -303,7 +301,7 @@ const AssignmentCyclesCard = (props) => {
                   id="ExclusivePositions"
                   defaultValue="None Selected"
                   onChange={(e) => setExclusivePositions(e.target.value)}
-                  value={id === '' ? exclusivePositions : dummyInfo.exclusivePosition}
+                  value={dummyInfo?.exclusivePosition}
                 >
                   <option key="Yes" value="Yes">Yes</option>
                   <option key="No" value="No">No</option>
@@ -317,7 +315,7 @@ const AssignmentCyclesCard = (props) => {
                   id="postViewable"
                   defaultValue="None Selected"
                   onChange={(e) => setPostViewable(e.target.value)}
-                  value={id === '' ? postViewable : dummyInfo.postView}
+                  value={dummyInfo?.postView}
                 >
                   <option key="Yes" value="Yes">Yes</option>
                   <option key="No" value="No">No</option>
