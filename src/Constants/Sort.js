@@ -104,8 +104,8 @@ export const BID_PORTFOLIO_FILTERS = {
     { value: 'true', text: 'Handshake' },
     { value: 'false', text: 'No Handshake' },
     { value: 'unassigned_filters', text: 'Unassigned Filters' },
-    { value: 'eligible_bidders', text: 'Eligible Bidders' },
-    { value: 'cusp_bidders', text: 'Cusp Bidders' },
+    // { value: 'eligible_bidders', text: 'Eligible Bidders' },
+    // { value: 'cusp_bidders', text: 'Cusp Bidders' },
   ],
 };
 
