@@ -32,9 +32,8 @@ const PublishablePositions = ({ viewType }) => {
   const filtersIsLoading = useSelector(state => state.publishablePositionsFiltersIsLoading);
   const filters = useSelector(state => state.publishablePositionsFilters);
 
+  const [tempsearchPosNum, tempsetSearchPosNum] = useState(userSelections?.searchPosNum || '');
   const [searchPosNum, setSearchPosNum] = useState(userSelections?.searchPosNum || '');
-  // const [searchPosNumEntered, setSearchPosNumEntered] =
-  // useState(userSelections?.searchPosNum || '');
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
@@ -83,10 +82,30 @@ const PublishablePositions = ({ viewType }) => {
     selectedSkills,
   ].flat().filter(text => text !== '').length;
 
+  const filterSelectionValid = () => {
+    // valid if:
+    // pos num
+    // at least two distinct filters
+    if (searchPosNum) {
+      return true;
+    }
+    const fils = [
+      searchPosNum,
+      selectedStatuses,
+      selectedBureaus,
+      selectedOrgs,
+      selectedGrades,
+      selectedSkills,
+    ];
+    const a = [];
+    fils.forEach(f => { if (f.length) { a.push(true); } });
+    return a.length > 1;
+  };
+
   const fetchAndSet = () => {
     setClearFilters(!!numSelectedFilters);
 
-    if (numSelectedFilters > 1 || searchPosNum) {
+    if (filterSelectionValid()) {
       dispatch(publishablePositionsFetchData(getQuery()));
       dispatch(savePublishablePositionsSelections(getCurrentInputs()));
     }
@@ -103,6 +122,7 @@ const PublishablePositions = ({ viewType }) => {
 
   const resetFilters = () => {
     setSearchPosNum('');
+    tempsetSearchPosNum('');
     searchPosNumRef.current.clearText();
     setSelectedStatuses([]);
     setSelectedBureaus([]);
@@ -118,8 +138,8 @@ const PublishablePositions = ({ viewType }) => {
       overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
     } else if (dataHasErrored || filtersHasErrored) {
       overlay = <Alert type="error" title="Error displaying Publishable Positions" messages={[{ body: 'Please try again.' }]} />;
-    } else if ((numSelectedFilters < 2) && !searchPosNum) {
-      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
+    } else if (!filterSelectionValid()) {
+      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 distinct filters to search or search by Position Number.' }]} />;
     } else if (!data.length) {
       overlay = <Alert type="info" title="No results found" messages={[{ body: 'No positions for filter inputs.' }]} />;
     } else {
@@ -138,8 +158,13 @@ const PublishablePositions = ({ viewType }) => {
   }, []);
 
   useEffect(() => {
-    fetchAndSet();
+    if (tempsearchPosNum !== searchPosNum) {
+      setSearchPosNum(tempsearchPosNum);
+    } else {
+      fetchAndSet();
+    }
   }, [
+    searchPosNum,
     selectedStatuses,
     selectedBureaus,
     selectedOrgs,
@@ -174,10 +199,10 @@ const PublishablePositions = ({ viewType }) => {
               <div className="filter-search-bar">
                 <PositionManagerSearch
                   id="emp-id-search"
-                  submitSearch={fetchAndSet}
-                  onChange={setSearchPosNum}
+                  submitSearch={(e) => setSearchPosNum(e)}
+                  onChange={tempsetSearchPosNum}
                   ref={searchPosNumRef}
-                  textSearch={searchPosNum}
+                  textSearch={tempsearchPosNum}
                   placeHolder="Search by Position Number"
                   noButton
                   showIcon={false}
