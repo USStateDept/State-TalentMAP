@@ -172,12 +172,6 @@ const PublishablePositions = ({ viewType }) => {
     selectedSkills,
   ]);
 
-  /* eslint-disable no-console */
-  console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-  console.log('🐥 current: viewtype:', viewType);
-  console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
-
-
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
@@ -296,7 +290,8 @@ const PublishablePositions = ({ viewType }) => {
               title={'Edit Mode (Search Disabled)'}
               messages={[{
                 body: 'Filters are disabled while in Edit Mode. ' +
-                  'Discard or save your edits to enable searching. ',
+                  'Discard or save your edits to enable searching. ' +
+                  'Position Details are only editable for Publishable status.',
               },
               ]}
             />
