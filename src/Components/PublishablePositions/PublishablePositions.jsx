@@ -206,6 +206,7 @@ const PublishablePositions = ({ viewType }) => {
                   placeHolder="Search by Position Number"
                   noButton
                   showIcon={false}
+                  disableSearch={editMode}
                 />
               </div>
             </div>
