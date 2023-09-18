@@ -88,7 +88,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxlength="2000"
                 name="position-description"
                 placeholder="No Description"
                 defaultValue={textArea}
@@ -97,7 +97,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
               />
             </Linkify>
             <div className="word-count">
-              {textArea.length} / 4,000
+              {textArea.length} / 2000
             </div>
           </Row>
         </div>
