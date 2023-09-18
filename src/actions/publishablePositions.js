@@ -10,11 +10,6 @@ import { toastError, toastSuccess } from './toast';
 import api from '../api';
 
 export function publishablePositionsErrored(bool) {
-  /* eslint-disable no-console */
-  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
-  console.log('🥳 current: bool:', bool);
-  console.log('🥳🥳🥳🥳🥳🥳🥳🥳🥳🥳');
-
   return {
     type: 'PUBLISHABLE_POSITIONS_HAS_ERRORED',
     hasErrored: bool,
@@ -126,12 +121,6 @@ export function publishablePositionsFiltersSuccess(results) {
   };
 }
 export function publishablePositionsFiltersFetchData() {
-  /* eslint-disable no-console */
-  console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
-  console.log('🐈 current: publishablePositionsFiltersFetchData:');
-  console.log('🐈🐈🐈🐈🐈🐈🐈🐈🐈🐈');
-
-
   return (dispatch) => {
     batch(() => {
       dispatch(publishablePositionsFiltersLoading(true));

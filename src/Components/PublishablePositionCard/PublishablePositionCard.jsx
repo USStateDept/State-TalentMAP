@@ -55,12 +55,11 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
   const onSubmitForm = () => {
     const editData = {
       posSeqNum: data?.posSeqNum,
-      positionDetails: data?.positionDetails,
+      positionDetails: textArea,
       lastUpdatedUserID: data?.lastUpdatedUserID,
       lastUpdated: data?.lastUpdated,
     };
     onSubmit(editData);
-    // setEditMode(false);
   };
 
   const onCancelForm = () => {
@@ -141,7 +140,6 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
 
 PublishablePositionCard.propTypes = {
   data: POSITION_DETAILS.isRequired,
-  // cycles: BID_CYCLES.isRequired,
   onEditModeSearch: PropTypes.func,
   onSubmit: PropTypes.func,
   disableEdit: PropTypes.bool,
