@@ -11,7 +11,7 @@ import { Definition } from '../DefinitionList';
 
 const PositionExpandableContent = ({ sections, form }) => {
   const handleEdit = form?.handleEdit ?? {};
-  const { editMode, setEditMode } = handleEdit;
+  const { editMode, setEditMode, disableEdit } = handleEdit;
 
   const [showMore, setShowMore] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -91,7 +91,10 @@ const PositionExpandableContent = ({ sections, form }) => {
           }
         </div>
         {(form && !editMode) &&
-          <button className="toggle-edit-mode" onClick={() => setEditMode(!editMode)}>
+          <button
+            className={`toggle-edit-mode ${disableEdit ? 'toggle-edit-mode-disabled' : ''}`}
+            onClick={disableEdit ? () => {} : () => setEditMode(!editMode)}
+          >
             <FA name="pencil" />
             <div>Edit</div>
           </button>
@@ -186,6 +189,7 @@ PositionExpandableContent.propTypes = {
     handleEdit: PropTypes.shape({
       editMode: PropTypes.bool,
       setEditMode: PropTypes.func,
+      disableEdit: PropTypes.bool,
     }),
   }),
 };

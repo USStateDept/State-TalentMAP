@@ -6,6 +6,7 @@
   width: 100%;
   border-collapse: collapse;
   border-spacing: 0;
+  margin: 0px;
   th {
     border: none;
     border-top: 1px solid #ddd;
@@ -24,13 +25,14 @@
     }
   }
   .checkbox-pac {
-      min-width: 450px;
+      width: 1600px;
       text-align: left;
     }
     .checkbox-pos {
       > div{
-        > label {
-          margin-top: 0;
+        [type=checkbox]:not(:checked) + label::before,
+        [type=checkbox]:checked + label::before {
+          margin-right: 1.5em;
         }
       }
     }
