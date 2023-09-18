@@ -41,7 +41,11 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     // re-reading from "pos" when we open Edit Form back up
     // clear will need to set states back to the pull
     // from "pos" once we've determined the ref data structure
-    setMcDate(null);
+    setEl(getResult(pos, 'el') === 'true');
+    setLna(getResult(pos, 'lna') === 'true');
+    setFica(getResult(pos, 'fica') === 'true');
+    setMc(getResult(pos, 'mc') === 'true');
+    setMcDate(getResult(pos, 'mc_date'));
   };
 
   const datePickerRef = useRef(null);
