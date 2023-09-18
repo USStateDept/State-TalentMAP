@@ -15,6 +15,7 @@ import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { assignmentCycleFetchData, saveAssignmentCycleSelections } from 'actions/assignmentCycle';
 import AssignmentCyclesCard from './AssignmentCyclesCard';
+import CheckBox from '../../CheckBox';
 
 
 const AssignmentCycles = () => {
@@ -34,20 +35,14 @@ const AssignmentCycles = () => {
   const [assignmentCycle, setAssignmentCycle] = useState(userSelections?.assignmentCycle || []);
   const [cycleCategory, setCycleCategory] = useState(userSelections?.cycleCategory || []);
   const [cycleStatus, setCycleStatus] = useState(userSelections?.cycleStatus || []);
-  const [exclusivePosition, setExclusivePosition] =
-   useState(userSelections?.exclusivePosition || []);
-  const [postView, setPostView] = useState(userSelections?.postView || []);
+  const [exclusivePosition, setExclusivePosition] = useState(false);
+  const [postView, setPostView] = useState(false);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
 
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
   const prevPage = usePrevious(page);
-
-  const choices = [
-    { id: 1, name: 'Yes' },
-    { id: 2, name: 'No' },
-  ];
 
   const statusOptions = [
     { id: 1, name: 'Active' },
@@ -143,8 +138,8 @@ const AssignmentCycles = () => {
     setAssignmentCycle([]);
     setCycleCategory([]);
     setCycleStatus([]);
-    setExclusivePosition([]);
-    setPostView([]);
+    setExclusivePosition(false);
+    setPostView(false);
     setClearFilters(false);
   };
 
@@ -249,31 +244,23 @@ const AssignmentCycles = () => {
             />
           </div>
           <div className="filter-div">
-            <div className="label">Exclusive Position:</div>
-            <Picky
-              {...pickyProps}
-              includeSelectAll={false}
-              includeFilter={false}
-              placeholder="Select an option"
-              options={choices}
-              valueKey="id"
-              labelKey="name"
-              onChange={setExclusivePosition}
+            <CheckBox
+              id="exclusivePosition"
+              name="exclusivePosition"
+              label="Exclusive Position"
               value={exclusivePosition}
+              checked={exclusivePosition}
+              onChange={() => setExclusivePosition((e) => !e)}
             />
           </div>
           <div className="filter-div">
-            <div className="label">Post Viewable:</div>
-            <Picky
-              {...pickyProps}
-              includeSelectAll={false}
-              includeFilter={false}
-              placeholder="Select an option"
-              options={choices}
-              valueKey="id"
-              labelKey="name"
-              onChange={setPostView}
+            <CheckBox
+              id="postView"
+              name="postView"
+              label="Post Viewable"
               value={postView}
+              checked={postView}
+              onChange={() => setPostView((e) => !e)}
             />
           </div>
         </div>
