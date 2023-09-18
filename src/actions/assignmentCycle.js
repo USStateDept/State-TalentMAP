@@ -1,5 +1,20 @@
 import { batch } from 'react-redux';
-// import { convertQueryToString } from 'utilities';
+import {
+  ASSIGNMENT_CYCLE_DELETE_ERROR,
+  ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+  ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE,
+  ASSIGNMENT_CYCLE_EDIT_ERROR,
+  ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_EDIT_SUCCESS,
+  ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE,
+  ASSIGNMENT_CYCLE_POST_ERROR,
+  ASSIGNMENT_CYCLE_POST_ERROR_TITLE,
+  ASSIGNMENT_CYCLE_POST_SUCCESS,
+  ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE,
+} from '../Constants/SystemMessages';
+import { toastError, toastSuccess } from './toast';
+import api from '../api';
 
 const dummyData = [
   {
@@ -92,6 +107,49 @@ export function assignmentCycleFetchDataSuccess(results) {
   };
 }
 
+
+export function assignmentCyclePostDataErrored(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_POST_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function assignmentCyclePostDataLoading(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_POST_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function assignmentCyclePostDataSuccess(results) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_POST_SUCCESS',
+    results,
+  };
+}
+
+export function assignmentCycleDeleteDataErrored(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+
+export function assignmentCycleDeleteDataLoading(bool) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_IS_LOADING',
+    isLoading: bool,
+  };
+}
+
+export function assignmentCycleDeleteDataSuccess(results) {
+  return {
+    type: 'ASSIGNMENT_CYCLE_DELETE_SUCCESS',
+    results,
+  };
+}
+
 export function assignmentCycleFetchData(query = {}) {
   return (dispatch) => {
     batch(() => {
@@ -124,6 +182,104 @@ export function assignmentCycleFetchData(query = {}) {
           });
         }
       });
+  };
+}
+
+
+export function saveAssignmentCyclesSelections(data) {
+  return (dispatch) => {
+    dispatch(assignmentCyclePostDataLoading(true));
+    dispatch(assignmentCyclePostDataErrored(false));
+    api().post('/Placeholder/', data)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(assignmentCyclePostDataErrored(false));
+          dispatch(assignmentCyclePostDataSuccess(res));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_EDIT_SUCCESS,
+            ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE));
+          dispatch(assignmentCyclePostDataLoading(false));
+        });
+      }).catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCyclePostDataLoading(true));
+            dispatch(assignmentCyclePostDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(toastError(ASSIGNMENT_CYCLE_EDIT_ERROR,
+              ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE));
+            dispatch(assignmentCyclePostDataErrored(true));
+            dispatch(assignmentCyclePostDataLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function deleteAssignmentCyclesSelections(id) {
+  return (dispatch) => {
+    dispatch(assignmentCycleDeleteDataLoading(true));
+    dispatch(assignmentCycleDeleteDataErrored(false));
+    api().delete('/Placeholder/', id)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(assignmentCycleDeleteDataErrored(false));
+          dispatch(assignmentCycleDeleteDataSuccess(res));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_DELETE_SUCCESS,
+            ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE));
+          dispatch(assignmentCycleDeleteDataLoading(false));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCycleDeleteDataLoading(true));
+            dispatch(assignmentCycleDeleteDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(toastError(ASSIGNMENT_CYCLE_DELETE_ERROR,
+              ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE));
+            dispatch(assignmentCycleDeleteDataErrored(true));
+            dispatch(assignmentCycleDeleteDataLoading(false));
+          });
+        }
+      },
+      );
+  };
+}
+
+export function postAssignmentCyclesSelections(position) {
+  return (dispatch) => {
+    dispatch(assignmentCyclePostDataLoading(true));
+    dispatch(assignmentCyclePostDataErrored(false));
+    api().delete('/Placeholder/', position)
+      .then(({ res }) => {
+        batch(() => {
+          dispatch(assignmentCyclePostDataErrored(false));
+          dispatch(assignmentCyclePostDataSuccess(res));
+          dispatch(toastSuccess(ASSIGNMENT_CYCLE_POST_SUCCESS,
+            ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE));
+          dispatch(assignmentCyclePostDataLoading(false));
+        });
+      },
+      ).catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(assignmentCyclePostDataLoading(true));
+            dispatch(assignmentCyclePostDataErrored(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(toastError(ASSIGNMENT_CYCLE_POST_ERROR,
+              ASSIGNMENT_CYCLE_POST_ERROR_TITLE));
+            dispatch(assignmentCyclePostDataErrored(true));
+            dispatch(assignmentCyclePostDataLoading(false));
+          });
+        }
+      },
+      );
   };
 }
 

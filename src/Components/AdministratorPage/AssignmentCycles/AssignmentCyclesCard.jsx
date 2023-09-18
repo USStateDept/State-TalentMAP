@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
@@ -7,9 +8,15 @@ import { formatDate } from 'utilities';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
+import {
+  deleteAssignmentCyclesSelections,
+  postAssignmentCyclesSelections,
+  saveAssignmentCyclesSelections,
+} from 'actions/assignmentCycle';
 import { Column, Row } from 'Components/Layout';
 
 const AssignmentCyclesCard = (props) => {
+  const dispatch = useDispatch();
   const {
     data,
   } = props;
@@ -131,17 +138,68 @@ const AssignmentCyclesCard = (props) => {
     });
   };
 
-  // These functions arent functional for now.
   const saveAC = (e) => {
     e.preventDefault();
+    const userData = {
+      assignmentCycle,
+      cycleCategory,
+      cycleStatus,
+      exclusivePositions,
+      postViewable,
+      cycleBoundries,
+      sixMonthLanguage,
+      twelveMonthLanguage,
+      twentyFourMonthLanguage,
+      bureauPositionReview,
+      bidDue,
+      bureauPreSeasonBidReview,
+      bureauEarlySeasonBidReview,
+      bureauBidReview,
+      bidAudit,
+      bidBookReview,
+      bidCountReview,
+      htfReview,
+      organizationCountReview,
+      mdsReview,
+      assignedBidder,
+    };
+    dispatch(saveAssignmentCyclesSelections(userData));
   };
 
   const deleteAC = (e) => {
     e.preventDefault();
+    const userData = {
+      id,
+    };
+    dispatch(deleteAssignmentCyclesSelections(userData));
   };
 
   const postAC = (e) => {
     e.preventDefault();
+    const userData = {
+      assignmentCycle,
+      cycleCategory,
+      cycleStatus,
+      exclusivePositions,
+      postViewable,
+      cycleBoundries,
+      sixMonthLanguage,
+      twelveMonthLanguage,
+      twentyFourMonthLanguage,
+      bureauPositionReview,
+      bidDue,
+      bureauPreSeasonBidReview,
+      bureauEarlySeasonBidReview,
+      bureauBidReview,
+      bidAudit,
+      bidBookReview,
+      bidCountReview,
+      htfReview,
+      organizationCountReview,
+      mdsReview,
+      assignedBidder,
+    };
+    dispatch(postAssignmentCyclesSelections(userData));
   };
 
   return (
