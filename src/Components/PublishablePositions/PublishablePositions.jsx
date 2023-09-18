@@ -172,6 +172,12 @@ const PublishablePositions = ({ viewType }) => {
     selectedSkills,
   ]);
 
+  /* eslint-disable no-console */
+  console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+  console.log('🐥 current: viewtype:', viewType);
+  console.log('🐥🐥🐥🐥🐥🐥🐥🐥🐥🐥️');
+
+
   return (
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
@@ -303,7 +309,7 @@ const PublishablePositions = ({ viewType }) => {
                     data={pubPos}
                     onEditModeSearch={editState =>
                       setEditMode(editState)}
-                    disableEdit={editMode}
+                    disableEdit={editMode || (viewType === 'ao')}
                     onSubmit={editData => submitEdit(editData)}
                   />
                 ))
