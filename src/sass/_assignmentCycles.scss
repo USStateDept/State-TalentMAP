@@ -1,164 +1,161 @@
-.swal-modal {
-    overflow-y: scroll;
-    height: 700px;
-    .swal-title {
-        margin: 0;
-    }
-    .assignment-cycle-form {
-        width: 100%;
-        .label-desc {
-            width: 152px;
-        }
-        input[type="text"]:disabled {
-          border: None;
-          background: none;
-        }
-      
-        div:not(.react-datepicker-wrapper, .react-datepicker-wrapper div,
-         .react-datepicker__tab-loop, .react-datepicker__tab-loop div) {
-          display: flex;
-          align-items: baseline;
-        }
-        div:nth-child(14) {
-          justify-content: flex-start;
-        }
-      
-        dd {
-          margin-inline-start: 30;
-          text-align: justify;
-          margin-right: auto;
-          margin-left: 0;
-        }
-      
-        label, dt {
-          display: block;
-          margin-top: 3rem;
-          width: 200px;
-          text-align: left;
-        }
-      
-        .select-error {
-          border-color: $alert-red;
-          box-shadow: 0px 0px 0px 2px $alert-red;
-        }
-      
-        .date-picker-validation-container {
-          position: relative;
-          width: 100%;
-          .fa-calendar {
-            position: absolute;
-            left: 5px;
-            top: 18px;
-            color: gray;
-            z-index: 1;
-          }
-          .fa-close {
-            position: absolute;
-            left: 430px;
-            top: 18px;
-            color: gray;
-            z-index: 1;
-          }
-          .date-picker-validation-container {
-            input {
-              padding-inline-start: 1px;
-            }
-          }
-          input {
-            padding-inline-start: 30px;
-          }
-        }
-      
-        .usa-input-error-message {
-          text-align: left;
-        }
+.assignment-cycle-form {
+  width: 100%;
+  height: 500px;
+  overflow-y: scroll;
+  input[type="text"]:disabled {
+    border: None;
+    background: none;
+  }
 
-        .react-daterange-picker {
-          align-items: center;
-          background: $color-white;
-          font-size: 13px;
-          height: 26px;
-          width: 240px;
-          margin: 7px 0;
-    
-          .react-daterange-picker__wrapper {
-            border: 1px solid black;
-            width: 460px;
-          }
-    
-          .react-daterange-picker__inputGroup {
-            align-items: center;
-            display: flex;
-            justify-content: center;
-          }
-    
-          .react-daterange-picker__range-divider,
-          .react-daterange-picker__inputGroup__leadingZero,
-          .react-date-picker__inputGroup__divider {
-            color: $color-black;
-          }
-          .react-daterange-picker__calendar--open {
-            z-index: $daterange-z;
-          }
-          .react-daterange-picker__clear-button {
-            padding: 2px 4px;
-          }
-          .react-daterange-picker__clear-button:hover {
-            background-color: $color-white;
-          }
-          .react-daterange-picker__calendar--open {
-            z-index: $daterange-z;
-          }
-  
-          .react-calendar__navigation {
-            background-color: $bg-gray-medium-3;
-            margin-bottom: 0;
-          }
-          .react-calendar--selectRange .react-calendar__tile--hover {
-            background-color: #e6e6e6;
-          }
-        }
+  div:not(
+      .react-datepicker-wrapper,
+      .react-datepicker-wrapper div,
+      .react-datepicker__tab-loop,
+      .react-datepicker__tab-loop div
+    ) {
+    display: flex;
+    align-items: baseline;
+  }
+  div:nth-child(14) {
+    justify-content: flex-start;
+  }
+
+  dd {
+    margin-inline-start: 30;
+    text-align: justify;
+    margin-right: auto;
+    margin-left: 0;
+  }
+
+  label,
+  dt {
+    display: block;
+    margin-top: 3rem;
+    width: 210px;
+    text-align: left;
+  }
+
+  .select-error {
+    border-color: $alert-red;
+    box-shadow: 0px 0px 0px 2px $alert-red;
+  }
+
+  .date-picker-validation-container {
+    position: relative;
+    width: 100%;
+    .fa-calendar {
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+    .fa-close {
+      position: absolute;
+      left: 430px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+    .date-picker-validation-container {
+      input {
+        padding-inline-start: 1px;
       }
+    }
+    input {
+      padding-inline-start: 30px;
+    }
+  }
+
+  .usa-input-error-message {
+    text-align: left;
+  }
+
+  .react-daterange-picker {
+    align-items: center;
+    background: $color-white;
+    font-size: 13px;
+    height: 26px;
+    width: 240px;
+    margin: 7px 0;
+
+    .react-daterange-picker__wrapper {
+      border: 1px solid black;
+      width: 460px;
+    }
+
+    .react-daterange-picker__inputGroup {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+
+    .react-daterange-picker__range-divider,
+    .react-daterange-picker__inputGroup__leadingZero,
+    .react-date-picker__inputGroup__divider {
+      color: $color-black;
+    }
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+    .react-daterange-picker__clear-button {
+      padding: 2px 4px;
+    }
+    .react-daterange-picker__clear-button:hover {
+      background-color: $color-white;
+    }
+    .react-daterange-picker__calendar--open {
+      z-index: $daterange-z;
+    }
+
+    .react-calendar__navigation {
+      background-color: $bg-gray-medium-3;
+      margin-bottom: 0;
+    }
+    .react-calendar--selectRange .react-calendar__tile--hover {
+      background-color: #e6e6e6;
+    }
+  }
 }
 
 .assignment-cycle-search-card {
-    margin-top: 15px;
-    margin-bottom: 15px;
-    background-color: $color-white;
-    border: 1px solid $bg-gray-dark-2;
-    border-left: 8px solid $blue-primary;
-    padding: 1em;
-    .cyc-admin-link {
-      text-align: center;
-    }
-    .ac-card--row {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: $color-white;
+  border: 1px solid $bg-gray-dark-2;
+  border-left: 8px solid $blue-primary;
+  padding: 1em;
+  .cyc-admin-link {
+    text-align: center;
+  }
+  .ac-card--row {
+    display: flex;
+    align-items: center;
+    .ac-card--middle-cols {
       display: flex;
       align-items: center;
-      .ac-card--middle-cols {
+      > div {
+        color: $color-gray;
         display: flex;
-        align-items: center;
-        >div {
-          color: $color-gray;
-          display: flex;
-          justify-content: center;
-          font-size: 14px;
-          min-width: max-content;
-        }
-      }
-      .ac-card--link-col {
-        display: flex;
-        justify-content: flex-end;
-        >span {
-          text-align: right;
-        }
+        justify-content: center;
+        font-size: 14px;
+        min-width: max-content;
       }
     }
-  }
-
-  .assignment-cycle-page {
-    .controls-container {
+    .ac-card--link-col {
       display: flex;
       justify-content: flex-end;
-      margin-right: 45px;
+      > span {
+        text-align: right;
+      }
     }
   }
+}
+
+.assignment-cycle-page {
+  .controls-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 45px;
+  }
+}
