@@ -1,6 +1,4 @@
 import { batch } from 'react-redux';
-import { CancelToken } from 'axios';
-import { convertQueryToString } from 'utilities';
 import {
   MANAGE_POST_ACCESS_ADD_ERROR,
   MANAGE_POST_ACCESS_ADD_ERROR_TITLE,
@@ -57,68 +55,6 @@ export function managePostEdit(positions) {
   };
 }
 
-
-export function managePostFetchDataErrored(bool) {
-  return {
-    type: 'MANAGE_POST_FETCH_HAS_ERRORED',
-    hasErrored: bool,
-  };
-}
-
-export function managePostFetchDataLoading(bool) {
-  return {
-    type: 'MANAGE_POST_FETCH_IS_LOADING',
-    isLoading: bool,
-  };
-}
-
-export function managePostFetchDataSuccess(results) {
-  return {
-    type: 'MANAGE_POST_FETCH_SUCCESS',
-    results,
-  };
-}
-
-let cancelManagePostAccess;
-
-export function managePostFetchData(query = {}) {
-  return (dispatch) => {
-    if (cancelManagePostAccess) { cancelManagePostAccess('cancel'); }
-    batch(() => {
-      dispatch(managePostFetchDataLoading(true));
-      dispatch(managePostFetchDataErrored(false));
-    });
-    const endpoint = 'fsbid/post_access/';
-    const q = convertQueryToString(query);
-    const ep = `${endpoint}?${q}`;
-    api().get(ep, {
-      cancelToken: new CancelToken((c) => {
-        cancelManagePostAccess = c;
-      }),
-    })
-      .then(({ data }) => {
-        batch(() => {
-          dispatch(managePostFetchDataSuccess(data));
-          dispatch(managePostFetchDataErrored(false));
-          dispatch(managePostFetchDataLoading(false));
-        });
-      })
-      .catch((err) => {
-        if (err?.message === 'cancel') {
-          batch(() => {
-            dispatch(managePostFetchDataLoading(true));
-            dispatch(managePostFetchDataErrored(false));
-          });
-        } else {
-          batch(() => {
-            dispatch(managePostFetchDataSuccess([]));
-            dispatch(managePostFetchDataErrored(false));
-            dispatch(managePostFetchDataLoading(false));
-          });
-        }
-      });
-  };
-}
 
 export function managePostSelectionsSaveSuccess(result) {
   return {

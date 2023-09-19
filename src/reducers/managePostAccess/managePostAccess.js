@@ -25,32 +25,6 @@ export function managePostEdit(state = {}, action) {
   }
 }
 
-export function managePostFetchDataErrored(state = false, action) {
-  switch (action.type) {
-    case 'MANAGE_POST_FETCH_HAS_ERRORED':
-      return action.hasErrored;
-    default:
-      return state;
-  }
-}
-
-export function managePostFetchDataLoading(state = false, action) {
-  switch (action.type) {
-    case 'MANAGE_POST_FETCH_IS_LOADING':
-      return action.isLoading;
-    default:
-      return state;
-  }
-}
-
-export function managePost(state = {}, action) {
-  switch (action.type) {
-    case 'MANAGE_POST_FETCH_SUCCESS':
-      return action.results;
-    default:
-      return state;
-  }
-}
 
 export function managePostSelections(state = {}, action) {
   switch (action.type) {

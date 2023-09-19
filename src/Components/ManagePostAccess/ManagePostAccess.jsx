@@ -2,21 +2,16 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
-import { managePostEdit, managePostFetchData, managePostFetchFilters, saveManagePostSelections } from 'actions/managePostAccess';
+import { managePostEdit, managePostFetchFilters, saveManagePostSelections } from 'actions/managePostAccess';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import CheckBox from 'Components/CheckBox';
-import TotalResults from 'Components/TotalResults';
-import Alert from 'Components/Alert';
 import { renderSelectionList } from 'utilities';
 
 const ManagePostAccess = () => {
   const dispatch = useDispatch();
 
   // State
-  const managePostData = useSelector(state => state.managePost);
-  const managePostFetchDataLoading = useSelector(state => state.managePostFetchDataLoading);
-  const managePostFetchDataError = useSelector(state => state.managePostFetchDataErrored);
   const managePostSelections = useSelector(state => state.managePostSelections);
   const managePostFilters = useSelector(state => state.managePostFetchFilterData);
   const managePostEditSuccess = useSelector(state => state.managePostEdit);
@@ -24,41 +19,32 @@ const ManagePostAccess = () => {
     useSelector(state => state.managePostFetchFiltersLoading);
 
   // Local State & Filters
-  const [selectedCountries, setSelectedCountries] =
-   useState(managePostSelections?.selectedCountries || []);
   const [selectedPositions, setSelectedPositions] =
    useState(managePostSelections?.selectedPositions || []);
   const [selectedOrgs, setSelectedOrgs] = useState(managePostSelections?.selectedOrgs || []);
-  const [selectedPersons, setSelectedPersons] = useState(managePostSelections?.selectedGrade || []);
-  const [selectedRoles, setSelectedRoles] = useState(managePostSelections?.selectedSkills || []);
-  const [checkedPostIds, setCheckedPostIds] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState(managePostSelections?.selectedRoles || []);
+  const [selectedPersons, setSelectedPersons] =
+    useState(managePostSelections?.selectedPersons || []);
   const [clearFilters, setClearFilters] = useState(false);
-  const [selectAll, setSelectAll] = useState(false);
   const [personHRO, setPersonHRO] = useState(false);
   const [positionHRO, setPositionHRO] = useState(false);
 
+  const personSelected = selectedPersons.length > 0;
+  const positionSelected = selectedPositions.length > 0;
+
   // Filter Options
-  const peopleOptionsHRO = managePostFilters?.personFilters
-    ?.filter(person => person.skillCode === '2010') || [];
-  const positionOptionsHRO = managePostFilters?.positionFilters
-    ?.filter(position => position.skillCode === '2201') || [];
+  const peopleOptionsHRO = managePostFilters?.personFilters?.filter(
+    person => person.skillCode === '2010' || person.skillCode === '2201') || [];
+  const positionOptionsHRO = managePostFilters?.positionFilters?.filter(
+    position => position.skillCode === '2201' || position.skillCode === '2010') || [];
   const peopleOptions = personHRO ? peopleOptionsHRO : managePostFilters?.personFilters || [];
-  const positionOptions = positionHRO ? positionOptionsHRO : managePostFilters?.personFilters || [];
+  const positionOptions = positionHRO
+    ? positionOptionsHRO : managePostFilters?.positionFilters || [];
   const roleOptions = managePostFilters?.roleFilters || [];
   const organizationOptions = managePostFilters?.orgFilters || [];
-  const countryOptions = managePostFilters?.locationFilters || [];
 
-
-  const getQuery = () => ({
-    locations: selectedCountries.map(location => (location?.code)),
-    positions: selectedPositions.map(bureau => (bureau?.code)),
-    orgs: selectedOrgs.map(org => (org?.code)),
-    persons: selectedPersons.map(person => (person?.code)),
-    roles: selectedRoles.map(role => (role?.code)),
-  });
 
   const getCurrentInputs = () => ({
-    selectedCountries,
     selectedPositions,
     selectedOrgs,
     selectedPersons,
@@ -66,19 +52,15 @@ const ManagePostAccess = () => {
   });
 
   const filters = [
-    selectedCountries,
     selectedPositions,
     selectedOrgs,
     selectedPersons,
     selectedRoles,
   ];
+  const filterCount = filters.flat().length;
 
   const fetchAndSet = () => {
-    const filterCount = filters.flat().length;
     setClearFilters(!!filterCount);
-    if (filterCount > 1) {
-      dispatch(managePostFetchData(getQuery()));
-    }
     dispatch(saveManagePostSelections(getCurrentInputs()));
   };
 
@@ -91,11 +73,8 @@ const ManagePostAccess = () => {
 
   // Re-Render on Filter Selections
   useEffect(() => {
-    setCheckedPostIds([]);
-    setSelectAll(false);
     fetchAndSet();
   }, [
-    selectedCountries,
     selectedPositions,
     selectedOrgs,
     selectedPersons,
@@ -105,56 +84,21 @@ const ManagePostAccess = () => {
 
 
   const resetFilters = () => {
-    setSelectedCountries([]);
     setSelectedPositions([]);
     setSelectedOrgs([]);
     setSelectedPersons([]);
     setSelectedRoles([]);
-    setCheckedPostIds([]);
     setClearFilters(false);
   };
 
-  const noResults = !managePostData?.length;
-  const getOverlay = () => {
-    let overlay;
-    if (managePostFetchDataLoading) {
-      overlay = <Spinner type="bureau-results" class="homepage-position-results" size="big" />;
-    } else if (managePostFetchDataError) {
-      overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
-    } else if (filters.flat().length < 2) {
-      overlay = <Alert type="info" title="Select Filters" messages={[{ body: 'Please select at least 2 filters to search.' }]} />;
-    } else if (noResults) {
-      overlay = <Alert type="info" title="No results found" messages={[{ body: 'Please broaden your search criteria and try again.' }]} />;
-    } else {
-      return false;
-    }
-    return overlay;
-  };
-
   const submitGrantAccess = () => {
-    dispatch(managePostEdit(checkedPostIds));
+    dispatch(managePostEdit({
+      orgs: [...selectedOrgs],
+      positions: [...selectedPositions],
+      persons: [...selectedPersons],
+      roles: [...selectedRoles],
+    }));
   };
-
-  const tableHeaderNames = ['Post/Org', 'Person', 'Role', 'Position'];
-
-  const handleSelectAll = () => {
-    if (!selectAll) {
-      setSelectAll(true);
-      setCheckedPostIds(
-        managePostData?.map(post => post.id),
-      );
-    } else {
-      setSelectAll(false);
-      setCheckedPostIds([]);
-    }
-  };
-
-  const handleSelectPost = (post => {
-    if (checkedPostIds.includes(post.id)) {
-      const filteredPosts = checkedPostIds.filter(x => x !== post.id);
-      setCheckedPostIds(filteredPosts);
-    } else setCheckedPostIds([...checkedPostIds, post.id]);
-  });
 
   const pickyProps = {
     numberDisplayed: 2,
@@ -172,7 +116,7 @@ const ManagePostAccess = () => {
         <div className="results-search-bar pt-20">
 
           <div className="filterby-container">
-            <div className="filterby-label">Filter by:</div>
+            <div className="filterby-label">Select:</div>
             <div className="filterby-clear">
               {clearFilters &&
                 <button
@@ -193,19 +137,6 @@ const ManagePostAccess = () => {
               <Spinner type="post-access-filters" size="small" />
               :
               <>
-                <div className="filter-div">
-                  <div className="label">Country:</div>
-                  <Picky
-                    {...pickyProps}
-                    placeholder="Select Country or Countries"
-                    value={selectedCountries}
-                    options={countryOptions}
-                    onChange={setSelectedCountries}
-                    valueKey="code"
-                    labelKey="description"
-                    disabled={managePostFiltersIsLoading}
-                  />
-                </div>
                 <div className="filter-div">
                   <div className="label">Organization:</div>
                   <Picky
@@ -237,7 +168,7 @@ const ManagePostAccess = () => {
                       onChange={setSelectedPositions}
                       valueKey="code"
                       labelKey="description"
-                      disabled={managePostFiltersIsLoading}
+                      disabled={managePostFiltersIsLoading || personSelected}
                     />
                   </div>
                 </div>
@@ -259,7 +190,7 @@ const ManagePostAccess = () => {
                       onChange={setSelectedPersons}
                       valueKey="code"
                       labelKey="description"
-                      disabled={managePostFiltersIsLoading}
+                      disabled={managePostFiltersIsLoading || positionSelected}
                     />
                   </div>
                 </div>
@@ -285,67 +216,99 @@ const ManagePostAccess = () => {
 
 
       {
-        getOverlay() ||
-              <>
-                <div className="usa-width-one-whole results-dropdown controls-container mb-10">
-                  <TotalResults
-                    total={managePostData.length}
-                    pageSize={'all'}
-                    suffix="Results"
-                    isHidden={managePostFetchDataLoading}
-                  />
-                </div>
-                <div className="usa-width-one-whole post-access-search--results">
-                  <div className="post-access-scroll-container">
-                    <div className="usa-grid-full post-access-list">
-                      <table className="custom-table">
-                        <thead>
-                          <tr>
-                            <th className="checkbox-pos">
-                              <CheckBox
-                                checked={selectAll}
-                                onCheckBoxClick={handleSelectAll}
-                              />
-                            </th>
-                            {
-                              tableHeaderNames.map((item) => (
-                                <th key={item}>{item}</th>
-                              ))
-                            }
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {
-                          managePostData?.length &&
-                            managePostData.map(post => (
-                              <tr key={post.id}>
-                                <td className="checkbox-pac checkbox-pos">
-                                  <CheckBox
-                                    value={checkedPostIds.includes(post.id)}
-                                    onCheckBoxClick={() => handleSelectPost(post)}
-                                  />
-                                </td>
-                                <td>{post?.post}</td>
-                                <td>{post?.employee}</td>
-                                <td>{post?.role}</td>
-                                <td>{post?.position}</td>
-                              </tr>
-                            ))
-                          }
-                        </tbody>
-                      </table>
-                    </div>
+        <>
+
+          <div className="mpa-grant-box-wrapper">
+
+            <div className="mpa-grant-box">
+              <div>Organizations:</div>
+              {selectedOrgs?.map(x => (
+                <div className="mpa-grant-box-item">
+                  <div>
+                    <FA
+                      name="times"
+                      onClick={() => setSelectedOrgs(
+                        selectedOrgs.filter(y => y.code !== x.code))}
+                      className="mpa-remove-item"
+                    />
+                    {x.description}
                   </div>
                 </div>
-              </>
+              ))}
+            </div>
+
+            <div className="mpa-grant-box">
+              <div>Positions:</div>
+              {personSelected && (
+                <div className="mpa-grant-box-item">
+                  Provide either Persons or Positions to Grant Access.
+                </div>
+              )}
+              {selectedPositions?.map(x => (
+                <div className="mpa-grant-box-item">
+                  <div>
+                    <FA
+                      name="times"
+                      onClick={() => setSelectedPositions(
+                        selectedPositions.filter(y => y.code !== x.code))}
+                      className="mpa-remove-item"
+                    />
+                    {x.description}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mpa-grant-box">
+              <div>Persons:</div>
+              {positionSelected && (
+                <div className="mpa-grant-box-item">
+                  Provide either Persons or Positions to Grant Access.
+                </div>
+              )}
+              {selectedPersons?.map(x => (
+                <div className="mpa-grant-box-item">
+                  <div>
+                    <FA
+                      name="times"
+                      onClick={() => setSelectedPersons(
+                        selectedPersons.filter(y => y.code !== x.code))}
+                      className="mpa-remove-item"
+                    />
+                    {x.description}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mpa-grant-box">
+              <div>Roles:</div>
+              {selectedRoles?.map(x => (
+                <div className="mpa-grant-box-item">
+                  <div>
+                    <FA
+                      name="times"
+                      onClick={() => setSelectedRoles(
+                        selectedRoles.filter(y => y.code !== x.code))}
+                      className="mpa-remove-item"
+                    />
+                    {x.description}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+
+        </>
       }
 
-      { checkedPostIds.length > 0 &&
+      { filterCount > 0 &&
             <div className="proposed-cycle-banner">
-              {checkedPostIds.length} {checkedPostIds.length < 2 ? 'Position' : 'Positions'} Selected
+              {filterCount} {filterCount < 2 ? 'Position' : 'Positions'} Selected
               {
-                checkedPostIds.length > 0 &&
-                <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
+                filterCount &&
+                  <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
               }
             </div>
       }

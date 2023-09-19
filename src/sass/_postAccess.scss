@@ -65,3 +65,30 @@
   position: relative;
   bottom: 10px;
 }
+
+.mpa-grant-box-wrapper {
+  display: flex;
+  align-content: center;
+  flex-direction: row;
+}
+
+.mpa-grant-box {
+  height: 500px;
+  width: 25%;
+  border: 2px solid $tm-gray;
+  margin: 10px;
+  overflow-y: scroll;
+  box-shadow: $tm-gray 1px;
+}
+
+.mpa-grant-box-item {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(85%, max-content));
+  justify-content: center;
+  margin: 10px;
+}
+
+.mpa-remove-item {
+  margin-right: 5px;
+  color: $secondary-darkest;
+}
