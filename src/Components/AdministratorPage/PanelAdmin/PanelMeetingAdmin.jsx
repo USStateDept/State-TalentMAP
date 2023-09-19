@@ -336,14 +336,17 @@ const PanelMeetingAdmin = (props) => {
 
 PanelMeetingAdmin.propTypes = {
   history: HISTORY_OBJECT.isRequired,
-  pmSeqNum: PropTypes.string,
+  pmSeqNum: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]),
   panelMeetingsResults: PropTypes.shape(),
   panelMeetingsIsLoading: PropTypes.bool,
 };
 
 PanelMeetingAdmin.defaultProps = {
   match: {},
-  pmSeqNum: undefined,
+  pmSeqNum: false,
   panelMeetingsResults: undefined,
   panelMeetingsIsLoading: false,
 };

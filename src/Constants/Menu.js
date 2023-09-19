@@ -149,6 +149,33 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bureau_exception') ?
+        {
+          text: 'Bureau Exception Access',
+          route: '/profile/administrator/bureauexception/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.org_stats') ?
+        {
+          text: 'Org Stats',
+          route: '/profile/administrator/orgstats/',
+          icon: 'building',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.manage_entry_level') ?
+        {
+          text: 'Manage Entry Level',
+          route: '/profile/administrator/manageentrylevel/',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
@@ -163,6 +190,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Panel',
           route: '/profile/administrator/panel/',
           icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.job_categories') ?
+        {
+          text: 'Job Categories',
+          route: '/profile/administrator/jobcategories/',
+          icon: 'map',
           roles: [
             'superuser',
           ],
@@ -207,15 +243,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
-      {
-        text: 'Manage Post Access',
-        route: '/profile/bureau/managepostaccess',
-        icon: 'building',
-        roles: [
-          'super_user',
-          'bureau_user',
-        ],
-      },
+      checkFlag('flags.manage_post_access') ?
+        {
+          text: 'Manage Post Access',
+          route: '/profile/bureau/managepostaccess',
+          icon: 'building',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
@@ -336,6 +373,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           roles: [
             'ao_user',
             'super_user',
+          ],
+        } : null,
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Publishable Positions',
+          route: '/profile/ao/publishablepositions',
+          icon: ' fa-newspaper-o',
+          roles: [
+            'superuser',
+            'ao_user',
           ],
         } : null,
     ],

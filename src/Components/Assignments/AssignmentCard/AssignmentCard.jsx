@@ -38,28 +38,27 @@ const AssignmentCard = (props) => {
 
   const sections = {
     /* eslint-disable quote-props */
-    subheading: {
-      'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER),
-      'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
-    },
-    bodyPrimary: {
-      'Status': getResult(data, 'status') || NO_STATUS,
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Org/Code': getResult(altPos, 'posorgshortdesc') || NO_ORG,
-      'Location': getPostName(pos?.post) || NO_POST,
-      'ETA': getResult(data, 'start_date') || NO_TOUR_END_DATE,
-      'TED': getResult(data, 'end_date') || NO_TOUR_END_DATE,
-    },
-    bodySecondary: {
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Skill': getResult(pos, 'skill') || NO_SKILL,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Pay Plan': '---',
-      'Post Differential | Danger Pay': getDifferentials(pos),
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-      '': <CheckBox id="deto" label="DETO" value disabled />,
-    },
-    metadata: {},
+    subheading: [
+      { 'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER) },
+      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { 'Status': getResult(data, 'status') || NO_STATUS },
+      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Org/Code': getResult(altPos, 'posorgshortdesc') || NO_ORG },
+      { 'Location': getPostName(pos?.post) || NO_POST },
+      { 'ETA': getResult(data, 'start_date') || NO_TOUR_END_DATE },
+      { 'TED': getResult(data, 'end_date') || NO_TOUR_END_DATE },
+    ],
+    bodySecondary: [
+      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
+      { 'Skill': getResult(pos, 'skill') || NO_SKILL },
+      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
+      { 'Pay Plan': '---' },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { '': <CheckBox id="deto" label="DETO" value disabled /> },
+    ],
     /* eslint-enable quote-props */
   };
 
@@ -115,17 +114,17 @@ const AssignmentCard = (props) => {
 
   const form = {
     /* eslint-disable quote-props */
-    staticBody: {
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
-      'Location': getPostName(pos?.post) || NO_POST,
-      // '': <CheckBox id="deto" label="DETO" value disabled />,
-      'Skill': getResult(pos, 'skill') || NO_SKILL,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Pay Plan': '---',
-      'Post Differential | Danger Pay': getDifferentials(pos),
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-    },
+    staticBody: [
+      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
+      { 'Location': getPostName(pos?.post) || NO_POST },
+      // { '': <CheckBox id="deto" label="DETO" value disabled /> },
+      { 'Skill': getResult(pos, 'skill') || NO_SKILL },
+      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
+      { 'Pay Plan': '---' },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+    ],
     inputBody:
       <div className="position-form">
         <div className="position-form--inputs">
