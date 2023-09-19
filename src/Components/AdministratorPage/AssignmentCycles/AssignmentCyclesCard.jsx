@@ -87,7 +87,6 @@ const AssignmentCyclesCard = (props) => {
   const collapseCard = () => {
     setShowMore(!showMore);
     setEdit(e => !e);
-    console.log('ONE', id);
     onEditModeSearch(id);
   };
 
@@ -164,7 +163,6 @@ const AssignmentCyclesCard = (props) => {
       mdsReview,
       assignedBidder,
     };
-    console.log(userData);
     dispatch(saveAssignmentCyclesSelections(userData));
     setEdit(false);
     onEditModeSearch(id);

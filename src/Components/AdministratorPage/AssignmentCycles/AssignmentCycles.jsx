@@ -81,11 +81,6 @@ const AssignmentCycles = () => {
   });
 
   const disableInput = addNewCycles || cardsInEditMode.length > 0;
-
-  useEffect(() => {
-    console.log('cardsInEditMode', cardsInEditMode, addNewCycles);
-  }, [addNewCycles, cardsInEditMode]);
-
   const getQuery = () => ({
     'assignment-cycles': selectedAssignmentCycles.map(obj => (obj?.id)),
     'assignment-cycles-statuses': cycleStatus.map(obj => (obj?.id)),
