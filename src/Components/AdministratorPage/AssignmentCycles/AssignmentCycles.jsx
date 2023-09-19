@@ -25,7 +25,6 @@ import NewAssignmentCycle from './NewAssignmentCycle';
 
 const AssignmentCycles = () => {
   const dispatch = useDispatch();
-
   const userSelections = useSelector(state => state.assignmentCycleSelections);
   const AssignmentCycleDataLoading = useSelector(state => state.assignmentCycleFetchDataLoading);
   const AssignmentCycleData = useSelector(state => state.assignmentCycle);
@@ -44,6 +43,8 @@ const AssignmentCycles = () => {
   const [postView, setPostView] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
   const [addNewCycles, setAddNewCycles] = useState(false);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
   const prevPage = usePrevious(page);
@@ -78,6 +79,12 @@ const AssignmentCycles = () => {
     exclusivePosition,
     postView,
   });
+
+  const disableInput = addNewCycles || cardsInEditMode.length > 0;
+
+  useEffect(() => {
+    console.log('cardsInEditMode', cardsInEditMode, addNewCycles);
+  }, [addNewCycles, cardsInEditMode]);
 
   const getQuery = () => ({
     'assignment-cycles': selectedAssignmentCycles.map(obj => (obj?.id)),
@@ -145,6 +152,8 @@ const AssignmentCycles = () => {
     setExclusivePosition(false);
     setPostView(false);
     setClearFilters(false);
+    cardsInEditMode([]);
+    setAddNewCycles(false);
   };
 
   const renderSelectionList = ({ items, selected, ...rest }) => {
@@ -192,24 +201,35 @@ const AssignmentCycles = () => {
     setAddNewCycles(ac => !ac);
   };
 
-  const onSave = (userData) => {
+  const onSave = (isNew, userData) => {
     dispatch(saveAssignmentCyclesSelections(userData));
     setAddNewCycles(false);
+    if (!isNew) setCardsInEditMode([]);
   };
 
-  const onPost = (userData) => {
+  const onPost = (isNew, userData) => {
     dispatch(postAssignmentCyclesSelections(userData));
     setAddNewCycles(false);
+    if (!isNew) setCardsInEditMode([]);
   };
 
-  const onClose = () => {
+  const onClose = (isNew) => {
     setAddNewCycles(false);
+    if (!isNew) setCardsInEditMode([]);
+  };
+
+  const onCardAdd = (e) => {
+    if (cardsInEditMode.includes(e)) {
+      setCardsInEditMode(cardsInEditMode.filter(item => item !== e));
+    } else {
+      setCardsInEditMode([...cardsInEditMode, e]);
+    }
   };
 
   return (
     <div className="assignment-cycle-page position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Assignment Cycles" icon="calendar" className="xl-icon" />
+        <ProfileSectionTitle title="Assignment Cycles" icon="cogs" className="xl-icon" />
         <div className="filterby-container" >
           <div className="filterby-label">Filter by:</div>
           <span className="filterby-clear">
@@ -232,6 +252,7 @@ const AssignmentCycles = () => {
               labelKey="name"
               onChange={setAssignmentCycle}
               value={assignmentCycle}
+              disabled={disableInput}
             />
           </div>
           <div className="filter-div">
@@ -244,6 +265,7 @@ const AssignmentCycles = () => {
               labelKey="name"
               onChange={setCycleCategory}
               value={cycleCategory}
+              disabled={disableInput}
             />
           </div>
           <div className="filter-div">
@@ -255,7 +277,7 @@ const AssignmentCycles = () => {
               valueKey="id"
               labelKey="name"
               onChange={setCycleStatus}
-              value={cycleStatus}
+              disabled={disableInput}
             />
           </div>
           <div className="filter-div">
@@ -266,6 +288,7 @@ const AssignmentCycles = () => {
               value={exclusivePosition}
               checked={exclusivePosition}
               onChange={() => setExclusivePosition((e) => !e)}
+              disabled={disableInput}
             />
           </div>
           <div className="filter-div">
@@ -276,6 +299,7 @@ const AssignmentCycles = () => {
               value={postView}
               checked={postView}
               onChange={() => setPostView((e) => !e)}
+              disabled={disableInput}
             />
           </div>
         </div>
@@ -313,7 +337,13 @@ const AssignmentCycles = () => {
                 onClose={onClose}
               /> : null}
             {AssignmentCycleData?.results?.map(data =>
-              <AssignmentCyclesCard data={data} />)}
+              (
+                <AssignmentCyclesCard
+                  data={data}
+                  onEditModeSearch={onCardAdd}
+                />
+              ),
+            )}
             <div className="usa-grid-full react-paginate">
               <PaginationWrapper
                 pageSize={5}

@@ -8,6 +8,7 @@ import { formatDate } from 'utilities';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
+import { EMPTY_FUNCTION } from 'Constants/PropTypes';
 import {
   deleteAssignmentCyclesSelections,
   postAssignmentCyclesSelections,
@@ -17,7 +18,7 @@ import { Column, Row } from 'Components/Layout';
 
 const AssignmentCyclesCard = (props) => {
   const dispatch = useDispatch();
-  const { data } = props;
+  const { data, onEditModeSearch } = props;
   const {
     cycle_begin_date,
     cycle_end_date,
@@ -72,6 +73,7 @@ const AssignmentCyclesCard = (props) => {
   const [assignedBidder, setAssignedBidder] = useState('');
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   const DATE_FORMAT = 'MMMM d, yyyy';
 
@@ -85,11 +87,13 @@ const AssignmentCyclesCard = (props) => {
   const collapseCard = () => {
     setShowMore(!showMore);
     setEdit(e => !e);
+    console.log('ONE', id);
+    onEditModeSearch(id);
   };
+
 
   const onCancelRequest = () => {
     swal.close();
-    setEdit(false);
     setAssignmentCycle('');
     setCycleCategory('');
     setCycleStatus('');
@@ -111,6 +115,8 @@ const AssignmentCyclesCard = (props) => {
     setOrganizationCountReview('');
     setMdsReview('');
     setAssignedBidder('');
+    setEdit(false);
+    onEditModeSearch(id);
   };
 
   const cancel = (e) => {
@@ -158,7 +164,10 @@ const AssignmentCyclesCard = (props) => {
       mdsReview,
       assignedBidder,
     };
+    console.log(userData);
     dispatch(saveAssignmentCyclesSelections(userData));
+    setEdit(false);
+    onEditModeSearch(id);
   };
 
   const deleteAC = (e) => {
@@ -167,6 +176,8 @@ const AssignmentCyclesCard = (props) => {
       id,
     };
     dispatch(deleteAssignmentCyclesSelections(userData));
+    setEdit(false);
+    onEditModeSearch(id);
   };
 
   const postAC = (e) => {
@@ -195,6 +206,8 @@ const AssignmentCyclesCard = (props) => {
       assignedBidder,
     };
     dispatch(postAssignmentCyclesSelections(userData));
+    setEdit(false);
+    onEditModeSearch(id);
   };
 
   return (
@@ -225,8 +238,8 @@ const AssignmentCyclesCard = (props) => {
             <Link
               onClick={(e) => {
                 e.preventDefault();
-                // editBureau({ id, Name, BureauNames });
                 collapseCard();
+                setEditMode(!editMode);
               }
               }
               to="#"
@@ -300,8 +313,8 @@ const AssignmentCyclesCard = (props) => {
                   onChange={(e) => setExclusivePositions(e.target.value)}
                   value={dummyInfo?.exclusivePosition}
                 >
-                  <option key="Yes" value="Yes">Yes</option>
-                  <option key="No" value="No">No</option>
+                  <option key="Yes">Yes</option>
+                  <option key="No">No</option>
                 </select>
               </span>
             </div>
@@ -314,8 +327,8 @@ const AssignmentCyclesCard = (props) => {
                   onChange={(e) => setPostViewable(e.target.value)}
                   value={dummyInfo?.postView}
                 >
-                  <option key="Yes" value="Yes">Yes</option>
-                  <option key="No" value="No">No</option>
+                  <option key="Yes">Yes</option>
+                  <option key="No">No</option>
                 </select>
               </span>
             </div>
@@ -565,10 +578,12 @@ AssignmentCyclesCard.propTypes = {
     cycle_status: PropTypes.string,
     id: PropTypes.string,
   }),
+  onEditModeSearch: PropTypes.func,
 };
 
 AssignmentCyclesCard.defaultProps = {
   data: {},
+  onEditModeSearch: EMPTY_FUNCTION,
 };
 
 export default AssignmentCyclesCard;

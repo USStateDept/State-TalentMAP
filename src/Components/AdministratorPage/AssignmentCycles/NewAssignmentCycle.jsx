@@ -65,7 +65,7 @@ const EditAssignmentCycles = (props) => {
       mdsReview,
       assignedBidder,
     };
-    onSave(userData);
+    onSave(true, userData);
   };
 
   const postAC = (e) => {
@@ -93,12 +93,12 @@ const EditAssignmentCycles = (props) => {
       mdsReview,
       assignedBidder,
     };
-    onPost(userData);
+    onPost(true, userData);
   };
 
   const cancelAC = (e) => {
     e.preventDefault();
-    onClose();
+    onClose(true);
   };
 
   return (
@@ -162,8 +162,8 @@ const EditAssignmentCycles = (props) => {
               onChange={(e) => setExclusivePositions(e.target.value)}
               value={exclusivePositions}
             >
-              <option key="Yes" value="Yes">Yes</option>
-              <option key="No" value="No">No</option>
+              <option key="Yes">Yes</option>
+              <option key="No">No</option>
             </select>
           </span>
         </div>

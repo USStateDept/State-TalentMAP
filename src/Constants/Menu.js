@@ -189,7 +189,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Assignment Cycles',
           route: '/profile/administrator/assignmentcycles/',
-          icon: 'hourglass-start',
+          icon: 'cogs',
           roles: [
             'superuser',
           ],
