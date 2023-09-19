@@ -17,9 +17,7 @@ import { Column, Row } from 'Components/Layout';
 
 const AssignmentCyclesCard = (props) => {
   const dispatch = useDispatch();
-  const {
-    data,
-  } = props;
+  const { data } = props;
   const {
     cycle_begin_date,
     cycle_end_date,
@@ -29,7 +27,6 @@ const AssignmentCyclesCard = (props) => {
     cycle_status,
     id,
   } = data;
-
   const dummyInfo = {
     assignmentCycle: 'This is a dummy assignment cycle',
     cycleCategory: 'Summer',
@@ -546,7 +543,7 @@ const AssignmentCyclesCard = (props) => {
                 </div>
               </>
             }
-            <button onClick={saveAC}>Save Button</button>
+            <button onClick={saveAC}>Save and Return</button>
             <button onClick={deleteAC}>Delete Assignment Cycle</button>
             <button onClick={postAC} type="submit">Post Open Positions</button>
             <button onClick={cancel}>Cancel</button>

@@ -13,10 +13,15 @@ import PaginationWrapper from 'Components/PaginationWrapper';
 import Alert from 'Components/Alert';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
-import { assignmentCycleFetchData, saveAssignmentCycleSelections } from 'actions/assignmentCycle';
+import {
+  assignmentCycleFetchData,
+  postAssignmentCyclesSelections,
+  saveAssignmentCycleSelections,
+  saveAssignmentCyclesSelections,
+} from 'actions/assignmentCycle';
 import AssignmentCyclesCard from './AssignmentCyclesCard';
 import CheckBox from '../../CheckBox';
-
+import NewAssignmentCycle from './NewAssignmentCycle';
 
 const AssignmentCycles = () => {
   const dispatch = useDispatch();
@@ -37,9 +42,8 @@ const AssignmentCycles = () => {
   const [cycleStatus, setCycleStatus] = useState(userSelections?.cycleStatus || []);
   const [exclusivePosition, setExclusivePosition] = useState(false);
   const [postView, setPostView] = useState(false);
-  const [newModalOpen, setNewModalOpen] = useState(false);
   const [clearFilters, setClearFilters] = useState(false);
-
+  const [addNewCycles, setAddNewCycles] = useState(false);
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
   const prevPage = usePrevious(page);
@@ -183,12 +187,23 @@ const AssignmentCycles = () => {
     includeSelectAll: true,
   };
 
-  const openNewModal = (e) => {
+  const addNewCycle = (e) => {
     e.preventDefault();
-    setNewModalOpen(true);
-    setTimeout(() => {
-      setNewModalOpen(false);
-    }, 200);
+    setAddNewCycles(ac => !ac);
+  };
+
+  const onSave = (userData) => {
+    dispatch(saveAssignmentCyclesSelections(userData));
+    setAddNewCycles(false);
+  };
+
+  const onPost = (userData) => {
+    dispatch(postAssignmentCyclesSelections(userData));
+    setAddNewCycles(false);
+  };
+
+  const onClose = () => {
+    setAddNewCycles(false);
   };
 
   return (
@@ -273,18 +288,32 @@ const AssignmentCycles = () => {
           <div className="usa-grid-full results-dropdown controls-container">
             <div className="bs-results">
               <Link
-                onClick={(e) => openNewModal(e)}
+                onClick={addNewCycle}
                 to="#"
               >
-                <FA className="fa-solid fa-plus" />
-                {' Add New Assignment Cycle'}
+                {addNewCycles ?
+                  <span>
+                    <FA className="fa-solid fa-close" />
+                    {' Close'}
+                  </span> :
+                  <span>
+                    <FA className="fa-solid fa-plus" />
+                    {' Add New Assignment Cycle'}
+                  </span>
+                }
               </Link>
             </div>
           </div>
 
           <div className="bs-lower-section">
+            {addNewCycles ?
+              <NewAssignmentCycle
+                onPost={onPost}
+                onSave={onSave}
+                onClose={onClose}
+              /> : null}
             {AssignmentCycleData?.results?.map(data =>
-              <AssignmentCyclesCard data={data} displayNewModal={newModalOpen} />)}
+              <AssignmentCyclesCard data={data} />)}
             <div className="usa-grid-full react-paginate">
               <PaginationWrapper
                 pageSize={5}
