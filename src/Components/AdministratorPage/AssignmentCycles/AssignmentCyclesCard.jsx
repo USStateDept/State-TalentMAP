@@ -334,7 +334,6 @@ const AssignmentCyclesCard = (props) => {
                       value={id === '' ? cycleBoundries : dummyInfo.cycleBoundary}
                       maxDetail="month"
                       calendarIcon={null}
-                      className="date-picker-validation-container"
                     />
                   </span>
                 </div>
@@ -348,7 +347,6 @@ const AssignmentCyclesCard = (props) => {
                       value={id === '' ? sixMonthLanguage : dummyInfo.sixMonthBoundary}
                       maxDetail="month"
                       calendarIcon={null}
-                      className="date-picker-validation-container"
                     />
                   </span>
                 </div>
@@ -362,7 +360,6 @@ const AssignmentCyclesCard = (props) => {
                       value={id === '' ? twelveMonthLanguage : dummyInfo.twelveMonthBoundary}
                       maxDetail="month"
                       calendarIcon={null}
-                      className="date-picker-validation-container"
                     />
                   </span>
                 </div>
@@ -376,7 +373,6 @@ const AssignmentCyclesCard = (props) => {
                       value={id === '' ? twentyFourMonthLanguage : dummyInfo.twentyFourMonthBoundary}
                       maxDetail="month"
                       calendarIcon={null}
-                      className="date-picker-validation-container"
                     />
                   </span>
                 </div>
