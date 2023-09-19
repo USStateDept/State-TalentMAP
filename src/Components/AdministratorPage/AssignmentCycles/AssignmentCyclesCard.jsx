@@ -15,6 +15,8 @@ import {
   saveAssignmentCyclesSelections,
 } from 'actions/assignmentCycle';
 import { Column, Row } from 'Components/Layout';
+import CheckBox from '../../CheckBox';
+
 
 const AssignmentCyclesCard = (props) => {
   const dispatch = useDispatch();
@@ -53,8 +55,8 @@ const AssignmentCyclesCard = (props) => {
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
   const [cycleStatus, setCycleStatus] = useState('');
-  const [exclusivePositions, setExclusivePositions] = useState('');
-  const [postViewable, setPostViewable] = useState('');
+  const [exclusivePositions, setExclusivePositions] = useState(false);
+  const [postViewable, setPostViewable] = useState(false);
   const [cycleBoundries, setCycleBoundries] = useState(null);
   const [sixMonthLanguage, setSixMonthLanguage] = useState(null);
   const [twelveMonthLanguage, setTwelveMonthLanguage] = useState(null);
@@ -96,8 +98,8 @@ const AssignmentCyclesCard = (props) => {
     setAssignmentCycle('');
     setCycleCategory('');
     setCycleStatus('');
-    setExclusivePositions('');
-    setPostViewable('');
+    setExclusivePositions(false);
+    setPostViewable(false);
     setCycleBoundries(null);
     setSixMonthLanguage(null);
     setTwelveMonthLanguage(null);
@@ -305,29 +307,23 @@ const AssignmentCyclesCard = (props) => {
             <div>
               <label htmlFor="exclusoivePositions">Exclusive Positions</label>
               <span className="bs-validation-container">
-                <select
-                  id="ExclusivePositions"
-                  defaultValue="None Selected"
-                  onChange={(e) => setExclusivePositions(e.target.value)}
-                  value={dummyInfo?.exclusivePosition}
-                >
-                  <option key="Yes">Yes</option>
-                  <option key="No">No</option>
-                </select>
+                <CheckBox
+                  id="exclusivePositions"
+                  name="exclusivePositions"
+                  checked={exclusivePositions}
+                  onChange={() => setExclusivePositions(e => !e)}
+                />
               </span>
             </div>
             <div>
               <label htmlFor="postViewable">Post Viewable</label>
               <span className="bs-validation-container">
-                <select
+                <CheckBox
                   id="postViewable"
-                  defaultValue="None Selected"
-                  onChange={(e) => setPostViewable(e.target.value)}
-                  value={dummyInfo?.postView}
-                >
-                  <option key="Yes">Yes</option>
-                  <option key="No">No</option>
-                </select>
+                  name="postViewable"
+                  checked={postViewable}
+                  onChange={() => setPostViewable(e => !e)}
+                />
               </span>
             </div>
             {

@@ -4,6 +4,7 @@ import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
+import CheckBox from '../../CheckBox';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
 
@@ -13,8 +14,8 @@ const EditAssignmentCycles = (props) => {
   const [assignmentCycle, setAssignmentCycle] = useState('');
   const [cycleCategory, setCycleCategory] = useState('');
   const [cycleStatus, setCycleStatus] = useState('');
-  const [exclusivePositions, setExclusivePositions] = useState('');
-  const [postViewable, setPostViewable] = useState('');
+  const [exclusivePositions, setExclusivePositions] = useState(false);
+  const [postViewable, setPostViewable] = useState(false);
   const [cycleBoundries, setCycleBoundries] = useState(null);
   const [sixMonthLanguage, setSixMonthLanguage] = useState(null);
   const [twelveMonthLanguage, setTwelveMonthLanguage] = useState(null);
@@ -156,29 +157,23 @@ const EditAssignmentCycles = (props) => {
         <div>
           <label htmlFor="season">Exclusive Positions</label>
           <span className="bs-validation-container">
-            <select
-              id="ExclusivePositions"
-              defaultValue="None Selected"
-              onChange={(e) => setExclusivePositions(e.target.value)}
-              value={exclusivePositions}
-            >
-              <option key="Yes">Yes</option>
-              <option key="No">No</option>
-            </select>
+            <CheckBox
+              id="exclusivePositions"
+              name="exclusivePositions"
+              checked={exclusivePositions}
+              onChange={() => setExclusivePositions(e => !e)}
+            />
           </span>
         </div>
         <div>
           <label htmlFor="season">Post Viewable</label>
           <span className="bs-validation-container">
-            <select
+            <CheckBox
               id="postViewable"
-              defaultValue="None Selected"
-              onChange={(e) => setPostViewable(e.target.value)}
-              value={postViewable}
-            >
-              <option key="Yes" value="Yes">Yes</option>
-              <option key="No" value="No">No</option>
-            </select>
+              name="postViewable"
+              checked={postViewable}
+              onChange={() => setPostViewable(e => !e)}
+            />
           </span>
         </div>
         {
