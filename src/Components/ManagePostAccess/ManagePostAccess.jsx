@@ -31,6 +31,8 @@ const ManagePostAccess = () => {
 
   const personSelected = selectedPersons.length > 0;
   const positionSelected = selectedPositions.length > 0;
+  const requirementsMet =
+    (personSelected || positionSelected) && selectedOrgs.length > 0 && selectedRoles.length > 0;
 
   // Filter Options
   const peopleOptionsHRO = managePostFilters?.personFilters?.filter(
@@ -241,7 +243,7 @@ const ManagePostAccess = () => {
               <div>Positions:</div>
               {personSelected && (
                 <div className="mpa-grant-box-item">
-                  Provide either Persons or Positions to Grant Access.
+                  Grant Access to either Persons or Positions.
                 </div>
               )}
               {selectedPositions?.map(x => (
@@ -263,7 +265,7 @@ const ManagePostAccess = () => {
               <div>Persons:</div>
               {positionSelected && (
                 <div className="mpa-grant-box-item">
-                  Provide either Persons or Positions to Grant Access.
+                  Grant Access to either Persons or Positions.
                 </div>
               )}
               {selectedPersons?.map(x => (
@@ -303,15 +305,11 @@ const ManagePostAccess = () => {
         </>
       }
 
-      { filterCount > 0 &&
-            <div className="proposed-cycle-banner">
-              {filterCount} {filterCount < 2 ? 'Position' : 'Positions'} Selected
-              {
-                filterCount &&
-                  <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
-              }
-            </div>
-      }
+      { requirementsMet && (
+        <div className="proposed-cycle-banner">
+          <button className="usa-button-secondary" onClick={submitGrantAccess}>Grant Access</button>
+        </div>
+      )}
 
     </div>
   );
