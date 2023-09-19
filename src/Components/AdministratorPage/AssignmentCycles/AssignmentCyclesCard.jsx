@@ -328,7 +328,7 @@ const AssignmentCyclesCard = (props) => {
                     <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setCycleBoundries(null)} />
                     <DateRangePicker
                       onChange={setCycleBoundries}
-                      value={id === '' ? cycleBoundries : dummyInfo.cycleBoundary}
+                      value={cycleBoundries || dummyInfo.cycleBoundary}
                       maxDetail="month"
                       calendarIcon={null}
                     />
@@ -341,7 +341,7 @@ const AssignmentCyclesCard = (props) => {
                     <FA name="times" className={`${sixMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setSixMonthLanguage(null)} />
                     <DateRangePicker
                       onChange={setSixMonthLanguage}
-                      value={id === '' ? sixMonthLanguage : dummyInfo.sixMonthBoundary}
+                      value={sixMonthLanguage || dummyInfo.sixMonthBoundary}
                       maxDetail="month"
                       calendarIcon={null}
                     />
@@ -354,7 +354,7 @@ const AssignmentCyclesCard = (props) => {
                     <FA name="times" className={`${twelveMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setTwelveMonthLanguage(null)} />
                     <DateRangePicker
                       onChange={setTwelveMonthLanguage}
-                      value={id === '' ? twelveMonthLanguage : dummyInfo.twelveMonthBoundary}
+                      value={twelveMonthLanguage || dummyInfo.twelveMonthBoundary}
                       maxDetail="month"
                       calendarIcon={null}
                     />
@@ -367,7 +367,7 @@ const AssignmentCyclesCard = (props) => {
                     <FA name="times" className={`${twentyFourMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setTwentyFourMonthLanguage(null)} />
                     <DateRangePicker
                       onChange={setTwentyFourMonthLanguage}
-                      value={id === '' ? twentyFourMonthLanguage : dummyInfo.twentyFourMonthBoundary}
+                      value={twentyFourMonthLanguage || dummyInfo.twentyFourMonthBoundary}
                       maxDetail="month"
                       calendarIcon={null}
                     />
