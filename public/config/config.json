@@ -29,6 +29,7 @@
     "register_checklist": true,
     "search_post_access": true,
     "settings": true,
-    "unassigned_filters": true
+    "unassigned_filters": true,
+    "bidding_tool": true
   }
 }
