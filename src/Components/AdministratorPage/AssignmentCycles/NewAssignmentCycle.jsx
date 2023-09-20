@@ -135,7 +135,7 @@ const EditAssignmentCycles = (props) => {
                   </option>
                 ))}
             </select>
-            <Link to="/profile/administrator/cyclejobcategory">Update Categories</Link>
+            <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
           </span>
         </div>
         <div>
