@@ -26,11 +26,13 @@ const BiddingToolCard = (props) => {
   const userProfile = useSelector(state => state.userProfile);
   const isSuperUser = !userHasPermissions(['superuser'], userProfile.permission_groups);
 
-  const result = useSelector(state => state.biddingTool);
+  const result = useSelector(state => state.biddingTool) || {};
   const resultIsLoading = useSelector(state => state.biddingToolFetchDataLoading);
 
   useEffect(() => {
-    dispatch(biddingTool());
+    if (!isCreate) {
+      dispatch(biddingTool(id));
+    }
   }, []);
 
   const [editMode, setEditMode] = useState(false);
@@ -644,7 +646,7 @@ const BiddingToolCard = (props) => {
     </div>
   );
 
-  return (resultIsLoading ?
+  return ((resultIsLoading || !isCreate) ?
     <Spinner type="bidding-tool" size="small" /> :
     <TabbedCard
       tabs={[{
