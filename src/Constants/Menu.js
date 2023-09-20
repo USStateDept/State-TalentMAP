@@ -158,30 +158,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      {
-        text: 'Cycle Job Category',
-        route: '/profile/administrator/cyclejobcategory/',
-        icon: 'book',
-        roles: [
-          'superuser',
-        ],
-      },
-      {
-        text: 'Org Stats',
-        route: '/profile/administrator/orgstats/',
-        icon: 'building',
-        roles: [
-          'superuser',
-        ],
-      },
-      {
-        text: 'Manage Entry Level',
-        route: '/profile/administrator/manageentrylevel/',
-        icon: ' fa-keyboard-o',
-        roles: [
-          'superuser',
-        ],
-      },
+      checkFlag('flags.cycle_job_categories') ?
+        {
+          text: 'Cycle Job Categories',
+          route: '/profile/administrator/cyclejobcategories/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.org_stats') ?
         {
           text: 'Org Stats',
@@ -231,7 +216,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Job Categories',
           route: '/profile/administrator/jobcategories/',
-          icon: 'map',
+          icon: 'cogs',
           roles: [
             'superuser',
           ],
