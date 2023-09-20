@@ -53,6 +53,17 @@ const CycleJobCategory = () => {
     return [];
   };
 
+  const handleSelectJob = (job) => {
+    if (selectedJobCategories.find(o => o === job.id)) {
+      const newSelection = selectedJobCategories.filter(o => o !== job.id);
+      setSelectedJobCategories(newSelection);
+    } else {
+      setSelectedJobCategories([
+        ...selectedJobCategories,
+        job.id,
+      ]);
+    }
+  };
   const handleSelectAllJobs = () => {
     const allSelected = jobCategories?.length === selectedJobCategories?.length;
     if (allSelected) {
@@ -185,18 +196,7 @@ const CycleJobCategory = () => {
                           <CheckBox
                             id={`selected-${job.id}`}
                             value={selectedJobCategories.find(o => o === job.id) !== undefined}
-                            onCheckBoxClick={() => {
-                              if (selectedJobCategories.find(o => o === job.id)) {
-                                setSelectedJobCategories([
-                                  ...selectedJobCategories,
-                                  job.id,
-                                ]);
-                              } else {
-                                const newSelection =
-                                  selectedJobCategories.filter(o => o.id !== job.id);
-                                setSelectedJobCategories(newSelection);
-                              }
-                            }}
+                            onCheckBoxClick={() => handleSelectJob(job)}
                           />
                         </td>
                         <td>{job.description}</td>
