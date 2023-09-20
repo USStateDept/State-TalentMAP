@@ -12,6 +12,7 @@ import Spinner from '../../Spinner/Spinner';
 
 const BiddingTool = (props) => {
   const id = props.match?.params?.id ?? false;
+  const location = props.location?.pathname;
 
   const dispatch = useDispatch();
 
@@ -29,7 +30,7 @@ const BiddingTool = (props) => {
           <ProfileSectionTitle title="Bidding Tool" icon="cog" />
         </div>
         <div className="position-search--results">
-          <BiddingToolCard id={id} />
+          <BiddingToolCard id={id} location={location} />
         </div>
       </div>
     );
@@ -50,7 +51,7 @@ const BiddingTool = (props) => {
           </span>
         </div>
         <div className="usa-grid-full controls-container">
-          <Link className="standard-add-button" to="/profile/biddingfunctions/biddingtool/new">
+          <Link className="standard-add-button" to={`${location}new`}>
             <FA className="fa-solid fa-plus" name="new-bidding-tool" />
             <p>Create New Bidding Tool</p>
           </Link>
@@ -66,7 +67,7 @@ const BiddingTool = (props) => {
               </Column>
               <Column columns={3} className="cyc-card--link-col">
                 <span>
-                  <Link to={`/profile/administrator/biddingtool/${d.id}`}>
+                  <Link to={location + d.id}>
                     View / Edit
                   </Link>
                 </span>
@@ -85,10 +86,14 @@ BiddingTool.propTypes = {
       id: PropTypes.string,
     }),
   }),
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
 };
 
 BiddingTool.defaultProps = {
   match: {},
+  location: {},
 };
 
 export default withRouter(BiddingTool);

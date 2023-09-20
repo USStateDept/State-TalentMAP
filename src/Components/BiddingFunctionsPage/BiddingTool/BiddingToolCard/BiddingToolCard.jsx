@@ -18,7 +18,7 @@ import { history } from '../../../../store';
 
 
 const BiddingToolCard = (props) => {
-  const { id } = props;
+  const { id, location } = props;
   const isCreate = id === 'new';
 
   const dispatch = useDispatch();
@@ -136,7 +136,7 @@ const BiddingToolCard = (props) => {
         ))}
       </div>
       <div className="position-form--actions">
-        <Link to="/profile/biddingfunctions/biddingtool/">Back</Link>
+        <Link to={location}>Back</Link>
       </div>
     </div>
   );
@@ -275,7 +275,7 @@ const BiddingToolCard = (props) => {
   };
 
   const onCancel = () => {
-    if (isCreate) history.push('/profile/biddingfunctions/biddingtool/');
+    if (isCreate) history.push(location);
     else if (setEditMode) setEditMode(false);
     swal.close();
   };
@@ -666,10 +666,12 @@ const BiddingToolCard = (props) => {
 
 BiddingToolCard.propTypes = {
   id: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
 };
 
 BiddingToolCard.defaultProps = {
   id: 'new',
+  location: '/profile/',
 };
 
 export default BiddingToolCard;
