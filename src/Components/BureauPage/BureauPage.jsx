@@ -8,6 +8,7 @@ import PositionManagerDetails from './PositionManagerDetails';
 import ProjectedVacancy from './ProjectedVacancy';
 import ManagePostAccess from '../ManagePostAccess/ManagePostAccess';
 import SearchPostAccess from './SearchPostAccess';
+import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const BureauPage = () => {
   const posManagerProps = {
@@ -26,6 +27,8 @@ const BureauPage = () => {
         <Route path="/profile/bureau/cyclemanagement" render={() => <CycleManagement isAO={false} />} />
         <Route path="/profile/bureau/cyclepositionsearch/:id" render={() => <CyclePositionSearch />} />
         <Route path="/profile/bureau/searchpostaccess" render={() => <SearchPostAccess />} />
+        <Route path="/profile/bureau/biddingtool/:id" render={() => <BiddingTool />} />
+        <Route path="/profile/bureau/biddingtool/" render={() => <BiddingTool />} />
       </Switch>
     </div>
   );
