@@ -174,14 +174,6 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
-      {
-        text: 'Bidding Tool',
-        route: '/profile/administrator/biddingtool/',
-        icon: ' fa-keyboard-o',
-        roles: [
-          'superuser',
-        ],
-      },
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
@@ -429,6 +421,34 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           roles: [
             'cdo',
             'superuser',
+          ],
+        } : null,
+    ],
+  },
+  {
+    text: 'Bidding Functions',
+    icon: 'building',
+    toggleMenuSection: true,
+    expandedSection: true,
+    roles: [
+      'superuser',
+      'post_user',
+      'ao_user',
+      'bureau_user',
+      'cdo',
+    ],
+    children: [
+      checkFlag('flags.bidding_tool') ?
+        {
+          text: 'Bidding Tool',
+          route: '/profile/biddingfunctions/biddingtool/',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+            'post_user',
+            'ao_user',
+            'bureau_user',
+            'cdo',
           ],
         } : null,
     ],
