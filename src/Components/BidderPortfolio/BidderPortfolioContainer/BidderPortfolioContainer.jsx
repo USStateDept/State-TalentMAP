@@ -25,7 +25,7 @@ class BidderPortfolioContainer extends Component {
       cdosLength, hideControls, classifications, hasErrored, pageNumber } = this.props;
     const noResults = get(bidderPortfolio, 'results', []).length === 0;
     const showNoCdosAlert = !cdosLength;
-    const showEdit$ = showEdit && !hideControls;
+    const showEdit$ = showEdit && !hideControls && false;
     const showExpand = !hideControls;
     return (
       <div className="usa-grid-full user-dashboard" id={ID}>

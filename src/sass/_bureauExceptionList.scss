@@ -1,17 +1,44 @@
 .swal-modal {
     width: 500px;
 }
-.custom-table {
+.bureau-exception-table {
+  position: relative;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 0px;
+  th {
+    border: none;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 8px;
+  }
+  tr {
+    height: 50px;
+  }
+  tbody {
+    td {
+      border: none;
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 8px;
+    }
+  }
+  .checkbox-pac {
+      width: 1600px;
+      text-align: left;
+    }
     .checkbox-pos {
-        width: 100%;
+      > div{
+        [type=checkbox]:not(:checked) + label::before,
+        [type=checkbox]:checked + label::before {
+          margin-right: 1.5em;
+        }
+      }
     }
     .bureau-exception-text-table {
         overflow-y: scroll;
         height: 300px;
-    }
-    .checkbox-pac {
-        min-width: 450px;
-        text-align: left;
     }
 }
 .bureau-exception-text-input {

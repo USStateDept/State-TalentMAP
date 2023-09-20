@@ -171,27 +171,38 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
-      {
-        text: 'Org Stats',
-        route: '/profile/administrator/orgstats/',
-        icon: 'building',
-        roles: [
-          'superuser',
-        ],
-      },
-      {
-        text: 'Manage Entry Level',
-        route: '/profile/administrator/manageentrylevel/',
-        icon: ' fa-keyboard-o',
-        roles: [
-          'superuser',
-        ],
-      },
+      checkFlag('flags.org_stats') ?
+        {
+          text: 'Org Stats',
+          route: '/profile/administrator/orgstats/',
+          icon: 'building',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.manage_entry_level') ?
+        {
+          text: 'Manage Entry Level',
+          route: '/profile/administrator/manageentrylevel/',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
           route: '/profile/administrator/managebidseasons/',
           icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.assignment_cycles') ?
+        {
+          text: 'Assignment Cycles',
+          route: '/profile/administrator/assignmentcycles/',
+          icon: 'cogs',
           roles: [
             'superuser',
           ],
@@ -263,15 +274,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
-      {
-        text: 'Manage Post Access',
-        route: '/profile/bureau/managepostaccess',
-        icon: 'building',
-        roles: [
-          'super_user',
-          'bureau_user',
-        ],
-      },
+      checkFlag('flags.manage_post_access') ?
+        {
+          text: 'Manage Post Access',
+          route: '/profile/bureau/managepostaccess',
+          icon: 'building',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
@@ -419,6 +431,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Bidding Tool',
           route: '/profile/ao/biddingtool/',
           icon: 'cog',
+          roles: [
+            'superuser',
+            'ao_user',
+          ],
+        } : null,
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Publishable Positions',
+          route: '/profile/ao/publishablepositions',
+          icon: ' fa-newspaper-o',
           roles: [
             'superuser',
             'ao_user',
