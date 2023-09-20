@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Linkify from 'react-linkify';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
 import swal from '@sweetalert/with-react';
+import PropTypes from 'prop-types';
 import shortid from 'shortid';
 import { getResult, userHasPermissions } from 'utilities';
 import TabbedCard from 'Components/TabbedCard';
@@ -12,7 +14,7 @@ import { Definition } from '../../../DefinitionList';
 import { biddingTool, biddingToolCreate, biddingToolEdit } from '../../../../actions/biddingTool';
 import Spinner from '../../../Spinner/Spinner';
 import CheckBox from '../../../CheckBox/CheckBox';
-import { Link } from 'react-router-dom';
+import { history } from '../../../../store';
 
 
 const BiddingToolCard = (props) => {
@@ -218,7 +220,7 @@ const BiddingToolCard = (props) => {
   const onSubmit = () => {
     let submitFunction = biddingToolEdit;
     if (isCreate) {
-      submitFunction = biddingToolCreate
+      submitFunction = biddingToolCreate;
     }
     dispatch(submitFunction({
       id: isCreate ? id : undefined,
@@ -247,11 +249,12 @@ const BiddingToolCard = (props) => {
       efmIssues,
       missionEfmEmp,
       outsideEfmEmp,
-    }))
-  }
+    }));
+  };
 
   const onCancel = () => {
-    if (setEditMode) setEditMode(false);
+    if (isCreate) history.push('/profile/biddingfunctions/biddingtool/');
+    else if (setEditMode) setEditMode(false);
     swal.close();
   };
   const showCancelModal = () => {
@@ -262,7 +265,10 @@ const BiddingToolCard = (props) => {
       content: (
         <div className="simple-action-modal">
           <div className="help-text">
-            <span>Are you sure you want to discard all changes made to this Bidding Tool?</span>
+            {isCreate ?
+              <span>Are you sure you want to discard this Bidding Tool draft?</span> :
+              <span>Are you sure you want to discard all changes made to this Bidding Tool?</span>
+            }
           </div>
           <div className="modal-controls">
             <button onClick={onCancel}>Submit</button>
@@ -612,11 +618,8 @@ const BiddingToolCard = (props) => {
         </div>
       </div>
       <div className="position-form--actions">
-        {isCreate ?
-          <Link to="/profile/biddingfunctions/biddingtool/">Back</Link> :
-          <button onClick={showCancelModal}>Cancel</button>
-        }
-        <button onClick={onSubmit}>Save</button>
+        <button onClick={showCancelModal}>Cancel</button>
+        <button onClick={onSubmit}>{isCreate ? 'Create' : 'Save'}</button>
       </div>
     </div>
   );
