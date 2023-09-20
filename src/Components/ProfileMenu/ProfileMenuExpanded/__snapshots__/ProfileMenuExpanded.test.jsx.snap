@@ -269,6 +269,29 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       }
       hidden={true}
       iconName="building"
+      key="Bidding Functions"
+      search=""
+      title="Bidding Functions"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Bidding Tool"
+        link="/profile/biddingfunctions/biddingtool/"
+        search=""
+        title="Bidding Tool"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building"
       key="Bureau"
       search=""
       title="Bureau"
@@ -671,6 +694,29 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/ao/panelmeetings"
         search=""
         title="Panel Meetings"
+      />
+    </withRouter(NavLink)>
+    <withRouter(NavLink)
+      expandedSection={
+        Object {
+          "display": false,
+          "title": "",
+        }
+      }
+      hidden={true}
+      iconName="building"
+      key="Bidding Functions"
+      search=""
+      title="Bidding Functions"
+      toggleMenuSection={[Function]}
+    >
+      <withRouter(NavLink)
+        hidden={true}
+        iconName=" fa-keyboard-o"
+        key="Bidding Tool"
+        link="/profile/biddingfunctions/biddingtool/"
+        search=""
+        title="Bidding Tool"
       />
     </withRouter(NavLink)>
     <withRouter(NavLink)
