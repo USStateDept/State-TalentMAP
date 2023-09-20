@@ -10,6 +10,7 @@
     "agenda_search": true,
     "breadcrumbs": true,
     "cycle_management": true,
+    "assignment_cycles": true,
     "deto": false,
     "handshake_bidding": true,
     "job_categories": true,

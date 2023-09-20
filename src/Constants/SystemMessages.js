@@ -267,3 +267,18 @@ export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
 export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
 export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
 export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
+
+export const ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE = 'Assignment Cycle Updated';
+export const ASSIGNMENT_CYCLE_EDIT_SUCCESS = 'The Assignment Cycle has been updated';
+export const ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE = 'Assignment Cycle Edit Error';
+export const ASSIGNMENT_CYCLE_EDIT_ERROR = 'There was an issue attempting to update this Assignment Cycle. Please try again.';
+
+export const ASSIGNMENT_CYCLE_DELETE_SUCCESS_TITLE = 'Assignment Cycle Deleted';
+export const ASSIGNMENT_CYCLE_DELETE_SUCCESS = 'The Assignment Cycle has been deleted';
+export const ASSIGNMENT_CYCLE_DELETE_ERROR_TITLE = 'Assignment Cycle Delete Error';
+export const ASSIGNMENT_CYCLE_DELETE_ERROR = 'There was an issue attempting to delete this Assignment Cycle. Please try again.';
+
+export const ASSIGNMENT_CYCLE_POST_SUCCESS_TITLE = 'Assignment Cycle Created';
+export const ASSIGNMENT_CYCLE_POST_SUCCESS = 'The Assignment Cycle has been created';
+export const ASSIGNMENT_CYCLE_POST_ERROR_TITLE = 'Assignment Cycle Create Error';
+export const ASSIGNMENT_CYCLE_POST_ERROR = 'There was an issue attempting to create this Assignment Cycle. Please try again.';
