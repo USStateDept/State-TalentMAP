@@ -142,11 +142,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="book"
-        key="Cycle Job Category"
-        link="/profile/administrator/cyclejobcategory/"
+        iconName="cogs"
+        key="Cycle Job Categories"
+        link="/profile/administrator/cyclejobcategories/"
         search=""
-        title="Cycle Job Category"
+        title="Cycle Job Categories"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -166,7 +166,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
+        iconName="cogs"
         key="Job Categories"
         link="/profile/administrator/jobcategories/"
         search=""
@@ -187,22 +187,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         link="/profile/administrator/manageentrylevel/"
         search=""
         title="Manage Entry Level"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Manage Entry Level"
-        link="/profile/administrator/manageentrylevel/"
-        search=""
-        title="Manage Entry Level"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="building"
-        key="Org Stats"
-        link="/profile/administrator/orgstats/"
-        search=""
-        title="Org Stats"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -595,11 +579,11 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="book"
-        key="Cycle Job Category"
-        link="/profile/administrator/cyclejobcategory/"
+        iconName="cogs"
+        key="Cycle Job Categories"
+        link="/profile/administrator/cyclejobcategories/"
         search=""
-        title="Cycle Job Category"
+        title="Cycle Job Categories"
       />
       <withRouter(NavLink)
         hidden={true}
@@ -619,7 +603,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
+        iconName="cogs"
         key="Job Categories"
         link="/profile/administrator/jobcategories/"
         search=""
@@ -640,22 +624,6 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         link="/profile/administrator/manageentrylevel/"
         search=""
         title="Manage Entry Level"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName=" fa-keyboard-o"
-        key="Manage Entry Level"
-        link="/profile/administrator/manageentrylevel/"
-        search=""
-        title="Manage Entry Level"
-      />
-      <withRouter(NavLink)
-        hidden={true}
-        iconName="building"
-        key="Org Stats"
-        link="/profile/administrator/orgstats/"
-        search=""
-        title="Org Stats"
       />
       <withRouter(NavLink)
         hidden={true}
