@@ -21,6 +21,12 @@ const BiddingToolCard = (props) => {
   const { id, location } = props;
   const isCreate = id === 'new';
 
+  const rootLocation = () => {
+    const routeHistory = location.split('/');
+    routeHistory.pop();
+    return routeHistory.join('/');
+  };
+
   const dispatch = useDispatch();
 
   const userProfile = useSelector(state => state.userProfile);
@@ -136,7 +142,7 @@ const BiddingToolCard = (props) => {
         ))}
       </div>
       <div className="position-form--actions">
-        <Link to={location}>Back</Link>
+        <Link to={rootLocation()}>Back</Link>
       </div>
     </div>
   );
@@ -275,7 +281,7 @@ const BiddingToolCard = (props) => {
   };
 
   const onCancel = () => {
-    if (isCreate) history.push(location);
+    if (isCreate) history.push(rootLocation());
     else if (setEditMode) setEditMode(false);
     swal.close();
   };

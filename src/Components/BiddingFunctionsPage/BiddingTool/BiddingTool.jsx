@@ -14,6 +14,12 @@ const BiddingTool = (props) => {
   const id = props.match?.params?.id ?? false;
   const location = props.location?.pathname;
 
+  const appendedLocation = () => {
+    const lastChar = location.charAt(location.length - 1);
+    if (lastChar === '/') return location;
+    return `${location}/`;
+  };
+
   const dispatch = useDispatch();
 
   const results = useSelector(state => state.biddingTools) ?? [];
@@ -51,7 +57,7 @@ const BiddingTool = (props) => {
           </span>
         </div>
         <div className="usa-grid-full controls-container">
-          <Link className="standard-add-button" to={`${location}new`}>
+          <Link className="standard-add-button" to={`${appendedLocation()}new`}>
             <FA className="fa-solid fa-plus" name="new-bidding-tool" />
             <p>Create New Bidding Tool</p>
           </Link>
@@ -67,7 +73,7 @@ const BiddingTool = (props) => {
               </Column>
               <Column columns={3} className="cyc-card--link-col">
                 <span>
-                  <Link to={location + d.id}>
+                  <Link to={appendedLocation() + d.id}>
                     View / Edit
                   </Link>
                 </span>
