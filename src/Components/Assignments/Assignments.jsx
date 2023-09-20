@@ -123,7 +123,7 @@ const Assignments = (props) => {
   const getOverlay = () => {
     let overlay;
     if (assignmentsLoading || employeeDataLoading) {
-      overlay = <Spinner type="center" class="homepage-position-results" size="big" />;
+      overlay = <Spinner type="standard-center" class="homepage-position-results" size="big" />;
     } else if (assignmentsErrored) {
       overlay = <Alert type="error" title="Error loading results" messages={[{ body: 'Please try again.' }]} />;
     } else if (noResults) {

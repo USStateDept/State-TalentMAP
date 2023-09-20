@@ -182,6 +182,24 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'superuser',
         ],
       },
+      checkFlag('flags.org_stats') ?
+        {
+          text: 'Org Stats',
+          route: '/profile/administrator/orgstats/',
+          icon: 'building',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.manage_entry_level') ?
+        {
+          text: 'Manage Entry Level',
+          route: '/profile/administrator/manageentrylevel/',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.bid_seasons') ?
         {
           text: 'Bid Season Management',
@@ -249,15 +267,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
-      {
-        text: 'Manage Post Access',
-        route: '/profile/bureau/managepostaccess',
-        icon: 'building',
-        roles: [
-          'super_user',
-          'bureau_user',
-        ],
-      },
+      checkFlag('flags.manage_post_access') ?
+        {
+          text: 'Manage Post Access',
+          route: '/profile/bureau/managepostaccess',
+          icon: 'building',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
@@ -378,6 +397,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           roles: [
             'ao_user',
             'super_user',
+          ],
+        } : null,
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Publishable Positions',
+          route: '/profile/ao/publishablepositions',
+          icon: ' fa-newspaper-o',
+          roles: [
+            'superuser',
+            'ao_user',
           ],
         } : null,
     ],
