@@ -182,7 +182,6 @@ const EditAssignmentCycles = (props) => {
               <dt>Cycle Boundary Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setCycleBoundries(null)} />
                 <DateRangePicker
                   onChange={setCycleBoundries}
                   value={cycleBoundries}
@@ -196,7 +195,6 @@ const EditAssignmentCycles = (props) => {
               <dt>6 Month Language Dates </dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${sixMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setSixMonthLanguage(null)} />
                 <DateRangePicker
                   onChange={setSixMonthLanguage}
                   value={sixMonthLanguage}
@@ -210,7 +208,6 @@ const EditAssignmentCycles = (props) => {
               <dt>12 Month Language Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${twelveMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setTwelveMonthLanguage(null)} />
                 <DateRangePicker
                   onChange={setTwelveMonthLanguage}
                   value={twelveMonthLanguage}
@@ -224,7 +221,6 @@ const EditAssignmentCycles = (props) => {
               <dt>24 Month Language Dates</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${twentyFourMonthLanguage ? '' : 'hide'} fa-close`} onClick={() => setTwentyFourMonthLanguage(null)} />
                 <DateRangePicker
                   onChange={setTwentyFourMonthLanguage}
                   value={twentyFourMonthLanguage}
@@ -238,7 +234,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bureau Position Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauPositionReview(null)} />
+                <FA name="times" className={`${bureauPositionReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPositionReview(null)} />
                 <DatePicker
                   selected={bureauPositionReview}
                   onChange={(date) => setBureauPositionReview(date)}
@@ -252,7 +248,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bid Due Date </dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} />
+                <FA name="times" className={`${bidDue ? '' : 'hide'} fa-close`} onClick={() => setBidDue(null)} />
                 <DatePicker
                   selected={bidDue}
                   onChange={(date) => setBidDue(date)}
@@ -266,7 +262,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bureau Pre-Season Bid Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauPreSeasonBidReview(null)} />
+                <FA name="times" className={`${bureauPreSeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauPreSeasonBidReview(null)} />
                 <DatePicker
                   selected={bureauPreSeasonBidReview}
                   onChange={(date) => setBureauPreSeasonBidReview(date)}
@@ -280,7 +276,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bureau Early Season Bid Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauEarlySeasonBidReview(null)} />
+                <FA name="times" className={`${bureauEarlySeasonBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauEarlySeasonBidReview(null)} />
                 <DatePicker
                   selected={bureauEarlySeasonBidReview}
                   onChange={(date) => setBureauEarlySeasonBidReview(date)}
@@ -294,7 +290,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bureau Bid Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBureauBidReview(null)} />
+                <FA name="times" className={`${bureauBidReview ? '' : 'hide'} fa-close`} onClick={() => setBureauBidReview(null)} />
                 <DatePicker
                   selected={bureauBidReview}
                   onChange={(date) => setBureauBidReview(date)}
@@ -308,7 +304,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bid Audit Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidAudit(null)} />
+                <FA name="times" className={`${bidAudit ? '' : 'hide'} fa-close`} onClick={() => setBidAudit(null)} />
                 <DatePicker
                   selected={bidAudit}
                   onChange={(date) => setBidAudit(date)}
@@ -322,7 +318,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bid Book Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidBookReview(null)} />
+                <FA name="times" className={`${bidBookReview ? '' : 'hide'} fa-close`} onClick={() => setBidBookReview(null)} />
                 <DatePicker
                   selected={bidBookReview}
                   onChange={(date) => setBidBookReview(date)}
@@ -336,7 +332,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Bid Count Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setBidCountReview(null)} />
+                <FA name="times" className={`${bidCountReview ? '' : 'hide'} fa-close`} onClick={() => setBidCountReview(null)} />
                 <DatePicker
                   selected={bidCountReview}
                   onChange={(date) => setBidCountReview(date)}
@@ -350,7 +346,7 @@ const EditAssignmentCycles = (props) => {
               <dt>HTF Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setHtfReview(null)} />
+                <FA name="times" className={`${htfReview ? '' : 'hide'} fa-close`} onClick={() => setHtfReview(null)} />
                 <DatePicker
                   selected={htfReview}
                   onChange={(date) => setHtfReview(date)}
@@ -364,7 +360,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Organization Count Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setOrganizationCountReview(null)} />
+                <FA name="times" className={`${organizationCountReview ? '' : 'hide'} fa-close`} onClick={() => setOrganizationCountReview(null)} />
                 <DatePicker
                   selected={organizationCountReview}
                   onChange={(date) => setOrganizationCountReview(date)}
@@ -378,7 +374,7 @@ const EditAssignmentCycles = (props) => {
               <dt>MDS Review Date</dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setMdsReview(null)} />
+                <FA name="times" className={`${mdsReview ? '' : 'hide'} fa-close`} onClick={() => setMdsReview(null)} />
                 <DatePicker
                   selected={mdsReview}
                   onChange={(date) => setMdsReview(date)}
@@ -392,7 +388,7 @@ const EditAssignmentCycles = (props) => {
               <dt>Assigned Bidder Date </dt>
               <span className="date-picker-validation-container larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
-                <FA name="times" className={`${cycleBoundries ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidder(null)} />
+                <FA name="times" className={`${assignedBidder ? '' : 'hide'} fa-close`} onClick={() => setAssignedBidder(null)} />
                 <DatePicker
                   selected={assignedBidder}
                   onChange={(date) => setAssignedBidder(date)}
