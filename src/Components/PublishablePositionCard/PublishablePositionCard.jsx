@@ -123,21 +123,21 @@ const PublishablePositionCard = ({ data, cycles, onEditModeSearch }) => {
 
   const form = {
     /* eslint-disable quote-props */
-    staticBody: {
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Location': getPostName(pos?.post) || NO_POST,
-      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
-      'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Pay Plan': '---',
-      'Assignee': '---',
-      'Functional Bureau': 'None Listed',
-      'Post Differential | Danger Pay': getDifferentials(pos),
-    },
+    staticBody: [
+      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Location': getPostName(pos?.post) || NO_POST },
+      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
+      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
+      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
+      { 'TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
+      { 'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
+      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
+      { 'Pay Plan': '---' },
+      { 'Assignee': '---' },
+      { 'Functional Bureau': 'None Listed' },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+    ],
     inputBody: (
       <div className="position-form">
         <div className="spaced-row">
