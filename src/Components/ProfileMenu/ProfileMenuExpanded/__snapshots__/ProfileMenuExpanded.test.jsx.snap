@@ -268,7 +268,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
         }
       }
       hidden={true}
-      iconName="building"
+      iconName="tasks"
       key="Bidding Functions"
       search=""
       title="Bidding Functions"
@@ -276,7 +276,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName=" fa-keyboard-o"
+        iconName="cog"
         key="Bidding Tool"
         link="/profile/biddingfunctions/biddingtool/"
         search=""
@@ -704,7 +704,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
         }
       }
       hidden={true}
-      iconName="building"
+      iconName="tasks"
       key="Bidding Functions"
       search=""
       title="Bidding Functions"
@@ -712,7 +712,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
     >
       <withRouter(NavLink)
         hidden={true}
-        iconName=" fa-keyboard-o"
+        iconName="cog"
         key="Bidding Tool"
         link="/profile/biddingfunctions/biddingtool/"
         search=""
