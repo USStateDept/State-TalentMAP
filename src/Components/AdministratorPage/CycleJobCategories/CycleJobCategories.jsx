@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Picky from 'react-picky';
 import FA from 'react-fontawesome';
@@ -10,7 +11,7 @@ import CheckBox from '../../CheckBox/CheckBox';
 import { cycleJobCategoriesData, cycleJobCategoriesEdit, cycleJobCategoriesFilters } from '../../../actions/cycleJobCategories';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem/ListItem';
 
-const CycleJobCategory = () => {
+const CycleJobCategories = () => {
   const dispatch = useDispatch();
 
   const cycleCategories = useSelector(state => state.cycleJobCategoriesFilters) || [];
@@ -181,10 +182,10 @@ const CycleJobCategory = () => {
                           <div>
                             Status
                           </div>
-                          <div className="new-category-button">
+                          <Link to="/profile/administrator/jobcategories" className="new-category-button">
                             <FA className="fa-solid fa-plus" name="new-job-category" />
                             <p>New Job Category</p>
-                          </div>
+                          </Link>
                         </div>
                       </th>
                     </tr>
@@ -218,10 +219,10 @@ const CycleJobCategory = () => {
   );
 };
 
-CycleJobCategory.propTypes = {
+CycleJobCategories.propTypes = {
 };
 
-CycleJobCategory.defaultProps = {
+CycleJobCategories.defaultProps = {
 };
 
-export default withRouter(CycleJobCategory);
+export default withRouter(CycleJobCategories);
