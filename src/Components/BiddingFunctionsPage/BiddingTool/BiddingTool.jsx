@@ -26,7 +26,7 @@ const BiddingTool = (props) => {
     return (
       <div className="bidding-tool-page position-search">
         <div className="usa-grid-full position-search--header">
-          <ProfileSectionTitle title="Bidding Tool" icon="keyboard-o" />
+          <ProfileSectionTitle title="Bidding Tool" icon="cog" />
         </div>
         <div className="position-search--results">
           <BiddingToolCard id={id} />
@@ -38,7 +38,7 @@ const BiddingTool = (props) => {
     <Spinner type="bidding-tool" size="small" /> :
     <div className="bidding-tool-page position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Bidding Tool" icon="keyboard-o" />
+        <ProfileSectionTitle title="Bidding Tool" icon="cog" />
       </div>
       <div className="position-search--results">
         <div className="usa-grid-full page-heading">
@@ -50,7 +50,7 @@ const BiddingTool = (props) => {
           </span>
         </div>
         <div className="usa-grid-full controls-container">
-          <Link className="standard-add-button" to="/biddingfunctions/biddingtool/new">
+          <Link className="standard-add-button" to="/profile/biddingfunctions/biddingtool/new">
             <FA className="fa-solid fa-plus" name="new-bidding-tool" />
             <p>Create New Bidding Tool</p>
           </Link>

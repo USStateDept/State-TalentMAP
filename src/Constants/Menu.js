@@ -427,7 +427,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
   },
   {
     text: 'Bidding Functions',
-    icon: 'building',
+    icon: 'tasks',
     toggleMenuSection: true,
     expandedSection: true,
     roles: [
@@ -442,7 +442,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Bidding Tool',
           route: '/profile/biddingfunctions/biddingtool/',
-          icon: ' fa-keyboard-o',
+          icon: 'cog',
           roles: [
             'superuser',
             'post_user',
