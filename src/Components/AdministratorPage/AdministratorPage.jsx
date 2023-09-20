@@ -13,7 +13,6 @@ import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
 import ManageEntryLevel from './ManageEntryLevel/ManageEntryLevel';
 import JobCategories from './JobCategories/JobCategories';
 import OrgStats from './OrgStats/OrgStats';
-import BiddingTool from './BiddingTool/BiddingTool';
 
 const AdministratorPage = (props) => {
   const {
@@ -69,8 +68,6 @@ const AdministratorPage = (props) => {
         <Route path="/profile/administrator/manageentrylevel/" render={() => <ManageEntryLevel />} />
         <Route path="/profile/administrator/jobcategories/" render={() => <JobCategories />} />
         <Route path="/profile/administrator/orgstats" render={() => <OrgStats />} />
-        <Route path="/profile/administrator/biddingtool/:id" render={() => <BiddingTool />} />
-        <Route path="/profile/administrator/biddingtool/" render={() => <BiddingTool />} />
       </Switch>
     </div>
   );
