@@ -141,25 +141,19 @@ const BiddingToolCard = (props) => {
 
   // ========================== EDIT MODE ==========================
 
-  // Start: fake temp data
-  const statusOptions = [
-    { code: 1, name: 'Active' },
-    { code: 2, name: 'Inactive' },
+  const dummySelectOptions = [
+    { code: 1, name: 'Example Option 1' },
+    { code: 2, name: 'Example Option 2' },
+    { code: 3, name: 'Example Option 3' },
+    { code: 4, name: 'Example Option 4' },
+    { code: 5, name: 'Example Option 5' },
+    { code: 6, name: 'Example Option 6' },
+    { code: 7, name: 'Example Option 7' },
+    { code: 8, name: 'Example Option 8' },
+    { code: 9, name: 'Example Option 9' },
+    { code: 10, name: 'Example Option 10' },
+    { code: 11, name: 'Example Option 11' },
   ];
-  const languageOffset = [
-    { code: 1, name: '1 Month' },
-    { code: 2, name: '2 Months' },
-    { code: 3, name: '3 Months' },
-    { code: 4, name: '4 Months' },
-    { code: 5, name: '5 Months' },
-    { code: 6, name: '6 Months' },
-    { code: 7, name: '12 Months' },
-    { code: 8, name: '18 Months' },
-    { code: 9, name: '24 Months' },
-    { code: 10, name: '30 Months' },
-    { code: 11, name: '36 Months' },
-  ];
-  // End: fake temp data
 
   const [gsaLocation, setGsaLocation] = useState();
   const [status, setStatus] = useState();
@@ -188,7 +182,33 @@ const BiddingToolCard = (props) => {
   const [outsideEfmEmp, setOutsideEfmEmp] = useState();
 
   useEffect(() => {
-    if (editMode) {
+    if (isCreate) {
+      setGsaLocation('');
+      setStatus('');
+      setHds(false);
+      setTod('');
+      setRrPoint('');
+      setUnaccompaniedStatus('');
+      setApoFpoDpo(false);
+      setCola('');
+      setDifferentialRate('');
+      setDangerPay('');
+      setMedical('');
+      setRemarks('');
+      setClimateZone('');
+      setConsumableAllowance(false);
+      setFmFpAccepted(false);
+      setHousingType('');
+      setQtrsType('');
+      setQuartersRemark('');
+      setSpecialShipAllow('');
+      setSchoolYearText('');
+      setEdGradesAtPost('');
+      setEmploymentOpportunities('');
+      setEfmIssues('');
+      setMissionEfmEmp(false);
+      setOutsideEfmEmp(false);
+    } else if (editMode) {
       setGsaLocation(result?.gsa_location ?? '');
       setStatus(result?.status ?? '');
       setHds(result?.hds);
@@ -212,8 +232,8 @@ const BiddingToolCard = (props) => {
       setEdGradesAtPost(result?.grade_adequater_education ?? '');
       setEmploymentOpportunities(result?.efm_employment_opportunities ?? '');
       setEfmIssues(result?.efm_issues ?? '');
-      setMissionEfmEmp(result?.mission_efm_emp ?? '');
-      setOutsideEfmEmp(result?.outside_efm_emp ?? '');
+      setMissionEfmEmp(result?.mission_efm_emp);
+      setOutsideEfmEmp(result?.outside_efm_emp);
     }
   }, [editMode]);
 
@@ -298,7 +318,7 @@ const BiddingToolCard = (props) => {
               defaultValue={status}
               onChange={(e) => setStatus(e.target.value)}
             >
-              {statusOptions.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -318,7 +338,7 @@ const BiddingToolCard = (props) => {
               defaultValue={tod}
               onChange={(e) => setTod(e.target.value)}
             >
-              {statusOptions.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -338,7 +358,7 @@ const BiddingToolCard = (props) => {
               defaultValue={unaccompaniedStatus}
               onChange={(e) => setUnaccompaniedStatus(e.target.value)}
             >
-              {languageOffset.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -366,7 +386,7 @@ const BiddingToolCard = (props) => {
               defaultValue={differentialRate}
               onChange={(e) => setDifferentialRate(e.target.value)}
             >
-              {languageOffset.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -378,7 +398,7 @@ const BiddingToolCard = (props) => {
               defaultValue={dangerPay}
               onChange={(e) => setDangerPay(e.target.value)}
             >
-              {languageOffset.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -432,7 +452,7 @@ const BiddingToolCard = (props) => {
               defaultValue={climateZone}
               onChange={(e) => setClimateZone(e.target.value)}
             >
-              {statusOptions.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -460,7 +480,7 @@ const BiddingToolCard = (props) => {
               defaultValue={housingType}
               onChange={(e) => setHousingType(e.target.value)}
             >
-              {statusOptions.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
@@ -472,7 +492,7 @@ const BiddingToolCard = (props) => {
               defaultValue={qtrsType}
               onChange={(e) => setQtrsType(e.target.value)}
             >
-              {statusOptions.map(b => (
+              {dummySelectOptions.map(b => (
                 <option value={b.code}>{b.name}</option>
               ))}
             </select>
