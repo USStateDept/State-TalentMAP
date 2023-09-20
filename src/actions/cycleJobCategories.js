@@ -97,10 +97,7 @@ export function cycleJobCategoriesDataSuccess(results) {
     results,
   };
 }
-export function cycleJobCategoriesData(id) {
-  // TODO: Use id of selected cycle in EP to get job categories of cycle
-  console.log(id);
-
+export function cycleJobCategoriesData() {
   const dummyCategories = [{
     id: 1,
     description: 'Construction Engineers',
