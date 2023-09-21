@@ -185,6 +185,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.assignment_cycles') ?
+        {
+          text: 'Assignment Cycles',
+          route: '/profile/administrator/assignmentcycles/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
