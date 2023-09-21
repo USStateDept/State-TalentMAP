@@ -127,13 +127,11 @@ export function jobCategoriesSaveNewCatSuccess(data) {
   };
 }
 export function jobCategoriesSaveNewCategory(data = {}) {
-  console.log('data: ', data);
   return (dispatch) => {
     batch(() => {
       dispatch(jobCategoriesSaveNewCatIsLoading(true));
       dispatch(jobCategoriesSaveNewCatHasErrored(false));
     });
-    // const q = convertQueryToString(query);
     const endpoint = '/fsbid/job_categories/save_new';
     api().post(endpoint, data)
       .then(() => {
@@ -145,7 +143,65 @@ export function jobCategoriesSaveNewCategory(data = {}) {
             ));
           dispatch(jobCategoriesSaveNewCatHasErrored(false));
           dispatch(jobCategoriesSaveNewCatIsLoading(false));
-          // dispatch(jobCategoriesAdminFetchData());
+        });
+      })
+      .catch((err) => {
+        if (err?.message === 'cancel') {
+          batch(() => {
+            dispatch(jobCategoriesSaveNewCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesSaveNewCatIsLoading(false));
+          });
+        } else {
+          batch(() => {
+            dispatch(jobCategoriesSaveNewCatHasErrored(true));
+            dispatch(toastError(
+              JOB_CATEGORIES_SAVE_NEW_ERROR, JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE,
+            ));
+            dispatch(jobCategoriesSaveNewCatIsLoading(false));
+          });
+        }
+      });
+  };
+}
+
+export function jobCategoriesSaveEditHasErrored(bool) {
+  return {
+    type: 'JOB_CATEGORIES_SAVE_EDIT_HAS_ERRORED',
+    hasErrored: bool,
+  };
+}
+export function jobCategoriesSaveEditIsLoading(bool) {
+  return {
+    type: 'JOB_CATEGORIES_SAVE_EDIT_IS_LOADING',
+    isLoading: bool,
+  };
+}
+export function jobCategoriesSaveEditSuccess(data) {
+  return {
+    type: 'JOB_CATEGORIES_SAVE_EDITT_SUCCESS',
+    data,
+  };
+}
+export function jobCategoriesSaveEdit(data = {}) {
+  return (dispatch) => {
+    batch(() => {
+      dispatch(jobCategoriesSaveNewCatIsLoading(true));
+      dispatch(jobCategoriesSaveNewCatHasErrored(false));
+    });
+    const endpoint = '/fsbid/job_categories/save_new';
+    api().post(endpoint, data)
+      .then(() => {
+        batch(() => {
+          dispatch(jobCategoriesSaveNewCatSuccess());
+          dispatch(
+            toastSuccess(
+              JOB_CATEGORIES_SAVE_NEW_SUCCESS, JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE,
+            ));
+          dispatch(jobCategoriesSaveNewCatHasErrored(false));
+          dispatch(jobCategoriesSaveNewCatIsLoading(false));
         });
       })
       .catch((err) => {

@@ -49,7 +49,7 @@ const CreateJobCategoryModal = (props) => {
   });
 
   return (
-    <div>
+    <div className="jc-modal-body">
       <div className="jc-modal-input">
         <input
           placeholder="Enter New Category Name"

@@ -96,6 +96,8 @@ const JobCategories = () => {
   const submitEdit = (() => {
     const inclusions = [];
     loadedSkillIds.forEach(() => inclusions.push('1'));
+    // TODO: finish gathering and sending fields to send in data object
+    // eslint-disable-next-line no-unused-vars
     const inputs = {
       inclusion_ind: inclusions,
       category_id: selectedJobCategory,
@@ -104,7 +106,6 @@ const JobCategories = () => {
       skill_codes: [...selectedSkillIds],
     };
     clearInputs();
-    console.log(inputs);
   });
 
   return (
@@ -112,11 +113,7 @@ const JobCategories = () => {
       <ProfileSectionTitle title="Job Categories" icon="map" />
       <div>
         <div className="modal-controls">
-          <button
-            onClick={() => newJobCategoryModal()}
-          >
-              Create New Job Category
-          </button>
+          <button onClick={() => newJobCategoryModal()}>Create New Job Category</button>
         </div>
         <div className="select-container">
           <label htmlFor="categories-select">Select A Job Category</label>
