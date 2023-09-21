@@ -3,17 +3,16 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
+import TextareaAutosize from 'react-textarea-autosize';
 import { getPostName, getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_UPDATE_DATE, NO_USER_LISTED,
+  NO_SKILL, NO_UPDATE_DATE,
 } from 'Constants/SystemMessages';
-import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import PropTypes from 'prop-types';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import LanguageList from '../../LanguageList/LanguageList';
 import { entryLevelEdit } from '../../../actions/entryLevel';
 
 const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
@@ -24,10 +23,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
 
-  const [el, setEl] = useState(getResult(pos, 'el') === 'true');
-  const [lna, setLna] = useState(getResult(pos, 'lna') === 'true');
-  const [fica, setFica] = useState(getResult(pos, 'fica') === 'true');
-  const [mc, setMc] = useState(getResult(pos, 'mc') === 'true');
+  const [description, setDescription] = useState(getResult(pos, 'description.description'));
   const [mcDate, setMcDate] = useState(getResult(pos, 'mc_date'));
 
   const [editMode, setEditMode] = useState(false);
@@ -41,10 +37,6 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     // re-reading from "pos" when we open Edit Form back up
     // clear will need to set states back to the pull
     // from "pos" once we've determined the ref data structure
-    setEl(getResult(pos, 'el') === 'true');
-    setLna(getResult(pos, 'lna') === 'true');
-    setFica(getResult(pos, 'fica') === 'true');
-    setMc(getResult(pos, 'mc') === 'true');
     setMcDate(getResult(pos, 'mc_date'));
   };
 
@@ -57,29 +49,15 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     /* eslint-disable no-dupe-keys */
     /* eslint-disable quote-props */
     subheading: [
-      { 'Position Number': getResult(pos, 'position_number') || NO_POSITION_NUMBER },
-      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
-      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+      { 'Cycle Name': getResult(pos, 'position_number') || NO_POSITION_NUMBER },
+      { 'Status': getResult(pos, 'skill_code') || NO_SKILL },
+      { 'Category': getResult(pos, 'title') || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Location': getPostName(get(pos, 'post') || NO_POST) },
-      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Job Category': 'None Listed' },
-      { '': <CheckBox id="el" label="EL" value={el} disabled /> },
-      { '': <CheckBox id="lna" label="LNA" value={lna} disabled /> },
-      { '': <CheckBox id="fica" label="FICA" value={fica} disabled /> },
-      { '': <CheckBox id="mc" label="MC" value={mc} disabled /> },
-      { 'MC Date': getResult(pos, 'mc_date') || '---' },
-    ],
-    bodySecondary: [
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
-      { 'O/D': getResult(pos, 'grade') || NO_GRADE },
-      { 'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
-      { 'Incumbent TED': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
-      { 'Assignee': getResult(pos, 'assignee') || NO_USER_LISTED },
-      { 'Assignee TED': getResult(pos, 'assignee') || NO_USER_LISTED },
+      { 'Audit Number': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Description': getPostName(get(pos, 'post') || NO_POST) },
+      { 'Posted': getResult(pos, 'bureau_code') || NO_ORG },
+      { 'Audit Date': getResult(pos, 'grade') || NO_GRADE },
     ],
     metadata: [
       { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
@@ -90,29 +68,26 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Location': getPostName(get(pos, 'post') || NO_POST) },
-      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Job Category': 'None Listed' },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
-      { 'O/D': getResult(pos, 'grade') || NO_GRADE },
-      { 'Incumbent': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
-      { 'Incumbent TED': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
-      { 'Assignee': getResult(pos, 'assignee') || NO_USER_LISTED },
-      { 'Assignee TED': getResult(pos, 'assignee') || NO_USER_LISTED },
+      { 'Audit Number': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Audit Date': getResult(pos, 'grade') || NO_GRADE },
     ],
     inputBody: (
       <div className="position-form">
-        <div className="checkbox-group">
-          <CheckBox id={`el-${id}`} label="EL" value={el} onChange={setEl} />
-          <CheckBox id={`lna-${id}`} label="LNA" value={lna} onChange={setLna} />
-          <CheckBox id={`fica-${id}`} label="FICA" value={fica} onChange={setFica} />
-          <CheckBox id={`mc-${id}`} label="MC" value={mc} onChange={setMc} />
+        <div className="position-form--label-input-container">
+          <label htmlFor="description">Audit Description</label>
+          <TextareaAutosize
+            maxRows={4}
+            minRows={4}
+            maxlength="4000"
+            name="description"
+            placeholder="Please provide a description of the bid season."
+            defaultValue={description || 'This is a test'}
+            onChange={(e) => setDescription(e.target.value)}
+          />
         </div>
         <div className="position-form--inputs">
           <div className="position-form--label-input-container">
-            <label htmlFor="status">MC End Date</label>
+            <label htmlFor="status">Posted By Date</label>
             <div className="date-wrapper-react larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
               <FA name="times" className={`${mcDate ? '' : 'hide'}`} onClick={() => setMcDate(null)} />
@@ -121,6 +96,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
                 selected={mcDate}
                 onChange={setMcDate}
                 dateFormat="MM/dd/yyyy"
+                placeholderText="MM/DD/YYYY"
                 ref={datePickerRef}
               />
             </div>
@@ -141,7 +117,31 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
   return (
     <TabbedCard
       tabs={[{
-        text: 'Position Overview',
+        text: 'Bid Audit',
+        value: 'OVERVIEW',
+        content: (
+          <div className="position-content--container">
+            <PositionExpandableContent
+              sections={sections}
+              form={form}
+            />
+          </div>
+        ),
+      },
+      {
+        text: 'At Grades',
+        value: 'OVERVIEW',
+        content: (
+          <div className="position-content--container">
+            <PositionExpandableContent
+              sections={sections}
+              form={form}
+            />
+          </div>
+        ),
+      },
+      {
+        text: 'In Categories',
         value: 'OVERVIEW',
         content: (
           <div className="position-content--container">

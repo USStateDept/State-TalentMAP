@@ -12,8 +12,7 @@ import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import api from '../../../api';
-import EntryLevelCard from './BidAuditCard';
-import CheckBox from '../../CheckBox/CheckBox';
+import BidAuditCard from './BidAuditCard';
 
 const ManageEntryLevel = () => {
   const dispatch = useDispatch();
@@ -47,12 +46,6 @@ const ManageEntryLevel = () => {
   const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
   const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
   const gradesOptions = uniqBy(get(grades, 'data'), 'code');
-  const skills = genericFilters$.find(f => get(f, 'item.description') === 'skill');
-  const skillsOptions = uniqBy(sortBy(get(skills, 'data'), [(s) => s.description]), 'code');
-  const jobs = genericFilters$.find(f => get(f, 'item.description') === 'bidCycle');
-  const jobsOptions = uniqBy(sortBy(get(jobs, 'data'), [(c) => c.description]), 'job');
-  const languages = genericFilters$.find(f => get(f, 'item.description') === 'language');
-  const languagesOptions = uniqBy(sortBy(get(languages, 'data'), [(c) => c.custom_description]), 'custom_description');
 
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
   const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
@@ -151,7 +144,7 @@ const ManageEntryLevel = () => {
     <Spinner type="bureau-filters" size="small" /> :
     <div className="position-search">
       <div className="usa-grid-full position-search--header">
-        <ProfileSectionTitle title="Manage Entry Level" icon="keyboard-o" className="xl-icon" />
+        <ProfileSectionTitle title="Bid Audit" icon="keyboard-o" className="xl-icon" />
         <div className="results-search-bar pt-20">
           <div className="filterby-container">
             <div className="filterby-label">Filter by:</div>
@@ -170,10 +163,10 @@ const ManageEntryLevel = () => {
           </div>
           <div className="usa-width-one-whole position-search--filters--el results-dropdown">
             <div className="filter-div">
-              <div className="label">TP:</div>
+              <div className="label">Assignment Cycle:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select TP(s)"
+                placeholder="Select Assignment Cycle(s)"
                 value={selectedTps}
                 options={tpsOptions}
                 onChange={setSelectedTps}
@@ -183,10 +176,10 @@ const ManageEntryLevel = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Bureau:</div>
+              <div className="label">Audit Number:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Bureau(s)"
+                placeholder="Enter Audit Number"
                 value={selectedBureaus}
                 options={bureausOptions}
                 onChange={setSelectedBureaus}
@@ -196,10 +189,10 @@ const ManageEntryLevel = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Organization:</div>
+              <div className="label">Audit Description:</div>
               <Picky
                 {...pickyProps}
-                placeholder="Select Organization(s)"
+                placeholder="Enter Audit Description"
                 value={selectedOrgs}
                 options={organizationOptions}
                 onChange={setSelectedOrgs}
@@ -209,7 +202,7 @@ const ManageEntryLevel = () => {
               />
             </div>
             <div className="filter-div">
-              <div className="label">Grade:</div>
+              <div className="label">Posted By Date:</div>
               <Picky
                 {...pickyProps}
                 placeholder="Select Grade(s)"
@@ -218,63 +211,6 @@ const ManageEntryLevel = () => {
                 onChange={setSelectedGrades}
                 valueKey="code"
                 labelKey="custom_description"
-                disabled={disableInput}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Skills:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Skill(s)"
-                value={selectedSkills}
-                options={skillsOptions}
-                onChange={setSelectedSkills}
-                valueKey="code"
-                labelKey="custom_description"
-                disabled={disableInput}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Job Categories:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Categories(s)"
-                value={selectedJobs}
-                options={jobsOptions}
-                onChange={setSelectedJobs}
-                valueKey="code"
-                labelKey="custom_description"
-                disabled={disableInput}
-              />
-            </div>
-            <div className="filter-div">
-              <div className="label">Language:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Language(s)"
-                value={selectedLanguages}
-                options={languagesOptions}
-                onChange={setSelectedLanguages}
-                valueKey="code"
-                labelKey="custom_description"
-                disabled={disableInput}
-              />
-            </div>
-            <div className="filter-div">
-              <CheckBox
-                id="overseas"
-                label="Overseas"
-                value={overseas}
-                onChange={setOverseas}
-                disabled={disableInput}
-              />
-            </div>
-            <div className="filter-div">
-              <CheckBox
-                id="domestic"
-                label="Domestic"
-                value={domestic}
-                onChange={setDomestic}
                 disabled={disableInput}
               />
             </div>
@@ -295,7 +231,7 @@ const ManageEntryLevel = () => {
       <div className="usa-width-one-whole position-search--results">
         <div className="usa-grid-full position-list">
           {dummyIds.map(k => (
-            <EntryLevelCard
+            <BidAuditCard
               id={k}
               key={k}
               result={dummyPositionDetails}

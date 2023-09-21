@@ -10,7 +10,7 @@ import UserRoles from './UserRoles';
 import FeatureFlags from './FeatureFlags';
 import PanelAdmin from './PanelAdmin';
 import ManageBidSeasons from './ManageBidSeasons/ManageBidSeasons';
-import BidAudit from './bidAudit/BidAudit';
+import BidAudit from './BidAudit/BidAudit';
 import ManageEntryLevel from './ManageEntryLevel/ManageEntryLevel';
 import JobCategories from './JobCategories/JobCategories';
 import OrgStats from './OrgStats/OrgStats';
