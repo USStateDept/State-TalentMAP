@@ -11,6 +11,12 @@
       max-height: 50px;
       font-size: 17px;
     }
+    .disabled-bg {
+      display: inline-block;
+      max-width: 300px;
+      max-height: 50px;
+      font-size: 17px;
+    }
   }
   .custom-table {
     .checkbox-pos {
@@ -21,6 +27,32 @@
     }
     .skill-desc-column {
       width: 500px;
+    }
+  }
+
+  .jc-toggle-container {
+    margin-top: 25px;
+  }
+}
+
+.create-jc-modal {
+  width: 750px;
+
+  .jc-modal-input {
+    background-color: red;
+  }
+  .custom-table {
+    .checkbox-pos {
+      width: 75px;
+    }
+    .skill-code-column {
+      width: 200px;
+    }
+    .skill-desc-column {
+      width: 500px;
+    }
+    td {
+      text-align: left;
     }
   }
 

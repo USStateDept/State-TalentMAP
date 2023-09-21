@@ -262,3 +262,10 @@ export const UPDATE_ENTRY_LEVEL_SUCCESS_TITLE = 'Entry Level Position Saved';
 export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been successfully saved.';
 export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
 export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
+
+export const JOB_CATEGORIES_EDIT_SUCCESS_TITLE = 'Job Category Edit Successfully Saved';
+export const JOB_CATEGORIES_EDIT_ERROR_TITLE = 'There was an issue attempting to save your edits to this Job Category. Please try again.';
+export const JOB_CATEGORIES_SAVE_NEW_SUCCESS_TITLE = 'New Job Category Successfully Saved';
+export const JOB_CATEGORIES_SAVE_NEW_SUCCESS = 'New Job Category has been added';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR_TITLE = 'New Job Category Error';
+export const JOB_CATEGORIES_SAVE_NEW_ERROR = 'There was an issue attempting to save your new Job Category. Please try again.';

@@ -1,10 +1,15 @@
 import { withRouter } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import swal from '@sweetalert/with-react';
 import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns-v2';
 import { jobCategoriesAdminFetchData, jobCategoriesFetchSkills } from 'actions/jobCategories';
 import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
+import CreateJobCategoryModal from './CreateJobCategoryModal';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
+
+const DATE_FORMAT = 'yyyyMMddkkmmss';
 
 const JobCategories = () => {
   const dispatch = useDispatch();
@@ -16,7 +21,9 @@ const JobCategories = () => {
   const jobCategorySkillsResults = jobCategorySkills?.data;
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
-  const [checkedSkillIds, setCheckedSkillIds] = useState([]);
+  const [loadedSkillIds, setLoadedSkillIds] = useState([]);
+  const [selectedSkillIds, setSelectedSkillIds] = useState([]);
+
   const [isEditMode, setIsEditMode] = useState(false);
   const [selectAll, setSelectAll] = useState(false);
 
@@ -26,32 +33,78 @@ const JobCategories = () => {
 
   useEffect(() => {
     dispatch(jobCategoriesAdminFetchData());
+    // The EP is not able to return a list of all skills; they can only be loaded
+    // when supplied with a job category ID. Call below is a hack to just load in
+    // all skills
+    dispatch(jobCategoriesFetchSkills({ category_id: '1' }));
   }, []);
 
   useEffect(() => {
-    dispatch(jobCategoriesFetchSkills(getQuery()));
-    setCheckedSkillIds([]);
+    if (selectedJobCategory !== '') {
+      dispatch(jobCategoriesFetchSkills(getQuery()));
+    }
+    if (jobCategorySkillsResults) {
+      jobCategorySkillsResults.forEach(skill => {
+        if (skill.display_skill === '1') {
+          setLoadedSkillIds([...loadedSkillIds, skill.id]);
+        }
+      });
+    }
+    setSelectedSkillIds([]);
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {
     if (!selectAll) {
       setSelectAll(true);
-      setCheckedSkillIds(
+      setSelectedSkillIds(
         jobCategorySkillsResults?.map(skill => skill.code),
       );
     } else {
       setSelectAll(false);
-      setCheckedSkillIds([]);
+      setSelectedSkillIds([]);
     }
   };
 
   const handleSelectSkill = (skill => {
-    if (checkedSkillIds.includes(skill.code)) {
-      const filteredSkills = checkedSkillIds.filter(x => x !== skill.code);
-      setCheckedSkillIds(filteredSkills);
+    if (selectedSkillIds.includes(skill.code)) {
+      const filteredSkills = selectedSkillIds.filter(x => x !== skill.code);
+      setSelectedSkillIds(filteredSkills);
     } else {
-      setCheckedSkillIds([...checkedSkillIds, skill.code]);
+      setSelectedSkillIds([...selectedSkillIds, skill.code]);
     }
+  });
+
+  const clearInputs = (() => {
+    setSelectedSkillIds([]);
+    setSelectAll(false);
+    setIsEditMode(false);
+  });
+
+  const newJobCategoryModal = () => {
+    setIsEditMode(false);
+    const skillList = [...jobCategorySkillsResults];
+    swal({
+      title: 'Create New Job Category',
+      button: false,
+      className: 'create-jc-modal',
+      content: (
+        <CreateJobCategoryModal refSkills={skillList} dispatch={dispatch} />
+      ),
+    });
+  };
+
+  const submitEdit = (() => {
+    const inclusions = [];
+    loadedSkillIds.forEach(() => inclusions.push('1'));
+    const inputs = {
+      inclusion_ind: inclusions,
+      category_id: selectedJobCategory,
+      category_name: jobCategoriesResults.find((cat) => cat.id === '17')?.description,
+      update_date: format(new Date(), DATE_FORMAT),
+      skill_codes: [...selectedSkillIds],
+    };
+    clearInputs();
+    console.log(inputs);
   });
 
   return (
@@ -59,16 +112,20 @@ const JobCategories = () => {
       <ProfileSectionTitle title="Job Categories" icon="map" />
       <div>
         <div className="modal-controls">
-          <button>Create New Job Category</button>
-          {/* <button onClick={setIsEditMode(!isEditMode)}>Toggle Edit Mode</button> */}
+          <button
+            onClick={() => newJobCategoryModal()}
+          >
+              Create New Job Category
+          </button>
         </div>
         <div className="select-container">
           <label htmlFor="categories-select">Select A Job Category</label>
           <select
-            className="select-dropdown"
+            className={`${isEditMode ? 'disabled-bg' : 'select-dropdown'}`}
             onChange={(e) => setSelectedJobCategory(e.target.value)}
+            disabled={isEditMode}
           >
-            <option>--Please Select a Job Category--</option>
+            <option value="">--Please Select a Job Category--</option>
             {
               jobCategoriesResults?.map(category => (
                 <option value={category.id}>
@@ -114,7 +171,10 @@ const JobCategories = () => {
                   <td className="checkbox-pac checkbox-pos">
                     <CheckBox
                       className="tm-checkbox-transparent"
-                      value={checkedSkillIds.includes(skill.code) || skill.display_skill === '1'}
+                      value={
+                        selectedJobCategory !== '' ?
+                          selectedSkillIds.includes(skill.code) || skill.display_skill === '1' : false
+                      }
                       onCheckBoxClick={() => handleSelectSkill(skill)}
                       disabled={!isEditMode}
                     />
@@ -128,12 +188,13 @@ const JobCategories = () => {
         </table>
         <div className="modal-controls">
           <button
-            // onClick={handleSubmit}
+            onClick={() => submitEdit()}
             disabled={!isEditMode}
           >
               Submit
           </button>
           <button
+            onClick={clearInputs}
             disabled={!isEditMode}
             className="usa-button-secondary saved-search-form-secondary-button"
           >
