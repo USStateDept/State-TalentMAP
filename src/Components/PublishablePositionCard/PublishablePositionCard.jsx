@@ -67,6 +67,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
     // re-reading from "pos" when we open Edit Form back up
     // clear will need to set states back to the pull
     // from "pos" once we've determined the ref data structure
+    setTextArea(data?.positionDetails);
     setEditMode(false);
   };
   const form = {
