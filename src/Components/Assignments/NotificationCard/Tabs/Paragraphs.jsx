@@ -40,7 +40,7 @@ const Paragraphs = () => {
                 name="exclusivePosition"
                 value={value}
                 checked={value}
-                onChange={() => console.log((e) => !e)}
+                onChange={() => {}}
               />
               <span>{o.title}</span>
             </div>

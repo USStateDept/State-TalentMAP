@@ -158,11 +158,22 @@ const Assignments = (props) => {
               </span>
             </Link>
           </span>
-          <div className="create-new-button">
-            <a role="button" tabIndex={0} onClick={() => setNewAsgSep(true)}>
-              <FA name="briefcase" />
-                  Add New Assignment/Separation
-            </a>
+        </div>
+        <div className="pt-20 asg-subheader">
+          Review the current assignments or add assignments for {employeeName}
+          <div>
+            <div className="create-new-button">
+              <a role="button" className="width-300" tabIndex={0} onClick={() => setNewAsgSep(true)}>
+                <FA name="briefcase" />
+                Add New Assignment/Separation
+              </a>
+            </div>
+            <div className="create-new-button align-left">
+              <a role="button" className="width-300" tabIndex={0} onClick={() => {}}>
+                <FA name="briefcase" />
+                Add Memo
+              </a>
+            </div>
           </div>
         </div>
         <div className="asg-lower-section">

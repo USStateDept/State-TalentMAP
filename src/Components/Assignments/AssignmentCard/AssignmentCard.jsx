@@ -1,7 +1,10 @@
+/* eslint-disable */
 import { useRef, useState } from 'react';
 // import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import dateFns from 'date-fns';
 import { getDifferentials, getPostName, getResult } from 'utilities';
+import ToggleButton from 'Components/ToggleButton';
 // import { createAssignment, editAssignment } from 'actions/assignmentMaintenance';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
@@ -15,6 +18,7 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
+import datefns from "date-fns";
 
 const useDeto = () => checkFlag('flags.deto');
 
@@ -33,7 +37,6 @@ const AssignmentCard = (props) => {
     datePickerRef.current.setOpen(true);
   };
 
-
   // =============== View Mode ===============
 
   const sections = {
@@ -48,13 +51,17 @@ const AssignmentCard = (props) => {
       { 'Org/Code': getResult(altPos, 'posorgshortdesc') || NO_ORG },
       { 'Location': getPostName(pos?.post) || NO_POST },
       { 'ETA': getResult(data, 'start_date') || NO_TOUR_END_DATE },
+      { 'Panel Meeting Date': <a href='tbd' rel="PMD" target="_blank">{dateFns.format(datefns.subYears(data?.start_date, 2), 'MM/DD/YYYY')}</a>},
+      { 'DIP': '----'},
+      { 'Memo Sent': dateFns.format(datefns.subMonths(data?.start_date, 22), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
+      { 'Note Sent': dateFns.format(datefns.subMonths(data?.start_date, 18), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
       { 'TED': getResult(data, 'end_date') || NO_TOUR_END_DATE },
     ],
     bodySecondary: [
       { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
       { 'Skill': getResult(pos, 'skill') || NO_SKILL },
       { 'Grade': getResult(pos, 'grade') || NO_GRADE },
-      { 'Pay Plan': '---' },
+      { 'Pay Plan': 'FP' },
       { 'Post Differential | Danger Pay': getDifferentials(pos) },
       { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
       { '': <CheckBox id="deto" label="DETO" value disabled /> },
@@ -69,6 +76,7 @@ const AssignmentCard = (props) => {
   // =============== Edit Mode ===============
   const { statusOptions, actionOptions, todOptions, travelOptions,
     fundingOptions, waiverOptions } = refFilters;
+  const [included, setIncluded] = useState(false);
   const [status, setStatus] = useState(statusOptions[0]);
   const [action, setAction] = useState(actionOptions[0]);
   const [ted, setTED] = useState();
@@ -320,7 +328,22 @@ const AssignmentCard = (props) => {
       tabs={[{
         text: isNew ? 'New Assignment' : 'Assignment Overview',
         value: 'INFORMATION',
-        content: <PositionExpandableContent sections={sections} form={form} />,
+        content: (
+          <div className="position-content--container">
+            <PositionExpandableContent
+              sections={sections}
+              form={form}
+            />
+            <div className="toggle-include">
+              <ToggleButton
+                labelTextRight={!included ? 'Excluded' : 'Included'}
+                checked={included}
+                onChange={() => setIncluded(!included)}
+                onColor="#0071BC"
+              />
+            </div>
+          </div>
+        ),
       }]}
     />
   );
