@@ -1,22 +1,47 @@
-export function publishablePositionsHasErrored(state = false, action) {
+export function publishablePositionsErrored(state = false, action) {
   switch (action.type) {
-    case 'PUBLISHABLE_POSITIONS_HAS_ERRORED':
+    case 'PUBLISHABLE_POSITIONS_FETCH_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function publishablePositionsIsLoading(state = false, action) {
+export function publishablePositionsLoading(state = false, action) {
   switch (action.type) {
-    case 'PUBLISHABLE_POSITIONS_IS_LOADING':
+    case 'PUBLISHABLE_POSITIONS_FETCH_IS_LOADING':
       return action.isLoading;
     default:
       return state;
   }
 }
-export function publishablePositions(state = [], action) {
+export function publishablePositions(state = {}, action) {
   switch (action.type) {
-    case 'PUBLISHABLE_POSITIONS_SUCCESS':
+    case 'PUBLISHABLE_POSITIONS_FETCH_SUCCESS':
+      return action.results;
+    default:
+      return state;
+  }
+}
+
+export function publishablePositionsEditErrored(state = false, action) {
+  switch (action.type) {
+    case 'PUBLISHABLE_POSITIONS_EDIT_HAS_ERRORED':
+      return action.hasErrored;
+    default:
+      return state;
+  }
+}
+export function publishablePositionsEditLoading(state = false, action) {
+  switch (action.type) {
+    case 'PUBLISHABLE_POSITIONS_EDIT_IS_LOADING':
+      return action.isLoading;
+    default:
+      return state;
+  }
+}
+export function publishablePositionsEdit(state = {}, action) {
+  switch (action.type) {
+    case 'PUBLISHABLE_POSITIONS_EDIT_SUCCESS':
       return action.results;
     default:
       return state;
@@ -32,17 +57,17 @@ export function publishablePositionsSelections(state = {}, action) {
   }
 }
 
-export function publishablePositionsFiltersHasErrored(state = false, action) {
+export function publishablePositionsFiltersErrored(state = false, action) {
   switch (action.type) {
-    case 'PUBLISHABLE_POSITIONS_FILTERS_HAS_ERRORED':
+    case 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_HAS_ERRORED':
       return action.hasErrored;
     default:
       return state;
   }
 }
-export function publishablePositionsFiltersIsLoading(state = false, action) {
+export function publishablePositionsFiltersLoading(state = false, action) {
   switch (action.type) {
-    case 'PUBLISHABLE_POSITIONS_FILTERS_IS_LOADING':
+    case 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_IS_LOADING':
       return action.isLoading;
     default:
       return state;
@@ -50,7 +75,7 @@ export function publishablePositionsFiltersIsLoading(state = false, action) {
 }
 export function publishablePositionsFilters(state = {}, action) {
   switch (action.type) {
-    case 'PUBLISHABLE_POSITIONS_FILTERS_SUCCESS':
+    case 'PUBLISHABLE_POSITIONS_FILTERS_FETCH_SUCCESS':
       return action.results;
     default:
       return state;
