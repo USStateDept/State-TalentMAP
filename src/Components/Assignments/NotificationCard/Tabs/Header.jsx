@@ -86,7 +86,7 @@ const Header = () => {
             />
           </div>
         </div>
-        <Row fluid className="position-content--description mt-20">
+        <Row fluid className="mt-20">
           <span className="definition-title">Subject</span>
           <Linkify properties={{ target: '_blank' }}>
             <TextareaAutosize

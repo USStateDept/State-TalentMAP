@@ -340,6 +340,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'address-book',
         roles: [
           'ao_user',
+          'superuser',
         ],
         params: {
           type: 'all',
@@ -412,6 +413,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         icon: 'address-book',
         roles: [
           'cdo',
+          'superuser',
         ],
         params: {
           type: 'all',
