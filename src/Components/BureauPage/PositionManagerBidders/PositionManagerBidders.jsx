@@ -145,6 +145,7 @@ class PositionManagerBidders extends Component {
       isMouseDown: false,
       mouseDownEmp: '',
     };
+    console.log('unranked: ', this.state.unranked);
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
