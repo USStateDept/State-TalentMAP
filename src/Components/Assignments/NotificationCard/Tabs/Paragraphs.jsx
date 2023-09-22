@@ -36,7 +36,7 @@ const Paragraphs = () => {
           <div className="chosen-paragraph">
             <div>
               <CheckBox
-                id="exclusivePosition"
+                id={`ep-checkbox-${o.id}`}
                 name="exclusivePosition"
                 value={value}
                 checked={value}
