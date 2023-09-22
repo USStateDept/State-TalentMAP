@@ -26,30 +26,36 @@ const chosenParagraphs = [{
 
 const Paragraphs = () => {
   const [previewText, setPreviewText] = useState('');
-  // Because we don't know how many paragraphs will be coming in to this page,
-  // these two arrays track what text was entered into which dynamically
-  // generated text box in the format of
-  // {id: '', open: bool} for tracking which expand icons were clicked
-  // {paragraph_type: '', input: ''} for tracking text inputs for each paragraph type
-  // This makes it easier to track all input data and package it for BE
-  const [expandedRef, setExpandedRef] = useState([]);
-  const [paragraphInputs, setParagraphInputs] = useState([]);
   const value = '';
 
+  // Instead of making a ton of variables for tracking the various input data for all
+  // paragraphs, I made a data object array that tracks all the important information
+  // we need to both render the UI and to submit input data to the BE. To access the
+  // data for any given paragraph, just do a simple .find
+
+  const [paragraphDataObjects, setParagraphDataObjects] = useState([]);
+
   useEffect(() => {
-    setExpandedRef(chosenParagraphs.map((p) => ({ id: p.id, open: false })));
-    setParagraphInputs(chosenParagraphs.map((p) => ({ paragraph_type: p.title, input: '' })));
+    setParagraphDataObjects(chosenParagraphs.map((p) => (
+      { id: p.id, paragraph_title: p.title, input: '', checked: false, open: false }
+    )));
   }, []);
 
+  const handleCheck = id => {
+    setParagraphDataObjects(paragraphDataObjects.map((item) => (
+      item.id === id ? { ...item, checked: !item.checked } : item
+    )));
+  };
+
   const handleExpand = id => {
-    setExpandedRef(expandedRef.map((item) => (
+    setParagraphDataObjects(paragraphDataObjects.map((item) => (
       item.id === id ? { ...item, open: !item.open } : item
     )));
   };
 
-  const handleTextInput = (e, title) => {
-    setParagraphInputs(paragraphInputs.map((item) => (
-      item.paragraph_type === title ? { ...item, input: e.target.value } : item
+  const handleTextInput = (e, id) => {
+    setParagraphDataObjects(paragraphDataObjects.map((item) => (
+      item.id === id ? { ...item, input: e.target.value } : item
     )));
   };
 
@@ -67,17 +73,17 @@ const Paragraphs = () => {
                   name="exclusivePosition"
                   value={value}
                   checked={value}
-                  onChange={() => console.log((e) => !e)}
+                  onChange={() => handleCheck(o.id)}
                 />
                 <span>{o.title}</span>
               </div>
               <div>
                 <InteractiveElement className="toggle-more" onClick={() => handleExpand(o.id)}>
-                  <FA id={o.id} name={`chevron-${expandedRef?.find(item => item.id === o.id)?.open ? 'up' : 'down'}`} />
+                  <FA id={o.id} name={`chevron-${paragraphDataObjects?.find(item => item.id === o.id)?.open ? 'up' : 'down'}`} />
                 </InteractiveElement>
               </div>
             </div>
-            {expandedRef?.find(item => item.id === o.id)?.open &&
+            {paragraphDataObjects?.find(item => item.id === o.id)?.open &&
               <div>
                 <TextareaAutosize
                   maxRows={4}
@@ -85,8 +91,8 @@ const Paragraphs = () => {
                   maxlength="500"
                   name={`${o.title}-input`}
                   placeholder="No Description"
-                  value={paragraphInputs?.find(item => item.paragraph_type === o.title)?.input}
-                  onChange={(e) => handleTextInput(e, o.title)}
+                  value={paragraphDataObjects?.find(item => item.id === o.id)?.input}
+                  onChange={(e) => handleTextInput(e, o.id)}
                   className="enabled-input"
                 />
               </div>
