@@ -135,6 +135,7 @@ exports[`BidderPortfolioStatCard matches snapshot 1`] = `
         },
       }
     }
+    viewType=""
   />
 </ContextProvider>
 `;

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import { BIDDER_OBJECT, CLASSIFICATIONS } from 'Constants/PropTypes';
 import { NO_GRADE, NO_LANGUAGE, NO_POST, NO_TOUR_END_DATE } from 'Constants/SystemMessages';
-import { formatDate } from 'utilities';
+import { formatDate, getBidderPortfolioUrl } from 'utilities';
 import TextareaAutosize from 'react-textarea-autosize';
 import { saveBidderPortfolioSelections } from 'actions/bidderPortfolio';
 import ToggleButton from 'Components/ToggleButton';
@@ -19,7 +19,7 @@ import ClientBadgeList from '../ClientBadgeList';
 import SearchAsClientButton from '../SearchAsClientButton';
 import AddToInternalListButton from '../AddToInternalListButton';
 
-const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => {
+const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications, viewType }) => {
   const dispatch = useDispatch();
   const currentAssignmentText = get(userProfile, 'pos_location');
   const clientClassifications = get(userProfile, 'classifications');
@@ -137,7 +137,7 @@ const BidderPortfolioStatCard = ({ userProfile, showEdit, classifications }) => 
           }
         </div>
         <div className="stat-card-data-point bidder-compact-card-head">
-          <Link to={`/profile/public/${perdet}`}>{bidder}</Link>
+          <Link to={getBidderPortfolioUrl(perdet, viewType)}>{bidder}</Link>
           { showMore && showEdit &&
             <Link to="#" onClick={(e) => editClient(e)}>
               <FA name="pencil" />
@@ -251,11 +251,13 @@ BidderPortfolioStatCard.propTypes = {
   userProfile: BIDDER_OBJECT.isRequired,
   showEdit: PropTypes.bool,
   classifications: CLASSIFICATIONS,
+  viewType: PropTypes.string,
 };
 
 BidderPortfolioStatCard.defaultProps = {
   showEdit: false,
   classifications: [],
+  viewType: '',
 };
 
 export default BidderPortfolioStatCard;
