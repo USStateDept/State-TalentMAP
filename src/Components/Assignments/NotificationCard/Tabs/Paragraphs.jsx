@@ -64,7 +64,7 @@ const Paragraphs = () => {
       <InputActions />
       <div className="mb-20">
         <span className="section-title">Chosen Paragraphs</span>
-        {chosenParagraphs.map(o => (
+        {paragraphDataObjects.map(o => (
           <div>
             <div className="chosen-paragraph">
               <div>
@@ -75,7 +75,7 @@ const Paragraphs = () => {
                   checked={value}
                   onChange={() => handleCheck(o.id)}
                 />
-                <span>{o.title}</span>
+                <span>{o.paragraph_title}</span>
               </div>
               <div>
                 <InteractiveElement className="toggle-more" onClick={() => handleExpand(o.id)}>
