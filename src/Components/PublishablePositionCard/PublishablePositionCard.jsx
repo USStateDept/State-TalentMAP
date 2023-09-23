@@ -3,27 +3,24 @@ import Linkify from 'react-linkify';
 import TextareaAutosize from 'react-textarea-autosize';
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
-import { sortBy, uniqBy } from 'lodash';
-import { getDifferentials, getResult, renderSelectionList } from 'utilities';
 import { BID_CYCLES, EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
-import { DEFAULT_TEXT, NO_BUREAU, NO_POSITION_NUMBER, NO_UPDATE_DATE } from 'Constants/SystemMessages';
+import { formatDateFromStr, renderSelectionList } from 'utilities';
+import { DEFAULT_TEXT } from 'Constants/SystemMessages';
 import { Row } from 'Components/Layout';
 import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
-import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 
 
-const PublishablePositionCard = (
-  { data, onEditModeSearch, onSubmit, disableEdit, filters },
-) => {
-  const pos = data?.position || data;
+const hardcodedFilters = {
+  statusFilters: [{ code: 1, description: '' }, { code: 2, description: 'Publishable' }, { code: 3, description: 'Vet' }],
+  cycleFilters: [{ code: 1, description: '2010 Winter' }, { code: 2, description: '2007 Fall' }, { code: 3, description: '2009 Spring' }],
+  todFilters: [{ code: 1, description: '' }, { code: 2, description: 'OTHER' }, { code: 3, description: 'INDEFINITE' }],
+  functionalBureauFilters: [{ code: 1, description: '' }, { code: 2, description: 'bureau' }, { code: 3, description: 'bureau' }],
+};
 
-  const updateUser = getResult(pos, 'description.last_editing_user');
-  const updateDate = getResult(pos, 'description.date_updated');
-  const positionNumber = getResult(pos, 'position_number') || NO_POSITION_NUMBER;
-  const bureau = getResult(pos, 'bureau_short_desc') || NO_BUREAU;
 
+const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit }) => {
   // =============== Overview: View Mode ===============
 
   const sections = {
@@ -38,22 +35,20 @@ const PublishablePositionCard = (
       { 'Organization': data?.org || DEFAULT_TEXT },
       { 'Grade': data?.grade || DEFAULT_TEXT },
       { 'Status': data?.status || DEFAULT_TEXT },
+      { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
     ],
     bodySecondary: [
       { 'Bid Cycle': data?.status || DEFAULT_TEXT },
       { 'TED': data?.status || DEFAULT_TEXT },
       { 'Incumbent': data?.status || DEFAULT_TEXT },
       { 'Tour of Duty': data?.status || DEFAULT_TEXT },
-      { 'Pay Plan': '---' },
-      { 'Functional Bureau': 'None Listed' },
       { 'Assignee': data?.status || DEFAULT_TEXT },
-      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+      { 'Post Differential | Danger Pay': data?.status || DEFAULT_TEXT },
     ],
     textarea: data?.positionDetails || 'No description.',
     metadata: [
-      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+      { 'Last Updated': formatDateFromStr(data?.lastUpdated) },
     ],
     /* eslint-enable quote-props */
   };
@@ -70,29 +65,18 @@ const PublishablePositionCard = (
     renderList: renderSelectionList,
     className: 'width-280',
   };
-
   const [status, setStatus] = useState({});
   const [exclude, setExclude] = useState(true);
   const [selectedCycles, setSelectedCycles] = useState([]);
-  const [textArea, setTextArea] = useState(pos?.description?.content || 'No description.');
   const [selectedFuncBureau, setSelectedFuncBureau] = useState('');
   const [overrideTOD, setOverrideTOD] = useState('');
 
 
-  // TODO: will likely change during integration
-  const filters$ = filters?.filters;
-  const tods = filters$?.todFilters;
-  const functionalBureaus = filters$.functionalBureauFilters;
-  const statuses = filters$?.statusFilters;
-  const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
-  const cycles = filters?.filters?.cycleFilters;
-  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.description]), 'code');
-
-
+  const [textArea, setTextArea] = useState(data?.positionDetails || 'No description.');
   const [editMode, setEditMode] = useState(false);
+
   useEffect(() => {
-    // TODO: during integration, replace 7 with unique card identifier
-    onEditModeSearch(editMode, 7);
+    onEditModeSearch(editMode);
   }, [editMode]);
 
   const onSubmitForm = () => {
@@ -109,7 +93,7 @@ const PublishablePositionCard = (
     setStatus({});
     setExclude(true);
     setSelectedCycles([]);
-    setTextArea(pos?.description?.content || 'No description.');
+    setTextArea(data?.positionDetails || 'No description.');
     setSelectedFuncBureau('');
     setOverrideTOD('');
   };
@@ -121,8 +105,8 @@ const PublishablePositionCard = (
       { 'Organization': data?.org || DEFAULT_TEXT },
       { 'Grade': data?.grade || DEFAULT_TEXT },
       { 'Status': data?.status || DEFAULT_TEXT },
+      { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
-      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
     ],
     inputBody: (
       <div className="position-form">
@@ -135,7 +119,7 @@ const PublishablePositionCard = (
                 defaultValue={status}
                 onChange={(e) => setStatus(e?.target.value)}
               >
-                {statusOptions.map(s => (
+                {hardcodedFilters.statusFilters.map(s => (
                   <option value={s.code}>
                     {s.description}
                   </option>
@@ -149,7 +133,7 @@ const PublishablePositionCard = (
                 defaultValue={overrideTOD}
                 onChange={(e) => setOverrideTOD(e?.target.value)}
               >
-                {tods.map(t => (
+                {hardcodedFilters.todFilters.map(t => (
                   <option value={t.code}>
                     {t.description}
                   </option>
@@ -171,7 +155,7 @@ const PublishablePositionCard = (
               <TextareaAutosize
                 maxRows={6}
                 minRows={6}
-                maxlength="4000"
+                maxlength="2000"
                 name="position-description"
                 placeholder="No Description"
                 defaultValue={textArea}
@@ -180,7 +164,7 @@ const PublishablePositionCard = (
               />
             </Linkify>
             <div className="word-count">
-              {textArea.length} / 4,000
+              {textArea.length} / 2,000
             </div>
           </Row>
         </div>
@@ -197,7 +181,7 @@ const PublishablePositionCard = (
           {...pickyProps}
           placeholder="Choose Bid Cycle(s)"
           value={selectedCycles}
-          options={cycleOptions}
+          options={hardcodedFilters.cycleFilters}
           onChange={setSelectedCycles}
           valueKey="code"
           labelKey="description"
@@ -215,7 +199,7 @@ const PublishablePositionCard = (
               defaultValue={selectedFuncBureau}
               onChange={(e) => setSelectedFuncBureau(e?.target.value)}
             >
-              {functionalBureaus.map(b => (
+              {hardcodedFilters.functionalBureauFilters.map(b => (
                 <option value={b.code}>
                   {b.description}
                 </option>
@@ -263,7 +247,8 @@ const PublishablePositionCard = (
       <div className="line-separated-fields">
         <div>
           <span>Position:</span>
-          <span>{bureau} {positionNumber}</span>
+          {/* <span>{bureau} {positionNumber}</span> */}
+          <span>{'AF'} {'12345'}</span>
         </div>
       </div>
       <div className="table-container">

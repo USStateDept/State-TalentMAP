@@ -18,6 +18,8 @@ import PositionManagerSearch from 'Components/BureauPage/PositionManager/Positio
 import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
 
+// may need to be used for permissioning
+// eslint-disable-next-line no-unused-vars
 const PublishablePositions = ({ viewType }) => {
   const dispatch = useDispatch();
   const searchPosNumRef = useRef();
@@ -35,7 +37,7 @@ const PublishablePositions = ({ viewType }) => {
   const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatuses || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
   const [selectedBidCycles, setSelectedBidCycles] =
     useState(userSelections?.selectedBidCycles || []);
@@ -43,17 +45,17 @@ const PublishablePositions = ({ viewType }) => {
   const [clearFilters, setClearFilters] = useState(false);
   const [editMode, setEditMode] = useState(false);
 
-  const statuses = filters?.filters?.statusFilters;
-  const bureaus = filters?.filters?.bureauFilters;
-  const orgs = filters?.filters?.orgFilters;
-  const grades = filters?.filters?.gradeFilters;
-  const skills = filters?.filters?.skillsFilters;
-  const cycles = filters?.filters?.cycleFilters;
+  const statuses = filters?.statusFilters;
+  const bureaus = filters?.bureauFilters;
+  const orgs = filters?.orgFilters;
+  const grades = filters?.gradeFilters;
+  const skills = filters?.skillsFilters;
+  const cycles = filters?.cycleFilters;
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
-  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'code');
+  const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
   const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
-  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.description]), 'code');
+  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
   const gradeOptions = uniqBy(grades, 'code');
 
   const getQuery = () => ({
@@ -255,7 +257,7 @@ const PublishablePositions = ({ viewType }) => {
                 value={selectedBureaus}
                 options={bureauOptions}
                 onChange={setSelectedBureaus}
-                valueKey="code"
+                valueKey="description"
                 labelKey="description"
                 disabled={editMode}
               />

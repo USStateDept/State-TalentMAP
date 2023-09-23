@@ -1,25 +1,20 @@
+/* eslint-disable sort-imports */
 import {
+  publishablePositionsHasErrored,
+  publishablePositionsIsLoading,
   publishablePositions,
-  publishablePositionsEdit,
-  publishablePositionsEditErrored,
-  publishablePositionsEditLoading,
-  publishablePositionsErrored,
-  publishablePositionsFilters,
-  publishablePositionsFiltersErrored,
-  publishablePositionsFiltersLoading,
-  publishablePositionsLoading,
   publishablePositionsSelections,
+  publishablePositionsFiltersHasErrored,
+  publishablePositionsFiltersIsLoading,
+  publishablePositionsFilters,
 } from './publishablePositions';
 
 export default {
-  publishablePositionsEdit,
+  publishablePositionsHasErrored,
+  publishablePositionsIsLoading,
   publishablePositions,
-  publishablePositionsEditErrored,
-  publishablePositionsEditLoading,
-  publishablePositionsErrored,
-  publishablePositionsFilters,
-  publishablePositionsFiltersErrored,
-  publishablePositionsFiltersLoading,
-  publishablePositionsLoading,
   publishablePositionsSelections,
+  publishablePositionsFiltersHasErrored,
+  publishablePositionsFiltersIsLoading,
+  publishablePositionsFilters,
 };
