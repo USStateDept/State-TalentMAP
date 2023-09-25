@@ -1,43 +1,46 @@
 import { useEffect, useRef, useState } from 'react';
 import { get } from 'lodash';
-import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import FA from 'react-fontawesome';
 import TextareaAutosize from 'react-textarea-autosize';
-import { getPostName, getResult } from 'utilities';
+import { getResult } from 'utilities';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
-  NO_SKILL, NO_UPDATE_DATE,
+  NO_SKILL,
 } from 'Constants/SystemMessages';
 import TabbedCard from 'Components/TabbedCard';
 import PropTypes from 'prop-types';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
-import { entryLevelEdit } from '../../../actions/entryLevel';
+import BidAuditSections from './BidAuditSections/BidAuditSections';
 
-const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
-  const dispatch = useDispatch();
-
+const BidAuditCard = ({ result, id, onEditModeSearch }) => {
   const pos = get(result, 'position') || result;
-
-  const updateUser = getResult(pos, 'description.last_editing_user');
-  const updateDate = getResult(pos, 'description.date_updated');
-
-  const [description, setDescription] = useState(getResult(pos, 'description.description'));
-  const [mcDate, setMcDate] = useState(getResult(pos, 'mc_date'));
-
+  const [description, setDescription] = useState(result.description || '');
+  const [pbDate, setPbDate] = useState(getResult(pos, 'mc_date'));
+  // const [selectedGrade, setSelectedGrade] = useState();
   const [editMode, setEditMode] = useState(false);
   useEffect(() => {
     // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, id);
   }, [editMode]);
 
+  const onSubmitData = () => {
+    const data = {
+      id,
+      description,
+      pbDate,
+    };
+    console.log('data', data);
+    console.log('results', result);
+  };
+
   const onCancelForm = () => {
     // this is likely not going to be needed, as we should be
     // re-reading from "pos" when we open Edit Form back up
     // clear will need to set states back to the pull
     // from "pos" once we've determined the ref data structure
-    setMcDate(getResult(pos, 'mc_date'));
+    setPbDate(getResult(pos, 'mc_date'));
   };
 
   const datePickerRef = useRef(null);
@@ -49,18 +52,15 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     /* eslint-disable no-dupe-keys */
     /* eslint-disable quote-props */
     subheading: [
-      { 'Cycle Name': getResult(pos, 'position_number') || NO_POSITION_NUMBER },
-      { 'Status': getResult(pos, 'skill_code') || NO_SKILL },
-      { 'Category': getResult(pos, 'title') || NO_POSITION_TITLE },
+      { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
+      { 'Status': result.cycle_status || NO_SKILL },
+      { 'Category': result.cycle_category || NO_POSITION_TITLE },
     ],
     bodyPrimary: [
-      { 'Audit Number': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Description': getPostName(get(pos, 'post') || NO_POST) },
-      { 'Posted': getResult(pos, 'bureau_code') || NO_ORG },
-      { 'Audit Date': getResult(pos, 'grade') || NO_GRADE },
-    ],
-    metadata: [
-      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+      { 'Audit Number': result.id || NO_BUREAU },
+      { 'Description': result.description || NO_POST },
+      { 'Posted': result.bid_audit_date_posted || NO_ORG },
+      { 'Audit Date': result.bid_audit_date || NO_GRADE },
     ],
     /* eslint-enable quote-props */
     /* eslint-enable no-dupe-keys */
@@ -68,8 +68,8 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
   const form = {
     /* eslint-disable quote-props */
     staticBody: [
-      { 'Audit Number': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
-      { 'Audit Date': getResult(pos, 'grade') || NO_GRADE },
+      { 'Audit Number': result.id || NO_BUREAU },
+      { 'Audit Date': result.bid_audit_date || NO_GRADE },
     ],
     inputBody: (
       <div className="position-form">
@@ -81,7 +81,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
             maxlength="4000"
             name="description"
             placeholder="Please provide a description of the bid season."
-            defaultValue={description || 'This is a test'}
+            defaultValue={description || ''}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
@@ -90,11 +90,11 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
             <label htmlFor="status">Posted By Date</label>
             <div className="date-wrapper-react larger-date-picker">
               <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
-              <FA name="times" className={`${mcDate ? '' : 'hide'}`} onClick={() => setMcDate(null)} />
+              <FA name="times" className={`${pbDate ? '' : 'hide'}`} onClick={() => setPbDate(null)} />
               <DatePicker
                 id={`mc-date-${id}`}
-                selected={mcDate}
-                onChange={setMcDate}
+                selected={pbDate}
+                onChange={setPbDate}
                 dateFormat="MM/dd/yyyy"
                 placeholderText="MM/DD/YYYY"
                 ref={datePickerRef}
@@ -105,7 +105,179 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
       </div>
     ),
     cancelText: 'Are you sure you want to discard all changes made to this position?',
-    handleSubmit: () => dispatch(entryLevelEdit(5, {})),
+    handleSubmit: () => onSubmitData(),
+    handleCancel: () => onCancelForm(),
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
+    /* eslint-enable quote-props */
+  };
+  const rows = [
+    { header: 'Position', subHeader1: 'Grade', subHeader2: 'Skill Code', subHeader3: 'Descrition', row1data: result.id || 'None Listed', row2data: result.code || 'None Listed', row3data: result.descriptionTitle || 'None Listed' },
+    { header: 'Employee', subHeader1: 'Grade', subHeader2: 'Skill Code', subHeader3: 'Descrition', row1data: result.id || 'None Listed', row2data: result.code || 'None Listed', row3data: result.descriptionTitle || 'None Listed' },
+    { header: 'Tenure', subHeader1: 'Code', subHeader2: 'Description', row1data: result.code || 'None Listed', row2data: result.descriptionTitle || 'None Listed' },
+  ];
+
+  const inCategories = [
+    { header: 'Position', subHeader1: 'Grade', subHeader2: 'Skill Code', subHeader3: 'Descrition', row1data: result.id || 'None Listed', row2data: result.code || 'None Listed', row3data: result.descriptionTitle || 'None Listed' },
+    { header: 'Employee', subHeader1: 'Grade', subHeader2: 'Skill Code', subHeader3: 'Descrition', row1data: result.id || 'None Listed', row2data: result.code || 'None Listed', row3data: result.descriptionTitle || 'None Listed' },
+  ];
+
+  const gradeOptions = [
+    { code: 1, name: '1' },
+    { code: 2, name: '2' },
+    { code: 3, name: '3' },
+    { code: 4, name: '4' },
+    { code: 5, name: '5' },
+    { code: 6, name: '6' },
+  ];
+  const onEditChange = () => {
+    setEditMode(e => !e);
+  };
+
+  const sections2 = {
+    /* eslint-disable no-dupe-keys */
+    /* eslint-disable quote-props */
+    subheading: [
+      { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
+      { 'Audit Number': result.id || NO_BUREAU },
+      { 'Description': result.cycle_status || NO_SKILL },
+      { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { '': <BidAuditSections rows={rows} onEditChange={onEditChange} /> },
+    ],
+    /* eslint-enable quote-props */
+    /* eslint-enable no-dupe-keys */
+  };
+  const form2 = {
+    /* eslint-disable quote-props */
+    staticBody: [
+      { 'Audit Number': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Audit Date': getResult(pos, 'grade') || NO_GRADE },
+    ],
+    inputBody: (
+      <div className="position-form bid-audit-form">
+        <div className="filter-div">
+          <div className="label">Position Grade:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Position Skill Code - Description:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Employee Grade:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Employee Skill Code - Description:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Tenure Code - Description:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+    ),
+    cancelText: 'Are you sure you want to discard all changes made to this position?',
+    handleSubmit: () => onSubmitData(),
+    handleCancel: () => onCancelForm(),
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
+    /* eslint-enable quote-props */
+  };
+
+  const sections3 = {
+    /* eslint-disable no-dupe-keys */
+    /* eslint-disable quote-props */
+    subheading: [
+      { 'Cycle Name': result.cycle_name || NO_POSITION_NUMBER },
+      { 'Audit Number': result.id || NO_BUREAU },
+      { 'Description': result.cycle_status || NO_SKILL },
+      { 'Posted': result.bid_audit_date || NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { '': <BidAuditSections rows={inCategories} onEditChange={onEditChange} /> },
+    ],
+    /* eslint-enable quote-props */
+    /* eslint-enable no-dupe-keys */
+  };
+  const form3 = {
+    /* eslint-disable quote-props */
+    staticBody: [
+      { 'Audit Number': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Audit Date': getResult(pos, 'grade') || NO_GRADE },
+    ],
+    inputBody: (
+      <div className="position-form bid-audit-form">
+        <div className="filter-div">
+          <div className="label">Position Grade:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Position Skill Code - Description:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Employee Grade:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Employee Skill Code - Description:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+        <div className="filter-div">
+          <div className="label">Tenure Code - Description:</div>
+          <select>
+            {gradeOptions.map(grade => (
+              <option value={grade.code}>{grade.name}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+    ),
+    cancelText: 'Are you sure you want to discard all changes made to this position?',
+    handleSubmit: () => onSubmitData(),
     handleCancel: () => onCancelForm(),
     handleEdit: {
       editMode,
@@ -118,7 +290,7 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
     <TabbedCard
       tabs={[{
         text: 'Bid Audit',
-        value: 'OVERVIEW',
+        value: 'Bid Audit',
         content: (
           <div className="position-content--container">
             <PositionExpandableContent
@@ -130,24 +302,24 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
       },
       {
         text: 'At Grades',
-        value: 'OVERVIEW',
+        value: 'At Grades',
         content: (
           <div className="position-content--container">
             <PositionExpandableContent
-              sections={sections}
-              form={form}
+              sections={sections2}
+              form={form2}
             />
           </div>
         ),
       },
       {
         text: 'In Categories',
-        value: 'OVERVIEW',
+        value: 'In Categories',
         content: (
           <div className="position-content--container">
             <PositionExpandableContent
-              sections={sections}
-              form={form}
+              sections={sections3}
+              form={form3}
             />
           </div>
         ),
@@ -156,15 +328,15 @@ const EntryLevelCard = ({ result, id, onEditModeSearch }) => {
   );
 };
 
-EntryLevelCard.propTypes = {
+BidAuditCard.propTypes = {
   result: POSITION_DETAILS.isRequired,
   id: PropTypes.number,
   onEditModeSearch: PropTypes.func,
 };
 
-EntryLevelCard.defaultProps = {
+BidAuditCard.defaultProps = {
   id: null,
   onEditModeSearch: EMPTY_FUNCTION,
 };
 
-export default EntryLevelCard;
+export default BidAuditCard;

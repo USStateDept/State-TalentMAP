@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Picky from 'react-picky';
+import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { get, includes, sortBy, uniqBy } from 'lodash';
@@ -7,20 +8,20 @@ import PropTypes from 'prop-types';
 import { useDataLoader } from 'hooks';
 import { onEditModeSearch, renderSelectionList } from 'utilities';
 import { filtersFetchData } from 'actions/filters/filters';
-import { entryLevelFetchData, saveEntryLevelSelections } from 'actions/entryLevel';
+import { bidAuditFetchData, saveBidAuditSelections } from 'actions/bidAudit';
 import Alert from 'Components/Alert';
 import Spinner from 'Components/Spinner';
 import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTitle';
 import api from '../../../api';
 import BidAuditCard from './BidAuditCard';
 
-const ManageEntryLevel = () => {
+const BidAudit = () => {
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.entryLevelSelections);
-  const dummyPositionDetails = useSelector(state => state.entryLevel);
-  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+  const userSelections = useSelector(state => state.bidAuditSelections);
+  const dummyPositionDetails = useSelector(state => state.bidAudit);
 
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
@@ -35,9 +36,6 @@ const ManageEntryLevel = () => {
   const [overseas, setOverseas] = useState(userSelections?.overseas || false);
   const [domestic, setDomestic] = useState(userSelections?.domestic || false);
   const [clearFilters, setClearFilters] = useState(false);
-
-  const dummyid = dummyPositionDetails?.id;
-  const dummyIds = [...Array(10).keys()].map(k => dummyid + k);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
   const tps = genericFilters$.find(f => get(f, 'item.description') === 'tp');
@@ -92,7 +90,7 @@ const ManageEntryLevel = () => {
   });
 
   useEffect(() => {
-    dispatch(saveEntryLevelSelections(getCurrentInputs()));
+    dispatch(saveBidAuditSelections(getCurrentInputs()));
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
@@ -113,8 +111,8 @@ const ManageEntryLevel = () => {
     } else {
       setClearFilters(true);
     }
-    dispatch(entryLevelFetchData(getQuery()));
-    dispatch(saveEntryLevelSelections(getCurrentInputs()));
+    dispatch(bidAuditFetchData(getQuery()));
+    dispatch(saveBidAuditSelections(getCurrentInputs()));
   };
 
   useEffect(() => {
@@ -138,6 +136,10 @@ const ManageEntryLevel = () => {
     dropdownHeight: 255,
     renderList: renderSelectionList,
     includeSelectAll: true,
+  };
+
+  const onAddClick = (e) => {
+    e.preventDefault();
   };
 
   return (isLoading ?
@@ -230,11 +232,20 @@ const ManageEntryLevel = () => {
       }
       <div className="usa-width-one-whole position-search--results">
         <div className="usa-grid-full position-list">
-          {dummyIds.map(k => (
+          <p className="add-at">
+            <FA name="plus" />
+            <Link
+              to="#"
+              onClick={onAddClick}
+            >
+              Create New Audit Cycle
+            </Link>
+          </p>
+          {dummyPositionDetails.map(k => (
             <BidAuditCard
-              id={k}
-              key={k}
-              result={dummyPositionDetails}
+              id={k.id}
+              key={k.id}
+              result={k}
               onEditModeSearch={(editMode, id) =>
                 onEditModeSearch(editMode, id, setCardsInEditMode, cardsInEditMode)
               }
@@ -250,15 +261,15 @@ const ManageEntryLevel = () => {
 };
 
 
-ManageEntryLevel.propTypes = {
+BidAudit.propTypes = {
   bureauFiltersIsLoading: PropTypes.bool,
 };
 
-ManageEntryLevel.defaultProps = {
+BidAudit.defaultProps = {
   bureauFilters: { filters: [] },
   bureauPositions: { results: [] },
   bureauFiltersIsLoading: false,
   bureauPositionsIsLoading: false,
 };
 
-export default ManageEntryLevel;
+export default BidAudit;

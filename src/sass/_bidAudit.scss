@@ -1,0 +1,75 @@
+.add-at {
+    text-align: right;
+}
+.position-content--container {
+  .position-content--details {
+    .definitions {
+      .truncate {
+        .at-grade-container {
+          display: flex;
+          justify-content: space-between;
+          div:first-child {
+            margin-right: 10px;
+          }
+          div:not(:first-child) {
+            min-width: 90px;
+          }
+          .tm-checkbox {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          .bid-audit-headers {
+            margin-top: 0;
+          }
+          .bid-audit-card-rows {
+            display: flex;
+            justify-content: flex-start;
+            width: 400px;
+          }
+          .edit-at {
+            position: absolute;
+            top: 30;
+            right: 0;
+            font-weight: 400;
+            font-size: 16px;
+          }
+          @media screen and (max-width: 1400px) {
+            div:not(:first-child) {
+              min-width: 50px;
+            }
+            .bid-audit-card-rows {
+              display: flex;
+              justify-content: flex-start;
+              width: 350px;
+            }
+          }
+          @media screen and (max-width: 1350px) {
+            .bid-audit-card-rows {
+              display: flex;
+              justify-content: flex-start;
+              width: 300px;
+            }
+          }
+          @media screen and (max-width: 1180px) {
+            .bid-audit-card-rows {
+              display: flex;
+              justify-content: flex-start;
+              width: 250px;
+            }
+          }
+          @media screen and (max-width: 1130px) {
+            div:not(:first-child) {
+                min-width: 30px;
+              }
+              .bid-audit-card-rows {
+                display: flex;
+                justify-content: flex-start;
+                width: 230px;
+              }
+          }
+        }
+      }
+    }
+  }
+}
