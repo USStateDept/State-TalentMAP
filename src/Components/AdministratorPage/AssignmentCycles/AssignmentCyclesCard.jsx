@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { formatDate } from 'utilities';
 import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
@@ -284,6 +284,7 @@ const AssignmentCyclesCard = (props) => {
                       </option>
                     ))}
                 </select>
+                <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
               </span>
             </div>
             <div>

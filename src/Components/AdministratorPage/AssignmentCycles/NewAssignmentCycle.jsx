@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
@@ -134,6 +135,7 @@ const EditAssignmentCycles = (props) => {
                   </option>
                 ))}
             </select>
+            <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
           </span>
         </div>
         <div>
@@ -416,9 +418,9 @@ EditAssignmentCycles.propTypes = {
 
 
 EditAssignmentCycles.defaultProps = {
-  onClose: () => {},
-  onPost: () => {},
-  onSave: () => {},
+  onClose: () => { },
+  onPost: () => { },
+  onSave: () => { },
 };
 
 export default EditAssignmentCycles;
