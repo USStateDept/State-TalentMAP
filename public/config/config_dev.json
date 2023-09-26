@@ -26,6 +26,7 @@
     "post_handshake": false,
     "projected_vacancy": true,
     "publishable_positions": true,
+    "publishable_positions_integration": true,
     "register_checklist": true,
     "search_post_access": true,
     "settings": true,
