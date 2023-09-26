@@ -14,7 +14,7 @@
       padding-bottom: 10px;
     }
   }
-  
+
   .notification-card__sub-section {
     .sub-header {
       font-weight: 500;
@@ -68,6 +68,10 @@
     .fa {
       color: $primary-blue;
     }
+  }
+
+  .memo-header-bold {
+    background-color: red;
   }
 }
 

@@ -6,6 +6,8 @@ import Training from './Tabs/Training';
 import Assignments from './Tabs/Assignments';
 import Paragraphs from './Tabs/Paragraphs';
 import Routing from './Tabs/Routing';
+import Memo from './Tabs/Memo';
+import MemoHeader from './Tabs/MemoHeader';
 
 
 const NotificationCard = () => {
@@ -54,9 +56,13 @@ const NotificationCard = () => {
         value: 'REMARKS',
         content: container(<Remarks />),
       }, {
-        text: 'Notifications List',
-        value: 'LIST',
-        content: <div />,
+        text: 'Memo',
+        value: 'MEMO',
+        content: container(<Memo />),
+      }, {
+        text: 'Memo Header',
+        value: 'MEMOHEADER',
+        content: container(<MemoHeader />),
       }]}
     />
   );
