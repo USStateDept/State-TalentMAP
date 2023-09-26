@@ -80,6 +80,7 @@ import bureauException from './bureauException';
 import entryLevel from './entryLevel';
 import jobCategories from './jobCategories';
 import orgStats from './orgStats';
+import biddingTool from './biddingTool';
 
 export default (history) => combineReducers({
   ...results,
@@ -157,6 +158,7 @@ export default (history) => combineReducers({
   ...entryLevel,
   ...jobCategories,
   ...orgStats,
+  ...biddingTool,
   router: connectRouter(history),
   client,
   login,

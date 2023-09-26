@@ -268,6 +268,16 @@ export const UPDATE_ENTRY_LEVEL_SUCCESS = 'This Entry Level Position has been su
 export const UPDATE_ENTRY_LEVEL_ERROR_TITLE = 'Entry Level Position Error';
 export const UPDATE_ENTRY_LEVEL_ERROR = 'There was an issue attempting to save this Entry Level Position. Please try again.';
 
+export const EDIT_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Updated';
+export const EDIT_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been updated';
+export const EDIT_BIDDING_TOOL_ERROR_TITLE = 'Edit Bidding Tool Error';
+export const EDIT_BIDDING_TOOL_ERROR = 'There was an issue attempting to update this Bidding Tool. Please try again.';
+
+export const CREATE_BIDDING_TOOL_SUCCESS_TITLE = 'Bidding Tool Created';
+export const CREATE_BIDDING_TOOL_SUCCESS = 'The Bidding Tool has been created';
+export const CREATE_BIDDING_TOOL_ERROR_TITLE = 'Create Bidding Tool Error';
+export const CREATE_BIDDING_TOOL_ERROR = 'There was an issue attempting to create this Bidding Tool. Please try again.';
+
 export const ASSIGNMENT_CYCLE_EDIT_SUCCESS_TITLE = 'Assignment Cycle Updated';
 export const ASSIGNMENT_CYCLE_EDIT_SUCCESS = 'The Assignment Cycle has been updated';
 export const ASSIGNMENT_CYCLE_EDIT_ERROR_TITLE = 'Assignment Cycle Edit Error';
