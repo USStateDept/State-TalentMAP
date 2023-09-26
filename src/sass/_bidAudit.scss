@@ -1,3 +1,24 @@
+.bid-audit-page {
+  .position-search--header {
+    .results-search-bar {
+      .position-search--filters--ba {
+        .larger-date-picker {
+          .close {
+            position: relative;
+            left: 190px;
+            bottom: 0px;
+          }
+        }
+        .react-datepicker__input-container {
+          input {
+            width: 240px;
+            height: 27px;
+          }
+        }
+      }
+    }
+  }
+}
 .add-at {
     text-align: right;
 }
@@ -26,6 +47,12 @@
             display: flex;
             justify-content: flex-start;
             width: 400px;
+            .bid-audit-contents-container {
+              width: 60px;
+              .bid-audit-rows-headers {
+                margin-bottom: 5px;
+              }
+            }
           }
           .edit-at {
             position: absolute;

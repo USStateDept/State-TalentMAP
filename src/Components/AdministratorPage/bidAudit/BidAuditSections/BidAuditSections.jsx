@@ -12,24 +12,24 @@ const BidAuditSections = ({ onEditChange, rows }) => {
   };
 
   return (
-    <span style={{ display: 'flex' }} className="at-grade-container">
+    <span className="at-grade-container">
       <CheckBox
         onChange={() => setIsChecked(!isChecked)}
       />
       {rows.map((row) => (
-        <div>
+        <div key={row?.header}>
           <h5 className="bid-audit-headers">{row?.header}</h5>
           <div className="bid-audit-card-rows">
-            <div style={{ width: '60px' }}>
-              <div style={{ marginBottom: '5px' }}>{row?.subHeader1}</div>
+            <div className="bid-audit-contents-container">
+              <div className="bid-audit-rows-headers">{row?.subHeader1}</div>
               <div>{row.row1data}</div>
             </div>
-            <div style={{ width: '60px' }}>
-              <div style={{ marginBottom: '5px' }}>{row?.subHeader2}</div>
+            <div className="bid-audit-contents-container">
+              <div className="bid-audit-rows-headers">{row?.subHeader2}</div>
               <div>{row.row2data}</div>
             </div>
-            <div style={{ width: '60px' }}>
-              <div style={{ marginBottom: '5px' }}>{row?.subHeader3}</div>
+            <div className="bid-audit-contents-container">
+              <div className="bid-audit-rows-headers">{row?.subHeader3}</div>
               <div>{row.row3data}</div>
             </div>
           </div>
@@ -53,10 +53,12 @@ BidAuditSections.propTypes = {
     header: PropTypes.string,
     data: PropTypes.string,
   })),
+  onEditChange: PropTypes.func.isRequired,
 };
 
 BidAuditSections.defaultProps = {
   rows: [],
+  onEditChange: () => { },
 };
 
 export default BidAuditSections;

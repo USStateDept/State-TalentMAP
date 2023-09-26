@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Picky from 'react-picky';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
+import DatePicker from 'react-datepicker';
 import { get, includes, sortBy, uniqBy } from 'lodash';
 import PropTypes from 'prop-types';
 import { useDataLoader } from 'hooks';
@@ -18,75 +19,50 @@ import BidAuditCard from './BidAuditCard';
 const BidAudit = () => {
   const dispatch = useDispatch();
 
-  const userSelections = useSelector(state => state.bidAuditSelections);
+  const bidAuditCycles = useSelector(state => state.bidAuditSelections);
   const dummyPositionDetails = useSelector(state => state.bidAudit);
-
+  const atGrades = dummyPositionDetails[0]?.atGrades || [];
+  const inCategories = dummyPositionDetails[1]?.inCategories || [];
   const [cardsInEditMode, setCardsInEditMode] = useState([]);
   const genericFiltersIsLoading = useSelector(state => state.filtersIsLoading);
   const genericFilters = useSelector(state => state.filters);
 
-  const [selectedTps, setSelectedTps] = useState(userSelections?.selectedTps || []);
-  const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
-  const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
-  const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
-  const [selectedJobs, setSelectedJobs] = useState(userSelections?.selectedJobs || []);
-  const [selectedLanguages, setSelectedLanguages] =
-    useState(userSelections?.selectedLanguage || []);
-  const [overseas, setOverseas] = useState(userSelections?.overseas || false);
-  const [domestic, setDomestic] = useState(userSelections?.domestic || false);
+  const [assignmentCycles, setAssignmentCycles] = useState(bidAuditCycles?.assignmentCycles || []);
+  const [auditNumber, setAuditNumber] = useState(bidAuditCycles?.auditNumber || []);
+  const [auditDescription, setAuditDescription] = useState(bidAuditCycles?.auditDescription || []);
+  const [postByDate, setPostByDate] = useState();
   const [clearFilters, setClearFilters] = useState(false);
 
   const genericFilters$ = get(genericFilters, 'filters') || [];
-  const tps = genericFilters$.find(f => get(f, 'item.description') === 'tp');
-  const tpsOptions = uniqBy(sortBy(get(tps, 'data'), [(b) => b.short_description]));
-  const bureaus = genericFilters$.find(f => get(f, 'item.description') === 'region');
-  const bureausOptions = uniqBy(sortBy(get(bureaus, 'data'), [(b) => b.short_description]));
-  const grades = genericFilters$.find(f => get(f, 'item.description') === 'grade');
-  const gradesOptions = uniqBy(get(grades, 'data'), 'code');
-
+  const ac = genericFilters$.find(f => get(f, 'item.description') === 'tp');
+  const assignmentCycleOptions = uniqBy(sortBy(get(ac, 'data'), [(b) => b.short_description]));
   const { data: orgs, loading: orgsLoading } = useDataLoader(api().get, '/fsbid/agenda_employees/reference/current-organizations/');
-  const organizationOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
+  const auditDescriptionOptions = sortBy(get(orgs, 'data'), [(o) => o.name]);
 
-  const entryLevelFiltersIsLoading = includes([orgsLoading], true);
+  const bidAuditFiltersIsLoading = includes([orgsLoading], true);
 
-  const isLoading = genericFiltersIsLoading || entryLevelFiltersIsLoading;
+  const isLoading = genericFiltersIsLoading || bidAuditFiltersIsLoading;
   const disableSearch = cardsInEditMode.length > 0;
   const disableInput = isLoading || disableSearch;
-
   const getQuery = () => ({
-    'el-tps': selectedTps.map(tpObject => (tpObject?.code)),
-    'el-bureaus': selectedBureaus.map(bureauObject => (bureauObject?.code)),
-    'el-orgs': selectedOrgs.map(orgObject => (orgObject?.code)),
-    'el-grades': selectedGrades.map(gradeObject => (gradeObject?.code)),
-    'el-skills': selectedSkills.map(skillObject => (skillObject?.code)),
-    'el-jobs': selectedJobs.map(jobObject => (jobObject?.id)),
-    'el-language': selectedLanguages.map(langObject => (langObject?.code)),
+    'assignment-cycles': assignmentCycles?.map(ba => (ba?.code)),
+    'audit-number': auditNumber?.map(ba => (ba?.code)),
+    'audit-description': auditDescription?.map(ba => (ba?.code)),
   });
 
   const resetFilters = () => {
-    setSelectedTps([]);
-    setSelectedBureaus([]);
-    setSelectedOrgs([]);
-    setSelectedGrades([]);
-    setSelectedSkills([]);
-    setSelectedJobs([]);
-    setSelectedLanguages([]);
-    setOverseas(false);
-    setDomestic(false);
+    setAssignmentCycles([]);
+    setAuditNumber([]);
+    setAuditDescription([]);
+    setPostByDate(null);
     setClearFilters(false);
   };
 
   const getCurrentInputs = () => ({
-    selectedTps,
-    selectedBureaus,
-    selectedOrgs,
-    selectedGrade: selectedGrades,
-    selectedSkills,
-    selectedJobs,
-    selectedLanguage: selectedLanguages,
-    overseas,
-    domestic,
+    assignmentCycles,
+    auditNumber,
+    auditDescription,
+    postByDate,
   });
 
   useEffect(() => {
@@ -94,17 +70,17 @@ const BidAudit = () => {
     dispatch(filtersFetchData(genericFilters));
   }, []);
 
+  const datePickerRef = useRef(null);
+  const openDatePicker = () => {
+    datePickerRef.current.setOpen(true);
+  };
+
   const fetchAndSet = () => {
     const filters = [
-      selectedTps,
-      selectedBureaus,
-      selectedOrgs,
-      selectedGrades,
-      selectedSkills,
-      selectedJobs,
-      selectedLanguages,
-      overseas,
-      domestic,
+      assignmentCycles,
+      auditNumber,
+      auditDescription,
+      postByDate,
     ];
     if (filters.flat().length === 0) {
       setClearFilters(false);
@@ -118,15 +94,10 @@ const BidAudit = () => {
   useEffect(() => {
     fetchAndSet();
   }, [
-    selectedTps,
-    selectedBureaus,
-    selectedOrgs,
-    selectedGrades,
-    selectedSkills,
-    selectedJobs,
-    selectedLanguages,
-    overseas,
-    domestic,
+    assignmentCycles,
+    auditNumber,
+    auditDescription,
+    postByDate,
   ]);
 
   const pickyProps = {
@@ -144,7 +115,7 @@ const BidAudit = () => {
 
   return (isLoading ?
     <Spinner type="bureau-filters" size="small" /> :
-    <div className="position-search">
+    <div className="position-search bid-audit-page">
       <div className="usa-grid-full position-search--header">
         <ProfileSectionTitle title="Bid Audit" icon="keyboard-o" className="xl-icon" />
         <div className="results-search-bar pt-20">
@@ -163,15 +134,15 @@ const BidAudit = () => {
               }
             </div>
           </div>
-          <div className="usa-width-one-whole position-search--filters--el results-dropdown">
+          <div className="usa-width-one-whole position-search--filters--ba results-dropdown">
             <div className="filter-div">
               <div className="label">Assignment Cycle:</div>
               <Picky
                 {...pickyProps}
                 placeholder="Select Assignment Cycle(s)"
-                value={selectedTps}
-                options={tpsOptions}
-                onChange={setSelectedTps}
+                value={assignmentCycles}
+                options={assignmentCycleOptions}
+                onChange={setAssignmentCycles}
                 valueKey="id"
                 labelKey="name"
                 disabled={disableInput}
@@ -182,11 +153,11 @@ const BidAudit = () => {
               <Picky
                 {...pickyProps}
                 placeholder="Enter Audit Number"
-                value={selectedBureaus}
-                options={bureausOptions}
-                onChange={setSelectedBureaus}
+                value={auditNumber}
+                options={auditDescriptionOptions}
+                onChange={setAuditNumber}
                 valueKey="code"
-                labelKey="long_description"
+                labelKey="name"
                 disabled={disableInput}
               />
             </div>
@@ -195,25 +166,24 @@ const BidAudit = () => {
               <Picky
                 {...pickyProps}
                 placeholder="Enter Audit Description"
-                value={selectedOrgs}
-                options={organizationOptions}
-                onChange={setSelectedOrgs}
+                value={auditDescription}
+                options={auditDescriptionOptions}
+                onChange={setAuditDescription}
                 valueKey="code"
                 labelKey="name"
                 disabled={disableInput}
               />
             </div>
-            <div className="filter-div">
+            <div className="date-wrapper-react larger-date-picker filter-div">
               <div className="label">Posted By Date:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Grade(s)"
-                value={selectedGrades}
-                options={gradesOptions}
-                onChange={setSelectedGrades}
-                valueKey="code"
-                labelKey="custom_description"
-                disabled={disableInput}
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <FA name="times" className={`${postByDate ? '' : 'hide'} close`} onClick={() => setPostByDate(null)} />
+              <DatePicker
+                selected={postByDate}
+                onChange={setPostByDate}
+                dateFormat="MM/dd/yyyy"
+                placeholderText="MM/DD/YYYY"
+                ref={datePickerRef}
               />
             </div>
           </div>
@@ -241,8 +211,10 @@ const BidAudit = () => {
               Create New Audit Cycle
             </Link>
           </p>
-          {dummyPositionDetails.map(k => (
+          {dummyPositionDetails[2]?.bidAudit.map(k => (
             <BidAuditCard
+              atGrades={atGrades}
+              inCategories={inCategories}
               id={k.id}
               key={k.id}
               result={k}

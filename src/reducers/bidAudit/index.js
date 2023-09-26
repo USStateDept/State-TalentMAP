@@ -1,25 +1,25 @@
 import {
   bidAudit,
   bidAuditEdit,
-  bidAuditEditErrored,
-  bidAuditEditLoading,
+  bidAuditErrored,
   bidAuditFetchDataErrored,
   bidAuditFetchDataLoading,
   bidAuditFilters,
   bidAuditFiltersFetchDataErrored,
   bidAuditFiltersFetchDataLoading,
+  bidAuditLoading,
   bidAuditSelections,
 } from './bidAudit';
 
 export default {
   bidAudit,
   bidAuditEdit,
-  bidAuditEditErrored,
-  bidAuditEditLoading,
+  bidAuditErrored,
   bidAuditFetchDataErrored,
   bidAuditFetchDataLoading,
   bidAuditFilters,
   bidAuditFiltersFetchDataErrored,
   bidAuditFiltersFetchDataLoading,
+  bidAuditLoading,
   bidAuditSelections,
 };
