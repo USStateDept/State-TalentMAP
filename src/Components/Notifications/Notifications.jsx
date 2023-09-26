@@ -9,6 +9,7 @@ import PaginationWrapper from '../PaginationWrapper';
 import TotalResults from '../TotalResults';
 import NotificationRow from './NotificationRow';
 import SelectForm from '../SelectForm';
+import NotificationCard from '../Assignments/NotificationCard/NotificationCard';
 
 const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, pageSize,
   onPageChange, onCheck, getCheckedValue, selectAll, markNotificationsByType }) => {
@@ -22,11 +23,14 @@ const Notifications = ({ notifications, isLoading, hasErrored, deleteOne, page, 
       </div>
       {
         isLoading && !hasErrored &&
-          <Spinner type="homepage-position-results" size="big" />
+        <Spinner type="homepage-position-results" size="big" />
       }
       {
         !isLoading && !results.length &&
-          <div>No notifications</div>
+        <div>
+          {/* temporarily thrown into this feature for local demo purposes */}
+          <NotificationCard />
+        </div>
       }
       {
         !isLoading && !hasErrored && !!results.length &&
