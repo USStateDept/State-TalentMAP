@@ -64,7 +64,7 @@ const PublishablePositions = ({ viewType }) => {
   const getQuery = () => ({
     posNum: searchPosNum,
     statuses: selectedStatuses.map(f => (f?.code)),
-    bureaus: selectedBureaus.map(f => (f?.code)),
+    bureaus: selectedBureaus.map(f => (f?.description)),
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
     skills: selectedSkills.map(f => (f?.code)),
