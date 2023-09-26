@@ -1,11 +1,8 @@
-/* eslint-disable */
 import { useRef, useState } from 'react';
-// import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import dateFns from 'date-fns';
+import datefns from 'date-fns';
 import { getDifferentials, getPostName, getResult } from 'utilities';
 import ToggleButton from 'Components/ToggleButton';
-// import { createAssignment, editAssignment } from 'actions/assignmentMaintenance';
 import { EMPTY_FUNCTION, POSITION_DETAILS } from 'Constants/PropTypes';
 import {
   NO_BUREAU, NO_GRADE, NO_ORG, NO_POSITION_NUMBER, NO_POSITION_TITLE, NO_POST,
@@ -18,7 +15,6 @@ import LanguageList from 'Components/LanguageList';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
 import FA from 'react-fontawesome';
 import DatePicker from 'react-datepicker';
-import datefns from "date-fns";
 
 const useDeto = () => checkFlag('flags.deto');
 
@@ -51,10 +47,10 @@ const AssignmentCard = (props) => {
       { 'Org/Code': getResult(altPos, 'posorgshortdesc') || NO_ORG },
       { 'Location': getPostName(pos?.post) || NO_POST },
       { 'ETA': getResult(data, 'start_date') || NO_TOUR_END_DATE },
-      { 'Panel Meeting Date': <a href='tbd' rel="PMD" target="_blank">{dateFns.format(datefns.subYears(data?.start_date, 2), 'MM/DD/YYYY')}</a>},
-      { 'DIP': '----'},
-      { 'Memo Sent': dateFns.format(datefns.subMonths(data?.start_date, 22), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
-      { 'Note Sent': dateFns.format(datefns.subMonths(data?.start_date, 18), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
+      { 'Panel Meeting Date': <a href="tbd" rel="PMD" target="_blank">{datefns.format(datefns.subYears(data?.start_date, 2), 'MM/DD/YYYY')}</a> },
+      { 'DIP': '----' },
+      { 'Memo Sent': datefns.format(datefns.subMonths(data?.start_date, 22), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
+      { 'Note Sent': datefns.format(datefns.subMonths(data?.start_date, 18), 'MM/DD/YYYY') || NO_TOUR_END_DATE },
       { 'TED': getResult(data, 'end_date') || NO_TOUR_END_DATE },
     ],
     bodySecondary: [
