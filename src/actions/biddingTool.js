@@ -233,7 +233,7 @@ export function biddingToolCreate(data) {
       dispatch(biddingToolCreateHasErrored(false));
     });
 
-    api().patch('biddingtool-ep/', data)
+    api().post('biddingtool-ep/', data)
       .then(() => {
         const toastTitle = CREATE_BIDDING_TOOL_SUCCESS_TITLE;
         const toastMessage = CREATE_BIDDING_TOOL_SUCCESS;
