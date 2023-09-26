@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
@@ -100,10 +100,6 @@ const CycleSearchCard = (props) => {
     setEdit(e => !e);
     onEditModeSearch(id);
   };
-
-  useEffect(() => {
-    console.log(bureauPositionReview);
-  }, [bureauPositionReview]);
 
   const onCancelRequest = () => {
     swal.close();
