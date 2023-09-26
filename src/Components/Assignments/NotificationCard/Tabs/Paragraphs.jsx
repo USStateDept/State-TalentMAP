@@ -20,7 +20,37 @@ const chosenParagraphs = [{
 }, {
   id: 3,
   active: false,
-  title: 'Check-in/QIP Support',
+  title: 'Arrival',
+  value: 'Lorem ipsum',
+}, {
+  id: 4,
+  active: false,
+  title: 'Arrival',
+  value: 'Lorem ipsum',
+}, {
+  id: 5,
+  active: false,
+  title: 'Arrival',
+  value: 'Lorem ipsum',
+}, {
+  id: 6,
+  active: false,
+  title: 'Check-in/OIP Support',
+  value: 'Lorem ipsum',
+}, {
+  id: 7,
+  active: false,
+  title: 'Chief of Mission Business Class Travel',
+  value: 'Lorem ipsum',
+}, {
+  id: 8,
+  active: false,
+  title: 'Chief of Mission Separation Medical Exam',
+  value: 'Lorem ipsum',
+}, {
+  id: 9,
+  active: false,
+  title: 'Contact Information',
   value: 'Lorem ipsum',
 }];
 

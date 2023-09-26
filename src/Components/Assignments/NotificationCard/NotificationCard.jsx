@@ -6,6 +6,8 @@ import Training from './Tabs/Training';
 import Assignments from './Tabs/Assignments';
 import Paragraphs from './Tabs/Paragraphs';
 import Routing from './Tabs/Routing';
+import Memo from './Tabs/Memo';
+import MemoHeader from './Tabs/MemoHeader';
 
 
 const NotificationCard = () => {
@@ -18,6 +20,15 @@ const NotificationCard = () => {
         <span>
           Please update all relevant information as it pertains to this note.
         </span>
+      </div>
+      {children}
+    </div>
+  );
+
+  const memoContainer = (children) => (
+    <div className="notification-card">
+      <div className="notification-card__header">
+        <span>Memorandum</span>
       </div>
       {children}
     </div>
@@ -54,9 +65,13 @@ const NotificationCard = () => {
         value: 'REMARKS',
         content: container(<Remarks />),
       }, {
-        text: 'Notifications List',
-        value: 'LIST',
-        content: <div />,
+        text: 'Memo',
+        value: 'MEMO',
+        content: memoContainer(<Memo />),
+      }, {
+        text: 'Memo Header',
+        value: 'MEMOHEADER',
+        content: memoContainer(<MemoHeader />),
       }]}
     />
   );
