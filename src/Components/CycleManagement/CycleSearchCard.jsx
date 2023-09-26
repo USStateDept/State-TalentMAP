@@ -33,7 +33,7 @@ const CycleSearchCard = (props) => {
   } = props;
 
   const dummyInfo = {
-    assignmentCycle: 'This is a dummy assignment cycle',
+    assignmentCycle: 'This is a dummy assignment cycle, data can be replaced with backend data',
     cycleCategory: 'Summer',
     cycleStatus: 'Winter',
     cycleBoundary: [formatDate('1976-10-01T21:12:12.854000Z'), formatDate('2014-31-12T21:12:12.854000Z')],
@@ -282,7 +282,7 @@ const CycleSearchCard = (props) => {
                   maxlength="255"
                   name="description"
                   placeholder="Please provide a description of the assignment cycle."
-                  defaultValue={id === '' ? assignmentCycle : dummyInfo.assignmentCycle}
+                  defaultValue={assignmentCycle}
                   onChange={(e) => setAssignmentCycle(e.target.value)}
                 />
               </span>
@@ -294,7 +294,7 @@ const CycleSearchCard = (props) => {
                   id="cycleCategory"
                   defaultValue="None Selected"
                   onChange={(e) => setCycleCategory(e.target.value)}
-                  value={id === '' ? cycleCategory : dummyInfo.cycleCategory}
+                  value={cycleCategory}
                 >
                   {seasonOptions.length === 0 ?
                     <option value="">None Listed</option> : seasonOptions.map((option) => (
@@ -312,7 +312,7 @@ const CycleSearchCard = (props) => {
                   id="cycleStatus"
                   defaultValue="None Selected"
                   onChange={(e) => setCycleStatus(e.target.value)}
-                  value={id === '' ? cycleStatus : dummyInfo.cycleStatus}
+                  value={cycleStatus}
                 >
                   {seasonOptions.length === 0 ?
                     <option value="">None Listed</option> : seasonOptions.map((option) => (
