@@ -583,6 +583,7 @@ CycleSearchCard.propTypes = {
   cycle_excl_position: PropTypes.string,
   cycle_post_view: PropTypes.string,
   isAO: PropTypes.bool,
+  onEditModeSearch: PropTypes.func.isRequired,
 };
 
 CycleSearchCard.defaultProps = {
@@ -594,6 +595,7 @@ CycleSearchCard.defaultProps = {
   cycle_excl_position: null,
   cycle_post_view: '',
   isAO: false,
+  onEditModeSearch: () => {},
 };
 
 export default CycleSearchCard;
