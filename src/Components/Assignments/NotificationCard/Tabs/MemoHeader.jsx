@@ -36,7 +36,7 @@ const MemoHeader = () => {
               maxRows={4}
               minRows={4}
               maxlength="500"
-              name="combined-tod"
+              name="subject-input"
               placeholder="No Description"
               defaultValue={subjectInput}
               onChange={(e) => setSubjectInput(e.target.value)}
