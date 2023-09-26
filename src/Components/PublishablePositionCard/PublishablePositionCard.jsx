@@ -10,7 +10,10 @@ import { Row } from 'Components/Layout';
 import CheckBox from 'Components/CheckBox';
 import TabbedCard from 'Components/TabbedCard';
 import PositionExpandableContent from 'Components/PositionExpandableContent';
+import { checkFlag } from '../../flags';
 
+
+const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
 
 const hardcodedFilters = {
   statusFilters: [{ code: 1, description: '' }, { code: 2, description: 'Publishable' }, { code: 3, description: 'Vet' }],
@@ -38,14 +41,16 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
       { 'Language': data?.language || DEFAULT_TEXT },
       { 'Pay Plan': data?.payPlan || DEFAULT_TEXT },
     ],
-    bodySecondary: [
-      { 'Bid Cycle': data?.status || DEFAULT_TEXT },
-      { 'TED': data?.status || DEFAULT_TEXT },
-      { 'Incumbent': data?.status || DEFAULT_TEXT },
-      { 'Tour of Duty': data?.status || DEFAULT_TEXT },
-      { 'Assignee': data?.status || DEFAULT_TEXT },
-      { 'Post Differential | Danger Pay': data?.status || DEFAULT_TEXT },
-    ],
+    bodySecondary: PP_INTEGRATION_FLAG ?
+      [
+        { 'Bid Cycle': data?.status || DEFAULT_TEXT },
+        { 'TED': data?.status || DEFAULT_TEXT },
+        { 'Incumbent': data?.status || DEFAULT_TEXT },
+        { 'Tour of Duty': data?.status || DEFAULT_TEXT },
+        { 'Assignee': data?.status || DEFAULT_TEXT },
+        { 'Post Differential | Danger Pay': data?.status || DEFAULT_TEXT },
+      ]
+      : [],
     textarea: data?.positionDetails || 'No description.',
     metadata: [
       { 'Last Updated': formatDateFromStr(data?.lastUpdated) },
@@ -110,44 +115,47 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
     ],
     inputBody: (
       <div className="position-form">
-        <div className="spaced-row">
-          <div className="dropdown-container">
-            <div className="position-form--input">
-              <label htmlFor="publishable-position-statuses">Status</label>
-              <select
-                id="publishable-position-statuses"
-                defaultValue={status}
-                onChange={(e) => setStatus(e?.target.value)}
-              >
-                {hardcodedFilters.statusFilters.map(s => (
-                  <option value={s.code}>
-                    {s.description}
-                  </option>
-                ))}
-              </select>
+        { PP_INTEGRATION_FLAG ?
+          <div className="spaced-row">
+            <div className="dropdown-container">
+              <div className="position-form--input">
+                <label htmlFor="publishable-position-statuses">Status</label>
+                <select
+                  id="publishable-position-statuses"
+                  defaultValue={status}
+                  onChange={(e) => setStatus(e?.target.value)}
+                >
+                  {hardcodedFilters.statusFilters.map(s => (
+                    <option value={s.code}>
+                      {s.description}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="position-form--input">
+                <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
+                <select
+                  id="publishable-pos-tod-override"
+                  defaultValue={overrideTOD}
+                  onChange={(e) => setOverrideTOD(e?.target.value)}
+                >
+                  {hardcodedFilters.todFilters.map(t => (
+                    <option value={t.code}>
+                      {t.description}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <div className="position-form--input">
-              <label htmlFor="publishable-pos-tod-override">Override Tour of Duty</label>
-              <select
-                id="publishable-pos-tod-override"
-                defaultValue={overrideTOD}
-                onChange={(e) => setOverrideTOD(e?.target.value)}
-              >
-                {hardcodedFilters.todFilters.map(t => (
-                  <option value={t.code}>
-                    {t.description}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <CheckBox
+              id="exclude-checkbox"
+              label="Exclude Position from Bid Audit"
+              value={exclude}
+              onCheckBoxClick={e => setExclude(e)}
+            />
           </div>
-          <CheckBox
-            id="exclude-checkbox"
-            label="Exclude Position from Bid Audit"
-            value={exclude}
-            onCheckBoxClick={e => setExclude(e)}
-          />
-        </div>
+          : null
+        }
         <div>
           <Row fluid className="position-form--description">
             <span className="definition-title">Position Details</span>
@@ -164,49 +172,54 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
               />
             </Linkify>
             <div className="word-count">
-              {textArea.length} / 2,000
+              {textArea.length} / 2000
             </div>
           </Row>
         </div>
-        <div className="content-divider" />
-        <div className="position-form--heading">
-          <span className="title">Future Cycle</span>
-          <span className="subtitle">Please identify a cycle to add this position to.</span>
-        </div>
-        <div className="position-form--picky">
-          <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
-          <div className="publishable-position-cycles">{selectedCycles.map(a => a.description).join(', ')}</div>
-        </div>
-        <Picky
-          {...pickyProps}
-          placeholder="Choose Bid Cycle(s)"
-          value={selectedCycles}
-          options={hardcodedFilters.cycleFilters}
-          onChange={setSelectedCycles}
-          valueKey="code"
-          labelKey="description"
-        />
-        <div className="pt-20">
-          <div className="content-divider" />
-          <div className="position-form--heading">
-            <span className="title">Add a Functional Bureau</span>
-            <span className="subtitle">Add a Functional Bureau to this Position</span>
-          </div>
-          <div className="position-form--input">
-            <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
-            <select
-              id="publishable-pos-func-bureaus"
-              defaultValue={selectedFuncBureau}
-              onChange={(e) => setSelectedFuncBureau(e?.target.value)}
-            >
-              {hardcodedFilters.functionalBureauFilters.map(b => (
-                <option value={b.code}>
-                  {b.description}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
+        { PP_INTEGRATION_FLAG ?
+          <>
+            <div className="content-divider" />
+            <div className="position-form--heading">
+              <span className="title">Future Cycle</span>
+              <span className="subtitle">Please identify a cycle to add this position to.</span>
+            </div>
+            <div className="position-form--picky">
+              <div className="publishable-position-cycles-label">Chosen Bid Cycle(s):</div>
+              <div className="publishable-position-cycles">{selectedCycles.map(a => a.description).join(', ')}</div>
+            </div>
+            <Picky
+              {...pickyProps}
+              placeholder="Choose Bid Cycle(s)"
+              value={selectedCycles}
+              options={hardcodedFilters.cycleFilters}
+              onChange={setSelectedCycles}
+              valueKey="code"
+              labelKey="description"
+            />
+            <div className="pt-20">
+              <div className="content-divider" />
+              <div className="position-form--heading">
+                <span className="title">Add a Functional Bureau</span>
+                <span className="subtitle">Add a Functional Bureau to this Position</span>
+              </div>
+              <div className="position-form--input">
+                <label htmlFor="publishable-pos-func-bureaus">Bureau</label>
+                <select
+                  id="publishable-pos-func-bureaus"
+                  defaultValue={selectedFuncBureau}
+                  onChange={(e) => setSelectedFuncBureau(e?.target.value)}
+                >
+                  {hardcodedFilters.functionalBureauFilters.map(b => (
+                    <option value={b.code}>
+                      {b.description}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </>
+          : null
+        }
       </div>
     ),
     handleSubmit: onSubmitForm,
@@ -292,9 +305,9 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
           form={form}
         />,
       }, {
-        text: 'Position Classification',
-        value: 'CLASSIFICATION',
-        content: classificationTable(),
+        text: PP_INTEGRATION_FLAG ? 'Position Classification' : '',
+        value: PP_INTEGRATION_FLAG ? 'CLASSIFICATION' : '',
+        content: PP_INTEGRATION_FLAG ? classificationTable() : null,
         disabled: editMode,
       }]}
     />

@@ -17,6 +17,9 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
+import { checkFlag } from '../../flags';
+
+const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
 
 // may need to be used for permissioning
 // eslint-disable-next-line no-unused-vars
@@ -236,19 +239,22 @@ const PublishablePositions = ({ viewType }) => {
                 disabled={editMode}
               />
             </div>
-            <div className="filter-div">
-              <div className="label">Bid Cycle:</div>
-              <Picky
-                {...pickyProps}
-                placeholder="Select Bid Cycle(s)"
-                value={selectedBidCycles}
-                options={cycleOptions}
-                onChange={setSelectedBidCycles}
-                valueKey="code"
-                labelKey="description"
-                disabled={editMode}
-              />
-            </div>
+            { PP_INTEGRATION_FLAG ?
+              <div className="filter-div">
+                <div className="label">Bid Cycle:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bid Cycle(s)"
+                  value={selectedBidCycles}
+                  options={cycleOptions}
+                  onChange={setSelectedBidCycles}
+                  valueKey="code"
+                  labelKey="description"
+                  disabled={editMode}
+                />
+              </div>
+              : null
+            }
             <div className="filter-div">
               <div className="label">Bureau:</div>
               <Picky
