@@ -299,8 +299,8 @@ const BiddingToolCard = (props) => {
             }
           </div>
           <div className="modal-controls">
-            <button onClick={onCancel}>Submit</button>
-            <button className="usa-button-secondary" onClick={() => swal.close()}>Cancel</button>
+            <button onClick={onCancel}>Yes</button>
+            <button className="usa-button-secondary" onClick={() => swal.close()}>No</button>
           </div>
         </div>
       ),
