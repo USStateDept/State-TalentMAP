@@ -6,8 +6,11 @@ import DatePicker from 'react-datepicker';
 import DateRangePicker from '@wojtekmaj/react-daterange-picker';
 import TextareaAutosize from 'react-textarea-autosize';
 import CheckBox from '../../CheckBox';
+import { checkFlag } from '../../../flags';
 
 const DATE_FORMAT = 'MMMM d, yyyy';
+
+const useCycleJobCategories = () => checkFlag('flags.cycle_job_categories');
 
 const EditAssignmentCycles = (props) => {
   const { onClose, onPost, onSave } = props;
@@ -135,7 +138,9 @@ const EditAssignmentCycles = (props) => {
                   </option>
                 ))}
             </select>
-            <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
+            {useCycleJobCategories() &&
+              <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
+            }
           </span>
         </div>
         <div>
