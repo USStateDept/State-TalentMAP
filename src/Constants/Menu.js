@@ -167,6 +167,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.cycle_job_categories') ?
+        {
+          text: 'Cycle Job Categories',
+          route: '/profile/administrator/cyclejobcategories/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.org_stats') ?
         {
           text: 'Org Stats',
@@ -194,6 +203,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.assignment_cycles') ?
+        {
+          text: 'Assignment Cycles',
+          route: '/profile/administrator/assignmentcycles/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
@@ -207,7 +225,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Job Categories',
           route: '/profile/administrator/jobcategories/',
-          icon: 'map',
+          icon: 'cogs',
           roles: [
             'superuser',
           ],

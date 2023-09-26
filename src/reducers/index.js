@@ -74,6 +74,8 @@ import bidSeasons from './bidSeasons';
 import PostPanelProcessing from './postPanelProcessing';
 import managePostAccess from './managePostAccess';
 import searchPostAccess from './searchPostAccess';
+import cycleJobCategories from './cycleJobCategories';
+import assignmentCycle from './assignmentCycle';
 import bureauException from './bureauException';
 import entryLevel from './entryLevel';
 import bidAudit from './bidAudit';
@@ -150,6 +152,8 @@ export default (history) => combineReducers({
   ...bidSeasons,
   ...managePostAccess,
   ...searchPostAccess,
+  ...cycleJobCategories,
+  ...assignmentCycle,
   ...bureauException,
   ...entryLevel,
   ...bidAudit,

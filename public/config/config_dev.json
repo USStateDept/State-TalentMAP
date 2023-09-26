@@ -11,6 +11,7 @@
     "breadcrumbs": true,
     "cycle_management": true,
     "bid_audit": true,
+    "assignment_cycles": true,
     "deto": false,
     "handshake_bidding": true,
     "maintain_assignment": true,
