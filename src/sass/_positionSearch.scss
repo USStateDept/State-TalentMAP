@@ -273,6 +273,10 @@
         padding-right: 5px;
       }
     }
+    .asg-subheader {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 
