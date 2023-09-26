@@ -33,11 +33,11 @@ class CheckBox extends Component {
 
   render() {
     const { id, label, title, name, labelSrOnly, small, className, disabled,
-      checkboxProps } = this.props;
+      checkboxProps, excludeTmCheckboxClass } = this.props;
     const { checked } = this.state;
     const formattedId = formatIdSpacing(id);
     return (
-      <div className={`usa-grid-full ${className} tm-checkbox ${small ? 'tm-checkbox-small' : ''}`}>
+      <div className={`usa-grid-full ${className} ${excludeTmCheckboxClass ? '' : 'tm-checkbox'} ${small ? 'tm-checkbox-small' : ''}`}>
         <input
           type="checkbox"
           id={formattedId}
@@ -49,7 +49,9 @@ class CheckBox extends Component {
           disabled={disabled}
           {...checkboxProps}
         />
-        <label htmlFor={formattedId}><span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span></label>
+        <label htmlFor={formattedId}>
+          <span className={`${labelSrOnly ? 'usa-sr-only' : ''}`}>{label}</span>
+        </label>
       </div>
     );
   }
@@ -57,7 +59,7 @@ class CheckBox extends Component {
 
 CheckBox.propTypes = {
   id: PropTypes.string.isRequired,
-  label: PropTypes.node.isRequired,
+  label: PropTypes.node,
   title: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]).isRequired,
@@ -69,11 +71,13 @@ CheckBox.propTypes = {
   checkboxProps: PropTypes.shape({}),
   overrideLifecycle: PropTypes.bool,
   onChange: PropTypes.func,
+  excludeTmCheckboxClass: PropTypes.bool,
 };
 
 CheckBox.defaultProps = {
   title: '',
   name: '',
+  label: undefined,
   onCheckBoxClick: EMPTY_FUNCTION,
   labelSrOnly: false,
   small: false,
@@ -82,6 +86,7 @@ CheckBox.defaultProps = {
   checkboxProps: {},
   overrideLifecycle: false,
   onChange: EMPTY_FUNCTION,
+  excludeTmCheckboxClass: false,
 };
 
 export default CheckBox;

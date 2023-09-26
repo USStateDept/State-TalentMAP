@@ -56,6 +56,7 @@ const dummyData = [
     cycle_post_view: 'Y',
   },
 ];
+
 // eslint-disable-next-line no-loops/no-loops
 for (let index = 2022; index > 1975; index -= 1) {
   const monthInt = Math.floor(Math.random() * 10) + 1;
@@ -106,7 +107,6 @@ export function cycleManagementFetchDataLoading(bool) {
     isLoading: bool,
   };
 }
-
 export function cycleManagementFetchDataSuccess(results) {
   return {
     type: 'CYCLE_MANAGEMENT_FETCH_SUCCESS',
@@ -114,7 +114,8 @@ export function cycleManagementFetchDataSuccess(results) {
   };
 }
 
-export function cycleManagementFetchData(query = {}) {
+// eslint-disable-next-line no-unused-vars
+export function cycleManagementFetchData(cycleId) {
   return (dispatch) => {
     batch(() => {
       dispatch(cycleManagementFetchDataLoading(true));
@@ -124,7 +125,7 @@ export function cycleManagementFetchData(query = {}) {
     // const endpoint = `sweet/new/endpoint/we/can/pass/a/query/to/?${q}`;
     // api().get(endpoint)
     dispatch(cycleManagementFetchDataLoading(true));
-    dummyDataToReturn(query)
+    dummyDataToReturn({})
       .then((data) => {
         batch(() => {
           dispatch(cycleManagementFetchDataSuccess(data));
@@ -166,14 +167,12 @@ export function cyclePositionSearchFetchDataErrored(bool) {
     hasErrored: bool,
   };
 }
-
 export function cyclePositionSearchFetchDataLoading(bool) {
   return {
     type: 'CYCLE_POSITION_SEARCH_FETCH_IS_LOADING',
     isLoading: bool,
   };
 }
-
 export function cyclePositionSearchFetchDataSuccess(results) {
   return {
     type: 'CYCLE_POSITION_SEARCH_FETCH_SUCCESS',

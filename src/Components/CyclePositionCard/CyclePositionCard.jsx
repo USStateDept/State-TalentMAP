@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getDifferentials, getPostName, getResult } from 'utilities';
@@ -23,10 +23,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
   const pos = data?.position || data;
   const showDeto = useDeto();
 
-  const onEditModeCard = (editMode) => {
-    onEditModeSearch(editMode, pos?.id);
-  };
-
   const description$ = pos?.description?.content || 'No description.';
   const updateUser = getResult(pos, 'description.last_editing_user');
   const updateDate = getResult(pos, 'description.date_updated');
@@ -35,40 +31,40 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   const sections = {
     /* eslint-disable quote-props */
-    subheading: {
-      'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER),
-      'Skill': getResult(pos, 'skill_code') || NO_SKILL,
-      'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE,
-    },
-    bodyPrimary: {
-      'Location': getPostName(pos?.post) || NO_POST,
-      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Status': getResult(pos, 'status') || NO_STATUS,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-    },
-    bodySecondary: {
-      '': <CheckBox id="deto" label="DETO" value disabled />,
-      'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'Cycle Position': '---',
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Incumbent TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
-      'Incumbent Status': getResult(pos, 'current_assignment.user') || NO_USER_LISTED,
-      'Pay Plan': '---',
-      'TED': getResult(data, 'ted') || NO_TOUR_END_DATE,
-      'Post Differential | Danger Pay': getDifferentials(pos),
-      'Assignee TED': getResult(data, 'ted') || NO_DATE,
-    },
+    subheading: [
+      { 'Position Number': getResult(pos, 'position_number', NO_POSITION_NUMBER) },
+      { 'Skill': getResult(pos, 'skill_code') || NO_SKILL },
+      { 'Position Title': getResult(pos, 'title') || NO_POSITION_TITLE },
+    ],
+    bodyPrimary: [
+      { 'Location': getPostName(pos?.post) || NO_POST },
+      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
+      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
+      { 'Status': getResult(pos, 'status') || NO_STATUS },
+      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+    ],
+    bodySecondary: [
+      { '': <CheckBox id="deto" label="DETO" value disabled /> },
+      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
+      { 'Cycle Position': '---' },
+      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
+      { 'Incumbent TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
+      { 'Incumbent Status': getResult(pos, 'current_assignment.user') || NO_USER_LISTED },
+      { 'Pay Plan': '---' },
+      { 'TED': getResult(data, 'ted') || NO_TOUR_END_DATE },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+      { 'Assignee TED': getResult(data, 'ted') || NO_DATE },
+    ],
     textarea: description$,
-    metadata: {
-      'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE),
-    },
+    metadata: [
+      { 'Last Updated': (updateDate && updateUser) ? `${updateUser} ${updateDate}` : (updateDate || NO_UPDATE_DATE) },
+    ],
     /* eslint-enable quote-props */
   };
 
   if (!showDeto) {
-    delete sections.bodySecondary[''];
+    sections.bodySecondary.slice(1);
   }
 
 
@@ -111,12 +107,18 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   // Hardcoded - find where to get this data
   const fakeIncumbents = [
-    { code: 'JH', name: 'Holden, James' },
-    { code: 'NN', name: 'Nagata, Naomi' },
-    { code: 'AB', name: 'Burton, Amos' },
-    { code: 'AK', name: 'Kamal, Alex' },
+    { code: 'CURR', name: 'Holden, James' },
+    { code: 'TBD', name: 'TBD' },
+    { code: 'VAC', name: 'Vacant' },
+    { code: 'NEW', name: 'New' },
   ];
   const [incumbent, setIncumbent] = useState(fakeIncumbents[0]);
+
+  const [editMode, setEditMode] = useState(false);
+  useEffect(() => {
+    // TODO: during integration, replace 7 with unique card identifier
+    onEditModeSearch(editMode, pos?.id);
+  }, [editMode]);
 
   const form = {
     /* eslint-disable quote-props */
@@ -142,7 +144,7 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
             <label htmlFor="cycle-position-incumbent">Incumbent</label>
             <select
               id="cycle-position-incumbent"
-              defaultValue={status}
+              defaultValue={incumbent}
               onChange={(e) => setIncumbent(e?.target.value)}
             >
               {fakeIncumbents.map(s => (
@@ -175,6 +177,10 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
         </div>
       </div>,
     handleSubmit: () => dispatch(cyclePositionEdit(data, incumbent, status)),
+    handleEdit: {
+      editMode,
+      setEditMode,
+    },
     /* eslint-enable quote-props */
   };
 
@@ -186,7 +192,6 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
         content: <PositionExpandableContent
           sections={sections}
           form={form}
-          onEditMode={onEditModeCard}
         />,
       }]}
     />

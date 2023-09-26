@@ -17,6 +17,7 @@ exports[`BidderPortfolioGridItemComponent matches snapshot 1`] = `
           checkboxProps={Object {}}
           className=""
           disabled={false}
+          excludeTmCheckboxClass={false}
           id="checkbox-1"
           label="Select this user"
           labelSrOnly={true}

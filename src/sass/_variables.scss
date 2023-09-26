@@ -361,6 +361,10 @@ $filters-sizing-config: (
     label-width: 100px,
     picky-width: 240px,
   ),
+  el: (
+    label-width: 120px,
+    picky-width: 240px,
+  ),
   panel-m: (
     label-width: 85px,
     picky-width: 240px,
@@ -376,5 +380,17 @@ $filters-sizing-config: (
   pv-man: (
     label-width: 100px,
     picky-width: 200px,
+  ),
+  bs: (
+    label-width: 120px,
+    picky-width: 200px,
+  ),
+  spa: (
+    label-width: 100px,
+    picky-width: 240px,
+  ),
+  ac: (
+    label-width: 135px,
+    picky-width: 270px,
   ),
 );

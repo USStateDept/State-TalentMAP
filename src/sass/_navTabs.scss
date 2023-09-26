@@ -23,6 +23,20 @@
       text-align: center;
     }
 
+    .tab {
+      &.disabled {
+        background-color: $bg-gray-medium-3;
+        color: $bg-gray-dark-2;
+        cursor: default !important;
+
+        &:hover {
+          background-color: $bg-gray-medium-3 !important;
+          color: $bg-gray-dark-2 !important;
+          border-top: 3px solid $bg-gray-medium-3 !important;
+        }
+      }
+    }
+
     // special styling for first tab
     #asgh-tab-container {
       .tab {
@@ -50,6 +64,19 @@
       padding: 5px 10px 8px;
       font-size: 1.6rem;
       text-align: center;
+    }
+
+    .tab {
+      &.disabled {
+        color: $bg-gray-dark-1;
+
+        &:hover {
+          cursor: default;
+          color: $bg-gray-dark-1 !important;
+          background-color: transparent !important;
+        }
+
+      }
     }
 
     .tab-active {

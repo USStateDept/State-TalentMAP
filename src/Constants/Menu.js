@@ -149,11 +149,74 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           'glossary_editors',
         ],
       },
+      checkFlag('flags.bureau_exception') ?
+        {
+          text: 'Bureau Exception Access',
+          route: '/profile/administrator/bureauexception/',
+          icon: 'users',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.cycle_job_categories') ?
+        {
+          text: 'Cycle Job Categories',
+          route: '/profile/administrator/cyclejobcategories/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.org_stats') ?
+        {
+          text: 'Org Stats',
+          route: '/profile/administrator/orgstats/',
+          icon: 'building',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.manage_entry_level') ?
+        {
+          text: 'Manage Entry Level',
+          route: '/profile/administrator/manageentrylevel/',
+          icon: ' fa-keyboard-o',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.bid_seasons') ?
+        {
+          text: 'Bid Season Management',
+          route: '/profile/administrator/managebidseasons/',
+          icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.assignment_cycles') ?
+        {
+          text: 'Assignment Cycles',
+          route: '/profile/administrator/assignmentcycles/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.panel_admin') ?
         {
           text: 'Panel',
           route: '/profile/administrator/panel/',
           icon: 'calendar',
+          roles: [
+            'superuser',
+          ],
+        } : null,
+      checkFlag('flags.job_categories') ?
+        {
+          text: 'Job Categories',
+          route: '/profile/administrator/jobcategories/',
+          icon: 'cogs',
           roles: [
             'superuser',
           ],
@@ -198,6 +261,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'bureau_user',
           ],
         } : null,
+      checkFlag('flags.manage_post_access') ?
+        {
+          text: 'Manage Post Access',
+          route: '/profile/bureau/managepostaccess',
+          icon: 'building',
+          roles: [
+            'super_user',
+            'bureau_user',
+          ],
+        } : null,
       checkFlag('flags.cycle_management') ?
         {
           text: 'Cycle Management',
@@ -213,6 +286,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           text: 'Publishable Positions',
           route: '/profile/bureau/publishablepositions',
           icon: ' fa-newspaper-o',
+          roles: [
+            'superuser',
+            'bureau_user',
+          ],
+        } : null,
+      checkFlag('flags.search_post_access') ?
+        {
+          text: 'Search Post Access',
+          route: '/profile/bureau/searchpostaccess',
+          icon: ' fa-search-minus',
           roles: [
             'superuser',
             'bureau_user',
@@ -260,6 +343,17 @@ export const GET_PROFILE_MENU = () => MenuConfig([
       'superuser',
     ],
     children: [
+      {
+        text: 'Client Profiles', // aka Bidder Portfolio
+        route: '/profile/ao/bidderportfolio',
+        icon: 'address-book',
+        roles: [
+          'ao_user',
+        ],
+        params: {
+          type: 'all',
+        },
+      },
       checkFlag('flags.agenda_search') ?
         {
           text: 'Employee Agendas',
@@ -297,6 +391,16 @@ export const GET_PROFILE_MENU = () => MenuConfig([
           roles: [
             'ao_user',
             'super_user',
+          ],
+        } : null,
+      checkFlag('flags.publishable_positions') ?
+        {
+          text: 'Publishable Positions',
+          route: '/profile/ao/publishablepositions',
+          icon: ' fa-newspaper-o',
+          roles: [
+            'superuser',
+            'ao_user',
           ],
         } : null,
     ],
