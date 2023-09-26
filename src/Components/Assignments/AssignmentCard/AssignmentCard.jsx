@@ -111,13 +111,13 @@ const AssignmentCard = (props) => {
     setCriticalNeed(false);
     setWaiver(waiverOptions[0]);
     setSent('');
-    setNewAsgSep(false);
+    setNewAsgSep('default');
   };
   const onSubmitForm = () => {
     // createAssignment(data)
     // editAssignment(data)
     // TO-DO: refresh assignments and separations after?
-    setNewAsgSep(false);
+    setNewAsgSep('default');
   };
 
   const form = {
