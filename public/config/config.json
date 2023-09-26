@@ -36,6 +36,8 @@
     "search_post_access": true,
     "settings": true,
     "unassigned_filters": true,
-    "bidding_tool": true
+    "bidding_tool": true,
+    "assignment_notification": true,
+    "assignment_memo": true
   }
 }
