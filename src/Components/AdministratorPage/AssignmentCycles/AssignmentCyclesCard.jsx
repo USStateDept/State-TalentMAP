@@ -16,7 +16,9 @@ import {
 } from 'actions/assignmentCycle';
 import { Column, Row } from 'Components/Layout';
 import CheckBox from '../../CheckBox';
+import { checkFlag } from '../../../flags';
 
+const useCycleJobCategories = () => checkFlag('flags.cycle_job_categories');
 
 const AssignmentCyclesCard = (props) => {
   const dispatch = useDispatch();
@@ -284,7 +286,9 @@ const AssignmentCyclesCard = (props) => {
                       </option>
                     ))}
                 </select>
-                <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
+                {useCycleJobCategories &&
+                  <Link to="/profile/administrator/cyclejobcategories">Update Categories</Link>
+                }
               </span>
             </div>
             <div>
