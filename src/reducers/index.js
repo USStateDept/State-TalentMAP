@@ -81,6 +81,7 @@ import entryLevel from './entryLevel';
 import bidAudit from './bidAudit';
 import jobCategories from './jobCategories';
 import orgStats from './orgStats';
+import biddingTool from './biddingTool';
 
 export default (history) => combineReducers({
   ...results,
@@ -159,6 +160,7 @@ export default (history) => combineReducers({
   ...bidAudit,
   ...jobCategories,
   ...orgStats,
+  ...biddingTool,
   router: connectRouter(history),
   client,
   login,

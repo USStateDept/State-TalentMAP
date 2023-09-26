@@ -47,10 +47,11 @@
   }
 }
 
-@each $group, $values in $filters-sizing-config {
+@each $group,
+$values in $filters-sizing-config {
   $label-width: map-get($values, label-width);
   $picky-width: map-get($values, picky-width);
-  $grid-size: map-get($values, grid-size) or $label-width + $picky-width + 20;
+  $grid-size: map-get($values, grid-size) or $label-width +$picky-width +20;
 
   .position-search--filters--#{$group} {
     display: grid;
@@ -88,4 +89,28 @@
 .disabled-bg {
   background: $color-gray-lightest;
   color: $color-gray;
+}
+
+.standard-add-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: $primary-blue;
+  cursor: pointer;
+  text-decoration: none;
+
+  span {
+    padding-right: 5px;
+  }
+
+  p {
+    margin: 0px;
+    margin-bottom: 2px;
+  }
+
+  &.underlined {
+    p {
+      text-decoration: underline;
+    }
+  }
 }

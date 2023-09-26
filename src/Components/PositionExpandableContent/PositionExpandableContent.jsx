@@ -38,7 +38,8 @@ const PositionExpandableContent = ({ sections, form }) => {
 
   const getBody = () => {
     if (!setEditMode) return [];
-    if (editMode && form) return form.staticBody;
+    if (editMode && form && form.staticBody) return form.staticBody;
+    if (editMode && form && !form.staticBody) return [];
     if (showMore && sections.bodySecondary) {
       return [...sections.bodyPrimary, ...sections.bodySecondary];
     }
