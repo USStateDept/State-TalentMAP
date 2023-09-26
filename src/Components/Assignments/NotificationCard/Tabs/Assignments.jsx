@@ -35,11 +35,11 @@ const Assignments = () => {
   // which will be updated in this function (probably going to be a LOT of code)
   // see PositionManagerBidders for reference
   const onDragEnd = result => {
+    // eslint-disable-next-line no-unused-vars
     const { destination } = result;
     // dropped outside the list
-    if (!destination) {
-      console.log('hello world');
-    }
+    // if (!destination) {
+    // }
   };
 
   const getListStyle = () => ({
