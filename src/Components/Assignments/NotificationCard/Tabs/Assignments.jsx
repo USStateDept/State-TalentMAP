@@ -38,7 +38,6 @@ const Assignments = () => {
     const { destination } = result;
     // dropped outside the list
     if (!destination) {
-      // console.log('hello world');
     }
   };
 
