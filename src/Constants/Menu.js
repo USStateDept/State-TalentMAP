@@ -171,6 +171,15 @@ export const GET_PROFILE_MENU = () => MenuConfig([
             'superuser',
           ],
         } : null,
+      checkFlag('flags.cycle_job_categories') ?
+        {
+          text: 'Cycle Job Categories',
+          route: '/profile/administrator/cyclejobcategories/',
+          icon: 'cogs',
+          roles: [
+            'superuser',
+          ],
+        } : null,
       checkFlag('flags.org_stats') ?
         {
           text: 'Org Stats',
@@ -220,7 +229,7 @@ export const GET_PROFILE_MENU = () => MenuConfig([
         {
           text: 'Job Categories',
           route: '/profile/administrator/jobcategories/',
-          icon: 'map',
+          icon: 'cogs',
           roles: [
             'superuser',
           ],

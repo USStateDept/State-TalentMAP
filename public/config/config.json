@@ -14,6 +14,7 @@
     "deto": false,
     "handshake_bidding": true,
     "job_categories": true,
+    "cycle_job_categories": true,
     "maintain_assignment": true,
     "manage_entry_level": true,
     "manage_post_access": true,

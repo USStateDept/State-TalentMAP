@@ -158,6 +158,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Job Categories"
+        link="/profile/administrator/cyclejobcategories/"
+        search=""
+        title="Cycle Job Categories"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -174,7 +182,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when isGlossaryEditor is 
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
+        iconName="cogs"
         key="Job Categories"
         link="/profile/administrator/jobcategories/"
         search=""
@@ -635,6 +643,14 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
+        iconName="cogs"
+        key="Cycle Job Categories"
+        link="/profile/administrator/cyclejobcategories/"
+        search=""
+        title="Cycle Job Categories"
+      />
+      <withRouter(NavLink)
+        hidden={true}
         iconName="flag"
         key="Feature Flags"
         link="/profile/administrator/featureflags/"
@@ -651,7 +667,7 @@ exports[`ProfileMenuExpandedComponent matches snapshot when user is bidcycle_adm
       />
       <withRouter(NavLink)
         hidden={true}
-        iconName="map"
+        iconName="cogs"
         key="Job Categories"
         link="/profile/administrator/jobcategories/"
         search=""
