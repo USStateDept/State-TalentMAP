@@ -174,7 +174,6 @@ const CycleSearchCard = (props) => {
     dispatch(saveAssignmentCyclesSelections(userData));
     setEdit(false);
     onEditModeSearch(id);
-    console.log(userData, id);
   };
 
   const deleteAC = (e) => {
