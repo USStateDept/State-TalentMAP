@@ -23,32 +23,13 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
   const pos = get(result, 'position') || result;
   const [description, setDescription] = useState(result.description || '');
   const [pbDate, setPbDate] = useState(getResult(pos, 'mc_date'));
-  // const [selectedGrade, setSelectedGrade] = useState();
   const [editMode, setEditMode] = useState(false);
+
   useEffect(() => {
-    // TODO: during integration, replace 7 with unique card identifier
     onEditModeSearch(editMode, id);
   }, [editMode]);
 
-  const onSubmitBidAuditData = () => {
-    const data = {
-      id,
-      description,
-      pbDate,
-    };
-    dispatch(savebidAuditSelections(data));
-  };
-
-  const onSubmitAtGradesData = () => {
-    const data = {
-      id,
-      description,
-      pbDate,
-    };
-    dispatch(savebidAuditSelections(data));
-  };
-
-  const onSubmitInCategoriesData = () => {
+  const onSubmitBidData = () => {
     const data = {
       id,
       description,
@@ -83,11 +64,19 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
   };
 
   const onCancelForm = () => {
-    // this is likely not going to be needed, as we should be
-    // re-reading from "pos" when we open Edit Form back up
-    // clear will need to set states back to the pull
-    // from "pos" once we've determined the ref data structure
     setPbDate(getResult(pos, 'mc_date'));
+  };
+
+  const gradeOptions = [
+    { code: 1, name: '1' },
+    { code: 2, name: '2' },
+    { code: 3, name: '3' },
+    { code: 4, name: '4' },
+    { code: 5, name: '5' },
+    { code: 6, name: '6' },
+  ];
+  const onEditChange = () => {
+    setEditMode(e => !e);
   };
 
   const datePickerRef = useRef(null);
@@ -95,7 +84,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     datePickerRef.current.setOpen(true);
   };
 
-  const sections = {
+  const bidAuditSections = {
     /* eslint-disable no-dupe-keys */
     /* eslint-disable quote-props */
     subheading: [
@@ -112,7 +101,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     /* eslint-enable quote-props */
     /* eslint-enable no-dupe-keys */
   };
-  const form = {
+  const bidAuditForm = {
     /* eslint-disable quote-props */
     staticBody: [
       { 'Audit Number': result.id || NO_BUREAU },
@@ -152,7 +141,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       </div>
     ),
     cancelText: 'Are you sure you want to discard all changes made to this position?',
-    handleSubmit: () => onSubmitBidAuditData(),
+    handleSubmit: () => onSubmitBidData(),
     handleCancel: () => onCancelForm(),
     handleEdit: {
       editMode,
@@ -161,19 +150,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     /* eslint-enable quote-props */
   };
 
-  const gradeOptions = [
-    { code: 1, name: '1' },
-    { code: 2, name: '2' },
-    { code: 3, name: '3' },
-    { code: 4, name: '4' },
-    { code: 5, name: '5' },
-    { code: 6, name: '6' },
-  ];
-  const onEditChange = () => {
-    setEditMode(e => !e);
-  };
-
-  const sections2 = {
+  const atGradesSections = {
     /* eslint-disable no-dupe-keys */
     /* eslint-disable quote-props */
     subheading: [
@@ -189,7 +166,8 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     /* eslint-enable quote-props */
     /* eslint-enable no-dupe-keys */
   };
-  const form2 = {
+
+  const atGradesForm = {
     /* eslint-disable quote-props */
     staticBody: [],
     inputBody: (
@@ -240,7 +218,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       </div>
     ),
     cancelText: 'Are you sure you want to discard all changes made to this position?',
-    handleSubmit: () => onSubmitAtGradesData(),
+    handleSubmit: () => onSubmitBidData(),
     handleCancel: () => onCancelForm(),
     handleEdit: {
       editMode,
@@ -249,7 +227,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     /* eslint-enable quote-props */
   };
 
-  const sections3 = {
+  const inCategoriesSections = {
     /* eslint-disable no-dupe-keys */
     /* eslint-disable quote-props */
     subheading: [
@@ -265,7 +243,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
     /* eslint-enable quote-props */
     /* eslint-enable no-dupe-keys */
   };
-  const form3 = {
+  const inCategoriesForm = {
     /* eslint-disable quote-props */
     staticBody: [],
     inputBody: (
@@ -292,7 +270,7 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
       </div>
     ),
     cancelText: 'Are you sure you want to discard all changes made to this position?',
-    handleSubmit: () => onSubmitInCategoriesData(),
+    handleSubmit: () => onSubmitBidData(),
     handleCancel: () => onCancelForm(),
     handleEdit: {
       editMode,
@@ -309,8 +287,8 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         content: (
           <div className="position-content--container">
             <PositionExpandableContent
-              sections={sections}
-              form={form}
+              sections={bidAuditSections}
+              form={bidAuditForm}
             />
           </div>
         ),
@@ -321,8 +299,8 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         content: (
           <div className="position-content--container">
             <PositionExpandableContent
-              sections={sections2}
-              form={form2}
+              sections={atGradesSections}
+              form={atGradesForm}
             />
           </div>
         ),
@@ -333,8 +311,8 @@ const BidAuditCard = ({ result, id, onEditModeSearch, atGrades, inCategories }) 
         content: (
           <div className="position-content--container">
             <PositionExpandableContent
-              sections={sections3}
-              form={form3}
+              sections={inCategoriesSections}
+              form={inCategoriesForm}
             />
           </div>
         ),
