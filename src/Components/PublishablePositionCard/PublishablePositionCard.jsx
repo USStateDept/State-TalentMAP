@@ -70,7 +70,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
     renderList: renderSelectionList,
     className: 'width-280',
   };
-  const [status, setStatus] = useState({});
+  const [status, setStatus] = useState('');
   const [exclude, setExclude] = useState(true);
   const [selectedCycles, setSelectedCycles] = useState([]);
   const [selectedFuncBureau, setSelectedFuncBureau] = useState('');
@@ -95,7 +95,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
   };
 
   const onCancelForm = () => {
-    setStatus({});
+    setStatus('');
     setExclude(true);
     setSelectedCycles([]);
     setTextArea(data?.positionDetails || 'No description.');
@@ -115,7 +115,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
     ],
     inputBody: (
       <div className="position-form">
-        { PP_INTEGRATION_FLAG ?
+        { PP_INTEGRATION_FLAG &&
           <div className="spaced-row">
             <div className="dropdown-container">
               <div className="position-form--input">
@@ -154,7 +154,6 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
               onCheckBoxClick={e => setExclude(e)}
             />
           </div>
-          : null
         }
         <div>
           <Row fluid className="position-form--description">
@@ -176,7 +175,7 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
             </div>
           </Row>
         </div>
-        { PP_INTEGRATION_FLAG ?
+        { PP_INTEGRATION_FLAG &&
           <>
             <div className="content-divider" />
             <div className="position-form--heading">
@@ -218,7 +217,6 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
               </div>
             </div>
           </>
-          : null
         }
       </div>
     ),
@@ -304,12 +302,13 @@ const PublishablePositionCard = ({ data, onEditModeSearch, onSubmit, disableEdit
           sections={sections}
           form={form}
         />,
-      }, {
-        text: PP_INTEGRATION_FLAG ? 'Position Classification' : '',
-        value: PP_INTEGRATION_FLAG ? 'CLASSIFICATION' : '',
-        content: PP_INTEGRATION_FLAG ? classificationTable() : null,
-        disabled: editMode,
-      }]}
+      }, PP_INTEGRATION_FLAG ?
+        { text: 'Position Classification',
+          value: 'CLASSIFICATION',
+          content: classificationTable(),
+          disabled: editMode,
+        } : {},
+      ]}
     />
   );
 };
