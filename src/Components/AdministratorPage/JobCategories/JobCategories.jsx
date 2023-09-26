@@ -22,7 +22,6 @@ const JobCategories = () => {
   const jobCategorySkillsResults = jobCategorySkills?.data;
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [loadedSkillIds, setLoadedSkillIds] = useState([]);
   const [selectedSkillIds, setSelectedSkillIds] = useState([]);
 
@@ -43,6 +42,7 @@ const JobCategories = () => {
 
   useEffect(() => {
     setSelectedSkillIds([]);
+    setLoadedSkillIds([]);
     setSelectAll(false);
     if (selectedJobCategory !== '') {
       dispatch(jobCategoriesFetchSkills(getQuery()));
@@ -55,6 +55,7 @@ const JobCategories = () => {
         }
       });
       setSelectedSkillIds(returnArray);
+      setLoadedSkillIds(returnArray);
     }
   }, [selectedJobCategory]);
 
@@ -80,7 +81,7 @@ const JobCategories = () => {
   });
 
   const clearInputs = (() => {
-    setSelectedSkillIds([]);
+    setSelectedSkillIds(loadedSkillIds);
     setSelectAll(false);
     setIsEditMode(false);
   });
