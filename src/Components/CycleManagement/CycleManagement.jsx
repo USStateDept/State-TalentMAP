@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { withRouter } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 import Picky from 'react-picky';
 import PropTypes from 'prop-types';
 import FA from 'react-fontawesome';
@@ -16,8 +18,13 @@ import SelectForm from 'Components/SelectForm';
 import { usePrevious } from 'hooks';
 import { filtersFetchData } from 'actions/filters/filters';
 import { cycleManagementFetchData, saveCycleManagementSelections } from 'actions/cycleManagement';
+import {
+  postAssignmentCyclesSelections,
+  saveAssignmentCyclesSelections,
+} from 'actions/assignmentCycle';
 import { nameSort, renderSelectionList, userHasPermissions } from 'utilities';
 import CycleSearchCard from './CycleSearchCard';
+import NewAssignmentCycle from './NewAssignmentCycle';
 
 const CycleManagement = (props) => {
   const dispatch = useDispatch();
@@ -37,12 +44,15 @@ const CycleManagement = (props) => {
   const [selectedStatus, setSelectedStatus] = useState(userSelections?.selectedStatus || []);
   const [selectedDates, setSelectedDates] = useState(userSelections?.selectedDates || null);
   const [clearFilters, setClearFilters] = useState(false);
+  const [cardsInEditMode, setCardsInEditMode] = useState([]);
+  const [addNewCycles, setAddNewCycles] = useState(false);
 
   // Pagination
   const [page, setPage] = useState(userSelections.page || 1);
   const [limit, setLimit] = useState(userSelections.limit || 10);
   const prevPage = usePrevious(page);
   const pageSizes = POSITION_MANAGER_PAGE_SIZES;
+  const disableInput = addNewCycles || cardsInEditMode.length > 0 || genericFiltersIsLoading;
 
   const currentInputs = {
     page,
@@ -129,6 +139,36 @@ const CycleManagement = (props) => {
     setClearFilters(false);
   };
 
+  const addNewCycle = (e) => {
+    e.preventDefault();
+    setAddNewCycles(ac => !ac);
+  };
+
+  const onSave = (isNew, userData) => {
+    dispatch(saveAssignmentCyclesSelections(userData));
+    setAddNewCycles(false);
+    if (!isNew) setCardsInEditMode([]);
+  };
+
+  const onPost = (isNew, userData) => {
+    dispatch(postAssignmentCyclesSelections(userData));
+    setAddNewCycles(false);
+    if (!isNew) setCardsInEditMode([]);
+  };
+
+  const onClose = (isNew) => {
+    setAddNewCycles(false);
+    if (!isNew) setCardsInEditMode([]);
+  };
+
+  const onCardAdd = (e) => {
+    if (cardsInEditMode.includes(e)) {
+      setCardsInEditMode(cardsInEditMode.filter(item => item !== e));
+    } else {
+      setCardsInEditMode([...cardsInEditMode, e]);
+    }
+  };
+
   // Overlay for error, info, and loading state
   const noResults = cycleManagementData?.results?.length === 0;
   const getOverlay = () => {
@@ -160,13 +200,6 @@ const CycleManagement = (props) => {
         <div className="cycle-management-page position-search">
           <div className="usa-grid-full position-search--header">
             <ProfileSectionTitle title="Cycle Management" icon="cogs" className="xl-icon" />
-            { isSuperUser &&
-              <div className="cm-admin-button">
-                <button className="usa-button-primary">
-                  Add Cycle
-                </button>
-              </div>
-            }
             <div className="filterby-container" >
               <div className="filterby-label">Filter by:</div>
               <span className="filterby-clear">
@@ -190,6 +223,7 @@ const CycleManagement = (props) => {
                   labelKey="name"
                   onChange={setSelectedStatus}
                   value={selectedStatus}
+                  disabled={disableInput}
                 />
               </div>
               <div className="filter-div">
@@ -200,7 +234,7 @@ const CycleManagement = (props) => {
                   options={bidCycleOptions}
                   valueKey="id"
                   labelKey="name"
-                  disabled={genericFiltersIsLoading}
+                  disabled={disableInput}
                   onChange={setSelectedCycles}
                   value={selectedCycles}
                 />
@@ -213,6 +247,7 @@ const CycleManagement = (props) => {
                   maxDetail="month"
                   calendarIcon={null}
                   showLeadingZeros
+                  disabled={disableInput}
                 />
               </div>
             </div>
@@ -243,9 +278,41 @@ const CycleManagement = (props) => {
                 </div>
               </div>
 
+              <div className="usa-grid-full results-dropdown controls-container">
+                <div className="bs-results">
+                  <Link
+                    onClick={addNewCycle}
+                    to="#"
+                  >
+                    {addNewCycles ?
+                      <span>
+                        <FA className="fa-solid fa-close" />
+                        {' Close'}
+                      </span> :
+                      <span>
+                        <FA className="fa-solid fa-plus" />
+                        {' Add New Assignment Cycle'}
+                      </span>
+                    }
+                  </Link>
+                </div>
+              </div>
+
               <div className="cm-lower-section">
-                {cycleManagementData?.results?.map(data =>
-                  <CycleSearchCard {...{ ...data, isAO }} />)}
+                {addNewCycles ?
+                  <NewAssignmentCycle
+                    onPost={onPost}
+                    onSave={onSave}
+                    onClose={onClose}
+                  /> : null}
+                {cycleManagementData?.results?.map(data => (
+                  <CycleSearchCard
+                    {...{ ...data, isAO }}
+                    onEditModeSearch={onCardAdd}
+                    isSuperUser={isSuperUser}
+                  />
+                ),
+                )}
                 <div className="usa-grid-full react-paginate bureau-pagination-controls">
                   <PaginationWrapper
                     pageSize={limit}

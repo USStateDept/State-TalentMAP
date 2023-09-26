@@ -96,7 +96,10 @@
 
 // ============= Cycle Management =============
 .cycle-management-page {
-
+  .results-dropdown {
+    justify-content: flex-end;
+    margin-right: 40px;
+  }
   .cm-admin-button {
     display: flex;
     justify-content: flex-end;
@@ -128,6 +131,7 @@
       }
     }
   }
+
   .cm-lower-section {
     padding: 0 35px 20px;
   }
