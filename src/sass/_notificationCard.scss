@@ -15,6 +15,18 @@
     }
   }
 
+  .notification-card__sub-section {
+    .sub-header {
+      font-weight: 500;
+      font-size: 20px;
+      padding-bottom: 8px;
+    }
+  }
+
+  .position-content--textArea {
+    margin-inline: unset;
+  }
+
 
   .position-content--details {
     dl {
@@ -55,6 +67,18 @@
 
     .fa {
       color: $primary-blue;
+    }
+  }
+
+  .memo-preview-row {
+    margin-bottom: 15px;
+  }
+
+  .memo-input-container {
+    position: relative;
+    margin-top: -30px;
+    .position-content--description {
+      margin-top: 20px;
     }
   }
 }

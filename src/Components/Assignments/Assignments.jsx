@@ -12,14 +12,18 @@ import { assignmentFetchData } from 'actions/assignment';
 import AssignmentCard from './AssignmentCard';
 // import { formatDate } from 'utilities';
 import api from '../../api';
+import NotificationCard from './NotificationCard/NotificationCard';
 
+const useNotification = () => checkFlag('flags.assignment_notification');
+const useMemo = () => checkFlag('flags.assignment_memo');
 
 const Assignments = (props) => {
   const assignments = useSelector(state => state.assignment);
   const assignmentsErrored = useSelector(state => state.assignmentHasErrored);
   const assignmentsLoading = useSelector(state => state.assignmentIsLoading);
 
-  const [newAsgSep, setNewAsgSep] = useState(false);
+  // default || newAsgSep || memo || notification
+  const [cardMode, setCardMode] = useState('default');
 
   const id = props?.match.params.id;
 
@@ -61,34 +65,34 @@ const Assignments = (props) => {
     { code: 4, name: 'Not Used' },
   ];
   // const {
-    // data: statuses,
-    // error: statusesError,
-    // loading: statusesLoading
+  // data: statuses,
+  // error: statusesError,
+  // loading: statusesLoading
   // } = useDataLoader(api().get, '/fsbid/assignments/statuses/');
   // const {
-    // data: actions,
-    // error: actionsError,
-    // loading: actionsLoading
+  // data: actions,
+  // error: actionsError,
+  // loading: actionsLoading
   // } = useDataLoader(api().get, '/fsbid/assignments/actions/');
   // const {
-    // data: tods,
-    // error: todsError,
-    // loading: todsLoading
+  // data: tods,
+  // error: todsError,
+  // loading: todsLoading
   // } = useDataLoader(api().get, '/fsbid/assignments/tods/');
   // const {
-    // data: travel,
-    // error: travelError,
-    // loading: travelLoading
+  // data: travel,
+  // error: travelError,
+  // loading: travelLoading
   // } = useDataLoader(api().get, '/fsbid/assignments/travel/');
   // const {
-    // data: fundings,
-    // error: fundingsError,
-    // loading: fundingsLoading
+  // data: fundings,
+  // error: fundingsError,
+  // loading: fundingsLoading
   // } = useDataLoader(api().get, '/fsbid/assignments/fundings/');
   // const {
-    // data: waivers,
-    // error: waiversError,
-    // loading: waiversLoading
+  // data: waivers,
+  // error: waiversError,
+  // loading: waiversLoading
   // } = useDataLoader(api().get, '/fsbid/assignments/waivers/');
 
   // eslint-disable-next-line no-unused-vars
@@ -134,22 +138,36 @@ const Assignments = (props) => {
     return overlay;
   };
 
+  const getCardMode = () => {
+    switch (cardMode) {
+      case 'newAsgSep':
+        return <AssignmentCard isNew setNewAsgSep={setCardMode} refFilters={refFilters} />;
+      case 'notification':
+        return <NotificationCard />;
+      case 'memo':
+        return <NotificationCard />;
+      default:
+        return assignments?.map(data =>
+          <AssignmentCard data={data} refFilters={refFilters} />);
+    }
+  };
+
   return (
     getOverlay() ||
     <div className="assignments-maintenance-page position-search">
       <div className="asg-content">
-        { false &&
-              <div className="breadcrumb-container">
-                <Link to={`/profile/public/${breadcrumbLinkRole}/`} className="breadcrumb-active">
-                  Bidder Portfolio
-                </Link>
-                <span className="breadcrumb-arrow">&gt;</span>
-                <span>{id}</span>
-              </div>
+        {false &&
+          <div className="breadcrumb-container">
+            <Link to={`/profile/public/${breadcrumbLinkRole}/`} className="breadcrumb-active">
+              Bidder Portfolio
+            </Link>
+            <span className="breadcrumb-arrow">&gt;</span>
+            <span>{id}</span>
+          </div>
         }
         <div className="asg-header">
           <FA name="clipboard" className="fa-lg" />
-              Assignments
+          Assignments
           <span className="asg-title-dash">
             {'- '}
             <Link to={`/profile/public/${id}/ao`}>
@@ -158,18 +176,36 @@ const Assignments = (props) => {
               </span>
             </Link>
           </span>
-          <div className="create-new-button">
-            <a role="button" tabIndex={0} onClick={() => setNewAsgSep(true)}>
-              <FA name="briefcase" />
-                  Add New Assignment/Separation
-            </a>
+        </div>
+        <div className="pt-20 asg-subheader">
+          Review the current assignments or add assignments for {employeeName}
+          <div>
+            <div className="create-new-button">
+              <a role="button" className="width-300" tabIndex={0} onClick={() => setCardMode('newAsgSep')}>
+                <FA name="briefcase" />
+                Add New Assignment/Separation
+              </a>
+            </div>
+            {useNotification() &&
+              <div className="create-new-button align-left">
+                <a role="button" className="width-300" tabIndex={0} onClick={() => setCardMode('notification')}>
+                  <FA name="briefcase" />
+                  Add Notification
+                </a>
+              </div>
+            }
+            {useMemo() &&
+              <div className="create-new-button align-left">
+                <a role="button" className="width-300" tabIndex={0} onClick={() => setCardMode('memo')}>
+                  <FA name="briefcase" />
+                  Add Memo
+                </a>
+              </div>
+            }
           </div>
         </div>
         <div className="asg-lower-section">
-          {newAsgSep &&
-            <AssignmentCard isNew setNewAsgSep={setNewAsgSep} refFilters={refFilters} />}
-          {assignments?.map(data =>
-            <AssignmentCard data={data} refFilters={refFilters} />)}
+          {getCardMode()}
         </div>
       </div>
     </div>
