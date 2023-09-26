@@ -145,14 +145,16 @@ const JobCategories = () => {
           value: 'descriptions',
           content: (
             <div>
-              <div className="jc-toggle-container">
-                <ToggleButton
-                  labelTextRight="Toggle Edit Mode"
-                  onChange={() => setIsEditMode(!isEditMode)}
-                  checked={isEditMode}
-                  onColor="#0071BC"
-                />
-              </div>
+              {selectedJobCategory !== '' &&
+                <div className="jc-toggle-container">
+                  <ToggleButton
+                    labelTextRight="Toggle Edit Mode"
+                    onChange={() => setIsEditMode(!isEditMode)}
+                    checked={isEditMode}
+                    onColor="#0071BC"
+                  />
+                </div>
+              }
               <table className="custom-table">
                 <thead>
                   <tr className="jc-table-row">
