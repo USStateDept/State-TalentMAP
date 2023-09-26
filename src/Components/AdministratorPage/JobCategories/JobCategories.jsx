@@ -21,6 +21,7 @@ const JobCategories = () => {
   const jobCategorySkillsResults = jobCategorySkills?.data;
 
   const [selectedJobCategory, setSelectedJobCategory] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [loadedSkillIds, setLoadedSkillIds] = useState([]);
   const [selectedSkillIds, setSelectedSkillIds] = useState([]);
 
@@ -40,17 +41,20 @@ const JobCategories = () => {
   }, []);
 
   useEffect(() => {
+    setSelectedSkillIds([]);
+    setSelectAll(false);
     if (selectedJobCategory !== '') {
       dispatch(jobCategoriesFetchSkills(getQuery()));
     }
     if (jobCategorySkillsResults) {
+      const returnArray = [];
       jobCategorySkillsResults.forEach(skill => {
         if (skill.display_skill === '1') {
-          setLoadedSkillIds([...loadedSkillIds, skill.id]);
+          returnArray.push(skill.code);
         }
       });
+      setSelectedSkillIds(returnArray);
     }
-    setSelectedSkillIds([]);
   }, [selectedJobCategory]);
 
   const handleSelectAll = () => {
@@ -148,7 +152,7 @@ const JobCategories = () => {
               <th className="checkbox-pos">
                 <CheckBox
                   className="tm-checkbox-transparent"
-                  checked={!selectAll}
+                  value={selectAll}
                   onCheckBoxClick={handleSelectAll}
                   disabled={!isEditMode}
                 />
@@ -170,7 +174,7 @@ const JobCategories = () => {
                       className="tm-checkbox-transparent"
                       value={
                         selectedJobCategory !== '' ?
-                          selectedSkillIds.includes(skill.code) || skill.display_skill === '1' : false
+                          selectedSkillIds.includes(skill.code) : false
                       }
                       onCheckBoxClick={() => handleSelectSkill(skill)}
                       disabled={!isEditMode}
