@@ -61,8 +61,8 @@ const CycleSearchCard = (props) => {
   const [cycleCategory, setCycleCategory] = useState(dummyInfo.cycleCategory || 'Fall');
   const [cycleStatus, setCycleStatus] = useState(dummyInfo.cycleStatus || 'Winter');
   const [exclusivePositions, setExclusivePositions]
-    = useState(dummyInfo.exclusivePositions || false);
-  const [postViewable, setPostViewable] = useState(dummyInfo.postViewable || false);
+    = useState(dummyInfo?.exclusivePositions);
+  const [postViewable, setPostViewable] = useState(dummyInfo?.postViewable);
   const [cycleBoundries, setCycleBoundries] = useState(dummyInfo.cycleBoundary || null);
   const [sixMonthLanguage, setSixMonthLanguage] = useState(dummyInfo.sixMonthBoundary || null);
   const [twelveMonthLanguage, setTwelveMonthLanguage]
