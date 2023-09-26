@@ -63,7 +63,7 @@ const BiddingTool = (props) => {
           </Link>
         </div>
         {results?.map(d => (
-          <Row fluid className="cycle-search-card box-shadow-standard" key={`bidding-tool-${d.post_code}`}>
+          <Row fluid className="cycle-search-card box-shadow-standard">
             <Row fluid className="cyc-card--row">
               <Column columns={3}>
                 {d.post_code}
