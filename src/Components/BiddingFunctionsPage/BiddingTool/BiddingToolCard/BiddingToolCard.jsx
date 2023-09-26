@@ -652,7 +652,7 @@ const BiddingToolCard = (props) => {
     </div>
   );
 
-  return ((resultIsLoading || !isCreate) ?
+  return ((resultIsLoading && !isCreate) ?
     <Spinner type="bidding-tool" size="small" /> :
     <TabbedCard
       tabs={[{
