@@ -110,7 +110,7 @@ const JobCategories = () => {
 
   return (
     <div className="admin-job-categories-page">
-      <ProfileSectionTitle title="Job Categories" icon="map" />
+      <ProfileSectionTitle title="Job Categories" icon="cogs" />
       <div>
         <div className="modal-controls">
           <button onClick={() => newJobCategoryModal()}>Create New Job Category</button>
