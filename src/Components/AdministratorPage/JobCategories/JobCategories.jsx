@@ -8,6 +8,7 @@ import ToggleButton from 'Components/ToggleButton';
 import CheckBox from 'Components/CheckBox';
 import CreateJobCategoryModal from './CreateJobCategoryModal';
 import ProfileSectionTitle from '../../ProfileSectionTitle';
+import TabbedCard from '../../TabbedCard/TabbedCard';
 
 const DATE_FORMAT = 'yyyyMMddkkmmss';
 
@@ -137,72 +138,80 @@ const JobCategories = () => {
           </select>
         </div>
       </div>
-      <div className="jc-toggle-container">
-        <ToggleButton
-          labelTextRight="Toggle Edit Mode"
-          onChange={() => setIsEditMode(!isEditMode)}
-          checked={isEditMode}
-          onColor="#0071BC"
-        />
-      </div>
-      <div>
-        <table className="custom-table">
-          <thead>
-            <tr className="jc-table-row">
-              <th className="checkbox-pos">
-                <CheckBox
-                  className="tm-checkbox-transparent"
-                  value={selectAll}
-                  onCheckBoxClick={handleSelectAll}
-                  disabled={!isEditMode}
+      <TabbedCard
+        tabs={[{
+          text: 'Skill Descriptions',
+          value: 'descriptions',
+          content: (
+            <div>
+              <div className="jc-toggle-container">
+                <ToggleButton
+                  labelTextRight="Toggle Edit Mode"
+                  onChange={() => setIsEditMode(!isEditMode)}
+                  checked={isEditMode}
+                  onColor="#0071BC"
                 />
-              </th>
-              <th className="skill-code-column">
-                Skill Code
-              </th>
-              <th className="skill-desc-column">
-                Skill Description
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              jobCategorySkillsResults?.map(skill => (
-                <tr key={skill.code}>
-                  <td className="checkbox-pac checkbox-pos">
-                    <CheckBox
-                      className="tm-checkbox-transparent"
-                      value={
-                        selectedJobCategory !== '' ?
-                          selectedSkillIds.includes(skill.code) : false
-                      }
-                      onCheckBoxClick={() => handleSelectSkill(skill)}
-                      disabled={!isEditMode}
-                    />
-                  </td>
-                  <td>{skill.code}</td>
-                  <td>{skill.description}</td>
-                </tr>
-              ))
-            }
-          </tbody>
-        </table>
-        <div className="modal-controls">
-          <button
-            onClick={() => submitEdit()}
-            disabled={!isEditMode}
-          >
-              Submit
-          </button>
-          <button
-            onClick={clearInputs}
-            disabled={!isEditMode}
-            className="usa-button-secondary saved-search-form-secondary-button"
-          >
-              Cancel
-          </button>
-        </div>
-      </div>
+              </div>
+              <table className="custom-table">
+                <thead>
+                  <tr className="jc-table-row">
+                    <th className="checkbox-pos">
+                      <CheckBox
+                        className="tm-checkbox-transparent"
+                        value={selectAll}
+                        onCheckBoxClick={handleSelectAll}
+                        disabled={!isEditMode}
+                      />
+                    </th>
+                    <th className="skill-code-column">
+                      Skill Code
+                    </th>
+                    <th className="skill-desc-column">
+                      Skill Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    jobCategorySkillsResults?.map(skill => (
+                      <tr key={skill.code}>
+                        <td className="checkbox-pac checkbox-pos">
+                          <CheckBox
+                            className="tm-checkbox-transparent"
+                            value={
+                              selectedJobCategory !== '' ?
+                                selectedSkillIds.includes(skill.code) : false
+                            }
+                            onCheckBoxClick={() => handleSelectSkill(skill)}
+                            disabled={!isEditMode}
+                          />
+                        </td>
+                        <td>{skill.code}</td>
+                        <td>{skill.description}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+              <div className="modal-controls">
+                <button
+                  onClick={() => submitEdit()}
+                  disabled={!isEditMode}
+                >
+                    Submit
+                </button>
+                <button
+                  onClick={clearInputs}
+                  disabled={!isEditMode}
+                  className="usa-button-secondary saved-search-form-secondary-button"
+                >
+                    Cancel
+                </button>
+              </div>
+            </div>
+          ),
+        }]}
+      />
     </div>
   );
 };
