@@ -35,6 +35,8 @@
     "register_checklist": true,
     "search_post_access": true,
     "settings": true,
-    "unassigned_filters": true
+    "unassigned_filters": true,
+    "assignment_notification": true,
+    "assignment_memo": true
   }
 }

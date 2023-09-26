@@ -61,21 +61,48 @@ const Header = () => {
             onChange={(e) => setDraftingOffice(e.target.value)}
           />
         </div>
-        <div className="position-form--label-input-container">
-          <label htmlFor="date">Date</label>
-          <div className="date-wrapper-react larger-date-picker">
-            <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
-            <FA name="times" className={`${date ? '' : 'hide'}`} onClick={() => setDate(null)} />
-            <DatePicker
-              id="date"
-              selected={date}
-              onChange={setDate}
-              dateFormat="MM/dd/yyyy"
-              placeholderText={'MM/DD/YYY'}
-              ref={datePickerRef}
+        <div className="position-form--label-input-container-flex">
+          <div>
+            <label htmlFor="date">Date</label>
+            <div className="date-wrapper-react larger-date-picker">
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <FA name="times" className={`${date ? '' : 'hide'}`} onClick={() => setDate(null)} />
+              <DatePicker
+                id="date"
+                selected={date}
+                onChange={setDate}
+                dateFormat="MM/dd/yyyy"
+                placeholderText={'MM/DD/YYY'}
+                ref={datePickerRef}
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              id="phone"
+              defaultValue={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
         </div>
+        <Row fluid className="mt-20">
+          <div className="position-form--label-input-container">
+            <label htmlFor="date">Date</label>
+            <div className="date-wrapper-react larger-date-picker">
+              <FA name="fa fa-calendar" onClick={() => openDatePicker()} />
+              <FA name="times" className={`${date ? '' : 'hide'}`} onClick={() => setDate(null)} />
+              <DatePicker
+                id="date"
+                selected={date}
+                onChange={setDate}
+                dateFormat="MM/dd/yyyy"
+                placeholderText={'MM/DD/YYY'}
+                ref={datePickerRef}
+              />
+            </div>
+          </div>
+        </Row>
         <div className="position-form--label-input-container">
           <label htmlFor="phone">Phone Number</label>
           <input
