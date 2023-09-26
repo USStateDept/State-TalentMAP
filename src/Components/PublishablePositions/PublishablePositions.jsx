@@ -17,6 +17,9 @@ import ProfileSectionTitle from 'Components/ProfileSectionTitle/ProfileSectionTi
 import PositionManagerSearch from 'Components/BureauPage/PositionManager/PositionManagerSearch';
 import { renderSelectionList } from 'utilities';
 import PublishablePositionCard from '../PublishablePositionCard/PublishablePositionCard';
+import { checkFlag } from '../../flags';
+
+const PP_INTEGRATION_FLAG = checkFlag('flags.publishable_positions_integration');
 
 // may need to be used for permissioning
 // eslint-disable-next-line no-unused-vars
@@ -34,25 +37,28 @@ const PublishablePositions = ({ viewType }) => {
 
   const [tempsearchPosNum, tempsetSearchPosNum] = useState(userSelections?.searchPosNum || '');
   const [searchPosNum, setSearchPosNum] = useState(userSelections?.searchPosNum || '');
-  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatus || []);
+  const [selectedStatuses, setSelectedStatuses] = useState(userSelections?.selectedStatuses || []);
   const [selectedBureaus, setSelectedBureaus] = useState(userSelections?.selectedBureaus || []);
   const [selectedOrgs, setSelectedOrgs] = useState(userSelections?.selectedOrgs || []);
-  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrade || []);
+  const [selectedGrades, setSelectedGrades] = useState(userSelections?.selectedGrades || []);
   const [selectedSkills, setSelectedSkills] = useState(userSelections?.selectedSkills || []);
+  const [selectedBidCycles, setSelectedBidCycles] =
+    useState(userSelections?.selectedBidCycles || []);
 
   const [clearFilters, setClearFilters] = useState(false);
   const [editMode, setEditMode] = useState(false);
-
 
   const statuses = filters?.statusFilters;
   const bureaus = filters?.bureauFilters;
   const orgs = filters?.orgFilters;
   const grades = filters?.gradeFilters;
   const skills = filters?.skillsFilters;
+  const cycles = filters?.cycleFilters;
   const statusOptions = uniqBy(sortBy(statuses, [(f) => f.description]), 'code');
   const bureauOptions = uniqBy(sortBy(bureaus, [(f) => f.description]), 'description');
   const skillOptions = uniqBy(sortBy(skills, [(f) => f.description]), 'code');
   const orgOptions = uniqBy(sortBy(orgs, [(f) => f.description]), 'code');
+  const cycleOptions = uniqBy(sortBy(cycles, [(f) => f.code]), 'code');
   const gradeOptions = uniqBy(grades, 'code');
 
   const getQuery = () => ({
@@ -62,6 +68,7 @@ const PublishablePositions = ({ viewType }) => {
     orgs: selectedOrgs.map(f => (f?.code)),
     grades: selectedGrades.map(f => (f?.code)),
     skills: selectedSkills.map(f => (f?.code)),
+    cycles: selectedBidCycles.map(f => (f?.code)),
   });
 
   const getCurrentInputs = () => ({
@@ -71,6 +78,7 @@ const PublishablePositions = ({ viewType }) => {
     selectedOrgs,
     selectedGrades,
     selectedSkills,
+    selectedBidCycles,
   });
 
   const numSelectedFilters = [
@@ -80,6 +88,7 @@ const PublishablePositions = ({ viewType }) => {
     selectedOrgs,
     selectedGrades,
     selectedSkills,
+    selectedBidCycles,
   ].flat().filter(text => text !== '').length;
 
   const filterSelectionValid = () => {
@@ -96,6 +105,7 @@ const PublishablePositions = ({ viewType }) => {
       selectedOrgs,
       selectedGrades,
       selectedSkills,
+      selectedBidCycles,
     ];
     const a = [];
     fils.forEach(f => { if (f.length) { a.push(true); } });
@@ -129,7 +139,9 @@ const PublishablePositions = ({ viewType }) => {
     setSelectedOrgs([]);
     setSelectedGrades([]);
     setSelectedSkills([]);
+    setSelectedBidCycles([]);
     setClearFilters(false);
+    dispatch(savePublishablePositionsSelections({}));
   };
 
   const getOverlay = () => {
@@ -170,7 +182,9 @@ const PublishablePositions = ({ viewType }) => {
     selectedOrgs,
     selectedGrades,
     selectedSkills,
+    selectedBidCycles,
   ]);
+
 
   return (
     <div className="position-search">
@@ -194,6 +208,7 @@ const PublishablePositions = ({ viewType }) => {
             </div>
           </div>
           <div className="usa-width-one-whole position-search--filters--pp results-dropdown">
+
             <div className="filter-div">
               <div className="label">Position Number:</div>
               <div className="filter-search-bar">
@@ -210,27 +225,44 @@ const PublishablePositions = ({ viewType }) => {
                 />
               </div>
             </div>
+
             <div className="filter-div">
               <div className="label">Publishable Status:</div>
               <Picky
                 {...pickyProps}
                 placeholder="Select Status(es)"
                 value={selectedStatuses}
-                onChange={setSelectedStatuses}
                 options={statusOptions}
+                onChange={setSelectedStatuses}
                 valueKey="code"
                 labelKey="description"
                 disabled={editMode}
               />
             </div>
+            { PP_INTEGRATION_FLAG ?
+              <div className="filter-div">
+                <div className="label">Bid Cycle:</div>
+                <Picky
+                  {...pickyProps}
+                  placeholder="Select Bid Cycle(s)"
+                  value={selectedBidCycles}
+                  options={cycleOptions}
+                  onChange={setSelectedBidCycles}
+                  valueKey="code"
+                  labelKey="description"
+                  disabled={editMode}
+                />
+              </div>
+              : null
+            }
             <div className="filter-div">
               <div className="label">Bureau:</div>
               <Picky
                 {...pickyProps}
                 placeholder="Select Bureau(s)"
                 value={selectedBureaus}
-                onChange={setSelectedBureaus}
                 options={bureauOptions}
+                onChange={setSelectedBureaus}
                 valueKey="description"
                 labelKey="description"
                 disabled={editMode}
@@ -242,8 +274,8 @@ const PublishablePositions = ({ viewType }) => {
                 {...pickyProps}
                 placeholder="Select Organization(s)"
                 value={selectedOrgs}
-                onChange={setSelectedOrgs}
                 options={orgOptions}
+                onChange={setSelectedOrgs}
                 valueKey="code"
                 labelKey="description"
                 disabled={editMode}
@@ -255,8 +287,8 @@ const PublishablePositions = ({ viewType }) => {
                 {...pickyProps}
                 placeholder="Select Skill(s)"
                 value={selectedSkills}
-                onChange={setSelectedSkills}
                 options={skillOptions}
+                onChange={setSelectedSkills}
                 valueKey="code"
                 labelKey="description"
                 disabled={editMode}
@@ -268,8 +300,8 @@ const PublishablePositions = ({ viewType }) => {
                 {...pickyProps}
                 placeholder="Select Grade(s)"
                 value={selectedGrades}
-                onChange={setSelectedGrades}
                 options={gradeOptions}
+                onChange={setSelectedGrades}
                 valueKey="code"
                 labelKey="description"
                 disabled={editMode}
@@ -278,6 +310,7 @@ const PublishablePositions = ({ viewType }) => {
           </div>
         </div>
       </div>
+
       {
         getOverlay() ||
         <>
@@ -307,6 +340,7 @@ const PublishablePositions = ({ viewType }) => {
                       setEditMode(editState)}
                     disableEdit={editMode || (viewType === 'ao')}
                     onSubmit={editData => submitEdit(editData)}
+                    filters={filters}
                   />
                 ))
               }
