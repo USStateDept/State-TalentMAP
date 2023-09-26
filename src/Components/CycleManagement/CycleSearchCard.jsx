@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import FA from 'react-fontawesome';
 import swal from '@sweetalert/with-react';
@@ -40,18 +40,18 @@ const CycleSearchCard = (props) => {
     sixMonthBoundary: [formatDate('1976-11-11T21:12:12.854000Z'), formatDate('2022-31-17T21:12:12.854000Z')],
     twelveMonthBoundary: [formatDate('2005-10-25T21:12:12.854000Z'), formatDate('2018-31-14T21:12:12.854000Z')],
     twentyFourMonthBoundary: [formatDate('2003-10-22T21:12:12.854000Z'), formatDate('2014-31-22T21:12:12.854000Z')],
-    bureaPositionReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    bidDueDate: formatDate('1976-10-01T21:12:12.854000Z'),
-    bureauPreSeasonBidReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    bureauEarlySeasonBidReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    bureauBidReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    bidAudit: formatDate('1976-10-01T21:12:12.854000Z'),
-    bidBookReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    bidCountReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    htfReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    organizationCountReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    mdsReview: formatDate('1976-10-01T21:12:12.854000Z'),
-    assignedBidder: formatDate('1976-10-01T21:12:12.854000Z'),
+    bureaPositionReview: new Date('Tue May 25 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bidDueDate: new Date('Tue Aug 07 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bureauPreSeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bureauEarlySeasonBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bureauBidReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bidAudit: new Date('Tue Sep 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bidBookReview: new Date('Tue Oct 11 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    bidCountReview: new Date('Tue Jan 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    htfReview: new Date('Tue Dec 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    organizationCountReview: new Date('Tue Aug 29 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    mdsReview: new Date('Tue Aug 14 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
+    assignedBidder: new Date('Tue Feb 22 2023 00:00:00 GMT-0500 (Central Daylight Time)'),
   };
 
   const cycleLink = `/profile/${isAO ? 'ao' : 'bureau'}/cyclepositionsearch/${id}`;
@@ -66,18 +66,18 @@ const CycleSearchCard = (props) => {
   const [sixMonthLanguage, setSixMonthLanguage] = useState(null);
   const [twelveMonthLanguage, setTwelveMonthLanguage] = useState(null);
   const [twentyFourMonthLanguage, setTwentyFourMonthLanguage] = useState(null);
-  const [bureauPositionReview, setBureauPositionReview] = useState('');
-  const [bidDue, setBidDue] = useState('');
-  const [bureauPreSeasonBidReview, setBureauPreSeasonBidReview] = useState('');
-  const [bureauEarlySeasonBidReview, setBureauEarlySeasonBidReview] = useState('');
-  const [bureauBidReview, setBureauBidReview] = useState('');
-  const [bidAudit, setBidAudit] = useState('');
-  const [bidBookReview, setBidBookReview] = useState('');
-  const [bidCountReview, setBidCountReview] = useState('');
-  const [htfReview, setHtfReview] = useState('');
-  const [organizationCountReview, setOrganizationCountReview] = useState('');
-  const [mdsReview, setMdsReview] = useState('');
-  const [assignedBidder, setAssignedBidder] = useState('');
+  const [bureauPositionReview, setBureauPositionReview] = useState(dummyInfo.bureaPositionReview || '');
+  const [bidDue, setBidDue] = useState(dummyInfo.bidDueDate || '');
+  const [bureauPreSeasonBidReview, setBureauPreSeasonBidReview] = useState(dummyInfo.bureauPreSeasonBidReview || '');
+  const [bureauEarlySeasonBidReview, setBureauEarlySeasonBidReview] = useState(dummyInfo.bureauEarlySeasonBidReview || '');
+  const [bureauBidReview, setBureauBidReview] = useState(dummyInfo.bureauBidReview || '');
+  const [bidAudit, setBidAudit] = useState(dummyInfo.bidAudit || '');
+  const [bidBookReview, setBidBookReview] = useState(dummyInfo.bidBookReview || '');
+  const [bidCountReview, setBidCountReview] = useState(dummyInfo.bidCountReview || '');
+  const [htfReview, setHtfReview] = useState(dummyInfo.htfReview || '');
+  const [organizationCountReview, setOrganizationCountReview] = useState(dummyInfo.organizationCountReview || '');
+  const [mdsReview, setMdsReview] = useState(dummyInfo.mdsReview || '');
+  const [assignedBidder, setAssignedBidder] = useState(dummyInfo.assignedBidder || '');
   const [showMore, setShowMore] = useState(false);
   const [edit, setEdit] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -98,6 +98,9 @@ const CycleSearchCard = (props) => {
     onEditModeSearch(id);
   };
 
+  useEffect(() => {
+    console.log(bureauPositionReview);
+  }, [bureauPositionReview]);
 
   const onCancelRequest = () => {
     swal.close();
@@ -402,7 +405,7 @@ const CycleSearchCard = (props) => {
                       selected={bureauPositionReview}
                       onChange={(date) => setBureauPositionReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bureau position review date' : formatDate(dummyInfo.bureaPositionReview)}
+                      placeholderText={bureauPositionReview || 'Select a bureau position review date'}
                       minDate={bureauPositionReview}
                     />
                   </span>
@@ -416,7 +419,7 @@ const CycleSearchCard = (props) => {
                       selected={bidDue}
                       onChange={(date) => setBidDue(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bid due date' : formatDate(dummyInfo.bidDueDate)}
+                      placeholderText={bidDue || 'Select a bid due date'}
                       minDate={bidDue}
                     />
                   </span>
@@ -430,7 +433,7 @@ const CycleSearchCard = (props) => {
                       selected={bureauPreSeasonBidReview}
                       onChange={(date) => setBureauPreSeasonBidReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bureau pre-season bid review date' : formatDate(dummyInfo.bureauPreSeasonBidReview)}
+                      placeholderText={bureauPreSeasonBidReview || 'Select a bureau pre-season bid review date'}
                       minDate={bureauPreSeasonBidReview}
                     />
                   </span>
@@ -444,7 +447,7 @@ const CycleSearchCard = (props) => {
                       selected={bureauEarlySeasonBidReview}
                       onChange={(date) => setBureauEarlySeasonBidReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bureau early season bid review date' : formatDate(dummyInfo.bureauEarlySeasonBidReview)}
+                      placeholderText={bureauEarlySeasonBidReview || 'Select a bureau early season bid review date'}
                       minDate={bureauEarlySeasonBidReview}
                     />
                   </span>
@@ -458,7 +461,7 @@ const CycleSearchCard = (props) => {
                       selected={bureauBidReview}
                       onChange={(date) => setBureauBidReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bureau bid review date' : formatDate(dummyInfo.bureauBidReview)}
+                      placeholderText={bureauBidReview || 'Select a bureau bid review date'}
                       minDate={bureauBidReview}
                     />
                   </span>
@@ -472,7 +475,7 @@ const CycleSearchCard = (props) => {
                       selected={bidAudit}
                       onChange={(date) => setBidAudit(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bid audit date' : formatDate(dummyInfo.bidAudit)}
+                      placeholderText={bidAudit || 'Select a bid audit date'}
                       minDate={bidAudit}
                     />
                   </span>
@@ -486,7 +489,7 @@ const CycleSearchCard = (props) => {
                       selected={bidBookReview}
                       onChange={(date) => setBidBookReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bid book review date' : formatDate(dummyInfo.bidBookReview)}
+                      placeholderText={bidBookReview || 'Select a bid book review date'}
                       minDate={bidBookReview}
                     />
                   </span>
@@ -500,7 +503,7 @@ const CycleSearchCard = (props) => {
                       selected={bidCountReview}
                       onChange={(date) => setBidCountReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a bid count review date' : formatDate(dummyInfo.bidCountReview)}
+                      placeholderText={bidCountReview || 'Select a bid count review date'}
                       minDate={bidCountReview}
                     />
                   </span>
@@ -514,7 +517,7 @@ const CycleSearchCard = (props) => {
                       selected={htfReview}
                       onChange={(date) => setHtfReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a HTF review date' : formatDate(dummyInfo.htfReview)}
+                      placeholderText={htfReview || 'Select a HTF review date'}
                       minDate={htfReview}
                     />
                   </span>
@@ -528,7 +531,7 @@ const CycleSearchCard = (props) => {
                       selected={organizationCountReview}
                       onChange={(date) => setOrganizationCountReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a organization count review date' : formatDate(dummyInfo.organizationCountReview)}
+                      placeholderText={organizationCountReview || 'Select a organization count review date'}
                       minDate={organizationCountReview}
                     />
                   </span>
@@ -542,7 +545,7 @@ const CycleSearchCard = (props) => {
                       selected={mdsReview}
                       onChange={(date) => setMdsReview(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a MDS review date' : formatDate(dummyInfo.mdsReview)}
+                      placeholderText={mdsReview || 'Select a MDS review date'}
                       minDate={mdsReview}
                     />
                   </span>
@@ -556,7 +559,7 @@ const CycleSearchCard = (props) => {
                       selected={assignedBidder}
                       onChange={(date) => setAssignedBidder(date)}
                       dateFormat={DATE_FORMAT}
-                      placeholderText={id === '' ? 'Select a assigned bidder date' : formatDate(dummyInfo.assignedBidder)}
+                      placeholderText={assignedBidder || 'Select a assigned bidder date'}
                       minDate={assignedBidder}
                     />
                   </span>
