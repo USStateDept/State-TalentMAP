@@ -122,21 +122,21 @@ const CyclePositionCard = ({ data, cycle, onEditModeSearch }) => {
 
   const form = {
     /* eslint-disable quote-props */
-    staticBody: {
-      'Location': getPostName(pos?.post) || NO_POST,
-      'Org/Code': getResult(pos, 'bureau_code') || NO_ORG,
-      'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU,
-      'Grade': getResult(pos, 'grade') || NO_GRADE,
-      'Status': getResult(pos, 'status') || NO_STATUS,
-      'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" />,
-      '': <CheckBox id="deto" label="DETO" value disabled />,
-      'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed'),
-      'Cycle Position': '---',
-      'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY,
-      'Pay Plan': '---',
-      'Post Differential | Danger Pay': getDifferentials(pos),
-      'Assignee TED': getResult(data, 'ted') || NO_DATE,
-    },
+    staticBody: [
+      { 'Location': getPostName(pos?.post) || NO_POST },
+      { 'Org/Code': getResult(pos, 'bureau_code') || NO_ORG },
+      { 'Bureau': getResult(pos, 'bureau_short_desc') || NO_BUREAU },
+      { 'Grade': getResult(pos, 'grade') || NO_GRADE },
+      { 'Status': getResult(pos, 'status') || NO_STATUS },
+      { 'Language': <LanguageList languages={getResult(pos, 'languages', [])} propToUse="representation" /> },
+      { '': <CheckBox id="deto" label="DETO" value disabled /> },
+      { 'Bid Cycle': getResult(pos, 'latest_bidcycle.name', 'None Listed') },
+      { 'Cycle Position': '---' },
+      { 'Tour of Duty': getResult(pos, 'post.tour_of_duty') || NO_TOUR_OF_DUTY },
+      { 'Pay Plan': '---' },
+      { 'Post Differential | Danger Pay': getDifferentials(pos) },
+      { 'Assignee TED': getResult(data, 'ted') || NO_DATE },
+    ],
     inputBody:
       <div className="position-form">
         <div className="left-row">

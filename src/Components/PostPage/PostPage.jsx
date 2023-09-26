@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AvailableBidderContainer from 'Components/AvailableBidder/AvailableBidderContainer';
 import PositionManager from '../BureauPage/PositionManager';
 import PositionManagerDetails from '../BureauPage/PositionManagerDetails';
+import BiddingTool from '../BiddingFunctionsPage/BiddingTool/BiddingTool';
 
 const PostPage = props => {
   const posManagerProps = {
@@ -16,6 +17,8 @@ const PostPage = props => {
         <Route path="/profile/post/positionmanager/:type/:id" render={() => <PositionManagerDetails />} />
         <Route path="/profile/post/positionmanager" render={() => <PositionManager {...posManagerProps} />} />
         <Route path="/profile/post/availablebidders" render={() => <AvailableBidderContainer isCDO={false} isPost />} />
+        <Route path="/profile/post/biddingtool/:id" render={() => <BiddingTool />} />
+        <Route path="/profile/post/biddingtool/" render={() => <BiddingTool />} />
       </Switch>
     </div>
   );
