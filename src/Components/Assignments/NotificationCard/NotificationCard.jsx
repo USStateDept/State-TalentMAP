@@ -25,6 +25,15 @@ const NotificationCard = () => {
     </div>
   );
 
+  const memoContainer = (children) => (
+    <div className="notification-card">
+      <div className="notification-card__header">
+        <span>Memorandum</span>
+      </div>
+      {children}
+    </div>
+  );
+
   return (
     <TabbedCard
       tabs={[{
@@ -58,11 +67,11 @@ const NotificationCard = () => {
       }, {
         text: 'Memo',
         value: 'MEMO',
-        content: container(<Memo />),
+        content: memoContainer(<Memo />),
       }, {
         text: 'Memo Header',
         value: 'MEMOHEADER',
-        content: container(<MemoHeader />),
+        content: memoContainer(<MemoHeader />),
       }]}
     />
   );

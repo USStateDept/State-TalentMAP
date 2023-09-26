@@ -70,8 +70,16 @@
     }
   }
 
-  .memo-header-bold {
-    background-color: red;
+  .memo-preview-row {
+    margin-bottom: 15px;
+  }
+
+  .memo-input-container {
+    position: relative;
+    margin-top: -30px;
+    .position-content--description {
+      margin-top: 20px;
+    }
   }
 }
 
