@@ -185,7 +185,7 @@ const CycleJobCategories = () => {
                           <div>
                             Status
                           </div>
-                          {useJobCategories &&
+                          {useJobCategories() &&
                             <Link to="/profile/administrator/jobcategories" className="new-category-button">
                               <FA className="fa-solid fa-plus" name="new-job-category" />
                               <p>New Job Category</p>
