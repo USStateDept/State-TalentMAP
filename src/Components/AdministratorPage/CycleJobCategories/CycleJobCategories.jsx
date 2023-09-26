@@ -10,6 +10,9 @@ import TabbedCard from '../../TabbedCard/TabbedCard';
 import CheckBox from '../../CheckBox/CheckBox';
 import { cycleJobCategoriesData, cycleJobCategoriesEdit, cycleJobCategoriesFilters } from '../../../actions/cycleJobCategories';
 import ListItem from '../../BidderPortfolio/BidControls/BidCyclePicker/ListItem/ListItem';
+import { checkFlag } from '../../../flags';
+
+const useJobCategories = () => checkFlag('flags.job_categories');
 
 const CycleJobCategories = () => {
   const dispatch = useDispatch();
@@ -182,10 +185,12 @@ const CycleJobCategories = () => {
                           <div>
                             Status
                           </div>
-                          <Link to="/profile/administrator/jobcategories" className="new-category-button">
-                            <FA className="fa-solid fa-plus" name="new-job-category" />
-                            <p>New Job Category</p>
-                          </Link>
+                          {useJobCategories() &&
+                            <Link to="/profile/administrator/jobcategories" className="new-category-button">
+                              <FA className="fa-solid fa-plus" name="new-job-category" />
+                              <p>New Job Category</p>
+                            </Link>
+                          }
                         </div>
                       </th>
                     </tr>
