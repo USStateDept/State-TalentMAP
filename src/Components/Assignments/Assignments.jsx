@@ -186,7 +186,7 @@ const Assignments = (props) => {
                 Add New Assignment/Separation
               </a>
             </div>
-            {useNotification &&
+            {useNotification() &&
               <div className="create-new-button align-left">
                 <a role="button" className="width-300" tabIndex={0} onClick={() => setCardMode('notification')}>
                   <FA name="briefcase" />
@@ -194,7 +194,7 @@ const Assignments = (props) => {
                 </a>
               </div>
             }
-            {useMemo &&
+            {useMemo() &&
               <div className="create-new-button align-left">
                 <a role="button" className="width-300" tabIndex={0} onClick={() => setCardMode('memo')}>
                   <FA name="briefcase" />
