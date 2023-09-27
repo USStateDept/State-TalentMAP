@@ -242,7 +242,7 @@
   height: 500px;
   overflow-y: scroll;
   .bs-validation-container {
-    .exclusivePositions-new .postViewable-new {
+    .exclusivePositions-new, .postViewable-new {
       label::before {
         margin-left: 10px;
       }
