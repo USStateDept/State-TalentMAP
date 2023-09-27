@@ -29,6 +29,13 @@ const BiddingTool = (props) => {
   const results = useSelector(state => state.biddingTools) ?? [];
   const resultsIsLoading = useSelector(state => state.biddingToolsFetchDataLoading);
 
+  const getResults = () => {
+    if (!isSuperUser) {
+      return results.filter(o => o.entry);
+    }
+    return results;
+  };
+
   useEffect(() => {
     dispatch(biddingTools());
   }, []);
@@ -71,14 +78,14 @@ const BiddingTool = (props) => {
             </Link>
           </div>
         }
-        {results?.map(d => (
+        {getResults()?.map(d => (
           <Row fluid className="cycle-search-card box-shadow-standard">
             <Row fluid className="cyc-card--row">
               <Column columns={3}>
                 {d.post_code}
               </Column>
               <Column columns={12} className="cyc-card--middle-cols">
-                {d.post}
+                {d.post} / {d.entry ? 'Y' : 'N'}
               </Column>
               <Column columns={3} className="cyc-card--link-col">
                 <span>
