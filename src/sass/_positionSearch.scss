@@ -241,9 +241,11 @@
   width: 100%;
   height: 500px;
   overflow-y: scroll;
-  .tm-checkbox {
-    label::before {
-      margin-left: 10px;
+  .bs-validation-container {
+    .exclusivePositions-new .postViewable-new {
+      label::before {
+        margin-left: 10px;
+      }
     }
   }
   input[type="text"]:disabled {
@@ -278,6 +280,90 @@
   .select-error {
     border-color: $alert-red;
     box-shadow: 0px 0px 0px 2px $alert-red;
+  }
+
+  .date-picker-validation-container-new {
+    position: relative;
+    width: 100%;
+
+    .fa-calendar {
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .fa-close {
+      position: absolute;
+      left: 430px;
+      top: 18px;
+      color: gray;
+      z-index: 1;
+    }
+
+    .react-datepicker__input-container {
+      input {
+        padding-inline-start: 30px;
+      }
+    }
+
+    input {
+      font-size: 17px !important;
+      color: #212121 !important;
+    }
+
+    .react-daterange-picker__calendar,
+    .react-datepicker-popper {
+      z-index: $daterange-z;
+    }
+
+    .react-daterange-picker {
+      align-items: center;
+      background: $color-white;
+      font-size: 13px;
+      height: 26px;
+      width: 240px;
+      margin: 14px 0;
+
+      .react-daterange-picker__wrapper {
+        border: none;
+        width: 250px;
+      }
+
+      .react-daterange-picker__inputGroup {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+
+      .react-daterange-picker__range-divider,
+      .react-daterange-picker__inputGroup__leadingZero,
+      .react-date-picker__inputGroup__divider {
+        color: $color-black;
+      }
+
+      .react-daterange-picker__clear-button {
+        padding: 2px 4px;
+      }
+
+      .react-daterange-picker__clear-button:hover {
+        background-color: $color-white;
+      }
+
+      .react-daterange-picker__calendar--open {
+        z-index: $daterange-z;
+      }
+
+      .react-calendar__navigation {
+        background-color: $bg-gray-medium-3;
+        margin-bottom: 0;
+      }
+
+      .react-calendar--selectRange .react-calendar__tile--hover {
+        background-color: #e6e6e6;
+      }
+    }
   }
 
   .date-picker-validation-container {
@@ -325,8 +411,8 @@
       margin: 14px 0;
 
       .react-daterange-picker__wrapper {
-        border: none;
-        width: 220px;
+        border: 1px solid black;
+        width: 460px;
       }
 
       .react-daterange-picker__inputGroup {

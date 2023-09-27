@@ -154,22 +154,24 @@ const EditAssignmentCycles = (props) => {
           </span>
         </div>
         <div>
-          <label htmlFor="season">Exclusive Positions</label>
+          <label htmlFor="exclusivePositions">Exclusive Positions</label>
           <span className="bs-validation-container">
             <CheckBox
-              id="exclusivePositions"
-              name="exclusivePositions"
+              className="exclusivePositions-new"
+              id="exclusivePositions-new"
+              name="exclusivePositions-new"
               checked={exclusivePositions}
               onChange={() => setExclusivePositions(e => !e)}
             />
           </span>
         </div>
         <div>
-          <label htmlFor="season">Post Viewable</label>
+          <label htmlFor="postViewable">Post Viewable</label>
           <span className="bs-validation-container">
             <CheckBox
-              id="postViewable"
-              name="postViewable"
+              className="postViewable-new"
+              id="postViewable-new"
+              name="postViewable-new"
               checked={postViewable}
               onChange={() => setPostViewable(e => !e)}
             />
@@ -179,7 +181,7 @@ const EditAssignmentCycles = (props) => {
           <>
             <div>
               <dt>Cycle Boundary Dates</dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setCycleBoundries}
@@ -192,7 +194,7 @@ const EditAssignmentCycles = (props) => {
             </div>
             <div>
               <dt>6 Month Language Dates </dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setSixMonthLanguage}
@@ -205,7 +207,7 @@ const EditAssignmentCycles = (props) => {
             </div>
             <div>
               <dt>12 Month Language Dates</dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setTwelveMonthLanguage}
@@ -218,7 +220,7 @@ const EditAssignmentCycles = (props) => {
             </div>
             <div>
               <dt>24 Month Language Dates</dt>
-              <span className="date-picker-validation-container larger-date-picker">
+              <span className="date-picker-validation-container-new larger-date-picker">
                 <FA name="fa-regular fa-calendar" className="fa fa-calendar" />
                 <DateRangePicker
                   onChange={setTwentyFourMonthLanguage}
